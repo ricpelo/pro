@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all html pdf clean
 
 SRCDIR=source
 BUILDDIR=docs
@@ -9,8 +9,13 @@ OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.pdf))
 
 all: $(OBJECTSHTML) $(OBJECTSPDF)
 
+html: $(OBJECTSHTML)
+
+pdf: $(OBJECTSPDF)
+
 $(BUILDDIR)/%.html: $(SRCDIR)/%.md
-	pandoc -s -t revealjs --template=pandoc_revealjs.template -V theme=solarized $^ -o $@
+	pandoc -s -t revealjs --template=pandoc_revealjs.template \
+		-V theme=solarized -V transition=zoom $^ -o $@
 
 $(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
 	`npm bin`/decktape -s 1280x1024 automatic $^ $@
