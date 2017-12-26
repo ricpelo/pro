@@ -1,13 +1,19 @@
-.PHONY: all
+.PHONY: all clean
 
-all: ud10 ud11
+SRCDIR=source
+BUILDDIR=docs
 
-ud10: interoperabilidad.html interoperabilidad.pdf
+SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
+OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.html))
+OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.pdf))
 
-ud11: introduccion-a-yii2.html introduccion-a-yii2.pdf
+all: $(OBJECTSHTML) $(OBJECTSPDF)
 
-%.html: %.md
+$(BUILDDIR)/%.html: $(SRCDIR)/%.md
 	pandoc -s -t revealjs $^ -o $@
 
-%.pdf: %.md
+$(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
 	`npm bin`/decktape -s 1280x1024 automatic $^ $@
+
+clean:
+	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
