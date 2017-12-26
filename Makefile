@@ -10,7 +10,7 @@ OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.pdf))
 all: $(OBJECTSHTML) $(OBJECTSPDF)
 
 $(BUILDDIR)/%.html: $(SRCDIR)/%.md
-	pandoc -s -t revealjs $^ -o $@
+	pandoc -s -t revealjs --template=pandoc_revealjs.template -V theme=solarized $^ -o $@
 
 $(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
 	`npm bin`/decktape -s 1280x1024 automatic $^ $@

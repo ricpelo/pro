@@ -2,13 +2,14 @@
 title: Introducción a Yii2
 author: Ricardo Pérez López
 date: IES Doñana, curso 2017-18
-theme: solarized
 transition: zoom
 ---
 
 # Frameworks, microframeworks y librerías
 
-## UNION
+## Librerías
+
+
 
 - Turn off alarm
 - Get out of bed
