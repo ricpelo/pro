@@ -8,4 +8,4 @@ ud11: introduccion-a-yii2.html introduccion-a-yii2.pdf
 	pandoc -s -t revealjs $^ -o $@
 
 %.pdf: %.md
-	pandoc -s -t beamer $^ -o $@
+	`npm bin`/decktape -s 1280x1024 automatic $^ $@
