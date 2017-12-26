@@ -1,6 +1,8 @@
 .PHONY: all
 
-all: ud11
+all: ud10 ud11
+
+ud10: interoperabilidad.html interoperabilidad.pdf
 
 ud11: introduccion-a-yii2.html introduccion-a-yii2.pdf
 
