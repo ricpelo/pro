@@ -42,28 +42,79 @@ Por ejemplo, muchos *frameworks* proporcionan bibliotecas para acceder a bases
 de datos, estructuras para plantillas y gestión de sesiones, y con frecuencia
 facilitan la reutilización de código.
 
-## Ejemplos de frameworks web
+## Ejemplos de frameworks web para PHP
 
-- Turn off alarm
-- Get out of bed
+- Symfony
+- Laravel
+- CakePHP
+- CodeIgniter
+- Zend Framework
+- Yii
 
-```php
-class X
-{
-    public function __construct($pepe = 0)
-    {
-        echo $pepe;
-    }
-}
-```
+## Symfony
 
-## INTERSECT
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+Ventajas
+
+- El más popular
+- sdfsdf
+
+:::
+
+::: {.column width="50%"}
+
+Inconvenientes
+
+- sdfsdf
+- sdfsdfs
+- sdfsfds
+
+:::
+
+::::::::::::::
+
+## Laravel
+
+sdfsdfsdf
+
+## CakePHP
+
+sdfsdfds
+
+## CodeIgniter
+
+sdfsdfsf
+
+## Zend Framework
+
+sdfsdfdsfsd
+
+## Yii
 
 pepepepe
 
-## EXCEPT
+# Ejercicios
 
-pepepepe
+## Ejercicios
+
+1. Usa la herramienta [Google Trends](https://trends.google.es/) para
+   determinar la popularidad de los principales *frameworks* para PHP. ¿Cuál es
+   el más popular? ¿Cuál ha tenido un crecimiento más rápido?
+
+2. ¿Crees que es importante la popularidad de un *framework* a la hora de
+   seleccionarlo como herramienta de ayuda al desarrollo de un proyecto web?
+
+3. Busca una comparativa de rendimiento de los principales *frameworks* para
+   PHP y ordénalos según dicha comparativa. ¿Por qué hay algunos que son
+   espectacularmente más rápidos que el resto?
+
+4. ¿Qué ventajas fundamentales tiene el *framework* Yii? ¿Cuál dirías que es su
+   principal inconveniente?
+
+5. Ídem para CodeIgniter.
 
 # Instalación, requisitos y puesta en marcha
 
