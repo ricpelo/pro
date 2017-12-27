@@ -53,24 +53,29 @@ facilitan la reutilización de código.
 
 ## Symfony
 
+![](images/symfony.png){.plain}
+
 :::::::::::::: {.columns}
 
 ::: {.column width="50%"}
 
-Ventajas
+**Ventajas**
 
-- El más popular
-- sdfsdf
+- El más popular, junto con Laravel
+- Maduro y estable
+- Especialmente indicado para proyectos grandes
+- Mucha documentación
+- Muy demandado
 
 :::
 
 ::: {.column width="50%"}
 
-Inconvenientes
+**Inconvenientes**
 
-- sdfsdf
-- sdfsdfs
-- sdfsfds
+- Curva de aprendizaje algo pronunciada
+- Con proyectos pequeños cuesta arrancar
+- Su rendimiento no es especialmente alto
 
 :::
 
@@ -78,11 +83,60 @@ Inconvenientes
 
 ## Laravel
 
-sdfsdfsdf
+![](images/laravel.png){.plain}
+
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+**Ventajas**
+
+- Está de moda
+- Gran comunidad de usuarios
+- Muy demandado
+
+:::
+
+::: {.column width="50%"}
+
+**Inconvenientes**
+
+- Curva de aprendizaje pronunciada
+- Su rendimiento es bastante pobre
+- Actualizaciones complejas
+
+:::
+
+::::::::::::::
 
 ## CakePHP
 
-sdfsdfds
+![](images/cakephp.png){.plain}
+
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+**Ventajas**
+
+- Maduro y moderno al mismo tiempo
+- Muchos elementos de serie
+- Bien diseñado
+- No es especialmente difícil de aprender
+- Interesante equilibrio entre potencia, comunidad y facilidad de uso
+
+:::
+
+::: {.column width="50%"}
+
+**Inconvenientes**
+
+- No es tan utilizado como otros *frameworks* (aunque tampoco es de los menos)
+- Su rendimiento no es su principal baza (aunque tampoco es de los peores)
+
+:::
+
+::::::::::::::
 
 ## CodeIgniter
 

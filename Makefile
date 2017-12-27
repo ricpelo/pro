@@ -15,7 +15,8 @@ pdf: $(OBJECTSPDF)
 
 $(BUILDDIR)/%.html: $(SRCDIR)/%.md
 	pandoc -s -t revealjs --template=pandoc_revealjs.template \
-		-V theme=solarized -V transition=zoom -V width=1280 -V height=1024 $^ -o $@
+		-V theme=solarized -V transition=zoom \
+		-V width=1280 -V height=1024 $^ -o $@
 
 $(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
 	`npm bin`/decktape -s 1280x1024 automatic $^ $@
