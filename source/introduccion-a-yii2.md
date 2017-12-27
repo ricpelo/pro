@@ -48,7 +48,6 @@ facilitan la reutilización de código.
 - Laravel
 - CakePHP
 - CodeIgniter
-- Zend Framework
 - Yii
 
 ## Symfony
@@ -140,15 +139,61 @@ facilitan la reutilización de código.
 
 ## CodeIgniter
 
-sdfsdfsf
+![](images/codeigniter.png){.plain}
 
-## Zend Framework
+:::::::::::::: {.columns}
 
-sdfsdfdsfsd
+::: {.column width="50%"}
+
+**Ventajas**
+
+- Rendimiento espectacular
+- Simple y sencillo
+- Fácil de aprender
+- Buena comunidad de entusiastas usuarios
+
+:::
+
+::: {.column width="50%"}
+
+**Inconvenientes**
+
+- *Demasiado* sencillo (le faltan muchos componentes que ya vienen de serie en
+  otros *frameworks*)
+- No usa Composer ni es miembro del [PHP-FIG](http://www.php-fig.org/members/).
+
+:::
+
+::::::::::::::
 
 ## Yii
 
-pepepepe
+![](images/yii.png){.plain}
+
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+**Ventajas**
+
+- Excelente rendimiento
+- Fácil de aprender
+- Muy completo de serie
+- Generador de código integrado incluyendo CRUD con Bootstrap
+- Moderno en el desarrollo y uso de las últimas técnicas
+
+:::
+
+::: {.column width="50%"}
+
+**Inconvenientes**
+
+- No tan conocido ni usado como otros *frameworks*
+- Comunidad de usuarios no muy extensa en comparación con otros
+
+:::
+
+::::::::::::::
 
 # Ejercicios
 
@@ -168,7 +213,13 @@ pepepepe
 4. ¿Qué ventajas fundamentales tiene el *framework* Yii? ¿Cuál dirías que es su
    principal inconveniente?
 
-5. Ídem para CodeIgniter.
+5. Ídem para Laravel.
+
+---
+
+6. Investiga otros *frameworks* web para PHP.
+
+7. Investiga otros *frameworks* web para otros lenguajes como Ruby o Python.
 
 # Instalación, requisitos y puesta en marcha
 
