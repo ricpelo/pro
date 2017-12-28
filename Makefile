@@ -15,6 +15,7 @@ pdf: $(OBJECTSPDF)
 
 $(BUILDDIR)/%.html: $(SRCDIR)/%.md
 	pandoc -s -t revealjs --template=pandoc_revealjs.template \
+		--highlight-style=solarized.theme \
 		-V theme=solarized -V transition=zoom \
 		-V width=1280 -V height=1024 $^ -o $@
 

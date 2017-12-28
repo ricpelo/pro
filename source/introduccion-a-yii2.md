@@ -4,11 +4,11 @@ author: Ricardo Pérez López
 date: IES Doñana, curso 2017-18
 ---
 
-# *Frameworks*, microframeworks y librerías
+# Frameworks, microframeworks y librerías
 
-## *Frameworks*
+## Frameworks
 
-Un **framework** es un software que proporciona una funcionalidad genérica que
+Un **_framework_** es un software que proporciona una funcionalidad genérica que
 el programador puede cambiar selectivamente escribiendo código específico para
 una aplicación en particular.
 
@@ -29,9 +29,9 @@ Los *frameworks* pueden incluir programas de soporte, compiladores, librerías
 de código, conjuntos de utilidades y APIs que, juntos, forman los diferentes
 componentes que permiten desarrollar un proyecto o sistema.
 
-## Frameworks web
+## Frameworks para aplicaciones web
 
-Un **framework para aplicaciones web** es un *framework* diseñado para
+Un **_framework_ para aplicaciones web** es un *framework* diseñado para
 facilitar el desarrollo de sitios web dinámicos, aplicaciones web y servicios
 web.
 
@@ -50,9 +50,9 @@ facilitan la reutilización de código.
 - CodeIgniter
 - Yii
 
-## Symfony
+---
 
-![](images/symfony.png){.plain}
+![[https://symfony.com](https://symfony.com)](images/symfony.png){.plain}
 
 :::::::::::::: {.columns}
 
@@ -80,9 +80,9 @@ facilitan la reutilización de código.
 
 ::::::::::::::
 
-## Laravel
+---
 
-![](images/laravel.png){.plain}
+![[https://laravel.com](https://laravel.com)](images/laravel.png){.plain}
 
 :::::::::::::: {.columns}
 
@@ -108,9 +108,9 @@ facilitan la reutilización de código.
 
 ::::::::::::::
 
-## CakePHP
+---
 
-![](images/cakephp.png){.plain}
+![[https://cakephp.org](https://cakephp.org)](images/cakephp.png){.plain}
 
 :::::::::::::: {.columns}
 
@@ -137,9 +137,9 @@ facilitan la reutilización de código.
 
 ::::::::::::::
 
-## CodeIgniter
+---
 
-![](images/codeigniter.png){.plain}
+![[https://codeigniter.com](https://codeigniter.com)](images/codeigniter.png){.plain}
 
 :::::::::::::: {.columns}
 
@@ -166,9 +166,9 @@ facilitan la reutilización de código.
 
 ::::::::::::::
 
-## Yii
+---
 
-![](images/yii.png){.plain}
+![[http://www.yiiframework.com](http://www.yiiframework.com)](images/yii.png){.plain}
 
 :::::::::::::: {.columns}
 
@@ -195,9 +195,89 @@ facilitan la reutilización de código.
 
 ::::::::::::::
 
+## Microframeworks
+
+Un *microframework* es un término usado para referirse a un *framework* web
+minimalista, en contraste con un *framework* completo o **_full-stack_**.
+
+---
+
+Un *microframework* carece de muchas funcionalidades propias de un *framework*
+web completo, como por ejemplo:
+
+- Cuentas de usuario, autenticación, autorización, roles, etc.
+- Abstracción de bases de datos mediante mapeado objeto-relacional.
+- Validación y saneado de la entrada.
+- Motores de plantillas web.
+
+---
+
+Normalmente, un *microframework* se encarga de:
+
+1. Recibir una petición HTTP,
+2. Encaminar dicha petición al controlador adecuado,
+3. Despachar el controlador y
+4. Devolver una repuesta HTTP.
+
+A menudo se diseñan específicamente para crear las API de otro servicio o
+aplicación.
+
+## Definición de microframework según [Flask](http://flask.pocoo.org/docs/0.12/foreword/#what-does-micro-mean)
+
+> “Micro” does not mean that your whole web application has to fit into a
+> single Python file (although it certainly can), nor does it mean that Flask
+> is lacking in functionality. The “micro” in microframework means Flask aims
+> to keep the core simple but extensible. Flask won’t make many decisions for
+> you, such as what database to use. Those decisions that it does make, such as
+> what templating engine to use, are easy to change. Everything else is up to
+> you, so that Flask can be everything you need and nothing you don’t.
+
+---
+
+> By default, Flask does not include a database abstraction layer, form
+> validation or anything else where different libraries already exist that can
+> handle that. Instead, Flask supports extensions to add such functionality to
+> your application as if it was implemented in Flask itself. Numerous
+> extensions provide database integration, form validation, upload handling,
+> various open authentication technologies, and more. Flask may be “micro”, but
+> it’s ready for production use on a variety of needs.
+
+## Ejemplo de aplicación web con microframework
+
+Usando [Silex](https://silex.symfony.com/):
+
+```php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app = new Silex\Application();
+
+$app->get('/hello/{name}', function($name) use ($app) {
+    return 'Hello ' . $app->escape($name);
+});
+
+$app->run();
+```
+
+## Frameworks y librerías
+
+Los *frameworks* tienen tres características clave que los distinguen de las
+librerías:
+
+- **Inversión del control**: En un *framework*, a diferencia de lo que pasa con
+  las librerías o las aplicaciones normales de usuario, el flujo de control del
+  programa viene dictado por el propio *framework* y no por el programa que lo
+  usa.
+- **Extensibilidad**: Un usuario puede extender el *framework*, normalmente
+  sobreescribiendo código o añadiendo código especializado para proporcionar
+  funcionalidades específicas.
+- **No modificable**: El código del *framework*, por lo general, se supone que
+  no se debe modificar, aunque admite extensiones desarrolladas por el
+  programador que lo usa. En otras palabras: el programador usuario del
+  *framework* puede ampliarlo, pero no modificar su código.
+
 # Ejercicios
 
-## Ejercicios
+---
 
 1. Usa la herramienta [Google Trends](https://trends.google.es/) para
    determinar la popularidad de los principales *frameworks* para PHP. ¿Cuál es
