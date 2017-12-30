@@ -275,7 +275,22 @@ librerías:
   programador que lo usa. En otras palabras: el programador usuario del
   *framework* puede ampliarlo, pero no modificar su código.
 
-# Ejercicios
+Además, los *frameworks* suelen imponer una estructura interna al código de la
+aplicación (en directorios, archivos y contenido de los mismos), mientras que
+las librerías no.
+
+---
+
+La diferencia más importante es que **el control se invierte**:
+
+Con una librería:
+
+:   El código de la aplicación *llama* a la librería, por lo que **el control lo tiene la aplicación**.
+ 
+
+Con un framework:
+
+:   El *framework* *llama* al código de la aplicación, por lo que **el control lo tiene el framework**.
 
 ---
 
