@@ -29,6 +29,22 @@ Los *frameworks* pueden incluir programas de soporte, compiladores, librerías
 de código, conjuntos de utilidades y APIs que, juntos, forman los diferentes
 componentes que permiten desarrollar un proyecto o sistema.
 
+---
+
+Un *framework* se puede considerar como una aplicación genérica incompleta y
+configurable a la que podemos añadirle las últimas piezas para construir una
+aplicación concreta.
+
+![](images/puzzle.jpg)
+
+## Objetivos de un framework
+
+Los objetivos principales que persigue un framework son:
+
+1. Acelerar el proceso de desarrollo.
+2. Reutilizar código ya existente.
+3. Promover buenas prácticas de desarrollo, como el uso de patrones.
+
 ## Frameworks para aplicaciones web
 
 Un **_framework_ para aplicaciones web** es un *framework* diseñado para
@@ -258,7 +274,28 @@ $app->get('/hello/{name}', function($name) use ($app) {
 $app->run();
 ```
 
-## Frameworks y librerías
+## Ejemplos de microframeworks para PHP
+
+- Slim
+- Silex
+- Lumen
+- 
+
+## Frameworks vs. microframeworks
+
+Las diferencias cada vez son menores y las fronteras son cada vez menos
+nítidas.
+
+- Hay *frameworks full-stack* que pueden funcionar como *microframeworks*
+  usando algunos de sus componentes y prescindiendo de otros (ej:
+  [Yii](http://www.yiiframework.com/doc-2.0/guide-tutorial-yii-as-micro-framework.html)).
+
+- Hay *microframeworks* a los que se les puede incorporar componentes hasta
+  acabar teniendo la misma funcionalidad que un *framework full-stack* (ej:
+  [Symfony
+  HttpKernel](https://symfony.com/doc/current/components/http_kernel.html)).
+
+## Frameworks vs. librerías
 
 Los *frameworks* tienen tres características clave que los distinguen de las
 librerías:
@@ -292,7 +329,7 @@ Con un framework:
 
 :   El *framework* *llama* al código de la aplicación, por lo que **el control lo tiene el framework**.
 
----
+## Ejercicios
 
 1. Usa la herramienta [Google Trends](https://trends.google.es/) para
    determinar la popularidad de los principales *frameworks* para PHP. ¿Cuál es
@@ -316,15 +353,117 @@ Con un framework:
 
 7. Investiga otros *frameworks* web para otros lenguajes como Ruby o Python.
 
-# Instalación, requisitos y puesta en marcha
+8. Investiga otros *microframeworks* para PHP.
 
-## LIMIT
+# ![](images/yii.png){.plain}
 
-bla bla bla
+# Introducción, requisitos y puesta en marcha
 
-## OFFSET
+## ¿Qué es Yii?
 
-bla bla bla
+Yii es un framework de PHP de alto rendimiento, basado en componentes para
+desarrollar aplicaciones web modernas en poco tiempo. El nombre Yii significa
+"simple y evolutivo" en chino. También se puede considerar como un acrónimo
+de _**Yes It Is**_ (que en inglés significa _**Sí, eso es**_).
+
+## ¿En qué es mejor Yii?
+
+Yii es un framework genérico de programación web, lo que significa que se puede
+utilizar para desarrollar todo tipo de aplicaciones web en PHP. Debido a su
+arquitectura basada en componentes y a su sofisticada compatibilidad de caché,
+es especialmente apropiado para el desarrollo de aplicaciones de gran
+envergadura, como portales, foros, sistemas de gestión de contenidos (CMS),
+proyectos de comercio electrónico, servicios web compatibles con la
+arquitectura REST y muchas más.
+
+## ¿Cómo se compara Yii con otros frameworks?
+
+- Como la mayoría de los framework de PHP, Yii implementa el patrón de diseño
+  MVC (Modelo-Vista-Controlador) y promueve la organización de código basada en
+  este patrón.
+- La filosofía de Yii consiste en escribir el código de manera simple y
+  elegante, sin sobrediseñar nunca por el mero hecho de seguir un patrón de
+  diseño determinado.
+- Yii es un framework completo que proporciona muchas características probadas
+  y listas para usar, como los constructores de consultas y la clase
+  ActiveRecord para las bases de datos relacionales y NoSQL, la compatibilidad
+  con la arquitectura REST para desarrollar API, la compatibilidad de caché en
+  varios niveles y muchas más.
+- Yii es extremadamente extensible. Puedes personalizar o reemplazar
+  prácticamente cualquier pieza de código de base, como se puede también
+  aprovechar su sólida arquitectura de extensiones para utilizar o desarrollar
+  extensiones distribuibles.
+- El alto rendimiento es siempre la meta principal de Yii.
+
+## Versiones de Yii
+
+Actualmente existen dos versiones principales de Yii:
+
+- 1.1
+- 2.0
+
+Para la versión 1.1, que es de la generación anterior, actualmente sólo se
+ofrece mantenimiento. La versión 2.0 está completamente reescrita y adopta las
+últimas tecnologías y protocolos, incluidos Composer, PSR, espacios de nombres,
+traits, etc.
+
+La versión 2.1 recibe actualmente el principal esfuerzo de desarrollo y se
+prevé que se publique en 2018.
+
+## Requisitos previos
+
+Yii 2 requiere PHP 5.4.0 o una versión posterior. Se pueden encontrar
+requisitos más detallados de características individuales ejecutando el script
+de comprobación **`requirements.php`** incluido en cada versión de Yii.
+
+Para utilizar Yii se requieren conocimientos básicos de programación orientada
+a objetos (POO), porque el framework Yii se basa íntegramente en esta
+tecnología.
+
+Yii 2 hace uso también de las últimas características de PHP, como
+[espacios de nombres](http://www.php.net/manual/es/language.namespaces.php) y
+[traits](http://www.php.net/manual/es/language.oop5.traits.php). Comprender
+estos conceptos ayuda a entender mejor Yii 2.
+
+## Instalación de Yii 2
+
+La instalación estándar de Yii instala tanto el framework como una plantilla de
+proyecto.
+
+Una plantilla de proyecto es un proyecto Yii funcional que implementa algunas
+características básicas como: login, formulario de contacto, etc. 
+
+Aunque no resulta imprescindible usar una plantilla, se recomienda
+encarcidamente usar una de las que proporciona Yii 2 como punto de partida para
+un nuevo proyecto.
+
+## Plantillas oficiales
+
+Yii 2 proporciona dos plantillas oficiales:
+
+- La plantilla **básica** (`yii2-app-basic`)
+- La plantilla **avanzada** (`yii2-app-advanced`).
+
+La plantilla básica es adecuada para desarrollar el 90% de las aplicaciones
+web. Difiere de la plantilla avanzada principalmente en cómo está organizado el
+código.
+
+A los principiantes en Yii 2 se les recomienda usar la plantilla avanzada por
+su sencillez y su funcionalidad.
+
+Nosotros empezaremos usando la plantilla básica y luego pasaremos a usar una
+ligera variante.
+
+## Instalación mediante Composer
+
+Para crear un proyecto nuevo con la estructura de la plantilla básica:
+
+```
+$ composer create-project yiisoft/yii2-app-basic directorio
+```
+
+Creará un directorio llamado *`directorio`* donde se volcará el contenido de la
+plantilla y quedará el proyecto listo para empezar su desarrollo.
 
 # Patrón *Modelo-Vista-Controlador* (MVC)
 
