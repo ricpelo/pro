@@ -279,7 +279,7 @@ $app->run();
 - Slim
 - Silex
 - Lumen
-- 
+- Fat-Free Framework 
 
 ## Frameworks vs. microframeworks
 
@@ -287,11 +287,11 @@ Las diferencias cada vez son menores y las fronteras son cada vez menos
 nítidas.
 
 - Hay *frameworks full-stack* que pueden funcionar como *microframeworks*
-  usando algunos de sus componentes y prescindiendo de otros (ej:
+  usando algunos de sus componentes y prescindiendo de otros (por ejemplo:
   [Yii](http://www.yiiframework.com/doc-2.0/guide-tutorial-yii-as-micro-framework.html)).
 
 - Hay *microframeworks* a los que se les puede incorporar componentes hasta
-  acabar teniendo la misma funcionalidad que un *framework full-stack* (ej:
+  acabar teniendo la misma funcionalidad que un *framework full-stack* (por ejemplo:
   [Symfony
   HttpKernel](https://symfony.com/doc/current/components/http_kernel.html)).
 
@@ -454,6 +454,23 @@ su sencillez y su funcionalidad.
 Nosotros empezaremos usando la plantilla básica y luego pasaremos a usar una
 ligera variante.
 
+## Plantilla *básica* vs. *avanzada*
+
+| Feature  |  Básica  |  Avanzada |
+|---|:---:|:---:|
+| Estructura de proyecto | ✓ | ✓ |
+| Controlador Site | ✓ | ✓ |
+| Login/logout de usuarios | ✓ | ✓ |
+| Formularios | ✓ | ✓ |
+| Conexión a BBDD | ✓ | ✓ |
+| Comandos de consola | ✓ | ✓ |
+| Asset bundles | ✓ | ✓ |
+| Tests de Codeception | ✓ | ✓ |
+| Twitter Bootstrap  | ✓ | ✓ |
+| Aplicaciones front-end y back-end |    | ✓ |
+| Modelo de usuario listo para usar |    | ✓ |
+| Registro de usuarios y recuperación de contraseñas |     | ✓ |
+
 ## Instalación mediante Composer
 
 Para crear un proyecto nuevo con la estructura de la plantilla básica:
@@ -470,8 +487,6 @@ plantilla y quedará el proyecto listo para empezar su desarrollo.
 ## WITH
 
 Common table expressions
-
-# Plantilla *básica* vs. *avanzada*
 
 # Barra de depuración
 
