@@ -21,7 +21,8 @@ $(BUILDDIR)/%.html: $(SRCDIR)/%.md
 		-V width=1280 -V height=1080 $^ -o $@
 
 $(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
-	`npm bin`/decktape -s 1280x720 automatic $^ $@
+	php -S localhost:8080 &
+	xdg-open http://localhost:8080/$^?print-pdf
 
 clean:
 	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
