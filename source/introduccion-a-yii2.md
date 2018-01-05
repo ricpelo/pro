@@ -6,6 +6,24 @@ date: IES Doñana, curso 2017-18
 
 # Frameworks, microframeworks y librerías
 
+## Ruby on Rails
+
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/rubyonrails.png){.plain}
+
+:::
+
+::: {.column width="50%"}
+
+![David Heinemeier Hansson](images/dhh.jpg)
+
+:::
+
+::::::::::::::
+
 ## Frameworks
 
 Un **_framework_** es un software que proporciona una funcionalidad genérica que
@@ -448,7 +466,7 @@ La plantilla básica es adecuada para desarrollar el 90% de las aplicaciones
 web. Difiere de la plantilla avanzada principalmente en cómo está organizado el
 código.
 
-A los principiantes en Yii 2 se les recomienda usar la plantilla avanzada por
+A los principiantes en Yii 2 se les recomienda usar la plantilla básica por
 su sencillez y su funcionalidad.
 
 Nosotros empezaremos usando la plantilla básica y luego pasaremos a usar una
@@ -467,7 +485,7 @@ ligera variante.
 | Asset bundles | ✓ | ✓ |
 | Tests de Codeception | ✓ | ✓ |
 | Twitter Bootstrap  | ✓ | ✓ |
-| Aplicaciones front-end y back-end |    | ✓ |
+| Aplicaciones *front-end* y *back-end* |    | ✓ |
 | Modelo de usuario listo para usar |    | ✓ |
 | Registro de usuarios y recuperación de contraseñas |     | ✓ |
 
@@ -484,13 +502,116 @@ plantilla y quedará el proyecto listo para empezar su desarrollo.
 
 # Patrón *Modelo-Vista-Controlador* (MVC)
 
-## WITH
+## Visión general
 
-Common table expressions
+![](images/MVC-Diagram.gif){width=50%}
 
-# Barra de depuración
+---
+
+![](images/mvc_role_diagram.png){.plain width=70%}
+
+---
+
+![](images/mvc-architecture.jpg){width=75%}
+
+---
+
+![](images/mvc-request-flow.png){.plain width=80%}
+
+## Modelos
+
+Los modelos representan la parte de la aplicación que implementa la *lógica de
+negocio* y las *entidades de datos*. Ésto significa que son responsables de la
+recuperación de datos convirtiéndolos en conceptos significativos para la
+aplicación, así como su procesamiento, validación, asociación y cualquier otra
+tarea relativa a la manipulación de dichos datos.
+
+En general, representan los principales conceptos en torno a los cuales se
+desea implementar un programa.
+
+---
+
+Por ejemplo, en el caso de una red social, la capa de modelo se haría cargo de
+tareas tales como guardar datos del usuario, el amacenamiento de asociaciones
+con amigos, el almacenamiento y la recuperación de fotos de los usuarios,
+encontrar sugerencias de nuevos amigos, etc.
+
+Por tanto, en este caso, los modelos podrían ser `Amigo`, `Usuario`,
+`Comentario` y `Foto`.
+
+## Vistas
+
+Las vistas hacen una *presentación de los datos* de los modelos estando
+separadas de los mismos.
+
+Por ejemplo, como los modelos devuelven un conjunto de datos, las vistas los
+usarían para hacer una página HTML que los contenga. O un resultado con formato
+XML o JSON para que otras aplicaciones puedan consumir.
+
+Las vistas no se limitan únicamente a HTML o texto que represente los datos,
+sino que pueden ser utilizadas para ofrecer una amplia variedad de formatos en
+función de sus necesidades tales como videos, música, documentos y cualquier
+otro formato que se pueda imaginar.
+
+## Controladores
+
+Los controladores *gestionan las peticiones* de los usuarios. Son responsables
+de responder a la información solicitada con la ayuda tanto de los modelos como
+de las vistas.
+
+Los controladores pueden ser vistos como administradores cuidando de que todos
+los recursos necesarios para completar una tarea se deleguen a los trabajadores
+más adecuados. Espera peticiones de los clientes, comprueba su validez de
+acuerdo a las normas de autenticación o autorización, delega la búsqueda de
+datos a los modelos y selecciona el tipo de respuesta más adecuado según las
+preferencias del cliente. Finalmente delega este proceso de presentación a las
+vistas.
+
+## MVC en Yii 2
+
+- Los **modelos** son subclases de `\yii\base\Model`.
+
+  - Un caso especial son las subclases de `\yii\db\ActiveRecord`.
+
+- Las **vistas** son plantillas (archivos `.php`) que combinan HTML y PHP (y
+posiblemente JavaScript, CSS, etc.).
+
+- Los **controladores** son subclases de `\yii\base\Controller`.
+
+  - En las aplicaciones web se usa `\yii\web\Controller`.
+
+  - En las aplicaciones de consola se usa `\yii\console\Controller`.
+
+## Ejercicios
+
+1. ¿Qué es un modelo?
+
+2. ¿Qué es una vista?
+
+3. ¿Qué es un controlador?
+
+4. ¿Qué componente (*modelo*, *vista* o *controlador*) se encargaría de las
+   siguientes responsabilidades?
+
+   1. Comprobar si un pedido es válido.
+
+   2. Impedir que se pueda vender un producto sin existencias.
+
+   3. Atender la petición de alta de un nuevo usuario.
+
+   4. Solicitar los nuevos datos del producto durante una modificación del
+      mismo.
 
 # Generador de código *Gii*
 
+## Generador de código *Gii*
+
+[http://www.yiiframework.com/doc-2.0/guide-start-gii.html](http://www.yiiframework.com/doc-2.0/guide-start-gii.html)
+
 # Estilo del código
 
+## Reglas de estilo en Yii 2
+
+- [Estilo general](https://github.com/yiisoft/yii2/blob/master/docs/internals/core-code-style.md)
+
+- [Estilo para las vistas](https://github.com/yiisoft/yii2/blob/master/docs/internals/view-code-style.md)
