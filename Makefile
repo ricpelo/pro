@@ -17,6 +17,7 @@ $(BUILDDIR)/%.html: $(SRCDIR)/%.md
 	pandoc -s -t revealjs --template=pandoc_revealjs.template \
 		--highlight-style=solarized.theme \
 		--syntax-definition=php.xml \
+		--css custom.css \
 		-V theme=solarized -V transition=zoom \
 		-V width=1280 -V height=1080 $^ -o $@
 
