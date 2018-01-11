@@ -32,6 +32,45 @@ Introduce las siguientes características:
 - Propiedades
 - Configurabilidad
 
+## Propiedades
+
+- En PHP, a las variables miembro de una clase (variables de instancia) se las
+  denomina también *propiedades*.
+
+- Esas variables son parte de la definición de la clase, y se usan para
+  representar el estado de una instancia de dicha clase.
+
+- La clase `\yii\base\BaseObject` de Yii 2 permite crear propiedades a partir
+  de métodos *getter* y *setter*.
+
+- Toda clase que herede (directa o indirectamente) de `\yii\base\BaseObject`
+  podrá definir propiedades de esa manera.
+
+---
+
+Por ejemplo:
+
+```php
+namespace app\components;
+
+class Foo extends \yii\base\BaseObject
+{
+    private $_label;
+
+    public function getLabel()
+    {
+        return $this->_label;
+    }
+
+    public function setLabel($value)
+    {
+        $this->_label = trim($value);
+    }
+}
+```
+
+## Configurabilidad
+
 # Alias
 
 # Autoloading de clases

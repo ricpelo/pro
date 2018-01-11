@@ -125,6 +125,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Propiedades</li>
 <li>Configurabilidad</li>
 </ul>
+</section><section id="propiedades" class="slide level2">
+<h2>Propiedades</h2>
+<ul>
+<li><p>En PHP, a las variables miembro de una clase (variables de instancia) se las denomina también <em>propiedades</em>.</p></li>
+<li><p>Esas variables son parte de la definición de la clase, y se usan para representar el estado de una instancia de dicha clase.</p></li>
+<li><p>La clase <code>\yii\base\BaseObject</code> de Yii 2 permite crear propiedades a partir de métodos <em>getter</em> y <em>setter</em>.</p></li>
+<li><p>Toda clase que herede (directa o indirectamente) de <code>\yii\base\BaseObject</code> podrá definir propiedades de esa manera.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">namespace</span> app\components<span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">class</span> Foo <span class="kw">extends</span> \yii\base\BaseObject</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">{</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">private</span> <span class="va">$_label</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw">public</span> <span class="kw">function</span> getLabel<span class="ot">()</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    {</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_label<span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">    }</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">    <span class="kw">public</span> <span class="kw">function</span> setLabel<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">    {</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">        <span class="va">$this</span>-&gt;_label = <span class="fu">trim</span><span class="ot">(</span><span class="va">$value</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">    }</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">}</a></code></pre></div>
+</section><section id="configurabilidad" class="slide level2">
+<h2>Configurabilidad</h2>
 </section></section>
 <section><section id="alias" class="title-slide slide level1"><h1>Alias</h1></section></section>
 <section><section id="autoloading-de-clases" class="title-slide slide level1"><h1>Autoloading de clases</h1></section></section>
@@ -327,15 +356,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="ejemplo-de-aplicación-web-con-microframework" class="slide level2">
 <h2>Ejemplo de aplicación web con microframework</h2>
 <p>Usando <a href="https://silex.symfony.com/">Silex</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">}<span class="ot">);</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
 </section><section id="ejemplos-de-microframeworks-para-php" class="slide level2">
 <h2>Ejemplos de microframeworks para PHP</h2>
 <ul>
