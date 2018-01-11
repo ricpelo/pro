@@ -142,18 +142,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-4" data-line-number="4">{</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">private</span> <span class="va">$_label</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw">public</span> <span class="kw">function</span> getLabel<span class="ot">()</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    {</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_label<span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">    }</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    <span class="kw">public</span> <span class="kw">function</span> setLabel<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    {</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">        <span class="va">$this</span>-&gt;_label = <span class="fu">trim</span><span class="ot">(</span><span class="va">$value</span><span class="ot">);</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">    }</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">}</a></code></pre></div>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="co">// El método getter:</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">public</span> <span class="kw">function</span> getLabel<span class="ot">()</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">    {</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_label<span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">    }</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="co">// El método setter:</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="kw">public</span> <span class="kw">function</span> setLabel<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">    {</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">        <span class="va">$this</span>-&gt;_label = <span class="fu">trim</span><span class="ot">(</span><span class="va">$value</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">    }</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">}</a></code></pre></div>
+<p>Crea la propiedad <code>label</code>, accesible mediante <code>$foo-&gt;label</code>.</p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="va">$foo</span> = <span class="kw">new</span> Foo<span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">echo</span> <span class="va">$foo</span>-&gt;label<span class="ot">;</span>     <span class="co">// Llama internamente a $foo-&gt;getLabel()</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="va">$foo</span>-&gt;label = <span class="st">&#39;hola&#39;</span><span class="ot">;</span> <span class="co">// Llama internamente a $foo-&gt;setLabel(&#39;hola&#39;);</span></a></code></pre></div>
+</section><section class="slide level2">
+
+<p>Como <code>setLabel($value)</code> está definido como:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> setLabel<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="va">$this</span>-&gt;_label = <span class="fu">trim</span><span class="ot">(</span><span class="va">$value</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
+<p>al asignarle una cadena a la propiedad se <em>trimeará</em> automáticamente, eliminando los espacios sobrantes:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="va">$foo</span>-&gt;label = <span class="st">&#39;    hola    &#39;</span><span class="ot">;</span>   <span class="co">// Se guarda sin espacios sobrantes</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">echo</span> <span class="va">$foo</span>-&gt;label<span class="ot">;</span>               <span class="co">// Devuelve &quot;hola&quot; (sin espacios)</span></a></code></pre></div>
+</section><section id="propiedades-de-sólo-lectura" class="slide level2">
+<h2>Propiedades de sólo lectura</h2>
+<p>Si definimos sólo el <em>getter</em> y no el <em>setter</em>, crearemos una <strong>propiedad de sólo lectura</strong>, por lo que podremos consultar su valor pero no cambiarlo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">class</span> Prueba <span class="kw">extends</span> \yii\base\BaseObject</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">public</span> <span class="va">$_valor</span> = <span class="dv">25</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="co">// Método getter (no hay setter):</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="kw">public</span> <span class="kw">function</span> getValor<span class="ot">()</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">    {</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_valor<span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">    }</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">echo</span> <span class="va">$p</span>-&gt;valor<span class="ot">;</span>  <span class="co">// Devuelve 25</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="va">$p</span>-&gt;valor = <span class="dv">30</span><span class="ot">;</span>  <span class="co">// Da ERROR</span></a></code></pre></div>
 </section><section id="configurabilidad" class="slide level2">
 <h2>Configurabilidad</h2>
+<ul>
+<li><p>Una instancia de la clase <code>\yii\base\BaseObject</code> (o de una subclase suya) permite ser <em>configurado</em>.</p></li>
+<li><p>Una <strong>configuración</strong> es simplemente un array que contiene parejas de <code>clave =&gt; valor</code>, donde la <code>clave</code> representa el nombre de una propiedad (una cadena), y el <code>valor</code> es el valor que queremos asignarle a dicha propiedad.</p></li>
+<li><p>Se pueden usar para:</p>
+<ul>
+<li><p>Asignar valores de forma masiva a las propiedades de un objeto usando <code>Yii::configure($objeto, $config)</code>.</p></li>
+<li><p>Crear una instancia asignándole valores iniciales a sus propiedades usando <code>Yii::createObject($config)</code>.</p></li>
+<li><p>Más posibilidades que iremos viendo en su momento.</p></li>
+</ul></li>
+</ul>
+</section><section id="asignación-masiva" class="slide level2">
+<h2>Asignación masiva</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Supongamos la siguiente clase:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">use</span> \yii\base\BaseObject<span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">class</span> Prueba <span class="kw">extends</span> BaseObject</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">{</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">public</span> <span class="va">$uno</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw">private</span> <span class="va">$_dos</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    </a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw">public</span> <span class="kw">function</span> getDos<span class="ot">()</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">    {</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_dos<span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">    }</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">    <span class="kw">public</span> <span class="kw">function</span> setDos<span class="ot">(</span><span class="va">$dos</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">    {</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">        <span class="va">$this</span>-&gt;_dos = <span class="va">$dos</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">    }</a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">}</a></code></pre></div>
+</div><div class="column" style="width:50%;">
+<p>Algunas posibles configuraciones:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="ot">[</span> <span class="st">&#39;uno&#39;</span> =&gt; <span class="dv">5</span><span class="ot">,</span> <span class="st">&#39;dos&#39;</span> =&gt; <span class="dv">7</span> <span class="ot">]</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="ot">[</span> <span class="st">&#39;dos&#39;</span> =&gt; <span class="dv">18</span> <span class="ot">]</span></a></code></pre></div>
+<p>Se pueden aplicar a un objeto ya existente:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">Yii::configure<span class="ot">(</span><span class="va">$p</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="st">&#39;uno&#39;</span> =&gt; <span class="dv">5</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="st">&#39;dos&#39;</span> =&gt; <span class="dv">7</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="ot">]);</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw">echo</span> <span class="va">$p</span>-&gt;uno<span class="ot">;</span> <span class="co">// Muestra &quot;5&quot;</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="kw">echo</span> <span class="va">$p</span>-&gt;dos<span class="ot">;</span> <span class="co">// Muestra &quot;7&quot;</span></a></code></pre></div>
+</div>
+</div>
+</section><section id="creación-de-nuevas-instancias" class="slide level2">
+<h2>Creación de nuevas instancias</h2>
+<ul>
+<li><p>Una configuración también se puede usar para crear nuevas instancias y asignarle valores iniciales <em>en la misma operación</em> usando el método <code>Yii::createObject($config)</code>.</p></li>
+<li><p>Para ello es necesario que la configuración indique el nombre de la clase que se desea instanciar mediante un elemento con clave <code>'class'</code>.</p></li>
+<li><p>Ejemplo:</p></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="va">$p</span> = Yii::createObject<span class="ot">([</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">    <span class="st">&#39;class&#39;</span> =&gt; <span class="st">&#39;Prueba&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="st">&#39;uno&#39;</span> =&gt; <span class="dv">4</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="st">&#39;dos&#39;</span> =&gt; <span class="dv">7</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="ot">]);</span></a></code></pre></div>
+<ul>
+<li>Se crea en <code>$p</code> una nueva instancia de la clase <code>Prueba</code> con los valores <code>$p-&gt;uno = 4</code> y <code>$p-&gt;dos = 7</code>.</li>
+</ul>
 </section></section>
 <section><section id="alias" class="title-slide slide level1"><h1>Alias</h1></section></section>
 <section><section id="autoloading-de-clases" class="title-slide slide level1"><h1>Autoloading de clases</h1></section></section>
@@ -356,15 +456,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="ejemplo-de-aplicación-web-con-microframework" class="slide level2">
 <h2>Ejemplo de aplicación web con microframework</h2>
 <p>Usando <a href="https://silex.symfony.com/">Silex</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">}<span class="ot">);</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
 </section><section id="ejemplos-de-microframeworks-para-php" class="slide level2">
 <h2>Ejemplos de microframeworks para PHP</h2>
 <ul>
