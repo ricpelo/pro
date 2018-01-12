@@ -19,7 +19,7 @@ Las dos primeras características se heredan de `\yii\base\BaseObject`.
 
 ---
 
-!uml([docs/]images/baseobject {.plain width=40%})
+!uml(images/baseobject {.plain width=40%})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
@@ -226,3 +226,156 @@ $p = Yii::createObject([
 
 `$p->uno = 4` y `$p->dos = 7`.
 
+## `\yii\base\Component`
+
+- Todos los componentes de Yii 2 heredan, directa o indirectamente, de esta
+  clase.
+
+- Esta clase hereda, a su vez, de `\yii\base\BaseObject`, por lo que incorpora
+  *propiedades* y *configurabilidad*.
+
+- Además, los componentes incorporan otras dos características importantes:
+
+**Eventos**
+
+**Comportamientos**
+
+## Eventos
+
+- Los eventos permiten inyectar código propio dentro de código ya existente en
+  determinados puntos de ejecución.
+
+- Se puede vincular un trozo de código a un evento de forma que, cuando el
+  evento se dispare, se ejecutará el código automáticamente.
+
+- Por ejemplo, un objeto que envíe correo puede disparar el evento
+  `mensajeEnviado` cada vez que envíe un email. Si se desea hacer un
+  seguimiento de los mensajes que se han enviado, se puede vincular el código
+  de seguimiento al evento `mensajeEnviado`.
+
+---
+
+- Los eventos son un mecanismo que nos permite cambiar el comportamiento del
+  *framework* sin tener que cambiar el código del propio *framework*.
+
+- Esto es así porque el *framework* dispara ciertos eventos en ciertos momentos
+  durante su ejecución, lo que podemos usar para vincular nuestro código y
+  hacer que se ejecute en tales momentos.
+
+---
+
+Si una clase necesita disparar eventos o responder a eventos, necesita ser
+subclase directa o indirecta de `\yii\base\Component`.
+
+## Manejadores de eventos
+
+- Un manejador de eventos es un *callable* de PHP que se ejecutará cuando se
+  dispare el evento al que vaya asociado.
+
+- El *callable* puede ser:
+
+  - Una función global de PHP especificada en forma de cadena (sin paréntesis):
+    `'trim'`
+
+  - Un método de instancia especificado como un array donde el primer elemento
+    es el objeto y el segundo es el nombre del método como cadena (sin
+    paréntesis): `[$objeto, 'metodo']`
+
+  - Un método estático de clase especificado como un array donde el primer
+    elemento es el nombre de la clase y el segundo es el nombre del método como
+    cadena (sin paréntesis):\
+    `['NombreClase', 'metodo']`
+
+  - Una función anónima: `function ($event) { ... }`
+
+---
+
+La signatura del manejador de eventos es:
+
+```php
+function ($event) {
+    // $event es un objeto de la clase \yii\base\Event
+    // (o una subclase de esta)
+}
+```
+
+Ejercicio: consultar qué información contiene el objeto `$event`.
+
+## Vincular manejadores a eventos
+
+Para vincular un manejador a un evento se usa el método `\yii\base\Component::on()`:
+
+```php
+$p = new Prueba;
+
+// Este manejador es una función global de PHP:
+$p->on(Prueba::EVENTO_HOLA, 'funcion');
+
+// Este manejador es un método de instancia:
+$p->on(Prueba::EVENTO_HOLA, [$objeto, 'metodo']);
+
+// Este manejador es un método estático de clase:
+$p->on(Prueba::EVENTO_HOLA, ['\app\components\Pepe', 'metodo']);
+
+// Este manejador es una función anónima:
+$p->on(Prueba::EVENTO_HOLA, function ($event) {
+    // Código que gestiona el evento
+});
+```
+
+## Disparar eventos
+
+- Los eventos se disparan llamando al método `\yii\base\Component::trigger()`:
+
+```php
+$p->trigger(Prueba::EVENTO_HOLA);
+```
+
+- El evento le llega al objeto sobre el que se ejecuta el método `trigger()`, y
+  responderá ejecutando los manejadores que el objeto tenga vinculados al
+  evento.
+
+- Si hay varios manejadores para el mismo evento, se ejecutarán en el orden en
+  el que hayan sido vinculados.
+
+---
+
+- Es recomendable usar constantes de clase para representar los nombres de los
+  eventos.
+
+- En el ejemplo anterior, la constante `Prueba::EVENTO_HOLA` representa el
+  evento `hola`.
+
+- Esto tiene tres ventajas:
+
+  #. Previene equivocaciones al teclear.
+
+  #. Los hace más reconocible por el autocompletado de los editores.
+
+  #. Resulta más fácil saber qué eventos soporta una clase simplemente mirando
+     las constantes que tenga declaradas.
+
+## Manejadores de clase
+
+- Hasta ahora hemos vinculado manejadores a eventos *a nivel de instancia*, es
+  decir, a instancias concretas.
+
+- A veces, queremos que *todas* las instancias de una clase respondan de la
+  misma forma a un determinado evento.
+
+- En lugar de vincular un manejador de evento a cada instancia, podemos
+  vincular el manejador *a nivel de clase*, es decir, a la propia clase.
+
+- Para ello, usamos el método estático `\yii\base\Event::on()`.
+
+---
+
+Ejemplo:
+
+```php
+use \yii\base\Event;
+
+Event::on(Prueba::className(), Prueba::EVENTO_HOLA, function ($event) {
+    echo "Hola";
+});
+```
