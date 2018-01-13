@@ -125,7 +125,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Propiedades</li>
 <li>Configurabilidad</li>
 </ul>
-</section><section id="propiedades" class="slide level2">
+</section></section>
+<section><section id="propiedades" class="title-slide slide level1"><h1>Propiedades</h1></section><section id="propiedades-1" class="slide level2">
 <h2>Propiedades</h2>
 <ul>
 <li><p>En PHP, a las variables miembro de una clase (variables de instancia) se las denomina también <em>propiedades</em>.</p></li>
@@ -190,7 +191,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">echo</span> <span class="va">$p</span>-&gt;valor<span class="ot">;</span>  <span class="co">// Devuelve 25</span></a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="va">$p</span>-&gt;valor = <span class="dv">30</span><span class="ot">;</span>  <span class="co">// Da ERROR</span></a></code></pre></div>
-</section><section id="configurabilidad" class="slide level2">
+</section></section>
+<section><section id="configurabilidad" class="title-slide slide level1"><h1>Configurabilidad</h1></section><section id="configurabilidad-1" class="slide level2">
 <h2>Configurabilidad</h2>
 <ul>
 <li><p>Una instancia de la clase <code>\yii\base\BaseObject</code> (o de una subclase suya) permite ser <em>configurado</em>.</p></li>
@@ -266,10 +268,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>Eventos</strong></p>
 <p><strong>Comportamientos</strong></p>
-</section><section id="eventos" class="slide level2">
+</section></section>
+<section><section id="eventos" class="title-slide slide level1"><h1>Eventos</h1></section><section id="eventos-1" class="slide level2">
 <h2>Eventos</h2>
 <ul>
-<li><p>Los eventos permiten inyectar código propio dentro de código ya existente en determinados puntos de ejecución.</p></li>
+<li><p>Los eventos permiten inyectar nuestro código dentro de código ya existente en determinados puntos de ejecución.</p></li>
 <li><p>Se puede vincular un trozo de código a un evento de forma que, cuando el evento se dispare, se ejecutará el código automáticamente.</p></li>
 <li><p>Por ejemplo, un objeto que envíe correo puede disparar el evento <code>mensajeEnviado</code> cada vez que envíe un email. Si se desea hacer un seguimiento de los mensajes que se han enviado, se puede vincular el código de seguimiento al evento <code>mensajeEnviado</code>.</p></li>
 </ul>
@@ -281,11 +284,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section class="slide level2">
 
-<p>Si una clase necesita disparar eventos o responder a eventos, necesita ser subclase directa o indirecta de <code>\yii\base\Component</code>.</p>
+<p>Para poder disparar eventos o responder a eventos, la clase en cuestión debe ser subclase (directa o indirecta) de <code>\yii\base\Component</code>.</p>
 </section><section id="manejadores-de-eventos" class="slide level2">
 <h2>Manejadores de eventos</h2>
 <ul>
-<li><p>Un manejador de eventos es un <em>callable</em> de PHP que se ejecutará cuando se dispare el evento al que vaya asociado.</p></li>
+<li><p>Un manejador de eventos es un <em>callable</em> de PHP que se ejecutará cuando se dispare el evento al que se haya vinculado.</p></li>
 <li><p>El <em>callable</em> puede ser:</p>
 <ul>
 <li><p>Una función global de PHP especificada en forma de cadena (sin paréntesis): <code>'trim'</code></p></li>
@@ -305,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ejercicio: consultar qué información contiene el objeto <code>$event</code>.</p>
 </section><section id="vincular-manejadores-a-eventos" class="slide level2">
 <h2>Vincular manejadores a eventos</h2>
-<p>Para vincular un manejador a un evento se usa el método <code>\yii\base\Component::on()</code>:</p>
+<p>Para <strong>vincular un manejador a un evento en un objeto</strong> se usa el método <code>\yii\base\Component::on()</code> sobre ese objeto:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">// Este manejador es una función global de PHP:</span></a>
@@ -321,18 +324,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb11-13" data-line-number="13"><span class="va">$p</span>-&gt;on<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
 <a class="sourceLine" id="cb11-14" data-line-number="14">    <span class="co">// Código que gestiona el evento</span></a>
 <a class="sourceLine" id="cb11-15" data-line-number="15">}<span class="ot">);</span></a></code></pre></div>
+<p>Cuando el objeto dispare el evento, se ejecutará el manejador vinculado en ese evento.</p>
 </section><section id="disparar-eventos" class="slide level2">
 <h2>Disparar eventos</h2>
 <ul>
-<li>Los eventos se disparan llamando al método <code>\yii\base\Component::trigger()</code>:</li>
+<li>Los eventos se disparan llamando al método <code>\yii\base\Component::trigger()</code> sobre el objeto que envía (o <em>dispara</em>) el evento:</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="va">$p</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span></a></code></pre></div>
 <ul>
-<li><p>El evento le llega al objeto sobre el que se ejecuta el método <code>trigger()</code>, y responderá ejecutando los manejadores que el objeto tenga vinculados al evento.</p></li>
-<li><p>Si hay varios manejadores para el mismo evento, se ejecutarán en el orden en el que hayan sido vinculados.</p></li>
+<li><p>El objeto <code>$p</code> dispara el evento <code>Prueba::EVENTO_HOLA</code>, lo que provocará la ejecución de los manejadores que se hayan vinculado a ese evento en ese objeto (además de los <em>manejadores de clase</em>, que veremos luego).</p></li>
+<li><p>Si hay varios manejadores para el mismo evento, se ejecutarán en cadena en el orden en el que hayan sido vinculados.</p></li>
+<li><p>Un manejador puede hacer <code>$event-&gt;handled = true;</code> para romper la cadena y evitar que se ejecuten más manejadores de ese evento.</p></li>
 </ul>
 </section><section class="slide level2">
 
+<p>Los manejadores vinculados en otro objeto no se ejecutarán:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="va">$q</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">// $p registra un manejador para el evento Prueba::EVENTO_HOLA:</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="va">$p</span>-&gt;on<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">    <span class="kw">echo</span> <span class="st">&quot;Soy p&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">// $q registra otro manejador para el mismo evento:</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="va">$q</span>-&gt;on<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">    <span class="kw">echo</span> <span class="st">&quot;Soy q&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="va">$p</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span> <span class="co">// Muestra &quot;Soy p&quot; pero no &quot;Soy q&quot;</span></a></code></pre></div>
+<p>Aquí el evento lo dispara <code>$p</code> y por tanto no se ejecuta el manejador registrado por <code>$q</code> (el objeto <code>$q</code> no se entera).</p>
+</section><section id="constantes-para-los-eventos" class="slide level2">
+<h2>Constantes para los eventos</h2>
 <ul>
 <li><p>Es recomendable usar constantes de clase para representar los nombres de los eventos.</p></li>
 <li><p>En el ejemplo anterior, la constante <code>Prueba::EVENTO_HOLA</code> representa el evento <code>hola</code>.</p></li>
@@ -346,19 +369,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="manejadores-de-clase" class="slide level2">
 <h2>Manejadores de clase</h2>
 <ul>
-<li><p>Hasta ahora hemos vinculado manejadores a eventos <em>a nivel de instancia</em>, es decir, a instancias concretas.</p></li>
+<li><p>Hasta ahora hemos vinculado manejadores a eventos <em>a nivel de instancia</em>, es decir, en objetos concretos.</p></li>
 <li><p>A veces, queremos que <em>todas</em> las instancias de una clase respondan de la misma forma a un determinado evento.</p></li>
-<li><p>En lugar de vincular un manejador de evento a cada instancia, podemos vincular el manejador <em>a nivel de clase</em>, es decir, a la propia clase.</p></li>
-<li><p>Para ello, usamos el método estático <code>\yii\base\Event::on()</code>.</p></li>
+<li><p>En lugar de vincular un manejador de evento en cada instancia, podemos vincular el manejador <em>a nivel de clase</em>, es decir, en la propia clase.</p></li>
+<li><p>A estos eventos se los denomina <strong>manejadores de clase</strong>, a diferencia de los manejadores a nivel de instancia, que se denominan <strong>manejadores de instancia</strong>.</p></li>
+<li><p>Para ello, usamos el método estático <code>\yii\base\Event::on()</code> indicando el nombre de la clase, el nombre del evento y el manejador del evento.</p></li>
 </ul>
 </section><section class="slide level2">
 
 <p>Ejemplo:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">use</span> \yii\base\Event<span class="ot">;</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">Event::on<span class="ot">(</span>Prueba::className<span class="ot">(),</span> Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="kw">echo</span> <span class="st">&quot;Hola&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">}<span class="ot">);</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">Event::on<span class="ot">(</span>Prueba::className<span class="ot">(),</span> Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">    <span class="kw">echo</span> <span class="st">&quot;Hola&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">}<span class="ot">);</span></a></code></pre></div>
+<p>A partir de ahora, todas las instancias (actuales y futuras) de la clase <code>Prueba</code> (y sus subclases) responderán al evento <code>Prueba::EVENTO_HOLA</code> mostrando un saludo en pantalla:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="va">$a</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="va">$b</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="va">$a</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span>  <span class="co">// Saluda</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="va">$b</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span>  <span class="co">// También saluda</span></a></code></pre></div>
+</section><section id="también-afecta-a-las-subclases" class="slide level2">
+<h2>También afecta a las subclases</h2>
+<ul>
+<li><p>Los manejadores a nivel de clase se ejecutarán cuando se produzca un evento disparado por cualquier instancia de esa clase <strong>o de cualquier subclase suya</strong>.</p></li>
+<li><p>Dicho de otra forma: el evento se propagará hacia arriba en la jerarquía de herencia y provocará la ejecución de todos los manejadores de clase que encuentre vinculados a ese evento.</p></li>
+<li><p>Debido a eso, hay que tener cuidado para evitar la propagación de ese evento a más objetos de los necesarios.</p></li>
+<li><p>Por ejemplo, si vinculamos un manejador de evento a la clase <code>\yii\base\BaseObject</code>, prácticamente <em>todas</em> las instancias de Yii 2 podrán responder a ese evento.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Ejemplo:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">class</span> Subclase <span class="kw">extends</span> Prueba</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="va">$s</span> = <span class="kw">new</span> Subclase<span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="va">$s</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span>  <span class="co">// También saluda</span></a></code></pre></div>
+<p>Una instancia de <code>Subclase</code> dispara un evento que tiene vinculado un manejador en la clase <code>Prueba</code>, por lo que también se ejecuta dicho manejador.</p>
+</section><section class="slide level2">
+
+<p>En los manejadores de clase, se puede acceder al objeto que ha recibido el disparo del evento mediante la expresión <code>$event-&gt;sender</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">Event::on<span class="ot">(</span>Prueba::className<span class="ot">(),</span> Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">    <span class="co">// $event-&gt;sender es el objeto que ha recibido el evento</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">}<span class="ot">);</span></a></code></pre></div>
+</section><section id="orden-de-los-manejadores" class="slide level2">
+<h2>Orden de los manejadores</h2>
+<ul>
+<li><p>El mismo evento puede tener vinculados manejadores de instancia y manejadores de clase.</p></li>
+<li><p>En ese caso, al dispararse el evento se ejecutarán primero los manejadores de instancia y después los manejadores de clase (los manejadores de instancia siempre van primero).</p></li>
+</ul>
+</section><section id="eventos-de-clase" class="slide level2">
+<h2>Eventos de clase</h2>
+<ul>
+<li><p>Hasta ahora, los eventos han sido disparados por objetos concretos. A estos eventos se los denomina <strong>eventos de instancia</strong>.</p></li>
+<li><p>Podemos hacer que una clase también dispare eventos. Los eventos disparados por una clase se denominan <strong>eventos de clase</strong>.</p></li>
+<li><p>Los eventos de clase se disparan llamando al método <code>\yii\base\Event::trigger()</code>, indicando el nombre de la clase y el nombre del evento.</p></li>
+<li><p>Los eventos de clase sólo provocan la ejecución de manejadores de clase, no de manejadores de instancia.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">Event::on<span class="ot">(</span>Prueba::className<span class="ot">(),</span> Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">    <span class="fu">var_dump</span><span class="ot">(</span><span class="va">$event</span>-&gt;sender<span class="ot">);</span>  <span class="co">// Muestra &quot;null&quot;</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">// Aquí se dispara el evento de clase.</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">// Lo dispara directamente la clase Prueba, no una instancia concreta:</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">Event::trigger<span class="ot">(</span>Prueba::className<span class="ot">(),</span> Prueba::<span class="cn">EVENT_HELLO</span><span class="ot">);</span></a></code></pre></div>
+<p>Observa que, en este caso, <code>$event-&gt;sender</code> es <code>null</code>, ya que quien dispara el evento no es ninguna instancia concreta, sino una clase.</p>
+</section><section id="resumiendo" class="slide level2">
+<h2>Resumiendo</h2>
+<ul>
+<li><p>Los eventos de instancia provocan la ejecución de manejadores de instancia y manejadores de clase.</p></li>
+<li><p>Los eventos de clase sólo provocan la ejecución de manejadores de clase.</p></li>
+</ul>
+</section></section>
+<section><section id="comportamientos" class="title-slide slide level1"><h1>Comportamientos</h1></section><section id="comportamientos-1" class="slide level2">
+<h2>Comportamientos</h2>
+<p>…</p>
 </section></section>
     </div>
   </div>

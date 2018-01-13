@@ -33,6 +33,8 @@ Introduce las siguientes características:
 - Propiedades
 - Configurabilidad
 
+# Propiedades
+
 ## Propiedades
 
 - En PHP, a las variables miembro de una clase (variables de instancia) se las
@@ -126,6 +128,8 @@ $p = new Prueba;
 echo $p->valor;  // Devuelve 25
 $p->valor = 30;  // Da ERROR
 ```
+
+# Configurabilidad
 
 ## Configurabilidad
 
@@ -240,9 +244,11 @@ $p = Yii::createObject([
 
 **Comportamientos**
 
+# Eventos
+
 ## Eventos
 
-- Los eventos permiten inyectar código propio dentro de código ya existente en
+- Los eventos permiten inyectar nuestro código dentro de código ya existente en
   determinados puntos de ejecución.
 
 - Se puede vincular un trozo de código a un evento de forma que, cuando el
@@ -264,13 +270,13 @@ $p = Yii::createObject([
 
 ---
 
-Si una clase necesita disparar eventos o responder a eventos, necesita ser
-subclase directa o indirecta de `\yii\base\Component`.
+Para poder disparar eventos o responder a eventos, la clase en cuestión debe
+ser subclase (directa o indirecta) de `\yii\base\Component`.
 
 ## Manejadores de eventos
 
 - Un manejador de eventos es un *callable* de PHP que se ejecutará cuando se
-  dispare el evento al que vaya asociado.
+  dispare el evento al que se haya vinculado.
 
 - El *callable* puede ser:
 
@@ -303,7 +309,8 @@ Ejercicio: consultar qué información contiene el objeto `$event`.
 
 ## Vincular manejadores a eventos
 
-Para vincular un manejador a un evento se usa el método `\yii\base\Component::on()`:
+Para **vincular un manejador a un evento en un objeto** se usa el método
+`\yii\base\Component::on()` sobre ese objeto:
 
 ```php
 $p = new Prueba;
@@ -323,22 +330,53 @@ $p->on(Prueba::EVENTO_HOLA, function ($event) {
 });
 ```
 
+Cuando el objeto dispare el evento, se ejecutará el manejador vinculado en ese
+evento.
+
 ## Disparar eventos
 
-- Los eventos se disparan llamando al método `\yii\base\Component::trigger()`:
+- Los eventos se disparan llamando al método `\yii\base\Component::trigger()`
+  sobre el objeto que envía (o *dispara*) el evento:
 
 ```php
 $p->trigger(Prueba::EVENTO_HOLA);
 ```
 
-- El evento le llega al objeto sobre el que se ejecuta el método `trigger()`, y
-  responderá ejecutando los manejadores que el objeto tenga vinculados al
-  evento.
+- El objeto `$p` dispara el evento `Prueba::EVENTO_HOLA`, lo que provocará la
+  ejecución de los manejadores que se hayan vinculado a ese evento en ese
+  objeto (además de los *manejadores de clase*, que veremos luego).
+  
+- Si hay varios manejadores para el mismo evento, se ejecutarán en cadena en el
+  orden en el que hayan sido vinculados.
 
-- Si hay varios manejadores para el mismo evento, se ejecutarán en el orden en
-  el que hayan sido vinculados.
+- Un manejador puede hacer `$event->handled = true;` para romper la cadena y
+  evitar que se ejecuten más manejadores de ese evento.
 
 ---
+
+Los manejadores vinculados en otro objeto no se ejecutarán:
+
+```php
+$p = new Prueba;
+$q = new Prueba;
+
+// $p registra un manejador para el evento Prueba::EVENTO_HOLA:
+$p->on(Prueba::EVENTO_HOLA, function ($event) {
+    echo "Soy p";
+});
+
+// $q registra otro manejador para el mismo evento:
+$q->on(Prueba::EVENTO_HOLA, function ($event) {
+    echo "Soy q";
+});
+
+$p->trigger(Prueba::EVENTO_HOLA); // Muestra "Soy p" pero no "Soy q"
+```
+
+Aquí el evento lo dispara `$p` y por tanto no se ejecuta el manejador
+registrado por `$q` (el objeto `$q` no se entera). 
+
+## Constantes para los eventos
 
 - Es recomendable usar constantes de clase para representar los nombres de los
   eventos.
@@ -358,24 +396,143 @@ $p->trigger(Prueba::EVENTO_HOLA);
 ## Manejadores de clase
 
 - Hasta ahora hemos vinculado manejadores a eventos *a nivel de instancia*, es
-  decir, a instancias concretas.
+  decir, en objetos concretos.
 
 - A veces, queremos que *todas* las instancias de una clase respondan de la
   misma forma a un determinado evento.
 
-- En lugar de vincular un manejador de evento a cada instancia, podemos
-  vincular el manejador *a nivel de clase*, es decir, a la propia clase.
+- En lugar de vincular un manejador de evento en cada instancia, podemos
+  vincular el manejador *a nivel de clase*, es decir, en la propia clase.
 
-- Para ello, usamos el método estático `\yii\base\Event::on()`.
+- A estos eventos se los denomina **manejadores de clase**, a diferencia de los
+  manejadores a nivel de instancia, que se denominan **manejadores de
+  instancia**.
+
+- Para ello, usamos el método estático `\yii\base\Event::on()` indicando el
+  nombre de la clase, el nombre del evento y el manejador del evento.
 
 ---
 
 Ejemplo:
 
 ```php
-use \yii\base\Event;
+use yii\base\Event;
 
 Event::on(Prueba::className(), Prueba::EVENTO_HOLA, function ($event) {
     echo "Hola";
 });
 ```
+
+A partir de ahora, todas las instancias (actuales y futuras) de la clase
+`Prueba` (y sus subclases) responderán al evento `Prueba::EVENTO_HOLA`
+mostrando un saludo en pantalla:
+
+```php
+$a = new Prueba;
+$b = new Prueba;
+$a->trigger(Prueba::EVENTO_HOLA);  // Saluda
+$b->trigger(Prueba::EVENTO_HOLA);  // También saluda
+```
+
+## También afecta a las subclases
+
+- Los manejadores a nivel de clase se ejecutarán cuando se produzca un evento
+  disparado por cualquier instancia de esa clase **o de cualquier subclase
+  suya**.
+
+- Dicho de otra forma: el evento se propagará hacia arriba en la jerarquía de
+  herencia y provocará la ejecución de todos los manejadores de clase que
+  encuentre vinculados a ese evento.
+
+- Debido a eso, hay que tener cuidado para evitar la propagación de ese evento
+  a más objetos de los necesarios.
+
+- Por ejemplo, si vinculamos un manejador de evento a la clase
+  `\yii\base\BaseObject`, prácticamente *todas* las instancias de Yii 2
+  podrán responder a ese evento.
+
+---
+
+Ejemplo:
+
+```php
+class Subclase extends Prueba
+{
+    // ...
+}
+
+$s = new Subclase;
+$s->trigger(Prueba::EVENTO_HOLA);  // También saluda
+```
+
+Una instancia de `Subclase` dispara un evento que tiene vinculado un manejador
+en la clase `Prueba`, por lo que también se ejecuta dicho manejador.
+
+---
+
+En los manejadores de clase, se puede acceder al objeto que ha recibido el
+disparo del evento mediante la expresión `$event->sender`:
+
+```php
+use yii\base\Event;
+
+Event::on(Prueba::className(), Prueba::EVENTO_HOLA, function ($event) {
+    // $event->sender es el objeto que ha recibido el evento
+});
+```
+
+## Orden de los manejadores
+
+- El mismo evento puede tener vinculados manejadores de instancia y manejadores
+  de clase.
+
+- En ese caso, al dispararse el evento se ejecutarán primero los manejadores de
+  instancia y después los manejadores de clase (los manejadores de instancia
+  siempre van primero).
+
+## Eventos de clase
+
+- Hasta ahora, los eventos han sido disparados por objetos concretos. A estos
+  eventos se los denomina **eventos de instancia**.
+
+- Podemos hacer que una clase también dispare eventos. Los eventos disparados
+  por una clase se denominan **eventos de clase**.
+
+- Los eventos de clase se disparan llamando al método
+  `\yii\base\Event::trigger()`, indicando el nombre de la clase y el nombre del
+  evento.
+
+- Los eventos de clase sólo provocan la ejecución de manejadores de clase, no
+  de manejadores de instancia.
+
+---
+
+Ejemplo:
+
+```php
+use yii\base\Event;
+
+Event::on(Prueba::className(), Prueba::EVENTO_HOLA, function ($event) {
+    var_dump($event->sender);  // Muestra "null"
+});
+
+// Aquí se dispara el evento de clase.
+// Lo dispara directamente la clase Prueba, no una instancia concreta:
+Event::trigger(Prueba::className(), Prueba::EVENT_HELLO);
+```
+
+Observa que, en este caso, `$event->sender` es `null`, ya que quien dispara el
+evento no es ninguna instancia concreta, sino una clase.
+
+## Resumiendo
+
+- Los eventos de instancia provocan la ejecución de manejadores de instancia y
+  manejadores de clase.
+
+- Los eventos de clase sólo provocan la ejecución de manejadores de clase.
+
+# Comportamientos
+
+## Comportamientos
+
+...

@@ -8,7 +8,7 @@ SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.pdf))
 
-all: $(OBJECTSHTML) $(OBJECTSPDF)
+all: $(OBJECTSHTML) # $(OBJECTSPDF)
 
 html: $(OBJECTSHTML)
 
@@ -25,8 +25,8 @@ $(BUILDDIR)/%.html: $(SRCDIR)/%.md $(PP)
 	rm -f docs/images/*.dat docs/images/*.gv
 
 $(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
-	php -S localhost:8080 &
-	xdg-open http://localhost:8080/$^?print-pdf
+	php -S localhost:8081 &
+	xdg-open http://localhost:8081/$^?print-pdf &
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
