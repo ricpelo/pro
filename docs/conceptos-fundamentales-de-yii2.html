@@ -451,7 +451,137 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section></section>
 <section><section id="comportamientos" class="title-slide slide level1"><h1>Comportamientos</h1></section><section id="comportamientos-1" class="slide level2">
 <h2>Comportamientos</h2>
-<p>…</p>
+<ul>
+<li><p>Los comportamientos (o <em>behaviors</em>) permiten ampliar la funcionalidad de una clase sin afectar a su herencia.</p></li>
+<li><p>En otros lenguajes de programación se denominan <a href="https://es.wikipedia.org/wiki/Mixin"><em>mixins</em></a>.</p></li>
+<li><p>Al <em>acoplar</em> un comportamiento a un componente se <em>inyectan</em> los métodos y las propiedades del comportamiento dentro del componente.</p></li>
+<li><p>El componente podrá usar esos métodos y propiedades como si estuvieran definidos en la clase del componente.</p></li>
+<li><p>Además, un comportamiento puede responder a los eventos disparados por el componente, lo que le permite alterar la ejecución normal del código del componente.</p></li>
+</ul>
+</section><section id="definición-de-comportamientos" class="slide level2">
+<h2>Definición de comportamientos</h2>
+<p>Un comportamiento es una subclase (directa o indirecta) de <code>\yii\base\Behavior</code>:</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb19"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">class</span> Comportamiento <span class="kw">extends</span> \yii\base\Behavior</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">    <span class="kw">public</span> <span class="va">$prop1</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">    <span class="kw">private</span> <span class="va">$_prop2</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">    <span class="kw">public</span> <span class="kw">function</span> pepe<span class="ot">()</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">    {</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8">        <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">    }</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11">    <span class="kw">public</span> <span class="kw">function</span> getProp2<span class="ot">()</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">    {</a>
+<a class="sourceLine" id="cb19-13" data-line-number="13">        <span class="kw">return</span> <span class="va">$this</span>-&gt;_prop2<span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14">    }</a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16">    <span class="kw">public</span> <span class="kw">function</span> setProp2<span class="ot">(</span><span class="va">$valor</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17">    {</a>
+<a class="sourceLine" id="cb19-18" data-line-number="18">        <span class="va">$this</span>-&gt;_prop2 = <span class="va">$valor</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">    }</a>
+<a class="sourceLine" id="cb19-20" data-line-number="20">}</a></code></pre></div>
+</div><div class="column" style="width:35%;">
+<p><br />
+</p>
+<ul>
+<li><p>Este comportamiento define dos propiedades (<code>prop1</code> y <code>prop2</code>) y un método (<code>pepe()</code>).</p></li>
+<li><p>Cuando se acople a un componente, éste dispondrá de esas propiedades y ese método.</p></li>
+</ul>
+</div>
+</div>
+</section><section id="acoplar-comportamientos-a-un-componente" class="slide level2">
+<h2>Acoplar comportamientos a un componente</h2>
+<ul>
+<li><p>Los comportamientos se pueden acoplar de forma <em>estática</em> o <em>dinámica</em>.</p></li>
+<li><p>El acoplamiento estático es el más usado.</p></li>
+</ul>
+</section><section id="acoplamiento-estático-de-componentes" class="slide level2">
+<h2>Acoplamiento estático de componentes</h2>
+<ul>
+<li><p>Se sobreescribe el método <code>behaviors()</code> del componente al que se desea acoplar el comportamiento.</p></li>
+<li><p>El método <code>behaviors()</code> debe devolver un array de configuraciones de comportamientos.</p></li>
+<li><p>Cada configuración puede ser:</p>
+<ul>
+<li><p>El nombre de una clase comportamiento, o</p></li>
+<li><p>Un array de configuración.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Ejemplo de acoplamiento estático:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">class</span> Usuario <span class="kw">extends</span> \yii\db\ActiveRecord</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">    <span class="kw">public</span> <span class="kw">function</span> behaviors<span class="ot">()</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">    {</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">        <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">            <span class="co">// anónimo, sólo el nombre de la clase</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">            Comportamiento::className<span class="ot">(),</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">            <span class="co">// con nombre, sólo el nombre de la case</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">            <span class="st">&#39;comp2&#39;</span> =&gt; Comportamiento::className<span class="ot">(),</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">            <span class="co">// anónimo, array de configuración</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13">            <span class="ot">[</span></a>
+<a class="sourceLine" id="cb20-14" data-line-number="14">                <span class="st">&#39;class&#39;</span> =&gt; Comportamiento::className<span class="ot">(),</span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15">                <span class="st">&#39;prop1&#39;</span> =&gt; <span class="st">&#39;valor1&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16">                <span class="st">&#39;prop2&#39;</span> =&gt; <span class="st">&#39;valor2&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17">            <span class="ot">],</span></a>
+<a class="sourceLine" id="cb20-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb20-19" data-line-number="19">            <span class="co">// con nombre, array de configuración</span></a>
+<a class="sourceLine" id="cb20-20" data-line-number="20">            <span class="st">&#39;comp4&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb20-21" data-line-number="21">                <span class="st">&#39;class&#39;</span> =&gt; Comportamiento::className<span class="ot">(),</span></a>
+<a class="sourceLine" id="cb20-22" data-line-number="22">                <span class="st">&#39;prop1&#39;</span> =&gt; <span class="st">&#39;valor1&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb20-23" data-line-number="23">                <span class="st">&#39;prop2&#39;</span> =&gt; <span class="st">&#39;valor2&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb20-24" data-line-number="24">            <span class="ot">],</span></a>
+<a class="sourceLine" id="cb20-25" data-line-number="25">        <span class="ot">];</span></a>
+<a class="sourceLine" id="cb20-26" data-line-number="26">    }</a>
+<a class="sourceLine" id="cb20-27" data-line-number="27">}</a></code></pre></div>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Se le puede asociar un nombre a un comportamiento especificándolo en el array en la clave correspondiente a la configuración de ese comportamiento.</p></li>
+<li><p>En tal caso, al comportamiento se le denomina <strong>comportamiento con nombre</strong>.</p></li>
+<li><p>En el ejemplo anterior, hay dos comportamientos con nombre: <code>comp2</code> y <code>comp4</code>.</p></li>
+<li><p>Si un comportamiento no lleva asociado ningún nombre, se le denomina <strong>comportamiento anónimo</strong>.</p></li>
+</ul>
+</section><section id="acoplamiento-dinámico-de-comportamientos" class="slide level2">
+<h2>Acoplamiento dinámico de comportamientos</h2>
+<p>Para acoplar un comportamiento dinámicamente, se llama al método <code>\yii\base\Component::attachBehavior()</code> method del componente al que se le va a acoplar el comportamiento:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co">// acopla un objeto comportamiento</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="va">$componente</span>-&gt;attachBehavior<span class="ot">(</span><span class="st">&#39;comp1&#39;</span><span class="ot">,</span> <span class="kw">new</span> Comportamiento<span class="ot">);</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">// acopla una clase comportamiento</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="va">$componente</span>-&gt;attachBehavior<span class="ot">(</span><span class="st">&#39;comp2&#39;</span><span class="ot">,</span> Comportamiento::className<span class="ot">());</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co">// acopla un array de configuración</span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="va">$componente</span>-&gt;attachBehavior<span class="ot">(</span><span class="st">&#39;comp3&#39;</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">    <span class="st">&#39;class&#39;</span> =&gt; Comportamiento::className<span class="ot">(),</span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">    <span class="st">&#39;prop1&#39;</span> =&gt; <span class="st">&#39;valor1&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb21-11" data-line-number="11">    <span class="st">&#39;prop2&#39;</span> =&gt; <span class="st">&#39;valor2&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="ot">]);</span></a></code></pre></div>
+</section><section id="uso-de-comportamientos" class="slide level2">
+<h2>Uso de comportamientos</h2>
+<ul>
+<li><p>Para usar un comportamiento, primero hay que acoplarlo a un componente usando uno de los métodos que se han visto antes.</p></li>
+<li><p>A partir de ese momento, el componente podrá:</p>
+<ul>
+<li><p>Acceder a cualquier variable de instancia pública o propiedad pública definida en el comportamiento como si estuvieran realmente definidas en el componente.</p></li>
+<li><p>Invocar a cualquier método público definido en el comportamiento como si estuviera definido en el componente.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Ejemplo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co">// &quot;prop1&quot; es una propiedad definida en la clase Comportamiento</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">echo</span> <span class="va">$componente</span>-&gt;prop1<span class="ot">;</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="va">$componente</span>-&gt;prop1 = <span class="va">$valor</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">// pepe() es un método definido en la clase Comportamiento</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="va">$componente</span>-&gt;pepe<span class="ot">();</span></a></code></pre></div>
+<p>Como se ve, aunque <code>$componente</code> no tiene definda la propiedad <code>prop1</code> ni el método <code>pepe()</code>, puede usarlos como si fueran parte de la definición del componente gracias a que tiene acoplado el comportamiento <code>Comportamiento</code>.</p>
 </section></section>
     </div>
   </div>

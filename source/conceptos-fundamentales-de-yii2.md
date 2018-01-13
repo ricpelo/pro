@@ -535,4 +535,185 @@ evento no es ninguna instancia concreta, sino una clase.
 
 ## Comportamientos
 
-...
+- Los comportamientos (o *behaviors*) permiten ampliar la funcionalidad de una
+  clase sin afectar a su herencia.
+
+- En otros lenguajes de programación se denominan
+  [*mixins*](https://es.wikipedia.org/wiki/Mixin).
+
+- Al *acoplar* un comportamiento a un componente se *inyectan* los métodos y
+  las propiedades del comportamiento dentro del componente.
+
+- El componente podrá usar esos métodos y propiedades como si estuvieran
+  definidos en la clase del componente.
+
+- Además, un comportamiento puede responder a los eventos disparados por el
+  componente, lo que le permite alterar la ejecución normal del código del
+  componente.
+
+## Definición de comportamientos
+
+Un comportamiento es una subclase (directa o indirecta) de
+`\yii\base\Behavior`:
+
+:::::::::::::: {.columns}
+
+::: {.column width="65%"}
+
+```php
+class Comportamiento extends \yii\base\Behavior
+{
+    public $prop1;
+    private $_prop2;
+
+    public function pepe()
+    {
+        // ...
+    }
+
+    public function getProp2()
+    {
+        return $this->_prop2;
+    }
+
+    public function setProp2($valor)
+    {
+        $this->_prop2 = $valor;
+    }
+}
+```
+
+:::
+
+::: {.column width="35%"}
+
+\
+
+- Este comportamiento define dos propiedades (`prop1` y `prop2`) y un método
+  (`pepe()`).
+
+- Cuando se acople a un componente, éste dispondrá de esas propiedades y ese
+  método.
+
+:::
+
+::::::::::::::
+
+## Acoplar comportamientos a un componente
+
+- Los comportamientos se pueden acoplar de forma *estática* o *dinámica*.
+
+- El acoplamiento estático es el más usado.
+
+## Acoplamiento estático de componentes
+
+- Se sobreescribe el método `behaviors()` del componente al que se desea
+  acoplar el comportamiento.
+
+- El método `behaviors()` debe devolver un array de configuraciones de
+  comportamientos.
+
+- Cada configuración puede ser:
+
+  - El nombre de una clase comportamiento, o
+
+  - Un array de configuración.
+
+---
+
+Ejemplo de acoplamiento estático:
+
+```php
+class Usuario extends \yii\db\ActiveRecord
+{
+    public function behaviors()
+    {
+        return [
+            // anónimo, sólo el nombre de la clase
+            Comportamiento::className(),
+
+            // con nombre, sólo el nombre de la case
+            'comp2' => Comportamiento::className(),
+
+            // anónimo, array de configuración
+            [
+                'class' => Comportamiento::className(),
+                'prop1' => 'valor1',
+                'prop2' => 'valor2',
+            ],
+
+            // con nombre, array de configuración
+            'comp4' => [
+                'class' => Comportamiento::className(),
+                'prop1' => 'valor1',
+                'prop2' => 'valor2',
+            ],
+        ];
+    }
+}
+```
+
+---
+
+- Se le puede asociar un nombre a un comportamiento especificándolo en el array
+  en la clave correspondiente a la configuración de ese comportamiento.
+
+- En tal caso, al comportamiento se le denomina **comportamiento con nombre**.
+
+- En el ejemplo anterior, hay dos comportamientos con nombre: `comp2` y
+  `comp4`.
+
+- Si un comportamiento no lleva asociado ningún nombre, se le denomina
+  **comportamiento anónimo**.
+
+## Acoplamiento dinámico de comportamientos
+
+Para acoplar un comportamiento dinámicamente, se llama al método
+`\yii\base\Component::attachBehavior()` method del componente al que se le va a
+acoplar el comportamiento:
+
+```php
+// acopla un objeto comportamiento
+$componente->attachBehavior('comp1', new Comportamiento);
+
+// acopla una clase comportamiento
+$componente->attachBehavior('comp2', Comportamiento::className());
+
+// acopla un array de configuración
+$componente->attachBehavior('comp3', [
+    'class' => Comportamiento::className(),
+    'prop1' => 'valor1',
+    'prop2' => 'valor2',
+]);
+```
+
+## Uso de comportamientos
+
+- Para usar un comportamiento, primero hay que acoplarlo a un componente usando
+  uno de los métodos que se han visto antes.
+
+- A partir de ese momento, el componente podrá:
+
+  - Acceder a cualquier variable de instancia pública o propiedad pública
+    definida en el comportamiento como si estuvieran realmente definidas en el
+    componente.
+
+  - Invocar a cualquier método público definido en el comportamiento como si
+    estuviera definido en el componente.
+
+---
+
+Ejemplo:
+
+```php
+// "prop1" es una propiedad definida en la clase Comportamiento
+echo $componente->prop1;
+$componente->prop1 = $valor;
+
+// pepe() es un método definido en la clase Comportamiento
+$componente->pepe();
+```
+
+Como se ve, aunque `$componente` no tiene definda la propiedad `prop1` ni el
+método `pepe()`, puede usarlos como si fueran parte de la definición del
+componente gracias a que tiene acoplado el comportamiento `Comportamiento`.
