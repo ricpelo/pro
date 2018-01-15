@@ -16,6 +16,71 @@
       div.line-block{white-space: pre-line;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -67,10 +132,113 @@
 <li><p>Debe tener permiso de ejecución para que los usuarios puedan ejecutar la aplicación de consola mediante el comando:</p>
 <pre class="shell"><code>./yii &lt;ruta&gt; [argumentos] [opciones]</code></pre></li>
 </ul>
+</section><section id="qué-hacen-los-scripts-de-entrada" class="slide level2">
+<h2>¿Qué hacen los scripts de entrada?</h2>
+<p>Principalmente, hacen lo siguiente:</p>
+<ul>
+<li>Define constantes globales.</li>
+<li>Registran el autoloader de Composer.</li>
+<li>Incluye el archivo de la clase Yii.</li>
+<li>Carga la configuración de la aplicación.</li>
+<li>Crea y configura una instancia de la aplicación.</li>
+<li>Llama a <code>yii\base\Application::run()</code> para procesar la petición entrante.</li>
+</ul>
+</section><section id="ejemplo" class="slide level2">
+<h2>Ejemplo</h2>
+<p>Script de entrada de la aplicación web de la plantilla <code>yii2-app-basic</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">&lt;?php</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">defined</span><span class="ot">(</span><span class="st">&#39;YII_DEBUG&#39;</span><span class="ot">)</span> <span class="kw">or</span> <span class="fu">define</span><span class="ot">(</span><span class="st">&#39;YII_DEBUG&#39;</span><span class="ot">,</span> <span class="kw">true</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="fu">defined</span><span class="ot">(</span><span class="st">&#39;YII_ENV&#39;</span><span class="ot">)</span> <span class="kw">or</span> <span class="fu">define</span><span class="ot">(</span><span class="st">&#39;YII_ENV&#39;</span><span class="ot">,</span> <span class="st">&#39;dev&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">// registra autoloader de Composer</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">// incluye el archivo de la clase Yii</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/yiisoft/yii2/Yii.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">// carga la configuración de la aplicación</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="va">$config</span> = <span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../config/web.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">// crea, configura y ejecuta la aplicación</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
 </section></section>
 <section><section id="aplicaciones" class="title-slide slide level1"><h1>Aplicaciones</h1></section><section id="aplicaciones-1" class="slide level2">
 <h2>Aplicaciones</h2>
-<p>…</p>
+<ul>
+<li><p>Las aplicaciones son los objetos que gobiernan la estructura general y el ciclo de vida de una aplicación Yii 2.</p></li>
+<li><p>Cada aplicación en Yii 2 contiene un único objeto aplicación.</p></li>
+<li><p>Ese objeto se crea en el script de entrada.</p></li>
+<li><p>Se puede acceder a él desde cualquier parte usando la expresión <code>\Yii::$app</code>.</p></li>
+</ul>
+</section><section id="configuración-de-aplicaciones" class="slide level2">
+<h2>Configuración de aplicaciones</h2>
+<ul>
+<li>Cuando un script de entrada crea una aplicación, cargará su configuración y se la aplicará a la aplicación al instanciar el objeto aplicación:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">&lt;?php</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/yiisoft/yii2/Yii.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">// carga la configuración de la aplicación desde el archivo config/web.php</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="va">$config</span> = <span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../config/web.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">// instancia, configura y ejecuta la aplicación</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Al igual que pasa con las configuraciones normales, la configuración de la aplicación especifica cómo inicializar las propiedades del objeto aplicación.</p></li>
+<li><p>Como las configuraciones de aplicación suelen ser muy complejas, normalmente se mantienen en archivos de configuración separados, como el <code>config/web.php</code> del ejemplo anterior.</p></li>
+<li><p><code>config/web.php</code> es el archivo principal de configuración de la aplicación web en la plantilla básica de Yii 2.</p></li>
+</ul>
+</section><section id="propiedades-de-la-aplicación" class="slide level2">
+<h2>Propiedades de la aplicación</h2>
+<ul>
+<li><p>Las aplicaciones tienen muchas propiedades importantes que se pueden configurar mediante una configuración de aplicación.</p></li>
+<li><p>Por ejemplo, las aplicaciones deben saber cómo y dónde cargar controladores, dónde guardar los archivos temporales, etc.</p></li>
+<li><p>Las dos únicas propiedades obligatorias son:</p>
+<ul>
+<li><p><code>id</code>: un identificador único que diferencia una aplicación de las demás.</p></li>
+<li><p><code>basePath</code>: especifica el directorio raíz de la aplicación (a donde apunta el alias <code>@app</code>).</p></li>
+</ul></li>
+</ul>
+</section><section id="propiedades-importantes-de-una-aplicación" class="slide level2">
+<h2>Propiedades importantes de una aplicación</h2>
+<dl>
+<dt><code>components</code></dt>
+<dd><p>Permite registrar (y configurar) en la aplicación los <strong>componentes de aplicación</strong> que alojará la misma (recuerda que una aplicación es un <em>localizador de servicios</em>). Por ejemplo:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">    <span class="st">&#39;components&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">        <span class="st">&#39;cache&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">            <span class="st">&#39;class&#39;</span> =&gt; <span class="st">&#39;yii\caching\FileCache&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">        <span class="ot">],</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">        <span class="st">&#39;user&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">            <span class="st">&#39;identityClass&#39;</span> =&gt; <span class="st">&#39;app\models\User&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">            <span class="st">&#39;enableAutoLogin&#39;</span> =&gt; <span class="kw">true</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">        <span class="ot">],</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="ot">],</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="ot">]</span></a></code></pre></div>
+<p>Aquí se especifican dos componentes de aplicación: <code>cache</code> y <code>user.</code> Cada componente va asociada con la configuración que se usará al instanciar ese componente. Después se podrá acceder a ellos haciendo, por ejemplo, <code>\Yii::$app-&gt;cache</code>.</p>
+</dd>
+</dl>
+</section><section class="slide level2">
+
+<dl>
+<dt><code>aliases</code></dt>
+<dd><p>Esta propiedad te permite definir un conjunto de alias usando un array. Por ejemplo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">    <span class="st">&#39;aliases&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">        <span class="st">&#39;@nombre1&#39;</span> =&gt; <span class="st">&#39;ruta/del/alias1&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">        <span class="st">&#39;@nombre2&#39;</span> =&gt; <span class="st">&#39;ruta/del/alias2&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="ot">],</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="ot">]</span></a></code></pre></div>
+<p>Equivale a hacer:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb6-1" data-line-number="1">\Yii::setAlias<span class="ot">(</span><span class="st">&#39;@nombre1&#39;</span><span class="ot">,</span> <span class="st">&#39;ruta/del/alias1&#39;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">\Yii::setAlias<span class="ot">(</span><span class="st">&#39;@nombre2&#39;</span><span class="ot">,</span> <span class="st">&#39;ruta/del/alias2&#39;</span><span class="ot">)</span></a></code></pre></div>
+</dd>
+</dl>
 </section></section>
 <section><section id="componentes-de-aplicación" class="title-slide slide level1"><h1>Componentes de aplicación</h1></section><section id="componentes-de-aplicación-1" class="slide level2">
 <h2>Componentes de aplicación</h2>
