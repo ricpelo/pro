@@ -19,7 +19,7 @@ Yii2](http://www.yiiframework.com/doc-2.0/images/application-structure.png){.pla
   una aplicación.
 
 - Una aplicación (ya sea web o de consola) tiene siempre un único script de
-  etrnada.
+  entrada.
 
 - Los usuarios finales realizan peticiones a los scripts de entrada, los cuales
   instanciarán un objeto aplicación y le redirigirá las peticiones a él.
@@ -114,15 +114,15 @@ $config = require __DIR__ . '/../config/web.php';
 
 ---
 
-- Al igual que pasa con las configuraciones normales, la configuración de la
-  aplicación especifica cómo inicializar las propiedades del objeto aplicación.
+- Como pasa con cualquier otra configuración, la configuración de la aplicación
+  especifica cómo inicializar las propiedades del objeto aplicación.
 
 - Como las configuraciones de aplicación suelen ser muy complejas, normalmente
   se mantienen en archivos de configuración separados, como el `config/web.php`
   del ejemplo anterior. 
 
-- `config/web.php` es el archivo principal de configuración de la aplicación
-  web en la plantilla básica de Yii 2.
+- Precisamente, `config/web.php` es el archivo principal de configuración de la
+  aplicación web en la plantilla básica de Yii 2.
 
 ## Propiedades de la aplicación
 
@@ -162,7 +162,7 @@ aplicación** que alojará la misma (recuerda que una aplicación es un
     ```
 
     Aquí se especifican dos componentes de aplicación: `cache` y `user.` Cada
-    componente va asociada con la configuración que se usará al instanciar ese
+    componente va asociado con la configuración que se usará al instanciar ese
     componente. Después se podrá acceder a ellos haciendo, por ejemplo,
     `\Yii::$app->cache`.
 
@@ -170,8 +170,7 @@ aplicación** que alojará la misma (recuerda que una aplicación es un
 
 `aliases`
 
-:   Esta propiedad te permite definir un conjunto de alias usando un array. Por
-ejemplo:
+:   Te permite definir un conjunto de alias usando un array. Por ejemplo:
 
     ```php
     [
