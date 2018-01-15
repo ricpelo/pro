@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Estructura de una aplicación Yii 2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Estructura de una aplicación Yii 2</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2017-18</p>
+</section>
+
+<section><section id="introducción" class="title-slide slide level1"><h1>Introducción</h1></section><section id="introducción-1" class="slide level2">
+<h2>Introducción</h2>
+<figure>
+<img data-src="http://www.yiiframework.com/doc-2.0/images/application-structure.png" alt="Estructura a gran escala de una aplicación Yii2" class="plain" /><figcaption>Estructura a gran escala de una aplicación Yii2</figcaption>
+</figure>
+</section></section>
+<section><section id="scripts-de-entrada" class="title-slide slide level1"><h1>Scripts de entrada</h1></section><section id="scripts-de-entrada-1" class="slide level2">
+<h2>Scripts de entrada</h2>
+<ul>
+<li><p>Los <strong>scripts de entrada</strong> son el primer paso en el proceso de arranque de una aplicación.</p></li>
+<li><p>Una aplicación (ya sea web o de consola) tiene siempre un único script de etrnada.</p></li>
+<li><p>Los usuarios finales realizan peticiones a los scripts de entrada, los cuales instanciarán un objeto aplicación y le redirigirá las peticiones a él.</p></li>
+</ul>
+</section><section id="script-de-entrada-de-una-aplicación-web" class="slide level2">
+<h2>Script de entrada de una aplicación web</h2>
+<ul>
+<li><p>El script de entrada de una aplicación web se debe almacenar en un directorio accesible públicamente desde el exterior a través del servidor web, de forma que los usuarios finales pueda alcanzarlo.</p></li>
+<li><p>Normalmente se llama <code>index.php</code>, pero no es imprescindible.</p></li>
+<li><p>En la plantilla básica se encuentra en <code>web/index.php</code>.</p></li>
+</ul>
+</section><section id="script-de-entrada-de-una-aplicación-de-consola" class="slide level2">
+<h2>Script de entrada de una aplicación de consola</h2>
+<ul>
+<li><p>El script de entrada de una aplicación de consola se guarda normalmente en la ruta base de la aplicación y con el nombre <code>yii</code> (así ocurre en la plantilla básica).</p></li>
+<li><p>Debe tener permiso de ejecución para que los usuarios puedan ejecutar la aplicación de consola mediante el comando:</p>
+<pre class="shell"><code>./yii &lt;ruta&gt; [argumentos] [opciones]</code></pre></li>
+</ul>
+</section></section>
+<section><section id="aplicaciones" class="title-slide slide level1"><h1>Aplicaciones</h1></section><section id="aplicaciones-1" class="slide level2">
+<h2>Aplicaciones</h2>
+<p>…</p>
+</section></section>
+<section><section id="componentes-de-aplicación" class="title-slide slide level1"><h1>Componentes de aplicación</h1></section><section id="componentes-de-aplicación-1" class="slide level2">
+<h2>Componentes de aplicación</h2>
+<p>…</p>
+</section></section>
+<section><section id="controladores" class="title-slide slide level1"><h1>Controladores</h1></section><section id="controladores-1" class="slide level2">
+<h2>Controladores</h2>
+<p>…</p>
+</section></section>
+<section><section id="modelos" class="title-slide slide level1"><h1>Modelos</h1></section><section id="modelos-1" class="slide level2">
+<h2>Modelos</h2>
+<p>…</p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'zoom', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 1080,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true }
+        ],
+        menu: {
+          openButton: false
+        }
+      });
+    </script>
+    </body>
+</html>
