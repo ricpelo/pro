@@ -188,17 +188,262 @@ aplicación** que alojará la misma (recuerda que una aplicación es un
     \Yii::setAlias('@nombre2', 'ruta/del/alias2')
     ```
 
+---
+
+`bootstrap`
+
+:   Permite definir componentes que se cargarán durante el proceso de arranque
+de la aplicación.
+
+    Recordemos que un componente de aplicación, normalmente, no se carga hasta
+    que se accede a él por primera vez indicando el ID del servicio asociado en
+    `\Yii::$app->ID`. En cambio, a veces interesa que determinados componentes
+    se carguen y se ejecuten **siempre** al iniciarse la aplicación:
+
+    ```php
+    [
+        'bootstrap' => [
+            'app\components\Profiler',
+        ],
+    ]
+    ```
+
+---
+
+`language`
+
+:   Especifica el idioma en el que la aplicación deberá mostrar el contenido a
+los usuarios finales.
+
+    El valor predeterminado es `en`.
+
+    Para usar el español de España, lo correcto sería establecerlo a `es-ES`:
+
+    ```php
+    [
+        'language' => 'es-ES',
+    ]
+    ```
+
+---
+
+`timeZone`
+
+:   Define la zona horaria con la que trabajará la aplicación a la hora de
+manipular fechas y horas.
+
+    El valor predeterminado es `UTC`.
+
+    En España, lo correcto sería usar `Europe/Madrid`, pero más correcto sería
+    usar la zona horaria que el usuario establezca en su perfil.
+
+    ```php
+    [
+        'timeZone' => 'Europe/Madrid',
+    ]
+    ```
+
 # Componentes de aplicación
 
 ## Componentes de aplicación
 
-...
+- Recordemos que las aplicaciones son *localizadores de servicios*.
+
+- Las aplicaciones contienen los llamados **componentes de aplicación**, los
+  cuales proporcionan diferentes servicios útiles durante el procesamiento de
+  las peticiones.
+
+- Por ejemplo:
+
+  - El componente `urlManager` es responsable de encaminar (*enrutar*) las
+    peticiones web a los controladores apropiados.
+
+  - El componente `db` proporciona servicios relacionados con la base de datos.
+
+---
+
+- Cada componente de aplicación tiene un ID que lo identifica de forma única
+  entre los demás componentes de la misma aplicación.
+
+- Se puede acceder a un componente de aplicación mediante la expresión
+  `\Yii::$app->ID`.
+
+- Por ejemplo, se puede usar `\Yii::$app->db` para acceder a la conexión a la
+  base de datos, o `\Yii::$app->cache` para obtener la caché principal
+  registrada en la aplicación.
+
+- Un componente de aplicación se crea la primera vez que se accede a él usando
+  la expresión anterior. Los demás accesos posteriores devolverán la misma
+  instancia sin crear otro objeto.
+
+---
+
+Como vimos anteriormente, los componentes de aplicación se definen (o
+*registran*) a través de la propiedad `components` de la configuración de la
+aplicación:
+
+```php
+[
+    'components' => [
+        // registra el componente "cache" usando un nombre de clase:
+        'cache' => 'yii\caching\ApcCache',
+
+        // registra el componente "db" usando una configuración:
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=localhost;dbname=demo',
+            'username' => 'usuario',
+            'password' => 'contraseña',
+        ],
+
+        // registra el componente "search" usando una función anónima:
+        'search' => function () {
+            return new app\components\SolrService;
+        },
+    ],
+]
+```
+
+## Componentes de aplicación principales
+
+- Yii 2 define un conjunto de componentes de aplicación *principales* o
+  predefinidos, con IDs fijos y configuraciones predeterminadas.
+
+- Gracias a esos componentes principales, las aplicaciones pueden procesar las
+  peticiones de los usuarios.
+
+- Es posible configurar y personalizar esos componentes como si fueran
+  componentes de aplicación normales. Cuando se configura un componente de
+  aplicación principal, si no se indica la clase a usar, se usará su clase
+  predeterminada.
+
+---
+
+Lista de componentes de aplicación principales:
+
+- `assetManager`: gestiona los *asset bundles* y la publicación de *assets*.
+- `db`: representa la conexión a la base de datos.
+- `errorHandler`: gestiona los errores y excepciones de PHP.
+- `formatter`: formatea los datos para que los visualicen los usuarios finales.
+- `i18n`: se encarga de la traducción de mensajes y la internacionalización.
+- `log`: gestiona los registros de la aplicación.
+- `mailer`: se encarga de la composición y envío de e-mails.
+- `response`: representa la respuesta que va a ser enviada al usuario final.
+- `request`: representa la petición recibida del usuario final.
+- `session`: representa la información de la sesión (sólo en aplicaciones web).
+- `urlManager`: se encarga de la interpretación y creación de URLs.
+- `user`: representa la información de autenticación de usuarios.
+- `view`: gestiona el renderizado de las vistas.
 
 # Controladores
 
 ## Controladores
 
-...
+- Los **controladores** son parte de la arquitectura **MVC**.
+
+- Son instancias de subclases (directas o indirectas) de `\yii\base\Controller`.
+
+- Son los responsables de procesar las peticiones y generar las respuestas.
+
+## Acciones
+
+- Los controladores se componen de **acciones**.
+
+- La acción es la unidad mínima de ejecución en una aplicación MVC.
+
+- Es decir, es la unidad más básica que un usuario final puede solicitar que se
+  ejecute.
+
+- Un controlador puede tener una o más acciones.
+
+---
+
+Ejemplo:
+
+```php
+namespace app\controllers;
+
+use app\models\Post;
+
+class PostController extends \yii\web\Controller
+{
+    public function actionView($id)
+    {
+        $model = Post::findOne($id);
+        if ($model === null) {
+            throw new \yii\web\NotFoundHttpException;
+        }
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+}
+```
+
+- En la acción `view` (definida por el método `actionView()`), se carga el
+  modelo que corresponda al ID solicitado en `$id`. Si el modelo se carga
+  correctamente, se muestra usando una vista llamada `view`. En caso contrario,
+  se lanza una excepción.
+
+---
+
+```php
+namespace app\controllers;
+
+class PostController extends \yii\web\Controller
+{
+    public function actionCreate()
+    {
+        $model = new \app\models\Post;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+}
+```
+
+- En la acción `create` (definida por el método `actionCreate()`) se intenta
+  rellenar una instancia nueva del modelo usando los datos de la petición y
+  luego se guarda el modelo. Si hay éxito se redirige al navegador a la acción
+  `view` pasándole el ID del modelo recién creado. En caso contrario, se
+  muestra la vista `create` para que los usuarios puedan introducir los datos.
+
+## Rutas
+
+- Los usuarios finales indican las acciones que desean ejecutar mediante las
+  denominadas **rutas**.
+
+- Una ruta es una cadena que consta de:
+
+  El ID de un controlador
+
+  : Una cadena que identifica de forma única a un controlador de entre todos
+  los controladores de la misma aplicación.
+
+  El ID de una acción
+
+  : Una cadena que identifica de forma única a una acción de entre todas las
+  acciones del mismo controlador.
+
+- Las rutas toman la siguiente forma: `IDcontrolador/IDacción`.
+
+- Por ejemplo: `socios/crear` (controlador `socios`, acción `crear`).
+
+---
+
+Para indicar una ruta, se utiliza el parámetro `r` enviado mediante GET.
+
+Por tanto, si un usuario solicita la URL
+
+`http://host/index.php?r=site/index`
+
+se ejecutará la acción `index` del controlador `site`.
 
 # Modelos
 

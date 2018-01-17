@@ -239,14 +239,194 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb6-2" data-line-number="2">\Yii::setAlias<span class="ot">(</span><span class="st">&#39;@nombre2&#39;</span><span class="ot">,</span> <span class="st">&#39;ruta/del/alias2&#39;</span><span class="ot">)</span></a></code></pre></div>
 </dd>
 </dl>
+</section><section class="slide level2">
+
+<dl>
+<dt><code>bootstrap</code></dt>
+<dd><p>Permite definir componentes que se cargarán durante el proceso de arranque de la aplicación.</p>
+<p>Recordemos que un componente de aplicación, normalmente, no se carga hasta que se accede a él por primera vez indicando el ID del servicio asociado en <code>\Yii::$app-&gt;ID</code>. En cambio, a veces interesa que determinados componentes se carguen y se ejecuten <strong>siempre</strong> al iniciarse la aplicación:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">    <span class="st">&#39;bootstrap&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">        <span class="st">&#39;app\components\Profiler&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="ot">],</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="ot">]</span></a></code></pre></div>
+</dd>
+</dl>
+</section><section class="slide level2">
+
+<dl>
+<dt><code>language</code></dt>
+<dd><p>Especifica el idioma en el que la aplicación deberá mostrar el contenido a los usuarios finales.</p>
+<p>El valor predeterminado es <code>en</code>.</p>
+<p>Para usar el español de España, lo correcto sería establecerlo a <code>es-ES</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">    <span class="st">&#39;language&#39;</span> =&gt; <span class="st">&#39;es-ES&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="ot">]</span></a></code></pre></div>
+</dd>
+</dl>
+</section><section class="slide level2">
+
+<dl>
+<dt><code>timeZone</code></dt>
+<dd><p>Define la zona horaria con la que trabajará la aplicación a la hora de manipular fechas y horas.</p>
+<p>El valor predeterminado es <code>UTC</code>.</p>
+<p>En España, lo correcto sería usar <code>Europe/Madrid</code>, pero más correcto sería usar la zona horaria que el usuario establezca en su perfil.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">    <span class="st">&#39;timeZone&#39;</span> =&gt; <span class="st">&#39;Europe/Madrid&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="ot">]</span></a></code></pre></div>
+</dd>
+</dl>
 </section></section>
 <section><section id="componentes-de-aplicación" class="title-slide slide level1"><h1>Componentes de aplicación</h1></section><section id="componentes-de-aplicación-1" class="slide level2">
 <h2>Componentes de aplicación</h2>
-<p>…</p>
+<ul>
+<li><p>Recordemos que las aplicaciones son <em>localizadores de servicios</em>.</p></li>
+<li><p>Las aplicaciones contienen los llamados <strong>componentes de aplicación</strong>, los cuales proporcionan diferentes servicios útiles durante el procesamiento de las peticiones.</p></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>El componente <code>urlManager</code> es responsable de encaminar (<em>enrutar</em>) las peticiones web a los controladores apropiados.</p></li>
+<li><p>El componente <code>db</code> proporciona servicios relacionados con la base de datos.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Cada componente de aplicación tiene un ID que lo identifica de forma única entre los demás componentes de la misma aplicación.</p></li>
+<li><p>Se puede acceder a un componente de aplicación mediante la expresión <code>\Yii::$app-&gt;ID</code>.</p></li>
+<li><p>Por ejemplo, se puede usar <code>\Yii::$app-&gt;db</code> para acceder a la conexión a la base de datos, o <code>\Yii::$app-&gt;cache</code> para obtener la caché principal registrada en la aplicación.</p></li>
+<li><p>Un componente de aplicación se crea la primera vez que se accede a él usando la expresión anterior. Los demás accesos posteriores devolverán la misma instancia sin crear otro objeto.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Como vimos anteriormente, los componentes de aplicación se definen (o <em>registran</em>) a través de la propiedad <code>components</code> de la configuración de la aplicación:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">    <span class="st">&#39;components&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">        <span class="co">// registra el componente &quot;cache&quot; usando un nombre de clase:</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">        <span class="st">&#39;cache&#39;</span> =&gt; <span class="st">&#39;yii\caching\ApcCache&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">        <span class="co">// registra el componente &quot;db&quot; usando una configuración:</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">        <span class="st">&#39;db&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">            <span class="st">&#39;class&#39;</span> =&gt; <span class="st">&#39;yii\db\Connection&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">            <span class="st">&#39;dsn&#39;</span> =&gt; <span class="st">&#39;pgsql:host=localhost;dbname=demo&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">            <span class="st">&#39;username&#39;</span> =&gt; <span class="st">&#39;usuario&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">            <span class="st">&#39;password&#39;</span> =&gt; <span class="st">&#39;contraseña&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">        <span class="ot">],</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">        <span class="co">// registra el componente &quot;search&quot; usando una función anónima:</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">        <span class="st">&#39;search&#39;</span> =&gt; <span class="kw">function</span> <span class="ot">()</span> {</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">            <span class="kw">return</span> <span class="kw">new</span> app\components\SolrService<span class="ot">;</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">        }<span class="ot">,</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">    <span class="ot">],</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="ot">]</span></a></code></pre></div>
+</section><section id="componentes-de-aplicación-principales" class="slide level2">
+<h2>Componentes de aplicación principales</h2>
+<ul>
+<li><p>Yii 2 define un conjunto de componentes de aplicación <em>principales</em> o predefinidos, con IDs fijos y configuraciones predeterminadas.</p></li>
+<li><p>Gracias a esos componentes principales, las aplicaciones pueden procesar las peticiones de los usuarios.</p></li>
+<li><p>Es posible configurar y personalizar esos componentes como si fueran componentes de aplicación normales. Cuando se configura un componente de aplicación principal, si no se indica la clase a usar, se usará su clase predeterminada.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Lista de componentes de aplicación principales:</p>
+<ul>
+<li><code>assetManager</code>: gestiona los <em>asset bundles</em> y la publicación de <em>assets</em>.</li>
+<li><code>db</code>: representa la conexión a la base de datos.</li>
+<li><code>errorHandler</code>: gestiona los errores y excepciones de PHP.</li>
+<li><code>formatter</code>: formatea los datos para que los visualicen los usuarios finales.</li>
+<li><code>i18n</code>: se encarga de la traducción de mensajes y la internacionalización.</li>
+<li><code>log</code>: gestiona los registros de la aplicación.</li>
+<li><code>mailer</code>: se encarga de la composición y envío de e-mails.</li>
+<li><code>response</code>: representa la respuesta que va a ser enviada al usuario final.</li>
+<li><code>request</code>: representa la petición recibida del usuario final.</li>
+<li><code>session</code>: representa la información de la sesión (sólo en aplicaciones web).</li>
+<li><code>urlManager</code>: se encarga de la interpretación y creación de URLs.</li>
+<li><code>user</code>: representa la información de autenticación de usuarios.</li>
+<li><code>view</code>: gestiona el renderizado de las vistas.</li>
+</ul>
 </section></section>
 <section><section id="controladores" class="title-slide slide level1"><h1>Controladores</h1></section><section id="controladores-1" class="slide level2">
 <h2>Controladores</h2>
-<p>…</p>
+<ul>
+<li><p>Los <strong>controladores</strong> son parte de la arquitectura <strong>MVC</strong>.</p></li>
+<li><p>Son instancias de subclases (directas o indirectas) de <code>\yii\base\Controller</code>.</p></li>
+<li><p>Son los responsables de procesar las peticiones y generar las respuestas.</p></li>
+</ul>
+</section><section id="acciones" class="slide level2">
+<h2>Acciones</h2>
+<ul>
+<li><p>Los controladores se componen de <strong>acciones</strong>.</p></li>
+<li><p>La acción es la unidad mínima de ejecución en una aplicación MVC.</p></li>
+<li><p>Es decir, es la unidad más básica que un usuario final puede solicitar que se ejecute.</p></li>
+<li><p>Un controlador puede tener una o más acciones.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Ejemplo:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">namespace</span> app\controllers<span class="ot">;</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">use</span> app\models\Post<span class="ot">;</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">class</span> PostController <span class="kw">extends</span> \yii\web\Controller</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">{</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">    <span class="kw">public</span> <span class="kw">function</span> actionView<span class="ot">(</span><span class="va">$id</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">    {</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">        <span class="va">$model</span> = Post::findOne<span class="ot">(</span><span class="va">$id</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">        <span class="kw">if</span> <span class="ot">(</span><span class="va">$model</span> === <span class="kw">null</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">            <span class="kw">throw</span> <span class="kw">new</span> \yii\web\NotFoundHttpException<span class="ot">;</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">        }</a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">        <span class="kw">return</span> <span class="va">$this</span>-&gt;render<span class="ot">(</span><span class="st">&#39;view&#39;</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">            <span class="st">&#39;model&#39;</span> =&gt; <span class="va">$model</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16">        <span class="ot">]);</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17">    }</a>
+<a class="sourceLine" id="cb11-18" data-line-number="18">}</a></code></pre></div>
+<ul>
+<li>En la acción <code>view</code> (definida por el método <code>actionView()</code>), se carga el modelo que corresponda al ID solicitado en <code>$id</code>. Si el modelo se carga correctamente, se muestra usando una vista llamada <code>view</code>. En caso contrario, se lanza una excepción.</li>
+</ul>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">namespace</span> app\controllers<span class="ot">;</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">class</span> PostController <span class="kw">extends</span> \yii\web\Controller</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">{</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">    <span class="kw">public</span> <span class="kw">function</span> actionCreate<span class="ot">()</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">    {</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">        <span class="va">$model</span> = <span class="kw">new</span> \app\models\Post<span class="ot">;</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">        <span class="kw">if</span> <span class="ot">(</span><span class="va">$model</span>-&gt;load<span class="ot">(</span>Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">())</span> &amp;&amp; <span class="va">$model</span>-&gt;save<span class="ot">())</span> {</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">            <span class="kw">return</span> <span class="va">$this</span>-&gt;redirect<span class="ot">([</span><span class="st">&#39;view&#39;</span><span class="ot">,</span> <span class="st">&#39;id&#39;</span> =&gt; <span class="va">$model</span>-&gt;id<span class="ot">]);</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">        } <span class="kw">else</span> {</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12">            <span class="kw">return</span> <span class="va">$this</span>-&gt;render<span class="ot">(</span><span class="st">&#39;create&#39;</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">                <span class="st">&#39;model&#39;</span> =&gt; <span class="va">$model</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14">            <span class="ot">]);</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15">        }</a>
+<a class="sourceLine" id="cb12-16" data-line-number="16">    }</a>
+<a class="sourceLine" id="cb12-17" data-line-number="17">}</a></code></pre></div>
+<ul>
+<li>En la acción <code>create</code> (definida por el método <code>actionCreate()</code>) se intenta rellenar una instancia nueva del modelo usando los datos de la petición y luego se guarda el modelo. Si hay éxito se redirige al navegador a la acción <code>view</code> pasándole el ID del modelo recién creado. En caso contrario, se muestra la vista <code>create</code> para que los usuarios puedan introducir los datos.</li>
+</ul>
+</section><section id="rutas" class="slide level2">
+<h2>Rutas</h2>
+<ul>
+<li><p>Los usuarios finales indican las acciones que desean ejecutar mediante las denominadas <strong>rutas</strong>.</p></li>
+<li><p>Una ruta es una cadena que consta de:</p>
+<dl>
+<dt>El ID de un controlador</dt>
+<dd><p>Una cadena que identifica de forma única a un controlador de entre todos los controladores de la misma aplicación.</p>
+</dd>
+<dt>El ID de una acción</dt>
+<dd><p>Una cadena que identifica de forma única a una acción de entre todas las acciones del mismo controlador.</p>
+</dd>
+</dl></li>
+<li><p>Las rutas toman la siguiente forma: <code>IDcontrolador/IDacción</code>.</p></li>
+<li><p>Por ejemplo: <code>socios/crear</code> (controlador <code>socios</code>, acción <code>crear</code>).</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Para indicar una ruta, se utiliza el parámetro <code>r</code> enviado mediante GET.</p>
+<p>Por tanto, si un usuario solicita la URL</p>
+<p><code>http://host/index.php?r=site/index</code></p>
+<p>se ejecutará la acción <code>index</code> del controlador <code>site</code>.</p>
 </section></section>
 <section><section id="modelos" class="title-slide slide level1"><h1>Modelos</h1></section><section id="modelos-1" class="slide level2">
 <h2>Modelos</h2>
