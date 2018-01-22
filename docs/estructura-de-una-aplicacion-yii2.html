@@ -427,10 +427,155 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Por tanto, si un usuario solicita la URL</p>
 <p><code>http://host/index.php?r=site/index</code></p>
 <p>se ejecutará la acción <code>index</code> del controlador <code>site</code>.</p>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Si la URL tuviera más parámetros, éstos se pasarían a la acción correspondiente.</p></li>
+<li><p>Por ejemplo, en la URL</p>
+<p><code>http://host/index.php?r=site/index&amp;page=3</code></p>
+<p>se ejecutaría la acción <code>index</code> del controlador <code>site</code> y se le pasaría a dicha acción el parámetro <code>page</code> con el valor <code>3</code>.</p></li>
+<li><p>En la práctica, es como si el <em>framework</em> hiciera:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="ot">(</span><span class="kw">new</span> \app\controllers\SiteController<span class="ot">)</span>-&gt;index<span class="ot">(</span><span class="dv">3</span><span class="ot">);</span></a></code></pre></div>
+<p>(suponiendo que el método <code>actionIndex()</code> de la clase <code>SiteController</code> recibe un parámetro de nombre <code>$page</code>).</p></li>
+</ul>
 </section></section>
 <section><section id="modelos" class="title-slide slide level1"><h1>Modelos</h1></section><section id="modelos-1" class="slide level2">
 <h2>Modelos</h2>
-<p>…</p>
+<ul>
+<li><p>Los modelos son parte de la arquitectura MVC.</p></li>
+<li><p>Son objetos que representan datos, reglas y lógica de negocio.</p></li>
+<li><p>Las clases modelo se crean heredando (directa o indirectamente) de <code>\yii\base\Model</code>.</p></li>
+<li><p>Dicha clase base proporciona muchas características útiles:</p>
+<ul>
+<li><strong>Atributos</strong>: representan los datos de negocio y se puede acceder a ellos como si fueran propiedades normales o elementos de un array.</li>
+<li><strong>Etiqutas de atributos</strong>: especifican las etiquetas con las que se visualizan los atributos.</li>
+<li><strong>Asignación masiva</strong>: permite asignar valores a varios atributos a la vez en un solo paso.</li>
+<li><strong>Reglas de validación</strong>: garantiza que los datos introducidos son válidos en función de unas reglas de validación indicadas.</li>
+<li><strong>Exportación de datos</strong>: permite exportar los datos del modelo en forma de arrays con formatos personalizables.</li>
+</ul></li>
+</ul>
+</section><section id="atributos" class="slide level2">
+<h2>Atributos</h2>
+<ul>
+<li><p>Los modelos representan los datos de negocio en forma de atributos.</p></li>
+<li><p>Cada atributo es como una propiedad públicamente accesible de un modelo.</p></li>
+<li><p>El método <code>yii\base\Model::attributes()</code> especifica qué atributos tiene una clase modelo.</p></li>
+<li><p>Se puede acceder a un atributo como si fuera una propiedad normal y corriente de un objeto:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">// &quot;nombre&quot; es un atributo de ContactForm</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="va">$modelo</span>-&gt;nombre = <span class="st">&#39;ejemplo&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">echo</span> <span class="va">$modelo</span>-&gt;nombre<span class="ot">;</span></a></code></pre></div></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>También se pueden acceder a los atributos como si fueran elementos de un array, gracias a que <code>\yii\base\Model</code> implementa las interfaces <a href="http://php.net/manual/es/class.arrayaccess.php">ArrayAccess</a> y <a href="http://php.net/manual/es/class.traversable.php">Traversable</a>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">// se accede a los atributos como si fueran elementos de un array:</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="va">$modelo</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">]</span> = <span class="st">&#39;ejemplo&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">echo</span> <span class="va">$modelo</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">];</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">// Model es recorrible usando foreach:</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="kw">foreach</span> <span class="ot">(</span><span class="va">$modelo</span> <span class="kw">as</span> <span class="va">$nombreAtributo</span> =&gt; <span class="va">$valor</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb15-9" data-line-number="9">    <span class="kw">echo</span> <span class="st">&quot;</span><span class="va">$nombreAtributo</span><span class="st">: </span><span class="va">$valor</span><span class="kw">\n</span><span class="st">&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">}</a></code></pre></div></li>
+</ul>
+</section><section id="definición-de-atributos" class="slide level2">
+<h2>Definición de atributos</h2>
+<ul>
+<li><p>De entrada, si tu clase modelo hereda directamente <code>\yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
+<li><p>Por ejemplo, la siguiente clase modelo <code>ContactForm</code> tiene cuatro atributos: <code>nombre</code>, <code>correo</code>, <code>asunto</code> y <code>cuerpo</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">class</span> ContactForm <span class="kw">extends</span> \yii\base\Model</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">{</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    <span class="kw">public</span> <span class="va">$nombre</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    <span class="kw">public</span> <span class="va">$correo</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">    <span class="kw">public</span> <span class="va">$asunto</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8">    <span class="kw">public</span> <span class="va">$cuerpo</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">}</a></code></pre></div>
+<ul>
+<li>El modelo <code>ContactForm</code> se usa para representar los datos recibidos a partir de un formulario HTML.</li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Se puede sobreescribir el método <code>attributes()</code> de <code>\yii\base\Model</code> para definir atributos de forma distinta.</p></li>
+<li><p>Ese método debe devolver los nombre de los atributos del modelo.</p></li>
+<li><p>Por ejemplo, <code>\yii\db\ActiveRecord</code> lo hace devolviendo como nombres de atributos los nombres de las columnas de la tabla asociada con el modelo.</p></li>
+<li><p>Aunque hace falta algo más de <em>magia</em> para que acabe funcionando, al final se consigue que cada columna de la tabla aparezca como atributo del modelo correspondiente a esa tabla.</p></li>
+</ul>
+</section><section id="reglas-de-validación" class="slide level2">
+<h2>Reglas de validación</h2>
+<ul>
+<li><p>Cuando los datos de un modelo provienen de los usuarios finales, deben ser validados para garantizar que satisfacen ciertas reglas (llamadas <strong>reglas de validación</strong> o <strong>reglas de negocio</strong>).</p></li>
+<li><p>Por ejemplo, en el modelo <code>ContactForm</code> querrás asegurarte de que ningún atributo está vacío y que el atributo <code>correo</code> contiene una dirección de correo válida.</p></li>
+<li><p>Si el valor de algún atributo no satisface sus reglas de validación, se deberían mostrar los mensajes de error apropiados para que los usuarios puedan corregir sus errores.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Se puede llamar al método <code>\yii\base\Model::validate()</code> para validar los datos introducidos.</p></li>
+<li><p>El método usará las reglas de validación declaradas en <code>\yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
+<li><p>Si no hay ningún error, el método devolverá <code>true</code>.</p></li>
+<li><p>En caso contrario, guardará los mensajes de error en la propiedad <code>\yii\base\Model::errors</code> y devolverá <code>false</code>.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">// Rellena los atributos del modelo con la entrada del usuario:</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="va">$modelo</span>-&gt;attributes = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw">if</span> <span class="ot">(</span><span class="va">$modelo</span>-&gt;validate<span class="ot">())</span> {</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">    <span class="co">// Todos los datos de entrada son válidos</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">} <span class="kw">else</span> {</a>
+<a class="sourceLine" id="cb17-9" data-line-number="9">    <span class="co">// La validación falló.</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10">    <span class="co">// $errores guarda en un array los mensajes de error:</span></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11">    <span class="va">$errores</span> = <span class="va">$modelo</span>-&gt;errors<span class="ot">;</span></a>
+<a class="sourceLine" id="cb17-12" data-line-number="12">}</a></code></pre></div>
+</section><section id="declaración-de-reglas-de-validación" class="slide level2">
+<h2>Declaración de reglas de validación</h2>
+<ul>
+<li><p>Para declarar las reglas de validación asociadas a un modelo, hay que sobreescribir el método <code>\yii\base\Model::rules()</code> para que devuelva las reglas que deben satisfacer los atributos del modelo.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">        <span class="co">// nombre, correo, asunto y cuerpo son obligatorios:</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">        <span class="ot">[[</span><span class="st">&#39;nombre&#39;</span><span class="ot">,</span> <span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;asunto&#39;</span><span class="ot">,</span> <span class="st">&#39;cuerpo&#39;</span><span class="ot">],</span> <span class="st">&#39;required&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">        <span class="co">// el correo debe ser una dirección de e-mail válida:</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8">        <span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;email&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">    <span class="ot">];</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10">}</a></code></pre></div></li>
+</ul>
+</section><section id="asignación-masiva" class="slide level2">
+<h2>Asignación masiva</h2>
+<ul>
+<li>La <strong>asignación masiva</strong> permite rellenar con valores los atributos de un modelo asignando los datos de entrada directamente a la propiedad <code>\yii\base\Model::$attributes</code>:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="va">$modelo</span>-&gt;attributes = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">// Es equivalente a (mucho más largo y propenso a errores):</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="va">$datos</span> = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">,</span> <span class="ot">[]);</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="va">$modelo</span>-&gt;nombre = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="va">$modelo</span>-&gt;correo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="va">$modelo</span>-&gt;asunto = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="va">$modelo</span>-&gt;cuerpo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a></code></pre></div>
+</section><section id="atributos-seguros" class="slide level2">
+<h2>Atributos seguros</h2>
+<ul>
+<li><p>La asignación masiva sólo se aplica a los <strong>atributos seguros</strong>.</p></li>
+<li><p>Los atributos seguros son aquellos que</p></li>
+</ul>
 </section></section>
     </div>
   </div>

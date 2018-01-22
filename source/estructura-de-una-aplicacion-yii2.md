@@ -445,9 +445,219 @@ Por tanto, si un usuario solicita la URL
 
 se ejecutará la acción `index` del controlador `site`.
 
+---
+
+- Si la URL tuviera más parámetros, éstos se pasarían a la acción
+  correspondiente.
+
+- Por ejemplo, en la URL
+
+  `http://host/index.php?r=site/index&page=3`
+
+  se ejecutaría la acción `index` del controlador `site` y se le pasaría a
+  dicha acción el parámetro `page` con el valor `3`.
+
+- En la práctica, es como si el *framework* hiciera:
+
+  ```php
+  (new \app\controllers\SiteController)->index(3);
+  ```
+
+  (suponiendo que el método `actionIndex()` de la clase `SiteController` recibe
+  un parámetro de nombre `$page`).
+
 # Modelos
 
 ## Modelos
 
-...
+- Los modelos son parte de la arquitectura MVC.
+
+- Son objetos que representan datos, reglas y lógica de negocio.
+
+- Las clases modelo se crean heredando (directa o indirectamente) de `\yii\base\Model`.
+
+- Dicha clase base proporciona muchas características útiles:
+
+  - **Atributos**: representan los datos de negocio y se puede acceder a ellos
+    como si fueran propiedades normales o elementos de un array.
+  - **Etiqutas de atributos**: especifican las etiquetas con las que se
+    visualizan los atributos.
+  - **Asignación masiva**: permite asignar valores a varios atributos a la vez
+    en un solo paso.
+  - **Reglas de validación**: garantiza que los datos introducidos son válidos
+    en función de unas reglas de validación indicadas.
+  - **Exportación de datos**: permite exportar los datos del modelo en forma de
+    arrays con formatos personalizables.
+
+## Atributos
+
+- Los modelos representan los datos de negocio en forma de atributos.
+
+- Cada atributo es como una propiedad públicamente accesible de un modelo.
+
+- El método `yii\base\Model::attributes()` especifica qué atributos tiene una
+  clase modelo.
+
+- Se puede acceder a un atributo como si fuera una propiedad normal y corriente
+  de un objeto:
+
+  ```php
+  $modelo = new \app\models\ContactForm;
+
+  // "nombre" es un atributo de ContactForm
+  $modelo->nombre = 'ejemplo';
+  echo $modelo->nombre;
+  ```
+
+---
+
+- También se pueden acceder a los atributos como si fueran elementos de un array,
+gracias a que `\yii\base\Model` implementa las interfaces
+[ArrayAccess](http://php.net/manual/es/class.arrayaccess.php) y
+[Traversable](http://php.net/manual/es/class.traversable.php):
+
+  ```php
+  $modelo = new \app\models\ContactForm;
+
+  // se accede a los atributos como si fueran elementos de un array:
+  $modelo['nombre'] = 'ejemplo';
+  echo $modelo['nombre'];
+
+  // Model es recorrible usando foreach:
+  foreach ($modelo as $nombreAtributo => $valor) {
+      echo "$nombreAtributo: $valor\n";
+  }
+  ```
+
+## Definición de atributos
+
+- De entrada, si tu clase modelo hereda directamente `\yii\base\Model`, _todas
+  sus **variables miembro públicas no estáticas**_ serán consideradas
+  atributos.
+
+- Por ejemplo, la siguiente clase modelo `ContactForm` tiene cuatro atributos:
+  `nombre`, `correo`, `asunto` y `cuerpo`.
+
+```php
+namespace app\models;
+
+class ContactForm extends \yii\base\Model
+{
+    public $nombre;
+    public $correo;
+    public $asunto;
+    public $cuerpo;
+}
+```
+
+- El modelo `ContactForm` se usa para representar los datos recibidos a partir
+  de un formulario HTML.
+
+---
+
+- Se puede sobreescribir el método `attributes()` de `\yii\base\Model` para
+  definir atributos de forma distinta.
+
+- Ese método debe devolver los nombre de los atributos del modelo.
+
+- Por ejemplo, `\yii\db\ActiveRecord` lo hace devolviendo como nombres de
+  atributos los nombres de las columnas de la tabla asociada con el modelo.
+
+- Aunque hace falta algo más de *magia* para que acabe funcionando, al final se
+  consigue que cada columna de la tabla aparezca como atributo del modelo
+  correspondiente a esa tabla.
+
+## Reglas de validación
+
+- Cuando los datos de un modelo provienen de los usuarios finales, deben ser
+  validados para garantizar que satisfacen ciertas reglas (llamadas **reglas de
+  validación** o **reglas de negocio**).
+
+- Por ejemplo, en el modelo `ContactForm` querrás asegurarte de que ningún
+  atributo está vacío y que el atributo `correo` contiene una dirección de
+  correo válida.
+
+- Si el valor de algún atributo no satisface sus reglas de validación, se
+  deberían mostrar los mensajes de error apropiados para que los usuarios
+  puedan corregir sus errores.
+
+---
+
+- Se puede llamar al método `\yii\base\Model::validate()` para validar los
+  datos introducidos.
+
+- El método usará las reglas de validación declaradas en
+  `\yii\base\Model::rules()` para validar cada uno de los atributos que lo
+  necesiten.
+
+- Si no hay ningún error, el método devolverá `true`.
+
+- En caso contrario, guardará los mensajes de error en la propiedad
+  `\yii\base\Model::errors` y devolverá `false`.
+
+---
+
+Por ejemplo:
+
+```php
+$modelo = new \app\models\ContactForm;
+
+// Rellena los atributos del modelo con la entrada del usuario:
+$modelo->attributes = \Yii::$app->request->post('ContactForm');
+
+if ($modelo->validate()) {
+    // Todos los datos de entrada son válidos
+} else {
+    // La validación falló.
+    // $errores guarda en un array los mensajes de error:
+    $errores = $modelo->errors;
+}
+```
+
+## Declaración de reglas de validación
+
+- Para declarar las reglas de validación asociadas a un modelo, hay que
+  sobreescribir el método `\yii\base\Model::rules()` para que devuelva las
+  reglas que deben satisfacer los atributos del modelo.
+
+- Ejemplo:
+
+  ```php
+  public function rules()
+  {
+      return [
+          // nombre, correo, asunto y cuerpo son obligatorios:
+          [['nombre', 'correo', 'asunto', 'cuerpo'], 'required'],
+
+          // el correo debe ser una dirección de e-mail válida:
+          ['correo', 'email'],
+      ];
+  }
+  ```
+
+## Asignación masiva
+
+- La **asignación masiva** permite rellenar con valores los atributos de un
+  modelo asignando los datos de entrada directamente a la propiedad
+  `\yii\base\Model::$attributes`:
+
+```php
+$modelo = new \app\models\ContactForm;
+$modelo->attributes = \Yii::$app->request->post('ContactForm');
+
+// Es equivalente a (mucho más largo y propenso a errores):
+
+$modelo = new \app\models\ContactForm;
+$datos = \Yii::$app->request->post('ContactForm', []);
+$modelo->nombre = isset($datos['nombre']) ? $datos['nombre'] : null;
+$modelo->correo = isset($datos['correo']) ? $datos['correo'] : null;
+$modelo->asunto = isset($datos['asunto']) ? $datos['asunto'] : null;
+$modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
+```
+
+## Atributos seguros
+
+- La asignación masiva sólo se aplica a los **atributos seguros**.
+
+- Los atributos seguros son aquellos que
 
