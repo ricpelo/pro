@@ -567,6 +567,78 @@ class ContactForm extends \yii\base\Model
   consigue que cada columna de la tabla aparezca como atributo del modelo
   correspondiente a esa tabla.
 
+## Escenarios
+
+- Un modelo puede usarse en diferentes *escenarios*.
+
+- Por ejemplo, se puede usar un modelo `User` para recoger los datos de
+  entrada durante el *login* de un usuario, pero también se puede usar para
+  registrar a un nuevo usuario.
+
+- En escenarios diferentes, un modelo puede tener reglas y lógica de negocio
+  diferentes.
+
+- Por ejemplo, el atributo `correo` puede ser obligatorio para registrar a un
+  nuevo usuario pero no para hacer *login*.
+
+---
+
+- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar el
+  escenario que tienen que usar.
+
+- Por defecto, un modelo sólo tiene un escenario, llamado `default`.
+
+- Para cambiar el escenario de un modelo se puede hacer:
+
+  ```php
+  // El escenario se establece con una propiedad:
+  $modelo = new User;
+  $modelo->scenario = User::SCENARIO_LOGIN;
+  ```
+
+  o bien:
+
+  ```php
+  // El escenario se establece con una configuración:
+  $modelo = new User(['scenario' => User::SCENARIO_LOGIN]);
+  ```
+
+## Definición de escenarios
+
+- Los escenarios que soporta un normalmente se definen en las *reglas de
+  validación* del modelo.
+
+- Sin embargo, también se pueden definir sobreescribiendo el método
+  `\yii\base\Model::scenarios()`:
+
+```php
+namespace app\models;
+
+class User extends \yii\db\ActiveRecord
+{
+    const SCENARIO_LOGIN = 'login';
+    const SCENARIO_REGISTRO = 'registro';
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_LOGIN => ['nombre', 'password'],
+            self::SCENARIO_REGISTRO => ['nombre', 'correo', 'password'],
+        ];
+    }
+}
+```
+
+## Atributos activos
+
+- El método `scenarios()` devuelve un array cuyas claves son los nombres de los
+  escenarios y cuyos valores son los correspondientes **atributos activos**.
+
+- Un atributo activo es 
+- Un atributo activo está sujeto a asignación masiva y a validación.
+
+The scenarios() method returns an array whose keys are the scenario names and values the corresponding active attributes. An active attribute can be massively assigned and is subject to validation. In the above example, the username and password attributes are active in the login scenario; while in the register scenario, email is also active besides username and password.
+
 ## Reglas de validación
 
 - Cuando los datos de un modelo provienen de los usuarios finales, deben ser
