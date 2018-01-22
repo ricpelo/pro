@@ -581,10 +581,10 @@ class ContactForm extends \yii\base\Model
 - Por ejemplo, el atributo `correo` puede ser obligatorio para registrar a un
   nuevo usuario pero no para hacer *login*.
 
----
+## Escenario activo
 
-- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar el
-  escenario que tienen que usar.
+- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar los
+  escenarios en los que pueden estar.
 
 - Por defecto, un modelo sólo tiene un escenario, llamado `default`.
 
@@ -603,9 +603,12 @@ class ContactForm extends \yii\base\Model
   $modelo = new User(['scenario' => User::SCENARIO_LOGIN]);
   ```
 
+- El escenario en el que se encuentra actualmente un modelo se denomina el
+  **escenario activo** del modelo.
+
 ## Definición de escenarios
 
-- Los escenarios que soporta un normalmente se definen en las *reglas de
+- Los escenarios que soporta un modelo normalmente se definen en las *reglas de
   validación* del modelo.
 
 - Sin embargo, también se pueden definir sobreescribiendo el método
@@ -631,13 +634,36 @@ class User extends \yii\db\ActiveRecord
 
 ## Atributos activos
 
+- Los **atributos activos** de un escenario son aquellos que están sujetos a
+  *asignación masiva* y a *validación* cuando el modelo se encuentra en dicho
+  escenario.
+
 - El método `scenarios()` devuelve un array cuyas claves son los nombres de los
-  escenarios y cuyos valores son los correspondientes **atributos activos**.
+  escenarios y cuyos valores son los correspondientes atributos activos.
 
-- Un atributo activo es 
-- Un atributo activo está sujeto a asignación masiva y a validación.
+---
 
-The scenarios() method returns an array whose keys are the scenario names and values the corresponding active attributes. An active attribute can be massively assigned and is subject to validation. In the above example, the username and password attributes are active in the login scenario; while in the register scenario, email is also active besides username and password.
+- En este ejemplo, los atributos `nombre` y `password` son activos en el
+  escenario `login`, mientras que en el escenario `registro` también está
+  activo el atributo `correo`:
+
+```php
+namespace app\models;
+
+class User extends \yii\db\ActiveRecord
+{
+    const SCENARIO_LOGIN = 'login';
+    const SCENARIO_REGISTRO = 'registro';
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_LOGIN => ['nombre', 'password'],
+            self::SCENARIO_REGISTRO => ['nombre', 'correo', 'password'],
+        ];
+    }
+}
+```
 
 ## Reglas de validación
 
@@ -731,5 +757,9 @@ $modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
 
 - La asignación masiva sólo se aplica a los **atributos seguros**.
 
-- Los atributos seguros son aquellos que
+- Un atributo activo en un escenario es seguro para ese escenario, salvo que se
+  marque expresamente como inseguro.
+
+- Un atributo puede ser activo pero inseguro. En ese caso, está sujeto a las
+  reglas de validación pero no admite asignación masiva.
 
