@@ -641,6 +641,10 @@ class User extends \yii\db\ActiveRecord
 - El método `scenarios()` devuelve un array cuyas claves son los nombres de los
   escenarios y cuyos valores son los correspondientes atributos activos.
 
+- La implementación predeterminada de ese método devuelve, para el escenario
+  `default`, todos los atributos que aparecen alguna vez en una regla de
+  validación.
+
 ---
 
 - En este ejemplo, los atributos `nombre` y `password` son activos en el
@@ -758,8 +762,15 @@ $modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
 - La asignación masiva sólo se aplica a los **atributos seguros**.
 
 - Un atributo activo en un escenario es seguro para ese escenario, salvo que se
-  marque expresamente como inseguro.
+  marque expresamente como inseguro (luego lo vemos).
 
-- Un atributo puede ser activo pero inseguro. En ese caso, está sujeto a las
-  reglas de validación pero no admite asignación masiva.
+- Por tanto, un atributo puede ser activo pero inseguro. En ese caso, estará
+  sujeto a las reglas de validación pero no admitirá asignación masiva.
+
+---
+
+- Como la implementación predeterminada de `\yii\base\Model::scenarios()`
+  devuelve todos los escenarios y atributos que aparezcan en
+  `\yii\base\Model::rules()`, de entrada todos los atributos son seguros
+  siempre que aparezca en alguna de las reglas de validación activas.
 
