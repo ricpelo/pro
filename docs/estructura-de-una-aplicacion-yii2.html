@@ -485,9 +485,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="definición-de-atributos" class="slide level2">
 <h2>Definición de atributos</h2>
 <ul>
-<li><p>De entrada, si tu clase modelo hereda directamente <code>\yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
-<li><p>Por ejemplo, la siguiente clase modelo <code>ContactForm</code> tiene cuatro atributos: <code>nombre</code>, <code>correo</code>, <code>asunto</code> y <code>cuerpo</code>.</p></li>
-</ul>
+<li><p>De entrada, si la clase modelo hereda directamente de <code>\yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
+<li><p>Por ejemplo, la siguiente clase modelo <code>ContactForm</code> tiene cuatro atributos: <code>nombre</code>, <code>correo</code>, <code>asunto</code> y <code>cuerpo</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">class</span> ContactForm <span class="kw">extends</span> \yii\base\Model</a>
@@ -496,17 +495,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb16-6" data-line-number="6">    <span class="kw">public</span> <span class="va">$correo</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb16-7" data-line-number="7">    <span class="kw">public</span> <span class="va">$asunto</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb16-8" data-line-number="8">    <span class="kw">public</span> <span class="va">$cuerpo</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9">}</a></code></pre></div>
-<ul>
-<li>El modelo <code>ContactForm</code> se usa para representar los datos recibidos a partir de un formulario HTML.</li>
+<a class="sourceLine" id="cb16-9" data-line-number="9">}</a></code></pre></div></li>
+<li><p>El modelo <code>ContactForm</code> se puede usar para contener los datos recibidos a través de un formulario HTML.</p></li>
 </ul>
 </section><section class="slide level2">
 
 <ul>
 <li><p>Se puede sobreescribir el método <code>attributes()</code> de <code>\yii\base\Model</code> para definir atributos de forma distinta.</p></li>
 <li><p>Ese método debe devolver los nombre de los atributos del modelo.</p></li>
-<li><p>Por ejemplo, <code>\yii\db\ActiveRecord</code> lo hace devolviendo como nombres de atributos los nombres de las columnas de la tabla asociada con el modelo.</p></li>
-<li><p>Aunque hace falta algo más de <em>magia</em> para que acabe funcionando, al final se consigue que cada columna de la tabla aparezca como atributo del modelo correspondiente a esa tabla.</p></li>
+<li><p>Por ejemplo, <code>\yii\db\ActiveRecord</code> lo hace devolviendo como nombres de atributos los nombres de las columnas de la tabla asociada con el modelo.</p>
+<ul>
+<li>En este caso, y aunque hace falta algo más de <em>magia</em> para que acabe funcionando, al final se consigue que cada columna de la tabla aparezca como atributo del modelo correspondiente a esa tabla.</li>
+</ul></li>
 </ul>
 </section><section id="escenarios" class="slide level2">
 <h2>Escenarios</h2>
@@ -516,10 +516,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En escenarios diferentes, un modelo puede tener reglas y lógica de negocio diferentes.</p></li>
 <li><p>Por ejemplo, el atributo <code>correo</code> puede ser obligatorio para registrar a un nuevo usuario pero no para hacer <em>login</em>.</p></li>
 </ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Cada escenario define qué atributos se pueden <strong>asignar masivamente</strong> y qué <strong>reglas de validación</strong> se aplican:</p>
+<ul>
+<li><p>La <em>asignación masiva</em> permite asignar valores a varios atributos al mismo tiempo en una sola operación.</p></li>
+<li><p>Las <em>reglas de validación</em> determinan si los atributos de un modelo son válidos, o sea, si cumplen determinadas condiciones.</p></li>
+</ul></li>
+</ul>
 </section><section id="escenario-activo" class="slide level2">
 <h2>Escenario activo</h2>
 <ul>
-<li><p>Los modelos usan la propiedad <code>\yii\base\Model::scenario</code> para indicar los escenarios en los que pueden estar.</p></li>
+<li><p>Los modelos usan la propiedad <code>\yii\base\Model::scenario</code> para indicar en qué escenario se encuentran.</p></li>
 <li><p>Por defecto, un modelo sólo tiene un escenario, llamado <code>default</code>.</p></li>
 <li><p>Para cambiar el escenario de un modelo se puede hacer:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co">// El escenario se establece con una propiedad:</span></a>
@@ -554,13 +563,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="atributos-activos" class="slide level2">
 <h2>Atributos activos</h2>
 <ul>
-<li><p>Los <strong>atributos activos</strong> de un escenario son aquellos que están sujetos a <em>asignación masiva</em> y a <em>validación</em> cuando el modelo se encuentra en dicho escenario.</p></li>
-<li><p>El método <code>scenarios()</code> devuelve un array cuyas claves son los nombres de los escenarios y cuyos valores son los correspondientes atributos activos.</p></li>
+<li><p>Los <strong>atributos activos</strong> de un escenario son aquellos que están sujetos a <em>validación</em> y (posiblemente también) a <em>asignación masiva</em> cuando el modelo se encuentra en dicho escenario.</p></li>
+<li><p>El método <code>scenarios()</code> debe devolver un array cuyas claves son los nombres de los escenarios y cuyos valores son los correspondientes atributos activos de ese escenario.</p></li>
+<li><p>La implementación predeterminada de ese método devuelve todos los escenarios y todos los atributos que aparecen alguna vez en una regla de validación.</p></li>
+<li><p>Si la implementación predeterminada no nos viniera bien, bastaría con cambiar el método <code>scenarios()</code>.</p></li>
 </ul>
 </section><section class="slide level2">
 
 <ul>
-<li>En este ejemplo, los atributos <code>nombre</code> y <code>password</code> son activos en el escenario <code>login</code>, mientras que en el escenario <code>registro</code> también está activo el atributo <code>correo</code>:</li>
+<li>En este ejemplo, los atributos <code>nombre</code> y <code>password</code> son activos en los escenarios <code>login</code> y <code>registro</code>, mientras que en este último escenario también está activo el atributo <code>correo</code>:</li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
 <a class="sourceLine" id="cb20-2" data-line-number="2"></a>
@@ -581,16 +592,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Reglas de validación</h2>
 <ul>
 <li><p>Cuando los datos de un modelo provienen de los usuarios finales, deben ser validados para garantizar que satisfacen ciertas reglas (llamadas <strong>reglas de validación</strong> o <strong>reglas de negocio</strong>).</p></li>
-<li><p>Por ejemplo, en el modelo <code>ContactForm</code> querrás asegurarte de que ningún atributo está vacío y que el atributo <code>correo</code> contiene una dirección de correo válida.</p></li>
+<li><p>Por ejemplo, en el modelo <code>ContactForm</code> debemos asegurarnos de que ningún atributo está vacío y que el atributo <code>correo</code> contiene una dirección de correo válida.</p></li>
 <li><p>Si el valor de algún atributo no satisface sus reglas de validación, se deberían mostrar los mensajes de error apropiados para que los usuarios puedan corregir sus errores.</p></li>
 </ul>
 </section><section class="slide level2">
 
 <ul>
-<li><p>Se puede llamar al método <code>\yii\base\Model::validate()</code> para validar los datos introducidos.</p></li>
-<li><p>El método usará las reglas de validación declaradas en <code>\yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
+<li><p>Se puede llamar al método <code>\yii\base\Model::validate()</code> para validar los datos introducidos:</p>
+<ul>
 <li><p>Si no hay ningún error, el método devolverá <code>true</code>.</p></li>
 <li><p>En caso contrario, guardará los mensajes de error en la propiedad <code>\yii\base\Model::errors</code> y devolverá <code>false</code>.</p></li>
+</ul></li>
+<li><p>El método usará las reglas de validación declaradas en <code>\yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
+<li><p>Ese es el método que tenemos que sobreescribir para definir las reglas de validación del modelo.</p></li>
 </ul>
 </section><section class="slide level2">
 
@@ -623,27 +637,193 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb22-9" data-line-number="9">    <span class="ot">];</span></a>
 <a class="sourceLine" id="cb22-10" data-line-number="10">}</a></code></pre></div></li>
 </ul>
+</section><section id="reglas-activas" class="slide level2">
+<h2>Reglas activas</h2>
+<ul>
+<li><p>Las <strong>reglas activas</strong> son aquellas reglas que se aplican al <em>escenario activo</em>.</p></li>
+<li><p>En principio, todas las reglas se aplican a todos los escenarios.</p></li>
+<li><p>Sin embargo, podemos indicar que una regla sólo se aplique a un determinado escenario usando la opción <code>on</code>.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">        <span class="co">// nombre, correo, asunto y cuerpo son obligatorios:</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">        <span class="ot">[[</span><span class="st">&#39;nombre&#39;</span><span class="ot">,</span> <span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;asunto&#39;</span><span class="ot">,</span> <span class="st">&#39;cuerpo&#39;</span><span class="ot">],</span> <span class="st">&#39;required&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">        <span class="co">// el correo debe ser una dirección de e-mail válida:</span></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">        <span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;email&#39;</span><span class="ot">,</span> <span class="st">&#39;on&#39;</span> =&gt; User::<span class="cn">ESCENARIO_CREAR</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">    <span class="ot">];</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">}</a></code></pre></div></li>
+<li><p>Aquí, la primera regla se aplicaría a todos los escenarios, mientras que la segunda regla sólo se aplicaría al escenario <code>crear</code>.</p></li>
+<li><p>Por tanto, decimos que la primera regla es una regla activa en todos los escenarios, y la segunda es una regla activa sólo en el escenario <code>crear</code>.</p></li>
+</ul>
 </section><section id="asignación-masiva" class="slide level2">
 <h2>Asignación masiva</h2>
 <ul>
-<li>La <strong>asignación masiva</strong> permite rellenar con valores los atributos de un modelo asignando los datos de entrada directamente a la propiedad <code>\yii\base\Model::$attributes</code>:</li>
+<li>La <strong>asignación masiva</strong> permite rellenar varios (o todos los) atributos de un modelo en una sola operación asignando los datos de entrada directamente a la propiedad <code>\yii\base\Model::$attributes</code>:</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="va">$modelo</span>-&gt;attributes = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">);</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co">// Es equivalente a (mucho más largo y propenso a errores):</span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="va">$datos</span> = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">,</span> <span class="ot">[]);</span></a>
-<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="va">$modelo</span>-&gt;nombre = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="va">$modelo</span>-&gt;correo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="va">$modelo</span>-&gt;asunto = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="va">$modelo</span>-&gt;cuerpo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="va">$modelo</span>-&gt;attributes = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">// Es equivalente a (mucho más largo y propenso a errores):</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="va">$datos</span> = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">,</span> <span class="ot">[]);</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"><span class="va">$modelo</span>-&gt;nombre = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb24-9" data-line-number="9"><span class="va">$modelo</span>-&gt;correo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb24-10" data-line-number="10"><span class="va">$modelo</span>-&gt;asunto = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb24-11" data-line-number="11"><span class="va">$modelo</span>-&gt;cuerpo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a></code></pre></div>
 </section><section id="atributos-seguros" class="slide level2">
 <h2>Atributos seguros</h2>
 <ul>
 <li><p>La asignación masiva sólo se aplica a los <strong>atributos seguros</strong>.</p></li>
-<li><p>Los atributos seguros son aquellos que</p></li>
+<li><p>De entrada, un atributo activo en un escenario es seguro para ese escenario, salvo que se marque expresamente como inseguro (luego lo vemos).</p>
+<ul>
+<li>Por tanto, un atributo puede ser activo pero inseguro. En ese caso, estará sujeto a las reglas de validación pero no admitirá asignación masiva.</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Como la implementación predeterminada de <code>\yii\base\Model::scenarios()</code> devuelve todos los escenarios y atributos que aparecen en <code>\yii\base\Model::rules()</code>, de entrada todos los atributos son seguros siempre y cuando aparezcan en alguna de las reglas de validación activas.</p></li>
+<li><p>Con esa implementación, si queremos que un atributo sea seguro pero no sabemos qué validación aplicarle, podemos marcarlo como <code>safe</code> en el método <code>rules()</code>:</p></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">        <span class="ot">[[</span><span class="st">&#39;numero&#39;</span><span class="ot">,</span> <span class="st">&#39;codigo&#39;</span><span class="ot">],</span> <span class="st">&#39;required&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">        <span class="ot">[</span><span class="st">&#39;created_at&#39;</span><span class="ot">,</span> <span class="st">&#39;safe&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">    <span class="ot">];</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">}</a></code></pre></div>
+</section><section id="atributos-inseguros" class="slide level2">
+<h2>Atributos inseguros</h2>
+<ul>
+<li>Al contrario, si queremos que un atributo activo sea <strong>inseguro</strong>, es decir, que esté sometido a reglas de validación pero que no admita asignación masiva, podemos marcarlo como tal usando una <code>!</code> delante de su nombre, en <code>scenarios()</code> o en <code>rules()</code>:</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">        <span class="ot">[[</span><span class="st">&#39;numero&#39;</span><span class="ot">,</span> <span class="st">&#39;codigo&#39;</span><span class="ot">,</span> <span class="st">&#39;!created_at&#39;</span><span class="ot">],</span> <span class="st">&#39;required&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">    <span class="ot">];</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">}</a></code></pre></div>
+<ul>
+<li><p>Con la implementación predeterminada de <code>scenarios()</code>:</p>
+<ul>
+<li><code>numero</code>, <code>codigo</code> y <code>created_at</code> son los atributos activos.</li>
+<li>Todos están sujetos a la regla de validación del <code>required</code>.</li>
+<li><code>created_at</code> no es seguro, por lo que no puede asignarse masivamente.</li>
+</ul></li>
+</ul>
+</section><section id="resumen" class="slide level2">
+<h2>Resumen</h2>
+<ul>
+<li><p>El <strong>escenario activo</strong> de un modelo es el escenario en el que se encuentra actualmente el modelo.</p>
+<ul>
+<li><p>El escenario predeterminado es <code>default</code>.</p></li>
+<li><p>La propiedad <code>scenario</code> contiene el escenario activo de ese modelo:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">echo</span> <span class="va">$m</span>-&gt;scenario<span class="ot">;</span> <span class="co">// Devuelve (por ejemplo) &#39;default&#39;</span></a></code></pre></div></li>
+<li><p>Se puede cambiar el escenario activo cambiando el valor de esa propiedad:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="va">$m</span>-&gt;scenario = <span class="st">&#39;crear&#39;</span><span class="ot">;</span></a></code></pre></div></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Las <strong>reglas activas</strong> en un escenario son las reglas de validación que se aplican en ese escenario.</p>
+<ul>
+<li><p>Por defecto, todas las reglas son activas en todos los escenarios.</p></li>
+<li><p>Con la opción <code>on</code> se pueden definir reglas que sólo son activas en un determinado escenario.</p></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">        <span class="co">// Esta regla es activa en todos los escenarios:</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">        <span class="ot">[[</span><span class="st">&#39;nombre&#39;</span><span class="ot">,</span> <span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;asunto&#39;</span><span class="ot">,</span> <span class="st">&#39;cuerpo&#39;</span><span class="ot">],</span> <span class="st">&#39;required&#39;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">        <span class="co">// Esta regla sólo es activa en el escenario &#39;crear&#39;:</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">        <span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">,</span> <span class="st">&#39;email&#39;</span><span class="ot">,</span> <span class="st">&#39;on&#39;</span> =&gt; User::<span class="cn">ESCENARIO_CREAR</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">    <span class="ot">];</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10">}</a></code></pre></div></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Los <strong>atributos activos</strong> en un escenario son los atributos que están sujetos a validación y (posiblemente también) a asignación masiva en ese escenario.</p>
+<ul>
+<li><p>El método <code>scenarios()</code> devuelve los nombres de los atributos activos en cada escenario del modelo.</p></li>
+<li><p><code>$m-&gt;scenarios()['s']</code> devuelve los nombres de los atributos activos en el escenario <code>s</code> del modelo <code>$m</code>.</p></li>
+<li><p>La implementación predeterminada del método <code>scenarios()</code> consulta el método <code>rules()</code>, localiza todos los atributos y escenarios que aparecen en él, y con esa información construye el array que devuelve.</p></li>
+<li><p>Se puede cambiar dicha implementación por otra que devuelva directamente los escenarios y atributos activos que nos interesen.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p>Los <strong>atributos seguros</strong> en un escenario son aquellos que permiten asignación masiva en ese escenario.</p>
+<ul>
+<li><p>Según la implementación predeterminada de <code>scenarios()</code>, de entrada todos los atributos activos en un escenario son seguros en ese escenario.</p></li>
+<li><p>En nuestra propia implementación de <code>scenarios()</code> o de <code>rules()</code>, podemos usar una <code>!</code> para marcar un atributo como <em>inseguro</em>, lo que haría que fuese activo pero no seguro, es decir, que estaría sujeto a validación pero no permitiría asignación masiva:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> scenarios<span class="ot">()</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">    <span class="kw">return</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">        <span class="co">// El atributo created_at sería activo pero inseguro:</span></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">        <span class="st">&#39;default&#39;</span> =&gt; <span class="ot">[</span><span class="st">&#39;numero&#39;</span><span class="ot">,</span> <span class="st">&#39;codigo&#39;</span><span class="ot">,</span> <span class="st">&#39;!created_at&#39;</span><span class="ot">];</span></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6">    <span class="ot">]</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">}</a></code></pre></div></li>
+<li><p>Por tanto, todos los atributos seguros son activos, pero no todos los atributos activos son seguros.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb31"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb31-1" data-line-number="1">&gt;&gt;&gt; <span class="va">$a</span> = \app\models\Alquileres::findOne<span class="ot">(</span><span class="dv">1</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">=&gt; app\models\Alquileres {<span class="co">#250</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">     id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">     socio_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">     pelicula_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">     created_at: <span class="st">&quot;2018-01-16 10:08:19&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">     devolucion: <span class="st">&quot;2018-01-17 10:08:19&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-8" data-line-number="8">   }</a>
+<a class="sourceLine" id="cb31-9" data-line-number="9">&gt;&gt;&gt; <span class="va">$a</span>-&gt;scenario</a>
+<a class="sourceLine" id="cb31-10" data-line-number="10">=&gt; <span class="st">&quot;default&quot;</span></a>
+<a class="sourceLine" id="cb31-11" data-line-number="11">&gt;&gt;&gt; <span class="va">$a</span>-&gt;scenarios<span class="ot">()</span></a>
+<a class="sourceLine" id="cb31-12" data-line-number="12">=&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">     <span class="st">&quot;default&quot;</span> =&gt; <span class="ot">[</span>    <span class="co">// Hay un único escenario llamado &#39;default&#39;</span></a>
+<a class="sourceLine" id="cb31-14" data-line-number="14">       <span class="st">&quot;socio_id&quot;</span><span class="ot">,</span>     <span class="co">// Atributo activo en &#39;default&#39;</span></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15">       <span class="st">&quot;pelicula_id&quot;</span><span class="ot">,</span>  <span class="co">// Atributo activo en &#39;default&#39;</span></a>
+<a class="sourceLine" id="cb31-16" data-line-number="16">       <span class="st">&quot;!created_at&quot;</span><span class="ot">,</span>  <span class="co">// Atributo activo pero inseguro en &#39;default&#39;</span></a>
+<a class="sourceLine" id="cb31-17" data-line-number="17">     <span class="ot">],</span></a>
+<a class="sourceLine" id="cb31-18" data-line-number="18">   <span class="ot">]</span></a>
+<a class="sourceLine" id="cb31-19" data-line-number="19">&gt;&gt;&gt; <span class="va">$a</span>-&gt;attributes = <span class="ot">[</span><span class="st">&#39;created_at&#39;</span> =&gt; <span class="kw">null</span><span class="ot">];</span></a>
+<a class="sourceLine" id="cb31-20" data-line-number="20">&gt;&gt;&gt; <span class="va">$a</span></a>
+<a class="sourceLine" id="cb31-21" data-line-number="21">=&gt; app\models\Alquileres {<span class="co">#250</span></a>
+<a class="sourceLine" id="cb31-22" data-line-number="22">     id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-23" data-line-number="23">     socio_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-24" data-line-number="24">     pelicula_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-25" data-line-number="25">     created_at: <span class="st">&quot;2018-01-16 10:08:19&quot;</span><span class="ot">,</span> <span class="co">// No ha cambiado</span></a>
+<a class="sourceLine" id="cb31-26" data-line-number="26">     devolucion: <span class="st">&quot;2018-01-17 10:08:19&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb31-27" data-line-number="27">   }</a></code></pre></div>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb32"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb32-1" data-line-number="1">&gt;&gt;&gt; <span class="va">$a</span>-&gt;validate<span class="ot">()</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">=&gt; <span class="kw">true</span>                <span class="co">// Actualmente valida</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">&gt;&gt;&gt; <span class="va">$a</span>-&gt;created_at = <span class="kw">null</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">=&gt; <span class="kw">null</span>                <span class="co">// Asignar directamente siempre funciona</span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">&gt;&gt;&gt; <span class="va">$a</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">=&gt; app\models\Alquileres {<span class="co">#250</span></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">     id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">     socio_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-9" data-line-number="9">     pelicula_id: <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-10" data-line-number="10">     created_at: <span class="kw">null</span><span class="ot">,</span> <span class="co">// Ha cambiado el valor</span></a>
+<a class="sourceLine" id="cb32-11" data-line-number="11">     devolucion: <span class="st">&quot;2018-01-17 10:08:19&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-12" data-line-number="12">   }</a>
+<a class="sourceLine" id="cb32-13" data-line-number="13">&gt;&gt;&gt; <span class="va">$a</span>-&gt;validate<span class="ot">()</span></a>
+<a class="sourceLine" id="cb32-14" data-line-number="14">=&gt; <span class="kw">false</span>               <span class="co">// No valida, porque created_at debe ser !== null</span></a></code></pre></div>
+<ul>
+<li>Aquí se ve que <code>created_at</code> es un atributo activo en el escenario <code>default</code> porque aparece en <code>scenarios()</code>, y por tanto está sujeto a las reglas de validación, pero no es un atributo seguro porque está marcado expresamente como inseguro, y por tanto no admite la asignación masiva.</li>
 </ul>
 </section></section>
     </div>

@@ -531,27 +531,27 @@ gracias a que `\yii\base\Model` implementa las interfaces
 
 ## Definición de atributos
 
-- De entrada, si tu clase modelo hereda directamente `\yii\base\Model`, _todas
-  sus **variables miembro públicas no estáticas**_ serán consideradas
+- De entrada, si la clase modelo hereda directamente de `\yii\base\Model`,
+  _todas sus **variables miembro públicas no estáticas**_ serán consideradas
   atributos.
 
 - Por ejemplo, la siguiente clase modelo `ContactForm` tiene cuatro atributos:
-  `nombre`, `correo`, `asunto` y `cuerpo`.
+  `nombre`, `correo`, `asunto` y `cuerpo`:
 
-```php
-namespace app\models;
+  ```php
+  namespace app\models;
 
-class ContactForm extends \yii\base\Model
-{
-    public $nombre;
-    public $correo;
-    public $asunto;
-    public $cuerpo;
-}
-```
+  class ContactForm extends \yii\base\Model
+  {
+      public $nombre;
+      public $correo;
+      public $asunto;
+      public $cuerpo;
+  }
+  ```
 
-- El modelo `ContactForm` se usa para representar los datos recibidos a partir
-  de un formulario HTML.
+- El modelo `ContactForm` se puede usar para contener los datos recibidos a
+  través de un formulario HTML.
 
 ---
 
@@ -563,9 +563,9 @@ class ContactForm extends \yii\base\Model
 - Por ejemplo, `\yii\db\ActiveRecord` lo hace devolviendo como nombres de
   atributos los nombres de las columnas de la tabla asociada con el modelo.
 
-- Aunque hace falta algo más de *magia* para que acabe funcionando, al final se
-  consigue que cada columna de la tabla aparezca como atributo del modelo
-  correspondiente a esa tabla.
+  - En este caso, y aunque hace falta algo más de *magia* para que acabe
+    funcionando, al final se consigue que cada columna de la tabla aparezca
+    como atributo del modelo correspondiente a esa tabla.
 
 ## Escenarios
 
@@ -581,10 +581,21 @@ class ContactForm extends \yii\base\Model
 - Por ejemplo, el atributo `correo` puede ser obligatorio para registrar a un
   nuevo usuario pero no para hacer *login*.
 
+---
+
+- Cada escenario define qué atributos se pueden **asignar masivamente** y qué
+  **reglas de validación** se aplican:
+
+  - La *asignación masiva* permite asignar valores a varios atributos al mismo
+    tiempo en una sola operación.
+
+  - Las *reglas de validación* determinan si los atributos de un modelo son
+    válidos, o sea, si cumplen determinadas condiciones.
+
 ## Escenario activo
 
-- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar los
-  escenarios en los que pueden estar.
+- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar en
+  qué escenario se encuentran.
 
 - Por defecto, un modelo sólo tiene un escenario, llamado `default`.
 
@@ -635,21 +646,24 @@ class User extends \yii\db\ActiveRecord
 ## Atributos activos
 
 - Los **atributos activos** de un escenario son aquellos que están sujetos a
-  *asignación masiva* y a *validación* cuando el modelo se encuentra en dicho
-  escenario.
+  *validación* y (posiblemente también) a *asignación masiva* cuando el modelo
+  se encuentra en dicho escenario.
 
-- El método `scenarios()` devuelve un array cuyas claves son los nombres de los
-  escenarios y cuyos valores son los correspondientes atributos activos.
+- El método `scenarios()` debe devolver un array cuyas claves son los nombres
+  de los escenarios y cuyos valores son los correspondientes atributos activos
+  de ese escenario.
 
-- La implementación predeterminada de ese método devuelve, para el escenario
-  `default`, todos los atributos que aparecen alguna vez en una regla de
-  validación.
+- La implementación predeterminada de ese método devuelve todos los escenarios
+  y todos los atributos que aparecen alguna vez en una regla de validación.
+
+- Si la implementación predeterminada no nos viniera bien, bastaría con cambiar
+  el método `scenarios()`.
 
 ---
 
-- En este ejemplo, los atributos `nombre` y `password` son activos en el
-  escenario `login`, mientras que en el escenario `registro` también está
-  activo el atributo `correo`:
+- En este ejemplo, los atributos `nombre` y `password` son activos en los
+  escenarios `login` y `registro`, mientras que en este último escenario
+  también está activo el atributo `correo`:
 
 ```php
 namespace app\models;
@@ -675,7 +689,7 @@ class User extends \yii\db\ActiveRecord
   validados para garantizar que satisfacen ciertas reglas (llamadas **reglas de
   validación** o **reglas de negocio**).
 
-- Por ejemplo, en el modelo `ContactForm` querrás asegurarte de que ningún
+- Por ejemplo, en el modelo `ContactForm` debemos asegurarnos de que ningún
   atributo está vacío y que el atributo `correo` contiene una dirección de
   correo válida.
 
@@ -686,16 +700,19 @@ class User extends \yii\db\ActiveRecord
 ---
 
 - Se puede llamar al método `\yii\base\Model::validate()` para validar los
-  datos introducidos.
+  datos introducidos:
+
+  - Si no hay ningún error, el método devolverá `true`.
+
+  - En caso contrario, guardará los mensajes de error en la propiedad
+    `\yii\base\Model::errors` y devolverá `false`.
 
 - El método usará las reglas de validación declaradas en
   `\yii\base\Model::rules()` para validar cada uno de los atributos que lo
   necesiten.
 
-- Si no hay ningún error, el método devolverá `true`.
-
-- En caso contrario, guardará los mensajes de error en la propiedad
-  `\yii\base\Model::errors` y devolverá `false`.
+- Ese es el método que tenemos que sobreescribir para definir las reglas de
+  validación del modelo.
 
 ---
 
@@ -737,11 +754,44 @@ if ($modelo->validate()) {
   }
   ```
 
+## Reglas activas
+
+- Las **reglas activas** son aquellas reglas que se aplican al *escenario
+  activo*.
+
+- En principio, todas las reglas se aplican a todos los escenarios.
+
+- Sin embargo, podemos indicar que una regla sólo se aplique a un determinado
+  escenario usando la opción `on`.
+
+---
+
+- Por ejemplo:
+
+  ```php
+  public function rules()
+  {
+      return [
+          // nombre, correo, asunto y cuerpo son obligatorios:
+          [['nombre', 'correo', 'asunto', 'cuerpo'], 'required'],
+
+          // el correo debe ser una dirección de e-mail válida:
+          ['correo', 'email', 'on' => User::ESCENARIO_CREAR],
+      ];
+  }
+  ```
+
+- Aquí, la primera regla se aplicaría a todos los escenarios, mientras que la
+  segunda regla sólo se aplicaría al escenario `crear`.
+
+- Por tanto, decimos que la primera regla es una regla activa en todos los
+  escenarios, y la segunda es una regla activa sólo en el escenario `crear`.
+
 ## Asignación masiva
 
-- La **asignación masiva** permite rellenar con valores los atributos de un
-  modelo asignando los datos de entrada directamente a la propiedad
-  `\yii\base\Model::$attributes`:
+- La **asignación masiva** permite rellenar varios (o todos los) atributos de
+  un modelo en una sola operación asignando los datos de entrada directamente a
+  la propiedad `\yii\base\Model::$attributes`:
 
 ```php
 $modelo = new \app\models\ContactForm;
@@ -761,16 +811,194 @@ $modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
 
 - La asignación masiva sólo se aplica a los **atributos seguros**.
 
-- Un atributo activo en un escenario es seguro para ese escenario, salvo que se
-  marque expresamente como inseguro (luego lo vemos).
+- De entrada, un atributo activo en un escenario es seguro para ese escenario,
+  salvo que se marque expresamente como inseguro (luego lo vemos).
 
-- Por tanto, un atributo puede ser activo pero inseguro. En ese caso, estará
-  sujeto a las reglas de validación pero no admitirá asignación masiva.
+  - Por tanto, un atributo puede ser activo pero inseguro. En ese caso, estará
+    sujeto a las reglas de validación pero no admitirá asignación masiva.
 
 ---
 
 - Como la implementación predeterminada de `\yii\base\Model::scenarios()`
-  devuelve todos los escenarios y atributos que aparezcan en
+  devuelve todos los escenarios y atributos que aparecen en
   `\yii\base\Model::rules()`, de entrada todos los atributos son seguros
-  siempre que aparezca en alguna de las reglas de validación activas.
+  siempre y cuando aparezcan en alguna de las reglas de validación activas.
+
+- Con esa implementación, si queremos que un atributo sea seguro pero no
+  sabemos qué validación aplicarle, podemos marcarlo como `safe` en el método
+  `rules()`:
+
+```php
+public function rules()
+{
+    return [
+        [['numero', 'codigo'], 'required'],
+        ['created_at', 'safe'],
+    ];
+}
+```
+
+## Atributos inseguros
+
+- Al contrario, si queremos que un atributo activo sea **inseguro**, es decir,
+  que esté sometido a reglas de validación pero que no admita asignación
+  masiva, podemos marcarlo como tal usando una `!` delante de su nombre, en
+  `scenarios()` o en `rules()`:
+
+```php
+public function rules()
+{
+    return [
+        [['numero', 'codigo', '!created_at'], 'required'],
+    ];
+}
+```
+
+- Con la implementación predeterminada de `scenarios()`:
+
+  - `numero`, `codigo` y `created_at` son los atributos activos.
+  - Todos están sujetos a la regla de validación del `required`.
+  - `created_at` no es seguro, por lo que no puede asignarse masivamente.
+
+## Resumen
+
+- El **escenario activo** de un modelo es el escenario en el que se encuentra
+  actualmente el modelo.
+
+  - El escenario predeterminado es `default`.
+
+  - La propiedad `scenario` contiene el escenario activo de ese modelo:
+
+    ```php
+    echo $m->scenario; // Devuelve (por ejemplo) 'default'
+    ```
+
+  - Se puede cambiar el escenario activo cambiando el valor de esa propiedad:
+
+    ```php
+    $m->scenario = 'crear';
+    ```
+
+---
+
+- Las **reglas activas** en un escenario son las reglas de validación que se
+  aplican en ese escenario.
+
+  - Por defecto, todas las reglas son activas en todos los escenarios.
+
+  - Con la opción `on` se pueden definir reglas que sólo son activas en un
+    determinado escenario.
+
+  ```php
+  public function rules()
+  {
+      return [
+          // Esta regla es activa en todos los escenarios:
+          [['nombre', 'correo', 'asunto', 'cuerpo'], 'required'],
+
+          // Esta regla sólo es activa en el escenario 'crear':
+          ['correo', 'email', 'on' => User::ESCENARIO_CREAR],
+      ];
+  }
+  ```
+
+---
+
+- Los **atributos activos** en un escenario son los atributos que están sujetos
+  a validación y (posiblemente también) a asignación masiva en ese escenario.
+
+  - El método `scenarios()` devuelve los nombres de los atributos activos en
+    cada escenario del modelo.
+
+  - `$m->scenarios()['s']` devuelve los nombres de los atributos activos en el
+    escenario `s` del modelo `$m`.
+
+  - La implementación predeterminada del método `scenarios()` consulta el
+    método `rules()`, localiza todos los atributos y escenarios que aparecen en
+    él, y con esa información construye el array que devuelve.
+
+  - Se puede cambiar dicha implementación por otra que devuelva directamente
+    los escenarios y atributos activos que nos interesen.
+
+---
+
+- Los **atributos seguros** en un escenario son aquellos que permiten
+  asignación masiva en ese escenario.
+
+  - Según la implementación predeterminada de `scenarios()`, de entrada todos
+    los atributos activos en un escenario son seguros en ese escenario.
+
+  - En nuestra propia implementación de `scenarios()` o de `rules()`, podemos
+    usar una `!` para marcar un atributo como *inseguro*, lo que haría que
+    fuese activo pero no seguro, es decir, que estaría sujeto a validación pero
+    no permitiría asignación masiva:
+
+    ```php
+    public function scenarios()
+    {
+        return [
+            // El atributo created_at sería activo pero inseguro:
+            'default' => ['numero', 'codigo', '!created_at'];
+        ]
+    }
+    ```
+
+  - Por tanto, todos los atributos seguros son activos, pero no todos los
+    atributos activos son seguros.
+
+---
+
+```php
+>>> $a = \app\models\Alquileres::findOne(1)
+=> app\models\Alquileres {#250
+     id: 1,
+     socio_id: 1,
+     pelicula_id: 1,
+     created_at: "2018-01-16 10:08:19",
+     devolucion: "2018-01-17 10:08:19",
+   }
+>>> $a->scenario
+=> "default"
+>>> $a->scenarios()
+=> [
+     "default" => [    // Hay un único escenario llamado 'default'
+       "socio_id",     // Atributo activo en 'default'
+       "pelicula_id",  // Atributo activo en 'default'
+       "!created_at",  // Atributo activo pero inseguro en 'default'
+     ],
+   ]
+>>> $a->attributes = ['created_at' => null];
+>>> $a
+=> app\models\Alquileres {#250
+     id: 1,
+     socio_id: 1,
+     pelicula_id: 1,
+     created_at: "2018-01-16 10:08:19", // No ha cambiado
+     devolucion: "2018-01-17 10:08:19",
+   }
+```
+
+---
+
+```php
+>>> $a->validate()
+=> true                // Actualmente valida
+>>> $a->created_at = null;
+=> null                // Asignar directamente siempre funciona
+>>> $a
+=> app\models\Alquileres {#250
+     id: 1,
+     socio_id: 1,
+     pelicula_id: 1,
+     created_at: null, // Ha cambiado el valor
+     devolucion: "2018-01-17 10:08:19",
+   }
+>>> $a->validate()
+=> false               // No valida, porque created_at debe ser !== null
+```
+
+- Aquí se ve que `created_at` es un atributo activo en el escenario `default`
+  porque aparece en `scenarios()`, y por tanto está sujeto a las reglas de
+  validación, pero no es un atributo seguro porque está marcado expresamente
+  como inseguro, y por tanto no admite la asignación masiva.
 
