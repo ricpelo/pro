@@ -26,12 +26,22 @@ sdflkjsdlkfjsdf.
 
 ## Representación de fechas, horas e instantes en PHP
 
-- Como instantes de tiempo UNIX (UNIX timestamps): número de segundos transcurridos desde el 1/1/1970 a las 00:00:00.
-  - Usado por funciones date(), time(), mktime(), cookie()
-  - Sólo interesante para ciertas situaciones.
+- Como marcas de tiempo UNIX (UNIX timestamps): número de segundos transcurridos desde el 1/1/1970 a las 00:00:00.
+  - Usado por funciones date(), time(), localtime(), mktime(), cookie()
+  - Sólo interesante para ciertas situaciones cuando no importa el idioma. En tal caso pueden resultar bastante prácticas.
+  - También es lo que devuelve IntlDateFormatter::parse().
 
 - Como instancias de la clase DateTime, DateTimeImmutable.
   - Más interesante en general.
+
+## Patrones de formatos
+
+- ICU
+- PHP
+- jQuery UI
+- to_char() de PostgreSQL
+
+http://www.yiiframework.com/doc-2.0/yii-helpers-formatconverter.html
 
 ## Convertir cadena en fecha/hora/instante
 
