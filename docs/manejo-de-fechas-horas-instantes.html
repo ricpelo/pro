@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Manejo de fechas, horas e instantes en PHP, Yii 2, PostgreSQL y Heroku</title>
+  <title>Manejo de fechas, horas, instantes e intervalos en PHP, Yii 2, PostgreSQL y Heroku</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -100,13 +100,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Manejo de fechas, horas e instantes en PHP, Yii 2, PostgreSQL y Heroku</h1>
+  <h1 class="title">Manejo de fechas, horas, instantes e intervalos en PHP, Yii 2, PostgreSQL y Heroku</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2017-18</p>
 </section>
 
-<section><section id="configuración-inicial" class="title-slide slide level1"><h1>Configuración inicial</h1></section><section id="ruby-on-rails" class="slide level2">
-<h2>Ruby on Rails</h2>
+<section><section id="aspectos-esenciales" class="title-slide slide level1"><h1>Aspectos esenciales</h1></section><section id="aspectos-esenciales-1" class="slide level2">
+<h2>Aspectos esenciales</h2>
+<ul>
+<li><p>Hay que trabajar siempre en UTC.</p></li>
+<li><p>Hay que trabajar siempre en formato ISO 8601.</p></li>
+<li><p>Sólo se convierte al formato español (y a la zona horaria que toque) justo cuando se muestre al usuario.</p></li>
+</ul>
+</section></section>
+<section><section id="configuración-inicial" class="title-slide slide level1"><h1>Configuración inicial</h1></section><section id="postgresql" class="slide level2">
+<h2>PostgreSQL</h2>
+</section></section>
+<section><section id="manejo-en-php" class="title-slide slide level1"><h1>Manejo en PHP</h1></section><section id="manejo-en-php-1" class="slide level2">
+<h2>Manejo en PHP</h2>
+<p>sdflkjsdlkfjsdf.</p>
+</section><section id="representación-de-fechas-horas-e-instantes-en-php" class="slide level2">
+<h2>Representación de fechas, horas e instantes en PHP</h2>
+<ul>
+<li>Como marcas de tiempo UNIX (UNIX timestamps): número de segundos transcurridos desde el 1/1/1970 a las 00:00:00.
+<ul>
+<li>Usado por funciones date(), time(), localtime(), mktime(), cookie()</li>
+<li>Sólo interesante para ciertas situaciones cuando no importa el idioma. En tal caso pueden resultar bastante prácticas.</li>
+<li>También es lo que devuelve IntlDateFormatter::parse().</li>
+</ul></li>
+<li>Como instancias de la clase DateTime, DateTimeImmutable.
+<ul>
+<li>Más interesante en general.</li>
+</ul></li>
+</ul>
+</section><section id="patrones-de-formatos" class="slide level2">
+<h2>Patrones de formatos</h2>
+<ul>
+<li>ICU</li>
+<li>PHP</li>
+<li>jQuery UI</li>
+<li>to_char() de PostgreSQL</li>
+</ul>
+<p>http://www.yiiframework.com/doc-2.0/yii-helpers-formatconverter.html</p>
+</section><section id="convertir-cadena-en-fechahorainstante" class="slide level2">
+<h2>Convertir cadena en fecha/hora/instante</h2>
+<ul>
+<li>DateTime::createFromFormat() no interesa, porque no entiende el español.</li>
+<li>strtotime() tampoco interesa, porque tampoco entiende el español.</li>
+<li><p>Lo mejor es usar la extensión Intl:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="va">$fmt</span> = <span class="kw">new</span> IntlDateFormatter<span class="ot">(</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="st">&#39;es-ES&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    IntlDateFormatter::<span class="cn">LONG</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    IntlDateFormatter::<span class="cn">LONG</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="st">&#39;Europe/Madrid&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">null</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="st">&#39;dd-MMMM-yyyy HH:mm:ss&#39;</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="ot">);</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="va">$fmt</span>-&gt;parse<span class="ot">(</span><span class="st">&#39;25-enero-2018 17:01:43&#39;</span><span class="ot">);</span> <span class="co">// =&gt; 1516896103</span></a></code></pre></div></li>
+</ul>
+</section><section id="convertir-fechahorainstante-en-cadena" class="slide level2">
+<h2>Convertir fecha/hora/instante en cadena</h2>
+<ul>
+<li>date() no interesa, porque lo saca en inglés.</li>
+<li>A DateTime::format() le pasa lo mismo.</li>
+<li>strftime() junto con setlocale(LC_ALL, ‘es_ES.UTF8’) funciona bien, pero:
+<ul>
+<li>hay que hacer primero el setlocale().</li>
+<li>usa un formato raro distinto al de las demás funciones, con %: strftime(‘%d-%B-%Y %H:%M:%S’), aunque eso tampoco es que sea muy grave.</li>
+<li>tiene en cuenta la zona horaria definida con date_default_timezone_set(). Para que se vea en nuestra zona horaria, primero hay que hacer date_default_timezone_set(‘Europe/Madrid’), luego hacer el strftime() y luego volver a hacer date_default_timezone_set(‘UTC’).</li>
+</ul></li>
+</ul>
+</section><section id="manejo-de-intervalos-en-php" class="slide level2">
+<h2>Manejo de intervalos en PHP</h2>
+<ul>
+<li>La clase DateInterval.</li>
+</ul>
+</section></section>
+<section><section id="manejo-en-yii-2" class="title-slide slide level1"><h1>Manejo en Yii 2</h1></section><section id="manejo-en-yii-2-1" class="slide level2">
+<h2>Manejo en Yii 2</h2>
+</section></section>
+<section><section id="manejo-en-postgresql" class="title-slide slide level1"><h1>Manejo en PostgreSQL</h1></section><section id="manejo-en-postgresql-1" class="slide level2">
+<h2>Manejo en PostgreSQL</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="images/rubyonrails.png" class="plain" /></p>
@@ -303,15 +377,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="ejemplo-de-aplicación-web-con-microframework" class="slide level2">
 <h2>Ejemplo de aplicación web con microframework</h2>
 <p>Usando <a href="https://silex.symfony.com/">Silex</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">}<span class="ot">);</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">require_once</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../vendor/autoload.php&#39;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="va">$app</span> = <span class="kw">new</span> Silex\Application<span class="ot">();</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="va">$app</span>-&gt;get<span class="ot">(</span><span class="st">&#39;/hello/{name}&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">(</span><span class="va">$name</span><span class="ot">)</span> <span class="kw">use</span> <span class="ot">(</span><span class="va">$app</span><span class="ot">)</span> {</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">return</span> <span class="st">&#39;Hello &#39;</span> . <span class="va">$app</span>-&gt;escape<span class="ot">(</span><span class="va">$name</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}<span class="ot">);</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="va">$app</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
 </section><section id="ejemplos-de-microframeworks-para-php" class="slide level2">
 <h2>Ejemplos de microframeworks para PHP</h2>
 <ul>
