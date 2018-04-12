@@ -2,11 +2,13 @@
 
 SRCDIR=source
 BUILDDIR=docs
+BUILDDIRHTML=$(BUILDDIR)/slides
+BUILDDIRPDF=$(BUILDDIR)/pdf
 PP=pp
 
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
-OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.html))
-OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.md=.pdf))
+OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
+OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 
 all: $(OBJECTSHTML) # $(OBJECTSPDF)
 
@@ -14,7 +16,7 @@ html: $(OBJECTSHTML)
 
 pdf: $(OBJECTSPDF)
 
-$(BUILDDIR)/%.html: $(SRCDIR)/%.md $(PP)
+$(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	./pp $< | \
 	pandoc -s -t revealjs --template=pandoc_revealjs.template \
 		--highlight-style=solarized.theme \
@@ -24,7 +26,7 @@ $(BUILDDIR)/%.html: $(SRCDIR)/%.md $(PP)
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
-$(BUILDDIR)/%.pdf: $(BUILDDIR)/%.html
+$(BUILDDIRPDF)/.pdf: $(BUILDDIRHTML)/%.html
 	php -S localhost:8081 &
 	xdg-open http://localhost:8081/$^?print-pdf &
 
