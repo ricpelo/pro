@@ -2,20 +2,21 @@
 title: Desarrollo web en entorno servidor
 ---
 
-## Ejemplo
+Ciclo Formativo de Grado Superior en<br>
+Desarrollo de Aplicaciones Web
+{:.lead}
 
-$$a^2 + b^2 = c^2$$
+Módulo profesional de 2º curso
 
-## Otro ejemplo
+Aula **P7**<br>
+[IES Doñana](http://www.iesdonana.org)<br>
+Sanlúcar de Barrameda<br>
+Curso 2017/18
 
-```php
-public function prueba($valor)
-{
-    $x = $valor + 24;
-    echo $x;
-    return true;
-}
-```
+**Profesor**: Ricardo Pérez López<br>
+**Departamento**: Informática y Comunicaciones<br>
+**Correo electrónico**: `ricardo EN iesdonana PUNTO org`
+{:.message}
 
 ## Apuntes
 
