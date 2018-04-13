@@ -1,3 +1,18 @@
+## Ejemplo
+
+$$a^2 + b^2 = c^2$$
+
+## Otro ejemplo
+
+```php
+public function prueba($valor)
+{
+    $x = $valor + 24;
+    echo $x;
+    return true;
+}
+```
+
 ## Apuntes
 
 - UD6: [Conceptos básicos de PHP (I)](slides/conceptos-basicos-de-php-i.html){:target="_blank"}
