@@ -2,6 +2,10 @@
 title: Desarrollo web en entorno servidor
 ---
 
+<div class="pull-right" markdown="1">
+![PHP](assets/img/php.png){:.center-image}
+</div>
+
 Ciclo Formativo de Grado Superior en<br>
 Desarrollo de Aplicaciones Web
 {:.lead}
