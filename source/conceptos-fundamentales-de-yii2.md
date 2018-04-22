@@ -19,7 +19,7 @@ Las dos primeras características se heredan de `\yii\base\BaseObject`.
 
 ---
 
-!uml(images/baseobject {.plain width=40%})
+!uml(images/baseobject.png {.plain width=40%})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
