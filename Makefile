@@ -1,4 +1,4 @@
-.PHONY: all html pdf clean
+.PHONY: all html pdf clean setup
 
 SRCDIR=source
 BUILDDIR=docs
@@ -35,3 +35,7 @@ $(PP):
 
 clean:
 	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
+
+setup:
+	./check-pandoc.sh
+	sudo apt install plantuml graphviz
