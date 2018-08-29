@@ -26,7 +26,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
-$(BUILDDIRPDF)/.pdf: $(BUILDDIRHTML)/%.html
+$(BUILDDIRPDF)/%.pdf: $(BUILDDIRHTML)/%.html
 	php -S localhost:8081 &
 	xdg-open http://localhost:8081/$^?print-pdf &
 
