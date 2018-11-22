@@ -102,13 +102,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="title-slide">
   <h1 class="title">Estructura de una aplicación Yii 2</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2017-18</p>
+  <p class="date">IES Doñana, curso 2018-19</p>
 </section>
 
 <section><section id="introducción" class="title-slide slide level1"><h1>Introducción</h1></section><section id="introducción-1" class="slide level2">
 <h2>Introducción</h2>
 <figure>
-<img data-src="http://www.yiiframework.com/doc-2.0/images/application-structure.png" alt="Estructura a gran escala de una aplicación Yii2" class="plain" /><figcaption>Estructura a gran escala de una aplicación Yii2</figcaption>
+<img data-src="https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png" alt="Estructura a gran escala de una aplicación Yii2" class="plain" /><figcaption>Estructura a gran escala de una aplicación Yii2</figcaption>
 </figure>
 </section></section>
 <section><section id="scripts-de-entrada" class="title-slide slide level1"><h1>Scripts de entrada</h1></section><section id="scripts-de-entrada-1" class="slide level2">
@@ -348,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Controladores</h2>
 <ul>
 <li><p>Los <strong>controladores</strong> son parte de la arquitectura <strong>MVC</strong>.</p></li>
-<li><p>Son instancias de subclases (directas o indirectas) de <code>\yii\base\Controller</code>.</p></li>
+<li><p>Son instancias de subclases (directas o indirectas) de <code>yii\base\Controller</code>.</p></li>
 <li><p>Son los responsables de procesar las peticiones y generar las respuestas.</p></li>
 </ul>
 </section><section id="acciones" class="slide level2">
@@ -444,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Los modelos son parte de la arquitectura MVC.</p></li>
 <li><p>Son objetos que representan datos, reglas y lógica de negocio.</p></li>
-<li><p>Las clases modelo se crean heredando (directa o indirectamente) de <code>\yii\base\Model</code>.</p></li>
+<li><p>Las clases modelo se crean heredando (directa o indirectamente) de <code>yii\base\Model</code>.</p></li>
 <li><p>Dicha clase base proporciona muchas características útiles:</p>
 <ul>
 <li><strong>Atributos</strong>: representan los datos de negocio y se puede acceder a ellos como si fueran propiedades normales o elementos de un array.</li>
@@ -470,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level2">
 
 <ul>
-<li><p>También se pueden acceder a los atributos como si fueran elementos de un array, gracias a que <code>\yii\base\Model</code> implementa las interfaces <a href="http://php.net/manual/es/class.arrayaccess.php">ArrayAccess</a> y <a href="http://php.net/manual/es/class.traversable.php">Traversable</a>:</p>
+<li><p>También se pueden acceder a los atributos como si fueran elementos de un array, gracias a que <code>yii\base\Model</code> implementa las interfaces <a href="http://php.net/manual/es/class.arrayaccess.php">ArrayAccess</a> y <a href="http://php.net/manual/es/class.traversable.php">Traversable</a>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">// se accede a los atributos como si fueran elementos de un array:</span></a>
@@ -485,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="definición-de-atributos" class="slide level2">
 <h2>Definición de atributos</h2>
 <ul>
-<li><p>De entrada, si la clase modelo hereda directamente de <code>\yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
+<li><p>De entrada, si la clase modelo hereda directamente de <code>yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
 <li><p>Por ejemplo, la siguiente clase modelo <code>ContactForm</code> tiene cuatro atributos: <code>nombre</code>, <code>correo</code>, <code>asunto</code> y <code>cuerpo</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"></a>
@@ -501,9 +501,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level2">
 
 <ul>
-<li><p>Se puede sobreescribir el método <code>attributes()</code> de <code>\yii\base\Model</code> para definir atributos de forma distinta.</p></li>
+<li><p>Se puede sobreescribir el método <code>attributes()</code> de <code>yii\base\Model</code> para definir atributos de forma distinta.</p></li>
 <li><p>Ese método debe devolver los nombre de los atributos del modelo.</p></li>
-<li><p>Por ejemplo, <code>\yii\db\ActiveRecord</code> lo hace devolviendo como nombres de atributos los nombres de las columnas de la tabla asociada con el modelo.</p>
+<li><p>Por ejemplo, <code>yii\db\ActiveRecord</code> lo hace devolviendo como nombres de atributos los nombres de las columnas de la tabla asociada con el modelo.</p>
 <ul>
 <li>En este caso, y aunque hace falta algo más de <em>magia</em> para que acabe funcionando, al final se consigue que cada columna de la tabla aparezca como atributo del modelo correspondiente a esa tabla.</li>
 </ul></li>
@@ -528,7 +528,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="escenario-activo" class="slide level2">
 <h2>Escenario activo</h2>
 <ul>
-<li><p>Los modelos usan la propiedad <code>\yii\base\Model::scenario</code> para indicar en qué escenario se encuentran.</p></li>
+<li><p>Los modelos usan la propiedad <code>yii\base\Model::scenario</code> para indicar en qué escenario se encuentran.</p></li>
 <li><p>Por defecto, un modelo sólo tiene un escenario, llamado <code>default</code>.</p></li>
 <li><p>Para cambiar el escenario de un modelo se puede hacer:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co">// El escenario se establece con una propiedad:</span></a>
@@ -543,7 +543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Definición de escenarios</h2>
 <ul>
 <li><p>Los escenarios que soporta un modelo normalmente se definen en las <em>reglas de validación</em> del modelo.</p></li>
-<li><p>Sin embargo, también se pueden definir sobreescribiendo el método <code>\yii\base\Model::scenarios()</code>:</p></li>
+<li><p>Sin embargo, también se pueden definir sobreescribiendo el método <code>yii\base\Model::scenarios()</code>:</p></li>
 </ul>
 <div class="sourceCode" id="cb19"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"></a>
@@ -598,12 +598,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level2">
 
 <ul>
-<li><p>Se puede llamar al método <code>\yii\base\Model::validate()</code> para validar los datos introducidos:</p>
+<li><p>Se puede llamar al método <code>yii\base\Model::validate()</code> para validar los datos introducidos:</p>
 <ul>
 <li><p>Si no hay ningún error, el método devolverá <code>true</code>.</p></li>
-<li><p>En caso contrario, guardará los mensajes de error en la propiedad <code>\yii\base\Model::errors</code> y devolverá <code>false</code>.</p></li>
+<li><p>En caso contrario, guardará los mensajes de error en la propiedad <code>yii\base\Model::errors</code> y devolverá <code>false</code>.</p></li>
 </ul></li>
-<li><p>El método usará las reglas de validación declaradas en <code>\yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
+<li><p>El método usará las reglas de validación declaradas en <code>yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
 <li><p>Ese es el método que tenemos que sobreescribir para definir las reglas de validación del modelo.</p></li>
 </ul>
 </section><section class="slide level2">
@@ -624,7 +624,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="declaración-de-reglas-de-validación" class="slide level2">
 <h2>Declaración de reglas de validación</h2>
 <ul>
-<li><p>Para declarar las reglas de validación asociadas a un modelo, hay que sobreescribir el método <code>\yii\base\Model::rules()</code> para que devuelva las reglas que deben satisfacer los atributos del modelo.</p></li>
+<li><p>Para declarar las reglas de validación asociadas a un modelo, hay que sobreescribir el método <code>yii\base\Model::rules()</code> para que devuelva las reglas que deben satisfacer los atributos del modelo.</p></li>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2">{</a>
@@ -664,7 +664,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="asignación-masiva" class="slide level2">
 <h2>Asignación masiva</h2>
 <ul>
-<li>La <strong>asignación masiva</strong> permite rellenar varios (o todos los) atributos de un modelo en una sola operación asignando los datos de entrada directamente a la propiedad <code>\yii\base\Model::$attributes</code>:</li>
+<li>La <strong>asignación masiva</strong> permite rellenar varios (o todos los) atributos de un modelo en una sola operación asignando los datos de entrada directamente a la propiedad <code>yii\base\Model::$attributes</code>:</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="va">$modelo</span>-&gt;attributes = \Yii::<span class="va">$app</span>-&gt;request-&gt;post<span class="ot">(</span><span class="st">&#39;ContactForm&#39;</span><span class="ot">);</span></a>
@@ -689,7 +689,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level2">
 
 <ul>
-<li><p>Como la implementación predeterminada de <code>\yii\base\Model::scenarios()</code> devuelve todos los escenarios y atributos que aparecen en <code>\yii\base\Model::rules()</code>, de entrada todos los atributos son seguros siempre y cuando aparezcan en alguna de las reglas de validación activas.</p></li>
+<li><p>Como la implementación predeterminada de <code>yii\base\Model::scenarios()</code> devuelve todos los escenarios y atributos que aparecen en <code>yii\base\Model::rules()</code>, de entrada todos los atributos son seguros siempre y cuando aparezcan en alguna de las reglas de validación activas.</p></li>
 <li><p>Con esa implementación, si queremos que un atributo sea seguro pero no sabemos qué validación aplicarle, podemos marcarlo como <code>safe</code> en el método <code>rules()</code>:</p></li>
 </ul>
 <div class="sourceCode" id="cb25"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">public</span> <span class="kw">function</span> rules<span class="ot">()</span></a>

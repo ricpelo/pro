@@ -1,7 +1,7 @@
 ---
 title: Introducción a Yii2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2017-18
+date: IES Doñana, curso 2018-19
 ---
 
 # Frameworks, microframeworks y librerías
@@ -569,18 +569,18 @@ vistas.
 
 ## MVC en Yii 2
 
-- Los **modelos** son subclases de `\yii\base\Model`.
+- Los **modelos** son subclases de `yii\base\Model`.
 
-  - Un caso especial son las subclases de `\yii\db\ActiveRecord`.
+  - Un caso especial son las subclases de `yii\db\ActiveRecord`.
 
 - Las **vistas** son plantillas (archivos `.php`) que combinan HTML y PHP (y
 posiblemente JavaScript, CSS, etc.).
 
-- Los **controladores** son subclases de `\yii\base\Controller`.
+- Los **controladores** son subclases de `yii\base\Controller`.
 
-  - En las aplicaciones web se usa `\yii\web\Controller`.
+  - En las aplicaciones web se usa `yii\web\Controller`.
 
-  - En las aplicaciones de consola se usa `\yii\console\Controller`.
+  - En las aplicaciones de consola se usa `yii\console\Controller`.
 
 ## Ejercicios
 

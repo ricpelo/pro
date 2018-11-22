@@ -1,7 +1,7 @@
 ---
 title: Estructura de una aplicación Yii 2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2017-18
+date: IES Doñana, curso 2018-19
 ---
 
 # Introducción
@@ -9,7 +9,7 @@ date: IES Doñana, curso 2017-18
 ## Introducción
 
 ![Estructura a gran escala de una aplicación
-Yii2](http://www.yiiframework.com/doc-2.0/images/application-structure.png){.plain}
+Yii2](https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png){.plain}
 
 # Scripts de entrada
 
@@ -341,7 +341,7 @@ Lista de componentes de aplicación principales:
 
 - Los **controladores** son parte de la arquitectura **MVC**.
 
-- Son instancias de subclases (directas o indirectas) de `\yii\base\Controller`.
+- Son instancias de subclases (directas o indirectas) de `yii\base\Controller`.
 
 - Son los responsables de procesar las peticiones y generar las respuestas.
 
@@ -474,7 +474,7 @@ se ejecutará la acción `index` del controlador `site`.
 
 - Son objetos que representan datos, reglas y lógica de negocio.
 
-- Las clases modelo se crean heredando (directa o indirectamente) de `\yii\base\Model`.
+- Las clases modelo se crean heredando (directa o indirectamente) de `yii\base\Model`.
 
 - Dicha clase base proporciona muchas características útiles:
 
@@ -512,7 +512,7 @@ se ejecutará la acción `index` del controlador `site`.
 ---
 
 - También se pueden acceder a los atributos como si fueran elementos de un array,
-gracias a que `\yii\base\Model` implementa las interfaces
+gracias a que `yii\base\Model` implementa las interfaces
 [ArrayAccess](http://php.net/manual/es/class.arrayaccess.php) y
 [Traversable](http://php.net/manual/es/class.traversable.php):
 
@@ -531,7 +531,7 @@ gracias a que `\yii\base\Model` implementa las interfaces
 
 ## Definición de atributos
 
-- De entrada, si la clase modelo hereda directamente de `\yii\base\Model`,
+- De entrada, si la clase modelo hereda directamente de `yii\base\Model`,
   _todas sus **variables miembro públicas no estáticas**_ serán consideradas
   atributos.
 
@@ -555,12 +555,12 @@ gracias a que `\yii\base\Model` implementa las interfaces
 
 ---
 
-- Se puede sobreescribir el método `attributes()` de `\yii\base\Model` para
+- Se puede sobreescribir el método `attributes()` de `yii\base\Model` para
   definir atributos de forma distinta.
 
 - Ese método debe devolver los nombre de los atributos del modelo.
 
-- Por ejemplo, `\yii\db\ActiveRecord` lo hace devolviendo como nombres de
+- Por ejemplo, `yii\db\ActiveRecord` lo hace devolviendo como nombres de
   atributos los nombres de las columnas de la tabla asociada con el modelo.
 
   - En este caso, y aunque hace falta algo más de *magia* para que acabe
@@ -594,7 +594,7 @@ gracias a que `\yii\base\Model` implementa las interfaces
 
 ## Escenario activo
 
-- Los modelos usan la propiedad `\yii\base\Model::scenario` para indicar en
+- Los modelos usan la propiedad `yii\base\Model::scenario` para indicar en
   qué escenario se encuentran.
 
 - Por defecto, un modelo sólo tiene un escenario, llamado `default`.
@@ -623,7 +623,7 @@ gracias a que `\yii\base\Model` implementa las interfaces
   validación* del modelo.
 
 - Sin embargo, también se pueden definir sobreescribiendo el método
-  `\yii\base\Model::scenarios()`:
+  `yii\base\Model::scenarios()`:
 
 ```php
 namespace app\models;
@@ -699,16 +699,16 @@ class User extends \yii\db\ActiveRecord
 
 ---
 
-- Se puede llamar al método `\yii\base\Model::validate()` para validar los
+- Se puede llamar al método `yii\base\Model::validate()` para validar los
   datos introducidos:
 
   - Si no hay ningún error, el método devolverá `true`.
 
   - En caso contrario, guardará los mensajes de error en la propiedad
-    `\yii\base\Model::errors` y devolverá `false`.
+    `yii\base\Model::errors` y devolverá `false`.
 
 - El método usará las reglas de validación declaradas en
-  `\yii\base\Model::rules()` para validar cada uno de los atributos que lo
+  `yii\base\Model::rules()` para validar cada uno de los atributos que lo
   necesiten.
 
 - Ese es el método que tenemos que sobreescribir para definir las reglas de
@@ -736,7 +736,7 @@ if ($modelo->validate()) {
 ## Declaración de reglas de validación
 
 - Para declarar las reglas de validación asociadas a un modelo, hay que
-  sobreescribir el método `\yii\base\Model::rules()` para que devuelva las
+  sobreescribir el método `yii\base\Model::rules()` para que devuelva las
   reglas que deben satisfacer los atributos del modelo.
 
 - Ejemplo:
@@ -791,7 +791,7 @@ if ($modelo->validate()) {
 
 - La **asignación masiva** permite rellenar varios (o todos los) atributos de
   un modelo en una sola operación asignando los datos de entrada directamente a
-  la propiedad `\yii\base\Model::$attributes`:
+  la propiedad `yii\base\Model::$attributes`:
 
 ```php
 $modelo = new \app\models\ContactForm;
@@ -819,9 +819,9 @@ $modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
 
 ---
 
-- Como la implementación predeterminada de `\yii\base\Model::scenarios()`
+- Como la implementación predeterminada de `yii\base\Model::scenarios()`
   devuelve todos los escenarios y atributos que aparecen en
-  `\yii\base\Model::rules()`, de entrada todos los atributos son seguros
+  `yii\base\Model::rules()`, de entrada todos los atributos son seguros
   siempre y cuando aparezcan en alguna de las reglas de validación activas.
 
 - Con esa implementación, si queremos que un atributo sea seguro pero no

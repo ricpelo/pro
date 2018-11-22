@@ -1,7 +1,7 @@
 ---
 title: Conceptos fundamentales de Yii 2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2017-18
+date: IES Doñana, curso 2018-19
 ---
 
 # Componentes
@@ -15,7 +15,7 @@ Se caracterizan por tener:
 - Eventos
 - Comportamientos (*behaviors*)
 
-Las dos primeras características se heredan de `\yii\base\BaseObject`.
+Las dos primeras características se heredan de `yii\base\BaseObject`.
 
 ---
 
@@ -23,10 +23,10 @@ Las dos primeras características se heredan de `\yii\base\BaseObject`.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
-\yii\base\BaseObject <|-- \yii\base\Component
+yii\base\BaseObject <|-- yii\base\Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## `\yii\base\BaseObject`
+## `yii\base\BaseObject`
 
 Introduce las siguientes características:
 
@@ -43,10 +43,10 @@ Introduce las siguientes características:
 - Esas variables son parte de la definición de la clase, y se usan para
   representar el estado de una instancia de dicha clase.
 
-- La clase `\yii\base\BaseObject` de Yii 2 permite crear propiedades a partir
+- La clase `yii\base\BaseObject` de Yii 2 permite crear propiedades a partir
   de métodos *getter* y *setter*.
 
-- Toda clase que herede (directa o indirectamente) de `\yii\base\BaseObject`
+- Toda clase que herede (directa o indirectamente) de `yii\base\BaseObject`
   podrá definir propiedades de esa manera.
 
 ---
@@ -133,7 +133,7 @@ $p->valor = 30;  // Da ERROR
 
 ## Configurabilidad
 
-- Una instancia de la clase `\yii\base\BaseObject` (o de una subclase suya)
+- Una instancia de la clase `yii\base\BaseObject` (o de una subclase suya)
   permite ser *configurado*.
 
 - Una **configuración** es simplemente un array que contiene parejas de `clave
@@ -159,7 +159,7 @@ $p->valor = 30;  // Da ERROR
 Supongamos la siguiente clase:
 
 ```php
-use \yii\base\BaseObject;
+use yii\base\BaseObject;
 
 class Prueba extends BaseObject
 {
@@ -230,12 +230,12 @@ $p = Yii::createObject([
 
 `$p->uno = 4` y `$p->dos = 7`.
 
-## `\yii\base\Component`
+## `yii\base\Component`
 
 - Todos los componentes de Yii 2 heredan, directa o indirectamente, de esta
   clase.
 
-- Esta clase hereda, a su vez, de `\yii\base\BaseObject`, por lo que incorpora
+- Esta clase hereda, a su vez, de `yii\base\BaseObject`, por lo que incorpora
   *propiedades* y *configurabilidad*.
 
 - Además, los componentes incorporan otras dos características importantes:
@@ -271,7 +271,7 @@ $p = Yii::createObject([
 ---
 
 Para poder disparar eventos o responder a eventos, la clase en cuestión debe
-ser subclase (directa o indirecta) de `\yii\base\Component`.
+ser subclase (directa o indirecta) de `yii\base\Component`.
 
 ## Manejadores de eventos
 
@@ -300,7 +300,7 @@ La signatura del manejador de eventos es:
 
 ```php
 function ($event) {
-    // $event es un objeto de la clase \yii\base\Event
+    // $event es un objeto de la clase yii\base\Event
     // (o una subclase de esta)
 }
 ```
@@ -310,7 +310,7 @@ Ejercicio: consultar qué información contiene el objeto `$event`.
 ## Vincular manejadores a eventos
 
 Para **vincular un manejador a un evento en un objeto** se usa el método
-`\yii\base\Component::on()` sobre ese objeto:
+`yii\base\Component::on()` sobre ese objeto:
 
 ```php
 $p = new Prueba;
@@ -335,7 +335,7 @@ evento.
 
 ## Disparar eventos
 
-- Los eventos se disparan llamando al método `\yii\base\Component::trigger()`
+- Los eventos se disparan llamando al método `yii\base\Component::trigger()`
   sobre el objeto que envía (o *dispara*) el evento:
 
 ```php
@@ -408,7 +408,7 @@ registrado por `$q` (el objeto `$q` no se entera).
   manejadores a nivel de instancia, que se denominan **manejadores de
   instancia**.
 
-- Para ello, usamos el método estático `\yii\base\Event::on()` indicando el
+- Para ello, usamos el método estático `yii\base\Event::on()` indicando el
   nombre de la clase, el nombre del evento y el manejador del evento.
 
 ---
@@ -448,7 +448,7 @@ $b->trigger(Prueba::EVENTO_HOLA);  // También saluda
   a más objetos de los necesarios.
 
 - Por ejemplo, si vinculamos un manejador de evento a la clase
-  `\yii\base\BaseObject`, prácticamente *todas* las instancias de Yii 2
+  `yii\base\BaseObject`, prácticamente *todas* las instancias de Yii 2
   podrán responder a ese evento.
 
 ---
@@ -499,7 +499,7 @@ Event::on(Prueba::className(), Prueba::EVENTO_HOLA, function ($event) {
   por una clase se denominan **eventos de clase**.
 
 - Los eventos de clase se disparan llamando al método
-  `\yii\base\Event::trigger()`, indicando el nombre de la clase y el nombre del
+  `yii\base\Event::trigger()`, indicando el nombre de la clase y el nombre del
   evento.
 
 - Los eventos de clase sólo provocan la ejecución de manejadores de clase, no
@@ -554,7 +554,7 @@ evento no es ninguna instancia concreta, sino una clase.
 ## Definición de comportamientos
 
 Un comportamiento es una subclase (directa o indirecta) de
-`\yii\base\Behavior`:
+`yii\base\Behavior`:
 
 :::::::::::::: {.columns}
 
@@ -669,7 +669,7 @@ class Usuario extends \yii\db\ActiveRecord
 ## Acoplamiento dinámico de comportamientos
 
 Para acoplar un comportamiento dinámicamente, se llama al método
-`\yii\base\Component::attachBehavior()` method del componente al que se le va a
+`yii\base\Component::attachBehavior()` del componente al que se le va a
 acoplar el comportamiento:
 
 ```php

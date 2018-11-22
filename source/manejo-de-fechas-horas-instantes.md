@@ -1,7 +1,7 @@
 ---
 title: Manejo de fechas, horas, instantes e intervalos en PHP, Yii 2, PostgreSQL y Heroku
 author: Ricardo Pérez López
-date: IES Doñana, curso 2017-18
+date: IES Doñana, curso 2018-19
 ---
 
 # Aspectos esenciales
