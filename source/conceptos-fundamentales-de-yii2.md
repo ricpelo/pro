@@ -8,30 +8,62 @@ date: IES Doñana, curso 2018-19
 
 ## Componentes
 
-Se caracterizan por tener:
+- Los componentes son los principales bloques de construcción de una aplicación
+  Yii.
 
-- Propiedades
-- Configurabilidad
-- Eventos
-- Comportamientos (*behaviors*)
+- Los componentes son instancias de `yii\base\Component` (o una subclase suya).
 
-Las dos primeras características se heredan de `yii\base\BaseObject`.
+- Se caracterizan por tener:
+
+  - Propiedades
+  - Configurabilidad
+  - Eventos
+  - Comportamientos (*behaviors*)
+
+  Las dos primeras características se heredan de `yii\base\BaseObject`.
 
 ---
 
-!uml(images/baseobject.png {.plain width=40%})
+:::::::::::::: {.columns}
+
+::: {.column width="50%"}
+
+!uml(images/baseobject.png {.plain width=70%})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
 yii\base\BaseObject <|-- yii\base\Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## `yii\base\BaseObject`
+:::
 
-Introduce las siguientes características:
+::: {.column width="50%"}
 
-- Propiedades
-- Configurabilidad
+- `yii\base\BaseObject`:
+
+  - Propiedades
+
+  - Configurabilidad
+
+- `yii\base\Component`:
+
+  - Eventos
+
+  - Comportamientos (*behaviors*)
+
+:::
+
+::::::::::::::
+
+---
+
+- Aunque los componentes son muy potentes, son un poco más pesados que los
+  objetos normales (consumen algo más de memoria y CPU).
+
+- Si un componente no necesita eventos ni comportamientos, es mejor que la
+  clase herede de `yii\base\BaseObject` en lugar de `yii\base\Component`,
+  porque así los objetos serían tan eficientes como objetos normales de PHP,
+  pero además tendrían propiedades y configurabilidad.
 
 # Propiedades
 
@@ -134,7 +166,7 @@ $p->valor = 30;  // Da ERROR
 ## Configurabilidad
 
 - Una instancia de la clase `yii\base\BaseObject` (o de una subclase suya)
-  permite ser *configurado*.
+  permite ser *configurada*.
 
 - Una **configuración** es simplemente un array que contiene parejas de `clave
   => valor`, donde la `clave` representa el nombre de una propiedad (una
@@ -214,7 +246,8 @@ echo $p->dos; // Muestra "7"
   `Yii::createObject($config)`.
 
 - Para ello es necesario que la configuración indique el nombre de la clase que
-  se desea instanciar mediante un elemento con clave `'class'`.
+  se desea instanciar mediante un elemento con clave `'class'` (que además
+  tiene que ser el primer elemento del array).
 
 - Ejemplo:
 
@@ -230,19 +263,65 @@ $p = Yii::createObject([
 
 `$p->uno = 4` y `$p->dos = 7`.
 
-## `yii\base\Component`
+---
 
-- Todos los componentes de Yii 2 heredan, directa o indirectamente, de esta
-  clase.
+`Yii::createObject()` es como una especie de «súper `new`»:
 
-- Esta clase hereda, a su vez, de `yii\base\BaseObject`, por lo que incorpora
-  *propiedades* y *configurabilidad*.
+- Crea instancias y las configura al mismo tiempo.
 
-- Además, los componentes incorporan otras dos características importantes:
+- Usa el *contenedor de inyección de dependencias* para resolver
+  automáticamente las dependencias del objeto que se desea crear.
 
-**Eventos**
+Por ello, `Yii::createObject()` se usa muchísimo más que `new` a lo largo de
+todo el código del framework y de la aplicación que hagamos con él.
 
-**Comportamientos**
+# Normas
+
+## Normas de creación de componentes
+
+- Al heredar de `yii\base\Component` o `yii\base\BaseObject`, hay que seguir
+  las siguientes normas:
+
+  - Si se sobreescribe el constructor, el último parámetro debe ser `$config =
+    []` y al final hay que pasárselo al constructor del padre.
+
+  - Llamar siempre al constructor del padre al final del constructor
+    sobreescrito.
+
+  - Si se sobreescribe el método `yii\base\BaseObject::init()`, hay que llamar
+    al `init()` del padre al comienzo del `init()` sobreescrito.
+
+---
+
+```php
+<?php
+
+namespace yii\components\MiClase;
+
+use yii\base\BaseObject;
+
+class MiClase extends BaseObject
+{
+    public $prop1;
+    public $prop2;
+
+    public function __construct($param1, $param2, $config = [])
+    {
+        // ... inicialización antes de aplicar la configuración
+
+        // Lo último que se hace es llamar al constructor del padre:
+        parent::__construct($config);
+    }
+
+    public function init()
+    {
+        // Lo primero que se hace es llamar al init() del padre:
+        parent::init();
+
+        // ... inicialización después de aplicar la configuración
+    }
+}
+```
 
 # Eventos
 
