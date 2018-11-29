@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VER="2.1"
+VER="2.5"
 FILE="pandoc-$VER-1-amd64.deb"
 
 if ! dpkg -s pandoc > /dev/null 2>&1
