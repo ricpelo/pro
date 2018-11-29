@@ -885,7 +885,7 @@ echo Yii::getAlias('@pepe/juan/fi.php'); // /ruta/a/pepe/juan/fi.php
 Yii::setAlias('@pepe', '/ruta/a/pepe');     // alias raíz
 Yii::setAlias('@pepe/juan', '/ruta2/juan'); // alias raíz con barra
 echo Yii::getAlias('@pepe/test/file.php');  // /ruta/a/pepe/test/file.php
-echo Yii::getAlias('@pepe/juan/file.php');  // /path2/juan/file.php
+echo Yii::getAlias('@pepe/juan/file.php');  // /ruta2/juan/file.php
 ```
 
 - Si `@pepe/juan` no hubiese sido un alias raíz, la última sentencia habría
