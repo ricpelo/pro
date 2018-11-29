@@ -460,7 +460,7 @@ se ejecutará la acción `index` del controlador `site`.
 - En la práctica, es como si el *framework* hiciera:
 
   ```php
-  (new \app\controllers\SiteController)->index(3);
+  (new \app\controllers\SiteController)->actionIndex(3);
   ```
 
   (suponiendo que el método `actionIndex()` de la clase `SiteController` recibe

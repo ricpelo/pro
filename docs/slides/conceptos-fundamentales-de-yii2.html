@@ -642,6 +642,245 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-6" data-line-number="6"><span class="va">$componente</span>-&gt;pepe<span class="ot">();</span></a></code></pre></div>
 <p>Como se ve, aunque <code>$componente</code> no tiene definda la propiedad <code>prop1</code> ni el método <code>pepe()</code>, puede usarlos como si fueran parte de la definición del componente gracias a que tiene acoplado el comportamiento <code>Comportamiento</code>.</p>
 </section></section>
+<section><section id="alias" class="title-slide slide level1"><h1>Alias</h1></section><section id="alias-1" class="slide level2">
+<h2>Alias</h2>
+<ul>
+<li><p>Representan rutas o URLs.</p></li>
+<li><p>Se usan para no tener que codificar rutas absolutas o URLs directamente en el proyecto.</p></li>
+<li><p>Empiezan por <code>@</code>.</p></li>
+<li><p>Yii 2 tiene varios alias predefinidos.</p></li>
+<li><p>Ejemplos:</p>
+<ul>
+<li><p><code>Yii::getAlias('@app')</code> → “/home/ricardo/proyecto”</p></li>
+<li><p><code>Yii::getAlias('@yii')</code> → “/home/ricardo/proyecto/vendor/yiisoft/yii2”</p></li>
+</ul></li>
+</ul>
+</section><section id="definiciones-de-alias" class="slide level2">
+<h2>Definiciones de alias</h2>
+<ul>
+<li>Se puede definir un alias a una ruta o una URL usando <code>Yii::setAlias()</code>:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co">// alias a una ruta</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepe&#39;</span><span class="ot">,</span> <span class="st">&#39;/ruta/a/pepe&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">// alias a una URL</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@juan&#39;</span><span class="ot">,</span> <span class="st">&#39;http://www.ejemplo.com&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="co">// alias a un archivo concreto que contiene a la clase \pepe\Juan</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepe/Juan.php&#39;</span><span class="ot">,</span> <span class="st">&#39;/ruta/hasta/pepe/Juan.php&#39;</span><span class="ot">);</span></a></code></pre></div>
+</section><section id="alias-derivados" class="slide level2">
+<h2>Alias derivados</h2>
+<ul>
+<li><p>A partir de un alias, se puede derivar un nuevo alias sin tener que usar <code>Yii::setAlias()</code>, añadiendo una barra (<code>/</code>) seguido de uno o más segmentos de ruta.</p></li>
+<li><p>El alias definido con <code>Yii::setAlias()</code> se denomina <strong>alias raíz</strong>.</p></li>
+<li><p>Los alias que derivan de este se denominan <strong>alias derivados</strong>.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb25-1" data-line-number="1">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepe&#39;</span><span class="ot">,</span> <span class="st">&#39;ruta/a/pepe&#39;</span><span class="ot">);</span></a></code></pre></div>
+<ul>
+<li><p><code>@pepe</code> es un <em>alias raíz</em> (se creó con <code>Yii::setAlias()</code>)</p></li>
+<li><p><code>@pepe/juan/archivo.php</code> es un <em>alias derivado</em> (no se creó con <code>Yii::setAlias()</code>)</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li>También se puede definir un alias usando otro alias (ya sea alias <em>raíz</em> o <em>derivado</em>):</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb26-1" data-line-number="1">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepejuan&#39;</span><span class="ot">,</span> <span class="st">&#39;@pepe/juan&#39;</span><span class="ot">);</span></a></code></pre></div>
+<p>Crea el alias <em>raíz</em> <code>@pepejuan</code> a partir del alias <em>derivado</em> <code>@pepe/juan</code>.</p>
+</section><section id="resolución-de-alias" class="slide level2">
+<h2>Resolución de alias</h2>
+<ul>
+<li><p>Se puede llamar a <code>Yii::getAlias()</code> para resolver (traducir) un alias raíz a la ruta o URL que representa.</p></li>
+<li><p>También se usa el mismo método para resolver alias derivados:</p></li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe&#39;</span><span class="ot">);</span>             <span class="co">// /ruta/a/pepe</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@juan&#39;</span><span class="ot">);</span>             <span class="co">// http://www.ejemplo.com</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe/juan/fi.php&#39;</span><span class="ot">);</span> <span class="co">// /ruta/a/pepe/juan/fi.php</span></a></code></pre></div>
+</section><section class="slide level2">
+
+<ul>
+<li>Un alias raíz también puede contener barras (<code>/</code>). El método <code>Yii::getAlias()</code> es lo bastante inteligente para saber qué parte del alias es un alias raíz y así determinar correctamente la correspondiente ruta o URL:</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb28-1" data-line-number="1">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepe&#39;</span><span class="ot">,</span> <span class="st">&#39;/ruta/a/pepe&#39;</span><span class="ot">);</span>     <span class="co">// alias raíz</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">Yii::setAlias<span class="ot">(</span><span class="st">&#39;@pepe/juan&#39;</span><span class="ot">,</span> <span class="st">&#39;/ruta2/juan&#39;</span><span class="ot">);</span> <span class="co">// alias raíz con barra</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe/test/file.php&#39;</span><span class="ot">);</span>  <span class="co">// /ruta/a/pepe/test/file.php</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe/juan/file.php&#39;</span><span class="ot">);</span>  <span class="co">// /path2/juan/file.php</span></a></code></pre></div>
+<ul>
+<li>Si <code>@pepe/juan</code> no hubiese sido un alias raíz, la última sentencia habría devuelto <code>/ruta/a/pepe/juan/file.php</code>.</li>
+</ul>
+</section><section id="alias-predefinidos" class="slide level2">
+<h2>Alias predefinidos</h2>
+<ul>
+<li><strong><code>@yii</code></strong>: El directorio base del framework.</li>
+<li><strong><code>@app</code></strong>: El directorio base de la aplicación.</li>
+<li><strong><code>@runtime</code></strong>: El directorio temporal de la aplicación. Por defecto vale <code>@app/runtime</code>.</li>
+<li><strong><code>@webroot</code></strong>: El <em>DocumentRoot</em> de la aplicación (donde está almacenado el script de entrada).</li>
+<li><strong><code>@web</code></strong>: La URL base de la aplicación. Tiene el mismo valor que <code>yii\web\Request::$baseUrl</code>.</li>
+<li><strong><code>@vendor</code></strong>: El directorio <code>vendor</code> de <strong>Composer</strong>. Por defecto vale <code>@app/vendor</code>.</li>
+<li><strong><code>@bower</code></strong>: El directorio raíz de los paquetes de <strong>Bower</strong>. Por defecto vale <code>@vendor/bower</code>.</li>
+<li><strong><code>@npm</code></strong>: El directorio raíz de los paquetes de <strong>npm</strong>. Por defecto vale <code>@vendor/npm</code>.</li>
+</ul>
+</section></section>
+<section><section id="autoloader-de-clases" class="title-slide slide level1"><h1>Autoloader de clases</h1></section><section id="autoloader-de-clases-1" class="slide level2">
+<h2>Autoloader de clases</h2>
+<ul>
+<li><p>Es un autoloader que cumple con el estándar <strong>PSR-4</strong>.</p></li>
+<li><p>Para que funcione, hay que seguir dos reglas:</p>
+<ul>
+<li><p>Cada clase debe pertenecer a un espacio de nombres (como en <code>\pepe\juan\MiClase</code>).</p></li>
+<li><p>Cada clase debe guardarse en un archivo individual cuya ruta se determina por el siguiente algoritmo:</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co">// $clase es un nombre de clase totalmente cualificado sin \ inicial</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="va">$classFile</span> = Yii::getAlias<span class="ot">(</span><span class="st">&#39;@&#39;</span> . <span class="fu">str_replace</span><span class="ot">(</span><span class="st">&#39;</span><span class="kw">\\</span><span class="st">&#39;</span><span class="ot">,</span> <span class="st">&#39;/&#39;</span><span class="ot">,</span> <span class="va">$clase</span><span class="ot">)</span> . <span class="st">&#39;.php&#39;</span><span class="ot">);</span></a></code></pre></div>
+<ul>
+<li>Al programar, hay que crear las clases en un espacio de nombres que cuelgue del raíz <code>app</code>. El autoloader la encontrará porque <code>@app</code> es un alias predefinido que siempre existe en Yii 2.</li>
+</ul>
+</section></section>
+<section><section id="localizador-de-servicios" class="title-slide slide level1"><h1>Localizador de servicios</h1></section><section id="localizador-de-servicios-1" class="slide level2">
+<h2>Localizador de servicios</h2>
+<ul>
+<li><p>Es un objeto que sabe cómo proporcionar todo tipo de <em>servicios</em> (también llamados <strong>componentes</strong>) que pueda necesitar una aplicación.</p></li>
+<li><p>Dentro del localizador de servicios, cada componente existe como una única instancia identificada mediante un ID, que se usa para recuperar el componente de dentro del localizador de servicios.</p></li>
+<li><p>El localizador de servicios es una instancia de la clase <code>yii\di\ServiceLocator</code> (o una subclase).</p></li>
+<li><p>El más típico en Yii es el <strong>objeto aplicación</strong>, al que se accede mediante <code>\Yii::$app</code>. Los servicios que proporciona se denominan <strong>componentes de aplicación</strong>, como <code>request</code>, <code>response</code>, <code>db</code> o <code>urlManager</code>. Esos componentes se suelen definir mediante configuraciones.</p></li>
+</ul>
+</section><section id="registrar-componentes" class="slide level2">
+<h2>Registrar componentes</h2>
+<ul>
+<li><p>Para usar un localizador de servicios, el primer paso es registrar componentes dentro de él.</p></li>
+<li><p>Un componente se puede registrar mediante <code>yii\di\ServiceLocator::set()</code>:</p></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="va">$locator</span> = <span class="kw">new</span> yii\di\ServiceLocator<span class="ot">;</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="co">// registra &quot;cache&quot; usando un nombre de clase con el que se creará un componente:</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="va">$locator</span>-&gt;set<span class="ot">(</span><span class="st">&#39;cache&#39;</span><span class="ot">,</span> <span class="st">&#39;yii\caching\ApcCache&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="co">// registra &quot;db&quot; usando una configuración con la que se creará un componente:</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="va">$locator</span>-&gt;set<span class="ot">(</span><span class="st">&#39;db&#39;</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8">    <span class="st">&#39;class&#39;</span> =&gt; <span class="st">&#39;yii\db\Connection&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">    <span class="st">&#39;dsn&#39;</span> =&gt; <span class="st">&#39;mysql:host=localhost;dbname=demo&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">    <span class="st">&#39;username&#39;</span> =&gt; <span class="st">&#39;root&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb30-11" data-line-number="11">    <span class="st">&#39;password&#39;</span> =&gt; <span class="st">&#39;&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb30-12" data-line-number="12"><span class="ot">]);</span></a>
+<a class="sourceLine" id="cb30-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb30-14" data-line-number="14"><span class="co">// registra &quot;search&quot; usando una función anónima que creará un componente:</span></a>
+<a class="sourceLine" id="cb30-15" data-line-number="15"><span class="va">$locator</span>-&gt;set<span class="ot">(</span><span class="st">&#39;search&#39;</span><span class="ot">,</span> <span class="kw">function</span> <span class="ot">()</span> {</a>
+<a class="sourceLine" id="cb30-16" data-line-number="16">    <span class="kw">return</span> <span class="kw">new</span> app\components\SolrService<span class="ot">;</span></a>
+<a class="sourceLine" id="cb30-17" data-line-number="17">}<span class="ot">);</span></a></code></pre></div>
+</section><section id="usar-componentes" class="slide level2">
+<h2>Usar componentes</h2>
+<ul>
+<li>Una vez que el componente ha sido registrado, se puede acceder a él mediante su ID, usando una de estas dos formas:</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="va">$cache</span> = <span class="va">$locator</span>-&gt;get<span class="ot">(</span><span class="st">&#39;cache&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co">// o bien:</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="va">$cache</span> = <span class="va">$locator</span>-&gt;cache<span class="ot">;</span></a></code></pre></div>
+<ul>
+<li>Como se ve, <code>yii\di\ServiceLocator</code> permite acceder a un componente como si fuera una propiedad, usando el ID del componente.</li>
+<li>Cuando se accede a un componente la primera vez, <code>yii\di\ServiceLocator</code> usará la información del registro del componente para crear una nueva instancia del componente y la devolverá.</li>
+<li>De ahí en adelante, si se vuelve a acceder al componente, el localizador de servicios devolverá siempre la misma instancia.</li>
+</ul>
+</section><section id="registro-masivo-de-componentes" class="slide level2">
+<h2>Registro masivo de componentes</h2>
+<ul>
+<li>Como los localizadores de servicios a menudo se crean mediante <strong>configuraciones</strong>, tienen una propiedad llamada <code>components</code> que permite configurar y registrar varios componentes a la vez:</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="va">$config</span> = <span class="ot">[</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">    <span class="st">&#39;components&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">        <span class="st">&#39;db&#39;</span> =&gt; <span class="ot">[</span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">            <span class="st">&#39;class&#39;</span> =&gt; <span class="st">&#39;yii\db\Connection&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">            <span class="st">&#39;dsn&#39;</span> =&gt; <span class="st">&#39;mysql:host=localhost;dbname=demo&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">            <span class="st">&#39;username&#39;</span> =&gt; <span class="st">&#39;root&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">            <span class="st">&#39;password&#39;</span> =&gt; <span class="st">&#39;&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-9" data-line-number="9">        <span class="ot">],</span></a>
+<a class="sourceLine" id="cb32-10" data-line-number="10">        <span class="st">&#39;cache&#39;</span> =&gt; <span class="st">&#39;yii\caching\ApcCache&#39;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-11" data-line-number="11">        <span class="st">&#39;search&#39;</span> =&gt; <span class="kw">function</span> <span class="ot">()</span> {</a>
+<a class="sourceLine" id="cb32-12" data-line-number="12">            <span class="va">$solr</span> = <span class="kw">new</span> app\components\SolrService<span class="ot">;</span></a>
+<a class="sourceLine" id="cb32-13" data-line-number="13">            <span class="co">// ... otras inicializaciones ...</span></a>
+<a class="sourceLine" id="cb32-14" data-line-number="14">            <span class="kw">return</span> <span class="va">$solr</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb32-15" data-line-number="15">        }<span class="ot">,</span></a>
+<a class="sourceLine" id="cb32-16" data-line-number="16">    <span class="ot">],</span></a>
+<a class="sourceLine" id="cb32-17" data-line-number="17"><span class="ot">];</span></a>
+<a class="sourceLine" id="cb32-18" data-line-number="18"><span class="va">$locator</span> = <span class="kw">new</span> yii\di\ServiceLocator<span class="ot">(</span><span class="va">$config</span><span class="ot">);</span></a></code></pre></div>
+</section></section>
+<section><section id="contenedor-de-inyección-de-dependencias" class="title-slide slide level1"><h1>Contenedor de inyección de dependencias</h1></section><section id="contenedor-de-inyección-de-dependencias-1" class="slide level2">
+<h2>Contenedor de inyección de dependencias</h2>
+<p>Artículo interesante sobre <em>inversión de dependencias</em> e <em>inyección de dependencias</em>:</p>
+<p><a href="http://raulavila.com/2015/03/principios-dependencias/" class="uri">http://raulavila.com/2015/03/principios-dependencias/</a></p>
+</section><section class="slide level2">
+
+<ul>
+<li><p><strong>Un contenedor de inyección de dependencias</strong> es un objeto que sabe cómo instanciar y configurar objetos y todos los objetos de los que depende.</p></li>
+<li><p>Es una instancia de la clase <code>yii\di\Container</code>.</p></li>
+<li><p>Yii crea uno accesible a través de <code>Yii::$container</code>.</p></li>
+<li><p><code>Yii::$container-&gt;set()</code> sirve para registrar una dependencia.</p></li>
+<li><p><code>Yii::$container-&gt;get()</code> sirve para crear nuevos objetos:</p>
+<ul>
+<li>A partir de un nombre de clase, interfaz o alias de dependencia.</li>
+<li>Resuelve automáticamente las posibles dependencias y las inyecta en el nuevo objeto.</li>
+</ul></li>
+<li><p>Al llamar al método <code>Yii::createObject()</code>, éste llama a <code>Yii::$container-&gt;get()</code> para crear el nuevo objeto. Esto permite personalizar globalmente la inicialización de objetos.</p></li>
+</ul>
+</section><section id="ejemplo-de-uso" class="slide level2">
+<h2>Ejemplo de uso</h2>
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb33-1" data-line-number="1">Yii::<span class="va">$container</span>-&gt;set<span class="ot">(</span>yii\widgets\LinkPager::<span class="kw">class</span><span class="ot">,</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="st">&#39;maxButtonCount&#39;</span> =&gt; <span class="dv">5</span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="ot">]);</span></a></code></pre></div></li>
+<li><p>Cuando luego se quiera instanciar un objeto <code>yii\widgets\LinkPager</code> usando <code>Yii::createObject()</code>, se creará con <code>maxButtonCount = 5</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="va">$linkPager</span> = Yii::createObject<span class="ot">(</span>yii\widgets\LinkPager::<span class="kw">class</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">echo</span> <span class="va">$linkPager</span>-&gt;maxButtonCount<span class="ot">;</span> <span class="co">// devuelve 5</span></a></code></pre></div></li>
+<li><p>Se habría obtenido el mismo resultado con:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="va">$linkPager</span> = Yii::<span class="va">$container</span>-&gt;get<span class="ot">(</span>yii\widgets\LinkPager::<span class="kw">class</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">echo</span> <span class="va">$linkPager</span>-&gt;maxButtonCount<span class="ot">;</span> <span class="co">// también devuelve 5</span></a></code></pre></div></li>
+</ul>
+</section><section id="ejemplo-de-inyección-de-dependencias" class="slide level2">
+<h2>Ejemplo de inyección de dependencias</h2>
+<ul>
+<li><p>El contenedor de inyección de dependencias soporta la <strong>inyección de constructores</strong> usando tipos en los parámetros del constructor.</p></li>
+<li><p>Los tipos en los parámetros del constructor indican al contenedor de qué clases o interfaces depende el objeto que se va a crear.</p></li>
+<li><p>El contenedor intentará obtener instancias de las clases o interfaces de las que depende y luego las inyectará en el nuevo objeto a través del constructor.</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">class</span> Pepe</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">    <span class="kw">public</span> <span class="kw">function</span> <span class="fu">__construct</span><span class="ot">(</span>Juan <span class="va">$bar</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">    {</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="va">$pepe</span> = <span class="va">$container</span>-&gt;get<span class="ot">(</span><span class="st">&#39;Pepe&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb36-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb36-10" data-line-number="10"><span class="co">// equivale a lo siguiente:</span></a>
+<a class="sourceLine" id="cb36-11" data-line-number="11"><span class="va">$juan</span> = <span class="kw">new</span> Juan<span class="ot">;</span></a>
+<a class="sourceLine" id="cb36-12" data-line-number="12"><span class="va">$pepe</span> = <span class="kw">new</span> Pepe<span class="ot">(</span><span class="va">$juan</span><span class="ot">);</span></a></code></pre></div>
+</section><section class="slide level2">
+
+<ul>
+<li>Este es el código de <code>Yii::createObject()</code>, donde se aprecia que internamente usa <code>Yii::$container-&gt;get()</code> para instanciar objetos, resolviendo automáticamente las dependencias e inyectándolas en el objeto recién creado:</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">public</span> <span class="kw">static</span> <span class="kw">function</span> createObject<span class="ot">(</span><span class="va">$type</span><span class="ot">,</span> <span class="kw">array</span> <span class="va">$params</span> = <span class="ot">[])</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">    <span class="kw">if</span> <span class="ot">(</span><span class="fu">is_string</span><span class="ot">(</span><span class="va">$type</span><span class="ot">))</span> {</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4">        <span class="kw">return</span> <span class="kw">static</span>::<span class="va">$container</span>-&gt;get<span class="ot">(</span><span class="va">$type</span><span class="ot">,</span> <span class="va">$params</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5">    } <span class="kw">elseif</span> <span class="ot">(</span><span class="fu">is_array</span><span class="ot">(</span><span class="va">$type</span><span class="ot">)</span> &amp;&amp; <span class="kw">isset</span><span class="ot">(</span><span class="va">$type</span><span class="ot">[</span><span class="st">&#39;class&#39;</span><span class="ot">]))</span> {</a>
+<a class="sourceLine" id="cb37-6" data-line-number="6">        <span class="va">$class</span> = <span class="va">$type</span><span class="ot">[</span><span class="st">&#39;class&#39;</span><span class="ot">];</span></a>
+<a class="sourceLine" id="cb37-7" data-line-number="7">        <span class="kw">unset</span><span class="ot">(</span><span class="va">$type</span><span class="ot">[</span><span class="st">&#39;class&#39;</span><span class="ot">]);</span></a>
+<a class="sourceLine" id="cb37-8" data-line-number="8">        <span class="kw">return</span> <span class="kw">static</span>::<span class="va">$container</span>-&gt;get<span class="ot">(</span><span class="va">$class</span><span class="ot">,</span> <span class="va">$params</span><span class="ot">,</span> <span class="va">$type</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb37-9" data-line-number="9">    } <span class="kw">elseif</span> <span class="ot">(</span><span class="fu">is_callable</span><span class="ot">(</span><span class="va">$type</span><span class="ot">,</span> <span class="kw">true</span><span class="ot">))</span> {</a>
+<a class="sourceLine" id="cb37-10" data-line-number="10">        <span class="kw">return</span> <span class="kw">static</span>::<span class="va">$container</span>-&gt;invoke<span class="ot">(</span><span class="va">$type</span><span class="ot">,</span> <span class="va">$params</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb37-11" data-line-number="11">    } <span class="kw">elseif</span> <span class="ot">(</span><span class="fu">is_array</span><span class="ot">(</span><span class="va">$type</span><span class="ot">))</span> {</a>
+<a class="sourceLine" id="cb37-12" data-line-number="12">        <span class="kw">throw</span> <span class="kw">new</span> InvalidConfigException<span class="ot">(</span><span class="st">&#39;Object configuration must be an array containing a &quot;class&quot; element.&#39;</span><span class="ot">);</span></a>
+<a class="sourceLine" id="cb37-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb37-14" data-line-number="14">    <span class="kw">throw</span> <span class="kw">new</span> InvalidConfigException<span class="ot">(</span><span class="st">&#39;Unsupported configuration type: &#39;</span> . <span class="fu">gettype</span><span class="ot">(</span><span class="va">$type</span><span class="ot">));</span></a>
+<a class="sourceLine" id="cb37-15" data-line-number="15">}</a></code></pre></div>
+</section></section>
     </div>
   </div>
 

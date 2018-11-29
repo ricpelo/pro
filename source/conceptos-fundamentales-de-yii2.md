@@ -796,3 +796,339 @@ $componente->pepe();
 Como se ve, aunque `$componente` no tiene definda la propiedad `prop1` ni el
 método `pepe()`, puede usarlos como si fueran parte de la definición del
 componente gracias a que tiene acoplado el comportamiento `Comportamiento`.
+
+# Alias
+
+## Alias
+
+- Representan rutas o URLs.
+
+- Se usan para no tener que codificar rutas absolutas o URLs directamente en el
+  proyecto.
+
+- Empiezan por `@`.
+
+- Yii 2 tiene varios alias predefinidos.
+
+- Ejemplos:
+
+  - `Yii::getAlias('@app')` → "/home/ricardo/proyecto"
+
+  - `Yii::getAlias('@yii')` → "/home/ricardo/proyecto/vendor/yiisoft/yii2"
+
+## Definiciones de alias
+
+- Se puede definir un alias a una ruta o una URL usando `Yii::setAlias()`:
+
+```php
+// alias a una ruta
+Yii::setAlias('@pepe', '/ruta/a/pepe');
+
+// alias a una URL
+Yii::setAlias('@juan', 'http://www.ejemplo.com');
+
+// alias a un archivo concreto que contiene a la clase \pepe\Juan
+Yii::setAlias('@pepe/Juan.php', '/ruta/hasta/pepe/Juan.php');
+```
+
+## Alias derivados
+
+- A partir de un alias, se puede derivar un nuevo alias sin tener que usar
+  `Yii::setAlias()`, añadiendo una barra (`/`) seguido de uno o más segmentos
+  de ruta.
+
+- El alias definido con `Yii::setAlias()` se denomina **alias raíz**.
+
+- Los alias que derivan de este se denominan **alias derivados**.
+
+- Ejemplo:
+
+    ```php
+    Yii::setAlias('@pepe', 'ruta/a/pepe');
+    ```
+
+    - `@pepe` es un *alias raíz* (se creó con `Yii::setAlias()`)
+
+    - `@pepe/juan/archivo.php` es un *alias derivado* (no se creó con `Yii::setAlias()`)
+
+---
+
+- También se puede definir un alias usando otro alias (ya sea alias *raíz* o
+  *derivado*):
+
+```php
+Yii::setAlias('@pepejuan', '@pepe/juan');
+```
+
+Crea el alias *raíz* `@pepejuan` a partir del alias *derivado* `@pepe/juan`.
+
+## Resolución de alias
+
+- Se puede llamar a `Yii::getAlias()` para resolver (traducir) un alias raíz a la ruta o URL que representa.
+
+- También se usa el mismo método para resolver alias derivados:
+
+```php
+echo Yii::getAlias('@pepe');             // /ruta/a/pepe
+echo Yii::getAlias('@juan');             // http://www.ejemplo.com
+echo Yii::getAlias('@pepe/juan/fi.php'); // /ruta/a/pepe/juan/fi.php
+```
+
+---
+
+- Un alias raíz también puede contener barras (`/`). El método
+  `Yii::getAlias()` es lo bastante inteligente para saber qué parte del alias
+  es un alias raíz y así determinar correctamente la correspondiente ruta o
+  URL:
+
+```php
+Yii::setAlias('@pepe', '/ruta/a/pepe');     // alias raíz
+Yii::setAlias('@pepe/juan', '/ruta2/juan'); // alias raíz con barra
+echo Yii::getAlias('@pepe/test/file.php');  // /ruta/a/pepe/test/file.php
+echo Yii::getAlias('@pepe/juan/file.php');  // /path2/juan/file.php
+```
+
+- Si `@pepe/juan` no hubiese sido un alias raíz, la última sentencia habría
+  devuelto `/ruta/a/pepe/juan/file.php`.
+
+## Alias predefinidos
+
+- **`@yii`**: El directorio base del framework.
+- **`@app`**: El directorio base de la aplicación.
+- **`@runtime`**: El directorio temporal de la aplicación. Por defecto vale
+  `@app/runtime`.
+- **`@webroot`**: El *DocumentRoot* de la aplicación (donde está almacenado el
+  script de entrada).
+- **`@web`**: La URL base de la aplicación. Tiene el mismo valor que
+  `yii\web\Request::$baseUrl`.
+- **`@vendor`**: El directorio `vendor` de **Composer**. Por defecto vale
+  `@app/vendor`.
+- **`@bower`**: El directorio raíz de los paquetes de **Bower**. Por defecto
+  vale `@vendor/bower`.
+- **`@npm`**: El directorio raíz de los paquetes de **npm**. Por defecto vale
+  `@vendor/npm`.
+
+# Autoloader de clases
+
+## Autoloader de clases
+
+- Es un autoloader que cumple con el estándar **PSR-4**.
+
+- Para que funcione, hay que seguir dos reglas:
+
+  - Cada clase debe pertenecer a un espacio de nombres (como en
+    `\pepe\juan\MiClase`).
+
+  - Cada clase debe guardarse en un archivo individual cuya ruta se determina
+    por el siguiente algoritmo:
+
+```php
+// $clase es un nombre de clase totalmente cualificado sin \ inicial
+$classFile = Yii::getAlias('@' . str_replace('\\', '/', $clase) . '.php');
+```
+
+- Al programar, hay que crear las clases en un espacio de nombres que cuelgue
+  del raíz `app`. El autoloader la encontrará porque `@app` es un alias
+  predefinido que siempre existe en Yii 2.
+
+# Localizador de servicios
+
+## Localizador de servicios
+
+- Es un objeto que sabe cómo proporcionar todo tipo de *servicios* (también
+  llamados **componentes**) que pueda necesitar una aplicación.
+
+- Dentro del localizador de servicios, cada componente existe como una única
+  instancia identificada mediante un ID, que se usa para recuperar el
+  componente de dentro del localizador de servicios.
+
+- El localizador de servicios es una instancia de la clase
+  `yii\di\ServiceLocator` (o una subclase).
+
+- El más típico en Yii es el **objeto aplicación**, al que se accede mediante
+  `\Yii::$app`. Los servicios que proporciona se denominan **componentes de
+  aplicación**, como `request`, `response`, `db` o `urlManager`. Esos
+  componentes se suelen definir mediante configuraciones.
+
+## Registrar componentes
+
+- Para usar un localizador de servicios, el primer paso es registrar
+  componentes dentro de él.
+
+- Un componente se puede registrar mediante `yii\di\ServiceLocator::set()`:
+
+```php
+$locator = new yii\di\ServiceLocator;
+
+// registra "cache" usando un nombre de clase con el que se creará un componente:
+$locator->set('cache', 'yii\caching\ApcCache');
+
+// registra "db" usando una configuración con la que se creará un componente:
+$locator->set('db', [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=demo',
+    'username' => 'root',
+    'password' => '',
+]);
+
+// registra "search" usando una función anónima que creará un componente:
+$locator->set('search', function () {
+    return new app\components\SolrService;
+});
+```
+
+## Usar componentes
+
+- Una vez que el componente ha sido registrado, se puede acceder a él mediante
+  su ID, usando una de estas dos formas:
+
+```php
+$cache = $locator->get('cache');
+// o bien:
+$cache = $locator->cache;
+```
+
+- Como se ve, `yii\di\ServiceLocator` permite acceder a un componente como si
+  fuera una propiedad, usando el ID del componente.
+- Cuando se accede a un componente la primera vez, `yii\di\ServiceLocator`
+  usará la información del registro del componente para crear una nueva
+  instancia del componente y la devolverá.
+- De ahí en adelante, si se vuelve a acceder al componente, el localizador de
+  servicios devolverá siempre la misma instancia.
+
+## Registro masivo de componentes
+
+- Como los localizadores de servicios a menudo se crean mediante
+  **configuraciones**, tienen una propiedad llamada `components` que permite
+  configurar y registrar varios componentes a la vez:
+
+```php
+$config = [
+    // ...
+    'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=demo',
+            'username' => 'root',
+            'password' => '',
+        ],
+        'cache' => 'yii\caching\ApcCache',
+        'search' => function () {
+            $solr = new app\components\SolrService;
+            // ... otras inicializaciones ...
+            return $solr;
+        },
+    ],
+];
+$locator = new yii\di\ServiceLocator($config);
+```
+
+# Contenedor de inyección de dependencias
+
+## Contenedor de inyección de dependencias
+
+Artículo interesante sobre *inversión de dependencias* e *inyección de
+dependencias*:
+
+[http://raulavila.com/2015/03/principios-dependencias/](http://raulavila.com/2015/03/principios-dependencias/)
+
+---
+
+- **Un contenedor de inyección de dependencias** es un objeto que sabe cómo
+  instanciar y configurar objetos y todos los objetos de los que depende.
+
+- Es una instancia de la clase `yii\di\Container`.
+
+- Yii crea uno accesible a través de `Yii::$container`.
+
+- `Yii::$container->set()` sirve para registrar una dependencia.
+
+- `Yii::$container->get()` sirve para crear nuevos objetos:
+
+  - A partir de un nombre de clase, interfaz o alias de dependencia.
+  - Resuelve automáticamente las posibles dependencias y las inyecta en el
+    nuevo objeto.
+
+- Al llamar al método `Yii::createObject()`, éste llama a
+  `Yii::$container->get()` para crear el nuevo objeto. Esto permite
+  personalizar globalmente la inicialización de objetos.
+
+## Ejemplo de uso
+
+- Por ejemplo:
+
+  ```php
+  Yii::$container->set(yii\widgets\LinkPager::class, [
+      'maxButtonCount' => 5
+  ]);
+  ```
+
+- Cuando luego se quiera instanciar un objeto `yii\widgets\LinkPager` usando
+  `Yii::createObject()`, se creará con `maxButtonCount = 5`:
+
+  ```php
+  $linkPager = Yii::createObject(yii\widgets\LinkPager::class);
+  echo $linkPager->maxButtonCount; // devuelve 5
+  ```
+
+- Se habría obtenido el mismo resultado con:
+
+  ```php
+  $linkPager = Yii::$container->get(yii\widgets\LinkPager::class);
+  echo $linkPager->maxButtonCount; // también devuelve 5
+  ```
+
+## Ejemplo de inyección de dependencias
+
+- El contenedor de inyección de dependencias soporta la **inyección de
+  constructores** usando tipos en los parámetros del constructor.
+
+- Los tipos en los parámetros del constructor indican al contenedor de qué
+  clases o interfaces depende el objeto que se va a crear.
+
+- El contenedor intentará obtener instancias de las clases o interfaces de las
+  que depende y luego las inyectará en el nuevo objeto a través del
+  constructor.
+
+---
+
+Por ejemplo:
+
+```php
+class Pepe
+{
+    public function __construct(Juan $bar)
+    {
+    }
+}
+
+$pepe = $container->get('Pepe');
+
+// equivale a lo siguiente:
+$juan = new Juan;
+$pepe = new Pepe($juan);
+```
+
+---
+
+- Este es el código de `Yii::createObject()`, donde se aprecia que internamente
+  usa `Yii::$container->get()` para instanciar objetos, resolviendo
+  automáticamente las dependencias e inyectándolas en el objeto recién creado:
+
+```php
+public static function createObject($type, array $params = [])
+{
+    if (is_string($type)) {
+        return static::$container->get($type, $params);
+    } elseif (is_array($type) && isset($type['class'])) {
+        $class = $type['class'];
+        unset($type['class']);
+        return static::$container->get($class, $params, $type);
+    } elseif (is_callable($type, true)) {
+        return static::$container->invoke($type, $params);
+    } elseif (is_array($type)) {
+        throw new InvalidConfigException('Object configuration must be an array containing a "class" element.');
+    }
+    throw new InvalidConfigException('Unsupported configuration type: ' . gettype($type));
+}
+```
