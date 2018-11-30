@@ -232,16 +232,12 @@ los usuarios finales.
 :   Define la zona horaria con la que trabajará la aplicación a la hora de
 manipular fechas y horas.
 
-    El valor predeterminado es `UTC`.
+    El valor predeterminado es `UTC`, y así es como debería ser.
 
-    En España, lo correcto sería usar `Europe/Madrid`, pero más correcto sería
-    usar la zona horaria que el usuario establezca en su perfil.
-
-    ```php
-    [
-        'timeZone' => 'Europe/Madrid',
-    ]
-    ```
+    El componente de aplicación `formatter` (el encargado de formatear los
+    datos para que el usuario los visualice) también tiene una propiedad
+    `timeZone`, que sí debemos establecer a la zona horaria correcta
+    (`Europe/Madrid` o la que el usuario tenga establecida en su perfil).
 
 # Componentes de aplicación
 
