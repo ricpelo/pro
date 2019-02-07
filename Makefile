@@ -21,7 +21,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	pandoc -s -t revealjs --template=pandoc_revealjs.template \
 		--highlight-style=solarized.theme \
 		--syntax-definition=php.xml \
-		--css custom.css \
+		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
