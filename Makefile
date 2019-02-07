@@ -22,7 +22,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 		--highlight-style=solarized.theme \
 		--syntax-definition=php.xml \
 		--css custom.css \
-		-V theme=solarized -V transition=zoom \
+		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
