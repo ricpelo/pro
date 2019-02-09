@@ -10,28 +10,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
-      code {
-          white-space: pre-wrap;
-      }
-      pre code {
-          box-shadow: 5px 5px 8px lightgrey;
-          background: #fdf6ed;
-          padding: 10px !important;
-      }
-      span.smallcaps {
-          font-variant: small-caps;
-      }
-      span.underline {
-          text-decoration: underline;
-      }
-      div.line-block {
-          white-space: pre-line;
-      }
-      div.column {
-          display: inline-block;
-          vertical-align: top;
-          width: 50%;
-      }
+      code { white-space: pre-wrap; }
+      pre code { box-shadow: 5px 5px 8px lightgrey; background: #fdf6ed; padding: 10px !important; }
+      span.smallcaps { font-variant: small-caps; }
+      span.underline { text-decoration: underline; }
+      div.line-block { white-space: pre-line; }
+      div.column { display: inline-block; vertical-align: top; width: 50%; }
+      div.quizArea, div.quizResults { height: 590px; padding: 10px !important; }
+      ol.questions { margin-left: 40px !important; margin-right: 40px !important; }
+      ul.answers input[type=radio] { position: relative; top: -4px; transform: scale(1.5); margin-right: 10px; }
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -59,10 +46,12 @@
 
 <section><section id="introducción-a-php" class="title-slide slide level1"><h1>Introducción a PHP</h1></section><section id="página-web-de-php" class="slide level2">
 <h2>Página web de PHP</h2>
+</section><section class="slide level2">
+
 <script data-quiz>
     quiz = {
             "info": {
-                    "name":    "Test Your Knowledge!!",
+                    "name":    "Página web de PHP",
                     "main":    "Think you're smart enough to be on Jeopardy? Find out with this super crazy knowledge quiz!",
                     "level1":  "Jeopardy Ready",
                     "level2":  "Jeopardy Contender",
@@ -300,7 +289,7 @@
           { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
           { src: 'reveal.js/plugin/notes/notes.js', async: true },
           { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true },
-          { src: 'reveal.js/plugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({}); } }
+          { src: 'reveal.js/plugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total'}); } }
         ],
 
         menu: {

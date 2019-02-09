@@ -24,6 +24,9 @@ $endif$
       span.underline { text-decoration: underline; }
       div.line-block { white-space: pre-line; }
       div.column { display: inline-block; vertical-align: top; width: 50%; }
+      div.quizArea, div.quizResults { height: 590px; padding: 10px !important; }
+      ol.questions { margin-left: 40px !important; margin-right: 40px !important; }
+      ul.answers input[type=radio] { position: relative; top: -4px; transform: scale(1.5); margin-right: 10px; }
 $if(quotes)$
       q { quotes: "“" "”" "‘" "’"; }
 $endif$
@@ -264,7 +267,7 @@ $if(mathjax)$
 $endif$
           { src: '$revealjs-url$/plugin/notes/notes.js', async: true },
           { src: '$revealjs-url$/plugin/reveal.js-menu/menu.js', async: true },
-          { src: '$revealjs-url$/plugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({}); } }
+          { src: '$revealjs-url$/plugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total'}); } }
         ],
 
         menu: {

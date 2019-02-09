@@ -89,12 +89,12 @@ function createQuizStructure(quizNode, classname) {
           <div class="quizArea">
               <div class="quizHeader">
                   <!-- where the quiz main copy goes -->
-                  <a class="button startQuiz" href="#">Get Started!</a>
+                  <a class="button startQuiz" href="#">Empezar test</a>
               </div>
               <!-- where the quiz gets built -->
           </div>
           <div class="quizResults">
-              <p class="quizScore">Correct Answers: <span><!-- where the quiz score goes --></span></p>
+              <p class="quizScore">Respuestas correctas: <span><!-- where the quiz score goes --></span></p>
               <p class="quizLevel"><span><!-- where the quiz ranking level goes --></span></p>
               <div class="quizResultsCopy">
                   <!-- where the quiz result copy goes -->
