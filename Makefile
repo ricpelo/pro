@@ -36,6 +36,9 @@ $(PP):
 clean:
 	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
 
+serve:
+	cd docs ; bundle exec jekyll serve --incremental
+
 setup:
 	./check-pandoc.sh
 	sudo apt install plantuml graphviz
