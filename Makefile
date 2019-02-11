@@ -10,7 +10,7 @@ SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 
-all: $(OBJECTSHTML) # $(OBJECTSPDF)
+all: $(OBJECTSHTML) $(OBJECTSPDF)
 
 html: $(OBJECTSHTML)
 
@@ -26,9 +26,10 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
-$(BUILDDIRPDF)/%.pdf: $(BUILDDIRHTML)/%.html
-	php -S localhost:8081 &
-	xdg-open http://localhost:8081/$^?print-pdf &
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP)
+	./pp $< | pandoc -s -t beamer --pdf-engine=xelatex \
+		-V theme=Marburg -V fontsize=8pt -o $@
+	rm -f docs/images/*.dat docs/images/*.gv
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
