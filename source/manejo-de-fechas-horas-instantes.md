@@ -88,7 +88,7 @@ http://www.yiiframework.com/doc-2.0/yii-helpers-formatconverter.html
 
 ::: {.column width="50%"}
 
-![](images/rubyonrails.png){.plain}
+![Logo de Ruby on Rails](images/rubyonrails.png){.plain}
 
 :::
 
