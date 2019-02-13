@@ -190,8 +190,6 @@ $p->valor = 30;  // Da ERROR
 
 Supongamos la siguiente clase:
 
-\vspace{1em}
-
 ```php
 use yii\base\BaseObject;
 
@@ -218,8 +216,6 @@ class Prueba extends BaseObject
 
 Algunas posibles configuraciones:
 
-\vspace{1em}
-
 ```php
 [ 'uno' => 5, 'dos' => 7 ]
 
@@ -229,8 +225,6 @@ Algunas posibles configuraciones:
 \vspace{1em}
 
 Se pueden aplicar a un objeto ya existente:
-
-\vspace{1em}
 
 ```php
 $p = new Prueba;

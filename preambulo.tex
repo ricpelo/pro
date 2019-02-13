@@ -12,3 +12,27 @@
 \renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
 
 \setbeamersize{text margin left=4em,text margin right=4em}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{codedefault}{%
+backgroundcolor=black!4,
+roundcorner=2pt,
+linecolor=black!30,
+linewidth=0.5pt,
+leftmargin=10,
+rightmargin=10,
+innerleftmargin=5,
+innerrightmargin=5,
+skipabove=10,
+skipbelow=10}
+% redefining the Shaded-Environment of the pandoc-template to allow customised
+% style-settings
+\ifdefined\Shaded
+  \renewenvironment{Shaded}{\centering \begin{mdframed}[style=codedefault]}{\end{mdframed}}
+\fi
+
+% Adjust fontsize for code-blocks if necessary (by redefining the
+% Highlighting-Environment of the pandoc-template)
+\ifdefined\Highlighting
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+\fi
