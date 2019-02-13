@@ -17,8 +17,8 @@ html: $(OBJECTSHTML)
 pdf: $(OBJECTSPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
-	./pp $< | \
-	pandoc -s -t revealjs --template=pandoc_revealjs.template \
+	./pp $< | pandoc -s -t revealjs --template=pandoc_revealjs.template \
+		--toc --toc-depth=1 \
 		--highlight-style=solarized.theme \
 		--syntax-definition=php.xml \
 		--css custom.css -V slideNumber=true \
@@ -27,7 +27,8 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	rm -f docs/images/*.dat docs/images/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP)
-	./pp $< | pandoc -s -t beamer --template=plantilla.tex --toc \
+	./pp $< | pandoc -s -t beamer --template=plantilla.tex \
+		--toc \
 		-H preambulo.tex \
 		--pdf-engine=xelatex \
 		--highlight-style=solarized.theme \
