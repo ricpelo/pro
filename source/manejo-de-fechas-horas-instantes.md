@@ -449,7 +449,7 @@ Con un framework:
 
 8. Investiga otros *microframeworks* para PHP.
 
-# ![](images/yii.png){.plain}
+# Yii 2 Framework
 
 # Introducción, requisitos y puesta en marcha
 
@@ -552,18 +552,18 @@ ligera variante.
 
 | Feature  |  Básica  |  Avanzada |
 |---|:---:|:---:|
-| Estructura de proyecto | ✓ | ✓ |
-| Controlador Site | ✓ | ✓ |
-| Login/logout de usuarios | ✓ | ✓ |
-| Formularios | ✓ | ✓ |
-| Conexión a BBDD | ✓ | ✓ |
-| Comandos de consola | ✓ | ✓ |
-| Asset bundles | ✓ | ✓ |
-| Tests de Codeception | ✓ | ✓ |
-| Twitter Bootstrap  | ✓ | ✓ |
-| Aplicaciones *front-end* y *back-end* |    | ✓ |
-| Modelo de usuario listo para usar |    | ✓ |
-| Registro de usuarios y recuperación de contraseñas |     | ✓ |
+| Estructura de proyecto | x | x |
+| Controlador Site | x | x |
+| Login/logout de usuarios | x | x |
+| Formularios | x | x |
+| Conexión a BBDD | x | x |
+| Comandos de consola | x | x |
+| Asset bundles | x | x |
+| Tests de Codeception | x | x |
+| Twitter Bootstrap  | x | x |
+| Aplicaciones *front-end* y *back-end* |    | x |
+| Modelo de usuario listo para usar |    | x |
+| Registro de usuarios y recuperación de contraseñas |     | x |
 
 ## Instalación mediante Composer
 

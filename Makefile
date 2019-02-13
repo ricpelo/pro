@@ -27,12 +27,13 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	rm -f docs/images/*.dat docs/images/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP)
-	./pp $< | pandoc -s -t beamer --template=plantilla.tex \
+	./pp $< | pandoc -s -t beamer --template=plantilla.tex --toc \
 		-H preambulo.tex \
 		--pdf-engine=xelatex \
 		--highlight-style=solarized.theme \
 		--syntax-definition=php.xml \
 		-V theme=AnnArbor -V colortheme=seahorse \
+		-V fonttheme=structurebold \
 		-V fontsize=8pt -V lang=es-ES -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
