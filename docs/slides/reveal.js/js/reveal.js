@@ -3135,7 +3135,7 @@
 					if( isVerticalSlide() ) value.push( '/', indexv + 1 );
 					break;
 				default:
-					value.push( indexh + 1 );
+					value.push( indexh );
 					if( isVerticalSlide() ) value.push( '.', indexv + 1 );
 			}
 

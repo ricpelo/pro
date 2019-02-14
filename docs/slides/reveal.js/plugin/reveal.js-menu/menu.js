@@ -606,7 +606,7 @@ var RevealMenu = window.RevealMenu || (function(){
 									if( typeof v === 'number' && !isNaN( v ) ) value.push( '/', v + 1 );
 									break;
 								default:
-									value.push( h + 1 );
+									value.push( h );
 									if( typeof v === 'number' && !isNaN( v ) ) value.push( '.', v + 1 );
 							}
 
