@@ -10,11 +10,14 @@ SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 
-all: $(OBJECTSHTML) $(OBJECTSPDF)
+all: transparencias $(OBJECTSHTML) $(OBJECTSPDF)
 
 html: $(OBJECTSHTML)
 
 pdf: $(OBJECTSPDF)
+
+transparencias:
+	./transparencias.sh > docs/transparencias.md
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	./pp $< | pandoc -s -t revealjs --template=pandoc_revealjs.template \
