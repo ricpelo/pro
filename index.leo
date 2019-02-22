@@ -8,8 +8,8 @@
 <vnodes>
 <v t="ricardo.20190222160648.1"><vh>@auto source/conceptos-basicos-de-php-i.md</vh></v>
 <v t="ricardo.20190222161209.1"><vh>@auto source/introduccion-a-yii2.md</vh></v>
-<v t="ricardo.20190222161254.1"><vh>@auto source/conceptos-fundamentales-de-yii2.md</vh></v>
-<v t="ricardo.20190222160942.1"><vh>@auto source/estructura-de-una-aplicacion-yii2.md</vh></v>
+<v t="ricardo.20190222161254.1"><vh>@auto source/estructura-a-pequena-escala-de-una-aplicacion-yii2.md</vh></v>
+<v t="ricardo.20190222160942.1"><vh>@auto source/estructura-a-gran-escala-de-una-aplicacion-yii2.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>

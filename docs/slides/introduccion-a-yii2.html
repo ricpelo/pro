@@ -101,9 +101,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/frameworks-microframeworks-y-librerías">Frameworks, microframeworks y librerías</a></li>
-<li><a href="#/section"><img data-src="images/yii.png" class="plain" /></a></li>
-<li><a href="#/introducción-requisitos-y-puesta-en-marcha">Introducción, requisitos y puesta en marcha</a></li>
 <li><a href="#/patrón-modelo-vista-controlador-mvc">Patrón <em>Modelo-Vista-Controlador</em> (MVC)</a></li>
+<li><a href="#/yii-2">Yii 2</a></li>
+<li><a href="#/instalación-requisitos-y-puesta-en-marcha">Instalación, requisitos y puesta en marcha</a></li>
+<li><a href="#/hola-mundo">¡Hola, mundo!</a></li>
+<li><a href="#/formularios">Formularios</a></li>
+<li><a href="#/bases-de-datos">Bases de datos</a></li>
 <li><a href="#/generador-de-código-gii">Generador de código <em>Gii</em></a></li>
 <li><a href="#/estilo-del-código">Estilo del código</a></li>
 </ul>
@@ -369,15 +372,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Investiga otros <em>microframeworks</em> para PHP.</p></li>
 </ol>
 </section></section>
-<section id="section" class="title-slide slide level1"><h1><img data-src="images/yii.png" class="plain" /></h1></section>
-<section><section id="introducción-requisitos-y-puesta-en-marcha" class="title-slide slide level1"><h1>Introducción, requisitos y puesta en marcha</h1></section><section id="qué-es-yii" class="slide level2">
+<section><section id="patrón-modelo-vista-controlador-mvc" class="title-slide slide level1"><h1>Patrón <em>Modelo-Vista-Controlador</em> (MVC)</h1></section><section id="visión-general" class="slide level2">
+<h2>Visión general</h2>
+<p><img data-src="images/MVC-Diagram.gif" style="width:50.0%" /></p>
+</section><section class="slide level2">
+
+<p><img data-src="images/mvc_role_diagram.png" class="plain" style="width:70.0%" /></p>
+</section><section class="slide level2">
+
+<p><img data-src="images/mvc-architecture.jpg" style="width:75.0%" /></p>
+</section><section class="slide level2">
+
+<p><img data-src="images/mvc-request-flow.png" class="plain" style="width:80.0%" /></p>
+</section><section id="modelos" class="slide level2">
+<h2>Modelos</h2>
+<p>Los modelos representan la parte de la aplicación que implementa la <em>lógica de negocio</em> y las <em>entidades de datos</em>. Ésto significa que son responsables de la recuperación de datos convirtiéndolos en conceptos significativos para la aplicación, así como su procesamiento, validación, asociación y cualquier otra tarea relativa a la manipulación de dichos datos.</p>
+<p>En general, representan los principales conceptos en torno a los cuales se desea implementar un programa.</p>
+</section><section class="slide level2">
+
+<p>Por ejemplo, en el caso de una red social, la capa de modelo se haría cargo de tareas tales como guardar datos del usuario, el amacenamiento de asociaciones con amigos, el almacenamiento y la recuperación de fotos de los usuarios, encontrar sugerencias de nuevos amigos, etc.</p>
+<p>Por tanto, en este caso, los modelos podrían ser <code>Amigo</code>, <code>Usuario</code>, <code>Comentario</code> y <code>Foto</code>.</p>
+</section><section id="vistas" class="slide level2">
+<h2>Vistas</h2>
+<p>Las vistas hacen una <em>presentación de los datos</em> de los modelos estando separadas de los mismos.</p>
+<p>Por ejemplo, como los modelos devuelven un conjunto de datos, las vistas los usarían para hacer una página HTML que los contenga. O un resultado con formato XML o JSON para que otras aplicaciones puedan consumir.</p>
+<p>Las vistas no se limitan únicamente a HTML o texto que represente los datos, sino que pueden ser utilizadas para ofrecer una amplia variedad de formatos en función de sus necesidades tales como videos, música, documentos y cualquier otro formato que se pueda imaginar.</p>
+</section><section id="controladores" class="slide level2">
+<h2>Controladores</h2>
+<p>Los controladores <em>gestionan las peticiones</em> de los usuarios. Son responsables de responder a la información solicitada con la ayuda tanto de los modelos como de las vistas.</p>
+<p>Los controladores pueden ser vistos como administradores cuidando de que todos los recursos necesarios para completar una tarea se deleguen a los trabajadores más adecuados. Espera peticiones de los clientes, comprueba su validez de acuerdo a las normas de autenticación o autorización, delega la búsqueda de datos a los modelos y selecciona el tipo de respuesta más adecuado según las preferencias del cliente. Finalmente delega este proceso de presentación a las vistas.</p>
+</section><section id="mvc-en-yii-2" class="slide level2">
+<h2>MVC en Yii 2</h2>
+<ul>
+<li><p>Los <strong>modelos</strong> son subclases de <code>yii\base\Model</code>.</p>
+<ul>
+<li>Un caso especial son las subclases de <code>yii\db\ActiveRecord</code>.</li>
+</ul></li>
+<li><p>Las <strong>vistas</strong> son plantillas (archivos <code>.php</code>) que combinan HTML y PHP (y posiblemente JavaScript, CSS, etc.).</p></li>
+<li><p>Los <strong>controladores</strong> son subclases de <code>yii\base\Controller</code>.</p>
+<ul>
+<li><p>En las aplicaciones web se usa <code>yii\web\Controller</code>.</p></li>
+<li><p>En las aplicaciones de consola se usa <code>yii\console\Controller</code>.</p></li>
+</ul></li>
+</ul>
+</section><section id="ejercicios-1" class="slide level2">
+<h2>Ejercicios</h2>
+<ol type="1">
+<li><p>¿Qué es un modelo?</p></li>
+<li><p>¿Qué es una vista?</p></li>
+<li><p>¿Qué es un controlador?</p></li>
+<li><p>¿Qué componente (<em>modelo</em>, <em>vista</em> o <em>controlador</em>) se encargaría de las siguientes responsabilidades?</p>
+<ol type="1">
+<li><p>Comprobar si un pedido es válido.</p></li>
+<li><p>Impedir que se pueda vender un producto sin existencias.</p></li>
+<li><p>Atender la petición de alta de un nuevo usuario.</p></li>
+<li><p>Solicitar los nuevos datos del producto durante una modificación del mismo.</p></li>
+</ol></li>
+</ol>
+</section></section>
+<section><section id="yii-2" class="title-slide slide level1"><h1>Yii 2</h1></section><section id="qué-es-yii" class="slide level2">
 <h2>¿Qué es Yii?</h2>
 <p>Yii es un framework de PHP de alto rendimiento, basado en componentes para desarrollar aplicaciones web modernas en poco tiempo. El nombre Yii significa “simple y evolutivo” en chino. También se puede considerar como un acrónimo de <em><strong>Yes It Is</strong></em> (que en inglés significa <em><strong>Sí, eso es</strong></em>).</p>
 </section><section id="en-qué-es-mejor-yii" class="slide level2">
 <h2>¿En qué es mejor Yii?</h2>
 <p>Yii es un framework genérico de programación web, lo que significa que se puede utilizar para desarrollar todo tipo de aplicaciones web en PHP. Debido a su arquitectura basada en componentes y a su sofisticada compatibilidad de caché, es especialmente apropiado para el desarrollo de aplicaciones de gran envergadura, como portales, foros, sistemas de gestión de contenidos (CMS), proyectos de comercio electrónico, servicios web compatibles con la arquitectura REST y muchas más.</p>
-</section><section id="cómo-se-compara-yii-con-otros-frameworks" class="slide level2">
-<h2>¿Cómo se compara Yii con otros frameworks?</h2>
+</section><section id="cómo-es-yii-comparado-con-otros-frameworks" class="slide level2">
+<h2>¿Cómo es Yii comparado con otros frameworks?</h2>
 <ul>
 <li>Como la mayoría de los framework de PHP, Yii implementa el patrón de diseño MVC (Modelo-Vista-Controlador) y promueve la organización de código basada en este patrón.</li>
 <li>La filosofía de Yii consiste en escribir el código de manera simple y elegante, sin sobrediseñar nunca por el mero hecho de seguir un patrón de diseño determinado.</li>
@@ -394,7 +454,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Para la versión 1.1, que es de la generación anterior, actualmente sólo se ofrece mantenimiento. La versión 2.0 está completamente reescrita y adopta las últimas tecnologías y protocolos, incluidos Composer, PSR, espacios de nombres, traits, etc.</p>
 <p>La versión 2.1 recibe actualmente el principal esfuerzo de desarrollo y se prevé que se publique en 2018.</p>
-</section><section id="requisitos-previos" class="slide level2">
+</section></section>
+<section><section id="instalación-requisitos-y-puesta-en-marcha" class="title-slide slide level1"><h1>Instalación, requisitos y puesta en marcha</h1></section><section id="requisitos-previos" class="slide level2">
 <h2>Requisitos previos</h2>
 <p>Yii 2 requiere PHP 5.4.0 o una versión posterior. Se pueden encontrar requisitos más detallados de características individuales ejecutando el script de comprobación <strong><code>requirements.php</code></strong> incluido en cada versión de Yii.</p>
 <p>Para utilizar Yii se requieren conocimientos básicos de programación orientada a objetos (POO), porque el framework Yii se basa íntegramente en esta tecnología.</p>
@@ -404,8 +465,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>La instalación estándar de Yii instala tanto el framework como una plantilla de proyecto.</p>
 <p>Una plantilla de proyecto es un proyecto Yii funcional que implementa algunas características básicas como: login, formulario de contacto, etc.</p>
 <p>Aunque no resulta imprescindible usar una plantilla, se recomienda encarcidamente usar una de las que proporciona Yii 2 como punto de partida para un nuevo proyecto.</p>
-</section><section id="plantillas-oficiales" class="slide level2">
-<h2>Plantillas oficiales</h2>
+<h3 id="instalación-mediante-composer">Instalación mediante Composer</h3>
+<p>Para crear un proyecto nuevo con la estructura de la plantilla básica:</p>
+<pre><code>$ composer create-project yiisoft/yii2-app-basic directorio</code></pre>
+<p>Creará un directorio llamado <em><code>directorio</code></em> donde se volcará el contenido de la plantilla y quedará el proyecto listo para empezar su desarrollo.</p>
+</section><section id="plantillas-de-proyecto" class="slide level2">
+<h2>Plantillas de proyecto</h2>
 <p>Yii 2 proporciona dos plantillas oficiales:</p>
 <ul>
 <li>La plantilla <strong>básica</strong> (<code>yii2-app-basic</code>)</li>
@@ -414,8 +479,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>La plantilla básica es adecuada para desarrollar el 90% de las aplicaciones web. Difiere de la plantilla avanzada principalmente en cómo está organizado el código.</p>
 <p>A los principiantes en Yii 2 se les recomienda usar la plantilla básica por su sencillez y su funcionalidad.</p>
 <p>Nosotros empezaremos usando la plantilla básica y luego pasaremos a usar una ligera variante.</p>
-</section><section id="plantilla-básica-vs.-avanzada" class="slide level2">
-<h2>Plantilla <em>básica</em> vs. <em>avanzada</em></h2>
+<h3 id="plantilla-básica-vs.-avanzada">Plantilla <em>básica</em> vs. <em>avanzada</em></h3>
 <table>
 <thead>
 <tr class="header">
@@ -487,70 +551,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-</section><section id="instalación-mediante-composer" class="slide level2">
-<h2>Instalación mediante Composer</h2>
-<p>Para crear un proyecto nuevo con la estructura de la plantilla básica:</p>
-<pre><code>$ composer create-project yiisoft/yii2-app-basic directorio</code></pre>
-<p>Creará un directorio llamado <em><code>directorio</code></em> donde se volcará el contenido de la plantilla y quedará el proyecto listo para empezar su desarrollo.</p>
+<h3 id="plantilla-básica-modificada">Plantilla básica modificada</h3>
 </section></section>
-<section><section id="patrón-modelo-vista-controlador-mvc" class="title-slide slide level1"><h1>Patrón <em>Modelo-Vista-Controlador</em> (MVC)</h1></section><section id="visión-general" class="slide level2">
-<h2>Visión general</h2>
-<p><img data-src="images/MVC-Diagram.gif" style="width:50.0%" /></p>
-</section><section class="slide level2">
-
-<p><img data-src="images/mvc_role_diagram.png" class="plain" style="width:70.0%" /></p>
-</section><section class="slide level2">
-
-<p><img data-src="images/mvc-architecture.jpg" style="width:75.0%" /></p>
-</section><section class="slide level2">
-
-<p><img data-src="images/mvc-request-flow.png" class="plain" style="width:80.0%" /></p>
-</section><section id="modelos" class="slide level2">
-<h2>Modelos</h2>
-<p>Los modelos representan la parte de la aplicación que implementa la <em>lógica de negocio</em> y las <em>entidades de datos</em>. Ésto significa que son responsables de la recuperación de datos convirtiéndolos en conceptos significativos para la aplicación, así como su procesamiento, validación, asociación y cualquier otra tarea relativa a la manipulación de dichos datos.</p>
-<p>En general, representan los principales conceptos en torno a los cuales se desea implementar un programa.</p>
-</section><section class="slide level2">
-
-<p>Por ejemplo, en el caso de una red social, la capa de modelo se haría cargo de tareas tales como guardar datos del usuario, el amacenamiento de asociaciones con amigos, el almacenamiento y la recuperación de fotos de los usuarios, encontrar sugerencias de nuevos amigos, etc.</p>
-<p>Por tanto, en este caso, los modelos podrían ser <code>Amigo</code>, <code>Usuario</code>, <code>Comentario</code> y <code>Foto</code>.</p>
-</section><section id="vistas" class="slide level2">
-<h2>Vistas</h2>
-<p>Las vistas hacen una <em>presentación de los datos</em> de los modelos estando separadas de los mismos.</p>
-<p>Por ejemplo, como los modelos devuelven un conjunto de datos, las vistas los usarían para hacer una página HTML que los contenga. O un resultado con formato XML o JSON para que otras aplicaciones puedan consumir.</p>
-<p>Las vistas no se limitan únicamente a HTML o texto que represente los datos, sino que pueden ser utilizadas para ofrecer una amplia variedad de formatos en función de sus necesidades tales como videos, música, documentos y cualquier otro formato que se pueda imaginar.</p>
-</section><section id="controladores" class="slide level2">
-<h2>Controladores</h2>
-<p>Los controladores <em>gestionan las peticiones</em> de los usuarios. Son responsables de responder a la información solicitada con la ayuda tanto de los modelos como de las vistas.</p>
-<p>Los controladores pueden ser vistos como administradores cuidando de que todos los recursos necesarios para completar una tarea se deleguen a los trabajadores más adecuados. Espera peticiones de los clientes, comprueba su validez de acuerdo a las normas de autenticación o autorización, delega la búsqueda de datos a los modelos y selecciona el tipo de respuesta más adecuado según las preferencias del cliente. Finalmente delega este proceso de presentación a las vistas.</p>
-</section><section id="mvc-en-yii-2" class="slide level2">
-<h2>MVC en Yii 2</h2>
-<ul>
-<li><p>Los <strong>modelos</strong> son subclases de <code>yii\base\Model</code>.</p>
-<ul>
-<li>Un caso especial son las subclases de <code>yii\db\ActiveRecord</code>.</li>
-</ul></li>
-<li><p>Las <strong>vistas</strong> son plantillas (archivos <code>.php</code>) que combinan HTML y PHP (y posiblemente JavaScript, CSS, etc.).</p></li>
-<li><p>Los <strong>controladores</strong> son subclases de <code>yii\base\Controller</code>.</p>
-<ul>
-<li><p>En las aplicaciones web se usa <code>yii\web\Controller</code>.</p></li>
-<li><p>En las aplicaciones de consola se usa <code>yii\console\Controller</code>.</p></li>
-</ul></li>
-</ul>
-</section><section id="ejercicios-1" class="slide level2">
-<h2>Ejercicios</h2>
-<ol type="1">
-<li><p>¿Qué es un modelo?</p></li>
-<li><p>¿Qué es una vista?</p></li>
-<li><p>¿Qué es un controlador?</p></li>
-<li><p>¿Qué componente (<em>modelo</em>, <em>vista</em> o <em>controlador</em>) se encargaría de las siguientes responsabilidades?</p>
-<ol type="1">
-<li><p>Comprobar si un pedido es válido.</p></li>
-<li><p>Impedir que se pueda vender un producto sin existencias.</p></li>
-<li><p>Atender la petición de alta de un nuevo usuario.</p></li>
-<li><p>Solicitar los nuevos datos del producto durante una modificación del mismo.</p></li>
-</ol></li>
-</ol>
-</section></section>
+<section id="hola-mundo" class="title-slide slide level1"><h1>¡Hola, mundo!</h1></section>
+<section id="formularios" class="title-slide slide level1"><h1>Formularios</h1></section>
+<section id="bases-de-datos" class="title-slide slide level1"><h1>Bases de datos</h1></section>
 <section><section id="generador-de-código-gii" class="title-slide slide level1"><h1>Generador de código <em>Gii</em></h1></section><section id="generador-de-código-gii-1" class="slide level2">
 <h2>Generador de código <em>Gii</em></h2>
 <p><a href="http://www.yiiframework.com/doc-2.0/guide-start-gii.html">http://www.yiiframework.com/doc-2.0/guide-start-gii.html</a></p>
