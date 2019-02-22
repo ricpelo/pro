@@ -6,12 +6,14 @@ date: IES Doñana, curso 2018-19
 
 # Introducción
 
+
 ## Introducción
 
 ![Estructura a gran escala de una aplicación
 Yii2](https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png){.plain}
 
 # Scripts de entrada
+
 
 ## Scripts de entrada
 
@@ -82,6 +84,7 @@ $config = require __DIR__ . '/../config/web.php';
 ```
 
 # Aplicaciones
+
 
 ## Aplicaciones
 
@@ -241,6 +244,7 @@ manipular fechas y horas.
 
 # Componentes de aplicación
 
+
 ## Componentes de aplicación
 
 - Recordemos que las aplicaciones son *localizadores de servicios*.
@@ -332,6 +336,7 @@ Lista de componentes de aplicación principales:
 - `view`: gestiona el renderizado de las vistas.
 
 # Controladores
+
 
 ## Controladores
 
@@ -463,6 +468,7 @@ se ejecutará la acción `index` del controlador `site`.
   un parámetro de nombre `$page`).
 
 # Modelos
+
 
 ## Modelos
 

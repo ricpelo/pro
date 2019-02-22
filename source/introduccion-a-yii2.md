@@ -6,6 +6,7 @@ date: IES Doñana, curso 2018-19
 
 # Frameworks, microframeworks y librerías
 
+
 ## Ruby on Rails
 
 :::::::::::::: {.columns}
@@ -297,7 +298,7 @@ $app->run();
 - Slim
 - Silex
 - Lumen
-- Fat-Free Framework 
+- Fat-Free Framework
 
 ## Frameworks vs. microframeworks
 
@@ -373,9 +374,10 @@ Con un framework:
 
 8. Investiga otros *microframeworks* para PHP.
 
-# ![](images/yii.png){.plain}
+# Yii 2
 
 # Introducción, requisitos y puesta en marcha
+
 
 ## ¿Qué es Yii?
 
@@ -502,6 +504,7 @@ plantilla y quedará el proyecto listo para empezar su desarrollo.
 
 # Patrón *Modelo-Vista-Controlador* (MVC)
 
+
 ## Visión general
 
 ![](images/MVC-Diagram.gif){width=50%}
@@ -604,14 +607,17 @@ posiblemente JavaScript, CSS, etc.).
 
 # Generador de código *Gii*
 
+
 ## Generador de código *Gii*
 
 [http://www.yiiframework.com/doc-2.0/guide-start-gii.html](http://www.yiiframework.com/doc-2.0/guide-start-gii.html)
 
 # Estilo del código
 
+
 ## Reglas de estilo en Yii 2
 
 - [Estilo general](https://github.com/yiisoft/yii2/blob/master/docs/internals/core-code-style.md)
 
 - [Estilo para las vistas](https://github.com/yiisoft/yii2/blob/master/docs/internals/view-code-style.md)
+

@@ -6,6 +6,7 @@ date: IES Doñana, curso 2018-19
 
 # Introducción a PHP
 
+
 ## Página web de PHP
 
 ---
@@ -40,11 +41,15 @@ date: IES Doñana, curso 2018-19
 
 ## Instalación de PHP
 
+
 ## Documentación y búsqueda de información
+
 
 # Sintaxis básica
 
+
 ## Datos e instrucciones
+
 
 ## Sentencias y comandos
 
@@ -56,23 +61,31 @@ Ejemplos: aritmética, `cos()`, `max()`.
 
 # Funcionamiento del intérprete
 
+
 ## Modo dual de operación
 
 Se llaman *modo HTML* y *modo PHP*.
 
 ## Etiquetas `<?php` y `?>`
 
+
 # Intérprete interactivo
+
 
 ## `php -a`
 
+
 ## PsySH
+
 
 # Variables
 
+
 ## Conceptos básicos
 
+
 ## Destrucción de variables
+
 
 ## Operadores de asignación
 
@@ -81,7 +94,9 @@ Se llaman *modo HTML* y *modo PHP*.
 
 ## Variables predefinidas
 
+
 # Tipos básicos de datos
+
 
 ## Lógicos
 
@@ -106,11 +121,15 @@ Se llaman *modo HTML* y *modo PHP*.
 
 ## Nulo
 
+
 # Manipulación de datos
+
 
 ## Precedencia de operadores
 
+
 ## Operadores de asignación compuesta
+
 
 ## Comprobaciones
 
@@ -152,45 +171,66 @@ Se llaman *modo HTML* y *modo PHP*.
 
 # Constantes
 
+
 ## Constantes
+
 
 ## `define()` y `const`
 
+
 ## Constantes predefinidas
+
 
 ## `defined()`
 
+
 # Flujo de control
+
 
 ## Estructuras de control
 
+
 ## Inclusión de scripts
+
 
 # Funciones predefinidas destacadas
 
+
 ## `isset()`
+
 
 ## `empty()`
 
+
 ## `var_dump()`
+
 
 # Arrays
 
+
 ## Arrays
+
 
 ## Operadores para arrays
 
+
 ## Funciones de manejo de arrays
+
 
 ## `foreach`
 
+
 ## Conversión a array
+
 
 ## Ejemplo: `$argv` en CLI
 
+
 # Funciones definidas por el usuario
 
+
 ## Funciones definidas por el usuario
+
 
 ## Argumentos
 
@@ -213,5 +253,7 @@ Se llaman *modo HTML* y *modo PHP*.
 
 # Comentarios y documentación del código
 
+
 # Ejercicios
+
 

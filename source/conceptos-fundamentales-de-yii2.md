@@ -6,6 +6,7 @@ date: IES Doñana, curso 2018-19
 
 # Componentes
 
+
 ## Componentes
 
 - Los componentes son los principales bloques de construcción de una aplicación
@@ -66,6 +67,7 @@ yii\base\BaseObject <|-- yii\base\Component
   pero además tendrían propiedades y configurabilidad.
 
 # Propiedades
+
 
 ## Propiedades
 
@@ -162,6 +164,7 @@ $p->valor = 30;  // Da ERROR
 ```
 
 # Configurabilidad
+
 
 ## Configurabilidad
 
@@ -279,6 +282,7 @@ todo el código del framework y de la aplicación que hagamos con él.
 
 # Normas
 
+
 ## Normas de creación de componentes
 
 - Al heredar de `yii\base\Component` o `yii\base\BaseObject`, hay que seguir
@@ -326,6 +330,7 @@ class MiClase extends BaseObject
 ```
 
 # Eventos
+
 
 ## Eventos
 
@@ -455,7 +460,7 @@ $p->trigger(Prueba::EVENTO_HOLA); // Muestra "Soy p" pero no "Soy q"
 ```
 
 Aquí el evento lo dispara `$p` y por tanto no se ejecuta el manejador
-registrado por `$q` (el objeto `$q` no se entera). 
+registrado por `$q` (el objeto `$q` no se entera).
 
 ## Constantes para los eventos
 
@@ -613,6 +618,7 @@ evento no es ninguna instancia concreta, sino una clase.
 - Los eventos de clase sólo provocan la ejecución de manejadores de clase.
 
 # Comportamientos
+
 
 ## Comportamientos
 
@@ -801,6 +807,7 @@ componente gracias a que tiene acoplado el comportamiento `Comportamiento`.
 
 # Alias
 
+
 ## Alias
 
 - Representan rutas o URLs.
@@ -912,6 +919,7 @@ echo Yii::getAlias('@pepe/juan/file.php');  // /ruta2/juan/file.php
 
 # Autoloader de clases
 
+
 ## Autoloader de clases
 
 - Es un autoloader que cumple con el estándar **PSR-4**.
@@ -934,6 +942,7 @@ $classFile = Yii::getAlias('@' . str_replace('\\', '/', $clase) . '.php');
   predefinido que siempre existe en Yii 2.
 
 # Localizador de servicios
+
 
 ## Localizador de servicios
 
@@ -1026,6 +1035,7 @@ $locator = new yii\di\ServiceLocator($config);
 ```
 
 # Contenedor de inyección de dependencias
+
 
 ## Contenedor de inyección de dependencias
 
@@ -1134,3 +1144,4 @@ public static function createObject($type, array $params = [])
     throw new InvalidConfigException('Unsupported configuration type: ' . gettype($type));
 }
 ```
+
