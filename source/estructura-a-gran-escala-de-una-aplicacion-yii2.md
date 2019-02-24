@@ -10,7 +10,7 @@ date: IES Doñana, curso 2018-19
 ## Introducción
 
 ![Estructura a gran escala de una aplicación
-Yii2](https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png){.plain}
+Yii 2](https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png){.plain}
 
 # Scripts de entrada
 

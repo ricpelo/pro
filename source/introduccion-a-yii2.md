@@ -1,5 +1,5 @@
 ---
-title: Introducción a Yii2
+title: Introducción a Yii 2
 author: Ricardo Pérez López
 date: IES Doñana, curso 2018-19
 ---
