@@ -185,7 +185,7 @@ $p->valor = 30;  // Da ERROR
 
   - Más posibilidades que iremos viendo en su momento.
 
-### Asignación masiva
+## Asignación masiva
 
 :::::::::::::: {.columns}
 
@@ -244,7 +244,7 @@ echo $p->dos; // Muestra "7"
 
 ::::::::::::::
 
-### Creación de nuevas instancias
+## Creación de nuevas instancias
 
 - Una configuración también se puede usar para crear nuevas instancias y
   asignarle valores iniciales *en la misma operación* usando el método

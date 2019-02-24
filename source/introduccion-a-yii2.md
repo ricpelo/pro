@@ -561,7 +561,7 @@ Aunque no resulta imprescindible usar una plantilla, se recomienda
 encarcidamente usar una de las que proporciona Yii 2 como punto de partida para
 un nuevo proyecto.
 
-### Instalación mediante Composer
+## Instalación mediante Composer
 
 Para crear un proyecto nuevo con la estructura de la plantilla básica:
 
@@ -589,7 +589,7 @@ su sencillez y su funcionalidad.
 Nosotros empezaremos usando la plantilla básica y luego pasaremos a usar una
 ligera variante.
 
-### Plantilla *básica* vs. *avanzada*
+## Plantilla *básica* vs. *avanzada*
 
 | Feature  |  Básica  |  Avanzada |
 |---|:---:|:---:|
@@ -606,7 +606,7 @@ ligera variante.
 | Modelo de usuario listo para usar |    | ✓ |
 | Registro de usuarios y recuperación de contraseñas |     | ✓ |
 
-### Plantilla básica modificada
+## Plantilla básica modificada
 
 
 # ¡Hola, mundo!
