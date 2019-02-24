@@ -41,6 +41,18 @@ date: IES Doñana, curso 2018-19
 
 ## Instalación de PHP
 
+```js
+  // Useless comment.
+  alert('hi');
+```
+
+::: {.fragment data-code-focus="1"}
+When this fragment is shown, the first line of code (`span.line`) will have the `"focus"` class added to it.
+:::
+
+::: { .fragment data-code-focus="1-2"}
+Another fragment. This time, both lines will now have the `"focus"` class.
+:::
 
 ## Documentación y búsqueda de información
 
