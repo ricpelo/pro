@@ -4,20 +4,19 @@ SRCDIR=source
 BUILDDIR=docs
 BUILDDIRHTML=$(BUILDDIR)/slides
 BUILDDIRPDF=$(BUILDDIR)/pdf
+TRANS=$(BUILDDIR)/transparencias.md
+REVEAL=$(BUILDDIRHTML)/reveal.js
 PP=pp
 
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 
-all: transparencias $(OBJECTSHTML) $(OBJECTSPDF)
+all: $(TRANS) html pdf
 
-html: $(OBJECTSHTML)
+html: $(OBJECTSHTML) $(REVEAL)
 
 pdf: $(OBJECTSPDF)
-
-transparencias:
-	./transparencias.sh > docs/transparencias.md
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP)
 	./pp $< | pandoc -s -t revealjs --template=pandoc_revealjs.template \
@@ -43,6 +42,12 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP)
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
+
+$(TRANS): $(SOURCES)
+	./transparencias.sh > $(TRANS)
+
+$(REVEAL):
+	git submodule update --init --recursive
 
 clean:
 	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
