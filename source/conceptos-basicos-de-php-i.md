@@ -8,6 +8,7 @@ date: IES Doñana, curso 2018-19
 
 
 ## Página web de PHP
+[http://php.net](http://php.net)
 
 ---
 
@@ -40,6 +41,20 @@ date: IES Doñana, curso 2018-19
 </script>
 
 ## Instalación de PHP
+* Opción recomendada:
+
+  ```console
+  $ ~/.conf/scripts/php-install.sh
+  ```
+
+* Opción general:
+
+  ```console
+  $ sudo apt install php
+  ```
+
+---
+
 
 ```js
   // Useless comment.
@@ -55,7 +70,9 @@ Another fragment. This time, both lines will now have the `"focus"` class.
 :::
 
 ## Documentación y búsqueda de información
+* Manual en [http://php.net/manual/es/](http://php.net/manual/es/)
 
+* Formulario de búsqueda en [http://php.net](http://php.net)
 
 # Sintaxis básica
 
@@ -194,76 +211,6 @@ Se llaman *modo HTML* y *modo PHP*.
 
 
 ## `defined()`
-
-
-# Flujo de control
-
-
-## Estructuras de control
-
-
-## Inclusión de scripts
-
-
-# Funciones predefinidas destacadas
-
-
-## `isset()`
-
-
-## `empty()`
-
-
-## `var_dump()`
-
-
-# Arrays
-
-
-## Arrays
-
-
-## Operadores para arrays
-
-
-## Funciones de manejo de arrays
-
-
-## `foreach`
-
-
-## Conversión a array
-
-
-## Ejemplo: `$argv` en CLI
-
-
-# Funciones definidas por el usuario
-
-
-## Funciones definidas por el usuario
-
-
-## Argumentos
-
-- Paso de argumentos por valor y por referencia
-- Argumentos por defecto
-
-## Ámbito de variables
-
-- Ámbito simple al archivo
-- Variables locales
-- Uso de `global`
-- Variables superglobales
-
-## Declaraciones de tipos
-
-- Declaraciones de tipos de argumento
-- Declaraciones de tipo de devolución
-- Tipos *nullable* y `void`
-- Tipificación estricta
-
-# Comentarios y documentación del código
 
 
 # Ejercicios
