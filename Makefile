@@ -5,10 +5,14 @@ BUILDDIR=docs
 BUILDDIRHTML=$(BUILDDIR)/slides
 BUILDDIRPDF=$(BUILDDIR)/pdf
 TRANS=$(BUILDDIR)/transparencias.md
-REVEAL=$(BUILDDIRHTML)/reveal.js
+REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
+REVEAL_TEMPLATE=pandoc_revealjs.template
+LATEX_TEMPLATE=plantilla.tex
+PREAMBULO=preambulo.tex
 PP=pp
 ITHACA=~/texmf/tex/latex/beamer/beamertheme-ithaca
 PANDOC=/usr/bin/pandoc
+HIGHLIGHT_STYLE=solarized.theme
 
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
@@ -20,22 +24,22 @@ html: $(OBJECTSHTML)
 
 pdf: $(OBJECTSPDF)
 
-$(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL)
-	./pp $< | pandoc -s -t revealjs --template=pandoc_revealjs.template \
+$(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE)
+	./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
 		--toc --toc-depth=1 \
-		--highlight-style=solarized.theme \
+		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=php.xml \
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
 	rm -f docs/images/*.dat docs/images/*.gv
 
-$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA)
-	./pp $< | pandoc -s -t beamer --template=plantilla.tex \
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO)
+	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
 		--toc \
-		-H preambulo.tex \
+		-H $(PREAMBULO) \
 		--pdf-engine=xelatex \
-		--highlight-style=solarized.theme \
+		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=php.xml \
 		-V theme=Ithaca \
 		-V fonttheme=structurebold \
