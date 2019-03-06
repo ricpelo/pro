@@ -15,7 +15,7 @@ if ! dpkg -s pandoc > /dev/null 2>&1; then
     echo "Descargando e instalando Pandoc $VER..."
     instalar
 else
-    ACTUAL=$(pandoc -v | grep -Po 'pandoc \K.*')
+    ACTUAL=$(pandoc -v | grep -Po '^pandoc \K.*')
     if [ "$VER" != "$ACTUAL" ]; then
         echo "Actualizando Pandoc de $ACTUAL a $VER..."
         instalar
