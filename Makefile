@@ -13,7 +13,9 @@ LATEX_TEMPLATE=$(AUX)/plantilla.tex
 PREAMBULO=$(AUX)/preambulo.tex
 PHP_XML=$(AUX)/php.xml
 PP=pp
-ITHACA=$(HOME)/texmf/tex/latex/beamer/beamertheme-ithaca
+ITHACA=beamertheme-ithaca
+ITHACA_SRC=$(AUX)/$(ITHACA)
+ITHACA_DST=$(HOME)/texmf/tex/latex/beamer/$(ITHACA)
 PANDOC=/usr/bin/pandoc
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 
@@ -38,7 +40,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		-V width=1280 -V height=1080 -o $@
 	@rm -f $(DOCS)/images/*.dat docs/images/*.gv
 
-$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML)
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA_DST) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML)
 	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
 		--toc \
 		-H $(PREAMBULO) \
@@ -57,8 +59,8 @@ $(PP):
 $(PANDOC):
 	$(SCRIPTS)/check-pandoc.sh
 
-$(ITHACA):
-	BASE=$$(readlink -f $$(dirname "$(ITHACA)")) && mkdir -p $$BASE && unzip -D $(AUX)/beamertheme-ithaca.zip -d $$BASE
+$(ITHACA_DST):
+	mkdir -p $$(dirname "$(ITHACA_DST)") && cp -rf "$(ITHACA_SRC)" "$(ITHACA_DST)"
 
 $(TRANS): $(SOURCES)
 	$(SCRIPTS)/transparencias.sh > $(TRANS)
@@ -67,7 +69,7 @@ $(REVEAL):
 	git submodule update --init --recursive
 
 clean:
-	rm -f $(OBJECTSHTML) $(OBJECTSPDF)
+	rm -f $(OBJECTSHTML) $(OBJECTSPDF) $(ITHACA_DST)
 
 serve:
 	cd $(DOCS) ; bundle exec jekyll serve --incremental
