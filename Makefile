@@ -54,7 +54,7 @@ $(PANDOC):
 	./check-pandoc.sh
 
 $(ITHACA):
-	if [ ! -d "$(ITHACA)" ]; then git clone https://github.com/ricpelo/beamertheme-ithaca.git $(ITHACA); fi
+	mkdir -p $(ITHACA) && unzip beamertheme-ithaca.zip -d $(ITHACA)
 
 $(TRANS): $(SOURCES)
 	./transparencias.sh > $(TRANS)
