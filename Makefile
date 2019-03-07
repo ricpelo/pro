@@ -13,7 +13,7 @@ LATEX_TEMPLATE=$(AUX)/plantilla.tex
 PREAMBULO=$(AUX)/preambulo.tex
 PHP_XML=$(AUX)/php.xml
 PP=pp
-ITHACA=$$HOME/texmf/tex/latex/beamer/beamertheme-ithaca
+ITHACA=$(HOME)/texmf/tex/latex/beamer/beamertheme-ithaca
 PANDOC=/usr/bin/pandoc
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 
@@ -57,7 +57,7 @@ $(PANDOC):
 	$(SCRIPTS)/check-pandoc.sh
 
 $(ITHACA):
-	BASE=$$(readlink -f $$(dirname "$(ITHACA)")) && mkdir -p $$BASE && unzip $(AUX)/beamertheme-ithaca.zip -d $$BASE
+	BASE=$$(readlink -f $$(dirname "$(ITHACA)")) && mkdir -p $$BASE && unzip -D $(AUX)/beamertheme-ithaca.zip -d $$BASE
 
 $(TRANS): $(SOURCES)
 	$(SCRIPTS)/transparencias.sh > $(TRANS)
