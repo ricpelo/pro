@@ -7,11 +7,13 @@
 <find_panel_settings/>
 <vnodes>
 <v t="ricardo.20190222160648.1"
-expanded="ricardo.20190304095723.3,ricardo.20190304095723.7,"><vh>@auto source/conceptos-basicos-de-php-i.md</vh></v>
+expanded="ricardo.20190307133614.7,"><vh>@auto source/conceptos-basicos-de-php-i.md</vh></v>
 <v t="ricardo.20190304095921.1"><vh>@auto source/conceptos-basicos-de-php-ii.md</vh></v>
 <v t="ricardo.20190222161209.1"><vh>@auto source/introduccion-a-yii2.md</vh></v>
 <v t="ricardo.20190222161254.1"><vh>@auto source/estructura-a-pequena-escala-de-una-aplicacion-yii2.md</vh></v>
-<v t="ricardo.20190222160942.1"><vh>@auto source/estructura-a-gran-escala-de-una-aplicacion-yii2.md</vh></v>
+<v t="ricardo.20190222160942.1"
+expanded="ricardo.20190307133707.2,ricardo.20190307133707.4,ricardo.20190307133707.10,"><vh>@auto source/estructura-a-gran-escala-de-una-aplicacion-yii2.md</vh></v>
+<v t="ricardo.20190307133722.1"><vh>@auto source/gestion-de-peticiones-en-yii2.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>
