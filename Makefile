@@ -31,7 +31,7 @@ pdf: $(OBJECTSPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
 	./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
-		--toc --toc-depth=1 \
+		--toc --toc-depth=1 -N \
 		--slide-level=2 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
@@ -69,7 +69,7 @@ $(REVEAL):
 	git submodule update --init --recursive
 
 clean:
-	rm -f $(OBJECTSHTML) $(OBJECTSPDF) $(ITHACA_DST)
+	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(ITHACA_DST)
 
 serve:
 	cd $(DOCS) ; bundle exec jekyll serve --incremental
