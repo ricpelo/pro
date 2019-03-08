@@ -38,7 +38,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
-	@rm -f $(DOCS)/images/*.dat docs/images/*.gv
+	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA_DST) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML)
 	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
@@ -53,7 +53,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA_DST) $(LATEX_TEMPL
 		-V monofont=FiraCode \
 		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
-	@rm -f $(DOCS)/images/*.dat docs/images/*.gv
+	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
@@ -75,4 +75,4 @@ clean:
 	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(ITHACA_DST)
 
 serve:
-	cd $(DOCS) ; bundle exec jekyll serve --incremental
+	cd $(BUILDDIR) ; bundle install --path vendor/bundle && bundle exec jekyll serve --incremental
