@@ -1,5 +1,5 @@
 ---
-title: Transparencias
+title: Diapositivas
 ---
 
 | Título | HTML | PDF |

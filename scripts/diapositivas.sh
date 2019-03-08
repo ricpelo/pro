@@ -2,7 +2,7 @@
 
 SOURCE="source"
 
-echo "---\ntitle: Transparencias\n---\n"
+echo "---\ntitle: Diapositivas\n---\n"
 
 FILES=$(grep -Po "@auto $SOURCE/\K.*?(?=<)" index.leo)
 

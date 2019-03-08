@@ -6,7 +6,7 @@ SRCDIR=source
 BUILDDIR=docs
 BUILDDIRHTML=$(BUILDDIR)/slides
 BUILDDIRPDF=$(BUILDDIR)/pdf
-TRANS=$(BUILDDIR)/transparencias.md
+DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/pandoc_revealjs.template
 LATEX_TEMPLATE=$(AUX)/plantilla.tex
@@ -23,7 +23,7 @@ SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 
-all: $(TRANS) html pdf
+all: $(DIAPOS) html pdf
 
 html: $(OBJECTSHTML)
 
@@ -62,8 +62,8 @@ $(PANDOC):
 $(ITHACA_DST):
 	mkdir -p $$(dirname "$(ITHACA_DST)") && cp -rf "$(ITHACA_SRC)" "$(ITHACA_DST)"
 
-$(TRANS): $(SOURCES)
-	$(SCRIPTS)/transparencias.sh > $(TRANS)
+$(DIAPOS): $(SOURCES)
+	$(SCRIPTS)/diapositivas.sh > $(DIAPOS)
 
 $(REVEAL):
 	git submodule update --init --recursive
