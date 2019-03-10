@@ -594,7 +594,7 @@ gracias a que `yii\base\Model` implementa las interfaces
   - Las *reglas de validación* determinan si los atributos de un modelo son
     válidos, o sea, si cumplen determinadas condiciones.
 
-## Escenario activo
+### Escenario activo
 
 - Los modelos usan la propiedad `yii\base\Model::scenario` para indicar en
   qué escenario se encuentran.
@@ -619,7 +619,7 @@ gracias a que `yii\base\Model` implementa las interfaces
 - El escenario en el que se encuentra actualmente un modelo se denomina el
   **escenario activo** del modelo.
 
-## Definición de escenarios
+### Definición de escenarios
 
 - Los escenarios que soporta un modelo normalmente se definen en las *reglas de
   validación* del modelo.
@@ -645,7 +645,7 @@ class User extends \yii\db\ActiveRecord
 }
 ```
 
-## Atributos activos
+### Atributos activos
 
 - Los **atributos activos** de un escenario son aquellos que están sujetos a
   *validación* y (posiblemente también) a *asignación masiva* cuando el modelo
@@ -735,7 +735,7 @@ if ($modelo->validate()) {
 }
 ```
 
-## Declaración de reglas de validación
+### Declaración de reglas de validación
 
 - Para declarar las reglas de validación asociadas a un modelo, hay que
   sobreescribir el método `yii\base\Model::rules()` para que devuelva las
@@ -756,7 +756,7 @@ if ($modelo->validate()) {
   }
   ```
 
-## Reglas activas
+### Reglas activas
 
 - Las **reglas activas** son aquellas reglas que se aplican al *escenario
   activo*.
@@ -809,7 +809,7 @@ $modelo->asunto = isset($datos['asunto']) ? $datos['asunto'] : null;
 $modelo->cuerpo = isset($datos['cuerpo']) ? $datos['cuerpo'] : null;
 ```
 
-## Atributos seguros
+### Atributos seguros
 
 - La asignación masiva sólo se aplica a los **atributos seguros**.
 
@@ -840,7 +840,7 @@ public function rules()
 }
 ```
 
-## Atributos inseguros
+### Atributos inseguros
 
 - Al contrario, si queremos que un atributo activo sea **inseguro**, es decir,
   que esté sometido a reglas de validación pero que no admita asignación
@@ -862,7 +862,7 @@ public function rules()
   - Todos están sujetos a la regla de validación del `required`.
   - `created_at` no es seguro, por lo que no puede asignarse masivamente.
 
-## Resumen
+# Resumen
 
 - El **escenario activo** de un modelo es el escenario en el que se encuentra
   actualmente el modelo.

@@ -106,40 +106,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/componentes-de-aplicación"><span class="toc-section-number">4</span> Componentes de aplicación</a></li>
 <li><a href="#/controladores"><span class="toc-section-number">5</span> Controladores</a></li>
 <li><a href="#/modelos"><span class="toc-section-number">6</span> Modelos</a></li>
+<li><a href="#/resumen"><span class="toc-section-number">7</span> Resumen</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="introducción-1" class="slide level2">
-<h2><span class="header-section-number">1.1</span> Introducción</h2>
-<figure>
+<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Introducción</h2><figure>
 <img data-src="https://www.yiiframework.com/doc/guide/2.0/en/images/application-structure.png" alt="Estructura a gran escala de una aplicación Yii 2" class="plain" /><figcaption>Estructura a gran escala de una aplicación Yii 2</figcaption>
-</figure>
-</section></section>
-<section><section id="scripts-de-entrada" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Scripts de entrada</h1></section><section id="scripts-de-entrada-1" class="slide level2">
-<h2><span class="header-section-number">2.1</span> Scripts de entrada</h2>
-<ul>
+</figure></section></section>
+<section><section id="scripts-de-entrada" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Scripts de entrada</h1></section><section id="scripts-de-entrada-1" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Scripts de entrada</h2><ul>
 <li><p>Los <strong>scripts de entrada</strong> son el primer paso en el proceso de arranque de una aplicación.</p></li>
 <li><p>Una aplicación (ya sea web o de consola) tiene siempre un único script de entrada.</p></li>
 <li><p>Los usuarios finales realizan peticiones a los scripts de entrada, los cuales instanciarán un objeto aplicación y le redirigirá las peticiones a él.</p></li>
-</ul>
-</section><section id="script-de-entrada-de-una-aplicación-web" class="slide level2">
-<h2><span class="header-section-number">2.2</span> Script de entrada de una aplicación web</h2>
-<ul>
+</ul></section><section id="script-de-entrada-de-una-aplicación-web" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Script de entrada de una aplicación web</h2><ul>
 <li><p>El script de entrada de una aplicación web se debe almacenar en un directorio accesible públicamente desde el exterior a través del servidor web, de forma que los usuarios finales pueda alcanzarlo.</p></li>
 <li><p>Normalmente se llama <code>index.php</code>, pero no es imprescindible.</p></li>
 <li><p>En la plantilla básica se encuentra en <code>web/index.php</code>.</p></li>
-</ul>
-</section><section id="script-de-entrada-de-una-aplicación-de-consola" class="slide level2">
-<h2><span class="header-section-number">2.3</span> Script de entrada de una aplicación de consola</h2>
-<ul>
+</ul></section><section id="script-de-entrada-de-una-aplicación-de-consola" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Script de entrada de una aplicación de consola</h2><ul>
 <li><p>El script de entrada de una aplicación de consola se guarda normalmente en la ruta base de la aplicación y con el nombre <code>yii</code> (así ocurre en la plantilla básica).</p></li>
 <li><p>Debe tener permiso de ejecución para que los usuarios puedan ejecutar la aplicación de consola mediante el comando:</p>
 <pre class="shell"><code>./yii &lt;ruta&gt; [argumentos] [opciones]</code></pre></li>
-</ul>
-</section><section id="qué-hacen-los-scripts-de-entrada" class="slide level2">
-<h2><span class="header-section-number">2.4</span> ¿Qué hacen los scripts de entrada?</h2>
-<p>Principalmente, hacen lo siguiente:</p>
+</ul></section><section id="qué-hacen-los-scripts-de-entrada" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> ¿Qué hacen los scripts de entrada?</h2><p>Principalmente, hacen lo siguiente:</p>
 <ul>
 <li>Define constantes globales.</li>
 <li>Registran el autoloader de Composer.</li>
@@ -147,10 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Carga la configuración de la aplicación.</li>
 <li>Crea y configura una instancia de la aplicación.</li>
 <li>Llama a <code>yii\base\Application::run()</code> para procesar la petición entrante.</li>
-</ul>
-</section><section id="ejemplo" class="slide level2">
-<h2><span class="header-section-number">2.5</span> Ejemplo</h2>
-<p>Script de entrada de la aplicación web de la plantilla <code>yii2-app-basic</code>:</p>
+</ul></section><section id="ejemplo" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Ejemplo</h2><p>Script de entrada de la aplicación web de la plantilla <code>yii2-app-basic</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;?php</span></a>
 <a class="sourceLine" id="cb2-2" title="2"></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="fu">defined</span><span class="ot">(</span><span class="st">&#39;YII_DEBUG&#39;</span><span class="ot">)</span> <span class="kw">or</span> <span class="fu">define</span><span class="ot">(</span><span class="st">&#39;YII_DEBUG&#39;</span><span class="ot">,</span> <span class="kw">true</span><span class="ot">);</span></a>
@@ -166,19 +150,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-13" title="13"><span class="va">$config</span> = <span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../config/web.php&#39;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb2-14" title="14"></a>
 <a class="sourceLine" id="cb2-15" title="15"><span class="co">// crea, configura y ejecuta la aplicación</span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
-</section></section>
-<section><section id="aplicaciones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Aplicaciones</h1></section><section id="aplicaciones-1" class="slide level2">
-<h2><span class="header-section-number">3.1</span> Aplicaciones</h2>
-<ul>
+<a class="sourceLine" id="cb2-16" title="16"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div></section></section>
+<section><section id="aplicaciones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Aplicaciones</h1></section><section id="aplicaciones-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Aplicaciones</h2><ul>
 <li><p>Las aplicaciones son los objetos que gobiernan la estructura general y el ciclo de vida de una aplicación Yii 2.</p></li>
 <li><p>Cada aplicación en Yii 2 contiene un único objeto aplicación.</p></li>
 <li><p>Ese objeto se crea en el script de entrada.</p></li>
 <li><p>Se puede acceder a él desde cualquier parte usando la expresión <code>\Yii::$app</code>.</p></li>
-</ul>
-</section><section id="configuración-de-aplicaciones" class="slide level2">
-<h2><span class="header-section-number">3.2</span> Configuración de aplicaciones</h2>
-<ul>
+</ul></section><section id="configuración-de-aplicaciones" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Configuración de aplicaciones</h2><ul>
 <li>Cuando un script de entrada crea una aplicación, cargará su configuración y se la aplicará a la aplicación al instanciar el objeto aplicación:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;?php</span></a>
@@ -190,17 +168,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-7" title="7"><span class="va">$config</span> = <span class="kw">require</span> <span class="cn">__DIR__</span> . <span class="st">&#39;/../config/web.php&#39;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb3-8" title="8"></a>
 <a class="sourceLine" id="cb3-9" title="9"><span class="co">// instancia, configura y ejecuta la aplicación</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div>
-</section><section class="slide level2">
+<a class="sourceLine" id="cb3-10" title="10"><span class="ot">(</span><span class="kw">new</span> yii\web\Application<span class="ot">(</span><span class="va">$config</span><span class="ot">))</span>-&gt;run<span class="ot">();</span></a></code></pre></div></section><section class="slide level3">
 
 <ul>
 <li><p>Como pasa con cualquier otra configuración, la configuración de la aplicación especifica cómo inicializar las propiedades del objeto aplicación.</p></li>
 <li><p>Como las configuraciones de aplicación suelen ser muy complejas, normalmente se mantienen en archivos de configuración separados, como el <code>config/web.php</code> del ejemplo anterior.</p></li>
 <li><p>Precisamente, <code>config/web.php</code> es el archivo principal de configuración de la aplicación web en la plantilla básica de Yii 2.</p></li>
 </ul>
-</section><section id="propiedades-de-la-aplicación" class="slide level2">
-<h2><span class="header-section-number">3.4</span> Propiedades de la aplicación</h2>
-<ul>
+</section><section id="propiedades-de-la-aplicación" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Propiedades de la aplicación</h2><ul>
 <li><p>Las aplicaciones tienen muchas propiedades importantes que se pueden configurar mediante una configuración de aplicación.</p></li>
 <li><p>Por ejemplo, las aplicaciones deben saber cómo y dónde cargar controladores, dónde guardar los archivos temporales, etc.</p></li>
 <li><p>Las dos únicas propiedades obligatorias son:</p>
@@ -208,10 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>id</code>: un identificador único que diferencia una aplicación de las demás.</p></li>
 <li><p><code>basePath</code>: especifica el directorio raíz de la aplicación (a donde apunta el alias <code>@app</code>).</p></li>
 </ul></li>
-</ul>
-</section><section id="propiedades-importantes-de-una-aplicación" class="slide level2">
-<h2><span class="header-section-number">3.5</span> Propiedades importantes de una aplicación</h2>
-<dl>
+</ul></section><section id="propiedades-importantes-de-una-aplicación" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Propiedades importantes de una aplicación</h2><dl>
 <dt><code>components</code></dt>
 <dd><p>Permite registrar (y configurar) en la aplicación los <strong>componentes de aplicación</strong> que alojará la misma (recuerda que una aplicación es un <em>localizador de servicios</em>). Por ejemplo:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb4-1" title="1"><span class="ot">[</span></a>
@@ -227,8 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb4-11" title="11"><span class="ot">]</span></a></code></pre></div>
 <p>Aquí se especifican dos componentes de aplicación: <code>cache</code> y <code>user.</code> Cada componente va asociado con la configuración que se usará al instanciar ese componente. Después se podrá acceder a ellos haciendo, por ejemplo, <code>\Yii::$app-&gt;cache</code>.</p>
 </dd>
-</dl>
-</section><section class="slide level2">
+</dl></section><section class="slide level3">
 
 <dl>
 <dt><code>aliases</code></dt>
@@ -244,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb6-2" title="2">\Yii::setAlias<span class="ot">(</span><span class="st">&#39;@nombre2&#39;</span><span class="ot">,</span> <span class="st">&#39;ruta/del/alias2&#39;</span><span class="ot">)</span></a></code></pre></div>
 </dd>
 </dl>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <dl>
 <dt><code>bootstrap</code></dt>
@@ -257,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb7-5" title="5"><span class="ot">]</span></a></code></pre></div>
 </dd>
 </dl>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <dl>
 <dt><code>language</code></dt>
@@ -269,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-3" title="3"><span class="ot">]</span></a></code></pre></div>
 </dd>
 </dl>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <dl>
 <dt><code>timeZone</code></dt>
@@ -279,9 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </dd>
 </dl>
 </section></section>
-<section><section id="componentes-de-aplicación" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Componentes de aplicación</h1></section><section id="componentes-de-aplicación-1" class="slide level2">
-<h2><span class="header-section-number">4.1</span> Componentes de aplicación</h2>
-<ul>
+<section><section id="componentes-de-aplicación" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Componentes de aplicación</h1></section><section id="componentes-de-aplicación-1" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Componentes de aplicación</h2><ul>
 <li><p>Recordemos que las aplicaciones son <em>localizadores de servicios</em>.</p></li>
 <li><p>Las aplicaciones contienen los llamados <strong>componentes de aplicación</strong>, los cuales proporcionan diferentes servicios útiles durante el procesamiento de las peticiones.</p></li>
 <li><p>Por ejemplo:</p>
@@ -289,8 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El componente <code>urlManager</code> es responsable de encaminar (<em>enrutar</em>) las peticiones web a los controladores apropiados.</p></li>
 <li><p>El componente <code>db</code> proporciona servicios relacionados con la base de datos.</p></li>
 </ul></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>Cada componente de aplicación tiene un ID que lo identifica de forma única entre los demás componentes de la misma aplicación.</p></li>
@@ -298,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Por ejemplo, se puede usar <code>\Yii::$app-&gt;db</code> para acceder a la conexión a la base de datos, o <code>\Yii::$app-&gt;cache</code> para obtener la caché principal registrada en la aplicación.</p></li>
 <li><p>Un componente de aplicación se crea la primera vez que se accede a él usando la expresión anterior. Los demás accesos posteriores devolverán la misma instancia sin crear otro objeto.</p></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <p>Como vimos anteriormente, los componentes de aplicación se definen (o <em>registran</em>) a través de la propiedad <code>components</code> de la configuración de la aplicación:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb9-1" title="1"><span class="ot">[</span></a>
@@ -320,14 +288,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb9-17" title="17">        }<span class="ot">,</span></a>
 <a class="sourceLine" id="cb9-18" title="18">    <span class="ot">],</span></a>
 <a class="sourceLine" id="cb9-19" title="19"><span class="ot">]</span></a></code></pre></div>
-</section><section id="componentes-de-aplicación-principales" class="slide level2">
-<h2><span class="header-section-number">4.4</span> Componentes de aplicación principales</h2>
-<ul>
+</section><section id="componentes-de-aplicación-principales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Componentes de aplicación principales</h2><ul>
 <li><p>Yii 2 define un conjunto de componentes de aplicación <em>principales</em> o predefinidos, con IDs fijos y configuraciones predeterminadas.</p></li>
 <li><p>Gracias a esos componentes principales, las aplicaciones pueden procesar las peticiones de los usuarios.</p></li>
 <li><p>Es posible configurar y personalizar esos componentes como si fueran componentes de aplicación normales. Cuando se configura un componente de aplicación principal, si no se indica la clase a usar, se usará su clase predeterminada.</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <p>Lista de componentes de aplicación principales:</p>
 <ul>
@@ -346,22 +311,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>view</code>: gestiona el renderizado de las vistas.</li>
 </ul>
 </section></section>
-<section><section id="controladores" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Controladores</h1></section><section id="controladores-1" class="slide level2">
-<h2><span class="header-section-number">5.1</span> Controladores</h2>
-<ul>
+<section><section id="controladores" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Controladores</h1></section><section id="controladores-1" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Controladores</h2><ul>
 <li><p>Los <strong>controladores</strong> son parte de la arquitectura <strong>MVC</strong>.</p></li>
 <li><p>Son instancias de subclases (directas o indirectas) de <code>yii\base\Controller</code>.</p></li>
 <li><p>Son los responsables de procesar las peticiones y generar las respuestas.</p></li>
-</ul>
-</section><section id="acciones" class="slide level2">
-<h2><span class="header-section-number">5.2</span> Acciones</h2>
-<ul>
+</ul></section><section id="acciones" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Acciones</h2><ul>
 <li><p>Los controladores se componen de <strong>acciones</strong>.</p></li>
 <li><p>La acción es la unidad mínima de ejecución en una aplicación MVC.</p></li>
 <li><p>Es decir, es la unidad más básica que un usuario final puede solicitar que se ejecute.</p></li>
 <li><p>Un controlador puede tener una o más acciones.</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">namespace</span> app\controllers<span class="ot">;</span></a>
@@ -385,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>En la acción <code>view</code> (definida por el método <code>actionView()</code>), se carga el modelo que corresponda al ID solicitado en <code>$id</code>. Si el modelo se carga correctamente, se muestra usando una vista llamada <code>view</code>. En caso contrario, se lanza una excepción.</li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <div class="sourceCode" id="cb11"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">namespace</span> app\controllers<span class="ot">;</span></a>
 <a class="sourceLine" id="cb11-2" title="2"></a>
@@ -407,9 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>En la acción <code>create</code> (definida por el método <code>actionCreate()</code>) se intenta rellenar una instancia nueva del modelo usando los datos de la petición y luego se guarda el modelo. Si hay éxito se redirige al navegador a la acción <code>view</code> pasándole el ID del modelo recién creado. En caso contrario, se muestra la vista <code>create</code> para que los usuarios puedan introducir los datos.</li>
 </ul>
-</section><section id="rutas" class="slide level2">
-<h2><span class="header-section-number">5.5</span> Rutas</h2>
-<ul>
+</section><section id="rutas" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Rutas</h2><ul>
 <li><p>Los usuarios finales indican las acciones que desean ejecutar mediante las denominadas <strong>rutas</strong>.</p></li>
 <li><p>Una ruta es una cadena que consta de:</p>
 <dl>
@@ -422,14 +379,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </dl></li>
 <li><p>Las rutas toman la siguiente forma: <code>IDcontrolador/IDacción</code>.</p></li>
 <li><p>Por ejemplo: <code>socios/crear</code> (controlador <code>socios</code>, acción <code>crear</code>).</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <p>Para indicar una ruta, se utiliza el parámetro <code>r</code> enviado mediante GET.</p>
 <p>Por tanto, si un usuario solicita la URL</p>
 <p><code>http://host/index.php?r=site/index</code></p>
 <p>se ejecutará la acción <code>index</code> del controlador <code>site</code>.</p>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li><p>Si la URL tuviera más parámetros, éstos se pasarían a la acción correspondiente.</p></li>
@@ -441,9 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>(suponiendo que el método <code>actionIndex()</code> de la clase <code>SiteController</code> recibe un parámetro de nombre <code>$page</code>).</p></li>
 </ul>
 </section></section>
-<section><section id="modelos" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Modelos</h1></section><section id="modelos-1" class="slide level2">
-<h2><span class="header-section-number">6.1</span> Modelos</h2>
-<ul>
+<section><section id="modelos" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Modelos</h1></section><section id="modelos-1" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Modelos</h2><ul>
 <li><p>Los modelos son parte de la arquitectura MVC.</p></li>
 <li><p>Son objetos que representan datos, reglas y lógica de negocio.</p></li>
 <li><p>Las clases modelo se crean heredando (directa o indirectamente) de <code>yii\base\Model</code>.</p></li>
@@ -455,10 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Reglas de validación</strong>: garantiza que los datos introducidos son válidos en función de unas reglas de validación indicadas.</li>
 <li><strong>Exportación de datos</strong>: permite exportar los datos del modelo en forma de arrays con formatos personalizables.</li>
 </ul></li>
-</ul>
-</section><section id="atributos" class="slide level2">
-<h2><span class="header-section-number">6.2</span> Atributos</h2>
-<ul>
+</ul></section><section id="atributos" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Atributos</h2><ul>
 <li><p>Los modelos representan los datos de negocio en forma de atributos.</p></li>
 <li><p>Cada atributo es como una propiedad públicamente accesible de un modelo.</p></li>
 <li><p>El método <code>yii\base\Model::attributes()</code> especifica qué atributos tiene una clase modelo.</p></li>
@@ -468,8 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb13-3" title="3"><span class="co">// &quot;nombre&quot; es un atributo de ContactForm</span></a>
 <a class="sourceLine" id="cb13-4" title="4"><span class="va">$modelo</span>-&gt;nombre = <span class="st">&#39;ejemplo&#39;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb13-5" title="5"><span class="kw">echo</span> <span class="va">$modelo</span>-&gt;nombre<span class="ot">;</span></a></code></pre></div></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>También se pueden acceder a los atributos como si fueran elementos de un array, gracias a que <code>yii\base\Model</code> implementa las interfaces <a href="http://php.net/manual/es/class.arrayaccess.php">ArrayAccess</a> y <a href="http://php.net/manual/es/class.traversable.php">Traversable</a>:</p>
@@ -484,9 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb14-9" title="9">    <span class="kw">echo</span> <span class="st">&quot;</span><span class="va">$nombreAtributo</span><span class="st">: </span><span class="va">$valor</span><span class="kw">\n</span><span class="st">&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb14-10" title="10">}</a></code></pre></div></li>
 </ul>
-</section><section id="definición-de-atributos" class="slide level2">
-<h2><span class="header-section-number">6.4</span> Definición de atributos</h2>
-<ul>
+</section><section id="definición-de-atributos" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Definición de atributos</h2><ul>
 <li><p>De entrada, si la clase modelo hereda directamente de <code>yii\base\Model</code>, <em>todas sus <strong>variables miembro públicas no estáticas</strong></em> serán consideradas atributos.</p></li>
 <li><p>Por ejemplo, la siguiente clase modelo <code>ContactForm</code> tiene cuatro atributos: <code>nombre</code>, <code>correo</code>, <code>asunto</code> y <code>cuerpo</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">namespace</span> app\models<span class="ot">;</span></a>
@@ -499,8 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb15-8" title="8">    <span class="kw">public</span> <span class="va">$cuerpo</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb15-9" title="9">}</a></code></pre></div></li>
 <li><p>El modelo <code>ContactForm</code> se puede usar para contener los datos recibidos a través de un formulario HTML.</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>Se puede sobreescribir el método <code>attributes()</code> de <code>yii\base\Model</code> para definir atributos de forma distinta.</p></li>
@@ -510,15 +457,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>En este caso, y aunque hace falta algo más de <em>magia</em> para que acabe funcionando, al final se consigue que cada columna de la tabla aparezca como atributo del modelo correspondiente a esa tabla.</li>
 </ul></li>
 </ul>
-</section><section id="escenarios" class="slide level2">
-<h2><span class="header-section-number">6.6</span> Escenarios</h2>
-<ul>
+</section><section id="escenarios" class="title-slide slide level2"><h2><span class="header-section-number">6.4</span> Escenarios</h2><ul>
 <li><p>Un modelo puede usarse en diferentes <em>escenarios</em>.</p></li>
 <li><p>Por ejemplo, se puede usar un modelo <code>User</code> para recoger los datos de entrada durante el <em>login</em> de un usuario, pero también se puede usar para registrar a un nuevo usuario.</p></li>
 <li><p>En escenarios diferentes, un modelo puede tener reglas y lógica de negocio diferentes.</p></li>
 <li><p>Por ejemplo, el atributo <code>correo</code> puede ser obligatorio para registrar a un nuevo usuario pero no para hacer <em>login</em>.</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>Cada escenario define qué atributos se pueden <strong>asignar masivamente</strong> y qué <strong>reglas de validación</strong> se aplican:</p>
@@ -527,8 +471,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Las <em>reglas de validación</em> determinan si los atributos de un modelo son válidos, o sea, si cumplen determinadas condiciones.</p></li>
 </ul></li>
 </ul>
-</section><section id="escenario-activo" class="slide level2">
-<h2><span class="header-section-number">6.8</span> Escenario activo</h2>
+</section><section id="escenario-activo" class="slide level3">
+<h3><span class="header-section-number">6.4.2</span> Escenario activo</h3>
 <ul>
 <li><p>Los modelos usan la propiedad <code>yii\base\Model::scenario</code> para indicar en qué escenario se encuentran.</p></li>
 <li><p>Por defecto, un modelo sólo tiene un escenario, llamado <code>default</code>.</p></li>
@@ -541,8 +485,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-2" title="2"><span class="va">$modelo</span> = <span class="kw">new</span> User<span class="ot">([</span><span class="st">&#39;scenario&#39;</span> =&gt; User::<span class="cn">SCENARIO_LOGIN</span><span class="ot">]);</span></a></code></pre></div></li>
 <li><p>El escenario en el que se encuentra actualmente un modelo se denomina el <strong>escenario activo</strong> del modelo.</p></li>
 </ul>
-</section><section id="definición-de-escenarios" class="slide level2">
-<h2><span class="header-section-number">6.9</span> Definición de escenarios</h2>
+</section><section id="definición-de-escenarios" class="slide level3">
+<h3><span class="header-section-number">6.4.3</span> Definición de escenarios</h3>
 <ul>
 <li><p>Los escenarios que soporta un modelo normalmente se definen en las <em>reglas de validación</em> del modelo.</p></li>
 <li><p>Sin embargo, también se pueden definir sobreescribiendo el método <code>yii\base\Model::scenarios()</code>:</p></li>
@@ -562,15 +506,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb18-13" title="13">        <span class="ot">];</span></a>
 <a class="sourceLine" id="cb18-14" title="14">    }</a>
 <a class="sourceLine" id="cb18-15" title="15">}</a></code></pre></div>
-</section><section id="atributos-activos" class="slide level2">
-<h2><span class="header-section-number">6.10</span> Atributos activos</h2>
+</section><section id="atributos-activos" class="slide level3">
+<h3><span class="header-section-number">6.4.4</span> Atributos activos</h3>
 <ul>
 <li><p>Los <strong>atributos activos</strong> de un escenario son aquellos que están sujetos a <em>validación</em> y (posiblemente también) a <em>asignación masiva</em> cuando el modelo se encuentra en dicho escenario.</p></li>
 <li><p>El método <code>scenarios()</code> debe devolver un array cuyas claves son los nombres de los escenarios y cuyos valores son los correspondientes atributos activos de ese escenario.</p></li>
 <li><p>La implementación predeterminada de ese método devuelve todos los escenarios y todos los atributos que aparecen alguna vez en una regla de validación.</p></li>
 <li><p>Si la implementación predeterminada no nos viniera bien, bastaría con cambiar el método <code>scenarios()</code>.</p></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li>En este ejemplo, los atributos <code>nombre</code> y <code>password</code> son activos en los escenarios <code>login</code> y <code>registro</code>, mientras que en este último escenario también está activo el atributo <code>correo</code>:</li>
@@ -590,14 +534,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb19-13" title="13">        <span class="ot">];</span></a>
 <a class="sourceLine" id="cb19-14" title="14">    }</a>
 <a class="sourceLine" id="cb19-15" title="15">}</a></code></pre></div>
-</section><section id="reglas-de-validación" class="slide level2">
-<h2><span class="header-section-number">6.12</span> Reglas de validación</h2>
-<ul>
+</section><section id="reglas-de-validación" class="title-slide slide level2"><h2><span class="header-section-number">6.5</span> Reglas de validación</h2><ul>
 <li><p>Cuando los datos de un modelo provienen de los usuarios finales, deben ser validados para garantizar que satisfacen ciertas reglas (llamadas <strong>reglas de validación</strong> o <strong>reglas de negocio</strong>).</p></li>
 <li><p>Por ejemplo, en el modelo <code>ContactForm</code> debemos asegurarnos de que ningún atributo está vacío y que el atributo <code>correo</code> contiene una dirección de correo válida.</p></li>
 <li><p>Si el valor de algún atributo no satisface sus reglas de validación, se deberían mostrar los mensajes de error apropiados para que los usuarios puedan corregir sus errores.</p></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>Se puede llamar al método <code>yii\base\Model::validate()</code> para validar los datos introducidos:</p>
@@ -608,7 +549,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El método usará las reglas de validación declaradas en <code>yii\base\Model::rules()</code> para validar cada uno de los atributos que lo necesiten.</p></li>
 <li><p>Ese es el método que tenemos que sobreescribir para definir las reglas de validación del modelo.</p></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <p>Por ejemplo:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb20-1" title="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
@@ -623,8 +564,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb20-10" title="10">    <span class="co">// $errores guarda en un array los mensajes de error:</span></a>
 <a class="sourceLine" id="cb20-11" title="11">    <span class="va">$errores</span> = <span class="va">$modelo</span>-&gt;errors<span class="ot">;</span></a>
 <a class="sourceLine" id="cb20-12" title="12">}</a></code></pre></div>
-</section><section id="declaración-de-reglas-de-validación" class="slide level2">
-<h2><span class="header-section-number">6.15</span> Declaración de reglas de validación</h2>
+</section><section id="declaración-de-reglas-de-validación" class="slide level3">
+<h3><span class="header-section-number">6.5.3</span> Declaración de reglas de validación</h3>
 <ul>
 <li><p>Para declarar las reglas de validación asociadas a un modelo, hay que sobreescribir el método <code>yii\base\Model::rules()</code> para que devuelva las reglas que deben satisfacer los atributos del modelo.</p></li>
 <li><p>Ejemplo:</p>
@@ -639,14 +580,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb21-9" title="9">    <span class="ot">];</span></a>
 <a class="sourceLine" id="cb21-10" title="10">}</a></code></pre></div></li>
 </ul>
-</section><section id="reglas-activas" class="slide level2">
-<h2><span class="header-section-number">6.16</span> Reglas activas</h2>
+</section><section id="reglas-activas" class="slide level3">
+<h3><span class="header-section-number">6.5.4</span> Reglas activas</h3>
 <ul>
 <li><p>Las <strong>reglas activas</strong> son aquellas reglas que se aplican al <em>escenario activo</em>.</p></li>
 <li><p>En principio, todas las reglas se aplican a todos los escenarios.</p></li>
 <li><p>Sin embargo, podemos indicar que una regla sólo se aplique a un determinado escenario usando la opción <code>on</code>.</p></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -663,9 +604,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Aquí, la primera regla se aplicaría a todos los escenarios, mientras que la segunda regla sólo se aplicaría al escenario <code>crear</code>.</p></li>
 <li><p>Por tanto, decimos que la primera regla es una regla activa en todos los escenarios, y la segunda es una regla activa sólo en el escenario <code>crear</code>.</p></li>
 </ul>
-</section><section id="asignación-masiva" class="slide level2">
-<h2><span class="header-section-number">6.18</span> Asignación masiva</h2>
-<ul>
+</section><section id="asignación-masiva" class="title-slide slide level2"><h2><span class="header-section-number">6.6</span> Asignación masiva</h2><ul>
 <li>La <strong>asignación masiva</strong> permite rellenar varios (o todos los) atributos de un modelo en una sola operación asignando los datos de entrada directamente a la propiedad <code>yii\base\Model::$attributes</code>:</li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb23-1" title="1"><span class="va">$modelo</span> = <span class="kw">new</span> \app\models\ContactForm<span class="ot">;</span></a>
@@ -678,9 +617,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-8" title="8"><span class="va">$modelo</span>-&gt;nombre = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;nombre&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb23-9" title="9"><span class="va">$modelo</span>-&gt;correo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;correo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb23-10" title="10"><span class="va">$modelo</span>-&gt;asunto = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;asunto&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb23-11" title="11"><span class="va">$modelo</span>-&gt;cuerpo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a></code></pre></div>
-</section><section id="atributos-seguros" class="slide level2">
-<h2><span class="header-section-number">6.19</span> Atributos seguros</h2>
+<a class="sourceLine" id="cb23-11" title="11"><span class="va">$modelo</span>-&gt;cuerpo = <span class="kw">isset</span><span class="ot">(</span><span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">])</span> <span class="ot">?</span> <span class="va">$datos</span><span class="ot">[</span><span class="st">&#39;cuerpo&#39;</span><span class="ot">]</span> <span class="ot">:</span> <span class="kw">null</span><span class="ot">;</span></a></code></pre></div></section><section id="atributos-seguros" class="slide level3">
+<h3><span class="header-section-number">6.6.1</span> Atributos seguros</h3>
 <ul>
 <li><p>La asignación masiva sólo se aplica a los <strong>atributos seguros</strong>.</p></li>
 <li><p>De entrada, un atributo activo en un escenario es seguro para ese escenario, salvo que se marque expresamente como inseguro (luego lo vemos).</p>
@@ -688,7 +626,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Por tanto, un atributo puede ser activo pero inseguro. En ese caso, estará sujeto a las reglas de validación pero no admitirá asignación masiva.</li>
 </ul></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li><p>Como la implementación predeterminada de <code>yii\base\Model::scenarios()</code> devuelve todos los escenarios y atributos que aparecen en <code>yii\base\Model::rules()</code>, de entrada todos los atributos son seguros siempre y cuando aparezcan en alguna de las reglas de validación activas.</p></li>
@@ -701,8 +639,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb24-5" title="5">        <span class="ot">[</span><span class="st">&#39;created_at&#39;</span><span class="ot">,</span> <span class="st">&#39;safe&#39;</span><span class="ot">],</span></a>
 <a class="sourceLine" id="cb24-6" title="6">    <span class="ot">];</span></a>
 <a class="sourceLine" id="cb24-7" title="7">}</a></code></pre></div>
-</section><section id="atributos-inseguros" class="slide level2">
-<h2><span class="header-section-number">6.21</span> Atributos inseguros</h2>
+</section><section id="atributos-inseguros" class="slide level3">
+<h3><span class="header-section-number">6.6.3</span> Atributos inseguros</h3>
 <ul>
 <li>Al contrario, si queremos que un atributo activo sea <strong>inseguro</strong>, es decir, que esté sometido a reglas de validación pero que no admita asignación masiva, podemos marcarlo como tal usando una <code>!</code> delante de su nombre, en <code>scenarios()</code> o en <code>rules()</code>:</li>
 </ul>
@@ -720,9 +658,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>created_at</code> no es seguro, por lo que no puede asignarse masivamente.</li>
 </ul></li>
 </ul>
-</section><section id="resumen" class="slide level2">
-<h2><span class="header-section-number">6.22</span> Resumen</h2>
-<ul>
+</section></section>
+<section><section id="resumen" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Resumen</h1><ul>
 <li><p>El <strong>escenario activo</strong> de un modelo es el escenario en el que se encuentra actualmente el modelo.</p>
 <ul>
 <li><p>El escenario predeterminado es <code>default</code>.</p></li>
@@ -731,8 +668,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Se puede cambiar el escenario activo cambiando el valor de esa propiedad:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb27-1" title="1"><span class="va">$m</span>-&gt;scenario = <span class="st">&#39;crear&#39;</span><span class="ot">;</span></a></code></pre></div></li>
 </ul></li>
-</ul>
-</section><section class="slide level2">
+</ul></section><section class="slide level3">
 
 <ul>
 <li><p>Las <strong>reglas activas</strong> en un escenario son las reglas de validación que se aplican en ese escenario.</p>
@@ -751,7 +687,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb28-9" title="9">    <span class="ot">];</span></a>
 <a class="sourceLine" id="cb28-10" title="10">}</a></code></pre></div></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li><p>Los <strong>atributos activos</strong> en un escenario son los atributos que están sujetos a validación y (posiblemente también) a asignación masiva en ese escenario.</p>
@@ -762,7 +698,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Se puede cambiar dicha implementación por otra que devuelva directamente los escenarios y atributos activos que nos interesen.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <ul>
 <li><p>Los <strong>atributos seguros</strong> en un escenario son aquellos que permiten asignación masiva en ese escenario.</p>
@@ -779,7 +715,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Por tanto, todos los atributos seguros son activos, pero no todos los atributos activos son seguros.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <div class="sourceCode" id="cb30"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb30-1" title="1">&gt;&gt;&gt; <span class="va">$a</span> = \app\models\Alquileres::findOne<span class="ot">(</span><span class="dv">1</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb30-2" title="2">=&gt; app\models\Alquileres {<span class="co">#250</span></a>
@@ -808,7 +744,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb30-25" title="25">     created_at: <span class="st">&quot;2018-01-16 10:08:19&quot;</span><span class="ot">,</span> <span class="co">// No ha cambiado</span></a>
 <a class="sourceLine" id="cb30-26" title="26">     devolucion: <span class="st">&quot;2018-01-17 10:08:19&quot;</span><span class="ot">,</span></a>
 <a class="sourceLine" id="cb30-27" title="27">   }</a></code></pre></div>
-</section><section class="slide level2">
+</section><section class="slide level3">
 
 <div class="sourceCode" id="cb31"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb31-1" title="1">&gt;&gt;&gt; <span class="va">$a</span>-&gt;validate<span class="ot">()</span></a>
 <a class="sourceLine" id="cb31-2" title="2">=&gt; <span class="kw">true</span>                <span class="co">// Actualmente valida</span></a>

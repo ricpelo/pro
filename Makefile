@@ -32,7 +32,7 @@ pdf: $(OBJECTSPDF)
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
 	./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
 		--toc --toc-depth=1 -N \
-		--slide-level=2 \
+		--slide-level=3 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--css custom.css -V slideNumber=true \
@@ -42,8 +42,8 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML)
 	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
-		--toc \
-		--slide-level=2 \
+		--toc --toc-depth=3 -N \
+		--slide-level=3 \
 		-H $(PREAMBULO) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
