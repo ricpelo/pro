@@ -40,7 +40,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		-V width=1280 -V height=1080 -o $@
 	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
 
-$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(ITHACA) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML)
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
 	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=3 -N \
 		--slide-level=3 \
