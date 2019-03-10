@@ -42,8 +42,8 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
 	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
-		--toc --toc-depth=3 -N \
-		--slide-level=3 \
+		--toc --toc-depth=1 -N \
+		--slide-level=4 \
 		-H $(PREAMBULO) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \

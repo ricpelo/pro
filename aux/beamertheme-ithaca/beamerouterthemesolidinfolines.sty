@@ -125,14 +125,23 @@
 \begin{beamercolorbox}[sep=0.3cm,#1,wd=\the\@tempdima]{normaltext}
 	\usebeamerfont{frametitle}%
 	\vbox{}\vskip-1ex%
-	\usebeamercolor[fg]{frametitle}\strut{\insertframetitle}\strut\par%
+	\usebeamercolor[fg]{frametitle}%
+    \ifnum\value{subsubsection}=0%
+        \ifnum\value{subsection}>0%
+            \strut{\thesection.\thesubsection~\insertframetitle}\strut\par%
+        \else%
+            \strut{\thesection.~\insertframetitle}\strut\par%
+        \fi%
+    \else%
+        \strut{\insertframetitle}\strut\par%
+    \fi%
 	{%
   		\ifx\insertframesubtitle\@empty%
-  		\else
-			{\usebeamerfont{framesubtitle}
-			 \usebeamercolor[fg]{framesubtitle}
+  		\else%
+			{\usebeamerfont{framesubtitle}%
+			 \usebeamercolor[fg]{framesubtitle}%
 			\insertframesubtitle\strut\par}%
-  		\fi
+  		\fi%
  	}%
   	\vskip-1ex%
 \end{beamercolorbox}%
