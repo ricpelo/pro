@@ -53,13 +53,13 @@
                 // event.previousSlide, event.currentSlide, event.indexh, event.indexv
                 for (var n = event.currentSlide; n != null; n = n.previousSibling) {
                     if (n.classList.contains('level1')) {
-                        document.getElementById('header-right').innerHTML = n.querySelector('h1').innerHTML;
+                        var h = n.querySelector('h1');
+                        document.getElementById('header-right').innerHTML = h != null ? h.innerHTML : '';
                         return;
                     } else if (n.classList.contains('level2')) {
-                        document.getElementById('header-right').innerHTML = n.querySelector('h2').innerHTML;
+                        var h = n.querySelector('h2');
+                        document.getElementById('header-right').innerHTML = h != null ? h.innerHTML : '';
                         return;
-                    } else {
-                        document.getElementById('header-right').innerHTML = '';
                     }
                 }
             } );
