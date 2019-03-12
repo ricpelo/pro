@@ -115,15 +115,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             Reveal.addEventListener('slidechanged', function(event) {
                 // event.previousSlide, event.currentSlide, event.indexh, event.indexv
                 for (var n = event.currentSlide; n != null; n = n.previousSibling) {
-                    if (n.classList.contains('level1')) {
+                    var cl = n.classList;
+                    if (cl.contains('level1')) {
                         var h = n.querySelector('h1');
-                        document.getElementById('header-right').innerHTML = h != null ? h.innerHTML : '';
-                        return;
-                    } else if (n.classList.contains('level2')) {
+                    } else if (cl.contains('level2')) {
                         var h = n.querySelector('h2');
-                        document.getElementById('header-right').innerHTML = h != null ? h.innerHTML : '';
-                        return;
+                    } else {
+                        continue;
                     }
+                    var hr = document.getElementById('header-right');
+                    hr.innerHTML = h != null ? h.innerHTML : '';
+                    hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+                    hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), '10') + 'px';
+                    return;
                 }
             } );
         });
