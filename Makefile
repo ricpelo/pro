@@ -30,7 +30,8 @@ html: $(OBJECTSHTML)
 pdf: $(OBJECTSPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
-	./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
+	@echo "Generando $@..."
+	@./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=3 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
@@ -41,7 +42,8 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
-	./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
+	@echo "Generando $@..."
+	@./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
 		-H $(PREAMBULO) \
