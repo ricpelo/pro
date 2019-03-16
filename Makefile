@@ -51,7 +51,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		-V theme=Ithaca \
-		-V fonttheme=structurebold \
+		-V mainfont=Lato \
 		-V monofont=FiraCode \
 		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
