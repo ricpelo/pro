@@ -28,11 +28,11 @@ date: IES Doñana, curso 2018-19
 :::::::::::::: {.columns}
 
 ::: {.column width="50%"}
+
 \centering
-!uml(images/baseobject.png {.plain width=70%})
+
+!UML(baseobject.png)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-scale 2.5
-skinparam backgroundColor transparent
 yii\base\BaseObject <|-- yii\base\Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

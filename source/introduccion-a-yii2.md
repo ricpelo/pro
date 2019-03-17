@@ -14,13 +14,13 @@ date: IES Doñana, curso 2018-19
 ::: {.column width="50%"}
 
 \centering
-![](images/rubyonrails.png){.plain}
+!IMGP(rubyonrails.png)
 
 :::
 
 ::: {.column width="50%"}
 
-![David Heinemeier Hansson](images/dhh.jpg)
+!IMG(dhh.jpg)(David Heinemeier Hansson)
 
 :::
 
@@ -55,7 +55,7 @@ Un *framework* se puede considerar como una aplicación genérica incompleta y
 configurable a la que podemos añadirle las últimas piezas para construir una
 aplicación concreta.
 
-![](images/puzzle.jpg)
+!IMG(puzzle.jpg)
 
 ## Objetivos de un framework
 
@@ -88,7 +88,7 @@ facilitan la reutilización de código.
 
 ---
 
-![[https://symfony.com](https://symfony.com)](images/symfony.png){.plain}
+!IMG(symfony.png)([https://symfony.com](https://symfony.com))(.plain width=50%)
 
 :::::::::::::: {.columns}
 
@@ -118,7 +118,7 @@ facilitan la reutilización de código.
 
 ---
 
-![[https://laravel.com](https://laravel.com)](images/laravel.png){.plain}
+!IMGP(laravel.png)([https://laravel.com](https://laravel.com))
 
 :::::::::::::: {.columns}
 
@@ -146,7 +146,7 @@ facilitan la reutilización de código.
 
 ---
 
-![[https://cakephp.org](https://cakephp.org)](images/cakephp.png){.plain}
+!IMGP(cakephp.png)([https://cakephp.org](https://cakephp.org))
 
 :::::::::::::: {.columns}
 
@@ -175,7 +175,7 @@ facilitan la reutilización de código.
 
 ---
 
-![[https://codeigniter.com](https://codeigniter.com)](images/codeigniter.png){.plain}
+!IMGP(codeigniter.png)([https://codeigniter.com](https://codeigniter.com))
 
 :::::::::::::: {.columns}
 
@@ -204,7 +204,7 @@ facilitan la reutilización de código.
 
 ---
 
-![[http://www.yiiframework.com](http://www.yiiframework.com)](images/yii.png){.plain}
+!IMGP(yii.png)([https://www.yiiframework.com](https://www.yiiframework.com))
 
 :::::::::::::: {.columns}
 
@@ -380,19 +380,19 @@ Con un framework:
 
 ## Visión general
 
-![](images/MVC-Diagram.gif){width=50%}
+!IMG(MVC-Diagram.gif)()(width=50%)
 
 ---
 
-![](images/mvc_role_diagram.png){.plain width=70%}
+!IMG(mvc_role_diagram.png)()(.plain width=70%)
 
 ---
 
-![](images/mvc-architecture.jpg){width=75%}
+!IMG(mvc-architecture.jpg)()(width=75%)
 
 ---
 
-![](images/mvc-request-flow.png){.plain width=80%}
+!IMG(mvc-request-flow.png)()(.plain width=80%)
 
 ## Modelos
 

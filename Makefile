@@ -14,6 +14,7 @@ LATEX_TEMPLATE=$(AUX)/plantilla.tex
 PREAMBULO=$(AUX)/preambulo.tex
 PHP_XML=$(AUX)/php.xml
 PP=pp
+COMMON_PP=$(AUX)/common.pp
 ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
@@ -32,7 +33,7 @@ pdf: $(OBJECTSPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
 	@echo "Generando $@..."
-	@./pp $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
+	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=3 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
@@ -40,11 +41,11 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
-	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@./pp $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
+	@./pp -import $(COMMON_PP) $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
 		-H $(PREAMBULO) \
@@ -56,7 +57,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		-V monofont=FiraCode \
 		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
-	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
