@@ -39,7 +39,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
-	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
+	@rm -f $(BUILDDIRHTML)/images/*.dat $(BUILDDIRHTML)/images/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
 	@echo "Generando $@..."
@@ -55,7 +55,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		-V monofont=FiraCode \
 		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
-	@rm -f $(BUILDDIR)/images/*.dat docs/images/*.gv
+	@rm -f $(BUILDDIRHTML)/images/*.dat $(BUILDDIRHTML)/images/*.gv
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
