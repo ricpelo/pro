@@ -28,7 +28,7 @@ date: IES Doñana, curso 2018-19
 :::::::::::::: {.columns}
 
 ::: {.column width="50%"}
-
+\centering
 !uml(images/baseobject.png {.plain width=70%})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5

@@ -5,6 +5,7 @@ SCRIPTS=scripts
 SRCDIR=source
 BUILDDIR=docs
 BUILDDIRHTML=$(BUILDDIR)/slides
+IMAGES=images
 BUILDDIRPDF=$(BUILDDIR)/pdf
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
@@ -39,7 +40,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
-	@rm -f $(BUILDDIRHTML)/images/*.dat $(BUILDDIRHTML)/images/*.gv
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
 	@echo "Generando $@..."
@@ -55,7 +56,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		-V monofont=FiraCode \
 		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
-	@rm -f $(BUILDDIRHTML)/images/*.dat $(BUILDDIRHTML)/images/*.gv
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
