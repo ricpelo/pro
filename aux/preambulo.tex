@@ -5,6 +5,15 @@
   {}{}
 \makeatother
 
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
 \definecolor{ttcolor}{RGB}{64,112,161}
 
 % redefinition of \texttt

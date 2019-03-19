@@ -13,7 +13,6 @@ date: IES Doñana, curso 2018-19
 
 ::: {.column width="50%"}
 
-\centering
 !IMGP(rubyonrails.png)
 
 :::
