@@ -563,14 +563,14 @@ un nuevo proyecto.
 
 ## Instalación mediante Composer
 
-Para crear un proyecto nuevo con la estructura de la plantilla básica:
+- Para crear un proyecto nuevo con la estructura de la plantilla básica:
 
-```
-$ composer create-project yiisoft/yii2-app-basic directorio
-```
+  ```sgml
+  $ composer create-project yiisoft/yii2-app-basic directorio
+  ```
 
-Creará un directorio llamado *`directorio`* donde se volcará el contenido de la
-plantilla y quedará el proyecto listo para empezar su desarrollo.
+- Creará un directorio llamado *`directorio`* donde se volcará el contenido de
+  la plantilla y quedará el proyecto listo para empezar su desarrollo.
 
 ## Plantillas de proyecto
 

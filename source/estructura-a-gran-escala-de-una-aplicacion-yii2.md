@@ -45,8 +45,8 @@ Yii 2](https://www.yiiframework.com/doc/guide/2.0/en/images/application-structur
 - Debe tener permiso de ejecución para que los usuarios puedan ejecutar la
   aplicación de consola mediante el comando:
   
-  ```shell
-  ./yii <ruta> [argumentos] [opciones]
+  ```sgml
+  $ ./yii <ruta> [argumentos] [opciones]
   ```
 
 ## ¿Qué hacen los scripts de entrada?
