@@ -13,6 +13,7 @@ REVEAL_TEMPLATE=$(AUX)/pandoc_revealjs.template
 LATEX_TEMPLATE=$(AUX)/plantilla.tex
 PREAMBULO=$(AUX)/preambulo.tex
 PHP_XML=$(AUX)/php.xml
+SGML_XML=$(AUX)/sgml.xml
 PP=pp
 COMMON_PP=$(AUX)/common.pp
 ITHACA=beamertheme-ithaca
@@ -38,6 +39,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--slide-level=3 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
+		--syntax-definition=$(SGML_XML) \
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
@@ -52,6 +54,7 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
+		--syntax-definition=$(SGML_XML) \
 		-V theme=Ithaca \
 		-V mainfont=Lato \
 		-V monofont=FiraCode \
