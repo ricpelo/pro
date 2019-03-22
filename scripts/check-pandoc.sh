@@ -4,7 +4,7 @@ instalar()
 {
     local FILE="pandoc-$1-1-amd64.deb"
     local TEMP_DEB="$(mktemp)"
-    curl -sL -o $TEMP_DEB "https://github.com/jgm/pandoc/releases/download/$1/$FILE" && sudo dpkg -i $TEMP_DEB && sudo apt -f install
+    curl -sL -o $TEMP_DEB "https://github.com/jgm/pandoc/releases/download/$1/$FILE" && sudo dpkg -i $TEMP_DEB && sudo apt -fy install
     rm -f $TEMP_DEB
 }
 
