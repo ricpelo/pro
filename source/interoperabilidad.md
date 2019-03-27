@@ -126,23 +126,31 @@ $mpdf->Output('salida.pdf');
 
 ## `ramsey/uuid`
 
+
 ## `doctrine/inflector`
+
 
 # Recomendaciones PSR del [PHP-FIG](http://www.php-fig.org/) (Framework Interop Group)
 
-ricpelo's note: PHP Standard Recommendation  
+ricpelo's note: PHP Standard Recommendation
 
 ## [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
 
+
 ## [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
+
 
 ## [PSR-4: Autoloading Standard](http://www.php-fig.org/psr/psr-4/)
 
+
 ## [PSR-5: PHPDoc Standard (borrador)](https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md)
+
 
 ## [PSR-11: Extended Coding Style Guide (borrador)](https://github.com/php-fig/fig-standards/blob/master/proposed/extended-coding-style-guide.md)
 
+
 ## [PSR-19: PHPDoc tags (borrador)](https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md)
+
 
 # Paquetes de Atom y herramientas externas #opcional
 
@@ -180,32 +188,4 @@ ricpelo's note: https://github.com/ricpelo/conf
 
 ## De buscar paquetes en Packagist que tengan una funcionalidad concreta y usarlos en un ejemplo
 
-
-# Meta
-
-
-## Objetivos de la unidad
-
-
-## Resultados de aprendizaje y criterios de evaluación asociados
-
-
-### RA1
-
-
-#### CE1.e
-
-
-#### CE1.g
-
-
-### RA9
-
-
-#### CE9.a
-
-
-#### CE9.b
-
-###### CE9.e
 
