@@ -7,7 +7,7 @@
 <find_panel_settings/>
 <vnodes>
 <v t="ricardo.20190222160648.1"
-expanded="ricardo.20190327182549.1,ricardo.20190327182557.1,ricardo.20190327182609.1,ricardo.20190327182616.1,ricardo.20190327182622.1,ricardo.20190327182630.1,ricardo.20190327182637.1,ricardo.20190327182646.1,"><vh>@auto source/conceptos-basicos-de-php-i.md</vh></v>
+expanded="ricardo.20190327184614.6,ricardo.20190327184614.83,"><vh>@auto source/conceptos-basicos-de-php-i.md</vh></v>
 <v t="ricardo.20190304095921.1"><vh>@auto source/conceptos-basicos-de-php-ii.md</vh></v>
 <v t="ricardo.20190327163751.1"><vh>@auto source/interoperabilidad.md</vh></v>
 <v t="ricardo.20190222161209.1"><vh>@auto source/introduccion-a-yii2.md</vh></v>

@@ -6,11 +6,7 @@ date: IES Doñana, curso 2018-19
 
 # Introducción a PHP
 
-
-## Introducción a PHP
-
-
-### Página web de PHP
+## Página web de PHP
 
 [http://php.net](http://php.net)
 
@@ -44,7 +40,7 @@ date: IES Doñana, curso 2018-19
     }
 </script>
 
-### Instalación de PHP
+## Instalación de PHP
 
 * Opción recomendada:
 
@@ -74,7 +70,7 @@ When this fragment is shown, the first line of code (`span.line`) will have the 
 Another fragment. This time, both lines will now have the `"focus"` class.
 :::
 
-### Documentación y búsqueda de información
+## Documentación y búsqueda de información
 
 * Manual en [http://php.net/manual/es/](http://php.net/manual/es/)
 
@@ -83,131 +79,119 @@ Another fragment. This time, both lines will now have the `"focus"` class.
 # Sintaxis básica
 
 
-## Sintaxis básica
-
-
-### Datos e instrucciones
+## Datos e instrucciones
 
 123
 
-### Sentencias y comandos
+## Sentencias y comandos
 
 123
 
-#### Comando `echo`
+### Comando `echo`
 
 123
 
-### Expresiones, operadores y funciones
+## Expresiones, operadores y funciones
 
 Ejemplos: aritmética, `cos()`, `max()`.
 
 # Funcionamiento del intérprete
 
 
-## Funcionamiento del intérprete
+## Ejecución
 
 
-### Ejecución
+### Por lotes
 
 
-#### Por lotes
+### Interactiva
 
 
-#### Interactiva
+#### `php -a`
 
 
-##### `php -a`
+#### PsySH
 
 
-##### PsySH
+## Etiquetas `<?php` y `?>`
 
 
-### Etiquetas `<?php` y `?>`
-
-
-### Modo dual de operación
+## Modo dual de operación
 
 Se llaman *modo HTML* y *modo PHP*.
 
 # Variables
 
 
-## Variables
+## Conceptos básicos
 
 
-### Conceptos básicos
+## Destrucción de variables
 
 
-### Destrucción de variables
-
-
-### Operadores de asignación por valor y por referencia
+## Operadores de asignación por valor y por referencia
 [link: En `$b =& $a;`, `$b` **NO** está apuntando a `$a` o viceversa. Ambos apuntan al mismo lugar.|http://php.net/manual/es/language.references.whatdo.php]
 
-### Variables predefinidas
+## Variables predefinidas
 `$_ENV` no funciona en la instalación actual (ver `variables_order` en `php.ini`. Habría que usar `get_env()`.
 
 # Tipos básicos de datos
 
 
-## Tipos básicos de datos
-
-
-### Lógicos (bool)
+## Lógicos (bool)
 [link: Se escriben en minúscula: `false` y `true`.|https://github.com/yiisoft/yii2/blob/master/docs/internals/core-code-style.md#51-types]
 
 `boolean` es sinónimo de `bool`, pero debería usarse `bool`.
 
-#### Operadores lógicos
+### Operadores lógicos
 *Cuidado*:
 -  `false and (true && print('hola'))` no imprime nada y devuelve `false`, por lo que **el código va en cortocircuito y se evalúa de izquierda a derecha** incluso aunque el `&&` y los paréntesis tengan más prioridad que el `and`.
 - Otra forma de verlo es comprobar que `print('uno') and (1 + print('dos'))` escribe `unodos` (y devuelve `true`), por lo que la evaluación de los operandos del `and` se hace de izquierda a derecha aunque el `+` tenga más prioridad (y encima vaya entre paréntesis).
 - En el [link: manual de PHP|http://php.net/manual/es/language.operators.precedence.php] se dice que: *"La precedencia y asociatividad de los operadores solamente determinan cómo se agrupan las expresiones, no especifican un orden de evaluación. PHP no especifica (en general) el orden en que se evalúa una expresión y se debería evitar el código que se asume un orden específico de evaluación, ya que el comportamiento puede cambiar entre versiones de PHP o dependiendo de código circundante."*
 - [link: Pregunta que hice al respecto en StackOverflow|https://stackoverflow.com/questions/46861563/false-and-true-printhi].
 
-### Numéricos
+## Numéricos
 
 
-#### Enteros (`int`)
+### Enteros (`int`)
 `integer` es sinónimo de `int`, pero debería usarse `int`.
 
-#### Números en coma flotante (`float`)
+### Números en coma flotante (`float`)
 `double` es sinónimo de `float`, pero debería usarse `float`.
 
-#### Operadores
+### Operadores
 
 
-##### Operadores aritméticos
+#### Operadores aritméticos
 
 
-##### Operadores de incremento/decremento
+#### Operadores de incremento/decremento
 
 
-### Cadenas
+## Cadenas
 
 
-#### Operadores de cadenas
+### Operadores de cadenas
 
 
-##### Concatenación
+#### Concatenación
 
 
-##### Acceso y modificación por caracteres
+#### Acceso y modificación por caracteres
 
 - `echo $a[3]`
 - `$a[3] = 'x';`
 
-##### Operador de incremento #opcional
+#### Operador de incremento #opcional
 
 
-#### Funciones de manejo de cadenas
+### Funciones de manejo de cadenas
 
 
-#### Extensión *mbstring*
+### Extensión *mbstring*
 
 
-### Nulo (`null`)
+## Nulo (`null`)
 
 [`is_null()` vs. `=== null`](https://phpbestpractices.org/#checking-for-null)
 
@@ -216,54 +200,51 @@ Se llaman *modo HTML* y *modo PHP*.
 # Manipulación de datos
 
 
-## Manipulación de datos
+## Precedencia de operadores
 
 
-### Precedencia de operadores
-
-
-### Operadores de asignación compuesta
+## Operadores de asignación compuesta
 
 `$x <op>= $y`
 
-### Comprobaciones
+## Comprobaciones
 
 
-#### De tipos
+### De tipos
 
 
-##### `gettype()`
+#### `gettype()`
 
 
-##### `is_*()`
+#### `is_*()`
 
 (poco útiles en formularios, ya que sólo se reciben `string`s)
 
-#### De valores
+### De valores
 
 
-##### `is_numeric()`
+#### `is_numeric()`
 
 
-##### `ctype_*()`
+#### `ctype_*()`
 
 
-### Conversiones de tipos
+## Conversiones de tipos
 
 
-#### Conversión explícita (forzado o *casting*) vs. automática
+### Conversión explícita (forzado o *casting*) vs. automática
 
 
-#### Conversión a `bool`
+### Conversión a `bool`
 
 
-#### Conversión a `int`
+### Conversión a `int`
 
 
-#### Conversión a `float`
+### Conversión a `float`
 
 
-#### Conversión de `string` a número
+### Conversión de `string` a número
 
 **¡Cuidado!**:
 
@@ -273,69 +254,66 @@ La documentación dice que `$x = 1 + "pepe"` o `$x = 1 + "10 pepe"` funciona, pe
 - Si `error_reporting = E_ALL & ~E_NOTICE`, no lo dará.
   Además, funcionará tanto en PsySH como en `php -a`.
 
-#### Conversión a `string`
+### Conversión a `string`
 
 
-#### Funciones de obtención de valores
+### Funciones de obtención de valores
 
 (Hacen más o menos lo mismo que los
   *casting* pero con funciones en lugar de con operadores. Puede ser
   interesante porque las funciones se pueden guardar, usar con *map*, *reduce*,
   etc.)
 
-##### `intval()`
+#### `intval()`
 
 
-##### `floatval()`
+#### `floatval()`
 
 
-##### `strval()`
+#### `strval()`
 
 
-##### `boolval()`
+#### `boolval()`
 
 
-#### Funciones de formateado numérico
+### Funciones de formateado numérico
 
 
-##### `number_format()`
+#### `number_format()`
 
 
-##### `money_format()`
+#### `money_format()`
 
 
-###### `set_locale()`
+##### `set_locale()`
 
 `setlocale(LC_ALL, 'es_ES.UTF-8'); // Hay que poner el *locale* completo, con la codificación y todo (.UTF-8)`
 
-### Comparaciones
+## Comparaciones
 
 
-#### Operadores de comparación
+### Operadores de comparación
 
 `"250" < "27"` devuelve `false`
 Si se compara un número con un string o la comparación implica strings numéricos, entonces cada string es convertido en un número y la comparación realizada numéricamente.
 
-#### `==` vs. `===`
+### `==` vs. `===`
 
 
-#### Operador ternario (`?:`)
+### Operador ternario (`?:`)
 
 
-#### Operador de coalescencia o fusión de null (`??`)
+### Operador de coalescencia o fusión de null (`??`)
 
 Equivalente al `COALESCE()` de SQL.
 
-#### Reglas de comparación de tipos
+### Reglas de comparación de tipos
 
 
 # Constantes
 
 
 ## Constantes
-
-
-### Constantes
 
 Diferencias entre constantes y variables:
 - Las constantes no llevan el signo dólar (`$`) como prefijo.
@@ -344,18 +322,15 @@ Diferencias entre constantes y variables:
 - Las constantes no pueden ser redefinidas o eliminadas una vez se han definido.
 - Las constantes podrían evaluarse como valores escalares. A partir de PHP 5.6 es posible definir una constante de array con la palabra reservada `const`, y, a partir de PHP 7, las constantes de array también se pueden definir con `define()`. Se pueden utilizar arrays en expresiones escalares constantes (por ejemplo, `const FOO = array(1,2,3)[0];`), aunque el resultado final debe ser un valor de un tipo permitido.
 
-### `define()` y `const`
+## `define()` y `const`
 
 
-### Constantes predefinidas
+## Constantes predefinidas
 
 
-### `defined()`
+## `defined()`
 
 
 # Ejercicios
-
-
-## Ejercicios
 
 
