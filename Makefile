@@ -57,8 +57,8 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		--syntax-definition=$(SGML_XML) \
 		-V theme=Ithaca \
 		-V mainfont=Lato \
-		-V monofont=FiraCode \
-		-V monofontoptions=Path=$(HOME)/.local/share/fonts/,Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
+		-V monofont=FiraMono \
+		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
 	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
