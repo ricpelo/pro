@@ -34,7 +34,10 @@ pdf: $(OBJECTSPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
 	@echo "Generando $@..."
-	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
+	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+	    --template=$(REVEAL_TEMPLATE) \
+		-H $(AUX)/header-includes.html \
+		-B $(AUX)/include-before.html \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
