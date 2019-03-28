@@ -58,7 +58,18 @@
                     if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
                         hr.innerHTML = '';
                     } else {
-                        hr.innerHTML = h.innerHTML;
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        while (hr.children.length > 0) {
+                            hr.removeChild(hr.lastChild);
+                        }
+                        hr.appendChild(el);
                     }
                     hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
                     hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';

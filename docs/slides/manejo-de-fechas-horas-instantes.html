@@ -121,7 +121,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                     if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
                         hr.innerHTML = '';
                     } else {
-                        hr.innerHTML = h.innerHTML;
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        while (hr.children.length > 0) {
+                            hr.removeChild(hr.lastChild);
+                        }
+                        hr.appendChild(el);
                     }
                     hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
                     hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
@@ -225,16 +236,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/dhh.jpg" alt="David Heinemeier Hansson" /><figcaption>David Heinemeier Hansson</figcaption>
 </figure>
 </div>
-</div></section><section id="frameworks" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Frameworks</h2><p>Un <strong><em>framework</em></strong> es un software que proporciona una funcionalidad genérica que el programador puede cambiar selectivamente escribiendo código específico para una aplicación en particular.</p></section><section class="slide level3">
+</div></section><section id="frameworks" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Frameworks</h2><p>Un <strong><em>framework</em></strong> es un software que proporciona una funcionalidad genérica que el programador puede cambiar selectivamente escribiendo código específico para una aplicación en particular.</p></section><section class="slide level4">
 
 <p>Un <em>framework</em> proporciona una forma estándar de programar y desplegar aplicaciones.</p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Un <em>framework</em> es un entorno de software universal y reutilizable que proporciona funcionalidades concretas como parte de una plataforma software más grande para facilitar el desarrollo de aplicaciones.</p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Los <em>frameworks</em> pueden incluir programas de soporte, compiladores, librerías de código, conjuntos de utilidades y APIs que, juntos, forman los diferentes componentes que permiten desarrollar un proyecto o sistema.</p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Un <em>framework</em> se puede considerar como una aplicación genérica incompleta y configurable a la que podemos añadirle las últimas piezas para construir una aplicación concreta.</p>
 <p><img data-src="images/puzzle.jpg" /></p>
@@ -251,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>CakePHP</li>
 <li>CodeIgniter</li>
 <li>Yii</li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <figure>
 <img data-src="images/symfony.png" alt="https://symfony.com" class="plain" /><figcaption><a href="https://symfony.com">https://symfony.com</a></figcaption>
@@ -275,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <figure>
 <img data-src="images/laravel.png" alt="https://laravel.com" class="plain" /><figcaption><a href="https://laravel.com">https://laravel.com</a></figcaption>
@@ -297,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <figure>
 <img data-src="images/cakephp.png" alt="https://cakephp.org" class="plain" /><figcaption><a href="https://cakephp.org">https://cakephp.org</a></figcaption>
@@ -320,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <figure>
 <img data-src="images/codeigniter.png" alt="https://codeigniter.com" class="plain" /><figcaption><a href="https://codeigniter.com">https://codeigniter.com</a></figcaption>
@@ -342,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <figure>
 <img data-src="images/yii.png" alt="http://www.yiiframework.com" class="plain" /><figcaption><a href="http://www.yiiframework.com">http://www.yiiframework.com</a></figcaption>
@@ -365,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section id="microframeworks" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> Microframeworks</h2><p>Un <em>microframework</em> es un término usado para referirse a un <em>framework</em> web minimalista, en contraste con un <em>framework</em> completo o <strong><em>full-stack</em></strong>.</p></section><section class="slide level3">
+</section><section id="microframeworks" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> Microframeworks</h2><p>Un <em>microframework</em> es un término usado para referirse a un <em>framework</em> web minimalista, en contraste con un <em>framework</em> completo o <strong><em>full-stack</em></strong>.</p></section><section class="slide level4">
 
 <p>Un <em>microframework</em> carece de muchas funcionalidades propias de un <em>framework</em> web completo, como por ejemplo:</p>
 <ul>
@@ -374,7 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Validación y saneado de la entrada.</li>
 <li>Motores de plantillas web.</li>
 </ul>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Normalmente, un <em>microframework</em> se encarga de:</p>
 <ol type="1">
@@ -386,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A menudo se diseñan específicamente para crear las API de otro servicio o aplicación.</p>
 </section><section id="definición-de-microframework-según-flask" class="title-slide slide level2"><h2><span class="header-section-number">5.7</span> Definición de microframework según <a href="http://flask.pocoo.org/docs/0.12/foreword/#what-does-micro-mean">Flask</a></h2><blockquote>
 <p>“Micro” does not mean that your whole web application has to fit into a single Python file (although it certainly can), nor does it mean that Flask is lacking in functionality. The “micro” in microframework means Flask aims to keep the core simple but extensible. Flask won’t make many decisions for you, such as what database to use. Those decisions that it does make, such as what templating engine to use, are easy to change. Everything else is up to you, so that Flask can be everything you need and nothing you don’t.</p>
-</blockquote></section><section class="slide level3">
+</blockquote></section><section class="slide level4">
 
 <blockquote>
 <p>By default, Flask does not include a database abstraction layer, form validation or anything else where different libraries already exist that can handle that. Instead, Flask supports extensions to add such functionality to your application as if it was implemented in Flask itself. Numerous extensions provide database integration, form validation, upload handling, various open authentication technologies, and more. Flask may be “micro”, but it’s ready for production use on a variety of needs.</p>
@@ -415,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Extensibilidad</strong>: Un usuario puede extender el <em>framework</em>, normalmente sobreescribiendo código o añadiendo código especializado para proporcionar funcionalidades específicas.</li>
 <li><strong>No modificable</strong>: El código del <em>framework</em>, por lo general, se supone que no se debe modificar, aunque admite extensiones desarrolladas por el programador que lo usa. En otras palabras: el programador usuario del <em>framework</em> puede ampliarlo, pero no modificar su código.</li>
 </ul>
-<p>Además, los <em>frameworks</em> suelen imponer una estructura interna al código de la aplicación (en directorios, archivos y contenido de los mismos), mientras que las librerías no.</p></section><section class="slide level3">
+<p>Además, los <em>frameworks</em> suelen imponer una estructura interna al código de la aplicación (en directorios, archivos y contenido de los mismos), mientras que las librerías no.</p></section><section class="slide level4">
 
 <p>La diferencia más importante es que <strong>el control se invierte</strong>:</p>
 <dl>
@@ -432,7 +443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Busca una comparativa de rendimiento de los principales <em>frameworks</em> para PHP y ordénalos según dicha comparativa. ¿Por qué hay algunos que son espectacularmente más rápidos que el resto?</p></li>
 <li><p>¿Qué ventajas fundamentales tiene el <em>framework</em> Yii? ¿Cuál dirías que es su principal inconveniente?</p></li>
 <li><p>Ídem para Laravel.</p></li>
-</ol></section><section class="slide level3">
+</ol></section><section class="slide level4">
 
 <ol start="6" type="1">
 <li><p>Investiga otros <em>frameworks</em> web para PHP.</p></li>
@@ -537,17 +548,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table></section><section id="instalación-mediante-composer" class="title-slide slide level2"><h2><span class="header-section-number">7.9</span> Instalación mediante Composer</h2><p>Para crear un proyecto nuevo con la estructura de la plantilla básica:</p>
 <pre><code>$ composer create-project yiisoft/yii2-app-basic directorio</code></pre>
 <p>Creará un directorio llamado <em><code>directorio</code></em> donde se volcará el contenido de la plantilla y quedará el proyecto listo para empezar su desarrollo.</p></section></section>
-<section><section id="patrón-modelo-vista-controlador-mvc" class="title-slide slide level1"><h1><span class="header-section-number">8</span> Patrón <em>Modelo-Vista-Controlador</em> (MVC)</h1></section><section id="visión-general" class="title-slide slide level2"><h2><span class="header-section-number">8.1</span> Visión general</h2><p><img data-src="images/MVC-Diagram.gif" style="width:50.0%" /></p></section><section class="slide level3">
+<section><section id="patrón-modelo-vista-controlador-mvc" class="title-slide slide level1"><h1><span class="header-section-number">8</span> Patrón <em>Modelo-Vista-Controlador</em> (MVC)</h1></section><section id="visión-general" class="title-slide slide level2"><h2><span class="header-section-number">8.1</span> Visión general</h2><p><img data-src="images/MVC-Diagram.gif" style="width:50.0%" /></p></section><section class="slide level4">
 
 <p><img data-src="images/mvc_role_diagram.png" class="plain" style="width:70.0%" /></p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p><img data-src="images/mvc-architecture.jpg" style="width:75.0%" /></p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p><img data-src="images/mvc-request-flow.png" class="plain" style="width:80.0%" /></p>
 </section><section id="modelos" class="title-slide slide level2"><h2><span class="header-section-number">8.2</span> Modelos</h2><p>Los modelos representan la parte de la aplicación que implementa la <em>lógica de negocio</em> y las <em>entidades de datos</em>. Ésto significa que son responsables de la recuperación de datos convirtiéndolos en conceptos significativos para la aplicación, así como su procesamiento, validación, asociación y cualquier otra tarea relativa a la manipulación de dichos datos.</p>
-<p>En general, representan los principales conceptos en torno a los cuales se desea implementar un programa.</p></section><section class="slide level3">
+<p>En general, representan los principales conceptos en torno a los cuales se desea implementar un programa.</p></section><section class="slide level4">
 
 <p>Por ejemplo, en el caso de una red social, la capa de modelo se haría cargo de tareas tales como guardar datos del usuario, el amacenamiento de asociaciones con amigos, el almacenamiento y la recuperación de fotos de los usuarios, encontrar sugerencias de nuevos amigos, etc.</p>
 <p>Por tanto, en este caso, los modelos podrían ser <code>Amigo</code>, <code>Usuario</code>, <code>Comentario</code> y <code>Foto</code>.</p>

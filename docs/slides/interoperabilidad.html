@@ -121,7 +121,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                     if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
                         hr.innerHTML = '';
                     } else {
-                        hr.innerHTML = h.innerHTML;
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        while (hr.children.length > 0) {
+                            hr.removeChild(hr.lastChild);
+                        }
+                        hr.appendChild(el);
                     }
                     hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
                     hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
@@ -159,59 +170,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/recomendaciones-psr-del-php-fig-framework-interop-group"><span class="toc-section-number">5</span> Recomendaciones PSR del <span>PHP-FIG</span> (Framework Interop Group)</a></li>
 <li><a href="#/paquetes-de-atom-y-herramientas-externas-opcional"><span class="toc-section-number">6</span> Paquetes de Atom y herramientas externas #opcional</a></li>
 <li><a href="#/ejercicios"><span class="toc-section-number">7</span> Ejercicios</a></li>
-<li><a href="#/meta"><span class="toc-section-number">8</span> Meta</a></li>
 </ul>
 </section>
 </section>
 
 <section id="versionado-semántico" class="title-slide slide level1"><h1><span class="header-section-number">1</span> <a href="https://semver.org/lang/es/">Versionado semántico</a></h1></section>
-<section><section id="composer" class="title-slide slide level1"><h1><span class="header-section-number">2</span> <a href="https://getcomposer.org/">Composer</a></h1></section><section id="paquetes" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Paquetes</h2></section><section id="packagist" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> <a href="https://packagist.org/">Packagist</a></h2></section><section id="dependencias" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> <a href="https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup">Dependencias</a></h2></section><section id="composer.json-y-composer.lock" class="slide level3">
-<h3><span class="header-section-number">2.3.1</span> <code>composer.json</code> y <code>composer.lock</code></h3>
-</section><section id="versiones-y-restricciones" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> <a href="https://getcomposer.org/doc/articles/versions.md">Versiones y restricciones</a></h2></section><section id="versión-exacta" class="slide level3">
-<h3><span class="header-section-number">2.4.1</span> Versión exacta</h3>
-<p>ricpelo’s note: - <code>x.y.z</code> es exactamente esa versión<br />
+<section><section id="composer" class="title-slide slide level1"><h1><span class="header-section-number">2</span> <a href="https://getcomposer.org/">Composer</a></h1></section><section id="paquetes" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Paquetes</h2></section><section id="packagist" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> <a href="https://packagist.org/">Packagist</a></h2></section><section id="dependencias" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> <a href="https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup">Dependencias</a></h2></section><section id="composer.json-y-composer.lock" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> <code>composer.json</code> y <code>composer.lock</code></h3></section><section id="versiones-y-restricciones" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> <a href="https://getcomposer.org/doc/articles/versions.md">Versiones y restricciones</a></h2></section><section id="versión-exacta" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Versión exacta</h3><p>ricpelo’s note: - <code>x.y.z</code> es exactamente esa versión<br />
 - <code>x.y</code> equivale a <code>x.y.0</code><br />
 - <code>x</code> equivale a <code>x.0.0</code><br />
-- Se usa en los siguientes tipos de restricciones</p>
-</section><section id="rango" class="slide level3">
-<h3><span class="header-section-number">2.4.2</span> Rango (<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code>, <code></code>, <code>,</code>, <code>||</code>)</h3>
-</section><section id="guión--" class="slide level3">
-<h3><span class="header-section-number">2.4.3</span> Guión (<code>-</code>)</h3>
-</section><section id="asterisco" class="slide level3">
-<h3><span class="header-section-number">2.4.4</span> Asterisco (<code>*</code>)</h3>
-<p>ricpelo’s note: - <code>x.y.*</code> equivale a <code>&gt;=x.y &lt;x.(y+1)</code><br />
+- Se usa en los siguientes tipos de restricciones</p></section><section id="rango" class="title-slide slide level3"><h3><span class="header-section-number">2.4.2</span> Rango (<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code>, <code></code>, <code>,</code>, <code>||</code>)</h3></section><section id="guión--" class="title-slide slide level3"><h3><span class="header-section-number">2.4.3</span> Guión (<code>-</code>)</h3></section><section id="asterisco" class="title-slide slide level3"><h3><span class="header-section-number">2.4.4</span> Asterisco (<code>*</code>)</h3><p>ricpelo’s note: - <code>x.y.*</code> equivale a <code>&gt;=x.y &lt;x.(y+1)</code><br />
 - <code>x.*</code> equivale a <code>&gt;=x &lt;(x+1)</code><br />
-- <code>*</code> equivale a cualquiera</p>
-</section><section id="tilde" class="slide level3">
-<h3><span class="header-section-number">2.4.5</span> Tilde (<code>~</code>)</h3>
-<p>ricpelo’s note: Especifica una versión mínima y permite que avance el último dígito indicado pero no el primero.<br />
+- <code>*</code> equivale a cualquiera</p></section><section id="tilde" class="title-slide slide level3"><h3><span class="header-section-number">2.4.5</span> Tilde (<code>~</code>)</h3><p>ricpelo’s note: Especifica una versión mínima y permite que avance el último dígito indicado pero no el primero.<br />
 ricpelo’s note: - <code>~x.y.z</code> equivale a <code>&gt;=x.y.z &lt;x.(y+1)</code><br />
 - <code>~x.y</code> equivale a <code>&gt;=x.y &lt;(x+1)</code><br />
-- <code>~x</code> equivale a <code>&gt;=x &lt;(x+1)</code></p>
-</section><section id="gorrito" class="slide level3">
-<h3><span class="header-section-number">2.4.6</span> Gorrito (<code>^</code>)</h3>
-<p>ricpelo’s note: También permite especificar una versión mínima, pero impide actualizaciones que rompen la compatibilidad hacia atrás (es decir, permite que aumenten todos los números excepto el <em>mayor</em>).<br />
+- <code>~x</code> equivale a <code>&gt;=x &lt;(x+1)</code></p></section><section id="gorrito" class="title-slide slide level3"><h3><span class="header-section-number">2.4.6</span> Gorrito (<code>^</code>)</h3><p>ricpelo’s note: También permite especificar una versión mínima, pero impide actualizaciones que rompen la compatibilidad hacia atrás (es decir, permite que aumenten todos los números excepto el <em>mayor</em>).<br />
 ricpelo’s note: - <code>^x.y.z</code> equivale a <code>&gt;=x.y.z &lt;(x+1)</code><br />
 - <code>^x.y</code> equivale a <code>&gt;=x.y &lt;(x+1)</code><br />
-- <code>^x</code> equivale a <code>&gt;=x &lt;(x+1)</code></p>
-</section><section id="nombres-de-rama" class="slide level3">
-<h3><span class="header-section-number">2.4.7</span> Nombres de rama</h3>
-<h4 id="dev-master"><span class="header-section-number">2.4.7.1</span> <code>dev-master</code></h4>
+- <code>^x</code> equivale a <code>&gt;=x &lt;(x+1)</code></p></section><section id="nombres-de-rama" class="title-slide slide level3"><h3><span class="header-section-number">2.4.7</span> Nombres de rama</h3></section><section id="dev-master" class="slide level4">
+<h4><span class="header-section-number">2.4.7.1</span> <code>dev-master</code></h4>
 <p>ricpelo’s note: Equivale al último commit de la rama <code>master</code>.</p>
-<h4 id="x-dev"><span class="header-section-number">2.4.7.2</span> <code>5.1.x-dev</code></h4>
+</section><section id="x-dev" class="slide level4">
+<h4><span class="header-section-number">2.4.7.2</span> <code>5.1.x-dev</code></h4>
 <p>ricpelo’s note: Equivale al último commit de la rama <code>5.1</code>.</p>
-</section><section id="estabilidad-mínima" class="slide level3">
-<h3><span class="header-section-number">2.4.8</span> <a href="https://getcomposer.org/doc/articles/versions.md#minimum-stability">Estabilidad mínima</a></h3>
-</section><section id="comprobador-online-de-restricciones" class="slide level3">
-<h3><span class="header-section-number">2.4.9</span> <a href="https://semver.mwl.be">Comprobador online de restricciones</a></h3>
-<p>ricpelo’s note: Probar con <code>laravel/laravel</code>.</p>
-</section><section id="comandos-básicos" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Comandos básicos</h2></section><section id="require" class="slide level3">
-<h3><span class="header-section-number">2.5.1</span> <a href="https://getcomposer.org/doc/03-cli.md#require"><code>require</code></a></h3>
-</section><section id="install" class="slide level3">
-<h3><span class="header-section-number">2.5.2</span> <a href="https://getcomposer.org/doc/03-cli.md#install"><code>install</code></a></h3>
-</section><section id="update" class="slide level3">
-<h3><span class="header-section-number">2.5.3</span> <a href="https://getcomposer.org/doc/03-cli.md#update"><code>update</code></a></h3>
-</section><section id="entornos-de-desarrollo-y-producción" class="title-slide slide level2"><h2><span class="header-section-number">2.6</span> Entornos de desarrollo y producción</h2></section></section>
+</section><section id="estabilidad-mínima" class="title-slide slide level3"><h3><span class="header-section-number">2.4.8</span> <a href="https://getcomposer.org/doc/articles/versions.md#minimum-stability">Estabilidad mínima</a></h3></section><section id="comprobador-online-de-restricciones" class="title-slide slide level3"><h3><span class="header-section-number">2.4.9</span> <a href="https://semver.mwl.be">Comprobador online de restricciones</a></h3><p>ricpelo’s note: Probar con <code>laravel/laravel</code>.</p></section><section id="comandos-básicos" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Comandos básicos</h2></section><section id="require" class="title-slide slide level3"><h3><span class="header-section-number">2.5.1</span> <a href="https://getcomposer.org/doc/03-cli.md#require"><code>require</code></a></h3></section><section id="install" class="title-slide slide level3"><h3><span class="header-section-number">2.5.2</span> <a href="https://getcomposer.org/doc/03-cli.md#install"><code>install</code></a></h3></section><section id="update" class="title-slide slide level3"><h3><span class="header-section-number">2.5.3</span> <a href="https://getcomposer.org/doc/03-cli.md#update"><code>update</code></a></h3></section><section id="entornos-de-desarrollo-y-producción" class="title-slide slide level2"><h2><span class="header-section-number">2.6</span> Entornos de desarrollo y producción</h2></section></section>
 <section><section id="autocarga-de-clases" class="title-slide slide level1"><h1><span class="header-section-number">3</span> <a href="http://php.net/manual/es/language.oop5.autoload.php">Autocarga de clases</a></h1></section><section id="spl_autoload_register" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> <a href="http://php.net/manual/es/function.spl-autoload-register.php"><code>spl_autoload_register()</code></a></h2><p>ricpelo’s note: - Cuando se llama sin argumentos, registra el manejador predeterminado (<a href="http://php.net/manual/es/function.spl-autoload.php"><code>spl_autoload()</code></a>), el cual autocarga el archivo <code>.php</code> a partir del nombre de la clase <strong>en minúsculas</strong> (la clase <code>A</code> la busca en <code>a.php</code>).<br />
 - <code>spl_autoload_register(function ($c) { include "$c.php"; });</code><br />
 - <code>spl_autoload_register(function ($c) { include strtolower(str_replace('\\', '/', $c) . '.php'; });</code></p></section><section id="psr-4" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> <a href="http://www.php-fig.org/psr/psr-4/">PSR-4</a></h2></section><section id="autoloader-de-composer" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> <a href="https://getcomposer.org/doc/01-basic-usage.md#autoloading">Autoloader de Composer</a></h2></section></section>
@@ -233,16 +214,6 @@ $ apm install linter-phpcs php-cs-fixer
 $ phpcs --config-set default_standard /opt/composer/vendor/yiisoft/yii2-coding-standards/Yii2  </code></pre>
 <p>ricpelo’s note: https://github.com/ricpelo/conf</p></section><section id="php_codesniffer" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> PHP_CodeSniffer</h2></section><section id="php-cs-fixer" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> PHP-CS-Fixer</h2></section><section id="yii2-shell" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Yii2-Shell</h2></section></section>
 <section><section id="ejercicios" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Ejercicios</h1></section><section id="de-versionado-semántico" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> De versionado semántico</h2></section><section id="de-versiones-y-restricciones" class="title-slide slide level2"><h2><span class="header-section-number">7.2</span> De versiones y restricciones</h2></section><section id="de-uso-básico-de-composer" class="title-slide slide level2"><h2><span class="header-section-number">7.3</span> De uso básico de Composer</h2></section><section id="de-buscar-paquetes-en-packagist-que-tengan-una-funcionalidad-concreta-y-usarlos-en-un-ejemplo" class="title-slide slide level2"><h2><span class="header-section-number">7.4</span> De buscar paquetes en Packagist que tengan una funcionalidad concreta y usarlos en un ejemplo</h2></section></section>
-<section><section id="meta" class="title-slide slide level1"><h1><span class="header-section-number">8</span> Meta</h1></section><section id="objetivos-de-la-unidad" class="title-slide slide level2"><h2><span class="header-section-number">8.1</span> Objetivos de la unidad</h2></section><section id="resultados-de-aprendizaje-y-criterios-de-evaluación-asociados" class="title-slide slide level2"><h2><span class="header-section-number">8.2</span> Resultados de aprendizaje y criterios de evaluación asociados</h2></section><section id="ra1" class="slide level3">
-<h3><span class="header-section-number">8.2.1</span> RA1</h3>
-<h4 id="ce1.e"><span class="header-section-number">8.2.1.1</span> CE1.e</h4>
-<h4 id="ce1.g"><span class="header-section-number">8.2.1.2</span> CE1.g</h4>
-</section><section id="ra9" class="slide level3">
-<h3><span class="header-section-number">8.2.2</span> RA9</h3>
-<h4 id="ce9.a"><span class="header-section-number">8.2.2.1</span> CE9.a</h4>
-<h4 id="ce9.b"><span class="header-section-number">8.2.2.2</span> CE9.b</h4>
-<h6 id="ce9.e"><span class="header-section-number">8.2.2.2.0.1</span> CE9.e</h6>
-</section></section>
     </div>
   </div>
 

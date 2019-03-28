@@ -121,7 +121,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                     if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
                         hr.innerHTML = '';
                     } else {
-                        hr.innerHTML = h.innerHTML;
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        while (hr.children.length > 0) {
+                            hr.removeChild(hr.lastChild);
+                        }
+                        hr.appendChild(el);
                     }
                     hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
                     hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
@@ -177,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Comportamientos (<em>behaviors</em>)</li>
 </ul>
 <p>Las dos primeras características se heredan de <code>yii\base\BaseObject</code>.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -197,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <ul>
 <li><p>Aunque los componentes son muy potentes, son un poco más pesados que los objetos normales (consumen algo más de memoria y CPU).</p></li>
@@ -209,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Esas variables son parte de la definición de la clase, y se usan para representar el estado de una instancia de dicha clase.</p></li>
 <li><p>La clase <code>yii\base\BaseObject</code> de Yii 2 permite crear propiedades a partir de métodos <em>getter</em> y <em>setter</em>.</p></li>
 <li><p>Toda clase que herede (directa o indirectamente) de <code>yii\base\BaseObject</code> podrá definir propiedades de esa manera.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Por ejemplo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">namespace</span> app\components<span class="ot">;</span></a>
@@ -231,14 +242,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-17" title="17">    }</a>
 <a class="sourceLine" id="cb1-18" title="18">}</a></code></pre></div>
 <p>Crea la propiedad <code>label</code>, accesible mediante <code>$foo-&gt;label</code>.</p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb2-1" title="1"><span class="va">$foo</span> = <span class="kw">new</span> Foo<span class="ot">;</span></a>
 <a class="sourceLine" id="cb2-2" title="2"></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="kw">echo</span> <span class="va">$foo</span>-&gt;label<span class="ot">;</span>     <span class="co">// Llama internamente a $foo-&gt;getLabel()</span></a>
 <a class="sourceLine" id="cb2-4" title="4"></a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="va">$foo</span>-&gt;label = <span class="st">&#39;hola&#39;</span><span class="ot">;</span> <span class="co">// Llama internamente a $foo-&gt;setLabel(&#39;hola&#39;);</span></a></code></pre></div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Como <code>setLabel($value)</code> está definido como:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">public</span> <span class="kw">function</span> setLabel<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span></a>
@@ -322,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Se crea en <code>$p</code> una nueva instancia de la clase <code>Prueba</code> con los valores</li>
 </ul>
-<p><code>$p-&gt;uno = 4</code> y <code>$p-&gt;dos = 7</code>.</p></section><section class="slide level3">
+<p><code>$p-&gt;uno = 4</code> y <code>$p-&gt;dos = 7</code>.</p></section><section class="slide level4">
 
 <p><code>Yii::createObject()</code> es como una especie de «súper <code>new</code>»:</p>
 <ul>
@@ -338,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Llamar siempre al constructor del padre al final del constructor sobreescrito.</p></li>
 <li><p>Si se sobreescribe el método <code>yii\base\BaseObject::init()</code>, hay que llamar al <code>init()</code> del padre al comienzo del <code>init()</code> sobreescrito.</p></li>
 </ul></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <div class="sourceCode" id="cb10"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;?php</span></a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
@@ -372,13 +383,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los eventos permiten inyectar nuestro código dentro de código ya existente en determinados puntos de ejecución.</p></li>
 <li><p>Se puede vincular un trozo de código a un evento de forma que, cuando el evento se dispare, se ejecutará el código automáticamente.</p></li>
 <li><p>Por ejemplo, un objeto que envíe correo puede disparar el evento <code>mensajeEnviado</code> cada vez que envíe un email. Si se desea hacer un seguimiento de los mensajes que se han enviado, se puede vincular el código de seguimiento al evento <code>mensajeEnviado</code>.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <ul>
 <li><p>Los eventos son un mecanismo que nos permite cambiar el comportamiento del <em>framework</em> sin tener que cambiar el código del propio <em>framework</em>.</p></li>
 <li><p>Esto es así porque el <em>framework</em> dispara ciertos eventos en ciertos momentos durante su ejecución, lo que podemos usar para vincular nuestro código y hacer que se ejecute en tales momentos.</p></li>
 </ul>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>Para poder disparar eventos o responder a eventos, la clase en cuestión debe ser subclase (directa o indirecta) de <code>yii\base\Component</code>.</p>
 </section><section id="manejadores-de-eventos" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Manejadores de eventos</h2><ul>
@@ -391,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <code>['NombreClase', 'metodo']</code></p></li>
 <li><p>Una función anónima: <code>function ($event) { ... }</code></p></li>
 </ul></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>La signatura del manejador de eventos es:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">function</span> <span class="ot">(</span><span class="va">$event</span><span class="ot">)</span> {</a>
@@ -423,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El objeto <code>$p</code> dispara el evento <code>Prueba::EVENTO_HOLA</code>, lo que provocará la ejecución de los manejadores que se hayan vinculado a ese evento en ese objeto (además de los <em>manejadores de clase</em>, que veremos luego).</p></li>
 <li><p>Si hay varios manejadores para el mismo evento, se ejecutarán en cadena en el orden en el que hayan sido vinculados.</p></li>
 <li><p>Un manejador puede hacer <code>$event-&gt;handled = true;</code> para romper la cadena y evitar que se ejecuten más manejadores de ese evento.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Los manejadores vinculados en otro objeto no se ejecutarán:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb14-1" title="1"><span class="va">$p</span> = <span class="kw">new</span> Prueba<span class="ot">;</span></a>
@@ -456,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En lugar de vincular un manejador de evento en cada instancia, podemos vincular el manejador <em>a nivel de clase</em>, es decir, en la propia clase.</p></li>
 <li><p>A estos eventos se los denomina <strong>manejadores de clase</strong>, a diferencia de los manejadores a nivel de instancia, que se denominan <strong>manejadores de instancia</strong>.</p></li>
 <li><p>Para ello, usamos el método estático <code>yii\base\Event::on()</code> indicando el nombre de la clase, el nombre del evento y el manejador del evento.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
@@ -474,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Dicho de otra forma: el evento se propagará hacia arriba en la jerarquía de herencia y provocará la ejecución de todos los manejadores de clase que encuentre vinculados a ese evento.</p></li>
 <li><p>Debido a eso, hay que tener cuidado para evitar la propagación de ese evento a más objetos de los necesarios.</p></li>
 <li><p>Por ejemplo, si vinculamos un manejador de evento a la clase <code>yii\base\BaseObject</code>, prácticamente <em>todas</em> las instancias de Yii 2 podrán responder a ese evento.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">class</span> Subclase <span class="kw">extends</span> Prueba</a>
@@ -485,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-6" title="6"><span class="va">$s</span> = <span class="kw">new</span> Subclase<span class="ot">;</span></a>
 <a class="sourceLine" id="cb17-7" title="7"><span class="va">$s</span>-&gt;trigger<span class="ot">(</span>Prueba::<span class="cn">EVENTO_HOLA</span><span class="ot">);</span>  <span class="co">// También saluda</span></a></code></pre></div>
 <p>Una instancia de <code>Subclase</code> dispara un evento que tiene vinculado un manejador en la clase <code>Prueba</code>, por lo que también se ejecuta dicho manejador.</p>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <p>En los manejadores de clase, se puede acceder al objeto que ha recibido el disparo del evento mediante la expresión <code>$event-&gt;sender</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
@@ -501,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Podemos hacer que una clase también dispare eventos. Los eventos disparados por una clase se denominan <strong>eventos de clase</strong>.</p></li>
 <li><p>Los eventos de clase se disparan llamando al método <code>yii\base\Event::trigger()</code>, indicando el nombre de la clase y el nombre del evento.</p></li>
 <li><p>Los eventos de clase sólo provocan la ejecución de manejadores de clase, no de manejadores de instancia.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">use</span> yii\base\Event<span class="ot">;</span></a>
@@ -566,7 +577,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El nombre de una clase comportamiento, o</p></li>
 <li><p>Un array de configuración.</p></li>
 </ul></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Ejemplo de acoplamiento estático:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">class</span> Usuario <span class="kw">extends</span> \yii\db\ActiveRecord</a>
@@ -596,7 +607,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb21-25" title="25">        <span class="ot">];</span></a>
 <a class="sourceLine" id="cb21-26" title="26">    }</a>
 <a class="sourceLine" id="cb21-27" title="27">}</a></code></pre></div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <ul>
 <li><p>Se le puede asociar un nombre a un comportamiento especificándolo en el array en la clave correspondiente a la configuración de ese comportamiento.</p></li>
@@ -623,7 +634,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Acceder a cualquier variable de instancia pública o propiedad pública definida en el comportamiento como si estuvieran realmente definidas en el componente.</p></li>
 <li><p>Invocar a cualquier método público definido en el comportamiento como si estuviera definido en el componente.</p></li>
 </ul></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb23-1" title="1"><span class="co">// &quot;prop1&quot; es una propiedad definida en la clase Comportamiento</span></a>
@@ -664,7 +675,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>@pepe</code> es un <em>alias raíz</em> (se creó con <code>Yii::setAlias()</code>)</p></li>
 <li><p><code>@pepe/juan/archivo.php</code> es un <em>alias derivado</em> (no se creó con <code>Yii::setAlias()</code>)</p></li>
 </ul></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <ul>
 <li>También se puede definir un alias usando otro alias (ya sea alias <em>raíz</em> o <em>derivado</em>):</li>
@@ -677,7 +688,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb27"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe&#39;</span><span class="ot">);</span>             <span class="co">// /ruta/a/pepe</span></a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@juan&#39;</span><span class="ot">);</span>             <span class="co">// http://www.ejemplo.com</span></a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe/juan/fi.php&#39;</span><span class="ot">);</span> <span class="co">// /ruta/a/pepe/juan/fi.php</span></a></code></pre></div></section><section class="slide level3">
+<a class="sourceLine" id="cb27-3" title="3"><span class="kw">echo</span> Yii::getAlias<span class="ot">(</span><span class="st">&#39;@pepe/juan/fi.php&#39;</span><span class="ot">);</span> <span class="co">// /ruta/a/pepe/juan/fi.php</span></a></code></pre></div></section><section class="slide level4">
 
 <ul>
 <li>Un alias raíz también puede contener barras (<code>/</code>). El método <code>Yii::getAlias()</code> es lo bastante inteligente para saber qué parte del alias es un alias raíz y así determinar correctamente la correspondiente ruta o URL:</li>
@@ -769,7 +780,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb32-17" title="17"><span class="ot">];</span></a>
 <a class="sourceLine" id="cb32-18" title="18"><span class="va">$locator</span> = <span class="kw">new</span> yii\di\ServiceLocator<span class="ot">(</span><span class="va">$config</span><span class="ot">);</span></a></code></pre></div></section></section>
 <section><section id="contenedor-de-inyección-de-dependencias" class="title-slide slide level1"><h1><span class="header-section-number">10</span> Contenedor de inyección de dependencias</h1></section><section id="contenedor-de-inyección-de-dependencias-1" class="title-slide slide level2"><h2><span class="header-section-number">10.1</span> Contenedor de inyección de dependencias</h2><p>Artículo interesante sobre <em>inversión de dependencias</em> e <em>inyección de dependencias</em>:</p>
-<p><a href="http://raulavila.com/2015/03/principios-dependencias/">http://raulavila.com/2015/03/principios-dependencias/</a></p></section><section class="slide level3">
+<p><a href="http://raulavila.com/2015/03/principios-dependencias/">http://raulavila.com/2015/03/principios-dependencias/</a></p></section><section class="slide level4">
 
 <ul>
 <li><p><strong>Un contenedor de inyección de dependencias</strong> es un objeto que sabe cómo instanciar y configurar objetos y todos los objetos de los que depende.</p></li>
@@ -798,7 +809,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El contenedor de inyección de dependencias soporta la <strong>inyección de constructores</strong> usando tipos en los parámetros del constructor.</p></li>
 <li><p>Los tipos en los parámetros del constructor indican al contenedor de qué clases o interfaces depende el objeto que se va a crear.</p></li>
 <li><p>El contenedor intentará obtener instancias de las clases o interfaces de las que depende y luego las inyectará en el nuevo objeto a través del constructor.</p></li>
-</ul></section><section class="slide level3">
+</ul></section><section class="slide level4">
 
 <p>Por ejemplo:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">class</span> Pepe</a>
@@ -813,7 +824,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb36-10" title="10"><span class="co">// equivale a lo siguiente:</span></a>
 <a class="sourceLine" id="cb36-11" title="11"><span class="va">$juan</span> = <span class="kw">new</span> Juan<span class="ot">;</span></a>
 <a class="sourceLine" id="cb36-12" title="12"><span class="va">$pepe</span> = <span class="kw">new</span> Pepe<span class="ot">(</span><span class="va">$juan</span><span class="ot">);</span></a></code></pre></div>
-</section><section class="slide level3">
+</section><section class="slide level4">
 
 <ul>
 <li>Este es el código de <code>Yii::createObject()</code>, donde se aprecia que internamente usa <code>Yii::$container-&gt;get()</code> para instanciar objetos, resolviendo automáticamente las dependencias e inyectándolas en el objeto recién creado:</li>
