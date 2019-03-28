@@ -36,7 +36,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 	@echo "Generando $@..."
 	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs --template=$(REVEAL_TEMPLATE) \
 		--toc --toc-depth=1 -N \
-		--slide-level=3 \
+		--slide-level=4 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(SGML_XML) \
