@@ -1,4 +1,4 @@
-.PHONY: all html pdf clean setup $(ITHACA)
+.PHONY: all html pdf clean limpiar setup $(ITHACA)
 
 AUX=aux
 SCRIPTS=scripts
@@ -12,6 +12,9 @@ REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/pandoc_revealjs.template
 LATEX_TEMPLATE=$(AUX)/plantilla.tex
 PREAMBULO=$(AUX)/preambulo.tex
+PREAMBULO_LATEX=$(AUX)/preambulo_latex.tex
+HEADER_INCLUDES=$(AUX)/header-includes.html
+INCLUDE_BEFORE=$(AUX)/include-before.html
 PHP_XML=$(AUX)/php.xml
 SGML_XML=$(AUX)/sgml.xml
 PP=pp
@@ -25,19 +28,22 @@ HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
+APUNTESPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=-apuntes.pdf))
 
-all: $(DIAPOS) html pdf
+all: $(DIAPOS) html pdf apuntes limpiar
 
 html: $(OBJECTSHTML)
 
 pdf: $(OBJECTSPDF)
 
-$(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML)
+apuntes: $(APUNTESPDF)
+
+$(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(SGML_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
 	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs \
 	    --template=$(REVEAL_TEMPLATE) \
-		-H $(AUX)/header-includes.html \
-		-B $(AUX)/include-before.html \
+		-H $(HEADER_INCLUDES) \
+		-B $(INCLUDE_BEFORE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
@@ -46,11 +52,28 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
-	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
-$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) | $(ITHACA)
+$(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(SGML_XML) $(PHP_XML)
 	@echo "Generando $@..."
-	@./pp -import $(COMMON_PP) $< | pandoc -s -t beamer --template=$(LATEX_TEMPLATE) \
+	@./pp -import $(COMMON_PP) $< | pandoc -s -t latex \
+	    --template=$(LATEX_TEMPLATE) \
+		--toc --toc-depth=2 -N \
+		-H $(PREAMBULO_LATEX) \
+		--pdf-engine=xelatex \
+		--highlight-style=$(HIGHLIGHT_STYLE) \
+		--syntax-definition=$(PHP_XML) \
+		--syntax-definition=$(SGML_XML) \
+		-V documentclass=scrartcl \
+		-V subparagraph \
+		-V mainfont=Lato \
+		-V monofont=FiraMono \
+		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
+		-V lang=es-ES -o $@
+
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) $(SGML_XML) | $(ITHACA)
+	@echo "Generando $@..."
+	@./pp -import $(COMMON_PP) $< | pandoc -s -t beamer \
+	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
 		-H $(PREAMBULO) \
@@ -63,7 +86,6 @@ $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIG
 		-V monofont=FiraMono \
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V fontsize=8pt -V lang=es-ES -o $@
-	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
@@ -82,7 +104,10 @@ $(REVEAL):
 	git submodule update --init --recursive
 
 clean:
-	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(ITHACA_DST)/$(ITHACA)
+	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(APUNTESPDF) $(ITHACA_DST)/$(ITHACA)
+
+limpiar:
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
 
 serve:
 	cd $(BUILDDIR) ; bundle install --path vendor/bundle && bundle exec jekyll serve --incremental
