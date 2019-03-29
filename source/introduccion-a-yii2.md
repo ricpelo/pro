@@ -565,11 +565,11 @@ un nuevo proyecto.
 
 - Para crear un proyecto nuevo con la estructura de la plantilla básica:
 
-  ```sgml
-  $ composer create-project yiisoft/yii2-app-basic directorio
+  ```console
+  $ composer create-project yiisoft/yii2-app-basic <directorio> < pepe > juan
   ```
 
-- Creará un directorio llamado *`directorio`* donde se volcará el contenido de
+- Creará un directorio llamado *`<directorio>`* donde se volcará el contenido de
   la plantilla y quedará el proyecto listo para empezar su desarrollo.
 
 ## Plantillas de proyecto
