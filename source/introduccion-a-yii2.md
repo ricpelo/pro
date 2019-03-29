@@ -13,13 +13,25 @@ date: IES Doñana, curso 2018-19
 
 ::: {.column width="50%"}
 
-!IMGP(rubyonrails.png)()(width=50%)
+!ifdef(LATEX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(rubyonrails.png)()(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(rubyonrails.png)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: {.column width="50%"}
 
-!IMG(dhh.jpg)(David Heinemeier Hansson)(width=50%)
+!ifdef(LATEX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMG(dhh.jpg)(David Heinemeier Hansson)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMG(dhh.jpg)(David Heinemeier Hansson)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
