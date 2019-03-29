@@ -73,7 +73,7 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@($PP) -import $(COMMON_PP) $< | pandoc -s -t beamer \
+	@$(PP) -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
