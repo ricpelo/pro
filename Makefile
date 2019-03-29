@@ -63,7 +63,6 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
-		-V documentclass=scrartcl \
 		-V margin-bottom=4cm \
 		-V subparagraph \
 		-V mainfont=Lato \
