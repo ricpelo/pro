@@ -29,7 +29,7 @@ date: IES Doñana, curso 2018-19
 
 ::: {.column width="50%"}
 
-!UML(baseobject.png)
+!UML(baseobject.png)()()(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 yii\base\BaseObject <|-- yii\base\Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
