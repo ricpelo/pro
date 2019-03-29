@@ -9,10 +9,10 @@ IMAGES=images
 BUILDDIRPDF=$(BUILDDIR)/pdf
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
-REVEAL_TEMPLATE=$(AUX)/pandoc_revealjs.template
-LATEX_TEMPLATE=$(AUX)/plantilla.tex
-PREAMBULO=$(AUX)/preambulo.tex
-PREAMBULO_LATEX=$(AUX)/preambulo_latex.tex
+REVEAL_TEMPLATE=$(AUX)/revealjs.template
+LATEX_TEMPLATE=$(AUX)/beamer.template
+PREAMBULO_BEAMER=$(AUX)/preambulo-beamer.tex
+PREAMBULO_LATEX=$(AUX)/preambulo-latex.tex
 HEADER_INCLUDES=$(AUX)/header-includes.html
 INCLUDE_BEFORE=$(AUX)/include-before.html
 PHP_XML=$(AUX)/php.xml
@@ -70,13 +70,13 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V lang=es-ES -o $@
 
-$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
+$(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
 	@./pp -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
-		-H $(PREAMBULO) \
+		-H $(PREAMBULO_BEAMER) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
