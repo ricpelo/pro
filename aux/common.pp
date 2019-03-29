@@ -33,7 +33,7 @@
 
 !define(UML2)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!uml(!IMAGES/!1 {.plain !WIDTH})()
+!uml(!IMAGES/!1 {!WIDTH .plain})()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
@@ -43,10 +43,10 @@ skinparam backgroundColor transparent
 
 !define(UML3)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!uml(!IMAGES/!1 {.plain !WIDTH})(!2)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!uml(!IMAGES/!1 {!WIDTH .plain})(!2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2.5
 skinparam backgroundColor transparent
 !3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
