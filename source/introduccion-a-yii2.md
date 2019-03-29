@@ -13,25 +13,13 @@ date: IES Doñana, curso 2018-19
 
 ::: {.column width="50%"}
 
-!ifdef(LATEX)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!IMGP(rubyonrails.png)()(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!IMGP(rubyonrails.png)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(rubyonrails.png)()()(width=30%)
 
 :::
 
 ::: {.column width="50%"}
 
-!ifdef(LATEX)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!IMG(dhh.jpg)(David Heinemeier Hansson)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!IMG(dhh.jpg)(David Heinemeier Hansson)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMG(dhh.jpg)(David Heinemeier Hansson)()(width=30%)
 
 :::
 
@@ -403,7 +391,7 @@ Con un framework:
 
 ---
 
-!IMGP(mvc-request-flow.png)()(width=80%)
+!IMGP(mvc-request-flow.png)()(width=100%)(width=100%)
 
 ## Modelos
 
