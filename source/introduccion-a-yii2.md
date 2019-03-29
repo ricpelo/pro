@@ -87,7 +87,7 @@ facilitan la reutilización de código.
 
 ---
 
-!IMG(symfony.png)([https://symfony.com](https://symfony.com))(.plain width=50%)
+!IMGP(symfony.png)([https://symfony.com](https://symfony.com))
 
 :::::::::::::: {.columns}
 
@@ -379,19 +379,19 @@ Con un framework:
 
 ## Visión general
 
-!IMG(MVC-Diagram.gif)()(width=50%)
+!IMG(MVC-Diagram.gif)
 
 ---
 
-!IMG(mvc_role_diagram.png)()(.plain width=70%)
+!IMGP(mvc_role_diagram.png)
 
 ---
 
-!IMG(mvc-architecture.jpg)()(width=75%)
+!IMG(mvc-architecture.jpg)
 
 ---
 
-!IMG(mvc-request-flow.png)()(.plain width=80%)
+!IMGP(mvc-request-flow.png)
 
 ## Modelos
 
@@ -566,7 +566,7 @@ un nuevo proyecto.
 - Para crear un proyecto nuevo con la estructura de la plantilla básica:
 
   ```console
-  $ composer create-project yiisoft/yii2-app-basic <directorio> < pepe > juan
+  $ composer create-project yiisoft/yii2-app-basic <directorio>
   ```
 
 - Creará un directorio llamado *`<directorio>`* donde se volcará el contenido de
@@ -593,18 +593,18 @@ ligera variante.
 
 | Feature  |  Básica  |  Avanzada |
 |---|:---:|:---:|
-| Estructura de proyecto | ✓ | ✓ |
-| Controlador Site | ✓ | ✓ |
-| Login/logout de usuarios | ✓ | ✓ |
-| Formularios | ✓ | ✓ |
-| Conexión a BBDD | ✓ | ✓ |
-| Comandos de consola | ✓ | ✓ |
-| Asset bundles | ✓ | ✓ |
-| Tests de Codeception | ✓ | ✓ |
-| Twitter Bootstrap  | ✓ | ✓ |
-| Aplicaciones *front-end* y *back-end* |    | ✓ |
-| Modelo de usuario listo para usar |    | ✓ |
-| Registro de usuarios y recuperación de contraseñas |     | ✓ |
+| Estructura de proyecto | ✔ | ✔ |
+| Controlador Site | ✔ | ✔ |
+| Login/logout de usuarios | ✔ | ✔ |
+| Formularios | ✔ | ✔ |
+| Conexión a BBDD | ✔ | ✔ |
+| Comandos de consola | ✔ | ✔ |
+| Asset bundles | ✔ | ✔ |
+| Tests de Codeception | ✔ | ✔ |
+| Twitter Bootstrap  | ✔ | ✔ |
+| Aplicaciones *front-end* y *back-end* |    | ✔ |
+| Modelo de usuario listo para usar |    | ✔ |
+| Registro de usuarios y recuperación de contraseñas |     | ✔ |
 
 ## Plantilla básica modificada
 

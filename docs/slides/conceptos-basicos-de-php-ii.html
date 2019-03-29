@@ -4,12 +4,75 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Conceptos básicos de PHP (II)</title>
+  <title>Conceptos básicos de PHP II</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -94,7 +157,7 @@
 
 <section>
 <section id="title-slide" class="title-slide slide level1">
-  <h1 class="title">Conceptos básicos de PHP (II)</h1>
+  <h1 class="title">Conceptos básicos de PHP II</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2018-19</p>
 </section>
@@ -102,31 +165,41 @@
 <ul>
 <li><a href="#/flujo-de-control"><span class="toc-section-number">1</span> Flujo de control</a></li>
 <li><a href="#/funciones-predefinidas-destacadas"><span class="toc-section-number">2</span> Funciones predefinidas destacadas</a></li>
-<li><a href="#/arrays"><span class="toc-section-number">3</span> Arrays</a></li>
-<li><a href="#/funciones-definidas-por-el-usuario"><span class="toc-section-number">4</span> Funciones definidas por el usuario</a></li>
+<li><a href="#/arrays"><span class="toc-section-number">3</span> <span>Arrays</span></a></li>
+<li><a href="#/funciones-definidas-por-el-usuario"><span class="toc-section-number">4</span> <span>Funciones definidas por el usuario</span></a></li>
 <li><a href="#/comentarios-y-documentación-del-código"><span class="toc-section-number">5</span> Comentarios y documentación del código</a></li>
+<li><a href="#/ejercicios"><span class="toc-section-number">6</span> Ejercicios</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="flujo-de-control" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Flujo de control</h1></section><section id="estructuras-de-control" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Estructuras de control</h2></section><section id="inclusión-de-scripts" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Inclusión de scripts</h2></section></section>
-<section><section id="funciones-predefinidas-destacadas" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Funciones predefinidas destacadas</h1></section><section id="isset" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> <code>isset()</code></h2></section><section id="empty" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> <code>empty()</code></h2></section><section id="var_dump" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> <code>var_dump()</code></h2></section></section>
-<section><section id="arrays" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Arrays</h1></section><section id="arrays-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Arrays</h2></section><section id="operadores-para-arrays" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Operadores para arrays</h2></section><section id="funciones-de-manejo-de-arrays" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Funciones de manejo de arrays</h2></section><section id="foreach" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> <code>foreach</code></h2></section><section id="conversión-a-array" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Conversión a array</h2></section><section id="ejemplo-argv-en-cli" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Ejemplo: <code>$argv</code> en CLI</h2></section></section>
-<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones definidas por el usuario</h1></section><section id="funciones-definidas-por-el-usuario-1" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Funciones definidas por el usuario</h2></section><section id="argumentos" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Argumentos</h2><ul>
-<li>Paso de argumentos por valor y por referencia</li>
-<li>Argumentos por defecto</li>
-</ul></section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Ámbito de variables</h2><ul>
-<li>Ámbito simple al archivo</li>
-<li>Variables locales</li>
-<li>Uso de <code>global</code></li>
-<li>Variables superglobales</li>
-</ul></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Declaraciones de tipos</h2><ul>
-<li>Declaraciones de tipos de argumento</li>
-<li>Declaraciones de tipo de devolución</li>
-<li>Tipos <em>nullable</em> y <code>void</code></li>
-<li>Tipificación estricta</li>
-</ul></section></section>
-<section id="comentarios-y-documentación-del-código" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Comentarios y documentación del código</h1></section>
+<section><section id="flujo-de-control" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Flujo de control</h1></section><section id="estructuras-de-control" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> <a href="http://php.net/manual/es/language.control-structures.php">Estructuras de control</a></h2></section><section id="sintaxis-alternativa" class="title-slide slide level3"><h3><span class="header-section-number">1.1.1</span> <a href="http://php.net/manual/es/control-structures.alternative-syntax.php">Sintaxis alternativa</a></h3><p>ricpelo’s note: El <code>do { ... } while (...);</code> <strong>no</strong> tiene sintaxis alternativa.</p></section><section id="inclusión-de-scripts" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Inclusión de scripts</h2></section><section id="include-require" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> <a href="http://php.net/manual/es/function.include.php"><code>include</code></a>, <code>require</code></h3><p>ricpelo’s note: - El nombre del archivo debe aparecer con su extensión. No vale hacer <code>require 'pepe';</code>.<br />
+- Cuando un archivo es incluido, el intérprete abandona el modo PHP e ingresa al modo HTML al comienzo del archivo objetivo y se reanuda de nuevo al final.<br />
+- Si el archivo incluido tiene un <code>return ...;</code>, el <code>include</code> o el <code>require</code> que lo incluya devolverá el valor devuelto por el <code>return</code>.<br />
+- Si no se usa una ruta, se busca primero en el <code>include_path</code> <strong>antes</strong> que en el directorio del propio script que hace el <code>include</code>. Por eso es mejor usar <code>require './pepe.php'</code> que <code>require 'pepe.php'</code>.<br />
+- Puede ser útil usar la constante <code>__DIR__</code>.</p></section><section id="include_once-require_once" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> <a href="http://php.net/manual/es/function.include-once.php"><code>include_once</code></a>, <code>require_once</code></h3></section></section>
+<section><section id="funciones-predefinidas-destacadas" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Funciones predefinidas destacadas</h1></section><section id="isset" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> <a href="http://php.net/manual/es/function.isset.php"><code>isset()</code></a></h2><p>ricpelo’s note: Cuidado si la variable contiene <code>null</code>.<br />
+ricpelo’s note: No da error ni advertencia si la variable no existe.</p></section><section id="empty" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> <a href="http://php.net/manual/es/function.empty.php"><code>empty()</code></a></h2><p>ricpelo’s note: Para evitar el problema de <code>empty("0") === true</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">function</span> is_blank<span class="ot">(</span><span class="va">$value</span><span class="ot">)</span> {  </a>
+<a class="sourceLine" id="cb1-2" title="2">    <span class="kw">return</span> <span class="kw">empty</span><span class="ot">(</span><span class="va">$value</span><span class="ot">)</span> &amp;&amp; !<span class="fu">is_numeric</span><span class="ot">(</span><span class="va">$value</span><span class="ot">);</span>  </a>
+<a class="sourceLine" id="cb1-3" title="3">}  </a></code></pre></div>
+<p>ricpelo’s note: No da error ni advertencia si la variable no existe.</p></section><section id="var_dump" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> <a href="http://php.net/manual/es/function.var-dump.php"><code>var_dump()</code></a></h2></section></section>
+<section><section id="arrays" class="title-slide slide level1"><h1><span class="header-section-number">3</span> <a href="http://php.net/manual/es/language.types.array.php">Arrays</a></h1><p>ricpelo’s note: Las claves pueden ser enteros o cadenas.</p></section><section id="operadores-para-arrays" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> <a href="http://php.net/manual/es/language.operators.array.php">Operadores para arrays</a></h2><p>ricpelo’s note: <strong>Comparaciones</strong>: Un <code>array</code> con menos elementos es menor. De otra forma, compara valor por valor.</p></section><section id="acceso-modificación-y-agregación" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> <a href="http://php.net/manual/es/language.types.array.php#language.types.array.syntax.modifying">Acceso, modificación y agregación</a></h3></section><section id="funciones-de-manejo-de-arrayshttpphp.netmanualesbook.array.php" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> <a href="http://php.net/manual/es/ref.array.php">[Funciones de manejo de arrays](http://php.net/manual/es/book.array.php)</a></h2></section><section id="ordenación-de-arrays" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> <a href="http://php.net/manual/es/array.sorting.php">Ordenación de arrays</a></h3></section><section id="print_r" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> <code>print_r()</code></h3></section><section id="vs.-array_merge" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> <code>'+'</code> vs. <code>array_merge()</code></h3></section><section id="isset-vs.-array_key_exists" class="title-slide slide level3"><h3><span class="header-section-number">3.2.4</span> <a href="http://php.net/manual/es/function.array-key-exists.php#107786"><code>isset()</code> vs. <code>array_key_exists()</code></a></h3></section><section id="foreach" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> <a href="http://php.net/manual/es/control-structures.foreach.php"><code>foreach</code></a></h2></section><section id="conversión-a-array" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> <a href="http://php.net/manual/es/language.types.array.php#language.types.array.casting">Conversión a <code>array</code></a></h2></section><section id="ejemplo-argv-en-cli" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> <a href="http://php.net/manual/es/reserved.variables.argv.php"><em>Ejemplo</em>: <code>$argv</code> en CLI</a></h2></section></section>
+<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">4</span> <a href="http://php.net/manual/es/language.functions.php">Funciones definidas por el usuario</a></h1></section><section id="argumentos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <a href="http://php.net/manual/es/functions.arguments.php">Argumentos</a></h2></section><section id="paso-de-argumentos-por-valor-y-por-referencia" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> <a href="http://php.net/manual/es/functions.arguments.php#functions.arguments.by-reference">Paso de argumentos por valor y por referencia</a></h3></section><section id="argumentos-por-defecto" class="title-slide slide level3"><h3><span class="header-section-number">4.1.2</span> <a href="http://php.net/manual/es/functions.arguments.php#functions.arguments.default">Argumentos por defecto</a></h3><p>ricpelo’s note: <code>php   function prueba($opciones = []) {       extract($opciones);       // ...   }</code></p></section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <a href="http://php.net/language.variables.scope">Ámbito de variables</a></h2></section><section id="ámbito-simple-al-archivo" class="title-slide slide level3"><h3><span class="header-section-number">4.2.1</span> Ámbito simple al archivo</h3></section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">4.2.2</span> Variables locales</h3></section><section id="uso-de-global" class="title-slide slide level3"><h3><span class="header-section-number">4.2.3</span> Uso de <code>global</code></h3><p>ricpelo’s note: Usar <code>global $x;</code> cuando <code>$x</code> no existe hace que <code>$x</code> empiece a existir y valga <code>null</code>.</p></section><section id="variables-superglobales" class="title-slide slide level3"><h3><span class="header-section-number">4.2.4</span> <a href="http://php.net/manual/es/language.variables.superglobals.php">Variables superglobales</a></h3></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Declaraciones de tipos</h2><p>ricpelo’s note: <strong>NO</strong> se hacen conversiones implícitas a <code>array</code>, ni en argumentos ni en devolución.</p></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">4.3.1</span> <a href="http://php.net/manual/es/functions.arguments.php#functions.arguments.type-declaration">Declaraciones de tipo de argumento</a></h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">4.3.2</span> <a href="http://php.net/manual/es/functions.returning-values.php#functions.returning-values.type-declaration">Declaraciones de tipo de devolución</a></h3></section><section id="tipos-nullable-y-void" class="title-slide slide level3"><h3><span class="header-section-number">4.3.3</span> <a href="http://php.net/manual/es/migration71.new-features.php">Tipos <em>nullable</em> (<code>?</code>) y <code>void</code></a></h3><p>ricpelo’s note: Una función de tipo <code>void</code> realmente devuelve <code>null</code>.</p></section><section id="tipificación-estricta" class="title-slide slide level3"><h3><span class="header-section-number">4.3.4</span> <a href="http://php.net/manual/es/functions.arguments.php#functions.arguments.type-declaration.strict">Tipificación estricta</a></h3><p>ricpelo’s note: El <code>declare(strict_types=1);</code> se pone en el archivo que hace la llamada, no en el que define la función.</p></section></section>
+<section id="comentarios-y-documentación-del-código" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Comentarios y documentación del código</h1><p>ricpelo’s note: ```coffeescript<br />
+# ~/.atom/snippets.cson<br />
+‘.text.html.php’:<br />
+‘Comentario de archivo’:<br />
+‘prefix’: ‘com’<br />
+‘body’: """<br />
+/**<br />
+* <span class="citation" data-cites="author">@author</span> Ricardo Pérez López<br />
+* <span class="citation" data-cites="copyright">@copyright</span> Copyright (c) 2017 Ricardo Pérez López<br />
+* <span class="citation" data-cites="license">@license</span> https://www.gnu.org/licenses/gpl.txt<br />
+*/</p>
+<pre><code>    &quot;&quot;&quot;  </code></pre>
+<p>```</p></section>
+<section><section id="ejercicios" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Ejercicios</h1></section><section id="hola-mundo" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> <a href="https://github.com/iesdonana/hola-mundo">¡Hola, mundo!</a></h2></section><section id="hamming" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> <a href="https://github.com/iesdonana/hamming">Hamming</a></h2></section><section id="isograma" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> <a href="https://github.com/iesdonana/isograma">Isograma</a></h2></section></section>
     </div>
   </div>
 
