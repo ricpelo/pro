@@ -17,8 +17,9 @@ HEADER_INCLUDES=$(AUX)/header-includes.html
 INCLUDE_BEFORE=$(AUX)/include-before.html
 PHP_XML=$(AUX)/php.xml
 CONSOLE_XML=$(AUX)/console.xml
-PP=pp
+PP=./pp
 COMMON_PP=$(AUX)/common.pp
+DIAPOSITIVAS_SH=$(SCRIPTS)/diapositivas.sh
 ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
@@ -40,7 +41,7 @@ apuntes: $(APUNTESPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
-	@./pp -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+	@$(PP) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE) \
@@ -55,7 +56,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 
 $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
-	@./pp -DLATEX -import $(COMMON_PP) $< | pandoc -s -t latex \
+	@$(PP) -DLATEX -import $(COMMON_PP) $< | pandoc -s -t latex \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=2 -N \
 		-H $(PREAMBULO_LATEX) \
@@ -72,7 +73,7 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@./pp -import $(COMMON_PP) $< | pandoc -s -t beamer \
+	@($PP) -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
@@ -97,8 +98,8 @@ $(PANDOC):
 $(ITHACA):
 	@rsync -qa --delete "$(ITHACA_SRC)" "$(ITHACA_DST)"
 
-$(DIAPOS): $(SOURCES)
-	$(SCRIPTS)/diapositivas.sh > $(DIAPOS)
+$(DIAPOS): $(SOURCES) $(DIAPOSITIVAS_SH)
+	$(DIAPOSITIVAS_SH) > $(DIAPOS)
 
 $(REVEAL):
 	git submodule update --init --recursive
