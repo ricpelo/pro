@@ -2,8 +2,11 @@
 
 SOURCE="source"
 
-echo "---\ntitle: Diapositivas y apuntes\n---\n"
 cat << EOT
+---
+title: Diapositivas y apuntes
+---
+
 Los materiales de las diferentes unidades didácticas se organizan de la siguiente manera:
 
 - **HTML**: Diapositivas para su visualización *online* desde un navegador, por lo que requiere conexión a Internet. Estructura las diapositivas en una matriz de filas y columnas para facilitar la navegación. Además pueden encontrarse actividades de preguntas y respuestas interactivas sencillas intercalados en el texto.
