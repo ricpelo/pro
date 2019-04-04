@@ -223,7 +223,7 @@ Algunas posibles configuraciones:
 [ 'dos' => 18 ]
 ```
 
-\vspace{1em}
+!ifdef(BEAMER)(\vspace{1em})
 
 Se pueden aplicar a un objeto ya existente:
 

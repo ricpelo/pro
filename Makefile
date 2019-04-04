@@ -41,7 +41,7 @@ apuntes: $(APUNTESPDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
-	@$(PP) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+	@$(PP) -DHTML -import $(COMMON_PP) $< | pandoc -s -t revealjs \
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE) \
@@ -73,7 +73,7 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@$(PP) -import $(COMMON_PP) $< | pandoc -s -t beamer \
+	@$(PP) -DBEAMER -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
