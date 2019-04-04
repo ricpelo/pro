@@ -1,10 +1,11 @@
 \usepackage{etoolbox}
+
+% Por defecto, muestra el texto centrado en las diapositivas:
 \makeatletter
 \apptocmd\beamer@framenotesbegin
   {\centering}
   {}{}
 \makeatother
-
 \AtBeginDocument{%
   \letcs\oig{@orig\string\includegraphics}%
   \renewcommand<>\includegraphics[2][]{%
@@ -14,16 +15,17 @@
   }%
 }
 
+% El texto monoespaciado se muestra de otro color:
 \definecolor{ttcolor}{RGB}{64,112,161}
-
-% redefinition of \texttt
 \let\Oldtexttt\texttt
 \renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
 
+% Cambia varios tamaños de tipografías:
 \setbeamersize{text margin left=4em,text margin right=4em}
 \setbeamerfont{section title}{size={\fontsize{16}{18}}}
 \setbeamerfont{title}{size={\fontsize{18}{26}}}
 
+% Los bloques de código se muestran enmarcados:
 \usepackage[framemethod=TikZ]{mdframed}
 \mdfdefinestyle{codedefault}{%
 backgroundcolor=black!4,
@@ -52,6 +54,7 @@ skipbelow=10}
 \def\verbatim@nolig@list{}
 \makeatother
 
+% Apaño para que Pandoc traduzca lo que hay entre \begin{...} y \end{...}:
 \newcommand{\hideFromPandoc}[1]{#1}
 \hideFromPandoc{
     \let\Begin\begin

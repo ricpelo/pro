@@ -1,11 +1,11 @@
 \usepackage{etoolbox}
 
+% El texto monoespaciado se muestra de otro color:
 \definecolor{ttcolor}{RGB}{64,112,161}
-
-% redefinition of \texttt
 \let\Oldtexttt\texttt
 \renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
 
+% Los bloques de código se muestran enmarcados:
 \usepackage[framemethod=TikZ]{mdframed}
 \mdfdefinestyle{codedefault}{%
 backgroundcolor=black!4,
@@ -34,15 +34,18 @@ skipbelow=10}
 \def\verbatim@nolig@list{}
 \makeatother
 
+% En los apuntes no hay columnas al estilo Beamer:
 \newenvironment{columns}[1][1]{}{}
 \newenvironment{column}[1]{}{}
 
+% Apaño para que Pandoc traduzca lo que hay entre \begin{...} y \end{...}:
 \newcommand{\hideFromPandoc}[1]{#1}
 \hideFromPandoc{
     \let\Begin\begin
     \let\End\end
 }
 
+% Puntos tras los números de sección y en la tabla de contenidos:
 \usepackage{titlesec}
 \usepackage[dotinlabels]{titletoc}
 \titlelabel{\thetitle.\quad}
@@ -51,9 +54,11 @@ skipbelow=10}
 \def\fps@figure{h}
 \makeatother
 
+% No muestra "Figura #: ":
 \usepackage{caption}
 \captionsetup[figure]{labelformat=empty}
 
+% Se puede hacer un salto de línea tras :: en texto monoespaciado:
 \usepackage{xparse}
 \ExplSyntaxOn
 \NewDocumentCommand{\replace}{mmm}
