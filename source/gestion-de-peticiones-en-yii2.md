@@ -1,7 +1,7 @@
 ---
 title: Gestión de peticiones en Yii 2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2018-19
+!DATE
 ---
 
 # [Introducción](http://www.yiiframework.com/doc-2.0/guide-runtime-overview.html)

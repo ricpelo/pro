@@ -29,6 +29,7 @@ PROG_DIR=programacion
 PROG=INF-2DAW-DWESE-C19-20
 PROG_LYX=$(PROG_DIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
+CURSO=2019/2020
 
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
@@ -51,7 +52,7 @@ $(PROG_PDF): $(PROG_LYX)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
-	@$(PP) -DHTML -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE) \
@@ -66,7 +67,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 
 $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
-	@$(PP) -DLATEX -import $(COMMON_PP) $< | pandoc -s -t latex \
+	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t latex \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=2 -N \
 		-H $(PREAMBULO_LATEX) \
@@ -83,7 +84,7 @@ $(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $
 
 $(BUILDDIRPDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@$(PP) -DBEAMER -import $(COMMON_PP) $< | pandoc -s -t beamer \
+	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \

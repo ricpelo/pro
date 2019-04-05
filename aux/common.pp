@@ -3,6 +3,7 @@
 DEFINICIONES GENERALES
 ~~~~~~~~~~~~~~~~~~~~~~
 
+!define(DATE)(date: IES Doñana, curso !CURSO)
 !define(IMAGES)(images)
 !define(WIDTH)(width=!ifdef(LATEX)(60%)(80%))
 !define(UMLCOMMON)

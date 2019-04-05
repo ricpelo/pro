@@ -1,7 +1,7 @@
 ---
 title: Estructura a pequeña escala de una aplicación Yii 2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2018-19
+!DATE
 ---
 
 # Componentes

@@ -1,7 +1,7 @@
 ---
 title: Interoperabilidad
 author: Ricardo Pérez López
-date: IES Doñana, curso 2018-19
+!DATE
 ---
 
 # [Versionado semántico](https://semver.org/lang/es/)

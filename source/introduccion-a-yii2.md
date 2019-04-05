@@ -1,7 +1,7 @@
 ---
 title: Introducción a Yii 2
 author: Ricardo Pérez López
-date: IES Doñana, curso 2018-19
+!DATE
 ---
 
 # Frameworks, microframeworks y librerías

@@ -1,7 +1,7 @@
 ---
 title: Conceptos básicos de PHP II
 author: Ricardo Pérez López
-date: IES Doñana, curso 2018-19
+!DATE
 ---
 
 
