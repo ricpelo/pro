@@ -1,4 +1,4 @@
-.PHONY: all html pdf clean limpiar setup $(ITHACA)
+.PHONY: all html pdf prog clean limpiar serve $(ITHACA)
 
 AUX=aux
 SCRIPTS=scripts
@@ -25,19 +25,29 @@ ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 PANDOC=/usr/bin/pandoc
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
+PROG_DIR=programacion
+PROG=INF-2DAW-DWESE-C19-20
+PROG_LYX=$(PROG_DIR)/$(PROG).lyx
+PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
 
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
 APUNTESPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=-apuntes.pdf))
 
-all: $(DIAPOS) html pdf apuntes limpiar
+all: $(DIAPOS) html pdf apuntes prog limpiar
 
 html: $(OBJECTSHTML)
 
 pdf: $(OBJECTSPDF)
 
 apuntes: $(APUNTESPDF)
+
+prog: $(PROG_PDF)
+
+$(PROG_PDF): $(PROG_LYX)
+	@lyx -E pdf2 $(PROG_DIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
+	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
 
 $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
@@ -105,7 +115,7 @@ $(REVEAL):
 	git submodule update --init --recursive
 
 clean:
-	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(APUNTESPDF) $(ITHACA_DST)/$(ITHACA)
+	rm -rf $(OBJECTSHTML) $(OBJECTSPDF) $(APUNTESPDF) $(ITHACA_DST)/$(ITHACA) $(PROG_PDF)
 
 limpiar:
 	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
