@@ -19,6 +19,55 @@
 \maintain_unincluded_children false
 \begin_local_layout
 Format 66
+
+Counter longenum
+        LabelString          "-"
+End
+
+Counter longenumi
+        LabelString          "\arabic{longenumi}."
+End
+
+Counter longenumii
+        Within               longenumi
+        LabelString          "(\alph{longenumii})"
+End
+
+Counter longenumiii
+        Within               longenumii
+        LabelString          "\roman{longenumiii}."
+End
+
+Counter longenumiv
+        Within               longenumiii
+        LabelString          "\Alph{longenumiv}."
+End
+
+Counter longenumv
+        Within               longenumiv
+        LabelString          "\arabic{longenumv}."
+End
+
+Counter longenumvi
+        Within               longenumv
+        LabelString          "(\alph{longenumvi})"
+End
+
+Counter longenumvii
+        Within               longenumvi
+        LabelString          "\roman{longenumvii}."
+End
+
+Counter longenumviii
+        Within               longenumvii
+        LabelString          "\Alph{longenumviii}."
+End
+Counter longenumix
+        Within               longenumviii
+        LabelString          "\Alph{longenumix}."
+End
+
+
 Style Longenum
         Category              List
         Margin                Static
@@ -36,7 +85,7 @@ Style Longenum
         Align                 Block
         AlignPossible         Block, Left
         LabelType             Enumerate
-        LabelCounter          "enum"
+        LabelCounter          "longenum"
         HTMLTag               ol
         HTMLItem              li
         HTMLLabel             NONE
@@ -45,21 +94,12 @@ Style Longenum
                 LabelString   "Custom Item|s"
                 Tooltip       "A customized item string"
         EndArgument
-Preamble
-\usepackage{enumitem}
-\setlistdepth{9}
-\newlist{longenum}{enumerate}{9}
-\setlist[longenum]{label*=\arabic*.}
-%\setlist[longenum,1]{label=(\arabic*)}
-%\setlist[longenum,2]{label=(\Roman*)}
-%\setlist[longenum,3]{label=(\Alph*)}
-%\setlist[longenum,4]{label=(\roman*)}
-%\setlist[longenum,5]{label=(\alph*)}
-%\setlist[longenum,6]{label=(\arabic*)}
-%\setlist[longenum,7]{label=(\Roman*)}
-%\setlist[longenum,8]{label=(\Alph*)}
-%\setlist[longenum,9]{label=(\roman*)}
-EndPreamble
+        Preamble
+                \usepackage{enumitem}
+                \setlistdepth{9}
+                \newlist{longenum}{enumerate}{9}
+                \setlist[longenum]{label*=\arabic*.}
+        EndPreamble
 End
 \end_local_layout
 \language spanish
@@ -6301,10 +6341,6 @@ CE9.g
 \end_deeper
 \end_deeper
 \end_deeper
-\begin_layout Longenum
-
-\end_layout
-
 \begin_layout Longenum
 
 \series bold
