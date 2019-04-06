@@ -4,9 +4,10 @@ AUX=aux
 SCRIPTS=scripts
 SRCDIR=source
 BUILDDIR=docs
-BUILDDIRHTML=$(BUILDDIR)/slides
 IMAGES=images
+BUILDDIRHTML=$(BUILDDIR)/slides
 BUILDDIRPDF=$(BUILDDIR)/pdf
+BUILDDIRAPUNTES=$(BUILDDIR)/apuntes
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIRHTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/revealjs.template
@@ -34,7 +35,7 @@ CURSO=2019/2020
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTSHTML := $(patsubst $(SRCDIR)/%,$(BUILDDIRHTML)/%,$(SOURCES:.md=.html))
 OBJECTSPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=.pdf))
-APUNTESPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRPDF)/%,$(SOURCES:.md=-apuntes.pdf))
+APUNTESPDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIRAPUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
 
 all: $(DIAPOS) html pdf apuntes prog limpiar
 
@@ -66,7 +67,7 @@ $(BUILDDIRHTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLA
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
 
-$(BUILDDIRPDF)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
+$(BUILDDIRAPUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t latex \
 	    --template=$(LATEX_TEMPLATE) \

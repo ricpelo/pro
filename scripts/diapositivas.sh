@@ -25,7 +25,7 @@ echo "| ------ |:----:|:---:|:-------:|"
 for f in $FILES; do
     HTML="slides/${f%.md}.html"
     PDF="pdf/${f%.md}.pdf"
-    APUNTES="pdf/${f%.md}-apuntes.pdf"
+    APUNTES="apuntes/${f%.md}-apuntes.pdf"
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
     echo "| $TITLE | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
 done
