@@ -47,6 +47,7 @@ apuntes: $(APUNTESPDF)
 prog: $(PROG_PDF)
 
 $(PROG_PDF): $(PROG_LYX)
+	@echo "Generando $(PROG_PDF)..."
 	@lyx -E pdf2 $(PROG_DIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
 	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
 
