@@ -220,7 +220,7 @@ ricpelo's note: Diferencias entre constantes y variables:
 
 # Ejercicios
 
-## Ejercicios
+## Actividades
 
 #. Busca información sobre la función `time()` usando, al menos, tres formas distintas.
 
@@ -229,3 +229,20 @@ ricpelo's note: Diferencias entre constantes y variables:
    #. Una expresión y una sentencia.
    #. Una sentencia y un comando.
    #. Una función y un operador.
+
+#. ¿Es `echo` una función? ¿A dónde acudes para saberlo?
+
+#. ¿Es lo mismo *modo de ejecución* que *modo de operación*? Explica cuáles son y en qué consisten los diferentes modos de ejecución y de operación en PHP.
+
+#. ¿Qué ventajas e inconvenientes tiene usar PsySH frente al intérprete integrado?
+
+---
+
+#. ¿Qué tipos de asignación de variables existen en PHP? Explica sus diferencias y pon ejemplos de uso.
+
+#. ¿Qué son las variables predefinidas? Enumera las más importantes.
+
+## Problemas
+
+#. Escribir un programa en PHP que...
+
