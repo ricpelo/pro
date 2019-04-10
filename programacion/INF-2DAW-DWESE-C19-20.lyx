@@ -7,14 +7,20 @@
 \textclass scrartcl
 \begin_preamble
 \usepackage{lastpage}
+\usepackage{ifthen}
 \renewcommand{\multirowsetup}{\centering}
 \newcommand{\nota}[1]{\textbf{\textsf{#1}}}
 \newcommand{\TR}{\nota{TR}}
 \newcommand{\EX}{\nota{EX}}
 \newcommand{\NOTA}{\nota{NOTA}}
 \newcommand{\EV}[1]{\nota{EV\textsubscript{#1}}}
+\newcommand{\ev}[1]{%
+    \ifthenelse{\equal{#1}{1}}{\textcolor{blue}{\emph{\#ev1}}}{%
+    \ifthenelse{\equal{#1}{2}}{\textcolor{purple}{\emph{\#ev2}}}{}}}
+\newcommand{\opcional}{\textcolor{teal}{\emph{\#opcional}}}
+\setlist[itemize,1]{leftmargin=1.3cm}
 \end_preamble
-\options titlepage
+\options titlepage,numbers=endperiod
 \use_default_options false
 \maintain_unincluded_children false
 \begin_local_layout
@@ -528,15 +534,17 @@ pagestyle{empty}
 Normativa de aplicación:
 \series default
  
-\emph on
-Orden de 16 de junio de 2011
-\emph default
-, por la que se desarrolla el currículo correspondiente al título de Técnico
- Superior en Desarrollo de Aplicaciones Web.
- 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "orden-16-06-2011"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "orden-29-09-2010"
 literal "false"
 
 \end_inset
@@ -585,7 +593,15 @@ La formación del módulo contribuye a alcanzar los
 \series bold
 objetivos generales
 \series default
- de este ciclo formativo que se relacionan a continuación:
+ de este ciclo formativo que se relacionan a continuación 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "orden-16-06-2011"
+literal "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_deeper
@@ -792,7 +808,15 @@ La formación del módulo contribuye a alcanzar las
 \series bold
 competencias profesionales, personales y sociales
 \series default
- de este título que se relacionan a continuación:
+ de este título que se relacionan a continuación 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "orden-16-06-2011"
+literal "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_deeper
@@ -977,6 +1001,19 @@ Resolver situaciones, problemas o contingencias con iniciativa y autonomía
 \end_deeper
 \begin_layout Section
 Resultados de aprendizaje y criterios de evaluación
+\end_layout
+
+\begin_layout Standard
+Según se establece en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "orden-16-06-2011"
+literal "false"
+
+\end_inset
+
+, los resultados de aprendizaje del módulo y sus criterios de evaluación
+ asociados son los que se describen a continuación:
 \end_layout
 
 \begin_layout Standard
@@ -2425,7 +2462,7 @@ begingroup
 
 
 \backslash
-setlist[itemize,1]{leftmargin=2.5cm, itemindent=-0.2cm}
+setlist[itemize,1]{leftmargin=2.5cm,itemindent=-0.2cm}
 \end_layout
 
 \end_inset
@@ -2708,6 +2745,49 @@ Para verificar que se han alcanzado las competencias básicas anteriores,
 Medidas de recuperación
 \end_layout
 
+\begin_layout Paragraph
+Recuperación del apartado 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TR
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A lo largo del curso se abrirán nuevas ventanas temporales para que el alumnado
+ entregue las correcciones necesarias en aquellas actividades que estén
+ pendientes de evaluación positiva.
+ La evaluación de tales correcciones podrá requerir la defensa de las mismas
+ en una entrevista individual con el alumno para garantizar la autoría y
+ la adquisición adecuada de las competencias correspondientes.
+\end_layout
+
+\begin_layout Paragraph
+Recuperación del apartado 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+EX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 Al final de cada evaluación, o a comienzos de la evaluación siguiente, se
  llevará a cabo una prueba de recuperación para aquellos alumnos que tengan
@@ -2733,11 +2813,20 @@ una semana
 
 \begin_layout Standard
 Los contenidos marcados con la etiqueta 
-\emph on
-\color teal
-#opcional
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\backslash
+
+\end_layout
+
+\end_inset
+
  son contenidos complementarios que sólo se impartirán si hay tiempo suficiente
  para ello y nunca a costa de otros contenidos no opcionales.
  También podrán ser usados como elementos a desarrollar para el alumnado
@@ -3873,20 +3962,33 @@ Computación en la nube
 \uwave off
 \noun off
 \color none
-Servicios web con REST en Yii 2 
+Servicios web con REST en Yii 2
 \family default
 \series default
 \shape default
 \size default
-\emph on
+\emph default
 \bar default
 \strikeout default
 \xout default
 \uuline default
 \uwave default
 \noun default
-\color teal
-#opcional
+\color inherit
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3928,20 +4030,33 @@ Servicios web con REST en Yii 2
 \uwave off
 \noun off
 \color none
-Contenedores 
+Contenedores
 \family default
 \series default
 \shape default
 \size default
-\emph on
+\emph default
 \bar default
 \strikeout default
 \xout default
 \uuline default
 \uwave default
 \noun default
-\color teal
-#opcional
+\color inherit
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3979,11 +4094,18 @@ Cuando un resultado de aprendizaje no lleva asociado ningún criterio de
 Sistemas de control de versiones I
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-09-16)
 \end_layout
 
@@ -4089,9 +4211,19 @@ Alternativa: PhpStorm
 \end_deeper
 \begin_layout Longenum
 DokuWiki 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -4262,17 +4394,13 @@ master
 \begin_layout Longenum
 
 \family typewriter
-237ab45˖̂
+237ab45^
 \end_layout
 
 \begin_layout Longenum
 
 \family typewriter
-237ab45
-\begin_inset space ~
-\end_inset
-
-1
+237ab45~1
 \end_layout
 
 \end_deeper
@@ -4372,11 +4500,18 @@ RA4: CE4.g
 Sistemas de control de versiones II
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-09-23)
 \end_layout
 
@@ -4652,11 +4787,18 @@ RA4: CE4.g
 Introducción a la tecnología web
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-09-30)
 \end_layout
 
@@ -4867,16 +5009,12 @@ http://...
 \end_inset
 
  | pygmentize -l http
-\family default
- 
 \end_layout
 
 \begin_layout Longenum
 
 \family typewriter
 http
-\family default
- 
 \end_layout
 
 \begin_layout Longenum
@@ -4909,9 +5047,19 @@ Cookies
 \end_deeper
 \begin_layout Longenum
 Apache básico 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -4949,11 +5097,18 @@ RA1: CE1.a, CE1.b, CE1.c, CE1.d, CE1.e, CE1.g
 Conceptos básicos de PHP I
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-10-07)
 \end_layout
 
@@ -5149,9 +5304,19 @@ Acceso y modificación por caracteres
 
 \begin_layout Longenum
 Operador de incremento 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -5438,11 +5603,18 @@ RA4: CE4.g
 Conceptos básicos de PHP II
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-10-14)
 \end_layout
 
@@ -5716,11 +5888,18 @@ RA4: CE4.g
 Desarrollo de aplicaciones con PHP I
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-10-21)
 \end_layout
 
@@ -5994,9 +6173,19 @@ PsySH
 
 \begin_layout Longenum
 Xdebug 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -6067,11 +6256,18 @@ RA5: CE5.d, CE5.g, CE5.h
 Persistencia de datos con PHP
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-10-28)
 \end_layout
 
@@ -6347,11 +6543,18 @@ RA6: CE6.a, CE6.b, CE6.c, CE6.e, CE6.g
 Desarrollo de aplicaciones con PHP II
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-11-04)
 \end_layout
 
@@ -6517,11 +6720,18 @@ RA6: CE6.a, CE6.b, CE6.c, CE6.d, CE6.e, CE6.f, CE6.g, CE6.h
 Programación avanzada en PHP
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-11-11)
 \end_layout
 
@@ -6719,11 +6929,18 @@ RA5: CE5.g, CE5.h
 Interoperabilidad
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-11-18)
 \end_layout
 
@@ -6970,9 +7187,19 @@ PSR-19: PHPDoc tags (borrador)
 \end_deeper
 \begin_layout Longenum
 Paquetes de Atom y herramientas externas 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -7028,11 +7255,18 @@ RA9: CE9.a, CE9.b, CE9.e
 Introducción a Yii 2
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-11-25)
 \end_layout
 
@@ -7199,11 +7433,18 @@ RA9: CE9.b, CE9.c, CE9.e, CE9.f, CE9.g
 Estructura de una aplicación Yii 2
 \series default
  
-\emph on
-\color blue
-#ev1
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev1
+\end_layout
+
+\end_inset
+
  (est: 2019-12-02)
 \end_layout
 
@@ -7451,11 +7692,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Gestión de peticiones en Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-01-07)
 \end_layout
 
@@ -7511,11 +7759,18 @@ RA5: CE5.d, CE5.f, CE5.g, CE5.h
 Acceso a bases de datos en Yii 2
 \series default
  #3d 
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-01-13)
 \end_layout
 
@@ -8089,11 +8344,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Creación y validación de formularios en Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-01-20)
 \end_layout
 
@@ -8171,9 +8433,19 @@ Validadores en línea
 
 \begin_layout Longenum
 Validaciones en el cliente 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -8238,11 +8510,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Visualización de datos en Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-01-27)
 \end_layout
 
@@ -8655,9 +8934,19 @@ Scripts de cliente
 
 \begin_layout Longenum
 Temas 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Longenum
@@ -8717,11 +9006,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Seguridad y cacheado en Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-02-03)
 \end_layout
 
@@ -8851,11 +9147,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Características adicionales de Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-02-10)
 \end_layout
 
@@ -8871,16 +9174,36 @@ Validaciones Ajax
 
 \begin_layout Longenum
 PJAX 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Longenum
 CORS 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -8961,11 +9284,18 @@ RA9: CE9.e, CE9.f, CE9.g
 Calidad
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-02-17)
 \end_layout
 
@@ -9000,9 +9330,19 @@ Herramientas
 \begin_deeper
 \begin_layout Longenum
 PHPUnit 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Longenum
@@ -9044,9 +9384,19 @@ Integración continua: Travis CI
 
 \begin_layout Longenum
 Cobertura de código 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -9073,9 +9423,19 @@ Barra de depuración
 
 \begin_layout Longenum
 Depuración con PsySH 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -9156,11 +9516,18 @@ RA9: CE9.e, CE9.g
 Computación en la nube
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  (est: 2020-02-24)
 \end_layout
 
@@ -9245,16 +9612,36 @@ Releases
 \end_deeper
 \begin_layout Longenum
 Escalabilidad 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Longenum
 Alta disponibilidad 
-\emph on
-\color teal
-#opcional
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Longenum
@@ -9296,17 +9683,33 @@ RA9: CE9.e, CE9.f, CE9.g
 Servicios web con REST en Yii 2
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  
-\emph on
-\color teal
-#opcional
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\backslash
+
+\end_layout
+
+\end_inset
+
  (est: 2020-03-02)
 \end_layout
 
@@ -9398,17 +9801,33 @@ RA9: CE9.c, CE9.e, CE9.f, CE9.g
 Contenedores
 \series default
  
-\emph on
-\color purple
-#ev2
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ev2
+\end_layout
+
+\end_inset
+
  
-\emph on
-\color teal
-#opcional
-\emph default
-\color inherit
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\backslash
+
+\end_layout
+
+\end_inset
+
  (est: 2020-03-09)
 \end_layout
 
@@ -11954,18 +12373,33 @@ CE9.e CE9.f CE9.g
 \end_layout
 
 \begin_layout Section
-Orientaciones metodológicas
+Orientaciones pedagógicas
 \end_layout
 
 \begin_layout Standard
-Este módulo profesional contiene la formación necesaria para desempeñar
- la función de desarrollo de aplicaciones y servicios destinados a su ejecución
- por servidores en entornos Web.
+Según queda recogido en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "orden-16-06-2011"
+literal "false"
+
+\end_inset
+
+, este módulo profesional contiene la formación necesaria para desempeñar
+ la función de 
+\series bold
+desarrollo de aplicaciones y servicios destinados a su ejecución por servidores
+ en entornos Web
+\series default
+.
 \end_layout
 
 \begin_layout Standard
-La función de desarrollo de aplicaciones para servidores Web incluye aspectos
- como:
+La 
+\series bold
+función
+\series default
+ de desarrollo de aplicaciones para servidores Web incluye aspectos como:
 \end_layout
 
 \begin_layout Itemize
@@ -11989,14 +12423,21 @@ das.
 \end_layout
 
 \begin_layout Standard
-Las actividades profesionales asociadas a esta función se aplican en el
- desarrollo y la adaptación de servicios y aplicaciones para servidores
- de aplicaciones y servidores web.
+Las 
+\series bold
+actividades profesionales
+\series default
+ asociadas a esta función se aplican en el desarrollo y la adaptación de
+ servicios y aplicaciones para servidores de aplicaciones y servidores web.
 \end_layout
 
 \begin_layout Standard
-Las líneas de actuación en el proceso de enseñanza-aprendizaje que permiten
- alcanzar los objetivos del módulo profesional versarán sobre:
+Las 
+\series bold
+líneas de actuación
+\series default
+ en el proceso de enseñanza-aprendizaje que permiten alcanzar los objetivos
+ del módulo profesional versarán sobre:
 \end_layout
 
 \begin_layout Itemize
@@ -12034,6 +12475,10 @@ La utilización de librerías para incorporar interactividad a los documentos
  Web generados de forma dinámica.
 \end_layout
 
+\begin_layout Section
+Orientaciones metodológicas
+\end_layout
+
 \begin_layout Standard
 El módulo es totalmente práctico, y el proceso de enseñanza-aprendizaje
  se fundamenta en la interacción continua y total de los alumnos con las
@@ -12051,9 +12496,57 @@ s en el despliegue de aplicaciones web desde la perspectiva del entorno
 \end_layout
 
 \begin_layout Standard
+De forma transversal, será hincapié continuamente en el aseguramento de
+ la calidad del producto resultante así como del proceso de desarrollo y
+ el código fuente desarrollado, poniendo especial interés en la metodología
+ 
+\emph on
+TDD (Test-Driven Development)
+\emph default
+ y las pruebas automáticas.
+\end_layout
+
+\begin_layout Standard
 La enseñanza se basará casi por completo en la realización de ejercicios
  y supuestos de aplicación, que obliguen al alumno a enfrentarse con las
  herramientas software necesarias para solucionarlos.
+\end_layout
+
+\begin_layout Standard
+Las actividades propuestas podrán ser individuales o grupales, aplicando
+ donde corresponda el concepto de 
+\emph on
+programación en pareja
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://es.wikipedia.org/wiki/Programaci
+\backslash
+%C3
+\backslash
+%B3n_en_pareja
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ como vehículo de colaboración y aprendizaje compartido entre varios alumnos.
 \end_layout
 
 \begin_layout Standard
@@ -12433,8 +12926,41 @@ Atención a la diversidad
 \end_layout
 
 \begin_layout Standard
-Se llevarán a cabo actividades de refuerzo o proacción para aquellos alumnos
- que así lo requieran en función de las necesidades detectadas.
+Se llevarán a cabo actividades de refuerzo o ampliación para aquellos alumnos
+ que así lo requieran en función de las necesidades detectadas:
+\end_layout
+
+\begin_layout Itemize
+Para los alumnos que muestren dificultades de aprendizaje, se propondrán
+ 
+\series bold
+actividades de refuerzo
+\series default
+ destinadas a afianzar los aspectos conceptuales y procedimentales en los
+ que el alumnado presente carencias.
+\end_layout
+
+\begin_layout Itemize
+Para los alumnos que muestren un mayor grado de adquisición de competencias,
+ se propondrán 
+\series bold
+actividades de ampliación
+\series default
+ que supongan la investigación autónoma de contenidos opcionales (aquellos
+ marcados con la etiqueta 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+opcional
+\end_layout
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Section
@@ -12464,11 +12990,11 @@ Educación ambiental:
 \series default
  La utilización de la informática, en general, y sobre todo en los negocios,
  hace que grandes volúmenes de información puedan ser almacenados en soportes
- informáticos, discos, CD, ...
- y enviados de unos lugares a otros a través de las redes informáticas,
- evitándose de esta manera el consumo de grandes cantidades de papel y,
- por consiguiente, la destrucción de bosques, contribuyendo de alguna manera
- a la preservación de los medios naturales y medioambientales.
+ informáticos, discos, CD, \SpecialChar ldots
+ y enviados de unos lugares a otros a través
+ de las redes informáticas, evitándose de esta manera el consumo de grandes
+ cantidades de papel y, por consiguiente, la destrucción de bosques, contribuyen
+do de alguna manera a la preservación de los medios naturales y medioambientales.
 \end_layout
 
 \begin_layout Itemize
@@ -12492,6 +13018,16 @@ Educación para la salud:
  De esta manera, se intenta que el alumnado conozca los principios de la
  ergonomía del puesto de trabajo, para que cualquier trabajo frente al ordenador
  resulte lo más agradable posible y no le cause ningún problema.
+ En este sentido, resultan de interés las instrucciones elaboradas por el
+ Instituto Nacional de Seguridad e Higiene en el Trabajo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "insht"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -12808,9 +13344,51 @@ literal "false"
 Orden de 29 de septiembre de 2010
 \emph default
 , por la que se regula la evaluación, certificación, acreditación y titulación
- académica del alumnado que cursa enseñan zas de formación profesional inicial
+ académica del alumnado que cursa enseñanzas de formación profesional inicial
  que forma parte del sistema educativo en la Comunidad Autónoma de Andalucía
  (BOJA nº 202 del 15 de octubre).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "insht"
+literal "false"
+
+\end_inset
+
+Instituto Nacional de Seguridad e Higiene en el Trabajo.
+ 
+\emph on
+Instrucción básica para el trabajador usuario de pantallas de visualización
+ de datos.
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.insht.es/InshtWeb/Contenidos/Documentacion/TextosOnline/Guias_Ev_Riesgo
+s/Instruccion_Pantallas/Instruccion_basica.pdf
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
