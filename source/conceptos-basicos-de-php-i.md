@@ -217,3 +217,15 @@ ricpelo's note: Diferencias entre constantes y variables:
 ## [Constantes predefinidas](http://php.net/manual/es/language.constants.predefined.php)
 
 ## [`defined()`](http://php.net/manual/es/function.defined.php)
+
+# Ejercicios
+
+## Ejercicios
+
+#. Busca información sobre la función `time()` usando, al menos, tres formas distintas.
+
+#. Explica, con tus propias palabras, la diferencia entre:
+   #. Un dato y una instrucción.
+   #. Una expresión y una sentencia.
+   #. Una sentencia y un comando.
+   #. Una función y un operador.
