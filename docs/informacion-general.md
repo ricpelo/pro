@@ -11,3 +11,4 @@ title: Información general
 - **Código**: 0613.
 - **Duración total**: 168 + 42 horas / 21 semanas
 - **Carga lectiva semanal**: 8 horas + 2 horas libre configuración
+- [Planificación y seguimiento](https://checkvist.com/checklists/705639){:target="_blank"}
