@@ -222,7 +222,8 @@ ricpelo's note: Diferencias entre constantes y variables:
 
 ## Actividades
 
-@. Busca información sobre la función `time()` usando, al menos, tres formas distintas.
+@. Busca información sobre la función `time()` usando, al menos, tres formas
+   distintas.
 
 @. Explica, con tus propias palabras, la diferencia entre:
     #. Un dato y una instrucción.
@@ -232,15 +233,28 @@ ricpelo's note: Diferencias entre constantes y variables:
 
 @. ¿Es `echo` una función? ¿A dónde acudes para saberlo?
 
-@. ¿Es lo mismo *modo de ejecución* que *modo de operación*? Explica cuáles son y en qué consisten los diferentes modos de ejecución y de operación en PHP.
+@. ¿Es lo mismo *modo de ejecución* que *modo de operación*? Explica cuáles son
+   y en qué consisten los diferentes modos de ejecución y de operación en PHP.
 
-@. ¿Qué ventajas e inconvenientes tiene usar PsySH frente al intérprete integrado?
+@. ¿Qué ventajas e inconvenientes tiene usar PsySH frente al intérprete
+   integrado?
 
 ---
 
-@. ¿Qué tipos de asignación de variables existen en PHP? Explica sus diferencias y pon ejemplos de uso.
+@. ¿Qué tipos de asignación de variables existen en PHP? Explica sus
+   diferencias y pon ejemplos de uso.
 
 @. ¿Qué son las variables predefinidas? Enumera las más importantes.
+
+@. Calcula el valor de las siguientes expresiones y razona por qué tienen ese
+   valor:
+
+    #. `false and true or 1`
+    #. `1 == 1.0`
+    #. `1 == 0.99999999999999999`
+    #. `floor((0.1 + 0.7) * 10)`
+    #. `'1' == 1`
+    #. `empty('0')`
 
 ## Problemas
 
