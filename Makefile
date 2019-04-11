@@ -1,4 +1,4 @@
-.PHONY: all html pdf prog clean limpiar serve $(ITHACA)
+.PHONY: all html pdf prog clean limpiar serve touch $(ITHACA)
 
 CURSO=2019/2020
 
@@ -147,3 +147,6 @@ clean:
 
 serve:
 	cd $(BUILDDIR) ; bundle install --path vendor/bundle && bundle exec jekyll serve --incremental
+
+touch:
+	touch $(OBJECTS_HTML) $(OBJECTS_PDF) $(APUNTES_PDF) $(PROG_PDF)
