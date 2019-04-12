@@ -42,7 +42,7 @@ author: Ricardo Pérez López
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!define(MSG)
+!QUIZ
 ~~~~~~~~~~~~~~~~~~~~~~~
 {
         "info": {
@@ -64,17 +64,6 @@ author: Ricardo Pérez López
         ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~
-
-!define(PY)
-~~~~~~~~~~~~~~~~
-!python3
-~~~~~~~~~~
-x = """!MSG"""
-print(x.replace('"', '\\"'))
-~~~~~~~~~~
-~~~~~~~~~~~~~~~~
-
-!sh(/usr/bin/php p.php "!PY")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Sentencias y comandos

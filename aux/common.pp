@@ -17,6 +17,17 @@ skinparam backgroundColor transparent
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
+!define(PY)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!python3
+~~~~~~~~~~~~~~~
+x = """!1"""
+print(x.replace('"', '\\"'))
+~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(QUIZ)(!sh(/usr/bin/php p.php "!PY(!1)"))
+
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !IMG(archivo)[(texto)][(estilo Beamer)][(estilo Latex)]
