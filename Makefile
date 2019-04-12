@@ -131,12 +131,13 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
-	sudo apt install plantuml graphviz
+	sudo apt install default-jre graphviz
 
 $(PANDOC):
 	$(SCRIPTS)/check-pandoc.sh
 
 $(ITHACA):
+	@[ ! -d "$(ITHACA_DST)" ] && mkdir -p "$(ITHACA_DST)" || true
 	@rsync -qa --delete "$(ITHACA_SRC)" "$(ITHACA_DST)"
 
 $(REVEAL):
