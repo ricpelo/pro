@@ -333,4 +333,4 @@ ricpelo's note: Diferencias entre constantes y variables:
 
 #. Escribir un programa en PHP que...
 
-\shipoutAnswer
+!RESPUESTAS
