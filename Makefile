@@ -96,7 +96,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLI
 	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t beamer \
 	    --template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
-		--slide-level=4 \
+		--slide-level=3 \
 		-H $(PREAMBULO_BEAMER) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \

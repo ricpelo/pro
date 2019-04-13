@@ -17,6 +17,18 @@ skinparam backgroundColor transparent
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
+!define(BREAK)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifdef(BEAMER)
+~~~~~~~~~~~~~~~~~~
+```
+
+---
+
+```!ifdef(!1)(!1)(php)
+~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(PY)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !python3
