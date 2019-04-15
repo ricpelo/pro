@@ -13,7 +13,7 @@ if ($argv[1] == 'html') {
     echo 'quiz = ' . json_encode($j, JSON_UNESCAPED_SLASHES);
     echo '</script>' . PHP_EOL;
     echo '```' . PHP_EOL;
-} else {
+} elseif ($argv[1] == 'latex') {
     echo '```{=latex}' . PHP_EOL;
     foreach ($j['questions'] as $question) {
         echo '\begin{Exercise}[label={\the\value{Exercise}}]' . PHP_EOL;
@@ -22,20 +22,35 @@ if ($argv[1] == 'html') {
         echo '(Para ver la respuesta pulsa aquí:~\ref{\ExerciseLabel-Answer})' . PHP_EOL;
         echo '\end{Exercise}' . PHP_EOL;
         echo '\begin{Answer}[ref=\ExerciseLabel]' . PHP_EOL;
-        if ($argv[1] == 'latex') {
-            echo '\begin{itemize}' . PHP_EOL;
-        }
+        echo '\begin{turn}{180}' . PHP_EOL;
+        echo '\begin{minipage}[t]{\linewidth}' . PHP_EOL;
+        echo '\begin{itemize}[leftmargin=*]' . PHP_EOL;
         foreach ($question['a'] as $ans) {
             if ($ans['correct']) {
-                if ($argv[1] == 'latex') {
-                    echo '\item ' . $ans['option'] . PHP_EOL;
-                } else { // $argv[1] == 'beamer'
-                    echo $ans['option'] . '\par' . PHP_EOL;
-                }
+                echo '\item ' . $ans['option'] . PHP_EOL;
             }
         }
-        if ($argv[1] == 'latex') {
-            echo '\end{itemize}';
+        echo '\end{itemize}';
+        echo PHP_EOL;
+        echo $question['correct'] . PHP_EOL;
+        echo '\end{minipage}' . PHP_EOL;
+        echo '\end{turn}' . PHP_EOL;
+        echo '\end{Answer}' . PHP_EOL;
+    }
+    echo '```' . PHP_EOL;
+} else { // $argv[1] == 'beamer'
+    echo '```{=latex}' . PHP_EOL;
+    foreach ($j['questions'] as $question) {
+        echo '\begin{Exercise}[label={\the\value{Exercise}}]' . PHP_EOL;
+        echo $question['q'] . PHP_EOL;
+        echo PHP_EOL;
+        echo '(Para ver la respuesta pulsa aquí:~\ref{\ExerciseLabel-Answer})' . PHP_EOL;
+        echo '\end{Exercise}' . PHP_EOL;
+        echo '\begin{Answer}[ref=\ExerciseLabel]' . PHP_EOL;
+        foreach ($question['a'] as $ans) {
+            if ($ans['correct']) {
+                echo $ans['option'] . '\par' . PHP_EOL;
+            }
         }
         echo PHP_EOL;
         echo $question['correct'] . PHP_EOL;

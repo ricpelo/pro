@@ -39,7 +39,7 @@ MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !ifndef(HTML)
 ~~~~~~~~~~~~~~~~~~~~
-# Respuesta a las preguntas
+# Respuestas a las preguntas
 
 \shipoutAnswer
 ~~~~~~~~~~~~~~~~~~~~
