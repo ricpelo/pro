@@ -28,5 +28,5 @@ for f in $FILES; do
     PDF="pdf/${f%.md}.pdf"
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
-    echo "| <strong>$TITLE</strong><br><small>($FECHA)</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
+    echo "| <strong>$TITLE</strong><br><small class=\"fecha\">($FECHA)</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
 done
