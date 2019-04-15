@@ -23,7 +23,7 @@ echo "| Título | HTML | PDF | Apuntes |"
 echo "| ------ |:----:|:---:|:-------:|"
 
 for f in $FILES; do
-    FECHA=$(date +'%Y-%m-%d %H:%M:%S' --date @$(stat -c %Y $SOURCE/$f))
+    FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $SOURCE/$f))
     HTML="slides/${f%.md}.html"
     PDF="pdf/${f%.md}.pdf"
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
