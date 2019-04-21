@@ -38,6 +38,8 @@ yii\base\BaseObject <|-- yii\base\Component
 
 ::: {.column width="50%"}
 
+!ifdef(BEAMER)(\setlist[itemize,1,2]{parsep=1.5em})
+
 - `yii\base\BaseObject`:
 
   - Propiedades
