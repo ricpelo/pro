@@ -12,7 +12,9 @@ Diplomado en Informática (especialidad en Organización y Gestión) por la [Uni
 
 Profesor funcionario de carrera del Cuerpo de Profesores de Educación Secundaria (especialidad Informática) desde 2000.
 
-Profesor de Ciclo Formativo de Grado Superior de Informática desde 2001.
+Profesor de Ciclo Formativo de Grado Superior de Informática en el [IES Doñana](http://www.iesdonana.org) desde 2001.
+
+Fundador en 2001 del Departamento de Informática (ahora *Informática y Comunicaciones*) del IES Doñana y miembro del mismo desde entonces.
 
 Miembro oficial de la comunidad de Ubuntu ([*Ubuntu Member*](https://wiki.ubuntu.com/Membership)) desde el año 2007.
 
@@ -23,6 +25,8 @@ Presidente y miembro fundador de la Asociación Local de Usuarios de Linux «LIL
 Organizador de las *Jornadas de software libre en el IES Doñana*.
 
 Mentor de PHP en [Exercism](https://exercism.io/tracks/php/mentors).
+
+Desde hace casi 20 años ha impartido materias relacionadas con la programación y las bases de datos, abarcando tecnologías tales como SQL, PostgreSQL, Oracle Developer, C, PHP, CakePHP, CodeIgniter, Yii, Git, GitHub y GNU/Linux, entre otras.
 
 Contribuyente en los principales repositorios de [Yii Framework](https://www.yiiframework.com):
 
