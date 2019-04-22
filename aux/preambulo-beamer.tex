@@ -26,29 +26,21 @@
 \setbeamerfont{title}{size={\fontsize{18}{26}}}
 
 % Los bloques de código se muestran enmarcados:
-\usepackage[framemethod=TikZ]{mdframed}
-%\usepackage{xpatch}
-%\makeatletter
-%\xpatchcmd{\endmdframed}
-%  {\aftergroup\endmdf@trivlist\color@endgroup}
-%  {\endmdf@trivlist\color@endgroup\@doendpe}
-%  {}{}
-%\makeatother
-\mdfdefinestyle{codedefault}{%
-backgroundcolor=black!4,
-roundcorner=2pt,
-linecolor=black!30,
-linewidth=0.5pt,
-leftmargin=0,
-rightmargin=0,
-innerleftmargin=5,
-innerrightmargin=5,
-skipabove=5,
-skipbelow=5}
-% redefining the Shaded-Environment of the pandoc-template to allow customised
-% style-settings
+\usepackage[xparse,skins,breakable]{tcolorbox}
+\DeclareTColorBox{caja}{}
+    { center,width=1\linewidth,enhanced,fonttitle=\large\bfseries,
+      drop fuzzy shadow,breakable,
+      boxrule=0.2mm,
+      colback=black!4!white,
+      before skip=0.2cm,after skip=0.2cm,
+      top=0.1cm,
+      bottom=0.1cm,
+      left=0.1cm,
+      right=0.1cm
+    }
+
 \ifdefined\Shaded
-  \renewenvironment{Shaded}{\centering \begin{mdframed}[style=codedefault]}{\end{mdframed}}
+  \renewenvironment{Shaded}{\centering \begin{caja}}{\end{caja}}
 \fi
 
 % Adjust fontsize for code-blocks if necessary (by redefining the
