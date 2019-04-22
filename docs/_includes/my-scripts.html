@@ -1,10 +1,12 @@
 <script>
-    var smalls = document.querySelectorAll('.fecha');
-    smalls.forEach(function (small) {
-        var fecha = new Date(small.outerText.slice(1, -1));
-        var ahora = new Date();
-        if ((ahora - fecha) / 1000 / 86400 < 7) {
-            small.style = 'color: red';
-        }
+    document.getElementsByTagName('hy-push-state')[0].addEventListener('hy-push-state-load', function() {
+        var smalls = document.querySelectorAll('.fecha');
+        smalls.forEach(function (small) {
+            var fecha = new Date(small.outerText.slice(1, -1));
+            var ahora = new Date();
+            if ((ahora - fecha) / 1000 / 86400 < 7) {
+                small.style = 'color: red';
+            }
+        });
     });
 </script>
