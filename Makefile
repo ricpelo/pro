@@ -93,8 +93,9 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 
 $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
-	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t beamer \
-	    --template=$(LATEX_TEMPLATE) \
+	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+		pandoc -s -t beamer \
+		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=3 \
 		-H $(PREAMBULO_BEAMER) \
@@ -112,8 +113,10 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLI
 
 $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
-	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t latex \
-	    --template=$(LATEX_TEMPLATE) \
+	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+		perl -0pe "s/\n\n---\n\n/\n\n/g" | \
+		pandoc -s -t latex \
+		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=2 -N \
 		-H $(PREAMBULO_LATEX) \
 		--pdf-engine=xelatex \
