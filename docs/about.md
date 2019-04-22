@@ -1,6 +1,7 @@
 ---
 layout: about
 title:  El profesor del módulo profesional
+author: ricpelo
 ---
 
 <!--author-->
