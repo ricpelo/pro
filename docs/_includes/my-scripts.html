@@ -2,9 +2,12 @@
     document.getElementsByTagName('hy-push-state')[0].addEventListener('hy-push-state-load', function() {
         var smalls = document.querySelectorAll('.fecha');
         smalls.forEach(function (small) {
-            var fecha = new Date(small.outerText.slice(1, -1));
+            var fecha = new Date(small.outerText);
             var ahora = new Date();
-            if ((ahora - fecha) / 1000 / 86400 < 7) {
+            var dias = Math.round((ahora - fecha) / 1000 / 86400);
+            var hace = `hace ${dias} día` + (dias > 1 ? 's' : '');
+            small.innerHTML = `(${small.outerText}, ${hace})`;
+            if (dias < 7) {
                 small.style = 'color: red';
             }
         });

@@ -9,11 +9,11 @@ title: Diapositivas y apuntes
 
 Los materiales de las diferentes unidades didácticas se organizan de la siguiente manera:
 
-- **HTML**: Diapositivas para su visualización *online* desde un navegador, por lo que requiere conexión a Internet. Estructura las diapositivas en una matriz de filas y columnas para facilitar la navegación. Además pueden encontrarse actividades de preguntas y respuestas interactivas sencillas intercalados en el texto.
+- **HTML**: Diapositivas para su visualización *online* desde un navegador, por lo que requiere conexión a Internet. Estructura las diapositivas en una matriz de filas y columnas para facilitar la navegación.
 
-- **PDF**: Diapositivas en formato \`PDF\` para su visualización *offline* desde cualquier visor de este tipo de archivos. Por tanto, no requiere conexión a Internet. No contiene las actividades interactivas.
+- **PDF**: Diapositivas en formato \`PDF\` para su visualización *offline* desde cualquier visor de este tipo de archivos. Por tanto, no requiere conexión a Internet.
 
-- **Apuntes**: El mismo contenido que las diapositivas anteriores en formato \`PDF\` pero de manera continua, formando unos apuntes al estilo tradicional. Más apropiado para imprimir en papel.
+- **Apuntes**: El mismo contenido que las diapositivas anteriores en formato \`PDF\` pero de manera continua, formando unos apuntes al estilo tradicional. Más apropiado para imprimir en papel o como guía de estudio.
 
 EOT
 
@@ -28,5 +28,5 @@ for f in $FILES; do
     PDF="pdf/${f%.md}.pdf"
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
-    echo "| <strong>$TITLE</strong><br><small class=\"fecha\">($FECHA)</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
+    echo "| <strong>$TITLE</strong><br><small class=\"fecha\">$FECHA</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
 done
