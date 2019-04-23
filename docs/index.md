@@ -1,6 +1,7 @@
 ---
 title: Desarrollo web en entorno servidor
 cover: true
+layout: page
 ---
 
 <div class="pull-right" markdown="1">
