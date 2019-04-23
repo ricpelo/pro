@@ -1,4 +1,4 @@
-\usepackage{etoolbox}
+\input{aux/preambulo-common.tex}
 
 % Por defecto, muestra el texto centrado en las diapositivas:
 \makeatletter
@@ -15,18 +15,12 @@
   }%
 }
 
-% El texto monoespaciado se muestra de otro color:
-\definecolor{ttcolor}{RGB}{64,112,161}
-\let\Oldtexttt\texttt
-\renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
-
 % Cambia varios tamaños de tipografías:
 \setbeamersize{text margin left=4em,text margin right=4em}
 \setbeamerfont{section title}{size={\fontsize{16}{18}}}
 \setbeamerfont{title}{size={\fontsize{18}{26}}}
 
 % Los bloques de código se muestran enmarcados:
-\usepackage[xparse,skins,breakable]{tcolorbox}
 \DeclareTColorBox{caja}{}
     { center,width=1\linewidth,enhanced,fonttitle=\large\bfseries,
       drop fuzzy shadow,breakable,
@@ -39,45 +33,6 @@
       right=0.1cm
     }
 
-\ifdefined\Shaded
-  \renewenvironment{Shaded}{\centering \begin{caja}}{\end{caja}}
-\fi
-
-% Adjust fontsize for code-blocks if necessary (by redefining the
-% Highlighting-Environment of the pandoc-template)
-\ifdefined\Highlighting
-  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
-\fi
-
-\makeatletter
-\def\verbatim@nolig@list{}
-\makeatother
-
-% Apaño para que Pandoc traduzca lo que hay entre \begin{...} y \end{...}:
-\newcommand{\hideFromPandoc}[1]{#1}
-\hideFromPandoc{
-    \let\Begin\begin
-    \let\End\end
-}
-
-\usepackage[shortlabels]{enumitem}
-\setlist[enumerate]{label*=\arabic*.,leftmargin=*}
+% Corrige incompatibilidad entre enumitem y beamer
+% (no salen boliches en las listas itemize):
 \setlist[itemize]{label=\usebeamerfont*{itemize item}\usebeamercolor[fg]{itemize item}\usebeamertemplate{itemize item}}
-
-\usepackage[answerdelayed]{exercise}
-\renewcommand{\ExerciseName}{Pregunta}
-\renewcommand{\AnswerName}{Respuesta}
-\renewcommand{\ExerciseHeader}{\textbf{\large%
-\ExerciseName\ \ExerciseHeaderNB\ExerciseHeaderTitle%
-\ExerciseHeaderOrigin\medskip}\par}
-\renewcommand{\AnswerHeader}{\textbf{%
-Respuesta a la \ExerciseName\ \ExerciseHeaderNB}\smallskip\par}
-
-% Para que funcione la marca ✔:
-\usepackage{newunicodechar}
-\newfontface{\libertinus}{libertinusserif-regular.otf} % a font that has ✔
-\newunicodechar{✔}{%
-  \begingroup
-  \normalfont\libertinus ✔%
-  \endgroup
-}

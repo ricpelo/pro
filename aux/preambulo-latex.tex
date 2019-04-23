@@ -1,12 +1,6 @@
-\usepackage{etoolbox}
-
-% El texto monoespaciado se muestra de otro color:
-\definecolor{ttcolor}{RGB}{64,112,161}
-\let\Oldtexttt\texttt
-\renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
+\input{aux/preambulo-common.tex}
 
 % Los bloques de código se muestran enmarcados:
-\usepackage[xparse,skins,breakable]{tcolorbox}
 \DeclareTColorBox{caja}{}
     { center,width=1\linewidth,enhanced,fonttitle=\large\bfseries,
       drop fuzzy shadow,breakable,
@@ -19,36 +13,16 @@
       right=0.1cm
     }
 
-\ifdefined\Shaded
-  \renewenvironment{Shaded}{\centering \begin{caja}}{\end{caja}}
-\fi
-
-% Adjust fontsize for code-blocks if necessary (by redefining the
-% Highlighting-Environment of the pandoc-template)
-\ifdefined\Highlighting
-  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
-\fi
-
-\makeatletter
-\def\verbatim@nolig@list{}
-\makeatother
-
 % En los apuntes no hay columnas al estilo Beamer:
 \newenvironment{columns}[1][1]{}{}
 \newenvironment{column}[1]{}{}
-
-% Apaño para que Pandoc traduzca lo que hay entre \begin{...} y \end{...}:
-\newcommand{\hideFromPandoc}[1]{#1}
-\hideFromPandoc{
-    \let\Begin\begin
-    \let\End\end
-}
 
 % Puntos tras los números de sección y en la tabla de contenidos:
 \usepackage{titlesec}
 \usepackage[dotinlabels]{titletoc}
 \titlelabel{\thetitle.\quad}
 
+% Make all figure use 'h' position by default:
 \makeatletter
 \def\fps@figure{h}
 \makeatother
@@ -57,43 +31,5 @@
 \usepackage{caption}
 \captionsetup[figure]{labelformat=empty}
 
-% Se puede hacer un salto de línea tras :: en texto monoespaciado:
-\usepackage{xparse}
-\ExplSyntaxOn
-\NewDocumentCommand{\replace}{mmm}
- {
-  \marian_replace:nnn {#1} {#2} {#3}
- }
-\tl_new:N \l_marian_input_text_tl
-\cs_new_protected:Npn \marian_replace:nnn #1 #2 #3
- {
-  \tl_set:Nn \l_marian_input_text_tl { #1 }
-  \tl_replace_all:Nnn \l_marian_input_text_tl { #2 } { #3 }
-  \tl_use:N \l_marian_input_text_tl
- }
-\ExplSyntaxOff
-\usepackage{url}
-\let\OldTexttt\texttt
-\renewcommand{\texttt}[1]{\OldTexttt{\replace{#1}{::}{::\allowbreak}}}
-
-\usepackage[shortlabels]{enumitem}
-\setlist[enumerate]{label*=\arabic*.,leftmargin=*}
-
-\usepackage[answerdelayed]{exercise}
-\renewcommand{\ExerciseName}{Pregunta}
-\renewcommand{\AnswerName}{Respuesta}
-\renewcommand{\ExerciseHeader}{\textbf{\large%
-\ExerciseName\ \ExerciseHeaderNB\ExerciseHeaderTitle%
-\ExerciseHeaderOrigin\medskip}\par}
-\renewcommand{\AnswerHeader}{\textbf{%
-Respuesta a la \ExerciseName\ \ExerciseHeaderNB}\smallskip\par}
+% Necesario para que las respuestas se muestren boca abajo:
 \usepackage{rotating}
-
-% Para que funcione la marca ✔:
-\usepackage{newunicodechar}
-\newfontface{\libertinus}{libertinusserif-regular.otf} % a font that has ✔
-\newunicodechar{✔}{%
-  \begingroup
-  \normalfont\libertinus ✔%
-  \endgroup
-}

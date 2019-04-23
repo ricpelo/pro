@@ -1,0 +1,74 @@
+\usepackage{etoolbox}
+
+% Los bloques de código se muestran enmarcados:
+\usepackage[xparse,skins,breakable]{tcolorbox}
+
+% El texto monoespaciado se muestra de otro color:
+\definecolor{ttcolor}{RGB}{64,112,161}
+\let\Oldtexttt\texttt
+\renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
+
+\ifdefined\Shaded
+  \renewenvironment{Shaded}{\centering \begin{caja}}{\end{caja}}
+\fi
+
+% Adjust fontsize for code-blocks if necessary (by redefining the
+% Highlighting-Environment of the pandoc-template)
+\ifdefined\Highlighting
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+\fi
+
+% Activa ligaduras en verbatim:
+\makeatletter
+\def\verbatim@nolig@list{}
+\makeatother
+
+% Apaño para que Pandoc traduzca lo que hay entre \begin{...} y \end{...}:
+\newcommand{\hideFromPandoc}[1]{#1}
+\hideFromPandoc{
+    \let\Begin\begin
+    \let\End\end
+}
+
+% Las listas se numeran estilo 1.2.3.4:
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{label*=\arabic*.,leftmargin=*}
+
+% Se puede hacer un salto de línea tras :: en texto monoespaciado
+% (útil, por ejemplo, en yii\base\Component::__construct()):
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\replace}{mmm}
+ {
+  \marian_replace:nnn {#1} {#2} {#3}
+ }
+\tl_new:N \l_marian_input_text_tl
+\cs_new_protected:Npn \marian_replace:nnn #1 #2 #3
+ {
+  \tl_set:Nn \l_marian_input_text_tl { #1 }
+  \tl_replace_all:Nnn \l_marian_input_text_tl { #2 } { #3 }
+  \tl_use:N \l_marian_input_text_tl
+ }
+\ExplSyntaxOff
+\usepackage{url}
+\let\OldTexttt\texttt
+\renewcommand{\texttt}[1]{\OldTexttt{\replace{#1}{::}{::\allowbreak}}}
+
+% Preguntas y respuestas:
+\usepackage[answerdelayed]{exercise}
+\renewcommand{\ExerciseName}{Pregunta}
+\renewcommand{\AnswerName}{Respuesta}
+\renewcommand{\ExerciseHeader}{\textbf{\large%
+\ExerciseName\ \ExerciseHeaderNB\ExerciseHeaderTitle%
+\ExerciseHeaderOrigin\medskip}\par}
+\renewcommand{\AnswerHeader}{\textbf{%
+Respuesta a la \ExerciseName\ \ExerciseHeaderNB}\smallskip\par}
+
+% Para que funcione la marca ✔:
+\usepackage{newunicodechar}
+\newfontface{\libertinus}{libertinusserif-regular.otf} % a font that has ✔
+\newunicodechar{✔}{%
+  \begingroup
+  \normalfont\libertinus ✔%
+  \endgroup
+}
