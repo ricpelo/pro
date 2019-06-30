@@ -1,20 +1,18 @@
 ---
-title: Desarrollo web en entorno servidor
+title: Programación
 cover: true
 layout: page
 ---
 
-<div class="pull-right" markdown="1">
-![PHP](assets/img/php.png){:.center-image}
-</div>
+![Lambda](assets/img/lambda.svg){:.pull-right width="35%"}
 
 Ciclo Formativo de Grado Superior en<br>
 Desarrollo de Aplicaciones Web
 {:.lead}
 
-Módulo profesional de 2º curso
+Módulo profesional de 1.º curso
 
-Aula P7<br>
+Aula P6<br>
 [IES Doñana](http://www.iesdonana.org){:target="_blank"}<br>
 Sanlúcar de Barrameda (Cádiz)<br>
 Curso 2019/2020
