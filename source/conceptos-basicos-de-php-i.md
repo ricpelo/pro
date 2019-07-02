@@ -8,7 +8,7 @@ author: Ricardo Pérez López
 
 ## [Página web de PHP](http://php.net)
 
-!FLOWCHART(prueba.svg)
+!FLOWCHART(prueba.svg)(Prueba de diagrama de flujo)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 st=>start: Start
 e=>end
