@@ -134,7 +134,8 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 
 $(PP):
 	wget -q -O - http://cdsoft.fr/pp/pp-linux-x86_64.txz | tar x -J pp
-	sudo apt install default-jre graphviz
+	sudo apt install default-jre graphviz librsvg2-bin npm
+	npm install
 
 $(PANDOC):
 	$(SCRIPTS)/check-pandoc.sh

@@ -7,6 +7,8 @@ DEFINICIONES GENERALES
 !define(IMAGES)(images)
 !define(SCRIPTS)(scripts)
 !define(WIDTH)(width=!ifdef(LATEX)(60%)(80%))
+!define(DIAGRAM)(node_modules/diagrams/bin/diagrams.js)
+!define(FLOWCHART_SH)(!SCRIPTS/flowchart.sh)
 !define(UMLCOMMON)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2
@@ -82,6 +84,22 @@ MACROS DE USO GENERAL
 
 \End{center}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(FLOWCHART)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!sh(!FLOWCHART_SH "!IMAGES/!1" "!2")
+!ifdef(HTML)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(!1)()(width=30%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(!1)()(width=40%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
