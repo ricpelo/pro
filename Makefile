@@ -21,7 +21,7 @@ IMAGES=images
 
 PP=./pp
 PANDOC=/usr/bin/pandoc
-PROG=INF-2DAW-PRO-C19-20
+PROG=INF-1DAW-PRO-C19-20
 PROG_LYX=$(PROG_DIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
 DIAPOS=$(BUILDDIR)/diapositivas.md
