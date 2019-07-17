@@ -6,6 +6,20 @@ author: Ricardo Pérez López
 
 # Introducción a PHP
 
+## Prueba
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Uno
+Dos
+    **Tres**
+    $Cuatro= A_1 + A_3$
+Cinco
+    Seis
+        Siete
+    Ocho
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## [Página web de PHP](http://php.net)
 
 !FLOWCHART(prueba.svg)(Prueba de diagrama de flujo)
