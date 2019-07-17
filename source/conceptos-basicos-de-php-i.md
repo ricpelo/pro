@@ -10,14 +10,18 @@ author: Ricardo Pérez López
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-Uno
-Dos
-    **Tres**
-    $Cuatro= A_1 + A_3$
-Cinco
-    Seis
-        Siete
-    Ocho
+**espec** NAT3
+    **generos** natural
+    **operaciones**
+        $0$: $\rightarrow$ natural
+        $suc$: natural $\rightarrow$ natural
+        _ $+$ _: natural $\times$ natural $\rightarrow$ natural
+    **var**
+        $x$, $y$: natural
+    **ecuaciones**
+        $x + 0 = 0$
+        $x + suc(y) = suc(x+y)$
+**fspec**
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## [Página web de PHP](http://php.net)
