@@ -24,6 +24,9 @@ PANDOC=/usr/bin/pandoc
 PROG=INF-1DAW-PRO-C19-20
 PROG_LYX=$(PROG_DIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
+ESQUEMA_OPML=$(PROG_DIR)/esquema.opml
+ESQUEMA_TEX=$(PROG_DIR)/esquema.tex
+RESUMEN_TEX=$(PROG_DIR)/resumen.tex
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIR_HTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/revealjs.template
@@ -67,10 +70,16 @@ limpiar:
 
 # Programación
 
-$(PROG_PDF): $(PROG_LYX)
+$(PROG_PDF): $(ESQUEMA_TEX) $(RESUMEN_TEX) $(PROG_LYX)
 	@echo "Generando $(PROG_PDF)..."
 	@lyx -E pdf2 $(PROG_DIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
 	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
+
+$(ESQUEMA_TEX): $(ESQUEMA_OPML)
+	$(SCRIPTS)/opml2latex.php $(ESQUEMA_OPML) > $(ESQUEMA_TEX)
+
+$(RESUMEN_TEX): $(ESQUEMA_OPML)
+	$(SCRIPTS)/opml2latex.php $(ESQUEMA_OPML) 1 longtable > $(RESUMEN_TEX)
 
 # Diapositivas en formato HTML
 
