@@ -10,8 +10,23 @@ function trad(SimpleXMLElement $elem, $nivel = 0)
 {
     $ret = '';
 
-    if ($elem->attributes()) {
-        $ret = spc($nivel) . '\item ' . (string) $elem->attributes()->text . PHP_EOL;
+    if ($elem->attributes() && $nivel != 0) {
+        $text = (string) $elem->attributes()->text;
+        $text = preg_replace('/{/', '\\{', $text);
+        $text = preg_replace('/}/', '\\}', $text);
+        $text = preg_replace('/_/', '\\_', $text);
+        $text = preg_replace('/#/', '\\#', $text);
+        $text = preg_replace('/&/', '\\&', $text);
+        $text = preg_replace('/\^/', '\\\^', $text);
+        $text = preg_replace('/\$/', '\\\$', $text);
+        $text = preg_replace('/\*\*(.*)\*\*/U', '\\textbf{$1}', $text);
+        $text = preg_replace('/\*(.*)\*/U', '\\textit{$1}', $text);
+        $text = preg_replace('/`(.*)`/U', '\\texttt{$1}', $text);
+        // [link: Cadenas (\texttt{string})|http://php.net/manual/es/language.types.string.php]
+        $text = preg_replace('/\[link: (.*)\|.*\]/', '$1', $text);
+        // [Funciones de manejo de cadenas](http://php.net/ref.strings)
+        $text = preg_replace('/\[(.*)\]\(.*\)/', '$1', $text);
+        $ret = spc($nivel) . '\item ' . $text . PHP_EOL;
     }
 
     if (count($elem->outline) > 0) {
