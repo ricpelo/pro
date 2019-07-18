@@ -11,8 +11,6 @@ class Esquema
     public $content;
     public $title;
 
-    protected $ud = 1;
-
     public function __construct($env = self::DEFAULT_ENV, $maxNivel = self::MAX_NIVEL)
     {
         $this->env = $env;
@@ -131,16 +129,6 @@ class Resumen extends Esquema
         parent::__construct(self::DEFAULT_ENV, $maxNivel);
     }
 
-    protected function beginEnv()
-    {
-        return '';
-    }
-
-    protected function endEnv()
-    {
-        return '';
-    }
-
     protected function filtrar($text)
     {
         $text = parent::filtrar($text);
@@ -150,6 +138,7 @@ class Resumen extends Esquema
 
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
     {
+        $ud = 1;
         $ret = '';
 
         foreach ($elem->outline as $item) {
@@ -157,7 +146,7 @@ class Resumen extends Esquema
             $text = (string) $attr->text;
             if ($text != '---') {
                 $text = $this->filtrar($text);
-                $ret .= $this->ud++ . '. ' . $text;
+                $ret .= $ud++ . '. ' . $text;
                 $ret .= ' \\' . $attr->tags . ' & ';
                 $ret .= $attr->due . ' \tabularnewline' . PHP_EOL;
                 $ret .= '\hline' . PHP_EOL;
