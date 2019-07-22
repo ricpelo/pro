@@ -78,6 +78,11 @@ class Esquema
         return '';
     }
 
+    protected function filtrarEtiqueta($tag)
+    {
+        return preg_replace('/ce(.*)/', 'ce{$1}', $tag);
+    }
+
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
     {
         $ret = '';
@@ -89,7 +94,7 @@ class Esquema
             $ret = $this->spc($nivel) . '\item ' . $text;
 
             if ($attr->tags) {
-                $ret .= ' ' . implode(' ', array_map(function ($t) { return '\\' . $t . '\\'; }, explode(',', $attr->tags)));
+                $ret .= ' ' . implode(' ', array_map(function ($t) { return '\\' . $this->filtrarEtiqueta($t) . '\\'; }, explode(',', $attr->tags)));
             }
 
             if ($attr->due) {
@@ -231,19 +236,19 @@ class RaCe extends Resumen
             $text = (string) $attr->text;
             if ($text != '---') {
                 $text = $this->filtrar($text);
-                $ret .= $ud++ . '. ' . $text . ' & ';
+                $ret .= $ud++ . '. ' . $text;
                 $race = $this->generaRaCe($attr->tags);
 
                 for ($i = 1; $i <= self::MAX_RA; $i++) {
+                    $ret .= ' & ';
                     if (isset($race["RA$i"])) {
                         $ra = $race["RA$i"];
                         if (empty($ra)) {
-                            $ret .= '$\cross$';
+                            $ret .= '$\times$';
                         } else {
                             $ret .= implode(' ', $ra);
                         }
                     }
-                    $ret .= ' & ';
                 }
 
                 $ret .= ' \tabularnewline' . PHP_EOL;
@@ -258,16 +263,16 @@ class RaCe extends Resumen
     {
         $this->cargaContenido($url);
         $ret  = '\begin{center}' . PHP_EOL;
-        $ret .= '\small' . PHP_EOL;
-        $ret .= '\begin{' . $this->env . '}{|l';
+        $ret .= '\footnotesize' . PHP_EOL;
+        $ret .= '\begin{' . $this->env . '}[c]{|>{\raggedright}m{4cm}';
         for ($i = 1; $i <= self::MAX_RA; $i++) {
-            $ret .= '|c';
+            $ret .= '|>{\centering}m{0.7cm}';
         }
         $ret .= '|}' . PHP_EOL;
         $ret .= '\hline' . PHP_EOL;
         $ret .= '\textbf{Unidades didácticas}';
         for ($i = 1; $i <= self::MAX_RA; $i++) {
-            $ret .= ' & RA' . $i;
+            $ret .= ' & \textbf{RA' . $i . '}';
         }
         $ret .= '\tabularnewline' . PHP_EOL;
         $ret .= '\hline' . PHP_EOL;
@@ -280,9 +285,11 @@ class RaCe extends Resumen
     }
 }
 
-$url = $argv[1];
-$maxNivel = isset($argv[2]) ? (int) $argv[2] : Esquema::MAX_NIVEL;
-$env = isset($argv[3]) ? $argv[3] : Esquema::DEFAULT_ENV;
+$options = getopt('u:e::n::');
+
+$url = $options['u'];
+$maxNivel = (int) ($options['n'] ?? Esquema::MAX_NIVEL);
+$env = $options['e'] ?? Esquema::DEFAULT_ENV;
 
 switch ($env) {
     case 'resumen':

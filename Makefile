@@ -77,13 +77,13 @@ $(PROG_PDF): $(ESQUEMA_TEX) $(RESUMEN_TEX) $(RACE_TEX) $(PROG_LYX)
 	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
 
 $(ESQUEMA_TEX): $(ESQUEMA_OPML)
-	$(SCRIPTS)/opml2latex.php $(ESQUEMA_OPML) > $(ESQUEMA_TEX)
+	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) > $(ESQUEMA_TEX)
 
 $(RESUMEN_TEX): $(ESQUEMA_OPML)
-	$(SCRIPTS)/opml2latex.php $(ESQUEMA_OPML) 1 resumen > $(RESUMEN_TEX)
+	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) -eresumen > $(RESUMEN_TEX)
 
 $(RACE_TEX): $(ESQUEMA_OPML)
-	$(SCRIPTS)/opml2latex.php $(ESQUEMA_OPML) 1 race > $(RACE_TEX)
+	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) -erace > $(RACE_TEX)
 
 # Diapositivas en formato HTML
 
