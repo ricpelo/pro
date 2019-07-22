@@ -69,6 +69,15 @@ class Esquema
         return '\end{' . $this->env . '}' . PHP_EOL;
     }
 
+    protected function ev($tags)
+    {
+        $matches = [];
+        if (preg_match('(ev\d)', $tags, $matches)) {
+            return $matches[0];
+        }
+        return '';
+    }
+
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
     {
         $ret = '';
@@ -80,7 +89,7 @@ class Esquema
             $ret = $this->spc($nivel) . '\item ' . $text;
 
             if ($attr->tags) {
-                $ret .= ' \\' . $attr->tags;
+                $ret .= ' ' . implode(' ', array_map(function ($t) { return '\\' . $t . '\\'; }, explode(',', $attr->tags)));
             }
 
             if ($attr->due) {
@@ -136,6 +145,15 @@ class Resumen extends Esquema
         return $text;
     }
 
+    protected function ev($tags)
+    {
+        $matches = [];
+        if (preg_match('(ev\d)', $tags, $matches)) {
+            return $matches[0];
+        }
+        return '';
+    }
+
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
     {
         $ud = 1;
@@ -147,7 +165,7 @@ class Resumen extends Esquema
             if ($text != '---') {
                 $text = $this->filtrar($text);
                 $ret .= $ud++ . '. ' . $text;
-                $ret .= ' \\' . $attr->tags . ' & ';
+                $ret .= ' \\' . $this->ev($attr->tags) . ' & ';
                 $ret .= $attr->due . ' \tabularnewline' . PHP_EOL;
                 $ret .= '\hline' . PHP_EOL;
             }
