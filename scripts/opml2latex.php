@@ -214,11 +214,7 @@ class RaCe extends Resumen
                     $ra = mb_strtoupper($ra);
                     $ret[$ra] = [];
                     if (preg_match_all('/ce' . $raNum . '[^,]*/', $tags, $match)) {
-                        $ce = array_map(function ($ce) {
-                            $ce = preg_replace('/ce(\d+)(.*)/', 'CE$1.$2', $ce);
-                            return $ce;
-                        }, $match[0]);
-                        $ret[$ra] = $ce;
+                        $ret[$ra] = $match[0];
                     }
                 }
             }
@@ -246,6 +242,7 @@ class RaCe extends Resumen
                         if (empty($ra)) {
                             $ret .= '$\times$';
                         } else {
+                            $ra = array_map(function ($x) { return '\\' . $this->filtrarEtiqueta($x); }, $ra);
                             $ret .= implode(' ', $ra);
                         }
                     }
@@ -272,7 +269,7 @@ class RaCe extends Resumen
         $ret .= '\hline' . PHP_EOL;
         $ret .= '\textbf{Unidades didácticas}';
         for ($i = 1; $i <= self::MAX_RA; $i++) {
-            $ret .= ' & \textbf{RA' . $i . '}';
+            $ret .= ' & \ra' . $i;
         }
         $ret .= '\tabularnewline' . PHP_EOL;
         $ret .= '\hline' . PHP_EOL;
