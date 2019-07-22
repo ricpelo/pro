@@ -72,7 +72,7 @@ class Esquema
     protected function ev($tags)
     {
         $matches = [];
-        if (preg_match('(ev\d)', $tags, $matches)) {
+        if (preg_match('/ev\d+/', $tags, $matches)) {
             return $matches[0];
         }
         return '';
@@ -148,7 +148,7 @@ class Resumen extends Esquema
     protected function ev($tags)
     {
         $matches = [];
-        if (preg_match('(ev\d)', $tags, $matches)) {
+        if (preg_match('/ev\d/', $tags, $matches)) {
             return $matches[0];
         }
         return '';
@@ -192,9 +192,108 @@ class Resumen extends Esquema
     }
 }
 
+class RaCe extends Resumen
+{
+    const MAX_RA = 9;
+
+    protected function generaRaCe($tags)
+    {
+        $ret = [];
+        $ras = [];
+        if (preg_match_all('/ra\d+/', $tags, $ras)) {
+            foreach ($ras[0] as $ra) {
+                $match = [];
+                if (preg_match('/ra(\d+)/', $ra, $match)) {
+                    $raNum = $match[1];
+                    $match = [];
+                    $ra = mb_strtoupper($ra);
+                    $ret[$ra] = [];
+                    if (preg_match_all('/ce' . $raNum . '[^,]*/', $tags, $match)) {
+                        $ce = array_map(function ($ce) {
+                            $ce = preg_replace('/ce(\d+)(.*)/', 'CE$1.$2', $ce);
+                            return $ce;
+                        }, $match[0]);
+                        $ret[$ra] = $ce;
+                    }
+                }
+            }
+        }
+        return $ret;
+    }
+
+    protected function trad(SimpleXMLElement $elem, $nivel = 0)
+    {
+        $ud = 1;
+        $ret = '';
+
+        foreach ($elem->outline as $item) {
+            $attr = $item->attributes();
+            $text = (string) $attr->text;
+            if ($text != '---') {
+                $text = $this->filtrar($text);
+                $ret .= $ud++ . '. ' . $text . ' & ';
+                $race = $this->generaRaCe($attr->tags);
+
+                for ($i = 1; $i <= self::MAX_RA; $i++) {
+                    if (isset($race["RA$i"])) {
+                        $ra = $race["RA$i"];
+                        if (empty($ra)) {
+                            $ret .= '$\cross$';
+                        } else {
+                            $ret .= implode(' ', $ra);
+                        }
+                    }
+                    $ret .= ' & ';
+                }
+
+                $ret .= ' \tabularnewline' . PHP_EOL;
+                $ret .= '\hline' . PHP_EOL;
+            }
+        }
+
+        return $ret;
+    }
+
+    public function run($url)
+    {
+        $this->cargaContenido($url);
+        $ret  = '\begin{center}' . PHP_EOL;
+        $ret .= '\small' . PHP_EOL;
+        $ret .= '\begin{' . $this->env . '}{|l';
+        for ($i = 1; $i <= self::MAX_RA; $i++) {
+            $ret .= '|c';
+        }
+        $ret .= '|}' . PHP_EOL;
+        $ret .= '\hline' . PHP_EOL;
+        $ret .= '\textbf{Unidades didácticas}';
+        for ($i = 1; $i <= self::MAX_RA; $i++) {
+            $ret .= ' & RA' . $i;
+        }
+        $ret .= '\tabularnewline' . PHP_EOL;
+        $ret .= '\hline' . PHP_EOL;
+        $ret .= '\hline' . PHP_EOL;
+        $ret .= '\endhead' . PHP_EOL;
+        $ret .= $this->trad($this->content->outline, 0);
+        $ret .= '\end{' . $this->env . '}' . PHP_EOL;
+        $ret .= '\par\end{center}' . PHP_EOL;
+        return $ret;
+    }
+}
+
 $url = $argv[1];
 $maxNivel = isset($argv[2]) ? (int) $argv[2] : Esquema::MAX_NIVEL;
 $env = isset($argv[3]) ? $argv[3] : Esquema::DEFAULT_ENV;
-$opml = ($env === 'longtable') ? new Resumen($maxNivel) : new Esquema($env, $maxNivel);
+
+switch ($env) {
+    case 'resumen':
+        $opml = new Resumen($maxNivel);
+        break;
+    case 'race':
+        $opml = new RaCe($maxNivel);
+        break;
+    default:
+        $opml = new Esquema($env, $maxNivel);
+        break;
+}
 
 echo $opml->run($url);
