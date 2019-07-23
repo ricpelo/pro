@@ -176,3 +176,6 @@ serve:
 
 touch:
 	touch $(OBJECTS_HTML) $(OBJECTS_PDF) $(APUNTES_PDF) $(PROG_PDF)
+
+markdown:
+	scripts/opml.php -u programacion/esquema.opml -emarkdown >/dev/null

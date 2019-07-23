@@ -294,16 +294,21 @@ class Leo extends Resumen
         $this->source = $source;
     }
 
-    protected function filtrar($text)
+    protected function filtrarArchivo($text)
     {
-        $text = parent::filtrar($text);
         $text = mb_strtolower($text);
         $text = str_replace(
-            ['á', 'é', 'í', 'ó', 'ú', 'ñ', ' '],
-            ['a', 'e', 'i', 'o', 'u', 'n', '-'],
+            ['á', 'é', 'í', 'ó', 'ú', 'ñ', ' ', '*'],
+            ['a', 'e', 'i', 'o', 'u', 'n', '-', ''],
             $text
         );
         return $text . '.md';
+    }
+
+    protected function filtrar($text)
+    {
+        $text = parent::filtrar($text);
+        return $this->filtrarArchivo($text);
     }
 
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
@@ -343,6 +348,75 @@ class Leo extends Resumen
     }
 }
 
+class Markdown extends Leo
+{
+    public function __construct($source = self::DEFAULT_SOURCE, $maxNivel = self::MAX_NIVEL)
+    {
+        parent::__construct($source);
+        $this->maxNivel = $maxNivel;
+    }
+
+    protected function filtrar($text)
+    {
+        $text = $this->filtrarEnlaces($text);
+        $text = $this->filtrarEstilos($text);
+        return $text;
+    }
+
+    protected function filtrarEstilos($text)
+    {
+        $text = preg_replace('/\*\*(.*)\*\*/U', '$1', $text);
+        $text = preg_replace('/\*(.*)\*/U', '*$1*', $text);
+        return $text;
+    }
+
+    protected function spc($nivel)
+    {
+        return str_repeat('#', $nivel);
+    }
+
+    protected function trad(SimpleXMLElement $elem, $nivel = 0)
+    {
+        $ret = '';
+
+        if ($nivel != 0 && $attr = $elem->attributes()) {
+            $text = (string) $attr->text;
+            $text = $this->filtrar($text);
+            $titulo = $text;
+
+            $ret = $this->spc($nivel) . ' ' . $text . PHP_EOL;
+
+            $ret .= PHP_EOL;
+        }
+
+        if (count($elem->outline) > 0 && $nivel < $this->maxNivel) {
+            foreach ($elem->outline as $item) {
+                if ($item->attributes()->text != '---') {
+                    $ret .= $this->trad($item, $nivel + 1);
+                }
+            }
+        }
+
+        if ($nivel === 1) {
+            $file = $this->source . '/' . $this->filtrarArchivo($text);
+            $head  = '---' . PHP_EOL;
+            $head .= 'title: ' . $titulo . PHP_EOL;
+            $head .= 'author: Ricardo Pérez López' . PHP_EOL;
+            $head .= '!DATE' . PHP_EOL;
+            $head .= '---' . PHP_EOL . PHP_EOL;
+            $ret   = $head . $ret;
+            file_put_contents($file, $ret);
+        }
+
+        return $ret;
+    }
+
+    public function run($url)
+    {
+        $this->cargaContenido($url);
+        return $this->trad($this->content->outline, 0);
+    }
+}
 
 $options = getopt('u:e::n::s::');
 
@@ -360,6 +434,9 @@ switch ($env) {
         break;
     case 'leo':
         $opml = new Leo($source);
+        break;
+    case 'markdown':
+        $opml = new Markdown($source, $maxNivel);
         break;
     default:
         $opml = new Esquema($env, $maxNivel);
