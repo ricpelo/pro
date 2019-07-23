@@ -45,7 +45,7 @@ class Esquema
 
     protected function filtrarEstilos($text)
     {
-        $text = preg_replace('/\*\*(.*)\*\*/U', '\textbf{$1}', $text);
+        $text = preg_replace('/\*\*(.*)\*\*/U', '\textbf{\textsc{$1}}', $text);
         $text = preg_replace('/\*(.*)\*/U', '\textit{$1}', $text);
         $text = preg_replace('/`(.*)`/U', '\texttt{$1}', $text);
         return $text;

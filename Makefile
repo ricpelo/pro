@@ -17,10 +17,15 @@ ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
 
-# Archivos
+# Scripts y programas
 
 PP=./pp
 PANDOC=/usr/bin/pandoc
+DIAPOSITIVAS_SH=$(SCRIPTS)/diapositivas.sh
+OPML=$(SCRIPTS)/opml.php
+
+# Archivos
+
 PROG=INF-1DAW-PRO-C19-20
 PROG_LYX=$(PROG_DIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
@@ -40,7 +45,6 @@ HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 PHP_XML=$(AUX)/php.xml
 CONSOLE_XML=$(AUX)/console.xml
 COMMON_PP=$(AUX)/common.pp
-DIAPOSITIVAS_SH=$(SCRIPTS)/diapositivas.sh
 
 # Listas de archivos
 
@@ -76,14 +80,14 @@ $(PROG_PDF): $(ESQUEMA_TEX) $(RESUMEN_TEX) $(RACE_TEX) $(PROG_LYX)
 	@lyx -E pdf2 $(PROG_DIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
 	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
 
-$(ESQUEMA_TEX): $(ESQUEMA_OPML) | $(SCRIPTS)/opml2latex.php
-	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) > $(ESQUEMA_TEX)
+$(ESQUEMA_TEX): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) > $(ESQUEMA_TEX)
 
-$(RESUMEN_TEX): $(ESQUEMA_OPML) | $(SCRIPTS)/opml2latex.php
-	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) -eresumen > $(RESUMEN_TEX)
+$(RESUMEN_TEX): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) -eresumen > $(RESUMEN_TEX)
 
-$(RACE_TEX): $(ESQUEMA_OPML) | $(SCRIPTS)/opml2latex.php
-	$(SCRIPTS)/opml2latex.php -u$(ESQUEMA_OPML) -erace > $(RACE_TEX)
+$(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) -erace > $(RACE_TEX)
 
 # Diapositivas en formato HTML
 
