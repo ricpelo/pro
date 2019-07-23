@@ -10,13 +10,15 @@ author: Ricardo Pérez López
 
 ## Métodos *getter* y *setter*
 
-# Clases y métodos abstractos
-
-# Clases y métodos finales
-
 # Interfaces
 
-# *Traits*
+## Definición de interfaces
 
-# Espacios de nombres y módulos
+## Implementación de interfaces
+
+## Las interfaces como tipos
+
+## Métodos predeterminados
+
+# Paquetes y módulos
 

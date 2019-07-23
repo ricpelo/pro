@@ -32,11 +32,11 @@ author: Ricardo Pérez López
 
 # Funciones de orden superior
 
-## `array_map`
+## `array_map()`
 
-## `array_filter`
+## `array_filter()`
 
-## `array_reduce`
+## `array_reduce()`
 
 ## Funciones locales a funciones
 

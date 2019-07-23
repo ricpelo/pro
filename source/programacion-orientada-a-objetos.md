@@ -46,15 +46,7 @@ author: Ricardo Pérez López
 
 ### Acceso y modificación
 
-### Tipos de propiedades
-
-#### Predeterminadas
-
-#### Dinámicas
-
 ## Referencias
-
-### Asignación por referencia (`=&`)
 
 ## Clonación de objetos
 
@@ -68,9 +60,7 @@ author: Ricardo Pérez López
 
 ## Constantes
 
-### Operador de resolución de ámbito (`::`)
-
-## *Ejemplo*: La Standard PHP Library (SPL)
+## *Ejemplo*: Las cadenas (clase `String`)
 
 # Lenguaje UML
 

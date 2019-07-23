@@ -22,15 +22,15 @@ author: Ricardo Pérez López
 
 ### Privada
 
-## Referencia `$this`
+## Referencia `this`
+
+## Sobrecarga
 
 ## Constructores y destructores
 
 ## Accesores y mutadores
 
 # Constantes
-
-## `self`
 
 # Miembros estáticos
 
@@ -39,6 +39,4 @@ author: Ricardo Pérez López
 ## Métodos estáticos
 
 ## Propiedades estáticas
-
-## Enlace estático en tiempo de ejecución
 

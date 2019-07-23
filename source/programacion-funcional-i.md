@@ -38,7 +38,7 @@ author: Ricardo Pérez López
 
 ### Tipos de datos básicos
 
-#### Enteros
+#### Números
 
 ##### Operadores aritméticos
 

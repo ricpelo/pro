@@ -20,7 +20,11 @@ author: Ricardo Pérez López
 
 ## Constructores y herencia
 
-## `parent`
+## `super`
+
+## Clases y métodos abstractos
+
+## Clases y métodos finales
 
 # Polimorfismo
 

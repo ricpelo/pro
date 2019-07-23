@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Introducción al lenguaje Java</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" type="image/png" href="/assets/icons/icon.png">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style type="text/css">
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        function updateHeader(nd) {
+            for (var n = nd; n != null; n = n.previousSibling) {
+                var cl = n.classList;
+                if (cl.contains('level1')) {
+                    var h = n.querySelector('h1');
+                } else if (cl.contains('level2')) {
+                    var h = n.querySelector('h2');
+                } else {
+                    continue;
+                }
+                var hr = document.getElementById('header-right');
+                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                    hr.innerHTML = '';
+                } else {
+                    var el = document.createElement('a');
+                    var href = '#/' + n.id;
+                    el.href = href;
+                    el.innerHTML = h.innerHTML;
+                    var a = el.querySelector('a');
+                    if (a !== null) {
+                        a.href = href;
+                    }
+                    while (hr.children.length > 0) {
+                        hr.removeChild(hr.lastChild);
+                    }
+                    hr.appendChild(el);
+                }
+                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+                return;
+            }
+        }
+        // On Reveal.js ready event, copy header/footer <div>
+        // into each `.slide-background` <div>
+        Reveal.addEventListener('ready', function(event) {
+            var header = document.getElementById('header');
+            document.querySelector('.reveal').appendChild(header);
+            updateHeader(Reveal.getCurrentSlide());
+        });
+        Reveal.addEventListener('slidechanged', function(event) {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            updateHeader(event.currentSlide);
+        });
+    });
+</script>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+<section id="title-slide" class="title-slide slide level1">
+  <h1 class="title">Introducción al lenguaje Java</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2019/2020</p>
+</section>
+<section id="TOC" class="slide level2">
+<ul>
+<li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/compilación-vs.-interpretación"><span class="toc-section-number">2</span> Compilación vs. interpretación</a></li>
+<li><a href="#/características-de-java"><span class="toc-section-number">3</span> Características de Java</a></li>
+<li><a href="#/tipado-estático-vs.-dinámico"><span class="toc-section-number">4</span> Tipado estático vs. dinámico</a></li>
+<li><a href="#/el-programa-hola-mundo-en-java"><span class="toc-section-number">5</span> El programa <em>¡Hola, mundo!</em> en Java</a></li>
+<li><a href="#/tipos-de-datos-primitivos"><span class="toc-section-number">6</span> Tipos de datos primitivos</a></li>
+</ul>
+</section>
+</section>
+
+<section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section>
+<section><section id="compilación-vs.-interpretación" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Compilación vs. interpretación</h1></section><section id="máquinas-reales-vs.-virtuales" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Máquinas reales vs. virtuales</h2></section><section id="código-objeto-bytecode-y-archivos-.class" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Código objeto, <em>bytecode</em> y archivos <code>.class</code></h2></section><section id="la-plataforma-java" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> La plataforma Java</h2></section><section id="la-máquina-virtual-de-java-jvm" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> La máquina virtual de Java (JVM)</h3></section><section id="la-api-de-java" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> La API de Java</h3></section><section id="el-entorno-de-ejecución-de-java-jre" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> El entorno de ejecución de Java (JRE)</h2></section><section id="el-intérprete-java" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> El intérprete <code>java</code></h3></section><section id="las-herramientas-de-desarrollo-de-java-jdk" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Las herramientas de desarrollo de Java (JDK)</h2></section><section id="el-compilador-javac" class="title-slide slide level3"><h3><span class="header-section-number">2.5.1</span> El compilador <code>javac</code></h3></section></section>
+<section id="características-de-java" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Características de Java</h1></section>
+<section id="tipado-estático-vs.-dinámico" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Tipado estático vs. dinámico</h1></section>
+<section><section id="el-programa-hola-mundo-en-java" class="title-slide slide level1"><h1><span class="header-section-number">5</span> El programa <em>¡Hola, mundo!</em> en Java</h1></section><section id="el-método-main" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> El método <code>main()</code></h2></section><section id="la-clase-system" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> La clase <code>System</code></h2></section></section>
+<section id="tipos-de-datos-primitivos" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Tipos de datos primitivos</h1></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 1080,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } },
+          { src: 'reveal.js/plugin/reveal-code-focus/vendor/highlight.js/highlight.pack.js' },
+          { src: 'reveal.js/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/customcontrols/customcontrols.js', async: true }
+        ],
+
+        customcontrols: {
+          controls: [
+            { icon: '<i class="fa fa-question-circle"></i>',
+			  css: 'position: fixed; right: 50px; bottom: 50px; z-index: 30; font-size: 24px;',
+			  action: 'Reveal.toggleHelp(); return false;'
+			}
+          ]
+        },
+
+        menu: {
+          numbers: true,
+          hideMissingTitles: true,
+          themes: true,
+          themesPath: 'reveal.js/css/theme/'
+        }
+      });
+    </script>
+    </body>
+</html>

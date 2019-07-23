@@ -33,7 +33,7 @@ ESQUEMA_OPML=$(PROGDIR)/esquema.opml
 ESQUEMA_TEX=$(PROGDIR)/esquema.tex
 RESUMEN_TEX=$(PROGDIR)/resumen.tex
 RACE_TEX=$(PROGDIR)/race.tex
-LEO=index.leo
+INDEX_LEO=index.leo
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIR_HTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/revealjs.template
@@ -58,7 +58,7 @@ APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apun
 
 all: $(DIAPOS) html pdf apuntes prog limpiar
 
-$(DIAPOS): $(SOURCES) $(DIAPOSITIVAS_SH)
+$(DIAPOS): $(SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
 	$(DIAPOSITIVAS_SH) > $(DIAPOS)
 
 html: $(OBJECTS_HTML)
@@ -92,8 +92,8 @@ $(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
 
 # Diapositivas en formato HTML
 
-$(LEO): $(ESQUEMA_OPML) $(OPML)
-	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(LEO)
+$(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(INDEX_LEO)
 
 $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."

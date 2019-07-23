@@ -24,22 +24,6 @@ author: Ricardo Pérez López
 
 #### Operadores de incremento/decremento
 
-## Cadenas (`string`)
-
-### Operadores de cadenas
-
-#### Concatenación
-
-#### Acceso y modificación por caracteres
-
-#### Operador de incremento
-
-### Funciones de manejo de cadenas
-
-### Expresiones regulares
-
-### Extensión *mbstring*
-
 ## Nulo (`null`)
 
 # Tipos compuestos
@@ -65,6 +49,22 @@ author: Ricardo Pérez López
 ### Conversión a `array`
 
 ### *Ejemplo*: `$argv` en CLI
+
+## Cadenas (`string`)
+
+### Operadores de cadenas
+
+#### Concatenación
+
+#### Acceso y modificación por caracteres
+
+#### Operador de incremento
+
+### Funciones de manejo de cadenas
+
+### Expresiones regulares
+
+### Extensión *mbstring*
 
 ## Callables
 

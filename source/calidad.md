@@ -4,7 +4,7 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Pruebas
+# Pruebas automáticas
 
 ## Tipos de pruebas
 
@@ -14,31 +14,15 @@ author: Ricardo Pérez López
 
 ### De aceptación
 
-## PHPUnit
+## JUnit
 
 ## Cobertura de código
 
-# Depuración
-
-## `var_dump()` mejorado
-
-## Consola integrada
-
-## Barra de depuración
-
-## Depuración con PsySH
-
 # Documentación
-
-## API documentation generator for Yii2
-
-## GitHub Pages
 
 # Mantenimiento y calidad del código
 
 ## CodeSniffer
 
 ## CS_Fixer
-
-## Code Climate
 

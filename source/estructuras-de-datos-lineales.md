@@ -6,11 +6,9 @@ author: Ricardo Pérez López
 
 # Acceso directo
 
-## Vectores
+## *Arrays* en java
 
 # Acceso secuencial
-
-## Pares
 
 ## Listas
 
