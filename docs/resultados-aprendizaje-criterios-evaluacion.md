@@ -4,13 +4,7 @@ title: Resultados de aprendizaje y criterios de evaluación
 
 Estos son los resultados de aprendizaje del módulo, así como sus
 correspondientes criterios de evaluación, tal y como se definen en la
-[Normativa](http://www.juntadeandalucia.es/boja/2011/149/23) vigente.
-
-Los criterios de evaluación que están marcados en negrita se consideran
-**competencias básicas**, y representan el conjunto mínimo de criterios que se
-deben evaluar para garantizar que el alumno ha alcanzado los objetivos del
-módulo. No es posible aprobar el módulo si no se ha obtenido una evaluación
-positiva en, al menos, todas sus competencias básicas.
+[Normativa](http://www.juntadeandalucia.es/boja/2011/149/23) vigente:
 
 1. **[RA1] Reconoce la estructura de un programa informático, identificando y
    relacionando los elementos propios del lenguaje de programación utilizado.**

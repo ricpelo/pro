@@ -30,3 +30,4 @@ for f in $FILES; do
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
     echo "| <strong>$TITLE</strong><br><small class=\"fecha\">$FECHA</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
 done
+echo "{:.stretch-table}"
