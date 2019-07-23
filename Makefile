@@ -11,7 +11,7 @@ BUILDDIR=docs
 BUILDDIR_HTML=$(BUILDDIR)/slides
 BUILDDIR_PDF=$(BUILDDIR)/pdf
 BUILDDIR_APUNTES=$(BUILDDIR)/apuntes
-PROG_DIR=programacion
+PROGDIR=programacion
 ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
@@ -27,12 +27,13 @@ OPML=$(SCRIPTS)/opml.php
 # Archivos
 
 PROG=INF-1DAW-PRO-C19-20
-PROG_LYX=$(PROG_DIR)/$(PROG).lyx
+PROG_LYX=$(PROGDIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
-ESQUEMA_OPML=$(PROG_DIR)/esquema.opml
-ESQUEMA_TEX=$(PROG_DIR)/esquema.tex
-RESUMEN_TEX=$(PROG_DIR)/resumen.tex
-RACE_TEX=$(PROG_DIR)/race.tex
+ESQUEMA_OPML=$(PROGDIR)/esquema.opml
+ESQUEMA_TEX=$(PROGDIR)/esquema.tex
+RESUMEN_TEX=$(PROGDIR)/resumen.tex
+RACE_TEX=$(PROGDIR)/race.tex
+LEO=index.leo
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIR_HTML)/reveal.js/js/reveal.js
 REVEAL_TEMPLATE=$(AUX)/revealjs.template
@@ -77,8 +78,8 @@ limpiar:
 
 $(PROG_PDF): $(ESQUEMA_TEX) $(RESUMEN_TEX) $(RACE_TEX) $(PROG_LYX)
 	@echo "Generando $(PROG_PDF)..."
-	@lyx -E pdf2 $(PROG_DIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
-	@[ -f "$(PROG_DIR)/$(PROG).pdf" ] && mv -f $(PROG_DIR)/$(PROG).pdf $(PROG_PDF)
+	@lyx -E pdf2 $(PROGDIR)/$(PROG).pdf $(PROG_LYX) >/dev/null || true
+	@[ -f "$(PROGDIR)/$(PROG).pdf" ] && mv -f $(PROGDIR)/$(PROG).pdf $(PROG_PDF)
 
 $(ESQUEMA_TEX): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) > $(ESQUEMA_TEX)
@@ -90,6 +91,9 @@ $(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) -erace > $(RACE_TEX)
 
 # Diapositivas en formato HTML
+
+$(LEO): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(LEO)
 
 $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."

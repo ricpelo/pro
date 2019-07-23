@@ -146,7 +146,7 @@ class Resumen extends Esquema
     protected function filtrar($text)
     {
         $text = parent::filtrar($text);
-        $text = preg_replace('/\\\textbf{(.*)}/', '$1', $text);
+        $text = preg_replace('/\\\textbf{\\\textsc{(.*)}}/', '$1', $text);
         return $text;
     }
 
@@ -282,11 +282,74 @@ class RaCe extends Resumen
     }
 }
 
-$options = getopt('u:e::n::');
+class Leo extends Resumen
+{
+    const DEFAULT_SOURCE = 'source';
+
+    public $source = self::DEFAULT_SOURCE;
+
+    public function __construct($source = self::DEFAULT_SOURCE)
+    {
+        parent::__construct(self::DEFAULT_ENV, 1);
+        $this->source = $source;
+    }
+
+    protected function filtrar($text)
+    {
+        $text = parent::filtrar($text);
+        $text = mb_strtolower($text);
+        $text = str_replace(
+            ['á', 'é', 'í', 'ó', 'ú', 'ñ', ' '],
+            ['a', 'e', 'i', 'o', 'u', 'n', '-'],
+            $text
+        );
+        return $text . '.md';
+    }
+
+    protected function trad(SimpleXMLElement $elem, $nivel = 0)
+    {
+        $ud = 1;
+        $ret = '';
+
+        foreach ($elem->outline as $item) {
+            $attr = $item->attributes();
+            $text = (string) $attr->text;
+            if ($text != '---') {
+                $text = $this->filtrar($text);
+                $ret .= '<v t="ricardo.' . date('YmdHis') . '.' . $ud++ . '"><vh>@auto ' . $this->source . '/' . $text . '</vh></v>' . PHP_EOL;
+            }
+        }
+
+        return $ret;
+    }
+
+    public function run($url)
+    {
+        $this->cargaContenido($url);
+        $ret  = '<?xml version="1.0" encoding="utf-8"?' . '>' . PHP_EOL;
+        $ret .= '<!-- Created by Leo: http://leoeditor.com/leo_toc.html -->' . PHP_EOL;
+        $ret .= '<leo_file xmlns:leo="http://leoeditor.com/namespaces/leo-python-editor/1.1" >' . PHP_EOL;
+        $ret .= '<leo_header file_format="2"/>' . PHP_EOL;
+        $ret .= '<globals/>' . PHP_EOL;
+        $ret .= '<preferences/>' . PHP_EOL;
+        $ret .= '<find_panel_settings/>' . PHP_EOL;
+        $ret .= '<vnodes>' . PHP_EOL;
+        $ret .= $this->trad($this->content->outline, 0);
+        $ret .= '</vnodes>' . PHP_EOL;
+        $ret .= '<tnodes>' . PHP_EOL;
+        $ret .= '</tnodes>' . PHP_EOL;
+        $ret .= '</leo_file>' . PHP_EOL;
+        return $ret;
+    }
+}
+
+
+$options = getopt('u:e::n::s::');
 
 $url = $options['u'];
 $maxNivel = (int) ($options['n'] ?? Esquema::MAX_NIVEL);
 $env = $options['e'] ?? Esquema::DEFAULT_ENV;
+$source = $options['s'] ?? Leo::DEFAULT_SOURCE;
 
 switch ($env) {
     case 'resumen':
@@ -294,6 +357,9 @@ switch ($env) {
         break;
     case 'race':
         $opml = new RaCe($maxNivel);
+        break;
+    case 'leo':
+        $opml = new Leo($source);
         break;
     default:
         $opml = new Esquema($env, $maxNivel);
