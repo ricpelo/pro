@@ -24,6 +24,7 @@ class Esquema
 
     protected function filtrarEspeciales($text)
     {
+        $text = preg_replace('/\\\/', '\\\\\\', $text);
         $text = preg_replace('/{/', '\\{', $text);
         $text = preg_replace('/}/', '\\}', $text);
         $text = preg_replace('/_/', '\\_', $text);
@@ -69,18 +70,30 @@ class Esquema
         return '\end{' . $this->env . '}' . PHP_EOL;
     }
 
-    protected function ev($tags)
-    {
-        $matches = [];
-        if (preg_match('/ev\d+/', $tags, $matches)) {
-            return $matches[0];
-        }
-        return '';
-    }
-
     protected function filtrarEtiqueta($tag)
     {
         return preg_replace('/ce(.*)/', 'ce{$1}', $tag);
+    }
+
+    protected function filtrarEtiquetas($tags)
+    {
+        $tags = array_map(function ($t) {
+            return '\\' . $this->filtrarEtiqueta($t) . '\\';
+        }, $tags);
+        return $tags;
+    }
+
+    protected function etiquetaValida($tag)
+    {
+        return preg_match('/^ce\d+[a-z]$/', $tag) === 1 ||
+               preg_match('/^ra\d+$/', $tag) === 1 ||
+               preg_match('/^ev\d+$/', $tag) === 1 ||
+               preg_match('/^opcional$/', $tag) === 1;
+    }
+
+    protected function etiquetasValidas($tags)
+    {
+        return array_filter($tags, [$this, 'etiquetaValida']);
     }
 
     protected function trad(SimpleXMLElement $elem, $nivel = 0)
@@ -94,7 +107,10 @@ class Esquema
             $ret = $this->spc($nivel) . '\item ' . $text;
 
             if ($attr->tags) {
-                $ret .= ' ' . implode(' ', array_map(function ($t) { return '\\' . $this->filtrarEtiqueta($t) . '\\'; }, explode(',', $attr->tags)));
+                $tags = explode(',', $attr->tags);
+                $tags = $this->etiquetasValidas($tags);
+                $tags = $this->filtrarEtiquetas($tags);
+                $ret .= ' ' . implode(' ', $tags);
             }
 
             if ($attr->due) {
@@ -153,7 +169,7 @@ class Resumen extends Esquema
     protected function ev($tags)
     {
         $matches = [];
-        if (preg_match('/ev\d/', $tags, $matches)) {
+        if (preg_match('/ev\d+/', $tags, $matches)) {
             return $matches[0];
         }
         return '';
@@ -242,7 +258,7 @@ class RaCe extends Resumen
                         if (empty($ra)) {
                             $ret .= '$\times$';
                         } else {
-                            $ra = array_map(function ($x) { return '\\' . $this->filtrarEtiqueta($x); }, $ra);
+                            $ra = $this->filtrarEtiquetas($ra);
                             $ret .= implode(' ', $ra);
                         }
                     }
@@ -321,7 +337,9 @@ class Leo extends Resumen
             $text = (string) $attr->text;
             if ($text != '---') {
                 $text = $this->filtrar($text);
-                $ret .= '<v t="ricardo.' . date('YmdHis') . '.' . $ud++ . '"><vh>@auto ' . $this->source . '/' . $text . '</vh></v>' . PHP_EOL;
+                $ret .= '<v t="ricardo.' . date('YmdHis') . '.' . $ud++ . '">';
+                $ret .= '<vh>@auto ' . $this->source . '/' . $text;
+                $ret .= '</vh></v>' . PHP_EOL;
             }
         }
 
