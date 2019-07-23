@@ -4,45 +4,43 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación funcional II
+# Abstracciones funcionales
 
-## Abstracciones funcionales
+## Definición de funciones anónimas
 
-### Definición de funciones anónimas
+## Parámetros y argumentos
 
-### Parámetros y argumentos
+## Paso de argumentos por valor
 
-### Paso de argumentos por valor
+## Ámbito de las variables
 
-### Ámbito de las variables
+## La sentencia `return`
 
-### La sentencia `return`
+# Composición de funciones
 
-## Composición de funciones
+# Computabilidad
 
-## Computabilidad
+## Funciones recursivas
 
-### Funciones recursivas
+## Un lenguaje Turing-completo
 
-### Un lenguaje Turing-completo
+# Tipos de datos compuestos
 
-## Tipos de datos compuestos
+## Las cadenas como datos compuestos
 
-### Las cadenas como datos compuestos
+## Los *arrays* como listas inmutables de elementos
 
-### Los *arrays* como listas inmutables de elementos
+# Funciones de orden superior
 
-## Funciones de orden superior
+## `array_map`
 
-### `array_map`
+## `array_filter`
 
-### `array_filter`
+## `array_reduce`
 
-### `array_reduce`
+## Funciones locales a funciones
 
-### Funciones locales a funciones
+## Funciones anónimas
 
-### Funciones anónimas
-
-## *Scripts*
+# *Scripts*
 

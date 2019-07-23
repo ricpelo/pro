@@ -4,71 +4,69 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación modular I
+# Introducción
 
-## Introducción
+## Descomposición de problemas
 
-### Descomposición de problemas
+# Funciones definidas por el usuario
 
-## Funciones definidas por el usuario
+## Definición de funciones con `function`
 
-### Definición de funciones con `function`
+## Paso de argumentos
 
-### Paso de argumentos
+### Por valor
 
-#### Por valor
+### Por referencia
 
-#### Por referencia
+## Ámbito de variables
 
-### Ámbito de variables
+### Variables globales
 
-#### Variables globales
+#### Ámbito simple al archivo
 
-##### Ámbito simple al archivo
+#### Efectos laterales
 
-##### Efectos laterales
+### Variables locales
 
-#### Variables locales
+## Declaraciones de tipos
 
-### Declaraciones de tipos
+### Declaraciones de tipo de argumento
 
-#### Declaraciones de tipo de argumento
+### Declaraciones de tipo de devolución
 
-#### Declaraciones de tipo de devolución
+### Tipos *nullable* (`?`) y `void`
 
-#### Tipos *nullable* (`?`) y `void`
+### Tipificación estricta
 
-#### Tipificación estricta
+# Partes de un módulo
 
-## Partes de un módulo
+## Interfaz
 
-### Interfaz
+## Implementación
 
-### Implementación
+## Documentación interna
 
-### Documentación interna
+# Inclusión de *scripts*
 
-## Inclusión de *scripts*
+## `require` y `require_once`
 
-### `require` y `require_once`
+## `include` e `include_once`
 
-### `include` e `include_once`
+# Espacios de nombres
 
-## Espacios de nombres
+# Criterios de descomposición modular
 
-## Criterios de descomposición modular
+## Abstracción
 
-### Abstracción
+## Ocultación de información
 
-### Ocultación de información
+## Independencia funcional
 
-### Independencia funcional
+### Cohesión
 
-#### Cohesión
+### Acoplamiento
 
-#### Acoplamiento
+## Reusabilidad
 
-### Reusabilidad
-
-## Diagramas de estructura
+# Diagramas de estructura
 

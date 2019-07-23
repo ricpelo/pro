@@ -4,137 +4,135 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Tipos de datos
+# Introducción
 
-## Introducción
+# Tipos básicos
 
-## Tipos básicos
+## Lógicos (`bool`)
 
-### Lógicos (`bool`)
+### Operadores lógicos
 
-#### Operadores lógicos
+## Numéricos
 
-### Numéricos
+### Enteros (`int`)
 
-#### Enteros (`int`)
+### Números en coma flotante (`float`)
 
-#### Números en coma flotante (`float`)
+### Operadores
 
-#### Operadores
+#### Operadores aritméticos
 
-##### Operadores aritméticos
+#### Operadores de incremento/decremento
 
-##### Operadores de incremento/decremento
+## Cadenas (`string`)
 
-### Cadenas (`string`)
+### Operadores de cadenas
 
-#### Operadores de cadenas
+#### Concatenación
 
-##### Concatenación
+#### Acceso y modificación por caracteres
 
-##### Acceso y modificación por caracteres
+#### Operador de incremento
 
-##### Operador de incremento
+### Funciones de manejo de cadenas
 
-#### Funciones de manejo de cadenas
+### Expresiones regulares
 
-#### Expresiones regulares
+### Extensión *mbstring*
 
-#### Extensión *mbstring*
+## Nulo (`null`)
 
-### Nulo (`null`)
+# Tipos compuestos
 
-## Tipos compuestos
+## *Arrays* asociativos
 
-### *Arrays* asociativos
+### Operadores para arrays
 
-#### Operadores para arrays
+#### Acceso, modificación y agregación
 
-##### Acceso, modificación y agregación
+### Funciones de manejo de arrays
 
-#### Funciones de manejo de arrays
+#### Ordenación de arrays
 
-##### Ordenación de arrays
+#### `print_r()`
 
-##### `print_r()`
+#### `'+'` vs. `array_merge()`
 
-##### `'+'` vs. `array_merge()`
+#### `isset()` vs. `array_key_exists()`
 
-##### `isset()` vs. `array_key_exists()`
+### `foreach`
 
-#### `foreach`
+### Conversión a `array`
 
-#### Conversión a `array`
+### *Ejemplo*: `$argv` en CLI
 
-#### *Ejemplo*: `$argv` en CLI
+## Callables
 
-### Callables
+### `call_user_func()`
 
-#### `call_user_func()`
+### `array_map()` y `array_reduce()`
 
-#### `array_map()` y `array_reduce()`
+## Iterable
 
-### Iterable
+# Manipulación de tipos
 
-## Manipulación de tipos
+## Operadores de asignación compuesta
 
-### Operadores de asignación compuesta
+## Comprobaciones
 
-### Comprobaciones
+### De tipos
 
-#### De tipos
+#### `gettype()`
 
-##### `gettype()`
+#### `is_*()`
 
-##### `is_*()`
+### De valores
 
-#### De valores
+#### `is_numeric()`
 
-##### `is_numeric()`
+#### `ctype_*()`
 
-##### `ctype_*()`
+## Conversiones de tipos
 
-### Conversiones de tipos
+### Conversión explícita (forzado o *casting*) vs. automática
 
-#### Conversión explícita (forzado o *casting*) vs. automática
+### Conversión a `bool`
 
-#### Conversión a `bool`
+### Conversión a `int`
 
-#### Conversión a `int`
+### Conversión a `float`
 
-#### Conversión a `float`
+### Conversión de `string` a número
 
-#### Conversión de `string` a número
+### Conversión a `string`
 
-#### Conversión a `string`
+### Funciones de obtención de valores
 
-#### Funciones de obtención de valores
+#### `intval()`
 
-##### `intval()`
+#### `floatval()`
 
-##### `floatval()`
+#### `strval()`
 
-##### `strval()`
+#### `boolval()`
 
-##### `boolval()`
+### Funciones de formateado numérico
 
-#### Funciones de formateado numérico
+#### `number_format()`
 
-##### `number_format()`
+#### `money_format()`
 
-##### `money_format()`
+##### `setlocale()`
 
-###### `setlocale()`
+## Comparaciones
 
-### Comparaciones
+### Operadores de comparación
 
-#### Operadores de comparación
+### `==` vs. `===`
 
-#### `==` vs. `===`
+### Ternario (`?:`)
 
-#### Ternario (`?:`)
+### Fusión de `null` (`??`)
 
-#### Fusión de `null` (`??`)
-
-#### Reglas de comparación de tipos
+### Reglas de comparación de tipos
 

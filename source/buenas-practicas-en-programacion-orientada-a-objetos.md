@@ -4,41 +4,39 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Buenas prácticas en programación orientada a objetos
+# Declaraciones de tipos
 
-## Declaraciones de tipos
+## El pseudotipo `void`
 
-### El pseudotipo `void`
+## Tipificación estricta
 
-### Tipificación estricta
+## Covarianza de retorno y contravarianza de argumentos
 
-### Covarianza de retorno y contravarianza de argumentos
+# Principios de diseño
 
-## Principios de diseño
+## Encapsulación y ocultación de información
 
-### Encapsulación y ocultación de información
+## Diseño orientado a interfaces
 
-### Diseño orientado a interfaces
+## Principios *SOLID*
 
-### Principios *SOLID*
+### SRP: Principio de responsabilidad única
 
-#### SRP: Principio de responsabilidad única
+### OCP: Principio de abierto/cerrado
 
-#### OCP: Principio de abierto/cerrado
+### LSP: Principio de sustitución de Liskov
 
-#### LSP: Principio de sustitución de Liskov
+### ISP: Principio de segregación de la interfaz
 
-#### ISP: Principio de segregación de la interfaz
+### DIP: Principio de inversión de dependencias
 
-#### DIP: Principio de inversión de dependencias
+## Principio del Menor Conocimiento (o Ley de Demeter)
 
-### Principio del Menor Conocimiento (o Ley de Demeter)
+# Patrones de diseño
 
-## Patrones de diseño
+## De creación
 
-### De creación
+## Estructurales
 
-### Estructurales
-
-### De comportamiento
+## De comportamiento
 

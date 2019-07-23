@@ -4,49 +4,47 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación imperativa
+# Modelo de ejecución
 
-## Modelo de ejecución
+## Máquina de estados
 
-### Máquina de estados
+## Secuencia de instrucciones
 
-### Secuencia de instrucciones
+# Cambios de estado explícitos
 
-## Cambios de estado explícitos
+## Celdas
 
-### Celdas
+## Asignación destructiva (o asignación múltiple)
 
-### Asignación destructiva (o asignación múltiple)
+## Asignación por referencia
 
-### Asignación por referencia
+# Efectos laterales
 
-## Efectos laterales
+## Transparencia referencial
 
-### Transparencia referencial
+## Entrada y salida por consola
 
-### Entrada y salida por consola
+### La sentencia `echo`
 
-#### La sentencia `echo`
+### Las funciones `var_dump()` y `print_r()`
 
-#### Las funciones `var_dump()` y `print_r()`
+### Las funciones `fgets()` y `fscanf()`
 
-#### Las funciones `fgets()` y `fscanf()`
+# Saltos
 
-## Saltos
+## Incondicionales: la sentencia `goto`
 
-### Incondicionales: la sentencia `goto`
+## Condicionales: la sentencia `if (...) goto`
 
-### Condicionales: la sentencia `if (...) goto`
+## Implementación de bucles mediante saltos condicionales
 
-### Implementación de bucles mediante saltos condicionales
+# Los *arrays* como estructura de datos mutable básica
 
-## Los *arrays* como estructura de datos mutable básica
+## Creación, acceso y modificación
 
-### Creación, acceso y modificación
+## Recorrido y búsqueda en un *array*
 
-### Recorrido y búsqueda en un *array*
+## *Arrays* multidimensionales
 
-### *Arrays* multidimensionales
-
-### Funciones de manejo de *arrays*
+## Funciones de manejo de *arrays*
 

@@ -4,21 +4,19 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación modular II
+# Las clases como módulos
 
-## Las clases como módulos
+## Interfaz de una clase
 
-### Interfaz de una clase
+## Métodos *getter* y *setter*
 
-### Métodos *getter* y *setter*
+# Clases y métodos abstractos
 
-## Clases y métodos abstractos
+# Clases y métodos finales
 
-## Clases y métodos finales
+# Interfaces
 
-## Interfaces
+# *Traits*
 
-## *Traits*
-
-## Espacios de nombres y módulos
+# Espacios de nombres y módulos
 

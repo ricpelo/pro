@@ -4,25 +4,23 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Ordenación y búsqueda
+# Algoritmos de búsqueda
 
-## Algoritmos de búsqueda
+## Búsqueda secuencial
 
-### Búsqueda secuencial
+## Búsqueda dicotómica
 
-### Búsqueda dicotómica
+# Algoritmos de ordenación
 
-## Algoritmos de ordenación
+## Inserción directa
 
-### Inserción directa
+## Selección directa
 
-### Selección directa
+## Burbuja
 
-### Burbuja
+## *Quicksort*
 
-### *Quicksort*
+## *Mergesort*
 
-### *Mergesort*
-
-## Tablas *Hash*
+# Tablas *Hash*
 

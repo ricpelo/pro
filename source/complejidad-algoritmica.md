@@ -4,27 +4,25 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Complejidad algorítmica
+# Introducción
 
-## Introducción
+# Principio de invarianza
 
-## Principio de invarianza
+# La notación asintótica *O(f(n))*
 
-## La notación asintótica *O(f(n))*
+# Órdenes de complejidad
 
-## Órdenes de complejidad
+# Operaciones entre órdenes de complejidad
 
-## Operaciones entre órdenes de complejidad
+## Regla de la suma
 
-### Regla de la suma
+## Regla del producto
 
-### Regla del producto
+# Reglas prácticas para el cálculo de la eficiencia
 
-## Reglas prácticas para el cálculo de la eficiencia
+# Resolución de recurrencias
 
-## Resolución de recurrencias
+## Reducción de problemas mediante sustracción
 
-### Reducción de problemas mediante sustracción
-
-### Reducción de problemas mediante división
+## Reducción de problemas mediante división
 

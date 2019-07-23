@@ -4,123 +4,121 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Introducción
+# Funcionamiento básico de un ordenador
 
-## Funcionamiento básico de un ordenador
+## Elementos funcionales
 
-### Elementos funcionales
+## Ciclo de instrucción
 
-### Ciclo de instrucción
+## Representación de información
 
-### Representación de información
+### Codificación interna
 
-#### Codificación interna
+#### Sistema binario
 
-##### Sistema binario
+### Codificación externa
 
-#### Codificación externa
+#### ASCII
 
-##### ASCII
+#### Unicode
 
-##### Unicode
+# Resolución de problemas mediante programación
 
-## Resolución de problemas mediante programación
+## Análisis del problema
 
-### Análisis del problema
+## Especificación
 
-### Especificación
+## Diseño del algoritmo
 
-### Diseño del algoritmo
+## Codificación del algoritmo en forma de programa
 
-### Codificación del algoritmo en forma de programa
+# Conceptos básicos
 
-## Conceptos básicos
+## Algoritmo
 
-### Algoritmo
+### Concepto
 
-#### Concepto
+### Características
 
-#### Características
+### Representación
 
-#### Representación
+#### Ordinograma
 
-##### Ordinograma
+#### Pseudocódigo
 
-##### Pseudocódigo
+### Cualidades deseables
 
-#### Cualidades deseables
+### Computabilidad
 
-#### Computabilidad
+### Corrección
 
-#### Corrección
+### Complejidad
 
-#### Complejidad
+## Programa
 
-### Programa
+## Lenguaje de programación
 
-### Lenguaje de programación
+# Evolución histórica
+
+## Culturas de la programación
+
+## Ingeniería del software
+
+# Paradigmas de programación
+
+## Imperativo
+
+### Estructurado
+
+### Orientado a objetos
+
+## Declarativo
+
+### Funcional
+
+### Lógico
+
+# Lenguajes de programación
+
+## Definición
+
+### Sintaxis
+
+#### Notación EBNF
+
+### Semántica
 
 ## Evolución histórica
 
-### Culturas de la programación
+## Clasificación
 
-### Ingeniería del software
+### Por nivel
 
-## Paradigmas de programación
+### Por generación
 
-### Imperativo
+### Por paradigma
 
-#### Estructurado
+# Traductores
 
-#### Orientado a objetos
+## Compiladores
 
-### Declarativo
+## Intérpretes
 
-#### Funcional
+### Interactivos (*REPL*)
 
-#### Lógico
+### Por lotes
 
-## Lenguajes de programación
+# El lenguaje de programación PHP
 
-### Definición
+## Historia
 
-#### Sintaxis
+## Características principales
 
-##### Notación EBNF
+# Entornos integrados de desarrollo
 
-#### Semántica
+## Definición y tipos. Entornos comerciales y de Software libre.
 
-### Evolución histórica
+## Instalación y descripción de entornos integrados de desarrollo.
 
-### Clasificación
-
-#### Por nivel
-
-#### Por generación
-
-#### Por paradigma
-
-## Traductores
-
-### Compiladores
-
-### Intérpretes
-
-#### Interactivos (*REPL*)
-
-#### Por lotes
-
-## El lenguaje de programación PHP
-
-### Historia
-
-### Características principales
-
-## Entornos integrados de desarrollo
-
-### Definición y tipos. Entornos comerciales y de Software libre.
-
-### Instalación y descripción de entornos integrados de desarrollo.
-
-### Creación de proyectos. Estructura y componentes.
+## Creación de proyectos. Estructura y componentes.
 

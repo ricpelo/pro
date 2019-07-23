@@ -4,89 +4,87 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación funcional I
+# Modelo de ejecución
 
-## Modelo de ejecución
+## Evaluación de expresiones
 
-### Evaluación de expresiones
+## Modelo de sustitución / sistema de reescritura
 
-### Modelo de sustitución / sistema de reescritura
+# Expresiones
 
-## Expresiones
+## Valores, expresión canónica y forma normal
 
-### Valores, expresión canónica y forma normal
+## Literales
 
-### Literales
+## Operaciones, operadores y operandos
 
-### Operaciones, operadores y operandos
+### Precedencia y asociatividad de operadores
 
-#### Precedencia y asociatividad de operadores
+## Evaluación
 
-### Evaluación
+### Orden de evaluación
 
-#### Orden de evaluación
+#### Orden aplicativo
 
-##### Orden aplicativo
+#### Orden normal
 
-##### Orden normal
+## Tipos de datos
 
-### Tipos de datos
+### Concepto
 
-#### Concepto
+#### Tipo de un valor
 
-##### Tipo de un valor
+#### Tipo de una expresión
 
-##### Tipo de una expresión
+### Tipos de datos básicos
 
-#### Tipos de datos básicos
+#### Enteros
 
-##### Enteros
+##### Operadores aritméticos
 
-###### Operadores aritméticos
+#### Cadenas
 
-##### Cadenas
+## Algebraicas vs. algorítmicas
 
-### Algebraicas vs. algorítmicas
+## Aritméticas
 
-### Aritméticas
+## Funciones predefinidas
 
-### Funciones predefinidas
+## Constantes predefinidas
 
-### Constantes predefinidas
+# Álgebra de Boole
 
-## Álgebra de Boole
+## El tipo de dato *booleano*
 
-### El tipo de dato *booleano*
+## Operadores relacionales
 
-### Operadores relacionales
+## Operadores lógicos
 
-### Operadores lógicos
+## Axiomas
 
-### Axiomas
+## Propiedades
 
-### Propiedades
+## El operador ternario
 
-### El operador ternario
+# Sentencias
 
-## Sentencias
+## Variables
 
-### Variables
+### Identificadores
 
-#### Identificadores
+### Ligadura (*binding*)
 
-#### Ligadura (*binding*)
+### Estado
 
-#### Estado
+### Asignación no destructiva
 
-#### Asignación no destructiva
+### Tipado estático vs. dinámico
 
-#### Tipado estático vs. dinámico
+## Evaluación de expresiones con variables
 
-### Evaluación de expresiones con variables
+# Autodocumentación
 
-## Autodocumentación
+## Comentarios
 
-### Comentarios
-
-### Reglas de estilo
+## Reglas de estilo
 

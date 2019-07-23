@@ -4,37 +4,35 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Entrada y salida de información
+# Flujos
 
-## Flujos
+## Tipos de flujos
 
-### Tipos de flujos
+### Flujos de bytes
 
-#### Flujos de bytes
+### Flujos de caracteres
 
-#### Flujos de caracteres
+## Utilización de flujos
 
-### Utilización de flujos
+# La consola
 
-## La consola
+## Entrada desde teclado
 
-### Entrada desde teclado
+## Salida a pantalla
 
-### Salida a pantalla
+# Archivos de datos
 
-## Archivos de datos
+## Registros
 
-### Registros
+## Apertura y cierre de archivos
 
-### Apertura y cierre de archivos
+## Modos de acceso
 
-### Modos de acceso
+## Lectura y escritura de información en archivos
 
-### Lectura y escritura de información en archivos
+# Sistemas de archivos
 
-## Sistemas de archivos
+## Manipulación de los sistemas de archivos
 
-### Manipulación de los sistemas de archivos
-
-### Creación y eliminación de archivos y directorios
+## Creación y eliminación de archivos y directorios
 

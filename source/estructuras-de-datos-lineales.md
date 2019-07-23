@@ -4,23 +4,21 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Estructuras de datos lineales
+# Acceso directo
 
-## Acceso directo
+## Vectores
 
-### Vectores
+# Acceso secuencial
 
-## Acceso secuencial
+## Pares
 
-### Pares
+## Listas
 
-### Listas
+### Enlazadas
 
-#### Enlazadas
+### Doblemente enlazadas
 
-#### Doblemente enlazadas
+## Pilas
 
-### Pilas
-
-### Colas
+## Colas
 

@@ -4,49 +4,47 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Metodología de la programación
+# Ciclo de vida
 
-## Ciclo de vida
+# Especificación e implementación
 
-## Especificación e implementación
+# Verificación y validación de programas
 
-## Verificación y validación de programas
+## Demostración por inducción
 
-### Demostración por inducción
+# Programación funcional
 
-## Programación funcional
+## Especificaciones formales
 
-### Especificaciones formales
+### Como cálculo
 
-#### Como cálculo
+## Derivación de programas
 
-### Derivación de programas
+### Diseño recursivo
 
-#### Diseño recursivo
+#### Procesos recursivos e iterativos
 
-##### Procesos recursivos e iterativos
+#### Recursividad final
 
-##### Recursividad final
+#### Técnicas de inmersión
 
-##### Técnicas de inmersión
+# Programación imperativa
 
-## Programación imperativa
+## Especificaciones formales
 
-### Especificaciones formales
+### Como modificación de estados
 
-#### Como modificación de estados
+## Derivación de programas
 
-### Derivación de programas
+### Diseño iterativo
 
-#### Diseño iterativo
+#### Invariante de un bucle
 
-##### Invariante de un bucle
+#### Transformación de recursividad final a iterativo
 
-##### Transformación de recursividad final a iterativo
+# Depuración
 
-## Depuración
+## Depuración de programas
 
-### Depuración de programas
-
-### El depurador como herramienta de control de errores
+## El depurador como herramienta de control de errores
 

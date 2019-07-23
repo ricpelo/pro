@@ -4,81 +4,79 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación orientada a objetos
+# Introducción
 
-## Introducción
+## Perspectiva histórica
 
-### Perspectiva histórica
+## Lenguajes orientados a objetos
 
-### Lenguajes orientados a objetos
+# Conceptos básicos
 
-## Conceptos básicos
+## Clase
 
-### Clase
+## Objeto
 
-### Objeto
+### La antisimetría dato-objeto
 
-#### La antisimetría dato-objeto
+## Identidad
 
-### Identidad
+## Estado
 
-### Estado
+## Propiedad
 
-### Propiedad
+## Paso de mensajes
 
-### Paso de mensajes
+## Método
 
-### Método
+## Encapsulación
 
-### Encapsulación
+## Herencia
 
-### Herencia
+## Polimorfismo
 
-### Polimorfismo
+# Uso básico de objetos
 
-## Uso básico de objetos
+## Instanciación
 
-### Instanciación
+### `new`
 
-#### `new`
+### `instanceof`
 
-#### `instanceof`
+## Propiedades
 
-### Propiedades
+### Acceso y modificación
 
-#### Acceso y modificación
+### Tipos de propiedades
 
-#### Tipos de propiedades
+#### Predeterminadas
 
-##### Predeterminadas
+#### Dinámicas
 
-##### Dinámicas
+## Referencias
 
-### Referencias
+### Asignación por referencia (`=&`)
 
-#### Asignación por referencia (`=&`)
+## Clonación de objetos
 
-### Clonación de objetos
+## Comparación de objetos
 
-### Comparación de objetos
+## Destrucción de objetos
 
-### Destrucción de objetos
+### Recolección de basura
 
-#### Recolección de basura
+## Métodos
 
-### Métodos
+## Constantes
 
-### Constantes
+### Operador de resolución de ámbito (`::`)
 
-#### Operador de resolución de ámbito (`::`)
+## *Ejemplo*: La Standard PHP Library (SPL)
 
-### *Ejemplo*: La Standard PHP Library (SPL)
+# Lenguaje UML
 
-## Lenguaje UML
+## Diagramas de clases
 
-### Diagramas de clases
+## Diagramas de objetos
 
-### Diagramas de objetos
-
-### Diagramas de secuencia
+## Diagramas de secuencia
 

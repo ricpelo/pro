@@ -4,43 +4,41 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Calidad
+# Pruebas
 
-## Pruebas
+## Tipos de pruebas
 
-### Tipos de pruebas
+### Unitarias
 
-#### Unitarias
+### Funcionales
 
-#### Funcionales
+### De aceptación
 
-#### De aceptación
+## PHPUnit
 
-### PHPUnit
+## Cobertura de código
 
-### Cobertura de código
+# Depuración
 
-## Depuración
+## `var_dump()` mejorado
 
-### `var_dump()` mejorado
+## Consola integrada
 
-### Consola integrada
+## Barra de depuración
 
-### Barra de depuración
+## Depuración con PsySH
 
-### Depuración con PsySH
+# Documentación
 
-## Documentación
+## API documentation generator for Yii2
 
-### API documentation generator for Yii2
+## GitHub Pages
 
-### GitHub Pages
+# Mantenimiento y calidad del código
 
-## Mantenimiento y calidad del código
+## CodeSniffer
 
-### CodeSniffer
+## CS_Fixer
 
-### CS_Fixer
-
-### Code Climate
+## Code Climate
 

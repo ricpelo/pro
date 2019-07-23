@@ -384,9 +384,10 @@ class Markdown extends Leo
             $text = $this->filtrar($text);
             $titulo = $text;
 
-            $ret = $this->spc($nivel) . ' ' . $text . PHP_EOL;
-
-            $ret .= PHP_EOL;
+            if ($nivel > 1) {
+                $ret = $this->spc($nivel - 1) . ' ' . $text . PHP_EOL;
+                $ret .= PHP_EOL;
+            }
         }
 
         if (count($elem->outline) > 0 && $nivel < $this->maxNivel) {

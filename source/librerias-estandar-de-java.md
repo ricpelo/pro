@@ -4,15 +4,13 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Librerías estándar de Java
+# Paquetes
 
-## Paquetes
+# `java.lang`
 
-## `java.lang`
+# `java.util`
 
-## `java.util`
+# `java.math`
 
-## `java.math`
-
-## `java.io`
+# `java.io`
 

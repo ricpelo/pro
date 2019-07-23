@@ -4,33 +4,31 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Composición, herencia y poliformismo
+# Composición de clases
 
-## Composición de clases
+# Herencia
 
-## Herencia
+## Concepto de herencia
 
-### Concepto de herencia
+## Tipos
 
-### Tipos
+## Superclases y subclases
 
-### Superclases y subclases
+## Visibilidad protegida
 
-### Visibilidad protegida
+## Utilización de clases heredadas
 
-### Utilización de clases heredadas
+## Constructores y herencia
 
-### Constructores y herencia
+## `parent`
 
-### `parent`
+# Polimorfismo
 
-## Polimorfismo
+## El principio de sustitución de Liskov
 
-### El principio de sustitución de Liskov
+## Sobreescritura de métodos
 
-### Sobreescritura de métodos
+## Sobreescritura de constructores
 
-### Sobreescritura de constructores
-
-## Herencia vs. composición
+# Herencia vs. composición
 

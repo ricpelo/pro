@@ -4,91 +4,89 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Interoperabilidad
+# Versionado semántico
 
-## Versionado semántico
+# Composer
 
-## Composer
+## Paquetes
 
-### Paquetes
+## Packagist
 
-### Packagist
+## Dependencias
 
-### Dependencias
+### `composer.json` y `composer.lock`
 
-#### `composer.json` y `composer.lock`
+## Versiones y restricciones
 
-### Versiones y restricciones
+### Versión exacta
 
-#### Versión exacta
+### Rango (`>`, `>=`, `<`, `<=`, `!=`, ` `, `,`, `||`)
 
-#### Rango (`>`, `>=`, `<`, `<=`, `!=`, ` `, `,`, `||`)
+### Guión (`-`)
 
-#### Guión (`-`)
+### Asterisco (`*`)
 
-#### Asterisco (`*`)
+### Tilde (`~`)
 
-#### Tilde (`~`)
+### Circunflejo (`^`)
 
-#### Circunflejo (`^`)
+### Nombres de rama
 
-#### Nombres de rama
+#### `dev-master`
 
-##### `dev-master`
+#### `5.1.x-dev`
 
-##### `5.1.x-dev`
+### Estabilidad mínima
 
-#### Estabilidad mínima
+### Comprobador online de restricciones
 
-#### Comprobador online de restricciones
+## Comandos básicos
 
-### Comandos básicos
+### `require`
 
-#### `require`
+### `install`
 
-#### `install`
+### `update`
 
-#### `update`
+## Entornos de desarrollo y producción
 
-### Entornos de desarrollo y producción
+# Autocarga de clases
 
-## Autocarga de clases
+## `spl_autoload_register()`
 
-### `spl_autoload_register()`
+## PSR-4
 
-### PSR-4
+## Autoloader de Composer
 
-### Autoloader de Composer
+# Ejemplos
 
-## Ejemplos
+## `mpdf/mpdf`
 
-### `mpdf/mpdf`
+## `ramsey/uuid`
 
-### `ramsey/uuid`
+## `doctrine/inflector`
 
-### `doctrine/inflector`
+# Recomendaciones PSR del PHP-FIG
 
-## Recomendaciones PSR del PHP-FIG
+## PSR-1: Basic Coding Standard
 
-### PSR-1: Basic Coding Standard
+## PSR-2: Coding Style Guide
 
-### PSR-2: Coding Style Guide
+## PSR-4: Autoloading Standard
 
-### PSR-4: Autoloading Standard
+## PSR-5: PHPDoc Standard (borrador)
 
-### PSR-5: PHPDoc Standard (borrador)
+## PSR-11: Extended Coding Style Guide (borrador)
 
-### PSR-11: Extended Coding Style Guide (borrador)
+## PSR-19: PHPDoc tags (borrador)
 
-### PSR-19: PHPDoc tags (borrador)
+# Ejercicios
 
-## Ejercicios
+## De versionado semántico
 
-### De versionado semántico
+## De versiones y restricciones
 
-### De versiones y restricciones
+## De uso básico de Composer
 
-### De uso básico de Composer
-
-### De buscar paquetes en Packagist que tengan una funcionalidad concreta y usarlos en un ejemplo
+## De buscar paquetes en Packagist que tengan una funcionalidad concreta y usarlos en un ejemplo
 

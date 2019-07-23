@@ -4,49 +4,47 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Abstracción de datos
+# Tipos abstractos de datos
 
-## Tipos abstractos de datos
+## Concepto, terminología y ejemplos
 
-### Concepto, terminología y ejemplos
+## Programación con tipos abstractos de datos
 
-### Programación con tipos abstractos de datos
+### Modularidad
 
-#### Modularidad
+### Refinamientos sucesivos
 
-#### Refinamientos sucesivos
+### Programación a gran escala
 
-#### Programación a gran escala
+### Programación genérica
 
-#### Programación genérica
+# Especificación
 
-## Especificación
+## Especificaciones algebraicas
 
-### Especificaciones algebraicas
+### Signatura de un TAD
 
-#### Signatura de un TAD
+#### Géneros
 
-##### Géneros
+#### Operaciones
 
-##### Operaciones
+##### Constructoras
 
-###### Constructoras
+##### Selectoras
 
-###### Selectoras
+### Términos
 
-#### Términos
+### Ecuaciones
 
-#### Ecuaciones
+## Construcción de especificaciones
 
-### Construcción de especificaciones
+## Verificación con especificaciones algebraicas
 
-### Verificación con especificaciones algebraicas
+# Implementación
 
-## Implementación
+## Pilas
 
-### Pilas
+## Colas
 
-### Colas
-
-### Listas
+## Listas
 

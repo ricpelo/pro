@@ -4,35 +4,33 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Estructuras de datos no lineales
+# Árboles
 
-## Árboles
+## Binarios
 
-### Binarios
+### Recorridos
 
-#### Recorridos
+#### Preorden
 
-##### Preorden
+#### Inorden
 
-##### Inorden
+#### Postorden
 
-##### Postorden
+## De búsqueda
 
-### De búsqueda
+## Montículos
 
-### Montículos
+### Algoritmo de ordenación
 
-#### Algoritmo de ordenación
+## Generales
 
-### Generales
+### Recorrido en profundidad
 
-#### Recorrido en profundidad
+### Recorrido en anchura
 
-#### Recorrido en anchura
+# Grafos
 
-## Grafos
+## Algoritmo de Dijkstra
 
-### Algoritmo de Dijkstra
-
-### Algoritmo de Floyd
+## Algoritmo de Floyd
 

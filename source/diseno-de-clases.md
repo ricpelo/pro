@@ -4,43 +4,41 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Diseño de clases
+# Encapsulación
 
-## Encapsulación
+# Propiedades
 
-## Propiedades
+## Visibilidad
 
-### Visibilidad
+### Pública
 
-#### Pública
+### Privada
 
-#### Privada
+# Métodos
 
-## Métodos
+## Visibilidad
 
-### Visibilidad
+### Pública
 
-#### Pública
+### Privada
 
-#### Privada
+## Referencia `$this`
 
-### Referencia `$this`
+## Constructores y destructores
 
-### Constructores y destructores
+## Accesores y mutadores
 
-### Accesores y mutadores
+# Constantes
+
+## `self`
+
+# Miembros estáticos
 
 ## Constantes
 
-### `self`
+## Métodos estáticos
 
-## Miembros estáticos
+## Propiedades estáticas
 
-### Constantes
-
-### Métodos estáticos
-
-### Propiedades estáticas
-
-### Enlace estático en tiempo de ejecución
+## Enlace estático en tiempo de ejecución
 

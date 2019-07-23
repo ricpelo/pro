@@ -4,21 +4,19 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Programación estructurada
+# Teorema de Böhm-Jacopini
 
-## Teorema de Böhm-Jacopini
+# Estructuras básicas de control
 
-## Estructuras básicas de control
+## Secuencia
 
-### Secuencia
+## Selección
 
-### Selección
+## Iteración
 
-### Iteración
+# Recursos abstractos
 
-## Recursos abstractos
+# Diseño descendente
 
-## Diseño descendente
-
-## Refinamiento sucesivo
+# Refinamiento sucesivo
 

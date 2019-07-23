@@ -4,37 +4,35 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Introducción al lenguaje de programación Java
+# Introducción
 
-## Introducción
+# Compilación vs. interpretación
 
-## Compilación vs. interpretación
+## Máquinas reales vs. virtuales
 
-### Máquinas reales vs. virtuales
+## Código objeto, *bytecode* y archivos `.class`
 
-### Código objeto, *bytecode* y archivos `.class`
+## La plataforma Java
 
-### La plataforma Java
+### La máquina virtual de Java (JVM)
 
-#### La máquina virtual de Java (JVM)
+### La API de Java
 
-#### La API de Java
+## El entorno de ejecución de Java (JRE)
 
-### El entorno de ejecución de Java (JRE)
+### El intérprete `java`
 
-#### El intérprete `java`
+## Las herramientas de desarrollo de Java (JDK)
 
-### Las herramientas de desarrollo de Java (JDK)
+### El compilador `javac`
 
-#### El compilador `javac`
+# Características de Java
 
-## Características de Java
+# Tipado estático vs. dinámico
 
-## Tipado estático vs. dinámico
+# El programa *¡Hola, mundo!* en Java
 
-## El programa *¡Hola, mundo!* en Java
+## El método `main()`
 
-### El método `main()`
-
-### La clase `System`
+## La clase `System`
 
