@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Java Collections Framework</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" type="image/png" href="/assets/icons/icon.png">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style type="text/css">
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        function updateHeader(nd) {
+            for (var n = nd; n != null; n = n.previousSibling) {
+                var cl = n.classList;
+                if (cl.contains('level1')) {
+                    var h = n.querySelector('h1');
+                } else if (cl.contains('level2')) {
+                    var h = n.querySelector('h2');
+                } else {
+                    continue;
+                }
+                var hr = document.getElementById('header-right');
+                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                    hr.innerHTML = '';
+                } else {
+                    var el = document.createElement('a');
+                    var href = '#/' + n.id;
+                    el.href = href;
+                    el.innerHTML = h.innerHTML;
+                    var a = el.querySelector('a');
+                    if (a !== null) {
+                        a.href = href;
+                    }
+                    while (hr.children.length > 0) {
+                        hr.removeChild(hr.lastChild);
+                    }
+                    hr.appendChild(el);
+                }
+                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+                return;
+            }
+        }
+        // On Reveal.js ready event, copy header/footer <div>
+        // into each `.slide-background` <div>
+        Reveal.addEventListener('ready', function(event) {
+            var header = document.getElementById('header');
+            document.querySelector('.reveal').appendChild(header);
+            updateHeader(Reveal.getCurrentSlide());
+        });
+        Reveal.addEventListener('slidechanged', function(event) {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            updateHeader(event.currentSlide);
+        });
+    });
+</script>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+<section id="title-slide" class="title-slide slide level1">
+  <h1 class="title">Java Collections Framework</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2019/2020</p>
+</section>
+<section id="TOC" class="slide level2">
+<ul>
+<li><a href="#/colecciones-y-arrays"><span class="toc-section-number">1</span> Colecciones y <em>arrays</em></a></li>
+<li><a href="#/arquitectura"><span class="toc-section-number">2</span> Arquitectura</a></li>
+<li><a href="#/tipos-de-colecciones"><span class="toc-section-number">3</span> Tipos de colecciones</a></li>
+<li><a href="#/listas"><span class="toc-section-number">4</span> Listas</a></li>
+<li><a href="#/colas"><span class="toc-section-number">5</span> Colas</a></li>
+<li><a href="#/conjuntos-1"><span class="toc-section-number">6</span> Conjuntos</a></li>
+<li><a href="#/diccionarios-1"><span class="toc-section-number">7</span> Diccionarios</a></li>
+</ul>
+</section>
+</section>
+
+<section id="colecciones-y-arrays" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Colecciones y <em>arrays</em></h1></section>
+<section id="arquitectura" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Arquitectura</h1></section>
+<section><section id="tipos-de-colecciones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de colecciones</h1></section><section id="listas-ordenadas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Listas ordenadas</h2></section><section id="diccionarios" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Diccionarios</h2></section><section id="conjuntos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Conjuntos</h2></section></section>
+<section><section id="listas" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Listas</h1></section><section id="java.util.list" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>java.util.List</code></h2></section><section id="java.util.arraylist" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> <code>java.util.ArrayList</code></h3></section><section id="java.util.linkedlist" class="title-slide slide level3"><h3><span class="header-section-number">4.1.2</span> <code>java.util.LinkedList</code></h3></section><section id="java.util.stack" class="title-slide slide level3"><h3><span class="header-section-number">4.1.3</span> <code>java.util.Stack</code></h3></section></section>
+<section><section id="colas" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Colas</h1></section><section id="java.util.queue" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> <code>java.util.Queue</code></h2></section><section id="java.util.arraydeque" class="title-slide slide level3"><h3><span class="header-section-number">5.1.1</span> <code>java.util.ArrayDeque</code></h3></section><section id="java.util.priorityqueue" class="title-slide slide level3"><h3><span class="header-section-number">5.1.2</span> <code>java.util.PriorityQueue</code></h3></section><section id="java.util.linkedlist-1" class="title-slide slide level3"><h3><span class="header-section-number">5.1.3</span> <code>java.util.LinkedList</code></h3></section><section id="java.util.deque" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> <code>java.util.Deque</code></h2></section><section id="java.util.arraydeque-1" class="title-slide slide level3"><h3><span class="header-section-number">5.2.1</span> <code>java.util.ArrayDeque</code></h3></section><section id="java.util.linkedlist-2" class="title-slide slide level3"><h3><span class="header-section-number">5.2.2</span> <code>java.util.LinkedList</code></h3></section></section>
+<section><section id="conjuntos-1" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Conjuntos</h1></section><section id="java.util.set" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> <code>java.util.Set</code></h2></section><section id="java.util.hashset" class="title-slide slide level3"><h3><span class="header-section-number">6.1.1</span> <code>java.util.HashSet</code></h3></section><section id="java.util.linkedhashset" class="title-slide slide level3"><h3><span class="header-section-number">6.1.2</span> <code>java.util.LinkedHashSet</code></h3></section><section id="java.util.treeset" class="title-slide slide level3"><h3><span class="header-section-number">6.1.3</span> <code>java.util.TreeSet</code></h3></section><section id="java.util.sortedset" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> <code>java.util.SortedSet</code></h2></section><section id="java.util.treeset-1" class="title-slide slide level3"><h3><span class="header-section-number">6.2.1</span> <code>java.util.TreeSet</code></h3></section><section id="java.util.navigableset" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> <code>java.util.NavigableSet</code></h2></section><section id="java.util.treeset-2" class="title-slide slide level3"><h3><span class="header-section-number">6.3.1</span> <code>java.util.TreeSet</code></h3></section></section>
+<section><section id="diccionarios-1" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Diccionarios</h1></section><section id="java.util.map" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> <code>java.util.Map</code></h2></section><section id="java.util.hashmap" class="title-slide slide level3"><h3><span class="header-section-number">7.1.1</span> <code>java.util.HashMap</code></h3></section><section id="java.util.linkedhashmap" class="title-slide slide level3"><h3><span class="header-section-number">7.1.2</span> <code>java.util.LinkedHashMap</code></h3></section><section id="java.util.treemap" class="title-slide slide level3"><h3><span class="header-section-number">7.1.3</span> <code>java.util.TreeMap</code></h3></section><section id="java.util.sortedmap" class="title-slide slide level2"><h2><span class="header-section-number">7.2</span> <code>java.util.SortedMap</code></h2></section><section id="java.util.treemap-1" class="title-slide slide level3"><h3><span class="header-section-number">7.2.1</span> <code>java.util.TreeMap</code></h3></section><section id="java.util.navigablemap" class="title-slide slide level2"><h2><span class="header-section-number">7.3</span> <code>java.util.NavigableMap</code></h2></section><section id="java.util.treemap-2" class="title-slide slide level3"><h3><span class="header-section-number">7.3.1</span> <code>java.util.TreeMap</code></h3></section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 1080,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } },
+          { src: 'reveal.js/plugin/reveal-code-focus/vendor/highlight.js/highlight.pack.js' },
+          { src: 'reveal.js/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/customcontrols/customcontrols.js', async: true }
+        ],
+
+        customcontrols: {
+          controls: [
+            { icon: '<i class="fa fa-question-circle"></i>',
+			  css: 'position: fixed; right: 50px; bottom: 50px; z-index: 30; font-size: 24px;',
+			  action: 'Reveal.toggleHelp(); return false;'
+			}
+          ]
+        },
+
+        menu: {
+          numbers: true,
+          hideMissingTitles: true,
+          themes: true,
+          themesPath: 'reveal.js/css/theme/'
+        }
+      });
+    </script>
+    </body>
+</html>
