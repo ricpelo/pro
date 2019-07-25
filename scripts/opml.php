@@ -117,10 +117,6 @@ class Esquema
                 $ret .= ' (est: ' . str_replace('-', '\==', $attr->due) . ')';
             }
 
-            if ($nivel === 1) {
-                $ret .= '\par\nopagebreak[4]\vskip-0.5em\hrulefill';
-            }
-
             $ret .= PHP_EOL;
         }
 
