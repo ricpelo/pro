@@ -40,7 +40,7 @@ class Esquema
         // [link: Cadenas (\texttt{string})|http://php.net/manual/es/language.types.string.php]
         $text = preg_replace('/\[link:\s?(.*)\|.*\]/', '$1', $text);
         // [Funciones de manejo de cadenas](http://php.net/ref.strings)
-        $text = preg_replace('/\[(.*)\]\(.*\)/', '$1', $text);
+        $text = preg_replace('/\[(.*)\]\(.*\)/U', '$1', $text);
         return $text;
     }
 
@@ -114,7 +114,11 @@ class Esquema
             }
 
             if ($attr->due) {
-                $ret .= ' (est: \mbox{' . $attr->due . '})';
+                $ret .= ' (est: ' . str_replace('-', '\==', $attr->due) . ')';
+            }
+
+            if ($nivel === 1) {
+                $ret .= '\par\nopagebreak[4]\vskip-0.5em\hrulefill';
             }
 
             $ret .= PHP_EOL;
