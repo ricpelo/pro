@@ -38,7 +38,7 @@ class Esquema
     protected function filtrarEnlaces($text)
     {
         // [link: Cadenas (\texttt{string})|http://php.net/manual/es/language.types.string.php]
-        $text = preg_replace('/\[link: (.*)\|.*\]/', '$1', $text);
+        $text = preg_replace('/\[link:\s?(.*)\|.*\]/', '$1', $text);
         // [Funciones de manejo de cadenas](http://php.net/ref.strings)
         $text = preg_replace('/\[(.*)\]\(.*\)/', '$1', $text);
         return $text;
@@ -114,7 +114,7 @@ class Esquema
             }
 
             if ($attr->due) {
-                $ret .= ' (Est: ' . $attr->due . ')';
+                $ret .= ' (est: \mbox{' . $attr->due . '})';
             }
 
             $ret .= PHP_EOL;
@@ -124,7 +124,7 @@ class Esquema
             $ret .= $this->spc($nivel) . $this->beginEnv();
 
             foreach ($elem->outline as $item) {
-                if ($item->attributes()->text != '---') {
+                if (!in_array($item->attributes()->text, ['---', 'Ejercicios'])) {
                     $ret .= $this->trad($item, $nivel + 1);
                 }
             }
