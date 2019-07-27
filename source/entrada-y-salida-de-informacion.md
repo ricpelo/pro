@@ -4,16 +4,6 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Flujos
-
-## Tipos de flujos
-
-### Flujos de bytes
-
-### Flujos de caracteres
-
-## Utilización de flujos
-
 # La consola
 
 ## Entrada desde teclado
@@ -29,6 +19,14 @@ author: Ricardo Pérez López
 ## Modos de acceso
 
 ## Lectura y escritura de información en archivos
+
+# Manipulación de archivos XML
+
+# Serialización de *arrays*
+
+## `serialize()`
+
+## `unserialize()`
 
 # Sistemas de archivos
 

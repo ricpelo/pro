@@ -48,3 +48,5 @@ author: Ricardo Pérez López
 
 ## Funciones de manejo de *arrays*
 
+## *Ejemplo*: `$argv` en CLI
+

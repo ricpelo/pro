@@ -116,9 +116,25 @@ author: Ricardo Pérez López
 
 # Entornos integrados de desarrollo
 
-## Definición y tipos. Entornos comerciales y de Software libre.
+## Terminal
 
-## Instalación y descripción de entornos integrados de desarrollo.
+### `Zsh`
 
-## Creación de proyectos. Estructura y componentes.
+### Oh My Zsh
+
+### `less`
+
+## Editores de texto
+
+### Editores vs. IDE
+
+### Vim y less
+
+### Visual Studio Code
+
+#### Instalación
+
+#### Configuración
+
+#### Paquetes
 

@@ -42,9 +42,3 @@ author: Ricardo Pérez López
 
 #### Transformación de recursividad final a iterativo
 
-# Depuración
-
-## Depuración de programas
-
-## El depurador como herramienta de control de errores
-

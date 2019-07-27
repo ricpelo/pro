@@ -18,6 +18,8 @@ author: Ricardo Pérez López
 
 ## Las interfaces como tipos
 
+## Conversiones entre interfaces
+
 ## Métodos predeterminados
 
 # Paquetes y módulos

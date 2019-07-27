@@ -6,7 +6,15 @@ author: Ricardo Pérez López
 
 # Acceso directo
 
-## *Arrays* en java
+## *Arrays*
+
+## `java.util.Arrays`
+
+### Comparación de *arrays*
+
+#### `Arrays.equals()`
+
+#### `Arrays.deepEquals()`
 
 # Acceso secuencial
 

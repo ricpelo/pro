@@ -26,15 +26,39 @@ author: Ricardo Pérez López
 
 ### El compilador `javac`
 
+### El intérprete interactivo `jshell`
+
 # Características de Java
 
 # Tipado estático vs. dinámico
 
-# El programa *¡Hola, mundo!* en Java
+# Tipos y valores en Java
 
-## El método `main()`
+## Tipos  primitivos
 
-## La clase `System`
+### Integrales
 
-# Tipos de datos primitivos
+### De coma flotante
+
+### Booleanos
+
+### Conversiones entre datos primitivos
+
+#### *Casting*
+
+#### De ampliación (*widening*)
+
+#### De restricción (*narrowing*)
+
+### Promociones numéricas
+
+## Tipos por referencia
+
+# Variables en Java
+
+## Variables de tipos primitivos
+
+## Variables de tipos por referencia
+
+## Declaraciones de variables
 

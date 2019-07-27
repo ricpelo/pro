@@ -10,7 +10,7 @@ author: Ricardo Pérez López
 
 # Funciones definidas por el usuario
 
-## Definición de funciones con `function`
+## Definición de funciones con nombre
 
 ## Paso de argumentos
 

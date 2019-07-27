@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Programación modular I</title>
+  <title>Programación de interfaces gráficas de usuario</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -95,34 +95,34 @@
 
 <section>
 <section id="title-slide" class="title-slide slide level1">
-  <h1 class="title">Programación modular I</h1>
+  <h1 class="title">Programación de interfaces gráficas de usuario</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2019/2020</p>
 </section>
 <section id="TOC" class="slide level2">
 <ul>
-<li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
-<li><a href="#/funciones-definidas-por-el-usuario"><span class="toc-section-number">2</span> Funciones definidas por el usuario</a></li>
-<li><a href="#/partes-de-un-módulo"><span class="toc-section-number">3</span> Partes de un módulo</a></li>
-<li><a href="#/inclusión-de-scripts"><span class="toc-section-number">4</span> Inclusión de <em>scripts</em></a></li>
-<li><a href="#/espacios-de-nombres"><span class="toc-section-number">5</span> Espacios de nombres</a></li>
-<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">6</span> Criterios de descomposición modular</a></li>
-<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">7</span> Diagramas de estructura</a></li>
+<li><a href="#/jfc-y-swing"><span class="toc-section-number">1</span> JFC y Swing</a></li>
+<li><a href="#/componentes-de-swing"><span class="toc-section-number">2</span> Componentes de Swing</a></li>
+<li><a href="#/contenedores-de-nivel-superior"><span class="toc-section-number">3</span> Contenedores de nivel superior</a></li>
+<li><a href="#/jcomponent"><span class="toc-section-number">4</span> <code>JComponent</code></a></li>
+<li><a href="#/componentes-de-texto"><span class="toc-section-number">5</span> Componentes de texto</a></li>
+<li><a href="#/marcos"><span class="toc-section-number">6</span> Marcos</a></li>
+<li><a href="#/etiquetas"><span class="toc-section-number">7</span> Etiquetas</a></li>
+<li><a href="#/botones"><span class="toc-section-number">8</span> Botones</a></li>
+<li><a href="#/arquitectura-de-modelos-de-swing"><span class="toc-section-number">9</span> Arquitectura de modelos de Swing</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Descomposición de problemas</h2></section></section>
-<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Funciones definidas por el usuario</h1></section><section id="definición-de-funciones-con-nombre" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Definición de funciones con nombre</h2></section><section id="paso-de-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Paso de argumentos</h2></section><section id="por-valor" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Por valor</h3></section><section id="por-referencia" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Por referencia</h3></section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Ámbito de variables</h2></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Variables globales</h3></section><section id="ámbito-simple-al-archivo" class="slide level4">
-<h4><span class="header-section-number">2.3.1.1</span> Ámbito simple al archivo</h4>
-</section><section id="efectos-laterales" class="slide level4">
-<h4><span class="header-section-number">2.3.1.2</span> Efectos laterales</h4>
-</section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Variables locales</h3></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">2.4.2</span> Declaraciones de tipo de devolución</h3></section><section id="tipos-nullable-y-void" class="title-slide slide level3"><h3><span class="header-section-number">2.4.3</span> Tipos <em>nullable</em> (<code>?</code>) y <code>void</code></h3></section><section id="tipificación-estricta" class="title-slide slide level3"><h3><span class="header-section-number">2.4.4</span> Tipificación estricta</h3></section></section>
-<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Partes de un módulo</h1></section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Interfaz</h2></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Implementación</h2></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Documentación interna</h2></section></section>
-<section><section id="inclusión-de-scripts" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Inclusión de <em>scripts</em></h1></section><section id="require-y-require_once" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>require</code> y <code>require_once</code></h2></section><section id="include-e-include_once" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>include</code> e <code>include_once</code></h2></section></section>
-<section id="espacios-de-nombres" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Espacios de nombres</h1></section>
-<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">6.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">6.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">6.4</span> Reusabilidad</h2></section></section>
-<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Diagramas de estructura</h1></section>
+<section id="jfc-y-swing" class="title-slide slide level1"><h1><span class="header-section-number">1</span> JFC y Swing</h1></section>
+<section id="componentes-de-swing" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Componentes de Swing</h1></section>
+<section><section id="contenedores-de-nivel-superior" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Contenedores de nivel superior</h1></section><section id="jframe" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> <code>JFrame</code></h2></section><section id="jdialog" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> <code>JDialog</code></h2></section><section id="japplet" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> <code>JApplet</code></h2></section></section>
+<section id="jcomponent" class="title-slide slide level1"><h1><span class="header-section-number">4</span> <code>JComponent</code></h1></section>
+<section><section id="componentes-de-texto" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Componentes de texto</h1></section><section id="jtextcomponent" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> <code>JTextComponent</code></h2></section></section>
+<section id="marcos" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Marcos</h1></section>
+<section id="etiquetas" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Etiquetas</h1></section>
+<section id="botones" class="title-slide slide level1"><h1><span class="header-section-number">8</span> Botones</h1></section>
+<section id="arquitectura-de-modelos-de-swing" class="title-slide slide level1"><h1><span class="header-section-number">9</span> Arquitectura de modelos de Swing</h1></section>
     </div>
   </div>
 

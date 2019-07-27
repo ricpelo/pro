@@ -4,8 +4,6 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Introducción
-
 # Tipos básicos
 
 ## Lógicos (`bool`)
@@ -23,6 +21,8 @@ author: Ricardo Pérez López
 #### Operadores aritméticos
 
 #### Operadores de incremento/decremento
+
+#### Operadores de asignación compuesta
 
 ## Nulo (`null`)
 
@@ -48,8 +48,6 @@ author: Ricardo Pérez López
 
 ### Conversión a `array`
 
-### *Ejemplo*: `$argv` en CLI
-
 ## Cadenas (`string`)
 
 ### Operadores de cadenas
@@ -66,17 +64,13 @@ author: Ricardo Pérez López
 
 ### Extensión *mbstring*
 
-## Callables
+## `callable`
 
 ### `call_user_func()`
 
-### `array_map()` y `array_reduce()`
-
-## Iterable
+## `iterable`
 
 # Manipulación de tipos
-
-## Operadores de asignación compuesta
 
 ## Comprobaciones
 
@@ -92,7 +86,7 @@ author: Ricardo Pérez López
 
 #### `ctype_*()`
 
-## Conversiones de tipos
+## Conversiones
 
 ### Conversión explícita (forzado o *casting*) vs. automática
 
@@ -105,24 +99,6 @@ author: Ricardo Pérez López
 ### Conversión de `string` a número
 
 ### Conversión a `string`
-
-### Funciones de obtención de valores
-
-#### `intval()`
-
-#### `floatval()`
-
-#### `strval()`
-
-#### `boolval()`
-
-### Funciones de formateado numérico
-
-#### `number_format()`
-
-#### `money_format()`
-
-##### `setlocale()`
 
 ## Comparaciones
 

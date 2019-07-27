@@ -60,7 +60,27 @@ author: Ricardo Pérez López
 
 ## Constantes
 
-## *Ejemplo*: Las cadenas (clase `String`)
+# Clases básicas
+
+## Cadenas
+
+### Inmutables
+
+#### `String`
+
+### Mutables
+
+#### `StringBuffer`
+
+#### `StringBuilder`
+
+### Conversión a `String`
+
+## *Arrays*
+
+## Clases *wrapper*
+
+### Conversiones de empaquetado/desempaquetado (*boxing*/*unboxing*)
 
 # Lenguaje UML
 

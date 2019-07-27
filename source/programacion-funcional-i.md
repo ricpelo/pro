@@ -82,9 +82,3 @@ author: Ricardo Pérez López
 
 ## Evaluación de expresiones con variables
 
-# Autodocumentación
-
-## Comentarios
-
-## Reglas de estilo
-

@@ -40,7 +40,5 @@ author: Ricardo Pérez López
 
 ## Funciones locales a funciones
 
-## Funciones anónimas
-
 # *Scripts*
 
