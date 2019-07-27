@@ -16,6 +16,7 @@ ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
+NODE_MODULES=node_modules
 
 # Scripts y programas
 
@@ -95,7 +96,7 @@ $(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
 $(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(INDEX_LEO)
 
-$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
+$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
 	    --template=$(REVEAL_TEMPLATE) \
@@ -112,7 +113,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 
 # Diapositivas en formato PDF
 
-$(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
+$(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
 	@echo "Generando $@..."
 	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t beamer \
@@ -132,7 +133,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLI
 
 # Apuntes en formato PDF
 
-$(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
+$(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		perl -0pe "s/\n\n---\n\n/\n\n/g" | \
@@ -158,6 +159,8 @@ $(PP):
 	# pero en Ubuntu 18.04 LTS hay que usar la 2.7.3, que es la última que funciona:
 	wget -q -O - https://cdsoft.fr/pp/archives/pp-linux-x86_64-2.7.3.txz | tar x -J pp
 	sudo apt install default-jre graphviz librsvg2-bin npm
+
+$(NODE_MODULES):
 	npm install
 
 $(PANDOC):
