@@ -71,7 +71,7 @@ apuntes: $(APUNTES_PDF)
 prog: $(PROG_PDF)
 
 limpiar:
-	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml
+	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml $(IMAGES)/*.dot
 
 # Objetivos particulares
 

@@ -95,6 +95,28 @@ MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(archivo)(texto)(definición)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(DOT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Begin{center}
+
+!dot(!IMAGES/!1 {.plain !WIDTH})(!2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+digraph {
+  graph [rankdir = LR, size = "12!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+  !3
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\End{center}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !FLOWCHART(archivo)[(texto)][(estilo Beamer)][(estilo Latex)](definición)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
