@@ -119,7 +119,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(LATEX_TE
 		pandoc -s -t beamer \
 		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
-		--slide-level=3 \
+		--slide-level=4 \
 		-H $(PREAMBULO_BEAMER) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
