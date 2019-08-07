@@ -20,6 +20,19 @@ skinparam backgroundColor transparent
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
+!define(CAJA)
+~~~~~~~~~~~~~~~~~~
+!ifndef(HTML)
+~~~~~~~~~~~~~
+\Begin{caja}
+!1\End{caja}
+~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+::: caja
+!1:::
+~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \Begin{Shaded}

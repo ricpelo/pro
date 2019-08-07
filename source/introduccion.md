@@ -11,8 +11,13 @@ author: Ricardo Pérez López
 
 - Definición:
 
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Informática**:
+
   La ciencia que estudia los sistemas de tratamiento automático de la
   información, también llamados **sistemas informáticos**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estos sistemas están formados por elementos físicos, lógicos y humanos.
 
@@ -33,10 +38,8 @@ author: Ricardo Pérez López
 
 ### Definición
 
-  ---
   Un **ordenador** es una máquina que procesa información automáticamente de
   acuerdo con un programa almacenado.
-  ---
 
 #. Es una *máquina*.
 
@@ -55,7 +58,29 @@ xxx
 
 #### Elementos funcionales
 
-xxxx
+- Un ordenador consta de tres componentes principales:
+
+  - **Dispositivos de E/S**
+
+    - Dispositivos de entrada
+
+    - Dispositivos de salida
+
+  - **Unidad central de proceso (CPU) o procesador**
+
+    - Unidad aritmético-lógica (ALU)
+
+    - Unidad de control (UC)
+
+  - **Memoria**
+
+    - Memoria principal o central
+
+      - RAM
+
+      - ROM
+
+    - Memoria secundaria o externa
 
 #### Ciclo de instrucción
 
