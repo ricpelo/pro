@@ -19,27 +19,30 @@ author: Ricardo Pérez López
   información, también llamados **sistemas informáticos**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Estos sistemas están formados por elementos físicos, lógicos y humanos.
+- Estos sistemas están formados por:
 
-- A los elementos físicos se les denomina **hardware** y a los elementos
-  lógicos se les denomina **software**.
+  - elementos físicos (**hardware**)
+  - elementos lógicos (**software**) y
+  - elementos humanos (profesionales y usuarios).
 
 - El *hardware*, a su vez, está formado por componentes:
 
   - Ordenadores
-
   - Redes de comunicaciones
-
   - Soportes de almacenamiento
-
   - ...
 
 ## Ordenador
 
 ### Definición
 
-  Un **ordenador** es una máquina que procesa información automáticamente de
-  acuerdo con un programa almacenado.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ordenador**:
+
+Un ordenador es una máquina que procesa información automáticamente de
+acuerdo con un programa almacenado.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Es una *máquina*.
 
@@ -54,7 +57,34 @@ author: Ricardo Pérez López
 
 ### Funcionamiento básico
 
-xxx
+!DOT(esquema-basico.svg)(Esquema básico de un ordenador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = LR, splines = ortho];
+node [shape = box];
+compound = true;
+
+ALU [label = "Unidad Aritmético-Lógica\n(ALU)"];
+UC [label = "Unidad de Control\n(UC)"];
+M [label = "Memoria\nprincipal"];
+E [label = "Dispositivos\n de entrada"];
+S [label = "Dispositivos\n de salida"];
+
+subgraph cluster0 {
+    label = < <b>Unidad central</b> >;
+    bgcolor = white;
+    subgraph cluster1 {
+        label = < <b>Unidad Central de Proceso<br/>(CPU)</b> >;
+        bgcolor = white;
+        ALU -> UC;
+        UC -> ALU;
+    }
+    M -> UC [lhead = cluster1];
+    UC -> M [ltail = cluster1];
+}
+
+E -> ALU [lhead = cluster0];
+M -> S [ltail = cluster0];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Elementos funcionales
 
@@ -108,7 +138,12 @@ xxx
 
 ### Definición
 
-Un **algoritmo** es un método para resolver un problema.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Algoritmo**:
+
+Un algoritmo es un método para resolver un problema.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Está formado por una secuencia de pasos o **instrucciones** que se deben
   seguir (o **ejecutar**) para resolver el problema.
