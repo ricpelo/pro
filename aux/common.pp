@@ -114,19 +114,7 @@ MACROS DE USO GENERAL
 
 !define(DOT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{center}
-
-!dot(!IMAGES/!1 {.plain !WIDTH})(!2)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-digraph {
-  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
-  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
-  edge [fontname = "Lato", fontsize = 12 ];
-  !3
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-\End{center}
+!ifne(!3)()(!DOT3(!1)(!2)(!3))(!DOT2(!1)(!2))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
@@ -222,3 +210,37 @@ x = r"""!1"""
 print('| ' + x.replace("\n", "\n| "))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(DOT2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Begin{center}
+
+!dot(!IMAGES/!1 {.plain !WIDTH})()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+digraph {
+  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+  !2
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\End{center}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(DOT3)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Begin{center}
+
+!dot(!IMAGES/!1 {.plain !WIDTH})(!2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+digraph {
+  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+  !3
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\End{center}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
