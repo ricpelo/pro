@@ -47,6 +47,7 @@ HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 PHP_XML=$(AUX)/php.xml
 CONSOLE_XML=$(AUX)/console.xml
 COMMON_PP=$(AUX)/common.pp
+CITATIONS_BIB=$(SRCDIR)/citations.bib
 
 # Listas de archivos
 
@@ -99,6 +100,8 @@ $(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
 $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE)
 	@echo "Generando $@..."
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+		--filter pandoc-citeproc \
+		--bibliography $(CITATIONS_BIB) \
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE) \
@@ -117,6 +120,8 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(LATEX_TE
 	@echo "Generando $@..."
 	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t beamer \
+		--filter pandoc-citeproc \
+		--bibliography $(CITATIONS_BIB) \
 		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=1 -N \
 		--slide-level=4 \
@@ -138,6 +143,8 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		perl -0pe "s/\n\n---\n\n/\n\n/g" | \
 		pandoc -s -t latex \
+		--filter pandoc-citeproc \
+		--bibliography $(CITATIONS_BIB) \
 		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=2 -N \
 		-H $(PREAMBULO_LATEX) \

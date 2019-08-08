@@ -14,11 +14,24 @@ DEFINICIONES GENERALES
 scale 2
 skinparam backgroundColor transparent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!define(DOTCOMMON)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
+
+!define(BIBLIOGRAFIA)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Bibliografía
+
+!ifdef(LATEX)(\raggedright)()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(CAJA)
 ~~~~~~~~~~~~~~~~~~
@@ -108,13 +121,17 @@ MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!DOT(archivo)(texto)(definición)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(archivo)[(texto)][(estilo Beamer)][(estilo Latex)](definición)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(DOT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!ifne(!3)()(!DOT3(!1)(!2)(!3))(!DOT2(!1)(!2))
+\Begin{center}
+
+!ifne(!5)()(!DOT5(!1)(!2)(!3)(!4)(!5))(!ifne(!4)()(!DOT4(!1)(!2)(!3)(!4))(!ifne(!3)()(!DOT3(!1)(!2)(!3))(!DOT2(!1)(!2))))
+
+\End{center}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
@@ -213,34 +230,44 @@ print('| ' + x.replace("\n", "\n| "))
 
 !define(DOT2)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{center}
-
-!dot(!IMAGES/!1 {.plain !WIDTH})()
+!dot(!IMAGES/!1 {!WIDTH .plain})()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 digraph {
-  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
-  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
-  edge [fontname = "Lato", fontsize = 12 ];
+  !DOTCOMMON
   !2
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-\End{center}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(DOT3)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{center}
-
-!dot(!IMAGES/!1 {.plain !WIDTH})(!2)
+!dot(!IMAGES/!1 {!WIDTH .plain})(!2)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 digraph {
-  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
-  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
-  edge [fontname = "Lato", fontsize = 12 ];
+  !DOTCOMMON
   !3
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-\End{center}
+!define(DOT4)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!dot(!IMAGES/!1 {!3 !WIDTH .plain})(!2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+digraph {
+  !DOTCOMMON
+  !4
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(DOT5)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!dot(!IMAGES/!1 {!ifdef(LATEX)(!4)(!3) !WIDTH .plain})(!2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+digraph {
+  !DOTCOMMON
+  !5
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

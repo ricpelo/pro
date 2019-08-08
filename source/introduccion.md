@@ -2,9 +2,12 @@
 title: Introducción
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @joyanes_aguilar_fundamentos_2008
 ---
 
 # Conceptos básicos
+
 
 ## Informática
 
@@ -174,8 +177,8 @@ acuerdo con un programa almacenado.
 
 ---
 
-!DOT(esquema-basico.svg)(Esquema básico de un ordenador)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(esquema-basico.svg)(Esquema básico de un ordenador)(!WIDTH)(width=100%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = LR, splines = ortho];
 node [shape = box];
 compound = true;
@@ -204,7 +207,7 @@ E -> ALU [lhead = cluster0];
 M -> S [ltail = cluster0];
 MS -> UC [lhead = cluster0];
 UC -> MS [ltail = cluster0];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El programa se **carga** de la memoria secundaria a la memoria principal.
 
@@ -238,11 +241,11 @@ UC -> MS [ltail = cluster0];
 
 ---
 
-!DOT(ciclo-instruccion.svg)(Ciclo de instrucción)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(ciclo-instruccion.svg)(Ciclo de instrucción)(!WIDTH)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = TB, splines = ortho];
 Fetch -> Decode -> Execute -> Fetch[constraint = false];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Representación de información
 
@@ -292,10 +295,10 @@ Un algoritmo es un método para resolver un problema.
 - El estudio de los algoritmos es importante porque la resolución de un
   problema exige el diseño de un algoritmo que lo resuelva.
 
-!DOT(resolucion-problema.svg)(Resolución de un problema)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(resolucion-problema.svg)(Resolución de un problema)(!WIDTH)(width=80%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "Problema" -> "Diseño de algoritmo" -> "Programa informático"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Características
 
@@ -461,4 +464,4 @@ Un algoritmo es un método para resolver un problema.
 
 #### Extensiones
 
-
+!BIBLIOGRAFIA
