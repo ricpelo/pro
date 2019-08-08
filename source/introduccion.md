@@ -6,7 +6,6 @@ author: Ricardo Pérez López
 
 # Conceptos básicos
 
-
 ## Informática
 
 - Definición:
@@ -28,9 +27,30 @@ author: Ricardo Pérez López
 - El *hardware*, a su vez, está formado por componentes:
 
   - Ordenadores
-  - Redes de comunicaciones
   - Soportes de almacenamiento
+  - Redes de comunicaciones
   - ...
+
+### Procesamiento automático
+
+- El procesamiento automático de la información siempre tiene el mismo
+  esquema de funcionamiento:
+
+!DOT(procesamiento-automatico.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+E [label = "Entrada", shape = plaintext, fillcolor = transparent];
+S [label = "Salida", shape = plaintext, fillcolor = transparent];
+E -> Proceso -> S
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El **objetivo** del procesamiento automático de la información es **convertir
+  los _datos de entrada_ en _datos de salida_** mediante un *hardware* que
+  ejecuta las instrucciones definidas por un *software* (**programas**).
+
+- Los programas gobiernan el funcionamiento del *hardware*, indicándole qué
+  tiene que hacer y cómo.
+
+- La **Programación** es la ciencia y el arte de diseñar dichos programas.
 
 ## Ordenador
 
@@ -44,18 +64,115 @@ Un ordenador es una máquina que procesa información automáticamente de
 acuerdo con un programa almacenado.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Es una *máquina*.
+  #. Es una *máquina*.
 
-#. Su función es *procesar información*.
+  #. Su función es *procesar información*.
 
-#. El procesamiento se realiza de forma *automática*.
+  #. El procesamiento se realiza de forma *automática*.
 
-#. El procesamiento se realiza siguiendo un *programa*.
+  #. El procesamiento se realiza siguiendo un *programa* (*software*).
 
-#. Este programa está *almacenado* en una memoria interna del mismo ordenador
-   (arquitectura de **Von Neumann**).
+  #. Este programa está *almacenado* en una memoria interna del mismo ordenador
+     (arquitectura de **Von Neumann**).
 
 ### Funcionamiento básico
+
+#### Elementos funcionales
+
+- Un ordenador consta de tres componentes principales:
+
+  #. **Unidad central de proceso (CPU) o procesador**
+
+     - *Unidad aritmético-lógica (ALU)*
+
+     - *Unidad de control (UC)*
+
+  #. **Memoria**
+
+     - *Memoria principal* o central
+
+       - *Memoria de acceso aleatorio (RAM)*
+
+       - *Memoria de sólo lectura (ROM)*
+
+     - *Memoria secundaria* o externa
+
+  #. **Dispositivos de E/S**
+
+     - *Dispositivos de entrada*
+
+     - *Dispositivos de salida*
+
+---
+
+#### Unidad central de proceso (CPU) o procesador
+
+- **Unidad aritmético-lógica (ALU)**:
+
+  Realiza los cálculos y el procesamiento numérico y lógico.
+
+- **Unidad de control (UC)**:
+
+  Ejecuta de las instrucciones enviando las señales a las distintas unidades
+  funcionales involucradas.
+
+---
+
+#### Memoria
+
+- **Memoria principal** o central:
+
+  Almacena los datos y los programas que los manipulan.
+
+  Ambos (datos y programas) deben estar en la memoria principal para que la CPU
+  pueda acceder a ellos.
+
+  Dos tipos:
+
+  - **Memoria de acceso aleatorio (RAM)**:
+
+    Su contenido se borra al apagar el ordenador.
+
+  - **Memoria de sólo lectura (ROM)**:
+   
+    Información permanente (ni se borra ni se puede cambiar).
+
+    Contiene la información esencial (datos y software) para que el ordenador
+    pueda arrancar.
+
+- **Memoria secundaria** o externa:
+
+  La información no se pierde al apagar el ordenador.
+
+  Más lenta que la memoria principal, pero de mucha más capacidad.
+
+---
+
+####  Dispositivos de E/S
+
+- **Dispositivos de entrada**:
+
+  Introducen datos en el ordenador (*ejemplos*: teclado, ratón, escáner...)
+
+- **Dispositivos de salida**:
+
+  Vuelcan datos fuera del ordenador (*ejemplos*: pantalla, impresora...)
+
+- **Dispositivos de entrada/salida**:
+
+  Actúan simultáneamente como dispositivos de entrada y de salida (*ejemplos*:
+  pantalla táctil, adaptador de red...)
+
+- Los dispositivos que acceden a **soportes de almacenamiento masivo** (las
+  **memorias secundarias**) también se pueden considerar dispositivos de E/S:
+
+  - Los soportes de **sólo lectura** se leen con dispositivos de entrada
+    (*ejemplo*: discos ópticos).
+
+  - Los soportes de **lectura/escritura** operan como dispositivos de
+    entrada/salida (*ejemplos*: discos duros, pendrives, tarjetas SD...).
+
+---
 
 !DOT(esquema-basico.svg)(Esquema básico de un ordenador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,6 +183,7 @@ compound = true;
 ALU [label = "Unidad Aritmético-Lógica\n(ALU)"];
 UC [label = "Unidad de Control\n(UC)"];
 M [label = "Memoria\nprincipal"];
+MS [label ="Memoria\nsecundaria"];
 E [label = "Dispositivos\n de entrada"];
 S [label = "Dispositivos\n de salida"];
 
@@ -84,36 +202,47 @@ subgraph cluster0 {
 
 E -> ALU [lhead = cluster0];
 M -> S [ltail = cluster0];
+MS -> UC [lhead = cluster0];
+UC -> MS [ltail = cluster0];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Elementos funcionales
+- El programa se **carga** de la memoria secundaria a la memoria principal.
 
-- Un ordenador consta de tres componentes principales:
+- Una vez allí, la CPU va **extrayendo** las instrucciones que forman el
+  programa y las va **ejecutando** paso a paso, en un bucle continuo que se
+  denomina **ciclo de instrucción**. 
 
-  - **Dispositivos de E/S**
+- Durante la ejecución del programa, la CPU recogerá los datos de entrada desde
+  los dispositivos de entrada y los almacenará en la memoria principal, para
+  que las instrucciones puedan operar con ellos.
 
-    - Dispositivos de entrada
-
-    - Dispositivos de salida
-
-  - **Unidad central de proceso (CPU) o procesador**
-
-    - Unidad aritmético-lógica (ALU)
-
-    - Unidad de control (UC)
-
-  - **Memoria**
-
-    - Memoria principal o central
-
-      - RAM
-
-      - ROM
-
-    - Memoria secundaria o externa
+- Al finalizar el programa, los datos de salida se volcarán hacia los
+  dispositivos de salida.
 
 #### Ciclo de instrucción
 
+- En la **arquitectura Von Neumann**, los programas se almacenan en la memoria
+  principal junto con los datos (por eso también se denomina «arquitectura de
+  **programa almacenado**»).
+
+- Una vez que el programa está cargado en memoria, la CPU repite siempre los
+  mismos pasos:
+
+  #. (**Fetch**) Busca la siguiente instrucción en la memoria principal.
+
+  #. (**Decode**) Decodifica la instrucción (identifica qué instrucción es y se
+     prepara para su ejecución).
+
+  #. (**Execute**) Ejecuta la instrucción (envía las señales de control
+     necesarias a las distintas unidades funcionales).
+
+---
+
+!DOT(ciclo-instruccion.svg)(Ciclo de instrucción)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = TB, splines = ortho];
+Fetch -> Decode -> Execute -> Fetch[constraint = false];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Representación de información
 
