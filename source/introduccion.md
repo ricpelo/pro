@@ -8,6 +8,28 @@ nocite: |
 
 # Conceptos básicos
 
+!QUIZ
+~~~~~~~~~~~~~~~~~~~~~~~
+{
+   "info": {
+      "name": "",
+      "main": ""
+   },
+   "questions": [
+      {
+         "q": "What number is the letter A in the English alphabet?",
+         "a": [
+            {"option": "8",  "correct": false},
+            {"option": "14", "correct": false},
+            {"option": "1",  "correct": true},
+            {"option": "23", "correct": false}
+         ],
+         "correct": "The letter A is the first letter in the alphabet!",
+         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
+      }
+   ]
+}
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Informática
 
@@ -463,5 +485,7 @@ Un algoritmo es un método para resolver un problema.
 
 
 #### Extensiones
+
+!RESPUESTAS
 
 !BIBLIOGRAFIA

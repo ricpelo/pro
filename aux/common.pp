@@ -28,7 +28,7 @@ MACROS DE USO GENERAL
 
 !define(BIBLIOGRAFIA)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Bibliografía
+# Bibliografía {-}
 
 !ifdef(LATEX)(\raggedright)()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,14 +73,14 @@ MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(RESPUESTAS)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !ifndef(HTML)
 ~~~~~~~~~~~~~~~~~~~~
-# Respuestas a las preguntas
+# Respuestas a las preguntas {-}
 
 \shipoutAnswer
 ~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
