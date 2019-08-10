@@ -271,20 +271,107 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
 
 #### Representación de información
 
+- En un sistema informático, toda la información se almacena y se manipula en
+  forma de números.
 
-##### Codificación interna
+- Por tanto, para que un sistema informático pueda procesar información,
+  primero hay que representar dicha información usando números, proceso que se
+  denomina **codificación**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Codificación**:
+
+  Proceso mediante el cual se representa información dentro de un sistema
+  informático, asociando a cada dato (elemental o estructurado) uno o más
+  valores numéricos.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Una codificación, por tanto, es una correspondencia entre un conjunto de
+  datos y un conjunto de números llamado **código**. Al codificar, lo que
+  hacemos es asociar a cada dato un determinado número dentro del código.
+
+---
+
+- Hay muchos tipos de información (textos, sonidos, imágenes, valores
+  numéricos...) y eso hace que pueda haber muchas formas de codificación.
+
+- Incluso un mismo tipo de dato (un número entero, por ejemplo) puede tener
+  distintas codificaciones, cada una con sus características y propiedades.
+
+- Distinguimos la forma en la que se representa la información *internamente*
+  en el sistema informático (**codificación interna**) de la que usamos para
+  comunicar dicha información *desde y hacia el exterior* (**codificación
+  externa** o **de E/S**).
+
+!DOT(codificaciones)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+E [label = "Exterior", shape = oval];
+S [label = "Sistema\ninformático\n\n(Codificación interna)"];
+
+S -> E [dir = both, label = "Código de E/S"];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Codificación interna
+
+- Los ordenadores son **sistemas electrónicos digitales** que trabajan
+  conmutando entre varios posibles estados de una determinada magnitud física
+  (voltaje, intensidad de corriente, etc.).
+
+- Lo más sencillo y práctico es usar únicamente dos estados posibles.
+
+  Por ejemplo:
+
+  - 0 V y 5 V de voltaje.
+
+  - 0 mA y 100 mA de intensidad de corriente.
+
+- A cada uno de los dos posibles estados le hacemos corresponder
+  (arbitrariamente) un valor numérico **0** ó **1**. A ese valor se le denomina
+  **bit** (contracción de *binary digit*, dígito binario).
+
+---
+
+- Por ejemplo, la memoria principal de un ordenador está formada por millones
+  de celdas, parecidas a microscópicos condensadores. Cada uno de estos
+  condensadores puede estar cargado o descargado y, por tanto, es capaz de
+  almacenar un bit:
+
+  - Condensador cargado: bit a 1
+  - Condensador descargado: bit a 0
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Bit**:
+
+  Un bit es, por tanto, la unidad mínima de información que es capaz de
+  almacenar y procesar un ordenador, y equivale a un **dígito binario**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Sistema binario
+
+- El sistema de numeración que usamos habitualmente los seres humanos es el
+  **decimal** o sistema **en base diez**.
+
+- En ese sistema disponemos de diez dígitos distintos (0, 1, 2, 3, 4, 5, 6, 7,
+  8 y 9) y cada dígito en un determinado número tiene un peso que es múltiplo
+  de una potencia de base diez.
+
+  Por ejemplo: $$243 = 2 \times 10^2 + 4 \times 10^1 + 3 \times 10^0$$
+
+- El sistema de numeración que usan los ordenadores es el **sistema binario** o
+  sistema **en base dos**, en el cual disponemos sólo de dos dígitos (0 y 1) y
+  cada peso es múltiplo de una potencia de base dos.
+
+  Por ejemplo: $$101 = 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0$$
+
+#### Codificación externa
 
 
-###### Sistema binario
+#### ASCII
 
 
-##### Codificación externa
-
-
-###### ASCII
-
-
-###### Unicode
+#### Unicode
 
 
 ## Algoritmo
