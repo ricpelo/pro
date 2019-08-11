@@ -26,6 +26,17 @@ skinparam backgroundColor transparent
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
+!comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El color puede ser:
+red, blue, teal, orange, brown, purple, magenta, cyan, yellow
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(COLOR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifdef(HTML)([!2]{style="color:!1"})(\textcolor{!1}{!2})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(BIBLIOGRAFIA)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Bibliografía {-}
@@ -38,6 +49,7 @@ MACROS DE USO GENERAL
 !ifndef(HTML)
 ~~~~~~~~~~~~~
 \Begin{caja}
+\setlength{\parskip}{1.2ex}
 !1\End{caja}
 ~~~~~~~~~~~~~
 ~~~~~~~~~~~~~
