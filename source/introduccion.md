@@ -8,6 +8,8 @@ nocite: |
 
 # Conceptos básicos
 
+---
+
 !QUIZ
 ~~~~~~~~~~~~~~~~~~~~~~~
 {
@@ -351,10 +353,10 @@ S -> E [dir = both, label = "Código de E/S"];
 - En la práctica, se usan unidades múltiplos del bit:
 
   - 1 byte = 8 bits
-  - 1 Kibibyte (KiB) = $2^10$ = 1024 bytes
-  - 1 Mebibyte (MiB) = $2^20$ bytes = 1024 Kilobytes
-  - 1 Gibibyte (GiB) = $2^30$ bytes = 1024 Mebibytes
-  - 1 Tebibyte (TiB) = $2^40$ bytes = 1024 Gibibytes
+  - 1 Kibibyte (KiB) = $2^{10}$ = 1024 bytes
+  - 1 Mebibyte (MiB) = $2^{20}$ bytes = 1024 Kilobytes
+  - 1 Gibibyte (GiB) = $2^{30}$ bytes = 1024 Mebibytes
+  - 1 Tebibyte (TiB) = $2^{40}$ bytes = 1024 Gibibytes
 
 #### Sistema binario
 
