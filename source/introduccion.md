@@ -348,6 +348,14 @@ S -> E [dir = both, label = "Código de E/S"];
   almacenar y procesar un ordenador, y equivale a un **dígito binario**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- En la práctica, se usan unidades múltiplos del bit:
+
+  - 1 byte = 8 bits
+  - 1 Kibibyte (KiB) = $2^10$ = 1024 bytes
+  - 1 Mebibyte (MiB) = $2^20$ bytes = 1024 Kilobytes
+  - 1 Gibibyte (GiB) = $2^30$ bytes = 1024 Mebibytes
+  - 1 Tebibyte (TiB) = $2^40$ bytes = 1024 Gibibytes
+
 #### Sistema binario
 
 - El sistema de numeración que usamos habitualmente los seres humanos es el
@@ -392,12 +400,59 @@ S -> E [dir = both, label = "Código de E/S"];
 
 #### Codificación externa
 
+- Para representar cadenas de caracteres y comunicarse con el exterior, el
+  ordenador utiliza **códigos de E/S** o **códigos externos**.
+
+- A cada carácter (letra, dígito, signo de puntuación, símbolo especial...) le
+  corresponde un código (número) dentro de un **conjunto de caracteres**.
+
+- Existen conjuntos de caracteres:
+
+  - De **longitud fija**: a todos los caracteres les corresponden un código de
+    igual longitud.
+
+  - De **longitud variable**: en el mismo conjunto de caracteres hay códigos
+    más largos y más cortos (por tanto, hay caracteres que ocupan más bytes que
+    otros).
 
 #### ASCII
 
+- *American Standard Code for Information Interchange*.
+
+- El conjunto de caracteres ASCII (o **código ASCII**) es el más implantado en
+  el *hardware* de los equipos informáticos.
+
+- Es la base de otros códigos más modernos, como el ISO-8859-1 o el Unicode.
+
+- Es un código de 7 bits:
+
+  - Cada carácter ocupa 7 bits.
+  - Hay $2^7 = 128$ caracteres posibles.
+  - Los 32 primeros códigos (del 0 al 31) son no imprimibles (códigos de
+    control).
+
+- El ISO-8859-1 es un código de 8 bits que extiende el ASCII con un bit más
+  para contener caracteres latinos.
 
 #### Unicode
 
+- Con 8 bits (y con 7 bits aún menos) no es posible representar todos los
+  posibles caracteres de todos los sistemas de escritura usados en el mundo.
+
+- Unicode es el estándar de codificación de caracteres más completo y universal
+  en la actualidad.
+
+- Cada carácter en Unicode se define mediante un identificador numérico llamado
+  *code point*.
+
+- Unicode define tres formas de codificación:
+
+  - **UTF-8**: codificación de 8 bits, de longitud variable (cada *code point*
+    puede ocupar de 1 a 4 bytes). **El más usado en la actualidad.**
+  - **UTF-16**: codificación de 16 bits, de longitud variable (cada *code
+    point* puede ocupar 1 ó 2 palabras de 16 bits).
+  - **UTF-32**: codificación de 32 bits, de longitud fija (cada *code point*
+    ocupa 1 palabra de 32 bits).
 
 ## Algoritmo
 
@@ -448,6 +503,41 @@ Un algoritmo es un método para resolver un problema.
 
 ### Representación
 
+:::::: {.columns}
+
+:::: {.column width=50%}
+
+- Un algoritmo se puede describir usando el **lenguaje natural**, es decir,
+  cualquier idioma humano.
+
+- ¿Qué !COLOR(red)(problemas) tiene esta forma de representación?
+
+::::
+
+:::: {.column width=50%}
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div style="font-size: 90%">
+**Instrucciones para hacer una tortilla**:
+
+1. Coger dos huevos.
+2. Encender el fuego.
+3. Echar aceite a la sartén.
+4. Batir los huevos.
+5. Echar los huevos batidos en la sartén.
+6. Esperar a que se haga por debajo.
+7. Dar la vuelta a la tortilla.
+8. Esperar de nuevo.
+9. Sacar cuando esté lista.
+
+**Fin**
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+::::::
 
 #### Ordinograma
 

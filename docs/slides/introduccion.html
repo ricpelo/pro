@@ -294,6 +294,14 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <p><strong>Bit</strong>:</p>
 <p>Un bit es, por tanto, la unidad mínima de información que es capaz de almacenar y procesar un ordenador, y equivale a un <strong>dígito binario</strong>.</p>
 </div></li>
+<li><p>En la práctica, se usan unidades múltiplos del bit:</p>
+<ul>
+<li>1 byte = 8 bits</li>
+<li>1 Kibibyte (KiB) = <span class="math inline">2<sup>10</sup></span> = 1024 bytes</li>
+<li>1 Mebibyte (MiB) = <span class="math inline">2<sup>20</sup></span> bytes = 1024 Kilobytes</li>
+<li>1 Gibibyte (GiB) = <span class="math inline">2<sup>30</sup></span> bytes = 1024 Mebibytes</li>
+<li>1 Tebibyte (TiB) = <span class="math inline">2<sup>40</sup></span> bytes = 1024 Gibibytes</li>
+</ul></li>
 </ul>
 </section><section id="sistema-binario" class="slide level4">
 <h4><span class="header-section-number">1.2.2.12</span> Sistema binario</h4>
@@ -327,10 +335,42 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul>
 </section><section id="codificación-externa" class="slide level4">
 <h4><span class="header-section-number">1.2.2.14</span> Codificación externa</h4>
+<ul>
+<li><p>Para representar cadenas de caracteres y comunicarse con el exterior, el ordenador utiliza <strong>códigos de E/S</strong> o <strong>códigos externos</strong>.</p></li>
+<li><p>A cada carácter (letra, dígito, signo de puntuación, símbolo especial…) le corresponde un código (número) dentro de un <strong>conjunto de caracteres</strong>.</p></li>
+<li><p>Existen conjuntos de caracteres:</p>
+<ul>
+<li><p>De <strong>longitud fija</strong>: a todos los caracteres les corresponden un código de igual longitud.</p></li>
+<li><p>De <strong>longitud variable</strong>: en el mismo conjunto de caracteres hay códigos más largos y más cortos (por tanto, hay caracteres que ocupan más bytes que otros).</p></li>
+</ul></li>
+</ul>
 </section><section id="ascii" class="slide level4">
 <h4><span class="header-section-number">1.2.2.15</span> ASCII</h4>
+<ul>
+<li><p><em>American Standard Code for Information Interchange</em>.</p></li>
+<li><p>El conjunto de caracteres ASCII (o <strong>código ASCII</strong>) es el más implantado en el <em>hardware</em> de los equipos informáticos.</p></li>
+<li><p>Es la base de otros códigos más modernos, como el ISO-8859-1 o el Unicode.</p></li>
+<li><p>Es un código de 7 bits:</p>
+<ul>
+<li>Cada carácter ocupa 7 bits.</li>
+<li>Hay <span class="math inline">2<sup>7</sup> = 128</span> caracteres posibles.</li>
+<li>Los 32 primeros códigos (del 0 al 31) son no imprimibles (códigos de control).</li>
+</ul></li>
+<li><p>El ISO-8859-1 es un código de 8 bits que extiende el ASCII con un bit más para contener caracteres latinos.</p></li>
+</ul>
 </section><section id="unicode" class="slide level4">
 <h4><span class="header-section-number">1.2.2.16</span> Unicode</h4>
+<ul>
+<li><p>Con 8 bits (y con 7 bits aún menos) no es posible representar todos los posibles caracteres de todos los sistemas de escritura usados en el mundo.</p></li>
+<li><p>Unicode es el estándar de codificación de caracteres más completo y universal en la actualidad.</p></li>
+<li><p>Cada carácter en Unicode se define mediante un identificador numérico llamado <em>code point</em>.</p></li>
+<li><p>Unicode define tres formas de codificación:</p>
+<ul>
+<li><strong>UTF-8</strong>: codificación de 8 bits, de longitud variable (cada <em>code point</em> puede ocupar de 1 a 4 bytes). <strong>El más usado en la actualidad.</strong></li>
+<li><strong>UTF-16</strong>: codificación de 16 bits, de longitud variable (cada <em>code point</em> puede ocupar 1 ó 2 palabras de 16 bits).</li>
+<li><strong>UTF-32</strong>: codificación de 32 bits, de longitud fija (cada <em>code point</em> ocupa 1 palabra de 32 bits).</li>
+</ul></li>
+</ul>
 </section><section id="algoritmo" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Algoritmo</h2></section><section id="definición-1" class="title-slide slide level3"><h3><span class="header-section-number">1.3.1</span> Definición</h3><div class="caja">
 <p><strong>Algoritmo</strong>:</p>
 <p>Un algoritmo es un método para resolver un problema.</p>
@@ -356,7 +396,36 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p><strong>Definido</strong>: si se sigue un algoritmo dos veces, se debe obtener el mismo resultado cada vez.</p></li>
 <li><p><strong>Finito</strong>: debe terminar en algún momento, es decir, debe tener un número finito de pasos.</p></li>
 </ul></li>
-</ul></section><section id="representación" class="title-slide slide level3"><h3><span class="header-section-number">1.3.3</span> Representación</h3></section><section id="ordinograma" class="slide level4">
+</ul></section><section id="representación" class="title-slide slide level3"><h3><span class="header-section-number">1.3.3</span> Representación</h3><div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Un algoritmo se puede describir usando el <strong>lenguaje natural</strong>, es decir, cualquier idioma humano.</p></li>
+<li><p>¿Qué <span style="color:red">problemas</span> tiene esta forma de representación?</p></li>
+</ul>
+<ul>
+<li class="fragment">Uno</li>
+<li class="fragment">Dos</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="caja">
+<div style="font-size: 90%">
+<p><strong>Instrucciones para hacer una tortilla</strong>:</p>
+<ol type="1">
+<li>Coger dos huevos.</li>
+<li>Encender el fuego.</li>
+<li>Echar aceite a la sartén.</li>
+<li>Batir los huevos.</li>
+<li>Echar los huevos batidos en la sartén.</li>
+<li>Esperar a que se haga por debajo.</li>
+<li>Dar la vuelta a la tortilla.</li>
+<li>Esperar de nuevo.</li>
+<li>Sacar cuando esté lista.</li>
+</ol>
+<p><strong>Fin</strong></p>
+</div>
+</div>
+</div>
+</div></section><section id="ordinograma" class="slide level4">
 <h4><span class="header-section-number">1.3.3.1</span> Ordinograma</h4>
 </section><section id="pseudocódigo" class="slide level4">
 <h4><span class="header-section-number">1.3.3.2</span> Pseudocódigo</h4>
