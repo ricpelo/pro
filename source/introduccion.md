@@ -355,15 +355,40 @@ S -> E [dir = both, label = "Código de E/S"];
 
 - En ese sistema disponemos de diez dígitos distintos (0, 1, 2, 3, 4, 5, 6, 7,
   8 y 9) y cada dígito en un determinado número tiene un peso que es múltiplo
-  de una potencia de base diez.
+  de una potencia de diez.
 
   Por ejemplo: $$243 = 2 \times 10^2 + 4 \times 10^1 + 3 \times 10^0$$
 
 - El sistema de numeración que usan los ordenadores es el **sistema binario** o
   sistema **en base dos**, en el cual disponemos sólo de dos dígitos (0 y 1) y
-  cada peso es múltiplo de una potencia de base dos.
+  cada peso es múltiplo de una potencia de dos.
 
   Por ejemplo: $$101 = 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0$$
+
+---
+
+- Generalmente, los números naturales se codifican internamente mediante su
+  representación en binario.
+
+- Los números enteros se suelen codificar mediante:
+
+  - Bit de signo (signo y magnitud)
+
+  - Complemento a uno
+
+  - Complemento a dos
+
+- Los números reales se pueden codificar mediante:
+
+  - Coma fija
+
+  - Coma flotante
+
+    - Simple precisión
+
+    - Doble precisión
+
+  - Decimal codificado en binario (BCD)
 
 #### Codificación externa
 
