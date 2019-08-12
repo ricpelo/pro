@@ -79,6 +79,29 @@ E -> Proceso -> S
 
 - La **Programación** es la ciencia y el arte de diseñar dichos programas.
 
+#### Ejemplos
+
+- Calcular la suma de cinco números:
+
+  - **Entrada**: los cinco números.
+
+  - **Proceso**: sumar cada número con el siguiente hasta acumular el resultado
+    final.
+
+  - **Salida**: la suma calculada.
+
+- Dada una lista de alumnos con sus calificaciones finales, obtener otra lista
+  ordenada de mayor a menor por la calificación obtenida y que muestre sólo los
+  alumnos aprobados:
+
+  - **Entrada**: Una lista de pares *(Nombre alumno, Calificación)*.
+
+  - **Proceso**: Eliminar de la lista los pares que tengan una calificación
+    menor que cinco y ordenar la lista resultante de mayor a menor según la
+    calificación.
+
+  - **Salida**: la lista ordenada de alumnos aprobados.
+
 ## Ordenador
 
 ### Definición
@@ -514,6 +537,10 @@ Un algoritmo es un método para resolver un problema.
 
 - ¿Qué !COLOR(red)(problemas) tiene esta forma de representación?
 
+  - Ambigüedad
+
+  - Imprecisión
+
 ::::
 
 :::: {.column width=50%}
@@ -543,6 +570,30 @@ Un algoritmo es un método para resolver un problema.
 
 #### Ordinograma
 
+- Representación gráfica que describe un algoritmo en forma de diagrama de
+  flujo.
+
+- Las flechas indican el orden de ejecución de las instrucciones.
+
+- Los nodos condicionales (los rombos) indican que la ejecución se bifurca a
+  uno u otro camino dependiendo de una condición.
+
+#### Ejemplo
+
+Determinar cuál es el máximo de dos números
+
+!FLOWCHART(maximo.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+inicio=>Inicio
+fin=>Fin
+leer=>inputoutput: Leer los dos números (X e Y)
+cond=>condition: X > Y
+Xmayor=>inputoutput: Escribir "X es mayor"
+Ymayor=>inputoutput: Escribir "Y es mayor"
+inicio->leer->cond
+cond(sí)->Xmayor->fin
+cond(no)->Ymayor->fin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Pseudocódigo
 
