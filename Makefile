@@ -174,7 +174,8 @@ $(PP):
 	sudo apt install default-jre graphviz librsvg2-bin npm
 
 $(NODE_MODULES):
-	npm install
+	npm install diagrams
+	patch -p0 < $(AUX)/flowchart.js.patch
 
 $(PANDOC):
 	$(SCRIPTS)/check-pandoc.sh
