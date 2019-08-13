@@ -60,12 +60,25 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{Shaded}
+\Begin{caja}
 \raggedright
 \small
 !PYALGO(!1)
-\End{Shaded}
+\End{caja}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(CENTRAR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifndef(HTML)
+~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{center}
+!1\end{center}
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+::: centered
+!1:::
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(BREAK)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

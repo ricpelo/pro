@@ -509,6 +509,11 @@ Un algoritmo es un método para resolver un problema.
 - El estudio de los algoritmos es importante porque la resolución de un
   problema exige el diseño de un algoritmo que lo resuelva.
 
+- Una vez diseñado el algoritmo, se traduce a un programa informático usando un
+  *lenguaje de programación*.
+
+- Finalmente, un ordenador ejecuta dicho programa.
+
 !DOT(resolucion-problema.svg)(Resolución de un problema)(!WIDTH)(width=80%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "Problema" -> "Diseño de algoritmo" -> "Programa informático"
@@ -535,11 +540,12 @@ Un algoritmo es un método para resolver un problema.
 - Un algoritmo se puede describir usando el **lenguaje natural**, es decir,
   cualquier idioma humano.
 
-- ¿Qué !COLOR(red)(problemas) tiene esta forma de representación?
+- ¿Qué !COLOR(red)(problema) tiene esta forma de representación?
 
-  - Ambigüedad
+**Ambigüedad**
 
-  - Imprecisión
+- En ciertos contextos la ambigüedad es asumible, pero **NO** cuando el
+  destinatario es un ordenador.
 
 ::::
 
@@ -597,12 +603,71 @@ cond(no,right)->Ymayor->fin
 
 #### Pseudocódigo
 
+- Es un lenguaje semi-formal, a medio camino entre el lenguaje natural y el
+  lenguaje que entendería un ordenador (lenguaje de programación).
+
+- Está pensado para ser interpretado por una persona y no por un ordenador.
+
+- En general, no se tienen en cuenta las limitaciones impuestas por el
+  *hardware* (CPU, memoria...) o el *software* (tamaño máximo de los datos,
+  codificación interna...), siempre y cuando no sea importante el estudio de la
+  eficiencia o la complejidad del algoritmo.
+
+- En ese sentido, se usa como un lenguaje de programación *idealizado*.
+
+#### Ejemplo
+
+!ifdef(LATEX)(\hfill\break)
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Algoritmo**: Obtener el mayor de dos números
+
+$X \leftarrow$ **leer** número
+$Y \leftarrow$ **leer** número
+**si** $X > Y$ **entonces**
+    **escribir** "X es mayor que Y"
+**si no**
+    **escribir** "Y es mayor que X"
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Cualidades deseables
 
+- **Corrección**: El algoritmo debe solucionar correctamente el problema.
+
+- **Claridad**: Cuanto más legible y comprensible para el ser humano, mejor.
+
+- **Generalidad**: Un algoritmo debe resolver problemas generales. Por ejemplo,
+  un algoritmo que sume dos números enteros debe servir para sumar cualquier
+  pareja de números enteros, y no, solamente, para sumar dos números
+  determinados, como pueden ser el 3 y el 5.
+
+- **Eficiencia**: La ejecución del programa resultante de codificar un
+  algoritmo deberá consumir lo menos posible los recursos disponibles del
+  ordenador (memoria, tiempo de CPU, etc.).
+
+- **Sencillez**: Hay que intentar que la solución sea sencilla, aun a costa de
+  perder un poco de eficiencia, es decir, se tiene que buscar un equilibrio
+  entre la claridad y la eficiencia.
+
+- **Modularidad**: Un algoritmo puede formar parte de la solución a un problema
+  mayor. A su vez, dicho algoritmo puede descomponerse en otros si esto
+  favorece a la claridad del mismo.
 
 ### Computabilidad
 
+- ¿Todos los problemas pueden resolverse de forma algorítmica?
+
+- Dicho de otra forma, queremos saber lo siguiente:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~
+  !CENTRAR
+  ~~~~~~~~~~~~~~~
+  Dado un problema, ¿existe un algoritmo que lo resuelva?
+  ~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
 
 ### Corrección
 
