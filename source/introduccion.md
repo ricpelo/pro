@@ -889,6 +889,34 @@ La respuesta es que **NO**
 
 # Paradigmas de programación
 
+## Definición
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Paradigma de programación**:
+
+Es un **estilo** de desarrollar programas, es decir, un **modelo** para
+resolver problemas computacionales.
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Cada paradigma entiende la programación desde una perspectiva diferente,
+  partiendo de unos conceptos básicos diferentes y con unas reglas diferentes.
+
+- Cuando diseñamos un algoritmo o escribimos un programa, lo hacemos con base
+  en un determinado paradigma, y éste impregna por completo la forma en la que
+  describimos la solución al problema en el que estamos trabajando.
+
+- No existe un único paradigma de programación y cada uno tiene sus
+  peculiaridades que lo hacen diferente.
+
+- Cada lenguaje de programación (o pseudocódigo) se dice que *soporta* un
+  determinado paradigma cuando con dicho lenguaje se pueden escribir algoritmos
+  o programas según el «estilo» que impone dicho paradigma.
+
+- Incluso existen lenguajes *multiparadigma* capaces de soportar varios
+  paradigmas al mismo tiempo.
 
 ## Imperativo
 
@@ -931,11 +959,121 @@ La respuesta es que **NO**
 
 ### Por nivel
 
+- Dependiendo del **nivel** del lenguaje de programación tenemos:
+
+  - Lenguajes de bajo nivel
+  
+  - Lenguajes de alto nivel
+
+#### Lenguajes de bajo nivel
+
+- Lenguajes más cercanos a la máquina
+
+- Con poca o nula capacidad de abstracción
+
+- Se trabaja directamente con elementos propios del *hardware* del ordenador
+
+- Atados a la arquitectura interna de la máquina para la que se programa
+
+- Programas difíciles de escribir, depurar, mantener y portar
+
+- Se consigue el máximo control del ordenador
+
+- Principales ejemplos:
+
+  - Código máquina
+
+  - Ensamblador
+
+#### Lenguajes de alto nivel
+
+- Lenguajes más cercanos al ser humano
+
+- Mayor capacidad de abstracción
+
+- Independiente de la arquitectura y los detalles internos del ordenador o el
+  sistema operativo
+
+- Programas más fáciles de escribir, depurar, mantener y portar
+
+- Menor control de los recursos de la máquina
+
+---
+
+- Ejemplos de lenguajes de alto nivel:
+
+  - Fortran
+  - LISP
+  - COBOL
+  - BASIC
+  - Pascal
+  - C
+  - Java
+  - Ruby
+  - C++
+  - Python
+  - JavaScript
+  - C#
+  - PHP
+  - Haskell
 
 ### Por generación
 
+1. **Primera generación**: Se programa directamente en *código máquina*.
+
+2. **Segunda generación**: Aparece el *lenguaje ensamblador* como un lenguaje
+   simbólico que se traduce a lenguaje máquina usando un *programa
+   ensamblador*.
+
+3. **Tercera generación**: Aparecen los *lenguajes de alto nivel* con los que
+   se puede programar con códigos independientes de la máquina. El código
+   fuente se traduce a código máquina usando programas específicos llamados
+   **traductores**.
+
+4. **Cuarta generación**: Herramientas que combinan un lenguaje de programación
+   de alto nivel con un *software* de generación de pantallas, listados,
+   informes, etc. orientado al desarrollo rápido de aplicaciones. Ejemplos
+   característicos son los lenguajes de **programación visual**.
+
+5. **Quinta generación**: Es una denominación que se usó durante un tiempo para
+   los lenguajes de programación de muy alto nivel (funciones y lógicos)
+   destinados principalmente a resolver problemas de **Inteligencia
+   Artificial**, pero como término ya ha caído en desuso.
+
+### Por propósito
+
+- Dependiendo del tipo de programa que podemos escribir con el lenguaje, tenemos:
+
+  - **Lenguajes de propósito general**: Con ellos se pueden escribir programas
+    muy diversos. No están atados a un tipo concreto de problema a resolver.
+    Ejemplos:
+
+    - LISP, Pascal, C, Java, Ruby, C++, Python, C#, Haskell...
+
+  - **Lenguajes de propósito específico**: Son lenguajes mucho más
+    especializados y destinados principalmente a resolver un tipo determinado
+    de problema. No sirven para escribir cualquier tipo de programa pero,
+    dentro de su ámbito de actuación, suelen funcionar mejor que los lenguajes
+    de propósito general. Ejemplos:
+
+    - Lenguajes de consulta a bases de datos (SQL)
+    - Lenguajes de descripción de hardware (VHDL)
+    - Lenguajes para desarrollo de aplicaciones de gestión (COBOL)
 
 ### Por paradigma
+
+- Dependiendo del paradigma de programación que soporta el lenguaje, podemos
+  encontrar:
+
+  - Lenguajes imperativos
+
+  - Lenguajes funcionales
+
+  - Lenguajes orientados a objetos
+
+  - Lenguajes lógicos
+
+  - Lenguajes multiparadigma
 
 
 # Traductores
