@@ -918,23 +918,134 @@ resolver problemas computacionales.
 - Incluso existen lenguajes *multiparadigma* capaces de soportar varios
   paradigmas al mismo tiempo.
 
+---
+
+- Clasificación de los paradigmas de programación más importantes:
+
+  - Imperativo
+
+    - Estructurado
+
+    - Orientado a objetos 
+
+  - Declarativo
+
+    - Funcional
+
+    - Lógico
+
 ## Imperativo
 
+- El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
+  programa imperativo está formado por una sucesión de sentencias que se
+  ejecutan en orden y que llevan a cabo una de estas acciones:
+
+  - **Cambiar el estado** interno del programa, usualmente mediante la
+    sentencia de *asignación*.
+
+  - Cambiar el **flujo de control** del programa, haciendo que la ejecución se
+    bifurque (*salte*) a otra parte del mismo.
+
+- La ejecución de un programa imperativo, por tanto, consiste en una sucesión
+  de cambios de estado controlados por mecanismos de control y que dependen del
+  orden en el que se realizan.
+
+- Existen varios paradigmas con las características del paradigma imperativo,
+  por lo que podemos decir que existen varios paradigmas imperativos.
 
 ### Estructurado
 
+- El **paradigma estructurado** es un paradigma imperativo en el que el flujo
+  de control del programa se define mediante las denominadas **estructuras de
+  control**.
+
+- Se apoya a nivel teórico en los resultados del conocido **teorema de Böhm y
+  Jacopini**, que establece que cualquier programa se puede escribir usando
+  solamente tres estructuras básicas:
+
+  - Secuencia
+  - Selección
+  - Iteración
+
+- Con estas tres estructuras conseguimos que los programas se puedan leer de
+  arriba abajo como compuestos por **bloques anidados o independientes** que se
+  leen como un todo conjunto.
+
+- Su aparición llevó asociada la aparición de una **metodología de desarrollo**
+  según la cual los programas se escriben por niveles de abstracción mediante
+  refinamientos sucesivos y usando en cada nivel sólo las tres estructuras
+  básicas. 
 
 ### Orientado a objetos
 
+- El **paradigma orientado a objetos** se apoya en los conceptos de **objeto**
+  y **mensaje**.
+
+- Un programa orientado a objetos está formado por una colección de objetos que
+  se intercambian mensajes entre sí.
+
+- Los objetos son entidades que existen dentro del programa y que poseen un
+  cierto **estado interno**.
+
+- Cuando un objeto envía un mensaje a otro, el objeto receptor del mensaje
+  reaccionará llevando a cabo alguna acción, que probablemente provocará un
+  **cambio en su estado interno** y que, posiblemente, provocará también el
+  envío de mensajes a otros objetos.
+
+- La programación orientada a objetos está vista como una forma natural de
+  entender la programación y es, con diferencia, **el paradigma más usado en la
+  actualidad**.
 
 ## Declarativo
 
+- La **programación declarativa** engloba a una familia de paradigmas de
+  programación de muy alto nivel.
+
+- En programación declarativa se describe la solución a un problema con base en
+  las propiedades que debe cumplir dicha solución y no tanto en forma de
+  instrucciones que se deben ejecutar para resolver el problema.
+
+- Se dice que un programa imperativo describe **cómo** resolver el problema,
+  mientras que un programa declarativo describe **qué** forma debe tener la
+  solución.
+
+- Para dar forma a la solución, se utilizan formalismos abstractos matemáticos
+  y lógicos, lo que da lugar a los dos grandes paradigmas declarativos: la
+  **programación funcional** y **la programación lógica**.
 
 ### Funcional
 
+- La **programación funcional** es un paradigma de programación declarativa
+  basado en el uso de **funciones matemáticas**.
+
+- Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
+  lenguajes funcionales se pueden considerar azúcar sintáctico del cálculo
+  lambda).
+
+- Una función (en programación funcional) define de un cálculo a realizar a
+  partir de unos datos de entrada, con la propiedad de que el resultado de la
+  función sólo puede depender de dichos datos de entrada (lo que se denomina
+  **transparencia referencial**).
+
+- Eso significa que una función no puede tener estado interno ni su resultado
+  puede depender del estado interno del programa. Por tanto, no existen los
+  **efectos laterales**.
+
+- Demostrar la corrección de un programa funcional o paralelizar su ejecución
+  es mucho más fácil que con un programa imperativo.
 
 ### Lógico
 
+- La **programación lógica** es un paradigma de programación declarativa
+  basado en el uso de la **lógica de predicados de primer orden**.
+
+- Básicamente, un programa lógico es una colección de definiciones que forman
+  un conjunto de axiomas en un sistema de deducción lógica.
+
+- Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo
+  que trata de demostrar un teorema a partir de los axiomas.
+
+- El ejemplo más característico de este tipo de lenguajes es **Prolog**.
 
 # Lenguajes de programación
 
@@ -1072,6 +1183,8 @@ resolver problemas computacionales.
   - Lenguajes orientados a objetos
 
   - Lenguajes lógicos
+
+  - Lenguajes dirigidos por eventos
 
   - Lenguajes multiparadigma
 
