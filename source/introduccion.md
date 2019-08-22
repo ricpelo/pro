@@ -661,24 +661,206 @@ $Y \leftarrow$ **leer** número
 
 - Dicho de otra forma, queremos saber lo siguiente:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~
-  !CENTRAR
-  ~~~~~~~~~~~~~~~
   Dado un problema, ¿existe un algoritmo que lo resuelva?
-  ~~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~
+
+---
+
+- Todo problema $P$ lleva asociada una función $f_P: D \rightarrow R$, donde:
+
+  - $D$ es el conjunto de los datos de entrada.
+  - $R$ es el conjunto de los resultados del problema.
+
+- Asimismo, todo algoritmo $A$ lleva asociada una función $f_A$.
+
+- La pregunta es: ¿existe un algoritmo A tal que $f_A = f_P$?
+
+- Y de ahí vamos a la pregunta general:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~
+  ¿Toda función $f$ es computable (resoluble algorítmicamente)?
+  ~~~~~~~~~~~~~~~~~~
+  
+---
+
+La respuesta es que **NO**
+
+- Se puede demostrar que hay más funciones que algoritmos, por lo que **existen
+  funciones que no se pueden computar mediante un algoritmo** (no son
+  computables).
+
+---
+
+- La dificultad que tiene estudiar la computabilidad de funciones está en que
+  no tenemos una definición formal de «*algoritmo*».
+
+- A comienzos del S. XX, se crearon (independientemente uno del otro) dos
+  formalismos matemáticos para representar el concepto de *algoritmo*:
+
+  - Alonzo Church creó el **cálculo lambda**.
+
+  - Alan Turing creó la **máquina de Turing**.
+
+- Posteriormente se demostró que los dos formalismos eran totalmente
+  equivalentes y eran, además, equivalentes a las **gramáticas formales**.
+
+- Esto llevó a formular la llamada **tesis de Church-Turing**, que dice que
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~
+  «*Todo algoritmo es equivalente a una máquina de Turing.*»
+  ~~~~~~~~~~~~~~~~~~
+
+- La tesis de Church-Turing es indemostrable pero prácticamente toda la
+  comunidad científica la acepta como verdadera.
+
+---
+
+- Usando esos formalismos, se pudo demostrar que hay que problemas que no se
+  pueden resolver mediante algoritmos.
+
+- Uno de los problemas que no tienen una solución algorítmica es el llamado
+  **problema de la parada**:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Problema de la parada**:
+
+  Dado un algoritmo y un posible dato de entrada, determinar (a priori, es
+  decir, sin ejecutarlo previamente) si el algoritmo se detendrá y producirá un
+  valor de salida.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Nunca podremos hacer un algoritmo que resuelva el problema de la parada en
+  términos generales (en casos particulares sí se puede).
 
 ### Corrección
 
+- ¿Cómo sabemos si un algoritmo es **correcto**?
+
+- ¿Qué significa eso de que un algoritmo sea correcto?
+
+- Supongamos que, para un problema $P$, existe un algoritmo $A$. Lo que tenemos
+  que averiguar es si se cumple: $$f_P = f_A$$
+
+- ¿Cómo lo hacemos?
+
+  - Si el conjunto $D$ de datos de entrada es **finito**, podríamos comparar
+    todos los resultados de salida con los resultados esperados y ver si
+    coinciden.
+
+  - Si $D$ es **infinito**, es imposible realizar una comprobación empírica de
+    la corrección del algoritmo (en cambio, sí se puede demostrar que es
+    incorrecto.)
+
+---
+
+- Lo mejor es recurrir a **métodos formales**:
+
+  - **Diseño a priori**: se construye el algoritmo en base a una prueba (lo que
+    se denomina también **demostración constructiva**).
+
+  - **Diseño a posteriori**: se construye el algoritmo de forma más o menos
+    intuitiva y, una vez diseñado, tratar de demostrar su corrección.
+
+- En ambos casos, es importante definir con mucha precisión qué problema
+  queremos resolver: se describe el problema mediante una **especificación
+  formal**.
 
 ### Complejidad
 
+- ¿Cómo de **eficiente** es un algoritmo?
+
+- La eficiencia de un algoritmo se mide en función del **consumo de recursos**
+  que necesita el algoritmo para su ejecución.
+
+  - Los principales recursos son el **tiempo** y el **espacio**.
+
+- Dados dos algoritmos distintos que resuelvan el mismo problema, en general
+  nos interesará usar el más eficiente de ellos (al margen de otras
+  consideraciones, como la claridad, la legibilidad, la mantenibilidad, la
+  reusabilidad, etc.)
+
+¿Cómo medimos la eficiencia de un algoritmo?
+
+¿Cómo comparamos la eficiencia de dos algoritmos?
+
+---
+
+- El **análisis de algoritmos** estudia la eficiencia de un algoritmo desde un
+  punto de vista abstracto (independiente de la máquina, el lenguaje de
+  programación, la carga de trabajo, etc.).
+
+- Define el consumo de recursos como una función del tamaño del problema.
+
+  - Ejemplo: $t(n) \simeq 3n^2$
+
+- Finalmente, clasifica dicho consumo según una **notación asintótica**.
+
+  - Ejemplo: $t(n) \in O(n^2)$
 
 ## Programa
 
+- Definición:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Programa**:
+
+  Un programa es la codificación de un algoritmo en un lenguaje de
+  programación.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Si el algoritmo está adecuadamente definido, *traducir* ese algoritmo en un
+  programa equivalente puede resultar trivial.
+
+- El texto del programa escrito en ese lenguaje de programación se denomina
+  **código fuente**. Programar, al final, consiste en escribir (*codificar*) el
+  código fuente de nuestro programa.
+
+- El algoritmo está pensado para ser entendido por un ser humano, mientras que
+  el programa se escribe para ser interpretado y ejecutado por un ordenador.
+
+- Por ello, toda posible ambigüedad que pudiera quedar en el algoritmo debe
+  eliminarse al codificarlo en forma de programa.
+
+---
+
+- Programar depende mucho de las características del lenguaje de programación
+  elegido.
+
+- Lo ideal es usar un lenguaje que se parezca lo más posible al
+  *pseudolenguaje* utilizado para describir el correspondiente algoritmo.
+
+- En un programa también hay que considerar aspectos y limitaciones que hasta
+  ahora no habíamos tenido en cuenta:
+
+  - El tamaño de los datos en memoria: por ejemplo, suele haber límites en
+    cuanto a la cantidad de dígitos que puede tener un número o su precisión
+    decimal.
+
+  - Restricciones en los datos: mutables vs. inmutables, de tamaño fijo vs.
+    tamaño variable, etc.
+
+  - La semántica de las instrucciones: un símbolo usado en un algoritmo puede
+    tener otro significado distinto en el programa, o puede que sólo pueda
+    usarse en el programa bajo ciertas condiciones que no hace falta considerar
+    en el algoritmo.
 
 ## Lenguaje de programación
+
+- Definición:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Lenguaje de programación:**
+
+  Un lenguaje de programación es un lenguaje formal que nos permite escribir
+  programas de forma que puedan ser comprendidos y ejecutados por un ordenador.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # Evolución histórica

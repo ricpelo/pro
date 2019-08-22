@@ -527,12 +527,127 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></section><section id="computabilidad" class="title-slide slide level3"><h3><span class="header-section-number">1.3.5</span> Computabilidad</h3><ul>
 <li><p>¿Todos los problemas pueden resolverse de forma algorítmica?</p></li>
 <li><p>Dicho de otra forma, queremos saber lo siguiente:</p>
-<div class="caja">
-<div class="centered">
+<div class="caja centered">
 <p>Dado un problema, ¿existe un algoritmo que lo resuelva?</p>
-</div>
 </div></li>
-</ul></section><section id="corrección" class="title-slide slide level3"><h3><span class="header-section-number">1.3.6</span> Corrección</h3></section><section id="complejidad" class="title-slide slide level3"><h3><span class="header-section-number">1.3.7</span> Complejidad</h3></section><section id="programa" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Programa</h2></section><section id="lenguaje-de-programación" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Lenguaje de programación</h2></section></section>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Todo problema <span class="math inline">P</span> lleva asociada una función <span class="math inline">f_P: D \rightarrow R</span>, donde:</p>
+<ul>
+<li><span class="math inline">D</span> es el conjunto de los datos de entrada.</li>
+<li><span class="math inline">R</span> es el conjunto de los resultados del problema.</li>
+</ul></li>
+<li><p>Asimismo, todo algoritmo <span class="math inline">A</span> lleva asociada una función <span class="math inline">f_A</span>.</p></li>
+<li><p>La pregunta es: ¿existe un algoritmo A tal que <span class="math inline">f_A = f_P</span>?</p></li>
+<li><p>Y de ahí vamos a la pregunta general:</p>
+<div class="caja centered">
+<p>¿Toda función <span class="math inline">f</span> es computable (resoluble algorítmicamente)?</p>
+</div></li>
+</ul>
+</section><section class="slide level4">
+
+<p>La respuesta es que <strong>NO</strong></p>
+<ul>
+<li>Se puede demostrar que hay más funciones que algoritmos, por lo que <strong>existen funciones que no se pueden computar mediante un algoritmo</strong> (no son computables).</li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La dificultad que tiene estudiar la computabilidad de funciones está en que no tenemos una definición formal de «<em>algoritmo</em>».</p></li>
+<li><p>A comienzos del S. XX, se crearon (independientemente uno del otro) dos formalismos matemáticos para representar el concepto de <em>algoritmo</em>:</p>
+<ul>
+<li><p>Alonzo Church creó el <strong>cálculo lambda</strong>.</p></li>
+<li><p>Alan Turing creó la <strong>máquina de Turing</strong>.</p></li>
+</ul></li>
+<li><p>Posteriormente se demostró que los dos formalismos eran totalmente equivalentes y eran, además, equivalentes a las <strong>gramáticas formales</strong>.</p></li>
+<li><p>Esto llevó a formular la llamada <strong>tesis de Church-Turing</strong>, que dice que</p>
+<div class="caja centered">
+<p>«<em>Todo algoritmo es equivalente a una máquina de Turing.</em>»</p>
+</div></li>
+<li><p>La tesis de Church-Turing es indemostrable pero prácticamente toda la comunidad científica la acepta como verdadera.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Usando esos formalismos, se pudo demostrar que hay que problemas que no se pueden resolver mediante algoritmos.</p></li>
+<li><p>Uno de los problemas que no tienen una solución algorítmica es el llamado <strong>problema de la parada</strong>:</p>
+<div class="caja">
+<p><strong>Problema de la parada</strong>:</p>
+<p>Dado un algoritmo y un posible dato de entrada, determinar (a priori, es decir, sin ejecutarlo previamente) si el algoritmo se detendrá y producirá un valor de salida.</p>
+</div></li>
+<li><p>Nunca podremos hacer un algoritmo que resuelva el problema de la parada en términos generales (en casos particulares sí se puede).</p></li>
+</ul>
+</section><section id="corrección" class="title-slide slide level3"><h3><span class="header-section-number">1.3.6</span> Corrección</h3><ul>
+<li><p>¿Cómo sabemos si un algoritmo es <strong>correcto</strong>?</p></li>
+<li><p>¿Qué significa eso de que un algoritmo sea correcto?</p></li>
+<li><p>Supongamos que, para un problema <span class="math inline">P</span>, existe un algoritmo <span class="math inline">A</span>. Lo que tenemos que averiguar es si se cumple: <span class="math display">f_P = f_A</span></p></li>
+<li><p>¿Cómo lo hacemos?</p>
+<ul>
+<li><p>Si el conjunto <span class="math inline">D</span> de datos de entrada es <strong>finito</strong>, podríamos comparar todos los resultados de salida con los resultados esperados y ver si coinciden.</p></li>
+<li><p>Si <span class="math inline">D</span> es <strong>infinito</strong>, es imposible realizar una comprobación empírica de la corrección del algoritmo (en cambio, sí se puede demostrar que es incorrecto.)</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Lo mejor es recurrir a <strong>métodos formales</strong>:</p>
+<ul>
+<li><p><strong>Diseño a priori</strong>: se construye el algoritmo en base a una prueba (lo que se denomina también <strong>demostración constructiva</strong>).</p></li>
+<li><p><strong>Diseño a posteriori</strong>: se construye el algoritmo de forma más o menos intuitiva y, una vez diseñado, tratar de demostrar su corrección.</p></li>
+</ul></li>
+<li><p>En ambos casos, es importante definir con mucha precisión qué problema queremos resolver: se describe el problema mediante una <strong>especificación formal</strong>.</p></li>
+</ul>
+</section><section id="complejidad" class="title-slide slide level3"><h3><span class="header-section-number">1.3.7</span> Complejidad</h3><ul>
+<li><p>¿Cómo de <strong>eficiente</strong> es un algoritmo?</p></li>
+<li><p>La eficiencia de un algoritmo se mide en función del <strong>consumo de recursos</strong> que necesita el algoritmo para su ejecución.</p>
+<ul>
+<li>Los principales recursos son el <strong>tiempo</strong> y el <strong>espacio</strong>.</li>
+</ul></li>
+<li><p>Dados dos algoritmos distintos que resuelvan el mismo problema, en general nos interesará usar el más eficiente de ellos (al margen de otras consideraciones, como la claridad, la legibilidad, la mantenibilidad, la reusabilidad, etc.)</p></li>
+</ul>
+<p>¿Cómo medimos la eficiencia de un algoritmo?</p>
+<p>¿Cómo comparamos la eficiencia de dos algoritmos?</p></section><section class="slide level4">
+
+<ul>
+<li><p>El <strong>análisis de algoritmos</strong> estudia la eficiencia de un algoritmo desde un punto de vista abstracto (independiente de la máquina, el lenguaje de programación, la carga de trabajo, etc.).</p></li>
+<li><p>Define el consumo de recursos como una función del tamaño del problema.</p>
+<ul>
+<li>Ejemplo: <span class="math inline">t(n) \simeq 3n^2</span></li>
+</ul></li>
+<li><p>Finalmente, clasifica dicho consumo según una <strong>notación asintótica</strong>.</p>
+<ul>
+<li>Ejemplo: <span class="math inline">t(n) \in O(n^2)</span></li>
+</ul></li>
+</ul>
+</section><section id="programa" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Programa</h2><ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Programa</strong>:</p>
+<p>Un programa es la codificación de un algoritmo en un lenguaje de programación.</p>
+</div></li>
+<li><p>Si el algoritmo está adecuadamente definido, <em>traducir</em> ese algoritmo en un programa equivalente puede resultar trivial.</p></li>
+<li><p>El texto del programa escrito en ese lenguaje de programación se denomina <strong>código fuente</strong>. Programar, al final, consiste en escribir (<em>codificar</em>) el código fuente de nuestro programa.</p></li>
+<li><p>El algoritmo está pensado para ser entendido por un ser humano, mientras que el programa se escribe para ser interpretado y ejecutado por un ordenador.</p></li>
+<li><p>Por ello, toda posible ambigüedad que pudiera quedar en el algoritmo debe eliminarse al codificarlo en forma de programa.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Programar depende mucho de las características del lenguaje de programación elegido.</p></li>
+<li><p>Lo ideal es usar un lenguaje que se parezca lo más posible al <em>pseudolenguaje</em> utilizado para describir el correspondiente algoritmo.</p></li>
+<li><p>En un programa también hay que considerar aspectos y limitaciones que hasta ahora no habíamos tenido en cuenta:</p>
+<ul>
+<li><p>El tamaño de los datos en memoria: por ejemplo, suele haber límites en cuanto a la cantidad de dígitos que puede tener un número o su precisión decimal.</p></li>
+<li><p>Restricciones en los datos: mutables vs. inmutables, de tamaño fijo vs. tamaño variable, etc.</p></li>
+<li><p>La semántica de las instrucciones: un símbolo usado en un algoritmo puede tener otro significado distinto en el programa, o puede que sólo pueda usarse en el programa bajo ciertas condiciones que no hace falta considerar en el algoritmo.</p></li>
+</ul></li>
+</ul>
+</section><section id="lenguaje-de-programación" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Lenguaje de programación</h2><ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Lenguaje de programación:</strong></p>
+<p>Un lenguaje de programación es un lenguaje formal que nos permite escribir programas de forma que puedan ser comprendidos y ejecutados por un ordenador.</p>
+</div></li>
+</ul></section></section>
 <section><section id="evolución-histórica" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Evolución histórica</h1></section><section id="culturas-de-la-programación" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Culturas de la programación</h2></section><section id="ingeniería-del-software" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Ingeniería del software</h2></section></section>
 <section><section id="resolución-de-problemas-mediante-programación" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Resolución de problemas mediante programación</h1></section><section id="análisis-del-problema" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Análisis del problema</h2></section><section id="especificación" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Especificación</h2></section><section id="diseño-del-algoritmo" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Diseño del algoritmo</h2></section><section id="codificación-del-algoritmo-en-forma-de-programa" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Codificación del algoritmo en forma de programa</h2></section></section>
 <section><section id="paradigmas-de-programación" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Paradigmas de programación</h1></section><section id="imperativo" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Imperativo</h2></section><section id="estructurado" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> Estructurado</h3></section><section id="orientado-a-objetos" class="title-slide slide level3"><h3><span class="header-section-number">4.1.2</span> Orientado a objetos</h3></section><section id="declarativo" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Declarativo</h2></section><section id="funcional" class="title-slide slide level3"><h3><span class="header-section-number">4.2.1</span> Funcional</h3></section><section id="lógico" class="title-slide slide level3"><h3><span class="header-section-number">4.2.2</span> Lógico</h3></section></section>

@@ -101,7 +101,8 @@ $(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
 
 $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE_HTML)
 	@echo "Generando $@..."
-	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | pandoc -s -t revealjs \
+	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+		pandoc -s -t revealjs \
 		--filter pandoc-citeproc \
 		--katex \
 		--bibliography $(CITATIONS_BIB) \
