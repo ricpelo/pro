@@ -58,6 +58,21 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~
 
+!define(CAJACENTRADA)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifndef(HTML)
+~~~~~~~~~~~~~
+\Begin{caja}
+\Begin{center}
+\setlength{\parskip}{1.2ex}
+!1\End{center}\End{caja}
+~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+::: {.caja .centered}
+!1:::
+~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \Begin{caja}
@@ -71,8 +86,8 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !ifndef(HTML)
 ~~~~~~~~~~~~~~~~~~~~~~~~
-\begin{center}
-!1\end{center}
+\Begin{center}
+!1\End{center}
 ~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~
 ::: centered
