@@ -151,7 +151,8 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC
 		--filter pandoc-citeproc \
 		--bibliography $(CITATIONS_BIB) \
 		--template=$(LATEX_TEMPLATE) \
-		--toc --toc-depth=2 -N \
+		--toc --toc-depth=3 -N \
+		--slide-level=4 \
 		-H $(PREAMBULO_LATEX) \
 		-B $(INCLUDE_BEFORE_TEX) \
 		--pdf-engine=xelatex \
