@@ -19,40 +19,53 @@
         el.innerHTML = title;
         document.getElementById('header-left').appendChild(el);
         document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                var hl = document.getElementById('header-left');
-                hl.style.fontSize = hr.style.fontSize;
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -60,6 +73,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
