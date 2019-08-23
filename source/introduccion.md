@@ -934,6 +934,8 @@ resolver problemas computacionales.
 
     - Lógico
 
+    - De bases de datos
+
 ## Imperativo
 
 - El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
@@ -1032,7 +1034,7 @@ resolver problemas computacionales.
   **efectos laterales**.
 
 - Demostrar la corrección de un programa funcional o paralelizar su ejecución
-  es mucho más fácil que con un programa imperativo.
+  es **mucho más fácil** que con un programa imperativo.
 
 ### Lógico
 
@@ -1040,12 +1042,30 @@ resolver problemas computacionales.
   basado en el uso de la **lógica de predicados de primer orden**.
 
 - Básicamente, un programa lógico es una colección de definiciones que forman
-  un conjunto de axiomas en un sistema de deducción lógica.
+  un conjunto de **axiomas** en un sistema de **deducción lógica**.
 
 - Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo
-  que trata de demostrar un teorema a partir de los axiomas.
+  que trata de **demostrar un teorema** a partir de los axiomas.
 
 - El ejemplo más característico de este tipo de lenguajes es **Prolog**.
+
+### De bases de datos
+
+- Los sistemas de gestión de bases de datos relacionales (SGBDR) disponen de un
+  lenguaje que permite al usuario consultar y manipular la información
+  almacenada.
+
+- A esos lenguajes se los denomina **lenguajes de bases de datos** o
+  **lenguajes de consulta**.
+
+- El lenguaje de consulta más conocido es el **SQL**.
+
+- Los SGBDR se basan en el *modelo relacional*, que es un modelo matemático.
+
+- SQL es, básicamente, una implementación del **álgebra relacional**.
+
+- Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
+  automáticamente el mejor camino para alcanzar dicho objetivo.
 
 # Lenguajes de programación
 
@@ -1190,6 +1210,16 @@ resolver problemas computacionales.
 
 
 # Traductores
+
+- El único lenguaje que entiende la máquina directamente es el **lenguaje
+  máquina** o **código máquina**, que es un lenguaje de **bajo nivel**.
+
+- Para poder programar con un lenguaje de **alto nivel**, necesitamos usar
+  herramientas *software* que traduzcan nuestro programa al lenguaje máquina
+  que entiende el ordenador.
+
+- Esas herramientas *software* son los **traductores**.
+
 
 
 ## Compiladores
