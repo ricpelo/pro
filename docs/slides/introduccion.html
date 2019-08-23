@@ -82,40 +82,53 @@
         el.innerHTML = title;
         document.getElementById('header-left').appendChild(el);
         document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                var hl = document.getElementById('header-left');
-                hl.style.fontSize = hr.style.fontSize;
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -123,6 +136,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
@@ -814,11 +828,76 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Lenguajes multiparadigma</p></li>
 </ul></li>
 </ul></section></section>
-<section><section id="traductores" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Traductores</h1><ul>
+<section><section id="traductores" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Traductores</h1></section><section id="definición-4" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Definición</h2><ul>
 <li><p>El único lenguaje que entiende la máquina directamente es el <strong>lenguaje máquina</strong> o <strong>código máquina</strong>, que es un lenguaje de <strong>bajo nivel</strong>.</p></li>
 <li><p>Para poder programar con un lenguaje de <strong>alto nivel</strong>, necesitamos usar herramientas <em>software</em> que traduzcan nuestro programa al lenguaje máquina que entiende el ordenador.</p></li>
-<li><p>Esas herramientas <em>software</em> son los <strong>traductores</strong>.</p></li>
-</ul></section><section id="compiladores" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Compiladores</h2></section><section id="intérpretes" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Intérpretes</h2></section><section id="interactivos-repl" class="title-slide slide level3"><h3><span class="header-section-number">6.2.1</span> Interactivos (<em>REPL</em>)</h3></section><section id="por-lotes" class="title-slide slide level3"><h3><span class="header-section-number">6.2.2</span> Por lotes</h3></section></section>
+<li><p>Estas herramientas <em>software</em> son los <strong>traductores</strong>.</p>
+<div class="caja">
+<p><strong>Traductor:</strong></p>
+<p>Es un <em>software</em> que traduce un programa escrito en un lenguaje a otro lenguaje, conservando su significado.</p>
+</div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>El traductor transforma el programa fuente (o <strong>código fuente</strong>) en el programa objeto (o <strong>código objeto</strong>).</p></li>
+<li><p>El código fuente está escrito en el <strong>lenguaje fuente</strong> (que generalmente será un lenguaje de alto nivel).</p></li>
+<li><p>El código objeto está escrito en el <strong>lenguaje objeto</strong> (que generalmente será código máquina).</p></li>
+<li><p>Durante el proceso de traducción, el traductor también informa al programador de posibles <strong>errores</strong> en el código fuente.</p></li>
+</ul>
+
+<figure>
+<img data-src="images/traduccion.svg" alt="El proceso de traducción" class="plain" style="width:80.0%" /><figcaption>El proceso de traducción</figcaption>
+</figure>
+
+</section><section id="compiladores" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Compiladores</h2><ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Compilador</strong>:</p>
+<p>Es un traductor que convierte un programa escrito en un lenguaje de <strong>más alto nivel</strong> a un lenguaje de <strong>más bajo nivel</strong>.</p>
+</div></li>
+<li><p>Generalmente, el lenguaje objeto suele ser <strong>código máquina</strong> y el resultado de la compilación es un <strong>objeto ejecutable</strong> directamente por la máquina.</p></li>
+</ul>
+<p><img data-src="images/compilacion.svg" class="plain" style="width:80.0%" /></p></section><section id="ensambladores" class="title-slide slide level3"><h3><span class="header-section-number">6.2.1</span> Ensambladores</h3><ul>
+<li><p>Un caso particular de compilador es el <strong>ensamblador</strong>:</p>
+<div class="caja">
+<p><strong>Ensamblador</strong>:</p>
+<p>Es un compilador que traduce un programa escrito en <strong>lenguaje ensamblador</strong> a código máquina.</p>
+</div></li>
+<li><p>Muchas veces, los compiladores se construyen <em>en cadena</em>: en lugar de generar código máquina directamente, generan código ensamblador que sirve de entrada a un programa ensamblador que generará el código objeto final.</p></li>
+</ul>
+<p><img data-src="images/ensamblado.svg" class="plain" style="width:80.0%" /></p></section><section id="intérpretes" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Intérpretes</h2><ul>
+<li><p>Un <strong>intérprete</strong> es un caso muy especial de traductor.</p></li>
+<li><p>En lugar de generar código objeto, el intérprete <strong>lee el código fuente y lo ejecuta directamente</strong>.</p></li>
+<li><p>El intérprete funciona, por tanto, como un <strong>simulador</strong> de una máquina que hablara el lenguaje de alto nivel en el que está escrito el programa fuente.</p></li>
+</ul>
+<p><img data-src="images/interpretes.svg" class="plain" style="width:80.0%" /></p></section><section class="slide level4">
+
+<ul>
+<li><p>El desarrollo de programas se ve <strong>acelerado</strong> con un intérprete ya que no es necesario pasar por el proceso de compilación ni, por tanto, generar el código objeto para poder ejecutar el programa.</p></li>
+<li><p>Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete no informará de ellos hasta el momento en el que intente ejecutar la instrucción errónea, es decir, <strong>los errores se muestran en tiempo de ejecución, no en tiempo de compilación</strong>.</p></li>
+<li><p>Hay lenguajes <em>compilados</em> y lenguajes <em>interpretados</em>, e incluso lenguajes que son ambas cosas (tienen compiladores e intérpretes).</p></li>
+</ul>
+</section><section id="interactivos-repl" class="title-slide slide level3"><h3><span class="header-section-number">6.3.1</span> Interactivos (<em>REPL</em>)</h3><ul>
+<li><p>A los intérpretes que hemos visto hasta ahora se les denomina <strong>intérpretes por lotes</strong>, ya que tratan al programa fuente como un lote de instrucciones conjuntas.</p></li>
+<li><p>A diferencia de los anteriores, los <strong>intérpretes interactivos</strong> son programas que solicitan al programador que introduzca por teclado, una a una, las instrucciones que se desean ejecutar, y el intérprete las va ejecutando a medida que el programador las va introduciendo.</p></li>
+<li><p>Su comportamiento se resume en el siguiente bucle:</p>
+<ol type="1">
+<li>Leer la siguiente instrucción por teclado (<em><strong>R</strong>ead</em>)</li>
+<li>Ejecutar o evaluar la instrucción (<em><strong>E</strong>val</em>)</li>
+<li>Imprimir por la pantalla el resultado (<em><strong>P</strong>rint</em>)</li>
+<li>Repetir el bucle (<em><strong>L</strong>oop</em>)</li>
+</ol></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Los intérpretes interactivos son ideales para:</p>
+<ul>
+<li><p>Aprender conceptos de programación.</p></li>
+<li><p>Experimentar con el lenguaje.</p></li>
+<li><p>Probar rápidamente el efecto de una instrucción.</p></li>
+</ul></li>
+</ul>
+</section></section>
 <section><section id="entornos-integrados-de-desarrollo" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Entornos integrados de desarrollo</h1></section><section id="terminal" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Terminal</h2></section><section id="zsh" class="title-slide slide level3"><h3><span class="header-section-number">7.1.1</span> <code>Zsh</code></h3></section><section id="oh-my-zsh" class="title-slide slide level3"><h3><span class="header-section-number">7.1.2</span> Oh My Zsh</h3></section><section id="less" class="title-slide slide level3"><h3><span class="header-section-number">7.1.3</span> <code>less</code></h3></section><section id="editores-de-texto" class="title-slide slide level2"><h2><span class="header-section-number">7.2</span> Editores de texto</h2></section><section id="editores-vs.-ide" class="title-slide slide level3"><h3><span class="header-section-number">7.2.1</span> Editores vs. IDE</h3></section><section id="vim-y-less" class="title-slide slide level3"><h3><span class="header-section-number">7.2.2</span> Vim y less</h3></section><section id="visual-studio-code" class="title-slide slide level3"><h3><span class="header-section-number">7.2.3</span> Visual Studio Code</h3></section><section id="instalación" class="slide level4">
 <h4><span class="header-section-number">7.2.3.1</span> Instalación</h4>
 </section><section id="configuración" class="slide level4">

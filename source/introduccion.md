@@ -1211,6 +1211,8 @@ resolver problemas computacionales.
 
 # Traductores
 
+## Definición
+
 - El único lenguaje que entiende la máquina directamente es el **lenguaje
   máquina** o **código máquina**, que es un lenguaje de **bajo nivel**.
 
@@ -1218,21 +1220,144 @@ resolver problemas computacionales.
   herramientas *software* que traduzcan nuestro programa al lenguaje máquina
   que entiende el ordenador.
 
-- Esas herramientas *software* son los **traductores**.
+- Estas herramientas *software* son los **traductores**.
 
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Traductor:**
 
+  Es un *software* que traduce un programa escrito en un lenguaje a otro
+  lenguaje, conservando su significado.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- El traductor transforma el programa fuente (o **código fuente**) en el
+  programa objeto (o **código objeto**).
+
+- El código fuente está escrito en el **lenguaje fuente** (que generalmente
+  será un lenguaje de alto nivel).
+
+- El código objeto está escrito en el **lenguaje objeto** (que generalmente
+  será código máquina).
+
+- Durante el proceso de traducción, el traductor también informa al programador
+  de posibles **errores** en el código fuente.
+
+!DOT(traduccion.svg)(El proceso de traducción)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
+O [label = "Código objeto\n(lenguaje objeto)", shape = note, fillcolor = aliceblue];
+E [label = "Errores", shape = plaintext, fillcolor = transparent];
+F -> Traductor -> O
+Traductor -> E
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Compiladores
 
+- Definición:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Compilador**:
+
+  Es un traductor que convierte un programa escrito en un lenguaje de **más
+  alto nivel** a un lenguaje de **más bajo nivel**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Generalmente, el lenguaje objeto suele ser **código máquina** y el resultado
+  de la compilación es un **objeto ejecutable** directamente por la máquina.
+
+!DOT(compilacion.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
+O [label = "Objeto ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
+F -> Compilador -> O
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Ensambladores
+
+- Un caso particular de compilador es el **ensamblador**:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Ensamblador**:
+
+  Es un compilador que traduce un programa escrito en **lenguaje ensamblador**
+  a código máquina.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Muchas veces, los compiladores se construyen *en cadena*: en lugar de generar
+  código máquina directamente, generan código ensamblador que sirve de entrada
+  a un programa ensamblador que generará el código objeto final.
+
+!DOT(ensamblado.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
+E [label = "Código ensamblador\n(lenguaje ensamblador)", shape = note, fillcolor = aliceblue];
+O [label = "Objeto ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
+{rank = same; Compilador; E; Ensamblador}
+F -> Compilador -> E -> Ensamblador -> O
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Intérpretes
 
+- Un **intérprete** es un caso muy especial de traductor.
+
+- En lugar de generar código objeto, el intérprete **lee el código fuente y lo
+  ejecuta directamente**.
+
+- El intérprete funciona, por tanto, como un **simulador** de una máquina que
+  hablara el lenguaje de alto nivel en el que está escrito el programa fuente.
+
+!DOT(interpretes.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
+I [label = "Intérprete\n(ejecuta el programa directamente)"];
+F -> I
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- El desarrollo de programas se ve **acelerado** con un intérprete ya que no es
+  necesario pasar por el proceso de compilación ni, por tanto, generar el
+  código objeto para poder ejecutar el programa.
+
+- Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete
+  no informará de ellos hasta el momento en el que intente ejecutar la
+  instrucción errónea, es decir, **los errores se muestran en tiempo de
+  ejecución, no en tiempo de compilación**.
+
+- Hay lenguajes *compilados* y lenguajes *interpretados*, e incluso lenguajes
+  que son ambas cosas (tienen compiladores e intérpretes).
 
 ### Interactivos (*REPL*)
 
+- A los intérpretes que hemos visto hasta ahora se les denomina **intérpretes
+  por lotes**, ya que tratan al programa fuente como un lote de instrucciones
+  conjuntas.
 
-### Por lotes
+- A diferencia de los anteriores, los **intérpretes interactivos** son
+  programas que solicitan al programador que introduzca por teclado, una a una,
+  las instrucciones que se desean ejecutar, y el intérprete las va ejecutando a
+  medida que el programador las va introduciendo.
 
+- Su comportamiento se resume en el siguiente bucle:
+
+  1. Leer la siguiente instrucción por teclado (_**R**ead_)
+  2. Ejecutar o evaluar la instrucción (_**E**val_)
+  3. Imprimir por la pantalla el resultado (_**P**rint_)
+  4. Repetir el bucle (_**L**oop_)
+
+---
+
+- Los intérpretes interactivos son ideales para:
+
+  - Aprender conceptos de programación.
+
+  - Experimentar con el lenguaje.
+
+  - Probar rápidamente el efecto de una instrucción.
 
 # Entornos integrados de desarrollo
 
