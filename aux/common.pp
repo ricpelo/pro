@@ -118,6 +118,8 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~
 # Respuestas a las preguntas {-}
 
+#### Respuestas a las preguntas {.unnumbered .allowframebreaks}
+
 \shipoutAnswer
 ~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
