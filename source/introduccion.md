@@ -38,12 +38,12 @@ nocite: |
 - Definición:
 
   !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Informática**:
 
-  La ciencia que estudia los sistemas de tratamiento automático de la
+  La ciencia que estudia los sistemas de procesamiento automático de la
   información, también llamados **sistemas informáticos**.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estos sistemas están formados por:
 
@@ -51,12 +51,26 @@ nocite: |
   - elementos lógicos (**software**) y
   - elementos humanos (profesionales y usuarios).
 
-- El *hardware*, a su vez, está formado por componentes:
+---
+
+- El *hardware* es todo aquello que podemos tocar:
 
   - Ordenadores
+
   - Soportes de almacenamiento
+
   - Redes de comunicaciones
+
   - ...
+
+- El *software* es todo lo que **no** podemos tocar:
+
+  - Datos
+
+  - Programas
+
+- Pero en este módulo, cuando hablemos de *software* en general, nos estaremos
+  refiriendo a **programas**.
 
 ### Procesamiento automático
 
@@ -77,7 +91,10 @@ E -> Proceso -> S
 - Los programas gobiernan el funcionamiento del *hardware*, indicándole qué
   tiene que hacer y cómo.
 
-- La **Programación** es la ciencia y el arte de diseñar dichos programas.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~
+La **Programación** es la ciencia y el arte de diseñar dichos programas.
+~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Ejemplos
 
@@ -114,16 +131,16 @@ Un ordenador es una máquina que procesa información automáticamente de
 acuerdo con un programa almacenado.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  #. Es una *máquina*.
+  - Es una *máquina*.
 
-  #. Su función es *procesar información*.
+  - Su función es *procesar información*.
 
-  #. El procesamiento se realiza de forma *automática*.
+  - El procesamiento se realiza de forma *automática*.
 
-  #. El procesamiento se realiza siguiendo un *programa* (*software*).
+  - El procesamiento se realiza siguiendo un *programa* (*software*).
 
-  #. Este programa está *almacenado* en una memoria interna del mismo ordenador
-     (arquitectura de **Von Neumann**).
+  - Este programa está *almacenado* en una memoria interna del mismo ordenador
+    (arquitectura de **Von Neumann**).
 
 ### Funcionamiento básico
 
@@ -131,13 +148,13 @@ acuerdo con un programa almacenado.
 
 - Un ordenador consta de tres componentes principales:
 
-  #. **Unidad central de proceso (CPU) o procesador**
+  1. **Unidad central de proceso (CPU) o procesador**
 
      - *Unidad aritmético-lógica (ALU)*
 
      - *Unidad de control (UC)*
 
-  #. **Memoria**
+  2. **Memoria**
 
      - *Memoria principal* o central
 
@@ -147,7 +164,7 @@ acuerdo con un programa almacenado.
 
      - *Memoria secundaria* o externa
 
-  #. **Dispositivos de E/S**
+  3. **Dispositivos de E/S**
 
      - *Dispositivos de entrada*
 
@@ -480,7 +497,6 @@ S -> E [dir = both, label = "Código de E/S"];
     ocupa 1 palabra de 32 bits).
 
 ## Algoritmo
-
 
 ### Definición
 
@@ -867,6 +883,189 @@ La respuesta es que **NO**
 
 # Evolución histórica
 
+## Cronología
+
+- **1804: El telar de Jaquard (_Joseph Marie Jaquard_)** 
+
+  - Tarjetas perforadas para controlar los diseños en los tejidos.
+
+- **1837 -- 1871: La máquina analítica (_Charles Babbage_)**
+
+  - En 1842, el matemático italiano Luigi Menabrea escribió una descripción de
+    la máquina en frances.
+
+  - En 1843, **Ada Lovelace** la traduce al inglés e incorpora unas anotaciones
+    propias en las que especifica con detalle un método para calcular los
+    números de Bernoulli con esa máquina. Por ello, se la considera **la
+    primera programadora de la historia**.
+
+---
+
+- **1890: Máquinas tabuladoras electromecánicas (_Herman Hollerith, Tabulating
+  Machine Company_)**
+
+  - Hollerith está considerado **el primer informático de la historia**, por
+    crear las primeras máquinas de procesamiento automático de la información.
+
+  - Con ellas se creó el censo de los EE.UU.
+
+  - Su empresa acabó llamándose **IBM**.
+
+---
+
+- **Incorporaciones de _Konrad Zuse_:**
+
+  - **1941: Ordenador Z3**
+
+    - El primer ordenador digital programable que realmente llegó a funcionar.
+
+    - Por ello, Zuse es considerado **el inventor del ordenador moderno**.
+
+  - **1945: Ordenador Z4**
+
+    - El primer ordenador digital comercial del mundo.
+
+    - Se vendió a varias universidades.
+
+  - **1948: Plankalkül**
+
+    - Considerado **el primer lenguaje de programación**.
+
+    - Diseñado, pero no implantado en su época.
+
+---
+
+- **(*Hasta aquí*):** Todo se programa en **lenguaje máquina**
+
+- **1949: Lenguaje ensamblador (_EDSAC_)**
+
+- **Primeros Autocódigos:**
+
+  - **1952: Autocódigo de Glennie (_Alick Glennie, Universidad de
+    Manchester_)**
+
+  - **1955: Autocódigo del Mark 1 (_Ralph Anthony Brooker, Universidad de
+    Manchester_)**
+
+---
+
+- **1957: Fortran (_John Backus, IBM_)**
+
+  - El primer lenguaje de alto nivel de propósito general de uso masivo en
+    tener una implementación funcional.
+
+- **1958: LISP (_John McCarthy, Instituto de Tecnología de Massachusetts_)**
+
+  - Basado en el cálculo lambda.
+
+  - Destinado al procesamiento simbólico y a la investigación en Inteligencia
+    Artificial.
+
+- **1958 -- 1960: Familia de lenguajes ALGOL (_Backus, Naur, Wijngaarden,
+  Bauer, Perlis, McCarthy y otros_):**
+
+  - **1958: ALGOL 58**
+
+    - Introdujo el concepto de bloque de código (sentencia compuesta).
+
+  - **1960: ALGOL 60**
+
+    - Influyó mucho en lenguajes posteriores.
+
+    - Introdujo las definiciones de funciones anidadas y el ámbito léxico.
+
+---
+
+- **1959: FLOW-MATIC (_Grace Hopper, Remington Rand_)**
+
+  - El primer lenguaje de alto nivel orientado a las aplicaciones de gestión.
+
+  - El primero en usar sentencias y palabras en inglés.
+
+- **1960: COBOL (_Grace Hopper, Comisión CODASYL y Departamento de Defensa de
+  los EE.UU._)**
+
+  - Inspirado en FLOW-MATIC.
+
+- **1962: Simula (_Ole-Johan Dahl y Kristen Nygaard, Norwegian Computer
+  Center_)**
+
+  - Considerado el primer lenguaje **orientado a objetos**.
+
+- **1970: Pascal (_Niklaus Wirth_)**
+
+  - Lenguaje imperativo, procedimental, estructurado, pequeño, eficiente,
+    heredero del ALGOL 60.
+
+  - Muy usado en la enseñanza de la programación.
+
+---
+
+- **1972: Prolog (_Alain Colmerauer, Universidad de Marsella_)**
+
+  - El primer lenguaje de **programación lógica**.
+
+- **1972: C (_Dennis Ritchie, Laboratorios Bell_)**
+
+  - Lenguaje de **nivel medio** (de alto nivel pero con acceso directo a la
+    máquina y al sistema operativo).
+
+  - Lenguaje **de sistemas**
+
+- **1978: ML (_Robin Milner, Universidad de Edimburgo_)**
+
+  - Lenguaje de **programación funcional** con sistema de tipos estático y
+    polimórfico.
+
+  - En realidad es una familia de lenguajes, entre los que se encuentran
+    Standard ML, OCaml o F#.
+
+- **1980: Smalltalk (_Alan Kay, Adele Goldberg, Xerox PARC_)**
+
+  - Lenguaje orientado a objetos puro, reflexivo, con tipado dinámico, con un
+    entorno propio de desarrollo y ejecución.
+
+---
+
+- **1985: C++ (_Bjarne Stroustrup, Laboratorios Bell_)**
+
+  - Extensión orientada a objetos del lenguaje C.
+
+- **1990: Haskell (_Simon Peyton Jones, Paul Hudak, Philip Wadler y otros_)**
+
+  - Lenguaje funcional puro con evaluación no estricta y sistema de tipos
+    polimórfico y fuertemente tipado.
+
+- **1991: Python (_Guido Van Rossum, CWI de Holanda_)**
+
+  - Lenguaje multiparadigma interpretado, dinámico y multiplataforma.
+
+---
+
+- **1995: El gran año:**
+
+  - **Java (_James Gosling, Sun Microsystems_)**
+
+    - Lenguaje orientado a objetos, el más usado en la actualidad.
+
+    - Genera código para una máquina virtual presente en millones de
+      dispositivos en todo el mundo.
+
+  - **JavaScript (_Brendan Eich, Netscape Communications_)**
+
+    - Lenguaje multiparadigma, basado en prototipos e interpretado.
+    
+    - Usado como lenguaje cliente en los navegadores web.
+
+  - **PHP (_Rasmus Lerdorf_)**
+
+    - Lenguaje multiparadigma e interpretado.
+
+    - Usado principalmente como lenguaje de servidor en aplicaciones web.
+
+  - **Ruby (_Yukihiro Matsumoto_)**
+
+    - Lenguaje interpretado orientado a objetos puro.
 
 ## Culturas de la programación
 
@@ -1083,9 +1282,22 @@ en una sola frase sus características básicas.
 
 # Lenguajes de programación
 
-
 ## Definición
 
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Lenguaje de programación:**
+
+Un lenguaje de programación es un **lenguaje formal** que proporciona una serie
+de instrucciones que permiten a un programador escribir programas destinados a
+controlar el comportamiento físico y lógico de un ordenador.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Un **programa** es la **codificación de un algoritmo** en un lenguaje de
+  programación.
+
+- Por tanto: cuando escribimos un algoritmo en un lenguaje de programación,
+  obtenemos un programa.
 
 ### Sintaxis
 
@@ -1165,7 +1377,7 @@ en una sola frase sus características básicas.
 #### Actividades
 
 @. Ordena cronológicamente la lista anterior por el año de creación de cada
-   lenguaje.
+lenguaje.
 
 ### Por generación
 
