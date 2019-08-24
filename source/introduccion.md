@@ -3,7 +3,7 @@ title: Introducción
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @joyanes_aguilar_fundamentos_2008
+  @aguilar_fundamentos_2008, @van-roy_concepts_2004
 ---
 
 # Conceptos básicos
@@ -542,7 +542,10 @@ Un algoritmo es un método para resolver un problema.
 
 - ¿Qué !COLOR(red)(problema) tiene esta forma de representación?
 
-**Ambigüedad**
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  **Ambigüedad**
+  ~~~~~~~~~~~~~~~~~~~~~~~
 
 - En ciertos contextos la ambigüedad es asumible, pero **NO** cuando el
   destinatario es un ordenador.
@@ -862,7 +865,6 @@ La respuesta es que **NO**
   programas de forma que puedan ser comprendidos y ejecutados por un ordenador.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 # Evolución histórica
 
 
@@ -935,6 +937,12 @@ resolver problemas computacionales.
     - Lógico
 
     - De bases de datos
+
+---
+
+!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)
+
+---
 
 ## Imperativo
 
@@ -1067,6 +1075,12 @@ resolver problemas computacionales.
 - Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
   automáticamente el mejor camino para alcanzar dicho objetivo.
 
+#### Actividades
+
+@. ¿Hay más paradigmas de programación? Busca en Internet y pon un par de
+ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe
+en una sola frase sus características básicas.
+
 # Lenguajes de programación
 
 
@@ -1148,6 +1162,11 @@ resolver problemas computacionales.
   - PHP
   - Haskell
 
+#### Actividades
+
+@. Ordena cronológicamente la lista anterior por el año de creación de cada
+   lenguaje.
+
 ### Por generación
 
 1. **Primera generación**: Se programa directamente en *código máquina*.
@@ -1207,7 +1226,6 @@ resolver problemas computacionales.
   - Lenguajes dirigidos por eventos
 
   - Lenguajes multiparadigma
-
 
 # Traductores
 
@@ -1364,153 +1382,21 @@ F -> I
 
 ## Terminal
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ### `Zsh`
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Oh My Zsh
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ### `less`
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Editores de texto
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Editores vs. IDE
 
-!QUIZ
-~~~~~~~~~~~~~~~~~~~~~~~
-{
-   "info": {
-      "name": "",
-      "main": ""
-   },
-   "questions": [
-      {
-         "q": "What number is the letter A in the English alphabet?",
-         "a": [
-            {"option": "8",  "correct": false},
-            {"option": "14", "correct": false},
-            {"option": "1",  "correct": true},
-            {"option": "23", "correct": false}
-         ],
-         "correct": "The letter A is the first letter in the alphabet!",
-         "incorrect": "It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?"
-      }
-   ]
-}
-~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Vim y less
 
@@ -1526,6 +1412,4 @@ F -> I
 
 #### Extensiones
 
-!RESPUESTAS
-
-!BIBLIOGRAFIA
+!FIN

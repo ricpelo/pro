@@ -37,12 +37,19 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !ifdef(HTML)([!2]{style="color:!1"})(\textcolor{!1}{!2})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(FIN)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!RESPUESTAS
+
+!BIBLIOGRAFIA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(BIBLIOGRAFIA)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Bibliografía {-}
 
-!ifdef(LATEX)(\raggedright)()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifdef(BEAMER)(\raggedright)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(CAJA)
 ~~~~~~~~~~~~~~~~~~
