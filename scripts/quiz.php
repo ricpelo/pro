@@ -54,6 +54,7 @@ if ($argv[1] == 'html') {
         }
         echo PHP_EOL;
         echo $question['correct'] . PHP_EOL;
+        echo '\framebreak'. PHP_EOL;
         echo '\end{Answer}' . PHP_EOL;
     }
     echo '```' . PHP_EOL;
