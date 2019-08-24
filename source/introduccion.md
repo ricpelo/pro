@@ -906,14 +906,27 @@ La respuesta es que **NO**
 
   - Hollerith está considerado **el primer informático de la historia**, por
     crear las primeras máquinas de procesamiento automático de la información.
-
   - Con ellas se creó el censo de los EE.UU.
-
   - Su empresa acabó llamándose **IBM**.
 
+- **1936: El gran año de los modelos formales computacionales:**
+
+  - **Cálculo lambda (_Alonzo Church_)**
+
+    - Un modelo universal de computación basado en la abstracción y aplicación
+      de funciones.
+
+  - **Máquinas de Turing (_Alan Turing_)**
+
+    - Un modelo universal de computación basado en máquinas abstractas que
+      manipulan símbolos escritos en una cinta de acuerdo a una serie de reglas
+      definidas.
+
+  - **Sorpresa**: ambos modelos son **equivalentes**.
+  
 ---
 
-- **Incorporaciones de _Konrad Zuse_:**
+- **El trabajo de _Konrad Zuse_:**
 
   - **1941: Ordenador Z3**
 
@@ -1042,7 +1055,7 @@ La respuesta es que **NO**
 
 ---
 
-- **1995: El gran año:**
+- **1995: Un año especialmente destacable:**
 
   - **Java (_James Gosling, Sun Microsystems_)**
 
@@ -1066,6 +1079,18 @@ La respuesta es que **NO**
   - **Ruby (_Yukihiro Matsumoto_)**
 
     - Lenguaje interpretado orientado a objetos puro.
+
+---
+
+- **2000: C# (_Anders Hejlsberg, Microsoft_)**
+
+  - Lenguaje orientado a objetos para la plataforma .NET.
+
+- **2003: Scala (_Martin Odersky, Escuela Politécnica Federal de Lausana,
+  Suiza_)**
+
+  - Lenguaje multiparadigma (funcional y orientado a objetos) para la máquina
+    virtual de Java.
 
 ## Culturas de la programación
 
