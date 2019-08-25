@@ -37,6 +37,11 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !ifdef(HTML)([!2]{style="color:!1"})(\textcolor{!1}{!2})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(ACT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#### Actividades
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(FIN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !RESPUESTAS

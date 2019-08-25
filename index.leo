@@ -6,7 +6,8 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="ricardo.20190806204457.1"><vh>@auto source/introduccion.md</vh></v>
+<v t="ricardo.20190806204457.1"
+expanded="ricardo.20190825202844.5,ricardo.20190825202844.6,ricardo.20190825202844.9,ricardo.20190825202844.23,ricardo.20190825202844.37,ricardo.20190825202844.47,ricardo.20190825202844.48,ricardo.20190825202844.69,ricardo.20190825202844.84,ricardo.20190825202844.89,ricardo.20190825202844.92,"><vh>@auto source/introduccion.md</vh></v>
 <v t="ricardo.20190806204457.2"><vh>@auto source/programacion-funcional-i.md</vh></v>
 <v t="ricardo.20190806204457.3"><vh>@auto source/programacion-funcional-ii.md</vh></v>
 <v t="ricardo.20190806204457.4"><vh>@auto source/programacion-imperativa.md</vh></v>

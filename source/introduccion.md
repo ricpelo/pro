@@ -121,6 +121,7 @@ La **Programación** es la ciencia y el arte de diseñar dichos programas.
 
 ## Ordenador
 
+
 ### Definición
 
 !CAJA
@@ -215,7 +216,7 @@ acuerdo con un programa almacenado.
 
 ---
 
-####  Dispositivos de E/S
+#### Dispositivos de E/S
 
 - **Dispositivos de entrada**:
 
@@ -803,9 +804,9 @@ La respuesta es que **NO**
   consideraciones, como la claridad, la legibilidad, la mantenibilidad, la
   reusabilidad, etc.)
 
-¿Cómo medimos la eficiencia de un algoritmo?
+- ¿Cómo medimos la eficiencia de un algoritmo?
 
-¿Cómo comparamos la eficiencia de dos algoritmos?
+- ¿Cómo comparamos la eficiencia de dos algoritmos?
 
 ---
 
@@ -869,21 +870,332 @@ La respuesta es que **NO**
     usarse en el programa bajo ciertas condiciones que no hace falta considerar
     en el algoritmo.
 
-## Lenguaje de programación
+# Paradigmas de programación
 
-- Definición:
+## Definición
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Lenguaje de programación:**
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Paradigma de programación**:
 
-  Un lenguaje de programación es un lenguaje formal que nos permite escribir
-  programas de forma que puedan ser comprendidos y ejecutados por un ordenador.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Es un **estilo** de desarrollar programas, es decir, un **modelo** para
+resolver problemas computacionales.
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Evolución histórica
+---
 
-## Cronología
+- Cada paradigma entiende la programación desde una perspectiva diferente,
+  partiendo de unos conceptos básicos diferentes y con unas reglas diferentes.
+
+- Cuando diseñamos un algoritmo o escribimos un programa, lo hacemos con base
+  en un determinado paradigma, y éste impregna por completo la forma en la que
+  describimos la solución al problema en el que estamos trabajando.
+
+- No existe un único paradigma de programación y cada uno tiene sus
+  peculiaridades que lo hacen diferente.
+
+- Cada lenguaje de programación (o pseudocódigo) se dice que *soporta* un
+  determinado paradigma cuando con dicho lenguaje se pueden escribir algoritmos
+  o programas según el «estilo» que impone dicho paradigma.
+
+- Incluso existen lenguajes *multiparadigma* capaces de soportar varios
+  paradigmas al mismo tiempo.
+
+---
+
+- Clasificación de los paradigmas de programación más importantes:
+
+  - Imperativo
+
+    - Estructurado
+
+    - Orientado a objetos
+
+  - Declarativo
+
+    - Funcional
+
+    - Lógico
+
+    - De bases de datos
+
+---
+
+!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)
+
+---
+
+## Imperativo
+
+- El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
+  programa imperativo está formado por una sucesión de sentencias que se
+  ejecutan en orden y que llevan a cabo una de estas acciones:
+
+  - **Cambiar el estado** interno del programa, usualmente mediante la
+    sentencia de *asignación*.
+
+  - Cambiar el **flujo de control** del programa, haciendo que la ejecución se
+    bifurque (*salte*) a otra parte del mismo.
+
+- La ejecución de un programa imperativo, por tanto, consiste en una sucesión
+  de cambios de estado controlados por mecanismos de control y que dependen del
+  orden en el que se realizan.
+
+- Existen varios paradigmas con las características del paradigma imperativo,
+  por lo que podemos decir que existen varios paradigmas imperativos.
+
+### Estructurado
+
+- El **paradigma estructurado** es un paradigma imperativo en el que el flujo
+  de control del programa se define mediante las denominadas **estructuras de
+  control**.
+
+- Se apoya a nivel teórico en los resultados del conocido **teorema de Böhm y
+  Jacopini**, que establece que cualquier programa se puede escribir usando
+  solamente tres estructuras básicas:
+
+  - Secuencia
+  - Selección
+  - Iteración
+
+- Con estas tres estructuras conseguimos que los programas se puedan leer de
+  arriba abajo como compuestos por **bloques anidados o independientes** que se
+  leen como un todo conjunto.
+
+- Su aparición llevó asociada la aparición de una **metodología de desarrollo**
+  según la cual los programas se escriben por niveles de abstracción mediante
+  refinamientos sucesivos y usando en cada nivel sólo las tres estructuras
+  básicas.
+
+### Orientado a objetos
+
+- El **paradigma orientado a objetos** se apoya en los conceptos de **objeto**
+  y **mensaje**.
+
+- Un programa orientado a objetos está formado por una colección de objetos que
+  se intercambian mensajes entre sí.
+
+- Los objetos son entidades que existen dentro del programa y que poseen un
+  cierto **estado interno**.
+
+- Cuando un objeto envía un mensaje a otro, el objeto receptor del mensaje
+  reaccionará llevando a cabo alguna acción, que probablemente provocará un
+  **cambio en su estado interno** y que, posiblemente, provocará también el
+  envío de mensajes a otros objetos.
+
+- La programación orientada a objetos está vista como una forma natural de
+  entender la programación y es, con diferencia, **el paradigma más usado en la
+  actualidad**.
+
+## Declarativo
+
+- La **programación declarativa** engloba a una familia de paradigmas de
+  programación de muy alto nivel.
+
+- En programación declarativa se describe la solución a un problema con base en
+  las propiedades que debe cumplir dicha solución y no tanto en forma de
+  instrucciones que se deben ejecutar para resolver el problema.
+
+- Se dice que un programa imperativo describe **cómo** resolver el problema,
+  mientras que un programa declarativo describe **qué** forma debe tener la
+  solución.
+
+- Para dar forma a la solución, se utilizan formalismos abstractos matemáticos
+  y lógicos, lo que da lugar a los dos grandes paradigmas declarativos: la
+  **programación funcional** y **la programación lógica**.
+
+### Funcional
+
+- La **programación funcional** es un paradigma de programación declarativa
+  basado en el uso de **funciones matemáticas**.
+
+- Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
+  lenguajes funcionales se pueden considerar azúcar sintáctico del cálculo
+  lambda).
+
+- Una función (en programación funcional) define de un cálculo a realizar a
+  partir de unos datos de entrada, con la propiedad de que el resultado de la
+  función sólo puede depender de dichos datos de entrada (lo que se denomina
+  **transparencia referencial**).
+
+- Eso significa que una función no puede tener estado interno ni su resultado
+  puede depender del estado interno del programa. Por tanto, no existen los
+  **efectos laterales**.
+
+- Demostrar la corrección de un programa funcional o paralelizar su ejecución
+  es **mucho más fácil** que con un programa imperativo.
+
+### Lógico
+
+- La **programación lógica** es un paradigma de programación declarativa
+  basado en el uso de la **lógica de predicados de primer orden**.
+
+- Básicamente, un programa lógico es una colección de definiciones que forman
+  un conjunto de **axiomas** en un sistema de **deducción lógica**.
+
+- Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo
+  que trata de **demostrar un teorema** a partir de los axiomas.
+
+- El ejemplo más característico de este tipo de lenguajes es **Prolog**.
+
+### De bases de datos
+
+- Los sistemas de gestión de bases de datos relacionales (SGBDR) disponen de un
+  lenguaje que permite al usuario consultar y manipular la información
+  almacenada.
+
+- A esos lenguajes se los denomina **lenguajes de bases de datos** o
+  **lenguajes de consulta**.
+
+- El lenguaje de consulta más conocido es el **SQL**.
+
+- Los SGBDR se basan en el *modelo relacional*, que es un modelo matemático.
+
+- SQL es, básicamente, una implementación del **álgebra relacional**.
+
+- Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
+  automáticamente el mejor camino para alcanzar dicho objetivo.
+
+!ACT
+
+@. ¿Hay más paradigmas de programación? Busca en Internet y pon un par de
+ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe
+en una sola frase sus características básicas.
+
+# Lenguajes de programación
+
+## Definición
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Lenguaje de programación:**
+
+Un lenguaje de programación es un **lenguaje formal** que proporciona una serie
+de instrucciones que permiten a un programador escribir programas destinados a
+controlar el comportamiento físico y lógico de un ordenador.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Un **programa** es la **codificación de un algoritmo** en un lenguaje de
+  programación.
+
+- Por tanto: cuando escribimos un algoritmo en un lenguaje de programación,
+  obtenemos un programa.
+
+- Estos lenguajes están determinados por un conjunto de símbolos (llamado
+  *alfabeto*), reglas gramaticales (léxico/morfológicas y sintácticas) y reglas
+  semánticas, que en conjunto definen las estructuras válidas en el lenguaje y
+  su significado.
+
+### Sintaxis
+
+- A la forma visible de un lenguaje de programación se la conoce como
+  **sintaxis**.
+
+- La sintaxis de un lenguaje de programación describe las combinaciones
+  posibles de los símbolos que forman un programa sintácticamente correcto.
+
+- La sintaxis define dos elementos principales:
+
+  - Los componentes léxicos, es decir, los elementos mínimos que forman un
+    programa (palabras clave, identificadores, caracteres de puntuación como
+    paréntesis o comas, etc...).
+
+  - La estructura gramatical, es decir, cómo se pueden combinar los componentes
+    léxicos para formar «frases» correctas según la sintaxis del lenguaje.
+
+#### Notación EBNF
+
+- La sintaxis de los lenguajes de programación es definida generalmente
+  utilizando:
+  
+  - **Expresiones regulares** (para la estructura léxica)
+  
+  - **Notación de Backus-Naur extendida** (para la estructura gramatical)
+
+- Cada una de esas notaciones son formalismos usados para describir estructuras
+  sintácticas en gramáticas formales.
+
+- Las expresiones regulares las estudiaremos a lo largo del curso, ya que
+  resultan muy útiles para procesar cadenas.
+
+- Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
+  de los lenguajes de programación la utilizan para documentar su sintaxis.
+
+---
+
+#### Ejemplo
+
+:::: columns
+
+::: column
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~
+\<expresión\> ::= \<átomo\> | \<lista\>
+\<átomo\> ::= \<número\> | \<símbolo\>
+\<lista\> ::= **(** \<expresión\>\* **)**
+\<número\> ::= \[**+** | **-**\] \<dígito\>+
+\<símbolo\> ::= \<letra\> (\<letra\> | \<dígito\>)+
+\<dígito\> ::= **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **8** | **9**
+\<letra\> ::= **a** | **b** | ... | **z**
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Cada regla sintáctica (llamada **producción**) está formada por dos partes
+  separadas por !COLOR(teal)(::=), donde a la izquierda hay un símbolo no
+  terminal y a la derecha puede haber una lista de símbolos terminales y no
+  terminales.
+
+:::
+
+::: column
+
+- Los nombres entre ángulos (como !COLOR(teal)(<expresión>)) se llaman
+  **símbolos no terminales**.
+- Los caracteres en negrita (como !COLOR(teal)(**b**)) se llaman **símbolos
+  terminales**.
+- La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
+- El !COLOR(teal)(*) representa 0, 1 ó más **repeticiones** de lo que
+  acompaña.
+- El !COLOR(teal)(+) representa 1 ó más **repeticiones** de lo que acompaña.
+- Los corchetes !COLOR(teal)([) y !COLOR(teal)(]) indican **optatividad**.
+- Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
+
+:::
+
+::::
+
+### Semántica estática
+
+- La semántica estática define las **restricciones** sobre la estructura de los
+  textos válidos que resulta imposible o muy difícil expresar mediante
+  formalismos sintácticos estándar como los que acabamos de ver.
+
+- Es decir: hay programas sintácticamente correctos que, sin embargo, no
+  resultan ser programas válidos según las reglas de la semántica estática del
+  lenguaje.
+
+- La semántica estática de un lenguaje está fuertemente relacionado con su
+  **sistema de tipos**.
+
+- Por ejemplo:
+
+  - Comprobar que los tipos de los datos a operar son los correctos (por
+    ejemplo, que no se intente sumar una cadena a un número).
+  - Comprobar que una variable está ligada a un valor antes de usarla en una
+    expresión.
+  - Comprobar que el número de argumentos en la llamada a una función coincide
+    con el número de parámetros de la función.
+
+### Semántica dinámica
+
+- La semántica dinámica (o simplemente **semántica**) de un lenguaje de
+  programación expresa el **significado** de cada construcción del lenguaje.
+
+- Es un concepto muy complicado de formalizar y por ello se suele definir de
+  manera informal en la documentación del lenguaje en función de los
+  **efectos** que produce cada construcción del lenguaje dentro de un programa.
+
+## Evolución histórica
 
 - **1804: El telar de Jaquard (_Joseph Marie Jaquard_)** 
 
@@ -1096,555 +1408,23 @@ La respuesta es que **NO**
   - Lenguaje multiparadigma (funcional y orientado a objetos) para la máquina
     virtual de Java.
 
-- Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6...
+- Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6, Clojure...
 
-## Culturas de la programación
+!ACT
 
-- Se pueden identificar cuatro **culturas** (o *perspectivas*) de la
-  programación:
-
-!DOT(culturas.svg)()(width=50%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-graph [layout = twopi, root = P, overlap = false];
-node [shape = ellipse, fontsize = 17];
-M [label = "Cultura matemática"];
-G [label = "Cultura de la gestión"];
-I [label = "Cultura de la ingenería"];
-H [label = "Cultura hacker"];
-P [label = "Programación", shape = rectangle];
-P -> M [dir = both];
-P -> I [dir = both];
-P -> G [dir = both];
-P -> H [dir = both];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Cada cultura conserva una fuerte identidad a través de la historia.
-
-- Muchos desarrollos interesantes que dan forma a los lenguajes de programación
-  aparecen cuando varias culturas se encuentran e interactúan.
-
-## Ingeniería del software
-
-- En los años 60, los problemas a resolver son cada vez más complejos y los
-  ordenadores son cada vez más potentes pero los programadores son incapaces de
-  escribir programas que aprovechen esa potencia y que sean fiables.
-
-- Además resulta difícil estimar el presupuesto y el tiempo necesarios para
-  desarrollar programas.
-
-- En 1968, Fiedrich Bauer habla por primera vez de la **crisis del software**
-  en la primera Conferencia sobre Ingeniería del Software de la OTAN en Garmish
-  (Alemania).
-
-- Se llega a la conclusión de que no basta con tener mejores herramientas
-  (lenguajes), sino que hay que dar un enfoque más industrial y sistemático al
-  desarrollo de software.
-
-- Aparece la **ingeniería del software** como disciplina.
-
----
-
-- La ingeniería del software no considera a la programación como una disciplina
-  científica o como un arte, sino como un proceso sistemático que va más allá
-  de escribir código.
-
-- Cuando el programa a desarrollar es grande, escribir código es sólo una de
-  las tareas que hay que realizar. También hay que:
-
-  - Realizar un análisis del sistema.
-
-  - Estimar y planificar el tiempo y el esfuerzo necesarios para desarrollar la
-    solución.
-
-  - Aplicar procedimientos estandarizados.
-
-  - Elaborar documentación.
-
-  - Medir la calidad del producto resultante.
-
-- El desarrollo de software complejo requiere pasar por varias etapas que,
-  juntas, forman lo que se llama el **ciclo de vida** del software.
-
-# Resolución de problemas mediante programación
-
-## Introducción
-
-- El proceso de resolución de un problema con un ordenador pasa por escribir y
-  ejecutar un programa.
-
-- Aunque diseñar programas es, esencialmente, un proceso creativo, se puede
-  considerar una serie de fases o pasos comunes, que generalmente deben seguir
-  todos los programadores:
-
-  - Especificación
-  - Análisis del problema
-  - Diseño del algoritmo
-  - Verificación
-  - Estudio de la eficiencia
-  - Codificación
-  - Traducción y ejecución
-  - Pruebas
-  - Depuración
-  - Documentación
-  - Mantenimiento
-
-## Especificación
-
-- En esta fase se define con precisión (cuanto más formal mejor):
-
-  - Qué datos de entrada se requieren
-  
-  - Cuál es la salida deseada
-
-- Se trata al programa como una caja negra de la que se sabe *qué* tiene que
-  hacer pero aún no sabemos *cómo*.
-
-- Ejemplo: Se desea determinar el máximo de dos números enteros
-
-  - Entrada: los dos números (llamémosles $n_1$ y $n_2$) enteros
-  - Proceso: determinar cuál es el mayor de los dos
-  - Salida: el mayor de los dos números
-
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Entrada:** $n_1, n_2: \mathbb{N}$
-**Proceso:** Cálculo del máximo de dos números
-**Salida:** el mayor de ambos
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-## Análisis del problema
-
-- A partir de la especificación, se estudia detalladamente el problema a
-  resolver, los requisitos que se deben cumplir y las posibles restricciones
-  que pueda tener la solución.
-
-- En el ejemplo anterior:
-
-  - Hay que comparar el valor de los dos números y devolver el mayor de ellos.
-  - Si los dos números son iguales, se puede devolver cualquiera de los dos.
-
-## Diseño del algoritmo
-
-- Una vez analizado el problema con detalle, se diseña un algoritmo que cumpla
-  con todas las posibles restricciones y satisfaga la especificación del
-  problema.
-
-- El algoritmo se representa con cualquier herramienta adecuada para ello:
-  ordinogramas, pseudocódigo, etc.
-
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Algoritmo:** Cálculo del máximo de dos números
-**Entrada:** $n_1, n_2: \mathbb{N}$
-**Salida:** el mayor de ambos
-
-**inicio**
-    **si** $n_1 > n_2$ **entonces**
-        **devolver** $n_1$
-    **sino**
-        **devolver** $n_2$
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-## Verificación
-
-- Es el proceso por el cual se intenta **demostrar** que el algoritmo diseñado
-  es **correcto**.
-
-- Un algoritmo es correcto cuando **satisface su especificación**.
-
-- Es un proceso basado en las matemáticas y la lógica, y consiste en considerar
-  que el algoritmo es un **teorema** a demostrar en un sistema deductivo lógico
-  en el que hay *axiomas* y *reglas de inferencia*.
-
-- Puede resultar muy difícil incluso en casos sencillos.
-
-- En la práctica, su uso se reduce a bloques pequeños y críticos del programa.
-
-## Estudio de la eficiencia
-
-- Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
-  optar a estudiar la eficiencia del mismo.
-
-- Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
-  se debe optar por diseñar otro algoritmo más eficiente.
-
-## Codificación
-
-- Una vez diseñado y verificado el algoritmo, éste se codifica en un lenguaje
-  de programación usando un editor de textos o un IDE (*Entorno Integrado de
-  Desarrollo*).
-
-- Se considera una tarea casi mecanizable, pero aún hay decisiones que pueden
-  influir a la hora de codificar un programa y que sólo puede tomar un
-  programador experimentado.
-
-- El lenguaje de programación utilizado es una decisión de diseño que hay que
-  justificar.
-
-- El diseño del algoritmo debería ser independiente del lenguaje de
-  programación en el que se vaya a codificar posteriormente el programa, pero
-  el *estilo* (paradigma) influye.
-
----
-
-- Codificación del algoritmo anterior en lenguaje Python:
-
-  ```python
-  def maximo(n1, n2):
-      """Calcula el máximo de dos números."""
-      if n1 > n2:
-          return n1
-      else:
-          return n2
-  ```
-
-## Traducción y ejecución
-
-- Una vez escrito el programa, se procede a su ejecución. Para ello:
-
-  - Si el lenguaje es **compilado**: se compila, se genera el código objeto y
-    se ejecuta éste.
-
-  - Si el lenguaje es **interpretado**: se ejecuta el código fuente
-    directamente por medio del intérprete del lenguaje.
-
-- Si durante la compilación (o ejecución, en el caso de un lenguaje
-  interpretado) el traductor muestra **errores en el programa fuente**, es
-  preciso volver a editar el programa, corregir los errores e intentar de
-  nuevo.
-
-- Los errores que un traductor puede detectar son, principalmente:
-
-  - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis)
-  - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
-    a un número, detectable mediante un **chequeo de tipos**)
-
-#### Actividades
-
-@. Desde el punto de vista de la detección de errores sintácticos o de
-semántica estática, ¿qué resulta más interesante: un compilador o un
-intérprete? Razona la respuesta.
-
-## Pruebas
-
-- Para determinar que el programa funciona correctamente, se determina una
-  **batería de pruebas** que debe superar el mismo para concluir que se
-  comporta como debe.
-
-- Esas baterías de prueba (o **casos de prueba**) consisten en una serie de
-  **datos de entrada** con los que se estimula al programa, emparejados junto a
-  una serie de **resultados esperables** que se comparan con los resultados
-  reales que el programa genera a partir de los datos de entrada.
-
-- Si los generados coinciden con los esperables, se concluye que el programa
-  está funcionando **correctamente**.
-
-- En caso contrario, decimos que el programa **falla** y debemos localizar el
-  error (o errores) que provocan el mal funcionamiento.
-
----
-
-- **Las pruebas pueden detectar la presencia de errores, pero nunca pueden
-  garantizar la ausencia de los mismos.**
-
-- La verificación formal es la única forma de garantizar la ausencia de errores
-  en un programa.
-
-- Entonces, ¿por qué hacemos pruebas?
-
-  - Para comprobar que no se han *colado* errores al codificar el algoritmo
-    (aunque hayamos verificado la corrección del algoritmo, se nos puede haber
-    colado un error al codificarlo en el programa).
-
-  - A veces, simplemente, no verificamos, y lo único que tenemos son las
-    pruebas.
-
-  - También es importante comprobar la **eficiencia** del programa con
-    ejecuciones *reales*.
-
-## Depuración
-
-- La **depuración** es el proceso de **encontrar** los errores del programa y
-  **corregir** o eliminar dichos errores.
-
-- En caso de ser **errores sintácticos o de semántica estática**, el traductor
-  facilita mucho la tarea de localizar la posición concreta del mismo en el
-  programa fuente, gracias a los **mensajes de error** que genera durante la
-  compilación o interpretación del programa.
-
-- Si tenemos un **error lógico** (un error en la lógica del programa que
-  provoca que éste produzca resultados incorrectos), normalmente resulta más
-  difícil de localizar.
-
-## Documentación
-
-- La documentación es el proceso por el cual incorporamos al código fuente del
-  programa de toda la información que pueda ayudar en la comprensión y el
-  mantenimiento del mismo.
-
-- La documentación de un programa puede ser interna o externa:
-
-  - La **documentación interna** forma parte del código fuente del programa y
-    se refiere al uso de comentarios, identificadores descriptivos,
-    indentación, reglas de estilo, etc. Todo orientado a ayudar a entender el
-    código cuando lo lea un humano.
-  
-  - La **documentación externa** va fuera del código fuente e incluye análisis,
-    diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones
-    para ejecutar el programa y para interpretar los resultados.
-
-## Mantenimiento
-
-- La vida útil de un programa rara vez termina cuando se ha acabado de
-  programar y los usuarios comienzan a usarlo, sino que a partir de ese momento
-  comienza una de las etapas más importantes y probablemente más costosas en
-  tiempo y esfuerzo: el **mantenimiento**.
-
-- Mantener un programa consiste en realizar las acciones encaminadas a:
-
-  - Corregir los fallos que puedan aparecer como consecuencia del uso del
-    programa (fallos que no se localizaron previamente en la fase de pruebas).
-
-  - Adaptar el programa a nuevas condiciones de utilización (nuevos sistemas
-    operativos, nuevas plataformas *hardware*...)
-
-  - Mejorar el programa incorporando nuevas funcionalidades.
-
-- Para ello, es fundamental que el programa esté correctamente documentado.
-
-# Paradigmas de programación
-
-## Definición
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Paradigma de programación**:
-
-Es un **estilo** de desarrollar programas, es decir, un **modelo** para
-resolver problemas computacionales.
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Cada paradigma entiende la programación desde una perspectiva diferente,
-  partiendo de unos conceptos básicos diferentes y con unas reglas diferentes.
-
-- Cuando diseñamos un algoritmo o escribimos un programa, lo hacemos con base
-  en un determinado paradigma, y éste impregna por completo la forma en la que
-  describimos la solución al problema en el que estamos trabajando.
-
-- No existe un único paradigma de programación y cada uno tiene sus
-  peculiaridades que lo hacen diferente.
-
-- Cada lenguaje de programación (o pseudocódigo) se dice que *soporta* un
-  determinado paradigma cuando con dicho lenguaje se pueden escribir algoritmos
-  o programas según el «estilo» que impone dicho paradigma.
-
-- Incluso existen lenguajes *multiparadigma* capaces de soportar varios
-  paradigmas al mismo tiempo.
-
----
-
-- Clasificación de los paradigmas de programación más importantes:
-
-  - Imperativo
-
-    - Estructurado
-
-    - Orientado a objetos 
-
-  - Declarativo
-
-    - Funcional
-
-    - Lógico
-
-    - De bases de datos
-
----
-
-!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)
-
----
-
-## Imperativo
-
-- El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
-  programa imperativo está formado por una sucesión de sentencias que se
-  ejecutan en orden y que llevan a cabo una de estas acciones:
-
-  - **Cambiar el estado** interno del programa, usualmente mediante la
-    sentencia de *asignación*.
-
-  - Cambiar el **flujo de control** del programa, haciendo que la ejecución se
-    bifurque (*salte*) a otra parte del mismo.
-
-- La ejecución de un programa imperativo, por tanto, consiste en una sucesión
-  de cambios de estado controlados por mecanismos de control y que dependen del
-  orden en el que se realizan.
-
-- Existen varios paradigmas con las características del paradigma imperativo,
-  por lo que podemos decir que existen varios paradigmas imperativos.
-
-### Estructurado
-
-- El **paradigma estructurado** es un paradigma imperativo en el que el flujo
-  de control del programa se define mediante las denominadas **estructuras de
-  control**.
-
-- Se apoya a nivel teórico en los resultados del conocido **teorema de Böhm y
-  Jacopini**, que establece que cualquier programa se puede escribir usando
-  solamente tres estructuras básicas:
-
-  - Secuencia
-  - Selección
-  - Iteración
-
-- Con estas tres estructuras conseguimos que los programas se puedan leer de
-  arriba abajo como compuestos por **bloques anidados o independientes** que se
-  leen como un todo conjunto.
-
-- Su aparición llevó asociada la aparición de una **metodología de desarrollo**
-  según la cual los programas se escriben por niveles de abstracción mediante
-  refinamientos sucesivos y usando en cada nivel sólo las tres estructuras
-  básicas. 
-
-### Orientado a objetos
-
-- El **paradigma orientado a objetos** se apoya en los conceptos de **objeto**
-  y **mensaje**.
-
-- Un programa orientado a objetos está formado por una colección de objetos que
-  se intercambian mensajes entre sí.
-
-- Los objetos son entidades que existen dentro del programa y que poseen un
-  cierto **estado interno**.
-
-- Cuando un objeto envía un mensaje a otro, el objeto receptor del mensaje
-  reaccionará llevando a cabo alguna acción, que probablemente provocará un
-  **cambio en su estado interno** y que, posiblemente, provocará también el
-  envío de mensajes a otros objetos.
-
-- La programación orientada a objetos está vista como una forma natural de
-  entender la programación y es, con diferencia, **el paradigma más usado en la
-  actualidad**.
-
-## Declarativo
-
-- La **programación declarativa** engloba a una familia de paradigmas de
-  programación de muy alto nivel.
-
-- En programación declarativa se describe la solución a un problema con base en
-  las propiedades que debe cumplir dicha solución y no tanto en forma de
-  instrucciones que se deben ejecutar para resolver el problema.
-
-- Se dice que un programa imperativo describe **cómo** resolver el problema,
-  mientras que un programa declarativo describe **qué** forma debe tener la
-  solución.
-
-- Para dar forma a la solución, se utilizan formalismos abstractos matemáticos
-  y lógicos, lo que da lugar a los dos grandes paradigmas declarativos: la
-  **programación funcional** y **la programación lógica**.
-
-### Funcional
-
-- La **programación funcional** es un paradigma de programación declarativa
-  basado en el uso de **funciones matemáticas**.
-
-- Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
-  lenguajes funcionales se pueden considerar azúcar sintáctico del cálculo
-  lambda).
-
-- Una función (en programación funcional) define de un cálculo a realizar a
-  partir de unos datos de entrada, con la propiedad de que el resultado de la
-  función sólo puede depender de dichos datos de entrada (lo que se denomina
-  **transparencia referencial**).
-
-- Eso significa que una función no puede tener estado interno ni su resultado
-  puede depender del estado interno del programa. Por tanto, no existen los
-  **efectos laterales**.
-
-- Demostrar la corrección de un programa funcional o paralelizar su ejecución
-  es **mucho más fácil** que con un programa imperativo.
-
-### Lógico
-
-- La **programación lógica** es un paradigma de programación declarativa
-  basado en el uso de la **lógica de predicados de primer orden**.
-
-- Básicamente, un programa lógico es una colección de definiciones que forman
-  un conjunto de **axiomas** en un sistema de **deducción lógica**.
-
-- Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo
-  que trata de **demostrar un teorema** a partir de los axiomas.
-
-- El ejemplo más característico de este tipo de lenguajes es **Prolog**.
-
-### De bases de datos
-
-- Los sistemas de gestión de bases de datos relacionales (SGBDR) disponen de un
-  lenguaje que permite al usuario consultar y manipular la información
-  almacenada.
-
-- A esos lenguajes se los denomina **lenguajes de bases de datos** o
-  **lenguajes de consulta**.
-
-- El lenguaje de consulta más conocido es el **SQL**.
-
-- Los SGBDR se basan en el *modelo relacional*, que es un modelo matemático.
-
-- SQL es, básicamente, una implementación del **álgebra relacional**.
-
-- Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
-  automáticamente el mejor camino para alcanzar dicho objetivo.
-
-#### Actividades
-
-@. ¿Hay más paradigmas de programación? Busca en Internet y pon un par de
-ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe
-en una sola frase sus características básicas.
-
-# Lenguajes de programación
-
-## Definición
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Lenguaje de programación:**
-
-Un lenguaje de programación es un **lenguaje formal** que proporciona una serie
-de instrucciones que permiten a un programador escribir programas destinados a
-controlar el comportamiento físico y lógico de un ordenador.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Un **programa** es la **codificación de un algoritmo** en un lenguaje de
-  programación.
-
-- Por tanto: cuando escribimos un algoritmo en un lenguaje de programación,
-  obtenemos un programa.
-
-### Sintaxis
-
-
-#### Notación EBNF
-
-
-### Semántica
-
-
-## Evolución histórica
-
+@. Busca en Internet información sobre un lenguaje de programación que no se
+haya comentado aquí y que se haya creado no antes del año 2000. Anota el
+paradigma (o paradigmas) que soporta y los lenguajes que influyeron en su
+diseño.
 
 ## Clasificación
-
 
 ### Por nivel
 
 - Dependiendo del **nivel** del lenguaje de programación tenemos:
 
   - Lenguajes de bajo nivel
-  
+
   - Lenguajes de alto nivel
 
 #### Lenguajes de bajo nivel
@@ -1699,7 +1479,7 @@ controlar el comportamiento físico y lógico de un ordenador.
   - PHP
   - Haskell
 
-#### Actividades
+!ACT
 
 @. Ordena cronológicamente la lista anterior por el año de creación de cada
 lenguaje.
@@ -1765,6 +1545,7 @@ lenguaje.
   - Lenguajes multiparadigma
 
 # Traductores
+
 
 ## Definición
 
@@ -1914,39 +1695,323 @@ F -> I
 
   - Probar rápidamente el efecto de una instrucción.
 
+# Resolución de problemas mediante programación
+
+## Introducción
+
+- El proceso de resolución de un problema con un ordenador pasa por escribir y
+  ejecutar un programa.
+
+- Aunque diseñar programas es, esencialmente, un proceso creativo, se puede
+  considerar una serie de fases o pasos comunes, que generalmente deben seguir
+  todos los programadores:
+
+  - Especificación
+  - Análisis del problema
+  - Diseño del algoritmo
+  - Verificación
+  - Estudio de la eficiencia
+  - Codificación
+  - Traducción y ejecución
+  - Pruebas
+  - Depuración
+  - Documentación
+  - Mantenimiento
+
+## Especificación
+
+- En esta fase se define con precisión (cuanto más formal mejor):
+
+  - Qué datos de entrada se requieren
+  
+  - Cuál es la salida deseada
+
+- Se trata al programa como una caja negra de la que se sabe *qué* tiene que
+  hacer pero aún no sabemos *cómo*.
+
+- Ejemplo: Se desea determinar el máximo de dos números enteros
+
+  - Entrada: los dos números (llamémosles $n_1$ y $n_2$) enteros
+  - Proceso: determinar cuál es el mayor de los dos
+  - Salida: el mayor de los dos números
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Entrada:** $n_1, n_2: \mathbb{N}$
+**Proceso:** Cálculo del máximo de dos números
+**Salida:** el mayor de ambos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Análisis del problema
+
+- A partir de la especificación, se estudia detalladamente el problema a
+  resolver, los requisitos que se deben cumplir y las posibles restricciones
+  que pueda tener la solución.
+
+- En el ejemplo anterior:
+
+  - Hay que comparar el valor de los dos números y devolver el mayor de ellos.
+  - Si los dos números son iguales, se puede devolver cualquiera de los dos.
+
+## Diseño del algoritmo
+
+- Una vez analizado el problema con detalle, se diseña un algoritmo que cumpla
+  con todas las posibles restricciones y satisfaga la especificación del
+  problema.
+
+- El algoritmo se representa con cualquier herramienta adecuada para ello:
+  ordinogramas, pseudocódigo, etc.
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Algoritmo:** Cálculo del máximo de dos números
+**Entrada:** $n_1, n_2: \mathbb{N}$
+**Salida:** el mayor de ambos
+
+**inicio**
+    **si** $n_1 > n_2$ **entonces**
+        **devolver** $n_1$
+    **sino**
+        **devolver** $n_2$
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Verificación
+
+- Es el proceso por el cual se intenta **demostrar** que el algoritmo diseñado
+  es **correcto**.
+
+- Un algoritmo es correcto cuando **satisface su especificación**.
+
+- Es un proceso basado en las matemáticas y la lógica, y consiste en considerar
+  que el algoritmo es un **teorema** a demostrar en un sistema deductivo lógico
+  en el que hay *axiomas* y *reglas de inferencia*.
+
+- Puede resultar muy difícil incluso en casos sencillos.
+
+- En la práctica, su uso se reduce a bloques pequeños y críticos del programa.
+
+## Estudio de la eficiencia
+
+- Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
+  optar a estudiar la eficiencia del mismo.
+
+- Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
+  se debe optar por diseñar otro algoritmo más eficiente.
+
+## Codificación
+
+- Una vez diseñado y verificado el algoritmo, éste se codifica en un lenguaje
+  de programación usando un editor de textos o un IDE (*Entorno Integrado de
+  Desarrollo*).
+
+- Se considera una tarea casi mecanizable, pero aún hay decisiones que pueden
+  influir a la hora de codificar un programa y que sólo puede tomar un
+  programador experimentado.
+
+- El lenguaje de programación utilizado es una decisión de diseño que hay que
+  justificar.
+
+- El diseño del algoritmo debería ser independiente del lenguaje de
+  programación en el que se vaya a codificar posteriormente el programa, pero
+  el *estilo* (paradigma) influye.
+
+---
+
+- Codificación del algoritmo anterior en lenguaje Python:
+
+  ```python
+  def maximo(n1, n2):
+      """Calcula el máximo de dos números."""
+      if n1 > n2:
+          return n1
+      else:
+          return n2
+  ```
+
+- Codificación en lenguaje Java:
+
+  ```java
+  /**
+   * Calcula el máximo de dos números.
+   */
+  public static int maximo(int n1, int n2) {
+      if (n1 > n2) {
+          return n1;
+      } else {
+          return n2;
+      }
+  }
+  ```
+
+## Traducción y ejecución
+
+- Una vez escrito el programa, se procede a su ejecución. Para ello:
+
+  - Si el lenguaje es **compilado**: se compila, se genera el código objeto y
+    se ejecuta éste.
+
+  - Si el lenguaje es **interpretado**: se ejecuta el código fuente
+    directamente por medio del intérprete del lenguaje.
+
+- Si durante la compilación (o ejecución, en el caso de un lenguaje
+  interpretado) el traductor muestra **errores en el programa fuente**, es
+  preciso volver a editar el programa, corregir los errores e intentar de
+  nuevo.
+
+- Los errores que un traductor puede detectar son, principalmente:
+
+  - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis)
+  - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
+    a un número, detectable mediante un **chequeo de tipos**)
+
+!ACT
+
+@. Desde el punto de vista de la detección de errores sintácticos o de
+semántica estática, ¿qué resulta más interesante: un compilador o un
+intérprete? Razona la respuesta.
+
+## Pruebas
+
+- Para determinar que el programa funciona correctamente, se determina una
+  **batería de pruebas** que debe superar el mismo para concluir que se
+  comporta como debe.
+
+- Esas baterías de prueba (o **casos de prueba**) consisten en una serie de
+  **datos de entrada** con los que se estimula al programa, emparejados junto a
+  una serie de **resultados esperables** que se comparan con los resultados
+  reales que el programa genera a partir de los datos de entrada.
+
+- Si los generados coinciden con los esperables, se concluye que el programa
+  está funcionando **correctamente**.
+
+- En caso contrario, decimos que el programa **falla** y debemos localizar el
+  error (o errores) que provocan el mal funcionamiento.
+
+---
+
+- **Las pruebas pueden detectar la presencia de errores, pero nunca pueden
+  garantizar la ausencia de los mismos.**
+
+- La verificación formal es la única forma de garantizar la ausencia de errores
+  en un programa.
+
+- Entonces, ¿por qué hacemos pruebas?
+
+  - Para comprobar que no se han *colado* errores al codificar el algoritmo
+    (aunque hayamos verificado la corrección del algoritmo, se nos puede haber
+    colado un error al codificarlo en el programa).
+
+  - A veces, simplemente, no verificamos, y lo único que tenemos son las
+    pruebas.
+
+  - También es importante comprobar la **eficiencia** del programa con
+    ejecuciones *reales*.
+
+## Depuración
+
+- La **depuración** es el proceso de **encontrar** los errores del programa y
+  **corregir** o eliminar dichos errores.
+
+- En caso de ser **errores sintácticos o de semántica estática**, el traductor
+  facilita mucho la tarea de localizar la posición concreta del mismo en el
+  programa fuente, gracias a los **mensajes de error** que genera durante la
+  compilación o interpretación del programa.
+
+- Si tenemos un **error lógico** (un error en la lógica del programa que
+  provoca que éste produzca resultados incorrectos), normalmente resulta más
+  difícil de localizar.
+
+## Documentación
+
+- La documentación es el proceso por el cual incorporamos al código fuente del
+  programa de toda la información que pueda ayudar en la comprensión y el
+  mantenimiento del mismo.
+
+- La documentación de un programa puede ser interna o externa:
+
+  - La **documentación interna** forma parte del código fuente del programa y
+    se refiere al uso de comentarios, identificadores descriptivos,
+    indentación, reglas de estilo, etc. Todo orientado a ayudar a entender el
+    código cuando lo lea un humano.
+  
+  - La **documentación externa** va fuera del código fuente e incluye análisis,
+    diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones
+    para ejecutar el programa y para interpretar los resultados.
+
+## Mantenimiento
+
+- La vida útil de un programa rara vez termina cuando se ha acabado de
+  programar y los usuarios comienzan a usarlo, sino que a partir de ese momento
+  comienza una de las etapas más importantes y probablemente más costosas en
+  tiempo y esfuerzo: el **mantenimiento**.
+
+- Mantener un programa consiste en realizar las acciones encaminadas a:
+
+  - Corregir los fallos que puedan aparecer como consecuencia del uso del
+    programa (fallos que no se localizaron previamente en la fase de pruebas).
+
+  - Adaptar el programa a nuevas condiciones de utilización (nuevos sistemas
+    operativos, nuevas plataformas *hardware*...)
+
+  - Mejorar el programa incorporando nuevas funcionalidades.
+
+- Para ello, es fundamental que el programa esté correctamente documentado.
+
+## Ingeniería del software
+
+- En los años 60, los problemas a resolver son cada vez más complejos y los
+  ordenadores son cada vez más potentes pero los programadores son incapaces de
+  escribir programas que aprovechen esa potencia y que sean fiables.
+
+- Además resulta difícil estimar el presupuesto y el tiempo necesarios para
+  desarrollar programas.
+
+- En 1968, Fiedrich Bauer habla por primera vez de la **crisis del software**
+  en la primera Conferencia sobre Ingeniería del Software de la OTAN en Garmish
+  (Alemania).
+
+- Se llega a la conclusión de que no basta con tener mejores herramientas
+  (lenguajes), sino que hay que dar un enfoque más industrial y sistemático al
+  desarrollo de software.
+
+- Aparece la **ingeniería del software** como disciplina.
+
+---
+
+- La ingeniería del software no considera a la programación como una disciplina
+  científica o como un arte, sino como un proceso sistemático que va más allá
+  de escribir código.
+
+- Cuando el programa a desarrollar es grande, escribir código es sólo una de
+  las tareas que hay que realizar. También hay que:
+
+  - Realizar un análisis del sistema.
+
+  - Estimar y planificar el tiempo y el esfuerzo necesarios para desarrollar la
+    solución.
+
+  - Aplicar procedimientos estandarizados.
+
+  - Elaborar documentación.
+
+  - Medir la calidad del producto resultante.
+
+- El desarrollo de software complejo requiere pasar por varias etapas que,
+  juntas, forman lo que se llama el **ciclo de vida** del software.
+
 # Entornos integrados de desarrollo
-
-
-## Terminal
-
-
-### `Zsh`
-
-
-### Oh My Zsh
-
-
-### `less`
 
 
 ## Editores de texto
 
 
+### Definición
+
+
 ### Editores vs. IDE
 
 
-### Vim y less
-
-
 ### Visual Studio Code
-
-
-#### Instalación
-
-
-#### Configuración
-
-
-#### Extensiones
 
 !FIN
