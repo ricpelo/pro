@@ -1025,6 +1025,10 @@ La respuesta es que **NO**
 
   - Lenguaje **de sistemas**
 
+- **1975: Scheme (_Gerald Jay Sussman, Guy L. Steele, Jr., MIT_)**
+
+  - Lenguaje funcional basado en LISP con ámbito léxico.
+
 - **1978: ML (_Robin Milner, Universidad de Edimburgo_)**
 
   - Lenguaje de **programación funcional** con sistema de tipos estático y
@@ -1033,12 +1037,12 @@ La respuesta es que **NO**
   - En realidad es una familia de lenguajes, entre los que se encuentran
     Standard ML, OCaml o F#.
 
+---
+
 - **1980: Smalltalk (_Alan Kay, Adele Goldberg, Xerox PARC_)**
 
   - Lenguaje orientado a objetos puro, reflexivo, con tipado dinámico, con un
     entorno propio de desarrollo y ejecución.
-
----
 
 - **1985: C++ (_Bjarne Stroustrup, Laboratorios Bell_)**
 
@@ -1092,26 +1096,322 @@ La respuesta es que **NO**
   - Lenguaje multiparadigma (funcional y orientado a objetos) para la máquina
     virtual de Java.
 
+- Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6...
+
 ## Culturas de la programación
 
+- Se pueden identificar cuatro **culturas** (o *perspectivas*) de la
+  programación:
+
+!DOT(culturas.svg)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [layout = twopi, root = P, overlap = false];
+node [shape = ellipse, fontsize = 17];
+M [label = "Cultura matemática"];
+G [label = "Cultura de la gestión"];
+I [label = "Cultura de la ingenería"];
+H [label = "Cultura hacker"];
+P [label = "Programación", shape = rectangle];
+P -> M [dir = both];
+P -> I [dir = both];
+P -> G [dir = both];
+P -> H [dir = both];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Cada cultura conserva una fuerte identidad a través de la historia.
+
+- Muchos desarrollos interesantes que dan forma a los lenguajes de programación
+  aparecen cuando varias culturas se encuentran e interactúan.
 
 ## Ingeniería del software
 
+- En los años 60, los problemas a resolver son cada vez más complejos y los
+  ordenadores son cada vez más potentes pero los programadores son incapaces de
+  escribir programas que aprovechen esa potencia y que sean fiables.
+
+- Además resulta difícil estimar el presupuesto y el tiempo necesarios para
+  desarrollar programas.
+
+- En 1968, Fiedrich Bauer habla por primera vez de la **crisis del software**
+  en la primera Conferencia sobre Ingeniería del Software de la OTAN en Garmish
+  (Alemania).
+
+- Se llega a la conclusión de que no basta con tener mejores herramientas
+  (lenguajes), sino que hay que dar un enfoque más industrial y sistemático al
+  desarrollo de software.
+
+- Aparece la **ingeniería del software** como disciplina.
+
+---
+
+- La ingeniería del software no considera a la programación como una disciplina
+  científica o como un arte, sino como un proceso sistemático que va más allá
+  de escribir código.
+
+- Cuando el programa a desarrollar es grande, escribir código es sólo una de
+  las tareas que hay que realizar. También hay que:
+
+  - Realizar un análisis del sistema.
+
+  - Estimar y planificar el tiempo y el esfuerzo necesarios para desarrollar la
+    solución.
+
+  - Aplicar procedimientos estandarizados.
+
+  - Elaborar documentación.
+
+  - Medir la calidad del producto resultante.
+
+- El desarrollo de software complejo requiere pasar por varias etapas que,
+  juntas, forman lo que se llama el **ciclo de vida** del software.
 
 # Resolución de problemas mediante programación
 
+## Introducción
 
-## Análisis del problema
+- El proceso de resolución de un problema con un ordenador pasa por escribir y
+  ejecutar un programa.
 
+- Aunque diseñar programas es, esencialmente, un proceso creativo, se puede
+  considerar una serie de fases o pasos comunes, que generalmente deben seguir
+  todos los programadores:
+
+  - Especificación
+  - Análisis del problema
+  - Diseño del algoritmo
+  - Verificación
+  - Estudio de la eficiencia
+  - Codificación
+  - Traducción y ejecución
+  - Pruebas
+  - Depuración
+  - Documentación
+  - Mantenimiento
 
 ## Especificación
 
+- En esta fase se define con precisión (cuanto más formal mejor):
+
+  - Qué datos de entrada se requieren
+  
+  - Cuál es la salida deseada
+
+- Se trata al programa como una caja negra de la que se sabe *qué* tiene que
+  hacer pero aún no sabemos *cómo*.
+
+- Ejemplo: Se desea determinar el máximo de dos números enteros
+
+  - Entrada: los dos números (llamémosles $n_1$ y $n_2$) enteros
+  - Proceso: determinar cuál es el mayor de los dos
+  - Salida: el mayor de los dos números
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Entrada:** $n_1, n_2: \mathbb{N}$
+**Proceso:** Cálculo del máximo de dos números
+**Salida:** el mayor de ambos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Análisis del problema
+
+- A partir de la especificación, se estudia detalladamente el problema a
+  resolver, los requisitos que se deben cumplir y las posibles restricciones
+  que pueda tener la solución.
+
+- En el ejemplo anterior:
+
+  - Hay que comparar el valor de los dos números y devolver el mayor de ellos.
+  - Si los dos números son iguales, se puede devolver cualquiera de los dos.
 
 ## Diseño del algoritmo
 
+- Una vez analizado el problema con detalle, se diseña un algoritmo que cumpla
+  con todas las posibles restricciones y satisfaga la especificación del
+  problema.
 
-## Codificación del algoritmo en forma de programa
+- El algoritmo se representa con cualquier herramienta adecuada para ello:
+  ordinogramas, pseudocódigo, etc.
 
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Algoritmo:** Cálculo del máximo de dos números
+**Entrada:** $n_1, n_2: \mathbb{N}$
+**Salida:** el mayor de ambos
+
+**inicio**
+    **si** $n_1 > n_2$ **entonces**
+        **devolver** $n_1$
+    **sino**
+        **devolver** $n_2$
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Verificación
+
+- Es el proceso por el cual se intenta **demostrar** que el algoritmo diseñado
+  es **correcto**.
+
+- Un algoritmo es correcto cuando **satisface su especificación**.
+
+- Es un proceso basado en las matemáticas y la lógica, y consiste en considerar
+  que el algoritmo es un **teorema** a demostrar en un sistema deductivo lógico
+  en el que hay *axiomas* y *reglas de inferencia*.
+
+- Puede resultar muy difícil incluso en casos sencillos.
+
+- En la práctica, su uso se reduce a bloques pequeños y críticos del programa.
+
+## Estudio de la eficiencia
+
+- Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
+  optar a estudiar la eficiencia del mismo.
+
+- Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
+  se debe optar por diseñar otro algoritmo más eficiente.
+
+## Codificación
+
+- Una vez diseñado y verificado el algoritmo, éste se codifica en un lenguaje
+  de programación usando un editor de textos o un IDE (*Entorno Integrado de
+  Desarrollo*).
+
+- Se considera una tarea casi mecanizable, pero aún hay decisiones que pueden
+  influir a la hora de codificar un programa y que sólo puede tomar un
+  programador experimentado.
+
+- El lenguaje de programación utilizado es una decisión de diseño que hay que
+  justificar.
+
+- El diseño del algoritmo debería ser independiente del lenguaje de
+  programación en el que se vaya a codificar posteriormente el programa, pero
+  el *estilo* (paradigma) influye.
+
+---
+
+- Codificación del algoritmo anterior en lenguaje Python:
+
+  ```python
+  def maximo(n1, n2):
+      """Calcula el máximo de dos números."""
+      if n1 > n2:
+          return n1
+      else:
+          return n2
+  ```
+
+## Traducción y ejecución
+
+- Una vez escrito el programa, se procede a su ejecución. Para ello:
+
+  - Si el lenguaje es **compilado**: se compila, se genera el código objeto y
+    se ejecuta éste.
+
+  - Si el lenguaje es **interpretado**: se ejecuta el código fuente
+    directamente por medio del intérprete del lenguaje.
+
+- Si durante la compilación (o ejecución, en el caso de un lenguaje
+  interpretado) el traductor muestra **errores en el programa fuente**, es
+  preciso volver a editar el programa, corregir los errores e intentar de
+  nuevo.
+
+- Los errores que un traductor puede detectar son, principalmente:
+
+  - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis)
+  - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
+    a un número, detectable mediante un **chequeo de tipos**)
+
+#### Actividades
+
+@. Desde el punto de vista de la detección de errores sintácticos o de
+semántica estática, ¿qué resulta más interesante: un compilador o un
+intérprete? Razona la respuesta.
+
+## Pruebas
+
+- Para determinar que el programa funciona correctamente, se determina una
+  **batería de pruebas** que debe superar el mismo para concluir que se
+  comporta como debe.
+
+- Esas baterías de prueba (o **casos de prueba**) consisten en una serie de
+  **datos de entrada** con los que se estimula al programa, emparejados junto a
+  una serie de **resultados esperables** que se comparan con los resultados
+  reales que el programa genera a partir de los datos de entrada.
+
+- Si los generados coinciden con los esperables, se concluye que el programa
+  está funcionando **correctamente**.
+
+- En caso contrario, decimos que el programa **falla** y debemos localizar el
+  error (o errores) que provocan el mal funcionamiento.
+
+---
+
+- **Las pruebas pueden detectar la presencia de errores, pero nunca pueden
+  garantizar la ausencia de los mismos.**
+
+- La verificación formal es la única forma de garantizar la ausencia de errores
+  en un programa.
+
+- Entonces, ¿por qué hacemos pruebas?
+
+  - Para comprobar que no se han *colado* errores al codificar el algoritmo
+    (aunque hayamos verificado la corrección del algoritmo, se nos puede haber
+    colado un error al codificarlo en el programa).
+
+  - A veces, simplemente, no verificamos, y lo único que tenemos son las
+    pruebas.
+
+  - También es importante comprobar la **eficiencia** del programa con
+    ejecuciones *reales*.
+
+## Depuración
+
+- La **depuración** es el proceso de **encontrar** los errores del programa y
+  **corregir** o eliminar dichos errores.
+
+- En caso de ser **errores sintácticos o de semántica estática**, el traductor
+  facilita mucho la tarea de localizar la posición concreta del mismo en el
+  programa fuente, gracias a los **mensajes de error** que genera durante la
+  compilación o interpretación del programa.
+
+- Si tenemos un **error lógico** (un error en la lógica del programa que
+  provoca que éste produzca resultados incorrectos), normalmente resulta más
+  difícil de localizar.
+
+## Documentación
+
+- La documentación es el proceso por el cual incorporamos al código fuente del
+  programa de toda la información que pueda ayudar en la comprensión y el
+  mantenimiento del mismo.
+
+- La documentación de un programa puede ser interna o externa:
+
+  - La **documentación interna** forma parte del código fuente del programa y
+    se refiere al uso de comentarios, identificadores descriptivos,
+    indentación, reglas de estilo, etc. Todo orientado a ayudar a entender el
+    código cuando lo lea un humano.
+  
+  - La **documentación externa** va fuera del código fuente e incluye análisis,
+    diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones
+    para ejecutar el programa y para interpretar los resultados.
+
+## Mantenimiento
+
+- La vida útil de un programa rara vez termina cuando se ha acabado de
+  programar y los usuarios comienzan a usarlo, sino que a partir de ese momento
+  comienza una de las etapas más importantes y probablemente más costosas en
+  tiempo y esfuerzo: el **mantenimiento**.
+
+- Mantener un programa consiste en realizar las acciones encaminadas a:
+
+  - Corregir los fallos que puedan aparecer como consecuencia del uso del
+    programa (fallos que no se localizaron previamente en la fase de pruebas).
+
+  - Adaptar el programa a nuevas condiciones de utilización (nuevos sistemas
+    operativos, nuevas plataformas *hardware*...)
+
+  - Mejorar el programa incorporando nuevas funcionalidades.
+
+- Para ello, es fundamental que el programa esté correctamente documentado.
 
 # Paradigmas de programación
 
