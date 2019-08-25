@@ -2002,16 +2002,87 @@ intérprete? Razona la respuesta.
 
 # Entornos integrados de desarrollo
 
+## Definición
 
-## Editores de texto
+- Definición:
 
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Un **entorno integrado de desarrollo** o **IDE** (del inglés, *Integrated
+  Development Environment*), es una herramienta *software* que proporciona
+  servicios que facilitan el desarrollo de software al programador.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Definición
+- Está formado por un **editor de textos** donde el programador puede codificar
+  el programa en el lenguaje de programación correspondiente, alrededor del
+  cual pueden orbitar una serie de herramientas satélite, como:
 
+  - Herramientas visuales para la creación de *interfaces gráficas de usuario*
+  - Sistemas de control de versiones
+  - Visor de documentación
+  - Intérpretes interactivos
+
+---
+
+- Asimismo, el editor de textos del IDE suele incorporar facilidades que ayudan
+  a escribir código con más comodidad:
+
+  - Resaltado de sintaxis
+
+  - Autocompletado de código
+
+  - Ayudas a la refactorización
+
+- Los IDE suelen ir asociados a un lenguaje o grupo de lenguajes de
+  programación concreto y, por lo tanto, son herramientas especializadas
+  utilizadas para programar en el lenguaje o lenguajes para los que han sido
+  diseñadas. Por ejemplo:
+
+  - PyCharm es un IDE para programar en el lenguaje Python.
+
+  - IntelliJ IDEA es un IDE para programar en el lenguaje Java.
+
+## Editores de textos
+
+- Un editor de textos, por contra, es una herramienta *software* que, en
+  principio, sólo cuenta con la posibilidad de editar texto «plano» cuyo
+  contenido puede ser de cualquier tipo (no necesariamente un código fuente).
+
+- Al ser una herramienta general, no dispone de características específicas
+  para escribir programas.
+
+- Los principales editores de textos que podemos encontrar en el mercado son:
+
+  - Vim
+  - Emacs
+  - Atom
+  - Sublime Text
+  - Visual Studio Code
 
 ### Editores vs. IDE
 
+- Los mejores editores de textos son **extensibles**, es decir, es posible
+  ampliar su funcionalidad por medio de *extensiones*.
+
+- Esto hace que podamos personalizar su aspecto y funcionalidad hasta crear con
+  ellos un IDE completo y ajustado a nuestras necesidades.
+
+- Gracias a ello, podemos usar el mismo editor de textos tanto para crear
+  documentos de texto genéricos como para escribir programas. Por tanto, sólo
+  tenemos que aprender el manejo de una única herramienta.
+
+- No obstante, los IDE suelen incorporar modos de funcionamiento que *imitan* a
+  los de los editores de textos más conocidos (como Vim o Emacs).
 
 ### Visual Studio Code
+
+- Es el editor de textos que vamos a usar en clase.
+
+- Es *software* libre, y por tanto podemos usarlo sin ningún tipo de
+  restricción.
+
+- Además, es extensible y dispone de una enorme cantidad de extensiones que nos
+  van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a
+  usar en clase.
 
 !FIN
