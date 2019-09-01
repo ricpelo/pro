@@ -28,6 +28,9 @@ nocite: |
 
 - Esos modelos se denominan **modelos de ejecución**.
 
+- Los modelos de ejecución nos permiten **razonar** sobre los programas sin
+  tener que ejecutarlos.
+
 ---
 
 - Definición:
@@ -36,8 +39,8 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Modelo de ejecución:**
 
-  Es una herramienta conceptual que permite a los programadores simular el
-  funcionamiento de un programa sin tener que ejecutarlo directamente en el
+  Es una herramienta conceptual que permite a los programadores razonar sobre
+  el funcionamiento de un programa sin tener que ejecutarlo directamente en el
   ordenador. 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
