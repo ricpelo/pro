@@ -13,6 +13,7 @@ DEFINICIONES GENERALES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2
 skinparam backgroundColor transparent
+skinparam defaultFontName Lato
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !define(DOTCOMMON)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

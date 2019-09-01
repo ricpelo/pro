@@ -25,7 +25,23 @@
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
   <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
       #header-right {
           position: absolute;
           font-size: 25%;
@@ -34,49 +50,85 @@
           margin-right: 10px;
           margin-top: 10px;
       }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
   </style>
 </head>
 <body>
 <div id="hidden" style="display:none;">
     <div id="header">
+        <div id="header-left"></div>
         <div id="header-right"></div>
         <div id="footer-left"></div>
     </div>
 </div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        var el = document.createElement('a');
+        var href = '#/title-slide';
+        el.href = href;
+        el.innerHTML = title;
+        document.getElementById('header-left').appendChild(el);
+        document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -84,6 +136,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
@@ -101,33 +154,141 @@
 </section>
 <section id="TOC" class="slide level2">
 <ul>
-<li><a href="#/el-lenguaje-de-programación-php"><span class="toc-section-number">1</span> El lenguaje de programación PHP</a></li>
+<li><a href="#/el-lenguaje-de-programación-python"><span class="toc-section-number">1</span> El lenguaje de programación Python</a></li>
 <li><a href="#/modelo-de-ejecución"><span class="toc-section-number">2</span> Modelo de ejecución</a></li>
 <li><a href="#/expresiones"><span class="toc-section-number">3</span> Expresiones</a></li>
 <li><a href="#/álgebra-de-boole"><span class="toc-section-number">4</span> Álgebra de Boole</a></li>
-<li><a href="#/sentencias"><span class="toc-section-number">5</span> Sentencias</a></li>
+<li><a href="#/variables-y-constantes"><span class="toc-section-number">5</span> Variables y constantes</a></li>
+<li><a href="#/documentación-interna"><span class="toc-section-number">6</span> Documentación interna</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="el-lenguaje-de-programación-php" class="title-slide slide level1"><h1><span class="header-section-number">1</span> El lenguaje de programación PHP</h1></section><section id="historia" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Historia</h2></section><section id="características-principales" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Características principales</h2></section></section>
-<section><section id="modelo-de-ejecución" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Modelo de ejecución</h1></section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Evaluación de expresiones</h2></section><section id="modelo-de-sustitución-sistema-de-reescritura" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Modelo de sustitución / sistema de reescritura</h2></section></section>
-<section><section id="expresiones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Expresiones</h1></section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Valores, expresión canónica y forma normal</h2></section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Literales</h2></section><section id="operaciones-operadores-y-operandos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Operaciones, operadores y operandos</h2></section><section id="precedencia-y-asociatividad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Precedencia y asociatividad de operadores</h3></section><section id="evaluación" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Evaluación</h2></section><section id="orden-de-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.4.1</span> Orden de evaluación</h3></section><section id="orden-aplicativo" class="slide level4">
-<h4><span class="header-section-number">3.4.1.1</span> Orden aplicativo</h4>
-</section><section id="orden-normal" class="slide level4">
-<h4><span class="header-section-number">3.4.1.2</span> Orden normal</h4>
-</section><section id="tipos-de-datos" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Tipos de datos</h2></section><section id="concepto" class="title-slide slide level3"><h3><span class="header-section-number">3.5.1</span> Concepto</h3></section><section id="tipo-de-un-valor" class="slide level4">
-<h4><span class="header-section-number">3.5.1.1</span> Tipo de un valor</h4>
+<section><section id="el-lenguaje-de-programación-python" class="title-slide slide level1"><h1><span class="header-section-number">1</span> El lenguaje de programación Python</h1></section><section id="historia" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Historia</h2></section><section id="características-principales" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Características principales</h2></section></section>
+<section><section id="modelo-de-ejecución" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Modelo de ejecución</h1></section><section id="modelo-de-ejecución-1" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Modelo de ejecución</h2><ul>
+<li><p>Cuando escribimos programas (y algoritmos) nos interesa abstraernos del funcionamiento detallado de la máquina que va a ejecutar esos programas.</p></li>
+<li><p>Nos interesa buscar una <em>metáfora</em>, un símil de lo que significa ejecutar el programa.</p></li>
+<li><p>De la misma forma que un arquitecto crea modelos de los edificios que se pretenden construir, los programadores podemos usar modelos que <em>simulan</em> en esencia el comportamiento de nuestros programas.</p></li>
+<li><p>Esos modelos se denominan <strong>modelos de ejecución</strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Modelo de ejecución:</strong></p>
+<p>Es una herramienta conceptual que permite a los programadores simular el funcionamiento de un programa sin tener que ejecutarlo directamente en el ordenador.</p>
+</div></li>
+<li><p>Podemos definir diferentes modelos de ejecución dependiendo, principalmente, de:</p>
+<ul>
+<li><p>El paradigma de programación utilizado (ésto sobre todo).</p></li>
+<li><p>El lenguaje de programación con el que escribamos el programa.</p></li>
+<li><p>Los aspectos que queramos estudiar de nuestro programa.</p></li>
+</ul></li>
+</ul>
+</section><section id="modelo-de-sustitución" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Modelo de sustitución</h2><ul>
+<li><p>En programación funcional, <strong>un programa es una expresión</strong> y lo que hacemos al ejecutarlo es <strong>evaluar dicha expresión</strong>, usando para ello las definiciones de operadores y funciones predefinidas por el lenguaje, así como las definidas por el programador y que el código fuente del programa.</p></li>
+<li><p>La <strong>evaluación de una expresión</strong>, en esencia, consiste en <strong>sustituir</strong>, dentro de ella, unas <em>sub-expresiones</em> por otras que, de alguna manera, estén más cerca del valor a calcular, y así hasta calcular el valor de la expresión al completo.</p></li>
+<li><p>Por ello, la ejecución de un programa funcional se puede modelar como un <strong>sistema de reescritura</strong> al que llamaremos <strong>modelo de sustitución</strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La ventaja de este modelo es que no necesitamos recurrir a pensar que debajo de todo esto hay un ordenador con una determinada arquitectura <em>hardware</em>, que almacena los datos en celdas de la memoria principal, que ejecuta ciclos de instrucción en la CPU, que las instrucciones modifican los datos de la memoria, etc.</p></li>
+<li><p>Todo resulta mucho más fácil que eso.</p></li>
+<li><p><strong>Todo se reduce a evaluar expresiones</strong>.</p></li>
+</ul>
+</section></section>
+<section><section id="expresiones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Expresiones</h1></section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Evaluación de expresiones</h2><ul>
+<li><p>Ya hemos visto que la ejecución de un programa funcional consiste, en esencia, en evaluar una expresión.</p></li>
+<li><p><strong><em>Evaluar</em> una expresión</strong> consiste en determinar el <strong>valor</strong> de la expresión. Es decir, una expresión <em>representa</em> o <strong>denota</strong> un valor.</p></li>
+<li><p>En programación funcional, el significado de una expresión es su valor, y no puede ocurrir ningún otro efecto, ya sea oculto o no, en ninguna operación que se utilice para calcularlo.</p></li>
+<li><p>Una característica de la programación funcional es que <strong>toda expresión posee un valor definido</strong>, a diferencia de otros paradigmas en los que, por ejemplo, existen las <em>sentencias</em>, que no poseen ningún valor.</p></li>
+<li><p>Además, el orden en el que se evalúe no debe influir en el resultado.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Podemos decir que las expresiones:</p>
+<ul>
+<li><p><span class="math inline">3</span></p></li>
+<li><p><span class="math inline">1+2</span></p></li>
+<li><p><span class="math inline">5-3</span></p></li>
+</ul>
+<p>denotan el mismo valor (el número abstracto <strong><span class="math inline">3</span></strong>).</p></li>
+<li><p>Es decir: todas esas expresiones son representaciones diferentes del mismo ente abstracto.</p></li>
+<li><p>Lo que hace el sistema es buscar <strong>la representación más simplificada o reducida</strong> posible (en este caso, <span class="math inline">3</span>).</p></li>
+<li><p>Por eso a menudo usamos, indistintamente, los términos <em>reducir</em>, <em>simplificar</em> y <em>evaluar</em>.</p></li>
+</ul>
+</section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Transparencia referencial</h3><ul>
+<li><p>En programación funcional, el valor de una expresión depende, exclusivamente, de los valores de sus sub-expresiones constituyentes.</p></li>
+<li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras que tengan el mismo valor.</p></li>
+<li><p>A esta propiedad se la denomina <strong>transparencia referencial</strong>.</p></li>
+<li><p>En la práctica, eso significa que la evaluación de una expresión no puede provocar <strong>efectos laterales</strong>.</p></li>
+<li><p>Formalmente, se puede definir así:</p>
+<div class="caja">
+<p><strong>Transparencia referencial:</strong></p>
+<p>Si <span class="math inline">p = q</span>, entonces <span class="math inline">f(p) = f(q)</span>.</p>
+</div></li>
+</ul></section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Valores, expresión canónica y forma normal</h3><ul>
+<li><p>Los ordenadores no manipulan valores, sino que sólo pueden manejar representaciones concretas de los mismos.</p>
+<ul>
+<li>Por ejemplo: utilizan la codificación binaria en complemento a 2 para representar los números enteros.</li>
+</ul></li>
+<li><p>Pidamos que la <strong>representación del valor</strong> resultado de una evaluación sea <strong>única</strong>.</p></li>
+<li><p>De esta forma, seleccionemos de cada conjunto de expresiones que denoten el mismo valor, a lo sumo una que llamaremos <strong>expresión canónica de ese valor</strong>.</p></li>
+<li><p>Además, llamaremos a la expresión canónica que representa el valor de una expresión la <strong>forma normal de esa expresión</strong>.</p></li>
+<li><p>Con esta restricción pueden quedar expresiones sin forma normal.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Ejemplo:</p>
+<ul>
+<li><p>De las expresiones anteriores:</p>
+<ul>
+<li><p><span class="math inline">3</span></p></li>
+<li><p><span class="math inline">1+2</span></p></li>
+<li><p><span class="math inline">5-3</span></p></li>
+</ul>
+<p>que denotan todas el mismo valor abstracto <strong><span class="math inline">3</span></strong>, seleccionamos una (la expresión <span class="math inline">3</span>) como la <strong>expresión canónica</strong> de ese valor.</p></li>
+<li><p>Igualmente, la expresión <span class="math inline">3</span> es la <strong>forma normal</strong> de todas las expresiones anteriores (y de cualquier otra expresión con valor <strong><span class="math inline">3</span></strong>).</p></li>
+<li><p>Es importante no confundir el valor abstracto <strong><span class="math inline">3</span></strong> con la expresión <span class="math inline">3</span> que representa dicho valor.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Hay valores que no tienen expresión canónica:</p>
+<ul>
+<li><p>Las funciones (los valores de tipo <em>función</em>).</p></li>
+<li><p>El número <span class="math inline">\pi</span> no tiene representación decimal finita, por lo que tampoco tiene expresión canónica.</p></li>
+</ul></li>
+<li><p>Y hay expresiones que no tienen forma normal:</p>
+<ul>
+<li><p>Si definimos <span class="math inline">inf = inf + 1</span>, la expresión <span class="math inline">inf</span> (que es un número) no tiene forma normal.</p></li>
+<li><p>Lo mismo ocurre con <span class="math inline">1\over0</span>.</p></li>
+</ul></li>
+</ul>
+</section><section id="formas-normales-y-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.1.3</span> Formas normales y evaluación</h3><ul>
+<li><p>A partir de todo lo dicho, la ejecución de un programa será el proceso de encontrar su forma normal.</p></li>
+<li><p>Un ordenador evalúa una expresión (o ejecuta un programa) buscando su forma normal y mostrando este resultado.</p></li>
+<li><p>Con los lenguajes funcionales los ordenadores alcanzan este objetivo a través de múltiples pasos de reducción de las expresiones para obtener otra equivalente más simple.</p></li>
+<li><p>El sistema de evaluación dentro de un ordenador está hecho de forma tal que cuando ya no es posible reducir la expresión es porque se ha llegado a la forma normal.</p></li>
+</ul></section><section class="slide level4">
+
+
+<p><img data-src="images/evaluacion.svg" class="plain" style="width:40.0%" /></p>
+
+</section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Literales</h2></section><section id="operaciones-operadores-y-operandos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Operaciones, operadores y operandos</h2></section><section id="precedencia-y-asociatividad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Precedencia y asociatividad de operadores</h3></section><section id="tipos-de-datos" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Tipos de datos</h2></section><section id="concepto" class="title-slide slide level3"><h3><span class="header-section-number">3.4.1</span> Concepto</h3></section><section id="tipo-de-un-valor" class="slide level4">
+<h4><span class="header-section-number">3.4.1.1</span> Tipo de un valor</h4>
 </section><section id="tipo-de-una-expresión" class="slide level4">
-<h4><span class="header-section-number">3.5.1.2</span> Tipo de una expresión</h4>
-</section><section id="tipos-de-datos-básicos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Tipos de datos básicos</h3></section><section id="números" class="slide level4">
-<h4><span class="header-section-number">3.5.2.1</span> Números</h4>
-<h5 id="operadores-aritméticos"><span class="header-section-number">3.5.2.1.1</span> Operadores aritméticos</h5>
+<h4><span class="header-section-number">3.4.1.2</span> Tipo de una expresión</h4>
+</section><section id="tipos-de-datos-básicos" class="title-slide slide level3"><h3><span class="header-section-number">3.4.2</span> Tipos de datos básicos</h3></section><section id="números" class="slide level4">
+<h4><span class="header-section-number">3.4.2.1</span> Números</h4>
+<h5 id="operadores-aritméticos"><span class="header-section-number">3.4.2.1.1</span> Operadores aritméticos</h5>
 </section><section id="cadenas" class="slide level4">
-<h4><span class="header-section-number">3.5.2.2</span> Cadenas</h4>
-</section><section id="algebraicas-vs.-algorítmicas" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Algebraicas vs. algorítmicas</h2></section><section id="aritméticas" class="title-slide slide level2"><h2><span class="header-section-number">3.7</span> Aritméticas</h2></section><section id="funciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.8</span> Funciones predefinidas</h2></section><section id="constantes-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.9</span> Constantes predefinidas</h2></section></section>
+<h4><span class="header-section-number">3.4.2.2</span> Cadenas</h4>
+</section><section id="algebraicas-vs.-algorítmicas" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Algebraicas vs. algorítmicas</h2></section><section id="aritméticas" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Aritméticas</h2></section><section id="operaciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.7</span> Operaciones predefinidas</h2></section><section id="operadores-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.7.1</span> Operadores predefinidos</h3></section><section id="funciones-predefinidas" class="title-slide slide level3"><h3><span class="header-section-number">3.7.2</span> Funciones predefinidas</h3></section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.7.3</span> Métodos predefinidos</h3></section><section id="constantes-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.8</span> Constantes predefinidas</h2></section></section>
 <section><section id="álgebra-de-boole" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Álgebra de Boole</h1></section><section id="el-tipo-de-dato-booleano" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> El tipo de dato <em>booleano</em></h2></section><section id="operadores-relacionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Operadores relacionales</h2></section><section id="operadores-lógicos" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Operadores lógicos</h2></section><section id="axiomas" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Axiomas</h2></section><section id="propiedades" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Propiedades</h2></section><section id="el-operador-ternario" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> El operador ternario</h2></section></section>
-<section><section id="sentencias" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Sentencias</h1></section><section id="variables" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Variables</h2></section><section id="identificadores" class="title-slide slide level3"><h3><span class="header-section-number">5.1.1</span> Identificadores</h3></section><section id="ligadura-binding" class="title-slide slide level3"><h3><span class="header-section-number">5.1.2</span> Ligadura (<em>binding</em>)</h3></section><section id="estado" class="title-slide slide level3"><h3><span class="header-section-number">5.1.3</span> Estado</h3></section><section id="asignación-no-destructiva" class="title-slide slide level3"><h3><span class="header-section-number">5.1.4</span> Asignación no destructiva</h3></section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level3"><h3><span class="header-section-number">5.1.5</span> Tipado estático vs. dinámico</h3></section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Evaluación de expresiones con variables</h2></section></section>
+<section><section id="variables-y-constantes" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Variables y constantes</h1></section><section id="definiciones" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Definiciones</h2></section><section id="identificadores" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Identificadores</h2></section><section id="ligadura-binding" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Ligadura (<em>binding</em>)</h2></section><section id="estado" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Estado</h2></section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> Tipado estático vs. dinámico</h2></section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> Evaluación de expresiones con variables</h2></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">5.7</span> Constantes</h2></section></section>
+<section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Identificadores significativos</h2></section><section id="comentarios" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Comentarios</h2></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Docstrings</h2></section></section>
     </div>
   </div>
 
