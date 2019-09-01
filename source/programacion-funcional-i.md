@@ -2,6 +2,8 @@
 title: Programación funcional I
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @blanco_calculo_2009, @abelson_structure_1996
 ---
 
 # El lenguaje de programación Python
@@ -296,3 +298,4 @@ endwhile (no)
 
 ## Docstrings
 
+!FIN
