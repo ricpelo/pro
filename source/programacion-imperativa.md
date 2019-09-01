@@ -10,13 +10,13 @@ author: Ricardo Pérez López
 
 ## Secuencia de instrucciones
 
+# *Scripts*
+
 # Cambios de estado explícitos
 
 ## Celdas
 
-## Asignación destructiva (o asignación múltiple)
-
-## Asignación por referencia
+## Asignación destructiva
 
 # Efectos laterales
 
@@ -24,29 +24,15 @@ author: Ricardo Pérez López
 
 ## Entrada y salida por consola
 
-### La sentencia `echo`
+### La función `print()`
 
-### Las funciones `var_dump()` y `print_r()`
-
-### Las funciones `fgets()` y `fscanf()`
+### La función `input()`
 
 # Saltos
 
-## Incondicionales: la sentencia `goto`
+## Incondicionales
 
-## Condicionales: la sentencia `if (...) goto`
+## Condicionales
 
 ## Implementación de bucles mediante saltos condicionales
-
-# Los *arrays* como estructura de datos mutable básica
-
-## Creación, acceso y modificación
-
-## Recorrido y búsqueda en un *array*
-
-## *Arrays* multidimensionales
-
-## Funciones de manejo de *arrays*
-
-## *Ejemplo*: `$argv` en CLI
 

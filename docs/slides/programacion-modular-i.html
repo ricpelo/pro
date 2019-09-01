@@ -26,6 +26,14 @@
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
   <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
       #header-right {
           position: absolute;
           font-size: 25%;
@@ -34,49 +42,85 @@
           margin-right: 10px;
           margin-top: 10px;
       }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
   </style>
 </head>
 <body>
 <div id="hidden" style="display:none;">
     <div id="header">
+        <div id="header-left"></div>
         <div id="header-right"></div>
         <div id="footer-left"></div>
     </div>
 </div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        var el = document.createElement('a');
+        var href = '#/title-slide';
+        el.href = href;
+        el.innerHTML = title;
+        document.getElementById('header-left').appendChild(el);
+        document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -84,6 +128,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
@@ -102,27 +147,21 @@
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
-<li><a href="#/funciones-definidas-por-el-usuario"><span class="toc-section-number">2</span> Funciones definidas por el usuario</a></li>
-<li><a href="#/partes-de-un-módulo"><span class="toc-section-number">3</span> Partes de un módulo</a></li>
-<li><a href="#/inclusión-de-scripts"><span class="toc-section-number">4</span> Inclusión de <em>scripts</em></a></li>
-<li><a href="#/espacios-de-nombres"><span class="toc-section-number">5</span> Espacios de nombres</a></li>
-<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">6</span> Criterios de descomposición modular</a></li>
-<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">7</span> Diagramas de estructura</a></li>
+<li><a href="#/partes-de-un-módulo"><span class="toc-section-number">2</span> Partes de un módulo</a></li>
+<li><a href="#/importación-de-módulos"><span class="toc-section-number">3</span> Importación de módulos</a></li>
+<li><a href="#/paquetes"><span class="toc-section-number">4</span> Paquetes</a></li>
+<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">5</span> Criterios de descomposición modular</a></li>
+<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">6</span> Diagramas de estructura</a></li>
 </ul>
 </section>
 </section>
 
 <section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Descomposición de problemas</h2></section></section>
-<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Funciones definidas por el usuario</h1></section><section id="definición-de-funciones-con-nombre" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Definición de funciones con nombre</h2></section><section id="paso-de-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Paso de argumentos</h2></section><section id="por-valor" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Por valor</h3></section><section id="por-referencia" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Por referencia</h3></section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Ámbito de variables</h2></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Variables globales</h3></section><section id="ámbito-simple-al-archivo" class="slide level4">
-<h4><span class="header-section-number">2.3.1.1</span> Ámbito simple al archivo</h4>
-</section><section id="efectos-laterales" class="slide level4">
-<h4><span class="header-section-number">2.3.1.2</span> Efectos laterales</h4>
-</section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Variables locales</h3></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">2.4.2</span> Declaraciones de tipo de devolución</h3></section><section id="tipos-nullable-y-void" class="title-slide slide level3"><h3><span class="header-section-number">2.4.3</span> Tipos <em>nullable</em> (<code>?</code>) y <code>void</code></h3></section><section id="tipificación-estricta" class="title-slide slide level3"><h3><span class="header-section-number">2.4.4</span> Tipificación estricta</h3></section></section>
-<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Partes de un módulo</h1></section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Interfaz</h2></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Implementación</h2></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Documentación interna</h2></section></section>
-<section><section id="inclusión-de-scripts" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Inclusión de <em>scripts</em></h1></section><section id="require-y-require_once" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>require</code> y <code>require_once</code></h2></section><section id="include-e-include_once" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>include</code> e <code>include_once</code></h2></section></section>
-<section id="espacios-de-nombres" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Espacios de nombres</h1></section>
-<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">6.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">6.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">6.4</span> Reusabilidad</h2></section></section>
-<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Diagramas de estructura</h1></section>
+<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Partes de un módulo</h1></section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Interfaz</h2></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Implementación</h2></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Documentación interna</h2></section></section>
+<section id="importación-de-módulos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Importación de módulos</h1></section>
+<section id="paquetes" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Paquetes</h1></section>
+<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">5.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">5.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Reusabilidad</h2></section></section>
+<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Diagramas de estructura</h1></section>
     </div>
   </div>
 

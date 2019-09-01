@@ -26,6 +26,14 @@
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
   <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
       #header-right {
           position: absolute;
           font-size: 25%;
@@ -34,49 +42,85 @@
           margin-right: 10px;
           margin-top: 10px;
       }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
   </style>
 </head>
 <body>
 <div id="hidden" style="display:none;">
     <div id="header">
+        <div id="header-left"></div>
         <div id="header-right"></div>
         <div id="footer-left"></div>
     </div>
 </div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        var el = document.createElement('a');
+        var href = '#/title-slide';
+        el.href = href;
+        el.innerHTML = title;
+        document.getElementById('header-left').appendChild(el);
+        document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -84,6 +128,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
@@ -103,20 +148,22 @@
 <ul>
 <li><a href="#/abstracciones-funcionales"><span class="toc-section-number">1</span> Abstracciones funcionales</a></li>
 <li><a href="#/composición-de-funciones"><span class="toc-section-number">2</span> Composición de funciones</a></li>
-<li><a href="#/computabilidad"><span class="toc-section-number">3</span> Computabilidad</a></li>
-<li><a href="#/tipos-de-datos-compuestos"><span class="toc-section-number">4</span> Tipos de datos compuestos</a></li>
+<li><a href="#/tipos-de-datos-compuestos"><span class="toc-section-number">3</span> Tipos de datos compuestos</a></li>
+<li><a href="#/computabilidad"><span class="toc-section-number">4</span> Computabilidad</a></li>
 <li><a href="#/funciones-de-orden-superior"><span class="toc-section-number">5</span> Funciones de orden superior</a></li>
-<li><a href="#/scripts"><span class="toc-section-number">6</span> <em>Scripts</em></a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="abstracciones-funcionales" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Abstracciones funcionales</h1></section><section id="definición-de-funciones-anónimas" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Definición de funciones anónimas</h2></section><section id="parámetros-y-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Parámetros y argumentos</h2></section><section id="paso-de-argumentos-por-valor" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Paso de argumentos por valor</h2></section><section id="ámbito-de-las-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de las variables</h2></section><section id="la-sentencia-return" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> La sentencia <code>return</code></h2></section></section>
+<section><section id="abstracciones-funcionales" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Abstracciones funcionales</h1></section><section id="expresiones-lambda" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Expresiones lambda</h2></section><section id="parámetros-y-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Parámetros y argumentos</h2></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.3.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.3.2</span> Orden normal</h3></section><section id="variables-libres-y-ligadas" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Variables libres y ligadas</h2></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Registros de activación</h2></section></section>
 <section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
-<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Computabilidad</h1></section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Funciones recursivas</h2></section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Un lenguaje Turing-completo</h2></section></section>
-<section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Tipos de datos compuestos</h1></section><section id="las-cadenas-como-datos-compuestos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Las cadenas como datos compuestos</h2></section><section id="los-arrays-como-listas-inmutables-de-elementos" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Los <em>arrays</em> como listas inmutables de elementos</h2></section></section>
-<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Funciones de orden superior</h1></section><section id="array_map" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> <code>array_map()</code></h2></section><section id="array_filter" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> <code>array_filter()</code></h2></section><section id="array_reduce" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> <code>array_reduce()</code></h2></section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Funciones locales a funciones</h2></section></section>
-<section id="scripts" class="title-slide slide level1"><h1><span class="header-section-number">6</span> <em>Scripts</em></h1></section>
+<section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2></section></section>
+<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Computabilidad</h1></section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Funciones recursivas</h2></section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">
+<h4><span class="header-section-number">4.1.1.1</span> Procesos lineales recursivos</h4>
+</section><section id="procesos-lineales-iterativos" class="slide level4">
+<h4><span class="header-section-number">4.1.1.2</span> Procesos lineales iterativos</h4>
+</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">4.1.2</span> Recursividad en árbol</h3></section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Un lenguaje Turing-completo</h2></section></section>
+<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Funciones de orden superior</h1></section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> <code>map()</code></h2></section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> <code>filter()</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> <code>reduce()</code></h2></section></section>
     </div>
   </div>
 

@@ -16,17 +16,15 @@ author: Ricardo Pérez López
 
 ## Apertura y cierre de archivos
 
+## Gestores de contexto
+
 ## Modos de acceso
 
 ## Lectura y escritura de información en archivos
 
 # Manipulación de archivos XML
 
-# Serialización de *arrays*
-
-## `serialize()`
-
-## `unserialize()`
+# Serialización de objetos
 
 # Sistemas de archivos
 

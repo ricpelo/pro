@@ -26,6 +26,14 @@
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
   <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
       #header-right {
           position: absolute;
           font-size: 25%;
@@ -34,49 +42,85 @@
           margin-right: 10px;
           margin-top: 10px;
       }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
   </style>
 </head>
 <body>
 <div id="hidden" style="display:none;">
     <div id="header">
+        <div id="header-left"></div>
         <div id="header-right"></div>
         <div id="footer-left"></div>
     </div>
 </div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        var el = document.createElement('a');
+        var href = '#/title-slide';
+        el.href = href;
+        el.innerHTML = title;
+        document.getElementById('header-left').appendChild(el);
+        document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
         function updateHeader(nd) {
-            for (var n = nd; n != null; n = n.previousSibling) {
-                var cl = n.classList;
-                if (cl.contains('level1')) {
-                    var h = n.querySelector('h1');
-                } else if (cl.contains('level2')) {
-                    var h = n.querySelector('h2');
-                } else {
-                    continue;
-                }
-                var hr = document.getElementById('header-right');
-                if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                    hr.innerHTML = '';
-                } else {
-                    var el = document.createElement('a');
-                    var href = '#/' + n.id;
-                    el.href = href;
-                    el.innerHTML = h.innerHTML;
-                    var a = el.querySelector('a');
-                    if (a !== null) {
-                        a.href = href;
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
                     }
-                    while (hr.children.length > 0) {
-                        hr.removeChild(hr.lastChild);
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
                     }
-                    hr.appendChild(el);
+                    if (hr.innerHTML != '') {
+                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                    }
+                    hr.insertBefore(el, hr.firstChild);
+                    break;
                 }
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                return;
             }
         }
+
         // On Reveal.js ready event, copy header/footer <div>
         // into each `.slide-background` <div>
         Reveal.addEventListener('ready', function(event) {
@@ -84,6 +128,7 @@
             document.querySelector('.reveal').appendChild(header);
             updateHeader(Reveal.getCurrentSlide());
         });
+
         Reveal.addEventListener('slidechanged', function(event) {
             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
             updateHeader(event.currentSlide);
@@ -102,19 +147,19 @@
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/modelo-de-ejecución"><span class="toc-section-number">1</span> Modelo de ejecución</a></li>
-<li><a href="#/cambios-de-estado-explícitos"><span class="toc-section-number">2</span> Cambios de estado explícitos</a></li>
-<li><a href="#/efectos-laterales"><span class="toc-section-number">3</span> Efectos laterales</a></li>
-<li><a href="#/saltos"><span class="toc-section-number">4</span> Saltos</a></li>
-<li><a href="#/los-arrays-como-estructura-de-datos-mutable-básica"><span class="toc-section-number">5</span> Los <em>arrays</em> como estructura de datos mutable básica</a></li>
+<li><a href="#/scripts"><span class="toc-section-number">2</span> <em>Scripts</em></a></li>
+<li><a href="#/cambios-de-estado-explícitos"><span class="toc-section-number">3</span> Cambios de estado explícitos</a></li>
+<li><a href="#/efectos-laterales"><span class="toc-section-number">4</span> Efectos laterales</a></li>
+<li><a href="#/saltos"><span class="toc-section-number">5</span> Saltos</a></li>
 </ul>
 </section>
 </section>
 
 <section><section id="modelo-de-ejecución" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Modelo de ejecución</h1></section><section id="máquina-de-estados" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Máquina de estados</h2></section><section id="secuencia-de-instrucciones" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Secuencia de instrucciones</h2></section></section>
-<section><section id="cambios-de-estado-explícitos" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Cambios de estado explícitos</h1></section><section id="celdas" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Celdas</h2></section><section id="asignación-destructiva-o-asignación-múltiple" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Asignación destructiva (o asignación múltiple)</h2></section><section id="asignación-por-referencia" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Asignación por referencia</h2></section></section>
-<section><section id="efectos-laterales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Efectos laterales</h1></section><section id="transparencia-referencial" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Transparencia referencial</h2></section><section id="entrada-y-salida-por-consola" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Entrada y salida por consola</h2></section><section id="la-sentencia-echo" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> La sentencia <code>echo</code></h3></section><section id="las-funciones-var_dump-y-print_r" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Las funciones <code>var_dump()</code> y <code>print_r()</code></h3></section><section id="las-funciones-fgets-y-fscanf" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> Las funciones <code>fgets()</code> y <code>fscanf()</code></h3></section></section>
-<section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Saltos</h1></section><section id="incondicionales-la-sentencia-goto" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Incondicionales: la sentencia <code>goto</code></h2></section><section id="condicionales-la-sentencia-if-...-goto" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales: la sentencia <code>if (...) goto</code></h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
-<section><section id="los-arrays-como-estructura-de-datos-mutable-básica" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Los <em>arrays</em> como estructura de datos mutable básica</h1></section><section id="creación-acceso-y-modificación" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Creación, acceso y modificación</h2></section><section id="recorrido-y-búsqueda-en-un-array" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Recorrido y búsqueda en un <em>array</em></h2></section><section id="arrays-multidimensionales" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> <em>Arrays</em> multidimensionales</h2></section><section id="funciones-de-manejo-de-arrays" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Funciones de manejo de <em>arrays</em></h2></section><section id="ejemplo-argv-en-cli" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> <em>Ejemplo</em>: <code>$argv</code> en CLI</h2></section></section>
+<section id="scripts" class="title-slide slide level1"><h1><span class="header-section-number">2</span> <em>Scripts</em></h1></section>
+<section><section id="cambios-de-estado-explícitos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Cambios de estado explícitos</h1></section><section id="celdas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Celdas</h2></section><section id="asignación-destructiva" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Asignación destructiva</h2></section></section>
+<section><section id="efectos-laterales" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Efectos laterales</h1></section><section id="transparencia-referencial" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Transparencia referencial</h2></section><section id="entrada-y-salida-por-consola" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Entrada y salida por consola</h2></section><section id="la-función-print" class="title-slide slide level3"><h3><span class="header-section-number">4.2.1</span> La función <code>print()</code></h3></section><section id="la-función-input" class="title-slide slide level3"><h3><span class="header-section-number">4.2.2</span> La función <code>input()</code></h3></section></section>
+<section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Incondicionales</h2></section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Condicionales</h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
     </div>
   </div>
 

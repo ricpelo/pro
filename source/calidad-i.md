@@ -6,11 +6,7 @@ author: Ricardo Pérez López
 
 # Depuración
 
-## `var_dump()`
-
-## Depuración con PsySH
-
-## Xdebug
+## `print()`
 
 ## Depuración en el IDE
 
@@ -30,9 +26,9 @@ author: Ricardo Pérez López
 
 ### De aceptación
 
-## PHPUnit
+## `doctest`
 
-## Cobertura de código
+## `pytest`
 
 ## Desarrollo conducido por pruebas
 
@@ -46,9 +42,11 @@ author: Ricardo Pérez López
 
 ### Comentarios
 
+### *Docstrings*
+
 ### Reglas de estilo
 
 ## Externa
 
-### Javadoc
+### `pydoc`
 

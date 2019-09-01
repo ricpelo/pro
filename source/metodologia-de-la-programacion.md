@@ -22,8 +22,6 @@ author: Ricardo Pérez López
 
 ### Diseño recursivo
 
-#### Procesos recursivos e iterativos
-
 #### Recursividad final
 
 #### Técnicas de inmersión
@@ -41,4 +39,6 @@ author: Ricardo Pérez López
 #### Invariante de un bucle
 
 #### Transformación de recursividad final a iterativo
+
+# El lenguaje Dafny
 

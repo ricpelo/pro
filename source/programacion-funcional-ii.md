@@ -6,39 +6,49 @@ author: Ricardo Pérez López
 
 # Abstracciones funcionales
 
-## Definición de funciones anónimas
+## Expresiones lambda
 
 ## Parámetros y argumentos
 
-## Paso de argumentos por valor
+## Orden de evaluación
 
-## Ámbito de las variables
+### Orden aplicativo
 
-## La sentencia `return`
+### Orden normal
+
+## Variables libres y ligadas
+
+## Funciones y procesos
+
+## Registros de activación
 
 # Composición de funciones
+
+# Tipos de datos compuestos
+
+## Cadenas
+
+## Listas
 
 # Computabilidad
 
 ## Funciones recursivas
 
+### Recursividad lineal
+
+#### Procesos lineales recursivos
+
+#### Procesos lineales iterativos
+
+### Recursividad en árbol
+
 ## Un lenguaje Turing-completo
-
-# Tipos de datos compuestos
-
-## Las cadenas como datos compuestos
-
-## Los *arrays* como listas inmutables de elementos
 
 # Funciones de orden superior
 
-## `array_map()`
+## `map()`
 
-## `array_filter()`
+## `filter()`
 
-## `array_reduce()`
-
-## Funciones locales a funciones
-
-# *Scripts*
+## `reduce()`
 

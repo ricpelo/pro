@@ -74,6 +74,8 @@ author: Ricardo Pérez López
 
 #### `StringBuilder`
 
+#### `StringTokenizer`
+
 ### Conversión a `String`
 
 ## *Arrays*

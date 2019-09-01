@@ -10,6 +10,8 @@ author: Ricardo Pérez López
 
 ### Operadores lógicos
 
+### Operadores de comparación
+
 ## Numéricos
 
 ### Enteros (`int`)
@@ -20,55 +22,47 @@ author: Ricardo Pérez López
 
 #### Operadores aritméticos
 
-#### Operadores de incremento/decremento
-
 #### Operadores de asignación compuesta
 
-## Nulo (`null`)
+### Funciones
+
+### Métodos
+
+## Nulo (`None`)
 
 # Tipos compuestos
 
-## *Arrays* asociativos
+## Secuencias
 
-### Operadores para arrays
+### Operaciones comunes
 
-#### Acceso, modificación y agregación
+### Cadenas (`str`)
 
-### Funciones de manejo de arrays
+#### Operadores
 
-#### Ordenación de arrays
+##### Concatenación
 
-#### `print_r()`
+##### Repetición
 
-#### `'+'` vs. `array_merge()`
+##### Indexación
 
-#### `isset()` vs. `array_key_exists()`
+##### *Slicing*
 
-### `foreach`
+#### Funciones
 
-### Conversión a `array`
+#### Métodos
 
-## Cadenas (`string`)
+#### Expresiones regulares
 
-### Operadores de cadenas
+### Listas
 
-#### Concatenación
+### Tuplas
 
-#### Acceso y modificación por caracteres
+### Rangos
 
-#### Operador de incremento
+## Conjuntos (`set` y `frozenset`)
 
-### Funciones de manejo de cadenas
-
-### Expresiones regulares
-
-### Extensión *mbstring*
-
-## `callable`
-
-### `call_user_func()`
-
-## `iterable`
+## Diccionarios (`dict`)
 
 # Manipulación de tipos
 
@@ -76,19 +70,17 @@ author: Ricardo Pérez López
 
 ### De tipos
 
-#### `gettype()`
-
-#### `is_*()`
+#### `type()`
 
 ### De valores
 
-#### `is_numeric()`
+#### `str.isnumeric()`
 
-#### `ctype_*()`
+#### `str.isdigit()`
 
 ## Conversiones
 
-### Conversión explícita (forzado o *casting*) vs. automática
+### Conversión explícita vs. implícita
 
 ### Conversión a `bool`
 
@@ -96,19 +88,11 @@ author: Ricardo Pérez López
 
 ### Conversión a `float`
 
-### Conversión de `string` a número
-
-### Conversión a `string`
+### Conversión a `str`
 
 ## Comparaciones
 
 ### Operadores de comparación
 
-### `==` vs. `===`
-
-### Ternario (`?:`)
-
-### Fusión de `null` (`??`)
-
-### Reglas de comparación de tipos
+### Ternario
 
