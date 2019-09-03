@@ -267,9 +267,53 @@ endwhile (no)
 
 ## El tipo de dato *booleano*
 
+- Un dato **lógico** o *booleano* es aquel que puede tomar uno de dos posibles
+  valores, que se denotan normalmente como **verdadero** y **falso**.
+
+- Esos dos valores tratan de representar los dos valores de verdad de la
+  **lógica** y el **álgebra _booleana_**.
+
+- Su nombre proviene de **George Boole**, matemático que definió por primera
+  vez un sistema algebraico para la lógica a mediados del S. XIX.
+
+- En Python, el tipo de dato lógico se representa como `bool` y sus posibles
+  valores son `False` y `True` (con la inicial en mayúscula).
+
+- Esos dos valores son *formas especiales* para los enteros 0 y 1,
+  respectivamente.
+
 ## Operadores relacionales
 
+- Los **operadores relacionales** son operadores que toman dos operandos (que
+  usualmente deben ser del mismo tipo) y devuelven un valor *booleano*.
+
+- Los más conocidos son los **operadores de comparación**, que sirven para
+  comprobar si un dato es menor, mayor o igual que otro, según un orden
+  preestablecido.
+
+- Los operadores de comparación que existen en Python son:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `<   >   <=   >=   ==   !=`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## Operadores lógicos
+
+- Los **operadores lógicos** son operadores que toman uno o dos operandos
+  *booleanos* y devuelven un valor *booleano*.
+
+- Representan las operaciones básicas del álgebra de Boole llamadas **suma**,
+  **producto** y **complemento**.
+
+- En **lógica proposicional** (un tipo de lógica matemática que tiene
+  estructura de álgebra de Boole), se llaman:
+  
+  - **Disyunción** ($\lor$),
+  - **Conjunción** ($\land$) y
+  - **Negación** ($\neg$).
+
+- En Python se representan como `or`, `and` y `not`, respectivamente
 
 ## Axiomas
 
