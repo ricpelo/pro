@@ -104,13 +104,13 @@ nocite: |
 
 - Podemos decir que las expresiones:
 
-  - $3$
+  $3$
 
-  - $1+2$
+  $1+2$
 
-  - $5-3$
+  $5-3$
 
-  denotan el mismo valor (el número abstracto **$3$**).
+  denotan todas el mismo valor (el número abstracto **$3$**).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -229,9 +229,160 @@ endwhile (no)
 
 ## Literales
 
+- Un **literal** es un valor escrito directamente en el código del programa (en
+  una expresión).
+
+- El literal representa un valor constante.
+
+- Ejemplos:
+
+  `-3`, `-2`, `-1`, `0`, `1`, `2`, `3` (literales que representan números
+  enteros)
+
+  `3.5`, `-2.7` (literales que representan números reales)
+
+  `"hola"`, `"pepe"`, `"25"`, `""` (literales de tipo cadena)
+
+- Los literales tienen que satisfacer las reglas de sintaxis del lenguaje.
+
+- Gracias a esas reglas sintácticas, el intérprete puede identificar qué
+  literales son, qué valor representan y de qué tipo son.
+
+- Se deduce, pues, que **un literal debe ser la _expresión canónica_ del valor
+  correspondiente**.
+
 ## Operaciones, operadores y operandos
 
-### Precedencia y asociatividad de operadores
+- En una expresión puede haber:
+
+  - **Datos**
+
+  - **Operaciones** a realizar sobre esos datos
+
+- A su vez, las operaciones se pueden representar en forma de:
+
+  - Operadores
+
+  - Funciones
+
+  - Métodos
+
+- Empezaremos hablando de los operadores.
+
+---
+
+- Un **operador** es un símbolo o palabra clave que representa la realización
+  de una *operación* sobre unos datos llamados **operandos**.
+
+- Ejemplos:
+
+  - Los operadores aritméticos: `+`, `-`, `*`, `/` (entre otros):
+
+    ```python
+    3 + 4
+    ```
+
+    (aquí los operandos son los números `3` y `4`)
+
+    ```python
+    9 * 8
+    ```
+
+    (aquí los operandos son los números `9` y `8`)
+
+  - El operador `in` para comprobar si un carácter pertenece a una cadena:
+
+    ```python
+    "c" in "barco"
+    ```
+
+    (aquí los operandos son las cadenas `"c"` y `"barco"`)
+
+### Aridad de operadores
+
+- Los operadores se clasifican en función de la cantidad de operandos sobre los
+  que operan en:
+
+  - **Unarios**: operan sobre un único operando.
+
+    Ejemplo: el operador `-` que cambia el signo de su operando:
+    ```python
+    -5
+    ```
+
+  - **Binarios**: operan sobre dos operandos.
+
+    Ejemplo: la mayoría de operadores aritméticos.
+
+  - **Ternarios**: operan sobre tres operandos.
+
+    Veremos un ejemplo más adelante.
+
+### Paréntesis
+
+- Los **paréntesis** sirven para agrupar elementos dentro de una expresión.
+
+- Se usan, sobre todo, para hacer que varios elementos actúen como uno solo en
+  el contexto de una operación.
+
+  - Por ejemplo:
+
+    `(3 + 4) * 5` vale `35`
+
+    `3 + (4 * 5)` vale `23`
+
+### Asociatividad de operadores
+
+- En ausencia de paréntesis, cuando un operando está afectado a derecha e
+  izquierda por el **mismo operador**, se aplican las reglas de la
+  **asociatividad**:
+
+  ```python
+  8 / 4 / 2
+  ```
+
+  El `4` está afectado a derecha e izquierda por el mismo operador `/`, por lo
+  que se aplican las reglas de la asociatividad. El `/` es *asociativo por la
+  izquierda*, así que se actúa primero el operador que está a la izquierda.
+  Equivale a hacer:
+
+  ```python
+  (8 / 4) / 2
+  ```
+
+  Si hiciéramos
+  
+  ```python
+  8 / (4 / 2)
+  ```
+  
+  el resultado sería distinto.
+
+### Precedencia de operadores
+
+- En ausencia de paréntesis, cuando un operando está afectado a derecha e
+  izquierda por **distinto operador**, se aplican las reglas de la
+  **prioridad**:
+
+  ```python
+  8 + 4 * 2
+  ```
+
+  El `4` está afectado a derecha e izquierda por distintos operadores (`+` y
+  `*`), por lo que se aplican las reglas de la prioridad. El `*` tiene *más
+  prioridad* que el `+`, así que actúa primero el `*`. Equivale a hacer:
+
+  ```python
+  8 + (4 * 2)
+  ```
+
+  Si hiciéramos
+  
+  ```python
+  (8 + 4) * 2
+  ```
+  
+  el resultado sería distinto.
 
 ## Tipos de datos
 
@@ -317,7 +468,127 @@ endwhile (no)
 
 ## Axiomas
 
-## Propiedades
+1. Ley asociativa:
+   $\begin{cases}
+    \forall a,b,c \in \mathfrak{B}: (a \lor b) \lor c = a \lor (b \lor c) \\
+    \forall a,b,c \in \mathfrak{B}: (a \land b) \land c = a \land (b \land c)
+    \end{cases}$
+
+2. Ley conmutativa:
+   $\begin{cases}
+    \forall a,b \in \mathfrak{B}: a \lor b = b \lor a \\
+    \forall a,b \in \mathfrak{B}: a \land b = b \land a
+    \end{cases}$
+
+3. Ley distributiva:
+   $\begin{cases}
+    \forall a,b,c \in \mathfrak{B}: a \lor (b \land c) = (a \lor b) \land (a \lor c) \\
+    \forall a,b,c \in \mathfrak{B}: a \land (b \lor c) = (a \land b) \lor (a \land c)
+    \end{cases}$
+
+4. Elemento neutro:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}: a \lor F = a \\
+    \forall a \in \mathfrak{B}: a \land V = a
+    \end{cases}$
+
+5. Elemento complementario:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}; \exists \lnot a \in \mathfrak{B}: a \lor \lnot a = V \\
+    \forall a \in \mathfrak{B}; \exists \lnot a \in \mathfrak{B}: a \land \lnot a = F
+    \end{cases}$
+
+Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
+
+### Traducción a Python
+
+1. Ley asociativa:
+   ```python
+   (a or b) or c == a or (b or c)
+   (a and b) and c == a and (b and c)
+   ```
+
+2. Ley conmutativa:
+   ```python
+   a or b == b or a
+   a and b == b and a
+   ```
+
+3. Ley distributiva:
+   ```python
+   a or (b and c) == (a or b) and (a or c)
+   a and (b or c) == (a and b) or (a and c)
+   ```
+
+4. Elemento neutro:
+   ```python
+   a or False == a
+   a and True == a
+   ```
+
+5. Elemento complementario:
+   ```python
+   a or (not a) == True
+   a and (not a) == False
+   ```
+
+## Teoremas fundamentales
+
+6. Ley de idempotencia:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}: a \lor a = a \\
+    \forall a \in \mathfrak{B}: a \land a = a
+    \end{cases}$
+7. Ley de absorción:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}: a \lor V = V \\
+    \forall a \in \mathfrak{B}: a \land F = F
+    \end{cases}$
+8. Ley de identidad:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}: a \lor F = a \\
+    \forall a \in \mathfrak{B}: a \land V = a
+    \end{cases}$
+9. Ley de involución:
+   $\begin{cases}
+    \forall a \in \mathfrak{B}: \lnot \lnot a = a \\
+    \lnot V = F \\
+    \lnot F = V
+    \end{cases}$
+10. Leyes de De Morgan:
+    $\begin{cases}
+     \forall a,b \in \mathfrak{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
+     \forall a,b \in \mathfrak{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
+     \end{cases}$
+
+### Traducción a Python
+
+6. Ley de idempotencia:
+   ```python
+   a or a == a
+   a and a == a
+   ```
+7. Ley de absorción:
+   ```python
+   a or True == True
+   a and False == False
+   ```
+8. Ley de identidad:
+   ```python
+   a or False == a
+   a and True == a
+   ```
+9. Ley de involución:
+   ```python
+   not (not a) == a
+   not True == False
+   not False == True
+   ```
+10. Leyes de De Morgan:
+    ```python
+    not (a or b) == (not a) and (not b)
+    not (a and b) == (not a) or (not b)
+   ```
 
 ## El operador ternario
 
