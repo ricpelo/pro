@@ -1131,13 +1131,13 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-\<expresión\> ::= \<átomo\> | \<lista\>
-\<átomo\> ::= \<número\> | \<símbolo\>
-\<lista\> ::= **(** \<expresión\>\* **)**
-\<número\> ::= \[**+** | **-**\] \<dígito\>+
-\<símbolo\> ::= \<letra\> (\<letra\> | \<dígito\>)+
-\<dígito\> ::= **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **8** | **9**
-\<letra\> ::= **a** | **b** | ... | **z**
+!NT(expresión) ::= !NT(átomo) | !NT(lista)
+!NT(átomo) ::= !NT(número) | !NT(símbolo)
+!NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
+!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)+
+!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))+
+!NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
+!NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cada regla sintáctica (llamada **producción**) está formada por dos partes
@@ -1149,15 +1149,15 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 ::: column
 
-- Los nombres entre ángulos (como !COLOR(teal)(<expresión>)) se llaman
-  **símbolos no terminales**.
-- Los caracteres en negrita (como !COLOR(teal)(**b**)) se llaman **símbolos
+- Los nombres entre ángulos (como !NT(expresión)) se llaman **símbolos no
+  terminales**.
+- Los caracteres en negrita y azul (como !T(b)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
 - El !COLOR(teal)(*) representa 0, 1 ó más **repeticiones** de lo que
   acompaña.
 - El !COLOR(teal)(+) representa 1 ó más **repeticiones** de lo que acompaña.
-- Los corchetes !COLOR(teal)([) y !COLOR(teal)(]) indican **optatividad**.
+- Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
 - Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
 
 :::

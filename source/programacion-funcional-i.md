@@ -592,6 +592,36 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 ## El operador ternario
 
+- Las expresiones lógicas (o *booleanas*) se pueden usar para comprobar si se
+  cumple una determinada **condición**.
+
+- Las condiciones en un lenguaje de programación se representan mediante
+  expresiones lógicas cuyo valor (*verdadero* o *falso*) indica si la condición
+  se cumple o no se cumple.
+
+- Con el **operador ternario** podemos hacer que el resultado de una expresión
+  varíe entre dos posibles opciones dependiendo de si se cumple o no una
+  condición.
+
+- El operador ternario se llama así porque es el único operador en Python que
+  actúa sobre tres operandos.
+
+---
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expresión_condicional) ::= !NT(valor_si_verdadero) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- donde:
+
+  - !NT(condición) debe ser una expresión lógica
+
+  - !NT(valor_si_verdadero) y !NT(valor_si_falso) pueden ser expresiones de
+    cualquier tipo
+
 # Variables y constantes
 
 ## Definiciones
