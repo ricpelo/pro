@@ -110,7 +110,7 @@ nocite: |
 
   $5-3$
 
-  denotan todas el mismo valor (el número abstracto **$3$**).
+  denotan todas el mismo valor (el número abstracto **3**).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -175,13 +175,13 @@ nocite: |
 
     - $5-3$
     
-    que denotan todas el mismo valor abstracto **$3$**, seleccionamos una (la
+    que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
     expresión $3$) como la **expresión canónica** de ese valor.
 
   - Igualmente, la expresión $3$ es la **forma normal** de todas las
-    expresiones anteriores (y de cualquier otra expresión con valor **$3$**).
+    expresiones anteriores (y de cualquier otra expresión con valor **3**).
 
-  - Es importante no confundir el valor abstracto **$3$** con la expresión $3$
+  - Es importante no confundir el valor abstracto **3** con la expresión $3$
     que representa dicho valor.
 
 ---
@@ -388,15 +388,180 @@ endwhile (no)
 
 ### Concepto
 
-#### Tipo de un valor
+- Los datos que comparten características y propiedades se agrupan en
+  **conjuntos**.
 
-#### Tipo de una expresión
+- Asimismo, sobre cada conjunto de valores se definen una serie de
+  **operaciones**, que son aquellas que tiene sentido realizar con esos
+  valores.
+
+- Un **tipo de datos** define un conjunto de **valores** y el conjunto de
+  **operaciones** válidas que se pueden realizar sobre dichos valores.
+
+- Definición:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Tipo de un dato:**
+
+  Es una característica del dato que indica el conjunto de *valores* al que
+  pertenece y las *operaciones* que se pueden realizar sobre él.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El **tipo de una expresión** es el tipo del valor resultante de evaluar dicha
+  expresión.
+
+---
+
+- Ejemplos:
+
+  - El tipo `int` en Python define el conjunto de los **números enteros**,
+    sobre los que se pueden realizar las operaciones aritméticas (suma,
+    producto, etc.) entre otras.
+
+  - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
+    pueden realizar otras operaciones (la *concatenación*, la *indexación*,
+    etc.).
+
+#### Sistema de tipos
+
+- El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un
+  tipo a cada elemento del programa.
+
+- Exceptuando a los lenguajes **no tipados** (Ensamblador, código máquina,
+  Forth...) todos los lenguajes tienen su propio sistema de tipos, con sus
+  características.
+
+- El sistema de tipos de un lenguaje depende también del paradigma de
+  programación que soporte el lenguaje. Por ejemplo, en los lenguajes
+  **orientados a objetos**, el sistema de tipos se construye a partir de los
+  conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
+
+#### Tipado fuerte vs. débil
+
+- Un lenguaje de programación es **fuertemente tipado** (o de **tipado
+  fuerte**) si no se permiten violaciones de los tipos de datos.
+  
+- Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro
+  tipo distinto a menos que se haga una *conversión explícita*.
+
+- Un lenguaje es **débilmente tipado** (o de **tipado débil**) si no es de
+  tipado fuerte.
+
+- En los lenguajes de tipado débil se pueden hacer operaciones entre datos cuyo
+  tipos no son los que espera la operación, gracias al mecanismo de *conversión
+  implícita*.
+
+---
+
+- Ejemplo:
+
+  - Python es un lenguaje **fuertemente tipado**, por lo que no podemos hacer
+    lo siguiente (da un error de tipos):
+
+    ```python
+    2 + "3"
+    ```
+
+  - En cambio, PHP es un lenguaje **débilmente tipado** y la expresión anterior
+    en PHP es perfectamente válida (y vale **5**).
+
+    El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
+    cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
+
+#### Errores de tipos
+
+- Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
+  esa operación, se produce un **error de tipos**.
+  
+- Ese error puede ocurrir cuando:
+
+  - Los operandos de un operador no pertenecen al tipo que el operador necesita
+    (ese operador no está definido sobre datos de ese tipo).
+
+  - Los argumentos de una función o método no son del tipo esperado.
+
+- Por ejemplo:
+
+  ```python
+  4 + "hola"
+  ```
+
+  es incorrecto porque el operador `+` no está definido sobre un entero y una
+  cadena (no se pueden sumar un número y una cadena).
+
+---
+
+- En caso de que exista un error de tipos, lo que ocurre dependerá de si
+  estamos usando un lenguaje interpretado o compilado:
+
+  - Si el lenguaje es **interpretado** (Python):
+  
+    El error se localizará **durante la ejecución** del programa y el
+    intérprete mostrará un mensaje de error advirtiendo del mismo en el momento
+    justo en que la ejecución alcance la línea de código errónea, para acto
+    seguido finalizar la ejecución del programa.
+
+  - Si el lenguaje es **compilado** (Java):
+
+    Es muy probable que el comprobador de tipos del compilador detecte el error
+    de tipos **durante la compilación** del programa, es decir, antes incluso
+    de ejecutarlo. En tal caso, se abortará la compilación para impedir la
+    generación de código objeto erróneo.
 
 ### Tipos de datos básicos
 
 #### Números
 
-##### Operadores aritméticos
+- Hay dos tipos numéricos básicos en Python: los enteros y los reales.
+
+  - Los **enteros** se representan con el tipo `int`.
+
+    Sólo contienen parte entera, y sus literales se escriben con dígitos sin
+    punto decimal (ej: `13`).
+
+  - Los **reales** se representan con el tipo `float`.
+
+    Contienen parte entera y parte fraccionaria, y sus literales se escriben
+    con dígitos y con punto decimal separando ambas partes (ej: `4.87`). Los
+    números en notación exponencial (`2e3`) también son reales.
+
+#### Operadores aritméticos
+
+--------------------------------------------------------------------------------
+  Operador   Descripción       Ejemplo    Resultado  Comentarios
+------------ --------------- ----------- ----------- ------------------------------
+   `+`       Suma            `3 + 4`     `7`
+
+   `-`       Resta           `3 - 4`     `-1`
+
+   `*`       Producto        `3 * 4`     `12`
+
+   `/`       División        `3 / 4`     `0.75`      Devuelve siempre un `float`
+
+
+   `%`       Módulo          `4 % 3` \   `1` \       Resto de la división
+                             `8 % 3`     `2`
+
+   `**`      Exponente       `3 ** 4`    `81`        Devuelve $3^4$
+
+   `//`      División entera `4 // 3` \   `1` \
+                             `-4 // 3`    `-2`
+--------------------------------------------------------------------------------
+
+---
+
+| Operador | Descripción | Ejemplo  | Resultado | Comentarios |
+|:--------:|-------------|:--------:|:---------:|-------------|
+| `+`      | Suma        | `3 + 4`  | `7`       |             |
+| `-`      | Resta       | `3 - 4`  | `-1`      |             |
+| `*`      | Producto    | `3 * 4`  | `12`      |             |
+| `/`      | División    | `3 / 4`  | `0.75`    | Devuelve siempre un `float` |
+| `%`      | Módulo      | `4 % 3`  | `1`       | Resto de dividir `4` entre `3` |
+| `**`     | Exponente   | `3 ** 4` | `81`      | Devuelve $3^4$ |
+| `//`     | División entera | `4 // 3`  | `1`  |             |
+|          |                 | `-4 // 3` | `-2`  |             |
+
 
 #### Cadenas
 
@@ -502,6 +667,10 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 ### Traducción a Python
 
+:::: columns
+
+::: {.column width=60%}
+
 1. Ley asociativa:
    ```python
    (a or b) or c == a or (b or c)
@@ -520,6 +689,10 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
    a and (b or c) == (a and b) or (a and c)
    ```
 
+:::
+
+::: {.column width=40%}
+
 4. Elemento neutro:
    ```python
    a or False == a
@@ -532,6 +705,10 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
    a and (not a) == False
    ```
 
+:::
+
+::::
+
 ## Teoremas fundamentales
 
 6. Ley de idempotencia:
@@ -539,22 +716,26 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
     \forall a \in \mathfrak{B}: a \lor a = a \\
     \forall a \in \mathfrak{B}: a \land a = a
     \end{cases}$
+
 7. Ley de absorción:
    $\begin{cases}
     \forall a \in \mathfrak{B}: a \lor V = V \\
     \forall a \in \mathfrak{B}: a \land F = F
     \end{cases}$
+
 8. Ley de identidad:
    $\begin{cases}
     \forall a \in \mathfrak{B}: a \lor F = a \\
     \forall a \in \mathfrak{B}: a \land V = a
     \end{cases}$
+
 9. Ley de involución:
    $\begin{cases}
     \forall a \in \mathfrak{B}: \lnot \lnot a = a \\
     \lnot V = F \\
     \lnot F = V
     \end{cases}$
+
 10. Leyes de De Morgan:
     $\begin{cases}
      \forall a,b \in \mathfrak{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
@@ -562,6 +743,10 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
      \end{cases}$
 
 ### Traducción a Python
+
+:::: columns
+
+::: column
 
 6. Ley de idempotencia:
    ```python
@@ -578,6 +763,11 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
    a or False == a
    a and True == a
    ```
+
+:::
+
+::: column
+
 9. Ley de involución:
    ```python
    not (not a) == a
@@ -588,7 +778,11 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
     ```python
     not (a or b) == (not a) and (not b)
     not (a and b) == (not a) or (not b)
-   ```
+    ```
+
+:::
+
+::::
 
 ## El operador ternario
 
@@ -621,6 +815,18 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   - !NT(valor_si_verdadero) y !NT(valor_si_falso) pueden ser expresiones de
     cualquier tipo
+
+- El valor de la expresión completa será !NT(valor_si_verdadero) si la
+  !NT(condición) es cierta; en caso contrario, su valor será
+  !NT(valor_si_falso).
+
+- Ejemplo:
+
+  ```python
+  25 if 3 > 2 else 17
+  ```
+
+  evalúa a **25**.
 
 # Variables y constantes
 
