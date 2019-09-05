@@ -28,6 +28,14 @@ MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
 !comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Macros para hacer producciones en notación EBNF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(NT)(!COLOR(teal)(!ifdef(HTML)(*\<!1\>*)(\textit{<!PYNT(!1)>})))
+!define(T)(**`!1`**)
+
+!comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 El color puede ser:
 red, blue, teal, orange, brown, purple, magenta, cyan, yellow
@@ -89,10 +97,10 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \Begin{caja}
-\raggedright
-\small
-!PYALGO(!1)
-\End{caja}
+  \raggedright
+  \small
+  !PYALGO(!1)
+  \End{caja}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(CENTRAR)
@@ -273,13 +281,15 @@ print(x.replace('"', '\\"'))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(PYNT)(!python3(print("!1".replace('_', '\\_'))))
+
 !define(PYALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !python3
 ~~~~~~~~~~~~~~~
 x = r"""!1"""
 # x = x.replace('\\', '\\\\')
-print('| ' + x.replace("\n", "\n| "))
+print('    | ' + x.replace("\n", "\n| "))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
