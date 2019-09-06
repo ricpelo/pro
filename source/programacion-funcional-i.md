@@ -526,6 +526,113 @@ endwhile (no)
     con dígitos y con punto decimal separando ambas partes (ej: `4.87`). Los
     números en notación exponencial (`2e3`) también son reales.
 
+- Las **operaciones** que se pueden realizar con los números son los que cabría
+  esperar (aritméticas, trigonométricas, matemáticas en general).
+
+- Los enteros y los reales generalmente se pueden combinar en una misma
+  expresión aritmética y suele resultar en un valor real, ya que se considera
+  que los reales *contienen* a los enteros.
+
+  - Ejemplo: `4 + 3.5` devuelve `7.5`.
+
+<!--
+
+| Operador | Descripción     | Ejemplo   | Resultado | Comentarios                    |
+|:--------:|-----------------|:---------:|:---------:|--------------------------------|
+| `+`      | Suma            | `3 + 4`   | `7`       |                                |
+| `-`      | Resta           | `3 - 4`   | `-1`      |                                |
+| `*`      | Producto        | `3 * 4`   | `12`      |                                |
+| `/`      | División        | `3 / 4`   | `0.75`    | Devuelve siempre un `float`    |
+| `%`      | Módulo          | `4 % 3`   | `1`       | Resto de dividir `4` entre `3` |
+| `**`     | Exponente       | `3 ** 4`  | `81`      | Devuelve $3^4$                 |
+| `//`     | División entera | `4 // 3`  | `1`       |                                |
+|          |                 | `-4 // 3` | `-2`      | ??                             |
+
++----------+-----------------+-------------+-----------+-----------------------------+
+| Operador | Descripción     | Ejemplo     | Resultado | Comentarios                 |
++:========:+=================+:===========:+:=========:+=============================+
+| `+`      | Suma            | `3 + 4`     | `7`       |                             |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `-`      | Resta           | `3 - 4`     | `-1`      |                             |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `*`      | Producto        | `3 * 4`     | `12`      |                             |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `/`      | División        | `3 / 4`     | `0.75`    | Devuelve un `float`         |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `%`      | Módulo          | `4 % 3`     | `1`       | Resto de la división        |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `**`     | Exponente       | `3 ** 4`    | `81`      | Devuelve $3^4$              |
++----------+-----------------+-------------+-----------+-----------------------------+
+| `//`     | División entera | `4 // 3` \  | `1` \     | \hfill{} \                  |
+|          |                 | `-4 // 3`   | `-2`      | ??                          |
++----------+-----------------+-------------+-----------+-----------------------------+
+
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+
+
+-->
+
+#### Cadenas
+
+- Las **cadenas** son secuencias de cero o más caracteres codificados en
+  Unicode.
+
+- En Python se representan con el tipo `str`.
+
+  - No existe el tipo *carácter* en Python. Un carácter en Python es
+    simplemente una cadena que contiene un solo carácter.
+
+- Un literal de tipo cadena se escribe encerrando sus caracteres entre comillas
+  simples (`'`) o dobles (`"`).
+
+  - No hay ninguna diferencia entre usar unas comillas u otras, pero si una
+    cadena comienza con comillas simples, debe acabar también con comillas
+    simples (y viceversa).
+
+- Ejemplos:
+
+  `"hola"`
+
+  `'Manolo'`
+
+  `"27"`
+
+---
+
+- También se pueden escribir literales de tipo cadena encerrándolos entre
+  triples comillas (`'''` o `"""`).
+
+  - Estos literales se usan para escribir cadenas formadas por varias líneas.
+    La sintaxis de las triples comillas respetan los saltos de línea.
+
+  - Ejemplo:
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ```
+    """Bienvenido
+    a
+    Python"""
+    ```
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- No es lo mismo `27` que `"27"`.
+
+  - `27` es un número entero (un literal de tipo `int`).
+
+  - `"27"` es una cadena (un literal de tipo `str`).
+
+## Operaciones predefinidas
+
+### Operadores predefinidos
+
 #### Operadores aritméticos
 
 ----------------------------------------------------------------------------
@@ -549,67 +656,82 @@ endwhile (no)
                              `-4 // 3`    `-2`       ??
 ----------------------------------------------------------------------------
 
+#### Operadores de cadenas
+
+------------------------------------------------------------------------
+  Operador   Descripción     Ejemplo          Resultado   Comentarios
+------------ --------------- ---------------- ----------- --------------
+   `+`       Concatenación   `'ab' + 'cd'`    `'abcd'`    \hfill{} \
+                             `'ab' 'cd'`                  Yuxtapuestas
+
+   `*`       Repetición      `'ab' * 3`       `'ababab'`
+                             `3 * 'ab'`       `'ababab'`
+
+   `[0]`     Primer carácter `'hola'[0]`      `'h'`
+
+   `[1:]`    Resto de cadena `'hola'[1:]`     `'ola'`
+------------------------------------------------------------------------
+
 <!--
 
----
+---------------------------------------------------------------------------------------
+  Operador         Descripción     Ejemplo          Resultado   Comentarios
+------------       --------------- ---------------- ----------- -----------------------
+   `+`             Concatenación   `'ab' + 'cd'`    `'abcd'`    \hfill{} \
+                                   `'ab' 'cd'`                  Dos cadenas juntas
 
-| Operador | Descripción     | Ejemplo   | Resultado | Comentarios                    |
-|:--------:|-----------------|:---------:|:---------:|--------------------------------|
-| `+`      | Suma            | `3 + 4`   | `7`       |                                |
-| `-`      | Resta           | `3 - 4`   | `-1`      |                                |
-| `*`      | Producto        | `3 * 4`   | `12`      |                                |
-| `/`      | División        | `3 / 4`   | `0.75`    | Devuelve siempre un `float`    |
-| `%`      | Módulo          | `4 % 3`   | `1`       | Resto de dividir `4` entre `3` |
-| `**`     | Exponente       | `3 ** 4`  | `81`      | Devuelve $3^4$                 |
-| `//`     | División entera | `4 // 3`  | `1`       |                                |
-|          |                 | `-4 // 3` | `-2`      | ??                             |
+   `*`             Repetición      `'ab' * 3`       `'ababab'`
+                                   `3 * 'ab'`       `'ababab'`
 
----
+   `[]`            Indexación       `'hola'[2]`     `'l'`
 
-+----------+-----------------+-------------+-----------+-----------------------------+
-| Operador | Descripción     | Ejemplo     | Resultado | Comentarios                 |
-+:========:+=================+:===========:+:=========:+=============================+
-| `+`      | Suma            | `3 + 4`     | `7`       |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `-`      | Resta           | `3 - 4`     | `-1`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `*`      | Producto        | `3 * 4`     | `12`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `/`      | División        | `3 / 4`     | `0.75`    | Devuelve un `float`         |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `%`      | Módulo          | `4 % 3`     | `1`       | Resto de la división        |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `**`     | Exponente       | `3 ** 4`    | `81`      | Devuelve $3^4$              |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `//`     | División entera | `4 // 3` \  | `1` \     | \hfill{} \                  |
-|          |                 | `-4 // 3`   | `-2`      | ??                          |
-+----------+-----------------+-------------+-----------+-----------------------------+
+   `[`$m$`:`$n$`]` *Slicing*        `'manolo'[1:3]` `'an'`
+---------------------------------------------------------------------------------------
 
 ---
 
-+---------------+---------------+--------------------+
-| Fruit         | Price         | Advantages         |
-+===============+===============+====================+
-| Bananas       | $1.34         | - built-in wrapper |
-|               |               | - bright color     |
-+---------------+---------------+--------------------+
-| Oranges       | $2.10         | - cures scurvy     |
-|               |               | - tasty            |
-+---------------+---------------+--------------------+
+##### Indexación
+
+- La **indexación** consiste en acceder al carácter situado en la posición
+  indicada entre corchetes.
+
+  ```
+   +---+---+---+---+---+---+
+   | P | y | t | h | o | n |
+   +---+---+---+---+---+---+
+     0   1   2   3   4   5
+    -6  -5  -4  -3  -2  -1
+  ```
+
+##### *Slicing*
+
+- El *slicing* (*hacer rodajas*) es una técnica que consiste en 
+  ```
+   +---+---+---+---+---+---+
+   | P | y | t | h | o | n |
+   +---+---+---+---+---+---+
+   0   1   2   3   4   5   6
+  -6  -5  -4  -3  -2  -1
+  ```
 
 -->
 
-#### Cadenas
-
-## Algebraicas vs. algorítmicas
-
-## Aritméticas
-
-## Operaciones predefinidas
-
-### Operadores predefinidos
-
 ### Funciones predefinidas
+
+---------------------------------------------------------------------------------
+Función                        Descripción           Ejemplo          Resultado   
+------------------------------ --------------------- ---------------- -----------
+`abs(`$n$`)`                   Valor absoluto        `abs(-23)`       `23`
+
+`len(`$str$`)`                 Longitud de la cadena `len('hola')`    `4`
+
+`max(`$n_1$[`,`$n_2$`,`...]`)` Valor máximo          `max(2, 5, 3)`   `5`
+
+`min(`$n_1$[`,`$n_2$`,`...]`)` Valor mínimo          `min(2, 5, 3)`   `2`
+
+`type(`$v$`)`                  Tipo del valor        `type(23.5)`     `<class` \
+                                                                      `'float'>`
+---------------------------------------------------------------------------------
 
 ### Métodos predefinidos
 
