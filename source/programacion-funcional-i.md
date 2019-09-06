@@ -3,7 +3,7 @@ title: Programación funcional I
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @blanco_calculo_2009, @abelson_structure_1996
+  @blanco_calculo_2009, @abelson_structure_1996, @van-roy_concepts_2004
 ---
 
 # El lenguaje de programación Python
@@ -900,9 +900,7 @@ Función                        Descripción           Ejemplo            Result
 
 ### Métodos predefinidos
 
-- ...
-
-## Constantes predefinidas
+[https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
 # Álgebra de Boole
 
@@ -1157,9 +1155,38 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 ## Definiciones
 
+- Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente
+  es una **sentencia**) con la que vamos a poder hacer **definiciones**.
+
+- A esa sentencia (en este momento) la llamaremos **definición**, y expresa el
+  hecho de que **un _nombre_ representa un _valor_**.
+
+- Las definiciones tienen la siguiente sintaxis:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(definición) ::= !NT(identificador) !T(=) !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
+
+  ```python
+  x = 25
+  ```
+
+  A partir de ese momento, el identificador `x` representa el valor `25`.
+
+  Y si `x` vale `25`, la expresión `2 + x * 3` vale `77`.
+
+---
+
+- Cuando hacemos una definición, entran en juego muchos conceptos:
+
+
+
 ## Identificadores
 
-## Ligadura (*binding*)
+## Ligadura (*binding*) y entorno
 
 ## Estado
 
