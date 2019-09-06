@@ -923,8 +923,6 @@ resolver problemas computacionales.
 
 !IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)
 
----
-
 ## Imperativo
 
 - El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
