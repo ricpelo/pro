@@ -384,6 +384,168 @@ endwhile (no)
   
   el resultado sería distinto.
 
+## Funciones y métodos
+
+### Funciones
+
+:::: columns
+
+::: column
+
+- Matemáticamente, una **función** es una regla que *asocia* a cada elemento de
+  un conjunto (el conjunto *origen* o *dominio*) un único elemento de un
+  segundo conjunto (el conjunto *imagen* o *codominio*).
+
+- Se representa así: $$f: A \rightarrow B$$ $$x \rightarrow f(x)$$
+
+  donde $A$ es el conjunto *origen* y $B$ el conjunto *imagen*.
+
+:::
+
+::: column
+
+!IMGP(funcion.svg)(Función que asocia a cada polígono con su número de lados)
+
+:::
+
+::::
+
+---
+
+- La **aplicación de la función $f$** sobre el elemento $x$ se representa por
+  $f(x)$ y corresponde al valor que la función asocia al elemento $x$ en el
+  conjunto imagen.
+
+- En la aplicación $f(x)$, al valor $x$ se le llama **argumento** de la
+  función.
+
+- Por ejemplo:
+
+  La función **valor absoluto**, que asocia a cada número entero ese mismo
+  número sin el signo (un número natural).
+
+  $$abs: \mathbb{Z} \rightarrow \mathbb{N}$$
+
+  $$x \rightarrow abs(x)$$
+
+  Cuando aplicamos la función $abs$ al valor $-35$ obtenemos:
+  
+  $$abs(-35) = 35$$
+
+  El valor $35$ es el resultado de aplicar la función $abs$ a su argumento
+  $-35$.
+
+#### Funciones con varios argumentos
+
+- El concepto de función se puede generalizar para obtener **funciones con más
+  de un argumento**.
+
+- Por ejemplo, podemos definir una función $max$ que asocie a cada par de
+  números el máximo de los dos.
+
+  $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
+
+  $$(x,y) \rightarrow max(x,y)$$
+
+- Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
+  sería $13$:
+
+  $$max(13, -25) = 13$$
+
+### Métodos
+
+- Los **métodos** son, para la programación orientada a objetos, el equivalente
+  a las **funciones** para la programación funcional.
+
+- Los métodos son como funciones que actúan *sobre* un valor.
+
+- La *aplicación* de un método se denomina **invocación** o **llamada** al
+  método, y se escribe:
+
+  $$v.m()$$
+
+  que representa la **invocación** del método $m$ sobre el valor $v$.
+
+- Los métodos también pueden tener argumentos como cualquier función:
+
+  $$v.m(a_1, a_2, ..., a_n)$$
+
+---
+
+- En la práctica, no hay mucha diferencia entre hacer:
+
+  $$v.m(a_1, a_2, ..., a_n)$$
+
+  y hacer
+
+  $$m(v, a_1, a_2, ..., a_n)$$
+
+- Pero conceptualmente, hay una gran diferencia entre un estilo y otro:
+
+  - El primero es más **orientado a objetos** (el *objeto* $v$ «recibe» un
+    mensaje solicitando la ejecución del método $m$).
+  
+  - En cambio, el segundo es más **funcional** (la *función* $m$ se aplica a
+    sus argumentos, de los cuales $v$ es uno más).
+
+- Python es un lenguaje *multiparadigma* que soporta ambos estilos y por tanto
+  dispone tanto de funciones como de métodos. Hasta que no veamos la
+  orientación a objetos, supondremos que un método es como otra forma de
+  escribir una función.
+
+---
+
+- Por ejemplo:
+
+  Las cadenas tienen definidas el método `count()` que devuelve el número de
+  veces que aparece una subcadena dentro de la cadena:
+
+  ```java
+  'hola caracola'.count('ol')
+  ```
+
+  devuelve 2.
+
+  ```java
+  'hola caracola'.count('a')
+  ```
+
+  devuelve 4.
+
+- Si `count()` fuese una función en lugar de un método, recibiría dos
+  parámetros: la cadena y la subcadena. En tal caso, se usaría así:
+
+  ```python
+  count('hola caracola', 'ol')
+  ```
+
+---
+
+- Una operación podría tener *forma* de operador, de función o de método.
+
+- De hecho, en Python hay operaciones que tienen **las tres formas**.
+
+- Por ejemplo, la suma de dos números se puede expresar:
+
+  - Mediante el operador `+`:
+  
+    ```python
+    4 + 3
+    ```
+
+  - Mediante la función `int.__add__`:
+  
+    ```python
+    int.__add__(4, 3)
+    ```
+
+  - Mediante el método `__add__` ejecutado sobre uno de los números (y pasando
+    el otro número como *argumento* del método):
+
+    ```python
+    (4).__add__(3)
+    ```
+
 ## Tipos de datos
 
 ### Concepto
@@ -718,22 +880,27 @@ endwhile (no)
 
 ### Funciones predefinidas
 
----------------------------------------------------------------------------------
-Función                        Descripción           Ejemplo          Resultado   
------------------------------- --------------------- ---------------- -----------
-`abs(`$n$`)`                   Valor absoluto        `abs(-23)`       `23`
+-----------------------------------------------------------------------------------
+Función                        Descripción           Ejemplo            Resultado   
+------------------------------ --------------------- ------------------ -----------
+`abs(`$n$`)`                   Valor absoluto        `abs(-23)`         `23`
 
-`len(`$str$`)`                 Longitud de la cadena `len('hola')`    `4`
+`len(`$str$`)`                 Longitud de la cadena `len('hola')`      `4`
 
-`max(`$n_1$[`,`$n_2$`,`...]`)` Valor máximo          `max(2, 5, 3)`   `5`
+`max(`$n_1$(`,`$n_2$)\*`)`     Valor máximo          `max(2, 5, 3)`     `5`
 
-`min(`$n_1$[`,`$n_2$`,`...]`)` Valor mínimo          `min(2, 5, 3)`   `2`
+`min(`$n_1$(`,`$n_2$)\*`)`     Valor mínimo          `min(2, 5, 3)`     `2`
 
-`type(`$v$`)`                  Tipo del valor        `type(23.5)`     `<class` \
-                                                                      `'float'>`
----------------------------------------------------------------------------------
+`round(`$n$[`,`$p$]`)`         Redondeo              `round(23.493)`  \ `23` \
+                                                     `round(23.493, 1)` `23.5`
+
+`type(`$v$`)`                  Tipo del valor        `type(23.5)`       `<class` \
+                                                                        `'float'>`
+-----------------------------------------------------------------------------------
 
 ### Métodos predefinidos
+
+- ...
 
 ## Constantes predefinidas
 
