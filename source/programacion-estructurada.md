@@ -38,6 +38,8 @@ author: Ricardo Pérez López
 
 ### `nonlocal`
 
+## *Docstrings*
+
 # Teorema de Böhm-Jacopini
 
 # Estructuras básicas de control
