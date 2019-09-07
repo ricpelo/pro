@@ -62,7 +62,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #d33682; } /* Float */
 code span.fu { color: #268bd2; } /* Function */
-code span.im { } /* Import */
+code span.im { font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/modelo-de-ejecución"><span class="toc-section-number">2</span> Modelo de ejecución</a></li>
 <li><a href="#/expresiones"><span class="toc-section-number">3</span> Expresiones</a></li>
 <li><a href="#/álgebra-de-boole"><span class="toc-section-number">4</span> Álgebra de Boole</a></li>
-<li><a href="#/variables-y-constantes"><span class="toc-section-number">5</span> Variables y constantes</a></li>
+<li><a href="#/definiciones"><span class="toc-section-number">5</span> Definiciones</a></li>
 <li><a href="#/documentación-interna"><span class="toc-section-number">6</span> Documentación interna</a></li>
 <li><a href="#/bibliografía">Bibliografía</a></li>
 </ul>
@@ -888,9 +888,7 @@ Yuxtapuestas</td>
 <code>'float'&gt;</code></td>
 </tr>
 </tbody>
-</table></section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.6.3</span> Métodos predefinidos</h3><ul>
-<li>…</li>
-</ul></section><section id="constantes-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.7</span> Constantes predefinidas</h2></section></section>
+</table></section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.6.3</span> Métodos predefinidos</h3><p><a href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></section></section>
 <section><section id="álgebra-de-boole" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Álgebra de Boole</h1></section><section id="el-tipo-de-dato-booleano" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> El tipo de dato <em>booleano</em></h2><ul>
 <li><p>Un dato <strong>lógico</strong> o <em>booleano</em> es aquel que puede tomar uno de dos posibles valores, que se denotan normalmente como <strong>verdadero</strong> y <strong>falso</strong>.</p></li>
 <li><p>Esos dos valores tratan de representar los dos valores de verdad de la <strong>lógica</strong> y el <strong>álgebra <em>booleana</em></strong>.</p></li>
@@ -995,7 +993,165 @@ Yuxtapuestas</td>
 <p>evalúa a <strong>25</strong>.</p></li>
 </ul>
 </section></section>
-<section><section id="variables-y-constantes" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Variables y constantes</h1></section><section id="definiciones" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Definiciones</h2></section><section id="identificadores" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Identificadores</h2></section><section id="ligadura-binding" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Ligadura (<em>binding</em>)</h2></section><section id="estado" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Estado</h2></section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> Tipado estático vs. dinámico</h2></section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> Evaluación de expresiones con variables</h2></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">5.7</span> Constantes</h2></section></section>
+<section><section id="definiciones" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Definiciones</h1></section><section id="definiciones-1" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Definiciones</h2><ul>
+<li><p>Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente es una <strong>sentencia</strong>) con la que vamos a poder hacer <strong>definiciones</strong>.</p></li>
+<li><p>A esa sentencia (en este momento) la llamaremos <strong>definición</strong>, y expresa el hecho de que <strong>un <em>nombre</em> representa un <em>valor</em></strong>.</p></li>
+<li><p>Las definiciones tienen la siguiente sintaxis:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;definición&gt;</em></span> ::= <span style="color:teal"><em>&lt;identificador&gt;</em></span> <strong><code>=</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span></div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1">x <span class="op">=</span> <span class="dv">25</span></a></code></pre></div>
+<p>A partir de ese momento, el identificador <code>x</code> representa el valor <code>25</code>.</p>
+<p>Y si <code>x</code> vale <code>25</code>, la expresión <code>2 + x * 3</code> vale <code>77</code>.</p></li>
+</ul></section><section id="identificadores-y-ligaduras-binding" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Identificadores y ligaduras (<em>binding</em>)</h2><ul>
+<li><p>Los <strong>identificadores</strong> son los nombres o símbolos que representan a los elementos del lenguaje.</p></li>
+<li><p>Cuando hacemos una definición, lo que hacemos es asociar un identificador con un valor.</p></li>
+<li><p>Esa asociación se denomina <strong>ligadura</strong> (o <strong><em>binding</em></strong>).</p></li>
+<li><p>Por esa razón, también se dice que una definición es una ligadura.</p></li>
+<li><p>También decimos que el identificador está <strong>ligado</strong> (<strong><em>bound</em></strong>).</p>
+<p><img data-src="images/ligadura.svg" class="plain" style="width:30.0%" /></p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>En un <strong>lenguaje funcional puro</strong>, un identificador ya ligado no se puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb32-2" title="2">x <span class="op">=</span> <span class="dv">7</span></a></code></pre></div>
+<p><img data-src="images/rebinding.svg" class="plain" style="width:30.0%" /></p></li>
+<li><p>Python no es un lenguaje funcional puro, por lo que se permite volver a ligar el mismo identificador a otro valor distinto (<em>rebinding</em>).</p>
+<ul>
+<li><p>Eso hace que se pierda el valor anterior.</p></li>
+<li><p>Por ahora, <strong>no lo hagamos</strong>.</p></li>
+</ul></li>
+</ul>
+</section><section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Evaluación de expresiones con ligaduras</h2><ul>
+<li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está):</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="dv">77</span></a></code></pre></div></li>
+<li><p>Intentar usar en una expresión un identificador no ligado provoca un error (<em>nombre no definido</em>):</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" title="1"><span class="op">&gt;&gt;&gt;</span> y</a>
+<a class="sourceLine" id="cb34-2" title="2">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb34-3" title="3">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb34-4" title="4"><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Podemos hacer:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" title="1">x <span class="op">=</span> <span class="dv">25</span></a>
+<a class="sourceLine" id="cb35-2" title="2">y <span class="op">=</span> x</a></code></pre></div>
+<ul>
+<li><p>En este caso estamos ligando a <code>y</code> el valor que tiene <code>x</code>.</p></li>
+<li><p><code>x</code> e <code>y</code> comparten valor.</p></li>
+</ul></li>
+</ul>
+
+<p><img data-src="images/ligadura-compartida.svg" class="plain" style="width:30.0%" /></p>
+<p></p>
+</section><section id="entorno-environment" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Entorno (<em>environment</em>)</h2><ul>
+<li><p>Se denomina <strong>entorno</strong> (del inglés, <em>environment</em>) al conjunto de todas las ligaduras que son accesibles en un punto concreto de un programa.</p></li>
+<li><p>El entorno, por tanto, depende del punto del programa en el que se calcule:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb36-2" title="2">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb36-3" title="3">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a>
+<a class="sourceLine" id="cb36-5" title="5"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></a>
+<a class="sourceLine" id="cb36-6" title="6"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb36-7" title="7"><span class="dv">25</span></a></code></pre></div>
+<ul>
+<li><p>En la línea 1, el identificador <code>x</code> aún no está ligado, por lo que uso genera un error.</p></li>
+<li><p>En la línea 6, en cambio, el identificador puede usarse sin error ya que ha sido ligado previamente en la línea 5.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Si tenemos:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb37-5" title="5"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</a></code></pre></div>
+<p>Según la línea en la que nos encontremos, tenemos los siguientes entornos:</p></li>
+</ul>
+<figure>
+<img data-src="images/entorno-linea1.svg" alt="Entorno en la línea 1" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 1</figcaption>
+</figure>
+<p></p>
+<figure>
+<img data-src="images/entorno-linea2.svg" alt="Entorno en la línea 2" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 2</figcaption>
+</figure>
+<p></p>
+</div><div class="column">
+<figure>
+<img data-src="images/entorno-linea3.svg" alt="Entorno en la línea 3" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 3</figcaption>
+</figure>
+<p></p>
+<figure>
+<img data-src="images/entorno-linea4.svg" alt="Entorno en la línea 4" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 4</figcaption>
+</figure>
+<p></p>
+<figure>
+<img data-src="images/entorno-linea5.svg" alt="Entorno en la línea 5" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 5</figcaption>
+</figure>
+<p></p>
+</div>
+</div>
+</section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> Tipado estático vs. dinámico</h2><ul>
+<li><p>Cuando un identificador está ligado a un valor, a efectos prácticos el identificador actúa como si fuera el valor.</p></li>
+<li><p>Como cada valor tiene un tipo de dato asociado, también podemos hablar del <strong>tipo de un identificador</strong>.</p>
+<div class="caja">
+<p>El <strong>tipo de un identificador ligado</strong> es el tipo del dato con el que está ligado.</p>
+</div></li>
+<li><p>Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de dato tiene.</p></li>
+<li><p>Si un identificador ligado se liga a otro valor (cosa que ya hemos dicho que evitaremos por ahora) y ese otro valor es de otro tipo distinto al del valor original, el tipo del identificador cambia y pasa a ser el del valor con el que está ligado ahora.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Eso quiere decir que <strong>el tipo de un identificador puede cambiar durante la ejecución del programa</strong>.</p></li>
+<li><p>A este enfoque se le denomina <strong>tipado dinámico</strong>.</p>
+<div class="caja">
+<p><strong>Lenguajes de tipado dinámico:</strong></p>
+<p>Son aquellos que <strong>permiten</strong> que el tipo de un identificador <strong>cambie</strong> durante la ejecución del programa.</p>
+</div></li>
+<li><p>En contraste con los lenguajes de tipado dinámico, existen los llamados <strong>lenguajes de tipado estático</strong>.</p></li>
+<li><p>En un lenguaje de tipado estático, el tipo de un identificador se define una sola vez (en la fase de compilación o justo al empezar a ejecutarse el programa), y no puede cambiar durante la ejecución del mismo.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="caja">
+<p><strong>Lenguajes de tipado estático:</strong></p>
+<p>Son aquellos que <strong>obligan a declarar</strong> el tipo de un identificador antes de poder usarlo y <strong>prohíben</strong> que dicho tipo <strong>cambie</strong> durante la ejecución del programa.</p>
+</div>
+<ul>
+<li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos con los que se ligará un identificador.</p>
+<p>Por ejemplo, en Java podemos hacer:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb38-1" title="1"><span class="dt">int</span> x;</a></code></pre></div>
+<p>con lo que declaramos que <code>x</code> sólo podrá ligarse a valores de tipo <code>int</code>.</p></li>
+<li><p>A veces, se pueden realizar al mismo tiempo la declaración del tipo y la ligadura al valor:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb39-1" title="1"><span class="dt">int</span> x = <span class="dv">24</span>;</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Normalmente, los lenguajes de tipado estático son también lenguajes compilados y también fuertemente tipados.</p></li>
+<li><p>Asimismo, los lenguajes de tipado dinámico suelen ser lenguajes interpretados y a veces también son lenguajes débilmente tipados.</p></li>
+<li><p>Pero nada impide que un lenguaje de tipado dinámico pueda ser compilado, por ejemplo.</p></li>
+<li><p>Los tres conceptos de:</p>
+<ul>
+<li>Compilado vs. interpretado</li>
+<li>Tipado fuerte vs. débil</li>
+<li>Tipado estático vs. dinámico</li>
+</ul>
+<p>son diferentes aunque están estrechamente relacionados.</p></li>
+</ul>
+</section><section id="scripts" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> <em>Scripts</em></h2><ul>
+<li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
+<li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
+<li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
+<li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
+<li><p>Para cargar un <em>script</em> en nuestra sesión, usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" title="1"><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></a></code></pre></div></li>
+</ul></section></section>
 <section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Identificadores significativos</h2></section><section id="comentarios" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Comentarios</h2></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Docstrings</h2></section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
 <div id="ref-abelson_structure_1996">
@@ -1003,6 +1159,9 @@ Yuxtapuestas</td>
 </div>
 <div id="ref-blanco_calculo_2009">
 <p>Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.</p>
+</div>
+<div id="ref-van-roy_concepts_2004">
+<p>Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and Models of Computer Programming</em>. Cambridge, Mass: MIT Press.</p>
 </div>
 </div></section>
     </div>
