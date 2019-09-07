@@ -94,5 +94,3 @@ author: Ricardo Pérez López
 
 ### Operadores de comparación
 
-### Ternario
-

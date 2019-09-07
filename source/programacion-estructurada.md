@@ -22,7 +22,7 @@ author: Ricardo Pérez López
 
 ### Variables globales
 
-#### Ámbito simple al archivo
+#### `global`
 
 #### Efectos laterales
 
@@ -35,6 +35,8 @@ author: Ricardo Pérez López
 ### Declaraciones de tipo de devolución
 
 ## Funciones locales a funciones
+
+### `nonlocal`
 
 # Teorema de Böhm-Jacopini
 

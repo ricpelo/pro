@@ -4,6 +4,8 @@ author: Ricardo Pérez López
 !DATE
 ---
 
+# Formateado de cadenas
+
 # La consola
 
 ## Entrada desde teclado

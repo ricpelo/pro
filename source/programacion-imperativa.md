@@ -10,13 +10,15 @@ author: Ricardo Pérez López
 
 ## Secuencia de instrucciones
 
-# *Scripts*
+# Asignación destructiva
 
-# Cambios de estado explícitos
+## Variables
 
-## Celdas
+## Estado
 
-## Asignación destructiva
+## Evaluación de expresiones con variables
+
+## Constantes
 
 # Efectos laterales
 
