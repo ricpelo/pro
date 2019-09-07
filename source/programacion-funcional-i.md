@@ -1492,8 +1492,51 @@ programa.
 
 ## Identificadores significativos
 
+- Se recomienda usar identificadores descriptivos.
+
+  Es mejor usar:
+
+  ```python
+  ancho = 640
+  alto = 400
+  superficie = ancho * alto
+  ```
+
+  que
+
+  ```python
+  x = 640
+  y = 400
+  z = x * y
+  ```
+
+  aunque ambos programas sean equivalentes en cuanto al efecto que producen y
+  el resultado que generan.
+
+- Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (`_`)
+  para separarlas y formar un único identificador:
+
+  ```python
+  altura_triangulo = 34.2
+  ```
+
 ## Comentarios
 
-## Docstrings
+- Los comentarios en Python empiezan con el carácter `#` y se extienden hasta
+  el final de la línea.
+
+- Los comentarios pueden aparecer al comienzo de la línea o a continuación de
+  un espacio en blanco o una porción de código.
+
+- Los comentarios no pueden ir dentro de un literal de tipo cadena.
+
+  Un carácter `#` dentro de un literal cadena es sólo un carácter más.
+
+```python
+# este es el primer comentario
+spam = 1  # y este es el segundo comentario
+          # ... y este es el tercero
+texto = "# Esto no es un comentario porque va entre comillas."
+```
 
 !FIN

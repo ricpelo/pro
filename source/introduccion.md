@@ -8,6 +8,8 @@ nocite: |
 
 # Conceptos básicos
 
+<!--
+
 ---
 
 !QUIZ
@@ -32,6 +34,8 @@ nocite: |
    ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+-->
 
 ## Informática
 
