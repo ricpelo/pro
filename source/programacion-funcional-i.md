@@ -10,7 +10,53 @@ nocite: |
 
 ## Historia
 
+:::: columns
+
+::: {.column width=60%}
+
+- Python fue creado a finales de los ochenta por **Guido van Rossum** en el
+  Centro para las Matemáticas y la Informática (CWI, Centrum Wiskunde &
+  Informatica),
+  en los Países Bajos, como un sucesor del lenguaje de programación ABC.
+
+- El nombre del lenguaje proviene de la afición de su creador por los
+  humoristas británicos **Monty Python**.
+
+:::
+
+::: {.column width=40%}
+
+!IMGP(python.svg)(Logo de Python)(width=50%)
+
+:::
+
+::::
+
+- Python alcanzó la versión 1.0 en enero de 1994.
+
+- Python 2.0 se publicó en octubre de 2000 con muchas grandes mejoras.
+
+- Python 3.0 se publicó en septiembre de 2008 y es una gran revisión del
+  lenguaje que no es totalmente retrocompatible con Python 2.
+
 ## Características principales
+
+- Python es un lenguaje **interpretado**, **dinámico** y **multiplataforma**, cuya
+  filosofía hace hincapié en una sintaxis que favorezca un **código legible**.
+
+- Es un lenguaje de programación **multiparadigma**. Esto significa que más que
+  forzar a los programadores a adoptar un estilo particular de programación,
+  permite varios estilos: **programación orientada a objetos**, **programación
+  imperativa** y **programación funcional**.
+
+- Tiene una **gran biblioteca estándar**, usada para una diversidad de tareas. Esto
+  viene de la filosofía «pilas incluidas» (*batteries included*) en referencia
+  a los módulos de Python.
+
+- Es administrado por la **Python Software Foundation** y posee una licencia de
+  **código abierto**.
+
+- La estructura de un programa se define por su anidamiento.
 
 # Modelo de ejecución
 
