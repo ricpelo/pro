@@ -1,4 +1,4 @@
-.PHONY: all html pdf prog clean limpiar serve touch $(ITHACA)
+.PHONY: all html pdf prog clean limpiar serve touch markdown sobrantes $(ITHACA)
 
 CURSO=2019/2020
 
@@ -200,3 +200,6 @@ touch:
 
 markdown:
 	scripts/opml.php -u programacion/esquema.opml -emarkdown >/dev/null
+
+sobrantes:
+	@$(SCRIPTS)/sobrantes.sh $(IMAGES) $(SRCDIR)
