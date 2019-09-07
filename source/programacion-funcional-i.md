@@ -1151,7 +1151,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   evalúa a **25**.
 
-# Variables y constantes
+# Definiciones
 
 ## Definiciones
 
@@ -1178,23 +1178,298 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   Y si `x` vale `25`, la expresión `2 + x * 3` vale `77`.
 
+## Identificadores y ligaduras (*binding*)
+
+- Los **identificadores** son los nombres o símbolos que representan a los
+  elementos del lenguaje.
+
+- Cuando hacemos una definición, lo que hacemos es asociar un identificador con
+  un valor.
+
+- Esa asociación se denomina **ligadura** (o **_binding_**).
+
+- Por esa razón, también se dice que una definición es una ligadura.
+
+- También decimos que el identificador está **ligado** (**_bound_**).
+
+  !DOT(ligadura.svg)()(width=30%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  25 [shape = circle]
+  x [shape = record]
+  x -> 25
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
-- Cuando hacemos una definición, entran en juego muchos conceptos:
+- En un **lenguaje funcional puro**, un identificador ya ligado no se puede
+  ligar a otro valor. Por ejemplo, lo siguiente daría un error:
+
+  ```python
+  x = 4
+  x = 7
+  ```
+
+  !DOT(rebinding.svg)()(width=30%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  4 [shape = circle]
+  7 [shape = circle]
+  x -> 4 [style = dashed, color = grey]
+  x -> 7
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Python no es un lenguaje funcional puro, por lo que se permite volver a ligar
+  el mismo identificador a otro valor distinto (*rebinding*).
+
+  - Eso hace que se pierda el valor anterior.
+
+  - Por ahora, **no lo hagamos**.
+
+## Evaluación de expresiones con ligaduras
+
+- Podemos usar un identificador ligado dentro de una expresión (siempre que la
+  expresión sea una expresión válida según las reglas del lenguaje, claro
+  está):
+
+  ```python
+  >>> x = 25
+  >>> 2 + x * 3
+  77
+  ```
+
+- Intentar usar en una expresión un identificador no ligado provoca un error
+  (*nombre no definido*):
+
+  ```python
+  >>> y
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'y' is not defined
+  ```
+
+---
+
+- Podemos hacer:
+
+  ```python
+  x = 25
+  y = x
+  ```
+
+  - En este caso estamos ligando a `y` el valor que tiene `x`.
+
+  - `x` e `y` comparten valor.
+
+!DOT(ligadura-compartida.svg)()(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+25 [shape = circle];
+x -> 25
+y -> 25
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Entorno (*environment*)
+
+- Se denomina **entorno** (del inglés, *environment*) al conjunto de todas las
+  ligaduras que son accesibles en un punto concreto de un programa.
+
+- El entorno, por tanto, depende del punto del programa en el que se calcule:
+
+  ```{.python .number-lines}
+  >>> x
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'x' is not defined
+  >>> x = 25
+  >>> x
+  25
+  ```
+
+  - En la línea 1, el identificador `x` aún no está ligado, por lo que uso genera un error.
+
+  - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
+    sido ligado previamente en la línea 5.
+
+---
 
 
+:::: columns
 
-## Identificadores
+::: column
 
-## Ligadura (*binding*) y entorno
+- Si tenemos:
 
-## Estado
+  ```{.python .number-lines}
+  >>> x = 4
+  >>> y = 3
+  >>> z = 9
+  >>> x = 5
+  >>> y = x
+  ```
+
+  Según la línea en la que nos encontremos, tenemos los siguientes entornos:
+
+!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 [shape = circle];
+x -> 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 [shape = circle];
+4 [shape = circle];
+x -> 4
+y -> 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+9 [shape = circle];
+3 [shape = circle];
+4 [shape = circle];
+x -> 4
+y -> 3
+z -> 9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(entorno-linea4.svg)(Entorno en la línea 4)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+9 [shape = circle];
+3 [shape = circle];
+5 [shape = circle];
+x -> 5;
+y -> 3;
+z -> 9;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(entorno-linea5.svg)(Entorno en la línea 5)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+9 [shape = circle];
+5 [shape = circle];
+x -> 5
+y -> 5
+z -> 9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ## Tipado estático vs. dinámico
 
-## Evaluación de expresiones con variables
+- Cuando un identificador está ligado a un valor, a efectos prácticos el
+  identificador actúa como si fuera el valor.
 
-## Constantes
+- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
+  **tipo de un identificador**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El **tipo de un identificador ligado** es el tipo del dato con el que está
+  ligado.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de
+  dato tiene.
+
+- Si un identificador ligado se liga a otro valor (cosa que ya hemos dicho que
+  evitaremos por ahora) y ese otro valor es de otro tipo distinto al del valor
+  original, el tipo del identificador cambia y pasa a ser el del valor con el
+  que está ligado ahora.
+
+---
+
+- Eso quiere decir que **el tipo de un identificador puede cambiar durante la
+  ejecución del programa**.
+
+- A este enfoque se le denomina **tipado dinámico**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Lenguajes de tipado dinámico:**
+
+  Son aquellos que **permiten** que el tipo de un identificador **cambie**
+  durante la ejecución del programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En contraste con los lenguajes de tipado dinámico, existen los llamados
+  **lenguajes de tipado estático**.
+
+- En un lenguaje de tipado estático, el tipo de un identificador se define una
+  sola vez (en la fase de compilación o justo al empezar a ejecutarse el
+  programa), y no puede cambiar durante la ejecución del mismo.
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Lenguajes de tipado estático:**
+
+Son aquellos que **obligan a declarar** el tipo de un identificador antes de
+poder usarlo y **prohíben** que dicho tipo **cambie** durante la ejecución del
+programa.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Estos lenguajes disponen de construcciones sintácticas que permiten declarar
+  de qué tipo serán los datos con los que se ligará un identificador.
+  
+  Por ejemplo, en Java podemos hacer:
+
+  ```java
+  int x;
+  ```
+
+  con lo que declaramos que `x` sólo podrá ligarse a valores de tipo `int`.
+
+- A veces, se pueden realizar al mismo tiempo la declaración del tipo y la
+  ligadura al valor:
+
+  ```java
+  int x = 24;
+  ```
+
+---
+
+- Normalmente, los lenguajes de tipado estático son también lenguajes
+  compilados y también fuertemente tipados.
+
+- Asimismo, los lenguajes de tipado dinámico suelen ser lenguajes interpretados
+  y a veces también son lenguajes débilmente tipados.
+
+- Pero nada impide que un lenguaje de tipado dinámico pueda ser compilado, por
+  ejemplo.
+
+- Los tres conceptos de:
+
+  - Compilado vs. interpretado
+  - Tipado fuerte vs. débil
+  - Tipado estático vs. dinámico
+
+  son diferentes aunque están estrechamente relacionados.
+
+## *Scripts*
+
+- Cuando tenemos varias definiciones o muy largas resulta tedioso tener que
+  introducirlas una y otra vez en el intérprete interactivo.
+
+- Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos
+  desde dentro del intérprete.
+
+- Ese archivo se llama **_script_** y, por ahora, contendrá una lista de las
+  definiciones que nos interese usar en nuestras sesiones interactivas con el
+  intérprete.
+
+- Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
+
+- Para cargar un *script* en nuestra sesión, usamos la orden `from`. Por
+  ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
+
+  ```python
+  from definiciones import *
+  ```
 
 # Documentación interna
 
