@@ -1192,12 +1192,12 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - También decimos que el identificador está **ligado** (**_bound_**).
 
-  !DOT(ligadura.svg)()(width=30%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  25 [shape = circle]
-  x [shape = record]
-  x -> 25
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(ligadura.svg)()(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+25 [shape = circle]
+x [shape = record]
+x -> 25
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -1209,13 +1209,13 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   x = 7
   ```
 
-  !DOT(rebinding.svg)()(width=30%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  4 [shape = circle]
-  7 [shape = circle]
-  x -> 4 [style = dashed, color = grey]
-  x -> 7
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(rebinding.svg)()(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 [shape = circle]
+7 [shape = circle]
+x -> 4 [style = dashed, color = grey]
+x -> 7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Python no es un lenguaje funcional puro, por lo que se permite volver a ligar
   el mismo identificador a otro valor distinto (*rebinding*).
@@ -1223,6 +1223,23 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   - Eso hace que se pierda el valor anterior.
 
   - Por ahora, **no lo hagamos**.
+
+### Reglas léxicas
+
+- Cuando hacemos una definición debemos tener en cuenta ciertas cuestiones
+  relativas al identificador:
+
+  - ¿Cuál es la **longitud máxima** de un identificador?
+
+  - ¿Qué **caracteres** se pueden usar?
+
+  - ¿Se distinguen **mayúsculas** de **minúsculas**?
+
+  - ¿Coincide con una palabras clave o reservada?
+
+    - **Palabra clave**: palabra que forma parte de la sintaxis del lenguaje.
+
+    - **Palabra reservada**: palabra que no puede emplearse como identificador.
 
 ## Evaluación de expresiones con ligaduras
 

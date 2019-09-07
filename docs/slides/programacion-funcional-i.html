@@ -1007,22 +1007,39 @@ Yuxtapuestas</td>
 <li><p>Cuando hacemos una definición, lo que hacemos es asociar un identificador con un valor.</p></li>
 <li><p>Esa asociación se denomina <strong>ligadura</strong> (o <strong><em>binding</em></strong>).</p></li>
 <li><p>Por esa razón, también se dice que una definición es una ligadura.</p></li>
-<li><p>También decimos que el identificador está <strong>ligado</strong> (<strong><em>bound</em></strong>).</p>
-<p><img data-src="images/ligadura.svg" class="plain" style="width:30.0%" /></p></li>
-</ul></section><section class="slide level4">
+<li><p>También decimos que el identificador está <strong>ligado</strong> (<strong><em>bound</em></strong>).</p></li>
+</ul>
+<p><img data-src="images/ligadura.svg" class="plain" style="width:30.0%" /></p>
+<p></p></section><section class="slide level4">
 
 <ul>
 <li><p>En un <strong>lenguaje funcional puro</strong>, un identificador ya ligado no se puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb32-2" title="2">x <span class="op">=</span> <span class="dv">7</span></a></code></pre></div>
-<p><img data-src="images/rebinding.svg" class="plain" style="width:30.0%" /></p></li>
+<a class="sourceLine" id="cb32-2" title="2">x <span class="op">=</span> <span class="dv">7</span></a></code></pre></div></li>
+</ul>
+
+<p><img data-src="images/rebinding.svg" class="plain" style="width:30.0%" /></p>
+<p></p>
+<ul>
 <li><p>Python no es un lenguaje funcional puro, por lo que se permite volver a ligar el mismo identificador a otro valor distinto (<em>rebinding</em>).</p>
 <ul>
 <li><p>Eso hace que se pierda el valor anterior.</p></li>
 <li><p>Por ahora, <strong>no lo hagamos</strong>.</p></li>
 </ul></li>
 </ul>
-</section><section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Evaluación de expresiones con ligaduras</h2><ul>
+</section><section id="reglas-léxicas" class="title-slide slide level3"><h3><span class="header-section-number">5.2.1</span> Reglas léxicas</h3><ul>
+<li><p>Cuando hacemos una definición debemos tener en cuenta ciertas cuestiones relativas al identificador:</p>
+<ul>
+<li><p>¿Cuál es la <strong>longitud máxima</strong> de un identificador?</p></li>
+<li><p>¿Qué <strong>caracteres</strong> se pueden usar?</p></li>
+<li><p>¿Se distinguen <strong>mayúsculas</strong> de <strong>minúsculas</strong>?</p></li>
+<li><p>¿Coincide con una palabras clave o reservada?</p>
+<ul>
+<li><p><strong>Palabra clave</strong>: palabra que forma parte de la sintaxis del lenguaje.</p></li>
+<li><p><strong>Palabra reservada</strong>: palabra que no puede emplearse como identificador.</p></li>
+</ul></li>
+</ul></li>
+</ul></section><section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Evaluación de expresiones con ligaduras</h2><ul>
 <li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está):</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></a>
 <a class="sourceLine" id="cb33-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></a>
