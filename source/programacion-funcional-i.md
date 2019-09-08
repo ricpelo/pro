@@ -26,7 +26,7 @@ nocite: |
 
 ::: {.column width=40%}
 
-!IMGP(python.svg)(Logo de Python)(width=50%)
+!IMGP(python.svg)(Logo de Python)(width=50%)(width=20%)
 
 :::
 
@@ -264,7 +264,7 @@ nocite: |
 
 ---
 
-!UML(evaluacion.svg)()(width=40%)
+!UML(evaluacion.svg)()(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :expresión;
 while (¿es posible reducir?) is (sí)
@@ -450,7 +450,7 @@ endwhile (no)
 
 ::: column
 
-!IMGP(funcion.svg)(Función que asocia a cada polígono con su número de lados)
+!IMGP(funcion.svg)(Función que asocia a cada polígono con su número de lados)()(width=30%)
 
 :::
 
@@ -471,7 +471,6 @@ endwhile (no)
   número sin el signo (un número natural).
 
   $$abs: \mathbb{Z} \rightarrow \mathbb{N}$$
-
   $$x \rightarrow abs(x)$$
 
   Cuando aplicamos la función $abs$ al valor $-35$ obtenemos:
@@ -490,7 +489,6 @@ endwhile (no)
   números el máximo de los dos.
 
   $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
-
   $$(x,y) \rightarrow max(x,y)$$
 
 - Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
@@ -866,11 +864,11 @@ endwhile (no)
 
 #### Operadores de cadenas
 
-------------------------------------------------------------------------
-  Operador   Descripción     Ejemplo          Resultado   Comentarios
------------- --------------- ---------------- ----------- --------------
-   `+`       Concatenación   `'ab' + 'cd'`    `'abcd'`    \hfill{} \
-                             `'ab' 'cd'`                  Yuxtapuestas
+--------------------------------------------------------
+  Operador   Descripción     Ejemplo          Resultado 
+------------ --------------- ---------------- ----------
+   `+`       Concatenación   `'ab' + 'cd'`    `'abcd'`  
+                             `'ab' 'cd'`                
 
    `*`       Repetición      `'ab' * 3`       `'ababab'`
                              `3 * 'ab'`       `'ababab'`
@@ -878,7 +876,7 @@ endwhile (no)
    `[0]`     Primer carácter `'hola'[0]`      `'h'`
 
    `[1:]`    Resto de cadena `'hola'[1:]`     `'ola'`
-------------------------------------------------------------------------
+--------------------------------------------------------
 
 <!--
 
@@ -926,23 +924,23 @@ endwhile (no)
 
 ### Funciones predefinidas
 
------------------------------------------------------------------------------------
-Función                        Descripción           Ejemplo            Resultado   
------------------------------- --------------------- ------------------ -----------
-`abs(`$n$`)`                   Valor absoluto        `abs(-23)`         `23`
+-------------------------------------------------------------------------------------
+Función                    Descripción           Ejemplo                  Resultado   
+-------------------------- --------------------- ------------------------ -----------
+`abs(`$n$`)`               Valor absoluto        `abs(-23)`               `23`
 
-`len(`$str$`)`                 Longitud de la cadena `len('hola')`      `4`
+`len(`$cad$`)`             Longitud de la cadena `len('hola')`            `4`
 
-`max(`$n_1$(`,`$n_2$)\*`)`     Valor máximo          `max(2, 5, 3)`     `5`
+`max(`$n_1$(`,`$n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
 
-`min(`$n_1$(`,`$n_2$)\*`)`     Valor mínimo          `min(2, 5, 3)`     `2`
+`min(`$n_1$(`,`$n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
 
-`round(`$n$[`,`$p$]`)`         Redondeo              `round(23.493)`  \ `23` \
-                                                     `round(23.493, 1)` `23.5`
+`round(`$n$[`,`$p$]`)`     Redondeo              `round(23.493)`  \       `23` \
+                                                 `round(23.493, 1)`       `23.5`
 
-`type(`$v$`)`                  Tipo del valor        `type(23.5)`       `<class` \
-                                                                        `'float'>`
------------------------------------------------------------------------------------
+`type(`$v$`)`              Tipo del valor        `type(23.5)`             `<class` \
+                                                                          `'float'>`
+------------------------------------------------------------------------------------
 
 ### Métodos predefinidos
 
@@ -1238,7 +1236,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - También decimos que el identificador está **ligado** (**_bound_**).
 
-!DOT(ligadura.svg)()(width=30%)
+!DOT(ligadura.svg)()(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 25 [shape = circle]
@@ -1256,7 +1254,7 @@ x -> 25
   x = 7
   ```
 
-!DOT(rebinding.svg)()(width=30%)
+!DOT(rebinding.svg)()(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
@@ -1325,7 +1323,7 @@ x -> 7
 
   - `x` e `y` comparten valor.
 
-!DOT(ligadura-compartida.svg)()(width=30%)
+!DOT(ligadura-compartida.svg)()(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 25 [shape = circle]
@@ -1378,7 +1376,7 @@ y -> 25
 
 ::: column
 
-!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)
+!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
@@ -1386,7 +1384,9 @@ x [shape = plaintext, fillcolor = transparent]
 x -> 4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)
+&nbsp; 
+
+!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 3 [shape = circle]
@@ -1397,7 +1397,9 @@ x -> 4
 y -> 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)
+&nbsp; 
+
+!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 3 [shape = circle];
@@ -1460,14 +1462,16 @@ z -> 3
 
 ---
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Lenguajes de tipado estático:**
+- Definición:
 
-Son aquellos que **obligan a declarar** el tipo de un identificador antes de
-poder usarlo y **prohíben** que dicho tipo **cambie** durante la ejecución del
-programa.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Lenguajes de tipado estático:**
+
+  Son aquellos que **obligan a declarar** el tipo de un identificador antes de
+  poder usarlo y **prohíben** que dicho tipo **cambie** durante la ejecución del
+  programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estos lenguajes disponen de construcciones sintácticas que permiten declarar
   de qué tipo serán los datos con los que se ligará un identificador.
@@ -1573,11 +1577,11 @@ programa.
 
   Un carácter `#` dentro de un literal cadena es sólo un carácter más.
 
-```python
-# este es el primer comentario
-spam = 1  # y este es el segundo comentario
-          # ... y este es el tercero
-texto = "# Esto no es un comentario porque va entre comillas."
-```
+  ```python
+  # este es el primer comentario
+  spam = 1  # y este es el segundo comentario
+            # ... y este es el tercero
+  texto = "# Esto no es un comentario porque va entre comillas."
+  ```
 
-!FIN
+!BIBLIOGRAFIA
