@@ -1240,8 +1240,9 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 !DOT(ligadura.svg)()(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
 25 [shape = circle]
-x [shape = record]
+x [shape = plaintext, fillcolor = transparent]
 x -> 25
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1257,8 +1258,10 @@ x -> 25
 
 !DOT(rebinding.svg)()(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
 7 [shape = circle]
+x [shape = plaintext, fillcolor = transparent]
 x -> 4 [style = dashed, color = grey]
 x -> 7
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1324,7 +1327,10 @@ x -> 7
 
 !DOT(ligadura-compartida.svg)()(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-25 [shape = circle];
+node [fixedsize = shape, fontname = "monospace"]
+25 [shape = circle]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
 x -> 25
 y -> 25
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1363,58 +1369,45 @@ y -> 25
   ```{.python .number-lines}
   >>> x = 4
   >>> y = 3
-  >>> z = 9
-  >>> x = 5
-  >>> y = x
+  >>> z = y
   ```
 
   Según la línea en la que nos encontremos, tenemos los siguientes entornos:
-
-!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-4 [shape = circle];
-x -> 4
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3 [shape = circle];
-4 [shape = circle];
-x -> 4
-y -> 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: column
 
-!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)
+!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-9 [shape = circle];
-3 [shape = circle];
-4 [shape = circle];
+node [fixedsize = shape, fontname = "monospace"]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent]
+x -> 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+3 [shape = circle]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
 x -> 4
 y -> 3
-z -> 9
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(entorno-linea4.svg)(Entorno en la línea 4)(width=30%)
+!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-9 [shape = circle];
+node [fixedsize = shape, fontname = "monospace"]
 3 [shape = circle];
-5 [shape = circle];
-x -> 5;
-y -> 3;
-z -> 9;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-!DOT(entorno-linea5.svg)(Entorno en la línea 5)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-9 [shape = circle];
-5 [shape = circle];
-x -> 5
-y -> 5
-z -> 9
+4 [shape = circle];
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+z [shape = plaintext, fillcolor = transparent]
+x -> 4
+y -> 3
+z -> 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1508,7 +1501,9 @@ programa.
 - Los tres conceptos de:
 
   - Compilado vs. interpretado
+
   - Tipado fuerte vs. débil
+
   - Tipado estático vs. dinámico
 
   son diferentes aunque están estrechamente relacionados.

@@ -351,7 +351,7 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
   comunicar dicha información *desde y hacia el exterior* (**codificación
   externa** o **de E/S**).
 
-!DOT(codificaciones)
+!DOT(codificaciones.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 E [label = "Exterior", shape = oval];
 S [label = "Sistema\ninformático\n\n(Codificación interna)"];
