@@ -11,4 +11,4 @@ title: Información general
 - **Código**: 0485.
 - **Duración total**: 256 horas / 32 semanas
 - **Carga lectiva semanal**: 8 horas
-- [Planificación y seguimiento](https://checkvist.com/checklists/724977){:target="_blank"}
+- [Planificación y seguimiento](https://checkvist.com/checklists/727747){:target="_blank"}
