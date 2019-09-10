@@ -12,6 +12,69 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -25,6 +88,14 @@
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -156,7 +227,134 @@
 </section>
 </section>
 
-<section><section id="abstracciones-funcionales" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Abstracciones funcionales</h1></section><section id="expresiones-lambda" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Expresiones lambda</h2></section><section id="parámetros-y-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Parámetros y argumentos</h2></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.3.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.3.2</span> Orden normal</h3></section><section id="variables-libres-y-ligadas" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Variables libres y ligadas</h2></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Registros de activación</h2></section></section>
+<section><section id="abstracciones-funcionales" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Abstracciones funcionales</h1></section><section id="expresiones-lambda" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Expresiones lambda</h2><ul>
+<li><p>Las <strong>expresiones lambda</strong> (también llamadas <strong>abstracciones lambda</strong> o <strong>funciones anónimas</strong> en algunos lenguajes) son expresiones que capturan la idea abstracta de «<strong>función</strong>».</p></li>
+<li><p>Son la forma más simple y primitiva de describir funciones en un lenguaje funcional.</p></li>
+<li><p>Su sintaxis (simplificada) es:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;expr_lambda&gt;</em></span> ::= <strong><code>lambda</code></strong> [<span style="color:teal"><em>&lt;lista_parámetros&gt;</em></span>] <strong><code>:</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span><br />
+<span style="color:teal"><em>&lt;lista_parámetros&gt;</em></span> := <span style="color:teal"><em>&lt;identificador&gt;</em></span> (<strong><code>,</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span>)*</div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div></li>
+</ul></section><section id="parámetros-y-cuerpos" class="title-slide slide level3"><h3><span class="header-section-number">1.1.1</span> Parámetros y cuerpos</h3><ul>
+<li><p>Los identificadores que aparecen entre la palabra clave <code>lambda</code> y el carácter de dos puntos (<code>:</code>) son los <strong>parámetros</strong> de la expresión lambda.</p></li>
+<li><p>La expresión que aparece tras los dos puntos (<code>:</code>) es el <strong>cuerpo</strong> de la expresión lambda.</p></li>
+<li><p>En el ejemplo anterior:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<ul>
+<li><p>Los parámetros son <code>x</code> e <code>y</code>.</p></li>
+<li><p>El cuerpo es <code>x + y</code>.</p></li>
+<li><p>Esta expresión lambda captura la idea general de sumar dos valores (que en principio pueden ser de cualquier tipo, siempre y cuando admitan el operador <code>+</code>).</p></li>
+</ul></li>
+</ul></section><section id="aplicación-funcional" class="title-slide slide level3"><h3><span class="header-section-number">1.1.2</span> Aplicación funcional</h3><ul>
+<li><p>De la misma manera que decíamos que podemos aplicar una función a unos argumentos, también podemos aplicar una expresión lambda a unos argumentos.</p></li>
+<li><p>Recordemos que <em>aplicar</em> una función a unos argumentos producía el valor que la función asocia a esos argumentos en el conjunto imagen.</p></li>
+<li><p>Por ejemplo, la aplicación de la función <span class="math inline">max</span> sobre los argumentos <span class="math inline">3</span> y <span class="math inline">5</span> se denota como <span class="math inline">max(3, 5)</span> y eso denota el valor <span class="math inline">5</span>.</p></li>
+<li><p>Igualmente, la aplicación de una expresión lambda como</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<p>sobre los argumentos <code>4</code> y <code>3</code> se representa así:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Si hacemos la siguiente definición:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<p>a partir de ese momento podemos usar <code>suma</code> en lugar de su valor (la expresión lambda), por lo que podemos hacer:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1">suma(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<p>en lugar de</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En nuestro modelo de sustitución, la evaluación de la aplicación de una expresión lambda consiste en sustituir, en el cuerpo de la expresión lambda, cada parámetro por el argumento correspondiente (por orden) y reducir la expresión resultante.</p></li>
+<li><p>A esta operación se la denomina <strong>aplicación funcional</strong> o <strong>β-reducción</strong>.</p></li>
+<li><p>Siguiendo con el ejemplo anterior:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<p>aplicamos en el cuerpo de la expresión lambda la sustitución de los parámetros <code>x</code> e <code>y</code> por los argumentos <code>4</code> y <code>3</code>, respectivamente, lo que da:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1"><span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span></a></code></pre></div>
+<p>que simplificando (según las reglas del operador <code>+</code>) da <code>7</code>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Lo mismo podemos hacer si definimos previamente la expresión lambda ligándola a un identificador:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div></li>
+<li><p>Así, la aplicación de la expresión lambda resulta más fácil y clara de escribir:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1">suma(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div></li>
+<li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p></li>
+</ul>
+</section><section id="variables-ligadas-y-libres" class="title-slide slide level3"><h3><span class="header-section-number">1.1.3</span> Variables ligadas y libres</h3><ul>
+<li><p>Si un identificador aparece en el cuerpo de una expresión lambda…</p>
+<ul>
+<li><p>… y también aparece en la lista de parámetros de la expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
+<li><p>En caso contrario, le llamamos <strong>variable libre</strong> de la expresión lambda.</p></li>
+</ul></li>
+<li><p>En el ejemplo anterior:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<p>los dos identificadores que aparecen en el cuerpo (<code>x</code> e <code>y</code>) son variables ligadas, ya que ambos aparecen también en la lista de parámetros de la expresión lambda.</p></li>
+<li><p>En cambio, en la expresión lambda:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p><code>x</code> e <code>y</code> son variables ligadas <code>z</code> es libre.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de evaluar una aplicación</strong> de la expresión lambda sobre unos argumentos.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb14-2" title="2">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<p>da error porque <code>z</code> no está definido (no está ligado a ningún valor en el entorno).</p></li>
+<li><p>En cambio:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb15-2" title="2">z <span class="op">=</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb15-3" title="3">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor (<code>9</code>).</p></li>
+<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando se <em>crea</em> la expresión lambda, sino cuando se <em>aplica</em>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es una expresión cuyo valor sólo va a depender de los argumentos que se usen cuando se aplique la expresión lambda.</p></li>
+<li><p>En cambio, el valor de una expresión lambda que contenga variables libres dependerá no sólo de los valores de sus argumentos, sino también de los valores a los que estén ligadas las variables libres al evaluar la expresión lambda.</p></li>
+<li><p>Por ejemplo, podemos escribir una expresión lambda que calcule la suma de tres números a partir de otra expresión lambda que calcule la suma de dos números:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</a></code></pre></div>
+<p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda (por lo que es una variable libre).</p>
+<p>Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga <code>suma</code> (de lo que haga, de lo que devuelva…).</p></li>
+</ul>
+</section><section id="variables-sombreadas" class="title-slide slide level3"><h3><span class="header-section-number">1.1.4</span> Variables <em>sombreadas</em></h3><ul>
+<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno?</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb17-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
+<li><p>La <code>x</code> que aparece en la línea 1 es diferente a la que aparece en la lista de parámetros de la expresión lambda de la línea 2.</p></li>
+</ul>
+<!--
+
+- Técnicamente, decimos que la expresión lambda introduce un nuevo *ámbito*
+  (concepto que desarrollaremos más adelante).
+
+-->
+<ul>
+<li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> que, en el entorno, está ligado al valor 4.</p></li>
+<li><p>Por tanto, el identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>hace referencia al parámetro <code>x</code> de la expresión lambda</strong>, y <strong>no</strong> al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Que el parámetro haga sombra al identificador de fuera significa que no podemos acceder a ese identificador externo desde el cuerpo de la expresión lambda como si fuera una variable libre.</p></li>
+<li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es cambiar el nombre al parámetro <code>x</code>. Por ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb18-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
+<p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code>).</p></li>
+</ul>
+</section><section id="renombrado-de-parámetros" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Renombrado de parámetros</h3><ul>
+<li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
+<li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
+<li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
+<li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
+</ul></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Orden normal</h3></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
 <section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
 <section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2></section></section>
 <section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Computabilidad</h1></section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Funciones recursivas</h2></section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">
