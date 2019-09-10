@@ -95,12 +95,12 @@ author: Ricardo Pérez López
   (lambda x, y: x + y)(4, 3)
   ```
 
----
+#### Evaluación de una aplicación funcional
 
-- En nuestro modelo de sustitución, la evaluación de la aplicación de una
-  expresión lambda consiste en sustituir, en el cuerpo de la expresión lambda,
-  cada parámetro por el argumento correspondiente (por orden) y reducir la
-  expresión resultante.
+- En nuestro modelo de sustitución, la **evaluación de la aplicación de una
+  expresión lambda** consiste en **sustituir**, en el cuerpo de la expresión
+  lambda, **cada parámetro por su argumento correspondiente** (por orden) y
+  devolver la expresión resultante *parentizada* (entre paréntesis).
 
 - A esta operación se la denomina **aplicación funcional** o **β-reducción**.
 
@@ -110,12 +110,12 @@ author: Ricardo Pérez López
   (lambda x, y: x + y)(4, 3)
   ```
 
-  aplicamos en el cuerpo de la expresión lambda la sustitución de los
-  parámetros `x` e `y` por los argumentos `4` y `3`, respectivamente, lo que
-  da:
+  sustituimos en el cuerpo de la expresión lambda los parámetros `x` e `y` por
+  los argumentos `4` y `3`, respectivamente, y parentizamos la expresión
+  resultante, lo que da:
 
   ```python
-  4 + 3
+  (4 + 3)
   ```
 
   que simplificando (según las reglas del operador `+`) da `7`.
@@ -138,12 +138,45 @@ author: Ricardo Pérez López
 
 - En ambos casos, el resultado es el mismo (`7`).
 
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Importante:**
+
+  En **Python**, el **orden de evaluación** de cualquier expresión siempre es
+  **de izquierda a derecha**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Ejemplos
+
+- Dado el siguiente código:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+  ¿Cuánto vale la expresión siguiente?
+
+  ```python
+  suma(4, 3) * suma(2, 7)
+  ```
+
+  Según el modelo de sustitución, reescribimos:
+
+  ```python
+  suma(4,3) * suma(2, 7)
+  = (lambda x, y: x + y)(4, 3) * (lambda x, y: x + y)(2, 7)
+  = (4 + 3) * (lambda x, y: x + y)(2, 7)
+  = 7 * (lambda x, y: x + y)(2, 7)
+  = 7 * (2 + 7)
+  = 7 * 9
+  = 63
+  ```
+
 ### Variables ligadas y libres
 
-- Si un identificador aparece en el cuerpo de una expresión lambda...
-
-  - ... y también aparece en la lista de parámetros de la expresión lambda,
-    a ese identificador le llamamos **variable ligada** de la expresión lambda.
+  - Si un identificador aparece en la lista de parámetros de la expresión
+    lambda, a ese identificador le llamamos **variable ligada** de la expresión
+    lambda.
 
   - En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
@@ -153,8 +186,8 @@ author: Ricardo Pérez López
   lambda x, y: x + y
   ```
 
-  los dos identificadores que aparecen en el cuerpo (`x` e `y`) son variables ligadas,
-  ya que ambos aparecen también en la lista de parámetros de la expresión
+  los dos identificadores que aparecen en el cuerpo (`x` e `y`) son variables
+  ligadas, ya que ambos aparecen en la lista de parámetros de la expresión
   lambda.
 
 - En cambio, en la expresión lambda:
@@ -163,7 +196,7 @@ author: Ricardo Pérez López
   lambda x, y: x + y + z
   ```
 
-  `x` e `y` son variables ligadas `z` es libre.
+  `x` e `y` son variables ligadas mientras que `z` es libre.
 
 ---
 

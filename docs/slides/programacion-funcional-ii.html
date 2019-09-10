@@ -263,15 +263,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>en lugar de</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
-
+</section><section id="evaluación-de-una-aplicación-funcional" class="slide level4">
+<h4><span class="header-section-number">1.1.2.2</span> Evaluación de una aplicación funcional</h4>
 <ul>
-<li><p>En nuestro modelo de sustitución, la evaluación de la aplicación de una expresión lambda consiste en sustituir, en el cuerpo de la expresión lambda, cada parámetro por el argumento correspondiente (por orden) y reducir la expresión resultante.</p></li>
+<li><p>En nuestro modelo de sustitución, la <strong>evaluación de la aplicación de una expresión lambda</strong> consiste en <strong>sustituir</strong>, en el cuerpo de la expresión lambda, <strong>cada parámetro por su argumento correspondiente</strong> (por orden) y devolver la expresión resultante <em>parentizada</em> (entre paréntesis).</p></li>
 <li><p>A esta operación se la denomina <strong>aplicación funcional</strong> o <strong>β-reducción</strong>.</p></li>
 <li><p>Siguiendo con el ejemplo anterior:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
-<p>aplicamos en el cuerpo de la expresión lambda la sustitución de los parámetros <code>x</code> e <code>y</code> por los argumentos <code>4</code> y <code>3</code>, respectivamente, lo que da:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1"><span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span></a></code></pre></div>
+<p>sustituimos en el cuerpo de la expresión lambda los parámetros <code>x</code> e <code>y</code> por los argumentos <code>4</code> y <code>3</code>, respectivamente, y parentizamos la expresión resultante, lo que da:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">(<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>)</a></code></pre></div>
 <p>que simplificando (según las reglas del operador <code>+</code>) da <code>7</code>.</p></li>
 </ul>
 </section><section class="slide level4">
@@ -281,32 +281,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div></li>
 <li><p>Así, la aplicación de la expresión lambda resulta más fácil y clara de escribir:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1">suma(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div></li>
-<li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p></li>
+<li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p>
+<div class="caja">
+<p><strong>Importante:</strong></p>
+<p>En <strong>Python</strong>, el <strong>orden de evaluación</strong> de cualquier expresión siempre es <strong>de izquierda a derecha</strong>.</p>
+</div></li>
+</ul>
+</section><section id="ejemplos" class="slide level4">
+<h4><span class="header-section-number">1.1.2.4</span> Ejemplos</h4>
+<ul>
+<li><p>Dado el siguiente código:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<p>¿Cuánto vale la expresión siguiente?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1">suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a></code></pre></div>
+<p>Según el modelo de sustitución, reescribimos:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1">suma(<span class="dv">4</span>,<span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="op">=</span> <span class="dv">63</span></a></code></pre></div></li>
 </ul>
 </section><section id="variables-ligadas-y-libres" class="title-slide slide level3"><h3><span class="header-section-number">1.1.3</span> Variables ligadas y libres</h3><ul>
-<li><p>Si un identificador aparece en el cuerpo de una expresión lambda…</p>
-<ul>
-<li><p>… y también aparece en la lista de parámetros de la expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
+<li><p>Si un identificador aparece en la lista de parámetros de la expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
 <li><p>En caso contrario, le llamamos <strong>variable libre</strong> de la expresión lambda.</p></li>
-</ul></li>
 <li><p>En el ejemplo anterior:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
-<p>los dos identificadores que aparecen en el cuerpo (<code>x</code> e <code>y</code>) son variables ligadas, ya que ambos aparecen también en la lista de parámetros de la expresión lambda.</p></li>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
+<p>los dos identificadores que aparecen en el cuerpo (<code>x</code> e <code>y</code>) son variables ligadas, ya que ambos aparecen en la lista de parámetros de la expresión lambda.</p></li>
 <li><p>En cambio, en la expresión lambda:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
-<p><code>x</code> e <code>y</code> son variables ligadas <code>z</code> es libre.</p></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p><code>x</code> e <code>y</code> son variables ligadas mientras que <code>z</code> es libre.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de evaluar una aplicación</strong> de la expresión lambda sobre unos argumentos.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb14-2" title="2">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb17-2" title="2">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
 <p>da error porque <code>z</code> no está definido (no está ligado a ningún valor en el entorno).</p></li>
 <li><p>En cambio:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb15-2" title="2">z <span class="op">=</span> <span class="dv">9</span></a>
-<a class="sourceLine" id="cb15-3" title="3">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb18-2" title="2">z <span class="op">=</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb18-3" title="3">prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a></code></pre></div>
 <p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor (<code>9</code>).</p></li>
 <li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando se <em>crea</em> la expresión lambda, sino cuando se <em>aplica</em>.</p></li>
 </ul>
@@ -316,15 +333,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es una expresión cuyo valor sólo va a depender de los argumentos que se usen cuando se aplique la expresión lambda.</p></li>
 <li><p>En cambio, el valor de una expresión lambda que contenga variables libres dependerá no sólo de los valores de sus argumentos, sino también de los valores a los que estén ligadas las variables libres al evaluar la expresión lambda.</p></li>
 <li><p>Por ejemplo, podemos escribir una expresión lambda que calcule la suma de tres números a partir de otra expresión lambda que calcule la suma de dos números:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</a></code></pre></div>
 <p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda (por lo que es una variable libre).</p>
 <p>Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga <code>suma</code> (de lo que haga, de lo que devuelva…).</p></li>
 </ul>
 </section><section id="variables-sombreadas" class="title-slide slide level3"><h3><span class="header-section-number">1.1.4</span> Variables <em>sombreadas</em></h3><ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno?</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb17-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb20-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
 <li><p>La <code>x</code> que aparece en la línea 1 es diferente a la que aparece en la lista de parámetros de la expresión lambda de la línea 2.</p></li>
 </ul>
 <!--
@@ -341,8 +358,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Que el parámetro haga sombra al identificador de fuera significa que no podemos acceder a ese identificador externo desde el cuerpo de la expresión lambda como si fuera una variable libre.</p></li>
 <li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es cambiar el nombre al parámetro <code>x</code>. Por ejemplo:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb18-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb21-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
 <p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code>).</p></li>
 </ul>
 </section><section id="renombrado-de-parámetros" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Renombrado de parámetros</h3><ul>
@@ -350,9 +367,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
 <li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
 <li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
 <p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
 <p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
 </ul></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Orden normal</h3></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
 <section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
