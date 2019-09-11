@@ -9,7 +9,7 @@
 <v t="ricardo.20190907144359.1"><vh>@auto source/introduccion.md</vh></v>
 <v t="ricardo.20190907144359.2"><vh>@auto source/programacion-funcional-i.md</vh></v>
 <v t="ricardo.20190907144359.3"
-expanded="ricardo.20190911231646.151,ricardo.20190911231646.152,ricardo.20190911231700.1,ricardo.20190911231646.162,"><vh>@auto source/programacion-funcional-ii.md</vh></v>
+expanded="ricardo.20190912000147.153,ricardo.20190912000147.175,ricardo.20190912000147.176,"><vh>@auto source/programacion-funcional-ii.md</vh></v>
 <v t="ricardo.20190907144359.4"><vh>@auto source/programacion-imperativa.md</vh></v>
 <v t="ricardo.20190907144359.5"><vh>@auto source/programacion-estructurada.md</vh></v>
 <v t="ricardo.20190907144359.6"><vh>@auto source/tipos-de-datos.md</vh></v>

@@ -584,7 +584,7 @@ z -> 3
   cuadrado(3 + 4)
   = cuadrado(7)
   = (lambda x, y: x * x)(7)
-  = 7 * 7
+  = (7 * 7)
   = 49
   ```
 
@@ -680,7 +680,7 @@ z -> 3
     Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
 
     ```python
-    primero(4, 1/0) = (lambda x, y: x)(4, 1/0) = 4
+    primero(4, 1/0) = (lambda x, y: x)(4, 1/0) = (4) = 4
     ```
 
 ---
@@ -695,6 +695,48 @@ z -> 3
   evaluación perezosa y sigue el orden normal.
 
 - Todo tiene ventajas e inconvenientes.
+
+## Composición de funciones
+
+- Podemos crear una función que use otra función. Por ejemplo, para calcular el
+  área de un círculo usamos otra función que calcule el cuadrado de un número:
+
+  ```python
+  cuadrado = lambda x: x * x
+  area = lambda r: 3.1416 * cuadrado(r)
+  ```
+
+- La expresión `area(12)` se evaluaría así según el *orden aplicativo*:
+
+  ```python
+  area(12)                                         # definición de area
+  = (lambda r: 3.1416 * cuadrado(r))(12)           # definición de cuadrado
+  = (lambda r: 3.1416 * (lambda x: x * x)(r))(12)  # aplicación
+  = (3.1416 * (lambda x: x * x)(12))               # aplicación
+  = (3.1416 * (12 * 12))                           # aritmética
+  = 452.3904
+  ```
+
+---
+
+- Y según el *orden normal*:
+
+  ```python
+  area(12)                                # definición de area
+  = (lambda r: 3.1416 * cuadrado(r))(12)  # aplicación
+  = (3.1416 * cuadrado(12))               # definición de cuadrado
+  = (3.1416 * (lambda x: x * x)(12))      # aplicación
+  = (3.1416 * (12 * 12))                  # aritmética
+  = 452.3904
+  ```
+
+# Tipos de datos compuestos
+
+## Cadenas
+
+## Listas
+
+# Computabilidad
 
 ## Funciones y procesos
 
@@ -724,18 +766,6 @@ z -> 3
 
 - Esto, en general, es muy difícil, pero al menos vamos a describir algunos de
   los modelos típicos de evolución de los procesos.
-
-## Registros de activación
-
-# Composición de funciones
-
-# Tipos de datos compuestos
-
-## Cadenas
-
-## Listas
-
-# Computabilidad
 
 ## Funciones recursivas
 

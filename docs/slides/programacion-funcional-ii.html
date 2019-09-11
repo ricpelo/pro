@@ -219,10 +219,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/abstracciones-funcionales"><span class="toc-section-number">1</span> Abstracciones funcionales</a></li>
-<li><a href="#/composición-de-funciones"><span class="toc-section-number">2</span> Composición de funciones</a></li>
-<li><a href="#/tipos-de-datos-compuestos"><span class="toc-section-number">3</span> Tipos de datos compuestos</a></li>
-<li><a href="#/computabilidad"><span class="toc-section-number">4</span> Computabilidad</a></li>
-<li><a href="#/funciones-de-orden-superior"><span class="toc-section-number">5</span> Funciones de orden superior</a></li>
+<li><a href="#/tipos-de-datos-compuestos"><span class="toc-section-number">2</span> Tipos de datos compuestos</a></li>
+<li><a href="#/computabilidad"><span class="toc-section-number">3</span> Computabilidad</a></li>
+<li><a href="#/funciones-de-orden-superior"><span class="toc-section-number">4</span> Funciones de orden superior</a></li>
 </ul>
 </section>
 </section>
@@ -501,7 +500,7 @@ z -> 1
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="op">=</span> cuadrado(<span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb27-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb27-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb27-5" title="5"><span class="op">=</span> <span class="dv">49</span></a></code></pre></div>
 <p>alcanzando la forma normal en 4 pasos de reducción.</p></li>
 </ul>
@@ -553,7 +552,7 @@ z -> 1
 <p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden aplicativo</strong>.</p></li>
 <li><p>En cambio, <strong>si es perezosa</strong>, el intérprete evaluará únicamente aquellos argumentos que se usen en el cuerpo de la expresión lambda, y en este caso sólo se usa el primero, así que dejará sin evaluar el segundo, no dará error y devolverá directamente <code>4</code>.</p>
 <p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden normal</strong>:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1">primero(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> <span class="dv">4</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1">primero(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="dv">4</span>) <span class="op">=</span> <span class="dv">4</span></a></code></pre></div></li>
 </ul></li>
 </ul>
 </section><section class="slide level4">
@@ -564,7 +563,31 @@ z -> 1
 <li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que se basa en la evaluación perezosa y sigue el orden normal.</p></li>
 <li><p>Todo tiene ventajas e inconvenientes.</p></li>
 </ul>
-</section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2><ul>
+</section><section id="composición-de-funciones" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Composición de funciones</h2><ul>
+<li><p>Podemos crear una función que use otra función. Por ejemplo, para calcular el área de un círculo usamos otra función que calcule el cuadrado de un número:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a>
+<a class="sourceLine" id="cb34-2" title="2">area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</a></code></pre></div></li>
+<li><p>La expresión <code>area(12)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" title="1">area(<span class="dv">12</span>)                                         <span class="co"># definición de area</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># definición de cuadrado</span></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))               <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb35-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                           <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb35-6" title="6"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Y según el <em>orden normal</em>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1">area(<span class="dv">12</span>)                                <span class="co"># definición de area</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))               <span class="co"># definición de cuadrado</span></a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))      <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb36-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                  <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb36-6" title="6"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
+</ul>
+</section></section>
+<section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Cadenas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Listas</h2></section></section>
+<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Computabilidad</h1></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Funciones y procesos</h2><ul>
 <li><p>Los <strong>procesos</strong> son entidades abstractas que habitan los ordenadores.</p></li>
 <li><p>Conforme van evolucionando, los procesos manipulan otras entidades abstractas llamadas <strong>datos</strong>.</p></li>
 <li><p>La evolución de un proceso está dirigida por un patrón de reglas llamada <strong>programa</strong>.</p></li>
@@ -578,15 +601,12 @@ z -> 1
 <li><p>Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el comportamiento global del proceso cuya evolución local está definida por la función.</p></li>
 <li><p>Esto, en general, es muy difícil, pero al menos vamos a describir algunos de los modelos típicos de evolución de los procesos.</p></li>
 </ul>
-</section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
-<section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
-<section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2></section></section>
-<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Computabilidad</h1></section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Funciones recursivas</h2></section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">
-<h4><span class="header-section-number">4.1.1.1</span> Procesos lineales recursivos</h4>
+</section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Funciones recursivas</h2></section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">
+<h4><span class="header-section-number">3.2.1.1</span> Procesos lineales recursivos</h4>
 </section><section id="procesos-lineales-iterativos" class="slide level4">
-<h4><span class="header-section-number">4.1.1.2</span> Procesos lineales iterativos</h4>
-</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">4.1.2</span> Recursividad en árbol</h3></section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Un lenguaje Turing-completo</h2></section></section>
-<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Funciones de orden superior</h1></section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> <code>map()</code></h2></section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> <code>filter()</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> <code>reduce()</code></h2></section></section>
+<h4><span class="header-section-number">3.2.1.2</span> Procesos lineales iterativos</h4>
+</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Recursividad en árbol</h3></section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Un lenguaje Turing-completo</h2></section></section>
+<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones de orden superior</h1></section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>map()</code></h2></section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>filter()</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>reduce()</code></h2></section></section>
     </div>
   </div>
 
