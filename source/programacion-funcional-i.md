@@ -1533,6 +1533,18 @@ z -> 3
   from definiciones import *
   ```
 
+## Ámbito de una ligadura
+
+- El **ámbito de una ligadura** es la porción del programa en la que dicha
+  ligadura tiene validez.
+
+- Es un concepto nada trivial y, a medida que vayamos incorporando nuevos
+  elementos al lenguaje, el concepto de *ámbito* irá cambiando para tener en
+  cuenta más condicionantes.
+
+- *Por ahora*, diremos que el ámbito de una ligadura abarca desde la propia
+  definición hasta el final del *script*.
+
 # Documentación interna
 
 ## Identificadores significativos

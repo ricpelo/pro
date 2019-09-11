@@ -253,6 +253,50 @@ author: Ricardo Pérez López
   Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
   `suma` (de lo que haga, de lo que devuelva...).
 
+### Ámbito de una variable ligada
+
+- Recordemos que el **ámbito de una ligadura** es la porción del programa en la
+  que dicha ligadura tiene validez.
+
+- Hemos visto que **un parámetro** de una expresión lambda **es una variable
+  ligada** en el cuerpo de dicha expresión lambda.
+
+- En realidad, lo que hace la expresión lambda es **ligar al parámetro con la
+  variable ligada que está dentro del cuerpo**, y esa ligadura existe
+  únicamente en el cuerpo de la expresión lambda.
+
+- Por tanto, **el ámbito de una variable ligada es el cuerpo de la expresión
+  lambda** que la liga con su parámetro.
+
+- También se dice que la variable ligada tiene un **ámbito local** a la
+  expresión lambda.
+
+- Por contraste, los identificadores que no tienen ámbito local se dice que
+  tienen un **ámbito global**.
+
+---
+
+- Por ejemplo:
+
+  ```{.python .number-lines}
+  # Aquí empieza el script (no hay más definiciones antes de esta línea):
+  producto = lambda x: x * x
+  y = producto(3)
+  z = x + 1       # da error
+  ```
+
+- La expresión lambda de la línea 2 tiene un parámetro (`x`) ligado a la
+  variable ligada `x` situada en el cuerpo de la expresión lambda.
+
+- Por tanto, el ámbito de la variable ligada `x` es el **cuerpo** de la
+  expresión lambda (`x * x`).
+
+- Eso quiere decir que, fuera de la expresión lambda, no es posible acceder al
+  valor de la variable ligada, al encontrarnos **fuera de su ámbito**.
+
+- Por ello, la línea 4 dará un error al intentar acceder al valor de un
+  identificador no ligado.
+
 ### Variables *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
@@ -300,6 +344,163 @@ author: Ricardo Pérez López
 
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
   y una variable libre (el identificador `x`).
+
+### Expresiones lambda y entornos
+
+- Recordemos que el **entorno** es el conjunto de todas las ligaduras que son
+  accesibles en un punto concreto de un programa.
+
+- Para calcular el entorno en un punto dado, debemos tener en cuenta las
+  ligaduras, así como los ámbitos de dichas ligaduras y las variables ligadas
+  que hagan sombra a otras situadas en el mismo ámbito.
+
+---
+
+- Por ejemplo:
+
+  ```{.python .number-lines}
+  x = 4
+  z = 1
+  suma = (lambda x, y: x + y + z)(8, 12)
+  y = 3
+  z = 9
+  ```
+
+- En cada línea tendríamos los siguientes entornos:
+
+:::: columns
+
+::: column
+
+!DOT(lambda-entorno-linea1.svg)(Entorno en la línea 1)(width=50%)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fontname = "monospace"]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
+x -> 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(lambda-entorno-linea2.svg)(Entorno en la línea 2)(width=50%)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+x -> 4
+z -> 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=30%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+
+suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+suma -> lambda
+x -> 4
+z -> 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+&nbsp;
+
+!DOT(lambda-entorno-linea3-dentro.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda)(width=30%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+node [fontname = "monospace"]
+1 [shape = circle]
+12 [shape = circle]
+8 [shape = circle]
+xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
+yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+
+suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+suma -> lambda
+xl -> 8
+yl -> 12
+z -> 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<!--
+
+compound = true
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+8 [shape = circle]
+12 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
+xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
+yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+
+suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+subgraph cluster0 {
+    label = "lambda"
+    bgcolor = white
+    xl -> 8
+    yl -> 12
+}
+suma -> xl [lhead = cluster0]
+x -> 4
+z -> 1
+
+-->
+
+---
+
+:::: columns
+
+::: column
+
+!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=20%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+3 [shape = circle];
+4 [shape = circle];
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+z [shape = plaintext, fillcolor = transparent]
+x -> 4
+y -> 3
+z -> 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=20%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+3 [shape = circle];
+4 [shape = circle];
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+z [shape = plaintext, fillcolor = transparent]
+x -> 4
+y -> 3
+z -> 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ### Renombrado de parámetros
 

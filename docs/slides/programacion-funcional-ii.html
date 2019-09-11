@@ -337,11 +337,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda (por lo que es una variable libre).</p>
 <p>Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga <code>suma</code> (de lo que haga, de lo que devuelva…).</p></li>
 </ul>
-</section><section id="variables-sombreadas" class="title-slide slide level3"><h3><span class="header-section-number">1.1.4</span> Variables <em>sombreadas</em></h3><ul>
+</section><section id="ámbito-de-una-variable-ligada" class="title-slide slide level3"><h3><span class="header-section-number">1.1.4</span> Ámbito de una variable ligada</h3><ul>
+<li><p>Recordemos que el <strong>ámbito de una ligadura</strong> es la porción del programa en la que dicha ligadura tiene validez.</p></li>
+<li><p>Hemos visto que <strong>un parámetro</strong> de una expresión lambda <strong>es una variable ligada</strong> en el cuerpo de dicha expresión lambda.</p></li>
+<li><p>En realidad, lo que hace la expresión lambda es <strong>ligar al parámetro con la variable ligada que está dentro del cuerpo</strong>, y esa ligadura existe únicamente en el cuerpo de la expresión lambda.</p></li>
+<li><p>Por tanto, <strong>el ámbito de una variable ligada es el cuerpo de la expresión lambda</strong> que la liga con su parámetro.</p></li>
+<li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda.</p></li>
+<li><p>Por contraste, los identificadores que no tienen ámbito local se dice que tienen un <strong>ámbito global</strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># Aquí empieza el script (no hay más definiciones antes de esta línea):</span></a>
+<a class="sourceLine" id="cb20-2" title="2">producto <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a>
+<a class="sourceLine" id="cb20-3" title="3">y <span class="op">=</span> producto(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb20-4" title="4">z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></a></code></pre></div></li>
+<li><p>La expresión lambda de la línea 2 tiene un parámetro (<code>x</code>) ligado a la variable ligada <code>x</code> situada en el cuerpo de la expresión lambda.</p></li>
+<li><p>Por tanto, el ámbito de la variable ligada <code>x</code> es el <strong>cuerpo</strong> de la expresión lambda (<code>x * x</code>).</p></li>
+<li><p>Eso quiere decir que, fuera de la expresión lambda, no es posible acceder al valor de la variable ligada, al encontrarnos <strong>fuera de su ámbito</strong>.</p></li>
+<li><p>Por ello, la línea 4 dará un error al intentar acceder al valor de un identificador no ligado.</p></li>
+</ul>
+</section><section id="variables-sombreadas" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Variables <em>sombreadas</em></h3><ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno?</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb20-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb21-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
 <li><p>La <code>x</code> que aparece en la línea 1 es diferente a la que aparece en la lista de parámetros de la expresión lambda de la línea 2.</p></li>
 </ul>
 <!--
@@ -358,18 +378,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Que el parámetro haga sombra al identificador de fuera significa que no podemos acceder a ese identificador externo desde el cuerpo de la expresión lambda como si fuera una variable libre.</p></li>
 <li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es cambiar el nombre al parámetro <code>x</code>. Por ejemplo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb21-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb22-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
 <p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code>).</p></li>
 </ul>
-</section><section id="renombrado-de-parámetros" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Renombrado de parámetros</h3><ul>
+</section><section id="expresiones-lambda-y-entornos" class="title-slide slide level3"><h3><span class="header-section-number">1.1.6</span> Expresiones lambda y entornos</h3><ul>
+<li><p>Recordemos que el <strong>entorno</strong> es el conjunto de todas las ligaduras que son accesibles en un punto concreto de un programa.</p></li>
+<li><p>Para calcular el entorno en un punto dado, debemos tener en cuenta las ligaduras, así como los ámbitos de dichas ligaduras y las variables ligadas que hagan sombra a otras situadas en el mismo ámbito.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb23-2" title="2">z <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb23-3" title="3">suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb23-4" title="4">y <span class="op">=</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb23-5" title="5">z <span class="op">=</span> <span class="dv">9</span></a></code></pre></div></li>
+<li><p>En cada línea tendríamos los siguientes entornos:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="images/lambda-entorno-linea1.svg" alt="Entorno en la línea 1" class="plain" style="width:50.0%" /><figcaption>Entorno en la línea 1</figcaption>
+</figure>
+<p></p>
+</div><div class="column">
+<figure>
+<img data-src="images/lambda-entorno-linea2.svg" alt="Entorno en la línea 2" class="plain" style="width:50.0%" /><figcaption>Entorno en la línea 2</figcaption>
+</figure>
+<p></p>
+</div>
+</div>
+</section><section class="slide level4">
+
+
+<figure>
+<img data-src="images/lambda-entorno-linea3.svg" alt="Entorno en la línea 3 fuera de la expresión lambda" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 3 fuera de la expresión lambda</figcaption>
+</figure>
+<p></p>
+<p> </p>
+
+<figure>
+<img data-src="images/lambda-entorno-linea3-dentro.svg" alt="Entorno en la línea 3 en el cuerpo de la expresión lambda" class="plain" style="width:30.0%" /><figcaption>Entorno en la línea 3 en el cuerpo de la expresión lambda</figcaption>
+</figure>
+<p></p>
+<!--
+
+compound = true
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+8 [shape = circle]
+12 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
+xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
+yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+
+suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+subgraph cluster0 {
+    label = "lambda"
+    bgcolor = white
+    xl -> 8
+    yl -> 12
+}
+suma -> xl [lhead = cluster0]
+x -> 4
+z -> 1
+
+-->
+</section><section class="slide level4">
+
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="images/lambda-entorno-linea4.svg" alt="Entorno en la línea 4" class="plain" style="width:40.0%" /><figcaption>Entorno en la línea 4</figcaption>
+</figure>
+<p></p>
+</div><div class="column">
+<figure>
+<img data-src="images/lambda-entorno-linea5.svg" alt="Entorno en la línea 5" class="plain" style="width:40.0%" /><figcaption>Entorno en la línea 5</figcaption>
+</figure>
+<p></p>
+</div>
+</div>
+</section><section id="renombrado-de-parámetros" class="title-slide slide level3"><h3><span class="header-section-number">1.1.7</span> Renombrado de parámetros</h3><ul>
 <li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
 <li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
 <li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
 <li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
 <p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
 <p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
 </ul></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Orden normal</h3></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
 <section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
