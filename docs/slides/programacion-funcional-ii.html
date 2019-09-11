@@ -284,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p>
 <div class="caja">
 <p><strong>Importante:</strong></p>
-<p>En <strong>Python</strong>, el <strong>orden de evaluación</strong> de cualquier expresión siempre es <strong>de izquierda a derecha</strong>.</p>
+<p>En <strong>Python</strong>, el <strong>orden de evaluación</strong> de cualquier expresión es <strong>de izquierda a derecha</strong>.</p>
 </div></li>
 </ul>
 </section><section id="ejemplos" class="slide level4">
@@ -296,12 +296,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1">suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a></code></pre></div>
 <p>Según el modelo de sustitución, reescribimos:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1">suma(<span class="dv">4</span>,<span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">9</span></a>
-<a class="sourceLine" id="cb14-7" title="7"><span class="op">=</span> <span class="dv">63</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb14-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="op">=</span> <span class="dv">63</span></a></code></pre></div></li>
 </ul>
 </section><section id="variables-ligadas-y-libres" class="title-slide slide level3"><h3><span class="header-section-number">1.1.3</span> Variables ligadas y libres</h3><ul>
 <li><p>Si un identificador aparece en la lista de parámetros de la expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
@@ -471,7 +472,113 @@ z -> 1
 <p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
 <p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
-</ul></section><section id="orden-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Orden de evaluación</h2></section><section id="orden-aplicativo" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Orden aplicativo</h3></section><section id="orden-normal" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Orden normal</h3></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2></section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
+</ul></section><section id="estrategias-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Estrategias de evaluación</h2><ul>
+<li><p>A la hora de evaluar una expresión existen varias estrategias diferentes que se pueden adoptar.</p></li>
+<li><p>Cada lenguaje implementa sus propias estrategias de evaluación que están basadas en las que vamos a ver aquí.</p></li>
+<li><p>Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión hay que reducir, en función de:</p>
+<ul>
+<li><p>El orden (de fuera adentro o de dentro afuera).</p></li>
+<li><p>La necesidad o no de evaluar dicha expresión.</p></li>
+</ul></li>
+</ul></section><section id="orden-de-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Orden de evaluación</h3><ul>
+<li><p>En un lenguaje de programación funcional puro se cumple la <strong>transparencia referencial</strong>, según la cual el valor de una expresión depende sólo del valor de sus sub-expresiones (también llamadas <em>redexes</em>).</p></li>
+<li><p>Pero eso también implica que <strong>no importa el orden en el que se evalúen las sub-expresiones</strong>: el resultado debe ser siempre el mismo.</p></li>
+<li><p>Gracias a ello podemos usar nuestro modelo de sustitución como modelo computacional.</p></li>
+<li><p>Hay dos <strong>estrategias básicas de evaluación</strong>:</p>
+<ul>
+<li><p><strong>Orden aplicativo</strong>: reducir siempre el <em>redex</em> más <strong>interno</strong>.</p></li>
+<li><p><strong>Orden normal</strong>: reducir siempre el <em>redex</em> más <strong>externo</strong>.</p></li>
+</ul></li>
+<li><p><strong>Python usa el orden aplicativo</strong>, salvo excepciones.</p></li>
+</ul></section><section id="orden-aplicativo" class="slide level4">
+<h4><span class="header-section-number">1.2.1.1</span> Orden aplicativo</h4>
+<ul>
+<li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando siempre por el <em>redex</em> más <strong>interno</strong>.</p></li>
+<li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por valor</strong>.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb26-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> x</a></code></pre></div>
+<p>Según el orden aplicativo, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="op">=</span> cuadrado(<span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="op">=</span> <span class="dv">49</span></a></code></pre></div>
+<p>alcanzando la forma normal en 4 pasos de reducción.</p></li>
+</ul>
+</section><section id="orden-normal" class="slide level4">
+<h4><span class="header-section-number">1.2.1.2</span> Orden normal</h4>
+<ul>
+<li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong>.</p></li>
+<li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por nombre</strong>.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> x</a></code></pre></div>
+<p>Según el orden normal, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="op">=</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="op">=</span> <span class="dv">49</span></a></code></pre></div>
+<p>alcanzando la forma normal en 5 pasos de reducción.</p></li>
+</ul>
+</section><section id="evaluación-estricta-y-no-estricta" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Evaluación estricta y no estricta</h3><ul>
+<li><p>Existe otra forma de ver la evaluación de una expresión:</p>
+<ul>
+<li><p><strong>Evaluación estricta</strong>: Reducir todos los <em>redexes</em> aunque no hagan falta.</p></li>
+<li><p><strong>Evaluación no estricta</strong>: Reducir sólo los <em>redexes</em> que sean estrictamente necesarios para calcular el valor de la expresión.</p>
+<p>A esta estrategia de evaluación se la denomina también <strong>evaluación perezosa</strong>.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<p>Sabemos que la expresión <code>1/0</code> da un error de <em>división por cero</em>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="dv">1</span><span class="op">/</span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb30-2" title="2">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb30-3" title="3">File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="pp">ZeroDivisionError</span>: division by zero</a></code></pre></div></li>
+<li><p>Supongamos que tenemos la siguiente definición:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1">primero <span class="op">=</span> <span class="kw">lambda</span> x, y: x</a></code></pre></div>
+<p>de forma que <code>primero</code> es una función que simplemente devuelve el primero de sus argumentos.</p></li>
+<li><p>Es evidente que la función <code>primero</code> no necesita evaluar nunca su segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos). Por ejemplo, <code>primero(4, 3)</code> devuelve <code>3</code>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Sabiendo eso… ¿qué valor devolvería la siguiente expresión?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1">primero(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>)</a></code></pre></div></li>
+<li><p>Curiosamente, el resultado dependerá de si la evaluación es estricta o perezosa:</p>
+<ul>
+<li><p><strong>Si es estricta</strong>, el intérprete evaluará todos los argumentos de la expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al evaluar <code>1/0</code> devolverá un error.</p>
+<p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden aplicativo</strong>.</p></li>
+<li><p>En cambio, <strong>si es perezosa</strong>, el intérprete evaluará únicamente aquellos argumentos que se usen en el cuerpo de la expresión lambda, y en este caso sólo se usa el primero, así que dejará sin evaluar el segundo, no dará error y devolverá directamente <code>4</code>.</p>
+<p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden normal</strong>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1">primero(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> <span class="dv">4</span></a></code></pre></div></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En <strong>Python</strong> la evaluación es <strong>estricta</strong>, salvo excepciones que veremos.</p></li>
+<li><p>De hecho, la mayoría de los lenguajes de programación se basan en la evaluación estricta y el paso de argumentos por valor (por lo que siguen el orden aplicativo).</p></li>
+<li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que se basa en la evaluación perezosa y sigue el orden normal.</p></li>
+<li><p>Todo tiene ventajas e inconvenientes.</p></li>
+</ul>
+</section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Funciones y procesos</h2><ul>
+<li><p>Los <strong>procesos</strong> son entidades abstractas que habitan los ordenadores.</p></li>
+<li><p>Conforme van evolucionando, los procesos manipulan otras entidades abstractas llamadas <strong>datos</strong>.</p></li>
+<li><p>La evolución de un proceso está dirigida por un patrón de reglas llamada <strong>programa</strong>.</p></li>
+<li><p>Los programadores crean programas para dirigir a los procesos.</p></li>
+<li><p>Es como decir que los programadores son magos que invocan a los espíritus del ordenador con sus conjuros.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Una función describe la evolución local de un <strong>proceso</strong>.</p></li>
+<li><p>En cada paso se calcula el siguiente estado del proceso basándonos en el estado actual y en las reglas definidas por la función.</p></li>
+<li><p>Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el comportamiento global del proceso cuya evolución local está definida por la función.</p></li>
+<li><p>Esto, en general, es muy difícil, pero al menos vamos a describir algunos de los modelos típicos de evolución de los procesos.</p></li>
+</ul>
+</section><section id="registros-de-activación" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Registros de activación</h2></section></section>
 <section id="composición-de-funciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Composición de funciones</h1></section>
 <section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2></section></section>
 <section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Computabilidad</h1></section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Funciones recursivas</h2></section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">4.1.1</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">

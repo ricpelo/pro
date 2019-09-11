@@ -6,6 +6,7 @@ author: Ricardo Pérez López
 
 # Abstracciones funcionales
 
+
 ## Expresiones lambda
 
 - Las **expresiones lambda** (también llamadas **abstracciones lambda** o
@@ -142,7 +143,7 @@ author: Ricardo Pérez López
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Importante:**
 
-  En **Python**, el **orden de evaluación** de cualquier expresión siempre es
+  En **Python**, el **orden de evaluación** de cualquier expresión es
   **de izquierda a derecha**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -164,8 +165,9 @@ author: Ricardo Pérez López
 
   ```python
   suma(4,3) * suma(2, 7)
-  = (lambda x, y: x + y)(4, 3) * (lambda x, y: x + y)(2, 7)
-  = (4 + 3) * (lambda x, y: x + y)(2, 7)
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)
+  = (4 + 3) * suma(2, 7)
+  = 7 * suma(2, 7)
   = 7 * (lambda x, y: x + y)(2, 7)
   = 7 * (2 + 7)
   = 7 * 9
@@ -527,13 +529,201 @@ z -> 3
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
   **captura de variables**.
 
-## Orden de evaluación
+## Estrategias de evaluación
 
-### Orden aplicativo
+- A la hora de evaluar una expresión existen varias estrategias diferentes que
+  se pueden adoptar.
 
-### Orden normal
+- Cada lenguaje implementa sus propias estrategias de evaluación que están
+  basadas en las que vamos a ver aquí.
+
+- Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión
+  hay que reducir, en función de:
+
+  - El orden (de fuera adentro o de dentro afuera).
+
+  - La necesidad o no de evaluar dicha expresión.
+
+### Orden de evaluación
+
+- En un lenguaje de programación funcional puro se cumple la **transparencia
+  referencial**, según la cual el valor de una expresión depende sólo del valor
+  de sus sub-expresiones (también llamadas *redexes*).
+
+- Pero eso también implica que **no importa el orden en el que se evalúen las
+  sub-expresiones**: el resultado debe ser siempre el mismo.
+
+- Gracias a ello podemos usar nuestro modelo de sustitución como modelo
+  computacional.
+
+- Hay dos **estrategias básicas de evaluación**:
+
+  - **Orden aplicativo**: reducir siempre el *redex* más **interno**.
+
+  - **Orden normal**: reducir siempre el *redex* más **externo**.
+
+- **Python usa el orden aplicativo**, salvo excepciones.
+
+#### Orden aplicativo
+
+- El **orden aplicativo** consiste en evaluar las expresiones *de dentro
+  afuera*, es decir, empezando siempre por el *redex* más **interno**.
+
+- Corresponde a lo que en muchos lenguajes de programación se denomina **paso
+  de argumentos por valor**.
+
+- Ejemplo:
+
+  ```python
+  cuadrado = lambda x, y: x * x
+  ```
+
+  Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
+
+  ```python
+  cuadrado(3 + 4)
+  = cuadrado(7)
+  = (lambda x, y: x * x)(7)
+  = 7 * 7
+  = 49
+  ```
+
+  alcanzando la forma normal en 4 pasos de reducción.
+
+#### Orden normal
+
+- El **orden normal** consiste en evaluar las expresiones *de fuera adentro*,
+  es decir, empezando siempre por el *redex* más **externo**.
+
+- Corresponde a lo que en muchos lenguajes de programación se denomina **paso
+  de argumentos por nombre**.
+
+- Ejemplo:
+
+  ```python
+  cuadrado = lambda x, y: x * x
+  ```
+
+  Según el orden normal, la expresión `cuadrado(3 + 4)` se reduciría así:
+
+  ```python
+  cuadrado(3 + 4)
+  = (lambda x, y: x * x)(3 + 4)
+  = (3 + 4) * (3 + 4)
+  = 7 * (3 + 4)
+  = 7 * 7
+  = 49
+  ```
+
+  alcanzando la forma normal en 5 pasos de reducción.
+
+### Evaluación estricta y no estricta
+
+- Existe otra forma de ver la evaluación de una expresión:
+
+  - **Evaluación estricta**: Reducir todos los *redexes* aunque no hagan falta.
+
+  - **Evaluación no estricta**: Reducir sólo los *redexes* que sean
+    estrictamente necesarios para calcular el valor de la expresión.
+
+    A esta estrategia de evaluación se la denomina también **evaluación
+    perezosa**.
+
+---
+
+- Por ejemplo:
+
+  Sabemos que la expresión `1/0` da un error de *división por cero*:
+
+  ```python
+  >>> 1/0
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  ZeroDivisionError: division by zero
+  ```
+
+- Supongamos que tenemos la siguiente definición:
+
+  ```python
+  primero = lambda x, y: x
+  ```
+
+  de forma que `primero` es una función que simplemente devuelve el primero de
+  sus argumentos.
+
+- Es evidente que la función `primero` no necesita evaluar nunca su segundo
+  argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos).
+  Por ejemplo, `primero(4, 3)` devuelve `3`.
+
+---
+
+- Sabiendo eso... ¿qué valor devolvería la siguiente expresión?
+
+  ```python
+  primero(4, 1/0)
+  ```
+
+- Curiosamente, el resultado dependerá de si la evaluación es estricta o
+  perezosa:
+
+  - **Si es estricta**, el intérprete evaluará todos los argumentos de la
+    expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al
+    evaluar `1/0` devolverá un error.
+
+    Es lo que ocurre cuando se evalúa siguiendo el **orden aplicativo**.
+
+  - En cambio, **si es perezosa**, el intérprete evaluará únicamente aquellos
+    argumentos que se usen en el cuerpo de la expresión lambda, y en este caso
+    sólo se usa el primero, así que dejará sin evaluar el segundo, no dará
+    error y devolverá directamente `4`.
+
+    Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
+
+    ```python
+    primero(4, 1/0) = (lambda x, y: x)(4, 1/0) = 4
+    ```
+
+---
+
+- En **Python** la evaluación es **estricta**, salvo excepciones que veremos.
+
+- De hecho, la mayoría de los lenguajes de programación se basan en la
+  evaluación estricta y el paso de argumentos por valor (por lo que siguen el
+  orden aplicativo).
+
+- **Haskell**, por ejemplo, es un lenguaje funcional puro que se basa en la
+  evaluación perezosa y sigue el orden normal.
+
+- Todo tiene ventajas e inconvenientes.
 
 ## Funciones y procesos
+
+- Los **procesos** son entidades abstractas que habitan los ordenadores.
+
+- Conforme van evolucionando, los procesos manipulan otras entidades abstractas
+  llamadas **datos**.
+
+- La evolución de un proceso está dirigida por un patrón de reglas llamada
+  **programa**.
+
+- Los programadores crean programas para dirigir a los procesos.
+
+- Es como decir que los programadores son magos que invocan a los espíritus del
+  ordenador con sus conjuros.
+
+---
+
+- Una función describe la evolución local de un **proceso**.
+
+- En cada paso se calcula el siguiente estado del proceso basándonos en el
+  estado actual y en las reglas definidas por la función.
+
+- Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el
+  comportamiento global del proceso cuya evolución local está definida por la
+  función.
+
+- Esto, en general, es muy difícil, pero al menos vamos a describir algunos de
+  los modelos típicos de evolución de los procesos.
 
 ## Registros de activación
 
