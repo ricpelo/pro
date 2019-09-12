@@ -10,7 +10,7 @@ author: Ricardo Pérez López
 
 # Verificación y validación de programas
 
-## Demostración por inducción
+## Demostraciones por inducción
 
 # Programación funcional
 
