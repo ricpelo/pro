@@ -752,50 +752,6 @@ z -> 3
 - En ambos casos se obtiene el mismo resultado, ya que en todo momento hemos
   usado *funciones puras*.
 
-# Tipos de datos compuestos
-
-## Cadenas
-
-- Las **cadenas** se pueden considerar datos compuestos de otros más simples.
-
-- Por ahora consideraremos que una cadena `c` está formada por dos partes:
-
-  - El **primer carácter** de la cadena, si existe (al que se accede mediante
-    `c[0]`).
-
-  - El **resto** de la cadena (al que se accede mediante `c[1:]`).
-
-- Eso significa que podemos acceder al segundo carácter de la cadena
-  (suponiendo que exista) mediante `c[1:][0]`.
-
-  ```python
-  cadena = 'hola'
-  cadena[0]       # devuelve 'h'
-  cadena[1:]      # devuelve 'ola'
-  cadena[1:][0]   # devuelve 'o'
-  ```
-
-## Listas
-
-- Las **listas** son una generalización de las cadenas.
-
-- Una lista es una **secuencia de elementos** que no tienen por qué ser
-  caracteres, sino que pueden ser **de cualquier tipo** (números, cadenas,
-  booleanos, incluso otras listas).
-
-- Los literales de tipo lista se representan enumerando sus elementos separados
-  por comas y encerrados entre corchetes.
-
-- Por ejemplo:
-
-  ```python
-  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
-  ```
-
-- Con las listas usaremos las mismas operaciones de acceso que con las cadenas
-  (`lista[0]` es el primer elemento de la lista, `lista[1:]` es el resto de la
-  lista, etcétera).
-
 # Computabilidad
 
 ## Funciones y procesos
@@ -875,18 +831,14 @@ z -> 3
 
 - El factorial de un número natural $n$ se representa $n!$ y se define como el
   producto de todos los números desde 1 hasta $n$:
-
   $$n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1$$
 
   Por ejemplo:
-
   $$6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720$$
 
 - Pero para calcular $6!$ también se puede calcular $5!$ y después multiplicar
   el resultado por 6, ya que:
-
   $$6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}$$
-
   $$6! = 6\cdot5!$$
 
 - Por tanto, el factorial se puede definir de forma **recursiva**.
@@ -898,7 +850,6 @@ z -> 3
 
 - El caso base del factorial se obtiene sabiendo que el factorial de 0 es
   directamente 1 (no hay que llamar al factorial recursivamente):
-
   $$0! = 1$$
 
 - Combinando ambos casos tendríamos:
@@ -910,13 +861,371 @@ z -> 3
 
 ### Recursividad lineal
 
+- Una función tiene **recursividad lineal** si cada llamada a la función
+  recursiva recursiva genera, como mucho, otra llamada recursiva a la misma
+  función.
+
+- El factorial definido en el ejemplo anterior es un caso típico de
+  recursividad lineal.
+
 #### Procesos lineales recursivos
+
+- La forma más directa y sencilla de definir una función que calcule el
+  factorial de un número a partir de su definición recursiva podría ser la
+  siguiente:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+- Utilizaremos el modelo de sustitución para observar el funcionamiento de esta
+  función al calcular $6!$:
+
+  ```python
+  factorial(6)
+  = (6 * factorial(5))
+  = (6 * (5 * factorial(4)))
+  = (6 * (5 * (4 * factorial(3))))
+  = (6 * (5 * (4 * (3 * factorial(2)))))
+  = (6 * (5 * (4 * (3 * (2 * factorial(1))))))
+  = (6 * (5 * (4 * (3 * (2 * (1 * factorial(0)))))))
+  = (6 * (5 * (4 * (3 * (2 * (1 * 1))))))
+  = (6 * (5 * (4 * (3 * (2 * 1)))))
+  = (6 * (5 * (4 * (3 * 2))))
+  = (6 * (5 * (4 * 6)))
+  = (6 * (5 * 24))
+  = (6 * 120)
+  = 720
+  ```
+
+---
+
+- Podemos observar un perfil de **expansión** seguido de una **contracción**:
+
+  - La **expansión** ocurre conforme el proceso construye una cadena de
+    operaciones a realizar *posteriormente* (en este caso, una cadena de
+    multiplicaciones).
+
+  - La **contracción** se realiza conforme se van ejecutando realmente las
+    multiplicaciones.
+
+- Llamaremos **proceso recursivo** a este tipo de proceso caracterizado por una
+  cadena de **operaciones pendientes de completar**.
+
+- Para poder ejecutar este proceso, el intérprete necesita **memorizar**, en
+  algún lugar, un registro de las multiplicaciones que se han dejado para más
+  adelante.
+
+- En el cálculo de $n!$, la longitud de la cadena de operaciones pendientes (y,
+  por tanto, la información que necesita almacenar el intérprete), crece
+  linealmente con $n$.
+
+  - A este tipo de procesos lo llamaremos **proceso recursivo lineal**.
 
 #### Procesos lineales iterativos
 
+- A continuación adoptaremos un enfoque diferente.
+
+- Podemos mantener un producto acumulado y un contador desde $n$ hasta 1, de
+  forma que el contador y el producto cambien de un paso al siguiente según la
+  siguiente regla:
+
+  $$\begin{cases}
+      acumulado \leftarrow acumulado \cdot contador \\
+      contador \leftarrow contador - 1
+    \end{cases}$$
+
+- Su traducción a Python podría ser la siguiente, usando una función auxiliar
+  `fact_iter`:
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else fact_iter(cont - 1, cont * acc)
+  fact = lambda n: fact_iter(n, 1)
+  ```
+
+---
+
+- Al igual que antes, usaremos el modelo de sustitución para visualizar el
+  proceso del cálculo de $6!$:
+
+  ```python
+  fact(6)
+  = fact_iter(6, 1)
+  = fact_iter(5, 6)
+  = fact_iter(4, 30)
+  = fact_iter(3, 120)
+  = fact_iter(2, 360)
+  = fact_iter(1, 720)
+  = fact_iter(0, 720)
+  = 720
+  ```
+
+- Este proceso no tiene expansiones ni contracciones ya que, en cada instante,
+  toda la información que se necesita almacenar es el valor actual de los
+  parámetros `cont` y `acc`.
+
+- A este tipo de procesos le llamaremos **proceso iterativo**.
+
+- El tiempo requerido para calcular $n!$ usando esta función crece linealmente
+  con $n$.
+
+  - A los procesos de este tipo lo llamaremos **proceso iterativo lineal**.
+
+---
+
+- En general, un **proceso iterativo** es aquel que está definido por una serie
+  de **variables de estado** junto con una **regla** fija que describe cómo
+  actualizar dichas variables conforme cambia el proceso de un estado al
+  siguiente.
+
+- La **diferencia entre los procesos recursivo e iterativo** se puede describir
+  de esta otra manera:
+
+  - En el **proceso iterativo**, las variables ligadas dan una descripción
+    completa del estado del proceso en cada instante.
+
+    Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos
+    hacer para seguir con el cálculo es darle al intérprete el valor de los dos
+    parámetros.
+    
+  - En el **proceso recursivo**, el intérprete tiene que mantener cierta
+    información *oculta* que no está almacenada en ningún parámetro y que
+    indica en qué punto se encuentra el proceso dentro de la cadena de
+    operaciones pendientes.
+
+---
+
+- No debe confundirse un **proceso recursivo** con una **función recursiva**:
+
+  - Cuando hablamos de *función recursiva* nos referimos al hecho sintáctico de
+    que la definción de la función hace referencia a sí misma (directa o
+    indirectamente).
+
+  - Cuando hablamos de *proceso recursivo* nos referimos a la forma en como se
+    desenvuelve la ejecución de la función.
+
+- Puede parecer extraño que digamos que una función recursiva (por ejemplo,
+  `fact_iter`) genera un proceso iterativo.
+
+  Sin embargo, el proceso es realmente iterativo porque su estado está definido
+  completamente por dos variables ligadas, y para ejecutar el proceso sólo se
+  necesita almacenar esas dos variables.
+
 ### Recursividad en árbol
 
+- La **recursividad en árbol** se produce cuando la función tiene
+  **recursividad múltiple**.
+
+- Una función tiene **recursividad múltiple** cuando una llamada a la función
+  recursiva puede generar más de una llamada recursiva a la misma función.
+
+- El ejemplo clásico es la función que calcula los términos de la **sucesión de
+  Fibonacci**.
+
+- La sucesión comienza con los números 0 y 1, y a partir de éstos, cada
+  término es la suma de los dos anteriores:
+
+  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, ...
+
+---
+
+- Podemos definir una función que devuelva el $n$-ésimo término de la sucesión
+  de Fibonacci:
+
+  $$fib(n) = \begin{cases}
+               0 & , n = 0 \text{\quad (caso base)} \\
+               1 & , n = 1 \text{\quad (caso base)} \\
+               fib(n - 1) + fib(n - 2) & , n > 1 \text{\quad (caso recursivo)}
+             \end{cases}$$
+
+- Que traducida a Python sería:
+
+  ```python
+  fib = lambda n: 0 if n == 0 else 1 if n == 1 else fib(n - 1) + fib(n - 2)
+  ```
+
+  o bien:
+
+  ```python
+  fib = lambda n: 0 if n == 0 else \
+                  1 if n == 1 else \
+                  fib(n - 1) + fib(n - 2)
+  ```
+
+---
+
+- Si vemos el perfil de ejecución de `fib(5)`, vemos que:
+
+  - Para calcular `fib(5)`, antes debemos calcular `fib(4)` y `fib(3)`.
+
+  - Para calcular `fib(4)`, antes debemos calcular `fib(3)` y `fib(2)`.
+
+  - Así sucesivamente hasta poner todo en función de `fib(0)` y `fib(1)`, que
+    se pueden calcular directamente (son los casos base).
+
+- En general, el proceso resultante parece un árbol.
+
+---
+
+!DOT(arbol-fibonacci.svg)()()(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = plaintext, fillcolor = transparent]
+rankdir = TB
+fib5[label = "fib(5)"]
+fib4[label = "fib(4)"]
+fib3_1[label = "fib(3)"]
+fib3_2[label = "fib(3)"]
+fib2_1[label = "fib(2)"]
+fib2_2[label = "fib(2)"]
+fib2_3[label = "fib(2)"]
+fib1_1[label = "fib(1)"]
+fib1_2[label = "fib(1)"]
+fib1_3[label = "fib(1)"]
+fib1_4[label = "fib(1)"]
+fib1_5[label = "fib(1)"]
+fib0_1[label = "fib(0)"]
+fib0_2[label = "fib(0)"]
+fib0_3[label = "fib(0)"]
+u1[label = "1", shape = circle, width = 0.3, fixedsize = shape]
+u2[label = "1", shape = circle, width = 0.3, fixedsize = shape]
+u3[label = "1", shape = circle, width = 0.3, fixedsize = shape]
+u4[label = "1", shape = circle, width = 0.3, fixedsize = shape]
+u5[label = "1", shape = circle, width = 0.3, fixedsize = shape]
+c1[label = "0", shape = circle, width = 0.3, fixedsize = shape]
+c2[label = "0", shape = circle, width = 0.3, fixedsize = shape]
+c3[label = "0", shape = circle, width = 0.3, fixedsize = shape]
+fib5 -> fib4, fib3_2
+fib4 -> fib3_1, fib2_2
+fib3_1 -> fib2_1, fib1_2
+fib2_1 -> fib1_1, fib0_1
+fib1_1 -> u1
+fib0_1 -> c1
+fib1_2 -> u2
+fib2_2 -> fib1_3, fib0_2
+fib1_3 -> u3
+fib0_2 -> c2
+fib3_2 -> fib2_3, fib1_5
+fib2_3 -> fib1_4, fib0_3
+fib1_4 -> u4
+fib0_3 -> c3
+fib1_5 -> u5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- La función anterior es un buen ejemplo de recursión en árbol, pero desde
+  luego es un método horrible para calcular los números de Fibonacci, por la
+  cantidad de operaciones redundantes que efectúa.
+
+- Para tener una idea de lo malo que es, se puede observar que $fib(n)$ crece
+  exponencialmente en función de $n$.
+
+- Por lo tanto, el proceso necesita una cantidad de tiempo que crece
+  exponencialmente con $n$.
+
+- Por otro lado, el espacio necesario sólo crece linealmente con $n$, porque en
+  un cierto momento del cálculo sólo hay que memorizar los nodos que hay por
+  encima.
+
+- En general, en un proceso recursivo en árbol el tiempo de ejecución crece con
+  el número de nodos mientras que el espacio necesario crece con la altura
+  máxima del árbol.
+
+---
+
+- Se puede construir un proceso iterativo para calcular los números de
+  Fibonacci.
+
+- La idea consiste en usar dos variables de estado `a` y `b` (con valores
+  iniciales `1` y `0`, respectivamente) y aplicar repetidamente la siguiente
+  transformación:
+
+  $$\begin{cases}
+      a \leftarrow a + b \\
+      b \leftarrow a
+    \end{cases}$$
+
+- Después de $n$ pasos, `a` y `b` contendrán, respectivamente, $fib(n + 1)$ y
+  $fib(n)$.
+
+- En Python sería:
+
+  ```python
+  fib_iter = lambda cont, a, b: b if cont == 0 else fib_iter(cont - 1, a + b, a)
+  fib = lambda n: fib_iter(n , 1, 0)
+  ```
+
+- Esta función genera un proceso iterativo lineal, por lo que es mucho más
+  eficiente.
+
 ## Un lenguaje Turing-completo
+
+# Tipos de datos recursivos
+
+## Cadenas
+
+- Las **cadenas** se pueden considerar datos recursivos compuestos, ya que
+  podemos decir que toda cadena `c`:
+
+  - O bien es la cadena vacía `''`,
+  
+  - O bien está formada por dos partes:
+
+    - El **primer carácter** de la cadena (al que se accede mediante `c[0]`).
+
+    - El **resto** de la cadena (al que se accede mediante `c[1:]`), que
+      también es una cadena.
+
+- Eso significa que podemos acceder al segundo carácter de la cadena
+  (suponiendo que exista) mediante `c[1:][0]`.
+
+  ```python
+  cadena = 'hola'
+  cadena[0]       # devuelve 'h'
+  cadena[1:]      # devuelve 'ola'
+  cadena[1:][0]   # devuelve 'o'
+  ```
+
+## Listas
+
+- Las **listas** son una generalización de las cadenas.
+
+- Una lista es una **secuencia de elementos** que no tienen por qué ser
+  caracteres, sino que pueden ser **de cualquier tipo** (números, cadenas,
+  booleanos, incluso otras listas).
+
+- Los literales de tipo lista se representan enumerando sus elementos separados
+  por comas y encerrados entre corchetes.
+
+- Por ejemplo:
+
+  ```python
+  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
+  ```
+
+---
+
+- Las listas también pueden verse como tipos de datos recursivos, ya que toda
+  lista `l`:
+
+  - O bien es la lista vacía (que se representa mediante `[]`).
+
+  - O bien está formada por dos partes:
+
+    - El **primer elemento** de la lista (al que se accede mediante `l[0]`),
+      que *no tiene por qué ser una lista*.
+
+    - El **resto** de la lista (al que se accede mediante `l[1:]`), que también
+      es una lista.
+
+- Según el ejemplo anterior:
+
+  ```python
+  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
+  lista[0]       # devuelve 27
+  lista[1:]      # devuelve ['hola', True, 73.4, ['a', 'b', 'c'], 99]
+  lista[1:][0]   # devuelve 'hola'
+  ```
 
 # Funciones de orden superior
 

@@ -219,8 +219,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/abstracciones-funcionales"><span class="toc-section-number">1</span> Abstracciones funcionales</a></li>
-<li><a href="#/tipos-de-datos-compuestos"><span class="toc-section-number">2</span> Tipos de datos compuestos</a></li>
-<li><a href="#/computabilidad"><span class="toc-section-number">3</span> Computabilidad</a></li>
+<li><a href="#/computabilidad"><span class="toc-section-number">2</span> Computabilidad</a></li>
+<li><a href="#/tipos-de-datos-recursivos"><span class="toc-section-number">3</span> Tipos de datos recursivos</a></li>
 <li><a href="#/funciones-de-orden-superior"><span class="toc-section-number">4</span> Funciones de orden superior</a></li>
 </ul>
 </section>
@@ -599,27 +599,7 @@ z -> 1
 <li><p>En ambos casos se obtiene el mismo resultado, ya que en todo momento hemos usado <em>funciones puras</em>.</p></li>
 </ul>
 </section></section>
-<section><section id="tipos-de-datos-compuestos" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Tipos de datos compuestos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Cadenas</h2><ul>
-<li><p>Las <strong>cadenas</strong> se pueden considerar datos compuestos de otros más simples.</p></li>
-<li><p>Por ahora consideraremos que una cadena <code>c</code> está formada por dos partes:</p>
-<ul>
-<li><p>El <strong>primer carácter</strong> de la cadena, si existe (al que se accede mediante <code>c[0]</code>).</p></li>
-<li><p>El <strong>resto</strong> de la cadena (al que se accede mediante <code>c[1:]</code>).</p></li>
-</ul></li>
-<li><p>Eso significa que podemos acceder al segundo carácter de la cadena (suponiendo que exista) mediante <code>c[1:][0]</code>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">cadena <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
-<a class="sourceLine" id="cb37-2" title="2">cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></a>
-<a class="sourceLine" id="cb37-3" title="3">cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></a>
-<a class="sourceLine" id="cb37-4" title="4">cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></a></code></pre></div></li>
-</ul></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Listas</h2><ul>
-<li><p>Las <strong>listas</strong> son una generalización de las cadenas.</p></li>
-<li><p>Una lista es una <strong>secuencia de elementos</strong> que no tienen por qué ser caracteres, sino que pueden ser <strong>de cualquier tipo</strong> (números, cadenas, booleanos, incluso otras listas).</p></li>
-<li><p>Los literales de tipo lista se representan enumerando sus elementos separados por comas y encerrados entre corchetes.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
-<li><p>Con las listas usaremos las mismas operaciones de acceso que con las cadenas (<code>lista[0]</code> es el primer elemento de la lista, <code>lista[1:]</code> es el resto de la lista, etcétera).</p></li>
-</ul></section></section>
-<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Computabilidad</h1></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Funciones y procesos</h2><ul>
+<section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Computabilidad</h1></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Funciones y procesos</h2><ul>
 <li><p>Los <strong>procesos</strong> son entidades abstractas que habitan los ordenadores.</p></li>
 <li><p>Conforme van evolucionando, los procesos manipulan otras entidades abstractas llamadas <strong>datos</strong>.</p></li>
 <li><p>La evolución de un proceso está dirigida por un patrón de reglas llamada <strong>programa</strong>.</p></li>
@@ -633,7 +613,7 @@ z -> 1
 <li><p>Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el comportamiento global del proceso cuya evolución local está definida por la función.</p></li>
 <li><p>Esto, en general, es muy difícil, pero al menos vamos a describir algunos de los modelos típicos de evolución de los procesos.</p></li>
 </ul>
-</section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Funciones recursivas</h2></section><section id="definición" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Definición</h3><ul>
+</section><section id="funciones-recursivas" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Funciones recursivas</h2></section><section id="definición" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Definición</h3><ul>
 <li><p>Una <strong>función recursiva</strong> es aquella que se define en términos de sí misma.</p></li>
 <li><p>En general, eso quiere decir que la definición de la función contiene una o varias referencias a ella misma y que, por tanto, se llama a sí misma dentro de su cuerpo.</p></li>
 <li><p>Las definiciones recursivas son el mecanismo básico para ejecutar repeticiones de instrucciones en un lenguaje de programación funcional.</p></li>
@@ -641,40 +621,227 @@ z -> 1
 <p><strong>GNU</strong> significa <strong>GNU No es Unix</strong>.</p>
 <p>Por tanto, GNU = GNU No es Unix = GNU No es Unix No es Unix…</p>
 <p>Y así hasta el infinito.</p></li>
-</ul></section><section id="casos-base-y-casos-recursivos" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Casos base y casos recursivos</h3><ul>
+</ul></section><section id="casos-base-y-casos-recursivos" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Casos base y casos recursivos</h3><ul>
 <li><p>Resulta importante que una definición recursiva se detenga alguna vez y proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se llama una <strong>recursión infinita</strong>).</p></li>
 <li><p>Para ello, en algún momento, la recursión debe alcanzar un punto en el que la función no se llame a sí misma.</p></li>
 <li><p>La función, en cada paso recursivo, debe ir acercándose cada vez más a ese punto.</p></li>
 <li><p>A ese punto o puntos en los que la función recursiva no se llama a sí misma, se les denomina <strong>casos base</strong>.</p></li>
 <li><p>Es decir: la función recursiva, ante ciertos valores de sus argumentos, debe devolver directamente un valor y no llamarse de nuevo recursivamente.</p></li>
 <li><p>Los demás casos, que sí provocan llamadas recursivas, se denominan <strong>casos recursivos</strong>.</p></li>
-</ul></section><section id="el-factorial" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> El factorial</h3><ul>
+</ul></section><section id="el-factorial" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> El factorial</h3><ul>
 <li><p>El ejemplo más típico de función recursiva es el <strong>factorial</strong>.</p></li>
-<li><p>El factorial de un número natural <span class="math inline">n</span> se representa <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>:</p>
-<p><span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1</span></p>
-<p>Por ejemplo:</p>
-<p><span class="math display">6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720</span></p></li>
-<li><p>Pero para calcular <span class="math inline">6!</span> también se puede calcular <span class="math inline">5!</span> y después multiplicar el resultado por 6, ya que:</p>
-<p><span class="math display">6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}</span></p>
-<p><span class="math display">6! = 6\cdot5!</span></p></li>
+<li><p>El factorial de un número natural <span class="math inline">n</span> se representa <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>: <span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1</span></p>
+<p>Por ejemplo: <span class="math display">6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720</span></p></li>
+<li><p>Pero para calcular <span class="math inline">6!</span> también se puede calcular <span class="math inline">5!</span> y después multiplicar el resultado por 6, ya que: <span class="math display">6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}</span> <span class="math display">6! = 6\cdot5!</span></p></li>
 <li><p>Por tanto, el factorial se puede definir de forma <strong>recursiva</strong>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Tenemos el <strong>caso recursivo</strong>, pero necesitamos un <strong>caso base</strong> para evitar que la recursión se haga <em>infinita</em>.</p></li>
-<li><p>El caso base del factorial se obtiene sabiendo que el factorial de 0 es directamente 1 (no hay que llamar al factorial recursivamente):</p>
-<p><span class="math display">0! = 1</span></p></li>
+<li><p>El caso base del factorial se obtiene sabiendo que el factorial de 0 es directamente 1 (no hay que llamar al factorial recursivamente): <span class="math display">0! = 1</span></p></li>
 <li><p>Combinando ambos casos tendríamos:</p>
 <p><span class="math display">n! = \begin{cases}
          1 &amp; , n = 0 \text{\quad(caso base)} \\
          n\cdot(n-1)! &amp; , n &gt; 0 \text{\quad(caso recursivo)}
        \end{cases}</span></p></li>
 </ul>
-</section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">3.2.4</span> Recursividad lineal</h3></section><section id="procesos-lineales-recursivos" class="slide level4">
-<h4><span class="header-section-number">3.2.4.1</span> Procesos lineales recursivos</h4>
+</section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Recursividad lineal</h3><ul>
+<li><p>Una función tiene <strong>recursividad lineal</strong> si cada llamada a la función recursiva recursiva genera, como mucho, otra llamada recursiva a la misma función.</p></li>
+<li><p>El factorial definido en el ejemplo anterior es un caso típico de recursividad lineal.</p></li>
+</ul></section><section id="procesos-lineales-recursivos" class="slide level4">
+<h4><span class="header-section-number">2.2.4.1</span> Procesos lineales recursivos</h4>
+<ul>
+<li><p>La forma más directa y sencilla de definir una función que calcule el factorial de un número a partir de su definición recursiva podría ser la siguiente:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</a></code></pre></div></li>
+<li><p>Utilizaremos el modelo de sustitución para observar el funcionamiento de esta función al calcular <span class="math inline">6!</span>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">factorial(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> factorial(<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> factorial(<span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> factorial(<span class="dv">3</span>))))</a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> factorial(<span class="dv">2</span>)))))</a>
+<a class="sourceLine" id="cb38-6" title="6"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> factorial(<span class="dv">1</span>))))))</a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> factorial(<span class="dv">0</span>)))))))</a>
+<a class="sourceLine" id="cb38-8" title="8"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> <span class="dv">1</span>))))))</a>
+<a class="sourceLine" id="cb38-9" title="9"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">1</span>)))))</a>
+<a class="sourceLine" id="cb38-10" title="10"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">2</span>))))</a>
+<a class="sourceLine" id="cb38-11" title="11"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)))</a>
+<a class="sourceLine" id="cb38-12" title="12"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>))</a>
+<a class="sourceLine" id="cb38-13" title="13"><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb38-14" title="14"><span class="op">=</span> <span class="dv">720</span></a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Podemos observar un perfil de <strong>expansión</strong> seguido de una <strong>contracción</strong>:</p>
+<ul>
+<li><p>La <strong>expansión</strong> ocurre conforme el proceso construye una cadena de operaciones a realizar <em>posteriormente</em> (en este caso, una cadena de multiplicaciones).</p></li>
+<li><p>La <strong>contracción</strong> se realiza conforme se van ejecutando realmente las multiplicaciones.</p></li>
+</ul></li>
+<li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de proceso caracterizado por una cadena de <strong>operaciones pendientes de completar</strong>.</p></li>
+<li><p>Para poder ejecutar este proceso, el intérprete necesita <strong>memorizar</strong>, en algún lugar, un registro de las multiplicaciones que se han dejado para más adelante.</p></li>
+<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la cadena de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece linealmente con <span class="math inline">n</span>.</p>
+<ul>
+<li>A este tipo de procesos lo llamaremos <strong>proceso recursivo lineal</strong>.</li>
+</ul></li>
+</ul>
 </section><section id="procesos-lineales-iterativos" class="slide level4">
-<h4><span class="header-section-number">3.2.4.2</span> Procesos lineales iterativos</h4>
-</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">3.2.5</span> Recursividad en árbol</h3></section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Un lenguaje Turing-completo</h2></section></section>
+<h4><span class="header-section-number">2.2.4.3</span> Procesos lineales iterativos</h4>
+<ul>
+<li><p>A continuación adoptaremos un enfoque diferente.</p></li>
+<li><p>Podemos mantener un producto acumulado y un contador desde <span class="math inline">n</span> hasta 1, de forma que el contador y el producto cambien de un paso al siguiente según la siguiente regla:</p>
+<p><span class="math display">\begin{cases}
+    acumulado \leftarrow acumulado \cdot contador \\
+    contador \leftarrow contador - 1
+  \end{cases}</span></p></li>
+<li><p>Su traducción a Python podría ser la siguiente, usando una función auxiliar <code>fact_iter</code>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb39-1" title="1">fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</a>
+<a class="sourceLine" id="cb39-2" title="2">fact <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Al igual que antes, usaremos el modelo de sustitución para visualizar el proceso del cálculo de <span class="math inline">6!</span>:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" title="1">fact(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="op">=</span> fact_iter(<span class="dv">6</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="op">=</span> fact_iter(<span class="dv">5</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb40-4" title="4"><span class="op">=</span> fact_iter(<span class="dv">4</span>, <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb40-5" title="5"><span class="op">=</span> fact_iter(<span class="dv">3</span>, <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb40-6" title="6"><span class="op">=</span> fact_iter(<span class="dv">2</span>, <span class="dv">360</span>)</a>
+<a class="sourceLine" id="cb40-7" title="7"><span class="op">=</span> fact_iter(<span class="dv">1</span>, <span class="dv">720</span>)</a>
+<a class="sourceLine" id="cb40-8" title="8"><span class="op">=</span> fact_iter(<span class="dv">0</span>, <span class="dv">720</span>)</a>
+<a class="sourceLine" id="cb40-9" title="9"><span class="op">=</span> <span class="dv">720</span></a></code></pre></div></li>
+<li><p>Este proceso no tiene expansiones ni contracciones ya que, en cada instante, toda la información que se necesita almacenar es el valor actual de los parámetros <code>cont</code> y <code>acc</code>.</p></li>
+<li><p>A este tipo de procesos le llamaremos <strong>proceso iterativo</strong>.</p></li>
+<li><p>El tiempo requerido para calcular <span class="math inline">n!</span> usando esta función crece linealmente con <span class="math inline">n</span>.</p>
+<ul>
+<li>A los procesos de este tipo lo llamaremos <strong>proceso iterativo lineal</strong>.</li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En general, un <strong>proceso iterativo</strong> es aquel que está definido por una serie de <strong>variables de estado</strong> junto con una <strong>regla</strong> fija que describe cómo actualizar dichas variables conforme cambia el proceso de un estado al siguiente.</p></li>
+<li><p>La <strong>diferencia entre los procesos recursivo e iterativo</strong> se puede describir de esta otra manera:</p>
+<ul>
+<li><p>En el <strong>proceso iterativo</strong>, las variables ligadas dan una descripción completa del estado del proceso en cada instante.</p>
+<p>Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos hacer para seguir con el cálculo es darle al intérprete el valor de los dos parámetros.</p></li>
+<li><p>En el <strong>proceso recursivo</strong>, el intérprete tiene que mantener cierta información <em>oculta</em> que no está almacenada en ningún parámetro y que indica en qué punto se encuentra el proceso dentro de la cadena de operaciones pendientes.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>No debe confundirse un <strong>proceso recursivo</strong> con una <strong>función recursiva</strong>:</p>
+<ul>
+<li><p>Cuando hablamos de <em>función recursiva</em> nos referimos al hecho sintáctico de que la definción de la función hace referencia a sí misma (directa o indirectamente).</p></li>
+<li><p>Cuando hablamos de <em>proceso recursivo</em> nos referimos a la forma en como se desenvuelve la ejecución de la función.</p></li>
+</ul></li>
+<li><p>Puede parecer extraño que digamos que una función recursiva (por ejemplo, <code>fact_iter</code>) genera un proceso iterativo.</p>
+<p>Sin embargo, el proceso es realmente iterativo porque su estado está definido completamente por dos variables ligadas, y para ejecutar el proceso sólo se necesita almacenar esas dos variables.</p></li>
+</ul>
+</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">2.2.5</span> Recursividad en árbol</h3><ul>
+<li><p>La <strong>recursividad en árbol</strong> se produce cuando la función tiene <strong>recursividad múltiple</strong>.</p></li>
+<li><p>Una función tiene <strong>recursividad múltiple</strong> cuando una llamada a la función recursiva puede generar más de una llamada recursiva a la misma función.</p></li>
+<li><p>El ejemplo clásico es la función que calcula los términos de la <strong>sucesión de Fibonacci</strong>.</p></li>
+<li><p>La sucesión comienza con los números 0 y 1, y a partir de éstos, cada término es la suma de los dos anteriores:</p>
+<p>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, …</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Podemos definir una función que devuelva el <span class="math inline">n</span>-ésimo término de la sucesión de Fibonacci:</p>
+<p><span class="math display">fib(n) = \begin{cases}
+             0 &amp; , n = 0 \text{\quad (caso base)} \\
+             1 &amp; , n = 1 \text{\quad (caso base)} \\
+             fib(n - 1) + fib(n - 2) &amp; , n &gt; 1 \text{\quad (caso recursivo)}
+           \end{cases}</span></p></li>
+<li><p>Que traducida a Python sería:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" title="1">fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</a></code></pre></div>
+<p>o bien:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb42-1" title="1">fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb42-2" title="2">                <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb42-3" title="3">                fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Si vemos el perfil de ejecución de <code>fib(5)</code>, vemos que:</p>
+<ul>
+<li><p>Para calcular <code>fib(5)</code>, antes debemos calcular <code>fib(4)</code> y <code>fib(3)</code>.</p></li>
+<li><p>Para calcular <code>fib(4)</code>, antes debemos calcular <code>fib(3)</code> y <code>fib(2)</code>.</p></li>
+<li><p>Así sucesivamente hasta poner todo en función de <code>fib(0)</code> y <code>fib(1)</code>, que se pueden calcular directamente (son los casos base).</p></li>
+</ul></li>
+<li><p>En general, el proceso resultante parece un árbol.</p></li>
+</ul>
+</section><section class="slide level4">
+
+
+<p><img data-src="images/arbol-fibonacci.svg" class="plain" style="width:80.0%" /></p>
+<p></p>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La función anterior es un buen ejemplo de recursión en árbol, pero desde luego es un método horrible para calcular los números de Fibonacci, por la cantidad de operaciones redundantes que efectúa.</p></li>
+<li><p>Para tener una idea de lo malo que es, se puede observar que <span class="math inline">fib(n)</span> crece exponencialmente en función de <span class="math inline">n</span>.</p></li>
+<li><p>Por lo tanto, el proceso necesita una cantidad de tiempo que crece exponencialmente con <span class="math inline">n</span>.</p></li>
+<li><p>Por otro lado, el espacio necesario sólo crece linealmente con <span class="math inline">n</span>, porque en un cierto momento del cálculo sólo hay que memorizar los nodos que hay por encima.</p></li>
+<li><p>En general, en un proceso recursivo en árbol el tiempo de ejecución crece con el número de nodos mientras que el espacio necesario crece con la altura máxima del árbol.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Se puede construir un proceso iterativo para calcular los números de Fibonacci.</p></li>
+<li><p>La idea consiste en usar dos variables de estado <code>a</code> y <code>b</code> (con valores iniciales <code>1</code> y <code>0</code>, respectivamente) y aplicar repetidamente la siguiente transformación:</p>
+<p><span class="math display">\begin{cases}
+    a \leftarrow a + b \\
+    b \leftarrow a
+  \end{cases}</span></p></li>
+<li><p>Después de <span class="math inline">n</span> pasos, <code>a</code> y <code>b</code> contendrán, respectivamente, <span class="math inline">fib(n + 1)</span> y <span class="math inline">fib(n)</span>.</p></li>
+<li><p>En Python sería:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb43-1" title="1">fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: b <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, a <span class="op">+</span> b, a)</a>
+<a class="sourceLine" id="cb43-2" title="2">fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n , <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div></li>
+<li><p>Esta función genera un proceso iterativo lineal, por lo que es mucho más eficiente.</p></li>
+</ul>
+</section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Un lenguaje Turing-completo</h2></section></section>
+<section><section id="tipos-de-datos-recursivos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos recursivos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2><ul>
+<li><p>Las <strong>cadenas</strong> se pueden considerar datos recursivos compuestos, ya que podemos decir que toda cadena <code>c</code>:</p>
+<ul>
+<li><p>O bien es la cadena vacía <code>''</code>,</p></li>
+<li><p>O bien está formada por dos partes:</p>
+<ul>
+<li><p>El <strong>primer carácter</strong> de la cadena (al que se accede mediante <code>c[0]</code>).</p></li>
+<li><p>El <strong>resto</strong> de la cadena (al que se accede mediante <code>c[1:]</code>), que también es una cadena.</p></li>
+</ul></li>
+</ul></li>
+<li><p>Eso significa que podemos acceder al segundo carácter de la cadena (suponiendo que exista) mediante <code>c[1:][0]</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb44-1" title="1">cadena <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb44-2" title="2">cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></a>
+<a class="sourceLine" id="cb44-3" title="3">cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></a>
+<a class="sourceLine" id="cb44-4" title="4">cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></a></code></pre></div></li>
+</ul></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2><ul>
+<li><p>Las <strong>listas</strong> son una generalización de las cadenas.</p></li>
+<li><p>Una lista es una <strong>secuencia de elementos</strong> que no tienen por qué ser caracteres, sino que pueden ser <strong>de cualquier tipo</strong> (números, cadenas, booleanos, incluso otras listas).</p></li>
+<li><p>Los literales de tipo lista se representan enumerando sus elementos separados por comas y encerrados entre corchetes.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Las listas también pueden verse como tipos de datos recursivos, ya que toda lista <code>l</code>:</p>
+<ul>
+<li><p>O bien es la lista vacía (que se representa mediante <code>[]</code>).</p></li>
+<li><p>O bien está formada por dos partes:</p>
+<ul>
+<li><p>El <strong>primer elemento</strong> de la lista (al que se accede mediante <code>l[0]</code>), que <em>no tiene por qué ser una lista</em>.</p></li>
+<li><p>El <strong>resto</strong> de la lista (al que se accede mediante <code>l[1:]</code>), que también es una lista.</p></li>
+</ul></li>
+</ul></li>
+<li><p>Según el ejemplo anterior:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a>
+<a class="sourceLine" id="cb46-2" title="2">lista[<span class="dv">0</span>]       <span class="co"># devuelve 27</span></a>
+<a class="sourceLine" id="cb46-3" title="3">lista[<span class="dv">1</span>:]      <span class="co"># devuelve [&#39;hola&#39;, True, 73.4, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], 99]</span></a>
+<a class="sourceLine" id="cb46-4" title="4">lista[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;hola&#39;</span></a></code></pre></div></li>
+</ul>
+</section></section>
 <section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones de orden superior</h1></section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>map()</code></h2></section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>filter()</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>reduce()</code></h2></section></section>
     </div>
   </div>
