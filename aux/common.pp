@@ -97,10 +97,10 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \Begin{caja}
-  \raggedright
-  \small
-  !PYALGO(!1)
-  \End{caja}
+    \raggedright
+    \small
+    !PYALGO(!1)
+    \End{caja}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(CENTRAR)
