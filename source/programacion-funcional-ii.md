@@ -6,7 +6,6 @@ author: Ricardo Pérez López
 
 # Abstracciones funcionales
 
-
 ## Expresiones lambda
 
 - Las **expresiones lambda** (también llamadas **abstracciones lambda** o
@@ -75,7 +74,7 @@ author: Ricardo Pérez López
   (lambda x, y: x + y)(4, 3)
   ```
 
----
+#### Llamadas a funciones
 
 - Si hacemos la siguiente definición:
 
@@ -95,6 +94,11 @@ author: Ricardo Pérez López
   ```python
   (lambda x, y: x + y)(4, 3)
   ```
+
+- Cuando aplicamos a sus argumentos una función así definida también podemos
+  decir que estamos **invocando** o **llamando** a la función. Por ejemplo, en
+  `suma(4, 3)` estamos *llamando* a la función `suma`, o hay una *llamada* a la
+  función `suma`.
 
 #### Evaluación de una aplicación funcional
 
@@ -685,16 +689,31 @@ z -> 3
 
 ---
 
-- En **Python** la evaluación es **estricta**, salvo excepciones que veremos.
+- En **Python** la evaluación es **estricta**, salvo algunas excepciones:
 
-- De hecho, la mayoría de los lenguajes de programación se basan en la
-  evaluación estricta y el paso de argumentos por valor (por lo que siguen el
-  orden aplicativo).
+  - El operador ternario:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~
+    !NT(expresión_condicional) ::= !NT(valor_si_verdadero) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    evalúa perezosamente !NT(valor_si_verdadero) y !NT(valor_si_falso).
+
+  - Los operadores lógicos `and` y `or` también son perezosos (se dice que
+    evalúan **en cortocircuito**):
+
+    - `True or x` siempre es igual a `True`.
+
+    - `False and x` siempre es igual a `False`.
+
+    En ambos casos no es necesario evaluar `x`.
+
+- La mayoría de los lenguajes de programación se basan en la evaluación
+  estricta y el paso de argumentos por valor (siguen el orden aplicativo).
 
 - **Haskell**, por ejemplo, es un lenguaje funcional puro que se basa en la
   evaluación perezosa y sigue el orden normal.
-
-- Todo tiene ventajas e inconvenientes.
 
 ## Composición de funciones
 
@@ -730,11 +749,52 @@ z -> 3
   = 452.3904
   ```
 
+- En ambos casos se obtiene el mismo resultado, ya que en todo momento hemos
+  usado *funciones puras*.
+
 # Tipos de datos compuestos
 
 ## Cadenas
 
+- Las **cadenas** se pueden considerar datos compuestos de otros más simples.
+
+- Por ahora consideraremos que una cadena `c` está formada por dos partes:
+
+  - El **primer carácter** de la cadena, si existe (al que se accede mediante
+    `c[0]`).
+
+  - El **resto** de la cadena (al que se accede mediante `c[1:]`).
+
+- Eso significa que podemos acceder al segundo carácter de la cadena
+  (suponiendo que exista) mediante `c[1:][0]`.
+
+  ```python
+  cadena = 'hola'
+  cadena[0]       # devuelve 'h'
+  cadena[1:]      # devuelve 'ola'
+  cadena[1:][0]   # devuelve 'o'
+  ```
+
 ## Listas
+
+- Las **listas** son una generalización de las cadenas.
+
+- Una lista es una **secuencia de elementos** que no tienen por qué ser
+  caracteres, sino que pueden ser **de cualquier tipo** (números, cadenas,
+  booleanos, incluso otras listas).
+
+- Los literales de tipo lista se representan enumerando sus elementos separados
+  por comas y encerrados entre corchetes.
+
+- Por ejemplo:
+
+  ```python
+  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
+  ```
+
+- Con las listas usaremos las mismas operaciones de acceso que con las cadenas
+  (`lista[0]` es el primer elemento de la lista, `lista[1:]` es el resto de la
+  lista, etcétera).
 
 # Computabilidad
 
@@ -768,6 +828,85 @@ z -> 3
   los modelos típicos de evolución de los procesos.
 
 ## Funciones recursivas
+
+### Definición
+
+- Una **función recursiva** es aquella que se define en términos de sí misma.
+
+- En general, eso quiere decir que la definición de la función contiene una o
+  varias referencias a ella misma y que, por tanto, se llama a sí misma dentro
+  de su cuerpo.
+
+- Las definiciones recursivas son el mecanismo básico para ejecutar
+  repeticiones de instrucciones en un lenguaje de programación funcional.
+
+- Por ejemplo:
+
+  **GNU** significa **GNU No es Unix**.
+
+  Por tanto, GNU = GNU No es Unix = GNU No es Unix No es Unix...
+
+  Y así hasta el infinito.
+
+### Casos base y casos recursivos
+
+- Resulta importante que una definición recursiva se detenga alguna vez y
+  proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se
+  llama una **recursión infinita**).
+
+- Para ello, en algún momento, la recursión debe alcanzar un punto en el que la
+  función no se llame a sí misma.
+
+- La función, en cada paso recursivo, debe ir acercándose cada vez más a ese
+  punto.
+
+- A ese punto o puntos en los que la función recursiva no se llama a sí misma,
+  se les denomina **casos base**.
+
+- Es decir: la función recursiva, ante ciertos valores de sus argumentos, debe
+  devolver directamente un valor y no llamarse de nuevo recursivamente.
+
+- Los demás casos, que sí provocan llamadas recursivas, se denominan **casos
+  recursivos**.
+
+### El factorial
+
+- El ejemplo más típico de función recursiva es el **factorial**.
+
+- El factorial de un número natural $n$ se representa $n!$ y se define como el
+  producto de todos los números desde 1 hasta $n$:
+
+  $$n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1$$
+
+  Por ejemplo:
+
+  $$6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720$$
+
+- Pero para calcular $6!$ también se puede calcular $5!$ y después multiplicar
+  el resultado por 6, ya que:
+
+  $$6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}$$
+
+  $$6! = 6\cdot5!$$
+
+- Por tanto, el factorial se puede definir de forma **recursiva**.
+
+---
+
+- Tenemos el **caso recursivo**, pero necesitamos un **caso base** para evitar
+  que la recursión se haga *infinita*.
+
+- El caso base del factorial se obtiene sabiendo que el factorial de 0 es
+  directamente 1 (no hay que llamar al factorial recursivamente):
+
+  $$0! = 1$$
+
+- Combinando ambos casos tendríamos:
+
+  $$n! = \begin{cases}
+           1 & , n = 0 \text{\quad(caso base)} \\
+           n\cdot(n-1)! & , n > 0 \text{\quad(caso recursivo)}
+         \end{cases}$$
 
 ### Recursividad lineal
 

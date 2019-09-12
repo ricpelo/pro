@@ -508,7 +508,7 @@ endwhile (no)
 
   $$v.m()$$
 
-  que representa la **invocación** del método $m$ sobre el valor $v$.
+  que representa la **llamada** al método $m$ sobre el valor $v$.
 
 - Los métodos también pueden tener argumentos como cualquier función:
 
@@ -834,6 +834,9 @@ endwhile (no)
   - `27` es un número entero (un literal de tipo `int`).
 
   - `"27"` es una cadena (un literal de tipo `str`).
+
+- Una **cadena vacía** es aquella que no contiene ningún carácter. Se
+  representa con el literal `''` o `""`.
 
 ## Operaciones predefinidas
 
