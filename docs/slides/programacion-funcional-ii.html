@@ -630,7 +630,7 @@ z -> 1
 <li><p>Los demás casos, que sí provocan llamadas recursivas, se denominan <strong>casos recursivos</strong>.</p></li>
 </ul></section><section id="el-factorial" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> El factorial</h3><ul>
 <li><p>El ejemplo más típico de función recursiva es el <strong>factorial</strong>.</p></li>
-<li><p>El factorial de un número natural <span class="math inline">n</span> se representa <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>: <span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1</span></p>
+<li><p>El factorial de un número natural <span class="math inline">n</span> se representa <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>: <span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1</span></p>
 <p>Por ejemplo: <span class="math display">6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720</span></p></li>
 <li><p>Pero para calcular <span class="math inline">6!</span> también se puede calcular <span class="math inline">5!</span> y después multiplicar el resultado por 6, ya que: <span class="math display">6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}</span> <span class="math display">6! = 6\cdot5!</span></p></li>
 <li><p>Por tanto, el factorial se puede definir de forma <strong>recursiva</strong>.</p></li>
@@ -801,7 +801,11 @@ z -> 1
 <a class="sourceLine" id="cb43-2" title="2">fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n , <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div></li>
 <li><p>Esta función genera un proceso iterativo lineal, por lo que es mucho más eficiente.</p></li>
 </ul>
-</section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Un lenguaje Turing-completo</h2></section></section>
+</section><section id="un-lenguaje-turing-completo" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Un lenguaje Turing-completo</h2><ul>
+<li><p>El paradigma funcional que hemos visto hasta ahora (uno que nos permite definir funciones, componer dichas funciones y aplicar recursividad, junto con el operador ternario condicional) es un lenguaje de programación completo.</p></li>
+<li><p>Decimos que es <strong>Turing completo</strong>, lo que significa que puede computar cualquier función que pueda computar una máquina de Turing.</p></li>
+<li><p>Como las máquinas de Turing son los ordenadores más potentes que podemos construir (ya que describen lo que cualquier ordenador es capaz de hacer), esto significa que nuestro lenguaje puede calcular todo lo que pueda calcular cualquier ordenador.</p></li>
+</ul></section></section>
 <section><section id="tipos-de-datos-recursivos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos recursivos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2><ul>
 <li><p>Las <strong>cadenas</strong> se pueden considerar datos recursivos compuestos, ya que podemos decir que toda cadena <code>c</code>:</p>
 <ul>
@@ -817,12 +821,20 @@ z -> 1
 <a class="sourceLine" id="cb44-2" title="2">cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></a>
 <a class="sourceLine" id="cb44-3" title="3">cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></a>
 <a class="sourceLine" id="cb44-4" title="4">cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></a></code></pre></div></li>
-</ul></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2><ul>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Junto a las operaciones <code>c[0]</code> (primer carácter) y <code>c[1:]</code> (resto de la cadena), tenemos también la operación <code>+</code> (<strong>concatenación</strong>).</p></li>
+<li><p>Con la concatenación se pueden crear cadenas a partir de otras cadenas.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" title="1"><span class="co">&#39;¡Hola, &#39;</span> <span class="op">+</span> <span class="st">&#39;mundo!&#39;</span>  <span class="co"># devuelve &#39;¡Hola, mundo!&#39;</span></a></code></pre></div></li>
+</ul>
+</section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2><ul>
 <li><p>Las <strong>listas</strong> son una generalización de las cadenas.</p></li>
 <li><p>Una lista es una <strong>secuencia de elementos</strong> que no tienen por qué ser caracteres, sino que pueden ser <strong>de cualquier tipo</strong> (números, cadenas, booleanos, incluso otras listas).</p></li>
 <li><p>Los literales de tipo lista se representan enumerando sus elementos separados por comas y encerrados entre corchetes.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -836,13 +848,114 @@ z -> 1
 </ul></li>
 </ul></li>
 <li><p>Según el ejemplo anterior:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a>
-<a class="sourceLine" id="cb46-2" title="2">lista[<span class="dv">0</span>]       <span class="co"># devuelve 27</span></a>
-<a class="sourceLine" id="cb46-3" title="3">lista[<span class="dv">1</span>:]      <span class="co"># devuelve [&#39;hola&#39;, True, 73.4, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], 99]</span></a>
-<a class="sourceLine" id="cb46-4" title="4">lista[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;hola&#39;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb47-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a>
+<a class="sourceLine" id="cb47-2" title="2">lista[<span class="dv">0</span>]       <span class="co"># devuelve 27</span></a>
+<a class="sourceLine" id="cb47-3" title="3">lista[<span class="dv">1</span>:]      <span class="co"># devuelve [&#39;hola&#39;, True, 73.4, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], 99]</span></a>
+<a class="sourceLine" id="cb47-4" title="4">lista[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;hola&#39;</span></a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Junto a las operaciones <code>l[0]</code> (primer elemento) y <code>c[1:]</code> (resto de la lista), tenemos también la operación <code>+</code> (<strong>concatenación</strong>).</p></li>
+<li><p>Con la concatenación se pueden crear listas a partir de otras listas.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="op">+</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]  <span class="co"># devuelve [1, 2, 3, 4, 5, 6]</span></a></code></pre></div></li>
 </ul>
 </section></section>
-<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones de orden superior</h1></section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> <code>map()</code></h2></section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>filter()</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>reduce()</code></h2></section></section>
+<section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones de orden superior</h1></section><section id="concepto" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Concepto</h2><ul>
+<li><p>Hemos visto que <strong>las funciones son</strong>, en realidad, <strong>abstracciones</strong> que describen operaciones compuestas a realizar sobre ciertos valores sin importar cuáles sean esos valores en concreto.</p></li>
+<li><p>Por ejemplo, cuando definimos:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb49-1" title="1">cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</a></code></pre></div>
+<p>no estamos hablando del cubo de un número en particular, sino más bien de un <strong>método</strong> para calcular el cubo de un número.</p></li>
+<li><p>Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo siempre expresiones explícitas (como <code>3*3*3</code>, <code>y*y*y</code>, <code>5*5*5</code>, etcétera) sin mencionar la palabra «cubo», pero eso nos obligaría siempre a expresarnos en términos de las operaciones primitivas de nuestro lenguaje (el <code>*</code> en este caso), en vez de poder usar términos de más alto nivel.</p>
+<p>Es decir: <strong>nuestros programas podrían calcular el cubo de un número, pero no tendrían la habilidad de expresar el concepto de <em>elevar al cubo</em></strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente es la posibilidad de <strong>construir abstracciones</strong> asignando un nombre a los patrones más comunes, y luego trabajar directamente en términos de dichas abstracciones.</p></li>
+<li><p>Las funciones nos permiten esta habilidad y esa es la razón de que todos los lenguajes (salvo los más primitivos) incluyan mecanismos para definir funciones.</p></li>
+<li><p>Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo por sí mismo tres veces) que se repite con frecuencia, y a partir de él construimos una abstracción que asigna un nombre a ese patrón (<em>elevar al cubo</em>). Esa abstracción la definimos como una función que describe la <em>regla</em> necesaria para elevar algo al cubo.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Muchas veces observamos el mismo patrónpatrón proceso en funciones muy diferentes.</p></li>
+<li><p>Para poder abstraer, de nuevo, lo que tienen en común dichas funciones, deberíamos ser capaces de manejar funciones que acepten a otras funciones como argumentos o que devuelvan otra función como resultado. A estas funciones que manejan otras funciones las llamaremos <strong>funciones de orden superior</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, supongamos las dos funciones siguientes:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1"><span class="co"># Suma los enteros comprendidos entre a y b:</span></a>
+<a class="sourceLine" id="cb50-2" title="2">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> a <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a>
+<a class="sourceLine" id="cb50-3" title="3"></a>
+<a class="sourceLine" id="cb50-4" title="4"><span class="co"># Suma los cubos de los enteros comprendidos entre a y b:</span></a>
+<a class="sourceLine" id="cb50-5" title="5">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> cubo(a) <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
+<li><p>Estas dos funciones comparten claramente un patrón subyacente común. Se diferencian solamente en:</p>
+<ul>
+<li><p>El nombre de la función</p></li>
+<li><p>La función de <code>a</code> que se utiliza para calcular cada término</p></li>
+</ul></li>
+<li><p>Podríamos haber escrito las funciones anteriores rellenando los «casilleros» del siguiente <em>patrón general</em>:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;nombre&gt;</em></span> = <strong><code>lambda</code></strong> a, b: 0 <strong><code>if</code></strong> a &gt; b <strong><code>else</code></strong> <span style="color:teal"><em>&lt;término&gt;</em></span>(a) + <span style="color:teal"><em>&lt;nombre&gt;</em></span>(a + 1, b)</div>
+<p></p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La existencia de este patrón común nos demuestra que hay una abstracción esperando que la saquemos a la superficie.</p></li>
+<li><p>De hecho, los matemáticos han identificado hace mucho tiempo esta abstracción llamándola <strong>suma de una serie</strong>, y la expresan así: <span class="math display"> \sum _ {n=a}^b f(n) = f(a) + \ldots + f(b)</span></p></li>
+<li><p>La ventaja que tiene usar la notación anterior es que se puede trabajar directamente con el concepto de sumatorio en vez de trabajar con sumas concretas, y podemos sacar conclusiones generales sobre los sumatorios independientemente de la serie particular que estemos tratando.</p></li>
+<li><p>Igualmente, como programadores estamos interesados en que nuestro lenguaje tenga la suficiente potencia como para describir directamente el concepto de <em>sumatorio</em>, en vez de funciones particulares que calculen sumas concretas.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En programación funcional lo conseguimos creando funciones que conviertan los «casilleros» en parámetros:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb51-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> term, a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> term(a) <span class="op">+</span> suma(term, a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
+<li><p>De esta forma, las dos funciones <code>suma_enteros</code> y <code>suma_cubos</code> anteriores se podrían definir en términos de esta <code>suma</code>:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x, a, b)</a>
+<a class="sourceLine" id="cb52-2" title="2">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x, a, b)</a>
+<a class="sourceLine" id="cb52-3" title="3"><span class="co"># O mejor aún:</span></a>
+<a class="sourceLine" id="cb52-4" title="4">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(cubo, a, b)</a></code></pre></div></li>
+<li><p>¿Se podría generalizar aún más la función <code>suma</code>?</p></li>
+</ul>
+</section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>map</code></h2><ul>
+<li><p>Supongamos que queremos escribir una función que, dada una lista de números, nos devuelva otra lista con los mismos números elevados al cubo.</p></li>
+<li><p>Inténtalo primero como ejercicio.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Una forma de hacerlo sería:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb53-1" title="1">elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb53-2" title="2">                        [cubo(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<li><p>¿Y elevar a la cuarta potencia?</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb54-1" title="1">elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb54-2" title="2">                        [(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<li><p>Es evidente que hay un patrón subyacente que se podría abstraer creando una función de orden superior que aplique una función <code>f</code> a los elementos de una lista y devuelva la lista resultante.</p>
+<p>Esa función se llama <code>map</code>, y viene definida en Python:</p>
+<div class="line-block">map(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;lista&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;lista&gt;</em></span></div>
+<p></p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Podemos usarla así:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb55-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb55-2" title="2"><span class="op">&lt;</span><span class="bu">map</span> <span class="bu">object</span> at <span class="bn">0x7f22b25e9d68</span><span class="op">&gt;</span></a></code></pre></div>
+<p>Lo que devuelve no es la lista, sino un objeto llamado <em>iterador</em> que estudiaremos en posteriores temas.</p>
+<p>Por ahora, lo que haremos será simplemente transformar ese iterador en la lista correspondiente usando la función <code>list</code> sobre el resultado de <code>map</code>:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb56-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</a>
+<a class="sourceLine" id="cb56-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a></code></pre></div></li>
+<li><p>¿Cómo definirías la función <code>map</code>?</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Podríamos definirla así:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb57-1" title="1"><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> [f(l[<span class="dv">0</span>])] <span class="op">+</span> <span class="bu">map</span>(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+</ul>
+</section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>filter</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> <code>reduce</code></h2></section></section>
     </div>
   </div>
 

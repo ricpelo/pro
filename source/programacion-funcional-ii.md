@@ -831,7 +831,7 @@ z -> 3
 
 - El factorial de un número natural $n$ se representa $n!$ y se define como el
   producto de todos los números desde 1 hasta $n$:
-  $$n! = n\cdot(n-1)\cdot(n-2)\cdot...\cdot1$$
+  $$n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1$$
 
   Por ejemplo:
   $$6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720$$
@@ -1160,6 +1160,19 @@ fib1_5 -> u5
 
 ## Un lenguaje Turing-completo
 
+- El paradigma funcional que hemos visto hasta ahora (uno que nos permite
+  definir funciones, componer dichas funciones y aplicar recursividad, junto
+  con el operador ternario condicional) es un lenguaje de programación
+  completo.
+
+- Decimos que es **Turing completo**, lo que significa que puede computar
+  cualquier función que pueda computar una máquina de Turing.
+
+- Como las máquinas de Turing son los ordenadores más potentes que podemos
+  construir (ya que describen lo que cualquier ordenador es capaz de hacer),
+  esto significa que nuestro lenguaje puede calcular todo lo que pueda calcular
+  cualquier ordenador.
+
 # Tipos de datos recursivos
 
 ## Cadenas
@@ -1184,6 +1197,19 @@ fib1_5 -> u5
   cadena[0]       # devuelve 'h'
   cadena[1:]      # devuelve 'ola'
   cadena[1:][0]   # devuelve 'o'
+  ```
+
+---
+
+- Junto a las operaciones `c[0]` (primer carácter) y `c[1:]` (resto de la
+  cadena), tenemos también la operación `+` (**concatenación**).
+
+- Con la concatenación se pueden crear cadenas a partir de otras cadenas.
+
+- Por ejemplo:
+
+  ```python
+  '¡Hola, ' + 'mundo!'  # devuelve '¡Hola, mundo!'
   ```
 
 ## Listas
@@ -1227,11 +1253,204 @@ fib1_5 -> u5
   lista[1:][0]   # devuelve 'hola'
   ```
 
+---
+
+- Junto a las operaciones `l[0]` (primer elemento) y `c[1:]` (resto de la
+  lista), tenemos también la operación `+` (**concatenación**).
+
+- Con la concatenación se pueden crear listas a partir de otras listas.
+
+- Por ejemplo:
+
+  ```python
+  [1, 2, 3] + [4, 5, 6]  # devuelve [1, 2, 3, 4, 5, 6]
+  ```
+
 # Funciones de orden superior
 
-## `map()`
+## Concepto
 
-## `filter()`
+- Hemos visto que **las funciones son**, en realidad, **abstracciones** que
+  describen operaciones compuestas a realizar sobre ciertos valores sin
+  importar cuáles sean esos valores en concreto.
 
-## `reduce()`
+- Por ejemplo, cuando definimos:
+
+  ```python
+  cubo = lambda x: x * x * x
+  ```
+
+  no estamos hablando del cubo de un número en particular, sino más bien de un
+  **método** para calcular el cubo de un número.
+
+- Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
+  siempre expresiones explícitas (como `3*3*3`, `y*y*y`, `5*5*5`, etcétera) sin
+  mencionar la palabra «cubo», pero eso nos obligaría siempre a expresarnos en
+  términos de las operaciones primitivas de nuestro lenguaje (el `*` en este
+  caso), en vez de poder usar términos de más alto nivel.
+
+  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
+  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
+
+---
+
+- Una de las habilidades que deberíamos pedir a un lenguaje potente es la
+  posibilidad de **construir abstracciones** asignando un nombre a los patrones
+  más comunes, y luego trabajar directamente en términos de dichas
+  abstracciones.
+
+- Las funciones nos permiten esta habilidad y esa es la razón de que todos los
+  lenguajes (salvo los más primitivos) incluyan mecanismos para definir
+  funciones.
+
+- Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo
+  por sí mismo tres veces) que se repite con frecuencia, y a partir de él
+  construimos una abstracción que asigna un nombre a ese patrón (*elevar al
+  cubo*). Esa abstracción la definimos como una función que describe la *regla*
+  necesaria para elevar algo al cubo.
+
+---
+
+- Muchas veces observamos el mismo patrónpatrón  proceso en funciones muy
+  diferentes.
+
+- Para poder abstraer, de nuevo, lo que tienen en común dichas funciones,
+  deberíamos ser capaces de manejar funciones que acepten a otras funciones
+  como argumentos o que devuelvan otra función como resultado. A estas
+  funciones que manejan otras funciones las llamaremos **funciones de orden
+  superior**.
+
+---
+
+- Por ejemplo, supongamos las dos funciones siguientes: 
+
+  ```python
+  # Suma los enteros comprendidos entre a y b:
+  suma_enteros = lambda a, b: 0 if a > b else a + suma_enteros(a + 1, b)
+
+  # Suma los cubos de los enteros comprendidos entre a y b:
+  suma_cubos = lambda a, b: 0 if a > b else cubo(a) + suma_enteros(a + 1, b)
+  ```
+
+- Estas dos funciones comparten claramente un patrón subyacente común. Se
+  diferencian solamente en:
+
+  - El nombre de la función
+
+  - La función de `a` que se utiliza para calcular cada término
+
+- Podríamos haber escrito las funciones anteriores rellenando los «casilleros»
+  del siguiente *patrón general*:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(nombre) = !T(lambda) a, b: 0 !T(if) a > b !T(else) !NT{término}(a) + !NT{nombre}(a + 1, b)
+  ~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- La existencia de este patrón común nos demuestra que hay una abstracción
+  esperando que la saquemos a la superficie.
+
+- De hecho, los matemáticos han identificado hace mucho tiempo esta abstracción
+  llamándola **suma de una serie**, y la expresan así:
+  $$ \sum _ {n=a}^b f(n) = f(a) + \ldots + f(b)$$
+
+- La ventaja que tiene usar la notación anterior es que se puede trabajar
+  directamente con el concepto de sumatorio en vez de trabajar con sumas
+  concretas, y podemos sacar conclusiones generales sobre los sumatorios
+  independientemente de la serie particular que estemos tratando.
+
+- Igualmente, como programadores estamos interesados en que nuestro lenguaje
+  tenga la suficiente potencia como para describir directamente el concepto de
+  *sumatorio*, en vez de funciones particulares que calculen sumas concretas.
+
+---
+
+- En programación funcional lo conseguimos creando funciones que conviertan los
+  «casilleros» en parámetros:
+
+  ```python
+  suma = lambda term, a, b: 0 if a > b else term(a) + suma(term, a + 1, b)
+  ```
+
+- De esta forma, las dos funciones `suma_enteros` y `suma_cubos` anteriores se
+  podrían definir en términos de esta `suma`:
+
+  ```python
+  suma_enteros = lambda a, b: suma(lambda x: x, a, b)
+  suma_cubos = lambda a, b: suma(lambda x: x * x * x, a, b)
+  # O mejor aún:
+  suma_cubos = lambda a, b: suma(cubo, a, b)
+  ```
+
+- ¿Se podría generalizar aún más la función `suma`?
+
+## `map`
+
+- Supongamos que queremos escribir una función que, dada una lista de números,
+  nos devuelva otra lista con los mismos números elevados al cubo.
+
+- Inténtalo primero como ejercicio.
+
+---
+
+- Una forma de hacerlo sería:
+
+  ```python
+  elevar_cubo = lambda l: [] if l == [] else \
+                          [cubo(l[0])] + elevar_cubo(l[1:])
+  ```
+
+- ¿Y elevar a la cuarta potencia?
+
+  ```python
+  elevar_cubo = lambda l: [] if l == [] else \
+                          [(lambda x: x ** 4)(l[0])] + elevar_cubo(l[1:])
+  ```
+
+- Es evidente que hay un patrón subyacente que se podría abstraer creando una
+  función de orden superior que aplique una función `f` a los elementos de una
+  lista y devuelva la lista resultante.
+
+  Esa función se llama `map`, y viene definida en Python:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~
+  map(!NT(función), !NT(lista)) -> !NT(lista)
+  ~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Podemos usarla así:
+
+  ```python
+  >>> map(cubo, [1, 2, 3, 4])
+  <map object at 0x7f22b25e9d68>
+  ```
+
+  Lo que devuelve no es la lista, sino un objeto llamado *iterador* que
+  estudiaremos en posteriores temas.
+
+  Por ahora, lo que haremos será simplemente transformar ese iterador en la
+  lista correspondiente usando la función `list` sobre el resultado de `map`:
+
+  ```python
+  >>> list(map(cubo, [1, 2, 3, 4]))
+  [1, 8, 27, 64]
+  ```
+
+- ¿Cómo definirías la función `map`?
+
+---
+
+- Podríamos definirla así:
+
+  ```python
+  map = lambda f, l: [] if l == [] else [f(l[0])] + map(l[1:])
+  ```
+
+## `filter`
+
+## `reduce`
 
