@@ -180,11 +180,11 @@ author: Ricardo Pérez López
 
 ### Variables ligadas y libres
 
-  - Si un identificador aparece en la lista de parámetros de la expresión
-    lambda, a ese identificador le llamamos **variable ligada** de la expresión
-    lambda.
+- Si un identificador aparece en la lista de parámetros de la expresión
+  lambda, a ese identificador le llamamos **variable ligada** de la expresión
+  lambda.
 
-  - En caso contrario, le llamamos **variable libre** de la expresión lambda.
+- En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
 - En el ejemplo anterior:
 
@@ -203,61 +203,6 @@ author: Ricardo Pérez López
   ```
 
   `x` e `y` son variables ligadas mientras que `z` es libre.
-
----
-
-- Para que una expresión lambda funcione, sus variables libres deben
-  estar ligadas a algún valor en el entorno **en el momento de evaluar una
-  aplicación** de la expresión lambda sobre unos argumentos.
-
-- Por ejemplo:
-
-  ```python
-  prueba = lambda x, y: x + y + z
-  prueba(4, 3)
-  ```
-
-  da error porque `z` no está definido (no está ligado a ningún valor en el
-  entorno).
-
-- En cambio:
-
-  ```{.python .number-lines}
-  prueba = lambda x, y: x + y + z
-  z = 9
-  prueba(4, 3)
-  ```
-
-  sí funciona (y devuelve `16`) porque en el momento de evaluar la expresión
-  lambda (en la línea 3) el identificador `z` está ligado a un valor (`9`).
-
-- Observar que no es necesario que las variables libres estén ligadas en el
-  entorno cuando se *crea* la expresión lambda, sino cuando se *aplica*.
-
----
-
-- Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es
-  una expresión cuyo valor sólo va a depender de los argumentos que se usen
-  cuando se aplique la expresión lambda.
-
-- En cambio, el valor de una expresión lambda que contenga variables
-  libres dependerá no sólo de los valores de sus argumentos, sino también de
-  los valores a los que estén ligadas las variables libres al evaluar la
-  expresión lambda.
-
-- Por ejemplo, podemos escribir una expresión lambda que calcule la suma de
-  tres números a partir de otra expresión lambda que calcule la suma de dos
-  números:
-
-  ```python
-  lambda x, y, z: suma(x, y) + z
-  ```
-
-  En este caso, hay un identificador (`suma`) que no aparece en la lista de
-  parámetros de la expresión lambda (por lo que es una variable libre).
-
-  Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
-  `suma` (de lo que haga, de lo que devuelva...).
 
 ### Ámbito de una variable ligada
 
@@ -303,6 +248,25 @@ author: Ricardo Pérez López
 - Por ello, la línea 4 dará un error al intentar acceder al valor de un
   identificador no ligado.
 
+### Ámbitos, marcos y entornos
+
+- Recordemos que un marco es un conjunto de ligaduras.
+
+- Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
+  validas en un punto concreto del programa.
+
+- Ahora hemos visto que cada expresión lambda crea un nuevo ámbito.
+
+- En realidad, cada nuevo ámbito crea un nuevo marco que se enlaza con el marco
+  del ámbito que lo contiene.
+
+- Se va formando así una secuencia de marcos que definen el entorno del
+  programa en un punto dado del mismo.
+
+- A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
+  que tendremos, además, al menos uno más por cada expresión lambda que tenga
+  nuestro programa.
+
 ### Variables *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
@@ -317,13 +281,6 @@ author: Ricardo Pérez López
 
 - La `x` que aparece en la línea 1 es diferente a la que aparece en la lista de
   parámetros de la expresión lambda de la línea 2.
-
-<!--
-
-- Técnicamente, decimos que la expresión lambda introduce un nuevo *ámbito*
-  (concepto que desarrollaremos más adelante).
-
--->
 
 - En este caso, decimos que **el parámetro `x` _hace sombra_** al identificador
   `x` que, en el entorno, está ligado al valor 4.
@@ -351,15 +308,18 @@ author: Ricardo Pérez López
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
   y una variable libre (el identificador `x`).
 
-### Expresiones lambda y entornos
+### Entornos en expresiones lambda
 
-- Recordemos que el **entorno** es el conjunto de todas las ligaduras que son
-  accesibles en un punto concreto de un programa.
+- Para calcular el entorno en un punto dado, debemos tener en cuenta que cada
+  expresión lambda crea un nuevo marco con las ligaduras que defina dicha
+  expresión lambda.
 
-- Para calcular el entorno en un punto dado, debemos tener en cuenta las
-  ligaduras, así como los ámbitos de dichas ligaduras y las variables ligadas
-  que hagan sombra a otras situadas en el mismo ámbito.
+- Dicho marco se enlaza con el marco del ámbito que contiene a la expresión
+  lambda. 
 
+- Debemos tener en cuenta también, por tanto, las posibles variables sombreadas
+  que puedan aparecer.
+  
 ---
 
 - Por ejemplo:
@@ -429,24 +389,6 @@ z -> 1
 compound = true
 node [fontname = "monospace"]
 1 [shape = circle]
-12 [shape = circle]
-8 [shape = circle]
-xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
-yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
-z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
-
-suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
-suma -> lambda
-xl -> 8
-yl -> 12
-z -> 1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-<!--
-
-compound = true
-node [fontname = "monospace"]
-1 [shape = circle]
 4 [shape = circle]
 8 [shape = circle]
 12 [shape = circle]
@@ -464,6 +406,24 @@ subgraph cluster0 {
 }
 suma -> xl [lhead = cluster0]
 x -> 4
+z -> 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<!--
+
+compound = true
+node [fontname = "monospace"]
+1 [shape = circle]
+12 [shape = circle]
+8 [shape = circle]
+xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
+yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
+z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+
+suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+suma -> lambda
+xl -> 8
+yl -> 12
 z -> 1
 
 -->
@@ -532,6 +492,64 @@ z -> 3
 
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
   **captura de variables**.
+
+### Evaluación de expresiones lambda y entornos
+
+- Para que una expresión lambda funcione, sus variables libres deben
+  estar ligadas a algún valor en el entorno **en el momento de evaluar una
+  aplicación** de la expresión lambda sobre unos argumentos.
+
+- Por ejemplo:
+
+  ```python
+  prueba = lambda x, y: x + y + z
+  prueba(4, 3)
+  ```
+
+  da error porque `z` no está definido (no está ligado a ningún valor en el
+  entorno).
+
+---
+
+- En cambio:
+
+  ```{.python .number-lines}
+  prueba = lambda x, y: x + y + z
+  z = 9
+  prueba(4, 3)
+  ```
+
+  sí funciona (y devuelve `16`) porque en el momento de evaluar la expresión
+  lambda (en la línea 3) el identificador `z` está ligado a un valor (`9`) en
+  el entorno.
+
+- Observar que no es necesario que las variables libres estén ligadas en el
+  entorno cuando se *crea* la expresión lambda, sino cuando se *aplica*.
+
+---
+
+- Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es
+  una expresión cuyo valor sólo va a depender de los argumentos que se usen
+  cuando se aplique la expresión lambda.
+
+- En cambio, el valor de una expresión lambda que contenga variables
+  libres dependerá no sólo de los valores de sus argumentos, sino también de
+  los valores a los que estén ligadas las variables libres al evaluar la
+  expresión lambda.
+
+- Por ejemplo, podemos escribir una expresión lambda que calcule la suma de
+  tres números a partir de otra expresión lambda que calcule la suma de dos
+  números:
+
+  ```python
+  lambda x, y, z: suma(x, y) + z
+  ```
+
+  En este caso, hay un identificador (`suma`) que no aparece en la lista de
+  parámetros de la expresión lambda (por lo que es una variable libre).
+
+  Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
+  `suma` en el entorno actual.
 
 ## Estrategias de evaluación
 

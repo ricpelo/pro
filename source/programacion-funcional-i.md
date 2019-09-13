@@ -1336,12 +1336,32 @@ x -> 25
 y -> 25
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Entorno (*environment*)
+### Marcos (*frames*)
 
-- Se denomina **entorno** (del inglés, *environment*) al conjunto de todas las
-  ligaduras que son accesibles en un punto concreto de un programa.
+- Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
 
-- El entorno, por tanto, depende del punto del programa en el que se calcule:
+- En un determinado marco, un identificador sólo puede tener como máximo una
+  ligadura.
+
+- En cambio, ese mismo identificador puede estar ligado a diferentes valores en
+  distintos marcos.
+
+- La existencia de uno o varios marcos dependerá de la estructura del programa,
+  es decir, que ciertas construcciones del lenguaje crean sus propios marcos.
+
+  - Por ejemplo, cuando definimos una función, dicha función llevará asociada
+    su propio marco.
+
+- El **marco global** es un marco que siempre existe en cualquier punto del
+  programa y contiene las ligaduras definidas fuera de cualquier construcción o
+  estructura del mismo.
+
+  - Por ahora es el único marco que existe para nosotros.
+
+---
+
+- En un momento dado, un marco contendrá las ligaduras que se hayan definido
+  hasta ese momento en el contexto asociado a ese marco:
 
   ```{.python .number-lines}
   >>> x
@@ -1353,13 +1373,18 @@ y -> 25
   25
   ```
 
-  - En la línea 1, el identificador `x` aún no está ligado, por lo que uso genera un error.
+  - Aquí estamos trabajando con el *marco global* (el único que existe hasta
+    ahora para nosotros).
+
+  - En la línea 1, el identificador `x` aún no está ligado, por lo que uso
+    genera un error (el marco global no contiene hasta ahora ninguna ligadura
+    para `x`).
 
   - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
-    sido ligado previamente en la línea 5.
+    sido ligado previamente en la línea 5 (el marco global ahora contiene una
+    ligadura para `x` con el valor 25).
 
 ---
-
 
 :::: columns
 
@@ -1373,13 +1398,14 @@ y -> 25
   >>> z = y
   ```
 
-  Según la línea en la que nos encontremos, tenemos los siguientes entornos:
+  Según la línea en la que nos encontremos, tenemos los siguientes marcos
+  globales:
 
 :::
 
 ::: column
 
-!DOT(entorno-linea1.svg)(Entorno en la línea 1)(width=30%)(width=20%)
+!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
@@ -1389,7 +1415,7 @@ x -> 4
 
 &nbsp; 
 
-!DOT(entorno-linea2.svg)(Entorno en la línea 2)(width=30%)(width=20%)
+!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 3 [shape = circle]
@@ -1402,7 +1428,7 @@ y -> 3
 
 &nbsp; 
 
-!DOT(entorno-linea3.svg)(Entorno en la línea 3)(width=30%)(width=20%)
+!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 3 [shape = circle];
@@ -1418,6 +1444,22 @@ z -> 3
 :::
 
 ::::
+
+## Entorno (*environment*)
+
+- Un **entorno** (del inglés, *environment*) es una secuencia de **marcos** que
+  contienen todas las ligaduras validas en un punto concreto del programa.
+
+- Es decir, el entorno nos dice qué identificadores son accesibles en un
+  momento dado, y con qué valores están ligados.
+
+- El entorno, por tanto, depende del punto del programa en el que se calcule.
+
+- Como por ahora sólo tenemos un marco, que es el *marco global*, nuestro
+  entorno sólo podrá tener un único marco, es decir, que el entorno coincidirá
+  con el marco global.
+
+- La cosa cambiará en cuanto empecemos a crear funciones.
 
 ## Tipado estático vs. dinámico
 
