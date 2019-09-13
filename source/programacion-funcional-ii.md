@@ -6,6 +6,7 @@ author: Ricardo Pérez López
 
 # Abstracciones funcionales
 
+
 ## Expresiones lambda
 
 - Las **expresiones lambda** (también llamadas **abstracciones lambda** o
@@ -204,10 +205,15 @@ author: Ricardo Pérez López
 
   `x` e `y` son variables ligadas mientras que `z` es libre.
 
-### Ámbito de una variable ligada
+### Ámbitos
 
 - Recordemos que el **ámbito de una ligadura** es la porción del programa en la
   que dicha ligadura tiene validez.
+
+- Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
+  que incorporan las expresiones lambda.
+
+#### Ámbito de una variable ligada
 
 - Hemos visto que **un parámetro** de una expresión lambda **es una variable
   ligada** en el cuerpo de dicha expresión lambda.
@@ -248,7 +254,7 @@ author: Ricardo Pérez López
 - Por ello, la línea 4 dará un error al intentar acceder al valor de un
   identificador no ligado.
 
-### Ámbitos, marcos y entornos
+#### Ámbitos, marcos y entornos
 
 - Recordemos que un marco es un conjunto de ligaduras.
 
@@ -267,7 +273,7 @@ author: Ricardo Pérez López
   que tendremos, además, al menos uno más por cada expresión lambda que tenga
   nuestro programa.
 
-### Variables *sombreadas*
+#### Variables *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
   ya están definidos (ligados) en el entorno?
@@ -308,7 +314,7 @@ author: Ricardo Pérez López
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
   y una variable libre (el identificador `x`).
 
-### Entornos en expresiones lambda
+#### Expresiones lambda y entornos
 
 - Para calcular el entorno en un punto dado, debemos tener en cuenta que cada
   expresión lambda crea un nuevo marco con las ligaduras que defina dicha
@@ -468,32 +474,7 @@ z -> 3
 
 ::::
 
-### Renombrado de parámetros
-
-- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
-  sin que se altere el significado de la expresión lambda.
-
-- A esta operación se la denomina **α-conversión**.
-
-- Un ejemplo de α-conversión es la que hicimos antes.
-
-- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
-  Por ejemplo, en:
-
-  ```python
-  lambda x, y: x + y + z
-  ```
-
-  si renombramos `x` a `z` tendríamos:
-
-  ```python
-  lambda z, y: z + y + z
-  ```
-
-  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
-  **captura de variables**.
-
-### Evaluación de expresiones lambda y entornos
+#### Evaluación de expresiones lambda con entornos
 
 - Para que una expresión lambda funcione, sus variables libres deben
   estar ligadas a algún valor en el entorno **en el momento de evaluar una
@@ -550,6 +531,31 @@ z -> 3
 
   Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
   `suma` en el entorno actual.
+
+### Renombrado de parámetros
+
+- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
+  sin que se altere el significado de la expresión lambda.
+
+- A esta operación se la denomina **α-conversión**.
+
+- Un ejemplo de α-conversión es la que hicimos antes.
+
+- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
+  Por ejemplo, en:
+
+  ```python
+  lambda x, y: x + y + z
+  ```
+
+  si renombramos `x` a `z` tendríamos:
+
+  ```python
+  lambda z, y: z + y + z
+  ```
+
+  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
+  **captura de variables**.
 
 ## Estrategias de evaluación
 
@@ -772,6 +778,7 @@ z -> 3
 
 # Computabilidad
 
+
 ## Funciones y procesos
 
 - Los **procesos** son entidades abstractas que habitan los ordenadores.
@@ -802,6 +809,7 @@ z -> 3
   los modelos típicos de evolución de los procesos.
 
 ## Funciones recursivas
+
 
 ### Definición
 
@@ -1193,6 +1201,7 @@ fib1_5 -> u5
 
 # Tipos de datos recursivos
 
+
 ## Cadenas
 
 - Las **cadenas** se pueden considerar datos recursivos compuestos, ya que
@@ -1285,6 +1294,7 @@ fib1_5 -> u5
   ```
 
 # Funciones de orden superior
+
 
 ## Concepto
 
@@ -1470,5 +1480,7 @@ fib1_5 -> u5
 
 ## `filter`
 
+
 ## `reduce`
+
 

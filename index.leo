@@ -8,7 +8,8 @@
 <vnodes>
 <v t="ricardo.20190913180521.1"><vh>@auto source/introduccion.md</vh></v>
 <v t="ricardo.20190913180521.2"><vh>@auto source/programacion-funcional-i.md</vh></v>
-<v t="ricardo.20190913180521.3"><vh>@auto source/programacion-funcional-ii.md</vh></v>
+<v t="ricardo.20190913180521.3"
+expanded="ricardo.20190914004430.150,ricardo.20190914004430.151,ricardo.20190914004841.1,"><vh>@auto source/programacion-funcional-ii.md</vh></v>
 <v t="ricardo.20190913180521.4"><vh>@auto source/programacion-imperativa.md</vh></v>
 <v t="ricardo.20190913180521.5"><vh>@auto source/programacion-estructurada.md</vh></v>
 <v t="ricardo.20190913180521.6"><vh>@auto source/tipos-de-datos.md</vh></v>
