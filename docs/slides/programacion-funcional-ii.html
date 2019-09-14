@@ -222,6 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/computabilidad"><span class="toc-section-number">2</span> Computabilidad</a></li>
 <li><a href="#/tipos-de-datos-recursivos"><span class="toc-section-number">3</span> Tipos de datos recursivos</a></li>
 <li><a href="#/funciones-de-orden-superior"><span class="toc-section-number">4</span> Funciones de orden superior</a></li>
+<li><a href="#/bibliografía">Bibliografía</a></li>
 </ul>
 </section>
 </section>
@@ -957,7 +958,7 @@ z -> 1
 <a class="sourceLine" id="cb54-2" title="2">                        [(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 <li><p>Es evidente que hay un patrón subyacente que se podría abstraer creando una función de orden superior que aplique una función <code>f</code> a los elementos de una lista y devuelva la lista resultante.</p>
 <p>Esa función se llama <code>map</code>, y viene definida en Python:</p>
-<div class="line-block">map(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;lista&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;lista&gt;</em></span></div>
+<div class="line-block">map(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;lista&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div>
 <p></p></li>
 </ul>
 </section><section class="slide level4">
@@ -978,7 +979,60 @@ z -> 1
 <li><p>Podríamos definirla así:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb57-1" title="1"><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> [f(l[<span class="dv">0</span>])] <span class="op">+</span> <span class="bu">map</span>(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 </ul>
-</section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>filter</code></h2></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> <code>reduce</code></h2></section></section>
+</section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>filter</code></h2><ul>
+<li><p><code>filter</code> es una <strong>función de orden superior</strong> que devuelve aquellos elementos de una lista que cumplen una determinada condición.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block">filter(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;lista&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div>
+<p></p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb58-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</a>
+<a class="sourceLine" id="cb58-2" title="2">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a></code></pre></div></li>
+</ul></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> <code>reduce</code></h2><ul>
+<li><p><code>reduce</code> es una <strong>función de orden superior</strong> que aplica, de forma acumulativa, una función a todos los elementos de una lista.</p></li>
+<li><p>Las operaciones se hacen agrupándose <strong>por la izquierda</strong>.</p></li>
+<li><p>Captura un <strong>patrón muy frecuente</strong> de recursión sobre listas de elementos.</p></li>
+<li><p>Por ejemplo, para calcular la suma de todos los elementos de una lista, haríamos:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb59-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">0</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">+</span> suma(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<li><p>Y para calcular el producto:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" title="1">producto <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">1</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">*</span> producto(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<li><p>Como podemos observar, la estrategia de cálculo es esencialmente la misma (sólo se diferencian en la operación a realizar (<code>+</code> o <code>*</code>) y en el valor inicial o <em>elemento neutro</em> (<code>0</code> o <code>1</code>).</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Si abstraemos ese patrón común podemos crear una función de orden superior que capture la idea de <strong>reducir todos los elementos de una lista a un único valor</strong>.</p></li>
+<li><p>Eso es lo que hace la función <code>reduce</code>.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block">reduce(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;lista&gt;</em></span>[, <span style="color:teal"><em>&lt;valor_inicial&gt;</em></span>]) -&gt; <span style="color:teal"><em>&lt;lista&gt;</em></span></div>
+<p></p></li>
+<li><p>El <span style="color:teal"><em>&lt;valor_inicial&gt;</em></span>, si existe, se usará como primer elemento de la lista en el cálculo y sirve como valor por defecto cuando la lista está vacía.</p></li>
+<li><p>La <span style="color:teal"><em>&lt;función&gt;</em></span> debe recibir dos argumentos y devolver un valor.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Para usarla, tenemos que <em>importarla</em> previamente del <em>módulo</em> <code>functools</code>.</p>
+<p>En su momento estudiaremos qué son los módulos. Por ahora supondremos que contienen definiciones de funciones que podemos incorporar a nuestros <em>scripts</em>, de una forma similar a lo que hacemos cuando incorporamos un <em>script</em> a nuestras sesiones interactivas.</p></li>
+<li><p>Por ejemplo, para calcular la suma y el producto de <code>[1, 2, 3, 4]</code>:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb61-1" title="1"><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></a>
+<a class="sourceLine" id="cb61-2" title="2">lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb61-3" title="3">suma_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, lista, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb61-4" title="4">producto_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, lista, <span class="dv">1</span>)</a></code></pre></div></li>
+<li><p>¿Cómo podríamos definir la función <code>reduce</code>?</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Una forma (con valor inicial obligatorio) podría ser así:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb62-1" title="1"><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, lista, ini: ini <span class="cf">if</span> lista <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb62-2" title="2">                                 lista[<span class="dv">0</span>] <span class="cf">if</span> lista[<span class="dv">1</span>:] <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb62-3" title="3">                                 fun(lista[<span class="dv">0</span>], <span class="bu">reduce</span>(fun, lista[<span class="dv">1</span>:], ini))</a></code></pre></div></li>
+</ul>
+</section></section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
+<div id="ref-abelson_structure_1996">
+<p>Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996. <em>Structure and Interpretation of Computer Programs</em>. 2nd ed. Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.</p>
+</div>
+</div></section>
     </div>
   </div>
 

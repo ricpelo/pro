@@ -2,6 +2,8 @@
 title: Programación funcional II
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @abelson_structure_1996
 ---
 
 # Abstracciones funcionales
@@ -1505,7 +1507,7 @@ fib1_5 -> u5
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~
-  map(!NT(función), !NT(lista)) -> !NT(lista)
+  map(!NT(función), !NT(lista)) -> !NT(iterador)
   ~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1540,7 +1542,97 @@ fib1_5 -> u5
 
 ## `filter`
 
+- `filter` es una **función de orden superior** que devuelve aquellos elementos
+  de una lista que cumplen una determinada condición.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~
+  filter(!NT(función), !NT(lista)) -> !NT(iterador)
+  ~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
+
+  ```python
+  >>> list(filter(lambda x: x > 0, [-4, 3, 5, -2, 8, -3, 9]))
+  [3, 5, 8, 9]
+  ```
 
 ## `reduce`
 
+- `reduce` es una **función de orden superior** que aplica, de forma
+  acumulativa, una función a todos los elementos de una lista.
 
+- Las operaciones se hacen agrupándose **por la izquierda**.
+
+- Captura un **patrón muy frecuente** de recursión sobre listas de elementos.
+
+- Por ejemplo, para calcular la suma de todos los elementos de una lista,
+  haríamos:
+
+  ```python
+  suma = lambda l: 0 if l == [] else l[0] + suma(l[1:])
+  ```
+
+- Y para calcular el producto:
+
+  ```python
+  producto = lambda l: 1 if l == [] else l[0] * producto(l[1:])
+  ```
+
+- Como podemos observar, la estrategia de cálculo es esencialmente la misma
+  (sólo se diferencian en la operación a realizar (`+` o `*`) y en el valor
+  inicial o *elemento neutro* (`0` o `1`).
+
+---
+
+- Si abstraemos ese patrón común podemos crear una función de orden superior
+  que capture la idea de **reducir todos los elementos de una lista a un único
+  valor**.
+
+- Eso es lo que hace la función `reduce`.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~
+  reduce(!NT(función), !NT(lista)[, !NT(valor_inicial)]) -> !NT(lista)
+  ~~~~~~~~~~~~~~~~~~~~~
+
+- El !NT(valor_inicial), si existe, se usará como primer elemento de la lista
+  en el cálculo y sirve como valor por defecto cuando la lista está vacía.
+
+- La !NT(función) debe recibir dos argumentos y devolver un valor.
+
+---
+
+- Para usarla, tenemos que *importarla* previamente del *módulo* `functools`.
+
+  En su momento estudiaremos qué son los módulos. Por ahora supondremos que
+  contienen definiciones de funciones que podemos incorporar a nuestros
+  *scripts*, de una forma similar a lo que hacemos cuando incorporamos un
+  *script* a nuestras sesiones interactivas.
+
+- Por ejemplo, para calcular la suma y el producto de `[1, 2, 3, 4]`:
+
+  ```python
+  from functools import reduce
+  lista = [1, 2, 3, 4]
+  suma_de_numeros = reduce(lambda x, y: x + y, lista, 0)
+  producto_de_numeros = reduce(lambda x, y: x * y, lista, 1)
+  ```
+
+- ¿Cómo podríamos definir la función `reduce`?
+
+---
+
+- Una forma (con valor inicial obligatorio) podría ser así:
+
+  ```python
+  reduce = lambda fun, lista, ini: ini if lista == [] else \
+                                   lista[0] if lista[1:] == [] else \
+                                   fun(lista[0], reduce(fun, lista[1:], ini))
+  ```
+
+!BIBLIOGRAFIA
