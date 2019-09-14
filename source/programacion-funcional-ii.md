@@ -261,12 +261,12 @@ author: Ricardo Pérez López
 - Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
   validas en un punto concreto del programa.
 
-- Ahora hemos visto que cada expresión lambda crea un nuevo ámbito.
+- Ahora hemos visto que **cada expresión lambda crea un nuevo ámbito**.
 
-- En realidad, cada nuevo ámbito crea un nuevo marco que se enlaza con el marco
-  del ámbito que lo contiene.
+- Y **cada nuevo ámbito crea un nuevo marco** que se enlaza con el marco del
+  ámbito que lo contiene.
 
-- Se va formando así una secuencia de marcos que definen el entorno del
+- Se va formando así una secuencia de marcos que definen el **entorno** del
   programa en un punto dado del mismo.
 
 - A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
@@ -321,7 +321,7 @@ author: Ricardo Pérez López
   expresión lambda.
 
 - Dicho marco se enlaza con el marco del ámbito que contiene a la expresión
-  lambda. 
+  lambda, ampliando el entorno. 
 
 - Debemos tener en cuenta también, por tanto, las posibles variables sombreadas
   que puedan aparecer.
@@ -401,7 +401,37 @@ subgraph cluster0 {
 
 &nbsp;
 
-!DOT(lambda-entorno-linea3-dentro.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda)(width=50%)(width=55%)
+!DOT(lambda-entorno-linea3-dentro-antes.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **antes** de aplicar los argumentos)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+xl [shape = plaintext, fillcolor = transparent, label = "x"]
+yl [shape = plaintext, fillcolor = transparent, label = "y"]
+z [shape = plaintext, fillcolor = transparent, label = "z"]
+suma [shape = plaintext, fillcolor = transparent, label = "suma"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    suma -> lambda
+    x -> 4
+    z -> 1
+}
+subgraph cluster1 {
+    label = "Marco de lambda"
+    bgcolor = white
+    xl -> xl
+    yl -> yl
+}
+xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!DOT(lambda-entorno-linea3-dentro-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de aplicar los argumentos)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR, splines = ortho]
@@ -501,14 +531,18 @@ subgraph cluster0 {
 #### Evaluación de expresiones lambda con entornos
 
 - Para que una expresión lambda funcione, sus variables libres deben
-  estar ligadas a algún valor en el entorno **en el momento de evaluar una
-  aplicación** de la expresión lambda sobre unos argumentos.
+  estar ligadas a algún valor en el entorno **en el momento de _evaluar_ una
+  aplicación de la expresión lambda sobre unos argumentos**.
 
 - Por ejemplo:
 
   ```python
-  prueba = lambda x, y: x + y + z
-  prueba(4, 3)
+  >>> prueba = lambda x, y: x + y + z
+  >>> prueba(4, 3)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <lambda>
+  NameError: name 'z' is not defined
   ```
 
   da error porque `z` no está definido (no está ligado a ningún valor en el
@@ -519,9 +553,10 @@ subgraph cluster0 {
 - En cambio:
 
   ```{.python .number-lines}
-  prueba = lambda x, y: x + y + z
-  z = 9
-  prueba(4, 3)
+  >>> prueba = lambda x, y: x + y + z
+  >>> z = 9
+  >>> prueba(4, 3)
+  16
   ```
 
   sí funciona (y devuelve `16`) porque en el momento de evaluar la expresión
