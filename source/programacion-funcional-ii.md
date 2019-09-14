@@ -346,10 +346,14 @@ author: Ricardo Pérez López
 
 !DOT(lambda-entorno-linea1.svg)(Entorno en la línea 1)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
-x -> 4
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    4 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    x -> 4
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -358,13 +362,17 @@ x -> 4
 
 !DOT(lambda-entorno-linea2.svg)(Entorno en la línea 2)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-1 [shape = circle]
-4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
-z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
-x -> 4
-z -> 1
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    1 [shape = circle]
+    4 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    z [shape = plaintext, fillcolor = transparent, label = "z"]
+    x -> 4
+    z -> 1
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -373,46 +381,54 @@ z -> 1
 
 ---
 
-!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=30%)(width=30%)
+!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=25%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-node [fontname = "monospace"]
-1 [shape = circle]
-4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
-z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    1 [shape = circle]
+    4 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    z [shape = plaintext, fillcolor = transparent, label = "z"]
 
-suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
-suma -> lambda
-x -> 4
-z -> 1
+    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
+    suma -> lambda
+    x -> 4
+    z -> 1
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 &nbsp;
 
-!DOT(lambda-entorno-linea3-dentro.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda)(width=30%)(width=30%)
+!DOT(lambda-entorno-linea3-dentro.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+graph [rankdir = LR, splines = ortho]
 node [fontname = "monospace"]
 1 [shape = circle]
 4 [shape = circle]
 8 [shape = circle]
 12 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x (global)"]
-xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
-yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
-z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
-
-suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+xl [shape = plaintext, fillcolor = transparent, label = "x"]
+yl [shape = plaintext, fillcolor = transparent, label = "y"]
+z [shape = plaintext, fillcolor = transparent, label = "z"]
+suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 subgraph cluster0 {
-    label = "lambda"
+    label = "Marco global"
+    bgcolor = "white"
+    suma -> lambda
+    x -> 4
+    z -> 1
+}
+subgraph cluster1 {
+    label = "Marco de lambda"
     bgcolor = white
     xl -> 8
     yl -> 12
 }
-suma -> xl [lhead = cluster0]
-x -> 4
-z -> 1
+8 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 <!--
@@ -440,34 +456,42 @@ z -> 1
 
 ::: column
 
-!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=20%)
+!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-3 [shape = circle];
-4 [shape = circle];
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-z [shape = plaintext, fillcolor = transparent]
-x -> 4
-y -> 3
-z -> 3
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    3 [shape = circle];
+    4 [shape = circle];
+    x [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    x -> 4
+    y -> 3
+    z -> 3
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: column
 
-!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=20%)
+!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-3 [shape = circle];
-4 [shape = circle];
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-z [shape = plaintext, fillcolor = transparent]
-x -> 4
-y -> 3
-z -> 3
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    3 [shape = circle];
+    4 [shape = circle];
+    x [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    x -> 4
+    y -> 3
+    z -> 3
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1204,17 +1228,18 @@ fib1_5 -> u5
 
 ## Cadenas
 
-- Las **cadenas** se pueden considerar datos recursivos compuestos, ya que
+- Las **cadenas** se pueden considerar **datos recursivos compuestos**, ya que
   podemos decir que toda cadena `c`:
 
   - O bien es la cadena vacía `''`,
   
   - O bien está formada por dos partes:
 
-    - El **primer carácter** de la cadena (al que se accede mediante `c[0]`).
+    - El **primer carácter** de la cadena, al que se accede mediante `c[0]`
+      (*caso base*).
 
     - El **resto** de la cadena (al que se accede mediante `c[1:]`), que
-      también es una cadena.
+      también es una cadena (*caso recursivo*).
 
 - Eso significa que podemos acceder al segundo carácter de la cadena
   (suponiendo que exista) mediante `c[1:][0]`.
@@ -1258,18 +1283,18 @@ fib1_5 -> u5
 
 ---
 
-- Las listas también pueden verse como tipos de datos recursivos, ya que toda
-  lista `l`:
+- Las listas también pueden verse como un **tipo de datos recursivo**, ya que
+  toda lista `l`:
 
   - O bien es la lista vacía (que se representa mediante `[]`).
 
   - O bien está formada por dos partes:
 
     - El **primer elemento** de la lista (al que se accede mediante `l[0]`),
-      que *no tiene por qué ser una lista*.
+      que hemos visto que puede ser de cualquier tipo (*caso base*).
 
     - El **resto** de la lista (al que se accede mediante `l[1:]`), que también
-      es una lista.
+      es una lista (*caso recursivo*).
 
 - Según el ejemplo anterior:
 

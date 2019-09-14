@@ -1340,11 +1340,10 @@ y -> 25
 
 - Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
 
-- En un determinado marco, un identificador sólo puede tener como máximo una
-  ligadura.
+- En un marco, un identificador sólo puede tener como máximo una ligadura.
 
 - En cambio, ese mismo identificador puede estar ligado a diferentes valores en
-  distintos marcos.
+  diferentes marcos.
 
 - La existencia de uno o varios marcos dependerá de la estructura del programa,
   es decir, que ciertas construcciones del lenguaje crean sus propios marcos.
@@ -1401,44 +1400,55 @@ y -> 25
   Según la línea en la que nos encontremos, tenemos los siguientes marcos
   globales:
 
+&nbsp; 
+
+!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=40%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    4 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent]
+    x -> 4
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :::
 
 ::: column
 
-!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=30%)(width=20%)
+!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-x -> 4
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-&nbsp; 
-
-!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=30%)(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-3 [shape = circle]
-4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-x -> 4
-y -> 3
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    3 [shape = circle]
+    4 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    x -> 4
+    y -> 3
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 &nbsp; 
 
-!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=30%)(width=20%)
+!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-3 [shape = circle];
-4 [shape = circle];
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-z [shape = plaintext, fillcolor = transparent]
-x -> 4
-y -> 3
-z -> 3
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    3 [shape = circle];
+    4 [shape = circle];
+    x [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    x -> 4
+    y -> 3
+    z -> 3
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
