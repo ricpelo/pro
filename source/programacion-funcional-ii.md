@@ -183,7 +183,7 @@ nocite: |
 
 ### Variables ligadas y libres
 
-- Si un identificador aparece en la lista de parámetros de la expresión
+- Si un identificador aparece en la lista de parámetros de una expresión
   lambda, a ese identificador le llamamos **variable ligada** de la expresión
   lambda.
 
@@ -263,19 +263,22 @@ nocite: |
 - Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
   validas en un punto concreto del programa.
 
-- Ahora hemos visto que **cada expresión lambda crea un nuevo ámbito**.
+- Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**, el
+  cual **crea un nuevo marco** que contiene las ligaduras que define dicha
+  expresión lambda. 
 
-- Y **cada nuevo ámbito crea un nuevo marco** que se enlaza con el marco del
-  ámbito que lo contiene.
+- Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
+  más interno *apunta* al más externo), de manera que el último siempre es el
+  marco global.
 
-- Se va formando así una secuencia de marcos que definen el **entorno** del
+- Se va formando así una cadena de marcos que representa el **entorno** del
   programa en un punto dado del mismo.
 
 - A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
   que tendremos, además, al menos uno más por cada expresión lambda que tenga
   nuestro programa.
 
-#### Variables *sombreadas*
+#### Ligaduras *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
   ya están definidos (ligados) en el entorno?
@@ -290,13 +293,14 @@ nocite: |
 - La `x` que aparece en la línea 1 es diferente a la que aparece en la lista de
   parámetros de la expresión lambda de la línea 2.
 
-- En este caso, decimos que **el parámetro `x` _hace sombra_** al identificador
-  `x` que, en el entorno, está ligado al valor 4.
-
-- Por tanto, el identificador `x` que aparece en el cuerpo de la expresión
+- El identificador `x` que aparece en el cuerpo de la expresión
   lambda **hace referencia al parámetro `x` de la expresión lambda**, y **no**
   al identificador `x` que está fuera de la expresión lambda (y que aquí está
   ligado al valor `4`).
+
+- En este caso, decimos que **el parámetro `x` _hace sombra_** al identificador
+  `x` global, y decimos que ese identificador está **sombreado** o que su
+  ligadura está **sombreada**.
 
 ---
 
@@ -305,7 +309,7 @@ nocite: |
   lambda como si fuera una variable libre.
 
 - Si necesitáramos acceder al valor de la `x` que está fuera de la expresión
-  lambda, lo que podemos hacer es cambiar el nombre al parámetro `x`. Por
+  lambda, lo que podemos hacer es **cambiar el nombre** al parámetro `x`. Por
   ejemplo:
 
   ```{.python .number-lines}
@@ -314,19 +318,64 @@ nocite: |
   ```
 
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
-  y una variable libre (el identificador `x`).
+  y una variable libre (el identificador `x` ligado en el ámbito global) al que
+  ahora sí podemos acceder al no estar sombreada.
+
+#### Renombrado de parámetros
+
+- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
+  sin que se altere el significado de la expresión lambda.
+
+- A esta operación se la denomina **α-conversión**.
+
+- Un ejemplo de α-conversión es la que hicimos antes.
+
+- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
+  Por ejemplo, en:
+
+  ```python
+  lambda x, y: x + y + z
+  ```
+
+  si renombramos `x` a `z` tendríamos:
+
+  ```python
+  lambda z, y: z + y + z
+  ```
+
+  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
+  **captura de variables**.
 
 #### Expresiones lambda y entornos
 
-- Para calcular el entorno en un punto dado, debemos tener en cuenta que cada
-  expresión lambda crea un nuevo marco con las ligaduras que defina dicha
-  expresión lambda.
+<!--
 
-- Dicho marco se enlaza con el marco del ámbito que contiene a la expresión
-  lambda, ampliando el entorno. 
+- Para calcular el entorno en un punto dado, debemos tener en cuenta que **cada
+  expresión lambda crea un nuevo marco con las ligaduras que define dicha
+  expresión lambda**.
 
-- Debemos tener en cuenta también, por tanto, las posibles variables sombreadas
-  que puedan aparecer.
+- Dicho marco *apunta* al marco del ámbito que contiene a la expresión lambda,
+  ampliando el entorno. 
+
+- El entorno, por tanto, está formado por una cadena de marcos, donde el
+  **primer marco** (el del **ámbito actual**) está enlazado con otro marco, y
+  este a su vez con otro, y así sucesivamente hasta acabar en el **marco
+  global** (que siempre es el **último marco** de la cadena).
+
+-->
+
+- Para encontrar el valor de un identificador en el entorno, buscamos **en el
+  primer marco del entorno** una ligadura para ese identificador, y si no la
+  encontramos, **vamos subiendo por la cadena de marcos** hasta encontrarla. Si
+  no aparece, querrá decir que el identificador no está ligado (o que su
+  ligadura está fuera del entorno, en otro ámbito).
+
+- Debemos tener en cuenta también, por tanto, las posibles **variables
+  sombreadas** que puedan aparecer.
+
+  Si un identificador en un ámbito más local *hace sombra* a otro en un
+  ámbito más global, al buscar una ligadura en la cadena de marcos (en el
+  entorno) se encontrará primero la ligadura más local, ignorando las otras.
   
 ---
 
@@ -348,6 +397,7 @@ nocite: |
 
 !DOT(lambda-entorno-linea1.svg)(Entorno en la línea 1)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -356,6 +406,8 @@ subgraph cluster0 {
     x [shape = plaintext, fillcolor = transparent, label = "x"]
     x -> 4
 }
+E [shape = point]
+E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -364,6 +416,7 @@ subgraph cluster0 {
 
 !DOT(lambda-entorno-linea2.svg)(Entorno en la línea 2)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -375,6 +428,8 @@ subgraph cluster0 {
     x -> 4
     z -> 1
 }
+E [shape = point]
+E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -385,6 +440,7 @@ subgraph cluster0 {
 
 !DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=25%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -399,6 +455,8 @@ subgraph cluster0 {
     x -> 4
     z -> 1
 }
+E [shape = point]
+E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 &nbsp;
@@ -429,6 +487,8 @@ subgraph cluster1 {
     yl -> yl
 }
 xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = point]
+E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -461,6 +521,8 @@ subgraph cluster1 {
     yl -> 12
 }
 8 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = point]
+E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 <!--
@@ -490,6 +552,7 @@ z -> 1
 
 !DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -503,6 +566,8 @@ subgraph cluster0 {
     y -> 3
     z -> 3
 }
+E [shape = point]
+E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -511,6 +576,7 @@ subgraph cluster0 {
 
 !DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -524,6 +590,8 @@ subgraph cluster0 {
     y -> 3
     z -> 3
 }
+E [shape = point]
+E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -562,11 +630,12 @@ subgraph cluster0 {
   ```
 
   sí funciona (y devuelve `16`) porque en el momento de evaluar la expresión
-  lambda (en la línea 3) el identificador `z` está ligado a un valor (`9`) en
-  el entorno.
+  lambda (en la línea 3) el identificador `z` está ligado a un valor en el
+  entorno (en este caso, `9`).
 
 - Observar que no es necesario que las variables libres estén ligadas en el
-  entorno cuando se *crea* la expresión lambda, sino cuando se *aplica*.
+  entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa la
+  aplicación de expresión lambda a unos argumentos**.
 
 ---
 
@@ -593,35 +662,10 @@ subgraph cluster0 {
   Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
   `suma` en el entorno actual.
 
-### Renombrado de parámetros
-
-- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
-  sin que se altere el significado de la expresión lambda.
-
-- A esta operación se la denomina **α-conversión**.
-
-- Un ejemplo de α-conversión es la que hicimos antes.
-
-- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
-  Por ejemplo, en:
-
-  ```python
-  lambda x, y: x + y + z
-  ```
-
-  si renombramos `x` a `z` tendríamos:
-
-  ```python
-  lambda z, y: z + y + z
-  ```
-
-  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
-  **captura de variables**.
-
 ## Estrategias de evaluación
 
-- A la hora de evaluar una expresión existen varias estrategias diferentes que
-  se pueden adoptar.
+- A la hora de evaluar una expresión (cualquier expresión) existen varias
+  estrategias diferentes que se pueden adoptar.
 
 - Cada lenguaje implementa sus propias estrategias de evaluación que están
   basadas en las que vamos a ver aquí.

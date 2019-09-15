@@ -307,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb14-8" title="8"><span class="op">=</span> <span class="dv">63</span></a></code></pre></div></li>
 </ul>
 </section><section id="variables-ligadas-y-libres" class="title-slide slide level3"><h3><span class="header-section-number">1.1.3</span> Variables ligadas y libres</h3><ul>
-<li><p>Si un identificador aparece en la lista de parámetros de la expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
+<li><p>Si un identificador aparece en la lista de parámetros de una expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
 <li><p>En caso contrario, le llamamos <strong>variable libre</strong> de la expresión lambda.</p></li>
 <li><p>En el ejemplo anterior:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
@@ -345,47 +345,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Recordemos que un marco es un conjunto de ligaduras.</p></li>
 <li><p>Y que un entorno es una secuencia de marcos que contienen todas las ligaduras validas en un punto concreto del programa.</p></li>
-<li><p>Ahora hemos visto que <strong>cada expresión lambda crea un nuevo ámbito</strong>.</p></li>
-<li><p>Y <strong>cada nuevo ámbito crea un nuevo marco</strong> que se enlaza con el marco del ámbito que lo contiene.</p></li>
-<li><p>Se va formando así una secuencia de marcos que definen el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
+<li><p>Ahora hemos visto que <strong>cada expresión lambda define un nuevo ámbito</strong>, el cual <strong>crea un nuevo marco</strong> que contiene las ligaduras que define dicha expresión lambda.</p></li>
+<li><p>Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco más interno <em>apunta</em> al más externo), de manera que el último siempre es el marco global.</p></li>
+<li><p>Se va formando así una cadena de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más por cada expresión lambda que tenga nuestro programa.</p></li>
 </ul>
-</section><section id="variables-sombreadas" class="slide level4">
-<h4><span class="header-section-number">1.1.4.4</span> Variables <em>sombreadas</em></h4>
+</section><section id="ligaduras-sombreadas" class="slide level4">
+<h4><span class="header-section-number">1.1.4.4</span> Ligaduras <em>sombreadas</em></h4>
 <ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno?</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb18-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
 <li><p>La <code>x</code> que aparece en la línea 1 es diferente a la que aparece en la lista de parámetros de la expresión lambda de la línea 2.</p></li>
-<li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> que, en el entorno, está ligado al valor 4.</p></li>
-<li><p>Por tanto, el identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>hace referencia al parámetro <code>x</code> de la expresión lambda</strong>, y <strong>no</strong> al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
+<li><p>El identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>hace referencia al parámetro <code>x</code> de la expresión lambda</strong>, y <strong>no</strong> al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
+<li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> global, y decimos que ese identificador está <strong>sombreado</strong> o que su ligadura está <strong>sombreada</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Que el parámetro haga sombra al identificador de fuera significa que no podemos acceder a ese identificador externo desde el cuerpo de la expresión lambda como si fuera una variable libre.</p></li>
-<li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es cambiar el nombre al parámetro <code>x</code>. Por ejemplo:</p>
+<li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code>x</code>. Por ejemplo:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb19-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></a></code></pre></div>
-<p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code>).</p></li>
+<p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code> ligado en el ámbito global) al que ahora sí podemos acceder al no estar sombreada.</p></li>
+</ul>
+</section><section id="renombrado-de-parámetros" class="slide level4">
+<h4><span class="header-section-number">1.1.4.6</span> Renombrado de parámetros</h4>
+<ul>
+<li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
+<li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
+<li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
+<li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
+<p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
 </ul>
 </section><section id="expresiones-lambda-y-entornos" class="slide level4">
-<h4><span class="header-section-number">1.1.4.6</span> Expresiones lambda y entornos</h4>
+<h4><span class="header-section-number">1.1.4.7</span> Expresiones lambda y entornos</h4>
+<!--
+
+- Para calcular el entorno en un punto dado, debemos tener en cuenta que **cada
+  expresión lambda crea un nuevo marco con las ligaduras que define dicha
+  expresión lambda**.
+
+- Dicho marco *apunta* al marco del ámbito que contiene a la expresión lambda,
+  ampliando el entorno. 
+
+- El entorno, por tanto, está formado por una cadena de marcos, donde el
+  **primer marco** (el del **ámbito actual**) está enlazado con otro marco, y
+  este a su vez con otro, y así sucesivamente hasta acabar en el **marco
+  global** (que siempre es el **último marco** de la cadena).
+
+-->
 <ul>
-<li><p>Para calcular el entorno en un punto dado, debemos tener en cuenta que cada expresión lambda crea un nuevo marco con las ligaduras que defina dicha expresión lambda.</p></li>
-<li><p>Dicho marco se enlaza con el marco del ámbito que contiene a la expresión lambda, ampliando el entorno.</p></li>
-<li><p>Debemos tener en cuenta también, por tanto, las posibles variables sombreadas que puedan aparecer.</p></li>
+<li><p>Para encontrar el valor de un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la cadena de marcos</strong> hasta encontrarla. Si no aparece, querrá decir que el identificador no está ligado (o que su ligadura está fuera del entorno, en otro ámbito).</p></li>
+<li><p>Debemos tener en cuenta también, por tanto, las posibles <strong>variables sombreadas</strong> que puedan aparecer.</p>
+<p>Si un identificador en un ámbito más local <em>hace sombra</em> a otro en un ámbito más global, al buscar una ligadura en la cadena de marcos (en el entorno) se encontrará primero la ligadura más local, ignorando las otras.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb20-2" title="2">z <span class="op">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb20-3" title="3">suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb20-4" title="4">y <span class="op">=</span> <span class="dv">3</span></a>
-<a class="sourceLine" id="cb20-5" title="5">z <span class="op">=</span> <span class="dv">9</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb22-2" title="2">z <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb22-3" title="3">suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb22-4" title="4">y <span class="op">=</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb22-5" title="5">z <span class="op">=</span> <span class="dv">9</span></a></code></pre></div></li>
 <li><p>En cada línea tendríamos los siguientes entornos:</p></li>
 </ul>
 <div class="columns">
@@ -455,28 +482,28 @@ z -> 1
 </div>
 </div>
 </section><section id="evaluación-de-expresiones-lambda-con-entornos" class="slide level4">
-<h4><span class="header-section-number">1.1.4.11</span> Evaluación de expresiones lambda con entornos</h4>
+<h4><span class="header-section-number">1.1.4.12</span> Evaluación de expresiones lambda con entornos</h4>
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> una aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb21-3" title="3">Traceback (most recent call last):</a>
-<a class="sourceLine" id="cb21-4" title="4">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb21-5" title="5">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb21-6" title="6"><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb23-3" title="3">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb23-4" title="4">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb23-5" title="5">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb23-6" title="6"><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a></code></pre></div>
 <p>da error porque <code>z</code> no está definido (no está ligado a ningún valor en el entorno).</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>En cambio:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb22-4" title="4"><span class="dv">16</span></a></code></pre></div>
-<p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor (<code>9</code>) en el entorno.</p></li>
-<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando se <em>crea</em> la expresión lambda, sino cuando se <em>aplica</em>.</p></li>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="dv">16</span></a></code></pre></div>
+<p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor en el entorno (en este caso, <code>9</code>).</p></li>
+<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando <em>se crea</em> la expresión lambda, sino cuando <strong>se evalúa la aplicación de expresión lambda a unos argumentos</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -484,21 +511,12 @@ z -> 1
 <li><p>Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es una expresión cuyo valor sólo va a depender de los argumentos que se usen cuando se aplique la expresión lambda.</p></li>
 <li><p>En cambio, el valor de una expresión lambda que contenga variables libres dependerá no sólo de los valores de sus argumentos, sino también de los valores a los que estén ligadas las variables libres al evaluar la expresión lambda.</p></li>
 <li><p>Por ejemplo, podemos escribir una expresión lambda que calcule la suma de tres números a partir de otra expresión lambda que calcule la suma de dos números:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</a></code></pre></div>
 <p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda (por lo que es una variable libre).</p>
 <p>Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga <code>suma</code> en el entorno actual.</p></li>
 </ul>
-</section><section id="renombrado-de-parámetros" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Renombrado de parámetros</h3><ul>
-<li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
-<li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
-<li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
-<li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
-<p>si renombramos <code>x</code> a <code>z</code> tendríamos:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</a></code></pre></div>
-<p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
-</ul></section><section id="estrategias-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Estrategias de evaluación</h2><ul>
-<li><p>A la hora de evaluar una expresión existen varias estrategias diferentes que se pueden adoptar.</p></li>
+</section><section id="estrategias-de-evaluación" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Estrategias de evaluación</h2><ul>
+<li><p>A la hora de evaluar una expresión (cualquier expresión) existen varias estrategias diferentes que se pueden adoptar.</p></li>
 <li><p>Cada lenguaje implementa sus propias estrategias de evaluación que están basadas en las que vamos a ver aquí.</p></li>
 <li><p>Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión hay que reducir, en función de:</p>
 <ul>
