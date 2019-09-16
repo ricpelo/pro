@@ -188,6 +188,8 @@ $(ITHACA):
 
 $(REVEAL):
 	git submodule update --init --recursive
+	git submodule foreach git checkout master
+	git submodule foreach git pull
 
 clean:
 	rm -rf $(OBJECTS_HTML) $(OBJECTS_PDF) $(APUNTES_PDF) $(ITHACA_DST)/$(ITHACA) $(PROG_PDF)
