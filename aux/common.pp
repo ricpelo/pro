@@ -96,11 +96,8 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 
 !define(ALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{caja}
-   \raggedright
-   \small
-   !PYALGO(!1)
-   \End{caja}
+\Begin{caja}\raggedright\small
+   !PYALGO(!1)\End{caja}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(CENTRAR)
@@ -289,7 +286,7 @@ print(x.replace('"', '\\"'))
 ~~~~~~~~~~~~~~~
 x = r"""!1"""
 # x = x.replace('\\', '\\\\')
-print('    | ' + x.replace("\n", "\n| "))
+print(' | ' + x.replace("\n", "\n| "))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
