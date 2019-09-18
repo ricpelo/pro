@@ -1199,7 +1199,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 ## Evolución histórica
 
-- **1804: El telar de Jaquard (_Joseph Marie Jaquard_)** 
+- **1804: El telar de Jacquard (_Joseph Marie Jacquard_)** 
 
   - Tarjetas perforadas para controlar los diseños en los tejidos.
 
