@@ -150,8 +150,8 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Importante:**
 
-  En **Python**, el **orden de evaluación** de cualquier expresión es
-  **de izquierda a derecha**.
+  En **Python**, salvo excepciones, los operandos y los argumentos de las
+  funciones se evalúan **de izquierda a derecha**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Ejemplos
@@ -172,12 +172,12 @@ nocite: |
 
   ```python
   suma(4,3) * suma(2, 7)
-  = (lambda x, y: x + y)(4, 3) * suma(2, 7)
-  = (4 + 3) * suma(2, 7)
-  = 7 * suma(2, 7)
-  = 7 * (lambda x, y: x + y)(2, 7)
-  = 7 * (2 + 7)
-  = 7 * 9
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # definición de suma
+  = (4 + 3) * suma(2, 7)                     # aplicación a 4, 3
+  = 7 * suma(2, 7)                           # aritmética
+  = 7 * (lambda x, y: x + y)(2, 7)           # definición de suma
+  = 7 * (2 + 7)                              # aplicación a 2, 7
+  = 7 * 9                                    # aritmética
   = 63
   ```
 
@@ -715,10 +715,10 @@ E -> x [lhead = cluster0]
 
   ```python
   cuadrado(3 + 4)
-  = cuadrado(7)
-  = (lambda x, y: x * x)(7)
-  = (7 * 7)
-  = 49
+  = cuadrado(7)              # aritmética
+  = (lambda x, y: x * x)(7)  # definición de cuadrado
+  = (7 * 7)                  # aplicación a 7
+  = 49                       # aritmética
   ```
 
   alcanzando la forma normal en 4 pasos de reducción.
@@ -741,10 +741,10 @@ E -> x [lhead = cluster0]
 
   ```python
   cuadrado(3 + 4)
-  = (lambda x, y: x * x)(3 + 4)
-  = (3 + 4) * (3 + 4)
-  = 7 * (3 + 4)
-  = 7 * 7
+  = (lambda x, y: x * x)(3 + 4)  # definición de cuadrado
+  = (3 + 4) * (3 + 4)            # aplicación a (3 + 4)
+  = 7 * (3 + 4)                  # aritmética
+  = 7 * 7                        # aritmética
   = 49
   ```
 
@@ -1070,7 +1070,8 @@ E -> x [lhead = cluster0]
   `fact_iter`:
 
   ```python
-  fact_iter = lambda cont, acc: acc if cont == 0 else fact_iter(cont - 1, cont * acc)
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, cont * acc)
   fact = lambda n: fact_iter(n, 1)
   ```
 
