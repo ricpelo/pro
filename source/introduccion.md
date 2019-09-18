@@ -667,9 +667,9 @@ $Y \leftarrow$ **leer** número
   pareja de números enteros, y no, solamente, para sumar dos números
   determinados, como pueden ser el 3 y el 5.
 
-- **Eficiencia**: La ejecución del programa resultante de codificar un
-  algoritmo deberá consumir lo menos posible los recursos disponibles del
-  ordenador (memoria, tiempo de CPU, etc.).
+- **Eficiencia**: Un algoritmo es mejor cuanto menos recursos (tiempo,
+  espacio...) necesita para resolver el problema. Por eso no debe realizar
+  pasos innecesarios ni recordar más información de la necesaria.
 
 - **Sencillez**: Hay que intentar que la solución sea sencilla, aun a costa de
   perder un poco de eficiencia, es decir, se tiene que buscar un equilibrio

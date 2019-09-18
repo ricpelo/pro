@@ -12,7 +12,7 @@ Los materiales de las diferentes unidades didácticas se organizan de la siguien
 
 | Título | HTML | PDF | Apuntes |
 | ------ |:----:|:---:|:-------:|
-| <strong>Introducción</strong><br><small class="fecha">2019-09-15 11:16:06 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
+| <strong>Introducción</strong><br><small class="fecha">2019-09-18 11:00:55 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional I</strong><br><small class="fecha">2019-09-15 11:16:06 +0200</small> | [HTML](slides/programacion-funcional-i.html){:target="_blank"} | [PDF](pdf/programacion-funcional-i.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-i-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional II</strong><br><small class="fecha">2019-09-15 11:16:06 +0200</small> | [HTML](slides/programacion-funcional-ii.html){:target="_blank"} | [PDF](pdf/programacion-funcional-ii.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-ii-apuntes.pdf){:target="_blank"}
 | <strong>Programación imperativa</strong><br><small class="fecha">2019-09-15 11:15:59 +0200</small> | [HTML](slides/programacion-imperativa.html){:target="_blank"} | [PDF](pdf/programacion-imperativa.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-imperativa-apuntes.pdf){:target="_blank"}
