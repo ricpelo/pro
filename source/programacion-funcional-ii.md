@@ -8,7 +8,6 @@ nocite: |
 
 # Abstracciones funcionales
 
-
 ## Expresiones lambda
 
 - Las **expresiones lambda** (también llamadas **abstracciones lambda** o
@@ -1307,7 +1306,6 @@ fib1_5 -> u5
 
 # Tipos de datos recursivos
 
-
 ## Cadenas
 
 - Las **cadenas** se pueden considerar **datos recursivos compuestos**, ya que
@@ -1401,7 +1399,6 @@ fib1_5 -> u5
   ```
 
 # Funciones de orden superior
-
 
 ## Concepto
 

@@ -496,6 +496,33 @@ endwhile (no)
 
   $$max(13, -25) = 13$$
 
+### Composición de funciones
+
+- La manera más sencilla de realizar varias operaciones sobre los mismos datos
+  es hacer que el resultado de una operación sea la entrada de otra operación.
+
+- Se va creando así una **secuencia de operaciones** donde la salida de una es
+  la entrada de la siguiente.
+
+- Es una técnica que ayuda a **descomponer un problema en partes** que se van
+  resolviendo por pasos como en una **cadena de montaje**.
+
+- En programación funcional esto se consigue **componiendo funciones**, es
+  decir, haciendo **que el resultado de una función sea un argumento para otra
+  función**:
+
+  ```python
+  round(abs(-23.459), 2)  # devuelve 23.46
+  ```
+
+!DOT(composicion-funciones)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-23.459 [shape = plaintext, fillcolor = transparent]
+23.459 [shape = plaintext, fillcolor = transparent]
+23.46 [shape = plaintext, fillcolor = transparent]
+-23.459 -> abs -> 23.459 -> round -> 23.46
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### Métodos
 
 - Los **métodos** son, para la programación orientada a objetos, el equivalente
