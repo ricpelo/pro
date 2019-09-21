@@ -987,15 +987,17 @@ Función                    Descripción           Ejemplo                  Resu
   de dos números) se haría:
 
   ```python
-  from math import gcd  # importamos la función gcd que está en el módulo math
-  m = gcd(16, 6)        # la función se usa como cualquier otra
+  >>> from math import gcd  # importamos la función gcd que está en el módulo math
+  >>> gcd(16, 6)            # la función se usa como cualquier otra
+  2
   ```
 
 - También se puede importar directamente el módulo en sí:
 
   ```python
-  import math          # importamos el módulo math
-  m = math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
+  >>> import math      # importamos el módulo math
+  >>> math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
+  2
   ```
 
 ---
