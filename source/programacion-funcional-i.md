@@ -972,9 +972,45 @@ Función                    Descripción           Ejemplo                  Resu
                                                                           `'float'>`
 ------------------------------------------------------------------------------------
 
+#### Funciones matemáticas
+
+- Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
+  del módulo `math`.
+
+- Los **módulos** en Python son conjuntos de funciones (y más cosas) que se
+  pueden **importar** dentro de nuestra sesión o programa.
+
+- Son la base de la **programación modular**, que ya estudiaremos.
+
+- Para *importar* una función de un módulo se puede usar la orden `from`. Por
+  ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
+  de dos números) se haría:
+
+  ```python
+  from math import gcd  # importamos la función gcd que está en el módulo math
+  m = gcd(16, 6)        # la función se usa como cualquier otra
+  ```
+
+- También se puede importar directamente el módulo en sí:
+
+  ```python
+  import math          # importamos el módulo math
+  m = math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
+  ```
+
+---
+
+- La lista completa de funciones que incluye el módulo `math` se puede
+  consultar en su documentación:
+
+  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html)
+
 ### Métodos predefinidos
 
-[https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
+- Igualmente, en la documentación podemos encontrar una lista de métodos
+  interesantes que operan con datos de tipo cadena:
+
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
 # Álgebra de Boole
 
