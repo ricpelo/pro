@@ -1321,7 +1321,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   !NT(expresión_condicional) ::= !NT(valor_si_verdadero) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- donde:
+  donde:
 
   - !NT(condición) debe ser una expresión lógica
 
@@ -1338,7 +1338,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   25 if 3 > 2 else 17
   ```
 
-  evalúa a **25**.
+  evalúa a `25`.
 
 # Definiciones
 
