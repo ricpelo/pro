@@ -2097,6 +2097,8 @@ intérprete? Razona la respuesta.
 
 # Actividades
 
+## Actividades
+
 @. Supongamos los siguientes problemas:
 
    i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
