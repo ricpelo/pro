@@ -148,8 +148,31 @@ que denominamos el **valor** de la expresión.
   - Denotan un valor numérico, que es el resultado de calcular el valor de la
     expresión tras hacer las operaciones que aparecen en ella.
 
-    La expresión `2 * (3 + 5)` denota un valor, que es el número abstracto
+    La expresión `(2 * (3 + 5))` denota un valor, que es el número abstracto
     **16**.
+
+---
+
+- En general, las expresiones correctamente formadas satisfacen una gramática
+  similar a la siguiente:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expresión) ::= !T{(}!NT(expresión) !NT(opbin) !NT(expresión)!T{)}
+                   | !T{(}!NT(opun) !NT(expresión)!T{)} 
+                   | !NT(número)
+                   | !NT(identificador)
+                   | !NT(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) 
+!NT(opun) ::= !T(+) | !T(-)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Esta gramática da lugar a expresiones *totalmente parentizadas*, en las que
+  cada operación a realizar va agrupada entre paréntesis, incluso aunque no sea
+  estrictamente necesario. Por ejemplo:
+
+  `(3 + (4 - 7))`
 
 ## Evaluación de expresiones
 
@@ -174,11 +197,11 @@ que denominamos el **valor** de la expresión.
 
 - Podemos decir que las expresiones:
 
-  $3$
+  `3`
 
-  $1+2$
+  `(1 + 2)`
 
-  $5-3$
+  `(5 - 3)`
 
   denotan todas el mismo valor (el número abstracto **3**).
 
@@ -186,7 +209,7 @@ que denominamos el **valor** de la expresión.
   ente abstracto.
 
 - Lo que hace el sistema es buscar **la representación más simplificada o
-  reducida** posible (en este caso, $3$).
+  reducida** posible (en este caso, `3`).
 
 - Por eso a menudo usamos, indistintamente, los términos *reducir*,
   *simplificar* y *evaluar*.
@@ -239,19 +262,19 @@ que denominamos el **valor** de la expresión.
 
   - De las expresiones anteriores:
   
-    - $3$
+    `3`
 
-    - $1+2$
+    `(1 + 2)`
 
-    - $5-3$
+    `(5 - 3)`
     
     que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
-    expresión $3$) como la **expresión canónica** de ese valor.
+    expresión `3`) como la **expresión canónica** de ese valor.
 
-  - Igualmente, la expresión $3$ es la **forma normal** de todas las
+  - Igualmente, la expresión `3` es la **forma normal** de todas las
     expresiones anteriores (y de cualquier otra expresión con valor **3**).
 
-  - Es importante no confundir el valor abstracto **3** con la expresión $3$
+  - Es importante no confundir el valor abstracto **3** con la expresión `3`
     que representa dicho valor.
 
 ---
@@ -349,13 +372,13 @@ endwhile (no)
   - Los operadores aritméticos: `+`, `-`, `*`, `/` (entre otros):
 
     ```python
-    3 + 4
+    (3 + 4)
     ```
 
     (aquí los operandos son los números `3` y `4`)
 
     ```python
-    9 * 8
+    (9 * 8)
     ```
 
     (aquí los operandos son los números `9` y `8`)
@@ -390,16 +413,24 @@ endwhile (no)
 
 ### Paréntesis
 
-- Los **paréntesis** sirven para agrupar elementos dentro de una expresión.
+- Los **paréntesis** sirven para agrupar elementos dentro de una expresión y
+  romper la ambigüedad sobre el orden en el que se han de realizar las
+  operaciones.
 
 - Se usan, sobre todo, para hacer que varios elementos actúen como uno solo en
   el contexto de una operación.
 
   - Por ejemplo:
 
-    `(3 + 4) * 5` vale `35`
+    `((3 + 4) * 5)` vale `35`
 
-    `3 + (4 * 5)` vale `23`
+    `(3 + (4 * 5))` vale `23`
+
+- Para reducir la cantidad de paréntesis en una expresión, se puede:
+
+  - Quitar los paréntesis más externos que rodean a toda la expresión.
+
+  - Acudir a un esquema de **asociatividades** y **prioridades** de operadores.
 
 ### Asociatividad de operadores
 
@@ -504,7 +535,28 @@ endwhile (no)
   El valor $35$ es el resultado de aplicar la función $abs$ a su argumento
   $-35$.
 
-#### Funciones con varios argumentos
+### Igualdad de funciones
+
+- Dos funciones son **iguales** si devuelven resultados iguales para argumentos
+  iguales.
+
+- Este principio recibe el nombre de **principio de extensionalidad**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Principio de extensionalidad:**
+
+  $f = g$ si y sólo si $f(x) = g(x)$ para todo $x$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, una función que calcule el doble de su argumento multiplicándolo
+  por 2, sería exactamente igual a otra función que calcule el doble de su
+  argumento sumándolo consigo mismo.
+
+  En ambos casos, las dos funciones devolverán siempre los mismos resultados
+  ante los mismos argumentos.
+
+### Funciones con varios argumentos
 
 - El concepto de función se puede generalizar para obtener **funciones con más
   de un argumento**.
@@ -549,8 +601,8 @@ endwhile (no)
 
 ### Métodos
 
-- Los **métodos** son, para la programación orientada a objetos, el equivalente
-  a las **funciones** para la programación funcional.
+- Los **métodos** son, para la *programación orientada a objetos*, el
+  equivalente a las **funciones** para la *programación funcional*.
 
 - Los métodos son como funciones que actúan *sobre* un valor.
 
@@ -616,7 +668,8 @@ endwhile (no)
 
 ---
 
-- Una operación podría tener *forma* de operador, de función o de método.
+- Una operación podría tener *forma* de **operador**, de **función** o de
+  **método**.
 
 - De hecho, en Python hay operaciones que tienen **las tres formas**.
 

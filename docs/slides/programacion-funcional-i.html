@@ -294,9 +294,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Están formados por secuencias de números y símbolos que representan operaciones aritḿeticas</p></li>
 <li><p>Denotan un valor numérico, que es el resultado de calcular el valor de la expresión tras hacer las operaciones que aparecen en ella.</p>
-<p>La expresión <code>2 * (3 + 5)</code> denota un valor, que es el número abstracto <strong>16</strong>.</p></li>
+<p>La expresión <code>(2 * (3 + 5))</code> denota un valor, que es el número abstracto <strong>16</strong>.</p></li>
 </ul></li>
-</ul></section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Evaluación de expresiones</h2><ul>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>En general, las expresiones correctamente formadas satisfacen una gramática similar a la siguiente:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;expresión&gt;</em></span> ::= <strong><code>(</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> <span style="color:teal"><em>&lt;opbin&gt;</em></span> <span style="color:teal"><em>&lt;expresión&gt;</em></span><strong><code>)</code></strong><br />
+                   | <strong><code>(</code></strong><span style="color:teal"><em>&lt;opun&gt;</em></span> <span style="color:teal"><em>&lt;expresión&gt;</em></span><strong><code>)</code></strong><br />
+                   | <span style="color:teal"><em>&lt;número&gt;</em></span><br />
+                   | <span style="color:teal"><em>&lt;identificador&gt;</em></span><br />
+                   | <span style="color:teal"><em>&lt;identificador&gt;</em></span><strong><code>(</code></strong>[<span style="color:teal"><em>&lt;lista_argumentos&gt;</em></span>]<strong><code>)</code></strong><br />
+<span style="color:teal"><em>&lt;lista_argumentos&gt;</em></span> ::= <span style="color:teal"><em>&lt;expresión&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span>)*<br />
+<span style="color:teal"><em>&lt;opbin&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong><br />
+<span style="color:teal"><em>&lt;opun&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong></div></li>
+<li><p>Esta gramática da lugar a expresiones <em>totalmente parentizadas</em>, en las que cada operación a realizar va agrupada entre paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:</p>
+<p><code>(3 + (4 - 7))</code></p></li>
+</ul>
+</section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Evaluación de expresiones</h2><ul>
 <li><p>Ya hemos visto que la ejecución de un programa funcional consiste, en esencia, en evaluar una expresión.</p></li>
 <li><p><strong><em>Evaluar</em> una expresión</strong> consiste en determinar el <strong>valor</strong> de la expresión. Es decir, una expresión <em>representa</em> o <strong>denota</strong> el valor que se obtiene al evaluarla.</p></li>
 <li><p>En programación funcional, el significado de una expresión es su valor, y no puede ocurrir ningún otro efecto, ya sea oculto o no, en ninguna operación que se utilice para calcularlo.</p></li>
@@ -306,12 +321,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Podemos decir que las expresiones:</p>
-<p><span class="math inline">3</span></p>
-<p><span class="math inline">1+2</span></p>
-<p><span class="math inline">5-3</span></p>
+<p><code>3</code></p>
+<p><code>(1 + 2)</code></p>
+<p><code>(5 - 3)</code></p>
 <p>denotan todas el mismo valor (el número abstracto <strong>3</strong>).</p></li>
 <li><p>Es decir: todas esas expresiones son representaciones diferentes del mismo ente abstracto.</p></li>
-<li><p>Lo que hace el sistema es buscar <strong>la representación más simplificada o reducida</strong> posible (en este caso, <span class="math inline">3</span>).</p></li>
+<li><p>Lo que hace el sistema es buscar <strong>la representación más simplificada o reducida</strong> posible (en este caso, <code>3</code>).</p></li>
 <li><p>Por eso a menudo usamos, indistintamente, los términos <em>reducir</em>, <em>simplificar</em> y <em>evaluar</em>.</p></li>
 </ul>
 </section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Transparencia referencial</h3><ul>
@@ -339,14 +354,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Ejemplo:</p>
 <ul>
 <li><p>De las expresiones anteriores:</p>
-<ul>
-<li><p><span class="math inline">3</span></p></li>
-<li><p><span class="math inline">1+2</span></p></li>
-<li><p><span class="math inline">5-3</span></p></li>
-</ul>
-<p>que denotan todas el mismo valor abstracto <strong>3</strong>, seleccionamos una (la expresión <span class="math inline">3</span>) como la <strong>expresión canónica</strong> de ese valor.</p></li>
-<li><p>Igualmente, la expresión <span class="math inline">3</span> es la <strong>forma normal</strong> de todas las expresiones anteriores (y de cualquier otra expresión con valor <strong>3</strong>).</p></li>
-<li><p>Es importante no confundir el valor abstracto <strong>3</strong> con la expresión <span class="math inline">3</span> que representa dicho valor.</p></li>
+<p><code>3</code></p>
+<p><code>(1 + 2)</code></p>
+<p><code>(5 - 3)</code></p>
+<p>que denotan todas el mismo valor abstracto <strong>3</strong>, seleccionamos una (la expresión <code>3</code>) como la <strong>expresión canónica</strong> de ese valor.</p></li>
+<li><p>Igualmente, la expresión <code>3</code> es la <strong>forma normal</strong> de todas las expresiones anteriores (y de cualquier otra expresión con valor <strong>3</strong>).</p></li>
+<li><p>Es importante no confundir el valor abstracto <strong>3</strong> con la expresión <code>3</code> que representa dicho valor.</p></li>
 </ul></li>
 </ul>
 </section><section class="slide level4">
@@ -403,9 +416,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Ejemplos:</p>
 <ul>
 <li><p>Los operadores aritméticos: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (entre otros):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1">(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a></code></pre></div>
 <p>(aquí los operandos son los números <code>3</code> y <code>4</code>)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="dv">9</span> <span class="op">*</span> <span class="dv">8</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">(<span class="dv">9</span> <span class="op">*</span> <span class="dv">8</span>)</a></code></pre></div>
 <p>(aquí los operandos son los números <code>9</code> y <code>8</code>)</p></li>
 <li><p>El operador <code>in</code> para comprobar si un carácter pertenece a una cadena:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="co">&quot;c&quot;</span> <span class="kw">in</span> <span class="st">&quot;barco&quot;</span></a></code></pre></div>
@@ -424,12 +437,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Veremos un ejemplo más adelante.</p></li>
 </ul></li>
 </ul></section><section id="paréntesis" class="title-slide slide level3"><h3><span class="header-section-number">3.4.2</span> Paréntesis</h3><ul>
-<li><p>Los <strong>paréntesis</strong> sirven para agrupar elementos dentro de una expresión.</p></li>
+<li><p>Los <strong>paréntesis</strong> sirven para agrupar elementos dentro de una expresión y romper la ambigüedad sobre el orden en el que se han de realizar las operaciones.</p></li>
 <li><p>Se usan, sobre todo, para hacer que varios elementos actúen como uno solo en el contexto de una operación.</p>
 <ul>
 <li><p>Por ejemplo:</p>
-<p><code>(3 + 4) * 5</code> vale <code>35</code></p>
-<p><code>3 + (4 * 5)</code> vale <code>23</code></p></li>
+<p><code>((3 + 4) * 5)</code> vale <code>35</code></p>
+<p><code>(3 + (4 * 5))</code> vale <code>23</code></p></li>
+</ul></li>
+<li><p>Para reducir la cantidad de paréntesis en una expresión, se puede:</p>
+<ul>
+<li><p>Quitar los paréntesis más externos que rodean a toda la expresión.</p></li>
+<li><p>Acudir a un esquema de <strong>asociatividades</strong> y <strong>prioridades</strong> de operadores.</p></li>
 </ul></li>
 </ul></section><section id="asociatividad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.4.3</span> Asociatividad de operadores</h3><ul>
 <li><p>En ausencia de paréntesis, cuando un operando está afectado a derecha e izquierda por el <strong>mismo operador</strong>, se aplican las reglas de la <strong>asociatividad</strong>:</p>
@@ -471,16 +489,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">abs(-35) = 35</span></p>
 <p>El valor <span class="math inline">35</span> es el resultado de aplicar la función <span class="math inline">abs</span> a su argumento <span class="math inline">-35</span>.</p></li>
 </ul>
-</section><section id="funciones-con-varios-argumentos" class="slide level4">
-<h4><span class="header-section-number">3.5.1.2</span> Funciones con varios argumentos</h4>
-<ul>
+</section><section id="igualdad-de-funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Igualdad de funciones</h3><ul>
+<li><p>Dos funciones son <strong>iguales</strong> si devuelven resultados iguales para argumentos iguales.</p></li>
+<li><p>Este principio recibe el nombre de <strong>principio de extensionalidad</strong>.</p>
+<div class="caja">
+<p><strong>Principio de extensionalidad:</strong></p>
+<p><span class="math inline">f = g</span> si y sólo si <span class="math inline">f(x) = g(x)</span> para todo <span class="math inline">x</span>.</p>
+</div></li>
+<li><p>Por ejemplo, una función que calcule el doble de su argumento multiplicándolo por 2, sería exactamente igual a otra función que calcule el doble de su argumento sumándolo consigo mismo.</p>
+<p>En ambos casos, las dos funciones devolverán siempre los mismos resultados ante los mismos argumentos.</p></li>
+</ul></section><section id="funciones-con-varios-argumentos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.3</span> Funciones con varios argumentos</h3><ul>
 <li><p>El concepto de función se puede generalizar para obtener <strong>funciones con más de un argumento</strong>.</p></li>
 <li><p>Por ejemplo, podemos definir una función <span class="math inline">max</span> que asocie a cada par de números el máximo de los dos.</p>
 <p><span class="math display">max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}</span> <span class="math display">(x,y) \rightarrow max(x,y)</span></p></li>
 <li><p>Si aplicamos la función <span class="math inline">max</span> a los argumentos <span class="math inline">13</span> y <span class="math inline">-25</span>, el resultado sería <span class="math inline">13</span>:</p>
 <p><span class="math display">max(13, -25) = 13</span></p></li>
-</ul>
-</section><section id="composición-de-funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Composición de funciones</h3><ul>
+</ul></section><section id="composición-de-funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.5.4</span> Composición de funciones</h3><ul>
 <li><p>La manera más sencilla de realizar varias operaciones sobre los mismos datos es hacer que el resultado de una operación sea la entrada de otra operación.</p></li>
 <li><p>Se va creando así una <strong>secuencia de operaciones</strong> donde la salida de una es la entrada de la siguiente.</p></li>
 <li><p>Es una técnica que ayuda a <strong>descomponer un problema en partes</strong> que se van resolviendo por pasos como en una <strong>cadena de montaje</strong>.</p></li>
@@ -488,8 +512,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="bu">round</span>(<span class="bu">abs</span>(<span class="op">-</span><span class="fl">23.459</span>), <span class="dv">2</span>)  <span class="co"># devuelve 23.46</span></a></code></pre></div></li>
 </ul>
 <p><img data-src="images/composicion-funciones.svg" class="plain" style="width:80.0%" /></p>
-<p></p></section><section id="métodos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.3</span> Métodos</h3><ul>
-<li><p>Los <strong>métodos</strong> son, para la programación orientada a objetos, el equivalente a las <strong>funciones</strong> para la programación funcional.</p></li>
+<p></p></section><section id="métodos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.5</span> Métodos</h3><ul>
+<li><p>Los <strong>métodos</strong> son, para la <em>programación orientada a objetos</em>, el equivalente a las <strong>funciones</strong> para la <em>programación funcional</em>.</p></li>
 <li><p>Los métodos son como funciones que actúan <em>sobre</em> un valor.</p></li>
 <li><p>La <em>aplicación</em> de un método se denomina <strong>invocación</strong> o <strong>llamada</strong> al método, y se escribe:</p>
 <p><span class="math display">v.m()</span></p>
@@ -525,7 +549,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Una operación podría tener <em>forma</em> de operador, de función o de método.</p></li>
+<li><p>Una operación podría tener <em>forma</em> de <strong>operador</strong>, de <strong>función</strong> o de <strong>método</strong>.</p></li>
 <li><p>De hecho, en Python hay operaciones que tienen <strong>las tres formas</strong>.</p></li>
 <li><p>Por ejemplo, la suma de dos números se puede expresar:</p>
 <ul>
