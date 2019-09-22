@@ -285,9 +285,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Todo se reduce a evaluar expresiones</strong>.</p></li>
 </ul>
 </section></section>
-<section><section id="expresiones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Expresiones</h1></section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Evaluación de expresiones</h2><ul>
+<section><section id="expresiones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Expresiones</h1></section><section id="concepto" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Concepto</h2><div class="caja">
+<p><strong>Expresión:</strong></p>
+<p>Una <strong>expresión</strong> es una frase (secuencia de símbolos) sintáctica y semánticamente correcta según las reglas del lenguaje que estamos utilizando, cuya finalidad es la de <em>representar</em> o <strong>denotar</strong> un determinado objeto, al que denominamos el <strong>valor</strong> de la expresión.</p>
+</div>
+<ul>
+<li><p>El ejemplo clásico es el de las <em>expresiones aritméticas</em>:</p>
+<ul>
+<li><p>Están formados por secuencias de números y símbolos que representan operaciones aritḿeticas</p></li>
+<li><p>Denotan un valor numérico, que es el resultado de calcular el valor de la expresión tras hacer las operaciones que aparecen en ella.</p>
+<p>La expresión <code>2 * (3 + 5)</code> denota un valor, que es el número abstracto <strong>16</strong>.</p></li>
+</ul></li>
+</ul></section><section id="evaluación-de-expresiones" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Evaluación de expresiones</h2><ul>
 <li><p>Ya hemos visto que la ejecución de un programa funcional consiste, en esencia, en evaluar una expresión.</p></li>
-<li><p><strong><em>Evaluar</em> una expresión</strong> consiste en determinar el <strong>valor</strong> de la expresión. Es decir, una expresión <em>representa</em> o <strong>denota</strong> un valor.</p></li>
+<li><p><strong><em>Evaluar</em> una expresión</strong> consiste en determinar el <strong>valor</strong> de la expresión. Es decir, una expresión <em>representa</em> o <strong>denota</strong> el valor que se obtiene al evaluarla.</p></li>
 <li><p>En programación funcional, el significado de una expresión es su valor, y no puede ocurrir ningún otro efecto, ya sea oculto o no, en ninguna operación que se utilice para calcularlo.</p></li>
 <li><p>Una característica de la programación funcional es que <strong>toda expresión posee un valor definido</strong>, a diferencia de otros paradigmas en los que, por ejemplo, existen las <em>sentencias</em>, que no poseen ningún valor.</p></li>
 <li><p>Además, el orden en el que se evalúe no debe influir en el resultado.</p></li>
@@ -303,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Lo que hace el sistema es buscar <strong>la representación más simplificada o reducida</strong> posible (en este caso, <span class="math inline">3</span>).</p></li>
 <li><p>Por eso a menudo usamos, indistintamente, los términos <em>reducir</em>, <em>simplificar</em> y <em>evaluar</em>.</p></li>
 </ul>
-</section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Transparencia referencial</h3><ul>
+</section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Transparencia referencial</h3><ul>
 <li><p>En programación funcional, el valor de una expresión depende, exclusivamente, de los valores de sus sub-expresiones constituyentes.</p></li>
 <li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras que tengan el mismo valor.</p></li>
 <li><p>A esta propiedad se la denomina <strong>transparencia referencial</strong>.</p></li>
@@ -313,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Transparencia referencial:</strong></p>
 <p>Si <span class="math inline">p = q</span>, entonces <span class="math inline">f(p) = f(q)</span>.</p>
 </div></li>
-</ul></section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Valores, expresión canónica y forma normal</h3><ul>
+</ul></section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Valores, expresión canónica y forma normal</h3><ul>
 <li><p>Los ordenadores no manipulan valores, sino que sólo pueden manejar representaciones concretas de los mismos.</p>
 <ul>
 <li>Por ejemplo: utilizan la codificación binaria en complemento a 2 para representar los números enteros.</li>
@@ -352,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Lo mismo ocurre con <span class="math inline">1\over0</span>.</p></li>
 </ul></li>
 </ul>
-</section><section id="formas-normales-y-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.1.3</span> Formas normales y evaluación</h3><ul>
+</section><section id="formas-normales-y-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> Formas normales y evaluación</h3><ul>
 <li><p>A partir de todo lo dicho, la ejecución de un programa será el proceso de encontrar su forma normal.</p></li>
 <li><p>Un ordenador evalúa una expresión (o ejecuta un programa) buscando su forma normal y mostrando este resultado.</p></li>
 <li><p>Con los lenguajes funcionales los ordenadores alcanzan este objetivo a través de múltiples pasos de reducción de las expresiones para obtener otra equivalente más simple.</p></li>
@@ -362,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p><img data-src="images/evaluacion.svg" class="plain" style="width:40.0%" /></p>
 
-</section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Literales</h2><ul>
+</section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Literales</h2><ul>
 <li><p>Un <strong>literal</strong> es un valor escrito directamente en el código del programa (en una expresión).</p></li>
 <li><p>El literal representa un valor constante.</p></li>
 <li><p>Ejemplos:</p>
@@ -372,7 +383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los literales tienen que satisfacer las reglas de sintaxis del lenguaje.</p></li>
 <li><p>Gracias a esas reglas sintácticas, el intérprete puede identificar qué literales son, qué valor representan y de qué tipo son.</p></li>
 <li><p>Se deduce, pues, que <strong>un literal debe ser la <em>expresión canónica</em> del valor correspondiente</strong>.</p></li>
-</ul></section><section id="operaciones-operadores-y-operandos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Operaciones, operadores y operandos</h2><ul>
+</ul></section><section id="operaciones-operadores-y-operandos" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Operaciones, operadores y operandos</h2><ul>
 <li><p>En una expresión puede haber:</p>
 <ul>
 <li><p><strong>Datos</strong></p></li>
@@ -401,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>(aquí los operandos son las cadenas <code>"c"</code> y <code>"barco"</code>)</p></li>
 </ul></li>
 </ul>
-</section><section id="aridad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Aridad de operadores</h3><ul>
+</section><section id="aridad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.4.1</span> Aridad de operadores</h3><ul>
 <li><p>Los operadores se clasifican en función de la cantidad de operandos sobre los que operan en:</p>
 <ul>
 <li><p><strong>Unarios</strong>: operan sobre un único operando.</p>
@@ -412,7 +423,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Ternarios</strong>: operan sobre tres operandos.</p>
 <p>Veremos un ejemplo más adelante.</p></li>
 </ul></li>
-</ul></section><section id="paréntesis" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> Paréntesis</h3><ul>
+</ul></section><section id="paréntesis" class="title-slide slide level3"><h3><span class="header-section-number">3.4.2</span> Paréntesis</h3><ul>
 <li><p>Los <strong>paréntesis</strong> sirven para agrupar elementos dentro de una expresión.</p></li>
 <li><p>Se usan, sobre todo, para hacer que varios elementos actúen como uno solo en el contexto de una operación.</p>
 <ul>
@@ -420,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>(3 + 4) * 5</code> vale <code>35</code></p>
 <p><code>3 + (4 * 5)</code> vale <code>23</code></p></li>
 </ul></li>
-</ul></section><section id="asociatividad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.3.3</span> Asociatividad de operadores</h3><ul>
+</ul></section><section id="asociatividad-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.4.3</span> Asociatividad de operadores</h3><ul>
 <li><p>En ausencia de paréntesis, cuando un operando está afectado a derecha e izquierda por el <strong>mismo operador</strong>, se aplican las reglas de la <strong>asociatividad</strong>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="dv">8</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span></a></code></pre></div>
 <p>El <code>4</code> está afectado a derecha e izquierda por el mismo operador <code>/</code>, por lo que se aplican las reglas de la asociatividad. El <code>/</code> es <em>asociativo por la izquierda</em>, así que se actúa primero el operador que está a la izquierda. Equivale a hacer:</p>
@@ -428,7 +439,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Si hiciéramos</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="dv">8</span> <span class="op">/</span> (<span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>el resultado sería distinto.</p></li>
-</ul></section><section id="precedencia-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.3.4</span> Precedencia de operadores</h3><ul>
+</ul></section><section id="precedencia-de-operadores" class="title-slide slide level3"><h3><span class="header-section-number">3.4.4</span> Precedencia de operadores</h3><ul>
 <li><p>En ausencia de paréntesis, cuando un operando está afectado a derecha e izquierda por <strong>distinto operador</strong>, se aplican las reglas de la <strong>prioridad</strong>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span></a></code></pre></div>
 <p>El <code>4</code> está afectado a derecha e izquierda por distintos operadores (<code>+</code> y <code>*</code>), por lo que se aplican las reglas de la prioridad. El <code>*</code> tiene <em>más prioridad</em> que el <code>+</code>, así que actúa primero el <code>*</code>. Equivale a hacer:</p>
@@ -436,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Si hiciéramos</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1">(<span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> <span class="dv">2</span></a></code></pre></div>
 <p>el resultado sería distinto.</p></li>
-</ul></section><section id="funciones-y-métodos" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Funciones y métodos</h2></section><section id="funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.4.1</span> Funciones</h3><div class="columns">
+</ul></section><section id="funciones-y-métodos" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Funciones y métodos</h2></section><section id="funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.5.1</span> Funciones</h3><div class="columns">
 <div class="column">
 <ul>
 <li><p>Matemáticamente, una <strong>función</strong> es una regla que <em>asocia</em> a cada elemento de un conjunto (el conjunto <em>origen</em> o <em>dominio</em>) un único elemento de un segundo conjunto (el conjunto <em>imagen</em> o <em>codominio</em>).</p></li>
@@ -461,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>El valor <span class="math inline">35</span> es el resultado de aplicar la función <span class="math inline">abs</span> a su argumento <span class="math inline">-35</span>.</p></li>
 </ul>
 </section><section id="funciones-con-varios-argumentos" class="slide level4">
-<h4><span class="header-section-number">3.4.1.2</span> Funciones con varios argumentos</h4>
+<h4><span class="header-section-number">3.5.1.2</span> Funciones con varios argumentos</h4>
 <ul>
 <li><p>El concepto de función se puede generalizar para obtener <strong>funciones con más de un argumento</strong>.</p></li>
 <li><p>Por ejemplo, podemos definir una función <span class="math inline">max</span> que asocie a cada par de números el máximo de los dos.</p>
@@ -469,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Si aplicamos la función <span class="math inline">max</span> a los argumentos <span class="math inline">13</span> y <span class="math inline">-25</span>, el resultado sería <span class="math inline">13</span>:</p>
 <p><span class="math display">max(13, -25) = 13</span></p></li>
 </ul>
-</section><section id="composición-de-funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.4.2</span> Composición de funciones</h3><ul>
+</section><section id="composición-de-funciones" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Composición de funciones</h3><ul>
 <li><p>La manera más sencilla de realizar varias operaciones sobre los mismos datos es hacer que el resultado de una operación sea la entrada de otra operación.</p></li>
 <li><p>Se va creando así una <strong>secuencia de operaciones</strong> donde la salida de una es la entrada de la siguiente.</p></li>
 <li><p>Es una técnica que ayuda a <strong>descomponer un problema en partes</strong> que se van resolviendo por pasos como en una <strong>cadena de montaje</strong>.</p></li>
@@ -477,7 +488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="bu">round</span>(<span class="bu">abs</span>(<span class="op">-</span><span class="fl">23.459</span>), <span class="dv">2</span>)  <span class="co"># devuelve 23.46</span></a></code></pre></div></li>
 </ul>
 <p><img data-src="images/composicion-funciones.svg" class="plain" style="width:80.0%" /></p>
-<p></p></section><section id="métodos" class="title-slide slide level3"><h3><span class="header-section-number">3.4.3</span> Métodos</h3><ul>
+<p></p></section><section id="métodos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.3</span> Métodos</h3><ul>
 <li><p>Los <strong>métodos</strong> son, para la programación orientada a objetos, el equivalente a las <strong>funciones</strong> para la programación funcional.</p></li>
 <li><p>Los métodos son como funciones que actúan <em>sobre</em> un valor.</p></li>
 <li><p>La <em>aplicación</em> de un método se denomina <strong>invocación</strong> o <strong>llamada</strong> al método, y se escribe:</p>
@@ -526,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">(<span class="dv">4</span>).<span class="fu">__add__</span>(<span class="dv">3</span>)</a></code></pre></div></li>
 </ul></li>
 </ul>
-</section><section id="tipos-de-datos" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Tipos de datos</h2></section><section id="concepto" class="title-slide slide level3"><h3><span class="header-section-number">3.5.1</span> Concepto</h3><ul>
+</section><section id="tipos-de-datos" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Tipos de datos</h2></section><section id="concepto-1" class="title-slide slide level3"><h3><span class="header-section-number">3.6.1</span> Concepto</h3><ul>
 <li><p>Los datos que comparten características y propiedades se agrupan en <strong>conjuntos</strong>.</p></li>
 <li><p>Asimismo, sobre cada conjunto de valores se definen una serie de <strong>operaciones</strong>, que son aquellas que tiene sentido realizar con esos valores.</p></li>
 <li><p>Un <strong>tipo de datos</strong> define un conjunto de <strong>valores</strong> y el conjunto de <strong>operaciones</strong> válidas que se pueden realizar sobre dichos valores.</p></li>
@@ -546,14 +557,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section><section id="sistema-de-tipos" class="slide level4">
-<h4><span class="header-section-number">3.5.1.2</span> Sistema de tipos</h4>
+<h4><span class="header-section-number">3.6.1.2</span> Sistema de tipos</h4>
 <ul>
 <li><p>El <strong>sistema de tipos</strong> de un lenguaje es el conjunto de reglas que asigna un tipo a cada elemento del programa.</p></li>
 <li><p>Exceptuando a los lenguajes <strong>no tipados</strong> (Ensamblador, código máquina, Forth…) todos los lenguajes tienen su propio sistema de tipos, con sus características.</p></li>
 <li><p>El sistema de tipos de un lenguaje depende también del paradigma de programación que soporte el lenguaje. Por ejemplo, en los lenguajes <strong>orientados a objetos</strong>, el sistema de tipos se construye a partir de los conceptos propios de la orientación a objetos (<em>clases</em>, <em>interfaces</em>…).</p></li>
 </ul>
 </section><section id="tipado-fuerte-vs.-débil" class="slide level4">
-<h4><span class="header-section-number">3.5.1.3</span> Tipado fuerte vs. débil</h4>
+<h4><span class="header-section-number">3.6.1.3</span> Tipado fuerte vs. débil</h4>
 <ul>
 <li><p>Un lenguaje de programación es <strong>fuertemente tipado</strong> (o de <strong>tipado fuerte</strong>) si no se permiten violaciones de los tipos de datos.</p></li>
 <li><p>Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro tipo distinto a menos que se haga una <em>conversión explícita</em>.</p></li>
@@ -572,7 +583,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section><section id="errores-de-tipos" class="slide level4">
-<h4><span class="header-section-number">3.5.1.5</span> Errores de tipos</h4>
+<h4><span class="header-section-number">3.6.1.5</span> Errores de tipos</h4>
 <ul>
 <li><p>Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite esa operación, se produce un <strong>error de tipos</strong>.</p></li>
 <li><p>Ese error puede ocurrir cuando:</p>
@@ -595,8 +606,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Es muy probable que el comprobador de tipos del compilador detecte el error de tipos <strong>durante la compilación</strong> del programa, es decir, antes incluso de ejecutarlo. En tal caso, se abortará la compilación para impedir la generación de código objeto erróneo.</p></li>
 </ul></li>
 </ul>
-</section><section id="tipos-de-datos-básicos" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Tipos de datos básicos</h3></section><section id="números" class="slide level4">
-<h4><span class="header-section-number">3.5.2.1</span> Números</h4>
+</section><section id="tipos-de-datos-básicos" class="title-slide slide level3"><h3><span class="header-section-number">3.6.2</span> Tipos de datos básicos</h3></section><section id="números" class="slide level4">
+<h4><span class="header-section-number">3.6.2.1</span> Números</h4>
 <ul>
 <li><p>Hay dos tipos numéricos básicos en Python: los enteros y los reales.</p>
 <ul>
@@ -655,7 +666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 -->
 </section><section id="cadenas" class="slide level4">
-<h4><span class="header-section-number">3.5.2.2</span> Cadenas</h4>
+<h4><span class="header-section-number">3.6.2.2</span> Cadenas</h4>
 <ul>
 <li><p>Las <strong>cadenas</strong> son secuencias de cero o más caracteres codificados en Unicode.</p></li>
 <li><p>En Python se representan con el tipo <code>str</code>.</p>
@@ -691,8 +702,8 @@ Python&quot;&quot;&quot;</code></pre>
 </ul></li>
 <li><p>Una <strong>cadena vacía</strong> es aquella que no contiene ningún carácter. Se representa con el literal <code>''</code> o <code>""</code>.</p></li>
 </ul>
-</section><section id="operaciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Operaciones predefinidas</h2></section><section id="operadores-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.6.1</span> Operadores predefinidos</h3></section><section id="operadores-aritméticos" class="slide level4">
-<h4><span class="header-section-number">3.6.1.1</span> Operadores aritméticos</h4>
+</section><section id="operaciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">3.7</span> Operaciones predefinidas</h2></section><section id="operadores-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.7.1</span> Operadores predefinidos</h3></section><section id="operadores-aritméticos" class="slide level4">
+<h4><span class="header-section-number">3.7.1.1</span> Operadores aritméticos</h4>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -768,7 +779,7 @@ Python&quot;&quot;&quot;</code></pre>
 </tbody>
 </table>
 </section><section id="operadores-de-cadenas" class="slide level4">
-<h4><span class="header-section-number">3.6.1.2</span> Operadores de cadenas</h4>
+<h4><span class="header-section-number">3.7.1.2</span> Operadores de cadenas</h4>
 <table style="width:79%;">
 <colgroup>
 <col style="width: 18%" />
@@ -854,7 +865,7 @@ Python&quot;&quot;&quot;</code></pre>
   ```
 
 -->
-</section><section id="funciones-predefinidas" class="title-slide slide level3"><h3><span class="header-section-number">3.6.2</span> Funciones predefinidas</h3><table>
+</section><section id="funciones-predefinidas" class="title-slide slide level3"><h3><span class="header-section-number">3.7.2</span> Funciones predefinidas</h3><table>
 <colgroup>
 <col style="width: 31%" />
 <col style="width: 25%" />
@@ -911,7 +922,7 @@ Python&quot;&quot;&quot;</code></pre>
 </tr>
 </tbody>
 </table></section><section id="funciones-matemáticas" class="slide level4">
-<h4><span class="header-section-number">3.6.2.1</span> Funciones matemáticas</h4>
+<h4><span class="header-section-number">3.7.2.1</span> Funciones matemáticas</h4>
 <ul>
 <li><p>Python incluye una gran cantidad de funciones matemáticas agrupadas dentro del módulo <code>math</code>.</p></li>
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
@@ -931,7 +942,7 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>La lista completa de funciones que incluye el módulo <code>math</code> se puede consultar en su documentación:</p>
 <p><a href="https://docs.python.org/3/library/math.html">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
-</section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.6.3</span> Métodos predefinidos</h3><ul>
+</section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">3.7.3</span> Métodos predefinidos</h3><ul>
 <li><p>Igualmente, en la documentación podemos encontrar una lista de métodos interesantes que operan con datos de tipo cadena:</p>
 <p><a href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
 </ul></section></section>

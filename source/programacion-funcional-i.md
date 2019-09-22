@@ -128,13 +128,37 @@ nocite: |
 
 # Expresiones
 
+## Concepto
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Expresión:**
+
+Una **expresión** es una frase (secuencia de símbolos) sintáctica y
+semánticamente correcta según las reglas del lenguaje que estamos utilizando,
+cuya finalidad es la de *representar* o **denotar** un determinado objeto, al
+que denominamos el **valor** de la expresión.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El ejemplo clásico es el de las *expresiones aritméticas*:
+
+  - Están formados por secuencias de números y símbolos que representan
+    operaciones aritḿeticas
+
+  - Denotan un valor numérico, que es el resultado de calcular el valor de la
+    expresión tras hacer las operaciones que aparecen en ella.
+
+    La expresión `2 * (3 + 5)` denota un valor, que es el número abstracto
+    **16**.
+
 ## Evaluación de expresiones
 
 - Ya hemos visto que la ejecución de un programa funcional consiste, en
   esencia, en evaluar una expresión.
 
 - **_Evaluar_ una expresión** consiste en determinar el **valor** de la
-  expresión. Es decir, una expresión *representa* o **denota** un valor.
+  expresión. Es decir, una expresión *representa* o **denota** el valor que se
+  obtiene al evaluarla.
 
 - En programación funcional, el significado de una expresión es su valor, y no
   puede ocurrir ningún otro efecto, ya sea oculto o no, en ninguna operación
