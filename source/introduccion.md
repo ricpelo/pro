@@ -2095,4 +2095,22 @@ intérprete? Razona la respuesta.
   van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a
   usar en clase.
 
+# Actividades
+
+@. Supongamos los siguientes problemas:
+
+   i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
+   i. Sumar dos fracciones.
+   i. Interpretar una partitura al violín.
+   i. Hacer la cuenta atrás, desde 10 hasta 0.
+
+ - Para cada uno de ellos, se pide que:
+
+   a. Identifiques cuáles son los datos y los resultados.
+   b. Describas un problema más general y, si se puede, otro menos general.
+   c. Distingas cuáles de esos problemas pueden resolverse mediante algoritmos
+      y cuáles no.
+   d. Esboces, con tus propias palabras o en seudocódigo, un algoritmo para los
+      problemas (i), (ii) y (iv).
+
 !BIBLIOGRAFIA
