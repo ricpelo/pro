@@ -164,6 +164,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         function buscar(nd, level, hr) {
             if (!nd.classList.contains('level' + (level - 1))) {
                 for (var n = nd; n != null; n = n.previousSibling) {
+                    if (n.nodeType == Node.TEXT_NODE) {
+                        continue;
+                    }
                     var cl = n.classList;
                     if (cl.contains('level' + level)) {
                         var h = n.querySelector('h' + level);
@@ -183,11 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                         if (a !== null) {
                             a.href = href;
                         }
+                        if (hr.innerHTML != '') {
+                            hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                        }
+                        hr.insertBefore(el, hr.firstChild);
                     }
-                    if (hr.innerHTML != '') {
-                        hr.innerHTML = ' &mdash; ' + hr.innerHTML;
-                    }
-                    hr.insertBefore(el, hr.firstChild);
                     break;
                 }
             }
