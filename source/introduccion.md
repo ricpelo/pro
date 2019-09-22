@@ -3,7 +3,7 @@ title: Introducción
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @aguilar_fundamentos_2008, @van-roy_concepts_2004
+  @pareja_flores_desarrollo_1997, @aguilar_fundamentos_2008, @van-roy_concepts_2004
 ---
 
 # Conceptos básicos
@@ -544,10 +544,16 @@ Un algoritmo es un método para resolver un problema.
 
 - Un algoritmo debe ser:
 
-  - **Preciso**: debe indicar el orden de ejecución de cada paso.
+  - **Preciso**: debe expresarse de forma no ambigua. La precisión afecta por
+    igual a dos aspectos:
+    
+    - Al *orden* de los pasos que han de llevarse a cabo.
 
-  - **Definido**: si se sigue un algoritmo dos veces, se debe obtener el mismo
-    resultado cada vez.
+    - Al *contenido* de los pasos, pues en cada uno hay que saber qué hacer
+      exactamente.
+
+  - **Determinado**: si se sigue un algoritmo dos veces, se debe obtener el
+    mismo resultado cada vez.
 
   - **Finito**: debe terminar en algún momento, es decir, debe tener un número
     finito de pasos.
@@ -570,6 +576,8 @@ Un algoritmo es un método para resolver un problema.
 
 - En ciertos contextos la ambigüedad es asumible, pero **NO** cuando el
   destinatario es un ordenador.
+
+- ¿Podemos decir que esta receta de cocina es un algoritmo?
 
 ::::
 
