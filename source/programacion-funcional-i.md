@@ -1318,17 +1318,17 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión_condicional) ::= !NT(valor_si_verdadero) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+  !NT(expr_condicional) ::= !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
 
   - !NT(condición) debe ser una expresión lógica
 
-  - !NT(valor_si_verdadero) y !NT(valor_si_falso) pueden ser expresiones de
+  - !NT(valor_si_cierto) y !NT(valor_si_falso) pueden ser expresiones de
     cualquier tipo
 
-- El valor de la expresión completa será !NT(valor_si_verdadero) si la
+- El valor de la expresión completa será !NT(valor_si_cierto) si la
   !NT(condición) es cierta; en caso contrario, su valor será
   !NT(valor_si_falso).
 

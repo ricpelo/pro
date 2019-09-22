@@ -823,10 +823,10 @@ E -> x [lhead = cluster0]
 
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~
-    !NT(expresión_condicional) ::= !NT(valor_si_verdadero) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+    !NT(expr_condicional) ::= !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
     ~~~~~~~~~~~~~~~~~~~~~
 
-    evalúa perezosamente !NT(valor_si_verdadero) y !NT(valor_si_falso).
+    evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso).
 
   - Los operadores lógicos `and` y `or` también son perezosos (se dice que
     evalúan **en cortocircuito**):
@@ -893,16 +893,16 @@ E -> x [lhead = cluster0]
 - La evolución de un proceso está dirigida por un patrón de reglas llamada
   **programa**.
 
-- Los programadores crean programas para dirigir a los procesos.
+- Los programadores crean programas para **dirigir** a los procesos.
 
 - Es como decir que los programadores son magos que invocan a los espíritus del
   ordenador con sus conjuros.
 
 ---
 
-- Una función describe la evolución local de un **proceso**.
+- Una **función** describe la *evolución local* de un **proceso**.
 
-- En cada paso se calcula el siguiente estado del proceso basándonos en el
+- En cada paso se calcula el *siguiente estado* del proceso basándonos en el
   estado actual y en las reglas definidas por la función.
 
 - Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el
@@ -924,7 +924,7 @@ E -> x [lhead = cluster0]
   de su cuerpo.
 
 - Las definiciones recursivas son el mecanismo básico para ejecutar
-  repeticiones de instrucciones en un lenguaje de programación funcional.
+  **repeticiones de instrucciones** en un lenguaje de programación funcional.
 
 - Por ejemplo:
 
@@ -985,8 +985,8 @@ E -> x [lhead = cluster0]
 - Combinando ambos casos tendríamos:
 
   $$n! = \begin{cases}
-           1 & , n = 0 \text{\quad(caso base)} \\
-           n\cdot(n-1)! & , n > 0 \text{\quad(caso recursivo)}
+           1 & \text{si } n = 0 \text{\quad(caso base)} \\
+           n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
          \end{cases}$$
 
 ### Recursividad lineal
@@ -1164,9 +1164,9 @@ E -> x [lhead = cluster0]
   de Fibonacci:
 
   $$fib(n) = \begin{cases}
-               0 & , n = 0 \text{\quad (caso base)} \\
-               1 & , n = 1 \text{\quad (caso base)} \\
-               fib(n - 1) + fib(n - 2) & , n > 1 \text{\quad (caso recursivo)}
+               0 & \text{si } n = 0 \text{\quad (caso base)} \\
+               1 & \text{si } n = 1 \text{\quad (caso base)} \\
+               fib(n - 1) + fib(n - 2) & \text{si } n > 1 \text{\quad (caso recursivo)}
              \end{cases}$$
 
 - Que traducida a Python sería:
@@ -1245,18 +1245,18 @@ fib1_5 -> u5
 ---
 
 - La función anterior es un buen ejemplo de recursión en árbol, pero desde
-  luego es un método horrible para calcular los números de Fibonacci, por la
-  cantidad de operaciones redundantes que efectúa.
+  luego es un método *horrible* para calcular los números de Fibonacci, por la
+  cantidad de **operaciones redundantes** que efectúa.
 
 - Para tener una idea de lo malo que es, se puede observar que $fib(n)$ crece
   exponencialmente en función de $n$.
 
 - Por lo tanto, el proceso necesita una cantidad de tiempo que crece
-  exponencialmente con $n$.
+  **exponencialmente** con $n$.
 
-- Por otro lado, el espacio necesario sólo crece linealmente con $n$, porque en
-  un cierto momento del cálculo sólo hay que memorizar los nodos que hay por
-  encima.
+- Por otro lado, el espacio necesario sólo crece **linealmente** con $n$,
+  porque en un cierto momento del cálculo sólo hay que memorizar los nodos que
+  hay por encima.
 
 - En general, en un proceso recursivo en árbol el tiempo de ejecución crece con
   el número de nodos mientras que el espacio necesario crece con la altura
@@ -1264,7 +1264,7 @@ fib1_5 -> u5
 
 ---
 
-- Se puede construir un proceso iterativo para calcular los números de
+- Se puede construir un **proceso iterativo** para calcular los números de
   Fibonacci.
 
 - La idea consiste en usar dos variables de estado `a` y `b` (con valores
@@ -1294,7 +1294,7 @@ fib1_5 -> u5
 - El paradigma funcional que hemos visto hasta ahora (uno que nos permite
   definir funciones, componer dichas funciones y aplicar recursividad, junto
   con el operador ternario condicional) es un lenguaje de programación
-  completo.
+  **completo**.
 
 - Decimos que es **Turing completo**, lo que significa que puede computar
   cualquier función que pueda computar una máquina de Turing.
@@ -1416,10 +1416,10 @@ fib1_5 -> u5
   **método** para calcular el cubo de un número.
 
 - Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
-  siempre expresiones explícitas (como `3*3*3`, `y*y*y`, `5*5*5`, etcétera) sin
-  mencionar la palabra «cubo», pero eso nos obligaría siempre a expresarnos en
-  términos de las operaciones primitivas de nuestro lenguaje (el `*` en este
-  caso), en vez de poder usar términos de más alto nivel.
+  siempre expresiones explícitas (como `3*3*3`, `y*y*y`, etc.) sin usar la
+  palabra «cubo», pero eso nos obligaría siempre a expresarnos en términos de
+  las operaciones primitivas de nuestro lenguaje (como `*`), en vez de poder
+  usar términos de más alto nivel.
 
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
@@ -1443,8 +1443,7 @@ fib1_5 -> u5
 
 ---
 
-- Muchas veces observamos el mismo patrónpatrón  proceso en funciones muy
-  diferentes.
+- Muchas veces observamos el mismo patrón en funciones muy diferentes.
 
 - Para poder abstraer, de nuevo, lo que tienen en común dichas funciones,
   deberíamos ser capaces de manejar funciones que acepten a otras funciones

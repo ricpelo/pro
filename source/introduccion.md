@@ -1307,7 +1307,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 
     - Influyó mucho en lenguajes posteriores.
 
-    - Introdujo las definiciones de funciones anidadas y el ámbito léxico.
+    - Introdujo las funciones anidadas y el ámbito léxico.
 
 ---
 
@@ -1872,6 +1872,7 @@ F -> I
 - Los errores que un traductor puede detectar son, principalmente:
 
   - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis)
+
   - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
     a un número, detectable mediante un **chequeo de tipos**)
 
@@ -1956,7 +1957,7 @@ intérprete? Razona la respuesta.
   comienza una de las etapas más importantes y probablemente más costosas en
   tiempo y esfuerzo: el **mantenimiento**.
 
-- Mantener un programa consiste en realizar las acciones encaminadas a:
+- Mantener un programa consiste en realizar acciones encaminadas a:
 
   - Corregir los fallos que puedan aparecer como consecuencia del uso del
     programa (fallos que no se localizaron previamente en la fase de pruebas).
@@ -2101,18 +2102,18 @@ intérprete? Razona la respuesta.
 
 @. Supongamos los siguientes problemas:
 
-   i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
-   i. Sumar dos fracciones.
-   i. Interpretar una partitura al violín.
-   i. Hacer la cuenta atrás, desde 10 hasta 0.
+    i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
+    i. Sumar dos fracciones.
+    i. Interpretar una partitura al violín.
+    i. Hacer la cuenta atrás, desde 10 hasta 0.
 
- - Para cada uno de ellos, se pide que:
+    - Para cada uno de ellos, se pide que:
 
-   a. Identifiques cuáles son los datos y los resultados.
-   b. Describas un problema más general y, si se puede, otro menos general.
-   c. Distingas cuáles de esos problemas pueden resolverse mediante algoritmos
-      y cuáles no.
-   d. Esboces, con tus propias palabras o en seudocódigo, un algoritmo para los
-      problemas (i), (ii) y (iv).
+      a. Identifiques cuáles son los datos y los resultados.
+      b. Describas un problema más general y, si se puede, otro menos general.
+      c. Distingas cuáles de esos problemas pueden resolverse mediante algoritmos
+         y cuáles no.
+      d. Esboces, con tus propias palabras o en seudocódigo, un algoritmo para los
+         problemas (i), (ii) y (iv).
 
 !BIBLIOGRAFIA
