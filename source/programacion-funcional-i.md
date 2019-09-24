@@ -41,17 +41,18 @@ nocite: |
 
 ## Características principales
 
-- Python es un lenguaje **interpretado**, **dinámico** y **multiplataforma**, cuya
-  filosofía hace hincapié en una sintaxis que favorezca un **código legible**.
+- Python es un lenguaje **interpretado**, **dinámico** y **multiplataforma**,
+  cuya filosofía hace hincapié en una sintaxis que favorezca un **código
+  legible**.
 
 - Es un lenguaje de programación **multiparadigma**. Esto significa que más que
   forzar a los programadores a adoptar un estilo particular de programación,
   permite varios estilos: **programación orientada a objetos**, **programación
   imperativa** y **programación funcional**.
 
-- Tiene una **gran biblioteca estándar**, usada para una diversidad de tareas. Esto
-  viene de la filosofía «pilas incluidas» (*batteries included*) en referencia
-  a los módulos de Python.
+- Tiene una **gran biblioteca estándar**, usada para una diversidad de tareas.
+  Esto viene de la filosofía «pilas incluidas» (*batteries included*) en
+  referencia a los módulos de Python.
 
 - Es administrado por la **Python Software Foundation** y posee una licencia de
   **código abierto**.
@@ -104,12 +105,12 @@ nocite: |
 - En programación funcional, **un programa es una expresión** y lo que hacemos
   al ejecutarlo es **evaluar dicha expresión**, usando para ello las
   definiciones de operadores y funciones predefinidas por el lenguaje, así como
-  las definidas por el programador y que el código fuente del programa.
+  las definidas por el programador en el código fuente del programa.
 
-- La **evaluación de una expresión**, en esencia, consiste en **sustituir**,
-  dentro de ella, unas *sub-expresiones* por otras que, de alguna manera, estén
-  más cerca del valor a calcular, y así hasta calcular el valor de la expresión
-  al completo.
+- La **evaluación de una expresión**, en esencia, es el proceso de
+  **sustituir**, dentro de ella, unas *sub-expresiones* por otras que, de
+  alguna manera, estén *más cerca* del valor a calcular, y así hasta calcular el
+  valor de la expresión al completo.
 
 - Por ello, la ejecución de un programa funcional se puede modelar como un
   **sistema de reescritura** al que llamaremos **modelo de sustitución**.
@@ -164,7 +165,7 @@ que denominamos el **valor** de la expresión.
                    | !NT(identificador)
                    | !NT(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
-!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) 
+!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T(**) | !T(%) 
 !NT(opun) ::= !T(+) | !T(-)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -213,28 +214,6 @@ que denominamos el **valor** de la expresión.
 
 - Por eso a menudo usamos, indistintamente, los términos *reducir*,
   *simplificar* y *evaluar*.
-
-### Transparencia referencial
-
-- En programación funcional, el valor de una expresión depende, exclusivamente,
-  de los valores de sus sub-expresiones constituyentes.
-
-- Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras
-  que tengan el mismo valor.
-
-- A esta propiedad se la denomina **transparencia referencial**.
-
-- En la práctica, eso significa que la evaluación de una expresión no puede
-  provocar **efectos laterales**.
-
-- Formalmente, se puede definir así:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-  **Transparencia referencial:**
-
-  Si $p = q$, entonces $f(p) = f(q)$.
-  ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Valores, expresión canónica y forma normal
 
@@ -319,6 +298,28 @@ while (¿es posible reducir?) is (sí)
 endwhile (no)
 :forma normal;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Transparencia referencial
+
+- En programación funcional, el valor de una expresión depende, exclusivamente,
+  de los valores de sus sub-expresiones constituyentes.
+
+- Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras
+  que tengan el mismo valor.
+
+- A esta propiedad se la denomina **transparencia referencial**.
+
+- En la práctica, eso significa que la evaluación de una expresión no puede
+  provocar **efectos laterales**.
+
+- Formalmente, se puede definir así:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Transparencia referencial:**
+
+  Si $p = q$, entonces $f(p) = f(q)$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Literales
 

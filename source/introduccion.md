@@ -1747,7 +1747,7 @@ F -> I
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Entrada:** $n_1, n_2: \mathbb{N}$
+**Entrada:** $n_1, n_2 \in \mathbb{Z}$
 **Proceso:** Cálculo del máximo de dos números
 **Salida:** el mayor de ambos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1775,7 +1775,7 @@ F -> I
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Algoritmo:** Cálculo del máximo de dos números
-**Entrada:** $n_1, n_2: \mathbb{N}$
+**Entrada:** $n_1, n_2 \in \mathbb{Z}$
 **Salida:** el mayor de ambos
 
 **inicio**
@@ -2111,9 +2111,22 @@ intérprete? Razona la respuesta.
 
       a. Identifiques cuáles son los datos y los resultados.
       b. Describas un problema más general y, si se puede, otro menos general.
-      c. Distingas cuáles de esos problemas pueden resolverse mediante algoritmos
-         y cuáles no.
-      d. Esboces, con tus propias palabras o en seudocódigo, un algoritmo para los
-         problemas (i), (ii) y (iv).
+      c. Distingas cuáles de esos problemas pueden resolverse mediante
+         algoritmos y cuáles no.
+      d. Esboces, con tus propias palabras o en pseudocódigo, un algoritmo para
+         los problemas (i), (ii) y (iv).
+
+---
+
+@. El problema de restar dos enteros positivos se puede resolver por un
+procedimiento análogo al de la suma lenta, al que llamaremos **resta lenta**.
+
+    - Se pide:
+
+      a. Escribir un ordinograma para este problema.
+      b. Estudiar cómo evoluciona para el cálculo de $5 - 2$.
+      c. Estudiar su complejidad.
+      d. Estudiar su corrección.
+      e. Expresar el algoritmo en pseudocódigo.
 
 !BIBLIOGRAFIA

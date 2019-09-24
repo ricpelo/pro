@@ -279,8 +279,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section><section id="modelo-de-sustitución" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Modelo de sustitución</h2><ul>
-<li><p>En programación funcional, <strong>un programa es una expresión</strong> y lo que hacemos al ejecutarlo es <strong>evaluar dicha expresión</strong>, usando para ello las definiciones de operadores y funciones predefinidas por el lenguaje, así como las definidas por el programador y que el código fuente del programa.</p></li>
-<li><p>La <strong>evaluación de una expresión</strong>, en esencia, consiste en <strong>sustituir</strong>, dentro de ella, unas <em>sub-expresiones</em> por otras que, de alguna manera, estén más cerca del valor a calcular, y así hasta calcular el valor de la expresión al completo.</p></li>
+<li><p>En programación funcional, <strong>un programa es una expresión</strong> y lo que hacemos al ejecutarlo es <strong>evaluar dicha expresión</strong>, usando para ello las definiciones de operadores y funciones predefinidas por el lenguaje, así como las definidas por el programador en el código fuente del programa.</p></li>
+<li><p>La <strong>evaluación de una expresión</strong>, en esencia, es el proceso de <strong>sustituir</strong>, dentro de ella, unas <em>sub-expresiones</em> por otras que, de alguna manera, estén <em>más cerca</em> del valor a calcular, y así hasta calcular el valor de la expresión al completo.</p></li>
 <li><p>Por ello, la ejecución de un programa funcional se puede modelar como un <strong>sistema de reescritura</strong> al que llamaremos <strong>modelo de sustitución</strong>.</p></li>
 </ul></section><section class="slide level4">
 
@@ -311,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                    | <span style="color:teal"><em>&lt;identificador&gt;</em></span><br />
                    | <span style="color:teal"><em>&lt;identificador&gt;</em></span><strong><code>(</code></strong>[<span style="color:teal"><em>&lt;lista_argumentos&gt;</em></span>]<strong><code>)</code></strong><br />
 <span style="color:teal"><em>&lt;lista_argumentos&gt;</em></span> ::= <span style="color:teal"><em>&lt;expresión&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span>)*<br />
-<span style="color:teal"><em>&lt;opbin&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong><br />
+<span style="color:teal"><em>&lt;opbin&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong> | <strong><code>//</code></strong> | <strong><code>**</code></strong> | <strong><code>%</code></strong><br />
 <span style="color:teal"><em>&lt;opun&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong></div></li>
 <li><p>Esta gramática da lugar a expresiones <em>totalmente parentizadas</em>, en las que cada operación a realizar va agrupada entre paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:</p>
 <p><code>(3 + (4 - 7))</code></p></li>
@@ -334,17 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Lo que hace el sistema es buscar <strong>la representación más simplificada o reducida</strong> posible (en este caso, <code>3</code>).</p></li>
 <li><p>Por eso a menudo usamos, indistintamente, los términos <em>reducir</em>, <em>simplificar</em> y <em>evaluar</em>.</p></li>
 </ul>
-</section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Transparencia referencial</h3><ul>
-<li><p>En programación funcional, el valor de una expresión depende, exclusivamente, de los valores de sus sub-expresiones constituyentes.</p></li>
-<li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras que tengan el mismo valor.</p></li>
-<li><p>A esta propiedad se la denomina <strong>transparencia referencial</strong>.</p></li>
-<li><p>En la práctica, eso significa que la evaluación de una expresión no puede provocar <strong>efectos laterales</strong>.</p></li>
-<li><p>Formalmente, se puede definir así:</p>
-<div class="caja">
-<p><strong>Transparencia referencial:</strong></p>
-<p>Si <span class="math inline">p = q</span>, entonces <span class="math inline">f(p) = f(q)</span>.</p>
-</div></li>
-</ul></section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Valores, expresión canónica y forma normal</h3><ul>
+</section><section id="valores-expresión-canónica-y-forma-normal" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Valores, expresión canónica y forma normal</h3><ul>
 <li><p>Los ordenadores no manipulan valores, sino que sólo pueden manejar representaciones concretas de los mismos.</p>
 <ul>
 <li>Por ejemplo: utilizan la codificación binaria en complemento a 2 para representar los números enteros.</li>
@@ -381,7 +371,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Lo mismo ocurre con <span class="math inline">1\over0</span>.</p></li>
 </ul></li>
 </ul>
-</section><section id="formas-normales-y-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> Formas normales y evaluación</h3><ul>
+</section><section id="formas-normales-y-evaluación" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Formas normales y evaluación</h3><ul>
 <li><p>A partir de todo lo dicho, la ejecución de un programa será el proceso de encontrar su forma normal.</p></li>
 <li><p>Un ordenador evalúa una expresión (o ejecuta un programa) buscando su forma normal y mostrando este resultado.</p></li>
 <li><p>Con los lenguajes funcionales los ordenadores alcanzan este objetivo a través de múltiples pasos de reducción de las expresiones para obtener otra equivalente más simple.</p></li>
@@ -391,7 +381,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="centered">
 <p><img data-src="images/evaluacion.svg" class="plain" style="width:40.0%" /></p>
 </div>
-</section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Literales</h2><ul>
+</section><section id="transparencia-referencial" class="title-slide slide level3"><h3><span class="header-section-number">3.2.3</span> Transparencia referencial</h3><ul>
+<li><p>En programación funcional, el valor de una expresión depende, exclusivamente, de los valores de sus sub-expresiones constituyentes.</p></li>
+<li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras que tengan el mismo valor.</p></li>
+<li><p>A esta propiedad se la denomina <strong>transparencia referencial</strong>.</p></li>
+<li><p>En la práctica, eso significa que la evaluación de una expresión no puede provocar <strong>efectos laterales</strong>.</p></li>
+<li><p>Formalmente, se puede definir así:</p>
+<div class="caja">
+<p><strong>Transparencia referencial:</strong></p>
+<p>Si <span class="math inline">p = q</span>, entonces <span class="math inline">f(p) = f(q)</span>.</p>
+</div></li>
+</ul></section><section id="literales" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Literales</h2><ul>
 <li><p>Un <strong>literal</strong> es un valor escrito directamente en el código del programa (en una expresión).</p></li>
 <li><p>El literal representa un valor constante.</p></li>
 <li><p>Ejemplos:</p>
