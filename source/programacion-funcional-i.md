@@ -592,7 +592,7 @@ endwhile (no)
   round(abs(-23.459), 2)  # devuelve 23.46
   ```
 
-!DOT(composicion-funciones)
+!DOT(composicion-funciones.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -23.459 [shape = plaintext, fillcolor = transparent]
 23.459 [shape = plaintext, fillcolor = transparent]

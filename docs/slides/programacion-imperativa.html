@@ -12,6 +12,69 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -158,8 +221,81 @@
 </section>
 </section>
 
-<section><section id="modelo-de-ejecución" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Modelo de ejecución</h1></section><section id="máquina-de-estados" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Máquina de estados</h2></section><section id="secuencia-de-instrucciones" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Secuencia de instrucciones</h2></section></section>
-<section><section id="asignación-destructiva" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Asignación destructiva</h1></section><section id="variables" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Variables</h2></section><section id="estado" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Estado</h2></section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Evaluación de expresiones con variables</h2></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Constantes</h2></section></section>
+<section><section id="modelo-de-ejecución" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Modelo de ejecución</h1></section><section id="máquina-de-estados" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Máquina de estados</h2><ul>
+<li><p>La <strong>programación imperativa</strong> es un paradigma de programación basado en el concepto de <strong>sentencia</strong>.</p></li>
+<li><p>Un programa imperativo está formado por una sucesión de sentencias que se ejecutan en un orden determinado.</p></li>
+<li><p>Una sentencia es una instrucción del programa que lleva a cabo una de estas acciones:</p>
+<ul>
+<li><p><strong>Cambiar el estado interno</strong> del programa, normalmente mediante la llamada <strong>sentencia de asignación</strong>.</p></li>
+<li><p>Cambiar el <strong>flujo de control</strong> del programa, haciendo que la ejecución se bifurque (<em>salte</em>) a otra parte del mismo.</p></li>
+</ul></li>
+<li><p>El modelo de ejecución de un programa imperativo es el de una <strong>máquina de estados</strong>, es decir, una máquina que va pasando por diferentes estados a medida que el programa va ejecutándose.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>En programación imperativa, el concepto de <strong>tiempo</strong> cobra mucha importancia: el programa actuará de una forma un otra según el estado en el que se encuentre, es decir, según el momento en el que estemos observando al programa.</p>
+<p>Eso significa que, ante los mismos datos de entrada, una función puede devolver <strong>valores distintos en momentos distintos</strong>.</p></li>
+<li><p>En programación funcional, en cambio, el comportamiento de una función no depende del momento en el que se ejecute, ya que siempre devolverá los mismos resultados ante los mismos datos de entrada.</p></li>
+<li><p>Eso significa que, para modelar el comportamiento de un programa imperativo, ya <strong>no nos vale el modelo de sustitución</strong>.</p></li>
+</ul>
+</section><section id="secuencia-de-instrucciones" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Secuencia de instrucciones</h2><ul>
+<li><p>Un programa imperativo es una <strong>secuencia de instrucciones</strong>, y ejecutar un programa es provocar los <strong>cambios de estado</strong> que dictan las instrucciones en el <strong>orden</strong> definido por el programa.</p></li>
+<li><p>Las instrucciones del programa van provocando <strong>transiciones</strong> entre estados, haciendo que la máquina pase de un estado al siguiente.</p></li>
+<li><p>Para modelar el comportamiento de un programa imperativo tendremos que saber en qué estado se encuentra el programa, para lo cual tendremos que seguirle la pista desde su estado inicial al estado actual.</p></li>
+<li><p>Eso básicamente se logra «ejecutando» mentalmente el programa instrucción por instrucción y llevando la cuenta de los valores ligados a sus identificadores.</p></li>
+</ul></section></section>
+<section><section id="asignación-destructiva" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Asignación destructiva</h1></section><section id="variables" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Variables</h2><ul>
+<li><p>Una <strong>variable</strong> es un lugar en la <strong>memoria</strong> donde se puede <strong>almacenar un valor</strong>.</p></li>
+<li><p>El valor de una variable <strong>puede cambiar</strong> durante la ejecución del programa.</p></li>
+<li><p>A partir de ahora, un identificador no se liga directamente con un valor, sino que tendremos:</p>
+<ul>
+<li><p>Una <strong>ligadura</strong> entre un identificador y una <strong>variable</strong>.</p></li>
+<li><p><strong>La variable almacena el valor</strong>.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/identificador-variable-valor.svg" class="plain" style="width:80.0%" /></p>
+</div></section><section id="estado" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Estado</h2><ul>
+<li><p>La <strong>ligadura</strong> es la asociación que se establece entre un identificador y una variable.</p></li>
+<li><p>El <strong>estado de una variable</strong> es el valor que tiene una variable en un momento dado.</p>
+<p>Por tanto, el estado es la asociación que se establece entre una variable y un valor.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/identificador-ligadura-variable-estado-valor.svg" class="plain" style="width:80.0%" /></p>
+</div>
+<ul>
+<li><p>Tanto las ligaduras como los estados pueden cambiar durante la ejecución de un programa imperativo.</p></li>
+<li><p>El <strong>estado de un programa</strong> es el conjunto de los estados de todas sus variables.</p></li>
+</ul></section><section id="sentencia-de-asignación" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Sentencia de asignación</h2><ul>
+<li><p>El estado de una variable se cambia usando la <strong>sentencia de asignación</strong>.</p></li>
+<li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a></code></pre></div>
+<p>Significa que el identificador <code>x</code> está ligado a una variable cuyo valor pasa a ser <code>4</code>.</p></li>
+<li><p>La asignación es <strong>destructiva</strong> porque al cambiar un valor a una variable se destruye su valor anterior. Por ejemplo, si ahora hacemos:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">x <span class="op">=</span> <span class="dv">9</span></a></code></pre></div>
+<p>El valor de la variable a la que está ligada el identificador <code>x</code> pasa ahora a ser <code>9</code>, perdiéndose el valor <code>4</code> anterior.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por abuso del lenguaje, se suele decir:</p>
+<div class="centered">
+<p><em>«se asigna el valor <code>9</code> a la variable <code>x</code>»</em></p>
+</div>
+<p>en lugar de:</p>
+<div class="centered">
+<p><em>«se asigna el valor <code>9</code> a la variable ligada al identificador <code>x</code>»</em></p>
+</div></li>
+<li><p>Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado, porque llegará el momento en el que podamos tener varios identificadores distintos ligados a la misma variable.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Cada nueva asignación provoca un cambio de estado en el programa.</p></li>
+<li><p>En el ejemplo anterior, el programa pasa de estar en un estado en el que la variable <code>x</code> vale 4 a otro en el que la variable vale <code>9</code>.</p></li>
+<li><p>Al final, un programa imperativo se puede reducir a una <strong>secuencia de asignaciones</strong> realizadas en el orden dictado por el programa.</p></li>
+<li><p>Este modelo de funcionamiento está estrechamente ligado a la arquitectura de un ordenador: hay una memoria formada por celdas que contienen datos que pueden cambiar a lo largo del tiempo según dicten las instrucciones del programa que controla al ordenador.</p></li>
+</ul>
+</section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Evaluación de expresiones con variables</h2></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Constantes</h2></section></section>
 <section><section id="efectos-laterales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Efectos laterales</h1></section><section id="transparencia-referencial" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Transparencia referencial</h2></section><section id="entrada-y-salida-por-consola" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Entrada y salida por consola</h2></section><section id="la-función-print" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> La función <code>print()</code></h3></section><section id="la-función-input" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> La función <code>input()</code></h3></section></section>
 <section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Incondicionales</h2></section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales</h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
     </div>
