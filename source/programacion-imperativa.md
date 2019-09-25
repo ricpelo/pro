@@ -171,9 +171,50 @@ variable -> valor [label = "estado"]
   pueden cambiar a lo largo del tiempo según dicten las instrucciones del
   programa que controla al ordenador.
 
-## Evaluación de expresiones con variables
+<!-- ## Evaluación de expresiones con variables -->
 
 ## Constantes
+
+- En programación funcional no existen las variables y un identificador sólo
+  puede ligarse a un valor (un identificador ligado no puede re-ligarse a otro
+  valor distinto).
+
+  - En la práctica, eso significa que un identificador ligado actúa como un
+    valor constante que no puede cambiar durante la ejecución del programa.
+
+  - El valor de esa constante es el valor al que está ligado el identificador.
+
+- En programación imperativa, los identificadores se ligan a variables, que son
+  las que realmente contienen los valores.
+
+- Una **constante** en programación imperativa sería el equivalente a una
+  variable cuyo valor no puede cambiar durante la ejecución del programa.
+
+---
+
+- Muchos lenguajes de programación permiten definir constantes, pero **Python
+  no es uno de ellos**.
+
+- En Python, una constante **es una variable más**, pero **es responsabilidad
+  del programador** no cambiar su valor durante todo el programa.
+
+- Python no hace ninguna comprobación ni muestra mensajes de error si se cambia
+  el valor de una constante.
+
+- En Python, por **convenio**, los identificadores ligados a un valor constante
+  se escriben con todas las letras en **mayúscula**:
+
+  ```python
+  PI = 3.1415926
+  ```
+
+  El nombre en mayúsculas nos recuerda que `PI` es una constante.
+
+- Aunque nada nos impide cambiar su valor (cosa que debemos evitar):
+
+  ```python
+  PI = 99
+  ```
 
 # Efectos laterales
 
