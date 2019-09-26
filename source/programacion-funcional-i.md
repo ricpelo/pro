@@ -165,7 +165,7 @@ que denominamos el **valor** de la expresión.
                    | !NT(identificador)
                    | !NT(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
-!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T(**) | !T(%) 
+!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) 
 !NT(opun) ::= !T(+) | !T(-)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -202,7 +202,7 @@ que denominamos el **valor** de la expresión.
 
   `(1 + 2)`
 
-  `(5 - 3)`
+  `(5 - 2)`
 
   denotan todas el mismo valor (el número abstracto **3**).
 
@@ -245,7 +245,7 @@ que denominamos el **valor** de la expresión.
 
     `(1 + 2)`
 
-    `(5 - 3)`
+    `(5 - 2)`
     
     que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
     expresión `3`) como la **expresión canónica** de ese valor.
@@ -460,7 +460,10 @@ endwhile (no)
   
   el resultado sería distinto.
 
-### Precedencia de operadores
+- En Python, todos los operadores son **asociativos por la izquierda** excepto
+  el `**`, que es asociativo por la derecha.
+
+### Prioridad de operadores
 
 - En ausencia de paréntesis, cuando un operando está afectado a derecha e
   izquierda por **distinto operador**, se aplican las reglas de la
@@ -485,6 +488,9 @@ endwhile (no)
   ```
   
   el resultado sería distinto.
+
+- Ver prioridad de los operadores en Python en
+  [https://docs.python.org/3/reference/expressions.html#operator-precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence){target="_blank"}.
 
 ## Funciones y métodos
 
