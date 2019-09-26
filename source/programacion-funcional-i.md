@@ -740,7 +740,7 @@ endwhile (no)
     pueden realizar otras operaciones (la *concatenación*, la *indexación*,
     etc.).
 
-#### Sistema de tipos
+### Sistema de tipos
 
 - El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un
   tipo a cada elemento del programa.
@@ -754,7 +754,7 @@ endwhile (no)
   **orientados a objetos**, el sistema de tipos se construye a partir de los
   conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
 
-#### Tipado fuerte vs. débil
+### Tipado fuerte vs. débil
 
 - Un lenguaje de programación es **fuertemente tipado** (o de **tipado
   fuerte**) si no se permiten violaciones de los tipos de datos.
@@ -786,7 +786,7 @@ endwhile (no)
     El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
     cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
 
-#### Errores de tipos
+### Errores de tipos
 
 - Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
   esa operación, se produce un **error de tipos**.
@@ -948,6 +948,34 @@ endwhile (no)
 
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
   representa con el literal `''` o `""`.
+
+### Conversión de tipos
+
+- Hemos visto que en Python las conversiones de tipos deben ser **explícitas**,
+  es decir, que debemos indicar en todo momento qué dato queremos convertir a
+  qué tipo.
+
+- Para ello existen una serie de funciones cuyo nombre coincide con el tipo al
+  que queremos convertir el dato: `str()`, `int()` y `float()`, entre otras.
+
+  ```python
+  >>> 4 + '24'
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  TypeError: unsupported operand type(s) for +: 'int' and 'str'
+  >>> 4 + int('24')
+  28
+  ```
+
+- Convertir un dato a cadena suele funcionar siempre, pero convertir una cadena
+  a otro tipo de dato puede fallar dependiendo del contenido de la cadena:
+
+  ```python
+  >>> int('hola')
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  ValueError: invalid literal for int() with base 10: 'hola'
+  ```
 
 ## Operaciones predefinidas
 
