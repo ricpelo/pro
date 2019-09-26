@@ -171,7 +171,15 @@ variable -> valor [label = "estado"]
   pueden cambiar a lo largo del tiempo según dicten las instrucciones del
   programa que controla al ordenador.
 
-<!-- ## Evaluación de expresiones con variables -->
+## Evaluación de expresiones con variables
+
+- Al evaluar expresiones, las variables actúan de modo similar a las ligaduras
+  de la programación funcional, con la única diferencia de que su valor puede
+  cambiar a lo largo del tiempo, por lo que deberemos *seguirle la pista* a las
+  asignaciones que sufra dicha variable.
+
+- Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado de variables,
+  entornos, etc. se aplica igualmente a las variables.
 
 ## Constantes
 
@@ -218,13 +226,142 @@ variable -> valor [label = "estado"]
 
 # Efectos laterales
 
+## Concepto
+
+- Las funciones que hemos visto hasta ahora en programación funcional son
+  funciones **puras** en el sentido de que lo único que hacen es calcular su
+  resultado sin afectar al exterior de la función.
+
+- Cuando una función afecta a otras partes del programa decimos que es una
+  función **impura** y que provoca **efectos laterales**, que son justamente
+  los efectos que provoca en el exterior de la función.
+
+- Los casos típicos de efectos laterales son:
+
+  - Cambiar el valor de una variable global
+
+  - Realizar una operación de entrada/salida
+
+- También se considera efecto lateral a cualquier cambio que afecte a otras
+  partes del programa de una manera no evidente o impredecible.
+
 ## Transparencia referencial
+
+- En un lenguaje imperativo **se pierde la transparencia referencial**, ya que
+  ahora el valor de una función puede depender no sólo de los valores de sus
+  argumentos, sino también además de los valores de las variables libres que
+  ahora pueden cambiar durante la ejecución del programa:
+
+  ```python
+  >>> suma = lambda x, y: x + y + z
+  >>> z = 2
+  >>> suma(3, 4)
+  9
+  >>> z = 20
+  >>> suma(3, 4)
+  27
+  ```
+
+- Por tanto, cambiar el valor de una variable global es considerado un **efecto
+  lateral**, ya que puede alterar el comportamiento de otras partes del
+  programa de formas a menudo impredecibles.
 
 ## Entrada y salida por consola
 
+- Nuestro programa puede comunicarse con el exterior realizando **operaciones
+  de entrada/salida**.
+
+- Interpretamos la palabra *exterior* en un sentido amplio; por ejemplo:
+
+  - El teclado
+  - La pantalla
+  - Un archivo del disco duro
+  - Otro ordenador de la red
+
+- La entrada/salida por consola se refiere a las operaciones de lectura de
+  datos por el teclado y escritura por la pantalla.
+
+- Las operaciones de entrada/salida se consideran *efectos laterales* porque
+  producen cambios en el exterior o pueden provocar que el resultado de una
+  función dependa de los datos leídos.
+
 ### La función `print()`
 
+- La función `print()` imprime (*escribe*) por la salida (normalmente la
+  pantalla) el valor de una o varias expresiones.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(print) ::= !T(print)!T{(}!NT{expresión}(!T(,) !NT{expresión})\*
+                                [!T(, sep=)!NT(expresión)][!T(, end=)!NT(expresión)]!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El `sep` es el *separador* y su valor por defecto es `' '` (un espacio).
+
+- El `end` es el *terminador* y su valor por defecto es `'\n'` (el carácter de
+  nueva línea).
+
+- Las expresiones se convierten en cadenas antes de imprimirse.
+
+- Por ejemplo:
+
+  ```python
+  >>> print('hola', 'pepe', 23)
+  hola pepe 23
+  ```
+
+#### El valor `None`
+
+- Es importante resaltar que la función `print()` **no devuelve** el valor de
+  las expresiones, sino que las **imprime** (provoca el efecto lateral de
+  cambiar el estado de la pantalla haciendo que aparezcan nuevos caracteres.
+
+- La función `print()` como tal no devuelve ningún valor, pero como en Python
+  todas las funciones devuelven *algún* valor, en realidad lo que ocurre es que
+  **devuelve un valor `None`**.
+
+- `None` es un valor especial que significa **ningún valor** y se utiliza
+  principalmente para casos en los que no tiene sentido que una función
+  devuelva un valor determinado, como es el caso de `print()`.
+
+- Pertenece a un tipo de datos especial llamado `NoneType` cuyo único valor
+  posible es `None`.
+
+- Podemos comprobar que, efectivamente, `print()` devuelve `None`:
+
+  ```python
+  >>> print('hola', 'pepe', 23) == True
+  hola pepe 23  # ésto es lo que imprime print()
+  True          # ésto es el resultado de comparar el valor de print() con True
+  ```
+
 ### La función `input()`
+
+- La función `input()` *lee* datos desde la entrada (normalmente el teclado) y
+  devuelve el valor del dato introducido.
+
+- Siempre devuelve una **cadena**.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(input) ::= !T(input)!T{(}[!NT(prompt)]!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
+
+  ```python
+  >>> nombre = input('Introduce tu nombre: ')
+  >>> print('Hola,', nombre)
+  Hola, Ramón
+  ```
+
+- Provoca el *efecto lateral* de alterar el estado de la consola imprimiendo el
+  *prompt* y esperando a que desde el exterior se introduzca el dato
+  solicitado (que en cada ejecución podrá tener un valor distinto).
 
 # Saltos
 
