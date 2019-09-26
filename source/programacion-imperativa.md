@@ -367,6 +367,71 @@ variable -> valor [label = "estado"]
 
 ## Incondicionales
 
+- Un **salto incondicional** es una ruptura abrupta del flujo de control del
+  programa hacia otro punto del mismo.
+
+- Se llama *incondicional* porque no depende de ninguna condición, es decir, se
+  lleva a cabo **siempre** que se alcanza el punto del salto.
+
+- Históricamente, a esa instrucción que realiza saltos incondicionales se la ha
+  llamado **instrucción _GOTO_**.
+
+- El uso de instrucciones _GOTO_ es considerado, en general, una mala práctica
+  de programación ya que favorece la creación del llamado **código
+  _espagueti_**: programas con una estructura de control tan complicada que
+  resultan casi imposibles de mantener.
+
+- En cambio, usados controladamente y de manera local, puede ayudar a escribir
+  soluciones sencillas y claras.
+
+---
+
+:::: columns
+
+::: column
+
+- Python no incluye la instrucción *GOTO* pero se puede simular instalando un
+  paquete llamado `goto-statement`:
+
+  ```shell
+  $ pip3 install --user goto-statement
+  ```
+
+:::
+
+::: column
+
+- Un ejemplo de uso:
+
+  ```python
+  from goto import with_goto
+
+  CODE="""
+  start = 2
+  stop = 25
+
+  i = start
+  result = []
+
+  label .begin
+  if i == stop:
+      goto .end
+
+  result.append(i)
+  i += 1
+  goto .begin
+
+  label .end
+  print(result)
+  """
+
+  exec(with_goto(compile(CODE, '', 'exec')))
+  ```
+
+:::
+
+::::
+
 ## Condicionales
 
 ## Implementación de bucles mediante saltos condicionales

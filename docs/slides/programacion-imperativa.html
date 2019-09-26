@@ -383,7 +383,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-3" title="3">Hola, Ramón</a></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 </ul></section></section>
-<section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Incondicionales</h2></section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales</h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
+<section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Incondicionales</h2><ul>
+<li><p>Un <strong>salto incondicional</strong> es una ruptura abrupta del flujo de control del programa hacia otro punto del mismo.</p></li>
+<li><p>Se llama <em>incondicional</em> porque no depende de ninguna condición, es decir, se lleva a cabo <strong>siempre</strong> que se alcanza el punto del salto.</p></li>
+<li><p>Históricamente, a esa instrucción que realiza saltos incondicionales se la ha llamado <strong>instrucción <em>GOTO</em></strong>.</p></li>
+<li><p>El uso de instrucciones <em>GOTO</em> es considerado, en general, una mala práctica de programación ya que favorece la creación del llamado <strong>código <em>espagueti</em></strong>: programas con una estructura de control tan complicada que resultan casi imposibles de mantener.</p></li>
+<li><p>En cambio, usados controladamente y de manera local, puede ayudar a escribir soluciones sencillas y claras.</p></li>
+</ul></section><section class="slide level4">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular instalando un paquete llamado <code>goto-statement</code>:</p>
+<pre class="shell"><code>$ pip3 install --user goto-statement</code></pre></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Un ejemplo de uso:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb10-2" title="2"></a>
+<a class="sourceLine" id="cb10-3" title="3">CODE<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">start = 2</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">stop = 25</span></a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">i = start</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">result = []</span></a>
+<a class="sourceLine" id="cb10-9" title="9"></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="st">label .begin</span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="st">if i == stop:</span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="st">    goto .end</span></a>
+<a class="sourceLine" id="cb10-13" title="13"></a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="st">result.append(i)</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="st">i += 1</span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="st">goto .begin</span></a>
+<a class="sourceLine" id="cb10-17" title="17"></a>
+<a class="sourceLine" id="cb10-18" title="18"><span class="st">label .end</span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="st">print(result)</span></a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb10-21" title="21"></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODE, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
+</ul>
+</div>
+</div>
+</section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales</h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
     </div>
   </div>
 
