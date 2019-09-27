@@ -2,6 +2,8 @@
 title: Programación imperativa
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @pareja_flores_desarrollo_1997, @aguilar_fundamentos_2008
 ---
 
 # Modelo de ejecución
@@ -355,6 +357,7 @@ variable -> valor [label = "estado"]
 
   ```python
   >>> nombre = input('Introduce tu nombre: ')
+  Introduce tu nombre: Ramón
   >>> print('Hola,', nombre)
   Hola, Ramón
   ```
@@ -397,6 +400,15 @@ variable -> valor [label = "estado"]
   $ pip3 install --user goto-statement
   ```
 
+- Sintaxis:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(goto) ::= !T(goto) !NT(etiqueta)
+!NT(label) ::= !T(label) !NT(etiqueta)
+!NT(etiqueta) ::= !T(.)!NT(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 :::
 
 ::: column
@@ -406,26 +418,15 @@ variable -> valor [label = "estado"]
   ```python
   from goto import with_goto
 
-  CODE="""
-  start = 2
-  stop = 25
-
-  i = start
-  result = []
-
-  label .begin
-  if i == stop:
-      goto .end
-
-  result.append(i)
-  i += 1
-  goto .begin
-
-  label .end
-  print(result)
+  CODIGO="""
+  print('Esto se hace')
+  goto .fin
+  print('Esto se salta')
+  label .fin
+  print('Aquí se acaba')
   """
 
-  exec(with_goto(compile(CODE, '', 'exec')))
+  exec(with_goto(compile(CODIGO, '', 'exec')))
   ```
 
 :::
@@ -434,5 +435,41 @@ variable -> valor [label = "estado"]
 
 ## Condicionales
 
-## Implementación de bucles mediante saltos condicionales
+- Un **salto condicional** es un salto que se lleva a cabo sólo si se cumple
+  una determinada condición.
 
+- En Python, usando el paquete `with_goto`, podríamos implementarlo de la
+  siguiente forma:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(salto_condicional) ::= !T(if) !NT(condición)!T(:) !T(goto) !NT(etiqueta)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Ejemplo de uso:
+
+  ```python
+  from goto import with_goto
+
+  CODIGO="""
+  primero = 2
+  ultimo = 25
+
+  i = primero
+
+  label .inicio
+  if i == ultimo: goto .fin
+
+  print(i, end=' ')
+  i += 1
+  goto .inicio
+
+  label .fin
+  """
+
+  exec(with_goto(compile(CODIGO, '', 'exec')))
+  ```
+
+!BIBLIOGRAFIA

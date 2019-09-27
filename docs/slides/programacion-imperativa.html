@@ -217,6 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/asignación-destructiva"><span class="toc-section-number">2</span> Asignación destructiva</a></li>
 <li><a href="#/efectos-laterales"><span class="toc-section-number">3</span> Efectos laterales</a></li>
 <li><a href="#/saltos"><span class="toc-section-number">4</span> Saltos</a></li>
+<li><a href="#/bibliografía">Bibliografía</a></li>
 </ul>
 </section>
 </section>
@@ -379,8 +380,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="line-block"><span style="color:teal"><em>&lt;input&gt;</em></span> ::= <strong><code>input</code><code>(</code></strong>[<span style="color:teal"><em>&lt;prompt&gt;</em></span>]<strong><code>)</code></strong></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</a>
-<a class="sourceLine" id="cb8-3" title="3">Hola, Ramón</a></code></pre></div></li>
+<a class="sourceLine" id="cb8-2" title="2">Introduce tu nombre: Ramón</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</a>
+<a class="sourceLine" id="cb8-4" title="4">Hola, Ramón</a></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 </ul></section></section>
 <section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Incondicionales</h2><ul>
@@ -396,36 +398,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular instalando un paquete llamado <code>goto-statement</code>:</p>
 <pre class="shell"><code>$ pip3 install --user goto-statement</code></pre></li>
+<li><p>Sintaxis:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;goto&gt;</em></span> ::= <strong><code>goto</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span><br />
+<span style="color:teal"><em>&lt;label&gt;</em></span> ::= <strong><code>label</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span><br />
+<span style="color:teal"><em>&lt;etiqueta&gt;</em></span> ::= <strong><code>.</code></strong><span style="color:teal"><em>&lt;identificador&gt;</em></span></div></li>
 </ul>
 </div><div class="column">
 <ul>
 <li><p>Un ejemplo de uso:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3">CODE<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="st">start = 2</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="st">stop = 25</span></a>
-<a class="sourceLine" id="cb10-6" title="6"></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="st">i = start</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="st">result = []</span></a>
-<a class="sourceLine" id="cb10-9" title="9"></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="st">label .begin</span></a>
-<a class="sourceLine" id="cb10-11" title="11"><span class="st">if i == stop:</span></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="st">    goto .end</span></a>
-<a class="sourceLine" id="cb10-13" title="13"></a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="st">result.append(i)</span></a>
-<a class="sourceLine" id="cb10-15" title="15"><span class="st">i += 1</span></a>
-<a class="sourceLine" id="cb10-16" title="16"><span class="st">goto .begin</span></a>
-<a class="sourceLine" id="cb10-17" title="17"></a>
-<a class="sourceLine" id="cb10-18" title="18"><span class="st">label .end</span></a>
-<a class="sourceLine" id="cb10-19" title="19"><span class="st">print(result)</span></a>
-<a class="sourceLine" id="cb10-20" title="20"><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb10-21" title="21"></a>
-<a class="sourceLine" id="cb10-22" title="22"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODE, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
+<a class="sourceLine" id="cb10-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">print(&#39;Esto se hace&#39;)</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">goto .fin</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">print(&#39;Esto se salta&#39;)</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">print(&#39;Aquí se acaba&#39;)</span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb10-10" title="10"></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
 </ul>
 </div>
 </div>
-</section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales</h2></section><section id="implementación-de-bucles-mediante-saltos-condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementación de bucles mediante saltos condicionales</h2></section></section>
+</section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Condicionales</h2><ul>
+<li><p>Un <strong>salto condicional</strong> es un salto que se lleva a cabo sólo si se cumple una determinada condición.</p></li>
+<li><p>En Python, usando el paquete <code>with_goto</code>, podríamos implementarlo de la siguiente forma:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;salto_condicional&gt;</em></span> ::= <strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span><strong><code>:</code></strong> <strong><code>goto</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Ejemplo de uso:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="st">primero = 2</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">ultimo = 25</span></a>
+<a class="sourceLine" id="cb11-6" title="6"></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">i = primero</span></a>
+<a class="sourceLine" id="cb11-8" title="8"></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="st">label .inicio</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="st">if i == ultimo: goto .fin</span></a>
+<a class="sourceLine" id="cb11-11" title="11"></a>
+<a class="sourceLine" id="cb11-12" title="12"><span class="st">print(i, end=&#39; &#39;)</span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="st">i += 1</span></a>
+<a class="sourceLine" id="cb11-14" title="14"><span class="st">goto .inicio</span></a>
+<a class="sourceLine" id="cb11-15" title="15"></a>
+<a class="sourceLine" id="cb11-16" title="16"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb11-17" title="17"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb11-18" title="18"></a>
+<a class="sourceLine" id="cb11-19" title="19"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
+</ul>
+</section></section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
+<div id="ref-aguilar_fundamentos_2008">
+<p>Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>. Aravaca: McGraw-Hill Interamericana de España.</p>
+</div>
+<div id="ref-pareja_flores_desarrollo_1997">
+<p>Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada, and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos Y Técnicas de Programación En Pascal</em>. Madrid: Ra-Ma.</p>
+</div>
+</div></section>
     </div>
   </div>
 
