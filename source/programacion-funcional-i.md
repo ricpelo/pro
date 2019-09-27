@@ -431,37 +431,7 @@ endwhile (no)
 
   - Quitar los paréntesis más externos que rodean a toda la expresión.
 
-  - Acudir a un esquema de **asociatividades** y **prioridades** de operadores.
-
-### Asociatividad de operadores
-
-- En ausencia de paréntesis, cuando un operando está afectado a derecha e
-  izquierda por el **mismo operador**, se aplican las reglas de la
-  **asociatividad**:
-
-  ```python
-  8 / 4 / 2
-  ```
-
-  El `4` está afectado a derecha e izquierda por el mismo operador `/`, por lo
-  que se aplican las reglas de la asociatividad. El `/` es *asociativo por la
-  izquierda*, así que se actúa primero el operador que está a la izquierda.
-  Equivale a hacer:
-
-  ```python
-  (8 / 4) / 2
-  ```
-
-  Si hiciéramos
-  
-  ```python
-  8 / (4 / 2)
-  ```
-  
-  el resultado sería distinto.
-
-- En Python, todos los operadores son **asociativos por la izquierda** excepto
-  el `**`, que es asociativo por la derecha.
+  - Acudir a un esquema de **prioridades** y **asociatividades** de operadores.
 
 ### Prioridad de operadores
 
@@ -491,6 +461,36 @@ endwhile (no)
 
 - Ver prioridad de los operadores en Python en
   [https://docs.python.org/3/reference/expressions.html#operator-precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence){target="_blank"}.
+
+### Asociatividad de operadores
+
+- En ausencia de paréntesis, cuando un operando está afectado a derecha e
+  izquierda por el **mismo operador** (o distintos operadores con la **misma
+  prioridad**), se aplican las reglas de la **asociatividad**:
+
+  ```python
+  8 / 4 / 2
+  ```
+
+  El `4` está afectado a derecha e izquierda por el mismo operador `/`, por lo
+  que se aplican las reglas de la asociatividad. El `/` es *asociativo por la
+  izquierda*, así que se actúa primero el operador que está a la izquierda.
+  Equivale a hacer:
+
+  ```python
+  (8 / 4) / 2
+  ```
+
+  Si hiciéramos
+  
+  ```python
+  8 / (4 / 2)
+  ```
+  
+  el resultado sería distinto.
+
+- En Python, todos los operadores son **asociativos por la izquierda** excepto
+  el `**`, que es asociativo por la derecha.
 
 ## Funciones y métodos
 
