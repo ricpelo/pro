@@ -740,6 +740,26 @@ endwhile (no)
     pueden realizar otras operaciones (la *concatenación*, la *indexación*,
     etc.).
 
+### `type`
+
+- La función `type` devuelve el tipo de un valor:
+
+  ```python
+  >>> type(3)
+  <class 'int'>
+  >>> type(3.0)
+  <class 'float'>
+  >>> type('hola')
+  <class 'str'>
+  ```
+
+- Es muy útil para saber el tipo de una expresión compleja:
+
+  ```python
+  >>> type(3 + 4.5 ** 2)
+  <class 'float'>
+  ```
+
 ### Sistema de tipos
 
 - El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un

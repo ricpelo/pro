@@ -226,6 +226,129 @@ variable -> valor [label = "estado"]
   PI = 99
   ```
 
+# Mutabilidad
+
+## Tipos mutables e inmutables
+
+- En Python existen tipos cuyos valores son *inmutables* y otros que son
+  *mutables*.
+
+- Un valor **inmutable** es aquel cuyo estado interno no puede cambiar durante
+  la ejecución del programa.
+
+  Los principales tipos inmutables son los números (`int` y `float`), los
+  booleanos (`bool`) y las cadenas (`str`).
+
+- Un valor **mutable** puede cambiar durante la ejecución del programa.
+
+  El principal tipo mutable es la lista (`list`).
+
+### Inmutables
+
+- Un valor de un tipo inmutable no se puede cambiar.
+
+:::::: columns
+
+:::: column
+
+Por ejemplo, si tenemos:
+
+  ```python
+  x = 4
+  y = 5
+  ```
+
+!DOT(inmutable1.svg)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+4 [shape = circle, width = 0.3, fixedsize = shape]
+5 [shape = circle, width = 0.3, fixedsize = shape]
+v1 [label = "⬤", width = 0.5, fixedsize = true]
+v2 [label = "⬤", width = 0.5, fixedsize = true]
+x -> v1 -> 4
+y -> v2 -> 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+:::: column
+
+Y hacemos:
+
+  ```python
+  x = 5
+  ```
+
+Quedaría:
+
+!DOT(inmutable2.svg)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+5 [shape = circle, width = 0.3, fixedsize = shape]
+v1 [label = "⬤", width = 0.5, fixedsize = true]
+v2 [label = "⬤", width = 0.5, fixedsize = true]
+x -> v1 -> 5
+y -> v2 -> 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+::::::
+
+---
+
+- Con las cadenas sería exactamente igual.
+
+- Si tenemos:
+
+  ```python
+  x = 'hola'
+  ```
+
+  !DOT(inmutable3.svg)()(width=30%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  x [shape = plaintext, fillcolor = transparent]
+  hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
+  x -> hola
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  y luego hacemos:
+
+  ```python
+  x = 'hola manolo'
+  ```
+
+  **se crea una nueva cadena** y se la asignamos a la variable `x`.
+  
+  Es decir:
+  la cadena `'hola'` original **no se cambia**, sino que desaparece y queda
+  **sustituida por una nueva**.
+
+  !DOT(inmutable4.svg)()(width=30%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  x [shape = plaintext, fillcolor = transparent]
+  hola [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
+  x -> hola
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Mutables
+
+......
+
+### Alias de variables
+
+......
+
+#### `id`
+
+......
+
 # Efectos laterales
 
 ## Concepto
@@ -287,9 +410,9 @@ variable -> valor [label = "estado"]
   producen cambios en el exterior o pueden provocar que el resultado de una
   función dependa de los datos leídos.
 
-### La función `print()`
+### `print`
 
-- La función `print()` imprime (*escribe*) por la salida (normalmente la
+- La función `print` imprime (*escribe*) por la salida (normalmente la
   pantalla) el valor de una o varias expresiones.
 
 - Su sintaxis es:
@@ -316,32 +439,32 @@ variable -> valor [label = "estado"]
 
 #### El valor `None`
 
-- Es importante resaltar que la función `print()` **no devuelve** el valor de
+- Es importante resaltar que la función `print` **no devuelve** el valor de
   las expresiones, sino que las **imprime** (provoca el efecto lateral de
   cambiar el estado de la pantalla haciendo que aparezcan nuevos caracteres.
 
-- La función `print()` como tal no devuelve ningún valor, pero como en Python
+- La función `print` como tal no devuelve ningún valor, pero como en Python
   todas las funciones devuelven *algún* valor, en realidad lo que ocurre es que
   **devuelve un valor `None`**.
 
 - `None` es un valor especial que significa **ningún valor** y se utiliza
   principalmente para casos en los que no tiene sentido que una función
-  devuelva un valor determinado, como es el caso de `print()`.
+  devuelva un valor determinado, como es el caso de `print`.
 
 - Pertenece a un tipo de datos especial llamado `NoneType` cuyo único valor
   posible es `None`.
 
-- Podemos comprobar que, efectivamente, `print()` devuelve `None`:
+- Podemos comprobar que, efectivamente, `print` devuelve `None`:
 
   ```python
   >>> print('hola', 'pepe', 23) == True
-  hola pepe 23  # ésto es lo que imprime print()
-  True          # ésto es el resultado de comparar el valor de print() con True
+  hola pepe 23  # ésto es lo que imprime print
+  True          # ésto es el resultado de comparar el valor de print con True
   ```
 
-### La función `input()`
+### `input`
 
-- La función `input()` *lee* datos desde la entrada (normalmente el teclado) y
+- La función `input` *lee* datos desde la entrada (normalmente el teclado) y
   devuelve el valor del dato introducido.
 
 - Siempre devuelve una **cadena**.
