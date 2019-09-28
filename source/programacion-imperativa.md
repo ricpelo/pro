@@ -14,7 +14,7 @@ nocite: |
   concepto de **sentencia**.
 
 - Un programa imperativo está formado por una sucesión de sentencias que se
-  ejecutan en un orden determinado.
+  ejecutan **en orden**.
 
 - Una sentencia es una instrucción del programa que lleva a cabo una de estas
   acciones:
@@ -253,10 +253,10 @@ variable -> valor [label = "estado"]
 
 Por ejemplo, si tenemos:
 
-  ```python
-  x = 4
-  y = 5
-  ```
+```python
+x = 4
+y = 5
+```
 
 !DOT(inmutable1.svg)()(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -265,8 +265,8 @@ y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
 4 [shape = circle, width = 0.3, fixedsize = shape]
 5 [shape = circle, width = 0.3, fixedsize = shape]
-v1 [label = "⬤", width = 0.5, fixedsize = true]
-v2 [label = "⬤", width = 0.5, fixedsize = true]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 x -> v1 -> 4
 y -> v2 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -275,13 +275,13 @@ y -> v2 -> 5
 
 :::: column
 
-Y hacemos:
+y hacemos:
 
-  ```python
-  x = 5
-  ```
+```python
+x = 5
+```
 
-Quedaría:
+quedaría:
 
 !DOT(inmutable2.svg)()(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -289,8 +289,8 @@ node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
 5 [shape = circle, width = 0.3, fixedsize = shape]
-v1 [label = "⬤", width = 0.5, fixedsize = true]
-v2 [label = "⬤", width = 0.5, fixedsize = true]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 x -> v1 -> 5
 y -> v2 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -298,6 +298,8 @@ y -> v2 -> 5
 ::::
 
 ::::::
+
+- Por tanto, las variables comparten el valor inmutable común.
 
 ---
 
@@ -309,12 +311,13 @@ y -> v2 -> 5
   x = 'hola'
   ```
 
-  !DOT(inmutable3.svg)()(width=30%)
+  !DOT(inmutable3.svg)()(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
+  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
   hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
-  x -> hola
+  x -> v1 -> hola
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   y luego hacemos:
@@ -329,17 +332,142 @@ y -> v2 -> 5
   la cadena `'hola'` original **no se cambia**, sino que desaparece y queda
   **sustituida por una nueva**.
 
-  !DOT(inmutable4.svg)()(width=30%)
+  !DOT(inmutable4.svg)()(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
+  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
   hola [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
-  x -> hola
+  x -> v1 -> hola
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por tanto, con las cadenas pasa lo mismo que con los números (ya que ambos
+  son inmutables).
+
+:::::: columns
+
+:::: column
+
+Si tenemos:
+
+```python
+x = 'hola'
+y = 'pepe'
+```
+
+!DOT(inmutable5.svg)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+hola [shape = ellipse, width = 1.0, fixedsize = true, label = "'hola'"]
+pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> hola
+y -> v2 -> pepe
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+:::: column
+
+y hacemos:
+
+```python
+x = 'pepe'
+```
+
+quedaría:
+
+!DOT(inmutable6.svg)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> pepe
+y -> v2 -> pepe
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+::::::
+
+- Es decir: las variables comparten el valor inmutable común (no es necesario
+  crear en memoria dos cadenas iguales, ya que nunca se van a poder modificar).
+
 
 ### Mutables
 
-......
+- Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
+  interno durante la ejecución del programa.
+
+- Hasta ahora, hemos visto un único tipo mutable: la **lista**.
+
+- Una lista puede cambiar el valor de sus elementos, aumentar o disminuir de
+  tamaño.
+
+- Al cambiar el estado de una lista no se crea una nueva lista, sino que **se
+  modifica la ya existente**:
+
+  ```python
+  >>> x = [24, 32, 15, 81]
+  >>> x[0] = 99
+  >>> x
+  [99, 32, 15, 81]
+  ```
+
+---
+
+- Una lista se puede modificar usando:
+
+  - El *operador* de **indexación**, que consiste en acceder al elemento
+    situado en la posición indicada entre corchetes:
+
+    ```
+     +-----+-----+-----+-----+-----+-----+
+     | 124 | 333 | 'a' | 3.2 |  4  |  53 |
+     +-----+-----+-----+-----+-----+-----+
+        0     1     2     3     4     5
+       -6    -5    -4    -3    -2    -1
+    ```
+
+    ```python
+    >>> x = [124, 333, 'a', 3.2, 4, 53]
+    >>> x[3]
+    3.2
+    >>> x[3] = 99
+    >>> x
+    [124, 333, 'a', 99, 4, 53] 
+    ```
+
+  - *Métodos* propios de las listas, como `append`, `clear`, `insert`,
+    `remove`, `reverse` o `sort`.
+
+---
+
+Partiendo de `x = [8, 10, 7, 9]`:
+
+---------------------------------------------------------------------------
+Ejemplo           Valor de `x` después Descripción         
+----------------- -------------------- ------------------------------------
+`x.append(14)`    `[8, 10, 7, 9, 14]`  Añade al final      
+                                                           
+`x.clear()`       `[]`                 Limpiar entera      
+                                                           
+`x.insert(3, 66)` `[8, 10, 7, 66, 9]`  Inserta en posición 
+                                                           
+`x.remove(7)`     `[8, 10, 9]`         Elimina elemento (primera aparición)
+                                                           
+`x.reverse()`     `[9, 7, 10, 8]`      Invierte elementos  
+                                                           
+`x.sort()`        `[7, 8, 9, 10]`      Ordena elementos    
+---------------------------------------------------------------------------
 
 ### Alias de variables
 
