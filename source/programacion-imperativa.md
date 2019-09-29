@@ -893,7 +893,7 @@ True
 
 - Es importante resaltar que la función `print` **no devuelve** el valor de
   las expresiones, sino que las **imprime** (provoca el efecto lateral de
-  cambiar el estado de la pantalla haciendo que aparezcan nuevos caracteres.
+  cambiar la pantalla haciendo que aparezcan nuevos caracteres).
 
 - La función `print` como tal no devuelve ningún valor, pero como en Python
   todas las funciones devuelven *algún* valor, en realidad lo que ocurre es que
@@ -904,14 +904,15 @@ True
   devuelva un valor determinado, como es el caso de `print`.
 
 - Pertenece a un tipo de datos especial llamado `NoneType` cuyo único valor
-  posible es `None`.
-
+  posible es `None`, y para comprobar si un valor es `None` se usa !NT(valor)
+  `is None`.
+  
 - Podemos comprobar que, efectivamente, `print` devuelve `None`:
 
   ```python
-  >>> print('hola', 'pepe', 23) == True
+  >>> print('hola', 'pepe', 23) is None
   hola pepe 23  # ésto es lo que imprime print
-  True          # ésto es el resultado de comparar el valor de print con True
+  True          # ésto es el resultado de comprobar si el valor de print es None
   ```
 
 ### `input`
