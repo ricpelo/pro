@@ -236,16 +236,19 @@ variable -> valor [label = "estado"]
 - Un valor **inmutable** es aquel cuyo estado interno no puede cambiar durante
   la ejecución del programa.
 
-  Los principales tipos inmutables son los números (`int` y `float`), los
-  booleanos (`bool`) y las cadenas (`str`).
+  Los tipos inmutables en Python son los números (`int` y `float`), los
+  booleanos (`bool`), las cadenas (`str`), las tuplas (`tuple`) y los conjuntos
+  congelados (`frozenset`).
 
-- Un valor **mutable** puede cambiar durante la ejecución del programa.
+- Un valor **mutable** es aquel cuyo estado interno (su **contenido**) puede
+  cambiar durante la ejecución del programa.
 
-  El principal tipo mutable es la lista (`list`).
+  El principal tipo mutable en Python es la lista (`list`), pero también están
+  los conjuntos (`set`) y los diccionarios (`dict`).
 
 ### Inmutables
 
-- Un valor de un tipo inmutable no se puede cambiar.
+- Un valor de un tipo inmutable no puede cambiar su contenido.
 
 :::::: columns
 
@@ -286,20 +289,25 @@ quedaría:
 !DOT(inmutable2.svg)()(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
-5 [shape = circle, width = 0.3, fixedsize = shape]
+x [shape = plaintext, fillcolor = transparent]
+c2 [shape = circle, width = 0.3, fixedsize = shape, label = "5"]
+c1 [shape = circle, width = 0.3, fixedsize = shape, label = "5"]
+4 [shape = circle, width = 0.3, fixedsize = shape]
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> 5
-y -> v2 -> 5
+x -> v1 -> c1
+v1 -> 4 [style = dashed, color = grey]
+y -> v2 -> c2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::::
 
 ::::::
 
-- Por tanto, las variables comparten el valor inmutable común.
+- Lo que hace la asignación `x = 5` no es cambiar el contenido del valor `5`,
+  sino hacer que la variable `x` contenga otro valor distinto (el valor `4` no
+  se modifica en ningún momento).
 
 ---
 
@@ -311,7 +319,7 @@ y -> v2 -> 5
   x = 'hola'
   ```
 
-  !DOT(inmutable3.svg)()(width=40%)
+  !DOT(inmutable3.svg)()(width=40%)(width=30%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
@@ -332,74 +340,16 @@ y -> v2 -> 5
   la cadena `'hola'` original **no se cambia**, sino que desaparece y queda
   **sustituida por una nueva**.
 
-  !DOT(inmutable4.svg)()(width=40%)
+  !DOT(inmutable4.svg)()(width=50%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
   v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-  hola [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
-  x -> v1 -> hola
+  holamanolo [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
+  hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
+  x -> v1 -> holamanolo
+  v1 -> hola [style = dashed, color = grey]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Por tanto, con las cadenas pasa lo mismo que con los números (ya que ambos
-  son inmutables).
-
-:::::: columns
-
-:::: column
-
-Si tenemos:
-
-```python
-x = 'hola'
-y = 'pepe'
-```
-
-!DOT(inmutable5.svg)()(width=50%)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-y [shape = plaintext, fillcolor = transparent]
-x [shape = plaintext, fillcolor = transparent]
-hola [shape = ellipse, width = 1.0, fixedsize = true, label = "'hola'"]
-pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> hola
-y -> v2 -> pepe
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::::
-
-:::: column
-
-y hacemos:
-
-```python
-x = 'pepe'
-```
-
-quedaría:
-
-!DOT(inmutable6.svg)()(width=50%)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> pepe
-y -> v2 -> pepe
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::::
-
-::::::
-
-- Es decir: las variables comparten el valor inmutable común (no es necesario
-  crear en memoria dos cadenas iguales, ya que nunca se van a poder modificar).
 
 ---
 
@@ -500,28 +450,6 @@ s | P | y | t | h | o | n |
 
 ::::
 
----
-
-- Hemos visto que los números y las cadenas **comparten** sus valores entre
-  variables.
-
-- Pero es importante tener en cuenta que **no todos los tipos inmutables
-  comparten sus valores** entre variables.
-
-- Hay valores de tipos inmutables, como las **tuplas** y los **rangos**, que
-  aún siendo inmutables no comparten sus valores entre variables.
-
-- Por tanto, lo que podemos afirmar es que:
-
-  - Si son **mutables**, **seguro que no** comparten sus valores.
-
-  - Si son **inmutables**, **puede** que los compartan (números y cadenas) y
-    puede que no (tuplas, rangos, etc.).
-
-- En la práctica, no es demasiado importante saber si se comparten o no los
-  valores entre variables. Importa más saber si dos identificadores comparten
-  variable (cosa que veremos luego).
-
 ### Mutables
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
@@ -547,7 +475,7 @@ s | P | y | t | h | o | n |
 - Las listas, como toda secuencia mutable, se pueden modificar usando ciertas
   operaciones:
 
-  - Los *operadores* de **indexación** y **slicing**:
+  - Los *operadores* de **indexación** y **slicing**: !ifdef(LATEX)(\newpage)
 
     ```
      +-----+-----+-----+-----+-----+-----+
@@ -635,16 +563,16 @@ Ejemplo           Valor de `x` después
 
 ### Alias de variables
 
-- Cuando una variable que contiene un valor mutable se asigna a otra, se
-  produce un fenómeno conocido como **alias de variables**, según el cual los
-  dos identificadores se ligan a **la misma variable** (la comparten):
+- Cuando una variable que contiene un valor se asigna a otra, se produce un
+  fenómeno conocido como **alias de variables**, según el cual los dos
+  identificadores se ligan a **la misma variable** (la comparten):
 
   ```python
   x = [6, 7, 8, 9]
-  y = x
+  y = x  # x se asigna a y
   ```
 
-  !DOT(alias.svg)()(width=40%)
+  !DOT(alias1.svg)()(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
@@ -655,8 +583,8 @@ Ejemplo           Valor de `x` después
   y -> v1 -> lista
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por tanto, si cambiamos la lista desde `x`, `y` también cambiará y viceversa
-  (porque en realidad ambas son **la misma variable**):
+- Ahora, si el valor es **mutable** y cambiamos su **contenido** desde `x`,
+  también cambiará `y` (y viceversa), pues ambas son **la misma variable**:
 
   ```python
   >>> y[2] = 40
@@ -664,21 +592,185 @@ Ejemplo           Valor de `x` después
   [6, 7, 40, 9]
   ```
 
+---
+
+- No es lo mismo cambiar el **valor** que cambiar el **contenido** del valor.
+
+- Cambiar el **contenido** es algo que sólo se puede hacer si el valor es
+  **mutable** (por ejemplo, cambiando un elemento de una lista):
+
+:::: columns
+
+::: {.column width=40%}
+
+```python
+>>> x = [6, 7, 8, 9]
+>>> y = x
+>>> y[2] = 40
+```
+
+:::
+
+::: {.column width=60%}
+
+!DOT(alias2.svg)()(width=50%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|40|9}"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1
+y -> v1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+- Cambiar el **valor** es algo que **siempre** se puede hacer simplemente
+  **asignando** a la variable **un nuevo valor**:
+
+:::: columns
+
+::: {.column width=40%}
+
+```python
+>>> y = [1, 2, 3]
+```
+
+:::
+
+::: {.column width=60%}
+
+!DOT(alias3.svg)()(width=50%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+lista1 [shape = record, width = 1.5, fixedsize = true, label = "{6|7|40|9}"]
+lista2 [shape = record, width = 1.5, fixedsize = true, label = "{1|2|3}"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista1
+y -> v2 -> lista2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- El intérprete puede crear alias de variables **implícitamente** para ahorrar
+  memoria y sin que seamos conscientes de ello.
+
+- No tiene mucha importancia práctica, aunque es interesante saberlo en ciertos
+  casos.
+
+- Por ejemplo, el intérprete de Python crea internamente una variable para cada
+  número entero comprendido entre $-5$ y $256$, por lo que todas las variables
+  de nuestro programa que contengan el mismo valor dentro de ese intervalo
+  compartirán el mismo espacio en memoria (serán alias):
+
+:::: columns
+
+::: {.column width=40%}
+
+```python
+x = 5
+y = 5
+```
+
+:::
+
+::: {.column width=60%}
+
+!DOT(inmutable5.svg)()(width=50%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+5 [shape = circle, width = 0.3, fixedsize = shape]
+v [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v -> 5
+y -> v
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- También crea variables compartidas cuando contienen exactamente las mismas
+  cadenas.
+
+:::::: columns
+
+:::: column
+
+Si tenemos:
+
+```python
+x = 'hola'
+y = 'pepe'
+```
+
+!DOT(inmutable6.svg)()(width=60%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+hola [shape = ellipse, width = 1.0, fixedsize = true, label = "'hola'"]
+pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> hola
+y -> v2 -> pepe
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+:::: column
+
+y hacemos:
+
+```python
+x = 'pepe'
+```
+
+quedaría:
+
+!DOT(inmutable7.svg)()(width=60%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> pepe
+y -> v1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::::
+
+::::::
+
+- El intérprete aprovecharía la variable ya creada y no crearía una nueva, para
+  ahorrar memoria.
+
 #### `id`
 
-- Para saber si dos objetos son realmente **el mismo objeto** en memoria, se
-  puede usar la función `id`.
+- Para saber si dos variables son realmente **la misma variable**, se puede
+  usar la función `id`.
 
-- La **función `id`** devuelve un identificador único para cada objeto en
+- La **función `id`** devuelve un identificador único para cada dato en
   memoria.
 
-- Por tanto, si dos objetos tienen el mismo `id`, significa que son realmente
-  el mismo objeto.
-
-- **En general**, como ya estudiamos antes, los objetos inmutables idénticos
-  tendrán el **mismo `id`** (aunque **no siempre**, depende del tipo de
-  objeto), mientras que los mutables tendrán siempre **`id` diferentes**, pues
-  serán siempre objetos distintos:
+- Por tanto, si dos variables tienen el mismo `id`, significa que son realmente
+  la misma variable (están situadas en la misma celda de la memoria).
 
 :::: columns
 
