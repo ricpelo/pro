@@ -401,6 +401,104 @@ y -> v2 -> pepe
 - Es decir: las variables comparten el valor inmutable común (no es necesario
   crear en memoria dos cadenas iguales, ya que nunca se van a poder modificar).
 
+---
+
+- Aunque las cadenas son datos inmutables, también son datos compuestos y
+  podemos acceder individualmente a sus elementos componentes y operar con
+  ellos aunque no podamos cambiarlos.
+
+- Para ello podemos usar las operaciones comunes a toda secuencia de elementos
+  (una cadena también es una **secuencia de caracteres**):
+
+---------------------------------------------------------------------------
+Operación           Resultado                
+------------------- --------------------------------------------------
+$x$ `in` $s$        `True` si $x$ está en $s$
+
+$x$ `not in` $s$    Lo contrario
+
+$s$`[`$i$`]`        (*Indexación*) El $i$-ésimo elemento de $s$, empezando
+                    por 0
+
+$s$`[`$i$`:`$j$`]`  (*Slicing*) Rodaja de $s$ desde $i$ hasta $j$
+
+$s$`[`$i$`:`$j$
+`:`$k$`]`           Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
+
+$s$`.index(`$x$`)`  Índice de la primera aparición de $x$ en $s$
+
+$s$`.count(`$x$`)`  Número de veces que aparece $x$ en $s$
+---------------------------------------------------------------------------
+
+---
+
+- El *operador* de **indexación** consiste en acceder al elemento situado en la
+  posición indicada entre corchetes:
+
+:::: columns
+
+::: {.column width=60%}
+
+```
+  +-----+-----+-----+-----+-----+-----+
+s | 124 | 333 | 'a' | 3.2 |  9  |  53 |
+  +-----+-----+-----+-----+-----+-----+
+     0     1     2     3     4     5
+    -6    -5    -4    -3    -2    -1
+```
+
+:::
+
+::: {.column width=40%}
+
+```python
+>>> s[2]
+'a'
+>>> s[-2]
+9
+```
+
+:::
+
+::::
+
+<br>
+\vspace{2em}
+
+- El **slicing** (*hacer rodajas*) es una operación que consiste en obtener una
+  subsecuencia a partir de una secuencia, indicando los índices de los
+  elementos inicial y final de la misma:
+
+:::: columns
+
+::: column
+
+```
+  +---+---+---+---+---+---+
+s | P | y | t | h | o | n |
+  +---+---+---+---+---+---+
+  0   1   2   3   4   5   6
+ -6  -5  -4  -3  -2  -1
+```
+
+:::
+
+::: column
+
+```python
+>>> s[0:2]
+'Py'
+>>> s[-5:-4]
+'y'
+>>> s[-4:-5]
+''
+>>> s[0:4:2]
+'Pt'
+```
+
+:::
+
+::::
 
 ### Mutables
 
@@ -424,26 +522,26 @@ y -> v2 -> pepe
 
 ---
 
-- Una lista se puede modificar usando:
+- Las listas, como toda secuencia mutable, se puede modificar usando ciertas
+  operaciones:
 
-  - El *operador* de **indexación**, que consiste en acceder al elemento
-    situado en la posición indicada entre corchetes:
+  - Los *operador* de **indexación** y **slicing**:
 
     ```
      +-----+-----+-----+-----+-----+-----+
-     | 124 | 333 | 'a' | 3.2 |  4  |  53 |
+     | 124 | 333 | 'a' | 3.2 |  9  |  53 |
      +-----+-----+-----+-----+-----+-----+
         0     1     2     3     4     5
        -6    -5    -4    -3    -2    -1
     ```
 
     ```python
-    >>> x = [124, 333, 'a', 3.2, 4, 53]
-    >>> x[3]
+    >>> l = [124, 333, 'a', 3.2, 9, 53]
+    >>> l[3]
     3.2
-    >>> x[3] = 99
-    >>> x
-    [124, 333, 'a', 99, 4, 53] 
+    >>> l[3] = 99
+    >>> l
+    [124, 333, 'a', 99, 9, 53] 
     ```
 
   - *Métodos* propios de las listas, como `append`, `clear`, `insert`,
@@ -451,23 +549,64 @@ y -> v2 -> pepe
 
 ---
 
+($\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
+cualquiera)
+
+-----------------------------------------------------------------------------------
+Operación             Resultado                
+--------------------  -------------------------------------------------------------
+$s$`[`$i$`] = ` $x$   El elemento $i$-ésimo de $s$ se sustituye por $x$
+                     
+$s$`[`$i$`:`$j$`]`   
+`=` $t$               La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
+                     
+$s$`[`$i$`:`$j$`:    
+`$k$`]` `=` $t$       Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por $t$
+                     
+`del` $s$`[`$i$`:    
+`$j$`]`               Elimina los elementos de $s$`[`$i$`:`$j$`]` $\leftrightarrow$
+                      $s$`[`$i$`:`$j$`]` `=` `[]`
+                     
+`del` $s$`[`$i$`:    
+`$j$`:`$k$`]`         Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
+                     
+$s$`.append(`$x$`)`   Añade $x$ al final de $s$ $\leftrightarrow$
+                      $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
+                     
+$s$`.clear()`         Elimina todos los elementos de $s$ $\leftrightarrow$
+                      `del` $s$`[:]`
+                     
+$s$`.extend(`$t$`)`   Amplía $s$ con el contenido de $t$ $\leftrightarrow$ \
+ó \                   $s$`[len(`$s$`):len(`$s$`)]` `=` $t$
+$s$ `+=` $t$         
+                     
+$s$`.insert(`$i$      Inserta $x$ en $s$ en el índice $i$ $\leftrightarrow$
+`, ` $x$`)`           $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+
+$s$`.pop(`[$i=-1$]`)` Devuelve el elemento $i$-ésimo y lo elimina de $s$
+
+$s$`.remove(`$x$`)`   Elimina el primer elemento de $s$ que sea igual a $x$
+
+$s$`.reverse()`       Invierte los elementos de $s$
+-----------------------------------------------------------------------------------
+
+---
+
 Partiendo de `x = [8, 10, 7, 9]`:
 
----------------------------------------------------------------------------
-Ejemplo           Valor de `x` después Descripción         
------------------ -------------------- ------------------------------------
-`x.append(14)`    `[8, 10, 7, 9, 14]`  Añade al final      
-                                                           
-`x.clear()`       `[]`                 Limpiar entera      
-                                                           
-`x.insert(3, 66)` `[8, 10, 7, 66, 9]`  Inserta en posición 
-                                                           
-`x.remove(7)`     `[8, 10, 9]`         Elimina elemento (primera aparición)
-                                                           
-`x.reverse()`     `[9, 7, 10, 8]`      Invierte elementos  
-                                                           
-`x.sort()`        `[7, 8, 9, 10]`      Ordena elementos    
----------------------------------------------------------------------------
+-----------------------------------------
+Ejemplo           Valor de `x` después 
+----------------- ----------------------- 
+`x.append(14)`    `[8, 10, 7, 9, 14]`  
+                                       
+`x.clear()`       `[]`                  
+                                       
+`x.insert(3, 66)` `[8, 10, 7, 66, 9]`  
+                                       
+`x.remove(7)`     `[8, 10, 9]`         
+                                       
+`x.reverse()`     `[9, 7, 10, 8]`      
+-----------------------------------------
 
 ### Alias de variables
 

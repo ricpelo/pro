@@ -1137,14 +1137,14 @@ Función                    Descripción           Ejemplo                  Resu
 - La lista completa de funciones que incluye el módulo `math` se puede
   consultar en su documentación:
 
-  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html)
+  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="_blank"}
 
 ### Métodos predefinidos
 
 - Igualmente, en la documentación podemos encontrar una lista de métodos
   interesantes que operan con datos de tipo cadena:
 
-  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="_blank"}
 
 # Álgebra de Boole
 
