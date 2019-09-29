@@ -621,9 +621,43 @@ s | P | y | t | h | o | n |
 </tr>
 </tbody>
 </table>
-</section><section id="alias-de-variables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.3</span> Alias de variables</h3><p>……</p></section><section id="id" class="slide level4">
+</section><section id="alias-de-variables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.3</span> Alias de variables</h3><ul>
+<li><p>Cuando una variable que contiene un valor mutable se asigna a otra, se produce un fenómeno conocido como <strong>alias de variables</strong>, según el cual los dos identificadores se ligan a <strong>la misma variable</strong>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb18-2" title="2">y <span class="op">=</span> x</a></code></pre></div></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/alias.svg" class="plain" style="width:40.0%" /></p>
+</div>
+<ul>
+<li><p>Por tanto, si cambiamos la lista desde <code>x</code>, <code>y</code> también cambiará y viceversa (porque en realidad ambas son <strong>la misma variable</strong>):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb19-3" title="3">[<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">40</span>, <span class="dv">9</span>]</a></code></pre></div></li>
+</ul></section><section id="id" class="slide level4">
 <h4><span class="header-section-number">3.1.3.1</span> <code>id</code></h4>
-<p>……</p>
+<ul>
+<li><p>Para saber si dos objetos son realmente <strong>el mismo objeto</strong> en memoria, se puede usar la función <code>id</code>.</p></li>
+<li><p>La <strong>función <code>id</code></strong> devuelve un identificador único para cada objeto en memoria.</p></li>
+<li><p>Por tanto, si dos objetos tienen el mismo <code>id</code>, significa que son realmente el mismo objeto.</p></li>
+<li><p><strong>En general</strong>, los objetos inmutables idénticos tendrán el mismo <code>id</code> (no siempre, depende del tipo de objeto), mientras que los mutables tendrán siempre <code>id</code> diferentes, ya que serán siempre objetos distintos:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="va">True</span></a></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="va">False</span></a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</a>
+<a class="sourceLine" id="cb21-6" title="6"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb21-7" title="7"><span class="va">True</span></a></code></pre></div>
+</div>
+</div>
 </section></section>
 <section><section id="efectos-laterales" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Efectos laterales</h1></section><section id="concepto" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Concepto</h2><ul>
 <li><p>Las funciones que hemos visto hasta ahora en programación funcional son funciones <strong>puras</strong> en el sentido de que lo único que hacen es calcular su resultado sin afectar al exterior de la función.</p></li>
@@ -636,13 +670,13 @@ s | P | y | t | h | o | n |
 <li><p>También se considera efecto lateral a cualquier cambio que afecte a otras partes del programa de una manera no evidente o impredecible.</p></li>
 </ul></section><section id="transparencia-referencial" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Transparencia referencial</h2><ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia referencial</strong>, ya que ahora el valor de una función puede depender no sólo de los valores de sus argumentos, sino también además de los valores de las variables libres que ahora pueden cambiar durante la ejecución del programa:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1"><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb18-4" title="4"><span class="dv">9</span></a>
-<a class="sourceLine" id="cb18-5" title="5"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></a>
-<a class="sourceLine" id="cb18-6" title="6"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb18-7" title="7"><span class="dv">27</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1"><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="dv">9</span></a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></a>
+<a class="sourceLine" id="cb22-6" title="6"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb22-7" title="7"><span class="dv">27</span></a></code></pre></div></li>
 <li><p>Por tanto, cambiar el valor de una variable global es considerado un <strong>efecto lateral</strong>, ya que puede alterar el comportamiento de otras partes del programa de formas a menudo impredecibles.</p></li>
 </ul></section><section id="entrada-y-salida-por-consola" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Entrada y salida por consola</h2><ul>
 <li><p>Nuestro programa puede comunicarse con el exterior realizando <strong>operaciones de entrada/salida</strong>.</p></li>
@@ -664,8 +698,8 @@ s | P | y | t | h | o | n |
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code>'\n'</code> (el carácter de nueva línea).</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</a>
-<a class="sourceLine" id="cb19-2" title="2">hola pepe <span class="dv">23</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</a>
+<a class="sourceLine" id="cb23-2" title="2">hola pepe <span class="dv">23</span></a></code></pre></div></li>
 </ul></section><section id="el-valor-none" class="slide level4">
 <h4><span class="header-section-number">4.3.1.1</span> El valor <code>None</code></h4>
 <ul>
@@ -674,9 +708,9 @@ s | P | y | t | h | o | n |
 <li><p><code>None</code> es un valor especial que significa <strong>ningún valor</strong> y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code>print</code>.</p></li>
 <li><p>Pertenece a un tipo de datos especial llamado <code>NoneType</code> cuyo único valor posible es <code>None</code>.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code>print</code> devuelve <code>None</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="op">==</span> <span class="va">True</span></a>
-<a class="sourceLine" id="cb20-2" title="2">hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="va">True</span>          <span class="co"># ésto es el resultado de comparar el valor de print con True</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="op">==</span> <span class="va">True</span></a>
+<a class="sourceLine" id="cb24-2" title="2">hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="va">True</span>          <span class="co"># ésto es el resultado de comparar el valor de print con True</span></a></code></pre></div></li>
 </ul>
 </section><section id="input" class="title-slide slide level3"><h3><span class="header-section-number">4.3.2</span> <code>input</code></h3><ul>
 <li><p>La función <code>input</code> <em>lee</em> datos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido.</p></li>
@@ -684,10 +718,10 @@ s | P | y | t | h | o | n |
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;input&gt;</em></span> ::= <strong><code>input</code><code>(</code></strong>[<span style="color:teal"><em>&lt;prompt&gt;</em></span>]<strong><code>)</code></strong></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</a>
-<a class="sourceLine" id="cb21-2" title="2">Introduce tu nombre: Ramón</a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</a>
-<a class="sourceLine" id="cb21-4" title="4">Hola, Ramón</a></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</a>
+<a class="sourceLine" id="cb25-2" title="2">Introduce tu nombre: Ramón</a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</a>
+<a class="sourceLine" id="cb25-4" title="4">Hola, Ramón</a></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 </ul></section></section>
 <section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Incondicionales</h2><ul>
@@ -711,17 +745,17 @@ s | P | y | t | h | o | n |
 </div><div class="column">
 <ul>
 <li><p>Un ejemplo de uso:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
-<a class="sourceLine" id="cb23-2" title="2"></a>
-<a class="sourceLine" id="cb23-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="st">print(&#39;Esto se hace&#39;)</span></a>
-<a class="sourceLine" id="cb23-5" title="5"><span class="st">goto .fin</span></a>
-<a class="sourceLine" id="cb23-6" title="6"><span class="st">print(&#39;Esto se salta&#39;)</span></a>
-<a class="sourceLine" id="cb23-7" title="7"><span class="st">label .fin</span></a>
-<a class="sourceLine" id="cb23-8" title="8"><span class="st">print(&#39;Aquí se acaba&#39;)</span></a>
-<a class="sourceLine" id="cb23-9" title="9"><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb23-10" title="10"></a>
-<a class="sourceLine" id="cb23-11" title="11"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb27-2" title="2"></a>
+<a class="sourceLine" id="cb27-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="st">print(&#39;Esto se hace&#39;)</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="st">goto .fin</span></a>
+<a class="sourceLine" id="cb27-6" title="6"><span class="st">print(&#39;Esto se salta&#39;)</span></a>
+<a class="sourceLine" id="cb27-7" title="7"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb27-8" title="8"><span class="st">print(&#39;Aquí se acaba&#39;)</span></a>
+<a class="sourceLine" id="cb27-9" title="9"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb27-10" title="10"></a>
+<a class="sourceLine" id="cb27-11" title="11"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -733,25 +767,25 @@ s | P | y | t | h | o | n |
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
-<a class="sourceLine" id="cb24-2" title="2"></a>
-<a class="sourceLine" id="cb24-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb24-4" title="4"><span class="st">primero = 2</span></a>
-<a class="sourceLine" id="cb24-5" title="5"><span class="st">ultimo = 25</span></a>
-<a class="sourceLine" id="cb24-6" title="6"></a>
-<a class="sourceLine" id="cb24-7" title="7"><span class="st">i = primero</span></a>
-<a class="sourceLine" id="cb24-8" title="8"></a>
-<a class="sourceLine" id="cb24-9" title="9"><span class="st">label .inicio</span></a>
-<a class="sourceLine" id="cb24-10" title="10"><span class="st">if i == ultimo: goto .fin</span></a>
-<a class="sourceLine" id="cb24-11" title="11"></a>
-<a class="sourceLine" id="cb24-12" title="12"><span class="st">print(i, end=&#39; &#39;)</span></a>
-<a class="sourceLine" id="cb24-13" title="13"><span class="st">i += 1</span></a>
-<a class="sourceLine" id="cb24-14" title="14"><span class="st">goto .inicio</span></a>
-<a class="sourceLine" id="cb24-15" title="15"></a>
-<a class="sourceLine" id="cb24-16" title="16"><span class="st">label .fin</span></a>
-<a class="sourceLine" id="cb24-17" title="17"><span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb24-18" title="18"></a>
-<a class="sourceLine" id="cb24-19" title="19"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb28-2" title="2"></a>
+<a class="sourceLine" id="cb28-3" title="3">CODIGO<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb28-4" title="4"><span class="st">primero = 2</span></a>
+<a class="sourceLine" id="cb28-5" title="5"><span class="st">ultimo = 25</span></a>
+<a class="sourceLine" id="cb28-6" title="6"></a>
+<a class="sourceLine" id="cb28-7" title="7"><span class="st">i = primero</span></a>
+<a class="sourceLine" id="cb28-8" title="8"></a>
+<a class="sourceLine" id="cb28-9" title="9"><span class="st">label .inicio</span></a>
+<a class="sourceLine" id="cb28-10" title="10"><span class="st">if i == ultimo: goto .fin</span></a>
+<a class="sourceLine" id="cb28-11" title="11"></a>
+<a class="sourceLine" id="cb28-12" title="12"><span class="st">print(i, end=&#39; &#39;)</span></a>
+<a class="sourceLine" id="cb28-13" title="13"><span class="st">i += 1</span></a>
+<a class="sourceLine" id="cb28-14" title="14"><span class="st">goto .inicio</span></a>
+<a class="sourceLine" id="cb28-15" title="15"></a>
+<a class="sourceLine" id="cb28-16" title="16"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb28-17" title="17"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb28-18" title="18"></a>
+<a class="sourceLine" id="cb28-19" title="19"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
 </ul>
 </section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">

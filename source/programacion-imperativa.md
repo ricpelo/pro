@@ -258,7 +258,7 @@ x = 4
 y = 5
 ```
 
-!DOT(inmutable1.svg)()(width=50%)
+!DOT(inmutable1.svg)()(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
@@ -283,7 +283,7 @@ x = 5
 
 quedaría:
 
-!DOT(inmutable2.svg)()(width=50%)
+!DOT(inmutable2.svg)()(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
@@ -357,7 +357,7 @@ x = 'hola'
 y = 'pepe'
 ```
 
-!DOT(inmutable5.svg)()(width=50%)
+!DOT(inmutable5.svg)()(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
@@ -382,7 +382,7 @@ x = 'pepe'
 
 quedaría:
 
-!DOT(inmutable6.svg)()(width=50%)
+!DOT(inmutable6.svg)()(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
@@ -610,11 +610,78 @@ Ejemplo           Valor de `x` después
 
 ### Alias de variables
 
-......
+- Cuando una variable que contiene un valor mutable se asigna a otra, se
+  produce un fenómeno conocido como **alias de variables**, según el cual los
+  dos identificadores se ligan a **la misma variable**:
+
+  ```python
+  x = [6, 7, 8, 9]
+  y = x
+  ```
+
+!DOT(alias.svg)()(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|8|9}"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1
+y -> v1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, si cambiamos la lista desde `x`, `y` también cambiará y viceversa
+  (porque en realidad ambas son **la misma variable**):
+
+  ```python
+  >>> y[2] = 40
+  >>> x
+  [6, 7, 40, 9]
+  ```
 
 #### `id`
 
-......
+- Para saber si dos objetos son realmente **el mismo objeto** en memoria, se
+  puede usar la función `id`.
+
+- La **función `id`** devuelve un identificador único para cada objeto en
+  memoria.
+
+- Por tanto, si dos objetos tienen el mismo `id`, significa que son realmente
+  el mismo objeto.
+
+- **En general**, los objetos inmutables idénticos tendrán el mismo `id` (no
+  siempre, depende del tipo de objeto), mientras que los mutables tendrán
+  siempre `id` diferentes, ya que serán siempre objetos distintos:
+
+:::: columns
+
+::: column
+
+```python
+>>> x = 'hola'
+>>> y = 'hola'
+>>> id(x) == id(y)
+True
+```
+
+:::
+
+::: column
+
+```python
+>>> x = [1, 2, 3, 4]
+>>> y = [1, 2, 3, 4]
+>>> id(x) == id(y)
+False
+>>> y = x
+>>> id(x) == id(y)
+True
+```
+
+:::
+
+::::
 
 # Efectos laterales
 
