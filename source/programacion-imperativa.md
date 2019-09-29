@@ -500,6 +500,28 @@ s | P | y | t | h | o | n |
 
 ::::
 
+---
+
+- Hemos visto que los números y las cadenas **comparten** sus valores entre
+  variables.
+
+- Pero es importante tener en cuenta que **no todos los tipos inmutables
+  comparten sus valores** entre variables.
+
+- Hay valores de tipos inmutables, como las **tuplas** y los **rangos**, que
+  aún siendo inmutables no comparten sus valores entre variables.
+
+- Por tanto, lo que podemos afirmar es que:
+
+  - Si son **mutables**, **seguro que no** comparten sus valores.
+
+  - Si son **inmutables**, **puede** que los compartan (números y cadenas) y
+    puede que no (tuplas, rangos, etc.).
+
+- En la práctica, no es demasiado importante saber si se comparten o no los
+  valores entre variables. Importa más saber si dos identificadores comparten
+  variable (cosa que veremos luego).
+
 ### Mutables
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
@@ -612,23 +634,23 @@ Ejemplo           Valor de `x` después
 
 - Cuando una variable que contiene un valor mutable se asigna a otra, se
   produce un fenómeno conocido como **alias de variables**, según el cual los
-  dos identificadores se ligan a **la misma variable**:
+  dos identificadores se ligan a **la misma variable** (la comparten):
 
   ```python
   x = [6, 7, 8, 9]
   y = x
   ```
 
-!DOT(alias.svg)()(width=40%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|8|9}"]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1
-y -> v1 -> lista
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(alias.svg)()(width=40%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  x [shape = plaintext, fillcolor = transparent]
+  y [shape = plaintext, fillcolor = transparent]
+  lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|8|9}"]
+  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+  x -> v1
+  y -> v1 -> lista
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, si cambiamos la lista desde `x`, `y` también cambiará y viceversa
   (porque en realidad ambas son **la misma variable**):
@@ -650,9 +672,10 @@ y -> v1 -> lista
 - Por tanto, si dos objetos tienen el mismo `id`, significa que son realmente
   el mismo objeto.
 
-- **En general**, los objetos inmutables idénticos tendrán el mismo `id` (no
-  siempre, depende del tipo de objeto), mientras que los mutables tendrán
-  siempre `id` diferentes, ya que serán siempre objetos distintos:
+- **En general**, como ya estudiamos antes, los objetos inmutables idénticos
+  tendrán el **mismo `id`** (aunque **no siempre**, depende del tipo de
+  objeto), mientras que los mutables tendrán siempre **`id` diferentes**, pues
+  serán siempre objetos distintos:
 
 :::: columns
 
