@@ -544,10 +544,10 @@ s | P | y | t | h | o | n |
 
 ---
 
-- Las listas, como toda secuencia mutable, se puede modificar usando ciertas
+- Las listas, como toda secuencia mutable, se pueden modificar usando ciertas
   operaciones:
 
-  - Los *operador* de **indexación** y **slicing**:
+  - Los *operadores* de **indexación** y **slicing**:
 
     ```
      +-----+-----+-----+-----+-----+-----+
@@ -564,6 +564,9 @@ s | P | y | t | h | o | n |
     >>> l[3] = 99
     >>> l
     [124, 333, 'a', 99, 9, 53] 
+    >>> l[0:2] = [40]
+    >>> l
+    [40, 'a', 99, 9, 53]
     ```
 
   - *Métodos* propios de las listas, como `append`, `clear`, `insert`,
