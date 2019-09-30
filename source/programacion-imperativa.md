@@ -561,7 +561,7 @@ Ejemplo           Valor de `x` después
 `x.reverse()`     `[9, 7, 10, 8]`      
 -----------------------------------------
 
-### Alias de variables
+## Alias de variables
 
 - Cuando una variable que contiene un valor se asigna a otra, se produce un
   fenómeno conocido como **alias de variables**, según el cual los dos
@@ -761,7 +761,7 @@ y -> v1
 - El intérprete aprovecharía la variable ya creada y no crearía una nueva, para
   ahorrar memoria.
 
-#### `id`
+### `id`
 
 - Para saber si dos variables son realmente **la misma variable**, se puede
   usar la función `id`.
@@ -800,6 +800,27 @@ True
 :::
 
 ::::
+
+### `is`
+
+- Otra forma de comprobar si dos datos son realmente el mismo dato en memoria
+  es usar el operador `is`:
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(is) ::= !NT(valor1) !T(is) !NT(valor2)
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es un operador relacional que devuelve `True` si !NT(valor1) y !NT(valor2)
+  son **el mismo dato en memoria** (es decir, si se encuentran almacenados en
+  la misma celda de la memoria) y `False` en caso contrario.
+
+- Cuando se usa con variables, devuelve `True` si son la misma variable, y
+  `False` en caso contrario.
+
+- En la práctica, equivale a hacer `id(`!NT(valor1)`) == id(`!NT(valor2)`)`
 
 # Efectos laterales
 
