@@ -1146,6 +1146,66 @@ Función                    Descripción           Ejemplo                  Resu
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="_blank"}
 
+## Actividades
+
+@. Representar, según el modelo de sustitución, la evaluación las siguientes
+   expresiones, aplicando paso a paso la reducción que corresponda. Indicar
+   también el tipo del valor resultante:
+
+    a. `3 + 6 * 14`
+    b. `8 + 7 * 3.0 + 4 * 6`
+    c. `–4 * 7 + 2 ** 3 / 4 – 5`
+    d. `4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2`
+
+@. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
+   algebraicas:
+
+    a. $5\cdot(x + y)$
+
+    b. $a^2 + b^2$
+
+    c. $\frac{x + y}{u + \frac{w}{a}}$
+
+    d. $\frac{x}{y}\cdot(z + w)$
+
+---
+
+@. Determinar, según las reglas de prioridad y asociatividad del lenguaje
+   Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas
+   sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:
+
+    a. `(8 + (7 * 3) + 4 * 6)`
+    b. `–(2 ** 3)`
+    c. `(33 + (3 * 4)) / 5`
+    d. `2 ** (2 * 3)`
+    e. `(3.0) + (2 * (18 – 4 ** 2))`
+    f. `(16 * 6) – (3) * 2`
+
+@. Usar la función `math.sqrt` para escribir dos expresiones en Python que
+   calculen las dos soluciones a la ecuación de segundo grado $ax^2+bx+c=0$.
+
+    Recordar que las soluciones son:
+    
+    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
+      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
+
+---
+
+@. Evaluar las siguientes expresiones o decir si es una expresión incorrecta:
+
+    a. `9 – 5 – 3`
+    b. `2 div 3 + 3 / 5`
+    c. `9 div 2 / 5`
+    d. `7 mod 5 mod 3`
+    e. `7 mod (5 mod 3)`
+    f. `(7 mod 5) mod 3`
+    g. `(7 mod 5 mod 3)`
+    h. `((12 + 3) div 2) / (8 – (5 + 1))`
+    i. `12 / 2 * 3`
+    j. `math.sqrt(math.cos(4)`
+    k. `math.cos(math.sqrt(4))`
+    l. `math.trunc(815.66) + round(815.66)`
+
 # Álgebra de Boole
 
 ## El tipo de dato *booleano*
