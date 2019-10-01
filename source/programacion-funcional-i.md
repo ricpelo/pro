@@ -1206,6 +1206,16 @@ Función                    Descripción           Ejemplo                  Resu
     k. `math.cos(math.sqrt(4))`
     l. `math.trunc(815.66) + round(815.66)`
 
+---
+
+@. Escribir las siguientes expresiones algorítmicas como expresiones
+   algebraicas:
+
+    a. `b ** 2 – 4 * a * c`
+    b. `3 * x ** 4 – 5 * x ** 3 + x * 12 – 17`
+    c. `(b + d) / (c + 4)`
+    d. `(x ** 2 + y ** 2) ** (1 / 2)`
+
 # Álgebra de Boole
 
 ## El tipo de dato *booleano*
@@ -1241,22 +1251,161 @@ Función                    Descripción           Ejemplo                  Resu
   `<   >   <=   >=   ==   !=`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Por ejemplo:
+
+:::: columns
+
+::: column
+
+```python
+>>> 4 == 3
+False
+>>> 5 == 5
+True
+>>> 3 < 9
+False
+```
+
+:::
+
+::: column
+
+```python
+>>> 9 != 7
+True
+>>> False == True
+False
+>>> 8 <= 8
+True
+```
+
+:::
+
+::::
+
+
 ## Operadores lógicos
 
-- Los **operadores lógicos** son operadores que toman uno o dos operandos
-  *booleanos* y devuelven un valor *booleano*.
+- Las **operaciones lógicas** se representan mediante **operadores lógicos**,
+  que son aquellos que toman uno o dos operandos *booleanos* y devuelven un
+  valor *booleano*.
 
-- Representan las operaciones básicas del álgebra de Boole llamadas **suma**,
-  **producto** y **complemento**.
+- Las operaciones básicas del álgebra de Boole se llaman **suma**, **producto**
+  y **complemento**.
 
 - En **lógica proposicional** (un tipo de lógica matemática que tiene
   estructura de álgebra de Boole), se llaman:
   
-  - **Disyunción** ($\lor$),
-  - **Conjunción** ($\land$) y
-  - **Negación** ($\neg$).
+  --------------------------
+    Operación      Operador
+  --------------- ----------
+    Disyunción     $\lor$
 
-- En Python se representan como `or`, `and` y `not`, respectivamente
+    Conjunción     $\land$
+    
+    Negación       $\neg$
+  --------------------------
+
+- En Python se representan como `or`, `and` y `not`, respectivamente.
+
+### Tablas de verdad
+
+- Una **tabla de verdad** es una tabla que muestra el valor lógico de una
+  expresión compuesta, para cada uno de los valores lógicos que puedan tomar
+  sus componentes.
+
+- Se usan para definir el significado de las operaciones lógicas y también para
+  verificar que se cumplen determinadas propiedades.
+
+- Las tablas de verdad de los operadores lógicos son:
+
+:::: columns
+
+::: {.column width=33%}
+
+------------------------
+ $A$   $B$   $A\lor{}B$
+----- ----- ------------
+ $F$   $F$      $F$
+              
+ $F$   $V$      $V$
+              
+ $V$   $F$      $V$
+              
+ $V$   $V$      $V$
+------------------------
+
+:::
+
+::: {.column width=33%}
+
+-------------------------
+ $A$   $B$   $A\land{}B$
+----- ----- -------------
+ $F$   $F$      $F$
+               
+ $F$   $V$      $F$
+               
+ $V$   $F$      $F$
+               
+ $V$   $V$      $V$
+-------------------------
+
+:::
+
+::: {.column width=33%}
+
+-----------------
+ $A$   $\neg{}A$
+----- -----------
+ $F$      $V$
+       
+ $V$      $F$
+-----------------
+
+:::
+
+::::
+
+---
+
+- Que traducido a Python sería:
+
+  <br>\vspace{1em}
+
+:::: columns
+
+::: column
+
+|   `A`   |   `B`   |  `A or B`  |
+|:-------:|:-------:|:----------:|
+| `False` | `False` |   `False`  |
+| `False` |  `True` |    `True`  |
+|  `True` | `False` |    `True`  |
+|  `True` |  `True` |    `True`  |
+
+:::
+
+::: column
+
+|   `A`   |   `B`   |  `A and B`  |
+|:-------:|:-------:|:-----------:|
+| `False` | `False` |   `False`   |
+| `False` |  `True` |   `False`   |
+|  `True` | `False` |   `False`   |
+|  `True` |  `True` |    `True`   |
+
+:::
+
+::::
+
+<br>
+\vspace{2em}
+
+|   `A`   |  `not A`  |
+|:-------:|:---------:|
+| `False` |   `True`  |
+|  `True` |  `False`  |
 
 ## Axiomas
 
