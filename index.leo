@@ -6,33 +6,33 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="ricardo.20191001111406.1"><vh>@auto source/introduccion.md</vh></v>
-<v t="ricardo.20191001111406.2"><vh>@auto source/programacion-funcional-i.md</vh></v>
-<v t="ricardo.20191001111406.3"><vh>@auto source/programacion-funcional-ii.md</vh></v>
-<v t="ricardo.20191001111406.4"><vh>@auto source/programacion-imperativa.md</vh></v>
-<v t="ricardo.20191001111406.5"><vh>@auto source/programacion-estructurada.md</vh></v>
-<v t="ricardo.20191001111406.6"><vh>@auto source/tipos-de-datos.md</vh></v>
-<v t="ricardo.20191001111406.7"><vh>@auto source/metodologia-de-la-programacion.md</vh></v>
-<v t="ricardo.20191001111406.8"><vh>@auto source/programacion-modular-i.md</vh></v>
-<v t="ricardo.20191001111406.9"><vh>@auto source/entrada-y-salida-de-informacion.md</vh></v>
-<v t="ricardo.20191001111406.10"><vh>@auto source/calidad-i.md</vh></v>
-<v t="ricardo.20191001111406.11"><vh>@auto source/complejidad-algoritmica.md</vh></v>
-<v t="ricardo.20191001111406.12"><vh>@auto source/introduccion-al-lenguaje-java.md</vh></v>
-<v t="ricardo.20191001111406.13"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
-<v t="ricardo.20191001111406.14"><vh>@auto source/diseno-de-clases.md</vh></v>
-<v t="ricardo.20191001111406.15"><vh>@auto source/composicion-herencia-y-poliformismo.md</vh></v>
-<v t="ricardo.20191001111406.16"><vh>@auto source/abstraccion-de-datos.md</vh></v>
-<v t="ricardo.20191001111406.17"><vh>@auto source/programacion-modular-ii.md</vh></v>
-<v t="ricardo.20191001111406.18"><vh>@auto source/programacion-generica.md</vh></v>
-<v t="ricardo.20191001111406.19"><vh>@auto source/estructuras-de-datos-lineales.md</vh></v>
-<v t="ricardo.20191001111406.20"><vh>@auto source/ordenacion-y-busqueda.md</vh></v>
-<v t="ricardo.20191001111406.21"><vh>@auto source/estructuras-de-datos-no-lineales.md</vh></v>
-<v t="ricardo.20191001111406.22"><vh>@auto source/control-de-excepciones.md</vh></v>
-<v t="ricardo.20191001111406.23"><vh>@auto source/java-collections-framework.md</vh></v>
-<v t="ricardo.20191001111406.24"><vh>@auto source/principios-y-patrones-de-diseno.md</vh></v>
-<v t="ricardo.20191001111406.25"><vh>@auto source/calidad-ii.md</vh></v>
-<v t="ricardo.20191001111406.26"><vh>@auto source/gestion-de-bases-de-datos-relacionales.md</vh></v>
-<v t="ricardo.20191001111406.27"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
+<v t="ricardo.20191002125526.1"><vh>@auto source/introduccion.md</vh></v>
+<v t="ricardo.20191002125526.2"><vh>@auto source/programacion-funcional-i.md</vh></v>
+<v t="ricardo.20191002125526.3"><vh>@auto source/programacion-funcional-ii.md</vh></v>
+<v t="ricardo.20191002125526.4"><vh>@auto source/programacion-imperativa.md</vh></v>
+<v t="ricardo.20191002125526.5"><vh>@auto source/programacion-estructurada.md</vh></v>
+<v t="ricardo.20191002125526.6"><vh>@auto source/tipos-de-datos.md</vh></v>
+<v t="ricardo.20191002125526.7"><vh>@auto source/metodologia-de-la-programacion.md</vh></v>
+<v t="ricardo.20191002125526.8"><vh>@auto source/programacion-modular-i.md</vh></v>
+<v t="ricardo.20191002125526.9"><vh>@auto source/entrada-y-salida-de-informacion.md</vh></v>
+<v t="ricardo.20191002125526.10"><vh>@auto source/calidad-i.md</vh></v>
+<v t="ricardo.20191002125526.11"><vh>@auto source/complejidad-algoritmica.md</vh></v>
+<v t="ricardo.20191002125526.12"><vh>@auto source/introduccion-al-lenguaje-java.md</vh></v>
+<v t="ricardo.20191002125526.13"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
+<v t="ricardo.20191002125526.14"><vh>@auto source/diseno-de-clases.md</vh></v>
+<v t="ricardo.20191002125526.15"><vh>@auto source/composicion-herencia-y-poliformismo.md</vh></v>
+<v t="ricardo.20191002125526.16"><vh>@auto source/abstraccion-de-datos.md</vh></v>
+<v t="ricardo.20191002125526.17"><vh>@auto source/programacion-modular-ii.md</vh></v>
+<v t="ricardo.20191002125526.18"><vh>@auto source/programacion-generica.md</vh></v>
+<v t="ricardo.20191002125526.19"><vh>@auto source/estructuras-de-datos-lineales.md</vh></v>
+<v t="ricardo.20191002125526.20"><vh>@auto source/ordenacion-y-busqueda.md</vh></v>
+<v t="ricardo.20191002125526.21"><vh>@auto source/estructuras-de-datos-no-lineales.md</vh></v>
+<v t="ricardo.20191002125526.22"><vh>@auto source/control-de-excepciones.md</vh></v>
+<v t="ricardo.20191002125526.23"><vh>@auto source/java-collections-framework.md</vh></v>
+<v t="ricardo.20191002125526.24"><vh>@auto source/principios-y-patrones-de-diseno.md</vh></v>
+<v t="ricardo.20191002125526.25"><vh>@auto source/calidad-ii.md</vh></v>
+<v t="ricardo.20191002125526.26"><vh>@auto source/gestion-de-bases-de-datos-relacionales.md</vh></v>
+<v t="ricardo.20191002125526.27"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>
