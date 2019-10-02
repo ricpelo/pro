@@ -12,6 +12,69 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -153,23 +216,107 @@
 <li><a href="#/funciones-definidas-por-el-usuario"><span class="toc-section-number">1</span> Funciones definidas por el usuario</a></li>
 <li><a href="#/teorema-de-böhm-jacopini"><span class="toc-section-number">2</span> Teorema de Böhm-Jacopini</a></li>
 <li><a href="#/estructuras-básicas-de-control"><span class="toc-section-number">3</span> Estructuras básicas de control</a></li>
-<li><a href="#/recursos-abstractos"><span class="toc-section-number">4</span> Recursos abstractos</a></li>
-<li><a href="#/diseño-descendente"><span class="toc-section-number">5</span> Diseño descendente</a></li>
-<li><a href="#/refinamiento-sucesivo"><span class="toc-section-number">6</span> Refinamiento sucesivo</a></li>
+<li><a href="#/metodología-de-la-programación-estructurada"><span class="toc-section-number">4</span> Metodología de la programación estructurada</a></li>
+<li><a href="#/captura-de-excepciones"><span class="toc-section-number">5</span> Captura de excepciones</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Funciones definidas por el usuario</h1></section><section id="definición-de-funciones-con-nombre" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Definición de funciones con nombre</h2></section><section id="paso-de-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Paso de argumentos</h2></section><section id="por-valor" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Por valor</h3></section><section id="por-referencia" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Por referencia</h3></section><section id="por-asignación" class="title-slide slide level3"><h3><span class="header-section-number">1.2.3</span> Por asignación</h3></section><section id="la-sentencia-return" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> La sentencia <code>return</code></h2></section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables globales</h3></section><section id="global" class="slide level4">
+<section><section id="funciones-definidas-por-el-usuario" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Funciones definidas por el usuario</h1></section><section id="definición-de-funciones-con-nombre" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Definición de funciones con nombre</h2><ul>
+<li><p>En programación imperativa también podemos definir funciones.</p></li>
+<li><p>Al igual que ocurre en programación funcional, una función en programación imperativa es una construcción sintáctica que acepta argumentos y produce un resultado.</p></li>
+<li><p>Pero a diferencia de lo que ocurre en programación funcional, una función en programación imperativa es una <strong>secuencia de sentencias</strong>.</p></li>
+<li><p>Las funciones en programación imperativa conforman los bloques básicos que nos permiten <strong>descomponer un programa en partes</strong> que se combinan entre sí.</p></li>
+<li><p>Todavía podemos construir funciones mediante expresiones lambda, pero Python nos proporciona otro mecanismo para definir funciones en estilo imperativo: las <strong>funciones con nombre</strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La sintaxis para definir una función con nombre es:</p>
+<div class="line-block"><strong><code>def</code></strong> <span style="color:teal"><em>&lt;nombre&gt;</em></span><strong><code>(</code></strong>[<span style="color:teal"><em>&lt;parámetros&gt;</em></span>]<strong><code>)</code><code>:</code></strong><br />
+      <span style="color:teal"><em>&lt;sentencia&gt;</em></span>+</div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">def</span> saluda(persona):</a>
+<a class="sourceLine" id="cb1-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">def</span> despide():</a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</a></code></pre></div></li>
+<li><p>Notas importantes:</p>
+<ul>
+<li><p>Tiene que haber, al menos, <em>una</em> sentencia.</p></li>
+<li><p>Las sentencias van <strong>indentadas</strong> (o <em>sangradas</em>) dentro de la definición de la función, con el mismo nivel de indentación.</p></li>
+<li><p>El final de la función se deduce al encontrarse una sentencia con un <strong>nivel de indentación superior</strong> (en el caso de arriba, otro <code>def</code>).</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="caja">
+<p><strong>Conclusión:</strong></p>
+<p>En Python, la <strong>estructura</strong> del programa viene definida por la <strong>indentación</strong> del código.</p>
+</div>
+</section><section id="paso-de-argumentos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Paso de argumentos</h2><ul>
+<li><p>Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje de programación utilizado.</p></li>
+<li><p>Los más conocidos son los llamados <strong>paso de argumentos <em>por valor</em></strong> y <strong>paso de argumentos <em>por referencia</em></strong>.</p></li>
+<li><p>En Python existe un único mecanismo de paso de argumentos llamado <strong>paso de argumentos <em>por asignación</em></strong> o también, a veces, <strong>paso de argumentos <em>por nombre</em></strong>.</p></li>
+<li><p>En la práctica resulta bastante sencillo.</p></li>
+<li><p>Consiste en suponer que <strong>el argumento <em>se asigna</em> al parámetro</strong> correspondiente, con toda la semántica relacionada con los <em>alias</em> de variables, inmutabilidad, mutabilidad, etcétera.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">def</span> saluda(persona):</a>
+<a class="sourceLine" id="cb2-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5">saluda(<span class="st">&#39;Manolo&#39;</span>)  <span class="co"># Saluda a Manolo</span></a>
+<a class="sourceLine" id="cb2-6" title="6">x <span class="op">=</span> <span class="st">&#39;Juan&#39;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">saluda(x)         <span class="co"># Saluda a Juan</span></a></code></pre></div></li>
+<li><p>En la línea 5 se asigna a <code>persona</code> el valor <code>Manolo</code> (como si se hiciera <code>persona = Manolo</code>).</p></li>
+<li><p>En la línea 7 se asigna a <code>persona</code> el valor de <code>x</code>, como si se hiciera <code>persona = x</code>, lo que sabemos que crea un <em>alias</em> (que no afectaría ya que el valor pasado es una cadena, y por tanto inmutable).</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En caso de pasar un argumento mutable:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">def</span> cambia(lista):</a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="bu">print</span>(lista)</a>
+<a class="sourceLine" id="cb3-3" title="3">    lista.append(<span class="dv">99</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5">lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb3-6" title="6">cambia(lista)     <span class="co"># Imprime [1, 2, 3]</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></a></code></pre></div></li>
+</ul>
+</section><section id="la-sentencia-return" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> La sentencia <code>return</code></h2><ul>
+<li><p>Para devolver el resultado de la función al código que la llamó, hay que usar una sentencia <code>return</code>.</p></li>
+<li><p>Cuando el intérprete encuentra una sentencia <code>return</code> dentro de una función:</p>
+<ul>
+<li><p>se finaliza la ejecución de la función,</p></li>
+<li><p>se devuelve el control al punto del programa en el que se llamó a la función y</p></li>
+<li><p>se declara que la función devuelve como resultado el valor de retorno definido en la sentencia <code>return</code>.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="cf">return</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4">a <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce el primer número: &#39;</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">b <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce el segundo número: &#39;</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6">resultado <span class="op">=</span> suma(a, b)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="bu">print</span>(<span class="st">&#39;El resultado es:&#39;</span>, resultado)</a></code></pre></div></li>
+<li><p>La función se define en las líneas 1–2. El intérprete lee la definición de la función pero no ejecuta sus sentencias en ese momento (lo hará cuando se <em>llame</em> a la función).</p></li>
+<li><p>En la línea 6 se llama a la función <code>suma</code></p></li>
+</ul>
+</section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables globales</h3></section><section id="global" class="slide level4">
 <h4><span class="header-section-number">1.4.1.1</span> <code>global</code></h4>
 </section><section id="efectos-laterales" class="slide level4">
 <h4><span class="header-section-number">1.4.1.2</span> Efectos laterales</h4>
 </section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> Variables locales</h3></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">1.5.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">1.5.2</span> Declaraciones de tipo de devolución</h3></section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Funciones locales a funciones</h2></section><section id="nonlocal" class="title-slide slide level3"><h3><span class="header-section-number">1.6.1</span> <code>nonlocal</code></h3></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">1.7</span> <em>Docstrings</em></h2></section></section>
 <section id="teorema-de-böhm-jacopini" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Teorema de Böhm-Jacopini</h1></section>
-<section><section id="estructuras-básicas-de-control" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras básicas de control</h1></section><section id="secuencia" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Secuencia</h2></section><section id="selección" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Selección</h2></section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Iteración</h2></section></section>
-<section id="recursos-abstractos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Recursos abstractos</h1></section>
-<section id="diseño-descendente" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Diseño descendente</h1></section>
-<section id="refinamiento-sucesivo" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Refinamiento sucesivo</h1></section>
+<section><section id="estructuras-básicas-de-control" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras básicas de control</h1></section><section id="concepto-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Concepto de estructura</h2></section><section id="secuencia" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Secuencia</h2></section><section id="selección" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Selección</h2></section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Iteración</h2></section></section>
+<section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Metodología de la programación estructurada</h1></section><section id="recursos-abstractos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Recursos abstractos</h2></section><section id="diseño-descendente" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Diseño descendente</h2></section><section id="refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Refinamiento sucesivo</h2></section></section>
+<section id="captura-de-excepciones" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Captura de excepciones</h1></section>
     </div>
   </div>
 
