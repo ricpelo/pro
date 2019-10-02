@@ -563,6 +563,33 @@ S -> E [dir = both, label = "Código de E/S"];
     dos números enteros no tiene por qué funcionar correctamente si intentamos
     usarlo para sumar dos fracciones.
 
+### Jerarquías de generalización
+
+- Se dice que un problema $P$ es **más general** que un problema $Q$ si los
+  ejemplares de $Q$ también son ejemplares de $P$, y además hay ejemplares de
+  $P$ que no lo son de $Q$.
+
+  - Es otra forma de decir que el conjunto de ejemplares de $Q$ es un
+    *subconjunto propio* del conjunto de ejemplares de $P$.
+
+- Igualmente, se dice que $Q$ es un problema **menos general** (o **más
+  particular**) que el problema $P$.
+
+- Este concepto resulta interesante porque, si tenemos una solución al problema
+  $P$, podremos usarla para resolver el problema $Q$.
+
+---
+
+!DOT(jerarquias-generalizacion.svg)($P$ es un problema más general que $Q$)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+subgraph cluster0 {
+    style = "rounded"
+    label = <<i>P</i>>
+    Q [style = "rounded", label = <<i>Q</i>>]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 ## Algoritmo
 
 ### Definición
