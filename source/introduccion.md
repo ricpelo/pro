@@ -125,7 +125,6 @@ La **Programación** es la ciencia y el arte de diseñar dichos programas.
 
 ## Ordenador
 
-
 ### Definición
 
 !CAJA
@@ -500,6 +499,69 @@ S -> E [dir = both, label = "Código de E/S"];
     point* puede ocupar 1 ó 2 palabras de 16 bits).
   - **UTF-32**: codificación de 32 bits, de longitud fija (cada *code point*
     ocupa 1 palabra de 32 bits).
+
+## Problema
+
+- Escribimos programas para que el ordenador procese información de forma
+  automática.
+
+- Pero ese procesamiento automático se lleva a cabo por una razón: **resolver
+  un problema** usando un ordenador.
+
+- Si un problema es **resoluble** usando un ordenador (*no todos lo son*),
+  podremos escribir un programa que lo resuelva.
+
+### Generalización
+
+- En programación nos interesa siempre resolver problemas generales y no casos
+  particulares.
+
+- Por ejemplo, el problema de calcular la suma de 4 y 3 es un **problema
+  particular**, porque una solución al problema sólo servirá para resolver
+  *ese* problema en concreto, y no servirá para sumar otro par de números (el 9
+  y 5, por ejemplo).
+
+- En cambio, el problema de calcula la suma de cualquier par de números enteros
+  es un **problema general**, ya que una solución al problema serviría para
+  resolver cualquier caso particular de ese problema general.
+
+  - Por ejemplo, esa solución al problema general me serviría para calcular la
+    suma de 4 y 3, de 9 y 5, de 12 y 38, ... De hecho, infinitos casos
+    particulares.
+
+### Ejemplares de un problema
+
+- A los casos particulares de un problema general se les denomina
+  **ejemplares** del problema.
+
+  - Por ejemplo, la pareja $(4, 3)$ es un ejemplar del problema general de
+    sumar dos números enteros.
+
+- Normalmente, un problema consistirá en una colección infinita de ejemplares.
+
+  - Pero también hay problemas finitos (aunque muy grandes) como el de jugar
+    perfectamente al ajedrez.
+
+- La solución a un problema debe resolver correctamente todos los ejemplares
+  del mismo, es decir, debe resolver el problema general de forma que sirva
+  para todos sus ejemplares.
+
+### Dominio de definición
+
+- El **dominio de definición** de un problema describe con precisión el
+  conjunto de sus ejemplares.
+
+  - Por ejemplo: en el problema de sumar dos números enteros, sus ejemplares
+    serán cualquier pareja de números enteros (no vale que los números sean
+    reales o fracciones). Ese es su dominio de definición.
+
+- La solución al problema debe centrarse en el dominio de definición del
+  problema, y no está obligado a resolver ejemplares que se encuentren fuera de
+  dicho dominio de definición.
+
+  - Por ejemplo: un programa que resuelva correctamente el problema de sumar
+    dos números enteros no tiene por qué funcionar correctamente si intentamos
+    usarlo para sumar dos fracciones.
 
 ## Algoritmo
 
@@ -1556,7 +1618,6 @@ lenguaje.
 
 # Traductores
 
-
 ## Definición
 
 - El único lenguaje que entiende la máquina directamente es el **lenguaje
@@ -1732,12 +1793,24 @@ F -> I
 
 - En esta fase se define con precisión (cuanto más formal mejor):
 
-  - Qué datos de entrada se requieren
+  - Cuál es la **entrada requerida**:
   
-  - Cuál es la salida deseada
+    - Qué datos de entrada se necesitan y qué propiedades deben cumplir.
 
-- Se trata al programa como una caja negra de la que se sabe *qué* tiene que
-  hacer pero aún no sabemos *cómo*.
+    - Con esto se determina el **dominio de definición** del problema, es
+      decir, el conjunto de sus ejemplares.
+  
+  - Cuál es la **salida deseada**:
+
+    - Básicamente, es el resultado que se desea obtener como solución al
+      problema.
+
+    - Normalmente se describe en función de los datos de entrada.
+
+- Se trata al programa como una **caja negra** de la que se sabe *qué* tiene
+  que hacer pero aún no sabemos *cómo*.
+
+---
 
 - Ejemplo: Se desea determinar el máximo de dos números enteros
 
@@ -1745,12 +1818,12 @@ F -> I
   - Proceso: determinar cuál es el mayor de los dos
   - Salida: el mayor de los dos números
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Entrada:** $n_1, n_2 \in \mathbb{Z}$
-**Proceso:** Cálculo del máximo de dos números
-**Salida:** el mayor de ambos
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** $n_1, n_2 \in \mathbb{Z}$
+  **Proceso:** Cálculo del máximo de dos números
+  **Salida:** el mayor de ambos
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Análisis del problema
 
