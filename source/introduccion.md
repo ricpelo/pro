@@ -589,6 +589,32 @@ subgraph cluster0 {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Por ejemplo, el problema de calcular la suma de *tres* números enteros es un
+  problema **más general** que el de sumar *dos* números enteros, porque éste
+  último se puede considerar un caso particular del primero (haciendo que uno
+  de los tres números a sumar valga cero).
+
+- Por tanto, si tenemos un método para resolver el problema más general (el de
+  sumar tres números) podemos usarlo para resolver uno menos general (el de
+  sumar dos números).
+
+- En este caso, basta con hacer que uno de los tres números sea cero y los
+  otros dos sean los números a sumar:
+
+!DOT(sumar-dos-numeros.svg)(Sumar dos números es un caso particular de sumar tres)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+splines = ortho
+node [shape = "plaintext", fillcolor = transparent]
+suma [label = "suma de tres números", shape = "box", fillcolor = white]
+res [label = "x + y"]
+x -> suma
+y -> suma
+z [label = "z = 0"]
+z -> suma
+suma -> res
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Algoritmo
 
