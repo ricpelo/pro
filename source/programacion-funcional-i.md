@@ -1781,7 +1781,7 @@ y -> 25
   - Aquí estamos trabajando con el *marco global* (el único que existe hasta
     ahora para nosotros).
 
-  - En la línea 1, el identificador `x` aún no está ligado, por lo que uso
+  - En la línea 1, el identificador `x` aún no está ligado, por lo que su uso
     genera un error (el marco global no contiene hasta ahora ninguna ligadura
     para `x`).
 
