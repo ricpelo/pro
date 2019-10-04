@@ -278,13 +278,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>En caso de pasar un argumento mutable:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">def</span> cambia(lista):</a>
-<a class="sourceLine" id="cb3-2" title="2">    <span class="bu">print</span>(lista)</a>
-<a class="sourceLine" id="cb3-3" title="3">    lista.append(<span class="dv">99</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">def</span> cambia(l):</a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="bu">print</span>(l)</a>
+<a class="sourceLine" id="cb3-3" title="3">    l.append(<span class="dv">99</span>)</a>
 <a class="sourceLine" id="cb3-4" title="4"></a>
 <a class="sourceLine" id="cb3-5" title="5">lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a>
 <a class="sourceLine" id="cb3-6" title="6">cambia(lista)     <span class="co"># Imprime [1, 2, 3]</span></a>
 <a class="sourceLine" id="cb3-7" title="7"><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></a></code></pre></div></li>
+<li><p>La función es capaz de <strong>cambiar el estado de la lista que se ha pasado como argumento</strong> ya que, al llamar a la función, el argumento <code>lista</code> se pasa a la función <strong>asignándola</strong> al parámetro <code>l</code>, haciendo que ambas variables sean <em>alias</em> una de la otra (se refieren al mismo objeto) y, por tanto, la función está modificando la misma variable que se ha pasado como argumento (<code>lista</code>).</p></li>
 </ul>
 </section><section id="la-sentencia-return" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> La sentencia <code>return</code></h2><ul>
 <li><p>Para devolver el resultado de la función al código que la llamó, hay que usar una sentencia <code>return</code>.</p></li>
@@ -292,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>se finaliza la ejecución de la función,</p></li>
 <li><p>se devuelve el control al punto del programa en el que se llamó a la función y</p></li>
-<li><p>se declara que la función devuelve como resultado el valor de retorno definido en la sentencia <code>return</code>.</p></li>
+<li><p>la función devuelve como resultado el valor de retorno definido en la sentencia <code>return</code>.</p></li>
 </ul></li>
 </ul></section><section class="slide level4">
 
@@ -306,9 +307,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb4-6" title="6">resultado <span class="op">=</span> suma(a, b)</a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="bu">print</span>(<span class="st">&#39;El resultado es:&#39;</span>, resultado)</a></code></pre></div></li>
 <li><p>La función se define en las líneas 1–2. El intérprete lee la definición de la función pero no ejecuta sus sentencias en ese momento (lo hará cuando se <em>llame</em> a la función).</p></li>
-<li><p>En la línea 6 se llama a la función <code>suma</code></p></li>
+<li><p>En la línea 6 se llama a la función <code>suma</code> pasándole como argumentos los valores de <code>a</code> y <code>b</code>, asignándose a <code>x</code> e <code>y</code>, respectivamente.</p></li>
+<li><p>Dentro de la función, se calcula la suma <code>x + y</code> y la sentencia <code>return</code> finaliza la ejecución de la función, devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor calculado en la suma anterior (el valor de la expresión que acompaña al <code>return</code>).</p></li>
 </ul>
-</section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables globales</h3></section><section id="global" class="slide level4">
+</section><section class="slide level4">
+
+<ul>
+<li><p>El valor de retorno de la función sustituye a la llamada a la función en la expresión en la que aparece dicha llamada, al igual que ocurre con las expresiones lambda.</p></li>
+<li><p>Por tanto, una vez finalizada la ejecución de la función, la línea 6 se reescribe sustituyendo la llamada a la función por su valor.</p></li>
+<li><p>Si, por ejemplo, suponemos que el usuario ha introducido los valores <code>5</code> y <code>7</code> en las variables <code>a</code> y <code>b</code>, respectivamente, tras finalizar la ejecución de la función tendríamos que la línea 6 quedaría:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1">resultado <span class="op">=</span> <span class="dv">12</span></a></code></pre></div>
+<p>y la ejecución del programa continuaría por ahí.</p></li>
+</ul>
+</section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2><ul>
+<li><p>La función <code>suma</code> se podría haber escrito así:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb6-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="cf">return</span> res</a></code></pre></div>
+<p>y el efecto final habría sido el mismo.</p></li>
+<li><p>La variable <code>res</code> que aparece en el cuerpo de la función es una <strong>variable local</strong> y sólo existe dentro de la función. Por tanto, esto sería incorrecto:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb7-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="cf">return</span> res</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="bu">print</span>(res)  <span class="co"># da error</span></a></code></pre></div>
+<p>Da error porque la variable <code>res</code> no está definida en el ámbito actual.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Tal y como sucede con las expresiones lambda, las definiciones de funciones generan un nuevo ámbito.</p></li>
+<li><p>Tanto los parámetros como las variables que se definan en el cuerpo de la función son <strong>locales</strong> a ella, y por tanto sólo existen dentro de ella.</p></li>
+<li><p>Eso significa que se crea un nuevo marco en el entorno, que contendrá al menos los parámetros y las variables locales a la función.</p></li>
+</ul>
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="centered">
+<figure>
+<img data-src="images/funcion-entorno-fuera.svg" alt="Entorno en la línea 6" class="plain" style="width:70.0%" /><figcaption>Entorno en la línea 6</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="centered">
+<figure>
+<img data-src="images/funcion-entorno-dentro.svg" alt="Entorno dentro de la función" class="plain" style="width:100.0%" /><figcaption>Entorno dentro de la función</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables globales</h3></section><section id="global" class="slide level4">
 <h4><span class="header-section-number">1.4.1.1</span> <code>global</code></h4>
 </section><section id="efectos-laterales" class="slide level4">
 <h4><span class="header-section-number">1.4.1.2</span> Efectos laterales</h4>

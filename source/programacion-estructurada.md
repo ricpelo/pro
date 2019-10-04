@@ -109,15 +109,20 @@ del código.
 - En caso de pasar un argumento mutable:
 
   ```{.python .number-lines}
-  def cambia(lista):
-      print(lista)
-      lista.append(99)
+  def cambia(l):
+      print(l)
+      l.append(99)
 
   lista = [1, 2, 3]
   cambia(lista)     # Imprime [1, 2, 3]
   print(lista)      # Imprime [1, 2, 3, 99]
   ```
 
+- La función es capaz de **cambiar el estado de la lista que se ha pasado como
+  argumento** ya que, al llamar a la función, el argumento `lista` se pasa a la
+  función **asignándola** al parámetro `l`, haciendo que ambas variables sean
+  *alias* una de la otra (se refieren al mismo objeto) y, por tanto, la función
+  está modificando la misma variable que se ha pasado como argumento (`lista`).
 
 ## La sentencia `return`
 
@@ -131,8 +136,8 @@ del código.
   - se devuelve el control al punto del  programa en el que se llamó a la
     función y
   
-  - se declara que la función devuelve como resultado el valor de retorno
-    definido en la sentencia `return`.
+  - la función devuelve como resultado el valor de retorno definido en la
+    sentencia `return`.
 
 ---
 
@@ -152,9 +157,137 @@ del código.
   la función pero no ejecuta sus sentencias en ese momento (lo hará cuando se
   *llame* a la función).
 
-- En la línea 6 se llama a la función `suma`
+- En la línea 6 se llama a la función `suma` pasándole como argumentos los
+  valores de `a` y `b`, asignándose a `x` e `y`, respectivamente.
+
+- Dentro de la función, se calcula la suma `x + y` y la sentencia `return`
+  finaliza la ejecución de la función, devolviendo el control al punto en el
+  que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor
+  calculado en la suma anterior (el valor de la expresión que acompaña al
+  `return`).
+
+---
+
+- El valor de retorno de la función sustituye a la llamada a la función en la
+  expresión en la que aparece dicha llamada, al igual que ocurre con las
+  expresiones lambda.
+
+- Por tanto, una vez finalizada la ejecución de la función, la línea 6 se
+  reescribe sustituyendo la llamada a la función por su valor.
+
+- Si, por ejemplo, suponemos que el usuario ha introducido los valores `5` y
+  `7` en las variables `a` y `b`, respectivamente, tras finalizar la ejecución
+  de la función tendríamos que la línea 6 quedaría:
+
+  ```python
+  resultado = 12
+  ```
+
+  y la ejecución del programa continuaría por ahí.
 
 ## Ámbito de variables
+
+- La función `suma` se podría haber escrito así:
+
+  ```python
+  def suma(x, y):
+      res = x + y
+      return res
+  ```
+
+  y el efecto final habría sido el mismo.
+
+- La variable `res` que aparece en el cuerpo de la función es una **variable
+  local** y sólo existe dentro de la función. Por tanto, esto sería incorrecto:
+
+  ```{.python .number-lines}
+  def suma(x, y):
+      res = x + y
+      return res
+
+  resultado = suma(4, 3)
+  print(res)  # da error
+  ```
+
+  Da error porque la variable `res` no está definida en el ámbito actual.
+
+---
+
+- Tal y como sucede con las expresiones lambda, las definiciones de funciones
+  generan un nuevo ámbito.
+
+- Tanto los parámetros como las variables que se definan en el cuerpo de la
+  función son **locales** a ella, y por tanto sólo existen dentro de ella.
+
+- Eso significa que se crea un nuevo marco en el entorno, que contendrá al
+  menos los parámetros y las variables locales a la función.
+
+\vspace{2em}
+
+:::: columns
+
+::: {.column width=40%}
+
+!DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=70%)(width=25%)                                 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                       
+compound = true
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    suma [shape = plaintext, fillcolor = transparent]
+    resultado [shape = plaintext, fillcolor = transparent]
+    v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    suma -> v1 -> función
+    resultado -> v2 -> 7
+}
+E [shape = point]
+E -> suma [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
+
+:::
+
+::: {.column width=60%}
+
+!DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función)(width=100%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR, splines = ortho]
+node [fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+3 -> suma [lhead = cluster0, ltail = cluster1, minlen = 2]
+y [shape = plaintext, fillcolor = transparent]
+suma [shape = plaintext, fillcolor = transparent]
+resultado [shape = plaintext, fillcolor = transparent]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    suma -> v1 -> función
+    resultado -> v2
+}
+subgraph cluster1 {
+    label = <Marco de <u>suma</u>>
+    bgcolor = white
+    4 [shape = circle, width = 0.3, fixedsize = shape]
+    3 [shape = circle, width = 0.3, fixedsize = shape]
+    v5 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    v4 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    v3 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    res [shape = plaintext, fillcolor = transparent]
+    y -> v3 -> 3
+    x -> v4 -> 4
+    res -> v5
+}
+E [shape = point]
+E -> x [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ### Variables globales
 
