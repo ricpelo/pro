@@ -185,6 +185,61 @@ del código.
 
   y la ejecución del programa continuaría por ahí.
 
+---
+
+- También es posible usar la sentencia `return` sin devolver ningún valor.
+
+- En ese caso, su utilidad es la de finalizar la ejecución de la función en
+  algún punto intermedio de su código.
+
+- Pero en Python todas las funciones devuelven algún valor.
+
+- Lo que ocurre en este caso es que la función devuelve el valor `None`:
+
+:::: columns
+
+::: column
+
+  ```python
+  def hola():
+    print('Hola')
+    return
+    print('Adiós')  # aquí no llega
+
+  hola()
+  ```
+
+  imprime:
+
+  ```
+  Hola
+  ```
+
+:::
+
+::: column
+
+  ```python
+  def hola():
+    print('Hola')
+    return
+    print('Adiós')
+
+  x = hola()  # devuelve None
+  print(x)
+  ```
+
+  imprime:
+
+  ```
+  Hola
+  None
+  ```
+
+:::
+
+::::
+
 ## Ámbito de variables
 
 - La función `suma` se podría haber escrito así:
@@ -211,16 +266,16 @@ del código.
 
   Da error porque la variable `res` no está definida en el ámbito actual.
 
----
+### Variables locales
 
-- Tal y como sucede con las expresiones lambda, las definiciones de funciones
+- Al igual que pasa con las expresiones lambda, las definiciones de funciones
   generan un nuevo ámbito.
 
 - Tanto los parámetros como las variables que se definan en el cuerpo de la
   función son **locales** a ella, y por tanto sólo existen dentro de ella.
 
-- Eso significa que se crea un nuevo marco en el entorno, que contendrá al
-  menos los parámetros y las variables locales a la función.
+- Eso significa que se crea un nuevo marco en el entorno, que contendrá, en
+  principio, los parámetros y las variables locales a la función.
 
 \vspace{2em}
 
@@ -291,11 +346,136 @@ E -> x [lhead = cluster1]
 
 ### Variables globales
 
+- Desde dentro de una función es posible usar variables globales.
+
+- Pero para ello es necesario que la función la declare previamente como
+  *global* antes de usarla.
+
+- De no hacerlo así, el intérprete supondría que el programador se refiere a
+  una variable local que tiene el mismo nombre que la global:
+
+  ```python
+  x = 4
+
+  def prueba():
+      x = 5  # esta variable es local
+
+  prueba()
+  print(x)  # imprime 4
+  ```
+
 #### `global`
+
+- Para declarar una variable como global, se usa la sentencia `global`:
+
+  ```python
+  x = 4
+
+  def prueba():
+      global x  # se declara que la variable x es global
+      x = 5     # cambia el valor de la variable global x
+
+  prueba()
+  print(x)  # imprime 5
+  ```
+
+---
+
+- Las reglas básicas de uso de la sentencia `global` en Python son:
+
+  #. Cuando se crea una variable dentro de una función, por omisión es local.
+
+  #. Cuando se define una variable fuera de una función, por omisión es global
+     (no hace falta usar la sentencia `global`).
+
+  #. Se usa la sentencia `global` para consultar y cambiar el valor de una
+     variable global dentro de una función.
+
+  #. El uso de la sentencia `global` fuera de una función no tiene ningún
+     efecto.
+
+  #. La sentencia `global` debe aparecer *antes* de que se use la variable
+     global correspondiente.
 
 #### Efectos laterales
 
-### Variables locales
+- Cambiar el estado de una variable global es uno de los ejemplos más claros y
+  conocidos de los llamados **efectos laterales**.
+
+- Una función tiene (o *provoca*) efectos laterales cuando cambia el estado del
+  exterior de la función. Típicamente:
+
+  - Cuando cambia el valor de una variable global
+
+  - Cuando cambia un argumento mutable
+
+  - Cuando realiza una operación de entrada/salida
+
+- Una función que provoca efectos laterales es una **función impura**, a
+  diferencia de una **función pura**, que no tiene efectos laterales.
+
+---
+
+- Los efectos laterales provocan que sea muy difícil razonar sobre el
+  funcionamiento del programa, puesto que las funciones impuras no pueden verse
+  como simples **cajas negras** que reciben datos de entrada y devuelven una
+  salida, sino que además hay que tener en cuenta los **efectos ocultos** que
+  producen en otras partes del programa:
+
+  ```python
+  def suma(x, y):
+      res = x + y
+      print('La suma vale', res)
+      return res
+
+  resultado = suma(4, 3) + suma(8, 5)
+  print(resultado)
+  ```
+
+  Cualquiera que no sepa cómo está construida internamente la función `suma`,
+  se podría pensar que lo único que hace es calcular la suma de dos números,
+  pero también muestra un mensaje a la salida.
+
+  Al final, el resultado que se obtiene no es el que se esperaba:
+
+  ```
+  La suma vale 7
+  La suma vale 13
+  20
+  ```
+
+---
+
+- Además, **impiden la transparencia referencial**, ya que la misma función,
+  invocada con los mismos argumentos, puede producir resultados distintos en
+  momentos diferentes:
+
+  ```python
+  def suma(x, y):
+      global z
+      res = x + y + z
+      z = z + 1
+      return res
+
+  z = 0
+  print(suma(4, 3))  # imprime 7
+  print(suma(4, 3))  # la misma llamada a función ahora imprime 8
+  ```
+
+---
+
+- Por todo lo anterior, se debe evitar, siempre que sea posible, escribir
+  funciones impuras (o sea, que provoquen efectos laterales).
+  
+- Ahora bien: muchas veces, la función que se desea escribir tiene efectos
+  laterales porque esos son, precisamente, los efectos deseados.
+
+  - Por ejemplo, una función que actualice los salarios de los empleados en una
+    base de datos, a partir del salario base y los complementos.
+
+- En ese caso, es importante documentar adecuadamente la función para que,
+  quien desee usarla, sepa perfectamente qué efectos produce más allá de
+  devolver un resultado.
 
 ## Declaraciones de tipos
 

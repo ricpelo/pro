@@ -319,28 +319,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1">resultado <span class="op">=</span> <span class="dv">12</span></a></code></pre></div>
 <p>y la ejecución del programa continuaría por ahí.</p></li>
 </ul>
-</section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2><ul>
-<li><p>La función <code>suma</code> se podría haber escrito así:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">def</span> suma(x, y):</a>
-<a class="sourceLine" id="cb6-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
-<a class="sourceLine" id="cb6-3" title="3">    <span class="cf">return</span> res</a></code></pre></div>
-<p>y el efecto final habría sido el mismo.</p></li>
-<li><p>La variable <code>res</code> que aparece en el cuerpo de la función es una <strong>variable local</strong> y sólo existe dentro de la función. Por tanto, esto sería incorrecto:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">def</span> suma(x, y):</a>
-<a class="sourceLine" id="cb7-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
-<a class="sourceLine" id="cb7-3" title="3">    <span class="cf">return</span> res</a>
-<a class="sourceLine" id="cb7-4" title="4"></a>
-<a class="sourceLine" id="cb7-5" title="5">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="bu">print</span>(res)  <span class="co"># da error</span></a></code></pre></div>
-<p>Da error porque la variable <code>res</code> no está definida en el ámbito actual.</p></li>
-</ul></section><section class="slide level4">
+</section><section class="slide level4">
 
 <ul>
-<li><p>Tal y como sucede con las expresiones lambda, las definiciones de funciones generan un nuevo ámbito.</p></li>
-<li><p>Tanto los parámetros como las variables que se definan en el cuerpo de la función son <strong>locales</strong> a ella, y por tanto sólo existen dentro de ella.</p></li>
-<li><p>Eso significa que se crea un nuevo marco en el entorno, que contendrá al menos los parámetros y las variables locales a la función.</p></li>
+<li><p>También es posible usar la sentencia <code>return</code> sin devolver ningún valor.</p></li>
+<li><p>En ese caso, su utilidad es la de finalizar la ejecución de la función en algún punto intermedio de su código.</p></li>
+<li><p>Pero en Python todas las funciones devuelven algún valor.</p></li>
+<li><p>Lo que ocurre en este caso es que la función devuelve el valor <code>None</code>:</p></li>
 </ul>
-
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">def</span> hola():</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;)  # aquí no llega</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="st">hola()</span></a></code></pre></div>
+<p>imprime:</p>
+<pre><code>Hola</code></pre>
+</div><div class="column">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">def</span> hola():</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="cf">return</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;)</span></a>
+<a class="sourceLine" id="cb8-5" title="5"></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="st">x = hola()  # devuelve None</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="st">print(x)</span></a></code></pre></div>
+<p>imprime:</p>
+<pre><code>Hola
+None</code></pre>
+</div>
+</div>
+</section><section id="ámbito-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Ámbito de variables</h2><ul>
+<li><p>La función <code>suma</code> se podría haber escrito así:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb10-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="cf">return</span> res</a></code></pre></div>
+<p>y el efecto final habría sido el mismo.</p></li>
+<li><p>La variable <code>res</code> que aparece en el cuerpo de la función es una <strong>variable local</strong> y sólo existe dentro de la función. Por tanto, esto sería incorrecto:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb11-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb11-3" title="3">    <span class="cf">return</span> res</a>
+<a class="sourceLine" id="cb11-4" title="4"></a>
+<a class="sourceLine" id="cb11-5" title="5">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="bu">print</span>(res)  <span class="co"># da error</span></a></code></pre></div>
+<p>Da error porque la variable <code>res</code> no está definida en el ámbito actual.</p></li>
+</ul></section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables locales</h3><ul>
+<li><p>Al igual que pasa con las expresiones lambda, las definiciones de funciones generan un nuevo ámbito.</p></li>
+<li><p>Tanto los parámetros como las variables que se definan en el cuerpo de la función son <strong>locales</strong> a ella, y por tanto sólo existen dentro de ella.</p></li>
+<li><p>Eso significa que se crea un nuevo marco en el entorno, que contendrá, en principio, los parámetros y las variables locales a la función.</p></li>
+</ul>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="centered">
@@ -355,12 +383,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </div>
-</div>
-</section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Variables globales</h3></section><section id="global" class="slide level4">
-<h4><span class="header-section-number">1.4.1.1</span> <code>global</code></h4>
+</div></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> Variables globales</h3><ul>
+<li><p>Desde dentro de una función es posible usar variables globales.</p></li>
+<li><p>Pero para ello es necesario que la función la declare previamente como <em>global</em> antes de usarla.</p></li>
+<li><p>De no hacerlo así, el intérprete supondría que el programador se refiere a una variable local que tiene el mismo nombre que la global:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb12-2" title="2"></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw">def</span> prueba():</a>
+<a class="sourceLine" id="cb12-4" title="4">    x <span class="op">=</span> <span class="dv">5</span>  <span class="co"># esta variable es local</span></a>
+<a class="sourceLine" id="cb12-5" title="5"></a>
+<a class="sourceLine" id="cb12-6" title="6">prueba()</a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="bu">print</span>(x)  <span class="co"># imprime 4</span></a></code></pre></div></li>
+</ul></section><section id="global" class="slide level4">
+<h4><span class="header-section-number">1.4.2.1</span> <code>global</code></h4>
+<ul>
+<li><p>Para declarar una variable como global, se usa la sentencia <code>global</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb13-2" title="2"></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="kw">def</span> prueba():</a>
+<a class="sourceLine" id="cb13-4" title="4">    <span class="kw">global</span> x  <span class="co"># se declara que la variable x es global</span></a>
+<a class="sourceLine" id="cb13-5" title="5">    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global x</span></a>
+<a class="sourceLine" id="cb13-6" title="6"></a>
+<a class="sourceLine" id="cb13-7" title="7">prueba()</a>
+<a class="sourceLine" id="cb13-8" title="8"><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las reglas básicas de uso de la sentencia <code>global</code> en Python son:</p>
+<ol>
+<li><p>Cuando se crea una variable dentro de una función, por omisión es local.</p></li>
+<li><p>Cuando se define una variable fuera de una función, por omisión es global (no hace falta usar la sentencia <code>global</code>).</p></li>
+<li><p>Se usa la sentencia <code>global</code> para consultar y cambiar el valor de una variable global dentro de una función.</p></li>
+<li><p>El uso de la sentencia <code>global</code> fuera de una función no tiene ningún efecto.</p></li>
+<li><p>La sentencia <code>global</code> debe aparecer <em>antes</em> de que se use la variable global correspondiente.</p></li>
+</ol></li>
+</ul>
 </section><section id="efectos-laterales" class="slide level4">
-<h4><span class="header-section-number">1.4.1.2</span> Efectos laterales</h4>
-</section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> Variables locales</h3></section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">1.5.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">1.5.2</span> Declaraciones de tipo de devolución</h3></section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Funciones locales a funciones</h2></section><section id="nonlocal" class="title-slide slide level3"><h3><span class="header-section-number">1.6.1</span> <code>nonlocal</code></h3></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">1.7</span> <em>Docstrings</em></h2></section></section>
+<h4><span class="header-section-number">1.4.2.3</span> Efectos laterales</h4>
+<ul>
+<li><p>Cambiar el estado de una variable global es uno de los ejemplos más claros y conocidos de los llamados <strong>efectos laterales</strong>.</p></li>
+<li><p>Una función tiene (o <em>provoca</em>) efectos laterales cuando cambia el estado del exterior de la función. Típicamente:</p>
+<ul>
+<li><p>Cuando cambia el valor de una variable global</p></li>
+<li><p>Cuando cambia un argumento mutable</p></li>
+<li><p>Cuando realiza una operación de entrada/salida</p></li>
+</ul></li>
+<li><p>Una función que provoca efectos laterales es una <strong>función impura</strong>, a diferencia de una <strong>función pura</strong>, que no tiene efectos laterales.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Los efectos laterales provocan que sea muy difícil razonar sobre el funcionamiento del programa, puesto que las funciones impuras no pueden verse como simples <strong>cajas negras</strong> que reciben datos de entrada y devuelven una salida, sino que además hay que tener en cuenta los <strong>efectos ocultos</strong> que producen en otras partes del programa:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb14-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb14-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</a>
+<a class="sourceLine" id="cb14-4" title="4">    <span class="cf">return</span> res</a>
+<a class="sourceLine" id="cb14-5" title="5"></a>
+<a class="sourceLine" id="cb14-6" title="6">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="bu">print</span>(resultado)</a></code></pre></div>
+<p>Cualquiera que no sepa cómo está construida internamente la función <code>suma</code>, se podría pensar que lo único que hace es calcular la suma de dos números, pero también muestra un mensaje a la salida.</p>
+<p>Al final, el resultado que se obtiene no es el que se esperaba:</p>
+<pre><code>La suma vale 7
+La suma vale 13
+20</code></pre></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Además, <strong>impiden la transparencia referencial</strong>, ya que la misma función, invocada con los mismos argumentos, puede producir resultados distintos en momentos diferentes:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb16-2" title="2">    <span class="kw">global</span> z</a>
+<a class="sourceLine" id="cb16-3" title="3">    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb16-4" title="4">    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb16-5" title="5">    <span class="cf">return</span> res</a>
+<a class="sourceLine" id="cb16-6" title="6"></a>
+<a class="sourceLine" id="cb16-7" title="7">z <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por todo lo anterior, se debe evitar, siempre que sea posible, escribir funciones impuras (o sea, que provoquen efectos laterales).</p></li>
+<li><p>Ahora bien: muchas veces, la función que se desea escribir tiene efectos laterales porque esos son, precisamente, los efectos deseados.</p>
+<ul>
+<li>Por ejemplo, una función que actualice los salarios de los empleados en una base de datos, a partir del salario base y los complementos.</li>
+</ul></li>
+<li><p>En ese caso, es importante documentar adecuadamente la función para que, quien desee usarla, sepa perfectamente qué efectos produce más allá de devolver un resultado.</p></li>
+</ul>
+</section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">1.5.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">1.5.2</span> Declaraciones de tipo de devolución</h3></section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Funciones locales a funciones</h2></section><section id="nonlocal" class="title-slide slide level3"><h3><span class="header-section-number">1.6.1</span> <code>nonlocal</code></h3></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">1.7</span> <em>Docstrings</em></h2></section></section>
 <section id="teorema-de-böhm-jacopini" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Teorema de Böhm-Jacopini</h1></section>
 <section><section id="estructuras-básicas-de-control" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras básicas de control</h1></section><section id="concepto-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Concepto de estructura</h2></section><section id="secuencia" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Secuencia</h2></section><section id="selección" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Selección</h2></section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Iteración</h2></section></section>
 <section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Metodología de la programación estructurada</h1></section><section id="recursos-abstractos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Recursos abstractos</h2></section><section id="diseño-descendente" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Diseño descendente</h2></section><section id="refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Refinamiento sucesivo</h2></section></section>
