@@ -58,11 +58,11 @@ nocite: |
 - De la misma manera que decíamos que podemos aplicar una función a unos
   argumentos, también podemos aplicar una expresión lambda a unos argumentos.
 
-- Recordemos que *aplicar* una función a unos argumentos producía el valor que
+- Recordemos que *aplicar* una función a unos argumentos produce el valor que
   la función asocia a esos argumentos en el conjunto imagen.
 
 - Por ejemplo, la aplicación de la función $max$ sobre los argumentos $3$ y
-  $5$ se denota como $max(3, 5)$ y eso denota el valor $5$.
+  $5$ se escribe como $max(3, 5)$ y eso denota el valor $5$.
 
 - Igualmente, la aplicación de una expresión lambda como
 
@@ -230,7 +230,7 @@ nocite: |
   expresión lambda.
 
 - Por contraste, los identificadores que no tienen ámbito local se dice que
-  tienen un **ámbito global**.
+  tienen un **ámbito no local** o, a veces, un **ámbito más global**.
 
 ---
 
@@ -280,7 +280,7 @@ nocite: |
 #### Ligaduras *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
-  ya están definidos (ligados) en el entorno?
+  ya están definidos (ligados) en el entorno (en un ámbito más global)?
 
 - Por ejemplo:
 
@@ -289,8 +289,7 @@ nocite: |
   total = (lambda x: x * x)(3)  # Su valor es 9
   ```
 
-- La `x` que aparece en la línea 1 es diferente a la que aparece en la lista de
-  parámetros de la expresión lambda de la línea 2.
+- La `x` que aparece en la línea 1 es distinta a la que aparece en la línea 2.
 
 - El identificador `x` que aparece en el cuerpo de la expresión
   lambda **hace referencia al parámetro `x` de la expresión lambda**, y **no**
@@ -785,7 +784,7 @@ E -> x [lhead = cluster0]
 
 - Es evidente que la función `primero` no necesita evaluar nunca su segundo
   argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos).
-  Por ejemplo, `primero(4, 3)` devuelve `3`.
+  Por ejemplo, `primero(4, 3)` devuelve `4`.
 
 ---
 
@@ -1048,9 +1047,9 @@ E -> x [lhead = cluster0]
 
 - En el cálculo de $n!$, la longitud de la cadena de operaciones pendientes (y,
   por tanto, la información que necesita almacenar el intérprete), crece
-  linealmente con $n$.
+  *linealmente* con $n$.
 
-  - A este tipo de procesos lo llamaremos **proceso recursivo lineal**.
+  - A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
 
 #### Procesos lineales iterativos
 
@@ -1095,12 +1094,12 @@ E -> x [lhead = cluster0]
   toda la información que se necesita almacenar es el valor actual de los
   parámetros `cont` y `acc`.
 
-- A este tipo de procesos le llamaremos **proceso iterativo**.
+- A este tipo de procesos lo llamaremos **proceso iterativo**.
 
-- El tiempo requerido para calcular $n!$ usando esta función crece linealmente
-  con $n$.
+- El tiempo requerido para calcular $n!$ usando esta función crece
+  *linealmente* con $n$.
 
-  - A los procesos de este tipo lo llamaremos **proceso iterativo lineal**.
+  - A este tipo de procesos lo llamaremos **proceso iterativo _lineal_**.
 
 ---
 

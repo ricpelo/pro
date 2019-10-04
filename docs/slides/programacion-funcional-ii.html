@@ -250,8 +250,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></section><section id="aplicación-funcional" class="title-slide slide level3"><h3><span class="header-section-number">1.1.2</span> Aplicación funcional</h3><ul>
 <li><p>De la misma manera que decíamos que podemos aplicar una función a unos argumentos, también podemos aplicar una expresión lambda a unos argumentos.</p></li>
-<li><p>Recordemos que <em>aplicar</em> una función a unos argumentos producía el valor que la función asocia a esos argumentos en el conjunto imagen.</p></li>
-<li><p>Por ejemplo, la aplicación de la función <span class="math inline">max</span> sobre los argumentos <span class="math inline">3</span> y <span class="math inline">5</span> se denota como <span class="math inline">max(3, 5)</span> y eso denota el valor <span class="math inline">5</span>.</p></li>
+<li><p>Recordemos que <em>aplicar</em> una función a unos argumentos produce el valor que la función asocia a esos argumentos en el conjunto imagen.</p></li>
+<li><p>Por ejemplo, la aplicación de la función <span class="math inline">max</span> sobre los argumentos <span class="math inline">3</span> y <span class="math inline">5</span> se escribe como <span class="math inline">max(3, 5)</span> y eso denota el valor <span class="math inline">5</span>.</p></li>
 <li><p>Igualmente, la aplicación de una expresión lambda como</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</a></code></pre></div>
 <p>sobre los argumentos <code>4</code> y <code>3</code> se representa así:</p>
@@ -327,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En realidad, lo que hace la expresión lambda es <strong>ligar al parámetro con la variable ligada que está dentro del cuerpo</strong>, y esa ligadura existe únicamente en el cuerpo de la expresión lambda.</p></li>
 <li><p>Por tanto, <strong>el ámbito de una variable ligada es el cuerpo de la expresión lambda</strong> que la liga con su parámetro.</p></li>
 <li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda.</p></li>
-<li><p>Por contraste, los identificadores que no tienen ámbito local se dice que tienen un <strong>ámbito global</strong>.</p></li>
+<li><p>Por contraste, los identificadores que no tienen ámbito local se dice que tienen un <strong>ámbito no local</strong> o, a veces, un <strong>ámbito más global</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -355,11 +355,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="ligaduras-sombreadas" class="slide level4">
 <h4><span class="header-section-number">1.1.4.4</span> Ligaduras <em>sombreadas</em></h4>
 <ul>
-<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno?</p></li>
+<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno (en un ámbito más global)?</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb18-2" title="2">total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></a></code></pre></div></li>
-<li><p>La <code>x</code> que aparece en la línea 1 es diferente a la que aparece en la lista de parámetros de la expresión lambda de la línea 2.</p></li>
+<li><p>La <code>x</code> que aparece en la línea 1 es distinta a la que aparece en la línea 2.</p></li>
 <li><p>El identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>hace referencia al parámetro <code>x</code> de la expresión lambda</strong>, y <strong>no</strong> al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
 <li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> global, y decimos que ese identificador está <strong>sombreado</strong> o que su ligadura está <strong>sombreada</strong>.</p></li>
 </ul>
@@ -589,7 +589,7 @@ z -> 1
 <li><p>Supongamos que tenemos la siguiente definición:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1">primero <span class="op">=</span> <span class="kw">lambda</span> x, y: x</a></code></pre></div>
 <p>de forma que <code>primero</code> es una función que simplemente devuelve el primero de sus argumentos.</p></li>
-<li><p>Es evidente que la función <code>primero</code> no necesita evaluar nunca su segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos). Por ejemplo, <code>primero(4, 3)</code> devuelve <code>3</code>.</p></li>
+<li><p>Es evidente que la función <code>primero</code> no necesita evaluar nunca su segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos). Por ejemplo, <code>primero(4, 3)</code> devuelve <code>4</code>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -727,9 +727,9 @@ z -> 1
 </ul></li>
 <li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de proceso caracterizado por una cadena de <strong>operaciones pendientes de completar</strong>.</p></li>
 <li><p>Para poder ejecutar este proceso, el intérprete necesita <strong>memorizar</strong>, en algún lugar, un registro de las multiplicaciones que se han dejado para más adelante.</p></li>
-<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la cadena de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece linealmente con <span class="math inline">n</span>.</p>
+<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la cadena de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece <em>linealmente</em> con <span class="math inline">n</span>.</p>
 <ul>
-<li>A este tipo de procesos lo llamaremos <strong>proceso recursivo lineal</strong>.</li>
+<li>A este tipo de procesos lo llamaremos <strong>proceso recursivo <em>lineal</em></strong>.</li>
 </ul></li>
 </ul>
 </section><section id="procesos-lineales-iterativos" class="slide level4">
@@ -760,10 +760,10 @@ z -> 1
 <a class="sourceLine" id="cb40-8" title="8"><span class="op">=</span> fact_iter(<span class="dv">0</span>, <span class="dv">720</span>)</a>
 <a class="sourceLine" id="cb40-9" title="9"><span class="op">=</span> <span class="dv">720</span></a></code></pre></div></li>
 <li><p>Este proceso no tiene expansiones ni contracciones ya que, en cada instante, toda la información que se necesita almacenar es el valor actual de los parámetros <code>cont</code> y <code>acc</code>.</p></li>
-<li><p>A este tipo de procesos le llamaremos <strong>proceso iterativo</strong>.</p></li>
-<li><p>El tiempo requerido para calcular <span class="math inline">n!</span> usando esta función crece linealmente con <span class="math inline">n</span>.</p>
+<li><p>A este tipo de procesos lo llamaremos <strong>proceso iterativo</strong>.</p></li>
+<li><p>El tiempo requerido para calcular <span class="math inline">n!</span> usando esta función crece <em>linealmente</em> con <span class="math inline">n</span>.</p>
 <ul>
-<li>A los procesos de este tipo lo llamaremos <strong>proceso iterativo lineal</strong>.</li>
+<li>A este tipo de procesos lo llamaremos <strong>proceso iterativo <em>lineal</em></strong>.</li>
 </ul></li>
 </ul>
 </section><section class="slide level4">
