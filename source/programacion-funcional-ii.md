@@ -1397,6 +1397,45 @@ fib1_5 -> u5
   [1, 2, 3] + [4, 5, 6]  # devuelve [1, 2, 3, 4, 5, 6]
   ```
 
+### `range`
+
+- Una forma fácil de crear listas de números es usar **rangos**.
+
+- Los rangos conforman un tipo de dato específico y representan secuencias de
+  números.
+
+- Los rangos se crean con la función `range`, cuya sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(range) ::= !T(range)!T{(}!NT(fin)!T{)}
+                |  !T(range)!T{(}!NT(inicio)!T(,) !NT(fin)[!T(,) !NT(salto)]!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Como esta función devuelve un rango, lo que haremos será transformar ese
+  rango en un lista usando la función `list`.
+
+---
+
+- Ejemplos:
+
+  ```python
+  >>> list(range(10))
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  >>> list(range(1, 11))
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  >>> list(range(0, 30, 5))
+  [0, 5, 10, 15, 20, 25]
+  >>> list(range(0, 10, 3))
+  [0, 3, 6, 9]
+  >>> list(range(0, -10, -1))
+  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+  >>> list(range(0))
+  []
+  >>> list(range(1, 0))
+  []
+  ```
+
 # Funciones de orden superior
 
 ## Concepto
@@ -1547,8 +1586,12 @@ fib1_5 -> u5
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~
-  map(!NT(función), !NT(lista)) -> !NT(iterador)
+  map(!NT(función), !NT(iterable)) -> !NT(iterador)
   ~~~~~~~~~~~~~~~~~~~~~
+
+  donde !NT(iterable) puede ser cualquier cosa compuesta de elementos que se
+  puedan recorrer de uno en uno, como una **lista**, una **cadena** o un
+  **rango** (cualquier *secuencia* de elementos vale).
 
 ---
 
@@ -1559,14 +1602,21 @@ fib1_5 -> u5
   <map object at 0x7f22b25e9d68>
   ```
 
-  Lo que devuelve no es la lista, sino un objeto llamado *iterador* que
-  estudiaremos en posteriores temas.
+  Lo que devuelve no es una lista, sino un objeto *iterador* que examinaremos
+  con más detalle en posteriores temas.
 
   Por ahora, lo que haremos será simplemente transformar ese iterador en la
   lista correspondiente usando la función `list` sobre el resultado de `map`:
 
   ```python
   >>> list(map(cubo, [1, 2, 3, 4]))
+  [1, 8, 27, 64]
+  ```
+
+- Además de una lista, también podemos usar un rango:
+
+  ```python
+  list(map(cubo, range(1, 5)))
   [1, 8, 27, 64]
   ```
 
@@ -1583,13 +1633,14 @@ fib1_5 -> u5
 ## `filter`
 
 - `filter` es una **función de orden superior** que devuelve aquellos elementos
-  de una lista que cumplen una determinada condición.
+  de una lista (o cualquier cosa *iterable*) que cumplen una determinada
+  condición.
 
 - Su sintaxis es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~
-  filter(!NT(función), !NT(lista)) -> !NT(iterador)
+  filter(!NT(función), !NT(iterable)) -> !NT(iterador)
   ~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
@@ -1602,7 +1653,8 @@ fib1_5 -> u5
 ## `reduce`
 
 - `reduce` es una **función de orden superior** que aplica, de forma
-  acumulativa, una función a todos los elementos de una lista.
+  acumulativa, una función a todos los elementos de una lista (o cualquier cosa
+  *iterable*).
 
 - Las operaciones se hacen agrupándose **por la izquierda**.
 
@@ -1637,7 +1689,7 @@ fib1_5 -> u5
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~
-  reduce(!NT(función), !NT(lista)[, !NT(valor_inicial)]) -> !NT(lista)
+  reduce(!NT(función), !NT(iterable)[, !NT(valor_inicial)]) -> !NT(valor)
   ~~~~~~~~~~~~~~~~~~~~~
 
 - El !NT(valor_inicial), si existe, se usará como primer elemento de la lista
@@ -1649,10 +1701,12 @@ fib1_5 -> u5
 
 - Para usarla, tenemos que *importarla* previamente del *módulo* `functools`.
 
-  En su momento estudiaremos qué son los módulos. Por ahora supondremos que
-  contienen definiciones de funciones que podemos incorporar a nuestros
-  *scripts*, de una forma similar a lo que hacemos cuando incorporamos un
-  *script* a nuestras sesiones interactivas.
+  - No es la primera vez que importamos un módulo. Ya lo hicimos con el módulo
+    `math`.
+
+  - En su momento estudiaremos con detalle qué son los módulos. Por ahora nos
+    basta con lo que ya sabemos: que contienen definiciones que podemos
+    incorporar a nuestros *scripts*.
 
 - Por ejemplo, para calcular la suma y el producto de `[1, 2, 3, 4]`:
 

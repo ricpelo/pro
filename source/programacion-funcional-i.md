@@ -1263,7 +1263,7 @@ False
 >>> 5 == 5
 True
 >>> 3 < 9
-False
+True
 ```
 
 :::
@@ -1987,7 +1987,7 @@ subgraph cluster0 {
 
 - Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
 
-- Para cargar un *script* en nuestra sesión, usamos la orden `from`. Por
+- Para cargar un *script* en nuestra sesión usamos la orden `from`. Por
   ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
 
   ```python
@@ -2003,7 +2003,7 @@ subgraph cluster0 {
   elementos al lenguaje, el concepto de *ámbito* irá cambiando para tener en
   cuenta más condicionantes.
 
-- *Por ahora*, diremos que el ámbito de una ligadura abarca desde la propia
+- *Por ahora*, diremos que el ámbito de una ligadura abarca desde su propia
   definición hasta el final del *script*.
 
 # Documentación interna
