@@ -1729,4 +1729,56 @@ fib1_5 -> u5
                                    fun(lista[0], reduce(fun, lista[1:], ini))
   ```
 
+## Listas por comprensión
+
+- Dos operaciones que se realizan con frecuencia sobre un iterador son:
+
+  - Realizar alguna operación sobre cada elemento (`map`)
+
+  - Seleccionar un subconjunto de elementos que cumplan alguna condición
+    (`filter`)
+
+- Las listas por comprensión son una notación copiada del lenguaje Haskell que
+  nos permite realizar ambas operaciones de una forma muy concisa:
+
+  ```python
+  >>> [x ** 3 for x in [1, 2, 3, 4]]
+  [1, 8, 27, 64]
+  # equivale a:
+  >>> list(map(lambda x: x ** 3, [1, 2, 3, 4]))
+  [1, 8, 27, 64]
+
+  >>> [x for x in [-4, 3, 5, -2, 8, -3, 9] if x > 0]
+  [3, 5, 8, 9]
+  # equivale a:
+  >>> list(filter(lambda x: x > 0, [-4, 3, 5, -2, 8, -3, 9]))
+  [3, 5, 8, 9]
+  ```
+
+---
+
+- Su sintaxis es:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(lista_comp) ::= !T([)!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T(])
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los elementos de la salida generada serán los sucesivos valores de
+  !NT(expresión).
+
+- Las cláusulas !T(if) son opcionales. Si están, la !NT(expresión) sólo se
+  evaluará y añadirá al resultado cuando se cumpla la !NT(condición).
+
+- Por ejemplo:
+
+  ```python
+  >>> sec1 = 'abc'
+  >>> sec2 = (1, 2, 3)
+  >>> [(x, y) for x in sec1 for y in sec2]
+  [('a', 1), ('a', 2), ('a', 3),
+   ('b', 1), ('b', 2), ('b', 3),
+   ('c', 1), ('c', 2), ('c', 3)]
+  ```
+
 !BIBLIOGRAFIA
