@@ -858,10 +858,10 @@ z -> 1
 <section><section id="tipos-de-datos-recursivos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Tipos de datos recursivos</h1></section><section id="cadenas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Cadenas</h2><ul>
 <li><p>Las <strong>cadenas</strong> se pueden considerar <strong>datos recursivos compuestos</strong>, ya que podemos decir que toda cadena <code>c</code>:</p>
 <ul>
-<li><p>O bien es la cadena vacía <code>''</code>,</p></li>
-<li><p>O bien está formada por dos partes:</p>
+<li><p>o bien es la cadena vacía <code>''</code> (<em>caso base</em>),</p></li>
+<li><p>o bien está formada por dos partes:</p>
 <ul>
-<li><p>El <strong>primer carácter</strong> de la cadena, al que se accede mediante <code>c[0]</code> (<em>caso base</em>).</p></li>
+<li><p>El <strong>primer carácter</strong> de la cadena, al que se accede mediante <code>c[0]</code>.</p></li>
 <li><p>El <strong>resto</strong> de la cadena (al que se accede mediante <code>c[1:]</code>), que también es una cadena (<em>caso recursivo</em>).</p></li>
 </ul></li>
 </ul></li>
@@ -870,77 +870,108 @@ z -> 1
 <a class="sourceLine" id="cb44-2" title="2">cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></a>
 <a class="sourceLine" id="cb44-3" title="3">cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></a>
 <a class="sourceLine" id="cb44-4" title="4">cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></a></code></pre></div></li>
-</ul></section><section class="slide level4">
-
-<ul>
-<li><p>Junto a las operaciones <code>c[0]</code> (primer carácter) y <code>c[1:]</code> (resto de la cadena), tenemos también la operación <code>+</code> (<strong>concatenación</strong>).</p></li>
-<li><p>Con la concatenación se pueden crear cadenas a partir de otras cadenas.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" title="1"><span class="co">&#39;¡Hola, &#39;</span> <span class="op">+</span> <span class="st">&#39;mundo!&#39;</span>  <span class="co"># devuelve &#39;¡Hola, mundo!&#39;</span></a></code></pre></div></li>
-</ul>
-</section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2><ul>
+</ul></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Listas</h2><ul>
 <li><p>Las <strong>listas</strong> son una generalización de las cadenas.</p></li>
-<li><p>Una lista es una <strong>secuencia de elementos</strong> que no tienen por qué ser caracteres, sino que pueden ser <strong>de cualquier tipo</strong> (números, cadenas, booleanos, incluso otras listas).</p></li>
+<li><p>Una lista es una <strong>secuencia de elementos</strong> que no tienen por qué ser caracteres, sino que cada uno de ellos pueden ser <strong>de cualquier tipo</strong> (números, cadenas, booleanos, incluso otras listas).</p></li>
 <li><p>Los literales de tipo lista se representan enumerando sus elementos separados por comas y encerrados entre corchetes.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Las listas también pueden verse como un <strong>tipo de datos recursivo</strong>, ya que toda lista <code>l</code>:</p>
 <ul>
-<li><p>O bien es la lista vacía (que se representa mediante <code>[]</code>).</p></li>
-<li><p>O bien está formada por dos partes:</p>
+<li><p>o bien es la lista vacía, representada mediante <code>[]</code> (<em>caso base</em>),</p></li>
+<li><p>o bien está formada por dos partes:</p>
 <ul>
-<li><p>El <strong>primer elemento</strong> de la lista (al que se accede mediante <code>l[0]</code>), que hemos visto que puede ser de cualquier tipo (<em>caso base</em>).</p></li>
+<li><p>El <strong>primer elemento</strong> de la lista (al que se accede mediante <code>l[0]</code>), que hemos visto que puede ser de cualquier tipo.</p></li>
 <li><p>El <strong>resto</strong> de la lista (al que se accede mediante <code>l[1:]</code>), que también es una lista (<em>caso recursivo</em>).</p></li>
 </ul></li>
 </ul></li>
 <li><p>Según el ejemplo anterior:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb47-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a>
-<a class="sourceLine" id="cb47-2" title="2">lista[<span class="dv">0</span>]       <span class="co"># devuelve 27</span></a>
-<a class="sourceLine" id="cb47-3" title="3">lista[<span class="dv">1</span>:]      <span class="co"># devuelve [&#39;hola&#39;, True, 73.4, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], 99]</span></a>
-<a class="sourceLine" id="cb47-4" title="4">lista[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;hola&#39;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1">lista <span class="op">=</span> [<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="dv">99</span>]</a>
+<a class="sourceLine" id="cb46-2" title="2">lista[<span class="dv">0</span>]       <span class="co"># devuelve 27</span></a>
+<a class="sourceLine" id="cb46-3" title="3">lista[<span class="dv">1</span>:]      <span class="co"># devuelve [&#39;hola&#39;, True, 73.4, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], 99]</span></a>
+<a class="sourceLine" id="cb46-4" title="4">lista[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;hola&#39;</span></a></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Junto a las operaciones <code>l[0]</code> (primer elemento) y <code>c[1:]</code> (resto de la lista), tenemos también la operación <code>+</code> (<strong>concatenación</strong>).</p></li>
-<li><p>Con la concatenación se pueden crear listas a partir de otras listas.</p></li>
+<li><p>Junto a las operaciones <code>l[0]</code> (primer elemento) y <code>c[1:]</code> (resto de la lista), tenemos también la operación <code>+</code> (<strong>concatenación</strong>), al igual que ocurre con las cadenas.</p></li>
+<li><p>Con la concatenación se pueden crear nuevas listas a partir de otras listas.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="op">+</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]  <span class="co"># devuelve [1, 2, 3, 4, 5, 6]</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb47-1" title="1">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="op">+</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]  <span class="co"># devuelve [1, 2, 3, 4, 5, 6]</span></a></code></pre></div></li>
 </ul>
-</section><section id="range" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> <code>range</code></h3><ul>
-<li><p>Una forma fácil de crear listas de números es usar <strong>rangos</strong>.</p></li>
-<li><p>Los rangos conforman un tipo de dato específico y representan secuencias de números.</p></li>
+</section><section id="rangos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Rangos</h2><ul>
+<li><p>Un rango es un tipo de dato cuyos valores representan <strong>sencuencias de números enteros</strong>.</p></li>
 <li><p>Los rangos se crean con la función <code>range</code>, cuya sintaxis es:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;range&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong><span style="color:teal"><em>&lt;fin&gt;</em></span><strong><code>)</code></strong><br />
-                | <strong><code>range</code><code>(</code></strong><span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong> <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;salto&gt;</em></span>]<strong><code>)</code></strong></div></li>
-<li><p>Como esta función devuelve un rango, lo que haremos será transformar ese rango en un lista usando la función <code>list</code>.</p></li>
+<div class="line-block"><span style="color:teal"><em>&lt;rango&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong>] <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;salto&gt;</em></span>]<strong><code>)</code></strong></div></li>
+<li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;salto&gt;</em></span> deben ser números enteros.</p></li>
+<li><p>Cuando se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, se entiende que es <code>0</code>.</p></li>
+<li><p>El valor de <span style="color:teal"><em>&lt;fin&gt;</em></span> no se alcanza nunca.</p></li>
+<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> y <span style="color:teal"><em>&lt;fin&gt;</em></span> son iguales, representa el <em>rango vacío</em>.</p></li>
+<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> es mayor que <span style="color:teal"><em>&lt;fin&gt;</em></span>, el <span style="color:teal"><em>&lt;salto&gt;</em></span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Ejemplos:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb49-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb49-2" title="2">[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb49-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</a>
-<a class="sourceLine" id="cb49-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb49-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb49-6" title="6">[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</a>
-<a class="sourceLine" id="cb49-7" title="7"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb49-8" title="8">[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb49-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</a>
-<a class="sourceLine" id="cb49-10" title="10">[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</a>
-<a class="sourceLine" id="cb49-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb49-12" title="12">[]</a>
-<a class="sourceLine" id="cb49-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb49-14" title="14">[]</a></code></pre></div></li>
+<ul>
+<li><p><code>range(10)</code> representa la secuencia <span class="math inline">0, 1, 2, \ldots, 9</span></p></li>
+<li><p><code>range(3, 10)</code> representa la secuencia <span class="math inline">3, 4, 5, \ldots, 9</span></p></li>
+<li><p><code>range(0, 10, 2)</code> representa la secuencia <span class="math inline">0, 2, 4, 6, 8</span></p></li>
+<li><p><code>range(4, 0, -1)</code> representa la secuencia <span class="math inline">4, 3, 2, 1</span></p></li>
+<li><p><code>range(3, 3)</code> representa el rango vacío</p></li>
+<li><p><code>range(4, 3)</code> también representa el rango vacío</p></li>
+</ul></li>
 </ul>
-</section></section>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Los rangos también pueden verse como un <strong>tipo de datos recursivo</strong>, ya que todo rango <code>r</code>:</p>
+<ul>
+<li><p>o bien es el rango vacío (<em>caso base</em>),</p></li>
+<li><p>o bien está formado por dos partes:</p>
+<ul>
+<li><p>El <strong>primer elemento</strong> del rango (al que se accede mediante <code>r[0]</code>), que hemos visto que tiene que ser un número entero.</p></li>
+<li><p>El <strong>resto</strong> del rango (al que se accede mediante <code>r[1:]</code>), que también es un rango (<em>caso recursivo</em>).</p></li>
+</ul></li>
+</ul></li>
+<li><p>Según el ejemplo anterior:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1">rango <span class="op">=</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb48-2" title="2">rango[<span class="dv">0</span>]       <span class="co"># devuelve 4</span></a>
+<a class="sourceLine" id="cb48-3" title="3">rango[<span class="dv">1</span>:]      <span class="co"># devuelve range(5, 7)</span></a>
+<a class="sourceLine" id="cb48-4" title="4">rango[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve 5</span></a></code></pre></div></li>
+</ul>
+</section><section id="conversión-a-lista" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Conversión a lista</h2><ul>
+<li>Las cadenas y los rangos se pueden convertir fácilmente a listas usando la función <code>list</code>:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb49-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</a>
+<a class="sourceLine" id="cb49-2" title="2">[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb49-4" title="4">[]</a></code></pre></div>
+</div><div class="column" style="width:60%;">
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb50-2" title="2">[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb50-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</a>
+<a class="sourceLine" id="cb50-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb50-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb50-6" title="6">[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</a>
+<a class="sourceLine" id="cb50-7" title="7"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb50-8" title="8">[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb50-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb50-10" title="10">[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</a>
+<a class="sourceLine" id="cb50-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb50-12" title="12">[]</a>
+<a class="sourceLine" id="cb50-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb50-14" title="14">[]</a></code></pre></div>
+</div>
+</div></section></section>
 <section><section id="funciones-de-orden-superior" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones de orden superior</h1></section><section id="concepto" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Concepto</h2><ul>
 <li><p>Hemos visto que <strong>las funciones son</strong>, en realidad, <strong>abstracciones</strong> que describen operaciones compuestas a realizar sobre ciertos valores sin importar cuáles sean esos valores en concreto.</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1">cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb51-1" title="1">cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</a></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más bien de un <strong>método</strong> para calcular el cubo de un número.</p></li>
 <li><p>Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo siempre expresiones explícitas (como <code>3*3*3</code>, <code>y*y*y</code>, etc.) sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos en términos de las operaciones primitivas de nuestro lenguaje (como <code>*</code>), en vez de poder usar términos de más alto nivel.</p>
 <p>Es decir: <strong>nuestros programas podrían calcular el cubo de un número, pero no tendrían la habilidad de expresar el concepto de <em>elevar al cubo</em></strong>.</p></li>
@@ -961,11 +992,11 @@ z -> 1
 
 <ul>
 <li><p>Por ejemplo, supongamos las dos funciones siguientes:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># Suma los enteros comprendidos entre a y b:</span></a>
-<a class="sourceLine" id="cb51-2" title="2">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> a <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a>
-<a class="sourceLine" id="cb51-3" title="3"></a>
-<a class="sourceLine" id="cb51-4" title="4"><span class="co"># Suma los cubos de los enteros comprendidos entre a y b:</span></a>
-<a class="sourceLine" id="cb51-5" title="5">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> cubo(a) <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1"><span class="co"># Suma los enteros comprendidos entre a y b:</span></a>
+<a class="sourceLine" id="cb52-2" title="2">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> a <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a>
+<a class="sourceLine" id="cb52-3" title="3"></a>
+<a class="sourceLine" id="cb52-4" title="4"><span class="co"># Suma los cubos de los enteros comprendidos entre a y b:</span></a>
+<a class="sourceLine" id="cb52-5" title="5">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> cubo(a) <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
 <li><p>Estas dos funciones comparten claramente un patrón subyacente común. Se diferencian solamente en:</p>
 <ul>
 <li><p>El nombre de la función</p></li>
@@ -986,12 +1017,12 @@ z -> 1
 
 <ul>
 <li><p>En programación funcional lo conseguimos creando funciones que conviertan los «casilleros» en parámetros:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> term, a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> term(a) <span class="op">+</span> suma(term, a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb53-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> term, a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> term(a) <span class="op">+</span> suma(term, a <span class="op">+</span> <span class="dv">1</span>, b)</a></code></pre></div></li>
 <li><p>De esta forma, las dos funciones <code>suma_enteros</code> y <code>suma_cubos</code> anteriores se podrían definir en términos de esta <code>suma</code>:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb53-1" title="1">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x, a, b)</a>
-<a class="sourceLine" id="cb53-2" title="2">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x, a, b)</a>
-<a class="sourceLine" id="cb53-3" title="3"><span class="co"># O mejor aún:</span></a>
-<a class="sourceLine" id="cb53-4" title="4">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(cubo, a, b)</a></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb54-1" title="1">suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x, a, b)</a>
+<a class="sourceLine" id="cb54-2" title="2">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x, a, b)</a>
+<a class="sourceLine" id="cb54-3" title="3"><span class="co"># O mejor aún:</span></a>
+<a class="sourceLine" id="cb54-4" title="4">suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(cubo, a, b)</a></code></pre></div></li>
 <li><p>¿Se podría generalizar aún más la función <code>suma</code>?</p></li>
 </ul>
 </section><section id="map" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> <code>map</code></h2><ul>
@@ -1001,11 +1032,11 @@ z -> 1
 
 <ul>
 <li><p>Una forma de hacerlo sería:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb54-1" title="1">elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
-<a class="sourceLine" id="cb54-2" title="2">                        [cubo(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
-<li><p>¿Y elevar a la cuarta potencia?</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb55-1" title="1">elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
-<a class="sourceLine" id="cb55-2" title="2">                        [(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<a class="sourceLine" id="cb55-2" title="2">                        [cubo(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<li><p>¿Y elevar a la cuarta potencia?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb56-1" title="1">elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb56-2" title="2">                        [(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cubo(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 <li><p>Es evidente que hay un patrón subyacente que se podría abstraer creando una función de orden superior que aplique una función <code>f</code> a los elementos de una lista y devuelva la lista resultante.</p>
 <p>Esa función se llama <code>map</code>, y viene definida en Python:</p>
 <div class="line-block">map(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;iterable&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div>
@@ -1015,38 +1046,38 @@ z -> 1
 
 <ul>
 <li><p>Podemos usarla así:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb56-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb56-2" title="2"><span class="op">&lt;</span><span class="bu">map</span> <span class="bu">object</span> at <span class="bn">0x7f22b25e9d68</span><span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb57-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb57-2" title="2"><span class="op">&lt;</span><span class="bu">map</span> <span class="bu">object</span> at <span class="bn">0x7f22b25e9d68</span><span class="op">&gt;</span></a></code></pre></div>
 <p>Lo que devuelve no es una lista, sino un objeto <em>iterador</em> que examinaremos con más detalle en posteriores temas.</p>
 <p>Por ahora, lo que haremos será simplemente transformar ese iterador en la lista correspondiente usando la función <code>list</code> sobre el resultado de <code>map</code>:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb57-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</a>
-<a class="sourceLine" id="cb57-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a></code></pre></div></li>
-<li><p>Además de una lista, también podemos usar un rango:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb58-1" title="1"><span class="bu">list</span>(<span class="bu">map</span>(cubo, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</a>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb58-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(cubo, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</a>
 <a class="sourceLine" id="cb58-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a></code></pre></div></li>
+<li><p>Además de una lista, también podemos usar un rango:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb59-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(cubo, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</a>
+<a class="sourceLine" id="cb59-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a></code></pre></div></li>
 <li><p>¿Cómo definirías la función <code>map</code>?</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Podríamos definirla así:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb59-1" title="1"><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> [f(l[<span class="dv">0</span>])] <span class="op">+</span> <span class="bu">map</span>(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" title="1"><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, l: [] <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> [f(l[<span class="dv">0</span>])] <span class="op">+</span> <span class="bu">map</span>(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 </ul>
 </section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>filter</code></h2><ul>
 <li><p><code>filter</code> es una <strong>función de orden superior</strong> que devuelve aquellos elementos de una lista (o cualquier cosa <em>iterable</em>) que cumplen una determinada condición.</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block">filter(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;iterable&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</a>
-<a class="sourceLine" id="cb60-2" title="2">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb61-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</a>
+<a class="sourceLine" id="cb61-2" title="2">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a></code></pre></div></li>
 </ul></section><section id="reduce" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> <code>reduce</code></h2><ul>
 <li><p><code>reduce</code> es una <strong>función de orden superior</strong> que aplica, de forma acumulativa, una función a todos los elementos de una lista (o cualquier cosa <em>iterable</em>).</p></li>
 <li><p>Las operaciones se hacen agrupándose <strong>por la izquierda</strong>.</p></li>
 <li><p>Captura un <strong>patrón muy frecuente</strong> de recursión sobre listas de elementos.</p></li>
 <li><p>Por ejemplo, para calcular la suma de todos los elementos de una lista, haríamos:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb61-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">0</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">+</span> suma(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb62-1" title="1">suma <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">0</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">+</span> suma(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 <li><p>Y para calcular el producto:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb62-1" title="1">producto <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">1</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">*</span> producto(l[<span class="dv">1</span>:])</a></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb63-1" title="1">producto <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">1</span> <span class="cf">if</span> l <span class="op">==</span> [] <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">*</span> producto(l[<span class="dv">1</span>:])</a></code></pre></div></li>
 <li><p>Como podemos observar, la estrategia de cálculo es esencialmente la misma (sólo se diferencian en la operación a realizar (<code>+</code> o <code>*</code>) y en el valor inicial o <em>elemento neutro</em> (<code>0</code> o <code>1</code>).</p></li>
 </ul></section><section class="slide level4">
 
@@ -1067,19 +1098,19 @@ z -> 1
 <li><p>En su momento estudiaremos con detalle qué son los módulos. Por ahora nos basta con lo que ya sabemos: que contienen definiciones que podemos incorporar a nuestros <em>scripts</em>.</p></li>
 </ul></li>
 <li><p>Por ejemplo, para calcular la suma y el producto de <code>[1, 2, 3, 4]</code>:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb63-1" title="1"><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></a>
-<a class="sourceLine" id="cb63-2" title="2">lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb63-3" title="3">suma_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, lista, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb63-4" title="4">producto_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, lista, <span class="dv">1</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb64-1" title="1"><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></a>
+<a class="sourceLine" id="cb64-2" title="2">lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb64-3" title="3">suma_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, lista, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb64-4" title="4">producto_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, lista, <span class="dv">1</span>)</a></code></pre></div></li>
 <li><p>¿Cómo podríamos definir la función <code>reduce</code>?</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Una forma (con valor inicial obligatorio) podría ser así:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb64-1" title="1"><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, lista, ini: ini <span class="cf">if</span> lista <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
-<a class="sourceLine" id="cb64-2" title="2">                                 lista[<span class="dv">0</span>] <span class="cf">if</span> lista[<span class="dv">1</span>:] <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
-<a class="sourceLine" id="cb64-3" title="3">                                 fun(lista[<span class="dv">0</span>], <span class="bu">reduce</span>(fun, lista[<span class="dv">1</span>:], ini))</a></code></pre></div></li>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb65-1" title="1"><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, lista, ini: ini <span class="cf">if</span> lista <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb65-2" title="2">                                 lista[<span class="dv">0</span>] <span class="cf">if</span> lista[<span class="dv">1</span>:] <span class="op">==</span> [] <span class="cf">else</span> <span class="op">\</span></a>
+<a class="sourceLine" id="cb65-3" title="3">                                 fun(lista[<span class="dv">0</span>], <span class="bu">reduce</span>(fun, lista[<span class="dv">1</span>:], ini))</a></code></pre></div></li>
 </ul>
 </section><section id="listas-por-comprensión" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Listas por comprensión</h2><ul>
 <li><p>Dos operaciones que se realizan con frecuencia sobre un iterador son:</p>
@@ -1088,17 +1119,17 @@ z -> 1
 <li><p>Seleccionar un subconjunto de elementos que cumplan alguna condición (<code>filter</code>)</p></li>
 </ul></li>
 <li><p>Las listas por comprensión son una notación copiada del lenguaje Haskell que nos permite realizar ambas operaciones de una forma muy concisa:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb65-1" title="1"><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb65-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a>
-<a class="sourceLine" id="cb65-3" title="3"><span class="co"># equivale a:</span></a>
-<a class="sourceLine" id="cb65-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</a>
-<a class="sourceLine" id="cb65-5" title="5">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a>
-<a class="sourceLine" id="cb65-6" title="6"></a>
-<a class="sourceLine" id="cb65-7" title="7"><span class="op">&gt;&gt;&gt;</span> [x <span class="cf">for</span> x <span class="kw">in</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>] <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb65-8" title="8">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb65-9" title="9"><span class="co"># equivale a:</span></a>
-<a class="sourceLine" id="cb65-10" title="10"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</a>
-<a class="sourceLine" id="cb65-11" title="11">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb66-1" title="1"><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb66-2" title="2">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a>
+<a class="sourceLine" id="cb66-3" title="3"><span class="co"># equivale a:</span></a>
+<a class="sourceLine" id="cb66-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</a>
+<a class="sourceLine" id="cb66-5" title="5">[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</a>
+<a class="sourceLine" id="cb66-6" title="6"></a>
+<a class="sourceLine" id="cb66-7" title="7"><span class="op">&gt;&gt;&gt;</span> [x <span class="cf">for</span> x <span class="kw">in</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>] <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb66-8" title="8">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb66-9" title="9"><span class="co"># equivale a:</span></a>
+<a class="sourceLine" id="cb66-10" title="10"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</a>
+<a class="sourceLine" id="cb66-11" title="11">[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -1111,12 +1142,12 @@ z -> 1
 <li><p>Los elementos de la salida generada serán los sucesivos valores de <span style="color:teal"><em>&lt;expresión&gt;</em></span>.</p></li>
 <li><p>Las cláusulas <strong><code>if</code></strong> son opcionales. Si están, la <span style="color:teal"><em>&lt;expresión&gt;</em></span> sólo se evaluará y añadirá al resultado cuando se cumpla la <span style="color:teal"><em>&lt;condición&gt;</em></span>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb66-1" title="1"><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></a>
-<a class="sourceLine" id="cb66-2" title="2"><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb66-3" title="3"><span class="op">&gt;&gt;&gt;</span> [(x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2]</a>
-<a class="sourceLine" id="cb66-4" title="4">[(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb66-5" title="5"> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb66-6" title="6"> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>)]</a></code></pre></div></li>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb67-1" title="1"><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></a>
+<a class="sourceLine" id="cb67-2" title="2"><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb67-3" title="3"><span class="op">&gt;&gt;&gt;</span> [(x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2]</a>
+<a class="sourceLine" id="cb67-4" title="4">[(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb67-5" title="5"> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb67-6" title="6"> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>)]</a></code></pre></div></li>
 </ul>
 </section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">

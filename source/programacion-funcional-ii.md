@@ -1310,12 +1310,11 @@ fib1_5 -> u5
 - Las **cadenas** se pueden considerar **datos recursivos compuestos**, ya que
   podemos decir que toda cadena `c`:
 
-  - O bien es la cadena vacía `''`,
+  - o bien es la cadena vacía `''` (*caso base*),
   
-  - O bien está formada por dos partes:
+  - o bien está formada por dos partes:
 
-    - El **primer carácter** de la cadena, al que se accede mediante `c[0]`
-      (*caso base*).
+    - El **primer carácter** de la cadena, al que se accede mediante `c[0]`.
 
     - El **resto** de la cadena (al que se accede mediante `c[1:]`), que
       también es una cadena (*caso recursivo*).
@@ -1330,26 +1329,13 @@ fib1_5 -> u5
   cadena[1:][0]   # devuelve 'o'
   ```
 
----
-
-- Junto a las operaciones `c[0]` (primer carácter) y `c[1:]` (resto de la
-  cadena), tenemos también la operación `+` (**concatenación**).
-
-- Con la concatenación se pueden crear cadenas a partir de otras cadenas.
-
-- Por ejemplo:
-
-  ```python
-  '¡Hola, ' + 'mundo!'  # devuelve '¡Hola, mundo!'
-  ```
-
 ## Listas
 
 - Las **listas** son una generalización de las cadenas.
 
 - Una lista es una **secuencia de elementos** que no tienen por qué ser
-  caracteres, sino que pueden ser **de cualquier tipo** (números, cadenas,
-  booleanos, incluso otras listas).
+  caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
+  (números, cadenas, booleanos, incluso otras listas).
 
 - Los literales de tipo lista se representan enumerando sus elementos separados
   por comas y encerrados entre corchetes.
@@ -1365,12 +1351,12 @@ fib1_5 -> u5
 - Las listas también pueden verse como un **tipo de datos recursivo**, ya que
   toda lista `l`:
 
-  - O bien es la lista vacía (que se representa mediante `[]`).
+  - o bien es la lista vacía, representada mediante `[]` (*caso base*),
 
-  - O bien está formada por dos partes:
+  - o bien está formada por dos partes:
 
     - El **primer elemento** de la lista (al que se accede mediante `l[0]`),
-      que hemos visto que puede ser de cualquier tipo (*caso base*).
+      que hemos visto que puede ser de cualquier tipo.
 
     - El **resto** de la lista (al que se accede mediante `l[1:]`), que también
       es una lista (*caso recursivo*).
@@ -1387,9 +1373,10 @@ fib1_5 -> u5
 ---
 
 - Junto a las operaciones `l[0]` (primer elemento) y `c[1:]` (resto de la
-  lista), tenemos también la operación `+` (**concatenación**).
+  lista), tenemos también la operación `+` (**concatenación**), al igual que
+  ocurre con las cadenas.
 
-- Con la concatenación se pueden crear listas a partir de otras listas.
+- Con la concatenación se pueden crear nuevas listas a partir de otras listas.
 
 - Por ejemplo:
 
@@ -1397,44 +1384,105 @@ fib1_5 -> u5
   [1, 2, 3] + [4, 5, 6]  # devuelve [1, 2, 3, 4, 5, 6]
   ```
 
-### `range`
+## Rangos
 
-- Una forma fácil de crear listas de números es usar **rangos**.
-
-- Los rangos conforman un tipo de dato específico y representan secuencias de
-  números.
+- Un rango es un tipo de dato cuyos valores representan **sencuencias de
+  números enteros**.
 
 - Los rangos se crean con la función `range`, cuya sintaxis es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(range) ::= !T(range)!T{(}!NT(fin)!T{)}
-                |  !T(range)!T{(}!NT(inicio)!T(,) !NT(fin)[!T(,) !NT(salto)]!T{)}
+  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(salto)]!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Como esta función devuelve un rango, lo que haremos será transformar ese
-  rango en un lista usando la función `list`.
+- !NT(inicio), !NT(fin) y !NT(salto) deben ser números enteros.
+- Cuando se omite !NT(inicio), se entiende que es `0`.
+- El valor de !NT(fin) no se alcanza nunca.
+- Cuando !NT(inicio) y !NT(fin) son iguales, representa el *rango vacío*.
+- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(salto) debería ser negativo.
+  En caso contrario, también representaría el rango vacío.
 
 ---
 
 - Ejemplos:
 
+  - `range(10)` representa la secuencia $0, 1, 2, \ldots, 9$
+
+  - `range(3, 10)` representa la secuencia $3, 4, 5, \ldots, 9$
+
+  - `range(0, 10, 2)` representa la secuencia $0, 2, 4, 6, 8$
+
+  - `range(4, 0, -1)` representa la secuencia $4, 3, 2, 1$
+
+  - `range(3, 3)` representa el rango vacío
+
+  - `range(4, 3)` también representa el rango vacío
+
+---
+
+- Los rangos también pueden verse como un **tipo de datos recursivo**, ya que
+  todo rango `r`:
+
+  - o bien es el rango vacío (*caso base*),
+
+  - o bien está formado por dos partes:
+
+    - El **primer elemento** del rango (al que se accede mediante `r[0]`),
+      que hemos visto que tiene que ser un número entero.
+
+    - El **resto** del rango (al que se accede mediante `r[1:]`), que también
+      es un rango (*caso recursivo*).
+
+- Según el ejemplo anterior:
+
   ```python
-  >>> list(range(10))
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  >>> list(range(1, 11))
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  >>> list(range(0, 30, 5))
-  [0, 5, 10, 15, 20, 25]
-  >>> list(range(0, 10, 3))
-  [0, 3, 6, 9]
-  >>> list(range(0, -10, -1))
-  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
-  >>> list(range(0))
-  []
-  >>> list(range(1, 0))
-  []
+  rango = range(4, 7)
+  rango[0]       # devuelve 4
+  rango[1:]      # devuelve range(5, 7)
+  rango[1:][0]   # devuelve 5
   ```
+
+## Conversión a lista
+
+- Las cadenas y los rangos se pueden convertir fácilmente a listas usando la
+  función `list`:
+
+:::: columns
+
+::: {.column width=40%}
+
+```python
+>>> list('hola')
+['h', 'o', 'l', 'a']
+>>> list('')
+[]
+```
+
+:::
+
+::: {.column width=60%}
+
+```python
+>>> list(range(10))
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> list(range(1, 11))
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>> list(range(0, 30, 5))
+[0, 5, 10, 15, 20, 25]
+>>> list(range(0, 10, 3))
+[0, 3, 6, 9]
+>>> list(range(0, -10, -1))
+[0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+>>> list(range(0))
+[]
+>>> list(range(1, 0))
+[]
+```
+
+:::
+
+::::
 
 # Funciones de orden superior
 
@@ -1616,7 +1664,7 @@ fib1_5 -> u5
 - Además de una lista, también podemos usar un rango:
 
   ```python
-  list(map(cubo, range(1, 5)))
+  >>> list(map(cubo, range(1, 5)))
   [1, 8, 27, 64]
   ```
 
