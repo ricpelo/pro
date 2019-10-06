@@ -361,7 +361,17 @@ endwhile (no)
 
   - Métodos
 
-- Empezaremos hablando de los operadores.
+$$
+\text{En una expresión hay}
+\begin{cases}
+\text{Datos} \\
+\text{Operaciones} \begin{cases}
+                    \text{Operadores} \\
+                    \text{Funciones} \\
+                    \text{Métodos}
+                   \end{cases}
+\end{cases}
+$$
 
 ---
 
@@ -701,9 +711,9 @@ endwhile (no)
     (4).__add__(3)
     ```
 
-## Tipos de datos
+# Tipos de datos
 
-### Concepto
+## Concepto
 
 - Los datos que comparten características y propiedades se agrupan en
   **conjuntos**.
@@ -740,7 +750,7 @@ endwhile (no)
     pueden realizar otras operaciones (la *concatenación*, la *indexación*,
     etc.).
 
-### `type`
+## `type`
 
 - La función `type` devuelve el tipo de un valor:
 
@@ -760,7 +770,7 @@ endwhile (no)
   <class 'float'>
   ```
 
-### Sistema de tipos
+## Sistema de tipos
 
 - El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un
   tipo a cada elemento del programa.
@@ -774,7 +784,7 @@ endwhile (no)
   **orientados a objetos**, el sistema de tipos se construye a partir de los
   conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
 
-### Tipado fuerte vs. débil
+## Tipado fuerte vs. débil
 
 - Un lenguaje de programación es **fuertemente tipado** (o de **tipado
   fuerte**) si no se permiten violaciones de los tipos de datos.
@@ -806,7 +816,7 @@ endwhile (no)
     El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
     cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
 
-### Errores de tipos
+## Errores de tipos
 
 - Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
   esa operación, se produce un **error de tipos**.
@@ -846,9 +856,9 @@ endwhile (no)
     de ejecutarlo. En tal caso, se abortará la compilación para impedir la
     generación de código objeto erróneo.
 
-### Tipos de datos básicos
+## Tipos de datos básicos
 
-#### Números
+### Números
 
 - Hay dos tipos numéricos básicos en Python: los enteros y los reales.
 
@@ -916,7 +926,7 @@ endwhile (no)
 
 -->
 
-#### Cadenas
+### Cadenas
 
 - Las **cadenas** son secuencias de cero o más caracteres codificados en
   Unicode.
@@ -969,7 +979,7 @@ endwhile (no)
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
   representa con el literal `''` o `""`.
 
-### Conversión de tipos
+## Conversión de tipos
 
 - Hemos visto que en Python las conversiones de tipos deben ser **explícitas**,
   es decir, que debemos indicar en todo momento qué dato queremos convertir a
