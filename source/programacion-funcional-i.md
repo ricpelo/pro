@@ -209,7 +209,7 @@ que denominamos el **valor** de la expresión.
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
 
-- Lo que hace el sistema es buscar **la representación más simplificada o
+- Lo que hace el intérprete es buscar **la representación más simplificada o
   reducida** posible (en este caso, `3`).
 
 - Por eso a menudo usamos, indistintamente, los términos *reducir*,
@@ -1242,7 +1242,7 @@ Función                    Descripción           Ejemplo                  Resu
 - En Python, el tipo de dato lógico se representa como `bool` y sus posibles
   valores son `False` y `True` (con la inicial en mayúscula).
 
-- Esos dos valores son *formas especiales* para los enteros 0 y 1,
+- Esos dos valores son *formas especiales* para los enteros `0` y `1`,
   respectivamente.
 
 ## Operadores relacionales
