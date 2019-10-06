@@ -876,11 +876,9 @@ E -> x [lhead = cluster0]
   = 452.3904
   ```
 
-- En ambos casos se obtiene el mismo resultado, ya que en todo momento hemos
-  usado *funciones puras*.
+- En ambos casos se obtiene el mismo resultado.
 
 # Computabilidad
-
 
 ## Funciones y procesos
 

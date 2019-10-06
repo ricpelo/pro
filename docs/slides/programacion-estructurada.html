@@ -423,18 +423,18 @@ None</code></pre>
 <h4><span class="header-section-number">1.4.2.3</span> Efectos laterales</h4>
 <ul>
 <li><p>Cambiar el estado de una variable global es uno de los ejemplos más claros y conocidos de los llamados <strong>efectos laterales</strong>.</p></li>
-<li><p>Una función tiene (o <em>provoca</em>) efectos laterales cuando cambia el estado del exterior de la función. Típicamente:</p>
+<li><p>Recordemos que una función tiene (o <em>provoca</em>) efectos laterales cuando provoca cambios de estado observables en el exterior de la función, más allá de devolver su valor de retorno. Típicamente:</p>
 <ul>
 <li><p>Cuando cambia el valor de una variable global</p></li>
 <li><p>Cuando cambia un argumento mutable</p></li>
 <li><p>Cuando realiza una operación de entrada/salida</p></li>
 </ul></li>
-<li><p>Una función que provoca efectos laterales es una <strong>función impura</strong>, a diferencia de una <strong>función pura</strong>, que no tiene efectos laterales.</p></li>
+<li><p>Una función que provoca efectos laterales es una <strong>función impura</strong>, a diferencia de las <strong>funciones puras</strong>, que no tienen efectos laterales.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Los efectos laterales provocan que sea muy difícil razonar sobre el funcionamiento del programa, puesto que las funciones impuras no pueden verse como simples <strong>cajas negras</strong> que reciben datos de entrada y devuelven una salida, sino que además hay que tener en cuenta los <strong>efectos ocultos</strong> que producen en otras partes del programa:</p>
+<li><p>Un ejemplo de <strong>función impura</strong> (con un efecto lateral provocado por una operación de entrada/salida) podría ser:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">def</span> suma(x, y):</a>
 <a class="sourceLine" id="cb14-2" title="2">    res <span class="op">=</span> x <span class="op">+</span> y</a>
 <a class="sourceLine" id="cb14-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</a>
@@ -442,8 +442,7 @@ None</code></pre>
 <a class="sourceLine" id="cb14-5" title="5"></a>
 <a class="sourceLine" id="cb14-6" title="6">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb14-7" title="7"><span class="bu">print</span>(resultado)</a></code></pre></div>
-<p>Cualquiera que no sepa cómo está construida internamente la función <code>suma</code>, se podría pensar que lo único que hace es calcular la suma de dos números, pero también muestra un mensaje a la salida.</p>
-<p>Al final, el resultado que se obtiene no es el que se esperaba:</p>
+<p>Cualquiera que no sepa cómo está construida internamente la función <code>suma</code>, se podría pensar que lo único que hace es calcular la suma de dos números, pero resulta que también imprime un mensaje en la salida, por lo que el resultado final que se obtiene no es el que se esperaba:</p>
 <pre><code>La suma vale 7
 La suma vale 13
 20</code></pre></li>
@@ -451,26 +450,30 @@ La suma vale 13
 </section><section class="slide level4">
 
 <ul>
-<li><p>Además, <strong>impiden la transparencia referencial</strong>, ya que la misma función, invocada con los mismos argumentos, puede producir resultados distintos en momentos diferentes:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">def</span> suma(x, y):</a>
-<a class="sourceLine" id="cb16-2" title="2">    <span class="kw">global</span> z</a>
-<a class="sourceLine" id="cb16-3" title="3">    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb16-4" title="4">    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb16-5" title="5">    <span class="cf">return</span> res</a>
-<a class="sourceLine" id="cb16-6" title="6"></a>
-<a class="sourceLine" id="cb16-7" title="7">z <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb16-8" title="8"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></a></code></pre></div></li>
+<li><p>Las llamadas a la función <code>suma</code> no se pueden sustituir por su valor de retorno correspondiente. Es decir, que no es lo mismo hacer:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</a></code></pre></div>
+<p>que hacer:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></a></code></pre></div></li>
+<li><p>Por tanto, la función <code>suma</code> no cumple la <strong>transparencia referencial</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Por todo lo anterior, se debe evitar, siempre que sea posible, escribir funciones impuras (o sea, que provoquen efectos laterales).</p></li>
-<li><p>Ahora bien: muchas veces, la función que se desea escribir tiene efectos laterales porque esos son, precisamente, los efectos deseados.</p>
+<li><p>El uso de la sentencia <code>global</code> supone otra forma de perder transparencia referencial, puesto que, gracias a ella, una función puede leer y cambiar el valor de una variable global, lo que la convertiría en <strong>impura</strong> por partida doble, ya que:</p>
 <ul>
-<li>Por ejemplo, una función que actualice los salarios de los empleados en una base de datos, a partir del salario base y los complementos.</li>
+<li><p>su valor de retorno podría depender de algo más que de sus argumentos (en este caso, de la variable global), y</p></li>
+<li><p>podría provocar cambios de estado observables fuera de la función (la modificación de la variable global)</p></li>
 </ul></li>
-<li><p>En ese caso, es importante documentar adecuadamente la función para que, quien desee usarla, sepa perfectamente qué efectos produce más allá de devolver un resultado.</p></li>
+<li><p>En consecuencia, la función podría producir resultados distintos en momentos diferentes:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">def</span> suma(x, y):</a>
+<a class="sourceLine" id="cb18-2" title="2">    <span class="kw">global</span> z</a>
+<a class="sourceLine" id="cb18-3" title="3">    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></a>
+<a class="sourceLine" id="cb18-4" title="4">    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span>        <span class="co"># efecto lateral: cambia una variable global</span></a>
+<a class="sourceLine" id="cb18-5" title="5">    <span class="cf">return</span> res</a>
+<a class="sourceLine" id="cb18-6" title="6"></a>
+<a class="sourceLine" id="cb18-7" title="7">z <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></a>
+<a class="sourceLine" id="cb18-9" title="9"><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></a></code></pre></div></li>
 </ul>
 </section><section id="declaraciones-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Declaraciones de tipos</h2></section><section id="declaraciones-de-tipo-de-argumento" class="title-slide slide level3"><h3><span class="header-section-number">1.5.1</span> Declaraciones de tipo de argumento</h3></section><section id="declaraciones-de-tipo-de-devolución" class="title-slide slide level3"><h3><span class="header-section-number">1.5.2</span> Declaraciones de tipo de devolución</h3></section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">1.6</span> Funciones locales a funciones</h2></section><section id="nonlocal" class="title-slide slide level3"><h3><span class="header-section-number">1.6.1</span> <code>nonlocal</code></h3></section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">1.7</span> <em>Docstrings</em></h2></section></section>
 <section id="teorema-de-böhm-jacopini" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Teorema de Böhm-Jacopini</h1></section>

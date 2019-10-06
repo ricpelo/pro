@@ -402,8 +402,9 @@ E -> x [lhead = cluster1]
 - Cambiar el estado de una variable global es uno de los ejemplos más claros y
   conocidos de los llamados **efectos laterales**.
 
-- Una función tiene (o *provoca*) efectos laterales cuando cambia el estado del
-  exterior de la función. Típicamente:
+- Recordemos que una función tiene (o *provoca*) efectos laterales cuando
+  provoca cambios de estado observables en el exterior de la función, más allá
+  de devolver su valor de retorno. Típicamente:
 
   - Cuando cambia el valor de una variable global
 
@@ -412,15 +413,12 @@ E -> x [lhead = cluster1]
   - Cuando realiza una operación de entrada/salida
 
 - Una función que provoca efectos laterales es una **función impura**, a
-  diferencia de una **función pura**, que no tiene efectos laterales.
+  diferencia de las **funciones puras**, que no tienen efectos laterales.
 
 ---
 
-- Los efectos laterales provocan que sea muy difícil razonar sobre el
-  funcionamiento del programa, puesto que las funciones impuras no pueden verse
-  como simples **cajas negras** que reciben datos de entrada y devuelven una
-  salida, sino que además hay que tener en cuenta los **efectos ocultos** que
-  producen en otras partes del programa:
+- Un ejemplo de **función impura** (con un efecto lateral provocado por una
+  operación de entrada/salida) podría ser:
 
   ```python
   def suma(x, y):
@@ -434,9 +432,8 @@ E -> x [lhead = cluster1]
 
   Cualquiera que no sepa cómo está construida internamente la función `suma`,
   se podría pensar que lo único que hace es calcular la suma de dos números,
-  pero también muestra un mensaje a la salida.
-
-  Al final, el resultado que se obtiene no es el que se esperaba:
+  pero resulta que también imprime un mensaje en la salida, por lo que el
+  resultado final que se obtiene no es el que se esperaba:
 
   ```
   La suma vale 7
@@ -446,36 +443,48 @@ E -> x [lhead = cluster1]
 
 ---
 
-- Además, **impiden la transparencia referencial**, ya que la misma función,
-  invocada con los mismos argumentos, puede producir resultados distintos en
-  momentos diferentes:
+- Las llamadas a la función `suma` no se pueden sustituir por su valor de
+  retorno correspondiente. Es decir, que no es lo mismo hacer:
+
+  ```python
+  resultado = suma(4, 3) + suma(8, 5)
+  ```
+
+  que hacer:
+
+  ```python
+  resultado = 7 + 13
+  ```
+
+- Por tanto, la función `suma` no cumple la **transparencia referencial**.
+
+---
+
+- El uso de la sentencia `global` supone otra forma de perder transparencia
+  referencial, puesto que, gracias a ella, una función puede leer y cambiar el
+  valor de una variable global, lo que la convertiría en **impura** por partida
+  doble, ya que:
+
+  - su valor de retorno podría depender de algo más que de sus argumentos (en este caso, de
+    la variable global), y
+
+  - podría provocar cambios de estado observables fuera de la función (la
+    modificación de la variable global)
+
+- En consecuencia, la función podría producir resultados distintos en momentos
+  diferentes:
 
   ```python
   def suma(x, y):
       global z
-      res = x + y + z
-      z = z + 1
+      res = x + y + z  # impureza: depende del valor de una variable global
+      z = z + 1        # efecto lateral: cambia una variable global
       return res
 
   z = 0
   print(suma(4, 3))  # imprime 7
   print(suma(4, 3))  # la misma llamada a función ahora imprime 8
   ```
-
----
-
-- Por todo lo anterior, se debe evitar, siempre que sea posible, escribir
-  funciones impuras (o sea, que provoquen efectos laterales).
-  
-- Ahora bien: muchas veces, la función que se desea escribir tiene efectos
-  laterales porque esos son, precisamente, los efectos deseados.
-
-  - Por ejemplo, una función que actualice los salarios de los empleados en una
-    base de datos, a partir del salario base y los complementos.
-
-- En ese caso, es importante documentar adecuadamente la función para que,
-  quien desee usarla, sepa perfectamente qué efectos produce más allá de
-  devolver un resultado.
 
 ## Declaraciones de tipos
 

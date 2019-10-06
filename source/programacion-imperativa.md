@@ -115,7 +115,8 @@ variable -> valor [label = "estado"]
 
 ## Sentencia de asignación
 
-- El estado de una variable se cambia usando la **sentencia de asignación**.
+- La forma más básica de cambiar el estado de una variable es usando la
+  **sentencia de asignación**.
 
 - Es la misma instrucción que hemos estado usando hasta ahora para ligar
   valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro
@@ -237,8 +238,8 @@ variable -> valor [label = "estado"]
   la ejecución del programa.
 
   Los tipos inmutables en Python son los números (`int` y `float`), los
-  booleanos (`bool`), las cadenas (`str`), las tuplas (`tuple`) y los conjuntos
-  congelados (`frozenset`).
+  booleanos (`bool`), las cadenas (`str`), las tuplas (`tuple`), los rangos
+  (`range`) y los conjuntos congelados (`frozenset`).
 
 - Un valor **mutable** es aquel cuyo estado interno (su **contenido**) puede
   cambiar durante la ejecución del programa.
@@ -581,7 +582,7 @@ Ejemplo           Valor de `x` después
   v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
   x -> v1
   y -> v1 -> lista
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Ahora, si el valor es **mutable** y cambiamos su **contenido** desde `x`,
   también cambiará `y` (y viceversa), pues ambas son **la misma variable**:
@@ -804,7 +805,8 @@ True
 ### `is`
 
 - Otra forma de comprobar si dos datos son realmente el mismo dato en memoria
-  es usar el operador `is`:
+  (es decir, si son **idénticos**) es usar el operador `is`, que comprueba la
+  **identidad** de un dato:
 
 - Su sintaxis es:
 
@@ -815,33 +817,68 @@ True
 
 - Es un operador relacional que devuelve `True` si !NT(valor1) y !NT(valor2)
   son **el mismo dato en memoria** (es decir, si se encuentran almacenados en
-  la misma celda de la memoria) y `False` en caso contrario.
+  la misma celda de la memoria y, por tanto, son **idénticos**) y `False` en
+  caso contrario.
 
 - Cuando se usa con variables, devuelve `True` si son la misma variable, y
   `False` en caso contrario.
 
 - En la práctica, equivale a hacer `id(`!NT(valor1)`) == id(`!NT(valor2)`)`
 
-# Efectos laterales
+# Cambios de estado ocultos
 
-## Concepto
+## Funciones puras
 
 - Las funciones que hemos visto hasta ahora en programación funcional son
-  funciones **puras** en el sentido de que lo único que hacen es calcular su
-  resultado sin afectar al exterior de la función.
+  funciones **puras**.
+  
+- Las **funciones puras** son aquellas que cumplen que:
 
-- Cuando una función afecta a otras partes del programa decimos que es una
-  función **impura** y que provoca **efectos laterales**, que son justamente
-  los efectos que provoca en el exterior de la función.
+  - su valor de retorno depende únicamente del valor de sus argumentos, y
 
-- Los casos típicos de efectos laterales son:
+  - calculan su valor de retorno sin provocar cambios de estado observables en
+    el exterior de la función.
 
-  - Cambiar el valor de una variable global
+- Una llamada a una función pura se puede sustituir libremente por su valor de
+  retorno sin afectar al resto del programa (es lo que se conoce como
+  **transparencia referencial**).
 
-  - Realizar una operación de entrada/salida
+## Funciones impuras
 
-- También se considera efecto lateral a cualquier cambio que afecte a otras
-  partes del programa de una manera no evidente o impredecible.
+- Las funciones *puras* son las únicas que existen en programación funcional.
+
+- Por contraste, una función se considera **impura**:
+
+  - si su valor de retorno o su comportamiento dependen de algo más que de sus
+    argumentos, o
+
+  - si provoca cambios de estado observables en el exterior de la función.
+
+    En éste último caso decimos que la función provoca **efectos laterales**.
+
+- Toda función que provoca efectos laterales es impura, pero no todas las
+  funciones impuras provocan efectos laterales (puede ser impura porque su
+  comportamiento se vea afectado por los efectos laterales provocados por otras
+  partes del programa).
+
+## Efectos laterales
+
+- Un **efecto lateral** es cualquier cambio de estado llevado a cabo en una
+  parte del programa (generalmente, una función) que pueda afectar a otra parte
+  del mismo de una manera poco evidente o impredecible.
+
+- Una función puede provocar efectos laterales, o bien verse afectada por
+  efectos laterales provocados por otras partes del programa.
+
+- Los casos típicos de efectos laterales en una función son:
+
+  - Cambiar el valor de una variable global.
+
+  - Cambiar el estado de un argumento mutable.
+
+  - Realizar una operación de entrada/salida.
+
+  En cualquiera de estos casos, tendríamos una función **impura**.
 
 ## Transparencia referencial
 
@@ -863,6 +900,52 @@ True
 - Por tanto, cambiar el valor de una variable global es considerado un **efecto
   lateral**, ya que puede alterar el comportamiento de otras partes del
   programa de formas a menudo impredecibles.
+
+---
+
+- Si el efecto lateral lo produce la propia función también estamos perdiendo
+  transparencia referencial, pues en tal caso no podemos sustituir libremente
+  la llamada a la función por su valor de retorno, pues ahora la función **hace
+  algo más** que calcular dicho valor.
+
+- Por ejemplo, una función que imprime algo por la pantalla o escribe algo en
+  un archivo del disco tampoco es una función pura y, por tanto, en ella no se
+  cumple la transparencia referencial.
+
+- Lo mismo pasa con las funciones que modifican algún argumento mutable. Por
+  ejemplo:
+
+  ```python
+  >>> ultimo = lambda x: x.pop()
+  >>> lista = [1, 2, 3, 4]
+  >>> ultimo(lista)
+  4
+  >>> ultimo(lista)
+  3
+  >>> lista
+  [1, 2]
+  ```
+
+---
+
+- Los efectos laterales hacen que sea muy difícil razonar sobre el
+  funcionamiento del programa, puesto que las funciones impuras no pueden verse
+  como simples asociaciones entre los datos de entrada y el resultado de salida,
+  sino que además hay que tener en cuenta los **efectos ocultos** que producen
+  en otras partes del programa.
+
+- Por ello, se debe evitar, siempre que sea posible, escribir funciones impuras
+  (o sea, que provoquen efectos laterales).
+
+- Ahora bien: muchas veces, la función que se desea escribir tiene efectos
+  laterales porque esos son, precisamente, los efectos deseados.
+
+  - Por ejemplo, una función que actualice los salarios de los empleados en una
+    base de datos, a partir del salario base y los complementos.
+
+- En ese caso, es importante documentar adecuadamente la función para que,
+  quien desee usarla, sepa perfectamente qué efectos produce más allá de
+  devolver un resultado.
 
 ## Entrada y salida por consola
 
