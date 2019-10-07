@@ -21,7 +21,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_lambda) ::=  !T(lambda) [!NT(lista_parámetros)] !T(:) !NT(expresión)
+  !NT(expr_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
 !NT(lista_parámetros) := !NT{identificador} (!T(,) !NT(identificador))\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -346,27 +346,11 @@ nocite: |
 
 #### Expresiones lambda y entornos
 
-<!--
-
-- Para calcular el entorno en un punto dado, debemos tener en cuenta que **cada
-  expresión lambda crea un nuevo marco con las ligaduras que define dicha
-  expresión lambda**.
-
-- Dicho marco *apunta* al marco del ámbito que contiene a la expresión lambda,
-  ampliando el entorno. 
-
-- El entorno, por tanto, está formado por una cadena de marcos, donde el
-  **primer marco** (el del **ámbito actual**) está enlazado con otro marco, y
-  este a su vez con otro, y así sucesivamente hasta acabar en el **marco
-  global** (que siempre es el **último marco** de la cadena).
-
--->
-
 - Para encontrar el valor de un identificador en el entorno, buscamos **en el
   primer marco del entorno** una ligadura para ese identificador, y si no la
   encontramos, **vamos subiendo por la cadena de marcos** hasta encontrarla. Si
-  no aparece, querrá decir que el identificador no está ligado (o que su
-  ligadura está fuera del entorno, en otro ámbito).
+  no aparece en ningún marco, querrá decir que el identificador no está ligado
+  (o que su ligadura está fuera del entorno, en otro ámbito).
 
 - Debemos tener en cuenta también, por tanto, las posibles **variables
   sombreadas** que puedan aparecer.
@@ -523,25 +507,6 @@ E [shape = point]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-<!--
-
-compound = true
-node [fontname = "monospace"]
-1 [shape = circle]
-12 [shape = circle]
-8 [shape = circle]
-xl [shape = plaintext, fillcolor = transparent, label = "x (local)"]
-yl [shape = plaintext, fillcolor = transparent, label = "y (local)"]
-z [shape = plaintext, fillcolor = transparent, label = "z (global)"]
-
-suma [shape = plaintext, fillcolor = transparent, label = "suma (global)"]
-suma -> lambda
-xl -> 8
-yl -> 12
-z -> 1
-
--->
-
 ---
 
 :::: columns
@@ -579,6 +544,7 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
+    9 [shape = circle];
     3 [shape = circle];
     4 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
@@ -586,7 +552,7 @@ subgraph cluster0 {
     z [shape = plaintext, fillcolor = transparent]
     x -> 4
     y -> 3
-    z -> 3
+    z -> 9
 }
 E [shape = point]
 E -> x [lhead = cluster0]
@@ -635,7 +601,7 @@ E -> x [lhead = cluster0]
   entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa la
   aplicación de expresión lambda a unos argumentos**.
 
----
+### Pureza
 
 - Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es
   una expresión cuyo valor sólo va a depender de los argumentos que se usen
@@ -646,24 +612,71 @@ E -> x [lhead = cluster0]
   los valores a los que estén ligadas las variables libres al evaluar la
   expresión lambda.
 
-- Por ejemplo, podemos escribir una expresión lambda que calcule la suma de
-  tres números a partir de otra expresión lambda que calcule la suma de dos
+- En el ejemplo anterior tenemos una expresión que no es pura, ya que su valor
+  depende de una variable libre (`z`):
+
+  ```python
+  >>> prueba = lambda x, y: x + y + z
+  >>> z = 9
+  >>> prueba(4, 3)
+  16
+  ```
+
+---
+
+- En este otro ejemplo, escribimos una expresión lambda que calcula la suma de
+  tres números a partir de otra expresión lambda que calcula la suma de dos
   números:
 
   ```python
-  lambda x, y, z: suma(x, y) + z
+  suma = lambda x, y: x + y
+  suma3 = lambda x, y, z: suma(x, y) + z
   ```
 
   En este caso, hay un identificador (`suma`) que no aparece en la lista de
-  parámetros de la expresión lambda (por lo que es una variable libre).
+  parámetros de la expresión lambda `suma3`, por lo que es una variable libre.
 
-  Por tanto, el valor de la expresión lambda anterior dependerá de lo que valga
+  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
   `suma` en el entorno actual.
+
+---
+
+- Una expresión lambda es **pura** cuando su valor depende, únicamente, del
+  valor de sus parámetros.
+
+- También se dice que una expresión lambda que contiene sólo variables ligadas
+  es **más pura** que otra cuyo valor depende, además, de variables libres.
+
+- En cuanto a *grados de pureza*, podemos decir que hay **más pureza** si una
+  variable libre representa una **función** a aplicar en el cuerpo de la
+  expresión lambda, que si representa cualquier otro tipo de valor.
+
+- En el ejemplo anterior, tenemos que la expresión lambda `suma`, sin ser
+  *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
+  que su única variable libre se usa como una **función**, y las funciones
+  tienden a cambiar menos durante la ejecución del programa que los demás tipos
+  de valores.
+
+---
+
+- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
+  menor pureza, siendo la primera totalmente **pura**:
+
+  ```python
+  # producto es una expresión lambda totalmente pura:
+  producto = lambda x, y: x * y
+  # cuadrado es casi pura; a efectos prácticos se la puede
+  # considerar pura ya que sus variables libres (en este
+  # caso, sólo una: producto) son funciones:
+  cuadrado = lambda x: producto(x, x)
+  # suma es impura, porque su variable libre no es una función:
+  suma = lambda x, y: x + y + z
+  ```
 
 ## Estrategias de evaluación
 
 - A la hora de evaluar una expresión (cualquier expresión) existen varias
-  estrategias diferentes que se pueden adoptar.
+  **estrategias** diferentes que se pueden adoptar.
 
 - Cada lenguaje implementa sus propias estrategias de evaluación que están
   basadas en las que vamos a ver aquí.
@@ -673,7 +686,7 @@ E -> x [lhead = cluster0]
 
   - El orden (de fuera adentro o de dentro afuera).
 
-  - La necesidad o no de evaluar dicha expresión.
+  - La necesidad o no de evaluar dicha sub-expresión.
 
 ### Orden de evaluación
 
