@@ -375,10 +375,23 @@ E -> x [lhead = cluster1]
 
 - Desde dentro de una función es posible usar variables globales.
 
-- Pero para ello es necesario que la función la declare previamente como
-  *global* antes de usarla.
+- Se puede **acceder** al valor de una variable global directamente:
 
-- De no hacerlo así, el intérprete supondría que el programador se refiere a
+  ```python
+  x = 4
+  
+  def prueba():
+      print(x)
+
+  prueba()  # imprime 4
+  ```
+
+---
+
+- Pero para poder **modificar** una variable global ello es necesario que la
+  función la declare previamente como *global*.
+
+- De no hacerlo así, el intérprete supondría que el programador quiere crear
   una variable local que tiene el mismo nombre que la global:
 
   ```python
@@ -390,6 +403,38 @@ E -> x [lhead = cluster1]
   prueba()
   print(x)  # imprime 4
   ```
+
+- Como en Python no existen las declaraciones de variables, el intérprete tiene
+  que *averiguar* por sí mismo qué ámbito tiene una variable.
+
+- Lo hace con una regla muy sencilla:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si hay una **asignación** a una variable **dentro** de una función, esa
+  variable se considera **local**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- El siguiente código genera un error «*UnboundLocalError: local variable 'x'
+  referenced before assignment*». ¿Por qué?
+
+  ```python
+  x = 4
+
+  def prueba():
+      x = x + 4
+      print(x)
+
+  prueba()
+  ```
+
+- Como la función asigna un valor a `x`, Python considera que `x` es local.
+
+- Pero en la expresión `x + 4`, la variable `x` aún no tiene ningún valor
+  asignado, por lo que genera un error «*variable local `x` referenciada antes
+  de ser asignada*».
 
 #### `global`
 
@@ -408,30 +453,6 @@ E -> x [lhead = cluster1]
 
 ---
 
-- Las funciones (ya sean expresiones lambda o definidas con nombre) no hace
-  falta declararlas como `global` para poder usarlas dentro de otra función si
-  su ligadura ya se encuentra en el entorno:
-
-  ```python
-  x = 4
-
-  def suma(x, y):
-      return x + y
-
-  prod = lambda x, y: x * y
-
-  def prueba():
-      global x        # se declara que la variable x es global
-      z = suma(4, 3)  # suma se puede usar sin tener que declararla global
-      w = prod(4, 3)  # tampoco hace falta declararla global
-      x = z + w       # cambia el valor de la variable global x
-
-  prueba()
-  print(x)  # imprime 19
-  ```
-
----
-
 - Las reglas básicas de uso de la sentencia `global` en Python son:
 
   #. Cuando se crea una variable dentro de una función, por omisión es local.
@@ -439,8 +460,8 @@ E -> x [lhead = cluster1]
   #. Cuando se define una variable fuera de una función, por omisión es global
      (no hace falta usar la sentencia `global`).
 
-  #. Se usa la sentencia `global` para consultar y cambiar el valor de una
-     variable global dentro de una función.
+  #. Se usa la sentencia `global` para cambiar el valor de una variable global
+     dentro de una función.
 
   #. El uso de la sentencia `global` fuera de una función no tiene ningún
      efecto.
@@ -465,6 +486,9 @@ E -> x [lhead = cluster1]
 
 - Una función que provoca efectos laterales es una **función impura**, a
   diferencia de las **funciones puras**, que no tienen efectos laterales.
+
+- Una función también puede ser **impura** si su valor de retorno depende de
+  algo más que de sus argumentos (p. ej., de una variable global).
 
 ---
 
@@ -511,19 +535,35 @@ E -> x [lhead = cluster1]
 
 ---
 
-- El uso de la sentencia `global` supone otra forma de perder transparencia
-  referencial, puesto que, gracias a ella, una función puede leer y cambiar el
-  valor de una variable global, lo que la convertiría en **impura** por partida
-  doble, ya que:
+- El que una función necesite **acceder al valor de una variable global**
+  supone otra forma de **perder transparencia referencial**, ya que la
+  convierte en **impura** porque su valor de retorno podría depender de algo
+  más que de sus argumentos (en este caso, de la variable global).
 
-  - su valor de retorno podría depender de algo más que de sus argumentos (en
-    este caso, de la variable global), y
+- En consecuencia, la función podría producir **resultados distintos en
+  momentos diferentes** ante los mismos argumentos:
 
-  - podría provocar cambios de estado observables fuera de la función (la
-    modificación de la variable global)
+  ```python
+  def suma(x, y):
+      res = x + y + z  # impureza: depende del valor de una variable global
+      return res
 
-- En consecuencia, la función podría producir resultados distintos en momentos
-  diferentes:
+  z = 5
+  print(suma(4, 3))  # imprime 12
+  z = 2
+  print(suma(4, 3))  # imprime 9
+  ```
+
+---
+
+- Igualmente, el **uso de la sentencia `global`** supone otra forma más de
+  **perder transparencia referencial**, puesto que, gracias a ella, una función
+  puede cambiar el valor de una variable global, lo que la convertiría en
+  **impura** porque podría provocar un **efecto lateral** (la modificación de
+  la variable global).
+
+- En consecuencia, la función podría producir **resultados distintos en
+  momentos diferentes** ante los mismos argumentos:
 
   ```python
   def suma(x, y):
@@ -610,15 +650,22 @@ E -> x [lhead = cluster1]
 
 ### `nonlocal`
 
-- Una función local puede acceder a variables locales a la función que la
-  contiene, declarándolas previamente como **no locales** con la sentencia
-  `nonlocal`:
+- Una función local puede **acceder** al valor de las variables locales a la
+  función que la contiene.
+  
+- En cambio, cuando una función local quiere **modificar** el valor de una
+  variable local a la función que la contiene, debe declararla previamente como
+  **no local** con la sentencia `nonlocal`.
+
+- Es algo similar a lo que ocurre con las variables globales.
+
+---
 
   ```python
   def fact(n):
       def fact_iter(acc):
           nonlocal n
-          n -= 1
+          n = n - 1
           if n == 0:
               return acc
           else:
@@ -628,11 +675,15 @@ E -> x [lhead = cluster1]
   print(fact(5))
   ```
 
-- La función local `fact_iter` puede acceder a (y modificar) la variable `n`
-  que es local a la función `fact`.
+- La función local `fact_iter` puede acceder a la variable `n`, que es local a
+  la función `fact` (para ello no es necesario declararla previamente como **no
+  local**).
+
+- Como la variable `n` está declarada **no local** en `fact_iter`, también
+  puede modificarla.
 
 - De esta forma, ya no es necesario pasar el valor de `n` como argumento a la
-  función `fact_iter` (está en su entorno).
+  función `fact_iter` y puede modificarla directamente.
 
 ## *Docstrings*
 
