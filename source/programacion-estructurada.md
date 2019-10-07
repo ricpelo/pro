@@ -4,7 +4,7 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Funciones definidas por el usuario
+# Funciones con nombre
 
 ## Definición de funciones con nombre
 
@@ -295,8 +295,14 @@ del código.
   generan un nuevo ámbito.
 
 - Tanto los parámetros como las variables que se definan en el cuerpo de la
-  función son **locales** a ella, y por tanto sólo existen dentro de ella (su
-  ámbito es el *cuerpo* de la función).
+  función son **locales** a ella, y por tanto sólo existen dentro de ella.
+  
+  - El ámbito de un parámetro es el cuerpo de la función.
+  
+  - El ámbito del resto de las variables locales es desde su definición hasta
+    el final del cuerpo de la función.
+
+---
 
 - Eso significa que se crea un nuevo marco en el entorno, que contendrá, en
   principio, los parámetros y las variables locales a la función.
@@ -329,7 +335,7 @@ E -> suma [lhead = cluster0]
 
 ::: {.column width=60%}
 
-!DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función)(width=100%)(width=55%)
+!DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función `suma`)(width=100%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR, splines = ortho]
@@ -338,14 +344,11 @@ x [shape = plaintext, fillcolor = transparent]
 3 -> suma [lhead = cluster0, ltail = cluster1, minlen = 2]
 y [shape = plaintext, fillcolor = transparent]
 suma [shape = plaintext, fillcolor = transparent]
-resultado [shape = plaintext, fillcolor = transparent]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
     suma -> v1 -> función
-    resultado -> v2
 }
 subgraph cluster1 {
     label = <Marco de <u>suma</u>>
@@ -401,6 +404,30 @@ E -> x [lhead = cluster1]
 
   prueba()
   print(x)  # imprime 5
+  ```
+
+---
+
+- Las funciones (ya sean expresiones lambda o definidas con nombre) no hace
+  falta declararlas como `global` para poder usarlas dentro de otra función si
+  su ligadura ya se encuentra en el entorno:
+
+  ```python
+  x = 4
+
+  def suma(x, y):
+      return x + y
+
+  prod = lambda x, y: x * y
+
+  def prueba():
+      global x        # se declara que la variable x es global
+      z = suma(4, 3)  # suma se puede usar sin tener que declararla global
+      w = prod(4, 3)  # tampoco hace falta declararla global
+      x = z + w       # cambia el valor de la variable global x
+
+  prueba()
+  print(x)  # imprime 19
   ```
 
 ---
@@ -489,8 +516,8 @@ E -> x [lhead = cluster1]
   valor de una variable global, lo que la convertiría en **impura** por partida
   doble, ya que:
 
-  - su valor de retorno podría depender de algo más que de sus argumentos (en este caso, de
-    la variable global), y
+  - su valor de retorno podría depender de algo más que de sus argumentos (en
+    este caso, de la variable global), y
 
   - podría provocar cambios de estado observables fuera de la función (la
     modificación de la variable global)
@@ -518,7 +545,94 @@ E -> x [lhead = cluster1]
 
 ## Funciones locales a funciones
 
+- En Python es posible definir **funciones locales** a una función.
+
+- Las funciones locales también se denominan **funciones internas** o
+  **funciones anidadas**.
+
+- Una función local se define **dentro** de otra función y, por tanto, sólo
+  existe dentro de la función en la que se ha definido.
+
+- Su **ámbito** empieza en su definición y acaba al final del cuerpo de la
+  función que la contiene.
+
+- Evita la superpoblación de funciones en el ámbito más externo cuando sólo
+  tiene sentido su uso en un ámbito más interno.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  def fact(n):
+      def fact_iter(n, acc):
+          if n == 0:
+              return acc
+          else:
+              return fact_iter(n - 1, acc * n)
+      return fact_iter(n, 1)
+
+  print(fact(5))
+
+  # daría un error porque fact_iter no existe en el ámbito global:
+  print(fact_iter(5, 1))  
+  ```
+
+- La función `fact_iter` es local a la función `fact`. No se puede usar desde
+  fuera de `fact`.
+
+- Tampoco se puede usar dentro de `fact` *antes* de haberse definido.
+
+---
+
+- Lo siguiente daría un error porque intentamos usar `fact_iter` antes de haber
+  definido:
+
+  ```python
+  def fact(n):
+      print(fact_iter(1, 1))  # error: se usa antes de definirse
+      def fact_iter(n, acc):  # aquí es donde empieza su definición
+          if n == 0:
+              return acc
+          else:
+              return fact_iter(n - 1, acc * n)
+      return fact_iter(n, 1)
+  ```
+
+---
+
+- Las funciones locales definen un nuevo ámbito.
+
+- Ese nuevo ámbito crea un nuevo marco en el entorno.
+
+- Y ese nuevo marco se conecta con el marco del ámbito que lo contiene, es
+  decir, el marco de la función que contiene a la local.
+
 ### `nonlocal`
+
+- Una función local puede acceder a variables locales a la función que la
+  contiene, declarándolas previamente como **no locales** con la sentencia
+  `nonlocal`:
+
+  ```python
+  def fact(n):
+      def fact_iter(acc):
+          nonlocal n
+          n -= 1
+          if n == 0:
+              return acc
+          else:
+              return fact_iter(acc * n)
+      return fact_iter(n)
+
+  print(fact(5))
+  ```
+
+- La función local `fact_iter` puede acceder a (y modificar) la variable `n`
+  que es local a la función `fact`.
+
+- De esta forma, ya no es necesario pasar el valor de `n` como argumento a la
+  función `fact_iter` (está en su entorno).
 
 ## *Docstrings*
 
