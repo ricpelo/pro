@@ -26,13 +26,36 @@ author: Ricardo Pérez López
 
 ---
 
+:::: columns
+
+::: {.column width=45%}
+
 - La sintaxis para definir una función con nombre es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(def) !NT(nombre)!T{(}[!NT(parámetros)]!T{)}!T(:)
-      !NT(sentencia)+
+      !NT(cuerpo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: {.column width=5%}
+
+:::
+
+::: {.column width=50%}
+
+- donde:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(cuerpo) ::= !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 - Por ejemplo:
 
@@ -272,7 +295,8 @@ del código.
   generan un nuevo ámbito.
 
 - Tanto los parámetros como las variables que se definan en el cuerpo de la
-  función son **locales** a ella, y por tanto sólo existen dentro de ella.
+  función son **locales** a ella, y por tanto sólo existen dentro de ella (su
+  ámbito es el *cuerpo* de la función).
 
 - Eso significa que se crea un nuevo marco en el entorno, que contendrá, en
   principio, los parámetros y las variables locales a la función.
