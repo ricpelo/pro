@@ -829,9 +829,6 @@ True
 
 ## Funciones puras
 
-- Las funciones que hemos visto hasta ahora en programación funcional son
-  funciones **puras**.
-  
 - Las **funciones puras** son aquellas que cumplen que:
 
   - su valor de retorno depende únicamente del valor de sus argumentos, y
@@ -843,9 +840,9 @@ True
   retorno sin afectar al resto del programa (es lo que se conoce como
   **transparencia referencial**).
 
-## Funciones impuras
-
 - Las funciones *puras* son las únicas que existen en programación funcional.
+
+## Funciones impuras
 
 - Por contraste, una función se considera **impura**:
 
@@ -905,8 +902,9 @@ True
 
 - Si el efecto lateral lo produce la propia función también estamos perdiendo
   transparencia referencial, pues en tal caso no podemos sustituir libremente
-  la llamada a la función por su valor de retorno, pues ahora la función **hace
-  algo más** que calcular dicho valor.
+  la llamada a la función por su valor de retorno, ya que ahora la función
+  **hace algo más** que calcular dicho valor y que es observable fuera de la
+  función.
 
 - Por ejemplo, una función que imprime algo por la pantalla o escribe algo en
   un archivo del disco tampoco es una función pura y, por tanto, en ella no se
@@ -930,12 +928,12 @@ True
 
 - Los efectos laterales hacen que sea muy difícil razonar sobre el
   funcionamiento del programa, puesto que las funciones impuras no pueden verse
-  como simples asociaciones entre los datos de entrada y el resultado de salida,
-  sino que además hay que tener en cuenta los **efectos ocultos** que producen
-  en otras partes del programa.
+  como simples correspondencias entre los datos de entrada y el resultado de
+  salida, sino que además hay que tener en cuenta los **efectos ocultos** que
+  producen en otras partes del programa.
 
-- Por ello, se debe evitar, siempre que sea posible, escribir funciones impuras
-  (o sea, que provoquen efectos laterales).
+- Por ello, se debe **evitar**, siempre que sea posible, escribir funciones
+  impuras (o sea, que provoquen efectos laterales).
 
 - Ahora bien: muchas veces, la función que se desea escribir tiene efectos
   laterales porque esos son, precisamente, los efectos deseados.
@@ -943,7 +941,7 @@ True
   - Por ejemplo, una función que actualice los salarios de los empleados en una
     base de datos, a partir del salario base y los complementos.
 
-- En ese caso, es importante documentar adecuadamente la función para que,
+- En ese caso, es importante **documentar** adecuadamente la función para que,
   quien desee usarla, sepa perfectamente qué efectos produce más allá de
   devolver un resultado.
 
@@ -962,7 +960,7 @@ True
 - La entrada/salida por consola se refiere a las operaciones de lectura de
   datos por el teclado y escritura por la pantalla.
 
-- Las operaciones de entrada/salida se consideran *efectos laterales* porque
+- Las operaciones de entrada/salida se consideran **efectos laterales** porque
   producen cambios en el exterior o pueden provocar que el resultado de una
   función dependa de los datos leídos.
 
