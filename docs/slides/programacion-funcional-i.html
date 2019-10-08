@@ -1540,89 +1540,47 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>El entorno, por tanto, depende del punto del programa en el que se calcule.</p></li>
 <li><p>Como por ahora sólo tenemos un marco, que es el <em>marco global</em>, nuestro entorno sólo podrá tener un único marco, es decir, que el entorno coincidirá con el marco global.</p></li>
 <li><p>La cosa cambiará en cuanto empecemos a crear funciones.</p></li>
-</ul></section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">6.5</span> Tipado estático vs. dinámico</h2><ul>
+</ul></section><section id="tipo-de-un-identificador" class="title-slide slide level2"><h2><span class="header-section-number">6.5</span> Tipo de un identificador</h2><ul>
 <li><p>Cuando un identificador está ligado a un valor, a efectos prácticos el identificador actúa como si fuera el valor.</p></li>
 <li><p>Como cada valor tiene un tipo de dato asociado, también podemos hablar del <strong>tipo de un identificador</strong>.</p>
 <div class="caja">
-<p>El <strong>tipo de un identificador ligado</strong> es el tipo del dato con el que está ligado.</p>
+<p>El <strong>tipo de un identificador</strong> es el tipo del dato con el que está ligado.</p>
 </div></li>
 <li><p>Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de dato tiene.</p></li>
-<li><p>Si un identificador ligado se liga a otro valor (cosa que ya hemos dicho que evitaremos por ahora) y ese otro valor es de otro tipo distinto al del valor original, el tipo del identificador cambia y pasa a ser el del valor con el que está ligado ahora.</p></li>
-</ul></section><section class="slide level4">
-
-<ul>
-<li><p>Eso quiere decir que <strong>el tipo de un identificador puede cambiar durante la ejecución del programa</strong>.</p></li>
-<li><p>A este enfoque se le denomina <strong>tipado dinámico</strong>.</p>
-<div class="caja">
-<p><strong>Lenguajes de tipado dinámico:</strong></p>
-<p>Son aquellos que <strong>permiten</strong> que el tipo de un identificador <strong>cambie</strong> durante la ejecución del programa.</p>
-</div></li>
-<li><p>En contraste con los lenguajes de tipado dinámico, existen los llamados <strong>lenguajes de tipado estático</strong>.</p></li>
-<li><p>En un lenguaje de tipado estático, el tipo de un identificador se define una sola vez (en la fase de compilación o justo al empezar a ejecutarse el programa), y no puede cambiar durante la ejecución del mismo.</p></li>
-</ul>
-</section><section class="slide level4">
-
-<ul>
-<li><p>Definición:</p>
-<div class="caja">
-<p><strong>Lenguajes de tipado estático:</strong></p>
-<p>Son aquellos que <strong>obligan a declarar</strong> el tipo de un identificador antes de poder usarlo y <strong>prohíben</strong> que dicho tipo <strong>cambie</strong> durante la ejecución del programa.</p>
-</div></li>
-<li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos con los que se ligará un identificador.</p>
-<p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb47-1" title="1"><span class="dt">int</span> x;</a></code></pre></div>
-<p>con lo que declaramos que <code>x</code> sólo podrá ligarse a valores de tipo <code>int</code>.</p></li>
-<li><p>A veces, se pueden realizar al mismo tiempo la declaración del tipo y la ligadura al valor:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb48-1" title="1"><span class="dt">int</span> x = <span class="dv">24</span>;</a></code></pre></div></li>
-</ul>
-</section><section class="slide level4">
-
-<ul>
-<li><p>Normalmente, los lenguajes de tipado estático son también lenguajes compilados y también fuertemente tipados.</p></li>
-<li><p>Asimismo, los lenguajes de tipado dinámico suelen ser lenguajes interpretados y a veces también son lenguajes débilmente tipados.</p></li>
-<li><p>Pero nada impide que un lenguaje de tipado dinámico pueda ser compilado, por ejemplo.</p></li>
-<li><p>Los tres conceptos de:</p>
-<ul>
-<li><p>Compilado vs. interpretado</p></li>
-<li><p>Tipado fuerte vs. débil</p></li>
-<li><p>Tipado estático vs. dinámico</p></li>
-</ul>
-<p>son diferentes aunque están estrechamente relacionados.</p></li>
-</ul>
-</section><section id="scripts" class="title-slide slide level2"><h2><span class="header-section-number">6.6</span> <em>Scripts</em></h2><ul>
+</ul></section><section id="scripts" class="title-slide slide level2"><h2><span class="header-section-number">6.6</span> <em>Scripts</em></h2><ul>
 <li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
 <li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb49-1" title="1"><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb47-1" title="1"><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></a></code></pre></div></li>
 </ul></section><section id="ámbito-de-una-ligadura" class="title-slide slide level2"><h2><span class="header-section-number">6.7</span> Ámbito de una ligadura</h2><ul>
 <li><p>El <strong>ámbito de una ligadura</strong> es la porción del programa en la que dicha ligadura tiene validez.</p></li>
 <li><p>Es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, el concepto de <em>ámbito</em> irá cambiando para tener en cuenta más condicionantes.</p></li>
-<li><p><em>Por ahora</em>, diremos que el ámbito de una ligadura abarca desde su propia definición hasta el final del <em>script</em>.</p></li>
+<li><p><em>Por ahora</em>, diremos que el ámbito de una ligadura abarca desde su propia definición hasta el final del <em>script</em> (o el final de la sesión actual en el intérprete interactivo).</p></li>
 </ul></section></section>
 <section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Identificadores significativos</h2><ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1">ancho <span class="op">=</span> <span class="dv">640</span></a>
-<a class="sourceLine" id="cb50-2" title="2">alto <span class="op">=</span> <span class="dv">400</span></a>
-<a class="sourceLine" id="cb50-3" title="3">superficie <span class="op">=</span> ancho <span class="op">*</span> alto</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1">ancho <span class="op">=</span> <span class="dv">640</span></a>
+<a class="sourceLine" id="cb48-2" title="2">alto <span class="op">=</span> <span class="dv">400</span></a>
+<a class="sourceLine" id="cb48-3" title="3">superficie <span class="op">=</span> ancho <span class="op">*</span> alto</a></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb51-1" title="1">x <span class="op">=</span> <span class="dv">640</span></a>
-<a class="sourceLine" id="cb51-2" title="2">y <span class="op">=</span> <span class="dv">400</span></a>
-<a class="sourceLine" id="cb51-3" title="3">z <span class="op">=</span> x <span class="op">*</span> y</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb49-1" title="1">x <span class="op">=</span> <span class="dv">640</span></a>
+<a class="sourceLine" id="cb49-2" title="2">y <span class="op">=</span> <span class="dv">400</span></a>
+<a class="sourceLine" id="cb49-3" title="3">z <span class="op">=</span> x <span class="op">*</span> y</a></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (<code>_</code>) para separarlas y formar un único identificador:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1">altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1">altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></a></code></pre></div></li>
 </ul></section><section id="comentarios" class="title-slide slide level2"><h2><span class="header-section-number">7.2</span> Comentarios</h2><ul>
 <li><p>Los comentarios en Python empiezan con el carácter <code>#</code> y se extienden hasta el final de la línea.</p></li>
 <li><p>Los comentarios pueden aparecer al comienzo de la línea o a continuación de un espacio en blanco o una porción de código.</p></li>
 <li><p>Los comentarios no pueden ir dentro de un literal de tipo cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un carácter más.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># este es el primer comentario</span></a>
-<a class="sourceLine" id="cb53-2" title="2">spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></a>
-<a class="sourceLine" id="cb53-3" title="3">          <span class="co"># ... y este es el tercero</span></a>
-<a class="sourceLine" id="cb53-4" title="4">texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># este es el primer comentario</span></a>
+<a class="sourceLine" id="cb51-2" title="2">spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></a>
+<a class="sourceLine" id="cb51-3" title="3">          <span class="co"># ... y este es el tercero</span></a>
+<a class="sourceLine" id="cb51-4" title="4">texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></a></code></pre></div></li>
 </ul></section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
 <div id="ref-abelson_structure_1996">

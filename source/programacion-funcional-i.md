@@ -1887,7 +1887,7 @@ subgraph cluster0 {
 
 - La cosa cambiará en cuanto empecemos a crear funciones.
 
-## Tipado estático vs. dinámico
+## Tipo de un identificador
 
 - Cuando un identificador está ligado a un valor, a efectos prácticos el
   identificador actúa como si fuera el valor.
@@ -1897,91 +1897,11 @@ subgraph cluster0 {
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de un identificador ligado** es el tipo del dato con el que está
-  ligado.
+  El **tipo de un identificador** es el tipo del dato con el que está ligado.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de
   dato tiene.
-
-- Si un identificador ligado se liga a otro valor (cosa que ya hemos dicho que
-  evitaremos por ahora) y ese otro valor es de otro tipo distinto al del valor
-  original, el tipo del identificador cambia y pasa a ser el del valor con el
-  que está ligado ahora.
-
----
-
-- Eso quiere decir que **el tipo de un identificador puede cambiar durante la
-  ejecución del programa**.
-
-- A este enfoque se le denomina **tipado dinámico**.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Lenguajes de tipado dinámico:**
-
-  Son aquellos que **permiten** que el tipo de un identificador **cambie**
-  durante la ejecución del programa.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- En contraste con los lenguajes de tipado dinámico, existen los llamados
-  **lenguajes de tipado estático**.
-
-- En un lenguaje de tipado estático, el tipo de un identificador se define una
-  sola vez (en la fase de compilación o justo al empezar a ejecutarse el
-  programa), y no puede cambiar durante la ejecución del mismo.
-
----
-
-- Definición:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Lenguajes de tipado estático:**
-
-  Son aquellos que **obligan a declarar** el tipo de un identificador antes de
-  poder usarlo y **prohíben** que dicho tipo **cambie** durante la ejecución del
-  programa.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Estos lenguajes disponen de construcciones sintácticas que permiten declarar
-  de qué tipo serán los datos con los que se ligará un identificador.
-  
-  Por ejemplo, en Java podemos hacer:
-
-  ```java
-  int x;
-  ```
-
-  con lo que declaramos que `x` sólo podrá ligarse a valores de tipo `int`.
-
-- A veces, se pueden realizar al mismo tiempo la declaración del tipo y la
-  ligadura al valor:
-
-  ```java
-  int x = 24;
-  ```
-
----
-
-- Normalmente, los lenguajes de tipado estático son también lenguajes
-  compilados y también fuertemente tipados.
-
-- Asimismo, los lenguajes de tipado dinámico suelen ser lenguajes interpretados
-  y a veces también son lenguajes débilmente tipados.
-
-- Pero nada impide que un lenguaje de tipado dinámico pueda ser compilado, por
-  ejemplo.
-
-- Los tres conceptos de:
-
-  - Compilado vs. interpretado
-
-  - Tipado fuerte vs. débil
-
-  - Tipado estático vs. dinámico
-
-  son diferentes aunque están estrechamente relacionados.
 
 ## *Scripts*
 
@@ -2014,7 +1934,8 @@ subgraph cluster0 {
   cuenta más condicionantes.
 
 - *Por ahora*, diremos que el ámbito de una ligadura abarca desde su propia
-  definición hasta el final del *script*.
+  definición hasta el final del *script* (o el final de la sesión actual en el
+  intérprete interactivo).
 
 # Documentación interna
 

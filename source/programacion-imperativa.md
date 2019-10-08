@@ -227,6 +227,112 @@ variable -> valor [label = "estado"]
   PI = 99
   ```
 
+## Tipado estático vs. dinámico
+
+- Cuando una variable tiene asignado un valor, al ser usada en una expresión
+  actúa como si fuera ese valor.
+
+- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
+  **tipo de una variable**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El **tipo de una variable** es el tipo del dato que contiene la variable.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Si a una variable se le asigna otro valor de un tipo distinto al del valor
+  anterior, el tipo de la variable cambia y pasa a ser el del nuevo valor que
+  se le ha asignado.
+
+---
+
+- Eso quiere decir que **el tipo de una variable podría cambiar durante la
+  ejecución del programa**.
+
+- A este enfoque se le denomina **tipado dinámico**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Lenguajes de tipado dinámico:**
+
+  Son aquellos que **permiten** que el tipo de una variable **cambie** durante
+  la ejecución del programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En contraste con los lenguajes de tipado dinámico, existen los llamados
+  **lenguajes de tipado estático**.
+
+- En un lenguaje de tipado estático, el tipo de una variable se define una sola
+  vez (en la fase de compilación o justo al empezar a ejecutarse el programa),
+  y **no puede cambiar** durante la ejecución del mismo.
+
+---
+
+- Definición:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Lenguajes de tipado estático:**
+
+  Son aquellos que asocian forzosamente un tipo a cada variable del programa
+  desde que comienza a ejecutarse y **prohíben** que dicho tipo **cambie**
+  durante la ejecución del programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Estos lenguajes disponen de construcciones sintácticas que permiten declarar
+  de qué tipo serán los datos que puede contener una variable.
+
+  Por ejemplo, en Java podemos hacer:
+
+  ```java
+  int x;
+  ```
+
+  con lo que declaramos que `x` sólo podrá contener valores de tipo `int` desde
+  el primer momento y a lo largo de toda la ejecución del programa.
+
+---
+
+- A veces, se pueden realizar al mismo tiempo la declaración del tipo y la
+  asignación del valor:
+
+  ```java
+  int x = 24;
+  ```
+
+- Otros lenguajes disponen de un mecanismo conocido como **inferencia de
+  tipos**, que permite *deducir* automáticamente el tipo de una variable.
+
+- Por ejemplo, en Java podemos hacer:
+
+  ```java
+  var x = 24;
+  ```
+
+  El compilador de Java deduce que la variable `x` debe ser de tipo `int`
+  porque se le está asignando un valor entero (el `24`).
+
+---
+
+- Normalmente, los lenguajes de tipado estático son también lenguajes
+  compilados y también fuertemente tipados.
+
+- Asimismo, los lenguajes de tipado dinámico suelen ser lenguajes interpretados
+  y a veces también son lenguajes débilmente tipados.
+
+- Pero nada impide que un lenguaje de tipado dinámico pueda ser compilado, por
+  ejemplo.
+
+- Los tres conceptos de:
+
+  - Compilado vs. interpretado
+
+  - Tipado fuerte vs. débil
+
+  - Tipado estático vs. dinámico
+
+  son diferentes aunque están estrechamente relacionados.
+
 # Mutabilidad
 
 ## Tipos mutables e inmutables
