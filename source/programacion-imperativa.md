@@ -156,8 +156,12 @@ variable -> valor [label = "estado"]
   ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
-  porque llegará el momento en el que podamos tener varios identificadores
-  distintos ligados a la misma variable.
+  porque llegará el momento en el que podamos tener:
+
+  - Varios identificadores distintos ligados a la misma variable.
+
+  - Un mismo identificador ligado a distintas variables en diferentes puntos
+    del programa.
 
 ---
 
