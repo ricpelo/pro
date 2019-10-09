@@ -1204,13 +1204,13 @@ Función                    Descripción           Ejemplo                  Resu
 @. Evaluar las siguientes expresiones o decir si es una expresión incorrecta:
 
     a. `9 – 5 – 3`
-    b. `2 div 3 + 3 / 5`
-    c. `9 div 2 / 5`
-    d. `7 mod 5 mod 3`
-    e. `7 mod (5 mod 3)`
-    f. `(7 mod 5) mod 3`
-    g. `(7 mod 5 mod 3)`
-    h. `((12 + 3) div 2) / (8 – (5 + 1))`
+    b. `2 // 3 + 3 / 5`
+    c. `9 // 2 / 5`
+    d. `7 % 5 % 3`
+    e. `7 % (5 % 3)`
+    f. `(7 % 5) % 3`
+    g. `(7 % 5 % 3)`
+    h. `((12 + 3) // 2) / (8 – (5 + 1))`
     i. `12 / 2 * 3`
     j. `math.sqrt(math.cos(4)`
     k. `math.cos(math.sqrt(4))`
