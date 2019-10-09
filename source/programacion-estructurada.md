@@ -687,6 +687,52 @@ E -> x [lhead = cluster1]
 
 ## *Docstrings*
 
+- Python implementa un mecanismo muy sencillo y elegante para documentar partes
+  del código basado en cadenas llamadas **_docstrings_** (*cadenas de
+  documentación*).
+
+- En funciones, únicamente tenemos que insertar una cadena en la primera línea
+  del cuerpo:
+
+  ```python
+  def hola(arg):
+    """
+    Este es el docstring de la función.
+    """
+    print("Hola", arg, "!")
+
+  hola("Héctor")
+  ```
+
+- Las reglas de estilo dictan que esa cadena debe escribirse con triples
+  comillas.
+
+---
+
+- Para consultar la documentación se usa la función `help` pasándole como
+  argumento la función a consultar:
+
+  ```python
+  >>> help(hola)
+  Help on function hola in module __main__:
+
+  hola()
+    Este es el docstring de la función.
+  ```
+
+- También se puede documentar un script añadiendo un *docstring* al principio
+  del mismo (en la primera línea):
+
+  ```python
+  """Este es el docstring del módulo"""
+  def despedir():
+      """Este es el docstring de la función despedir"""
+      print("Adiós! Me despido desde la función despedir() del módulo prueba")
+  def saludar():
+      """Este es el docstring de la función saludar"""
+      print("Hola! Te saludo desde la función saludar() del módulo prueba")
+  ```
+
 # Teorema de Böhm-Jacopini
 
 # Estructuras básicas de control
