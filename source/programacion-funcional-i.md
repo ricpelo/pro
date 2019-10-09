@@ -1874,7 +1874,7 @@ subgraph cluster0 {
 ## Entorno (*environment*)
 
 - Un **entorno** (del inglés, *environment*) es una secuencia de **marcos** que
-  contienen todas las ligaduras validas en un punto concreto del programa.
+  contienen todas las ligaduras válidas en un punto concreto del programa.
 
 - Es decir, el entorno nos dice qué identificadores son accesibles en un
   momento dado, y con qué valores están ligados.
