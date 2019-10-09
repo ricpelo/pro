@@ -1050,50 +1050,6 @@ $$
    `[1:]`    Resto de cadena `'hola'[1:]`     `'ola'`
 --------------------------------------------------------
 
-<!--
-
----------------------------------------------------------------------------------------
-  Operador         Descripción     Ejemplo          Resultado   Comentarios
-------------       --------------- ---------------- ----------- -----------------------
-   `+`             Concatenación   `'ab' + 'cd'`    `'abcd'`    \hfill{} \
-                                   `'ab' 'cd'`                  Dos cadenas juntas
-
-   `*`             Repetición      `'ab' * 3`       `'ababab'`
-                                   `3 * 'ab'`       `'ababab'`
-
-   `[]`            Indexación       `'hola'[2]`     `'l'`
-
-   `[`$m$`:`$n$`]` *Slicing*        `'manolo'[1:3]` `'an'`
----------------------------------------------------------------------------------------
-
----
-
-##### Indexación
-
-- La **indexación** consiste en acceder al carácter situado en la posición
-  indicada entre corchetes.
-
-  ```
-   +---+---+---+---+---+---+
-   | P | y | t | h | o | n |
-   +---+---+---+---+---+---+
-     0   1   2   3   4   5
-    -6  -5  -4  -3  -2  -1
-  ```
-
-##### *Slicing*
-
-- El *slicing* (*hacer rodajas*) es una técnica que consiste en 
-  ```
-   +---+---+---+---+---+---+
-   | P | y | t | h | o | n |
-   +---+---+---+---+---+---+
-   0   1   2   3   4   5   6
-  -6  -5  -4  -3  -2  -1
-  ```
-
--->
-
 ### Funciones predefinidas
 
 -------------------------------------------------------------------------------------
@@ -1613,6 +1569,10 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   ```
 
   evalúa a `25`.
+
+### Actividad
+
+@. ¿Cuál es la asociatividad del operador ternario? Demostrarlo.
 
 # Definiciones
 
