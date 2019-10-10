@@ -898,7 +898,7 @@ subgraph cluster0 {
 
 ::: column
 
-!DOT(estructura-no.svg)(Estas no son estructuras)(width=30%)
+!DOT(estructura-no.png)(Estas no son estructuras)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [layout = neato]
 A [pos="-0.5,0.0!", fillcolor = transparent]
