@@ -214,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/funciones-con-nombre"><span class="toc-section-number">1</span> Funciones con nombre</a></li>
-<li><a href="#/teorema-de-böhm-jacopini"><span class="toc-section-number">2</span> Teorema de Böhm-Jacopini</a></li>
+<li><a href="#/aspectos-teóricos-de-la-programación-estructurada"><span class="toc-section-number">2</span> Aspectos teóricos de la programación estructurada</a></li>
 <li><a href="#/estructuras-básicas-de-control"><span class="toc-section-number">3</span> Estructuras básicas de control</a></li>
 <li><a href="#/metodología-de-la-programación-estructurada"><span class="toc-section-number">4</span> Metodología de la programación estructurada</a></li>
 <li><a href="#/captura-de-excepciones"><span class="toc-section-number">5</span> Captura de excepciones</a></li>
@@ -637,7 +637,146 @@ La suma vale 13
 <a class="sourceLine" id="cb27-9" title="9">    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</a></code></pre></div></li>
 </ul>
 </section></section>
-<section id="teorema-de-böhm-jacopini" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Teorema de Böhm-Jacopini</h1></section>
+<section><section id="aspectos-teóricos-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Aspectos teóricos de la programación estructurada</h1></section><section id="programación-estructurada" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Programación estructurada</h2><ul>
+<li><p>La programación estructurada es una técnica de programación cuyo objetivo es, esencialmente, la obtención de programas fiables y fácilmente mantenibles.</p></li>
+<li><p>Su estudio puede dividirse en dos partes bien diferenciadas:</p>
+<ul>
+<li><p>Por una parte, el estudio conceptual se centra en ver qué se entiende por programa estructurado para estudiar con detalle sus características fundamentales.</p></li>
+<li><p>Por otra parte, dentro del enfoque práctico se presentará la metodología de refinamientos sucesivos que permite construir programas estructurados paso a paso, detallando cada vez más sus acciones componentes.</p></li>
+</ul></li>
+<li><p>Las ideas que dieron lugar a la programación estructurada ya fueron expuestas por E. W. Dijkstra en 1965, aunque el fundamento teórico está basado en los trabajos de Böhm y Jacopini publicados en 1966.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La programación estructurada surge como respuesta a los problemas que aparecen cuando se programa sin una disciplina y unos límites que marquen la creación de programas claros y correctos.</p></li>
+<li><p>Un programador disciplinado crearía programas fáciles de leer. Por ejemplo, el siguiente programa que calcula el producto de dos números:</p>
+<div class="centered">
+<p><img data-src="images/producto.png" class="plain" style="width:90.0%" /></p>
+</div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En cambio, un programador indisciplinado crearía programas más difíciles de leer:</p>
+<div class="centered">
+<p><img data-src="images/confuso.png" class="plain" style="width:50.0%" /></p>
+</div></li>
+<li><p>Si un programa se escribe de cualquier manera, aun siendo correcto desde el punto de vista de su funcionamiento, puede resultar engorroso, críptico, ilegible y casi imposible de modificar.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Lo que hay que hacer, en primer lugar, es impedir que el programador pueda escribir programas de cualquier manera, y para ello hay que restringir sus opciones a la hora de construir programas de forma que el diagrama resultante sea fácil de leer, entender y mantener.</p></li>
+<li><p>Ese diagrama, una vez terminado, debe estar construido combinando sólo unos pocos tipos de bloques y cumpliendo una serie de restricciones.</p></li>
+</ul>
+</section><section id="programa-restringido" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Programa restringido</h2><ul>
+<li>Un <strong>programa restringido</strong> es aquel que se construye combinando únicamente los tres siguientes bloques:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p><strong>Acción</strong>, que sirve para representar una instrucción (por ejemplo: de lectura, escritura, asignación…).</p></li>
+<li><p><strong>Condición</strong>, que sirve para bifurcar el flujo del programa dependiendo del valor (verdadero o falso) de una expresión lógica.</p></li>
+<li><p><strong>Agrupamiento</strong>, que sirve, como su nombre indica, para agrupar lı́neas de flujo con distintas procedencias.</p></li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/accion.png" alt="Acción" class="plain" style="width:50.0%" /><figcaption>Acción</figcaption>
+</figure>
+</div>
+<div class="centered">
+<figure>
+<img data-src="images/condicion.png" alt="Condición" class="plain" style="width:50.0%" /><figcaption>Condición</figcaption>
+</figure>
+</div>
+<div class="centered">
+<figure>
+<img data-src="images/agrupamiento.png" alt="Agrupamiento" class="plain" style="width:40.0%" /><figcaption>Agrupamiento</figcaption>
+</figure>
+</div>
+</div>
+</div></section><section id="programa-propio" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Programa propio</h2><ul>
+<li><p>Se dice que un programa restringido es un <strong>programa propio</strong> (o <strong><em>limpio</em></strong>) si reúne las tres condiciones siguientes:</p>
+<ol type="1">
+<li><p>Todo bloque posee un único punto de entrada y otro único punto de salida.</p></li>
+<li><p>Para cualquier bloque, existe al menos un camino desde la entrada hasta él y otro camino desde él hasta la salida.</p></li>
+<li><p>No existen bucles infinitos.</p></li>
+</ol></li>
+<li><p>Estas condiciones restringen el concepto de programa de modo que sólo se permite trabajar con aquéllos que están diseñados mediante el uso apropiado del agrupamiento y sin bloques superfluos o formando bucles sin salida.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Este es un ejemplo de un programa que no es propio por no tener una única salida:</p>
+<div class="centered">
+<p><img data-src="images/condicion-no-propio.png" class="plain" style="width:50.0%" /></p>
+</div></li>
+<li><p>Agrupando las salidas se obtiene un programa propio:</p>
+<div class="centered">
+<p><img data-src="images/seleccion.png" class="plain" style="width:50.0%" /></p>
+</div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li>Aquí se observa otro programa que no es propio, ya que existen bloques (los <em>A</em>, <em>C</em> y <em>q</em>) que no tienen un camino hasta la salida; si el programa llegara hasta esos bloques se bloquearía, pues no es posible terminar la ejecución:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/diagrama-no-propio.png" class="plain" style="width:90.0%" /></p>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li>Aquí aparece un programa que contiene bloques inaccesibles desde la entrada del diagrama:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/diagrama-inaccesibles.png" class="plain" style="width:80.0%" /></p>
+</div>
+</section><section id="programa-estructurado" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Programa estructurado</h2><ul>
+<li>Un programa se dice que es un <strong>programa estructurado</strong> si está construido combinando los siguientes esquemas:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>La <strong>secuencia</strong> de dos acciones <em>A</em> y <em>B</em>, ya sean simples o compuestas.</p></li>
+<li><p>La <strong>selección</strong> entre dos acciones <em>A</em> y <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
+<li><p>La <strong>iteración</strong>, que repite una acción <em>A</em> dependiendo del valor de verdad de un predicado de control <em>p</em>.</p></li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/secuencia.png" alt="Secuencia" class="plain" style="width:100.0%" /><figcaption>Secuencia</figcaption>
+</figure>
+</div>
+<div class="centered">
+<figure>
+<img data-src="images/seleccion.png" alt="Selección" class="plain" style="width:100.0%" /><figcaption>Selección</figcaption>
+</figure>
+</div>
+<div class="centered">
+<figure>
+<img data-src="images/iteracion.png" alt="Iteración" class="plain" style="width:80.0%" /><figcaption>Iteración</figcaption>
+</figure>
+</div>
+</div>
+</div></section><section class="slide level4">
+
+<ul>
+<li><p>Un programa estructurado equivalente al del ejemplo anterior, pero mucho más claro, sería:</p>
+<div class="centered">
+<p><img data-src="images/claro.png" class="plain" style="width:50.0%" /></p>
+</div></li>
+</ul>
+</section><section id="teorema-de-böhm-jacopini" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Teorema de Böhm-Jacopini</h2><ul>
+<li><p>El <strong>teorema de Böhm-Jacopini</strong>, también llamado <strong>teorema de la estructura</strong>, garantiza que todo programa propio se puede estructurar.</p></li>
+<li><p>Se enuncia formalmente así:</p>
+<div class="caja">
+<p><strong>Teorema de la estructura:</strong></p>
+<p>Todo programa propio es equivalente a un programa estructurado.</p>
+</div></li>
+<li><p>Por tanto, los programas estructurados son suficientemente expresivos como para expresar cualquier programa razonable.</p></li>
+<li><p>Y además, por su naturaleza estructurada resultan programas más sencillos y claros.</p></li>
+</ul></section></section>
 <section><section id="estructuras-básicas-de-control" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras básicas de control</h1></section><section id="concepto-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Concepto de estructura</h2></section><section id="secuencia" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Secuencia</h2></section><section id="selección" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Selección</h2></section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Iteración</h2></section></section>
 <section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Metodología de la programación estructurada</h1></section><section id="recursos-abstractos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Recursos abstractos</h2></section><section id="diseño-descendente" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Diseño descendente</h2></section><section id="refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Refinamiento sucesivo</h2></section></section>
 <section id="captura-de-excepciones" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Captura de excepciones</h1></section>

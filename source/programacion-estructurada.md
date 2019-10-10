@@ -735,7 +735,191 @@ E -> x [lhead = cluster1]
       print("¡Hola! Te saludo desde la función saludar()")
   ```
 
-# Teorema de Böhm-Jacopini
+# Aspectos teóricos de la programación estructurada
+
+## Programación estructurada
+
+- La programación estructurada es una técnica de programación cuyo objetivo es,
+  esencialmente, la obtención de programas fiables y fácilmente mantenibles.
+
+- Su estudio puede dividirse en dos partes bien diferenciadas:
+
+  - Por una parte, el estudio conceptual se centra en ver qué se entiende por
+    programa estructurado para estudiar con detalle sus características
+    fundamentales.
+
+  - Por otra parte, dentro del enfoque práctico se presentará la metodología de
+    refinamientos sucesivos que permite construir programas estructurados paso
+    a paso, detallando cada vez más sus acciones componentes.
+
+- Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
+  por E. W. Dijkstra en 1965, aunque el fundamento teórico está basado en los
+  trabajos de Böhm y Jacopini publicados en 1966.
+
+---
+
+- La programación estructurada surge como respuesta a los problemas que
+  aparecen cuando se programa sin una disciplina y unos límites que marquen la
+  creación de programas claros y correctos.
+
+- Un programador disciplinado crearía programas fáciles de leer. Por ejemplo,
+  el siguiente programa que calcula el producto de dos números:
+
+  !IMGP(producto.png)()(width=90%)
+
+---
+
+- En cambio, un programador indisciplinado crearía programas más difíciles de
+  leer:
+
+  !IMGP(confuso.png)()(width=50%)
+
+- Si un programa se escribe de cualquier manera, aun siendo correcto desde el
+  punto de vista de su funcionamiento, puede resultar engorroso, críptico,
+  ilegible y casi imposible de modificar.
+
+---
+
+- Lo que hay que hacer, en primer lugar, es impedir que el programador pueda
+  escribir programas de cualquier manera, y para ello hay que restringir sus
+  opciones a la hora de construir programas de forma que el diagrama resultante
+  sea fácil de leer, entender y mantener.
+
+- Ese diagrama, una vez terminado, debe estar construido combinando sólo unos
+  pocos tipos de bloques y cumpliendo una serie de restricciones. 
+
+## Programa restringido
+
+- Un **programa restringido** es aquel que se construye combinando únicamente
+  los tres siguientes bloques:
+
+:::: columns
+
+::: column
+
+- **Acción**, que sirve para representar una instrucción (por ejemplo: de
+  lectura, escritura, asignación...).
+
+- **Condición**, que sirve para bifurcar el flujo del programa dependiendo del
+  valor (verdadero o falso) de una expresión lógica.
+
+- **Agrupamiento**, que sirve, como su nombre indica, para agrupar lı́neas de
+  flujo con distintas procedencias.
+
+:::
+
+::: column
+
+!IMGP(accion.png)(Acción)(width=50%)
+
+!IMGP(condicion.png)(Condición)(width=50%)
+
+!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)
+
+:::
+
+::::
+
+## Programa propio
+
+- Se dice que un programa restringido es un **programa propio** (o
+  **_limpio_**) si reúne las tres condiciones siguientes:
+
+  1. Todo bloque posee un único punto de entrada y otro único punto de salida.
+
+  2. Para cualquier bloque, existe al menos un camino desde la entrada hasta él
+     y otro camino desde él hasta la salida.
+
+  3. No existen bucles infinitos.
+
+- Estas condiciones restringen el concepto de programa de modo que sólo se
+  permite trabajar con aquéllos que están diseñados mediante el uso apropiado
+  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
+
+---
+
+- Este es un ejemplo de un programa que no es propio por no tener una única
+  salida:
+
+  !IMGP(condicion-no-propio.png)()(width=50%)
+
+- Agrupando las salidas se obtiene un programa propio:
+
+  !IMGP(seleccion.png)()(width=50%)
+
+---
+
+- Aquí se observa otro programa que no es propio, ya que existen bloques (los
+  *A*, *C* y *q*) que no tienen un camino hasta la salida; si el programa
+  llegara hasta esos bloques se bloquearía, pues no es posible terminar la
+  ejecución:
+
+!IMGP(diagrama-no-propio.png)()(width=90%)
+
+---
+
+- Aquí aparece un programa que contiene bloques inaccesibles desde la entrada
+  del diagrama:
+
+!IMGP(diagrama-inaccesibles.png)()(width=80%)
+
+## Programa estructurado
+
+- Un programa se dice que es un **programa estructurado** si está construido
+  combinando los siguientes esquemas:
+
+:::: columns
+
+::: column
+
+- La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
+
+- La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
+  *p*.
+
+- La **iteración**, que repite una acción *A* dependiendo del valor de verdad
+  de un predicado de control *p*.
+
+:::
+
+::: column
+
+!IMGP(secuencia.png)(Secuencia)(width=100%)
+
+!IMGP(seleccion.png)(Selección)(width=100%)
+
+!IMGP(iteracion.png)(Iteración)(width=80%)
+
+:::
+
+::::
+
+---
+
+- Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
+  claro, sería:
+
+  !IMGP(claro.png)()(width=50%)
+
+## Teorema de Böhm-Jacopini
+
+- El **teorema de Böhm-Jacopini**, también llamado **teorema de la
+  estructura**, garantiza que todo programa propio se puede estructurar.
+
+- Se enuncia formalmente así:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Teorema de la estructura:**
+
+  Todo programa propio es equivalente a un programa estructurado.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, los programas estructurados son suficientemente expresivos como
+  para expresar cualquier programa razonable.
+
+- Y además, por su naturaleza estructurada resultan programas más sencillos y
+  claros.
 
 # Estructuras básicas de control
 
