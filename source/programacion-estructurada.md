@@ -810,11 +810,11 @@ E -> x [lhead = cluster1]
 
 ::: column
 
-!IMGP(accion.png)(Acción)(width=50%)
+!IMGP(accion.png)(Acción)(width=50%)(width=30%)
 
-!IMGP(condicion.png)(Condición)(width=50%)
+!IMGP(condicion.png)(Condición)(width=50%)(width=30%)
 
-!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)
+!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)(width=20%)
 
 :::
 
@@ -841,7 +841,7 @@ E -> x [lhead = cluster1]
 - Este es un ejemplo de un programa que no es propio por no tener una única
   salida:
 
-  !IMGP(condicion-no-propio.png)()(width=50%)
+  !IMGP(condicion-no-propio.png)()(width=50%)(width=40%)
 
 - Agrupando las salidas se obtiene un programa propio:
 
@@ -854,7 +854,7 @@ E -> x [lhead = cluster1]
   llegara hasta esos bloques se bloquearía, pues no es posible terminar la
   ejecución:
 
-!IMGP(diagrama-no-propio.png)()(width=90%)
+!IMGP(diagrama-no-propio.png)()(width=90%)(width=90%)
 
 ---
 
@@ -863,10 +863,56 @@ E -> x [lhead = cluster1]
 
 !IMGP(diagrama-inaccesibles.png)()(width=80%)
 
+## Estructura
+
+- Una **estructura** es una construcción sintáctica (o un bloque constructivo)
+  que se puede **anidar completamente** dentro de otra.
+
+- Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
+  completamente dentro de la otra, o son totalmente independientes.
+
+- Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
+
+:::: columns
+
+::: column
+
+!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fillcolor = transparent]
+rankdir = "TB"
+A
+subgraph cluster0 {
+    C
+    B
+    subgraph cluster1 {
+        D
+        subgraph cluster2 {
+            E
+        }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(estructura-no.svg)(Estas no son estructuras)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [layout = neato]
+A [pos="-0.5,0.0!", fillcolor = transparent]
+B [pos="0.0,-0.2!", fillcolor = transparent]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
 ## Programa estructurado
 
-- Un programa se dice que es un **programa estructurado** si está construido
-  combinando los siguientes esquemas:
+- Un **programa estructurado** es un programa construido combinando las
+  siguientes estructuras de control:
 
 :::: columns
 
@@ -900,6 +946,25 @@ E -> x [lhead = cluster1]
   claro, sería:
 
   !IMGP(claro.png)()(width=50%)
+
+### Ventajas de los programas estructurados
+
+- Las principales **ventajas de los programas estructurados** frente a los no
+  estructurados son:
+
+  - Son más fáciles de entender, ya que básicamente se pueden leer de arriba
+    abajo de estructura a estructura como cualquier otro texto sin tener que
+    estar continuamente saltando de un punto a otro del programa.
+
+  - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
+    pueden verse como cajas negras, lo que facilita trabajar a diferentes
+    niveles de abstracción.
+
+  - Se reducen los costes de mantenimiento.
+
+  - Aumenta la productividad del programador.
+
+  - Los programas quedan mejor documentados internamente.
 
 ## Teorema de Böhm-Jacopini
 
