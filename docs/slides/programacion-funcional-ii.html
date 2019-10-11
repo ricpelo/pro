@@ -399,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb22-2" title="2">z <span class="op">=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb22-3" title="3">suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</a>
 <a class="sourceLine" id="cb22-4" title="4">y <span class="op">=</span> <span class="dv">3</span></a>
-<a class="sourceLine" id="cb22-5" title="5">z <span class="op">=</span> <span class="dv">9</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb22-5" title="5">w <span class="op">=</span> <span class="dv">9</span></a></code></pre></div></li>
 <li><p>En cada línea tendríamos los siguientes entornos:</p></li>
 </ul>
 <div class="columns">
@@ -459,8 +459,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> una aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)                     <span class="co"># aquí sí</span></a>
 <a class="sourceLine" id="cb23-3" title="3">Traceback (most recent call last):</a>
 <a class="sourceLine" id="cb23-4" title="4">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb23-5" title="5">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></a>
@@ -476,7 +476,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb24-3" title="3"><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb24-4" title="4"><span class="dv">16</span></a></code></pre></div>
 <p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor en el entorno (en este caso, <code>9</code>).</p></li>
-<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando <em>se crea</em> la expresión lambda, sino cuando <strong>se evalúa la aplicación de expresión lambda a unos argumentos</strong>.</p></li>
+<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando <em>se crea</em> la expresión lambda, sino cuando <strong>se evalúa el cuerpo de la expresión lambda</strong>, o sea, cuando se aplica la expresión lambda a unos argumentos.</p></li>
 </ul>
 </section><section id="pureza" class="title-slide slide level3"><h3><span class="header-section-number">1.1.5</span> Pureza</h3><ul>
 <li><p>Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es una expresión cuyo valor sólo va a depender de los argumentos que se usen cuando se aplique la expresión lambda.</p></li>

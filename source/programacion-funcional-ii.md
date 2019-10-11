@@ -368,7 +368,7 @@ nocite: |
   z = 1
   suma = (lambda x, y: x + y + z)(8, 12)
   y = 3
-  z = 9
+  w = 9
   ```
 
 - En cada línea tendríamos los siguientes entornos:
@@ -520,14 +520,18 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
+    21 [shape = circle];
+    1 [shape = circle];
     3 [shape = circle];
     4 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
     z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
     x -> 4
     y -> 3
-    z -> 3
+    z -> 1
+    suma -> 21
 }
 E [shape = point]
 E -> x [lhead = cluster0]
@@ -544,15 +548,21 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    9 [shape = circle];
+    21 [shape = circle];
+    1 [shape = circle];
     3 [shape = circle];
     4 [shape = circle];
+    9 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
     z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    w [shape = plaintext, fillcolor = transparent]
     x -> 4
     y -> 3
-    z -> 9
+    z -> 1
+    suma -> 21
+    w -> 9
 }
 E [shape = point]
 E -> x [lhead = cluster0]
@@ -571,8 +581,8 @@ E -> x [lhead = cluster0]
 - Por ejemplo:
 
   ```python
-  >>> prueba = lambda x, y: x + y + z
-  >>> prueba(4, 3)
+  >>> prueba = lambda x, y: x + y + z  # aquí no da error
+  >>> prueba(4, 3)                     # aquí sí
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
     File "<stdin>", line 1, in <lambda>
@@ -598,8 +608,9 @@ E -> x [lhead = cluster0]
   entorno (en este caso, `9`).
 
 - Observar que no es necesario que las variables libres estén ligadas en el
-  entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa la
-  aplicación de expresión lambda a unos argumentos**.
+  entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa el
+  cuerpo de la expresión lambda**, o sea, cuando se aplica la expresión lambda
+  a unos argumentos.
 
 ### Pureza
 
