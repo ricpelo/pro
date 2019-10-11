@@ -2,6 +2,8 @@
 title: Programación estructurada
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @pareja_flores_desarrollo_1997
 ---
 
 # Funciones con nombre
@@ -577,12 +579,6 @@ E -> x [lhead = cluster1]
   print(suma(4, 3))  # la misma llamada a función ahora imprime 8
   ```
 
-## Declaraciones de tipos
-
-### Declaraciones de tipo de argumento
-
-### Declaraciones de tipo de devolución
-
 ## Funciones locales a funciones
 
 - En Python es posible definir **funciones locales** a una función.
@@ -986,15 +982,290 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Y además, por su naturaleza estructurada resultan programas más sencillos y
   claros.
 
-# Estructuras básicas de control
+- En consecuencia, no hay excusa para no estructurar nuestros programas.
 
-## Concepto de estructura
+# Estructuras básicas de control
 
 ## Secuencia
 
+- La estructura secuencial en Python consiste sencillamente en poner cada
+  sentencia una tras otra al mismo nivel de indentación.
+
+- No requiere de ninguna otra sintaxis particular ni palabras clave.
+
+- Ejemplo:
+
+  ```python
+  x = 1
+  y = 2
+  
+  def f(n):
+      a = 4
+      b = 5
+      return a + b + n
+
+  z = f(x + y)
+  ```
+
+  Aquí se usan dos estructuras secuenciales:
+
+  - La que está formada por las asignaciones de `x`, `y` y `z` más la
+    definición de la función `f`.
+
+  - La que está formada por el cuerpo de la función `f`.
+
 ## Selección
 
+- La selección (o estructura alternativa) tiene varias sintaxis en Python:
+
+:::: columns
+
+::: column
+
+- Selección simple:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~
+
+- Selección doble:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)+
+!T(else)!T(:)
+      !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Selección múltiple:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)+
+[!T(elif) !NT(condición)!T(:)
+      !NT(sentencia)+]
+[!T(else)!T(:)
+      !NT(sentencia)+]
+  ~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+:::: columns
+
+::: {.column width=40%}
+
+- Ejemplos:
+
+```python
+if 4 == 3:
+    print('Son distintos')
+    x = 5
+
+if 4 == 3:
+    print('Son distintos')
+    x = 5
+else:
+    print('Son iguales')
+    x = 9
+```
+
+:::
+
+::: {.column width=60%}
+
+```python
+if x < 2:
+    print('Es menor que dos')
+elif x <= 9:
+    print('Está comprendido entre 2 y 9')
+    x = 5
+elif x < 12:
+    print('Es mayor que 9 y menor que 12')
+else:
+    print('Es mayor o igual que 12')
+```
+
+:::
+
+::::
+
 ## Iteración
+
+- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene dos
+  sintaxis:
+
+- Bucle !T(while):
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(while) !NT(condición)!T(:)
+      !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~
+
+- Bucle !T(for):
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(for) !NT(variable) !T(in) !NT(iterable):
+      !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~
+
+### `break`
+
+- La sentencia `break` finaliza el bucle que la contiene.
+
+- El flujo de control del programa pasa a la sentencia inmediatamente posterior
+  al cuerpo del bucle.
+
+- Si la sentencia `break` se encuentra dentro de un bucle anidado (un bucle
+  dentro de otro bucle), finalizará el bucle más interno.
+
+  ```python
+  for val in "string":
+      if val == "i":
+          break
+      print(val)
+
+  print("Fin")
+  ```
+
+  produce:
+
+  ```
+  s
+  t
+  r
+  Fin
+  ```
+
+### `continue`
+
+- La sentencia `continue` se usa para saltarse el resto del código dentro de un
+  bucle en la iteración actual.
+
+- El bucle no finaliza sino que continúa con la siguiente iteración.
+
+  ```python
+  for val in "string":
+      if val == "i":
+          continue
+      print(val)
+
+  print("Fin")
+  ```
+
+  produce:
+
+  ```
+  s
+  t
+  r
+  n
+  g
+  Fin
+  ```
+
+## Excepciones
+
+- Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
+  provocar un error cuando se intente ejecutar o evaluar.
+
+- Los errores detectados durante la ejecución del programa se denominan
+  **excepciones** y no son incondicionalmente fatales si se capturan y se
+  gestionan adecuadamente.
+
+- En cambio, la mayoría de las excepciones no son gestionadas por el programa y
+  provocan mensajes de error.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  >>> 10 * (1 / 0)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  ZeroDivisionError: division by zero
+  >>> 4 + spam * 3
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'spam' is not defined
+  >>> '2' + 2
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: Can't convert 'int' object to str implicitly
+  ```
+
+- La última línea del mensaje de error indica qué ha ocurrido.
+
+- Hay distintos tipos de excepciones y ese tipo se muestra como parte del
+  mensaje: los tipos del ejemplo anterior son `ZeroDivisionError`, `NameError`
+  y `TypeError`.
+
+- El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo
+  causó.
+
+### Gestión de excepciones
+
+- Es posible escribir programas que gestionen excepciones concretas.
+
+- La sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(try:)
+      !NT(sentencia)+
+!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
+      !NT(sentencia)+
+[!T(else:)
+      !NT(sentencia)+]
+[!T(finally:)
+      !NT(sentencia)+]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(excepcion) ::= !NT(nombre_excepcion)
+                  | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por ejemplo, el siguiente programa pide al usuario que introduzca un número
+  entero por la entrada y luego lo muestra a la salida multiplicado por tres.
+  Si el usuario no introduce un número entero, muestra un mensaje de
+  advertencia:
+
+  ```python
+  try:
+      x = int(input("Introduzca un número entero: "))
+      print(x * 2)
+  except ValueError:
+      print("¡Vaya! No ha introducido un número entero.")
+  else:
+      print("La cosa ha acabado bien.")
+  finally:
+      print("Fin")
+  ```
+
+- Si no ha habido errores en el cuerpo del `try`, se ejecuta la parte del
+  `else`.
+
+- En cualquier caso, siempre se ejecuta la parte del `finally`.
 
 # Metodología de la programación estructurada
 
@@ -1004,5 +1275,4 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ## Refinamiento sucesivo
 
-# Captura de excepciones
-
+!BIBLIOGRAFIA
