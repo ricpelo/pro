@@ -501,7 +501,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Una expresión lambda es <strong>pura</strong> cuando su valor depende, únicamente, del valor de sus parámetros.</p></li>
 <li><p>También se dice que una expresión lambda que contiene sólo variables ligadas es <strong>más pura</strong> que otra cuyo valor depende, además, de variables libres.</p></li>
 <li><p>En cuanto a <em>grados de pureza</em>, podemos decir que hay <strong>más pureza</strong> si una variable libre representa una <strong>función</strong> a aplicar en el cuerpo de la expresión lambda, que si representa cualquier otro tipo de valor.</p></li>
-<li><p>En el ejemplo anterior, tenemos que la expresión lambda <code>suma</code>, sin ser <em>totalmente pura</em>, a efectos prácticos se la puede considerar <strong>pura</strong>, ya que su única variable libre se usa como una <strong>función</strong>, y las funciones tienden a cambiar menos durante la ejecución del programa que los demás tipos de valores.</p></li>
+<li><p>En el ejemplo anterior, tenemos que la expresión lambda <code>suma3</code>, sin ser <em>totalmente pura</em>, a efectos prácticos se la puede considerar <strong>pura</strong>, ya que su única variable libre se usa como una <strong>función</strong>, y las funciones tienden a no cambiar durante la ejecución del programa, al contrario que los demás tipos de valores.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -540,7 +540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando siempre por el <em>redex</em> más <strong>interno</strong>.</p></li>
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por valor</strong>.</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> x</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a></code></pre></div>
 <p>Según el orden aplicativo, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb29-2" title="2"><span class="op">=</span> cuadrado(<span class="dv">7</span>)              <span class="co"># aritmética</span></a>
@@ -555,11 +555,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong>.</p></li>
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por nombre</strong>.</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> x</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a></code></pre></div>
 <p>Según el orden normal, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb31-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)  <span class="co"># definición de cuadrado</span></a>
-<a class="sourceLine" id="cb31-3" title="3"><span class="op">=</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)            <span class="co"># aplicación a (3 + 4)</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))          <span class="co"># aplicación a (3 + 4)</span></a>
 <a class="sourceLine" id="cb31-4" title="4"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                  <span class="co"># aritmética</span></a>
 <a class="sourceLine" id="cb31-5" title="5"><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                        <span class="co"># aritmética</span></a>
 <a class="sourceLine" id="cb31-6" title="6"><span class="op">=</span> <span class="dv">49</span></a></code></pre></div>

@@ -662,11 +662,11 @@ E -> x [lhead = cluster0]
   variable libre representa una **función** a aplicar en el cuerpo de la
   expresión lambda, que si representa cualquier otro tipo de valor.
 
-- En el ejemplo anterior, tenemos que la expresión lambda `suma`, sin ser
+- En el ejemplo anterior, tenemos que la expresión lambda `suma3`, sin ser
   *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
   que su única variable libre se usa como una **función**, y las funciones
-  tienden a cambiar menos durante la ejecución del programa que los demás tipos
-  de valores.
+  tienden a no cambiar durante la ejecución del programa, al contrario que los
+  demás tipos de valores.
 
 ---
 
@@ -730,7 +730,7 @@ E -> x [lhead = cluster0]
 - Ejemplo:
 
   ```python
-  cuadrado = lambda x, y: x * x
+  cuadrado = lambda x: x * x
   ```
 
   Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
@@ -756,7 +756,7 @@ E -> x [lhead = cluster0]
 - Ejemplo:
 
   ```python
-  cuadrado = lambda x, y: x * x
+  cuadrado = lambda x: x * x
   ```
 
   Según el orden normal, la expresión `cuadrado(3 + 4)` se reduciría así:
@@ -764,7 +764,7 @@ E -> x [lhead = cluster0]
   ```python
   cuadrado(3 + 4)
   = (lambda x, y: x * x)(3 + 4)  # definición de cuadrado
-  = (3 + 4) * (3 + 4)            # aplicación a (3 + 4)
+  = ((3 + 4) * (3 + 4))          # aplicación a (3 + 4)
   = 7 * (3 + 4)                  # aritmética
   = 7 * 7                        # aritmética
   = 49
