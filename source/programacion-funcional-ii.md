@@ -1113,7 +1113,7 @@ E -> x [lhead = cluster0]
 
 - En el cálculo de $n!$, la longitud de la cadena de operaciones pendientes (y,
   por tanto, la información que necesita almacenar el intérprete), crece
-  *linealmente* con $n$.
+  *linealmente* con $n$, al igual que el número de pasos de reducción.
 
   - A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
 
@@ -1158,14 +1158,39 @@ E -> x [lhead = cluster0]
 
 - Este proceso no tiene expansiones ni contracciones ya que, en cada instante,
   toda la información que se necesita almacenar es el valor actual de los
-  parámetros `cont` y `acc`.
+  parámetros `cont` y `acc`, por lo que el tamaño de la memoria necesaria es
+  constante.
 
 - A este tipo de procesos lo llamaremos **proceso iterativo**.
 
-- El tiempo requerido para calcular $n!$ usando esta función crece
+- El número de pasos necesarios para calcular $n!$ usando esta función crece
   *linealmente* con $n$.
 
   - A este tipo de procesos lo llamaremos **proceso iterativo _lineal_**.
+
+---
+
+-----------------------------------------------------------------------------
+Tipo de proceso           Número de               Memoria necesaria 
+                          reducciones        
+------------------------- --------------------    ---------------------------
+Recursivo                 Proporcional a `n`      Proporcional a `n`
+
+Iterativo                 Proporcional a `n`      Constante
+-----------------------------------------------------------------------------
+
+<br>
+
+-----------------------------------------------------------------------------
+Tipo de proceso           Número de               Memoria necesaria 
+                          reducciones        
+------------------------- --------------------    ---------------------------
+Recursivo lineal          Linealmente \           Linealmente \
+                          proporcional a `n`      proporcional a `n`
+
+Iterativo lineal          Linealmente \
+                          proporcional a `n`      Constante
+-----------------------------------------------------------------------------
 
 ---
 
