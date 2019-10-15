@@ -623,22 +623,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a>
 <a class="sourceLine" id="cb36-2" title="2">area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</a></code></pre></div></li>
 <li><p>La expresión <code>area(12)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">area(<span class="dv">12</span>)                                         <span class="co"># definición de area</span></a>
-<a class="sourceLine" id="cb37-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># definición de cuadrado</span></a>
-<a class="sourceLine" id="cb37-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
-<a class="sourceLine" id="cb37-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))               <span class="co"># aplicación</span></a>
-<a class="sourceLine" id="cb37-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                           <span class="co"># aritmética</span></a>
-<a class="sourceLine" id="cb37-6" title="6"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                     <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="op">=</span> area(<span class="dv">12</span>)                                       <span class="co"># definición de area</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># definición de cuadrado</span></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb37-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))               <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                           <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                                 <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb37-8" title="8"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Y según el <em>orden normal</em>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">area(<span class="dv">12</span>)                                <span class="co"># definición de area</span></a>
-<a class="sourceLine" id="cb38-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
-<a class="sourceLine" id="cb38-3" title="3"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))               <span class="co"># definición de cuadrado</span></a>
-<a class="sourceLine" id="cb38-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))      <span class="co"># aplicación</span></a>
-<a class="sourceLine" id="cb38-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                  <span class="co"># aritmética</span></a>
-<a class="sourceLine" id="cb38-6" title="6"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># definición de cuadrado</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))      <span class="co"># aplicación</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> ((<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))          <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb38-6" title="6"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))                <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb38-8" title="8"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># aritmética</span></a>
+<a class="sourceLine" id="cb38-9" title="9"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
 <li><p>En ambos casos se obtiene el mismo resultado.</p></li>
 </ul>
 </section></section>
@@ -689,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
        \end{cases}</span></p></li>
 </ul>
 </section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Recursividad lineal</h3><ul>
-<li><p>Una función tiene <strong>recursividad lineal</strong> si cada llamada a la función recursiva recursiva genera, como mucho, otra llamada recursiva a la misma función.</p></li>
+<li><p>Una función tiene <strong>recursividad lineal</strong> si cada llamada a la función recursiva genera, como mucho, otra llamada recursiva a la misma función.</p></li>
 <li><p>El factorial definido en el ejemplo anterior es un caso típico de recursividad lineal.</p></li>
 </ul></section><section id="procesos-lineales-recursivos" class="slide level4">
 <h4><span class="header-section-number">2.2.4.1</span> Procesos lineales recursivos</h4>

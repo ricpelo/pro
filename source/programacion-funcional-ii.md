@@ -879,11 +879,13 @@ E -> x [lhead = cluster0]
 - La expresión `area(12)` se evaluaría así según el *orden aplicativo*:
 
   ```python
-  area(12)                                         # definición de area
+  area(11 + 1)                                     # aritmética
+  = area(12)                                       # definición de area
   = (lambda r: 3.1416 * cuadrado(r))(12)           # definición de cuadrado
   = (lambda r: 3.1416 * (lambda x: x * x)(r))(12)  # aplicación
   = (3.1416 * (lambda x: x * x)(12))               # aplicación
   = (3.1416 * (12 * 12))                           # aritmética
+  = (3.1416 * 144)                                 # aritmética
   = 452.3904
   ```
 
@@ -892,11 +894,14 @@ E -> x [lhead = cluster0]
 - Y según el *orden normal*:
 
   ```python
-  area(12)                                # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(12)  # aplicación
-  = (3.1416 * cuadrado(12))               # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(12))      # aplicación
-  = (3.1416 * (12 * 12))                  # aritmética
+  area(11 + 1)                                # definición de area
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación
+  = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
+  = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación
+  = (3.1416 * ((11 + 1) * (11 + 1)))          # aritmética
+  = (3.1416 * (12 * (11 + 1)))                # aritmética
+  = (3.1416 * (12 * 12))                      # aritmética
+  = (3.1416 * 144)                            # aritmética
   = 452.3904
   ```
 
@@ -1013,8 +1018,7 @@ E -> x [lhead = cluster0]
 ### Recursividad lineal
 
 - Una función tiene **recursividad lineal** si cada llamada a la función
-  recursiva recursiva genera, como mucho, otra llamada recursiva a la misma
-  función.
+  recursiva genera, como mucho, otra llamada recursiva a la misma función.
 
 - El factorial definido en el ejemplo anterior es un caso típico de
   recursividad lineal.
