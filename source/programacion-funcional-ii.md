@@ -876,9 +876,9 @@ E -> x [lhead = cluster0]
   area = lambda r: 3.1416 * cuadrado(r)
   ```
 
-- La expresión `area(12)` se evaluaría así según el *orden aplicativo*:
+- La expresión `area(11 + 1)` se evaluaría así según el *orden aplicativo*:
 
-  ```python
+  ```{.python .number-lines}
   area(11 + 1)                                     # aritmética
   = area(12)                                       # definición de area
   = (lambda r: 3.1416 * cuadrado(r))(12)           # definición de cuadrado
@@ -891,9 +891,30 @@ E -> x [lhead = cluster0]
 
 ---
 
-- Y según el *orden normal*:
+- En detalle:
 
-  ```python
+  - **Línea 1**: Se evalúa primero el argumento.
+
+  - **Línea 3**: El *redex* más interno es `r`, pero no puede reducirse más en
+    este momento. El siguiente más interno es `cuadrado(r)`; para evaluarlo hay
+    que reescribir `cuadrado` con su definición.
+
+  - **Línea 4**: El *redex* más interno es la aplicación del `lambda` derecho
+    con el argumento `r`, pero éste aún no está evaluado ni se puede evaluar
+    ahora mismo, así que no es posible reducir la aplicación. El siguiente más
+    interno es el `*` sobre `3.1416`, pero el otro operando (el `lambda`
+    derecho) aún no está evaluado ni se puede evaluar, así que el *redex* que
+    queda es la aplicación del primer `lambda` sobre su argumento `12`.
+
+  - **Línea 5**: El *redex* más interno es la aplicación del `lambda` derecho
+    con el argumento `12`, que ahora sí se puede hacer porque el argumento está
+    evaluado.
+
+---
+
+- La expresión `area(11 + 1)` se evaluaría así según el *orden normal*:
+
+  ```{.python .number-lines}
   area(11 + 1)                                # definición de area
   = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación
   = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
@@ -905,7 +926,26 @@ E -> x [lhead = cluster0]
   = 452.3904
   ```
 
-- En ambos casos se obtiene el mismo resultado.
+- En ambos casos (orden aplicativo y orden normal) se obtiene el mismo
+  resultado.
+
+---
+
+- En detalle:
+
+  - **Línea 1**: Se evalúa el *redex* más externo, que es `area` (se reescribe
+    con su definición).
+
+  - **Línea 2**: El *redex* más externo es la aplicación de la expresión
+    `lambda` a su argumento `11 + 1`.
+
+  - **Línea 3**: El *redex* más externo es el `*`, pero para evaluarlo hay que
+    evaluar primero todos sus argumentos, por lo que ahora hay que evaluar
+    `cuadrado`, reescribiéndolo con su definición.
+
+  - **Línea 4**: Igual que en la línea 3, para poder evaluar el `*` más externo
+    hay que evaluar primero la aplicación del `lambda` sobre su argumento `11 +
+    1`.
 
 # Computabilidad
 

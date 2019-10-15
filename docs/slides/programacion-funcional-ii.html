@@ -622,8 +622,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Podemos crear una función que use otra función. Por ejemplo, para calcular el área de un círculo usamos otra función que calcule el cuadrado de un número:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a>
 <a class="sourceLine" id="cb36-2" title="2">area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</a></code></pre></div></li>
-<li><p>La expresión <code>area(12)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                     <span class="co"># aritmética</span></a>
+<li><p>La expresión <code>area(11 + 1)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                     <span class="co"># aritmética</span></a>
 <a class="sourceLine" id="cb37-2" title="2"><span class="op">=</span> area(<span class="dv">12</span>)                                       <span class="co"># definición de area</span></a>
 <a class="sourceLine" id="cb37-3" title="3"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># definición de cuadrado</span></a>
 <a class="sourceLine" id="cb37-4" title="4"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></a>
@@ -634,8 +634,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Y según el <em>orden normal</em>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></a>
+<li><p>En detalle:</p>
+<ul>
+<li><p><strong>Línea 1</strong>: Se evalúa primero el argumento.</p></li>
+<li><p><strong>Línea 3</strong>: El <em>redex</em> más interno es <code>r</code>, pero no puede reducirse más en este momento. El siguiente más interno es <code>cuadrado(r)</code>; para evaluarlo hay que reescribir <code>cuadrado</code> con su definición.</p></li>
+<li><p><strong>Línea 4</strong>: El <em>redex</em> más interno es la aplicación del <code>lambda</code> derecho con el argumento <code>r</code>, pero éste aún no está evaluado ni se puede evaluar ahora mismo, así que no es posible reducir la aplicación. El siguiente más interno es el <code>*</code> sobre <code>3.1416</code>, pero el otro operando (el <code>lambda</code> derecho) aún no está evaluado ni se puede evaluar, así que el <em>redex</em> que queda es la aplicación del primer <code>lambda</code> sobre su argumento <code>12</code>.</p></li>
+<li><p><strong>Línea 5</strong>: El <em>redex</em> más interno es la aplicación del <code>lambda</code> derecho con el argumento <code>12</code>, que ahora sí se puede hacer porque el argumento está evaluado.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La expresión <code>area(11 + 1)</code> se evaluaría así según el <em>orden normal</em>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></a>
 <a class="sourceLine" id="cb38-2" title="2"><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># aplicación</span></a>
 <a class="sourceLine" id="cb38-3" title="3"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># definición de cuadrado</span></a>
 <a class="sourceLine" id="cb38-4" title="4"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))      <span class="co"># aplicación</span></a>
@@ -644,7 +655,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb38-7" title="7"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># aritmética</span></a>
 <a class="sourceLine" id="cb38-8" title="8"><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># aritmética</span></a>
 <a class="sourceLine" id="cb38-9" title="9"><span class="op">=</span> <span class="fl">452.3904</span></a></code></pre></div></li>
-<li><p>En ambos casos se obtiene el mismo resultado.</p></li>
+<li><p>En ambos casos (orden aplicativo y orden normal) se obtiene el mismo resultado.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En detalle:</p>
+<ul>
+<li><p><strong>Línea 1</strong>: Se evalúa el <em>redex</em> más externo, que es <code>area</code> (se reescribe con su definición).</p></li>
+<li><p><strong>Línea 2</strong>: El <em>redex</em> más externo es la aplicación de la expresión <code>lambda</code> a su argumento <code>11 + 1</code>.</p></li>
+<li><p><strong>Línea 3</strong>: El <em>redex</em> más externo es el <code>*</code>, pero para evaluarlo hay que evaluar primero todos sus argumentos, por lo que ahora hay que evaluar <code>cuadrado</code>, reescribiéndolo con su definición.</p></li>
+<li><p><strong>Línea 4</strong>: Igual que en la línea 3, para poder evaluar el <code>*</code> más externo hay que evaluar primero la aplicación del <code>lambda</code> sobre su argumento <code>11 + 1</code>.</p></li>
+</ul></li>
 </ul>
 </section></section>
 <section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Computabilidad</h1></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Funciones y procesos</h2><ul>
