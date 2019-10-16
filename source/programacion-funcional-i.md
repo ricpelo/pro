@@ -1721,11 +1721,12 @@ y -> 25
 - En cambio, ese mismo identificador puede estar ligado a diferentes valores en
   diferentes marcos.
 
-- La existencia de uno o varios marcos dependerá de la estructura del programa,
-  es decir, que ciertas construcciones del lenguaje crean sus propios marcos.
+- La existencia de un marco dependerá de la estructura y el funcionamiento del
+  programa, es decir, que cuando se ejecutan ciertas construcciones del
+  programa, éstas crean sus propios marcos.
 
-  - Por ejemplo, cuando definimos una función, dicha función llevará asociada
-    su propio marco.
+  - Por ejemplo, cuando definamos una función y la apliquemos a unos
+    argumentos, dicha aplicación llevará asociada su propio marco.
 
 - El **marco global** es un marco que siempre existe en cualquier punto del
   programa y contiene las ligaduras definidas fuera de cualquier construcción o

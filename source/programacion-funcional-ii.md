@@ -262,20 +262,44 @@ nocite: |
 - Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
   validas en un punto concreto del programa.
 
-- Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**, el
-  cual **crea un nuevo marco** que contiene las ligaduras que define dicha
-  expresión lambda. 
+- Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**.
+
+- Cuando se aplica una expresión lambda a unos argumentos, **se crea un nuevo
+  marco** que contiene las ligaduras que define dicha expresión lambda con sus
+  argumentos. 
 
 - Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
   más interno *apunta* al más externo), de manera que el último siempre es el
   marco global.
 
+- El marco desaparece cuando el flujo de control del programa se sale del
+  ámbito, ya que cada marco va asociado a un ámbito.
+
+---
+
 - Se va formando así una cadena de marcos que representa el **entorno** del
   programa en un punto dado del mismo.
 
 - A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
-  que tendremos, además, al menos uno más por cada expresión lambda que tenga
-  nuestro programa.
+  que tendremos, además, al menos uno más cada vez que se aplique una expresión
+  lambda a unos argumentos.
+
+- El **ámbito** es un concepto *estático*: es algo que existe y se define
+  simplemente leyendo el código del programa, sin tener que ejecutarlo.
+
+- El **marco** es un concepto *dinámico*: es algo que se crea y se destruye a
+  medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras
+  propias de un punto concreto del programa.
+ 
+- Por ejemplo:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+  la función `suma` define un nuevo ámbito, pero cada vez que se la llama con
+  unos argumentos concretos se crea un nuevo marco que liga sus argumentos con
+  sus parámetros.
 
 #### Ligaduras *sombreadas*
 
@@ -1497,6 +1521,70 @@ pila:f3 -> w [lhead = cluster3]
 
 - Por tanto, en el caso de una función recursiva, tendremos un registro de
   activación por cada llamada recursiva.
+
+:::: columns
+
+::: column
+
+```python
+fact = lambda n: 1 if n == 0 else \
+                 n * fact(n - 1)
+fact(4)
+```
+
+:::
+
+::: column
+
+!DOT(pila-control-factorial.svg)(Pila de control de `fact` tras tres activaciones desde `fact(4)`)(width=100%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = LR
+compound = true
+node [shape = record]
+pila [label = "<f3>fact(2)|<f2>fact(3)|<f1>fact(4)", xlabel = "Pila de\ncontrol"]
+subgraph cluster1 {
+    label = "Marco de fact(4)"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    4 [shape = circle]
+    n4 [shape = plaintext, fillcolor = transparent, label = n]
+    n4 -> 4
+}
+subgraph cluster2 {
+    label = "Marco de fact(3)"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    3 [shape = circle]
+    n3 [shape = plaintext, fillcolor = transparent, label = n]
+    n3 -> 3
+}
+subgraph cluster3 {
+    label = "Marco de fact(2)"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    2 [shape = circle]
+    n2 [shape = plaintext, fillcolor = transparent, label = n]
+    n2 -> 2
+}
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    lambda [shape = ellipse]
+    fact [shape = plaintext, fillcolor = transparent]
+    fact -> lambda
+}
+pila:f1 -> n4 [lhead = cluster1, minlen = 2]
+pila:f2 -> n3 [lhead = cluster2]
+pila:f3 -> n2 [lhead = cluster3]
+4 -> fact [lhead = cluster0, ltail = cluster1]
+3 -> fact [lhead = cluster0, ltail = cluster2]
+2 -> fact [lhead = cluster0, ltail = cluster3]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ## Un lenguaje Turing-completo
 
