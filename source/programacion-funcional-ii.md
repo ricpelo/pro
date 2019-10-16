@@ -1379,6 +1379,125 @@ fib1_5 -> u5
 - Esta función genera un proceso iterativo lineal, por lo que es mucho más
   eficiente.
 
+## La pila de control
+
+- La **pila de control** es una estructura de datos que utiliza el intérprete
+  para llevar la cuenta de las **llamadas _activas_** en un determinado
+  momento, incluyendo el valor de sus parámetros y el punto de retorno al que
+  debe devolverse el control cuando finalice la ejecución de la función.
+
+  - Las **llamadas activas** son aquellas llamadas a funciones que aún no han
+    terminado de ejecutarse.
+
+- La pila de control es, básicamente, un **almacén de entornos**.
+
+- Cada vez que se hace una nueva llamada a una función, **su marco**
+  correspondiente **se almacena en la cima de la pila** sobre los demás marcos
+  que pudiera haber.
+
+- Ese marco es el primero de la cadena de marcos que forman el entorno de la
+  función, pero en general no es necesario almacenar toda la cadena en la pila
+  (basta con su primer marco).
+
+---
+
+- El intérprete puede, además, almacenar ahí cualquier otra información que
+  necesite para gestionar las llamadas a funciones.
+
+- El marco de la función, junto con toda esa información adicional, se denomina
+  **registro de activación**.
+
+- Por tanto, **la pila de control almacena registros de activación**.
+
+- Cada llamada activa está representada por su correspondiente registro de
+  activación en la pila.
+
+- En cuanto la llamada finaliza, su registro de activación se saca de la pila y
+  se transfiere el control a la llamada que está inmediatamente debajo (si es
+  que hay alguna).
+ 
+---
+
+- Supongamos el siguiente código:
+
+:::: columns
+
+::: column
+
+```python
+g = 1
+uno = lambda x: 1 + dos(2 * x, 4)
+dos = lambda y, z: tres(y + z + g)
+tres = lambda w: "W vale " + str(w)
+uno(3)
+```
+
+:::
+
+::: column
+
+!DOT(pila-control.svg)(Pila de control con la función `tres` activada)(width=100%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = LR
+compound = true
+node [shape = record]
+pila [label = "<f3>Tres|<f2>Dos|<f1>Uno", xlabel = "Pila de\ncontrol"]
+subgraph cluster1 {
+    label = "Marco de uno"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    3 [shape = circle]
+    x [shape = plaintext, fillcolor = transparent]
+    x -> 3
+}
+subgraph cluster2 {
+    label = "Marco de dos"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    6 [shape = circle]
+    y [shape = plaintext, fillcolor = transparent]
+    4 [shape = circle]
+    z [shape = plaintext, fillcolor = transparent]
+    y -> 6
+    z -> 4
+}
+subgraph cluster3 {
+    label = "Marco de tres"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    w [shape = plaintext, fillcolor = transparent]
+    11 [shape = circle]
+    w -> 11
+}
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    1 [shape = circle]
+    g [shape = plaintext, fillcolor = transparent]
+    g -> 1
+}
+pila:f1 -> x [lhead = cluster1, minlen = 2]
+pila:f2 -> y [lhead = cluster2]
+pila:f3 -> w [lhead = cluster3]
+3 -> g [lhead = cluster0, ltail = cluster1]
+6 -> g [lhead = cluster0, ltail = cluster2]
+11 -> g [lhead = cluster0, ltail = cluster3]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- Hemos dicho que habrá un registro de activación por cada nueva llamada que se
+  realice a una función, y que ese registro se mantendrá en la pila hasta que
+  la llamada finalice.
+
+- Por tanto, en el caso de una función recursiva, tendremos un registro de
+  activación por cada llamada recursiva.
+
 ## Un lenguaje Turing-completo
 
 - El paradigma funcional que hemos visto hasta ahora (uno que nos permite
