@@ -88,6 +88,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -973,7 +981,88 @@ Fin</code></pre></li>
 <li><p>En cualquier caso, siempre se ejecuta la parte del <code>finally</code>.</p></li>
 </ul>
 </section></section>
-<section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Metodología de la programación estructurada</h1></section><section id="recursos-abstractos" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Recursos abstractos</h2></section><section id="diseño-descendente" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Diseño descendente</h2></section><section id="refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Refinamiento sucesivo</h2></section></section>
+<section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Metodología de la programación estructurada</h1></section><section id="diseño-descendente-por-refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Diseño descendente por refinamiento sucesivo</h2><ul>
+<li><p>El diseño descendente es la técnica que permite descomponer un problema complejo en problemas más sencillos, realizándose esta operación de forma sucesiva hasta llegar al mínimo nivel de abstracción en el cual se pueden codificar directamente las operaciones en un lenguaje de programación estructurado.</p></li>
+<li><p>Con esta técnica, los programas se crean en distintos niveles de refinamiento, de forma que cada nuevo nivel define la solución de forma más concreta y subdivide las operaciones en otras menos abstractas.</p></li>
+<li><p>Los programas se diseñan de lo general a lo particular por medio de sucesivos refinamientos o descomposiciones que nos van acercando a las instrucciones finales del programa.</p></li>
+<li><p>El último nivel permite la codificación directa en un lenguaje de programación.</p></li>
+</ul></section><section id="recursos-abstractos" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Recursos abstractos</h2><ul>
+<li><p>Descomponer un programa en términos de recursos abstractos consiste en descomponer una determinada acción compleja en un número de acciones mas simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus instrucciones.</p></li>
+<li><p>Es el complemento perfecto para el diseño descendente y el que nos proporciona el método a seguir para obtener un nuevo nivel de refinamiento a partir del anterior.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Se basa en suponer que, en cada nivel de refinamiento, todos los elementos (instrucciones, expresiones, funciones, etc.) que aparecen en la solución están ya disponibles directamente en el lenguaje de programación, aunque no sea verdad.</p></li>
+<li><p>Esos elementos o recursos se denominan abstractos porque los podemos usar directamente en un determinado nivel de refinamiento sin tener que saber cómo funcionan realmente por dentro, o incluso si existen realmente. Nosotros suponemos que sí existen y que hacen lo que tienen que hacer sin preocuparnos del cómo.</p></li>
+<li><p>En el siguiente refinamiento, aquellos elementos que no estén implementados ya directamente en el lenguaje se refinarán, bajando el nivel de abstracción y acercándonos cada vez más a una solución que sí se pueda implementar en el lenguaje.</p></li>
+<li><p>El refinamiento acaba cuando la solución se encuentra completamente definida usando los elementos del lenguaje de programación (ya no hay recursos abstractos).</p></li>
+</ul>
+</section><section id="ejemplo" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Ejemplo</h2><ul>
+<li><p>Supongamos que queremos escribir un programa que muestre una tabla de multiplicar de tamaño <span class="math inline">n \times n</span>.</p></li>
+<li><p>Una primera versión (burda) del programa podría ser:</p>
+<div class="line-block"><strong>Inicio</strong><br />
+  <strong>Leer <span class="math inline">n</span></strong><br />
+  <strong>Construir la tabla de <span class="math inline">n \times n</span></strong><br />
+<strong>Fin</strong></div>
+<p>donde el programa se plantea como una secuencia de dos acciones: preguntar el tamaño de la tabla deseada y construir la tabla propiamente dicha.</p></li>
+<li><p>La instrucción <strong>Leer <span class="math inline">n</span></strong> ya está suficientemente refinada (se puede traducir a un lenguaje de programación) pero la segunda no (por tanto, es un recurso abstracto).</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La construcción de la tabla se puede realizar fácilmente escribiendo en una fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así sucesivamente hasta que lleguemos a los múltiplos de <span class="math inline">n</span>.</p></li>
+<li><p>Por tanto, el siguiente paso es refinar la instrucción abstracta <strong>Construir la tabla de <span class="math inline">n \times n</span></strong>, creando un nuevo nivel de refinamiento:</p>
+<div class="line-block"><strong>Inicio</strong><br />
+  <strong>Leer <span class="math inline">n</span></strong><br />
+  # Construir la tabla de <span class="math inline">n \times n</span>:<br />
+  <span class="math inline">i \leftarrow 1</span><br />
+  <strong>Mientras</strong> <span class="math inline">i \leq n</span>:<br />
+        <strong>Escribir la fila de <span class="math inline">i</span></strong><br />
+        <span class="math inline">i \leftarrow i + 1</span><br />
+<strong>Fin</strong></div>
+<p>donde ahora aparece la acción <strong>Escribir la fila de <span class="math inline">i</span></strong>, que escribe cada una de las filas de la tabla, y que habrá que refinar porque no se puede traducir directamente al lenguaje de programación.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En este (último) nivel refinamos la acción que nos falta, quedando:</p>
+<div class="line-block"><strong>Inicio</strong><br />
+  <strong>Leer <span class="math inline">n</span></strong><br />
+  <em>{ Construir la tabla de <span class="math inline">n \times n</span>: }</em><br />
+  <span class="math inline">i \leftarrow 1</span><br />
+  <strong>Mientras</strong> <span class="math inline">i \leq n</span>:<br />
+        <em>{ Escribir la fila de <span class="math inline">i</span>: }</em><br />
+        <span class="math inline">j \leftarrow 1</span><br />
+        <strong>Mientras</strong> <span class="math inline">j \leq n</span>:<br />
+              <strong>Escribir</strong> <span class="math inline">i \times j</span><br />
+              <span class="math inline">j \leftarrow j + 1</span><br />
+        <strong>Escribir</strong> un salto de línea<br />
+        <span class="math inline">i \leftarrow i + 1</span><br />
+<strong>Fin</strong></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Ese programa es directamente traducible a Python:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1">n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</a>
+<a class="sourceLine" id="cb37-2" title="2">i <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="cf">while</span> i <span class="op">&lt;=</span> n:</a>
+<a class="sourceLine" id="cb37-4" title="4">    j <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb37-5" title="5">    <span class="cf">while</span> j <span class="op">&lt;=</span> n:</a>
+<a class="sourceLine" id="cb37-6" title="6">        <span class="bu">print</span>(i <span class="op">*</span> j, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</a>
+<a class="sourceLine" id="cb37-7" title="7">        j <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb37-8" title="8">    <span class="bu">print</span>()</a>
+<a class="sourceLine" id="cb37-9" title="9">    i <span class="op">+=</span> <span class="dv">1</span></a></code></pre></div></li>
+<li><p>O mejor aún:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1"><span class="cf">try</span>:</a>
+<a class="sourceLine" id="cb38-2" title="2">    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</a>
+<a class="sourceLine" id="cb38-3" title="3">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</a>
+<a class="sourceLine" id="cb38-4" title="4">        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</a>
+<a class="sourceLine" id="cb38-5" title="5">            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</a>
+<a class="sourceLine" id="cb38-6" title="6">        <span class="bu">print</span>()</a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="cf">except</span> <span class="pp">ValueError</span>:</a>
+<a class="sourceLine" id="cb38-8" title="8">    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</a></code></pre></div></li>
+</ul>
+</section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
 <div id="ref-pareja_flores_desarrollo_1997">
 <p>Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada, and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos Y Técnicas de Programación En Pascal</em>. Madrid: Ra-Ma.</p>

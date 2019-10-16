@@ -1269,10 +1269,153 @@ else:
 
 # Metodología de la programación estructurada
 
+## Diseño descendente por refinamiento sucesivo
+
+- El diseño descendente es la técnica que permite descomponer un problema
+  complejo en problemas más sencillos, realizándose esta operación de forma
+  sucesiva hasta llegar al mínimo nivel de abstracción en el cual se pueden
+  codificar directamente las operaciones en un lenguaje de programación
+  estructurado.
+
+- Con esta técnica, los programas se crean en distintos niveles de
+  refinamiento, de forma que cada nuevo nivel define la solución de forma más
+  concreta y subdivide las operaciones en otras menos abstractas.
+
+- Los programas se diseñan de lo general a lo particular por medio de sucesivos
+  refinamientos o descomposiciones que nos van acercando a las instrucciones
+  finales del programa. 
+
+- El último nivel permite la codificación directa en un lenguaje de
+  programación.
+
 ## Recursos abstractos
 
-## Diseño descendente
+- Descomponer un programa en términos de recursos abstractos consiste en
+  descomponer una determinada acción compleja en un número de acciones mas
+  simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus
+  instrucciones.
 
-## Refinamiento sucesivo
+- Es el complemento perfecto para el diseño descendente y el que nos
+  proporciona el método a seguir para obtener un nuevo nivel de refinamiento a
+  partir del anterior.
+
+---
+
+- Se basa en suponer que, en cada nivel de refinamiento, todos los elementos
+  (instrucciones, expresiones, funciones, etc.) que aparecen en la solución
+  están ya disponibles directamente en el lenguaje de programación, aunque no
+  sea verdad.
+
+- Esos elementos o recursos se denominan abstractos porque los podemos usar
+  directamente en un determinado nivel de refinamiento sin tener que saber cómo
+  funcionan realmente por dentro, o incluso si existen realmente. Nosotros
+  suponemos que sí existen y que hacen lo que tienen que hacer sin preocuparnos
+  del cómo.
+
+- En el siguiente refinamiento, aquellos elementos que no estén implementados
+  ya directamente en el lenguaje se refinarán, bajando el nivel de abstracción
+  y acercándonos cada vez más a una solución que sí se pueda implementar en el
+  lenguaje.
+
+- El refinamiento acaba cuando la solución se encuentra completamente definida
+  usando los elementos del lenguaje de programación (ya no hay recursos
+  abstractos).
+
+## Ejemplo
+
+- Supongamos que queremos escribir un programa que muestre una tabla de
+  multiplicar de tamaño $n \times n$.
+
+- Una primera versión (burda) del programa podría ser:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  **Construir la tabla de $n \times n$**
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde el programa se plantea como una secuencia de dos acciones: preguntar el
+  tamaño de la tabla deseada y construir la tabla propiamente dicha.
+
+- La instrucción **Leer $n$** ya está suficientemente refinada (se puede
+  traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
+  recurso abstracto).
+
+---
+
+- La construcción de la tabla se puede realizar fácilmente escribiendo en una
+  fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así
+  sucesivamente hasta que lleguemos a los múltiplos de $n$.
+
+- Por tanto, el siguiente paso es refinar la instrucción abstracta **Construir
+  la tabla de $n \times n$**, creando un nuevo nivel de refinamiento:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  # Construir la tabla de $n \times n$:
+  $i \leftarrow 1$
+  **Mientras** $i \leq n$:
+        **Escribir la fila de $i$**
+        $i \leftarrow i + 1$
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde ahora aparece la acción **Escribir la fila de $i$**, que escribe cada
+  una de las filas de la tabla, y que habrá que refinar porque no se puede
+  traducir directamente al lenguaje de programación.
+
+---
+
+- En este (último) nivel refinamos la acción que nos falta, quedando:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  _{ Construir la tabla de $n \times n$: }_
+  $i \leftarrow 1$
+  **Mientras** $i \leq n$:
+        _{ Escribir la fila de $i$: }_
+        $j \leftarrow 1$
+        **Mientras** $j \leq n$:
+              **Escribir** $i \times j$
+              $j \leftarrow j + 1$
+        **Escribir** un salto de línea
+        $i \leftarrow i + 1$
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Ese programa es directamente traducible a Python:
+
+  ```python
+  n = int(input('Introduce el número: '))
+  i = 1
+  while i <= n:
+      j = 1
+      while j <= n:
+          print(i * j, end=' ')
+          j += 1
+      print()
+      i += 1
+  ```
+
+- O mejor aún:
+
+  ```python
+  try:
+      n = int(input('Introduce el número: '))
+      for i in range(1, n + 1):
+          for j in range(1, n + 1):
+              print(f'{i * j:>3}', end=' ')
+          print()
+  except ValueError:
+      print('Número incorrecto')
+  ```
 
 !BIBLIOGRAFIA
