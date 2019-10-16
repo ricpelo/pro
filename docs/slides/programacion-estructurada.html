@@ -636,44 +636,6 @@ La suma vale 13
 <a class="sourceLine" id="cb27-8" title="8">    <span class="co">&quot;&quot;&quot;Este es el docstring de la función saludar&quot;&quot;&quot;</span></a>
 <a class="sourceLine" id="cb27-9" title="9">    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</a></code></pre></div></li>
 </ul>
-</section><section id="la-pila-de-control" class="title-slide slide level2"><h2><span class="header-section-number">1.7</span> La pila de control</h2><ul>
-<li><p>La <strong>pila de control</strong> es una estructura de datos que utiliza el intérprete para llevar la cuenta de las funciones activas en un determinado momento, incluyendo el valor de sus parámetros y variables locales, y el punto de retorno al que debe devolverse el control cuando finalice la ejecución de la función.</p></li>
-<li><p>La pila es, básicamente, un <strong>almacén de entornos</strong>.</p></li>
-<li><p>Cada vez que se hace una nueva llamada a una función, <strong>su marco</strong> correspondiente <strong>se almacena en la cima de la pila</strong> sobre los demás marcos que pudiera haber.</p></li>
-<li><p>Ese marco es el primero de la cadena de marcos que forman el entorno de la función, pero en general no es necesario almacenar toda la cadena en la pila (basta con su primer marco).</p></li>
-<li><p>El intérprete puede, además, almacenar ahí cualquier otra información que necesite para gestionar las llamadas a funciones.</p></li>
-</ul></section><section class="slide level4">
-
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>Supongamos el siguiente código:</li>
-</ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1">g <span class="op">=</span> <span class="dv">25</span></a>
-<a class="sourceLine" id="cb28-2" title="2"></a>
-<a class="sourceLine" id="cb28-3" title="3"><span class="kw">def</span> uno(x):</a>
-<a class="sourceLine" id="cb28-4" title="4">    <span class="bu">print</span>(<span class="st">&#39;Estoy en uno&#39;</span>)</a>
-<a class="sourceLine" id="cb28-5" title="5">    <span class="bu">print</span>(x)</a>
-<a class="sourceLine" id="cb28-6" title="6">    u <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> x</a>
-<a class="sourceLine" id="cb28-7" title="7">    dos(u)</a>
-<a class="sourceLine" id="cb28-8" title="8"></a>
-<a class="sourceLine" id="cb28-9" title="9"><span class="kw">def</span> dos(y):</a>
-<a class="sourceLine" id="cb28-10" title="10">    <span class="bu">print</span>(<span class="st">&#39;Estoy en dos&#39;</span>)</a>
-<a class="sourceLine" id="cb28-11" title="11">    <span class="bu">print</span>(y)</a>
-<a class="sourceLine" id="cb28-12" title="12">    tres()</a>
-<a class="sourceLine" id="cb28-13" title="13"></a>
-<a class="sourceLine" id="cb28-14" title="14"><span class="kw">def</span> tres():</a>
-<a class="sourceLine" id="cb28-15" title="15">    <span class="bu">print</span>(<span class="st">&#39;Esto es el tres&#39;</span>)</a>
-<a class="sourceLine" id="cb28-16" title="16"></a>
-<a class="sourceLine" id="cb28-17" title="17">uno(<span class="dv">30</span>)</a></code></pre></div>
-</div><div class="column" style="width:50%;">
-<div class="centered">
-<figure>
-<img data-src="images/pila-control.svg" alt="Pila de control en la línea 15" class="plain" style="width:100.0%" /><figcaption>Pila de control en la línea 15</figcaption>
-</figure>
-</div>
-</div>
-</div>
 </section></section>
 <section><section id="aspectos-teóricos-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Aspectos teóricos de la programación estructurada</h1></section><section id="programación-estructurada" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Programación estructurada</h2><ul>
 <li><p>La programación estructurada es una técnica de programación cuyo objetivo es, esencialmente, la obtención de programas fiables y fácilmente mantenibles.</p></li>
@@ -848,15 +810,15 @@ La suma vale 13
 <li><p>La estructura secuencial en Python consiste sencillamente en poner cada sentencia una tras otra al mismo nivel de indentación.</p></li>
 <li><p>No requiere de ninguna otra sintaxis particular ni palabras clave.</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1">x <span class="op">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb29-2" title="2">y <span class="op">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb29-3" title="3"></a>
-<a class="sourceLine" id="cb29-4" title="4"><span class="kw">def</span> f(n):</a>
-<a class="sourceLine" id="cb29-5" title="5">    a <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb29-6" title="6">    b <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb29-7" title="7">    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">+</span> n</a>
-<a class="sourceLine" id="cb29-8" title="8"></a>
-<a class="sourceLine" id="cb29-9" title="9">z <span class="op">=</span> f(x <span class="op">+</span> y)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1">x <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb28-2" title="2">y <span class="op">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb28-3" title="3"></a>
+<a class="sourceLine" id="cb28-4" title="4"><span class="kw">def</span> f(n):</a>
+<a class="sourceLine" id="cb28-5" title="5">    a <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb28-6" title="6">    b <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb28-7" title="7">    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">+</span> n</a>
+<a class="sourceLine" id="cb28-8" title="8"></a>
+<a class="sourceLine" id="cb28-9" title="9">z <span class="op">=</span> f(x <span class="op">+</span> y)</a></code></pre></div>
 <p>Aquí se usan dos estructuras secuenciales:</p>
 <ul>
 <li><p>La que está formada por las asignaciones de <code>x</code>, <code>y</code> y <code>z</code> más la definición de la función <code>f</code>.</p></li>
@@ -895,26 +857,26 @@ La suma vale 13
 <ul>
 <li>Ejemplos:</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</a>
-<a class="sourceLine" id="cb30-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</a>
-<a class="sourceLine" id="cb30-3" title="3">    x <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb30-4" title="4"></a>
-<a class="sourceLine" id="cb30-5" title="5"><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</a>
-<a class="sourceLine" id="cb30-6" title="6">    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</a>
-<a class="sourceLine" id="cb30-7" title="7">    x <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb30-8" title="8"><span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb30-9" title="9">    <span class="bu">print</span>(<span class="st">&#39;Son iguales&#39;</span>)</a>
-<a class="sourceLine" id="cb30-10" title="10">    x <span class="op">=</span> <span class="dv">9</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1"><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</a>
+<a class="sourceLine" id="cb29-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</a>
+<a class="sourceLine" id="cb29-3" title="3">    x <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb29-4" title="4"></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</a>
+<a class="sourceLine" id="cb29-6" title="6">    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</a>
+<a class="sourceLine" id="cb29-7" title="7">    x <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb29-9" title="9">    <span class="bu">print</span>(<span class="st">&#39;Son iguales&#39;</span>)</a>
+<a class="sourceLine" id="cb29-10" title="10">    x <span class="op">=</span> <span class="dv">9</span></a></code></pre></div>
 </div><div class="column" style="width:60%;">
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1"><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">2</span>:</a>
-<a class="sourceLine" id="cb31-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Es menor que dos&#39;</span>)</a>
-<a class="sourceLine" id="cb31-3" title="3"><span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="dv">9</span>:</a>
-<a class="sourceLine" id="cb31-4" title="4">    <span class="bu">print</span>(<span class="st">&#39;Está comprendido entre 2 y 9&#39;</span>)</a>
-<a class="sourceLine" id="cb31-5" title="5">    x <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb31-6" title="6"><span class="cf">elif</span> x <span class="op">&lt;</span> <span class="dv">12</span>:</a>
-<a class="sourceLine" id="cb31-7" title="7">    <span class="bu">print</span>(<span class="st">&#39;Es mayor que 9 y menor que 12&#39;</span>)</a>
-<a class="sourceLine" id="cb31-8" title="8"><span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb31-9" title="9">    <span class="bu">print</span>(<span class="st">&#39;Es mayor o igual que 12&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">2</span>:</a>
+<a class="sourceLine" id="cb30-2" title="2">    <span class="bu">print</span>(<span class="st">&#39;Es menor que dos&#39;</span>)</a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="dv">9</span>:</a>
+<a class="sourceLine" id="cb30-4" title="4">    <span class="bu">print</span>(<span class="st">&#39;Está comprendido entre 2 y 9&#39;</span>)</a>
+<a class="sourceLine" id="cb30-5" title="5">    x <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb30-6" title="6"><span class="cf">elif</span> x <span class="op">&lt;</span> <span class="dv">12</span>:</a>
+<a class="sourceLine" id="cb30-7" title="7">    <span class="bu">print</span>(<span class="st">&#39;Es mayor que 9 y menor que 12&#39;</span>)</a>
+<a class="sourceLine" id="cb30-8" title="8"><span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb30-9" title="9">    <span class="bu">print</span>(<span class="st">&#39;Es mayor o igual que 12&#39;</span>)</a></code></pre></div>
 </div>
 </div>
 </section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Iteración</h2><ul>
@@ -929,12 +891,12 @@ La suma vale 13
 <li><p>La sentencia <code>break</code> finaliza el bucle que la contiene.</p></li>
 <li><p>El flujo de control del programa pasa a la sentencia inmediatamente posterior al cuerpo del bucle.</p></li>
 <li><p>Si la sentencia <code>break</code> se encuentra dentro de un bucle anidado (un bucle dentro de otro bucle), finalizará el bucle más interno.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
-<a class="sourceLine" id="cb32-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
-<a class="sourceLine" id="cb32-3" title="3">        <span class="cf">break</span></a>
-<a class="sourceLine" id="cb32-4" title="4">    <span class="bu">print</span>(val)</a>
-<a class="sourceLine" id="cb32-5" title="5"></a>
-<a class="sourceLine" id="cb32-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
+<a class="sourceLine" id="cb31-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
+<a class="sourceLine" id="cb31-3" title="3">        <span class="cf">break</span></a>
+<a class="sourceLine" id="cb31-4" title="4">    <span class="bu">print</span>(val)</a>
+<a class="sourceLine" id="cb31-5" title="5"></a>
+<a class="sourceLine" id="cb31-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
@@ -943,12 +905,12 @@ Fin</code></pre></li>
 </ul></section><section id="continue" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> <code>continue</code></h3><ul>
 <li><p>La sentencia <code>continue</code> se usa para saltarse el resto del código dentro de un bucle en la iteración actual.</p></li>
 <li><p>El bucle no finaliza sino que continúa con la siguiente iteración.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
-<a class="sourceLine" id="cb34-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
-<a class="sourceLine" id="cb34-3" title="3">        <span class="cf">continue</span></a>
-<a class="sourceLine" id="cb34-4" title="4">    <span class="bu">print</span>(val)</a>
-<a class="sourceLine" id="cb34-5" title="5"></a>
-<a class="sourceLine" id="cb34-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
+<a class="sourceLine" id="cb33-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
+<a class="sourceLine" id="cb33-3" title="3">        <span class="cf">continue</span></a>
+<a class="sourceLine" id="cb33-4" title="4">    <span class="bu">print</span>(val)</a>
+<a class="sourceLine" id="cb33-5" title="5"></a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
@@ -964,18 +926,18 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb36-2" title="2">Traceback (most recent call last):</a>
-<a class="sourceLine" id="cb36-3" title="3">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb36-4" title="4"><span class="pp">ZeroDivisionError</span>: division by zero</a>
-<a class="sourceLine" id="cb36-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> spam <span class="op">*</span> <span class="dv">3</span></a>
-<a class="sourceLine" id="cb36-6" title="6">Traceback (most recent call last):</a>
-<a class="sourceLine" id="cb36-7" title="7">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb36-8" title="8"><span class="pp">NameError</span>: name <span class="st">&#39;spam&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a>
-<a class="sourceLine" id="cb36-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;2&#39;</span> <span class="op">+</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb36-10" title="10">Traceback (most recent call last):</a>
-<a class="sourceLine" id="cb36-11" title="11">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb36-12" title="12"><span class="pp">TypeError</span>: Can<span class="st">&#39;t convert &#39;</span><span class="bu">int</span><span class="st">&#39; object to str implicitly</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb35-2" title="2">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb35-3" title="3">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="pp">ZeroDivisionError</span>: division by zero</a>
+<a class="sourceLine" id="cb35-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> spam <span class="op">*</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb35-6" title="6">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb35-7" title="7">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb35-8" title="8"><span class="pp">NameError</span>: name <span class="st">&#39;spam&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</a>
+<a class="sourceLine" id="cb35-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;2&#39;</span> <span class="op">+</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb35-10" title="10">Traceback (most recent call last):</a>
+<a class="sourceLine" id="cb35-11" title="11">  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb35-12" title="12"><span class="pp">TypeError</span>: Can<span class="st">&#39;t convert &#39;</span><span class="bu">int</span><span class="st">&#39; object to str implicitly</span></a></code></pre></div></li>
 <li><p>La última línea del mensaje de error indica qué ha ocurrido.</p></li>
 <li><p>Hay distintos tipos de excepciones y ese tipo se muestra como parte del mensaje: los tipos del ejemplo anterior son <code>ZeroDivisionError</code>, <code>NameError</code> y <code>TypeError</code>.</p></li>
 <li><p>El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo causó.</p></li>
@@ -998,15 +960,15 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca un número entero por la entrada y luego lo muestra a la salida multiplicado por tres. Si el usuario no introduce un número entero, muestra un mensaje de advertencia:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1"><span class="cf">try</span>:</a>
-<a class="sourceLine" id="cb37-2" title="2">    x <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Introduzca un número entero: &quot;</span>))</a>
-<a class="sourceLine" id="cb37-3" title="3">    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb37-4" title="4"><span class="cf">except</span> <span class="pp">ValueError</span>:</a>
-<a class="sourceLine" id="cb37-5" title="5">    <span class="bu">print</span>(<span class="st">&quot;¡Vaya! No ha introducido un número entero.&quot;</span>)</a>
-<a class="sourceLine" id="cb37-6" title="6"><span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb37-7" title="7">    <span class="bu">print</span>(<span class="st">&quot;La cosa ha acabado bien.&quot;</span>)</a>
-<a class="sourceLine" id="cb37-8" title="8"><span class="cf">finally</span>:</a>
-<a class="sourceLine" id="cb37-9" title="9">    <span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1"><span class="cf">try</span>:</a>
+<a class="sourceLine" id="cb36-2" title="2">    x <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Introduzca un número entero: &quot;</span>))</a>
+<a class="sourceLine" id="cb36-3" title="3">    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="cf">except</span> <span class="pp">ValueError</span>:</a>
+<a class="sourceLine" id="cb36-5" title="5">    <span class="bu">print</span>(<span class="st">&quot;¡Vaya! No ha introducido un número entero.&quot;</span>)</a>
+<a class="sourceLine" id="cb36-6" title="6"><span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb36-7" title="7">    <span class="bu">print</span>(<span class="st">&quot;La cosa ha acabado bien.&quot;</span>)</a>
+<a class="sourceLine" id="cb36-8" title="8"><span class="cf">finally</span>:</a>
+<a class="sourceLine" id="cb36-9" title="9">    <span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div></li>
 <li><p>Si no ha habido errores en el cuerpo del <code>try</code>, se ejecuta la parte del <code>else</code>.</p></li>
 <li><p>En cualquier caso, siempre se ejecuta la parte del <code>finally</code>.</p></li>
 </ul>

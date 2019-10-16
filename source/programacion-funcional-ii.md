@@ -262,11 +262,14 @@ nocite: |
 - Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
   validas en un punto concreto del programa.
 
+- Cuando la ejecución del programa entra dentro de un ámbito, **se crea un
+  nuevo marco asociado a ese ámbito**.
+
 - Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**.
 
-- Cuando se aplica una expresión lambda a unos argumentos, **se crea un nuevo
-  marco** que contiene las ligaduras que define dicha expresión lambda con sus
-  argumentos. 
+- Por tanto, cuando se aplica una expresión lambda a unos argumentos, se crea
+  un nuevo marco que contiene las ligaduras que define dicha expresión lambda
+  con sus argumentos.
 
 - Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
   más interno *apunta* al más externo), de manera que el último siempre es el
