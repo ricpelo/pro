@@ -6,6 +6,704 @@ nocite: |
   @pareja_flores_desarrollo_1997
 ---
 
+# Aspectos teóricos de la programación estructurada
+
+## Programación estructurada
+
+- La programación estructurada es una técnica de programación cuyo objetivo es,
+  esencialmente, la obtención de programas fiables y fácilmente mantenibles.
+
+- Su estudio puede dividirse en dos partes bien diferenciadas:
+
+  - Por una parte, el estudio conceptual se centra en ver qué se entiende por
+    programa estructurado para estudiar con detalle sus características
+    fundamentales.
+
+  - Por otra parte, dentro del enfoque práctico se presentará la metodología de
+    refinamientos sucesivos que permite construir programas estructurados paso
+    a paso, detallando cada vez más sus acciones componentes.
+
+- Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
+  por E. W. Dijkstra en 1965, aunque el fundamento teórico está basado en los
+  trabajos de Böhm y Jacopini publicados en 1966.
+
+---
+
+- La programación estructurada surge como respuesta a los problemas que
+  aparecen cuando se programa sin una disciplina y unos límites que marquen la
+  creación de programas claros y correctos.
+
+- Un programador disciplinado crearía programas fáciles de leer. Por ejemplo,
+  el siguiente programa que calcula el producto de dos números:
+
+  !IMGP(producto.png)()(width=90%)
+
+---
+
+- En cambio, un programador indisciplinado crearía programas más difíciles de
+  leer:
+
+  !IMGP(confuso.png)()(width=50%)
+
+- Si un programa se escribe de cualquier manera, aun siendo correcto desde el
+  punto de vista de su funcionamiento, puede resultar engorroso, críptico,
+  ilegible y casi imposible de modificar.
+
+---
+
+- Lo que hay que hacer, en primer lugar, es impedir que el programador pueda
+  escribir programas de cualquier manera, y para ello hay que restringir sus
+  opciones a la hora de construir programas de forma que el diagrama resultante
+  sea fácil de leer, entender y mantener.
+
+- Ese diagrama, una vez terminado, debe estar construido combinando sólo unos
+  pocos tipos de bloques y cumpliendo una serie de restricciones. 
+
+## Programa restringido
+
+- Un **programa restringido** es aquel que se construye combinando únicamente
+  los tres siguientes bloques:
+
+:::: columns
+
+::: column
+
+- **Acción**, que sirve para representar una instrucción (por ejemplo: de
+  lectura, escritura, asignación...).
+
+- **Condición**, que sirve para bifurcar el flujo del programa dependiendo del
+  valor (verdadero o falso) de una expresión lógica.
+
+- **Agrupamiento**, que sirve, como su nombre indica, para agrupar lı́neas de
+  flujo con distintas procedencias.
+
+:::
+
+::: column
+
+!IMGP(accion.png)(Acción)(width=50%)(width=30%)
+
+!IMGP(condicion.png)(Condición)(width=50%)(width=30%)
+
+!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)(width=20%)
+
+:::
+
+::::
+
+## Programa propio
+
+- Se dice que un programa restringido es un **programa propio** (o
+  **_limpio_**) si reúne las tres condiciones siguientes:
+
+  1. Todo bloque posee un único punto de entrada y otro único punto de salida.
+
+  2. Para cualquier bloque, existe al menos un camino desde la entrada hasta él
+     y otro camino desde él hasta la salida.
+
+  3. No existen bucles infinitos.
+
+- Estas condiciones restringen el concepto de programa de modo que sólo se
+  permite trabajar con aquéllos que están diseñados mediante el uso apropiado
+  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
+
+---
+
+- Este es un ejemplo de un programa que no es propio por no tener una única
+  salida:
+
+  !IMGP(condicion-no-propio.png)()(width=50%)(width=40%)
+
+- Agrupando las salidas se obtiene un programa propio:
+
+  !IMGP(seleccion.png)()(width=50%)
+
+---
+
+- Aquí se observa otro programa que no es propio, ya que existen bloques (los
+  *A*, *C* y *q*) que no tienen un camino hasta la salida; si el programa
+  llegara hasta esos bloques se bloquearía, pues no es posible terminar la
+  ejecución:
+
+!IMGP(diagrama-no-propio.png)()(width=90%)(width=90%)
+
+---
+
+- Aquí aparece un programa que contiene bloques inaccesibles desde la entrada
+  del diagrama:
+
+!IMGP(diagrama-inaccesibles.png)()(width=80%)
+
+## Estructura
+
+- Una **estructura** es una construcción sintáctica (o un bloque constructivo)
+  que se puede **anidar completamente** dentro de otra.
+
+- Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
+  completamente dentro de la otra, o son totalmente independientes.
+
+- Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
+
+:::: columns
+
+::: column
+
+!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fillcolor = transparent]
+rankdir = "TB"
+A
+subgraph cluster0 {
+    C
+    B
+    subgraph cluster1 {
+        D
+        subgraph cluster2 {
+            E
+        }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(estructura-no.png)(Estas no son estructuras)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [layout = neato]
+A [pos="-0.5,0.0!", fillcolor = transparent]
+B [pos="0.0,-0.2!", fillcolor = transparent]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+## Programa estructurado
+
+- Un **programa estructurado** es un programa construido combinando las
+  siguientes estructuras de control:
+
+:::: columns
+
+::: column
+
+- La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
+
+- La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
+  *p*.
+
+- La **iteración**, que repite una acción *A* dependiendo del valor de verdad
+  de un predicado de control *p*.
+
+:::
+
+::: column
+
+!IMGP(secuencia.png)(Secuencia)(width=100%)
+
+!IMGP(seleccion.png)(Selección)(width=100%)
+
+!IMGP(iteracion.png)(Iteración)(width=80%)
+
+:::
+
+::::
+
+---
+
+- Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
+  claro, sería:
+
+  !IMGP(claro.png)()(width=50%)
+
+### Ventajas de los programas estructurados
+
+- Las principales **ventajas de los programas estructurados** frente a los no
+  estructurados son:
+
+  - Son más fáciles de entender, ya que básicamente se pueden leer de arriba
+    abajo de estructura a estructura como cualquier otro texto sin tener que
+    estar continuamente saltando de un punto a otro del programa.
+
+  - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
+    pueden verse como cajas negras, lo que facilita trabajar a diferentes
+    niveles de abstracción.
+
+  - Se reducen los costes de mantenimiento.
+
+  - Aumenta la productividad del programador.
+
+  - Los programas quedan mejor documentados internamente.
+
+## Teorema de Böhm-Jacopini
+
+- El **teorema de Böhm-Jacopini**, también llamado **teorema de la
+  estructura**, garantiza que todo programa propio se puede estructurar.
+
+- Se enuncia formalmente así:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Teorema de la estructura:**
+
+  Todo programa propio es equivalente a un programa estructurado.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, los programas estructurados son suficientemente expresivos como
+  para expresar cualquier programa razonable.
+
+- Y además, por su naturaleza estructurada resultan programas más sencillos y
+  claros.
+
+- En consecuencia, no hay excusa para no estructurar nuestros programas.
+
+# Estructuras básicas de control
+
+## Secuencia
+
+- La estructura secuencial en Python consiste sencillamente en poner cada
+  sentencia una tras otra al mismo nivel de indentación.
+
+- No requiere de ninguna otra sintaxis particular ni palabras clave.
+
+- Una secuencia de sentencias actúa sintácticamente como si fuera una sola
+  sentencia; por lo tanto, en cualquier lugar del programa donde se pueda poner
+  una sentencia, se puede poner asimismo una secuencia de sentencias (que
+  actuarían como una sola formando un bloque).
+
+- En las demás estructuras y definiciones que veremos a continuación, siempre
+  que se espere una sentencia, se podrá poner una secuencia de sentencias.
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~
+**Concepto fundamental:**
+
+En Python, la **estructura** del programa viene definida por la **indentación**
+del código.
+~~~~~~~~~~~~~~~~~
+
+---
+
+- Ejemplo:
+
+  ```python
+  x = 1
+  y = 2
+  f = lambda a, b: a + b
+  z = f(x + y)
+  ```
+
+  Estas cuatro sentencias, al estar todas al mismo nivel de indentación, actúan
+  como una sola sentencia en bloque y se ejecutan en orden de arriba abajo.
+
+## Selección
+
+- La selección (o estructura alternativa) tiene varias sintaxis en Python:
+
+:::: columns
+
+::: column
+
+- Selección simple:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
+
+- Selección doble:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)
+!T(else)!T(:)
+      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Selección múltiple:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(if) !NT(condición)!T(:)
+      !NT(sentencia)
+[!T(elif) !NT(condición)!T(:)
+      !NT(sentencia)]
+[!T(else)!T(:)
+      !NT(sentencia)]
+  ~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+:::: columns
+
+::: {.column width=40%}
+
+- Ejemplos:
+
+```python
+if 4 == 3:
+    print('Son distintos')
+    x = 5
+
+if 4 == 3:
+    print('Son distintos')
+    x = 5
+else:
+    print('Son iguales')
+    x = 9
+```
+
+:::
+
+::: {.column width=60%}
+
+```python
+if x < 2:
+    print('Es menor que dos')
+elif x <= 9:
+    print('Está comprendido entre 2 y 9')
+    x = 5
+elif x < 12:
+    print('Es mayor que 9 y menor que 12')
+else:
+    print('Es mayor o igual que 12')
+```
+
+:::
+
+::::
+
+## Iteración
+
+- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene dos
+  sintaxis:
+
+- Bucle !T(while):
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(while) !NT(condición)!T(:)
+      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
+
+- Bucle !T(for):
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !T(for) !NT(variable) !T(in) !NT(iterable):
+      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
+
+### `break`
+
+- La sentencia `break` finaliza el bucle que la contiene.
+
+- El flujo de control del programa pasa a la sentencia inmediatamente posterior
+  al cuerpo del bucle.
+
+- Si la sentencia `break` se encuentra dentro de un bucle anidado (un bucle
+  dentro de otro bucle), finalizará el bucle más interno.
+
+  ```python
+  for val in "string":
+      if val == "i":
+          break
+      print(val)
+
+  print("Fin")
+  ```
+
+  produce:
+
+  ```
+  s
+  t
+  r
+  Fin
+  ```
+
+### `continue`
+
+- La sentencia `continue` se usa para saltarse el resto del código dentro de un
+  bucle en la iteración actual.
+
+- El bucle no finaliza sino que continúa con la siguiente iteración.
+
+  ```python
+  for val in "string":
+      if val == "i":
+          continue
+      print(val)
+
+  print("Fin")
+  ```
+
+  produce:
+
+  ```
+  s
+  t
+  r
+  n
+  g
+  Fin
+  ```
+
+## Excepciones
+
+- Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
+  provocar un error cuando se intente ejecutar o evaluar.
+
+- Los errores detectados durante la ejecución del programa se denominan
+  **excepciones** y no son incondicionalmente fatales si se capturan y se
+  gestionan adecuadamente.
+
+- En cambio, la mayoría de las excepciones no son gestionadas por el programa y
+  provocan mensajes de error.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  >>> 10 * (1 / 0)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  ZeroDivisionError: division by zero
+  >>> 4 + spam * 3
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'spam' is not defined
+  >>> '2' + 2
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: Can't convert 'int' object to str implicitly
+  ```
+
+- La última línea del mensaje de error indica qué ha ocurrido.
+
+- Hay distintos tipos de excepciones y ese tipo se muestra como parte del
+  mensaje: los tipos del ejemplo anterior son `ZeroDivisionError`, `NameError`
+  y `TypeError`.
+
+- El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo
+  causó.
+
+### Gestión de excepciones
+
+- Es posible escribir programas que gestionen excepciones concretas.
+
+- La sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(try:)
+      !NT(sentencia)
+!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
+      !NT(sentencia)
+[!T(else:)
+      !NT(sentencia)]
+[!T(finally:)
+      !NT(sentencia)]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(excepcion) ::= !NT(nombre_excepcion)
+                  | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por ejemplo, el siguiente programa pide al usuario que introduzca un número
+  entero por la entrada y luego lo muestra a la salida multiplicado por tres.
+  Si el usuario no introduce un número entero, muestra un mensaje de
+  advertencia:
+
+  ```python
+  try:
+      x = int(input("Introduzca un número entero: "))
+      print(x * 2)
+  except ValueError:
+      print("¡Vaya! No ha introducido un número entero.")
+  else:
+      print("La cosa ha acabado bien.")
+  finally:
+      print("Fin")
+  ```
+
+- Si no ha habido errores en el cuerpo del `try`, se ejecuta la parte del
+  `else`.
+
+- En cualquier caso, siempre se ejecuta la parte del `finally`.
+
+# Metodología de la programación estructurada
+
+## Diseño descendente por refinamiento sucesivo
+
+- El diseño descendente es la técnica que permite descomponer un problema
+  complejo en problemas más sencillos, realizándose esta operación de forma
+  sucesiva hasta llegar al mínimo nivel de abstracción en el cual se pueden
+  codificar directamente las operaciones en un lenguaje de programación
+  estructurado.
+
+- Con esta técnica, los programas se crean en distintos niveles de
+  refinamiento, de forma que cada nuevo nivel define la solución de forma más
+  concreta y subdivide las operaciones en otras menos abstractas.
+
+- Los programas se diseñan de lo general a lo particular por medio de sucesivos
+  refinamientos o descomposiciones que nos van acercando a las instrucciones
+  finales del programa. 
+
+- El último nivel permite la codificación directa en un lenguaje de
+  programación.
+
+## Recursos abstractos
+
+- Descomponer un programa en términos de recursos abstractos consiste en
+  descomponer una determinada acción compleja en un número de acciones mas
+  simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus
+  instrucciones.
+
+- Es el complemento perfecto para el diseño descendente y el que nos
+  proporciona el método a seguir para obtener un nuevo nivel de refinamiento a
+  partir del anterior.
+
+---
+
+- Se basa en suponer que, en cada nivel de refinamiento, todos los elementos
+  (instrucciones, expresiones, funciones, etc.) que aparecen en la solución
+  están ya disponibles directamente en el lenguaje de programación, aunque no
+  sea verdad.
+
+- Esos elementos o recursos se denominan abstractos porque los podemos usar
+  directamente en un determinado nivel de refinamiento sin tener que saber cómo
+  funcionan realmente por dentro, o incluso si existen realmente. Nosotros
+  suponemos que sí existen y que hacen lo que tienen que hacer sin preocuparnos
+  del cómo.
+
+- En el siguiente refinamiento, aquellos elementos que no estén implementados
+  ya directamente en el lenguaje se refinarán, bajando el nivel de abstracción
+  y acercándonos cada vez más a una solución que sí se pueda implementar en el
+  lenguaje.
+
+- El refinamiento acaba cuando la solución se encuentra completamente definida
+  usando los elementos del lenguaje de programación (ya no hay recursos
+  abstractos).
+
+## Ejemplo
+
+- Supongamos que queremos escribir un programa que muestre una tabla de
+  multiplicar de tamaño $n \times n$.
+
+- Una primera versión (burda) del programa podría ser:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  **Construir la tabla de $n \times n$**
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde el programa se plantea como una secuencia de dos acciones: preguntar el
+  tamaño de la tabla deseada y construir la tabla propiamente dicha.
+
+- La instrucción **Leer $n$** ya está suficientemente refinada (se puede
+  traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
+  recurso abstracto).
+
+---
+
+- La construcción de la tabla se puede realizar fácilmente escribiendo en una
+  fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así
+  sucesivamente hasta que lleguemos a los múltiplos de $n$.
+
+- Por tanto, el siguiente paso es refinar la instrucción abstracta **Construir
+  la tabla de $n \times n$**, creando un nuevo nivel de refinamiento:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  # Construir la tabla de $n \times n$:
+  $i \leftarrow 1$
+  **Mientras** $i \leq n$:
+        **Escribir la fila de $i$**
+        $i \leftarrow i + 1$
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde ahora aparece la acción **Escribir la fila de $i$**, que escribe cada
+  una de las filas de la tabla, y que habrá que refinar porque no se puede
+  traducir directamente al lenguaje de programación.
+
+---
+
+- En este (último) nivel refinamos la acción que nos falta, quedando:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Inicio**
+  **Leer $n$**
+  _{ Construir la tabla de $n \times n$: }_
+  $i \leftarrow 1$
+  **Mientras** $i \leq n$:
+        _{ Escribir la fila de $i$: }_
+        $j \leftarrow 1$
+        **Mientras** $j \leq n$:
+              **Escribir** $i \times j$
+              $j \leftarrow j + 1$
+        **Escribir** un salto de línea
+        $i \leftarrow i + 1$
+**Fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Ese programa es directamente traducible a Python:
+
+  ```python
+  n = int(input('Introduce el número: '))
+  i = 1
+  while i <= n:
+      j = 1
+      while j <= n:
+          print(i * j, end=' ')
+          j += 1
+      print()
+      i += 1
+  ```
+
+- O mejor aún:
+
+  ```python
+  try:
+      n = int(input('Introduce el número: '))
+      for i in range(1, n + 1):
+          for j in range(1, n + 1):
+              print(f'{i * j:>3}', end=' ')
+          print()
+  except ValueError:
+      print('Número incorrecto')
+  ```
+
 # Funciones con nombre
 
 ## Definición de funciones con nombre
@@ -52,7 +750,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(cuerpo) ::= !NT(sentencia)+
+  !NT(cuerpo) ::= !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -72,23 +770,13 @@ nocite: |
 
 - Notas importantes:
 
-  - Tiene que haber, al menos, *una* sentencia.
+  - Tiene que haber, al menos, *una* sentencia (o secuencia, claro).
 
   - Las sentencias van **indentadas** (o *sangradas*) dentro de la definición
-    de la función, con el mismo nivel de indentación.
+    de la función, como una estructura.
 
   - El final de la función se deduce al encontrarse una sentencia con un
     **nivel de indentación superior** (en el caso de arriba, otro `def`).
-
----
-
-!CAJA
-~~~~~~~~~~~~~~~~~
-**Conclusión:**
-
-En Python, la **estructura** del programa viene definida por la **indentación**
-del código.
-~~~~~~~~~~~~~~~~~
 
 ## Paso de argumentos
 
@@ -729,693 +1417,6 @@ E -> x [lhead = cluster1]
   def saludar():
       """Este es el docstring de la función saludar"""
       print("¡Hola! Te saludo desde la función saludar()")
-  ```
-
-# Aspectos teóricos de la programación estructurada
-
-## Programación estructurada
-
-- La programación estructurada es una técnica de programación cuyo objetivo es,
-  esencialmente, la obtención de programas fiables y fácilmente mantenibles.
-
-- Su estudio puede dividirse en dos partes bien diferenciadas:
-
-  - Por una parte, el estudio conceptual se centra en ver qué se entiende por
-    programa estructurado para estudiar con detalle sus características
-    fundamentales.
-
-  - Por otra parte, dentro del enfoque práctico se presentará la metodología de
-    refinamientos sucesivos que permite construir programas estructurados paso
-    a paso, detallando cada vez más sus acciones componentes.
-
-- Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
-  por E. W. Dijkstra en 1965, aunque el fundamento teórico está basado en los
-  trabajos de Böhm y Jacopini publicados en 1966.
-
----
-
-- La programación estructurada surge como respuesta a los problemas que
-  aparecen cuando se programa sin una disciplina y unos límites que marquen la
-  creación de programas claros y correctos.
-
-- Un programador disciplinado crearía programas fáciles de leer. Por ejemplo,
-  el siguiente programa que calcula el producto de dos números:
-
-  !IMGP(producto.png)()(width=90%)
-
----
-
-- En cambio, un programador indisciplinado crearía programas más difíciles de
-  leer:
-
-  !IMGP(confuso.png)()(width=50%)
-
-- Si un programa se escribe de cualquier manera, aun siendo correcto desde el
-  punto de vista de su funcionamiento, puede resultar engorroso, críptico,
-  ilegible y casi imposible de modificar.
-
----
-
-- Lo que hay que hacer, en primer lugar, es impedir que el programador pueda
-  escribir programas de cualquier manera, y para ello hay que restringir sus
-  opciones a la hora de construir programas de forma que el diagrama resultante
-  sea fácil de leer, entender y mantener.
-
-- Ese diagrama, una vez terminado, debe estar construido combinando sólo unos
-  pocos tipos de bloques y cumpliendo una serie de restricciones. 
-
-## Programa restringido
-
-- Un **programa restringido** es aquel que se construye combinando únicamente
-  los tres siguientes bloques:
-
-:::: columns
-
-::: column
-
-- **Acción**, que sirve para representar una instrucción (por ejemplo: de
-  lectura, escritura, asignación...).
-
-- **Condición**, que sirve para bifurcar el flujo del programa dependiendo del
-  valor (verdadero o falso) de una expresión lógica.
-
-- **Agrupamiento**, que sirve, como su nombre indica, para agrupar lı́neas de
-  flujo con distintas procedencias.
-
-:::
-
-::: column
-
-!IMGP(accion.png)(Acción)(width=50%)(width=30%)
-
-!IMGP(condicion.png)(Condición)(width=50%)(width=30%)
-
-!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)(width=20%)
-
-:::
-
-::::
-
-## Programa propio
-
-- Se dice que un programa restringido es un **programa propio** (o
-  **_limpio_**) si reúne las tres condiciones siguientes:
-
-  1. Todo bloque posee un único punto de entrada y otro único punto de salida.
-
-  2. Para cualquier bloque, existe al menos un camino desde la entrada hasta él
-     y otro camino desde él hasta la salida.
-
-  3. No existen bucles infinitos.
-
-- Estas condiciones restringen el concepto de programa de modo que sólo se
-  permite trabajar con aquéllos que están diseñados mediante el uso apropiado
-  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
-
----
-
-- Este es un ejemplo de un programa que no es propio por no tener una única
-  salida:
-
-  !IMGP(condicion-no-propio.png)()(width=50%)(width=40%)
-
-- Agrupando las salidas se obtiene un programa propio:
-
-  !IMGP(seleccion.png)()(width=50%)
-
----
-
-- Aquí se observa otro programa que no es propio, ya que existen bloques (los
-  *A*, *C* y *q*) que no tienen un camino hasta la salida; si el programa
-  llegara hasta esos bloques se bloquearía, pues no es posible terminar la
-  ejecución:
-
-!IMGP(diagrama-no-propio.png)()(width=90%)(width=90%)
-
----
-
-- Aquí aparece un programa que contiene bloques inaccesibles desde la entrada
-  del diagrama:
-
-!IMGP(diagrama-inaccesibles.png)()(width=80%)
-
-## Estructura
-
-- Una **estructura** es una construcción sintáctica (o un bloque constructivo)
-  que se puede **anidar completamente** dentro de otra.
-
-- Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
-  completamente dentro de la otra, o son totalmente independientes.
-
-- Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
-
-:::: columns
-
-::: column
-
-!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=60%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fillcolor = transparent]
-rankdir = "TB"
-A
-subgraph cluster0 {
-    C
-    B
-    subgraph cluster1 {
-        D
-        subgraph cluster2 {
-            E
-        }
-    }
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::: column
-
-!DOT(estructura-no.png)(Estas no son estructuras)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-graph [layout = neato]
-A [pos="-0.5,0.0!", fillcolor = transparent]
-B [pos="0.0,-0.2!", fillcolor = transparent]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::::
-
-## Programa estructurado
-
-- Un **programa estructurado** es un programa construido combinando las
-  siguientes estructuras de control:
-
-:::: columns
-
-::: column
-
-- La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
-
-- La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
-  *p*.
-
-- La **iteración**, que repite una acción *A* dependiendo del valor de verdad
-  de un predicado de control *p*.
-
-:::
-
-::: column
-
-!IMGP(secuencia.png)(Secuencia)(width=100%)
-
-!IMGP(seleccion.png)(Selección)(width=100%)
-
-!IMGP(iteracion.png)(Iteración)(width=80%)
-
-:::
-
-::::
-
----
-
-- Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
-  claro, sería:
-
-  !IMGP(claro.png)()(width=50%)
-
-### Ventajas de los programas estructurados
-
-- Las principales **ventajas de los programas estructurados** frente a los no
-  estructurados son:
-
-  - Son más fáciles de entender, ya que básicamente se pueden leer de arriba
-    abajo de estructura a estructura como cualquier otro texto sin tener que
-    estar continuamente saltando de un punto a otro del programa.
-
-  - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
-    pueden verse como cajas negras, lo que facilita trabajar a diferentes
-    niveles de abstracción.
-
-  - Se reducen los costes de mantenimiento.
-
-  - Aumenta la productividad del programador.
-
-  - Los programas quedan mejor documentados internamente.
-
-## Teorema de Böhm-Jacopini
-
-- El **teorema de Böhm-Jacopini**, también llamado **teorema de la
-  estructura**, garantiza que todo programa propio se puede estructurar.
-
-- Se enuncia formalmente así:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Teorema de la estructura:**
-
-  Todo programa propio es equivalente a un programa estructurado.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Por tanto, los programas estructurados son suficientemente expresivos como
-  para expresar cualquier programa razonable.
-
-- Y además, por su naturaleza estructurada resultan programas más sencillos y
-  claros.
-
-- En consecuencia, no hay excusa para no estructurar nuestros programas.
-
-# Estructuras básicas de control
-
-## Secuencia
-
-- La estructura secuencial en Python consiste sencillamente en poner cada
-  sentencia una tras otra al mismo nivel de indentación.
-
-- No requiere de ninguna otra sintaxis particular ni palabras clave.
-
-- Ejemplo:
-
-  ```python
-  x = 1
-  y = 2
-  
-  def f(n):
-      a = 4
-      b = 5
-      return a + b + n
-
-  z = f(x + y)
-  ```
-
-  Aquí se usan dos estructuras secuenciales:
-
-  - La que está formada por las asignaciones de `x`, `y` y `z` más la
-    definición de la función `f`.
-
-  - La que está formada por el cuerpo de la función `f`.
-
-## Selección
-
-- La selección (o estructura alternativa) tiene varias sintaxis en Python:
-
-:::: columns
-
-::: column
-
-- Selección simple:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
-      !NT(sentencia)+
-  ~~~~~~~~~~~~~~~~~~~~
-
-- Selección doble:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
-      !NT(sentencia)+
-!T(else)!T(:)
-      !NT(sentencia)+
-  ~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::: column
-
-- Selección múltiple:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
-      !NT(sentencia)+
-[!T(elif) !NT(condición)!T(:)
-      !NT(sentencia)+]
-[!T(else)!T(:)
-      !NT(sentencia)+]
-  ~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::::
-
----
-
-:::: columns
-
-::: {.column width=40%}
-
-- Ejemplos:
-
-```python
-if 4 == 3:
-    print('Son distintos')
-    x = 5
-
-if 4 == 3:
-    print('Son distintos')
-    x = 5
-else:
-    print('Son iguales')
-    x = 9
-```
-
-:::
-
-::: {.column width=60%}
-
-```python
-if x < 2:
-    print('Es menor que dos')
-elif x <= 9:
-    print('Está comprendido entre 2 y 9')
-    x = 5
-elif x < 12:
-    print('Es mayor que 9 y menor que 12')
-else:
-    print('Es mayor o igual que 12')
-```
-
-:::
-
-::::
-
-## Iteración
-
-- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene dos
-  sintaxis:
-
-- Bucle !T(while):
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(while) !NT(condición)!T(:)
-      !NT(sentencia)+
-  ~~~~~~~~~~~~~~~~~~~~
-
-- Bucle !T(for):
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(for) !NT(variable) !T(in) !NT(iterable):
-      !NT(sentencia)+
-  ~~~~~~~~~~~~~~~~~~~~
-
-### `break`
-
-- La sentencia `break` finaliza el bucle que la contiene.
-
-- El flujo de control del programa pasa a la sentencia inmediatamente posterior
-  al cuerpo del bucle.
-
-- Si la sentencia `break` se encuentra dentro de un bucle anidado (un bucle
-  dentro de otro bucle), finalizará el bucle más interno.
-
-  ```python
-  for val in "string":
-      if val == "i":
-          break
-      print(val)
-
-  print("Fin")
-  ```
-
-  produce:
-
-  ```
-  s
-  t
-  r
-  Fin
-  ```
-
-### `continue`
-
-- La sentencia `continue` se usa para saltarse el resto del código dentro de un
-  bucle en la iteración actual.
-
-- El bucle no finaliza sino que continúa con la siguiente iteración.
-
-  ```python
-  for val in "string":
-      if val == "i":
-          continue
-      print(val)
-
-  print("Fin")
-  ```
-
-  produce:
-
-  ```
-  s
-  t
-  r
-  n
-  g
-  Fin
-  ```
-
-## Excepciones
-
-- Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
-  provocar un error cuando se intente ejecutar o evaluar.
-
-- Los errores detectados durante la ejecución del programa se denominan
-  **excepciones** y no son incondicionalmente fatales si se capturan y se
-  gestionan adecuadamente.
-
-- En cambio, la mayoría de las excepciones no son gestionadas por el programa y
-  provocan mensajes de error.
-
----
-
-- Por ejemplo:
-
-  ```python
-  >>> 10 * (1 / 0)
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  ZeroDivisionError: division by zero
-  >>> 4 + spam * 3
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'spam' is not defined
-  >>> '2' + 2
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  TypeError: Can't convert 'int' object to str implicitly
-  ```
-
-- La última línea del mensaje de error indica qué ha ocurrido.
-
-- Hay distintos tipos de excepciones y ese tipo se muestra como parte del
-  mensaje: los tipos del ejemplo anterior son `ZeroDivisionError`, `NameError`
-  y `TypeError`.
-
-- El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo
-  causó.
-
-### Gestión de excepciones
-
-- Es posible escribir programas que gestionen excepciones concretas.
-
-- La sintaxis es:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !T(try:)
-      !NT(sentencia)+
-!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-      !NT(sentencia)+
-[!T(else:)
-      !NT(sentencia)+]
-[!T(finally:)
-      !NT(sentencia)+]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  donde:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(excepcion) ::= !NT(nombre_excepcion)
-                  | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Por ejemplo, el siguiente programa pide al usuario que introduzca un número
-  entero por la entrada y luego lo muestra a la salida multiplicado por tres.
-  Si el usuario no introduce un número entero, muestra un mensaje de
-  advertencia:
-
-  ```python
-  try:
-      x = int(input("Introduzca un número entero: "))
-      print(x * 2)
-  except ValueError:
-      print("¡Vaya! No ha introducido un número entero.")
-  else:
-      print("La cosa ha acabado bien.")
-  finally:
-      print("Fin")
-  ```
-
-- Si no ha habido errores en el cuerpo del `try`, se ejecuta la parte del
-  `else`.
-
-- En cualquier caso, siempre se ejecuta la parte del `finally`.
-
-# Metodología de la programación estructurada
-
-## Diseño descendente por refinamiento sucesivo
-
-- El diseño descendente es la técnica que permite descomponer un problema
-  complejo en problemas más sencillos, realizándose esta operación de forma
-  sucesiva hasta llegar al mínimo nivel de abstracción en el cual se pueden
-  codificar directamente las operaciones en un lenguaje de programación
-  estructurado.
-
-- Con esta técnica, los programas se crean en distintos niveles de
-  refinamiento, de forma que cada nuevo nivel define la solución de forma más
-  concreta y subdivide las operaciones en otras menos abstractas.
-
-- Los programas se diseñan de lo general a lo particular por medio de sucesivos
-  refinamientos o descomposiciones que nos van acercando a las instrucciones
-  finales del programa. 
-
-- El último nivel permite la codificación directa en un lenguaje de
-  programación.
-
-## Recursos abstractos
-
-- Descomponer un programa en términos de recursos abstractos consiste en
-  descomponer una determinada acción compleja en un número de acciones mas
-  simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus
-  instrucciones.
-
-- Es el complemento perfecto para el diseño descendente y el que nos
-  proporciona el método a seguir para obtener un nuevo nivel de refinamiento a
-  partir del anterior.
-
----
-
-- Se basa en suponer que, en cada nivel de refinamiento, todos los elementos
-  (instrucciones, expresiones, funciones, etc.) que aparecen en la solución
-  están ya disponibles directamente en el lenguaje de programación, aunque no
-  sea verdad.
-
-- Esos elementos o recursos se denominan abstractos porque los podemos usar
-  directamente en un determinado nivel de refinamiento sin tener que saber cómo
-  funcionan realmente por dentro, o incluso si existen realmente. Nosotros
-  suponemos que sí existen y que hacen lo que tienen que hacer sin preocuparnos
-  del cómo.
-
-- En el siguiente refinamiento, aquellos elementos que no estén implementados
-  ya directamente en el lenguaje se refinarán, bajando el nivel de abstracción
-  y acercándonos cada vez más a una solución que sí se pueda implementar en el
-  lenguaje.
-
-- El refinamiento acaba cuando la solución se encuentra completamente definida
-  usando los elementos del lenguaje de programación (ya no hay recursos
-  abstractos).
-
-## Ejemplo
-
-- Supongamos que queremos escribir un programa que muestre una tabla de
-  multiplicar de tamaño $n \times n$.
-
-- Una primera versión (burda) del programa podría ser:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  **Construir la tabla de $n \times n$**
-**Fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  donde el programa se plantea como una secuencia de dos acciones: preguntar el
-  tamaño de la tabla deseada y construir la tabla propiamente dicha.
-
-- La instrucción **Leer $n$** ya está suficientemente refinada (se puede
-  traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
-  recurso abstracto).
-
----
-
-- La construcción de la tabla se puede realizar fácilmente escribiendo en una
-  fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así
-  sucesivamente hasta que lleguemos a los múltiplos de $n$.
-
-- Por tanto, el siguiente paso es refinar la instrucción abstracta **Construir
-  la tabla de $n \times n$**, creando un nuevo nivel de refinamiento:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  # Construir la tabla de $n \times n$:
-  $i \leftarrow 1$
-  **Mientras** $i \leq n$:
-        **Escribir la fila de $i$**
-        $i \leftarrow i + 1$
-**Fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  donde ahora aparece la acción **Escribir la fila de $i$**, que escribe cada
-  una de las filas de la tabla, y que habrá que refinar porque no se puede
-  traducir directamente al lenguaje de programación.
-
----
-
-- En este (último) nivel refinamos la acción que nos falta, quedando:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  _{ Construir la tabla de $n \times n$: }_
-  $i \leftarrow 1$
-  **Mientras** $i \leq n$:
-        _{ Escribir la fila de $i$: }_
-        $j \leftarrow 1$
-        **Mientras** $j \leq n$:
-              **Escribir** $i \times j$
-              $j \leftarrow j + 1$
-        **Escribir** un salto de línea
-        $i \leftarrow i + 1$
-**Fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Ese programa es directamente traducible a Python:
-
-  ```python
-  n = int(input('Introduce el número: '))
-  i = 1
-  while i <= n:
-      j = 1
-      while j <= n:
-          print(i * j, end=' ')
-          j += 1
-      print()
-      i += 1
-  ```
-
-- O mejor aún:
-
-  ```python
-  try:
-      n = int(input('Introduce el número: '))
-      for i in range(1, n + 1):
-          for j in range(1, n + 1):
-              print(f'{i * j:>3}', end=' ')
-          print()
-  except ValueError:
-      print('Número incorrecto')
   ```
 
 !BIBLIOGRAFIA
