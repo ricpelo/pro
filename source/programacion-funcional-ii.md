@@ -740,16 +740,19 @@ E -> x [lhead = cluster0]
 
 - Hay dos **estrategias básicas de evaluación**:
 
-  - **Orden aplicativo**: reducir siempre el *redex* más **interno**.
+  - **Orden aplicativo**: reducir siempre el *redex* más **interno** (y más a
+    la izquierda).
 
-  - **Orden normal**: reducir siempre el *redex* más **externo**.
+  - **Orden normal**: reducir siempre el *redex* más **externo** (y más a la
+    izquierda).
 
 - **Python usa el orden aplicativo**, salvo excepciones.
 
 #### Orden aplicativo
 
 - El **orden aplicativo** consiste en evaluar las expresiones *de dentro
-  afuera*, es decir, empezando siempre por el *redex* más **interno**.
+  afuera*, es decir, empezando siempre por el *redex* más **interno** y más a
+  la izquierda.
 
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por valor**.
@@ -775,7 +778,8 @@ E -> x [lhead = cluster0]
 #### Orden normal
 
 - El **orden normal** consiste en evaluar las expresiones *de fuera adentro*,
-  es decir, empezando siempre por el *redex* más **externo**.
+  es decir, empezando siempre por el *redex* más **externo** y más a la
+  izquierda.
 
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por nombre**.
@@ -864,6 +868,21 @@ E -> x [lhead = cluster0]
     ```python
     primero(4, 1/0) = (lambda x, y: x)(4, 1/0) = (4) = 4
     ```
+
+---
+
+- Hay un resultado teórico que avala lo que acabamos de observar:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Teorema:**
+
+  Si una expresión tiene forma normal, el orden normal de evaluación conduce
+  seguro a la misma.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En cambio, el orden aplicativo es posible que no encuentre la forma normal de
+  la expresión.
 
 ---
 

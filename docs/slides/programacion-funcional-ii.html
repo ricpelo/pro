@@ -542,14 +542,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Gracias a ello podemos usar nuestro modelo de sustitución como modelo computacional.</p></li>
 <li><p>Hay dos <strong>estrategias básicas de evaluación</strong>:</p>
 <ul>
-<li><p><strong>Orden aplicativo</strong>: reducir siempre el <em>redex</em> más <strong>interno</strong>.</p></li>
-<li><p><strong>Orden normal</strong>: reducir siempre el <em>redex</em> más <strong>externo</strong>.</p></li>
+<li><p><strong>Orden aplicativo</strong>: reducir siempre el <em>redex</em> más <strong>interno</strong> (y más a la izquierda).</p></li>
+<li><p><strong>Orden normal</strong>: reducir siempre el <em>redex</em> más <strong>externo</strong> (y más a la izquierda).</p></li>
 </ul></li>
 <li><p><strong>Python usa el orden aplicativo</strong>, salvo excepciones.</p></li>
 </ul></section><section id="orden-aplicativo" class="slide level4">
 <h4><span class="header-section-number">1.2.1.1</span> Orden aplicativo</h4>
 <ul>
-<li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando siempre por el <em>redex</em> más <strong>interno</strong>.</p></li>
+<li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando siempre por el <em>redex</em> más <strong>interno</strong> y más a la izquierda.</p></li>
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por valor</strong>.</p></li>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a></code></pre></div>
@@ -564,7 +564,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="orden-normal" class="slide level4">
 <h4><span class="header-section-number">1.2.1.2</span> Orden normal</h4>
 <ul>
-<li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong>.</p></li>
+<li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong> y más a la izquierda.</p></li>
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por nombre</strong>.</p></li>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1">cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</a></code></pre></div>
@@ -611,6 +611,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden normal</strong>:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1">primero(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">0</span>) <span class="op">=</span> (<span class="dv">4</span>) <span class="op">=</span> <span class="dv">4</span></a></code></pre></div></li>
 </ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Hay un resultado teórico que avala lo que acabamos de observar:</p>
+<div class="caja">
+<p><strong>Teorema:</strong></p>
+<p>Si una expresión tiene forma normal, el orden normal de evaluación conduce seguro a la misma.</p>
+</div></li>
+<li><p>En cambio, el orden aplicativo es posible que no encuentre la forma normal de la expresión.</p></li>
 </ul>
 </section><section class="slide level4">
 
