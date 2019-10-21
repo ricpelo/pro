@@ -127,11 +127,12 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
     `(a, b, c)`
 
-  - Usando el constructor `tuple()`
+  - Usando la función `tuple()`
 
 ---
 
-- Observar que lo que construye la tupla es realmente la coma, no los paréntesis.
+- Observar que lo que construye la tupla es realmente la coma, no los
+  paréntesis.
 
 - Los paréntesis son opcionales, excepto en dos casos:
 
@@ -147,13 +148,43 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ### Rangos
 
+- Los **rangos** representan secuencias inmutables de números y se usan
+  frecuentemente para hacer bucles que se repitan un determinado número de
+  veces.
+
+- Los rangos se crean con la función `range()`:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(rangos) ::= !T{range(}!NT(fin)!T{)}
+                  | !T{range(}!NT(inicio)!T(,) !NT(fin)[!T(,) !NT(paso)]!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde !NT(inicio), !NT(fin) y !NT(paso) son números enteros.
+
+  - Si se omite !NT(inicio), su valor por defecto es 0.
+
+  - Si se omite !NT(paso), su valor por defecto es 1.
+
+---
+
+- Si el paso es positivo, el contenido de un rango $r$ vendrá determinado por
+  la fórmula $r[i] = inicio + fin \cdot i$, donde $i \geq 0$ y $r[i] < fin$.
+
+- Si el paso es negativo, el contenido del rango sigue determinado por la misma
+  fórmula $r[i] = inicio + fin \cdot i$, pero las restricciones ahora son $i
+  \geq 0$ y $r[i] > fin$.
+
+- Un rango es vacío cuando $r[0]$ no satisface 
+A range object will be empty if r[0] does not meet the value constraint. Ranges do support negative indices, but these are interpreted as indexing from the end of the sequence determined by the positive indices.
+
 ## Mutables
 
 ### Listas
 
-- En la siguiente tabla, `s` es una instancia de un tipo de secuencia mutable (en nuestro caso, una lista),
-  `t` es cualquier dato iterable y `x` es un dato cualquiera que cumple con las
-  restricciones que impone `s`:
+- En la siguiente tabla, `s` es una instancia de un tipo de secuencia mutable
+  (en nuestro caso, una lista), `t` es cualquier dato iterable y `x` es un dato
+  cualquiera que cumple con las restricciones que impone `s`:
 
 <br>
 \vspace{1em}
