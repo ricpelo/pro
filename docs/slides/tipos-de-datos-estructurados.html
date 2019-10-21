@@ -169,11 +169,15 @@
 <section><section id="secuencias" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Secuencias</h1></section><section id="concepto-de-secuencia" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Concepto de secuencia</h2><ul>
 <li><p>Una secuencia es una estructura de datos que:</p>
 <ul>
-<li><p>soporta el acceso eficiente a sus elementos usando índices enteros y,</p></li>
+<li><p>permite el acceso eficiente a sus elementos usando índices enteros, y</p></li>
 <li><p>se le puede calcular su longitud mediante la función <code>len</code>.</p></li>
 </ul></li>
-<li><p>Las secuencias más importantes son las cadenas, las listas, las tuplas y los rangos.</p></li>
-</ul></section><section id="operaciones-comunes" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Operaciones comunes</h2><ul>
+<li><p>Las secuencias se dividen en:</p>
+<ul>
+<li><p><strong>Inmutables</strong>: cadenas (<code>str</code>), tuplas (<code>tuple</code>), rangos (<code>range</code>), conjuntos congelados (<code>frozenset</code>).</p></li>
+<li><p><strong>Mutables</strong>: listas (<code>list</code>), diccionarios (<code>dict</code>), conjuntos (<code>set</code>).</p></li>
+</ul></li>
+</ul></section><section id="operaciones-comunes" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Operaciones comunes</h2></section><section id="en-cualquier-tipo-de-secuencia" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> En cualquier tipo de secuencia</h3><ul>
 <li><p>Todas las secuencias (ya sean cadenas, listas, tuplas o rangos) comparten un conjunto de operaciones comunes.</p></li>
 <li><p>Además de estas operaciones, las secuencias del mismo tipo admiten comparaciones. Las tuplas y las listas se comparan lexicográficamente elemento a elemento.</p>
 <ul>
@@ -199,7 +203,7 @@
 <td style="text-align: left;"><code>True</code> si algún elemento de <span class="math inline">s</span> es igual a <span class="math inline">x</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">x</span> <code>not in</code> <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">x</span> <code>not</code> <code>in</code> <span class="math inline">s</span></td>
 <td style="text-align: left;"><code>False</code> si algún elemento de <span class="math inline">s</span> es igual a <span class="math inline">x</span></td>
 </tr>
 <tr class="odd">
@@ -236,12 +240,108 @@
 <td style="text-align: left;">El elemento más grande de <span class="math inline">s</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.index(</code><span class="math inline">x</span>[<code>,</code> <span class="math inline">i</span>[<code>,</code><span class="math inline">j</span>]]<code>)</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code>.index(</code><span class="math inline">x</span> [<code>,</code> <span class="math inline">i</span> [<code>,</code><span class="math inline">j</span> ] ]<code>)</code></td>
 <td style="text-align: left;">El índice de la primera aparición de <span class="math inline">x</span> en <span class="math inline">s</span> (desde el índice <span class="math inline">i</span> inclusive y antes del <span class="math inline">j</span>)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>.count(</code><span class="math inline">x</span><code>)</code></td>
 <td style="text-align: left;">Número total de apariciones de <span class="math inline">x</span> en <span class="math inline">s</span></td>
+</tr>
+</tbody>
+</table>
+</section><section id="en-secuencias-mutables" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> En secuencias mutables</h3><ul>
+<li>En la siguiente tabla, <code>s</code> es una instancia de un tipo de secuencia mutable, <code>t</code> es cualquier dato iterable y <code>x</code> es un dato cualquiera que cumple con las restricciones que impone <code>s</code>:</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code> <code>=</code> <span class="math inline">x</span></td>
+<td style="text-align: left;">El elemento <span class="math inline">i</span> de <span class="math inline">s</span> se sustituye por <span class="math inline">x</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">La rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span> se sustituye por el contenido del iterable <span class="math inline">t</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>del</code> <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
+<td style="text-align: left;">Igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <code>[]</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por los de <span class="math inline">t</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>del</code> <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
+<td style="text-align: left;">Elimina de la secuencia los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
+</tr>
+</tbody>
+</table></section><section class="slide level4">
+
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.append(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Añade <span class="math inline">x</span> al final de la secuencia; es igual que<br />
+<span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">s</span>; es igual que<br />
+<code>del</code> <span class="math inline">s</span><code>[:]</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.copy()</code></td>
+<td style="text-align: left;">Crea una copia <em>superficial</em> de <span class="math inline">s</span>; es igual que <span class="math inline">s</span><code>[:]</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.extend(</code><span class="math inline">t</span><code>)</code><br />
+<span class="math inline">s</span> <code>+=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">Extiende <span class="math inline">s</span> con el contenido de <span class="math inline">t</span>; es como hacer<br />
+<span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span> <code>*=</code> <span class="math inline">n</span></td>
+<td style="text-align: left;">Modifica <span class="math inline">s</span> repitiendo su contenido <span class="math inline">n</span> veces</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>max(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más grande de <span class="math inline">s</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.insert(</code><span class="math inline">i</span><code>,</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Inserta <span class="math inline">x</span> en <span class="math inline">s</span> en el índice <span class="math inline">i</span>; es igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.pop(</code>[ <span class="math inline">i</span> ]<code>)</code></td>
+<td style="text-align: left;">Extrae el elemento <span class="math inline">i</span> de <span class="math inline">s</span> y lo devuelve (por defecto, <span class="math inline">i</span> vale <span class="math inline">-1</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.remove(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Quita el primer elemento de <span class="math inline">s</span> que sea igual a <span class="math inline">x</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.reverse()</code></td>
+<td style="text-align: left;">Invierte los elementos de <span class="math inline">s</span></td>
 </tr>
 </tbody>
 </table>
