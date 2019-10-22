@@ -12,6 +12,69 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -277,7 +340,7 @@
 <li><p>Separando los elementos con comas:</p>
 <p><code>a, b, c</code></p>
 <p><code>(a, b, c)</code></p></li>
-<li><p>Usando el constructor <code>tuple()</code></p></li>
+<li><p>Usando la función <code>tuple()</code></p></li>
 </ul></li>
 </ul></section><section class="slide level4">
 
@@ -291,7 +354,90 @@
 </ul></li>
 <li><p>Las tuplas implementan todas las operaciones comunes de las secuencias.</p></li>
 </ul>
-</section><section id="rangos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Rangos</h3></section><section id="mutables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Mutables</h2></section><section id="listas" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Listas</h3><ul>
+</section><section id="rangos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Rangos</h3><ul>
+<li><p>Los <strong>rangos</strong> representan secuencias inmutables de números y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
+<li><p>Los rangos se crean con la función <code>range()</code>:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;rangos&gt;</em></span> ::= <strong><code>range(</code></strong><span style="color:teal"><em>&lt;fin&gt;</em></span><strong><code>)</code></strong><br />
+                  | <strong><code>range(</code></strong><span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong> <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;paso&gt;</em></span>]<strong><code>)</code></strong></div>
+<p>donde <span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> son números enteros.</p>
+<ul>
+<li><p>Si se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, su valor por defecto es 0.</p></li>
+<li><p>Si se omite <span style="color:teal"><em>&lt;paso&gt;</em></span>, su valor por defecto es 1.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>El contenido de un rango <span class="math inline">r</span> vendrá determinado por la fórmula <span class="math inline">r[i] = inicio + fin \cdot i</span>, donde <span class="math inline">i \geq 0</span>. Además:</p>
+<ul>
+<li><p>Si el paso es positivo, se impone también la restricción <span class="math inline">r[i] &lt; fin</span>.</p></li>
+<li><p>Si el paso es negativo, se impone también la restricción <span class="math inline">r[i] &gt; fin</span>.</p></li>
+</ul></li>
+<li><p>Un rango es vacío cuando <span class="math inline">r[0]</span> no satisface las restricciones anteriores.</p></li>
+<li><p>Los rangos admiten índices negativos, pero se interpretan como si se indexara desde el final de la secuencia usando índices positivos.</p></li>
+<li><p>Los rangos implementan todas las operaciones de las secuencias, <em>excepto</em> la concatenación y la repetición.</p>
+<p>Esto es debido a que los rangos sólo pueden representar secuencias que siguen un patrón muy estricto, y las repeticiones y las concatenaciones a menudo violan ese patrón.</p></li>
+<li><p>Los rangos ocupan mucha menos memoria que las listas o las tuplas.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Ejemplos:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb1-2" title="2">[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</a>
+<a class="sourceLine" id="cb1-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb1-6" title="6">[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1-8" title="8">[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb1-10" title="10">[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1-12" title="12">[]</a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1-14" title="14">[]</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Dos rangos son considerados iguales si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> o <span style="color:teal"><em>&lt;paso&gt;</em></span>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="va">True</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="va">True</span></a></code></pre></div></li>
+</ul>
+</section><section id="mutables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Mutables</h2></section><section id="listas" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Listas</h3><ul>
+<li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para almacenar colecciones de elementos heterogéneos.</p></li>
+<li><p>Se pueden construir de varias maneras:</p>
+<ul>
+<li><p>Usando corchetes vacíos para representar la lista vacía: <code>[]</code></p></li>
+<li><p>Usando corchetes y separando los elementos con comas:</p>
+<p><code>[a]</code></p>
+<p><code>[a, b, c]</code></p></li>
+<li><p>Usando una lista por comprensión: <code>[</code><span class="math inline">x</span> <code>for</code> <span class="math inline">x</span> <code>in</code> <span style="color:teal"><em>&lt;iterable&gt;</em></span><code>]</code></p></li>
+<li><p>Usando la función <code>list</code>: <code>list()</code> o <code>list(</code><span style="color:teal"><em>&lt;iterable&gt;</em></span><code>)</code></p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La función <code>list</code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal"><em>&lt;iterable&gt;</em></span>.</p></li>
+<li><p><span style="color:teal"><em>&lt;iterable&gt;</em></span> puede ser:</p>
+<ul>
+<li><p>una secuencia,</p></li>
+<li><p>un contenedor sobre el que se pueda iterar, o</p></li>
+<li><p>un iterador.</p></li>
+</ul></li>
+<li><p>Si se llama sin argumentos, devuelve una lista vacía.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;abc&#39;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>( (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb3-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
 <li>En la siguiente tabla, <code>s</code> es una instancia de un tipo de secuencia mutable (en nuestro caso, una lista), <code>t</code> es cualquier dato iterable y <code>x</code> es un dato cualquiera que cumple con las restricciones que impone <code>s</code>:</li>
 </ul>
 <p><br> </p>
@@ -328,7 +474,8 @@
 <td style="text-align: left;">Elimina de la secuencia los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 </tr>
 </tbody>
-</table></section><section class="slide level4">
+</table>
+</section><section class="slide level4">
 
 <table>
 <colgroup>
@@ -388,8 +535,212 @@
 </tr>
 </tbody>
 </table>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las listas, además, admiten el método <code>sort()</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="op">&gt;&gt;&gt;</span> x.sort()</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb4-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb4-7" title="7">[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div></li>
+</ul>
 </section></section>
-<section><section id="estructuras-no-secuenciales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras no secuenciales</h1></section><section id="conjuntos-set-y-frozenset" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2></section><section id="diccionarios-dict" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Diccionarios (<code>dict</code>)</h2></section><section id="hashables" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> <em>Hashables</em></h3></section></section>
+<section><section id="estructuras-no-secuenciales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras no secuenciales</h1></section><section id="conjuntos-set-y-frozenset" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2><ul>
+<li><p>Un conjunto es una colección no ordenada de elementos <em>hashables</em>. Se usan frecuentemente para comprobar si un elemento pertenece a un grupo, para eliminar duplicados en una secuencia y para realizar operaciones matemáticas como la unión, la intersección y la diferencia simétrica.</p></li>
+<li><p>Como cualquier otra colección, los conjuntos permiten el uso de:</p>
+<ul>
+<li><span class="math inline">x</span> <code>in</code> <span class="math inline">c</span></li>
+<li><code>len(</code><span class="math inline">c</span><code>)</code></li>
+<li><code>for</code> <span class="math inline">x</span> <code>in</code> <span class="math inline">c</span></li>
+</ul></li>
+<li><p>Como son colecciones no ordenadas, los conjuntos no almacenan la posición de los elementos o el orden en el que se insertaron.</p></li>
+<li><p>Además, tampoco admite la indexación, las rodajas ni cualquier otro comportamiento propio de las secuencias.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
+<li><p>El tipo <code>set</code> es mutable, es decir, que su contenido puede cambiar usando métodos como <code>add()</code> y <code>remove()</code>.</p>
+<ul>
+<li>Como es mutable, no tiene valor <em>hash</em> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
+</ul></li>
+<li><p>El tipo <code>frozenset</code> es inmutable y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
+<li><p>Los conjuntos se crean con las funciones <code>set()</code> y <code>frozenset()</code>.</p></li>
+<li><p>Además, los conjuntos <code>set</code> no vacíos se pueden crear encerrando entre llaves una lista de elementos separados por comas: <code>{'pepe', 'juan'}</code>.</p></li>
+</ul>
+</section><section id="operaciones" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Operaciones</h3><ul>
+<li><code>s</code> y <code>o</code> son conjuntos, y <code>x</code> es un valor cualquiera:</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>len(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">Número de elementos de <span class="math inline">s</span> (su cardinalidad)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">x</span> <code>in</code> <span class="math inline">s</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> pertenece a <span class="math inline">s</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">x</span> <code>not</code> <code>in</code> <span class="math inline">s</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> no pertenece a <span class="math inline">s</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.isdisjoint(</code><span class="math inline">o</span><code>)</code></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> no tiene ningún elemento en común con <span class="math inline">o</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.issubset(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>&lt;=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un subconjunto de <span class="math inline">o</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span> <code>&lt;</code> <span class="math inline">o</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un subconjunto propio de <span class="math inline">o</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.isuperset(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>&gt;=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un superconjunto de <span class="math inline">o</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span> <code>&lt;</code> <span class="math inline">o</span></td>
+<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un superconjunto propio de <span class="math inline">o</span></td>
+</tr>
+</tbody>
+</table></section><section class="slide level4">
+
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.union(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> | <span class="math inline">o</span></td>
+<td style="text-align: left;">Unión de <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \cup o</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.intersection(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> &amp; <span class="math inline">o</span></td>
+<td style="text-align: left;">Intersección de <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \cap o</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.difference(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> - <span class="math inline">o</span></td>
+<td style="text-align: left;">Diferencia entre <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \setminus o</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.symmetric_difference(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> ^ <span class="math inline">o</span></td>
+<td style="text-align: left;">Diferencia simétrica entre <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \triangle o</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.copy()</code></td>
+<td style="text-align: left;">Devuelve una copia superficial de <span class="math inline">s</span></td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Tanto <code>set</code> como <code>frozenset</code> admiten comparaciones entre conjuntos.</p></li>
+<li><p>Dos conjuntos son iguales si y sólo si cada elemento de un conjunto pertenece también al otro conjunto, y viceversa; es decir, si cada uno es un subconjunto del otro.</p></li>
+<li><p>Un conjunto es menor que otro si y sólo si el primer conjunto está contenido en el otro; es decir, si el primero es un subconjunto propio del segundo (es un subconjunto, pero no es igual).</p></li>
+<li><p>Un conjunto es mayor que otro si y sólo si el primero es un superconjunto propio del segundo (es un superconjunto, pero no es igual).</p></li>
+</ul>
+</section><section id="operaciones-sobre-conjuntos-mutables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Operaciones sobre conjuntos mutables</h3><ul>
+<li>Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo <code>set</code> y no al <code>frozenset</code>):</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.update(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> |= <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">s</span> añadiendo los elementos de <span class="math inline">o</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.intersection_update(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> &amp;= <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">s</span> manteniendo sólo los elementos que están en <span class="math inline">s</span> y <span class="math inline">o</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.difference_update(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> -= <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">s</span> eliminando los elementos que están en <span class="math inline">o</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.symmetric_difference_update(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> ^= <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">s</span> manteniendo sólo los elementos que están en <span class="math inline">s</span> y <span class="math inline">o</span> pero no en ambos</td>
+</tr>
+</tbody>
+</table></section><section class="slide level4">
+
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.add(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Añade <span class="math inline">x</span> a <span class="math inline">s</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.remove(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Elimina <span class="math inline">x</span> de <span class="math inline">s</span> (devuelve <code>KeyError</code> si <span class="math inline">x</span> no está en <span class="math inline">s</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.discard(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Elimina <span class="math inline">x</span> de <span class="math inline">s</span> si está en <span class="math inline">s</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code>.pop()</code></td>
+<td style="text-align: left;">Elimina y devuelve un valor cualquiera de <span class="math inline">s</span> (devuelve <code>KeyError</code> si <span class="math inline">s</span> está vacío)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code>.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">s</span></td>
+</tr>
+</tbody>
+</table>
+</section><section id="diccionarios-dict" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Diccionarios (<code>dict</code>)</h2></section><section id="hashables" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> <em>Hashables</em></h3></section></section>
 <section><section id="iterables" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Iterables</h1></section><section id="iteradores" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Iteradores</h2></section></section>
     </div>
   </div>
