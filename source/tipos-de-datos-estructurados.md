@@ -27,6 +27,39 @@ author: Ricardo Pérez López
   - Usaremos **estructura de datos** cuando nos interesen esos detalles
     internos.
 
+## *Hashables*
+
+- Un valor es *hashable* si cumple las siguientes dos condiciones:
+
+  - Tiene asociado un valor *hash* que nunca cambia durante su vida.
+
+    Para ello debe responder al método `__hash__()`, que es el que se invoca
+    cuando se usa la función `hash()` sobre el valor.
+
+  - Puede compararse con otros valores para ver si es igual a alguno de ellos.
+
+    Para ello debe responder al método `__eq__()`, que es el que se invoca
+    cuando se usa el operador `==` con ese valor como su primer argumento.
+
+- Si dos valores *hashables* son iguales, entonces deben tener el mismo valor
+  de *hash*.
+
+---
+
+- La mayoría de los valores inmutables predefinidos en Python son *hashables*.
+
+- Los contenedores mutables (como las listas o los diccionarios) **no** son
+  *hashables*.
+
+- Los contenedores inmutables (como las tuplas o los `frozenset`s) sólo son
+  *hashables* si sus elementos también lo son.
+
+- El concepto de *hashable* es importante en Python ya que existen tipos de
+  datos estructurados que sólo admiten valores *hashables*.
+
+- Por ejemplo, los elementos de un conjunto y las claves de un diccionario
+  deben ser *hashables*.
+
 # Secuencias
 
 ## Concepto de secuencia
@@ -471,11 +504,11 @@ Operación             Resultado
 --------------------- ------------------------------------------------------------
 $s$`.add(`$x$`)`      Añade $x$ a $s$
 
-$s$`.remove(`$x$`)`   Elimina $x$ de $s$ (devuelve `KeyError` si $x$ no está en $s$)
+$s$`.remove(`$x$`)`   Elimina $x$ de $s$ (produce `KeyError` si $x$ no está en $s$)
 
 $s$`.discard(`$x$`)`  Elimina $x$ de $s$ si está en $s$
 
-$s$`.pop()`           Elimina y devuelve un valor cualquiera de $s$ (devuelve
+$s$`.pop()`           Elimina y devuelve un valor cualquiera de $s$ (produce
                       `KeyError` si $s$ está vacío)
 
 $s$`.clear()`         Elimina todos los elementos de $s$
@@ -483,7 +516,87 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 
 ## Diccionarios (`dict`)
 
-### *Hashables*
+- Un **diccionario** es un dato que almacena *correspondencias* (o
+  asociaciones) entre valores.
+
+- Tales correspondencias son datos mutables.
+
+- Los diccionarios se pueden crear:
+
+  - Encerrando entre llaves una lista de pares !NT(clave)!T(:)!NT(valor)
+    separados por comas: `{'juan': 4098, 'pepe': 4127}`
+
+  - Usando la función `dict()`.
+
+---
+
+- Las claves de un diccionario pueden ser *casi* cualquier valor.
+
+- No se pueden usar como claves los valores que no sean *hashables*, es decir,
+  los que contengan listas, diccionarios o cualquier otro tipo mutable.
+
+- Los tipos numéricos que se usen como claves obedecen las reglas normales de
+  comparación numérica.
+
+  - Por tanto, si dos números son considerados iguales (como `1` y `1.0`)
+    entonces se consideran la misma clave en el diccionario.
+
+---
+
+- Los diccionarios se pueden crear usando la función `dict()`. Por ejemplo:
+
+  ```python
+  >>> a = dict(one=1, two=2, three=3)
+  >>> b = {'one': 1, 'two': 2, 'three': 3}
+  >>> c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+  >>> d = dict([('two', 2), ('one', 1), ('three', 3)])
+  >>> e = dict({'three': 3, 'one': 1, 'two': 2})
+  >>> a == b == c == d == e
+  True
+  ```
+
+### Operaciones
+
+- `d` y `o` son diccionarios, `c` es una clave válida y `v` es un valor
+  cualquiera:
+
+------------------------------------------------------------------------------------------------
+Operación                   Resultado
+--------------------------- --------------------------------------------------------------------
+$d$`[`$c$`]` `=` $v$        Asigna a $d$`[`$c$`]` el valor $v$
+
+`del` $d$`[`$c$`]`          Elimina $d$`[`$c$`]` de $d$ (produce `KeyError` si $c$ no está en $d$)
+
+$c$ `in` $d$                `True` si $d$ contiene una clave $c$
+
+$c$ `not` `in` $d$          `True` si $d$ no contiene una clave $c$
+
+$d$`.clear()`               Elimina todos los elementos del diccionario
+
+$d$`.copy()`                Devuelve una copia superficial del diccionario
+
+$d$`.get(`$c$[`,`$def$]`)`  Devuelve el valor de $c$ si $c$ está en $d$; en caso contrario,
+                            devuelve $def$ (por defecto, $def$ vale `None`)
+                      
+$d$`.pop(`$c$[`,`$def$]`)`  Elimina y devuelve el valor de $c$ si $c$ está en $d$; en
+                            caso contrario, devuelve $def$ (si no se pasa $def$ y $c$ no está en $d$,
+                            produce un `KeyError`)
+---------------------------------------------------------------------------------------------
+
+---
+
+--------------------------------------------------------------------------------------
+Operación                           Resultado
+----------------------------------- --------------------------------------------------
+$d$`.popitem()`                     Elimina y devuelve una pareja ($clave$, $valor$) del diccionario
+                                    siguiendo un orden LIFO (produce un `KeyError` si $d$ está vacío)
+
+$d$`.setdefault(`$c$[`,`$def$]`)`   Si $c$ está en $d$, devuelve su valor; si no, inserta $c$ en $d$ con
+                                    el valor $def$ y devuelve $def$ (por defecto, $def$ vale `None`)
+
+$d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $valor$) de $o$,
+                                    sobreescribiendo las claves ya existentes, y devuelve `None`
+--------------------------------------------------------------------------------------
 
 # Iterables
 
