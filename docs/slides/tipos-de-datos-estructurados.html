@@ -445,7 +445,7 @@ while not fin:<br />
 </ul></section><section id="formateado-de-cadenas" class="slide level4">
 <h4><span class="header-section-number">2.3.1.1</span> Formateado de cadenas</h4>
 <ul>
-<li><p>Una <strong>cadena formateada</strong>, también llamada <strong><em>f-string</em></strong>, es una cadena literal que lleva un prefijo <code>f</code> o <code>F</code>.</p></li>
+<li><p>Una <strong>cadena formateada</strong> (también llamada <strong><em>f-string</em></strong>) es una cadena literal que lleva un prefijo <code>f</code> o <code>F</code>.</p></li>
 <li><p>Estas cadenas contienen <strong>campos de sustitución</strong>, que son expresiones encerradas entre llaves.</p></li>
 <li><p>En realidad, las cadenas formateadas son expresiones evaluadas en tiempo de ejecución.</p></li>
 </ul>
@@ -453,15 +453,15 @@ while not fin:<br />
 
 <ul>
 <li><p>Sintaxis:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;f-string&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>{{</code></strong> | <strong><code>}}</code></strong> | <span style="color:teal"><em>&lt;campo_sustitución&gt;</em></span>)*<br />
-<span style="color:teal"><em>&lt;campo_sustitución&gt;</em></span> ::= <strong><code>{</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> [<strong><code>!</code></strong><span style="color:teal"><em>&lt;conversión&gt;</em></span>] [<strong><code>:</code></strong><span style="color:teal"><em>&lt;espec_formato&gt;</em></span>]<strong><code>}</code></strong><br />
+<div class="line-block"><span style="color:teal"><em>&lt;f_string&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>{{</code></strong> | <strong><code>}}</code></strong> | <span style="color:teal"><em>&lt;sustitución&gt;</em></span>)*<br />
+<span style="color:teal"><em>&lt;sustitución&gt;</em></span> ::= <strong><code>{</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> [<strong><code>!</code></strong><span style="color:teal"><em>&lt;conversión&gt;</em></span>] [<strong><code>:</code></strong><span style="color:teal"><em>&lt;especif&gt;</em></span>]<strong><code>}</code></strong><br />
 <span style="color:teal"><em>&lt;conversión&gt;</em></span> ::= <strong><code>s</code></strong> | <strong><code>r</code></strong> | <strong><code>a</code></strong><br />
-<span style="color:teal"><em>&lt;espec_formato&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>NULL</code></strong> | <span style="color:teal"><em>&lt;campo_sustitución&gt;</em></span>)*<br />
-<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> ::= &lt;cualquier code point excepto <strong><code>{</code></strong>, <strong><code>}</code></strong> o NULL&gt;</div></li>
+<span style="color:teal"><em>&lt;especif&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>NULL</code></strong> | <span style="color:teal"><em>&lt;sustitución&gt;</em></span>)*<br />
+<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> ::= <span style="color:teal"><em>&lt;cualquier code point excepto <strong><code>{</code></strong>, <strong><code>}</code></strong> o <strong><code>NULL</code></strong>&gt;</em></span></div></li>
 <li><p>Las partes de la cadena que van fuera de las llaves se tratan literalmente, excepto las dobles llaves <code>{{</code> y <code>}}</code>, que son sustituidas por una sola llave.</p></li>
-<li><p>Una <code>{</code> marca el comienzo de un campo de sustitución, que empieza con una expresión.</p></li>
-<li><p>Tras la expresión puede venir un campo de conversión, introducida por una exclamación <code>!</code>.</p></li>
-<li><p>También puede añadirse un especificador de formato introducido por dos puntos <code>:</code>.</p></li>
+<li><p>Una <code>{</code> marca el comienzo de un <strong>campo de sustitución</strong> (<span style="color:teal"><em>&lt;sustitución&gt;</em></span>), que empieza con una expresión.</p></li>
+<li><p>Tras la expresión puede venir un <strong>conversión</strong> (<span style="color:teal"><em>&lt;conversión&gt;</em></span>), introducida por una exclamación <code>!</code>.</p></li>
+<li><p>También puede añadirse un <strong>especificador de formato</strong> (<span style="color:teal"><em>&lt;especif&gt;</em></span>) después de dos puntos <code>:</code>.</p></li>
 <li><p>El campo de sustitución termina con una <code>}</code>.</p></li>
 </ul>
 </section><section class="slide level4">
@@ -473,34 +473,79 @@ while not fin:<br />
 <li><p>Las expresiones lambda deben ir entre paréntesis.</p></li>
 </ul></li>
 <li><p>Los campos de sustitución pueden contener saltos de línea pero no comentarios.</p></li>
-<li><p>Si se indica una conversión, el resultado de evaluar la expresión se convierte antes de aplicar el formateado.</p></li>
-<li><p>La conversión <code>!s</code> llama a <code>str()</code> sobre el resultado, <code>!r</code> llama a <code>repr()</code> y <code>!a</code> llama a <code>ascii()</code>.</p></li>
+<li><p>Si se indica una conversión, el resultado de evaluar la expresión se convierte antes de aplicar el formateado.</p>
+<p>La conversión <code>!s</code> llama a <code>str()</code> sobre el resultado, <code>!r</code> llama a <code>repr()</code> y <code>!a</code> llama a <code>ascii()</code>.</p></li>
 <li><p>A continuación, el resultado es formateado usando <code>format()</code>.</p></li>
 <li><p>Finalmente, el resultado del formateado es incluido en el valor final de la cadena completa.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
+<li>La sintaxis general de un especificador de formato es:</li>
+</ul>
+
+<div class="line-block"><span style="color:teal"><em>&lt;especif&gt;</em></span> ::= [[<span style="color:teal"><em>&lt;relleno&gt;</em></span>]<span style="color:teal"><em>&lt;alig&gt;</em></span>][<span style="color:teal"><em>&lt;signo&gt;</em></span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span style="color:teal"><em>&lt;ancho&gt;</em></span>][<span style="color:teal"><em>&lt;grupos&gt;</em></span>][<strong><code>.</code></strong><span style="color:teal"><em>&lt;precision&gt;</em></span>][<span style="color:teal"><em>&lt;tipo&gt;</em></span>]<br />
+<span style="color:teal"><em>&lt;relleno&gt;</em></span> ::= <span style="color:teal"><em>&lt;cualquier carácter&gt;</em></span><br />
+<span style="color:teal"><em>&lt;alig&gt;</em></span> ::= <strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong> | <strong><code>=</code></strong> | <strong><code>^</code></strong><br />
+<span style="color:teal"><em>&lt;signo&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <span style="color:teal"><em>&lt;espacio&gt;</em></span><br />
+<span style="color:teal"><em>&lt;ancho&gt;</em></span> ::= <span style="color:teal"><em>&lt;dígito&gt;</em></span>+<br />
+<span style="color:teal"><em>&lt;grupos&gt;</em></span> ::= <strong><code>_</code></strong> | <strong><code>,</code></strong><br />
+<span style="color:teal"><em>&lt;precision&gt;</em></span> ::= <span style="color:teal"><em>&lt;dígito&gt;</em></span>+<br />
+<span style="color:teal"><em>&lt;tipo&gt;</em></span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div>
+
+<ul>
+<li><p>Los especificadores de formato de nivel superior pueden incluir campos de sustitución anidados.</p></li>
+<li><p>Estos campos anidados pueden incluir, a su vez, sus propios campos de conversión y sus propios especificadores de formato, pero no pueden incluir más campos de sustitución anidados.</p></li>
+<li><p>Para más información, consultar <a href="https://docs.python.org/3.7/library/string.html#format-specification-mini-language">https://docs.python.org/3.7/library/string.html#format-specification-mini-language</a></p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
 <li><p>Algunos ejemplos de cadenas formateadas:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> name <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>name<span class="sc">!r}</span><span class="ss">.&quot;</span></a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>nombre<span class="sc">!r}</span><span class="ss">.&quot;</span></a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(name)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr() es equivalente a !r</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr() es equivalente a !r</span></a>
 <a class="sourceLine" id="cb4-5" title="5"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="op">&gt;&gt;&gt;</span> width <span class="op">=</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="op">&gt;&gt;&gt;</span> ancho <span class="op">=</span> <span class="dv">10</span></a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="op">&gt;&gt;&gt;</span> precision <span class="op">=</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb4-8" title="8"><span class="op">&gt;&gt;&gt;</span> value <span class="op">=</span> decimal.Decimal(<span class="st">&quot;12.34567&quot;</span>)</a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;result: </span><span class="sc">{</span>value<span class="sc">:</span>{width}<span class="sc">.</span>{precision}<span class="sc">}</span><span class="ss">&quot;</span>  <span class="co"># campos anidados</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;result: </span><span class="sc">{</span>value<span class="sc">:</span>{ancho}<span class="sc">.</span>{precision}<span class="sc">}</span><span class="ss">&quot;</span>  <span class="co"># campos anidados</span></a>
 <a class="sourceLine" id="cb4-10" title="10"><span class="co">&#39;result:      12.35&#39;</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="op">&gt;&gt;&gt;</span> today <span class="op">=</span> datetime(year<span class="op">=</span><span class="dv">2017</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">27</span>)</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>today<span class="sc">:</span><span class="op">%</span><span class="sc">B</span> <span class="op">%</span><span class="sc">d,</span> <span class="op">%</span><span class="sc">Y}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de fecha</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">&#39;January 27, 2017&#39;</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="op">&gt;&gt;&gt;</span> number <span class="op">=</span> <span class="dv">1024</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>number<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">&#39;0x400&#39;</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb4-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> datetime</a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="op">&gt;&gt;&gt;</span> hoy <span class="op">=</span> datetime.datetime(year<span class="op">=</span><span class="dv">2017</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">27</span>)</a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>hoy<span class="sc">:</span><span class="op">%</span><span class="sc">B</span> <span class="op">%</span><span class="sc">d,</span> <span class="op">%</span><span class="sc">Y}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de fecha</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">&#39;January 27, 2017&#39;</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="op">&gt;&gt;&gt;</span> numero <span class="op">=</span> <span class="dv">1024</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>numero<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">&#39;0x400&#39;</span></a></code></pre></div></li>
 </ul>
 </section><section id="expresiones-regulares" class="slide level4">
-<h4><span class="header-section-number">2.3.1.5</span> Expresiones regulares</h4>
+<h4><span class="header-section-number">2.3.1.6</span> Expresiones regulares</h4>
+<ul>
+<li><p>Las <strong>expresiones regulares</strong> (también llamados <em>regex</em>) son, esencialmente, un pequeño lenguaje de programación muy especializado incrustado dentro de Python y disponible a través del módulo <code>re</code>.</p></li>
+<li><p>Usando este pequeño lenguaje es posible especificar reglas para comprobar si una cadena se ajusta a un patrón.</p></li>
+<li><p>Este patrón puede ser frases en español, o direcciones de correo electrónico o cualquier otra cosa.</p></li>
+<li><p>A continuación, se pueden hacer preguntas del tipo: <em>«¿Esta cadena se ajusta al patrón?»</em> o <em>«¿Hay algo que se ajuste al patrón en alguna parte de esta cadena?»</em>.</p></li>
+<li><p>También se pueden usar las <em>regexes</em> para modificar una cadena o dividirla en partes.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>El lenguaje de las expresiones regulares es relativamente pequeño y restringido, por lo que no es posible usarlo para realizar cualquier tipo de procesamiento de cadenas.</p></li>
+<li><p>Además, hay procesamientos que se pueden realizar con <em>regexes</em> pero las expresiones que resultan se vuelven muy complicadas.</p></li>
+<li><p>En estos casos, es mejor escribir directamente código Python.</p></li>
+<li><p>Aunque el código resultante pueda resultar más lento, probablemente resulte más fácil de leer.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Para más información sobre cómo crear y usar expresiones regulares, consultar:</p>
+<ul>
+<li><p>Tutorial de introducción en <a href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p></li>
+<li><p>Documentación del módulo <code>re</code> en <a href="https://docs.python.org/3/library/re.html">https://docs.python.org/3/library/re.html</a></p></li>
+</ul></li>
+</ul>
 </section><section id="tuplas" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Tuplas</h3><ul>
 <li><p>Las tuplas son secuencias inmutables, usadas frecuentemente para almacenar colecciones de datos heterogéneos (de tipos distintos).</p></li>
 <li><p>También se usan en aquellos casos en los que se necesita una secuencia inmutable de datos homogéneos (por ejemplo, para almacenar datos en un conjunto o un diccionario).</p></li>

@@ -291,7 +291,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 #### Formateado de cadenas
 
-- Una **cadena formateada**, también llamada **_f-string_**, es una cadena
+- Una **cadena formateada** (también llamada **_f-string_**) es una cadena
   literal que lleva un prefijo `f` o `F`.
 
 - Estas cadenas contienen **campos de sustitución**, que son expresiones
@@ -306,25 +306,25 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(f-string) ::= (!NT(carácter_literal) | !T({{) | !T(}}) | !NT{campo_sustitución})\*
-!NT(campo_sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(espec_formato)]!T(})
+  !NT(f_string) ::= (!NT(carácter_literal) | !T({{) | !T(}}) | !NT{sustitución})\*
+!NT(sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(especif)]!T(})
 !NT(conversión) ::= !T(s) | !T(r) | !T(a)
-!NT(espec_formato) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{campo_sustitución})\*
-!NT(carácter_literal) ::= <cualquier code point excepto !T({), !T(}) o NULL>
+!NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
+!NT(carácter_literal) ::= !NT(cualquier code point excepto !T({), !T(}) o !T{NULL})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las partes de la cadena que van fuera de las llaves se tratan literalmente,
   excepto las dobles llaves `{{` y `}}`, que son sustituidas por una sola
   llave.
 
-- Una `{` marca el comienzo de un campo de sustitución, que empieza con una
-  expresión.
+- Una `{` marca el comienzo de un **campo de sustitución** (!NT{sustitución}),
+  que empieza con una expresión.
 
-- Tras la expresión puede venir un campo de conversión, introducida por una
-  exclamación `!`.
+- Tras la expresión puede venir un **conversión** (!NT{conversión}),
+  introducida por una exclamación `!`.
 
-- También puede añadirse un especificador de formato introducido por dos puntos
-  `:`.
+- También puede añadirse un **especificador de formato** (!NT{especif}) después
+  de dos puntos `:`.
 
 - El campo de sustitución termina con una `}`.
 
@@ -344,7 +344,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - Si se indica una conversión, el resultado de evaluar la expresión se
   convierte antes de aplicar el formateado.
 
-- La conversión `!s` llama a `str()` sobre el resultado, `!r` llama a `repr()`
+  La conversión `!s` llama a `str()` sobre el resultado, `!r` llama a `repr()`
   y `!a` llama a `ascii()`.
 
 - A continuación, el resultado es formateado usando `format()`.
@@ -354,28 +354,94 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ---
 
+- La sintaxis general de un especificador de formato es:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
+!NT(relleno) ::= !NT(cualquier carácter)
+!NT(alig) ::= !T(<) | !T(>) | !T(=) | !T(^)
+!NT(signo) ::=  !T(+) | !T(-) | !NT(espacio)
+!NT(ancho) ::= !NT(dígito)+
+!NT(grupos) ::= !T(_)(_) | !T(,)
+!NT(precision) ::= !NT(dígito)+
+!NT(tipo) ::= !T(b) | !T(c) | !T(d) | !T(e) | !T(E) | !T(f) | !T(F) | !T(g) | !T(G) | !T(n) | !T(o) | !T(s) | !T(x) | !T(X) | !T(%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los especificadores de formato de nivel superior pueden incluir campos de
+  sustitución anidados.
+
+- Estos campos anidados pueden incluir, a su vez, sus propios campos de
+  conversión y sus propios especificadores de formato, pero no pueden incluir
+  más campos de sustitución anidados.
+
+- Para más información, consultar [https://docs.python.org/3.7/library/string.html#format-specification-mini-language](https://docs.python.org/3.7/library/string.html#format-specification-mini-language)
+
+---
+
 - Algunos ejemplos de cadenas formateadas:
 
   ```python
-  >>> name = "Fred"
-  >>> f"Dice que su nombre es {name!r}."
+  >>> nombre = "Fred"
+  >>> f"Dice que su nombre es {nombre!r}."
   "Dice que su nombre es 'Fred'."
-  >>> f"Dice que su nombre es {repr(name)}."  # repr() es equivalente a !r
+  >>> f"Dice que su nombre es {repr(nombre)}."  # repr() es equivalente a !r
   "Dice que su nombre es 'Fred'."
-  >>> width = 10
+  >>> ancho = 10
   >>> precision = 4
   >>> value = decimal.Decimal("12.34567")
-  >>> f"result: {value:{width}.{precision}}"  # campos anidados
+  >>> f"result: {value:{ancho}.{precision}}"  # campos anidados
   'result:      12.35'
-  >>> today = datetime(year=2017, month=1, day=27)
-  >>> f"{today:%B %d, %Y}"  # usando especificador de formato de fecha
+  >>> import datetime
+  >>> hoy = datetime.datetime(year=2017, month=1, day=27)
+  >>> f"{hoy:%B %d, %Y}"  # usando especificador de formato de fecha
   'January 27, 2017'
-  >>> number = 1024
-  >>> f"{number:#0x}"  # usando especificador de formato de enteros
+  >>> numero = 1024
+  >>> f"{numero:#0x}"  # usando especificador de formato de enteros
   '0x400'
   ```
 
 #### Expresiones regulares
+
+- Las **expresiones regulares** (también llamados *regex*) son, esencialmente,
+  un pequeño lenguaje de programación muy especializado incrustado dentro de
+  Python y disponible a través del módulo `re`.
+
+- Usando este pequeño lenguaje es posible especificar reglas para comprobar si
+  una cadena se ajusta a un patrón.
+
+- Este patrón puede ser frases en español, o direcciones de correo electrónico
+  o cualquier otra cosa.
+
+- A continuación, se pueden hacer preguntas del tipo: *«¿Esta cadena se ajusta
+  al patrón?»* o *«¿Hay algo que se ajuste al patrón en alguna parte de esta
+  cadena?»*.
+
+- También se pueden usar las *regexes* para modificar una cadena o dividirla en
+  partes.
+
+---
+
+- El lenguaje de las expresiones regulares es relativamente pequeño y
+  restringido, por lo que no es posible usarlo para realizar cualquier tipo de
+  procesamiento de cadenas.
+
+- Además, hay procesamientos que se pueden realizar con *regexes* pero las
+  expresiones que resultan se vuelven muy complicadas.
+
+- En estos casos, es mejor escribir directamente código Python.
+
+- Aunque el código resultante pueda resultar más lento, probablemente resulte
+  más fácil de leer.
+
+---
+
+- Para más información sobre cómo crear y usar expresiones regulares,
+  consultar:
+
+  - Tutorial de introducción en [https://docs.python.org/3/howto/regex.html](https://docs.python.org/3/howto/regex.html)
+
+  - Documentación del módulo `re` en [https://docs.python.org/3/library/re.html](https://docs.python.org/3/library/re.html)
 
 ### Tuplas
 

@@ -1942,8 +1942,8 @@ pila:f3 -> n2 [lhead = cluster3]
 - ¿Y elevar a la cuarta potencia?
 
   ```python
-  elevar_cubo = lambda l: [] if l == [] else \
-                          [(lambda x: x ** 4)(l[0])] + elevar_cubo(l[1:])
+  elevar_cuarta = lambda l: [] if l == [] else \
+                            [(lambda x: x ** 4)(l[0])] + elevar_cuarta(l[1:])
   ```
 
 - Es evidente que hay un patrón subyacente que se podría abstraer creando una
