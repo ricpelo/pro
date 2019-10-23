@@ -289,10 +289,91 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   los métodos que se pueden consultar en
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
+#### Formateado de cadenas
 
-#### Funciones
+- Una **cadena formateada**, también llamada **_f-string_**, es una cadena
+  literal que lleva un prefijo `f` o `F`.
 
-#### Métodos
+- Estas cadenas contienen **campos de sustitución**, que son expresiones
+  encerradas entre llaves.
+
+- En realidad, las cadenas formateadas son expresiones evaluadas en tiempo de
+  ejecución.
+
+---
+
+- Sintaxis:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(f-string) ::= (!NT(carácter_literal) | !T({{) | !T(}}) | !NT{campo_sustitución})\*
+!NT(campo_sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(espec_formato)]!T(})
+!NT(conversión) ::= !T(s) | !T(r) | !T(a)
+!NT(espec_formato) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{campo_sustitución})\*
+!NT(carácter_literal) ::= <cualquier code point excepto !T({), !T(}) o NULL>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Las partes de la cadena que van fuera de las llaves se tratan literalmente,
+  excepto las dobles llaves `{{` y `}}`, que son sustituidas por una sola
+  llave.
+
+- Una `{` marca el comienzo de un campo de sustitución, que empieza con una
+  expresión.
+
+- Tras la expresión puede venir un campo de conversión, introducida por una
+  exclamación `!`.
+
+- También puede añadirse un especificador de formato introducido por dos puntos
+  `:`.
+
+- El campo de sustitución termina con una `}`.
+
+---
+
+- Las expresiones en un literal de cadena formateada son tratadas como
+  cualquier otra expresión Python encerrada entre paréntesis, con algunas
+  excepciones:
+
+  - No se permiten expresiones vacías.
+
+  - Las expresiones lambda deben ir entre paréntesis.
+
+- Los campos de sustitución pueden contener saltos de línea pero no
+  comentarios.
+
+- Si se indica una conversión, el resultado de evaluar la expresión se
+  convierte antes de aplicar el formateado.
+
+- La conversión `!s` llama a `str()` sobre el resultado, `!r` llama a `repr()`
+  y `!a` llama a `ascii()`.
+
+- A continuación, el resultado es formateado usando `format()`.
+
+- Finalmente, el resultado del formateado es incluido en el valor final de la
+  cadena completa.
+
+---
+
+- Algunos ejemplos de cadenas formateadas:
+
+  ```python
+  >>> name = "Fred"
+  >>> f"Dice que su nombre es {name!r}."
+  "Dice que su nombre es 'Fred'."
+  >>> f"Dice que su nombre es {repr(name)}."  # repr() es equivalente a !r
+  "Dice que su nombre es 'Fred'."
+  >>> width = 10
+  >>> precision = 4
+  >>> value = decimal.Decimal("12.34567")
+  >>> f"result: {value:{width}.{precision}}"  # campos anidados
+  'result:      12.35'
+  >>> today = datetime(year=2017, month=1, day=27)
+  >>> f"{today:%B %d, %Y}"  # usando especificador de formato de fecha
+  'January 27, 2017'
+  >>> number = 1024
+  >>> f"{number:#0x}"  # usando especificador de formato de enteros
+  '0x400'
+  ```
 
 #### Expresiones regulares
 
