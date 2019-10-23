@@ -1692,7 +1692,7 @@ pila:f3 -> n2 [lhead = cluster3]
 
 ---
 
-- Junto a las operaciones `l[0]` (primer elemento) y `c[1:]` (resto de la
+- Junto a las operaciones `l[0]` (primer elemento) y `l[1:]` (resto de la
   lista), tenemos también la operación `+` (**concatenación**), al igual que
   ocurre con las cadenas.
 
@@ -1713,14 +1713,14 @@ pila:f3 -> n2 [lhead = cluster3]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(salto)]!T{)}
+  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(paso)]!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !NT(inicio), !NT(fin) y !NT(salto) deben ser números enteros.
+- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.
 - Cuando se omite !NT(inicio), se entiende que es `0`.
 - El valor de !NT(fin) no se alcanza nunca.
 - Cuando !NT(inicio) y !NT(fin) son iguales, representa el *rango vacío*.
-- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(salto) debería ser negativo.
+- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.
   En caso contrario, también representaría el rango vacío.
 
 ---

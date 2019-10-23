@@ -181,7 +181,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ### Rangos
 
-- Los **rangos** representan secuencias inmutables de números y se usan
+- Los **rangos** representan secuencias inmutables de números enteros y se usan
   frecuentemente para hacer bucles que se repitan un determinado número de
   veces.
 
@@ -189,15 +189,15 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(rangos) ::= !T{range(}!NT(fin)!T{)}
-                  | !T{range(}!NT(inicio)!T(,) !NT(fin)[!T(,) !NT(paso)]!T{)}
+  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(paso)]!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  donde !NT(inicio), !NT(fin) y !NT(paso) son números enteros.
-
-  - Si se omite !NT(inicio), su valor por defecto es 0.
-
-  - Si se omite !NT(paso), su valor por defecto es 1.
+- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.                                               
+- Cuando se omite !NT(inicio), se entiende que es `0`.                           
+- El valor de !NT(fin) no se alcanza nunca.                                      
+- Cuando !NT(inicio) y !NT(fin) son iguales, representa el *rango vacío*.        
+- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.   
+  En caso contrario, también representaría el rango vacío.                       
 
 ---
 
