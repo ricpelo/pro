@@ -2,11 +2,13 @@
 title: Tipos de datos estructurados
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @python_software_foundation_sitio_nodate
 ---
 
-# Introducción
+# Conceptos básicos
 
-## Conceptos
+## Introducción
 
 - Un **dato estructurado** o **dato compuesto** es un dato formado, a su vez,
   por otros datos llamados **componentes** o **elementos**.
@@ -59,6 +61,155 @@ author: Ricardo Pérez López
 
 - Por ejemplo, los elementos de un conjunto y las claves de un diccionario
   deben ser *hashables*.
+
+## Iterables
+
+- Un **iterable** es un dato compuesto que tiene la capacidad de devolver sus
+  elementos de uno en uno.
+
+- Como iterables tenemos:
+
+  - Todas las secuencias: listas, cadenas, tuplas, rangos...
+
+  - Estructuras no secuenciales: diccionarios, conjuntos...
+
+- Los iterables pueden usarse en un bucle `for` y en muchos otros lugares donde
+  se necesite una secuencia (funciones `zip()`, `map()`, etc.).
+
+- La forma manual de recorrer un dato iterable es usando un **iterador**.
+
+## Iteradores
+
+- Un **iterador** representa un flujo de datos.
+
+- Cuando se llama repetidamente a la función `next()` aplicada a un iterador,
+  se van obteniendo los sucesivos elementos del flujo.
+
+- Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo
+  `StopIteration`.
+
+  Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a
+  la función `next()` se seguirá levantando la excepción `StopIteration`.
+
+- Se puede obtener un iterador a partir de cualquier dato iterable usando la
+  función `iter()` con el iterable.
+
+- Si se le pasa un valor no iterable, levanta una excepción `TypeError`.
+
+---
+
+- Ejemplo:
+
+  ```python
+  >>> lista = [1, 2, 3, 4]
+  >>> it = iter(lista)
+  >>> next(it)
+  1
+  >>> next(it)
+  2
+  >>> next(it)
+  3
+  >>> next(it)
+  4
+  >>> next(it)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  StopIteration
+  ```
+
+---
+
+- Los iteradores se pueden convertir en listas o tuplas usando las funciones
+  `list()` y `tuple()`:
+
+  ```python
+  >>> l = [1, 2, 3]
+  >>> iterador = iter(l)
+  >>> t = tuple(iterador)
+  >>> t
+  (1, 2, 3)
+  ```
+
+---
+
+- Los iteradores también son iterables que actúan como sus propios iteradores.
+
+- Por tanto, cuando llamamos a `iter()` pasándole un iterador, se devuelve el
+  mismo iterador:
+
+  ```python
+  >>> lista = [1, 2, 3, 4]
+  >>> it = iter(lista)
+  >>> it
+  <list_iterator object at 0x7f3c49aa9080>
+  >>> it2 = iter(it)
+  >>> it2
+  <list_iterator object at 0x7f3c49aa9080>
+  ```
+
+- Por tanto, también podemos usar un iterador en cualquier sitio donde se
+  espere un iterable.
+
+## El bucle `for`
+
+- Probablemente, la mejor forma de recorrer los elementos que devuelve un
+  iterador es mediante un bucle `for`.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(for) !NT{variable}(!T{,} !NT{variable})\* !T(in) !NT(iterable)!T(:)
+      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  que equivale a:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  iterador = iter(!NT(iterable))
+fin = False
+while not fin:
+    try:
+        !NT{variable}(!T{,} !NT{variable})\* = next(iterador)
+    except StopIteration:
+        fin = True
+    else:
+        !NT(sentencia)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## El módulo `itertools`
+
+- El módulo `itertools` contiene una variedad de iteradores de uso frecuente
+  así como funciones que combinan varios iteradores.
+
+- Veremos algunos ejemplos.
+
+---
+
+- `itertools.count(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
+  infinito de valores separados uniformemente. Se puede indicar opcionalmente
+  un valor de comienzo (que por defecto es 0) y el intervalo entre números
+  (que por defecto es 1):
+
+  - `itertools.count()` $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
+  - `itertools.count(10)` $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+    ...
+  - `itertools.count(10, 5)` $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40, 45, ...
+
+- `itertools.cycle(`!NT(iterador)`)` devuelve un nuevo iterador que va
+  generando sus elementos del primero al último, repitiéndolos indefinidamente:
+
+  - `itertools.cycle([1, 2, 3, 4])` $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4, ...
+
+- `itertools.repeat(`!NT(elem)`,` [!NT(n)]`)` devuelve !NT(n) veces el elemento
+  !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
+
+  - `itertools.repeat('abc')` $\Rightarrow$ abc, abc, abc, abc, abc, abc, abc,
+    ...
+  - `itertools.repeat('abc', 5)` $\Rightarrow$ abc, abc, abc, abc, abc
+
+---
 
 # Secuencias
 
@@ -128,6 +279,16 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 ## Inmutables
 
 ### Cadenas (`str`)
+
+- Las **cadenas** son secuencias inmutables de caracteres.
+
+- No olvidemos que en Python no existe el tipo *carácter*. En Python, un
+  carácter es una cadena de longitud 1.
+
+- Las cadenas implementan todas las operaciones de las secuencias, además de
+  los métodos que se pueden consultar en
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
+
 
 #### Funciones
 
@@ -598,7 +759,4 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
                                     sobreescribiendo las claves ya existentes, y devuelve `None`
 --------------------------------------------------------------------------------------
 
-# Iterables
-
-## Iteradores
-
+!BIBLIOGRAFIA

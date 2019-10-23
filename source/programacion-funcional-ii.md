@@ -1970,11 +1970,14 @@ pila:f3 -> n2 [lhead = cluster3]
   <map object at 0x7f22b25e9d68>
   ```
 
-  Lo que devuelve no es una lista, sino un objeto *iterador* que examinaremos
+- Lo que devuelve no es una lista, sino un objeto *iterador* que examinaremos
   con más detalle en posteriores temas.
 
-  Por ahora, lo que haremos será simplemente transformar ese iterador en la
-  lista correspondiente usando la función `list` sobre el resultado de `map`:
+- Por ahora, nos basta con saber que un iterador es un flujo de datos que se
+  pueden recorrer de uno en uno.
+
+- Lo que haremos aquí será simplemente transformar ese iterador en la lista
+  correspondiente usando la función `list` sobre el resultado de `map`:
 
   ```python
   >>> list(map(cubo, [1, 2, 3, 4]))

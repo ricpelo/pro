@@ -476,37 +476,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Iteración</h2><ul>
-<li><p>La iteración (estructura <em>iterativa</em> o <em>repetitiva</em>) en Python tiene dos sintaxis:</p></li>
+<li><p>La iteración (estructura <em>iterativa</em> o <em>repetitiva</em>) en Python tiene la siguiente sintaxis:</p></li>
 <li><p>Bucle <strong><code>while</code></strong>:</p>
 <div class="line-block"><strong><code>while</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span><strong><code>:</code></strong><br />
       <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
-<li><p>Bucle <strong><code>for</code></strong>:</p>
-<div class="line-block"><strong><code>for</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span> <strong><code>in</code></strong> <span style="color:teal"><em>&lt;iterable&gt;</em></span>:<br />
-      <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
-</ul></section><section id="break" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> <code>break</code></h3><ul>
+<li><p>A esta estructura se la llama <strong>bucle <em>while</em></strong> o, simplemente, <strong>bucle</strong>.</p></li>
+<li><p>La <span style="color:teal"><em>&lt;sentencia&gt;</em></span> es el <strong>cuerpo</strong> del bucle.</p></li>
+<li><p>Cada ejecución del cuerpo del bucle se denomina <strong>iteración</strong>.</p></li>
+</ul></section><section id="otras-sentencias-de-control" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Otras sentencias de control</h2></section><section id="break" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> <code>break</code></h3><ul>
 <li><p>La sentencia <code>break</code> finaliza el bucle que la contiene.</p></li>
 <li><p>El flujo de control del programa pasa a la sentencia inmediatamente posterior al cuerpo del bucle.</p></li>
 <li><p>Si la sentencia <code>break</code> se encuentra dentro de un bucle anidado (un bucle dentro de otro bucle), finalizará el bucle más interno.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
-<a class="sourceLine" id="cb4-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
-<a class="sourceLine" id="cb4-3" title="3">        <span class="cf">break</span></a>
-<a class="sourceLine" id="cb4-4" title="4">    <span class="bu">print</span>(val)</a>
-<a class="sourceLine" id="cb4-5" title="5"></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">i <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb4-2" title="2">s <span class="op">=</span> <span class="st">&quot;string&quot;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</a>
+<a class="sourceLine" id="cb4-4" title="4">    val <span class="op">=</span> s[i]</a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="cf">break</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="bu">print</span>(val)</a>
+<a class="sourceLine" id="cb4-8" title="8">    i <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-9" title="9"></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
 r
 Fin</code></pre></li>
-</ul></section><section id="continue" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> <code>continue</code></h3><ul>
+</ul></section><section id="continue" class="title-slide slide level3"><h3><span class="header-section-number">2.4.2</span> <code>continue</code></h3><ul>
 <li><p>La sentencia <code>continue</code> se usa para saltarse el resto del código dentro de un bucle en la iteración actual.</p></li>
 <li><p>El bucle no finaliza sino que continúa con la siguiente iteración.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="cf">for</span> val <span class="kw">in</span> <span class="st">&quot;string&quot;</span>:</a>
-<a class="sourceLine" id="cb6-2" title="2">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
-<a class="sourceLine" id="cb6-3" title="3">        <span class="cf">continue</span></a>
-<a class="sourceLine" id="cb6-4" title="4">    <span class="bu">print</span>(val)</a>
-<a class="sourceLine" id="cb6-5" title="5"></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1">i <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-2" title="2">s <span class="op">=</span> <span class="st">&quot;string&quot;</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</a>
+<a class="sourceLine" id="cb6-4" title="4">    val <span class="op">=</span> s[i]</a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="cf">continue</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="bu">print</span>(val)</a>
+<a class="sourceLine" id="cb6-8" title="8">    i <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-9" title="9"></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</a></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
@@ -514,7 +522,7 @@ r
 n
 g
 Fin</code></pre></li>
-</ul></section><section id="excepciones" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Excepciones</h2><ul>
+</ul></section><section id="excepciones" class="title-slide slide level3"><h3><span class="header-section-number">2.4.3</span> Excepciones</h3><ul>
 <li><p>Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede provocar un error cuando se intente ejecutar o evaluar.</p></li>
 <li><p>Los errores detectados durante la ejecución del programa se denominan <strong>excepciones</strong> y no son incondicionalmente fatales si se capturan y se gestionan adecuadamente.</p></li>
 <li><p>En cambio, la mayoría de las excepciones no son gestionadas por el programa y provocan mensajes de error.</p></li>
@@ -538,7 +546,9 @@ Fin</code></pre></li>
 <li><p>Hay distintos tipos de excepciones y ese tipo se muestra como parte del mensaje: los tipos del ejemplo anterior son <code>ZeroDivisionError</code>, <code>NameError</code> y <code>TypeError</code>.</p></li>
 <li><p>El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo causó.</p></li>
 </ul>
-</section><section id="gestión-de-excepciones" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Gestión de excepciones</h3><ul>
+</section><section id="gestión-de-excepciones" class="slide level4">
+<h4><span class="header-section-number">2.4.3.2</span> Gestión de excepciones</h4>
+<ul>
 <li><p>Es posible escribir programas que gestionen excepciones concretas.</p></li>
 <li><p>La sintaxis es:</p>
 <div class="line-block"><strong><code>try:</code></strong><br />
@@ -552,7 +562,8 @@ Fin</code></pre></li>
 <p>donde:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;excepcion&gt;</em></span> ::= <span style="color:teal"><em>&lt;nombre_excepcion&gt;</em></span><br />
                   | <strong><code>(</code></strong><span style="color:teal"><em>&lt;nombre_excepcion&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;nombre_excepcion&gt;</em></span>)*<strong><code>)</code></strong></div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section><section class="slide level4">
 
 <ul>
 <li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca un número entero por la entrada y luego lo muestra a la salida multiplicado por tres. Si el usuario no introduce un número entero, muestra un mensaje de advertencia:</p>
@@ -643,12 +654,16 @@ Fin</code></pre></li>
 <li><p>O mejor aún:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="cf">try</span>:</a>
 <a class="sourceLine" id="cb11-2" title="2">    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</a>
-<a class="sourceLine" id="cb11-3" title="3">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</a>
-<a class="sourceLine" id="cb11-4" title="4">        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</a>
-<a class="sourceLine" id="cb11-5" title="5">            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</a>
-<a class="sourceLine" id="cb11-6" title="6">        <span class="bu">print</span>()</a>
-<a class="sourceLine" id="cb11-7" title="7"><span class="cf">except</span> <span class="pp">ValueError</span>:</a>
-<a class="sourceLine" id="cb11-8" title="8">    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</a></code></pre></div></li>
+<a class="sourceLine" id="cb11-3" title="3">    i <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-4" title="4">    <span class="cf">while</span> i <span class="op">&lt;=</span> n:</a>
+<a class="sourceLine" id="cb11-5" title="5">        j <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-6" title="6">        <span class="cf">while</span> j <span class="op">&lt;=</span> n):</a>
+<a class="sourceLine" id="cb11-7" title="7">            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</a>
+<a class="sourceLine" id="cb11-8" title="8">            j <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-9" title="9">        <span class="bu">print</span>()</a>
+<a class="sourceLine" id="cb11-10" title="10">        i <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="cf">except</span> <span class="pp">ValueError</span>:</a>
+<a class="sourceLine" id="cb11-12" title="12">    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</a></code></pre></div></li>
 </ul>
 </section></section>
 <section><section id="funciones-con-nombre" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Funciones con nombre</h1></section><section id="definición-de-funciones-con-nombre" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Definición de funciones con nombre</h2><ul>

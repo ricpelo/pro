@@ -389,8 +389,8 @@ else:
 
 ## Iteración
 
-- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene dos
-  sintaxis:
+- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene la
+  siguiente sintaxis:
 
 - Bucle !T(while):
 
@@ -400,13 +400,13 @@ else:
       !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
-- Bucle !T(for):
+- A esta estructura se la llama **bucle _while_** o, simplemente, **bucle**.
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(for) !NT(variable) !T(in) !NT(iterable):
-      !NT(sentencia)
-  ~~~~~~~~~~~~~~~~~~~~
+- La !NT(sentencia) es el **cuerpo** del bucle.
+
+- Cada ejecución del cuerpo del bucle se denomina **iteración**.
+
+## Otras sentencias de control
 
 ### `break`
 
@@ -419,10 +419,14 @@ else:
   dentro de otro bucle), finalizará el bucle más interno.
 
   ```python
-  for val in "string":
+  i = 0
+  s = "string"
+  while i < len(s):
+      val = s[i]
       if val == "i":
           break
       print(val)
+      i += 1
 
   print("Fin")
   ```
@@ -444,10 +448,14 @@ else:
 - El bucle no finaliza sino que continúa con la siguiente iteración.
 
   ```python
-  for val in "string":
+  i = 0
+  s = "string"
+  while i < len(s):
+      val = s[i]
       if val == "i":
           continue
       print(val)
+      i += 1
 
   print("Fin")
   ```
@@ -463,7 +471,7 @@ else:
   Fin
   ```
 
-## Excepciones
+### Excepciones
 
 - Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
   provocar un error cuando se intente ejecutar o evaluar.
@@ -503,7 +511,7 @@ else:
 - El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo
   causó.
 
-### Gestión de excepciones
+#### Gestión de excepciones
 
 - Es posible escribir programas que gestionen excepciones concretas.
 
@@ -696,10 +704,14 @@ else:
   ```python
   try:
       n = int(input('Introduce el número: '))
-      for i in range(1, n + 1):
-          for j in range(1, n + 1):
+      i = 1
+      while i <= n:
+          j = 1
+          while j <= n):
               print(f'{i * j:>3}', end=' ')
+              j += 1
           print()
+          i += 1
   except ValueError:
       print('Número incorrecto')
   ```
