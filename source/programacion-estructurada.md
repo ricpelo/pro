@@ -423,10 +423,10 @@ else:
   s = "string"
   while i < len(s):
       val = s[i]
+      i += 1
       if val == "i":
           break
       print(val)
-      i += 1
 
   print("Fin")
   ```
@@ -452,10 +452,10 @@ else:
   s = "string"
   while i < len(s):
       val = s[i]
+      i += 1
       if val == "i":
           continue
       print(val)
-      i += 1
 
   print("Fin")
   ```
