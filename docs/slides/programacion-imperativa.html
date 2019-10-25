@@ -786,7 +786,7 @@ s | P | y | t | h | o | n |
 </ul></li>
 <li><p>Toda función que provoca efectos laterales es impura, pero no todas las funciones impuras provocan efectos laterales (puede ser impura porque su comportamiento se vea afectado por los efectos laterales provocados por otras partes del programa).</p></li>
 </ul></section><section id="efectos-laterales" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Efectos laterales</h2><ul>
-<li><p>Un <strong>efecto lateral</strong> es cualquier cambio de estado llevado a cabo en una parte del programa (generalmente, una función) que pueda afectar a otra parte del mismo de una manera poco evidente o impredecible.</p></li>
+<li><p>Un <strong>efecto lateral</strong> es cualquier cambio de estado llevado a cabo por una parte del programa (normalmente, una función) que puede observarse desde otras partes del mismo, las cuales podrían verse afectadas por él de una manera poco evidente o impredecible.</p></li>
 <li><p>Una función puede provocar efectos laterales, o bien verse afectada por efectos laterales provocados por otras partes del programa.</p></li>
 <li><p>Los casos típicos de efectos laterales en una función son:</p>
 <ul>
@@ -808,7 +808,7 @@ s | P | y | t | h | o | n |
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Si el efecto lateral lo produce la propia función también estamos perdiendo transparencia referencial, pues en tal caso no podemos sustituir libremente la llamada a la función por su valor de retorno, ya que ahora la función <strong>hace algo más</strong> que calcular dicho valor y que es observable fuera de la función.</p></li>
+<li><p>Cuando el efecto lateral lo produce la propia función también estamos perdiendo transparencia referencial, pues en tal caso no podemos sustituir libremente la llamada a la función por su valor de retorno, ya que ahora la función <strong>hace algo más</strong> que calcular dicho valor y que es observable fuera de la función.</p></li>
 <li><p>Por ejemplo, una función que imprime algo por la pantalla o escribe algo en un archivo del disco tampoco es una función pura y, por tanto, en ella no se cumple la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento mutable. Por ejemplo:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1"><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</a>
@@ -824,7 +824,7 @@ s | P | y | t | h | o | n |
 
 <ul>
 <li><p>Los efectos laterales hacen que sea muy difícil razonar sobre el funcionamiento del programa, puesto que las funciones impuras no pueden verse como simples correspondencias entre los datos de entrada y el resultado de salida, sino que además hay que tener en cuenta los <strong>efectos ocultos</strong> que producen en otras partes del programa.</p></li>
-<li><p>Por ello, se debe <strong>evitar</strong>, siempre que sea posible, escribir funciones impuras (o sea, que provoquen efectos laterales).</p></li>
+<li><p>Por ello, se debe <strong>evitar</strong>, siempre que sea posible, escribir funciones impuras.</p></li>
 <li><p>Ahora bien: muchas veces, la función que se desea escribir tiene efectos laterales porque esos son, precisamente, los efectos deseados.</p>
 <ul>
 <li>Por ejemplo, una función que actualice los salarios de los empleados en una base de datos, a partir del salario base y los complementos.</li>
@@ -841,7 +841,7 @@ s | P | y | t | h | o | n |
 <li>Otro ordenador de la red</li>
 </ul></li>
 <li><p>La entrada/salida por consola se refiere a las operaciones de lectura de datos por el teclado y escritura por la pantalla.</p></li>
-<li><p>Las operaciones de entrada/salida se consideran <strong>efectos laterales</strong> porque producen cambios en el exterior o pueden provocar que el resultado de una función dependa de los datos leídos.</p></li>
+<li><p>Las operaciones de entrada/salida se consideran <strong>efectos laterales</strong> porque producen cambios en el exterior o pueden hacer que el resultado de una función dependa de los datos leídos y, por tanto, no depender sólo de sus argumentos.</p></li>
 </ul></section><section id="print" class="title-slide slide level3"><h3><span class="header-section-number">4.5.1</span> <code>print</code></h3><ul>
 <li><p>La función <code>print</code> imprime (<em>escribe</em>) por la salida (normalmente la pantalla) el valor de una o varias expresiones.</p></li>
 <li><p>Su sintaxis es:</p>

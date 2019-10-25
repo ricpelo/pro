@@ -968,9 +968,10 @@ True
 
 ## Efectos laterales
 
-- Un **efecto lateral** es cualquier cambio de estado llevado a cabo en una
-  parte del programa (generalmente, una función) que pueda afectar a otra parte
-  del mismo de una manera poco evidente o impredecible.
+- Un **efecto lateral** es cualquier cambio de estado llevado a cabo por una
+  parte del programa (normalmente, una función) que puede observarse desde
+  otras partes del mismo, las cuales podrían verse afectadas por él de una
+  manera poco evidente o impredecible.
 
 - Una función puede provocar efectos laterales, o bien verse afectada por
   efectos laterales provocados por otras partes del programa.
@@ -1008,11 +1009,11 @@ True
 
 ---
 
-- Si el efecto lateral lo produce la propia función también estamos perdiendo
-  transparencia referencial, pues en tal caso no podemos sustituir libremente
-  la llamada a la función por su valor de retorno, ya que ahora la función
-  **hace algo más** que calcular dicho valor y que es observable fuera de la
-  función.
+- Cuando el efecto lateral lo produce la propia función también estamos
+  perdiendo transparencia referencial, pues en tal caso no podemos sustituir
+  libremente la llamada a la función por su valor de retorno, ya que ahora la
+  función **hace algo más** que calcular dicho valor y que es observable fuera
+  de la función.
 
 - Por ejemplo, una función que imprime algo por la pantalla o escribe algo en
   un archivo del disco tampoco es una función pura y, por tanto, en ella no se
@@ -1041,7 +1042,7 @@ True
   producen en otras partes del programa.
 
 - Por ello, se debe **evitar**, siempre que sea posible, escribir funciones
-  impuras (o sea, que provoquen efectos laterales).
+  impuras.
 
 - Ahora bien: muchas veces, la función que se desea escribir tiene efectos
   laterales porque esos son, precisamente, los efectos deseados.
@@ -1069,8 +1070,9 @@ True
   datos por el teclado y escritura por la pantalla.
 
 - Las operaciones de entrada/salida se consideran **efectos laterales** porque
-  producen cambios en el exterior o pueden provocar que el resultado de una
-  función dependa de los datos leídos.
+  producen cambios en el exterior o pueden hacer que el resultado de una
+  función dependa de los datos leídos y, por tanto, no depender sólo de sus
+  argumentos.
 
 ### `print`
 
