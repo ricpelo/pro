@@ -1998,7 +1998,7 @@ pila:f3 -> n2 [lhead = cluster3]
 - Podríamos definirla así:
 
   ```python
-  map = lambda f, l: [] if l == [] else [f(l[0])] + map(l[1:])
+  map = lambda f, l: [] if l == [] else [f(l[0])] + map(f, l[1:])
   ```
 
 ## `filter`

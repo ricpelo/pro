@@ -150,7 +150,7 @@ nocite: |
 - Por tanto, también podemos usar un iterador en cualquier sitio donde se
   espere un iterable.
 
-## El bucle `for`
+### El bucle `for`
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
   iterador es mediante un bucle `for`.
@@ -178,7 +178,7 @@ while not fin:
         !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## El módulo `itertools`
+### El módulo `itertools`
 
 - El módulo `itertools` contiene una variedad de iteradores de uso frecuente
   así como funciones que combinan varios iteradores.
