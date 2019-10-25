@@ -471,25 +471,24 @@ y -> v2 -> c2
 - Para ello podemos usar las operaciones comunes a toda secuencia de elementos
   (una cadena también es una **secuencia de caracteres**):
 
----------------------------------------------------------------------------
-Operación           Resultado                
-------------------- --------------------------------------------------
-$x$ `in` $s$        `True` si $x$ está en $s$
+--------------------------------------------------------------------------------
+Operación                Resultado                
+------------------------ -------------------------------------------------------
+$x$ `in` $s$             `True` si $x$ está en $s$
+                     
+$x$ `not` `in` $s$       `True` si $x$ **no** está en $s$
+                     
+$s$`[`$i$`]`             (*Indexación*) El $i$-ésimo elemento de $s$, empezando
+                         por 0
+                      
+$s$`[`$i$`:`$j$`]`       (*Slicing*) Rodaja de $s$ desde $i$ hasta $j$
 
-$x$ `not in` $s$    Lo contrario
+$s$`[`$i$`:`$j$`:`$k$`]` Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
 
-$s$`[`$i$`]`        (*Indexación*) El $i$-ésimo elemento de $s$, empezando
-                    por 0
-
-$s$`[`$i$`:`$j$`]`  (*Slicing*) Rodaja de $s$ desde $i$ hasta $j$
-
-$s$`[`$i$`:`$j$
-`:`$k$`]`           Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
-
-$s$`.index(`$x$`)`  Índice de la primera aparición de $x$ en $s$
-
-$s$`.count(`$x$`)`  Número de veces que aparece $x$ en $s$
----------------------------------------------------------------------------
+$s$`.index(`$x$`)`       Índice de la primera aparición de $x$ en $s$
+                       
+$s$`.count(`$x$`)`       Número de veces que aparece $x$ en $s$
+--------------------------------------------------------------------------------
 
 ---
 
@@ -621,31 +620,30 @@ Operación             Resultado
 --------------------  -------------------------------------------------------------
 $s$`[`$i$`] = ` $x$   El elemento $i$-ésimo de $s$ se sustituye por $x$
                      
-$s$`[`$i$`:`$j$`]`   
-`=` $t$               La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
-                     
-$s$`[`$i$`:`$j$`:    
-`$k$`]` `=` $t$       Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por $t$
-                     
-`del` $s$`[`$i$`:    
-`$j$`]`               Elimina los elementos de $s$`[`$i$`:`$j$`]` $\leftrightarrow$
-                      $s$`[`$i$`:`$j$`]` `=` `[]`
-                     
-`del` $s$`[`$i$`:    
-`$j$`:`$k$`]`         Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
-                     
+$s$`[`$i$`:`$j$`]`    La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
+`=` $t$
+
+$s$`[`$i$`:`$j$`:     Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por $t$
+`$k$`]` `=` $t$
+
+`del` $s$`[`$i$`:     Elimina los elementos de $s$`[`$i$`:`$j$`]` $\leftrightarrow$
+`$j$`]`               $s$`[`$i$`:`$j$`]` `=` `[]`
+
+`del` $s$`[`$i$`:     Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
+`$j$`:`$k$`]`
+
 $s$`.append(`$x$`)`   Añade $x$ al final de $s$ $\leftrightarrow$
                       $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
-                     
+
 $s$`.clear()`         Elimina todos los elementos de $s$ $\leftrightarrow$
                       `del` $s$`[:]`
-                     
+
 $s$`.extend(`$t$`)`   Amplía $s$ con el contenido de $t$ $\leftrightarrow$ \
 ó \                   $s$`[len(`$s$`):len(`$s$`)]` `=` $t$
 $s$ `+=` $t$         
-                     
-$s$`.insert(`$i$      Inserta $x$ en $s$ en el índice $i$ $\leftrightarrow$
-`, ` $x$`)`           $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+
+$s$`.insert(`$i$`,`   Inserta $x$ en $s$ en el índice $i$ $\leftrightarrow$
+$x$`)`                $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
 
 $s$`.pop(`[$i=-1$]`)` Devuelve el elemento $i$-ésimo y lo elimina de $s$
 
