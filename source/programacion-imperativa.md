@@ -870,6 +870,85 @@ y -> v1
 - El intérprete aprovecharía la variable ya creada y no crearía una nueva, para
   ahorrar memoria.
 
+---
+
+:::: columns
+
+::: {.column width=40%}
+
+- También se comparten variables si se usa el mismo dato varias veces.
+
+- Por ejemplo, si hacemos:
+
+```python
+x = [1, 2, 3]
+y = [x, x]
+```
+
+:::
+
+::: {.column width=60%}
+
+nos quedaría:
+
+!DOT(alias4.svg)()(width=50%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = TB, splines = ortho]
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+lista1 [shape = record, fixedsize = true, label = "{1|2|3}"]
+lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
+{rank = same; lista1; v2}
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista1
+y -> v2 -> lista2
+{rank = same; lista2:f0 -> v1; lista2:f1 -> v1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+:::: columns
+
+::: {.column width=40%}
+
+- Y si ahora hacemos:
+
+```python
+y[0][0] = 9
+```
+
+:::
+
+::: {.column width=60%}
+
+nos quedaría:
+
+!DOT(alias5.svg)()(width=50%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = TB, splines = ortho]
+node [fixedsize = shape, fontname = "monospace"]
+y [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent]
+lista1 [shape = record, fixedsize = true, label = "{99|2|3}"]
+lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
+{rank = same; lista1; v2}
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista1
+y -> v2 -> lista2
+{rank = same; lista2:f0 -> v1; lista2:f1 -> v1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
 ### `id`
 
 - Para saber si dos variables son realmente **la misma variable**, se puede
