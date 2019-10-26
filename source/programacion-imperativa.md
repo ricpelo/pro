@@ -881,8 +881,10 @@ y -> v1
 - Por ejemplo, si hacemos:
 
 ```python
-x = [1, 2, 3]
-y = [x, x]
+>>> x = [1, 2, 3]
+>>> y = [x, x]
+>>> y
+[[1, 2, 3], [1, 2, 3]]
 ```
 
 :::
@@ -897,7 +899,7 @@ graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = true, label = "{1|2|3}"]
+lista1 [shape = record, fixedsize = true, label = "{1|2|3}", fontsize = 10]
 lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
@@ -920,7 +922,10 @@ y -> v2 -> lista2
 - Y si ahora hacemos:
 
 ```python
-y[0][0] = 9
+>>> y[0][0] = 99
+>>> x[1] = 77
+>>> y
+[[99, 77, 3], [99, 77, 3]]
 ```
 
 :::
@@ -935,7 +940,7 @@ graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = true, label = "{99|2|3}"]
+lista1 [shape = record, fixedsize = true, label = "{99|77|3}", fontsize = 10]
 lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
