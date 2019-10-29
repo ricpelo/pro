@@ -337,6 +337,76 @@ variable -> valor [label = "estado"]
 
   son diferentes aunque están estrechamente relacionados.
 
+## Asignación compuesta
+
+- Los operadores de **asignación compuesta** nos permiten realizar operaciones
+  sobre una variable y luego asignar el resultado a la misma variable.
+
+- Tienen la forma:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(asig_compuesta) ::= !NT(identificador) !NT(op)!T(=) !NT(expresión)
+!NT(op) ::= !T(+) | !T(-) | !T( * ) | !T(/) | !T(%) | !T(//) | !T( ** ) | !T(&) | !T(|) | !T(^) | !T(>>) | !T(<<)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+---------------------------------------------
+ Operador  Ejemplo         Equivalente a
+---------- --------------- ------------------
+`=`        `x = 5`         `x = 5`
+                        
+`+=`       `x += 5`        `x = x + 5`
+                        
+`-=`       `x -= 5`        `x = x - 5`
+                        
+`*=`       `x *= 5`        `x = x * 5`
+                        
+`/=`       `x /= 5`        `x = x / 5`
+                        
+`%=`       `x %= 5`        `x = x % 5`
+                        
+`//=`      `x //= 5`       `x = x // 5`
+                        
+`**=`      `x **= 5`       `x = x ** 5`
+                        
+`&=`       `x &= 5`        `x = x & 5`
+                        
+`|=`       `x |= 5`        `x = x | 5`
+                        
+`^=`       `x ^= 5`        `x = x ^ 5`
+                        
+`>>=`      `x >>= 5`       `x = x >> 5`
+                        
+`<<=`      `x <<= 5`       `x = x << 5`
+---------------------------------------------
+
+## Asignación múltiple
+
+- Con la **asignación múltiple** podemos asignar valores a varias variables
+  **al mismo tiempo** en una sola sentencia.
+
+- La sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(asig_múltiple) ::= !NT(lista_identificadores) !T(=) !NT(lista_expresiones)
+!NT(lista_identificadores) ::= !NT{identificador}(!T(,) !NT{identificador})\*
+!NT(lista_expresiones) ::= !NT{expresión}(!T(,) !NT{expresión})\*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  con la condición de que tiene que haber tantos identificadores como
+  expresiones.
+
+- Por ejemplo:
+
+  ```python
+  x, y = 10, 20
+  ```
+
+  asigna el valor `10` a `x` y el valor `20` a `y`.
+
 # Mutabilidad
 
 ## Tipos mutables e inmutables
@@ -522,9 +592,6 @@ s | 124 | 333 | 'a' | 3.2 |  9  |  53 |
 
 ::::
 
-<br>
-\vspace{2em}
-
 - El **slicing** (*hacer rodajas*) es una operación que consiste en obtener una
   subsecuencia a partir de una secuencia, indicando los índices de los
   elementos inicial y final de la misma:
@@ -534,11 +601,19 @@ s | 124 | 333 | 'a' | 3.2 |  9  |  53 |
 ::: column
 
 ```
+     con paso positivo
   +---+---+---+---+---+---+
 s | P | y | t | h | o | n |
   +---+---+---+---+---+---+
   0   1   2   3   4   5   6
  -6  -5  -4  -3  -2  -1
+
+     con paso negativo
+  +---+---+---+---+---+---+
+s | P | y | t | h | o | n |
+  +---+---+---+---+---+---+
+      0   1   2   3   4   5
+ -7  -6  -5  -4  -3  -2  -1
 ```
 
 :::
@@ -554,6 +629,10 @@ s | P | y | t | h | o | n |
 ''
 >>> s[0:4:2]
 'Pt'
+>>> s[-3:-6]
+''
+>>> s[-3:-6:-1]
+'hty'
 ```
 
 :::
