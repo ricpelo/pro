@@ -1369,7 +1369,7 @@ True
   ```python
   from goto import with_goto
 
-  CODIGO="""
+  CODIGO = """
   print('Esto se hace')
   goto .fin
   print('Esto se salta')
@@ -1404,7 +1404,7 @@ True
   ```python
   from goto import with_goto
 
-  CODIGO="""
+  CODIGO = """
   primero = 2
   ultimo = 25
 
