@@ -1,5 +1,5 @@
 ---
-title: Composición, herencia y poliformismo
+title: Composición, herencia y polimorfismo
 author: Ricardo Pérez López
 !DATE
 ---
