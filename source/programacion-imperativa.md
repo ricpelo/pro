@@ -1348,7 +1348,7 @@ True
   paquete llamado `goto-statement`:
 
   ```shell
-  $ pip3 install --user goto-statement
+  $ python3 -m pip install goto-statement
   ```
 
 - Sintaxis:
