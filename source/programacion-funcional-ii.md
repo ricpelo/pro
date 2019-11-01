@@ -993,6 +993,73 @@ E -> x [lhead = cluster0]
     hay que evaluar primero la aplicación del `lambda` sobre su argumento `11 +
     1`.
 
+## Las funciones como abstracciones
+
+- Aunque es muy sencilla, la función `area` ejemplifica la propiedad más
+  potente de las funciones definidas por el programador: la **abstracción**.
+
+- La función `area` está definida sobre la función `cuadrado`, pero se basa
+  sólo en la relación que `cuadrado` establece entre sus argumentos de entrada
+  y su resultado de salida.
+
+- Podemos escribir `area` sin preocuparnos de cómo calcular el cuadrado de un
+  número, porque eso ya lo hace la función `cuadrado`. **Los detalles** sobre
+  cómo se calcula el cuadrado **se ignoran en este momento** para considerarlos
+  más tarde.
+
+- De hecho, por lo que respecta a `area`, `cuadrado` no representa una
+  definición concreta de función, sino más bien la abstracción de una función,
+  lo que se denomina una **abstracción funcional**. A este nivel de
+  abstracción, cualquier función que calcule el cuadrado de un número es igual
+  de buena.
+
+---
+
+- Por tanto, considerando únicamente los valores que devuelven, las dos
+  funciones siguientes son indistinguibles e igual de válidas para `area`.
+  Ambas reciben un argumento numérico y devuelven el cuadrado de ese número:
+
+  ```python
+  cuadrado = lambda x: x * x
+  cuadrado = lambda x: x * (x - 1) + x
+  ```
+
+- En otras palabras: la definición de una función debe ser capaz de **ocultar
+  sus detalles de implementación**.
+  
+- **Un programador no debe necesitar saber cómo está implementada una función
+  para poder usarla**. Eso es lo que ocurre, por ejemplo, con las funciones
+  predefinidas del lenguaje: sabemos *qué* hacen pero no necesitamos saber
+  *cómo* lo hacen.
+
+- Incluso puede que el usuario de una función no sea el mismo que la haya
+  escrito, sino que la puede haber recibido de otro programador como una
+  «**caja negra**».
+
+---
+
+- Para poder dominar las abstracciones funcionales, debemos considerar
+  principalmente su **especificación**, que ya sabemos que está formada por
+  tres atributos fundamentales:
+
+  - El **dominio**: el conjunto de argumentos válidos
+  - El **rango**: el conjunto de valores que devuelve
+  - El **propósito**: qué hace la función, es decir, la relación entre su
+    entrada y su salida
+
+  aunque nosotros hasta ahora hemos llamado **entrada** al dominio y agrupamos
+  el rango y el propósito en una sola propiedad **salida**.
+
+- Por ejemplo, cualquier función `cuadrado` que usemos para implementar `area`
+  debe tener estos tres atributos:
+
+  - El dominio: un número real
+  - El rango: un número real no negativo
+  - El propósito: calcular el cuadrado de un número
+
+- La especificación **no concreta cómo** se debe llevar a cabo el propósito. Ese es
+  un detalle de implementación que se abstrae a este nivel.
+
 # Computabilidad
 
 ## Funciones y procesos
@@ -1808,9 +1875,29 @@ pila:f3 -> n2 [lhead = cluster3]
 
 ## Concepto
 
-- Hemos visto que **las funciones son**, en realidad, **abstracciones** que
-  describen operaciones compuestas a realizar sobre ciertos valores sin
-  importar cuáles sean esos valores en concreto.
+- Hemos visto que **las funciones son**, en realidad, **abstracciones** en la
+  medida en que nos permiten usarlas sin tener que conocer los detalles
+  internos del procesamiento que realizan.
+
+- Por ejemplo, si queremos usar la función `cubo`, nos da igual que dicha
+  función esté implementada de cualquiera de las siguientes maneras:
+
+  ```python
+  cubo = lambda x: x * x * x
+  cubo = lambda x: x ** 3
+  cubo = lambda x: x * x ** 2
+  ```
+
+- A efectos de **usar** la función, nos basta con saber que calcula el cubo de
+  un número, sin necesitar saber qué cálculo concreto realizar para obtener el
+  resultado. Los detalles de implementación quedan ocultos y por eso también
+  decimos que `cubo` es una abstracción.
+
+---
+
+- Las funciones también son abstracciones en la medida en que describen
+  operaciones compuestas a realizar sobre ciertos valores sin importar cuáles
+  sean esos valores en concreto.
 
 - Por ejemplo, cuando definimos:
 

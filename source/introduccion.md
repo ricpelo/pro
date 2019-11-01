@@ -1874,9 +1874,9 @@ F -> I
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Entrada:** $n_1, n_2 \in \mathbb{Z}$
-  **Proceso:** Cálculo del máximo de dos números
-  **Salida:** el mayor de ambos
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Proceso:** Cálculo del máximo de dos números
+**Salida:** el mayor de ambos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Análisis del problema
 
