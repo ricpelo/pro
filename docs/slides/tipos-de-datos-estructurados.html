@@ -295,7 +295,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Funciones como <code>map()</code> y <code>filter()</code> devuelven un iterador porque, al ser perezoso, es más eficiente en memoria que devolver toda una lista o tupla.</p>
+<li><p>También se suele decir que <strong>los iteradores son iterables perezosos de un solo uso</strong>:</p>
+<ul>
+<li><p>Son <strong>perezosos</strong> porque calculan sus elementos a medida que los vas recorriendo.</p></li>
+<li><p>Son <strong>de un solo uso</strong> porque, una vez que se ha consumido un elemento, ya no vuelve a aparecer.</p></li>
+</ul></li>
+<li><p>Se dice que un iterador está <strong>agotado</strong> si se ha consumido completamente, es decir, si se han consumido todos sus elementos.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Funciones como <code>map()</code> y <code>filter()</code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
 <p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code>map()</code>?</p></li>
 <li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code>list()</code> y <code>tuple()</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a>
@@ -318,7 +328,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-7" title="7"><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></a></code></pre></div></li>
 <li><p>Por tanto, también podemos usar un iterador en cualquier sitio donde se espere un iterable.</p></li>
 </ul>
-</section><section id="el-bucle-for" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> El bucle <code>for</code></h3><ul>
+</section><section id="expresiones-generadoras" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Expresiones generadoras</h3><ul>
+<li><p>Una <strong>expresión generadora</strong> es una expresión que <strong>devuelve un iterador</strong> y que tiene la misma sintaxis que las <strong>listas por comprensión</strong>, salvo que va encerrada entre paréntesis en lugar de entre corchetes:</p>
+<div class="line-block"><span style="color:teal"><em>&lt;expr_gen&gt;</em></span> ::= <strong><code>(</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> (<strong><code>for</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span> <strong><code>in</code></strong> <span style="color:teal"><em>&lt;secuencia&gt;</em></span> [<strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span>])+<strong><code>)</code></strong></div></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> cuadrados <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="op">&gt;&gt;&gt;</span> cuadrados</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">&lt;</span>generator <span class="bu">object</span> <span class="op">&lt;</span>genexpr<span class="op">&gt;</span> at <span class="bn">0x7f6a0fc7db48</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="dv">4</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="dv">9</span></a></code></pre></div></li>
+</ul></section><section id="el-bucle-for" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> El bucle <code>for</code></h3><ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante un bucle <code>for</code>.</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><strong><code>for</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>)* <strong><code>in</code></strong> <span style="color:teal"><em>&lt;iterable&gt;</em></span><strong><code>:</code></strong><br />
@@ -333,7 +356,7 @@ while not fin:<br />
             fin = True<br />
       else:<br />
             <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
-</ul></section><section id="el-módulo-itertools" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> El módulo <code>itertools</code></h3><ul>
+</ul></section><section id="el-módulo-itertools" class="title-slide slide level3"><h3><span class="header-section-number">1.4.3</span> El módulo <code>itertools</code></h3><ul>
 <li><p>El módulo <code>itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
 <li><p>Veremos algunos ejemplos.</p></li>
 </ul></section><section class="slide level4">
@@ -503,23 +526,23 @@ while not fin:<br />
 
 <ul>
 <li><p>Algunos ejemplos de cadenas formateadas:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>nombre<span class="sc">!r}</span><span class="ss">.&quot;</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr() es equivalente a !r</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="op">&gt;&gt;&gt;</span> ancho <span class="op">=</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="op">&gt;&gt;&gt;</span> precision <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="op">&gt;&gt;&gt;</span> value <span class="op">=</span> decimal.Decimal(<span class="st">&quot;12.34567&quot;</span>)</a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;result: </span><span class="sc">{</span>value<span class="sc">:</span>{ancho}<span class="sc">.</span>{precision}<span class="sc">}</span><span class="ss">&quot;</span>  <span class="co"># campos anidados</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">&#39;result:      12.35&#39;</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> datetime</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="op">&gt;&gt;&gt;</span> hoy <span class="op">=</span> datetime.datetime(year<span class="op">=</span><span class="dv">2017</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">27</span>)</a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>hoy<span class="sc">:</span><span class="op">%</span><span class="sc">B</span> <span class="op">%</span><span class="sc">d,</span> <span class="op">%</span><span class="sc">Y}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de fecha</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">&#39;January 27, 2017&#39;</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="op">&gt;&gt;&gt;</span> numero <span class="op">=</span> <span class="dv">1024</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>numero<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="co">&#39;0x400&#39;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>nombre<span class="sc">!r}</span><span class="ss">.&quot;</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr() es equivalente a !r</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="op">&gt;&gt;&gt;</span> ancho <span class="op">=</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="op">&gt;&gt;&gt;</span> precision <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="op">&gt;&gt;&gt;</span> value <span class="op">=</span> decimal.Decimal(<span class="st">&quot;12.34567&quot;</span>)</a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;result: </span><span class="sc">{</span>value<span class="sc">:</span>{ancho}<span class="sc">.</span>{precision}<span class="sc">}</span><span class="ss">&quot;</span>  <span class="co"># campos anidados</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">&#39;result:      12.35&#39;</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> datetime</a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="op">&gt;&gt;&gt;</span> hoy <span class="op">=</span> datetime.datetime(year<span class="op">=</span><span class="dv">2017</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">27</span>)</a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>hoy<span class="sc">:</span><span class="op">%</span><span class="sc">B</span> <span class="op">%</span><span class="sc">d,</span> <span class="op">%</span><span class="sc">Y}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de fecha</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">&#39;January 27, 2017&#39;</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="op">&gt;&gt;&gt;</span> numero <span class="op">=</span> <span class="dv">1024</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>numero<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">&#39;0x400&#39;</span></a></code></pre></div></li>
 </ul>
 </section><section id="expresiones-regulares" class="slide level4">
 <h4><span class="header-section-number">2.3.1.6</span> Expresiones regulares</h4>
@@ -600,30 +623,30 @@ while not fin:<br />
 
 <ul>
 <li><p>Ejemplos:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb5-2" title="2">[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</a>
-<a class="sourceLine" id="cb5-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb5-6" title="6">[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb5-8" title="8">[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</a>
-<a class="sourceLine" id="cb5-10" title="10">[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb5-12" title="12">[]</a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb5-14" title="14">[]</a></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb6-2" title="2">[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</a>
+<a class="sourceLine" id="cb6-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb6-6" title="6">[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb6-8" title="8">[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb6-10" title="10">[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb6-12" title="12">[]</a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb6-14" title="14">[]</a></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Dos rangos son considerados iguales si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> o <span style="color:teal"><em>&lt;paso&gt;</em></span>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="va">True</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="va">True</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="va">True</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="va">True</span></a></code></pre></div></li>
 </ul>
 </section><section id="mutables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Mutables</h2></section><section id="listas" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Listas</h3><ul>
 <li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para almacenar colecciones de elementos heterogéneos.</p></li>
@@ -648,10 +671,10 @@ while not fin:<br />
 </ul></li>
 <li><p>Si se llama sin argumentos, devuelve una lista vacía.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;abc&#39;</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2">[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>( (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb7-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;abc&#39;</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>( (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb8-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -757,13 +780,13 @@ while not fin:<br />
 
 <ul>
 <li><p>Las listas, además, admiten el método <code>sort()</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="op">&gt;&gt;&gt;</span> x.sort()</a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="op">&gt;&gt;&gt;</span> x</a>
-<a class="sourceLine" id="cb8-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="op">&gt;&gt;&gt;</span> x</a>
-<a class="sourceLine" id="cb8-7" title="7">[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="op">&gt;&gt;&gt;</span> x.sort()</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb9-4" title="4">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb9-7" title="7">[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div></li>
 </ul>
 </section></section>
 <section><section id="estructuras-no-secuenciales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras no secuenciales</h1></section><section id="conjuntos-set-y-frozenset" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2><ul>
@@ -980,13 +1003,13 @@ while not fin:<br />
 
 <ul>
 <li><p>Los diccionarios se pueden crear usando la función <code>dict()</code>. Por ejemplo:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1"><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="bu">dict</span>(one<span class="op">=</span><span class="dv">1</span>, two<span class="op">=</span><span class="dv">2</span>, three<span class="op">=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> {<span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;three&#39;</span>: <span class="dv">3</span>}</a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>, <span class="st">&#39;three&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;two&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;one&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;three&#39;</span>, <span class="dv">3</span>)])</a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;three&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>})</a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="op">==</span> c <span class="op">==</span> d <span class="op">==</span> e</a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="va">True</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="bu">dict</span>(one<span class="op">=</span><span class="dv">1</span>, two<span class="op">=</span><span class="dv">2</span>, three<span class="op">=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> {<span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;three&#39;</span>: <span class="dv">3</span>}</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>, <span class="st">&#39;three&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;two&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;one&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;three&#39;</span>, <span class="dv">3</span>)])</a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;three&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>})</a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="op">==</span> c <span class="op">==</span> d <span class="op">==</span> e</a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="va">True</span></a></code></pre></div></li>
 </ul>
 </section><section id="operaciones-1" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Operaciones</h3><ul>
 <li><code>d</code> y <code>o</code> son diccionarios, <code>c</code> es una clave válida y <code>v</code> es un valor cualquiera:</li>

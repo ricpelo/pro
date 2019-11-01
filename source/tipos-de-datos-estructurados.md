@@ -123,8 +123,22 @@ nocite: |
 
 ---
 
-- Funciones como `map()` y `filter()` devuelven un iterador porque, al ser
-  perezoso, es más eficiente en memoria que devolver toda una lista o tupla.
+- También se suele decir que **los iteradores son iterables perezosos de un
+  solo uso**:
+
+  - Son **perezosos** porque calculan sus elementos a medida que los vas
+    recorriendo.
+
+  - Son **de un solo uso** porque, una vez que se ha consumido un elemento, ya
+    no vuelve a aparecer.
+
+- Se dice que un iterador está **agotado** si se ha consumido completamente, es
+  decir, si se han consumido todos sus elementos.
+
+---
+
+- Funciones como `map()` y `filter()` devuelven iteradores porque, al ser
+  perezosos, son más eficiente en memoria que devolver toda una lista o tupla.
 
   Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
   resultado de un `map()`?
@@ -159,6 +173,31 @@ nocite: |
 
 - Por tanto, también podemos usar un iterador en cualquier sitio donde se
   espere un iterable.
+
+### Expresiones generadoras
+
+- Una **expresión generadora** es una expresión que **devuelve un iterador** y
+  que tiene la misma sintaxis que las **listas por comprensión**, salvo que va
+  encerrada entre paréntesis en lugar de entre corchetes:
+
+  !ALGO                                                                            
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Ejemplo:
+
+  ```python
+  >>> cuadrados = (x ** 2 for x in range(1, 10))
+  >>> cuadrados
+  <generator object <genexpr> at 0x7f6a0fc7db48>
+  >>> next(cuadrados)
+  1
+  >>> next(cuadrados)
+  4
+  >>> next(cuadrados)
+  9
+  ```
 
 ### El bucle `for`
 
