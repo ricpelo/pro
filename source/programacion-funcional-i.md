@@ -470,7 +470,7 @@ $$
   el resultado sería distinto.
 
 - Ver prioridad de los operadores en Python en
-  [https://docs.python.org/3/reference/expressions.html#operator-precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence){target="_blank"}.
+  [https://docs.python.org/3/reference/expressions.html#operator-precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence){target="\_blank"}.
 
 ### Asociatividad de operadores
 
@@ -690,7 +690,7 @@ $$
 
 - De hecho, en Python hay operaciones que tienen **las tres formas**.
 
-- Por ejemplo, la suma de dos números se puede expresar:
+- Por ejemplo, la suma de dos números enteros se puede expresar:
 
   - Mediante el operador `+`:
   
@@ -704,7 +704,7 @@ $$
     int.__add__(4, 3)
     ```
 
-  - Mediante el método `__add__` ejecutado sobre uno de los números (y pasando
+  - Mediante el método `__add__` ejecutado sobre uno de los enteros (y pasando
     el otro número como *argumento* del método):
 
     ```python
@@ -985,8 +985,8 @@ $$
   es decir, que debemos indicar en todo momento qué dato queremos convertir a
   qué tipo.
 
-- Para ello existen una serie de funciones cuyo nombre coincide con el tipo al
-  que queremos convertir el dato: `str()`, `int()` y `float()`, entre otras.
+- Para ello existen funciones cuyo nombre coincide con el tipo al que queremos
+  convertir el dato: `str()`, `int()` y `float()`, entre otras.
 
   ```python
   >>> 4 + '24'
@@ -1031,44 +1031,44 @@ $$
    `**`      Exponente       `3 ** 4`    `81`        Devuelve $3^4$
 
    `//`      División entera `4 // 3` \   `1` \      \hfill{} \
-                             `-4 // 3`    `-2`       ??
+             hacia abajo     `-4 // 3`    `-2`       ??
 ----------------------------------------------------------------------------
 
 #### Operadores de cadenas
 
---------------------------------------------------------
-  Operador   Descripción     Ejemplo          Resultado 
------------- --------------- ---------------- ----------
-   `+`       Concatenación   `'ab' + 'cd'`    `'abcd'`  
-                             `'ab' 'cd'`                
-
-   `*`       Repetición      `'ab' * 3`       `'ababab'`
-                             `3 * 'ab'`       `'ababab'`
-
-   `[0]`     Primer carácter `'hola'[0]`      `'h'`
-
-   `[1:]`    Resto de cadena `'hola'[1:]`     `'ola'`
---------------------------------------------------------
+------------------------------------------------------------------
+  Operador   Descripción           Ejemplo              Resultado 
+------------ --------------------- -------------------- ----------
+   `+`       Concatenación         `'ab' + 'cd'`        `'abcd'`
+                                   `'ab' 'cd'`                    
+                                                     
+   `*`       Repetición            `'ab' * 3`           `'ababab'`
+                                   `3 * 'ab'`           `'ababab'`
+                                                     
+   `[0]`     Primer carácter       `'hola'[0]`          `'h'`
+                                                     
+   `[1:]`    Resto de cadena       `'hola'[1:]`         `'ola'`
+------------------------------------------------------------------
 
 ### Funciones predefinidas
 
+--------------------------------------------------------------------------------------
+Función                     Descripción           Ejemplo                  Resultado
+--------------------------- --------------------- ------------------------ -----------
+`abs(`$n$`)`                Valor absoluto        `abs(-23)`               `23`
+
+`len(`$cad$`)`              Longitud de la cadena `len('hola')`            `4`
+
+`max(`$n_1$(`,` $n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
+
+`min(`$n_1$(`,` $n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
+
+`round(`$n$[`,` $p$]`)`     Redondeo              `round(23.493)`  \       `23` \
+                                                  `round(23.493, 1)`       `23.5`
+
+`type(`$v$`)`               Tipo del valor        `type(23.5)`             `<class` \
+                                                                           `'float'>`
 -------------------------------------------------------------------------------------
-Función                    Descripción           Ejemplo                  Resultado   
--------------------------- --------------------- ------------------------ -----------
-`abs(`$n$`)`               Valor absoluto        `abs(-23)`               `23`
-
-`len(`$cad$`)`             Longitud de la cadena `len('hola')`            `4`
-
-`max(`$n_1$(`,`$n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
-
-`min(`$n_1$(`,`$n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
-
-`round(`$n$[`,`$p$]`)`     Redondeo              `round(23.493)`  \       `23` \
-                                                 `round(23.493, 1)`       `23.5`
-
-`type(`$v$`)`              Tipo del valor        `type(23.5)`             `<class` \
-                                                                          `'float'>`
-------------------------------------------------------------------------------------
 
 #### Funciones matemáticas
 
@@ -1157,7 +1157,7 @@ Función                    Descripción           Ejemplo                  Resu
 
 ---
 
-@. Evaluar las siguientes expresiones o decir si es una expresión incorrecta:
+@. Evaluar las siguientes expresiones:
 
     a. `9 – 5 – 3`
     b. `2 // 3 + 3 / 5`
@@ -1168,7 +1168,7 @@ Función                    Descripción           Ejemplo                  Resu
     g. `(7 % 5 % 3)`
     h. `((12 + 3) // 2) / (8 – (5 + 1))`
     i. `12 / 2 * 3`
-    j. `math.sqrt(math.cos(4)`
+    j. `math.sqrt(math.cos(4))`
     k. `math.cos(math.sqrt(4))`
     l. `math.trunc(815.66) + round(815.66)`
 
