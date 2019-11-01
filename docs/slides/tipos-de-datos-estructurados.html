@@ -257,21 +257,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Por ejemplo, los elementos de un conjunto y las claves de un diccionario deben ser <em>hashables</em>.</p></li>
 </ul>
 </section><section id="iterables" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Iterables</h2><ul>
-<li><p>Un <strong>iterable</strong> es un dato compuesto que tiene la capacidad de devolver sus elementos de uno en uno.</p></li>
+<li><p>Un <strong>iterable</strong> es un dato compuesto que se puede recorrer o visitar elemento a elemento, es decir, que se puede <em>iterar</em> por sus elementos uno a uno.</p></li>
 <li><p>Como iterables tenemos:</p>
 <ul>
-<li><p>Todas las secuencias: listas, cadenas, tuplas, rangos…</p></li>
-<li><p>Estructuras no secuenciales: diccionarios, conjuntos…</p></li>
+<li><p>Todas las secuencias: listas, cadenas, tuplas y rangos</p></li>
+<li><p>Estructuras no secuenciales: diccionarios y conjuntos</p></li>
 </ul></li>
-<li><p>Los iterables pueden usarse en un bucle <code>for</code> y en muchos otros lugares donde se necesite una secuencia (funciones <code>zip()</code>, <code>map()</code>, etc.).</p></li>
-<li><p>La forma manual de recorrer un dato iterable es usando un <strong>iterador</strong>.</p></li>
+<li><p>No representa un tipo concreto, sino más bien una <em>familia</em> de tipos que comparten la misma propiedad.</p></li>
+<li><p>Muchas funciones, como <code>map()</code> y <code>filter()</code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
+<li><p>La forma básica de recorrer un dato iterable es usando un <strong>iterador</strong>.</p></li>
 </ul></section><section id="iteradores" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Iteradores</h2><ul>
-<li><p>Un <strong>iterador</strong> representa un flujo de datos.</p></li>
+<li><p>Un <strong>iterador</strong> representa un flujo de datos <em>perezoso</em> (no se entregan todos de una vez, sino de uno en uno).</p></li>
 <li><p>Cuando se llama repetidamente a la función <code>next()</code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
 <li><p>Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo <code>StopIteration</code>.</p>
-<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next()</code> se seguirá levantando la excepción <code>StopIteration</code>.</p></li>
-<li><p>Se puede obtener un iterador a partir de cualquier dato iterable usando la función <code>iter()</code> con el iterable.</p></li>
-<li><p>Si se le pasa un valor no iterable, levanta una excepción <code>TypeError</code>.</p></li>
+<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next()</code> se seguirá levantando esa excepción.</p></li>
+<li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code>iter()</code> al iterable.</p></li>
+<li><p>Si se le pasa un dato no iterable, levanta una excepción <code>TypeError</code>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -294,6 +295,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
+<li><p>Funciones como <code>map()</code> y <code>filter()</code> devuelven un iterador porque, al ser perezoso, es más eficiente en memoria que devolver toda una lista o tupla.</p>
+<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code>map()</code>?</p></li>
 <li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code>list()</code> y <code>tuple()</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="op">&gt;&gt;&gt;</span> iterador <span class="op">=</span> <span class="bu">iter</span>(l)</a>
@@ -324,12 +327,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="line-block">iterador = iter(<span style="color:teal"><em>&lt;iterable&gt;</em></span>)<br />
 fin = False<br />
 while not fin:<br />
-    try:<br />
-        <span style="color:teal"><em>&lt;variable&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>)* = next(iterador)<br />
-    except StopIteration:<br />
-        fin = True<br />
-    else:<br />
-        <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
+      try:<br />
+            <span style="color:teal"><em>&lt;variable&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>)* = next(iterador)<br />
+      except StopIteration:<br />
+            fin = True<br />
+      else:<br />
+            <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
 </ul></section><section id="el-módulo-itertools" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> El módulo <code>itertools</code></h3><ul>
 <li><p>El módulo <code>itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
 <li><p>Veremos algunos ejemplos.</p></li>
@@ -352,8 +355,6 @@ while not fin:<br />
 <li><code>itertools.repeat('abc', 5)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc</li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
-
 </section></section>
 <section><section id="secuencias" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Secuencias</h1></section><section id="concepto-de-secuencia" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Concepto de secuencia</h2><ul>
 <li><p>Una secuencia es una estructura de datos que:</p>
@@ -576,29 +577,24 @@ while not fin:<br />
 <li><p>Los <strong>rangos</strong> representan secuencias inmutables de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
 <li><p>Los rangos se crean con la función <code>range()</code>:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;rango&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong>] <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;paso&gt;</em></span>]<strong><code>)</code></strong></div></li>
-<li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> deben ser números enteros.<br />
-</p></li>
-<li><p>Cuando se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, se entiende que es <code>0</code>.<br />
-</p></li>
-<li><p>El valor de <span style="color:teal"><em>&lt;fin&gt;</em></span> no se alcanza nunca.<br />
-</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> y <span style="color:teal"><em>&lt;fin&gt;</em></span> son iguales, representa el <em>rango vacío</em>.<br />
-</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> es mayor que <span style="color:teal"><em>&lt;fin&gt;</em></span>, el <span style="color:teal"><em>&lt;paso&gt;</em></span> debería ser negativo.<br />
-En caso contrario, también representaría el rango vacío.</p></li>
+<li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> deben ser números enteros.</p></li>
+<li><p>Cuando se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, se entiende que es <code>0</code>.</p></li>
+<li><p>El valor de <span style="color:teal"><em>&lt;fin&gt;</em></span> no se alcanza nunca.</p></li>
+<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> y <span style="color:teal"><em>&lt;fin&gt;</em></span> son iguales, representa el <strong>rango vacío</strong>.</p></li>
+<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> es mayor que <span style="color:teal"><em>&lt;fin&gt;</em></span>, el <span style="color:teal"><em>&lt;paso&gt;</em></span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>El contenido de un rango <span class="math inline">r</span> vendrá determinado por la fórmula <span class="math inline">r[i] = inicio + fin \cdot i</span>, donde <span class="math inline">i \geq 0</span>. Además:</p>
+<li><p>El <strong>contenido</strong> de un rango <span class="math inline">r</span> vendrá determinado por la fórmula <span class="math inline">r[i] = inicio + fin \cdot i</span>, donde <span class="math inline">i \geq 0</span>. Además:</p>
 <ul>
 <li><p>Si el paso es positivo, se impone también la restricción <span class="math inline">r[i] &lt; fin</span>.</p></li>
 <li><p>Si el paso es negativo, se impone también la restricción <span class="math inline">r[i] &gt; fin</span>.</p></li>
 </ul></li>
-<li><p>Un rango es vacío cuando <span class="math inline">r[0]</span> no satisface las restricciones anteriores.</p></li>
-<li><p>Los rangos admiten índices negativos, pero se interpretan como si se indexara desde el final de la secuencia usando índices positivos.</p></li>
-<li><p>Los rangos implementan todas las operaciones de las secuencias, <em>excepto</em> la concatenación y la repetición.</p>
+<li><p>Un rango es <strong>vacío</strong> cuando <span class="math inline">r[0]</span> no satisface las restricciones anteriores.</p></li>
+<li><p>Los rangos admiten <strong>índices negativos</strong>, pero se interpretan como si se indexara desde el final de la secuencia usando índices positivos.</p></li>
+<li><p>Los rangos implementan todas las <strong>operaciones de las secuencias, <em>excepto</em> la concatenación y la repetición</strong>.</p>
 <p>Esto es debido a que los rangos sólo pueden representar secuencias que siguen un patrón muy estricto, y las repeticiones y las concatenaciones a menudo violan ese patrón.</p></li>
-<li><p>Los rangos ocupan mucha menos memoria que las listas o las tuplas.</p></li>
+<li><p><strong>Los rangos son perezosos</strong> y, por tanto, ocupan mucha menos memoria que las listas o las tuplas.</p></li>
 </ul>
 </section><section class="slide level4">
 

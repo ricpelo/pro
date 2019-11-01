@@ -64,23 +64,27 @@ nocite: |
 
 ## Iterables
 
-- Un **iterable** es un dato compuesto que tiene la capacidad de devolver sus
-  elementos de uno en uno.
+- Un **iterable** es un dato compuesto que se puede recorrer o visitar elemento
+  a elemento, es decir, que se puede *iterar* por sus elementos uno a uno.
 
 - Como iterables tenemos:
 
-  - Todas las secuencias: listas, cadenas, tuplas, rangos...
+  - Todas las secuencias: listas, cadenas, tuplas y rangos
 
-  - Estructuras no secuenciales: diccionarios, conjuntos...
+  - Estructuras no secuenciales: diccionarios y conjuntos
 
-- Los iterables pueden usarse en un bucle `for` y en muchos otros lugares donde
-  se necesite una secuencia (funciones `zip()`, `map()`, etc.).
+- No representa un tipo concreto, sino más bien una *familia* de tipos que
+  comparten la misma propiedad.
 
-- La forma manual de recorrer un dato iterable es usando un **iterador**.
+- Muchas funciones, como `map()` y `filter()`, actúan sobre iterables en
+  general, en lugar de hacerlo sobre un tipo concreto.
+
+- La forma básica de recorrer un dato iterable es usando un **iterador**.
 
 ## Iteradores
 
-- Un **iterador** representa un flujo de datos.
+- Un **iterador** representa un flujo de datos *perezoso* (no se entregan todos
+  de una vez, sino de uno en uno).
 
 - Cuando se llama repetidamente a la función `next()` aplicada a un iterador,
   se van obteniendo los sucesivos elementos del flujo.
@@ -89,12 +93,12 @@ nocite: |
   `StopIteration`.
 
   Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a
-  la función `next()` se seguirá levantando la excepción `StopIteration`.
+  la función `next()` se seguirá levantando esa excepción.
 
-- Se puede obtener un iterador a partir de cualquier dato iterable usando la
-  función `iter()` con el iterable.
+- Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
+  función `iter()` al iterable.
 
-- Si se le pasa un valor no iterable, levanta una excepción `TypeError`.
+- Si se le pasa un dato no iterable, levanta una excepción `TypeError`.
 
 ---
 
@@ -118,6 +122,12 @@ nocite: |
   ```
 
 ---
+
+- Funciones como `map()` y `filter()` devuelven un iterador porque, al ser
+  perezoso, es más eficiente en memoria que devolver toda una lista o tupla.
+
+  Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
+  resultado de un `map()`?
 
 - Los iteradores se pueden convertir en listas o tuplas usando las funciones
   `list()` y `tuple()`:
@@ -170,12 +180,12 @@ nocite: |
   iterador = iter(!NT(iterable))
 fin = False
 while not fin:
-    try:
-        !NT{variable}(!T{,} !NT{variable})\* = next(iterador)
-    except StopIteration:
-        fin = True
-    else:
-        !NT(sentencia)
+      try:
+            !NT{variable}(!T{,} !NT{variable})\* = next(iterador)
+      except StopIteration:
+            fin = True
+      else:
+            !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### El módulo `itertools`
@@ -208,8 +218,6 @@ while not fin:
   - `itertools.repeat('abc')` $\Rightarrow$ abc, abc, abc, abc, abc, abc, abc,
     ...
   - `itertools.repeat('abc', 5)` $\Rightarrow$ abc, abc, abc, abc, abc
-
----
 
 # Secuencias
 
@@ -500,35 +508,36 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(paso)]!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.                                               
-- Cuando se omite !NT(inicio), se entiende que es `0`.                           
-- El valor de !NT(fin) no se alcanza nunca.                                      
-- Cuando !NT(inicio) y !NT(fin) son iguales, representa el *rango vacío*.        
-- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.   
-  En caso contrario, también representaría el rango vacío.                       
+- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.
+- Cuando se omite !NT(inicio), se entiende que es `0`.
+- El valor de !NT(fin) no se alcanza nunca.
+- Cuando !NT(inicio) y !NT(fin) son iguales, representa el **rango vacío**.
+- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.
+  En caso contrario, también representaría el rango vacío.
 
 ---
 
-- El contenido de un rango $r$ vendrá determinado por la fórmula $r[i] = inicio
-  + fin \cdot i$, donde $i \geq 0$. Además:
+- El **contenido** de un rango $r$ vendrá determinado por la fórmula $r[i] =
+  inicio + fin \cdot i$, donde $i \geq 0$. Además:
 
   - Si el paso es positivo, se impone también la restricción $r[i] < fin$.
 
   - Si el paso es negativo, se impone también la restricción $r[i] > fin$.
 
-- Un rango es vacío cuando $r[0]$ no satisface las restricciones anteriores.
+- Un rango es **vacío** cuando $r[0]$ no satisface las restricciones anteriores.
 
-- Los rangos admiten índices negativos, pero se interpretan como si se indexara
-  desde el final de la secuencia usando índices positivos.
+- Los rangos admiten **índices negativos**, pero se interpretan como si se
+  indexara desde el final de la secuencia usando índices positivos.
 
-- Los rangos implementan todas las operaciones de las secuencias, *excepto* la
-  concatenación y la repetición.
+- Los rangos implementan todas las **operaciones de las secuencias, *excepto*
+  la concatenación y la repetición**.
 
   Esto es debido a que los rangos sólo pueden representar secuencias que siguen
   un patrón muy estricto, y las repeticiones y las concatenaciones a menudo
   violan ese patrón.
 
-- Los rangos ocupan mucha menos memoria que las listas o las tuplas.
+- **Los rangos son perezosos** y, por tanto, ocupan mucha menos memoria que las
+  listas o las tuplas.
 
 ---
 
