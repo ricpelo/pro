@@ -63,6 +63,28 @@ nocite: |
   instrucción y llevando la cuenta de los valores ligados a sus
   identificadores.
 
+## Sentencias
+
+- A las instrucciones de un programa imperativo también se las denomina
+  **sentencias**.
+
+- La principal diferencia entre una *sentencia* y una *expresión* es que las
+  sentencias no denotan ningún valor, sino que son órdenes a ejecutar por el
+  programa para cambiar el estado de éste.
+
+  - Las *expresiones* se *evalúan*.
+
+  - Las *sentencias* se *ejecutan*.
+
+- En muchos lenguajes imperativos (como ocurre con Python y Java) es posible
+  colocar una expresión donde se espera una sentencia (aunque no al revés), si
+  bien no suele resultar útil ya que, en ese caso, la ejecución de tal
+  «sentencia» consistiría en evaluar la expresión, pero el resultado de dicha
+  evaluación se perdería.
+
+- Sólo resultaría útil en caso de que la evaluación de la expresión provocara
+  *efectos laterales* (cosa que estudiaremos en breve).
+
 # Asignación destructiva
 
 ## Variables

@@ -185,19 +185,17 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras de control:
 
+  - La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
+
+  - La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
+    *p*.
+
+  - La **iteración**, que repite una acción *A* dependiendo del valor de verdad
+    de un predicado de control *p*.
+
+---
+
 :::: columns
-
-::: column
-
-- La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
-
-- La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
-  *p*.
-
-- La **iteración**, que repite una acción *A* dependiendo del valor de verdad
-  de un predicado de control *p*.
-
-:::
 
 ::: column
 
@@ -209,6 +207,38 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 :::
 
+::: column
+
+- En pseudocódigo:
+
+  - Secuencia:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~~~
+    $A$
+$B$
+~~~~~~~~~~~~~~~~~~~~~~~
+
+  - Selección:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~~~
+    **si** $p$ **entonces**
+      $A$
+**sino**
+      $B$
+~~~~~~~~~~~~~~~~~~~~~~~
+
+  - Iteración:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~~~
+    **mientras** $p$ **hacer**
+      $A$
+~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
 ::::
 
 ---
@@ -216,7 +246,33 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
   claro, sería:
 
-  !IMGP(claro.png)()(width=50%)
+:::: columns
+
+::: {.column width=70%}
+
+!IMGP(claro.png)()(width=70%)
+
+:::
+
+::: {.column width=30%}
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+**inicio**
+**leer** $a$
+**leer** $b$
+**mientras** $a \neq b$ **hacer**
+      **si** $a < b$ **entonces**
+            $b \leftarrow b - a$
+      **sino**
+            $a \leftarrow a - b$
+**escribir** $a$
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ### Ventajas de los programas estructurados
 
@@ -224,7 +280,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
   estructurados son:
 
   - Son más fáciles de entender, ya que básicamente se pueden leer de arriba
-    abajo de estructura a estructura como cualquier otro texto sin tener que
+    abajo de estructura en estructura como cualquier otro texto sin tener que
     estar continuamente saltando de un punto a otro del programa.
 
   - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
@@ -624,16 +680,16 @@ else:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  **Construir la tabla de $n \times n$**
-**Fin**
+  **inicio**
+  **leer $n$**
+  **construir la tabla de $n \times n$**
+**fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde el programa se plantea como una secuencia de dos acciones: preguntar el
   tamaño de la tabla deseada y construir la tabla propiamente dicha.
 
-- La instrucción **Leer $n$** ya está suficientemente refinada (se puede
+- La instrucción **leer $n$** ya está suficientemente refinada (se puede
   traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
   recurso abstracto).
 
@@ -643,22 +699,22 @@ else:
   fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así
   sucesivamente hasta que lleguemos a los múltiplos de $n$.
 
-- Por tanto, el siguiente paso es refinar la instrucción abstracta **Construir
+- Por tanto, el siguiente paso es refinar la instrucción abstracta **construir
   la tabla de $n \times n$**, creando un nuevo nivel de refinamiento:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  # Construir la tabla de $n \times n$:
+  **inicio**
+  **leer $n$**
+  # construir la tabla de $n \times n$:
   $i \leftarrow 1$
-  **Mientras** $i \leq n$:
-        **Escribir la fila de $i$**
+  **mientras** $i \leq n$:
+        **escribir la fila de $i$**
         $i \leftarrow i + 1$
-**Fin**
+**fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  donde ahora aparece la acción **Escribir la fila de $i$**, que escribe cada
+  donde ahora aparece la acción **escribir la fila de $i$**, que escribe cada
   una de las filas de la tabla, y que habrá que refinar porque no se puede
   traducir directamente al lenguaje de programación.
 
@@ -668,19 +724,19 @@ else:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Inicio**
-  **Leer $n$**
-  _{ Construir la tabla de $n \times n$: }_
+  **inicio**
+  **leer $n$**
+  _{ construir la tabla de $n \times n$: }_
   $i \leftarrow 1$
-  **Mientras** $i \leq n$:
-        _{ Escribir la fila de $i$: }_
+  **mientras** $i \leq n$:
+        _{ escribir la fila de $i$: }_
         $j \leftarrow 1$
-        **Mientras** $j \leq n$:
-              **Escribir** $i \times j$
+        **mientras** $j \leq n$:
+              **escribir** $i \times j$
               $j \leftarrow j + 1$
-        **Escribir** un salto de línea
+        **escribir** un salto de línea
         $i \leftarrow i + 1$
-**Fin**
+**fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -827,7 +883,7 @@ else:
 
 - En la línea 7 se asigna a `persona` el valor de `x`, como si se hiciera
   `persona = x`, lo que sabemos que crea un *alias* (que no afectaría ya que el
-  valor pasado es una cadena, y por tanto inmutable).
+  valor pasado es una cadena y, por tanto, inmutable).
 
 ---
 
