@@ -747,7 +747,7 @@ $$
     producto, etc.) entre otras.
 
   - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
-    pueden realizar otras operaciones (la *concatenación*, la *indexación*,
+    pueden realizar otras operaciones (la *concatenación*, la *repetición*,
     etc.).
 
 ## `type`

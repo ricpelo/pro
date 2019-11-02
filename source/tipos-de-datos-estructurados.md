@@ -35,13 +35,12 @@ nocite: |
 
   - Tiene asociado un valor *hash* que nunca cambia durante su vida.
 
-    Para ello debe responder al método `__hash__()`, que es el que se invoca
-    cuando se usa la función `hash()` sobre el valor.
+    Si un valor es *hashable*, se podrá obtener su *hash* llamando a la función
+    `hash()` sobre el valor. En caso contrario, la llamada generará un error
+    `TypeError`.
 
-  - Puede compararse con otros valores para ver si es igual a alguno de ellos.
-
-    Para ello debe responder al método `__eq__()`, que es el que se invoca
-    cuando se usa el operador `==` con ese valor como su primer argumento.
+  - Puede compararse con otros valores para ver si es igual a alguno de ellos
+    usando el operador `==`.
 
 - Si dos valores *hashables* son iguales, entonces deben tener el mismo valor
   de *hash*.
@@ -264,15 +263,16 @@ while not fin:
 
 - Una secuencia es una estructura de datos que:
 
-  - permite el acceso eficiente a sus elementos usando índices enteros, y
+  - permite el acceso eficiente a sus elementos mediante indexación `[`$i$`]`
+    (siendo $i$ un entero), y
 
   - se le puede calcular su longitud mediante la función `len`.
 
 - Las secuencias se dividen en:
 
-  - **Inmutables**: cadenas (`str`), tuplas (`tuple`), rangos (`range`).
+  - **Inmutables**: cadenas (`str`), tuplas (`tuple`) y rangos (`range`).
 
-  - **Mutables**: listas (`list`), principalmente.
+  - **Mutables**: listas (`list`)
 
 ## Operaciones comunes
 
@@ -327,7 +327,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ### Cadenas (`str`)
 
-- Las **cadenas** son secuencias inmutables de caracteres.
+- Las **cadenas** son secuencias inmutables y *hashables* de caracteres.
 
 - No olvidemos que en Python no existe el tipo *carácter*. En Python, un
   carácter es una cadena de longitud 1.
@@ -528,17 +528,22 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
   - Cuando son necesarios para evitar ambigüedad.
 
-    Por ejemplo, `f(a, b, c)` es una llamada a función con tres argumentos,
-    mientras que `f((a, b, c))` es una llamada a función con un único argumento
-    que es una tupla de tres elementos.
+    Por ejemplo, `f(a, b, c)` es una llamada a una función con tres argumentos,
+    mientras que `f((a, b, c))` es una llamada a una función con un único
+    argumento que es una tupla de tres elementos.
 
 - Las tuplas implementan todas las operaciones comunes de las secuencias.
 
+- En general, las tuplas se pueden considerar como la versión inmutable de las
+  listas.
+
+- Además, las tuplas son *hashables* si sus elementos también lo son.
+
 ### Rangos
 
-- Los **rangos** representan secuencias inmutables de números enteros y se usan
-  frecuentemente para hacer bucles que se repitan un determinado número de
-  veces.
+- Los **rangos** representan secuencias inmutables y *hashables* de números
+  enteros y se usan frecuentemente para hacer bucles que se repitan un
+  determinado número de veces.
 
 - Los rangos se crean con la función `range()`:
 
@@ -620,6 +625,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Las **listas** son secuencias *mutables*, usadas frecuentemente para
   almacenar colecciones de elementos heterogéneos.
+
+- Al ser mutables, las listas **no** son *hashables*.
 
 - Se pueden construir de varias maneras:
 
@@ -759,8 +766,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 - El tipo `set` es mutable, es decir, que su contenido puede cambiar usando
   métodos como `add()` y `remove()`.
 
-  - Como es mutable, no tiene valor *hash* y, por tanto, no puede usarse como
-    clave de un diccionario o como elemento de otro conjunto.
+  - Como es mutable, no es *hashable* y, por tanto, no puede usarse como clave
+    de un diccionario o como elemento de otro conjunto.
 
 - El tipo `frozenset` es inmutable y *hashable*. Por tanto, su contenido no se
   puede cambiar una vez creado y puede usarse como clave de un diccionario o
@@ -886,9 +893,9 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 
 ---
 
-- Las claves de un diccionario pueden ser *casi* cualquier valor.
+- Las claves de un diccionario pueden ser *casi* cualquier dato.
 
-- No se pueden usar como claves los valores que no sean *hashables*, es decir,
+- No se pueden usar como claves los datos que no sean *hashables*, es decir,
   los que contengan listas, diccionarios o cualquier otro tipo mutable.
 
 - Los tipos numéricos que se usen como claves obedecen las reglas normales de
@@ -931,10 +938,10 @@ $d$`.clear()`               Elimina todos los elementos del diccionario
 
 $d$`.copy()`                Devuelve una copia superficial del diccionario
 
-$d$`.get(`$c$[`,`$def$]`)`  Devuelve el valor de $c$ si $c$ está en $d$; en caso contrario,
+$d$`.get(`$c$[`,` $def$]`)` Devuelve el valor de $c$ si $c$ está en $d$; en caso contrario,
                             devuelve $def$ (por defecto, $def$ vale `None`)
                       
-$d$`.pop(`$c$[`,`$def$]`)`  Elimina y devuelve el valor de $c$ si $c$ está en $d$; en
+$d$`.pop(`$c$[`,` $def$]`)` Elimina y devuelve el valor de $c$ si $c$ está en $d$; en
                             caso contrario, devuelve $def$ (si no se pasa $def$ y $c$ no está en $d$,
                             produce un `KeyError`)
 ---------------------------------------------------------------------------------------------
@@ -947,7 +954,7 @@ Operación                           Resultado
 $d$`.popitem()`                     Elimina y devuelve una pareja ($clave$, $valor$) del diccionario
                                     siguiendo un orden LIFO (produce un `KeyError` si $d$ está vacío)
 
-$d$`.setdefault(`$c$[`,`$def$]`)`   Si $c$ está en $d$, devuelve su valor; si no, inserta $c$ en $d$ con
+$d$`.setdefault(`$c$[`,` $def$]`)`  Si $c$ está en $d$, devuelve su valor; si no, inserta $c$ en $d$ con
                                     el valor $def$ y devuelve $def$ (por defecto, $def$ vale `None`)
 
 $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $valor$) de $o$,

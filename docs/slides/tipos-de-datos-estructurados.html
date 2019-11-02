@@ -242,9 +242,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Un valor es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
 <ul>
 <li><p>Tiene asociado un valor <em>hash</em> que nunca cambia durante su vida.</p>
-<p>Para ello debe responder al método <code>__hash__()</code>, que es el que se invoca cuando se usa la función <code>hash()</code> sobre el valor.</p></li>
-<li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos.</p>
-<p>Para ello debe responder al método <code>__eq__()</code>, que es el que se invoca cuando se usa el operador <code>==</code> con ese valor como su primer argumento.</p></li>
+<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code>hash()</code> sobre el valor. En caso contrario, la llamada generará un error <code>TypeError</code>.</p></li>
+<li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos usando el operador <code>==</code>.</p></li>
 </ul></li>
 <li><p>Si dos valores <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>.</p></li>
 </ul></section><section class="slide level4">
@@ -382,13 +381,13 @@ while not fin:<br />
 <section><section id="secuencias" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Secuencias</h1></section><section id="concepto-de-secuencia" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Concepto de secuencia</h2><ul>
 <li><p>Una secuencia es una estructura de datos que:</p>
 <ul>
-<li><p>permite el acceso eficiente a sus elementos usando índices enteros, y</p></li>
+<li><p>permite el acceso eficiente a sus elementos mediante indexación <code>[</code><span class="math inline">i</span><code>]</code> (siendo <span class="math inline">i</span> un entero), y</p></li>
 <li><p>se le puede calcular su longitud mediante la función <code>len</code>.</p></li>
 </ul></li>
 <li><p>Las secuencias se dividen en:</p>
 <ul>
-<li><p><strong>Inmutables</strong>: cadenas (<code>str</code>), tuplas (<code>tuple</code>), rangos (<code>range</code>).</p></li>
-<li><p><strong>Mutables</strong>: listas (<code>list</code>), principalmente.</p></li>
+<li><p><strong>Inmutables</strong>: cadenas (<code>str</code>), tuplas (<code>tuple</code>) y rangos (<code>range</code>).</p></li>
+<li><p><strong>Mutables</strong>: listas (<code>list</code>)</p></li>
 </ul></li>
 </ul></section><section id="operaciones-comunes" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Operaciones comunes</h2><ul>
 <li><p>Todas las secuencias (ya sean cadenas, listas, tuplas o rangos) comparten un conjunto de operaciones comunes.</p></li>
@@ -463,7 +462,7 @@ while not fin:<br />
 </tbody>
 </table>
 </section><section id="inmutables" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Inmutables</h2></section><section id="cadenas-str" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Cadenas (<code>str</code>)</h3><ul>
-<li><p>Las <strong>cadenas</strong> son secuencias inmutables de caracteres.</p></li>
+<li><p>Las <strong>cadenas</strong> son secuencias inmutables y <em>hashables</em> de caracteres.</p></li>
 <li><p>No olvidemos que en Python no existe el tipo <em>carácter</em>. En Python, un carácter es una cadena de longitud 1.</p></li>
 <li><p>Las cadenas implementan todas las operaciones de las secuencias, además de los métodos que se pueden consultar en <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
 </ul></section><section id="formateado-de-cadenas" class="slide level4">
@@ -592,12 +591,14 @@ while not fin:<br />
 <ul>
 <li><p>La tupla vacía: <code>()</code></p></li>
 <li><p>Cuando son necesarios para evitar ambigüedad.</p>
-<p>Por ejemplo, <code>f(a, b, c)</code> es una llamada a función con tres argumentos, mientras que <code>f((a, b, c))</code> es una llamada a función con un único argumento que es una tupla de tres elementos.</p></li>
+<p>Por ejemplo, <code>f(a, b, c)</code> es una llamada a una función con tres argumentos, mientras que <code>f((a, b, c))</code> es una llamada a una función con un único argumento que es una tupla de tres elementos.</p></li>
 </ul></li>
 <li><p>Las tuplas implementan todas las operaciones comunes de las secuencias.</p></li>
+<li><p>En general, las tuplas se pueden considerar como la versión inmutable de las listas.</p></li>
+<li><p>Además, las tuplas son <em>hashables</em> si sus elementos también lo son.</p></li>
 </ul>
 </section><section id="rangos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Rangos</h3><ul>
-<li><p>Los <strong>rangos</strong> representan secuencias inmutables de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
+<li><p>Los <strong>rangos</strong> representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
 <li><p>Los rangos se crean con la función <code>range()</code>:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;rango&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong>] <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;paso&gt;</em></span>]<strong><code>)</code></strong></div></li>
 <li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> deben ser números enteros.</p></li>
@@ -650,6 +651,7 @@ while not fin:<br />
 </ul>
 </section><section id="mutables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Mutables</h2></section><section id="listas" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Listas</h3><ul>
 <li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para almacenar colecciones de elementos heterogéneos.</p></li>
+<li><p>Al ser mutables, las listas <strong>no</strong> son <em>hashables</em>.</p></li>
 <li><p>Se pueden construir de varias maneras:</p>
 <ul>
 <li><p>Usando corchetes vacíos para representar la lista vacía: <code>[]</code></p></li>
@@ -805,7 +807,7 @@ while not fin:<br />
 <li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
 <li><p>El tipo <code>set</code> es mutable, es decir, que su contenido puede cambiar usando métodos como <code>add()</code> y <code>remove()</code>.</p>
 <ul>
-<li>Como es mutable, no tiene valor <em>hash</em> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
+<li>Como es mutable, no es <em>hashable</em> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
 </ul></li>
 <li><p>El tipo <code>frozenset</code> es inmutable y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
 <li><p>Los conjuntos se crean con las funciones <code>set()</code> y <code>frozenset()</code>.</p></li>
@@ -992,8 +994,8 @@ while not fin:<br />
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Las claves de un diccionario pueden ser <em>casi</em> cualquier valor.</p></li>
-<li><p>No se pueden usar como claves los valores que no sean <em>hashables</em>, es decir, los que contengan listas, diccionarios o cualquier otro tipo mutable.</p></li>
+<li><p>Las claves de un diccionario pueden ser <em>casi</em> cualquier dato.</p></li>
+<li><p>No se pueden usar como claves los datos que no sean <em>hashables</em>, es decir, los que contengan listas, diccionarios o cualquier otro tipo mutable.</p></li>
 <li><p>Los tipos numéricos que se usen como claves obedecen las reglas normales de comparación numérica.</p>
 <ul>
 <li>Por tanto, si dos números son considerados iguales (como <code>1</code> y <code>1.0</code>) entonces se consideran la misma clave en el diccionario.</li>
@@ -1051,11 +1053,11 @@ while not fin:<br />
 <td style="text-align: left;">Devuelve una copia superficial del diccionario</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">d</span><code>.get(</code><span class="math inline">c</span>[<code>,</code><span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;"><span class="math inline">d</span><code>.get(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
 <td style="text-align: left;">Devuelve el valor de <span class="math inline">c</span> si <span class="math inline">c</span> está en <span class="math inline">d</span>; en caso contrario, devuelve <span class="math inline">def</span> (por defecto, <span class="math inline">def</span> vale <code>None</code>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">d</span><code>.pop(</code><span class="math inline">c</span>[<code>,</code><span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;"><span class="math inline">d</span><code>.pop(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
 <td style="text-align: left;">Elimina y devuelve el valor de <span class="math inline">c</span> si <span class="math inline">c</span> está en <span class="math inline">d</span>; en caso contrario, devuelve <span class="math inline">def</span> (si no se pasa <span class="math inline">def</span> y <span class="math inline">c</span> no está en <span class="math inline">d</span>, produce un <code>KeyError</code>)</td>
 </tr>
 </tbody>
@@ -1078,7 +1080,7 @@ while not fin:<br />
 <td style="text-align: left;">Elimina y devuelve una pareja (<span class="math inline">clave</span>, <span class="math inline">valor</span>) del diccionario siguiendo un orden LIFO (produce un <code>KeyError</code> si <span class="math inline">d</span> está vacío)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">d</span><code>.setdefault(</code><span class="math inline">c</span>[<code>,</code><span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;"><span class="math inline">d</span><code>.setdefault(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
 <td style="text-align: left;">Si <span class="math inline">c</span> está en <span class="math inline">d</span>, devuelve su valor; si no, inserta <span class="math inline">c</span> en <span class="math inline">d</span> con el valor <span class="math inline">def</span> y devuelve <span class="math inline">def</span> (por defecto, <span class="math inline">def</span> vale <code>None</code>)</td>
 </tr>
 <tr class="odd">

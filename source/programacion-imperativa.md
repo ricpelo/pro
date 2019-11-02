@@ -539,9 +539,8 @@ y -> v2 -> c2
 
   **se crea una nueva cadena** y se la asignamos a la variable `x`.
   
-  Es decir:
-  la cadena `'hola'` original **no se cambia**, sino que desaparece y queda
-  **sustituida por una nueva**.
+  Es decir: la cadena `'hola'` original **no se cambia**, sino que desaparece y
+  queda **sustituida por una nueva**.
 
   !DOT(inmutable4.svg)()(width=50%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -592,11 +591,11 @@ $s$`.count(`$x$`)`       Número de veces que aparece $x$ en $s$
 ::: {.column width=60%}
 
 ```
-  +-----+-----+-----+-----+-----+-----+
-s | 124 | 333 | 'a' | 3.2 |  9  |  53 |
-  +-----+-----+-----+-----+-----+-----+
-     0     1     2     3     4     5
-    -6    -5    -4    -3    -2    -1
+  +---+---+---+---+---+---+
+s | P | y | t | h | o | n |
+  +---+---+---+---+---+---+
+    0   1   2   3   4   5
+   -6  -5  -4  -3  -2  -1
 ```
 
 :::
@@ -605,9 +604,9 @@ s | 124 | 333 | 'a' | 3.2 |  9  |  53 |
 
 ```python
 >>> s[2]
-'a'
+'t'
 >>> s[-2]
-9
+'o'
 ```
 
 :::
@@ -692,8 +691,8 @@ s | P | y | t | h | o | n |
      +-----+-----+-----+-----+-----+-----+
      | 124 | 333 | 'a' | 3.2 |  9  |  53 |
      +-----+-----+-----+-----+-----+-----+
-        0     1     2     3     4     5
-       -6    -5    -4    -3    -2    -1
+     0     1     2     3     4     5     6
+    -6    -5    -4    -3    -2    -1
     ```
 
     ```python
