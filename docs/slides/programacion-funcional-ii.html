@@ -770,11 +770,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
          n\cdot(n-1)! &amp; \text{si } n &gt; 0 \text{\quad(caso recursivo)}
        \end{cases}</span></p></li>
 </ul>
-</section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Recursividad lineal</h3><ul>
+</section><section id="diseño-de-funciones-recursivas" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Diseño de funciones recursivas</h3><ul>
+<li><p>El diseño de funciones recursivas se basa en:</p>
+<ul>
+<li><p>Pensamiento optimista</p></li>
+<li><p>Descomposición (reducción) del problema</p></li>
+<li><p>Identificación de problemas no reducibles (mínimos)</p></li>
+</ul></li>
+</ul></section><section id="pensamiento-optimista" class="slide level4">
+<h4><span class="header-section-number">2.2.4.1</span> Pensamiento optimista</h4>
+<ul>
+<li><p>Suponer que la función deseada ya existe y es capaz de resolver ejemplares más pequeños del problema (este paso se denomina <strong>hipótesis inductiva</strong>).</p></li>
+<li><p>Se trata de encontrar el patrón común de forma que resolver el problema principal implique el mismo patrón en un problema más pequeño.</p></li>
+<li><p>Ejemplo:</p>
+<ul>
+<li><p>¿Queremos diseñar una función que calcule el factorial de un número? Supongamos que ya contamos con una función que calcula el factorial de un número más pequeño. Tenemos que creer y confiar en que es así, aunque ahora mismo no sea verdad.</p>
+<p>Es decir: si queremos calcular el factorial de <span class="math inline">n</span>, suponemos que tenemos ya una función <em>fact</em> que no sabe calcular el factorial de <span class="math inline">n</span>, pero sí el de <span class="math inline">(n - 1)</span>. Ésta es nuestra hipótesis inductiva.</p></li>
+</ul></li>
+</ul>
+</section><section id="descomposición-del-problema" class="slide level4">
+<h4><span class="header-section-number">2.2.4.2</span> Descomposición del problema</h4>
+<ul>
+<li><p>Reducimos el problema de forma que así tendremos un ejemplar más pequeño del mismo problema y, por tanto, podremos usar la función <em>fact</em> anterior para poder resolver ese ejemplar más pequeño.</p></li>
+<li><p>A continuación, usamos dicha solución <em>parcial</em> para obtener la solución al problema original.</p></li>
+<li><p>Ejemplo:</p>
+<ul>
+<li><p>Sabemos que <span class="math inline">n! = n\cdot(n - 1)!</span>, por lo que si usamos la función <em>fact</em> para calcular el factorial de <span class="math inline">(n - 1)</span>, lo único que tenemos que hacer para obtener el factorial de <span class="math inline">n</span> es multiplicar el resultado de <span class="math inline">fact(n - 1)</span> por <span class="math inline">n</span>.</p>
+<p>Dicho de otra forma: <strong><em>si yo supiera</em> calcular el factorial de <span class="math inline">(n - 1)</span>, me bastaría con multiplicarlo por <span class="math inline">n</span> para obtener el factorial de <span class="math inline">n</span></strong>.</p></li>
+</ul></li>
+</ul>
+</section><section id="identificación-de-problemas-no-reducibles" class="slide level4">
+<h4><span class="header-section-number">2.2.4.3</span> Identificación de problemas no reducibles</h4>
+<ul>
+<li><p>Debemos identificar los ejemplares más pequeños (los que no se pueden reducir más) para los cuales hay una solución explícita y directa que no necesita recursividad (los <em>casos base</em>).</p></li>
+<li><p>Ejemplo:</p>
+<ul>
+<li><p>En nuestro caso, sabemos que <span class="math inline">0! = 1</span>, por lo que nuestra función podría devolver directamente <span class="math inline">1</span> cuando se le pida calcular el factorial de <span class="math inline">0</span>.</p></li>
+<li><p>Combinando todos los pasos, obtenemos la solución general:</p></li>
+</ul>
+<p><span class="math display">fact(n) = \begin{cases}
+         1 &amp; \text{si } n = 0 \text{\quad(caso base)} \\
+         n\cdot fact(n-1) &amp; \text{si } n &gt; 0 \text{\quad(caso recursivo)}
+       \end{cases}</span></p></li>
+</ul>
+</section><section id="recursividad-lineal" class="title-slide slide level3"><h3><span class="header-section-number">2.2.5</span> Recursividad lineal</h3><ul>
 <li><p>Una función tiene <strong>recursividad lineal</strong> si cada llamada a la función recursiva genera, como mucho, otra llamada recursiva a la misma función.</p></li>
 <li><p>El factorial definido en el ejemplo anterior es un caso típico de recursividad lineal.</p></li>
 </ul></section><section id="procesos-lineales-recursivos" class="slide level4">
-<h4><span class="header-section-number">2.2.4.1</span> Procesos lineales recursivos</h4>
+<h4><span class="header-section-number">2.2.5.1</span> Procesos lineales recursivos</h4>
 <ul>
 <li><p>La forma más directa y sencilla de definir una función que calcule el factorial de un número a partir de su definición recursiva podría ser la siguiente:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" title="1">factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</a></code></pre></div></li>
@@ -810,7 +853,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section><section id="procesos-lineales-iterativos" class="slide level4">
-<h4><span class="header-section-number">2.2.4.3</span> Procesos lineales iterativos</h4>
+<h4><span class="header-section-number">2.2.5.3</span> Procesos lineales iterativos</h4>
 <ul>
 <li><p>A continuación adoptaremos un enfoque diferente.</p></li>
 <li><p>Podemos mantener un producto acumulado y un contador desde <span class="math inline">n</span> hasta 1, de forma que el contador y el producto cambien de un paso al siguiente según la siguiente regla:</p>
@@ -923,7 +966,7 @@ proporcional a <code>n</code></td>
 <li><p>Puede parecer extraño que digamos que una función recursiva (por ejemplo, <code>fact_iter</code>) genera un proceso iterativo.</p>
 <p>Sin embargo, el proceso es realmente iterativo porque su estado está definido completamente por dos variables ligadas, y para ejecutar el proceso sólo se necesita almacenar esas dos variables.</p></li>
 </ul>
-</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">2.2.5</span> Recursividad en árbol</h3><ul>
+</section><section id="recursividad-en-árbol" class="title-slide slide level3"><h3><span class="header-section-number">2.2.6</span> Recursividad en árbol</h3><ul>
 <li><p>La <strong>recursividad en árbol</strong> se produce cuando la función tiene <strong>recursividad múltiple</strong>.</p></li>
 <li><p>Una función tiene <strong>recursividad múltiple</strong> cuando una llamada a la función recursiva puede generar más de una llamada recursiva a la misma función.</p></li>
 <li><p>El ejemplo clásico es la función que calcula los términos de la <strong>sucesión de Fibonacci</strong>.</p></li>

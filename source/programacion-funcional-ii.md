@@ -1093,7 +1093,6 @@ E -> x [lhead = cluster0]
 
 ## Funciones recursivas
 
-
 ### Definición
 
 - Una **función recursiva** es aquella que se define en términos de sí misma.
@@ -1166,6 +1165,72 @@ E -> x [lhead = cluster0]
   $$n! = \begin{cases}
            1 & \text{si } n = 0 \text{\quad(caso base)} \\
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
+         \end{cases}$$
+
+### Diseño de funciones recursivas
+
+- El diseño de funciones recursivas se basa en:
+
+  - Pensamiento optimista
+
+  - Descomposición (reducción) del problema
+
+  - Identificación de problemas no reducibles (mínimos)
+
+#### Pensamiento optimista
+
+- Suponer que la función deseada ya existe y es capaz de resolver ejemplares
+  más pequeños del problema (este paso se denomina **hipótesis inductiva**).
+
+- Se trata de encontrar el patrón común de forma que resolver el problema
+  principal implique el mismo patrón en un problema más pequeño.
+
+- Ejemplo:
+
+  - ¿Queremos diseñar una función que calcule el factorial de un número?
+    Supongamos que ya contamos con una función que calcula el factorial de un
+    número más pequeño. Tenemos que creer y confiar en que es así, aunque ahora
+    mismo no sea verdad.
+
+    Es decir: si queremos calcular el factorial de $n$, suponemos que tenemos
+    ya una función *fact* que no sabe calcular el factorial de $n$, pero sí el
+    de $(n - 1)$. Ésta es nuestra hipótesis inductiva.
+
+#### Descomposición del problema
+
+- Reducimos el problema de forma que así tendremos un ejemplar más pequeño del
+  mismo problema y, por tanto, podremos usar la función *fact* anterior para
+  poder resolver ese ejemplar más pequeño.
+
+- A continuación, usamos dicha solución *parcial* para obtener la solución al
+  problema original.
+
+- Ejemplo:
+
+  - Sabemos que $n! = n\cdot(n - 1)!$, por lo que si usamos la función *fact*
+    para calcular el factorial de $(n - 1)$, lo único que tenemos que hacer
+    para obtener el factorial de $n$ es multiplicar el resultado de $fact(n -
+    1)$ por $n$.
+
+    Dicho de otra forma: **_si yo supiera_ calcular el factorial de $(n - 1)$,
+    me bastaría con multiplicarlo por $n$ para obtener el factorial de $n$**.
+
+#### Identificación de problemas no reducibles
+
+- Debemos identificar los ejemplares más pequeños (los que no se pueden reducir
+  más) para los cuales hay una solución explícita y directa que no necesita
+  recursividad (los *casos base*).
+
+- Ejemplo:
+
+  - En nuestro caso, sabemos que $0! = 1$, por lo que nuestra función podría
+    devolver directamente $1$ cuando se le pida calcular el factorial de $0$.
+
+  - Combinando todos los pasos, obtenemos la solución general:
+
+  $$fact(n) = \begin{cases}
+           1 & \text{si } n = 0 \text{\quad(caso base)} \\
+           n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
          \end{cases}$$
 
 ### Recursividad lineal
