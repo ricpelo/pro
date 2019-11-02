@@ -682,17 +682,18 @@ s | P | y | t | h | o | n |
 
 ---
 
-- Las listas, como toda secuencia mutable, se pueden modificar usando ciertas
-  operaciones:
+- Las listas son secuencias mutables y, como tales, se pueden modificar usando
+  ciertas operaciones:
 
-  - Los *operadores* de **indexación** y **slicing**: !ifdef(LATEX)(\newpage)
+  - Los *operadores* de **indexación** y **slicing** combinados con `=` y
+    `del`: !ifdef(LATEX)(\newpage)
 
     ```
-     +-----+-----+-----+-----+-----+-----+
-     | 124 | 333 | 'a' | 3.2 |  9  |  53 |
-     +-----+-----+-----+-----+-----+-----+
-     0     1     2     3     4     5     6
-    -6    -5    -4    -3    -2    -1
+      +-----+-----+-----+-----+-----+-----+
+    l | 124 | 333 | 'a' | 3.2 |  9  |  53 |
+      +-----+-----+-----+-----+-----+-----+
+      0     1     2     3     4     5     6
+     -6    -5    -4    -3    -2    -1
     ```
 
     ```python
@@ -701,14 +702,19 @@ s | P | y | t | h | o | n |
     3.2
     >>> l[3] = 99
     >>> l
-    [124, 333, 'a', 99, 9, 53] 
+    [124, 333, 'a', 99, 9, 53]
     >>> l[0:2] = [40]
     >>> l
     [40, 'a', 99, 9, 53]
+    >>> del l[3]
+    >>> l
+    [40, 'a', 99, 53]
     ```
 
-  - *Métodos* propios de las listas, como `append`, `clear`, `insert`,
-    `remove`, `reverse` o `sort`.
+  - *Métodos* como `append`, `clear`, `insert`, `remove`, `reverse` o `sort`.
+
+- La siguiente tabla muestra todas las operaciones que nos permiten modificar
+  secuencias mutables.
 
 ---
 
