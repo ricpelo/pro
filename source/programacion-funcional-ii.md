@@ -1039,8 +1039,8 @@ E -> x [lhead = cluster0]
 ---
 
 - Para poder dominar las abstracciones funcionales, debemos considerar
-  principalmente su **especificación**, que ya sabemos que está formada por
-  tres atributos fundamentales:
+  principalmente su **especificación**, que está formada por tres propiedades
+  fundamentales:
 
   - El **dominio**: el conjunto de argumentos válidos
   - El **rango**: el conjunto de valores que devuelve
@@ -1051,14 +1051,16 @@ E -> x [lhead = cluster0]
   el rango y el propósito en una sola propiedad **salida**.
 
 - Por ejemplo, cualquier función `cuadrado` que usemos para implementar `area`
-  debe tener estos tres atributos:
+  debe satisfacer esta especificación:
 
-  - El dominio: un número real
-  - El rango: un número real no negativo
-  - El propósito: calcular el cuadrado de un número
+  $$\begin{cases}
+    \text{\textbf{Entrada}}: n \in \mathbb{R} \\
+    \text{\textit{cuadrado}} \\
+    \text{\textbf{Salida}}: n^2
+  \end{cases}$$
 
-- La especificación **no concreta cómo** se debe llevar a cabo el propósito. Ese es
-  un detalle de implementación que se abstrae a este nivel.
+- La especificación **no concreta cómo** se debe llevar a cabo el propósito.
+  Ese es un detalle de implementación que se abstrae a este nivel.
 
 # Computabilidad
 
