@@ -770,13 +770,13 @@ cond(no,right)->Ymayor->fin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Algoritmo**: Obtener el mayor de dos números
 
-$X \leftarrow$ **leer** número
-$Y \leftarrow$ **leer** número
-**si** $X > Y$ **entonces**
-    **escribir** "X es mayor que Y"
-**si no**
-    **escribir** "Y es mayor que X"
-**fin**
+1. $X \leftarrow$ **leer** número
+2. $Y \leftarrow$ **leer** número
+3. **si** $X > Y$ **entonces** **saltar** al paso 6
+4. **escribir** "Y es mayor que X"
+5. **saltar** al paso 7
+6. **escribir** "X es mayor que Y"
+7. **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Cualidades deseables
@@ -1279,10 +1279,11 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Los caracteres en negrita y azul (como !T(b)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
-- El !COLOR(teal)(*) representa 0, 1 ó más **repeticiones** de lo que
+- El !COLOR(teal)(\*) representa 0, 1 ó más **repeticiones** de lo que
   acompaña.
 - El !COLOR(teal)(+) representa 1 ó más **repeticiones** de lo que acompaña.
-- Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
+- Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y
+  !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
 - Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
 
 :::
@@ -1828,19 +1829,29 @@ F -> I
 
 - Aunque diseñar programas es, esencialmente, un proceso creativo, se puede
   considerar una serie de fases o pasos comunes, que generalmente deben seguir
-  todos los programadores:
+  todos los programadores.
 
-  - Especificación
-  - Análisis del problema
-  - Diseño del algoritmo
-  - Verificación
-  - Estudio de la eficiencia
-  - Codificación
-  - Traducción y ejecución
-  - Pruebas
-  - Depuración
-  - Documentación
-  - Mantenimiento
+- Si bien se han ordenado según un esquema lógico, hay que considerar que
+  algunos de esos pasos se repiten a lo largo del desarrollo del programa
+  siguiendo un esquema iterativo e incremental, y otros (como la documentación)
+  se deben realizar continuamente a lo largo de todo el proceso y no sólo al
+  final como un paso más del mismo.
+
+---
+
+- Estos pasos son:
+
+  #. Especificación
+  #. Análisis del problema
+  #. Diseño del algoritmo
+  #. Verificación
+  #. Estudio de la eficiencia
+  #. Codificación
+  #. Traducción y ejecución
+  #. Pruebas
+  #. Depuración
+  #. Documentación
+  #. Mantenimiento
 
 ## Especificación
 
@@ -1867,16 +1878,42 @@ F -> I
 
 - Ejemplo: Se desea determinar el máximo de dos números enteros
 
-  - Entrada: los dos números (llamémosles $n_1$ y $n_2$) enteros
-  - Proceso: determinar cuál es el mayor de los dos
-  - Salida: el mayor de los dos números
+  - *Entrada*: los dos números (llamémosles $n_1$ y $n_2$) enteros
+  - *Salida*: el mayor de los dos números
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Entrada:** $n_1, n_2 \in \mathbb{Z}$
-**Proceso:** Cálculo del máximo de dos números
-**Salida:** el mayor de ambos
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Se representaría esquemáticamente así:
+
+  $$\begin{cases}
+    \text{\textbf{Entrada}}: n_1, n_2 \in \mathbb{Z} \\
+    \text{\textit{Máximo}} \\
+    \text{\textbf{Salida}}: \text{el mayor de ambos}
+  \end{cases}$$
+
+- En las especificaciones está permitido usar funciones que no estén
+  implementadas en el lenguaje, siempre y cuando estén perfectamente
+  especificadas y no las usemos luego en la implementación del algoritmo (está
+  prohibido). 
+
+- A esas funciones se las denomina **funciones ocultas** o **auxiliares**.
+
+---
+
+- Por ejemplo, si disponemos de la función oculta $max$ que devuelve el máximo
+  de dos números y cuya especificación coincide exactamente con la del problema
+  que queremos resolver, nuestra especificación podría quedar así:
+
+  $$\begin{cases}
+    \text{\textbf{Entrada}}: n_1, n_2 \in \mathbb{Z} \\
+    \text{\textit{Máximo}} \\
+    \text{\textbf{Salida}}: max(n_1, n_2)
+  \end{cases}$$
+
+- Con esta especificación estamos describiendo que, si se reciben como datos de
+  entrada dos números enteros cualesquiera, el programa *Máximo* calculará y
+  devolverá a la salida el mayor de ellos.
+
+- Si los datos de entrada no satisfacen los requisitos necesarios, el programa
+  tiene derecho a responder de cualquier manera.
 
 ## Análisis del problema
 
@@ -1895,8 +1932,21 @@ F -> I
   con todas las posibles restricciones y satisfaga la especificación del
   problema.
 
+- El estilo en el que se describa el algoritmo debe ir acorde con el paradigma
+  del lenguaje de programación que se usará luego para codificar el algoritmo
+  en un programa.
+
 - El algoritmo se representa con cualquier herramienta adecuada para ello:
-  ordinogramas, pseudocódigo, etc.
+  ordinogramas, pseudocódigo, etc., el cual también depende del estilo
+  (paradigma) utilizado.
+
+  - Por ejemplo, se podría usar un ordinograma para representar un algoritmo
+    imperativo pero no para uno funcional.
+
+---
+
+- Un algoritmo descrito en pseudocódigo siguiendo un estilo estructurado podría
+  ser:
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
