@@ -580,7 +580,7 @@ S -> E [dir = both, label = "Código de E/S"];
 
 ---
 
-!DOT(jerarquias-generalizacion.svg)($P$ es un problema más general que $Q$)(width=50%)
+!DOT(jerarquias-generalizacion.svg)($P$ es un problema más general que $Q$)(width=50%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 subgraph cluster0 {
     style = "rounded"
@@ -735,7 +735,7 @@ Un algoritmo es un método para resolver un problema.
 
 Determinar cuál es el máximo de dos números
 
-!FLOWCHART(maximo.svg)
+!FLOWCHART(maximo.svg)()()(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 inicio=>start: Inicio
 fin=>end: Fin
@@ -1048,7 +1048,7 @@ resolver problemas computacionales.
 
 ---
 
-!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)
+!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)()(width=100%)
 
 ## Imperativo
 
