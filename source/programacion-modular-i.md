@@ -222,40 +222,141 @@ author: Ricardo Pérez López
 
 ### Importación de módulos
 
-Modules can import other modules. It is customary but not required to place all import statements at the beginning of a module (or script, for that matter). The imported module names are placed in the importing module’s global symbol table.
+- Para que un módulo pueda usar a otros módulos tiene que **importarlos**
+  usando la orden `import`. Por ejemplo, la siguiente sentencia importa el
+  módulo `math` dentro del módulo actual:
 
-There is a variant of the import statement that imports names from a module directly into the importing module’s symbol table. For example:
+  ```python
+  import math
+  ```
 
->>>
->>> from fibo import fib, fib2
->>> fib(500)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
-This does not introduce the module name from which the imports are taken in the local symbol table (so in the example, fibo is not defined).
+- Al importar un módulo de esta forma, lo que se hace es incorporar la
+  definición del propio módulo (el módulo *importado*) dentro del ámbito global
+  del módulo o *script* actual (el módulo *importador*).
+  
+- O dicho de otra forma: se incorpora al marco global del módulo importador la
+  ligadura entre el nombre del módulo importado y el propio módulo, por lo que
+  el módulo importador puede acceder al módulo importado a través de su nombre.
 
-There is even a variant to import all names that a module defines:
+- De esta forma, lo que se importa dentro del marco global actual no es el
+  conjunto de las definiciones que forman el módulo importado, sino el módulo
+  en sí.
 
->>>
->>> from fibo import *
->>> fib(500)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
-This imports all names except those beginning with an underscore (_). In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.
+---
 
-Note that in general the practice of importing * from a module or package is frowned upon, since it often causes poorly readable code. However, it is okay to use it to save typing in interactive sessions.
+- Eso significa que los módulos en Python son internamente un dato más, al
+  igual que las listas o las funciones: se pueden asignar a variables, se
+  pueden borrar de la memoria con `del`, etc.
 
-If the module name is followed by as, then the name following as is bound directly to the imported module.
+- Podemos acceder al contenido de un módulo importado de esta forma, indicando
+  el nombre del módulo seguido de un punto (`.`) delante del nombre del
+  contenido al que queramos acceder.
 
->>>
->>> import fibo as fib
->>> fib.fib(500)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
-This is effectively importing the module in the same way that import fibo will do, with the only difference of it being available as fib.
+- Por ejemplo, para acceder a la función `gcd` definido en el módulo `math`
+  haremos:
 
-It can also be used when utilising from with similar effects:
+  ```python
+  x = math.gcd(16, 6)
+  ```
 
->>>
->>> from fibo import fib as fibonacci
->>> fibonacci(500)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+- Se recomienda (aunque no es obligatorio) colocar todas las sentencias
+  `import` al principio del módulo importador.
+
+---
+
+- Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del
+  marco actual, usando la sentencia `import` con la palabra clave `as`.
+
+- Por ejemplo:
+
+  ```python
+  import math as mates
+  ```
+
+  La sentencia anterior importa el módulo `math` dentro del módulo actual pero
+  con el nombre `mates` en lugar del `math` original. Por tanto, para usar la
+  función `gcd` como en el ejemplo anterior usaremos:
+
+  ```python
+  x = mates.gcd(16, 6)
+  ```
+
+---
+
+- Existe una variante de la sentencia `import` que nos permite importar
+  directamente las definiciones de un módulo en lugar del propio módulo. Para
+  ello, se usa la orden `from`.
+  
+- Por ejemplo, para importar sólo la función `gcd` del módulo `math`, y no el
+  módulo en sí, haremos:
+
+  ```python
+  from math import gcd
+  ```
+
+- Por lo que ahora podemos usar la función `gcd` directamente dentro del módulo
+  importador, sin necesidad de indicar el nombre del módulo importado:
+
+  ```python
+  x = gcd(16, 6)
+  ```
+
+---
+
+- De hecho, ahora el módulo importado no está definido en el módulo importador
+  (es decir, que en el marco global del módulo importador no hay ninguna
+  ligadura con el nombre del módulo importado).
+
+- En nuestro ejemplo, eso significa que el módulo `math` no existe ahora como
+  tal en el módulo importador.
+
+- Por tanto, si hacemos:
+
+  ```python
+  x = math  # error
+  ```
+
+  da error porque no hemos importado el módulo como tal, sino sólo una de sus
+  funciones.
+
+---
+
+- También podemos usar la palabra clave `as` con la orden `from`:
+
+  ```python
+  from math import gcd as mcd
+  ```
+
+  De esta forma, se importa en el módulo actual la función `gcd` del módulo
+  `math` pero llamándola `mcd`.
+  
+- Por tanto, para usarla la invocaremos con su nuevo nombre:
+
+  ```python
+  x = mcd(16, 6)
+  ```
+
+---
+
+- Existe incluso una variante para importar todas las definiciones de un
+  módulo:
+
+  ```python
+  from math import *
+  ```
+
+- Con esta sintaxis importaremos todas las definiciones del módulo excepto
+  aquellas cuyo nombre comience por un guión bajo (`_`).
+  
+  Las definiciones con nombres que comienzan por `_` son consideradas
+  **privadas** o internas al módulo, lo que significa que no están concebidas
+  para ser usadas por los usuarios del módulo y que, por tanto, no forman parte
+  de su **interfaz**.
+  
+- En general, los programadores no suelen usar esta funcionalidad ya que puede
+  introducir todo un conjunto de definiciones desconocidas dentro del módulo
+  importador, lo que incluso puede provocar que se «*machaquen*» definiciones
+  ya existentes.
 
 ### Paquetes
 

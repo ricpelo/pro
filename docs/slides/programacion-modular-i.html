@@ -12,6 +12,69 @@
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -151,11 +214,9 @@
 <section id="TOC" class="slide level2">
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
-<li><a href="#/partes-de-un-módulo"><span class="toc-section-number">2</span> Partes de un módulo</a></li>
-<li><a href="#/importación-de-módulos"><span class="toc-section-number">3</span> Importación de módulos</a></li>
-<li><a href="#/paquetes"><span class="toc-section-number">4</span> Paquetes</a></li>
-<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">5</span> Criterios de descomposición modular</a></li>
-<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">6</span> Diagramas de estructura</a></li>
+<li><a href="#/diseño-modular"><span class="toc-section-number">2</span> Diseño modular</a></li>
+<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">3</span> Criterios de descomposición modular</a></li>
+<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">4</span> Diagramas de estructura</a></li>
 </ul>
 </section>
 </section>
@@ -217,7 +278,7 @@
 </ul></li>
 </ul>
 </section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Descomposición de problemas</h2></section></section>
-<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Partes de un módulo</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Introducción</h2><ul>
+<section><section id="diseño-modular" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Diseño modular</h1></section><section id="partes-de-un-módulo" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Partes de un módulo</h2><ul>
 <li><p>Desde la perspectiva de la programación modular, un programa está formado por una colección de módulos que interactúan entre sí.</p></li>
 <li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
 <li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
@@ -242,23 +303,88 @@
 </ul></li>
 </ul></li>
 </ul>
-</section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Interfaz</h2><ul>
+</section><section id="interfaz" class="title-slide slide level3"><h3><span class="header-section-number">2.1.1</span> Interfaz</h3><ul>
 <li><p>La interfaz es la parte del módulo que el usuario del mismo necesita conocer para poder utilizarlo.</p></li>
 <li><p>Es la parte expuesta, pública o visible del mismo.</p></li>
 <li><p>A menudo también se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
 <li><p>Debería estar perfectamente documentada para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
 <li><p>En general debería estar formada únicamente por funciones (y, tal vez, constantes) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
 <li><p>Esas funciones deben usarse como abstracciones funcionales, de forma que el usuario sólo necesite conocer la <strong>especificación</strong> de la función y no su <em>implementación</em> concreta.</p></li>
-</ul></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Implementación</h2><ul>
+</ul></section><section id="implementación" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Implementación</h3><ul>
 <li><p>La implementación es la parte del módulo que queda oculta a los usuarios del mismo.</p></li>
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
 <li><p>Está formado por todas las variables locales al módulo que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz.</p></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
-</ul></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Documentación interna</h2></section></section>
-<section id="importación-de-módulos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Importación de módulos</h1></section>
-<section id="paquetes" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Paquetes</h1></section>
-<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">5.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">5.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Reusabilidad</h2></section></section>
-<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Diagramas de estructura</h1></section>
+</ul></section><section id="programación-modular-en-python" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Programación modular en Python</h2><ul>
+<li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
+<li><p>Los módulos contienen definiciones y sentencias.</p></li>
+<li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
+<li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
+<li><p>Cada módulo tiene su propio ámbito local, que es usado como el ámbito global de todas las funciones definidas en el módulo.</p></li>
+<li><p>Por tanto, el autor de un módulo puede usar variables globales en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales del usuario del módulo.</p></li>
+</ul></section><section id="importación-de-módulos" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Importación de módulos</h3><ul>
+<li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del módulo actual:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">import</span> math</a></code></pre></div></li>
+<li><p>Al importar un módulo de esta forma, lo que se hace es incorporar la definición del propio módulo (el módulo <em>importado</em>) dentro del ámbito global del módulo o <em>script</em> actual (el módulo <em>importador</em>).</p></li>
+<li><p>O dicho de otra forma: se incorpora al marco global del módulo importador la ligadura entre el nombre del módulo importado y el propio módulo, por lo que el módulo importador puede acceder al módulo importado a través de su nombre.</p></li>
+<li><p>De esta forma, lo que se importa dentro del marco global actual no es el conjunto de las definiciones que forman el módulo importado, sino el módulo en sí.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Eso significa que los módulos en Python son internamente un dato más, al igual que las listas o las funciones: se pueden asignar a variables, se pueden borrar de la memoria con <code>del</code>, etc.</p></li>
+<li><p>Podemos acceder al contenido de un módulo importado de esta forma, indicando el nombre del módulo seguido de un punto (<code>.</code>) delante del nombre del contenido al que queramos acceder.</p></li>
+<li><p>Por ejemplo, para acceder a la función <code>gcd</code> definido en el módulo <code>math</code> haremos:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+<li><p>Se recomienda (aunque no es obligatorio) colocar todas las sentencias <code>import</code> al principio del módulo importador.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con la palabra clave <code>as</code>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="im">import</span> math <span class="im">as</span> mates</a></code></pre></div>
+<p>La sentencia anterior importa el módulo <code>math</code> dentro del módulo actual pero con el nombre <code>mates</code> en lugar del <code>math</code> original. Por tanto, para usar la función <code>gcd</code> como en el ejemplo anterior usaremos:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Existe una variante de la sentencia <code>import</code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code>from</code>.</p></li>
+<li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del módulo <code>math</code>, y no el módulo en sí, haremos:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">from</span> math <span class="im">import</span> gcd</a></code></pre></div></li>
+<li><p>Por lo que ahora podemos usar la función <code>gcd</code> directamente dentro del módulo importador, sin necesidad de indicar el nombre del módulo importado:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1">x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>De hecho, ahora el módulo importado no está definido en el módulo importador (es decir, que en el marco global del módulo importador no hay ninguna ligadura con el nombre del módulo importado).</p></li>
+<li><p>En nuestro ejemplo, eso significa que el módulo <code>math</code> no existe ahora como tal en el módulo importador.</p></li>
+<li><p>Por tanto, si hacemos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">x <span class="op">=</span> math  <span class="co"># error</span></a></code></pre></div>
+<p>da error porque no hemos importado el módulo como tal, sino sólo una de sus funciones.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>También podemos usar la palabra clave <code>as</code> con la orden <code>from</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</a></code></pre></div>
+<p>De esta forma, se importa en el módulo actual la función <code>gcd</code> del módulo <code>math</code> pero llamándola <code>mcd</code>.</p></li>
+<li><p>Por tanto, para usarla la invocaremos con su nuevo nombre:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Existe incluso una variante para importar todas las definiciones de un módulo:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></a></code></pre></div></li>
+<li><p>Con esta sintaxis importaremos todas las definiciones del módulo excepto aquellas cuyo nombre comience por un guión bajo (<code>_</code>).</p>
+<p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>.</p></li>
+<li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» definiciones ya existentes.</p></li>
+</ul>
+</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> Documentación interna</h3></section></section>
+<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Reusabilidad</h2></section></section>
+<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Diagramas de estructura</h1></section>
     </div>
   </div>
 
