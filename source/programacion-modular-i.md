@@ -119,9 +119,9 @@ author: Ricardo Pérez López
 
 ## Descomposición de problemas
 
-# Partes de un módulo
+# Diseño modular
 
-## Introducción
+## Partes de un módulo
 
 - Desde la perspectiva de la programación modular, un programa está formado por
   una colección de módulos que interactúan entre sí.
@@ -165,7 +165,7 @@ author: Ricardo Pérez López
       Es decir: funciones pensadas para ser usadas internamente por el propio
       módulo pero no por otras partes del programa.
 
-## Interfaz
+### Interfaz
 
 - La interfaz es la parte del módulo que el usuario del mismo necesita conocer
   para poder utilizarlo.
@@ -186,7 +186,7 @@ author: Ricardo Pérez López
   usuario sólo necesite conocer la **especificación** de la función y no su
   *implementación* concreta.
 
-## Implementación
+### Implementación
 
 - La implementación es la parte del módulo que queda oculta a los usuarios del
   mismo.
@@ -201,11 +201,65 @@ author: Ricardo Pérez López
 - La implementación debe poder cambiarse tantas veces como sea necesario sin
   que por ello se tenga que cambiar el resto del programa.
 
-## Documentación interna
+## Programación modular en Python
 
-# Importación de módulos
+- En Python, un módulo es otra forma de llamar a un *script*. Es decir:
+  «módulo» y «*script*» son sinónimos en Python.
 
-# Paquetes
+- Los módulos contienen definiciones y sentencias.
+
+- El nombre del archivo es el nombre del módulo con extensión `.py`.
+
+- Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
+  almacenado en la variable global `__name__`.
+
+- Cada módulo tiene su propio ámbito local, que es usado como el ámbito global
+  de todas las funciones definidas en el módulo.
+
+- Por tanto, el autor de un módulo puede usar variables globales en el módulo
+  sin preocuparse de posibles colisiones accidentales con las variables
+  globales del usuario del módulo.
+
+### Importación de módulos
+
+Modules can import other modules. It is customary but not required to place all import statements at the beginning of a module (or script, for that matter). The imported module names are placed in the importing module’s global symbol table.
+
+There is a variant of the import statement that imports names from a module directly into the importing module’s symbol table. For example:
+
+>>>
+>>> from fibo import fib, fib2
+>>> fib(500)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+This does not introduce the module name from which the imports are taken in the local symbol table (so in the example, fibo is not defined).
+
+There is even a variant to import all names that a module defines:
+
+>>>
+>>> from fibo import *
+>>> fib(500)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+This imports all names except those beginning with an underscore (_). In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.
+
+Note that in general the practice of importing * from a module or package is frowned upon, since it often causes poorly readable code. However, it is okay to use it to save typing in interactive sessions.
+
+If the module name is followed by as, then the name following as is bound directly to the imported module.
+
+>>>
+>>> import fibo as fib
+>>> fib.fib(500)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+This is effectively importing the module in the same way that import fibo will do, with the only difference of it being available as fib.
+
+It can also be used when utilising from with similar effects:
+
+>>>
+>>> from fibo import fib as fibonacci
+>>> fibonacci(500)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+
+### Paquetes
+
+### Documentación interna
 
 # Criterios de descomposición modular
 
