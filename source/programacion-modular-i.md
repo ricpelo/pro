@@ -358,6 +358,69 @@ author: Ricardo Pérez López
   importador, lo que incluso puede provocar que se «*machaquen*» definiciones
   ya existentes.
 
+### Módulos como *scripts*
+
+- Un módulo puede contener sentencias ejecutables además de definiciones.
+
+- Generalmente, esas sentencias existen para inicializar el módulo.
+
+- Las sentencias de un módulo se ejecutan sólo la primera vez que se encuentra
+  el nombre de ese módulo en una sentencia `import`.
+
+- También se ejecutan si el archivo se ejecuta como un *script*.
+
+---
+
+- Cuando se ejecuta un módulo Python desde la línea de órdenes como:
+
+  ```shell
+  $ python3 fact.py <argumentos>
+  ```
+
+  se ejecutará el código del módulo como si fuera un *script* más, igual que si
+  se hubiera importado con un `import` dentro de otro módulo, pero con la
+  diferencia de que la variable global `__name__` contendrá el valor
+  `"__main__"`.
+
+- Eso significa que si se añade este código al final del módulo:
+
+  ```python
+  if __name__ == "__main__":
+      <sentencias>
+  ```
+
+  el módulo podrá funcionar como un *script* independiente.
+
+---
+
+- Por ejemplo, supongamos el siguiente módulo `fact.py`:
+
+  ```python
+  def fac(n):
+      if n == 0:
+          return 1
+      else:
+          return n * fac(n - 1)
+  
+  if __name__ == "__main__":
+      import sys
+      print(fac(int(sys.argv[1])))
+  ```
+
+- Este módulo se podrá usar como un *script* separado o como un módulo que se
+  pueda importar dentro de otro.
+
+- Si se usa como *script*, podremos llamarlo desde la línea de órdenes del
+  sistema operativo:
+
+  ```shell
+  $ python3 fac.py 4
+  24
+  ```
+
+- Y si importamos el módulo dentro de otro, el código del último `if` no se
+  ejecutará, por lo que sólo se incorporará la definición de la función `fac`.
+
 ### Paquetes
 
 ### Documentación interna

@@ -382,7 +382,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>.</p></li>
 <li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» definiciones ya existentes.</p></li>
 </ul>
-</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> Documentación interna</h3></section></section>
+</section><section id="módulos-como-scripts" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Módulos como <em>scripts</em></h3><ul>
+<li><p>Un módulo puede contener sentencias ejecutables además de definiciones.</p></li>
+<li><p>Generalmente, esas sentencias existen para inicializar el módulo.</p></li>
+<li><p>Las sentencias de un módulo se ejecutan sólo la primera vez que se encuentra el nombre de ese módulo en una sentencia <code>import</code>.</p></li>
+<li><p>También se ejecutan si el archivo se ejecuta como un <em>script</em>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes como:</p>
+<pre class="shell"><code>$ python3 fact.py &lt;argumentos&gt;</code></pre>
+<p>se ejecutará el código del módulo como si fuera un <em>script</em> más, igual que si se hubiera importado con un <code>import</code> dentro de otro módulo, pero con la diferencia de que la variable global <code>__name__</code> contendrá el valor <code>"__main__"</code>.</p></li>
+<li><p>Eso significa que si se añade este código al final del módulo:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</a>
+<a class="sourceLine" id="cb12-2" title="2">    <span class="op">&lt;</span>sentencias<span class="op">&gt;</span></a></code></pre></div>
+<p>el módulo podrá funcionar como un <em>script</em> independiente.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, supongamos el siguiente módulo <code>fact.py</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">def</span> fac(n):</a>
+<a class="sourceLine" id="cb13-2" title="2">    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</a>
+<a class="sourceLine" id="cb13-3" title="3">        <span class="cf">return</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb13-4" title="4">    <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb13-5" title="5">        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb13-6" title="6"></a>
+<a class="sourceLine" id="cb13-7" title="7"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</a>
+<a class="sourceLine" id="cb13-8" title="8">    <span class="im">import</span> sys</a>
+<a class="sourceLine" id="cb13-9" title="9">    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</a></code></pre></div></li>
+<li><p>Este módulo se podrá usar como un <em>script</em> separado o como un módulo que se pueda importar dentro de otro.</p></li>
+<li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea de órdenes del sistema operativo:</p>
+<pre class="shell"><code>$ python3 fac.py 4
+24</code></pre></li>
+<li><p>Y si importamos el módulo dentro de otro, el código del último <code>if</code> no se ejecutará, por lo que sólo se incorporará la definición de la función <code>fac</code>.</p></li>
+</ul>
+</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Documentación interna</h3></section></section>
 <section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Reusabilidad</h2></section></section>
 <section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Diagramas de estructura</h1></section>
     </div>
