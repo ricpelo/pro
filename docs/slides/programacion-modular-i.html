@@ -160,8 +160,101 @@
 </section>
 </section>
 
-<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Descomposición de problemas</h2></section></section>
-<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Partes de un módulo</h1></section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Interfaz</h2></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Implementación</h2></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Documentación interna</h2></section></section>
+<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="modularidad" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Modularidad</h2><ul>
+<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer y programar nuestro programa en partes llamadas <strong>módulos</strong>.</p></li>
+<li><p>Equivale a la técnica clásica de resolución de problemas basada en descomponer un problema en subproblemas y resolver cada subproblema por separado para así obtener la solución al problema original.</p></li>
+<li><p>La <strong>modularidad</strong> es la propiedad que tienen los programas escritos siguiendo los principios de la programación modular.</p></li>
+<li><p>El concepto de modularidad se puede estudiar a nivel metodológico y a nivel práctico.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p><strong>A nivel metodológico</strong>, la modularidad nos proporciona una herramienta más para controlar la complejidad de forma similar a como lo hace la abstracción.</p></li>
+<li><p>Todos los mecanismos de control de la complejidad actúan de la misma forma: la mente humana es incapaz de mantener la atención en muchas cosas a la vez, así que lo que hacemos es centrarnos en una parte del problema y dejamos a un lado el resto momentáneamente.</p>
+<ul>
+<li><p>La <strong>abstracción</strong> nos permite controlar la complejidad permitiéndonos estudiar un problema o su solución por niveles, centrándonos en lo esencial e ignorando los detalles que a ese nivel resultan innecesarios.</p></li>
+<li><p>Con la <strong>modularidad</strong> buscamos descomponer conceptualmente el programa en partes que se puedan estudiar y programar por separado, de forma más o menos independiente, lo que se denomina <strong>descomposición lógica</strong>.</p></li>
+</ul></li>
+</ul>
+<!--
+- Si fuera posible, también nos interesa que los módulos sean lo
+  suficientemente genéricos como para que se se puedan reutilizar en otros
+  programas. -->
+</section><section class="slide level4">
+
+<ul>
+<li><p><strong>A nivel práctico</strong>, la modularidad nos ofrece una herramienta que nos permite partir el programa en partes más manejables.</p></li>
+<li><p>A medida que los programas se hacen más y más grandes, el esfuerzo de mantener todo el código dentro de un único <em>script</em> se hace mayor.</p></li>
+<li><p>No sólo resulta incómodo mantener todo el código en un mismo archivo, sino que además resulta intelectualmente más difícil de entender.</p></li>
+<li><p>Lo más práctico es descomponer físicamente nuestro programa en una colección de archivos fuente que se puedan trabajar por separado, lo que se denomina <strong>descomposición física</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
+<li><p>Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya que se ajusta a esa definición (salvo que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
+<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino que actúan de forma conjunta formando un todo interrelacionado.</p></li>
+<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno, manipulable desde dentro del módulo pero también desde fuera.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan números racionales.</p></li>
+<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos… Y todas esas funciones trabajarían conjuntamente, actuando sobre el mismo conjunto de datos (la representación interna que usa el módulo para implementar los números racionales).</p></li>
+<li><p>Esos datos (es decir, esa representación interna) también formarían parte del módulo y constituirían su estado interno.</p></li>
+<li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, también resulta evidente que debemos considerarlas como formando un todo conjunto con los datos que manipulan: el <em>módulo de manipulación de números racionales</em>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>De lo dicho hasta ahora se deducen varias conclusiones importantes:</p>
+<ul>
+<li><p>Un módulo es una parte del programa.</p></li>
+<li><p>Los módulos nos permiten descomponer el programa en <strong>partes independientes y manejables por separado</strong>.</p></li>
+<li><p>Una función no es una candidata con suficiente entidad como para ser considerada un módulo, en general.</p></li>
+<li><p>Los módulos, generalmente, agrupan colecciones de <strong>funciones interrelacionadas</strong>.</p></li>
+<li><p>Los módulos, generalmente, también poseen un <strong>estado interno</strong> manipulable desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
+<li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
+</ul></li>
+</ul>
+</section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Descomposición de problemas</h2></section></section>
+<section><section id="partes-de-un-módulo" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Partes de un módulo</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Introducción</h2><ul>
+<li><p>Desde la perspectiva de la programación modular, un programa está formado por una colección de módulos que interactúan entre sí.</p></li>
+<li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
+<li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
+<ul>
+<li><p>La <strong>implementación</strong> del módulo se ocupa de la programación de los detalles internos al módulo, necesarios para que éste funcione</p></li>
+<li><p>Los <strong>usuarios</strong> del módulo (normalmente, otros módulos), como entidades externas al mismo, utilizan el módulo como una entidad abstracta sin necesidad de conocer los detalles internos del mismo, sino sólo lo necesario para poder consumir los servicios que proporciona.</p>
+<p>A la parte que un usuario necesita conocer para poder usar el módulo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Concretando, un módulo tendrá:</p>
+<ul>
+<li><p>Un <strong>nombre</strong> (que generalmente coincidirá con el nombre del archivo en el que reside).</p></li>
+<li><p>Una <strong>interfaz</strong>, formada por un conjunto de funciones que permiten manipular y acceder al estado interno desde fuera del módulo.</p></li>
+<li><p>Una <strong>implementación</strong>, formada por:</p>
+<ul>
+<li><p>Su estado interno en forma de variables internas y locales al módulo.</p>
+<p>Como contiene variables, también puede contener constantes.</p></li>
+<li><p>Un conjunto de funciones que manipulan el estado interno dentro del módulo.</p>
+<p>Es decir: funciones pensadas para ser usadas internamente por el propio módulo pero no por otras partes del programa.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="interfaz" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Interfaz</h2><ul>
+<li><p>La interfaz es la parte del módulo que el usuario del mismo necesita conocer para poder utilizarlo.</p></li>
+<li><p>Es la parte expuesta, pública o visible del mismo.</p></li>
+<li><p>A menudo también se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
+<li><p>Debería estar perfectamente documentada para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
+<li><p>En general debería estar formada únicamente por funciones (y, tal vez, constantes) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
+<li><p>Esas funciones deben usarse como abstracciones funcionales, de forma que el usuario sólo necesite conocer la <strong>especificación</strong> de la función y no su <em>implementación</em> concreta.</p></li>
+</ul></section><section id="implementación" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Implementación</h2><ul>
+<li><p>La implementación es la parte del módulo que queda oculta a los usuarios del mismo.</p></li>
+<li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
+<li><p>Está formado por todas las variables locales al módulo que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz.</p></li>
+<li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
+</ul></section><section id="documentación-interna" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Documentación interna</h2></section></section>
 <section id="importación-de-módulos" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Importación de módulos</h1></section>
 <section id="paquetes" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Paquetes</h1></section>
 <section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">5.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">5.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Reusabilidad</h2></section></section>
