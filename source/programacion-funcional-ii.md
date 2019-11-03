@@ -1026,7 +1026,8 @@ E -> x [lhead = cluster0]
 
 - En otras palabras: la definición de una función debe ser capaz de **ocultar
   sus detalles de implementación**.
-  
+ 
+
 - **Un programador no debe necesitar saber cómo está implementada una función
   para poder usarla**. Eso es lo que ocurre, por ejemplo, con las funciones
   predefinidas del lenguaje: sabemos *qué* hacen pero no necesitamos saber
@@ -1061,6 +1062,73 @@ E -> x [lhead = cluster0]
 
 - La especificación **no concreta cómo** se debe llevar a cabo el propósito.
   Ese es un detalle de implementación que se abstrae a este nivel.
+
+---
+
+- Para especificar una función, resulta más adecuado usar el siguiente esquema:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: True \\
+    cuadrado\ (n: \texttt{float}) \text{ -> } \texttt{float} \\
+    \text{\textbf{Post}}: cuadrado(n) = n^2
+  \end{cases}$$
+
+- **Pre** representa la **precondición**: la propiedad que debe cumplirse justo
+  *antes* de llamar a la función.
+
+- **Post** representa la **postcondición**: la propiedad que debe cumplirse
+  justo *después* de llamar a la función.
+
+- Lo que hay en medio es la **signatura**: el nombre de la función, el nombre y
+  tipo de sus parámetros y el tipo del valor de retorno.
+
+- La especificación se lee así: si se llama a una función cumpliendo con su
+  signatura en un estado que satisface su precondición, la llamada termina y lo
+  hace en un estado que satisface su postcondición.
+
+---
+
+- En este caso, la precondición es $True$, que equivale a decir que cualquier
+  condición de entrada es buena para usar la función.
+
+- Dicho de otra forma, no hace falta que se dé ninguna condición especial para
+  usar la función. Siempre que la llamada cumpla con la signatura de la
+  función, el parámetro $n$ puede tomar cualquier valor real y no hay ninguna
+  restricción adicional.
+
+- Tanto la precondición como la postcondición son **predicados**, es decir,
+  expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
+  la lógica.
+
+- La signatura se escribe usando la sintaxis del lenguaje de programación que
+  vayamos a usar para implementar la función (en este caso, Python).
+
+---
+
+- Otro ejemplo más completo:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: lista \neq \texttt{[]} \\
+    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
+    \text{\textbf{Post}}: suma(lista) = sum(lista)
+  \end{cases}$$
+
+- $sum$ es una función oculta o auxiliar, que se puede usar en la
+  especificación pero está prohibido usarla en la implementación.
+
+- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
+  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
+  del tipo $T$.
+
+- Con esto estamos diciendo que `suma` es una función que recibe una lista no
+  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
+  mismo tipo.
+
+- Para más información, consultar:
+
+  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
+
+  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
 
 # Computabilidad
 

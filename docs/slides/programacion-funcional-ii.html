@@ -723,6 +723,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{cases}</span></p></li>
 <li><p>La especificación <strong>no concreta cómo</strong> se debe llevar a cabo el propósito. Ese es un detalle de implementación que se abstrae a este nivel.</p></li>
 </ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Para especificar una función, resulta más adecuado usar el siguiente esquema:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Pre}}: True \\
+  cuadrado\ (n: \texttt{float}) \text{ -&gt; } \texttt{float} \\
+  \text{\textbf{Post}}: cuadrado(n) = n^2
+\end{cases}</span></p></li>
+<li><p><strong>Pre</strong> representa la <strong>precondición</strong>: la propiedad que debe cumplirse justo <em>antes</em> de llamar a la función.</p></li>
+<li><p><strong>Post</strong> representa la <strong>postcondición</strong>: la propiedad que debe cumplirse justo <em>después</em> de llamar a la función.</p></li>
+<li><p>Lo que hay en medio es la <strong>signatura</strong>: el nombre de la función, el nombre y tipo de sus parámetros y el tipo del valor de retorno.</p></li>
+<li><p>La especificación se lee así: si se llama a una función cumpliendo con su signatura en un estado que satisface su precondición, la llamada termina y lo hace en un estado que satisface su postcondición.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En este caso, la precondición es <span class="math inline">True</span>, que equivale a decir que cualquier condición de entrada es buena para usar la función.</p></li>
+<li><p>Dicho de otra forma, no hace falta que se dé ninguna condición especial para usar la función. Siempre que la llamada cumpla con la signatura de la función, el parámetro <span class="math inline">n</span> puede tomar cualquier valor real y no hay ninguna restricción adicional.</p></li>
+<li><p>Tanto la precondición como la postcondición son <strong>predicados</strong>, es decir, expresiones lógicas que se escriben usando el lenguaje de las matemáticas y la lógica.</p></li>
+<li><p>La signatura se escribe usando la sintaxis del lenguaje de programación que vayamos a usar para implementar la función (en este caso, Python).</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Otro ejemplo más completo:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Pre}}: lista \neq \texttt{[]} \\
+  suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -&gt; } T \\
+  \text{\textbf{Post}}: suma(lista) = sum(lista)
+\end{cases}</span></p></li>
+<li><p><span class="math inline">sum</span> es una función oculta o auxiliar, que se puede usar en la especificación pero está prohibido usarla en la implementación.</p></li>
+<li><p><code>List[</code><span class="math inline">T</span><code>]</code> es un tipo genérico que pertenece al módulo <code>typing</code> y que se puede utilizar para indicar el tipo de una lista cuyos elementos son todos del tipo <span class="math inline">T</span>.</p></li>
+<li><p>Con esto estamos diciendo que <code>suma</code> es una función que recibe una lista no vacía de elementos de un determinado tipo y que devuelve un resultado de ese mismo tipo.</p></li>
+<li><p>Para más información, consultar:</p>
+<ul>
+<li><p><a href="https://docs.python.org/3/library/typing.html">https://docs.python.org/3/library/typing.html</a></p></li>
+<li><p><a href="https://www.python.org/dev/peps/pep-0484/">https://www.python.org/dev/peps/pep-0484/</a></p></li>
+</ul></li>
+</ul>
 </section></section>
 <section><section id="computabilidad" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Computabilidad</h1></section><section id="funciones-y-procesos" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Funciones y procesos</h2><ul>
 <li><p>Los <strong>procesos</strong> son entidades abstractas que habitan los ordenadores.</p></li>
