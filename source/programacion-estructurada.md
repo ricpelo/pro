@@ -772,9 +772,9 @@ else:
       print('Número incorrecto')
   ```
 
-# Funciones con nombre
+# Funciones imperativas
 
-## Definición de funciones con nombre
+## Definición de funciones imperativas
 
 - En programación imperativa también podemos definir funciones.
 
@@ -788,9 +788,13 @@ else:
 - Las funciones en programación imperativa conforman los bloques básicos que
   nos permiten **descomponer un programa en partes** que se combinan entre sí.
 
-- Todavía podemos construir funciones mediante expresiones lambda, pero Python
-  nos proporciona otro mecanismo para definir funciones en estilo imperativo:
-  las **funciones con nombre**.
+- Todavía podemos construir funciones mediante expresiones lambda, pero las
+  funciones imperativas tienen ventajas:
+
+  - Podemos escribir sentencias dentro de las funciones.
+
+  - Podemos escribir funciones que no devuelvan ningún resultado porque su
+    cometido es provocar algún efecto lateral.
 
 ---
 
@@ -798,7 +802,7 @@ else:
 
 ::: {.column width=45%}
 
-- La sintaxis para definir una función con nombre es:
+- La sintaxis para definir una función imperativa es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
