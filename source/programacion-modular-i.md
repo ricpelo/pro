@@ -119,6 +119,20 @@ author: Ricardo Pérez López
 
 ## Descomposición de problemas
 
+## Beneficios de la programación modular
+
+- El tiempo de desarrollo se reduce porque grupos separados de programadores
+  pueden trabajar cada uno en un módulo con poca necesidad de comunicación
+  entre ellos.
+
+- Se mejora la productividad del producto resultante, porque los cambios
+  (pequeños o grandes) realizados en un módulo no afectarían demasiado a los
+  demás.
+
+- Comprensibilidad, porque se puede entender mejor el sistema completo cuando
+  se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la
+  vez.
+
 # Diseño modular
 
 ## Partes de un módulo
@@ -427,11 +441,182 @@ author: Ricardo Pérez López
 
 # Criterios de descomposición modular
 
+## Introducción
+
+- No existe una única forma de descomponer un programa en módulos.
+
+- Las diferentes formas de dividir el sistema en módulos traen consigo
+  diferentes requisitos de comunicación y coordinación entre las personas (o
+  equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios
+  descritos anteriormente en mayor o menor medida.
+
+- ¿Qué criterios se deben seguir para dividir el programa en módulos?
+
+- ¿Cuántos módulos debe tener nuestro programa?
+
+- ¿De qué tamaño deben ser los módulos?
+
+## Tamaño y número
+
+- Según el punto de vista de la división de problemas, sería posible concluir
+  que si el programa se dividiera indefinidamente, cada vez se necesitaría
+  menos esfuerzo hasta llegar a cero.
+
+- Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.
+
+- El coste de desarrollar un módulo individual disminuye conforme aumenta el
+  número de módulos.
+
+- Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay,
+  más pequeños son.
+
+- Sin embargo, cuantos más módulos hay, más cuesta integrarlos.
+
+---
+
+- El valor $M$ es el número de módulos ideal, ya que reduce el coste total del
+  desarrollo.
+
+!IMGP(modulos.png)(Esfuerzo frente al número de módulos)
+
+---
+
+- Las curvas de la figura anterior constituyen una guía útil al considerar la
+  modularidad.
+
+- Deben hacerse módulos, pero con cuidado para permanecer en la cercanía de M.
+
+- Debe evitarse hacer pocos o muchos módulos.
+
+- Pero, ¿cómo saber cuál es la cercanía de M? ¿Cuán modular debe hacerse el
+  software?
+
+- Debe hacerse un diseño con módulos, de manera que el desarrollo pueda
+  planearse con más facilidad, que los cambios se realicen con más facilidad,
+  que las pruebas y la depuración se efectúen con mayor eficiencia y que el
+  mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de
+  importancia.
+
+- Para ello nos basaremos en los siguientes **criterios**.
+
 ## Abstracción
+
+- Cuando se considera una solución modular a cualquier problema, se pueden
+  definir varios niveles de abstracción:
+
+  - En el nivel más alto de abstracción, se enuncia una solución en términos
+    más generales usando el lenguaje del entorno del problema.
+
+  - En niveles más bajos de abstracción se da una descripción más detallada de
+    la solución.
+
+- La noción psicológica de **abstracción** permite concentrarse en un problema
+  a algún nivel de generalización sin tener en consideración los datos
+  irrelevantes de bajo nivel.
+
+- Es decir: se basa en estudiar un aspecto del problema a un determinado nivel
+  centrándose en lo esencial e ignorando momentáneamente los detalles que no
+  son importantes en este nivel.
+
+---
+
+- La utilización de la abstracción también permite trabajar con conceptos y
+  términos que son familiares en el entorno del problema sin tener que
+  transformarlos en una estructura no familiar.
+
+- Recordemos que un módulo tiene siempre un doble punto de vista:
+
+  - El punto de vista del creador o implementador del módulo.
+
+  - El punto de vista del usuario del módulo.
+
+- La abstracción nos ayuda a definir qué entidades constituyen nuestro programa
+  considerando la relación que se establece entre los creadores y los usuarios
+  de los módulos.
+
+- Esto es así porque los usuarios de un módulo quieren usar éste como una
+  abstracción: sabiendo qué hace (su función) pero sin necesidad de saber cómo
+  lo hace (sus detalles internos).
+
+- Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
+  mantener.
 
 ## Ocultación de información
 
+- David Parnas introdujo el concepto de ocultación de información en 1972.
+
+- Afirmó que el criterio principal para la modularización de un sistema debe
+  ser la **ocultación de decisiones de diseño complejas o que puedan cambiar**,
+  es decir, que los módulos se deben caracterizar por ocultar decisiones de
+  diseño a los demás módulos.
+
+- Ocultar la información de esa manera aísla a los usuarios de un módulo de
+  necesitar un conocimiento íntimo del diseño interno del mismo para poder
+  usarlo.
+
+- También los aísla de los posibles efectos de cambiar esas decisiones
+  posteriormente.
+
+- Implica que la modularidad efectiva se logra definiendo un conjunto de
+  módulos independientes que intercambien sólo aquella información
+  estrictamente necesaria para que el programa funcione.
+
+---
+
+- La abstracción ayuda a definir qué entidades constituyen el software.
+
+- La ocultación define y hace cumplir las restricciones de acceso a los
+  componentes de un módulo; es decir: define qué cosas deben ser públicas y qué
+  no.
+
+- En definitiva: que **para que un módulo *A* pueda usar a otro *B*, *A* tiene
+  que conocer de *B* lo menos posible**, lo imprescindible. *B* debe ocultar al
+  exterior los detalles internos de implementación y exponer sólo lo necesario
+  para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles
+  cambios internos que pueda haber posteriormente en *B*.
+
+- Cada módulo es una **caja negra** recelosa de su privacidad que tiene
+  «aversión» por exponer sus interioridades a los demás.
+
 ## Independencia funcional
+
+- La independencia funcional se logra desarrollando módulos de manera que cada
+  módulo resuelva una funcionalidad específica y tenga una interfaz sencilla
+  cuando se vea desde otras partes de del programa (idealmente, mediante paso
+  de parámetros).
+
+  - De hecho, la interfaz del módulo debe estar destinada únicamente a cumplir
+    con esa funcionalidad.
+
+- Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.
+
+- Y por eso el módulo debe ser tan independiente como sea posible del resto de
+  los módulos del programa, es decir, que dependa lo menos posible de lo que
+  hagan otros módulos, y también que dependa lo menos posible de los datos que
+  puedan facilitarle otros módulos.
+
+- Dicho de otra forma: los módulos deben centrarse en resolver un problema
+  concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a
+  relacionarse con otros módulos.
+
+---
+
+- Los módulos independientes son más fáciles de desarrollar porque la función
+  del programa se subdivide y las interfaces se simplifican, por lo que se
+  pueden desarrollar por separado.
+
+- Los módulos independientes son más fáciles de mantener y probar porque los
+  efectos secundarios causados por el diseño o por la modificación del código
+  son más limitados, se reduce la propagación de errores y es posible obtener
+  módulos reutilizables.
+
+- Es un objetivo a alcanzar para obtener una modularidad efectiva.
+
+- La independencia funcional se mide usando dos métricas: la **cohesión** y el
+  **acoplamiento**.
+
+- El objetivo de la independencia funcional es **maximizar la cohesión y
+  minimizar el acoplamiento**.
 
 ### Cohesión
 

@@ -88,6 +88,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -277,7 +285,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
-</section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Descomposición de problemas</h2></section></section>
+</section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Descomposición de problemas</h2></section><section id="beneficios-de-la-programación-modular" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Beneficios de la programación modular</h2><ul>
+<li><p>El tiempo de desarrollo se reduce porque grupos separados de programadores pueden trabajar cada uno en un módulo con poca necesidad de comunicación entre ellos.</p></li>
+<li><p>Se mejora la productividad del producto resultante, porque los cambios (pequeños o grandes) realizados en un módulo no afectarían demasiado a los demás.</p></li>
+<li><p>Comprensibilidad, porque se puede entender mejor el sistema completo cuando se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la vez.</p></li>
+</ul></section></section>
 <section><section id="diseño-modular" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Diseño modular</h1></section><section id="partes-de-un-módulo" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Partes de un módulo</h2><ul>
 <li><p>Desde la perspectiva de la programación modular, un programa está formado por una colección de módulos que interactúan entre sí.</p></li>
 <li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
@@ -418,7 +430,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Y si importamos el módulo dentro de otro, el código del último <code>if</code> no se ejecutará, por lo que sólo se incorporará la definición de la función <code>fac</code>.</p></li>
 </ul>
 </section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Documentación interna</h3></section></section>
-<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Abstracción</h2></section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Ocultación de información</h2></section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Independencia funcional</h2></section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Reusabilidad</h2></section></section>
+<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Introducción</h2><ul>
+<li><p>No existe una única forma de descomponer un programa en módulos.</p></li>
+<li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
+<li><p>¿Qué criterios se deben seguir para dividir el programa en módulos?</p></li>
+<li><p>¿Cuántos módulos debe tener nuestro programa?</p></li>
+<li><p>¿De qué tamaño deben ser los módulos?</p></li>
+</ul></section><section id="tamaño-y-número" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Tamaño y número</h2><ul>
+<li><p>Según el punto de vista de la división de problemas, sería posible concluir que si el programa se dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta llegar a cero.</p></li>
+<li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.</p></li>
+<li><p>El coste de desarrollar un módulo individual disminuye conforme aumenta el número de módulos.</p></li>
+<li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay, más pequeños son.</p></li>
+<li><p>Sin embargo, cuantos más módulos hay, más cuesta integrarlos.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li>El valor <span class="math inline">M</span> es el número de módulos ideal, ya que reduce el coste total del desarrollo.</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/modulos.png" alt="Esfuerzo frente al número de módulos" class="plain" style="width:80.0%" /><figcaption>Esfuerzo frente al número de módulos</figcaption>
+</figure>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las curvas de la figura anterior constituyen una guía útil al considerar la modularidad.</p></li>
+<li><p>Deben hacerse módulos, pero con cuidado para permanecer en la cercanía de M.</p></li>
+<li><p>Debe evitarse hacer pocos o muchos módulos.</p></li>
+<li><p>Pero, ¿cómo saber cuál es la cercanía de M? ¿Cuán modular debe hacerse el software?</p></li>
+<li><p>Debe hacerse un diseño con módulos, de manera que el desarrollo pueda planearse con más facilidad, que los cambios se realicen con más facilidad, que las pruebas y la depuración se efectúen con mayor eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de importancia.</p></li>
+<li><p>Para ello nos basaremos en los siguientes <strong>criterios</strong>.</p></li>
+</ul>
+</section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Abstracción</h2><ul>
+<li><p>Cuando se considera una solución modular a cualquier problema, se pueden definir varios niveles de abstracción:</p>
+<ul>
+<li><p>En el nivel más alto de abstracción, se enuncia una solución en términos más generales usando el lenguaje del entorno del problema.</p></li>
+<li><p>En niveles más bajos de abstracción se da una descripción más detallada de la solución.</p></li>
+</ul></li>
+<li><p>La noción psicológica de <strong>abstracción</strong> permite concentrarse en un problema a algún nivel de generalización sin tener en consideración los datos irrelevantes de bajo nivel.</p></li>
+<li><p>Es decir: se basa en estudiar un aspecto del problema a un determinado nivel centrándose en lo esencial e ignorando momentáneamente los detalles que no son importantes en este nivel.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
+<li><p>Recordemos que un módulo tiene siempre un doble punto de vista:</p>
+<ul>
+<li><p>El punto de vista del creador o implementador del módulo.</p></li>
+<li><p>El punto de vista del usuario del módulo.</p></li>
+</ul></li>
+<li><p>La abstracción nos ayuda a definir qué entidades constituyen nuestro programa considerando la relación que se establece entre los creadores y los usuarios de los módulos.</p></li>
+<li><p>Esto es así porque los usuarios de un módulo quieren usar éste como una abstracción: sabiendo qué hace (su función) pero sin necesidad de saber cómo lo hace (sus detalles internos).</p></li>
+<li><p>Los módulos definidos como abstracciones son más fáciles de usar, diseñar y mantener.</p></li>
+</ul>
+</section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Ocultación de información</h2><ul>
+<li><p>David Parnas introdujo el concepto de ocultación de información en 1972.</p></li>
+<li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de decisiones de diseño complejas o que puedan cambiar</strong>, es decir, que los módulos se deben caracterizar por ocultar decisiones de diseño a los demás módulos.</p></li>
+<li><p>Ocultar la información de esa manera aísla a los usuarios de un módulo de necesitar un conocimiento íntimo del diseño interno del mismo para poder usarlo.</p></li>
+<li><p>También los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
+<li><p>Implica que la modularidad efectiva se logra definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>La abstracción ayuda a definir qué entidades constituyen el software.</p></li>
+<li><p>La ocultación define y hace cumplir las restricciones de acceso a los componentes de un módulo; es decir: define qué cosas deben ser públicas y qué no.</p></li>
+<li><p>En definitiva: que <strong>para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible. <em>B</em> debe ocultar al exterior los detalles internos de implementación y exponer sólo lo necesario para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
+<li><p>Cada módulo es una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p></li>
+</ul>
+</section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Independencia funcional</h2><ul>
+<li><p>La independencia funcional se logra desarrollando módulos de manera que cada módulo resuelva una funcionalidad específica y tenga una interfaz sencilla cuando se vea desde otras partes de del programa (idealmente, mediante paso de parámetros).</p>
+<ul>
+<li>De hecho, la interfaz del módulo debe estar destinada únicamente a cumplir con esa funcionalidad.</li>
+</ul></li>
+<li><p>Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.</p></li>
+<li><p>Y por eso el módulo debe ser tan independiente como sea posible del resto de los módulos del programa, es decir, que dependa lo menos posible de lo que hagan otros módulos, y también que dependa lo menos posible de los datos que puedan facilitarle otros módulos.</p></li>
+<li><p>Dicho de otra forma: los módulos deben centrarse en resolver un problema concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a relacionarse con otros módulos.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Los módulos independientes son más fáciles de desarrollar porque la función del programa se subdivide y las interfaces se simplifican, por lo que se pueden desarrollar por separado.</p></li>
+<li><p>Los módulos independientes son más fáciles de mantener y probar porque los efectos secundarios causados por el diseño o por la modificación del código son más limitados, se reduce la propagación de errores y es posible obtener módulos reutilizables.</p></li>
+<li><p>Es un objetivo a alcanzar para obtener una modularidad efectiva.</p></li>
+<li><p>La independencia funcional se mide usando dos métricas: la <strong>cohesión</strong> y el <strong>acoplamiento</strong>.</p></li>
+<li><p>El objetivo de la independencia funcional es <strong>maximizar la cohesión y minimizar el acoplamiento</strong>.</p></li>
+</ul>
+</section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">3.5.1</span> Cohesión</h3></section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Acoplamiento</h3></section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2></section></section>
 <section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Diagramas de estructura</h1></section>
     </div>
   </div>
