@@ -261,14 +261,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
 <li><p>Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya que se ajusta a esa definición (salvo que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
-<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino que actúan de forma conjunta formando un todo interrelacionado.</p></li>
+<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino de forma conjunta formando un todo interrelacionado.</p></li>
 <li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno, manipulable desde dentro del módulo pero también desde fuera.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan números racionales.</p></li>
-<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos… Y todas esas funciones trabajarían conjuntamente, actuando sobre el mismo conjunto de datos (la representación interna que usa el módulo para implementar los números racionales).</p></li>
+<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos… Y todas esas funciones trabajarían conjuntamente, actuando sobre la misma colección de datos (la representación interna que usa el módulo para implementar los números racionales).</p></li>
 <li><p>Esos datos (es decir, esa representación interna) también formarían parte del módulo y constituirían su estado interno.</p></li>
 <li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, también resulta evidente que debemos considerarlas como formando un todo conjunto con los datos que manipulan: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
@@ -281,11 +281,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los módulos nos permiten descomponer el programa en <strong>partes independientes y manejables por separado</strong>.</p></li>
 <li><p>Una función no es una candidata con suficiente entidad como para ser considerada un módulo, en general.</p></li>
 <li><p>Los módulos, generalmente, agrupan colecciones de <strong>funciones interrelacionadas</strong>.</p></li>
-<li><p>Los módulos, generalmente, también poseen un <strong>estado interno</strong> manipulable desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
+<li><p>Los módulos, generalmente, también poseen un <strong>estado interno</strong> en forma de estructuras de datos, manipulable desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
 <li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
-</section><section id="descomposición-de-problemas" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Descomposición de problemas</h2></section><section id="beneficios-de-la-programación-modular" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Beneficios de la programación modular</h2><ul>
+<!-- ## Descomposición de problemas -->
+</section><section id="beneficios-de-la-programación-modular" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Beneficios de la programación modular</h2><ul>
 <li><p>El tiempo de desarrollo se reduce porque grupos separados de programadores pueden trabajar cada uno en un módulo con poca necesidad de comunicación entre ellos.</p></li>
 <li><p>Se mejora la productividad del producto resultante, porque los cambios (pequeños o grandes) realizados en un módulo no afectarían demasiado a los demás.</p></li>
 <li><p>Comprensibilidad, porque se puede entender mejor el sistema completo cuando se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la vez.</p></li>
@@ -496,6 +497,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La ocultación define y hace cumplir las restricciones de acceso a los componentes de un módulo; es decir: define qué cosas deben ser públicas y qué no.</p></li>
 <li><p>En definitiva: que <strong>para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible. <em>B</em> debe ocultar al exterior los detalles internos de implementación y exponer sólo lo necesario para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
 <li><p>Cada módulo es una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La diferencia entre la <strong>abstracción</strong> y la <strong>ocultación de información</strong> se puede resumir también de la siguiente forma:</p>
+<ul>
+<li><p>Al <strong>usuario</strong> de un módulo le interesa la <strong>abstracción</strong> porque le permite usar el módulo conociendo de él sólo lo imprescindible e ignorando los detalles superfluos de implementación.</p></li>
+<li><p>Al <strong>creador</strong> del módulo le interesa el <strong>principio de ocultación de información</strong> porque si los usuarios de su módulo conocen más detalles de los necesarios para poder usarlo, el creador no podrá cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
+</ul></li>
 </ul>
 </section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Independencia funcional</h2><ul>
 <li><p>La independencia funcional se logra desarrollando módulos de manera que cada módulo resuelva una funcionalidad específica y tenga una interfaz sencilla cuando se vea desde otras partes de del programa (idealmente, mediante paso de parámetros).</p>

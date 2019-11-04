@@ -71,7 +71,7 @@ author: Ricardo Pérez López
 - Sin embargo, descomponer un programa en partes usando únicamente como
   criterio la descomposición funcional no resulta adecuado en general, ya que
   muchas veces nos encontramos con funciones que no actúan por separado, sino
-  que actúan de forma conjunta formando un todo interrelacionado.
+  de forma conjunta formando un todo interrelacionado.
 
 - Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
   sino que también puede tener su propio estado interno, manipulable desde
@@ -84,7 +84,7 @@ author: Ricardo Pérez López
 
 - Tendríamos funciones para crear racionales, para sumarlos, para
   multiplicarlos, para simplificarlos... Y todas esas funciones trabajarían
-  conjuntamente, actuando sobre el mismo conjunto de datos (la representación
+  conjuntamente, actuando sobre la misma colección de datos (la representación
   interna que usa el módulo para implementar los números racionales).
   
 - Esos datos (es decir, esa representación interna) también formarían parte del
@@ -110,14 +110,14 @@ author: Ricardo Pérez López
   - Los módulos, generalmente, agrupan colecciones de **funciones
     interrelacionadas**.
 
-  - Los módulos, generalmente, también poseen un **estado interno** manipulable
-    desde el interior del módulo así como desde el exterior del mismo usando
-    las funciones que forman el módulo.
+  - Los módulos, generalmente, también poseen un **estado interno** en forma de
+    estructuras de datos, manipulable desde el interior del módulo así como
+    desde el exterior del mismo usando las funciones que forman el módulo.
 
   - A nivel práctico, los módulos se programan físicamente en **archivos
     separados** del resto del programa.
 
-## Descomposición de problemas
+<!-- ## Descomposición de problemas -->
 
 ## Beneficios de la programación modular
 
@@ -577,6 +577,21 @@ author: Ricardo Pérez López
 
 - Cada módulo es una **caja negra** recelosa de su privacidad que tiene
   «aversión» por exponer sus interioridades a los demás.
+
+---
+
+- La diferencia entre la **abstracción** y la **ocultación de información** se
+  puede resumir también de la siguiente forma:
+
+  - Al **usuario** de un módulo le interesa la **abstracción** porque le
+    permite usar el módulo conociendo de él sólo lo imprescindible e ignorando
+    los detalles superfluos de implementación.
+
+  - Al **creador** del módulo le interesa el **principio de ocultación de
+    información** porque si los usuarios de su módulo conocen más detalles de
+    los necesarios para poder usarlo, el creador no podrá cambiarlos luego
+    (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su
+    módulo.
 
 ## Independencia funcional
 
