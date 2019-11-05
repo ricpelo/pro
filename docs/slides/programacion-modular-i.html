@@ -224,16 +224,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/diseño-modular"><span class="toc-section-number">2</span> Diseño modular</a></li>
 <li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">3</span> Criterios de descomposición modular</a></li>
-<li><a href="#/diagramas-de-estructura"><span class="toc-section-number">4</span> Diagramas de estructura</a></li>
+<li><a href="#/bibliografía">Bibliografía</a></li>
 </ul>
 </section>
 </section>
 
 <section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="modularidad" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Modularidad</h2><ul>
-<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer y programar nuestro programa en partes llamadas <strong>módulos</strong>.</p></li>
+<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer y programar nuestro programa en partes llamadas <strong>módulos</strong>.</p>
+<ul>
+<li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio: cualquier parte de un programa se puede considerar módulo.</li>
+</ul></li>
 <li><p>Equivale a la técnica clásica de resolución de problemas basada en descomponer un problema en subproblemas y resolver cada subproblema por separado para así obtener la solución al problema original.</p></li>
 <li><p>La <strong>modularidad</strong> es la propiedad que tienen los programas escritos siguiendo los principios de la programación modular.</p></li>
-<li><p>El concepto de modularidad se puede estudiar a nivel metodológico y a nivel práctico.</p></li>
+<li><p>El concepto de modularidad se puede estudiar a nivel <em>metodológico</em> y a nivel <em>práctico</em>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -260,9 +263,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
-<li><p>Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya que se ajusta a esa definición (salvo que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
+<li><p>Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
 <li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino de forma conjunta formando un todo interrelacionado.</p></li>
-<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno, manipulable desde dentro del módulo pero también desde fuera.</p></li>
+<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno en forma de datos (variables) manipulables desde dentro del módulo pero también desde fuera.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -328,14 +331,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
 <li><p>Está formado por todas las variables locales al módulo que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz.</p></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
-</ul></section><section id="programación-modular-en-python" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Programación modular en Python</h2><ul>
+</ul></section><section id="diagramas-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Diagramas de estructura</h2><ul>
+<li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>
+<li><p>En el diagrama de estructura, cada módulo se representa mediante un rectángulo y las relaciones entre cada par de módulos se dibujan como una línea con punta de flecha entre los dos módulos.</p></li>
+<li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em> representa que el módulo <em>A</em> <em>utiliza</em> o <em>llama</em> o <em>depende</em> del módulo <em>B</em>.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/modulos-dependientes.svg" alt="A depende de B" class="plain" style="width:30.0%" /><figcaption><em>A</em> depende de <em>B</em></figcaption>
+</figure>
+</div></section><section class="slide level4">
+
+<div class="centered">
+<figure>
+<img data-src="images/diagrama-estructura.svg" alt="Diagrama de estructura" class="plain" style="width:40.0%" /><figcaption>Diagrama de estructura</figcaption>
+</figure>
+</div>
+</section><section id="programación-modular-en-python" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Programación modular en Python</h2><ul>
 <li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
 <li><p>Los módulos contienen definiciones y sentencias.</p></li>
 <li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
 <li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
 <li><p>Cada módulo tiene su propio ámbito local, que es usado como el ámbito global de todas las funciones definidas en el módulo.</p></li>
 <li><p>Por tanto, el autor de un módulo puede usar variables globales en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales del usuario del módulo.</p></li>
-</ul></section><section id="importación-de-módulos" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Importación de módulos</h3><ul>
+</ul></section><section id="importación-de-módulos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Importación de módulos</h3><ul>
 <li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del módulo actual:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">import</span> math</a></code></pre></div></li>
 <li><p>Al importar un módulo de esta forma, lo que se hace es incorporar la definición del propio módulo (el módulo <em>importado</em>) dentro del ámbito global del módulo o <em>script</em> actual (el módulo <em>importador</em>).</p></li>
@@ -395,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>.</p></li>
 <li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» definiciones ya existentes.</p></li>
 </ul>
-</section><section id="módulos-como-scripts" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Módulos como <em>scripts</em></h3><ul>
+</section><section id="módulos-como-scripts" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Módulos como <em>scripts</em></h3><ul>
 <li><p>Un módulo puede contener sentencias ejecutables además de definiciones.</p></li>
 <li><p>Generalmente, esas sentencias existen para inicializar el módulo.</p></li>
 <li><p>Las sentencias de un módulo se ejecutan sólo la primera vez que se encuentra el nombre de ese módulo en una sentencia <code>import</code>.</p></li>
@@ -430,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 24</code></pre></li>
 <li><p>Y si importamos el módulo dentro de otro, el código del último <code>if</code> no se ejecutará, por lo que sólo se incorporará la definición de la función <code>fac</code>.</p></li>
 </ul>
-</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.2.3</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.2.4</span> Documentación interna</h3></section></section>
+</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.3.4</span> Documentación interna</h3></section></section>
 <section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Introducción</h2><ul>
 <li><p>No existe una única forma de descomponer un programa en módulos (entiendo aquí por <em>módulo</em> cualquier parte del programa en sentido amplio, incluyendo una simple función).</p></li>
 <li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
@@ -620,8 +639,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho parámetro es la única data compartida (por ejemplo, pasando un entero a una función que calcula una raíz cuadrada).</p></li>
 <li><p><strong>Sin acoplamiento</strong>: ocurre cuando los módulos no se comunican para nada uno con otro.</p></li>
 </ul>
-</section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2></section></section>
-<section id="diagramas-de-estructura" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Diagramas de estructura</h1></section>
+</section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2><ul>
+<li><p>La <strong>reusabilidad</strong> es un factor de calidad del software que se puede aplicar tambien a sus componentes o módulos.</p></li>
+<li><p>Un módulo es <strong>reusable</strong> cuando puede aprovecharse para ser utilizado (tal cual o con muy poca modificación) en varios programas.</p></li>
+<li><p>A la hora de diseñar módulos (o de descomponer un programa en módulos) nos interesará que los módulos resultantes sean cuanto más reusables mejor.</p></li>
+<li><p>Para ello, el módulo en cuestión debe ser lo suficientemente general y resolver un problema patrón que sea suficientemente común y se pueda encontrar en varios contextos y programas diferentes.</p></li>
+<li><p>Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un bajo acoplamiento y, por tanto, no depender de otros módulos del programa.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Esos módulos incluso podrían luego formar parte de una <em>biblioteca</em> o <em>repositorio</em> de módulos y ponerlos a disposición de los programadores para que puedan usarlos en sus programas.</p></li>
+<li><p>A día de hoy, el desarrollo de programas se basa en gran medida en seleccionar y utilizar módulos (o bibliotecas, <em>librerías</em> o <em>paquetes</em>) desarrollados por terceros o reutilizados de otros programas elaborados por nosotros mismos anteriormente.</p></li>
+<li><p>Es decir: la programación se ha convertido en una actividad consistente principalmente en ir combinando componentes intercambiables.</p></li>
+<li><p>Eso nos permite acortar el tiempo de desarrollo porque podemos construir un programa a base de ir ensamblando módulos reusables como si fueran las piezas del engranaje de una máquina.</p></li>
+</ul>
+</section></section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1></section>
     </div>
   </div>
 

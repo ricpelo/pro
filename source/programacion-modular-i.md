@@ -11,6 +11,9 @@ author: Ricardo Pérez López
 - La **programación modular** es una técnica de programación que consiste en
   descomponer y programar nuestro programa en partes llamadas **módulos**.
 
+  - El concepto de *módulo* hay que entenderlo en sentido amplio: cualquier
+    parte de un programa se puede considerar módulo.
+
 - Equivale a la técnica clásica de resolución de problemas basada en
   descomponer un problema en subproblemas y resolver cada subproblema por
   separado para así obtener la solución al problema original.
@@ -18,8 +21,8 @@ author: Ricardo Pérez López
 - La **modularidad** es la propiedad que tienen los programas escritos
   siguiendo los principios de la programación modular.
 
-- El concepto de modularidad se puede estudiar a nivel metodológico y a nivel
-  práctico.
+- El concepto de modularidad se puede estudiar a nivel *metodológico* y a nivel
+  *práctico*.
 
 ---
 
@@ -65,8 +68,9 @@ author: Ricardo Pérez López
   y programar por separado con relativa independencia del resto del programa.
 
 - Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya
-  que se ajusta a esa definición (salvo que no habría *descomposición física*,
-  aunque se podría colocar cada función en un archivo separado y entonces sí).
+  que se ajusta a esa definición (salvo quizás que no habría *descomposición
+  física*, aunque se podría colocar cada función en un archivo separado y
+  entonces sí).
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
   criterio la descomposición funcional no resulta adecuado en general, ya que
@@ -74,8 +78,8 @@ author: Ricardo Pérez López
   de forma conjunta formando un todo interrelacionado.
 
 - Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
-  sino que también puede tener su propio estado interno, manipulable desde
-  dentro del módulo pero también desde fuera.
+  sino que también puede tener su propio estado interno en forma de datos
+  (variables) manipulables desde dentro del módulo pero también desde fuera.
 
 ---
 
@@ -214,6 +218,40 @@ author: Ricardo Pérez López
 
 - La implementación debe poder cambiarse tantas veces como sea necesario sin
   que por ello se tenga que cambiar el resto del programa.
+
+## Diagramas de estructura
+
+- Los diferentes módulos que forman un programa y la relación que hay entre
+  ellos se puede representar gráficamente mediante un *diagrama de
+  descomposición modular* o **diagrama de estructura**.
+
+- En el diagrama de estructura, cada módulo se representa mediante un
+  rectángulo y las relaciones entre cada par de módulos se dibujan como una
+  línea con punta de flecha entre los dos módulos.
+
+- Una flecha dirigida del módulo *A* al módulo *B* representa que el módulo *A*
+  *utiliza* o *llama* o *depende* del módulo *B*.
+
+!DOT(modulos-dependientes.svg)(*A* depende de *B*)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A -> B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!DOT(diagrama-estructura.svg)(Diagrama de estructura)(width=40%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = TB
+A -> B
+A -> C
+B -> D
+B -> E
+B -> F
+C -> F
+E -> G
+F -> G
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 ## Programación modular en Python
 
@@ -828,5 +866,38 @@ author: Ricardo Pérez López
 
 ## Reusabilidad
 
-# Diagramas de estructura
+- La **reusabilidad** es un factor de calidad del software que se puede aplicar
+  tambien a sus componentes o módulos.
 
+- Un módulo es **reusable** cuando puede aprovecharse para ser utilizado (tal
+  cual o con muy poca modificación) en varios programas.
+
+- A la hora de diseñar módulos (o de descomponer un programa en módulos) nos
+  interesará que los módulos resultantes sean cuanto más reusables mejor.
+
+- Para ello, el módulo en cuestión debe ser lo suficientemente general y
+  resolver un problema patrón que sea suficientemente común y se pueda
+  encontrar en varios contextos y programas diferentes.
+
+- Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un
+  bajo acoplamiento y, por tanto, no depender de otros módulos del programa.
+
+---
+
+- Esos módulos incluso podrían luego formar parte de una *biblioteca* o
+  *repositorio* de módulos y ponerlos a disposición de los programadores para
+  que puedan usarlos en sus programas.
+
+- A día de hoy, el desarrollo de programas se basa en gran medida en
+  seleccionar y utilizar módulos (o bibliotecas, *librerías* o *paquetes*)
+  desarrollados por terceros o reutilizados de otros programas elaborados por
+  nosotros mismos anteriormente.
+
+- Es decir: la programación se ha convertido en una actividad consistente
+  principalmente en ir combinando componentes intercambiables.
+
+- Eso nos permite acortar el tiempo de desarrollo porque podemos construir un
+  programa a base de ir ensamblando módulos reusables como si fueran las piezas
+  del engranaje de una máquina.
+
+!BIBLIOGRAFIA
