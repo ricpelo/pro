@@ -2,6 +2,8 @@
 title: Programación modular I
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @pressman_ingenierisoftware:_2004, @python_software_foundation_sitio_nodate
 ---
 
 # Introducción
