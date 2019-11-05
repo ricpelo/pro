@@ -104,13 +104,13 @@ author: Ricardo Pérez López
   - Los módulos nos permiten descomponer el programa en **partes independientes
     y manejables por separado**.
 
-  - Una función no es una candidata con suficiente entidad como para ser
-    considerada un módulo, en general.
+  - Una función, en general, no es una candidata con suficiente entidad como
+    para ser considerada un módulo.
 
-  - Los módulos, generalmente, agrupan colecciones de **funciones
+  - Los módulos, en general, agrupan colecciones de **funciones
     interrelacionadas**.
 
-  - Los módulos, generalmente, también poseen un **estado interno** en forma de
+  - Los módulos, en general, también poseen un **estado interno** en forma de
     estructuras de datos, manipulable desde el interior del módulo así como
     desde el exterior del mismo usando las funciones que forman el módulo.
 
@@ -443,7 +443,9 @@ author: Ricardo Pérez López
 
 ## Introducción
 
-- No existe una única forma de descomponer un programa en módulos.
+- No existe una única forma de descomponer un programa en módulos (entiendo
+  aquí por *módulo* cualquier parte del programa en sentido amplio, incluyendo
+  una simple función).
 
 - Las diferentes formas de dividir el sistema en módulos traen consigo
   diferentes requisitos de comunicación y coordinación entre las personas (o
@@ -471,7 +473,11 @@ author: Ricardo Pérez López
   más pequeños son.
 
 - Sin embargo, cuantos más módulos hay, más cuesta integrarlos.
-
+ 
+- El tamaño de cada módulo debe ser el adecuado: si es demasiado grande, será
+  difícil hacer cambios en él; si es demasiado pequeño, no merecerá la pena
+  tratarlo como un módulo, sino más bien como parte de otros módulos.
+  
 ---
 
 - El valor $M$ es el número de módulos ideal, ya que reduce el coste total del
@@ -484,12 +490,11 @@ author: Ricardo Pérez López
 - Las curvas de la figura anterior constituyen una guía útil al considerar la
   modularidad.
 
-- Deben hacerse módulos, pero con cuidado para permanecer en la cercanía de M.
+- Debemos evitar hacer pocos o muchos módulos para así permanecer en la
+  cercanía de M.
 
-- Debe evitarse hacer pocos o muchos módulos.
-
-- Pero, ¿cómo saber cuál es la cercanía de M? ¿Cuán modular debe hacerse el
-  software?
+- Pero, ¿cómo saber cuál es la cercanía de M? ¿Cómo de modular debe hacerse el
+  programa?
 
 - Debe hacerse un diseño con módulos, de manera que el desarrollo pueda
   planearse con más facilidad, que los cambios se realicen con más facilidad,
@@ -501,6 +506,13 @@ author: Ricardo Pérez López
 
 ## Abstracción
 
+- La **abstracción** es un proceso mental que se basa en estudiar un aspecto
+  del problema a un determinado nivel centrándose en lo esencial e ignorando
+  momentáneamente los detalles que no son importantes en este nivel.
+
+- Igualmente, nos permite comprender la esencia de un subsistema sin tener que
+  conocer detalles innecesarios del mismo.
+
 - Cuando se considera una solución modular a cualquier problema, se pueden
   definir varios niveles de abstracción:
 
@@ -509,14 +521,6 @@ author: Ricardo Pérez López
 
   - En niveles más bajos de abstracción se da una descripción más detallada de
     la solución.
-
-- La noción psicológica de **abstracción** permite concentrarse en un problema
-  a algún nivel de generalización sin tener en consideración los datos
-  irrelevantes de bajo nivel.
-
-- Es decir: se basa en estudiar un aspecto del problema a un determinado nivel
-  centrándose en lo esencial e ignorando momentáneamente los detalles que no
-  son importantes en este nivel.
 
 ---
 
@@ -625,6 +629,10 @@ author: Ricardo Pérez López
   son más limitados, se reduce la propagación de errores y es posible obtener
   módulos reutilizables.
 
+- De esta forma, la mayor parte de los cambios y mejoras que haya que hacer al
+  programa implicarán modificar sólo un módulo o un número muy pequeño de
+  ellos.
+
 - Es un objetivo a alcanzar para obtener una modularidad efectiva.
 
 - La independencia funcional se mide usando dos métricas: la **cohesión** y el
@@ -635,7 +643,188 @@ author: Ricardo Pérez López
 
 ### Cohesión
 
+- La **cohesión** mide la fuerza con la que se relacionan los componentes de un
+  módulo.
+
+- Cuanto más cohesivo sea un módulo, mejor será nuestro diseño modular.
+
+- Un módulo cohesivo realiza una sola función, por lo que requiere interactuar
+  poco con otros componentes en otras partes del programa.
+
+- En un módulo cohesivo, sus componentes están fuertemente relacionados entre
+  sí y pertenencen al módulo por una razón lógica (no están ahí por
+  casualidad), es decir, todos cooperan para alcanzar un objetivo común que es
+  la función del módulo.
+
+- Un módulo cohesivo mantiene unidos (*atrae*) los componentes que están
+  relacionados entre ellos y mantiene fuera (*repele*) el resto.
+
+---
+
+- En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos
+  los elementos que lo componen contrubuyen a alcanzar dicho objetivo.
+
+- Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola
+  tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice
+  varias tareas, siempre que contribuyan a una misma finalidad lógica.
+  
+- Sin embargo, para lograr un buen diseño hay que evitar módulos que llevan a
+  cabo funciones no relacionadas.
+
+---
+
+- La siguiente es una escala de grados de cohesión, ordenada de mayor a menor:
+
+  - Cohesión funcional
+
+  - Cohesión secuencial
+
+  - Cohesión de comunicación
+
+    [Hasta aquí, los módulos se consideran **cajas negras**.]
+
+  - Cohesión procedimental
+
+  - Cohesión temporal
+
+  - Cohesión lógica
+
+  - Cohesión coincidental
+
+- No hace falta determinar con precisión qué cohesión tenemos. Lo importante es
+  intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión
+  para modificar el diseño y conseguir una mayor independencia funcional.
+
+---
+
+- **Cohesión funcional**: se da cuando los componentes del módulo pertenecen al
+  mismo porque todos contribuyen a una tarea única y bien definida del módulo.
+
+- **Cohesión secuencial**: se da cuando los componentes del módulo pertenecen
+  al mismo porque la salida de uno es la entrada del otro, como en una cadena
+  de montaje (por ejemplo, una función que lee datos de un archivo y los
+  procesa).
+
+- **Cohesión de comunicación**: se da cuando los componentes del módulo
+  pertenecen al mismo porque trabajan sobre los mismos datos (por ejemplo, un
+  módulo que procesa números racionales).
+
+---
+
+- **Cohesión procedimental**: se da cuando los componentes del módulo
+  pertenecen al mismo porque siguen una cierta secuencia de ejecución (por
+  ejemplo, una función que comprueba los permisos de un archivo y después lo
+  abre).
+
+- **Cohesión temporal**: se da cuando los componentes del módulo pertenecen al
+  mismo porque se ejecutan en el mismo momento (por ejemplo, una función que se
+  dispara cuando se produce un error, abriría un archivo, crearía un registro
+  de error y notificaría al usuario). 
+
+- **Cohesión lógica**: se da cuando los componentes del módulo pertenecen al
+  mismo porque pertenencen a la misma categoría lógica aunque son esencialmente
+  distintos (por ejemplo, un módulo que agrupe las funciones de manejo del
+  teclado o el ratón).
+
+- **Cohesión coincidental**: se da cuando los componentes del módulo pertenecen
+  al mismo por casualidad o por razones arbitrarias, es decir, que la única
+  razón por la que se encuentran en el mismo módulo es porque se han agrupado
+  juntos (por ejemplo, un módulo de «utilidades»).
+
 ### Acoplamiento
+
+- El **acoplamiento** es una medida del grado de interdependencia entre los
+  módulos de un programa.
+
+- Dicho de otra forma, es la fuerza con la que se relacionan los módulos de un
+  programa.
+
+- El acoplamiento depende de:
+
+  - La complejidad de la interfaz entre los módulos
+
+  - El punto en el que se entra o se hace referencia a un módulo
+  
+  - Los datos que se pasan a través de la interfaz
+
+- Lo deseable es tener módulos con poco acoplamiento, es decir, módulos que
+  dependan poco unos de otros.
+
+- De esta forma obtenemos programas más fáciles de entender y menos propensos
+  al *efecto ola*, que ocurre cuando se dan errores en un sitio y se propagan
+  por todo el programa.
+
+---
+
+- Los programas con alto acoplamiento tienden a presentar los siguientes
+  problemas:
+
+  - Un cambio en un módulo normalmente obliga a cambiar otros módulos
+    (consecuencia del *efecto ola*).
+
+  - Requiere más esfuerzo integrar los módulos del programa ya que dependen
+    mucho unos de otros.
+
+  - Un módulo particular resulta más difícil de reutilizar o probar debido a
+    que hay que incluir en el lote a los módulos de los que depende éste (no se
+    puede reutilizar o probar por separado).
+
+---
+
+- La siguiente es una escala de grados de acoplamiento, ordenada de mayor a
+  menor:
+
+  - Acoplamiento por contenido
+
+  - Acoplamiento común
+
+  - Acoplamiento externo
+
+  - Acoplamiento de control
+
+  - Acoplamiento por estampado
+
+  - Acoplamiento de datos
+
+  - Sin acoplamiento
+
+- No hace falta determinar con precisión qué cohesión tenemos. Lo importante es
+  intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión
+  para modificar el diseño y conseguir una mayor independencia funcional.
+
+---
+
+- **Acoplamiento por contenido**: ocurre cuando un módulo modifica o se apoya
+  en el funcionamiento interno de otro módulo (por ejemplo, accediendo a datos
+  locales del otro módulo). Cambiar la forma en que el segundo módulo produce
+  los datos obligará a cambiar el módulo dependiente.
+
+- **Acoplamiento común**: ocurre cuando dos módulos comparten los mismos datos
+  globales. Cambiar el recurso compartido obligará a cambiar todos los módulos
+  que lo usen.
+
+- **Acoplamiento externo**: ocurre cuando dos módulos comparten un formato de
+  datos impuesto externamente, un protocolo de comunicación o una interfaz de
+  dispositivo de entrada/salida.
+
+- **Acoplamiento de control**: ocurre cuando un módulo controla el flujo de
+  ejecución del otro (por ejemplo, pasándole un *conmutador* booleano).
+
+---
+
+- **Acoplamiento por estampado**: ocurre cuando los módulos comparten una
+  estructura de datos compuesta y usan sólo una parte de ella, posiblemente una
+  parte diferente. Esto podría llevar a cambiar la forma en la que un módulo
+  lee un dato compuesto debido a que un elemento que el módulo no necesita ha
+  sido modificado.
+
+- **Acoplamiento de datos**: ocurre cuando los módulos comparten datos entre
+  ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho
+  parámetro es la única data compartida (por ejemplo, pasando un entero a una
+  función que calcula una raíz cuadrada).
+
+- **Sin acoplamiento**: ocurre cuando los módulos no se comunican para nada uno
+  con otro.
 
 ## Reusabilidad
 
