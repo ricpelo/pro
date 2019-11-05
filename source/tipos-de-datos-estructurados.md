@@ -296,9 +296,9 @@ while not fin:
 ------------------------------------------------------------------------
 Operación                 Resultado
 ------------------------- ----------------------------------------------
-$x$ `in` $s$              `True` si algún elemento de $s$ es igual a $x$
+$x\ $ `in` $\ s$          `True` si algún elemento de $s$ es igual a $x$
 
-$x$ `not` `in` $s$        `False` si algún elemento de $s$ es igual a $x$
+$x\ $ `not` `in` $\ s$    `False` si algún elemento de $s$ es igual a $x$
 
 $s$ `+` $t$               La concatenación de $s$ y $t$
 
@@ -318,7 +318,7 @@ $s$`[`$i$`:`$j$`:`$k$`]`  Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
 `max(`$s$`)`              El elemento más grande de $s$
 
 $s$`.index(`$x$ [`, `     El índice de la primera aparición de $x$ en $s$
-$i$ [`, `$j$ ] ]`)`       (desde el índice $i$ inclusive y antes del $j$)
+$i$ [`, ` $j$ ] ]`)`      (desde el índice $i$ inclusive y antes del $j$)
 
 $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 ------------------------------------------------------------------------
@@ -638,7 +638,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
     
     `[a, b, c]`
 
-  - Usando una lista por comprensión: `[`$x$ `for` $x$ `in` !NT(iterable)`]`
+  - Usando una lista por comprensión: `[`$x\ $ `for` $\ x\ $ `in` $\!$
+    !NT(iterable)`]`
 
   - Usando la función `list`: `list()` o `list(`!NT{iterable}`)`
 
@@ -676,20 +677,20 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 \vspace{1em}
 
 ------------------------------------------------------------------------
-Operación                 Resultado
-------------------------- ----------------------------------------------
-$s$`[`$i$`]` `=` $x$      El elemento $i$ de $s$ se sustituye por $x$
+Operación                   Resultado
+--------------------------- ----------------------------------------------
+$s$`[`$i$`]` `=` $x$        El elemento $i$ de $s$ se sustituye por $x$
+                        
+$s$`[`$i$`:`$j$`]`          La rodaja de $s$ desde $i$ hasta $j$ se sustituye por
+`=` $t$                     el contenido del iterable $t$
 
-$s$`[`$i$`:`$j$`]`        La rodaja de $s$ desde $i$ hasta $j$ se sustituye por
-`=` $t$                   el contenido del iterable $t$
+`del` $\ s$`[`$i$`:`$j$`]`  Igual que $s$`[`$i$`:`$j$`]` `=` `[]`
 
-`del` $s$`[`$i$`:`$j$`]`  Igual que $s$`[`$i$`:`$j$`]` `=` `[]`
+$s$`[`$i$`:`$j$`:`$k$`]`    Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se
+`=` $t$                     sustituyen por los de $t$
 
-$s$`[`$i$`:`$j$`:`$k$`]`  Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se
-`=` $t$                   sustituyen por los de $t$
-
-`del`                     Elimina de la secuencia los elementos de
-$s$`[`$i$`:`$j$`:`$k$`]`  $s$`[`$i$`:`$j$`:`$k$`]`
+`del`                       Elimina de la secuencia los elementos de
+$\ s$`[`$i$`:`$j$`:`$k$`]`  $s$`[`$i$`:`$j$`:`$k$`]`
                          
 ------------------------------------------------------------------------
 
@@ -702,7 +703,7 @@ $s$`.append(`$x$`)`    Añade $x$ al final de la secuencia; es igual que \
                        $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
                       
 $s$`.clear()`          Elimina todos los elementos de $s$; es igual que \
-                       `del` $s$`[:]`
+                       `del` $\ s$`[:]`
                       
 $s$`.copy()`           Crea una copia *superficial* de $s$; es igual que $s$`[:]`
 
@@ -749,9 +750,9 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 - Como cualquier otra colección, los conjuntos permiten el uso de:
 
-  - $x$ `in` $c$
+  - $x\ $ `in` $\ c$
   - `len(`$c$`)`
-  - `for` $x$ `in` $c$
+  - `for` $\ x\ $ `in` $\ c$
 
 - Como son colecciones no ordenadas, los conjuntos no almacenan la posición de
   los elementos o el orden en el que se insertaron.
@@ -787,9 +788,9 @@ Operación                Resultado
 ------------------------ --------------------------------------------------------------------
 `len(`$s$`)`             Número de elementos de $s$ (su cardinalidad)
                        
-$x$ `in` $s$             `True` si $x$ pertenece a $s$
+$x\ $ `in` $\ s$         `True` si $x$ pertenece a $s$
                        
-$x$ `not` `in` $s$       `True` si $x$ no pertenece a $s$
+$x\ $ `not` `in` $\ s$   `True` si $x$ no pertenece a $s$
 
 $s$`.isdisjoint(`$o$`)`  `True` si $s$ no tiene ningún elemento en común con $o$
 
@@ -928,11 +929,11 @@ Operación                   Resultado
 --------------------------- --------------------------------------------------------------------
 $d$`[`$c$`]` `=` $v$        Asigna a $d$`[`$c$`]` el valor $v$
 
-`del` $d$`[`$c$`]`          Elimina $d$`[`$c$`]` de $d$ (produce `KeyError` si $c$ no está en $d$)
+`del` $\ d$`[`$c$`]`        Elimina $d$`[`$c$`]` de $d$ (produce `KeyError` si $c$ no está en $d$)
 
-$c$ `in` $d$                `True` si $d$ contiene una clave $c$
+$c\ $ `in` $\ d$            `True` si $d$ contiene una clave $c$
 
-$c$ `not` `in` $d$          `True` si $d$ no contiene una clave $c$
+$c\ $ `not` `in` $\ d$      `True` si $d$ no contiene una clave $c$
 
 $d$`.clear()`               Elimina todos los elementos del diccionario
 
