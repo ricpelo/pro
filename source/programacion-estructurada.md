@@ -185,13 +185,16 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras de control:
 
-  - La **secuencia** de dos acciones *A* y *B*, ya sean simples o compuestas.
+  - La **secuencia** de dos acciones *A* y *B*.
 
   - La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
     *p*.
 
   - La **iteración**, que repite una acción *A* dependiendo del valor de verdad
     de un predicado de control *p*.
+
+- A su vez, *A* y *B* pueden ser acciones simples, o bien, una cualquiera de
+  las estructuras anteriores, recursivamente.
 
 ---
 
@@ -240,6 +243,28 @@ $B$
 :::
 
 ::::
+
+---
+
+- Cada una de las acciones que aparecen en una estructura pueden ser, a su vez,
+  estructuras.
+
+  - Esto es así porque se considera que una estructura es, también, una acción
+    (*compuesta*, a diferencia de las acciones *simples*).
+
+  - Por tanto, una estructura puede aparecer en cualquier parte donde se espere
+    una acción.
+
+- Resumiendo, en un programa podemos tener **dos tipos de acciones**:
+
+  - **Acciones _simples_**
+
+  - **Estructuras de control**, que son acciones *compuestas* formadas a su vez
+    por otras acciones (que podrán ser, a su vez, simples o compuestas,
+    recursivamente).
+
+- Por consiguiente, todo programa puede verse como una única acción, simple o
+  compuesta de otras.
 
 ---
 
@@ -326,11 +351,15 @@ $B$
 
 - Una secuencia de sentencias actúa sintácticamente como si fuera una sola
   sentencia; por lo tanto, en cualquier lugar del programa donde se pueda poner
-  una sentencia, se puede poner asimismo una secuencia de sentencias (que
-  actuarían como una sola formando un bloque).
+  una sentencia, se puede poner una secuencia de sentencias (que actuarían como
+  una sola formando un bloque).
 
-- En las demás estructuras y definiciones que veremos a continuación, siempre
-  que se espere una sentencia, se podrá poner una secuencia de sentencias.
+- Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una
+  estructura) y, por tanto, **toda estructura es también una sentencia** (actúa
+  como si fuera una única sentencia pero compuesta de otras).
+
+- Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede
+  poner una estructura.
 
 ---
 
