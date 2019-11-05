@@ -638,6 +638,10 @@ else:
 - El último nivel permite la codificación directa en un lenguaje de
   programación.
 
+---
+
+!IMGP(refinamiento.png)(Diseño descendente por refinamiento sucesivo)(width=60%)(width=40%)
+
 ## Recursos abstractos
 
 - Descomponer un programa en términos de recursos abstractos consiste en
