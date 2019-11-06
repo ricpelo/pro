@@ -563,11 +563,11 @@ y -> v2 -> c2
   (una cadena también es una **secuencia de caracteres**):
 
 --------------------------------------------------------------------------------
-Operación                Resultado                
+Operación                Resultado
 ------------------------ -------------------------------------------------------
-$x$ `in` $s$             `True` si $x$ está en $s$
+$x\ $ `in` $\ s$         `True` si $x$ está en $s$
                      
-$x$ `not` `in` $s$       `True` si $x$ **no** está en $s$
+$x\ $ `not` `in` $\ s$   `True` si $x$ **no** está en $s$
                      
 $s$`[`$i$`]`             (*Indexación*) El $i$-ésimo elemento de $s$, empezando
                          por 0
@@ -713,50 +713,56 @@ s | P | y | t | h | o | n |
 
   - *Métodos* como `append`, `clear`, `insert`, `remove`, `reverse` o `sort`.
 
-- La siguiente tabla muestra todas las operaciones que nos permiten modificar
-  secuencias mutables.
+- Las siguientes tablas muestran todas las **operaciones** que nos permiten
+  **modificar secuencias mutables**.
 
 ---
 
 ($\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
 cualquiera)
 
------------------------------------------------------------------------------------
-Operación             Resultado                
---------------------  -------------------------------------------------------------
-$s$`[`$i$`] = ` $x$   El elemento $i$-ésimo de $s$ se sustituye por $x$
-                     
-$s$`[`$i$`:`$j$`]`    La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
+------------------------------------------------------------------------------------
+Operación              Resultado
+---------------------  -------------------------------------------------------------
+$s$`[`$i$`]` `=` $x$   El elemento $i$-ésimo de $s$ se sustituye por $x$
+
+$s$`[`$i$`:`$j$`]`     La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
 `=` $t$
 
-$s$`[`$i$`:`$j$`:     Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por $t$
-`$k$`]` `=` $t$
+$s$`[`$i$`:`$j$`:      Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen
+`$k$`]` `=` $t$        por $t$
 
-`del` $s$`[`$i$`:     Elimina los elementos de $s$`[`$i$`:`$j$`]` $\leftrightarrow$
-`$j$`]`               $s$`[`$i$`:`$j$`]` `=` `[]`
+`del` $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`]` \
+`$j$`]`                Equivale a hacer $s$`[`$i$`:`$j$`]` `=` `[]`
 
-`del` $s$`[`$i$`:     Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
+`del` $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
 `$j$`:`$k$`]`
+------------------------------------------------------------------------------------
 
-$s$`.append(`$x$`)`   Añade $x$ al final de $s$ $\leftrightarrow$
-                      $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
+---
 
-$s$`.clear()`         Elimina todos los elementos de $s$ $\leftrightarrow$
-                      `del` $s$`[:]`
+------------------------------------------------------------------------------------
+Operación              Resultado
+---------------------  -------------------------------------------------------------
+$s$`.append(`$x$`)`    Añade $x$ al final de $s$ \
+                       Equivale a hacer $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
 
-$s$`.extend(`$t$`)`   Amplía $s$ con el contenido de $t$ $\leftrightarrow$ \
-ó \                   $s$`[len(`$s$`):len(`$s$`)]` `=` $t$
-$s$ `+=` $t$         
+$s$`.clear()`          Elimina todos los elementos de $s$ \
+                       Equivale a hacer `del` $\ s$`[:]`
 
-$s$`.insert(`$i$`,`   Inserta $x$ en $s$ en el índice $i$ $\leftrightarrow$
-$x$`)`                $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+$s$`.extend(`$t$`)`    Amplía $s$ con el contenido de $t$ \
+ó \                    Equivale a hacer $s$`[len(`$s$`):len(`$s$`)]` `=` $t$
+$s$ `+=` $t$
 
-$s$`.pop(`[$i=-1$]`)` Devuelve el elemento $i$-ésimo y lo elimina de $s$
+$s$`.insert(`$i$`,`    Inserta $x$ en $s$ en el índice $i$ \
+$x$`)`                 Equivale a hacer $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
 
-$s$`.remove(`$x$`)`   Elimina el primer elemento de $s$ que sea igual a $x$
+$s$`.pop(`[$i=-1$]`)`  Devuelve el elemento $i$-ésimo y lo elimina de $s$
 
-$s$`.reverse()`       Invierte los elementos de $s$
------------------------------------------------------------------------------------
+$s$`.remove(`$x$`)`    Elimina el primer elemento de $s$ que sea igual a $x$
+
+$s$`.reverse()`        Invierte los elementos de $s$
+------------------------------------------------------------------------------------
 
 ---
 
@@ -764,16 +770,16 @@ Partiendo de `x = [8, 10, 7, 9]`:
 
 -----------------------------------------
 Ejemplo           Valor de `x` después 
------------------ ----------------------- 
-`x.append(14)`    `[8, 10, 7, 9, 14]`  
-                                       
-`x.clear()`       `[]`                  
-                                       
-`x.insert(3, 66)` `[8, 10, 7, 66, 9]`  
-                                       
-`x.remove(7)`     `[8, 10, 9]`         
-                                       
-`x.reverse()`     `[9, 7, 10, 8]`      
+----------------- -----------------------
+`x.append(14)`    `[8, 10, 7, 9, 14]`
+
+`x.clear()`       `[]`
+
+`x.insert(3, 66)` `[8, 10, 7, 66, 9]`
+
+`x.remove(7)`     `[8, 10, 9]`
+
+`x.reverse()`     `[9, 7, 10, 8]`
 -----------------------------------------
 
 ## Alias de variables
