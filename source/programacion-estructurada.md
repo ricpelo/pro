@@ -193,8 +193,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
   - La **iteración**, que repite una acción *A* dependiendo del valor de verdad
     de un predicado de control *p*.
 
-- A su vez, *A* y *B* pueden ser acciones simples, o bien, una cualquiera de
-  las estructuras anteriores, recursivamente.
+- A su vez, tanto *A* como *B* pueden ser, o bien acciones simples, o bien una
+  cualquiera de las estructuras anteriores, **recursivamente**.
 
 ---
 
@@ -264,7 +264,7 @@ $B$
     recursivamente).
 
 - Por consiguiente, todo programa puede verse como una única acción, simple o
-  compuesta de otras.
+  compuesta por otras.
 
 ---
 
@@ -356,7 +356,7 @@ $B$
 
 - Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una
   estructura) y, por tanto, **toda estructura es también una sentencia** (actúa
-  como si fuera una única sentencia pero compuesta de otras).
+  como si fuera una única sentencia pero compuesta por otras).
 
 - Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede
   poner una estructura.
@@ -477,8 +477,6 @@ else:
 - La iteración (estructura *iterativa* o *repetitiva*) en Python tiene la
   siguiente sintaxis:
 
-- Bucle !T(while):
-
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !T(while) !NT(condición)!T(:)
@@ -562,11 +560,12 @@ else:
   provocar un error cuando se intente ejecutar o evaluar.
 
 - Los errores detectados durante la ejecución del programa se denominan
-  **excepciones** y no son incondicionalmente fatales si se capturan y se
-  gestionan adecuadamente.
+  **excepciones** y no tienen por qué ser incondicionalmente fatales si se
+  capturan y se gestionan adecuadamente.
 
-- En cambio, la mayoría de las excepciones no son gestionadas por el programa y
-  provocan mensajes de error.
+- En cambio, la mayoría de las excepciones no son gestionadas por el programa
+  y, por consiguiente, provocan mensajes de error y la terminación de la
+  ejecución del programa.
 
 ---
 
@@ -1168,7 +1167,8 @@ E -> x [lhead = cluster1]
 
 ### Variables globales
 
-- Desde dentro de una función es posible usar variables globales.
+- Desde dentro de una función es posible usar variables globales, ya que se
+  encuentran en el **entorno** de la función.
 
 - Se puede **acceder** al valor de una variable global directamente:
 
@@ -1270,8 +1270,8 @@ E -> x [lhead = cluster1]
   conocidos de los llamados **efectos laterales**.
 
 - Recordemos que una función tiene (o *provoca*) efectos laterales cuando
-  provoca cambios de estado observables en el exterior de la función, más allá
-  de devolver su valor de retorno. Típicamente:
+  provoca cambios de estado observables desde el exterior de la función, más
+  allá de devolver su valor de retorno. Típicamente:
 
   - Cuando cambia el valor de una variable global
 
@@ -1325,6 +1325,8 @@ E -> x [lhead = cluster1]
   ```python
   resultado = 7 + 13
   ```
+
+  porque en el primer caso se imprimen cosas por pantalla y en el segundo no.
 
 - Por tanto, la función `suma` no cumple la **transparencia referencial**.
 

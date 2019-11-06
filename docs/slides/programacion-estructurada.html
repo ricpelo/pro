@@ -351,7 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La <strong>selección</strong> entre dos acciones <em>A</em> y <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
 <li><p>La <strong>iteración</strong>, que repite una acción <em>A</em> dependiendo del valor de verdad de un predicado de control <em>p</em>.</p></li>
 </ul></li>
-<li><p>A su vez, <em>A</em> y <em>B</em> pueden ser acciones simples, o bien, una cualquiera de las estructuras anteriores, recursivamente.</p></li>
+<li><p>A su vez, tanto <em>A</em> como <em>B</em> pueden ser, o bien acciones simples, o bien una cualquiera de las estructuras anteriores, <strong>recursivamente</strong>.</p></li>
 </ul></section><section class="slide level4">
 
 <div class="columns">
@@ -403,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Acciones <em>simples</em></strong></p></li>
 <li><p><strong>Estructuras de control</strong>, que son acciones <em>compuestas</em> formadas a su vez por otras acciones (que podrán ser, a su vez, simples o compuestas, recursivamente).</p></li>
 </ul></li>
-<li><p>Por consiguiente, todo programa puede verse como una única acción, simple o compuesta de otras.</p></li>
+<li><p>Por consiguiente, todo programa puede verse como una única acción, simple o compuesta por otras.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -452,7 +452,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La estructura secuencial en Python consiste sencillamente en poner cada sentencia una tras otra al mismo nivel de indentación.</p></li>
 <li><p>No requiere de ninguna otra sintaxis particular ni palabras clave.</p></li>
 <li><p>Una secuencia de sentencias actúa sintácticamente como si fuera una sola sentencia; por lo tanto, en cualquier lugar del programa donde se pueda poner una sentencia, se puede poner una secuencia de sentencias (que actuarían como una sola formando un bloque).</p></li>
-<li><p>Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una estructura) y, por tanto, <strong>toda estructura es también una sentencia</strong> (actúa como si fuera una única sentencia pero compuesta de otras).</p></li>
+<li><p>Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una estructura) y, por tanto, <strong>toda estructura es también una sentencia</strong> (actúa como si fuera una única sentencia pero compuesta por otras).</p></li>
 <li><p>Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede poner una estructura.</p></li>
 </ul></section><section class="slide level4">
 
@@ -526,8 +526,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section><section id="iteración" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Iteración</h2><ul>
-<li><p>La iteración (estructura <em>iterativa</em> o <em>repetitiva</em>) en Python tiene la siguiente sintaxis:</p></li>
-<li><p>Bucle <strong><code>while</code></strong>:</p>
+<li><p>La iteración (estructura <em>iterativa</em> o <em>repetitiva</em>) en Python tiene la siguiente sintaxis:</p>
 <div class="line-block"><strong><code>while</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span><strong><code>:</code></strong><br />
       <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
 <li><p>A esta estructura se la llama <strong>bucle <em>while</em></strong> o, simplemente, <strong>bucle</strong>.</p></li>
@@ -574,8 +573,8 @@ g
 Fin</code></pre></li>
 </ul></section><section id="excepciones" class="title-slide slide level3"><h3><span class="header-section-number">2.4.3</span> Excepciones</h3><ul>
 <li><p>Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede provocar un error cuando se intente ejecutar o evaluar.</p></li>
-<li><p>Los errores detectados durante la ejecución del programa se denominan <strong>excepciones</strong> y no son incondicionalmente fatales si se capturan y se gestionan adecuadamente.</p></li>
-<li><p>En cambio, la mayoría de las excepciones no son gestionadas por el programa y provocan mensajes de error.</p></li>
+<li><p>Los errores detectados durante la ejecución del programa se denominan <strong>excepciones</strong> y no tienen por qué ser incondicionalmente fatales si se capturan y se gestionan adecuadamente.</p></li>
+<li><p>En cambio, la mayoría de las excepciones no son gestionadas por el programa y, por consiguiente, provocan mensajes de error y la terminación de la ejecución del programa.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -905,7 +904,7 @@ None</code></pre>
 </div>
 </div>
 </section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">4.4.2</span> Variables globales</h3><ul>
-<li><p>Desde dentro de una función es posible usar variables globales.</p></li>
+<li><p>Desde dentro de una función es posible usar variables globales, ya que se encuentran en el <strong>entorno</strong> de la función.</p></li>
 <li><p>Se puede <strong>acceder</strong> al valor de una variable global directamente:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb23-2" title="2"></a>
@@ -974,7 +973,7 @@ None</code></pre>
 <h4><span class="header-section-number">4.4.2.5</span> Efectos laterales</h4>
 <ul>
 <li><p>Cambiar el estado de una variable global es uno de los ejemplos más claros y conocidos de los llamados <strong>efectos laterales</strong>.</p></li>
-<li><p>Recordemos que una función tiene (o <em>provoca</em>) efectos laterales cuando provoca cambios de estado observables en el exterior de la función, más allá de devolver su valor de retorno. Típicamente:</p>
+<li><p>Recordemos que una función tiene (o <em>provoca</em>) efectos laterales cuando provoca cambios de estado observables desde el exterior de la función, más allá de devolver su valor de retorno. Típicamente:</p>
 <ul>
 <li><p>Cuando cambia el valor de una variable global</p></li>
 <li><p>Cuando cambia un argumento mutable</p></li>
@@ -1005,7 +1004,8 @@ La suma vale 13
 <li><p>Las llamadas a la función <code>suma</code> no se pueden sustituir por su valor de retorno correspondiente. Es decir, que no es lo mismo hacer:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1">resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</a></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1">resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1">resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></a></code></pre></div>
+<p>porque en el primer caso se imprimen cosas por pantalla y en el segundo no.</p></li>
 <li><p>Por tanto, la función <code>suma</code> no cumple la <strong>transparencia referencial</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
