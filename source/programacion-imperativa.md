@@ -508,9 +508,9 @@ y -> v2 -> c2
 
 ::::::
 
-- Lo que hace la asignación `x = 5` no es cambiar el contenido del valor `5`,
-  sino hacer que la variable `x` contenga otro valor distinto (el valor `4` no
-  se modifica en ningún momento).
+- Lo que hace la asignación `x = 5` no es cambiar el contenido del valor `4`,
+  sino hacer que la variable `x` contenga otro valor distinto (el contenido del
+  valor `4` en sí mismo no se modifica internamente en ningún momento).
 
 ---
 
@@ -539,8 +539,9 @@ y -> v2 -> c2
 
   **se crea una nueva cadena** y se la asignamos a la variable `x`.
   
-  Es decir: la cadena `'hola'` original **no se cambia**, sino que desaparece y
-  queda **sustituida por una nueva**.
+  Es decir: la cadena `'hola'` original **no se cambia** (p. ej., no se le
+  añade `' manolo'` al final), sino que desaparece y **se sustituye por una
+  nueva**.
 
   !DOT(inmutable4.svg)()(width=50%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
