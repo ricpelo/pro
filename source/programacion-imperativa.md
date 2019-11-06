@@ -133,7 +133,7 @@ variable -> valor [label = "estado"]
   un programa imperativo.
 
 - El **estado de un programa** es el conjunto de los estados de todas sus
-  variables.
+  variables (más cierta información auxiliar gestionada por el intérprete).
 
 ## Sentencia de asignación
 

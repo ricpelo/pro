@@ -18,9 +18,9 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -30,16 +30,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,9 +46,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -291,14 +289,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <ul>
 <li><p>Tanto las ligaduras como los estados pueden cambiar durante la ejecución de un programa imperativo.</p></li>
-<li><p>El <strong>estado de un programa</strong> es el conjunto de los estados de todas sus variables.</p></li>
+<li><p>El <strong>estado de un programa</strong> es el conjunto de los estados de todas sus variables (más cierta información auxiliar gestionada por el intérprete).</p></li>
 </ul></section><section id="sentencia-de-asignación" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Sentencia de asignación</h2><ul>
 <li><p>La forma más básica de cambiar el estado de una variable es usando la <strong>sentencia de asignación</strong>.</p></li>
 <li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>x <span class="op">=</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a></code></pre></div>
 <p>Significa que el identificador <code>x</code> está ligado a una variable cuyo valor pasa a ser <code>4</code>.</p></li>
 <li><p>La asignación es <strong>destructiva</strong> porque al cambiar un valor a una variable se destruye su valor anterior. Por ejemplo, si ahora hacemos:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>x <span class="op">=</span> <span class="dv">9</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">x <span class="op">=</span> <span class="dv">9</span></a></code></pre></div>
 <p>El valor de la variable a la que está ligada el identificador <code>x</code> pasa ahora a ser <code>9</code>, perdiéndose el valor <code>4</code> anterior.</p></li>
 </ul></section><section class="slide level4">
 
@@ -343,10 +341,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En Python, una constante <strong>es una variable más</strong>, pero <strong>es responsabilidad del programador</strong> no cambiar su valor durante todo el programa.</p></li>
 <li><p>Python no hace ninguna comprobación ni muestra mensajes de error si se cambia el valor de una constante.</p></li>
 <li><p>En Python, por <strong>convenio</strong>, los identificadores ligados a un valor constante se escriben con todas las letras en <strong>mayúscula</strong>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>PI <span class="op">=</span> <span class="fl">3.1415926</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1">PI <span class="op">=</span> <span class="fl">3.1415926</span></a></code></pre></div>
 <p>El nombre en mayúsculas nos recuerda que <code>PI</code> es una constante.</p></li>
 <li><p>Aunque nada nos impide cambiar su valor (cosa que debemos evitar):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>PI <span class="op">=</span> <span class="dv">99</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">PI <span class="op">=</span> <span class="dv">99</span></a></code></pre></div></li>
 </ul>
 </section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">2.6</span> Tipado estático vs. dinámico</h2><ul>
 <li><p>Cuando una variable tiene asignado un valor, al ser usada en una expresión actúa como si fuera ese valor.</p></li>
@@ -377,17 +375,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div></li>
 <li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos que puede contener una variable.</p>
 <p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1"></a><span class="dt">int</span> x;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb5-1" title="1"><span class="dt">int</span> x;</a></code></pre></div>
 <p>con lo que declaramos que <code>x</code> sólo podrá contener valores de tipo <code>int</code> desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>A veces, se pueden realizar al mismo tiempo la declaración del tipo y la asignación del valor:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1"></a><span class="dt">int</span> x = <span class="dv">24</span>;</span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb6-1" title="1"><span class="dt">int</span> x = <span class="dv">24</span>;</a></code></pre></div></li>
 <li><p>Otros lenguajes disponen de un mecanismo conocido como <strong>inferencia de tipos</strong>, que permite <em>deducir</em> automáticamente el tipo de una variable.</p></li>
 <li><p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1"></a>var x = <span class="dv">24</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb7-1" title="1">var x = <span class="dv">24</span>;</a></code></pre></div>
 <p>El compilador de Java deduce que la variable <code>x</code> debe ser de tipo <code>int</code> porque se le está asignando un valor entero (el <code>24</code>).</p></li>
 </ul>
 </section><section class="slide level4">
@@ -500,7 +498,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span style="color:teal"><em>&lt;lista_expresiones&gt;</em></span> ::= <span style="color:teal"><em>&lt;expresión&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span>)*</div>
 <p>con la condición de que tiene que haber tantos identificadores como expresiones.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>x, y <span class="op">=</span> <span class="dv">10</span>, <span class="dv">20</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1">x, y <span class="op">=</span> <span class="dv">10</span>, <span class="dv">20</span></a></code></pre></div>
 <p>asigna el valor <code>10</code> a <code>x</code> y el valor <code>20</code> a <code>y</code>.</p></li>
 </ul></section></section>
 <section><section id="mutabilidad" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Mutabilidad</h1></section><section id="tipos-mutables-e-inmutables" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Tipos mutables e inmutables</h2><ul>
@@ -515,14 +513,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="columns">
 <div class="column">
 <p>Por ejemplo, si tenemos:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">x <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb9-2" title="2">y <span class="op">=</span> <span class="dv">5</span></a></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable1.svg" class="plain" style="width:50.0%" /></p>
 </div>
 </div><div class="column">
 <p>y hacemos:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>x <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1">x <span class="op">=</span> <span class="dv">5</span></a></code></pre></div>
 <p>quedaría:</p>
 <div class="centered">
 <p><img data-src="images/inmutable2.svg" class="plain" style="width:50.0%" /></p>
@@ -536,12 +534,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Con las cadenas sería exactamente igual.</p></li>
 <li><p>Si tenemos:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1">x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable3.svg" class="plain" style="width:40.0%" /></p>
 </div>
 <p>y luego hacemos:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1">x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></a></code></pre></div>
 <p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code>x</code>.</p>
 <p>Es decir: la cadena <code>'hola'</code> original <strong>no se cambia</strong>, sino que desaparece y queda <strong>sustituida por una nueva</strong>.</p>
 <div class="centered">
@@ -609,10 +607,10 @@ s | P | y | t | h | o | n |
     0   1   2   3   4   5
    -6  -5  -4  -3  -2  -1</code></pre>
 </div><div class="column" style="width:40%;">
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co">&#39;t&#39;</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">&#39;o&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1"><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co">&#39;t&#39;</span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">&#39;o&#39;</span></a></code></pre></div>
 </div>
 </div>
 <ul>
@@ -634,18 +632,18 @@ s | P | y | t | h | o | n |
       0   1   2   3   4   5
  -7  -6  -5  -4  -3  -2  -1</code></pre>
 </div><div class="column">
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">2</span>]</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co">&#39;Py&#39;</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]</span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="co">&#39;y&#39;</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">4</span>:<span class="op">-</span><span class="dv">5</span>]</span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="co">&#39;&#39;</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">4</span>:<span class="dv">2</span>]</span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="co">&#39;Pt&#39;</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>]</span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co">&#39;&#39;</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>:<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="co">&#39;hty&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" title="1"><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co">&#39;Py&#39;</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="co">&#39;y&#39;</span></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">4</span>:<span class="op">-</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb16-6" title="6"><span class="co">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">4</span>:<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="co">&#39;Pt&#39;</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>]</a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="co">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb16-11" title="11"><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>:<span class="op">-</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb16-12" title="12"><span class="co">&#39;hty&#39;</span></a></code></pre></div>
 </div>
 </div>
 </section><section id="mutables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Mutables</h3><ul>
@@ -653,10 +651,10 @@ s | P | y | t | h | o | n |
 <li><p>Hasta ahora, hemos visto un único tipo mutable: la <strong>lista</strong>.</p></li>
 <li><p>Una lista puede cambiar el valor de sus elementos, aumentar o disminuir de tamaño.</p></li>
 <li><p>Al cambiar el estado de una lista no se crea una nueva lista, sino que <strong>se modifica la ya existente</strong>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb17-4"><a href="#cb17-4"></a>[<span class="dv">99</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb17-4" title="4">[<span class="dv">99</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -668,18 +666,18 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
   +-----+-----+-----+-----+-----+-----+
   0     1     2     3     4     5     6
  -6    -5    -4    -3    -2    -1</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>]</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fl">3.2</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb19-6"><a href="#cb19-6"></a>[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> [<span class="dv">40</span>]</span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb19-9"><a href="#cb19-9"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb19-10"><a href="#cb19-10"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> l[<span class="dv">3</span>]</span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb19-12"><a href="#cb19-12"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">53</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="fl">3.2</span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">99</span></a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="op">&gt;&gt;&gt;</span> l</a>
+<a class="sourceLine" id="cb19-6" title="6">[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> [<span class="dv">40</span>]</a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="op">&gt;&gt;&gt;</span> l</a>
+<a class="sourceLine" id="cb19-9" title="9">[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> l[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb19-11" title="11"><span class="op">&gt;&gt;&gt;</span> l</a>
+<a class="sourceLine" id="cb19-12" title="12">[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">53</span>]</a></code></pre></div></li>
 <li><p><em>Métodos</em> como <code>append</code>, <code>clear</code>, <code>insert</code>, <code>remove</code>, <code>reverse</code> o <code>sort</code>.</p></li>
 </ul></li>
 <li><p>La siguiente tabla muestra todas las operaciones que nos permiten modificar secuencias mutables.</p></li>
@@ -790,15 +788,15 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 </table>
 </section><section id="alias-de-variables" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Alias de variables</h2><ul>
 <li><p>Cuando una variable que contiene un valor se asigna a otra, se produce un fenómeno conocido como <strong>alias de variables</strong>, según el cual los dos identificadores se ligan a <strong>la misma variable</strong> (la comparten):</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
-<span id="cb20-2"><a href="#cb20-2"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" title="1">x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb20-2" title="2">y <span class="op">=</span> x  <span class="co"># x se asigna a y</span></a></code></pre></div>
 <div class="centered">
 <p><img data-src="images/alias1.svg" class="plain" style="width:40.0%" /></p>
 </div></li>
 <li><p>Ahora, si el valor es <strong>mutable</strong> y cambiamos su <strong>contenido</strong> desde <code>x</code>, también cambiará <code>y</code> (y viceversa), pues ambas son <strong>la misma variable</strong>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb21-3"><a href="#cb21-3"></a>[<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">40</span>, <span class="dv">9</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" title="1"><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="op">&gt;&gt;&gt;</span> x</a>
+<a class="sourceLine" id="cb21-3" title="3">[<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">40</span>, <span class="dv">9</span>]</a></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -807,9 +805,9 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></a></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
 <p><img data-src="images/alias2.svg" class="plain" style="width:50.0%" /></p>
@@ -821,7 +819,7 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" title="1"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
 <p><img data-src="images/alias3.svg" class="plain" style="width:50.0%" /></p>
@@ -837,8 +835,8 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1">x <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb24-2" title="2">y <span class="op">=</span> <span class="dv">5</span></a></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
 <p><img data-src="images/inmutable5.svg" class="plain" style="width:50.0%" /></p>
@@ -853,14 +851,14 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <div class="columns">
 <div class="column">
 <p>Si tenemos:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>y <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1">x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb25-2" title="2">y <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></a></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable6.svg" class="plain" style="width:60.0%" /></p>
 </div>
 </div><div class="column">
 <p>y hacemos:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>x <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb26-1" title="1">x <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></a></code></pre></div>
 <p>quedaría:</p>
 <div class="centered">
 <p><img data-src="images/inmutable7.svg" class="plain" style="width:60.0%" /></p>
@@ -878,10 +876,10 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>También se comparten variables si se usa el mismo dato varias veces.</p></li>
 <li><p>Por ejemplo, si hacemos:</p></li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [x, x]</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb27-4"><a href="#cb27-4"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [x, x]</a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="op">&gt;&gt;&gt;</span> y</a>
+<a class="sourceLine" id="cb27-4" title="4">[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</a></code></pre></div>
 </div><div class="column" style="width:60%;">
 <p>nos quedaría:</p>
 <div class="centered">
@@ -896,10 +894,10 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <ul>
 <li>Y si ahora hacemos:</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">77</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb28-4"><a href="#cb28-4"></a>[[<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>], [<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1"><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">77</span></a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="op">&gt;&gt;&gt;</span> y</a>
+<a class="sourceLine" id="cb28-4" title="4">[[<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>], [<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>]]</a></code></pre></div>
 </div><div class="column" style="width:60%;">
 <p>nos quedaría:</p>
 <div class="centered">
@@ -914,18 +912,18 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="va">True</span></a></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="va">False</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="va">False</span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</a>
+<a class="sourceLine" id="cb30-6" title="6"><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</a>
+<a class="sourceLine" id="cb30-7" title="7"><span class="va">True</span></a></code></pre></div>
 </div>
 </div></section><section id="is" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> <code>is</code></h3><ul>
 <li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code>is</code>, que comprueba la <strong>identidad</strong> de un dato:</p></li>
@@ -963,13 +961,13 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <p>En cualquiera de estos casos, tendríamos una función <strong>impura</strong>.</p></li>
 </ul></section><section id="transparencia-referencial" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Transparencia referencial</h2><ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia referencial</strong>, ya que ahora el valor de una función puede depender no sólo de los valores de sus argumentos, sino también además de los valores de las variables libres que ahora pueden cambiar durante la ejecución del programa:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="dv">9</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb31-7"><a href="#cb31-7"></a><span class="dv">27</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" title="1"><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="dv">9</span></a>
+<a class="sourceLine" id="cb31-5" title="5"><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></a>
+<a class="sourceLine" id="cb31-6" title="6"><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb31-7" title="7"><span class="dv">27</span></a></code></pre></div></li>
 <li><p>Por tanto, cambiar el valor de una variable global es considerado un <strong>efecto lateral</strong>, ya que puede alterar el comportamiento de otras partes del programa de formas a menudo impredecibles.</p></li>
 </ul></section><section class="slide level4">
 
@@ -977,14 +975,14 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>Cuando el efecto lateral lo produce la propia función también estamos perdiendo transparencia referencial, pues en tal caso no podemos sustituir libremente la llamada a la función por su valor de retorno, ya que ahora la función <strong>hace algo más</strong> que calcular dicho valor y que es observable fuera de la función.</p></li>
 <li><p>Por ejemplo, una función que imprime algo por la pantalla o escribe algo en un archivo del disco tampoco es una función pura y, por tanto, en ella no se cumple la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento mutable. Por ejemplo:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="dv">4</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="dv">3</span></span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
-<span id="cb32-8"><a href="#cb32-8"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1"><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="dv">4</span></a>
+<a class="sourceLine" id="cb32-5" title="5"><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="dv">3</span></a>
+<a class="sourceLine" id="cb32-7" title="7"><span class="op">&gt;&gt;&gt;</span> lista</a>
+<a class="sourceLine" id="cb32-8" title="8">[<span class="dv">1</span>, <span class="dv">2</span>]</a></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1017,8 +1015,8 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code>'\n'</code> (el carácter de nueva línea).</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
-<span id="cb33-2"><a href="#cb33-2"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb33-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</a>
+<a class="sourceLine" id="cb33-2" title="2">hola pepe <span class="dv">23</span></a></code></pre></div></li>
 </ul></section><section id="el-valor-none" class="slide level4">
 <h4><span class="header-section-number">4.5.1.1</span> El valor <code>None</code></h4>
 <ul>
@@ -1027,9 +1025,9 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p><code>None</code> es un valor especial que significa <strong>ningún valor</strong> y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code>print</code>.</p></li>
 <li><p>Pertenece a un tipo de datos especial llamado <code>NoneType</code> cuyo único valor posible es <code>None</code>, y para comprobar si un valor es <code>None</code> se usa <span style="color:teal"><em>&lt;valor&gt;</em></span> <code>is None</code>.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code>print</code> devuelve <code>None</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></a>
+<a class="sourceLine" id="cb34-2" title="2">hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></a></code></pre></div></li>
 </ul>
 </section><section id="input" class="title-slide slide level3"><h3><span class="header-section-number">4.5.2</span> <code>input</code></h3><ul>
 <li><p>La función <code>input</code> <em>lee</em> datos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido.</p></li>
@@ -1037,10 +1035,10 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;input&gt;</em></span> ::= <strong><code>input</code><code>(</code></strong>[<span style="color:teal"><em>&lt;prompt&gt;</em></span>]<strong><code>)</code></strong></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb35-2"><a href="#cb35-2"></a>Introduce tu nombre: Ramón</span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb35-4"><a href="#cb35-4"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" title="1"><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</a>
+<a class="sourceLine" id="cb35-2" title="2">Introduce tu nombre: Ramón</a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</a>
+<a class="sourceLine" id="cb35-4" title="4">Hola, Ramón</a></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 </ul></section></section>
 <section><section id="saltos" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Saltos</h1></section><section id="incondicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Incondicionales</h2><ul>
@@ -1065,17 +1063,17 @@ $ python3 -m pip install goto-statement</code></pre></li>
 </div><div class="column">
 <ul>
 <li><p>Un ejemplo de uso:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb37-2"><a href="#cb37-2"></a></span>
-<span id="cb37-3"><a href="#cb37-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="st">goto .fin</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="st">label .fin</span></span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb37-9"><a href="#cb37-9"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb37-10"><a href="#cb37-10"></a></span>
-<span id="cb37-11"><a href="#cb37-11"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb37-2" title="2"></a>
+<a class="sourceLine" id="cb37-3" title="3">CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="st">print(&#39;Esto se hace&#39;)</span></a>
+<a class="sourceLine" id="cb37-5" title="5"><span class="st">goto .fin</span></a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="st">print(&#39;Esto se salta&#39;)</span></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb37-8" title="8"><span class="st">print(&#39;Aquí se acaba&#39;)</span></a>
+<a class="sourceLine" id="cb37-9" title="9"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb37-10" title="10"></a>
+<a class="sourceLine" id="cb37-11" title="11"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1087,25 +1085,25 @@ $ python3 -m pip install goto-statement</code></pre></li>
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="st">primero = 2</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="st">ultimo = 25</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="st">i = primero</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a></span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="st">label .inicio</span></span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a></span>
-<span id="cb38-12"><a href="#cb38-12"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb38-13"><a href="#cb38-13"></a><span class="st">i += 1</span></span>
-<span id="cb38-14"><a href="#cb38-14"></a><span class="st">goto .inicio</span></span>
-<span id="cb38-15"><a href="#cb38-15"></a></span>
-<span id="cb38-16"><a href="#cb38-16"></a><span class="st">label .fin</span></span>
-<span id="cb38-17"><a href="#cb38-17"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb38-18"><a href="#cb38-18"></a></span>
-<span id="cb38-19"><a href="#cb38-19"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1"><span class="im">from</span> goto <span class="im">import</span> with_goto</a>
+<a class="sourceLine" id="cb38-2" title="2"></a>
+<a class="sourceLine" id="cb38-3" title="3">CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="st">primero = 2</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="st">ultimo = 25</span></a>
+<a class="sourceLine" id="cb38-6" title="6"></a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="st">i = primero</span></a>
+<a class="sourceLine" id="cb38-8" title="8"></a>
+<a class="sourceLine" id="cb38-9" title="9"><span class="st">label .inicio</span></a>
+<a class="sourceLine" id="cb38-10" title="10"><span class="st">if i == ultimo: goto .fin</span></a>
+<a class="sourceLine" id="cb38-11" title="11"></a>
+<a class="sourceLine" id="cb38-12" title="12"><span class="st">print(i, end=&#39; &#39;)</span></a>
+<a class="sourceLine" id="cb38-13" title="13"><span class="st">i += 1</span></a>
+<a class="sourceLine" id="cb38-14" title="14"><span class="st">goto .inicio</span></a>
+<a class="sourceLine" id="cb38-15" title="15"></a>
+<a class="sourceLine" id="cb38-16" title="16"><span class="st">label .fin</span></a>
+<a class="sourceLine" id="cb38-17" title="17"><span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb38-18" title="18"></a>
+<a class="sourceLine" id="cb38-19" title="19"><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</a></code></pre></div></li>
 </ul>
 </section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
