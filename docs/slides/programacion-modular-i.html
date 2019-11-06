@@ -9,13 +9,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="shortcut icon" type="image/png" href="/assets/icons/icon.png">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
-  <style type="text/css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+  <style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -25,14 +30,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -41,9 +48,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -338,13 +345,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/modulos-dependientes.svg" alt="A depende de B" class="plain" style="width:30.0%" /><figcaption><em>A</em> depende de <em>B</em></figcaption>
+<img data-src="images/modulos-dependientes.svg" class="plain" style="width:30.0%" alt="" /><figcaption><em>A</em> depende de <em>B</em></figcaption>
 </figure>
 </div></section><section class="slide level4">
 
 <div class="centered">
 <figure>
-<img data-src="images/diagrama-estructura.svg" alt="Diagrama de estructura" class="plain" style="width:40.0%" /><figcaption>Diagrama de estructura</figcaption>
+<img data-src="images/diagrama-estructura.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Diagrama de estructura</figcaption>
 </figure>
 </div>
 </section><section id="programación-modular-en-python" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Programación modular en Python</h2><ul>
@@ -356,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Por tanto, el autor de un módulo puede usar variables globales en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales del usuario del módulo.</p></li>
 </ul></section><section id="importación-de-módulos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Importación de módulos</h3><ul>
 <li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del módulo actual:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">import</span> math</a></code></pre></div></li>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> math</span></code></pre></div></li>
 <li><p>Al importar un módulo de esta forma, lo que se hace es incorporar la definición del propio módulo (el módulo <em>importado</em>) dentro del ámbito global del módulo o <em>script</em> actual (el módulo <em>importador</em>).</p></li>
 <li><p>O dicho de otra forma: se incorpora al marco global del módulo importador la ligadura entre el nombre del módulo importado y el propio módulo, por lo que el módulo importador puede acceder al módulo importado a través de su nombre.</p></li>
 <li><p>De esta forma, lo que se importa dentro del marco global actual no es el conjunto de las definiciones que forman el módulo importado, sino el módulo en sí.</p></li>
@@ -366,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Eso significa que los módulos en Python son internamente un dato más, al igual que las listas o las funciones: se pueden asignar a variables, se pueden borrar de la memoria con <code>del</code>, etc.</p></li>
 <li><p>Podemos acceder al contenido de un módulo importado de esta forma, indicando el nombre del módulo seguido de un punto (<code>.</code>) delante del nombre del contenido al que queramos acceder.</p></li>
 <li><p>Por ejemplo, para acceder a la función <code>gcd</code> definido en el módulo <code>math</code> haremos:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 <li><p>Se recomienda (aunque no es obligatorio) colocar todas las sentencias <code>import</code> al principio del módulo importador.</p></li>
 </ul>
 </section><section class="slide level4">
@@ -374,18 +381,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con la palabra clave <code>as</code>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="im">import</span> math <span class="im">as</span> mates</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
 <p>La sentencia anterior importa el módulo <code>math</code> dentro del módulo actual pero con el nombre <code>mates</code> en lugar del <code>math</code> original. Por tanto, para usar la función <code>gcd</code> como en el ejemplo anterior usaremos:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Existe una variante de la sentencia <code>import</code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code>from</code>.</p></li>
 <li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del módulo <code>math</code>, y no el módulo en sí, haremos:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">from</span> math <span class="im">import</span> gcd</a></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
 <li><p>Por lo que ahora podemos usar la función <code>gcd</code> directamente dentro del módulo importador, sin necesidad de indicar el nombre del módulo importado:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1">x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -393,23 +400,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>De hecho, ahora el módulo importado no está definido en el módulo importador (es decir, que en el marco global del módulo importador no hay ninguna ligadura con el nombre del módulo importado).</p></li>
 <li><p>En nuestro ejemplo, eso significa que el módulo <code>math</code> no existe ahora como tal en el módulo importador.</p></li>
 <li><p>Por tanto, si hacemos:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">x <span class="op">=</span> math  <span class="co"># error</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
 <p>da error porque no hemos importado el módulo como tal, sino sólo una de sus funciones.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>También podemos usar la palabra clave <code>as</code> con la orden <code>from</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
 <p>De esta forma, se importa en el módulo actual la función <code>gcd</code> del módulo <code>math</code> pero llamándola <code>mcd</code>.</p></li>
 <li><p>Por tanto, para usarla la invocaremos con su nuevo nombre:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Existe incluso una variante para importar todas las definiciones de un módulo:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 <li><p>Con esta sintaxis importaremos todas las definiciones del módulo excepto aquellas cuyo nombre comience por un guión bajo (<code>_</code>).</p>
 <p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>.</p></li>
 <li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» definiciones ya existentes.</p></li>
@@ -426,23 +433,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="shell"><code>$ python3 fact.py &lt;argumentos&gt;</code></pre>
 <p>se ejecutará el código del módulo como si fuera un <em>script</em> más, igual que si se hubiera importado con un <code>import</code> dentro de otro módulo, pero con la diferencia de que la variable global <code>__name__</code> contendrá el valor <code>"__main__"</code>.</p></li>
 <li><p>Eso significa que si se añade este código al final del módulo:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</a>
-<a class="sourceLine" id="cb12-2" title="2">    <span class="op">&lt;</span>sentencias<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="op">&lt;</span>sentencias<span class="op">&gt;</span></span></code></pre></div>
 <p>el módulo podrá funcionar como un <em>script</em> independiente.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Por ejemplo, supongamos el siguiente módulo <code>fact.py</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">def</span> fac(n):</a>
-<a class="sourceLine" id="cb13-2" title="2">    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</a>
-<a class="sourceLine" id="cb13-3" title="3">        <span class="cf">return</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb13-4" title="4">    <span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb13-5" title="5">        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb13-6" title="6"></a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</a>
-<a class="sourceLine" id="cb13-8" title="8">    <span class="im">import</span> sys</a>
-<a class="sourceLine" id="cb13-9" title="9">    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</a></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> fac(n):</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb13-3"><a href="#cb13-3"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-5"><a href="#cb13-5"></a>        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="im">import</span> sys</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
 <li><p>Este módulo se podrá usar como un <em>script</em> separado o como un módulo que se pueda importar dentro de otro.</p></li>
 <li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea de órdenes del sistema operativo:</p>
 <pre class="shell"><code>$ python3 fac.py 4
@@ -470,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/modulos.png" alt="Esfuerzo frente al número de módulos" class="plain" style="width:80.0%" /><figcaption>Esfuerzo frente al número de módulos</figcaption>
+<img data-src="images/modulos.png" class="plain" style="width:80.0%" alt="" /><figcaption>Esfuerzo frente al número de módulos</figcaption>
 </figure>
 </div>
 </section><section class="slide level4">
@@ -691,8 +698,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           { src: 'reveal.js/plugin/notes/notes.js', async: true },
           { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true },
           { src: 'reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } },
-          { src: 'reveal.js/plugin/reveal-code-focus/vendor/highlight.js/highlight.pack.js' },
-          { src: 'reveal.js/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
           { src: 'reveal.js/plugin/search/search.js', async: true },
           { src: 'reveal.js/plugin/customcontrols/customcontrols.js', async: true }
         ],
@@ -700,9 +705,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         customcontrols: {
           controls: [
             { icon: '<i class="fa fa-question-circle"></i>',
-			  css: 'position: fixed; right: 50px; bottom: 50px; z-index: 30; font-size: 24px;',
-			  action: 'Reveal.toggleHelp(); return false;'
-			}
+                         css: 'position: fixed; right: 50px; bottom: 50px; z-index: 30; font-size: 24px;',
+                         action: 'Reveal.toggleHelp(); return false;'
+                       }
           ]
         },
 
