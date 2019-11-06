@@ -1381,7 +1381,7 @@ True
 - Python no incluye la instrucción *GOTO* pero se puede simular instalando un
   paquete llamado `goto-statement`:
 
-  ```shell
+  ```console
   $ sudo apt install python3-pip
   $ python3 -m pip install goto-statement
   ```

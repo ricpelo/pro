@@ -427,7 +427,7 @@ F -> G
 
 - Cuando se ejecuta un módulo Python desde la línea de órdenes como:
 
-  ```shell
+  ```console
   $ python3 fact.py <argumentos>
   ```
 
@@ -467,7 +467,7 @@ F -> G
 - Si se usa como *script*, podremos llamarlo desde la línea de órdenes del
   sistema operativo:
 
-  ```shell
+  ```console
   $ python3 fac.py 4
   24
   ```
