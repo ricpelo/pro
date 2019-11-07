@@ -850,6 +850,8 @@ y -> v1 -> lista
 
 ::::
 
+!ifdef(BEAMER)(\vspace{2em})
+
 - Cambiar el **valor** es algo que **siempre** se puede hacer simplemente
   **asignando** a la variable **un nuevo valor**:
 
@@ -858,6 +860,8 @@ y -> v1 -> lista
 ::: {.column width=40%}
 
 ```python
+>>> x = [6, 7, 8, 9]
+>>> y = x
 >>> y = [1, 2, 3]
 ```
 
@@ -927,6 +931,8 @@ y -> v
 
 - También crea variables compartidas cuando contienen exactamente las mismas
   cadenas.
+
+!ifdef(BEAMER)(\vspace{2em})
 
 :::::: columns
 
