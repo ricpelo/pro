@@ -850,7 +850,7 @@ y -> v1 -> lista
 
 ::::
 
-!ifdef(BEAMER)(\vspace{2em})
+!SALTOLARGOBEAMER
 
 - Cambiar el **valor** es algo que **siempre** se puede hacer simplemente
   **asignando** a la variable **un nuevo valor**:
@@ -932,7 +932,7 @@ y -> v
 - También crea variables compartidas cuando contienen exactamente las mismas
   cadenas.
 
-!ifdef(BEAMER)(\vspace{2em})
+!SALTOLARGOBEAMER
 
 :::::: columns
 
@@ -1388,7 +1388,7 @@ True
   $ python3 -m pip install goto-statement
   ```
 
-<br>\vspace{1em}
+!SALTO
 
 :::: columns
 

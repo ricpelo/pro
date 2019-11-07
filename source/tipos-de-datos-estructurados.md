@@ -673,8 +673,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   (en nuestro caso, una lista), `t` es cualquier dato iterable y `x` es un dato
   cualquiera que cumple con las restricciones que impone `s`:
 
-<br>
-\vspace{1em}
+!SALTO
 
 ------------------------------------------------------------------------
 Operación                   Resultado

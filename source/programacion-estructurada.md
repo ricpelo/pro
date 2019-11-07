@@ -144,7 +144,7 @@ nocite: |
 
 - Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
 
-!ifdef(BEAMER)(\vspace{2em})
+!SALTOLARGOBEAMER
 
 :::: columns
 
@@ -1100,7 +1100,7 @@ else:
 - Eso significa que se crea un nuevo marco en el entorno, que contendrá, en
   principio, los parámetros y las variables locales a la función.
 
-\vspace{2em}
+!SALTOLARGOBEAMER
 
 :::: columns
 

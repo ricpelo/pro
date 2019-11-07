@@ -1337,7 +1337,7 @@ True
 
 - Que traducido a Python sería:
 
-  <br>\vspace{1em}
+  !SALTO
 
 :::: columns
 
@@ -1365,8 +1365,7 @@ True
 
 ::::
 
-<br>
-\vspace{2em}
+!SALTOLARGO
 
 |   `A`   |  `not A`  |
 |:-------:|:---------:|

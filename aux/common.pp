@@ -27,6 +27,10 @@ skinparam defaultFontName Lato
 MACROS DE USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~
 
+!define(SALTO)(!ifndef(LATEX)(<br>\vspace{1em}))
+!define(SALTOLARGO)(!ifndef(LATEX)(<br>\vspace{2em}))
+!define(SALTOLARGOBEAMER)(!ifdef(BEAMER)(\vspace{2em}))
+
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Macros para hacer producciones en notación EBNF
