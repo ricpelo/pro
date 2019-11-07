@@ -1380,46 +1380,48 @@ True
 
 ---
 
-:::: columns
-
-::: column
-
-- Python no incluye la instrucción *GOTO* pero se puede simular instalando un
-  paquete llamado `goto-statement`:
+- Python no incluye la instrucción *GOTO* pero se puede simular usando el
+  módulo `with_goto` del paquete llamado `goto-statement`:
 
   ```console
   $ sudo apt install python3-pip
   $ python3 -m pip install goto-statement
   ```
 
+<br>\vspace{1em}
+
+:::: columns
+
+::: {.column width=37%}
+
 - Sintaxis:
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(goto) ::= !T(goto) !NT(etiqueta)
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(goto) ::= !T(goto) !NT(etiqueta)
 !NT(label) ::= !T(label) !NT(etiqueta)
 !NT(etiqueta) ::= !T(.)!NT(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=63%}
 
 - Un ejemplo de uso:
 
-  ```python
-  from goto import with_goto
+```python
+from goto import with_goto
 
-  CODIGO = """
-  print('Esto se hace')
-  goto .fin
-  print('Esto se salta')
-  label .fin
-  print('Aquí se acaba')
-  """
+CODIGO = """
+print('Esto se hace')
+goto .fin
+print('Esto se salta')
+label .fin
+print('Aquí se acaba')
+"""
 
-  exec(with_goto(compile(CODIGO, '', 'exec')))
-  ```
+exec(with_goto(compile(CODIGO, '', 'exec')))
+```
 
 :::
 
@@ -1430,7 +1432,7 @@ True
 - Un **salto condicional** es un salto que se lleva a cabo sólo si se cumple
   una determinada condición.
 
-- En Python, usando el paquete `with_goto`, podríamos implementarlo de la
+- En Python, usando el módulo `with_goto`, podríamos implementarlo de la
   siguiente forma:
 
   !ALGO

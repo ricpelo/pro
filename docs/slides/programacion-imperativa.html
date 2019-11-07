@@ -1073,20 +1073,24 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>En cambio, usados controladamente y de manera local, puede ayudar a escribir soluciones sencillas y claras.</p></li>
 </ul></section><section class="slide level4">
 
-<div class="columns">
-<div class="column">
 <ul>
-<li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular instalando un paquete llamado <code>goto-statement</code>:</p>
+<li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
-<li><p>Sintaxis:</p>
+</ul>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:37%;">
+<ul>
+<li>Sintaxis:</li>
+</ul>
 <div class="line-block"><span style="color:teal"><em>&lt;goto&gt;</em></span> ::= <strong><code>goto</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span><br />
 <span style="color:teal"><em>&lt;label&gt;</em></span> ::= <strong><code>label</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span><br />
-<span style="color:teal"><em>&lt;etiqueta&gt;</em></span> ::= <strong><code>.</code></strong><span style="color:teal"><em>&lt;identificador&gt;</em></span></div></li>
-</ul>
-</div><div class="column">
+<span style="color:teal"><em>&lt;etiqueta&gt;</em></span> ::= <strong><code>.</code></strong><span style="color:teal"><em>&lt;identificador&gt;</em></span></div>
+</div><div class="column" style="width:63%;">
 <ul>
-<li><p>Un ejemplo de uso:</p>
+<li>Un ejemplo de uso:</li>
+</ul>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
 <span id="cb37-2"><a href="#cb37-2"></a></span>
 <span id="cb37-3"><a href="#cb37-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
@@ -1097,13 +1101,12 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb37-8"><a href="#cb37-8"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
 <span id="cb37-9"><a href="#cb37-9"></a><span class="st">&quot;&quot;&quot;</span></span>
 <span id="cb37-10"><a href="#cb37-10"></a></span>
-<span id="cb37-11"><a href="#cb37-11"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
-</ul>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section><section id="condicionales" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Condicionales</h2><ul>
 <li><p>Un <strong>salto condicional</strong> es un salto que se lleva a cabo sólo si se cumple una determinada condición.</p></li>
-<li><p>En Python, usando el paquete <code>with_goto</code>, podríamos implementarlo de la siguiente forma:</p>
+<li><p>En Python, usando el módulo <code>with_goto</code>, podríamos implementarlo de la siguiente forma:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;salto_condicional&gt;</em></span> ::= <strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span><strong><code>:</code></strong> <strong><code>goto</code></strong> <span style="color:teal"><em>&lt;etiqueta&gt;</em></span></div></li>
 </ul></section><section class="slide level4">
 
