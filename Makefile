@@ -140,8 +140,8 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(BEAMER_T
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V mathspec \
 		-V fontsize=8pt -V lang=es-ES -o $@
-#	@scripts/cpdf prepress $@ $@.pdf
-#	@mv -f $@.pdf $@
+	@scripts/cpdf default $@ $@.opt.pdf
+	@mv -f $@.opt.pdf $@
 
 # Apuntes en formato PDF
 

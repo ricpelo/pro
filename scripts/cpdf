@@ -116,17 +116,14 @@ else:
     process = subprocess.Popen(cmmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # Progress & Details
-    print ("\n")
     initial_size = os.path.getsize(inFile)
-    n = int(initial_size*2.5)
+    n = int(initial_size * 2.5)
     poll = process.poll()
-    bar = pyprind.ProgBar(n, title='Compressing...')
+    bar = pyprind.ProgBar(n, track_time=False)
     for i in range(n):
         bar.update()
-    print(bar)
     process.wait()
-    print("\nCompressed!\n")
     final_size = os.path.getsize(outFile)
-    inSize = str(initial_size / 1000000)
-    print(inFile + " is " + inSize + "MB in size.")
-    print(outFile + " is {0:.1f}MB after compression.\n".format(final_size / 1000000))
+    inSize = "{0:.3f}MB".format(initial_size / 1000000)
+    outSize = "{0:.3f}MB".format(final_size / 1000000)
+    print(inSize + ' / ' + outSize)
