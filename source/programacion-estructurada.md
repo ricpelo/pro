@@ -36,14 +36,14 @@ nocite: |
 - Un programador disciplinado crearía programas fáciles de leer. Por ejemplo,
   el siguiente programa que calcula el producto de dos números:
 
-  !IMGP(producto.png)()(width=90%)
+  !IMGP(producto.png)()(width=90%)(width=100%)
 
 ---
 
 - En cambio, un programador indisciplinado crearía programas más difíciles de
   leer:
 
-  !IMGP(confuso.png)()(width=50%)
+  !IMGP(confuso.png)()(width=50%)(width=70%)
 
 - Si un programa se escribe de cualquier manera, aun siendo correcto desde el
   punto de vista de su funcionamiento, puede resultar engorroso, críptico,
@@ -116,7 +116,7 @@ nocite: |
 
 - Agrupando las salidas se obtiene un programa propio:
 
-  !IMGP(seleccion.png)()(width=50%)
+  !IMGP(seleccion.png)()(width=50%)(width=50%)
 
 ---
 
@@ -125,14 +125,14 @@ nocite: |
   llegara hasta esos bloques se bloquearía, pues no es posible terminar la
   ejecución:
 
-!IMGP(diagrama-no-propio.png)()(width=90%)(width=90%)
+!IMGP(diagrama-no-propio.png)()(width=90%)(width=70%)
 
 ---
 
 - Aquí aparece un programa que contiene bloques inaccesibles desde la entrada
   del diagrama:
 
-!IMGP(diagrama-inaccesibles.png)()(width=80%)
+!IMGP(diagrama-inaccesibles.png)()(width=80%)(width=50%)
 
 ## Estructura
 
@@ -144,11 +144,13 @@ nocite: |
 
 - Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
 
+!ifdef(BEAMER)(\vspace{2em})
+
 :::: columns
 
 ::: column
 
-!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=60%)
+!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fillcolor = transparent]
 rankdir = "TB"
@@ -169,7 +171,7 @@ subgraph cluster0 {
 
 ::: column
 
-!DOT(estructura-no.png)(Estas no son estructuras)(width=30%)
+!DOT(estructura-no.png)(Estas no son estructuras)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [layout = neato]
 A [pos="-0.5,0.0!", fillcolor = transparent]
@@ -202,11 +204,11 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ::: column
 
-!IMGP(secuencia.png)(Secuencia)(width=100%)
+!IMGP(secuencia.png)(Secuencia)(width=100%)(width=50%)
 
-!IMGP(seleccion.png)(Selección)(width=100%)
+!IMGP(seleccion.png)(Selección)(width=100%)(width=50%)
 
-!IMGP(iteracion.png)(Iteración)(width=80%)
+!IMGP(iteracion.png)(Iteración)(width=80%)(width=50%)
 
 :::
 
@@ -275,7 +277,7 @@ $B$
 
 ::: {.column width=70%}
 
-!IMGP(claro.png)()(width=70%)
+!IMGP(claro.png)()(width=70%)(width=60%)
 
 :::
 
@@ -891,10 +893,7 @@ else:
   **paso de argumentos _por referencia_**.
 
 - En Python existe un único mecanismo de paso de argumentos llamado **paso de
-  argumentos _por asignación_** o también, a veces, **paso de argumentos _por
-  nombre_**.
-
-- En la práctica resulta bastante sencillo.
+  argumentos _por asignación_**, que en la práctica resulta bastante sencillo.
 
 - Consiste en suponer que **el argumento _se asigna_ al parámetro**
   correspondiente, con toda la semántica relacionada con los *alias* de
