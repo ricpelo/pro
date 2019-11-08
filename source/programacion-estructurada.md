@@ -601,14 +601,16 @@ else:
 
 - Es posible escribir programas que gestionen excepciones concretas.
 
+- Para ello se utiliza una nueva estructura de control llamada `try/except`.
+
 - La sintaxis es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(try:)
       !NT(sentencia)
-!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-      !NT(sentencia)
+\(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
+      !NT(sentencia))+
 [!T(else:)
       !NT(sentencia)]
 [!T(finally:)
@@ -625,15 +627,31 @@ else:
 
 ---
 
+- Su funcionamiento es el siguiente:
+
+  - Se intenta ejecutar el bloque de sentencias del `try`.
+
+  - Si durante su ejecución no se levanta ninguna excepción, se saltan los
+    `except` y se ejecutan las sentencias del `else` (si existe).
+
+  - Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún
+    `except` que cuadre con el tipo de excepción que se la lanzado y, si se
+    encuentra, se ejecutan sus sentencias asociadas.
+
+  - Finalmente, y en cualquier caso (se haya levantado alguna excepción o no),
+    se ejecutan las sentencias del `finally` (si existe).
+
+---
+
 - Por ejemplo, el siguiente programa pide al usuario que introduzca un número
-  entero por la entrada y luego lo muestra a la salida multiplicado por tres.
-  Si el usuario no introduce un número entero, muestra un mensaje de
-  advertencia:
+  entero por la entrada. Si el dato introducido es correcto (es un número
+  entero), lo muestra a la salida multiplicado por tres y dice que la cosa
+  acabó bien. Si no, muestra un mensaje de advertencia:
 
   ```python
   try:
       x = int(input("Introduzca un número entero: "))
-      print(x * 2)
+      print(x * 3)
   except ValueError:
       print("¡Vaya! No ha introducido un número entero.")
   else:
@@ -642,10 +660,7 @@ else:
       print("Fin")
   ```
 
-- Si no ha habido errores en el cuerpo del `try`, se ejecuta la parte del
-  `else`.
-
-- En cualquier caso, siempre se ejecuta la parte del `finally`.
+- En cualquiera de los dos casos, siempre acaba diciendo `Fin`.
 
 # Metodología de la programación estructurada
 

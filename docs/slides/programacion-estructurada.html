@@ -606,11 +606,12 @@ Fin</code></pre></li>
 <h4><span class="header-section-number">2.4.3.2</span> Gestión de excepciones</h4>
 <ul>
 <li><p>Es posible escribir programas que gestionen excepciones concretas.</p></li>
+<li><p>Para ello se utiliza una nueva estructura de control llamada <code>try/except</code>.</p></li>
 <li><p>La sintaxis es:</p>
 <div class="line-block"><strong><code>try:</code></strong><br />
       <span style="color:teal"><em>&lt;sentencia&gt;</em></span><br />
-<strong><code>except</code></strong> [<span style="color:teal"><em>&lt;excepcion&gt;</em></span> [<strong><code>as</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span>]]<strong><code>:</code></strong><br />
-      <span style="color:teal"><em>&lt;sentencia&gt;</em></span><br />
+(<strong><code>except</code></strong> [<span style="color:teal"><em>&lt;excepcion&gt;</em></span> [<strong><code>as</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span>]]<strong><code>:</code></strong><br />
+      <span style="color:teal"><em>&lt;sentencia&gt;</em></span>)+<br />
 [<strong><code>else:</code></strong><br />
       <span style="color:teal"><em>&lt;sentencia&gt;</em></span>]<br />
 [<strong><code>finally:</code></strong><br />
@@ -622,18 +623,28 @@ Fin</code></pre></li>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca un número entero por la entrada y luego lo muestra a la salida multiplicado por tres. Si el usuario no introduce un número entero, muestra un mensaje de advertencia:</p>
+<li><p>Su funcionamiento es el siguiente:</p>
+<ul>
+<li><p>Se intenta ejecutar el bloque de sentencias del <code>try</code>.</p></li>
+<li><p>Si durante su ejecución no se levanta ninguna excepción, se saltan los <code>except</code> y se ejecutan las sentencias del <code>else</code> (si existe).</p></li>
+<li><p>Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún <code>except</code> que cuadre con el tipo de excepción que se la lanzado y, si se encuentra, se ejecutan sus sentencias asociadas.</p></li>
+<li><p>Finalmente, y en cualquier caso (se haya levantado alguna excepción o no), se ejecutan las sentencias del <code>finally</code> (si existe).</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca un número entero por la entrada. Si el dato introducido es correcto (es un número entero), lo muestra a la salida multiplicado por tres y dice que la cosa acabó bien. Si no, muestra un mensaje de advertencia:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="cf">try</span>:</span>
 <span id="cb9-2"><a href="#cb9-2"></a>    x <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Introduzca un número entero: &quot;</span>))</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">3</span>)</span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
 <span id="cb9-5"><a href="#cb9-5"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Vaya! No ha introducido un número entero.&quot;</span>)</span>
 <span id="cb9-6"><a href="#cb9-6"></a><span class="cf">else</span>:</span>
 <span id="cb9-7"><a href="#cb9-7"></a>    <span class="bu">print</span>(<span class="st">&quot;La cosa ha acabado bien.&quot;</span>)</span>
 <span id="cb9-8"><a href="#cb9-8"></a><span class="cf">finally</span>:</span>
 <span id="cb9-9"><a href="#cb9-9"></a>    <span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div></li>
-<li><p>Si no ha habido errores en el cuerpo del <code>try</code>, se ejecuta la parte del <code>else</code>.</p></li>
-<li><p>En cualquier caso, siempre se ejecuta la parte del <code>finally</code>.</p></li>
+<li><p>En cualquiera de los dos casos, siempre acaba diciendo <code>Fin</code>.</p></li>
 </ul>
 </section></section>
 <section><section id="metodología-de-la-programación-estructurada" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Metodología de la programación estructurada</h1></section><section id="diseño-descendente-por-refinamiento-sucesivo" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Diseño descendente por refinamiento sucesivo</h2><ul>
