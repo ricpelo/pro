@@ -725,6 +725,18 @@ else:
 - Supongamos que queremos escribir un programa que muestre una tabla de
   multiplicar de tamaño $n \times n$.
 
+- Por ejemplo, para $n = 10$ tendríamos:
+
+  $$\begin{matrix}
+  1 & 2 & 3 & \cdots & 10 \\
+  2 & 4 & 6 & \cdots & 20 \\
+  3 & 6 & 9 & \cdots & 30 \\
+  \vdots & \vdots & \vdots & \ddots & \vdots \\
+  10 & 20 & 30 & \cdots & 100
+  \end{matrix}$$
+
+---
+
 - Una primera versión (burda) del programa podría ser:
 
   !ALGO
