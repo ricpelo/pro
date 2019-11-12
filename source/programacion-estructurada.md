@@ -1021,6 +1021,32 @@ else:
 
 [Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28'Me%20llamo%20Ricardo'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}
 
+---
+
+- La función debe estar definida antes de poder llamarla.
+
+- Eso significa que el intérprete de Python debe ejecutar el `def` de una
+  función antes de que el programa pueda llamar a esa función.
+
+- Por ejemplo, el siguiente programa lanzaría el error «*NameError: name 'hola'
+  is not defined*» en la línea 1:
+
+  ```{.python .number-lines}
+  hola()
+
+  def hola():
+      print('hola')
+  ```
+
+- En cambio, este funcionaría perfectamente:
+
+  ```{.python .number-lines}
+  def hola():
+      print('hola')
+
+  hola()
+  ```
+
 ## Paso de argumentos
 
 - En el marco de la función llamada se almacenan, entre otras cosas, los
