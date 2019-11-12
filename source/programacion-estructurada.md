@@ -1080,13 +1080,6 @@ else:
   saluda('Manolo')  # Saluda a Manolo
   x = 'Juan'
   saluda(x)         # Saluda a Juan
-  def saluda(persona):
-      print('Hola', persona)
-      print('Encantado de saludarte')
-
-  saluda('Manolo')  # Saluda a Manolo
-  x = 'Juan'
-  saluda(x)         # Saluda a Juan
   ```
 
 - En la línea 5 se asigna a `persona` el valor `Manolo` (como si se hiciera
