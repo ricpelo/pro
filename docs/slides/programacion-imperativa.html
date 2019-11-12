@@ -292,7 +292,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Tanto las ligaduras como los estados pueden cambiar durante la ejecución de un programa imperativo.</p></li>
 <li><p>El <strong>estado de un programa</strong> es el conjunto de los estados de todas sus variables (más cierta información auxiliar gestionada por el intérprete).</p></li>
-</ul></section><section id="sentencia-de-asignación" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Sentencia de asignación</h2><ul>
+</ul></section><section id="marcos-en-programación-imperativa" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Marcos en programación imperativa</h2><ul>
+<li><p>Hasta ahora, los marcos contenían ligaduras entre identificadores y valores.</p></li>
+<li><p>A partir de ahora, un marco contendrá:</p>
+<ul>
+<li><p>El conjunto de las <strong>ligaduras entre identificadores y variables</strong>, y</p></li>
+<li><p>El <strong>estado de cada variable</strong>, es decir, el conjunto de las variables y el valor que contiene cada una en un momento dado.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/marcos-imperativa.svg" class="plain" style="width:30.0%" /></p>
+</div></section><section id="sentencia-de-asignación" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Sentencia de asignación</h2><ul>
 <li><p>La forma más básica de cambiar el estado de una variable es usando la <strong>sentencia de asignación</strong>.</p></li>
 <li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>x <span class="op">=</span> <span class="dv">4</span></span></code></pre></div>
@@ -325,10 +335,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Al final, un programa imperativo se puede reducir a una <strong>secuencia de asignaciones</strong> realizadas en el orden dictado por el programa.</p></li>
 <li><p>Este modelo de funcionamiento está estrechamente ligado a la arquitectura de un ordenador: hay una memoria formada por celdas que contienen datos que pueden cambiar a lo largo del tiempo según dicten las instrucciones del programa que controla al ordenador.</p></li>
 </ul>
-</section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Evaluación de expresiones con variables</h2><ul>
+</section><section id="evaluación-de-expresiones-con-variables" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Evaluación de expresiones con variables</h2><ul>
 <li><p>Al evaluar expresiones, las variables actúan de modo similar a las ligaduras de la programación funcional, con la única diferencia de que su valor puede cambiar a lo largo del tiempo, por lo que deberemos <em>seguirle la pista</em> a las asignaciones que sufra dicha variable.</p></li>
 <li><p>Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado de variables, entornos, etc. se aplica igualmente a las variables.</p></li>
-</ul></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">2.5</span> Constantes</h2><ul>
+</ul></section><section id="constantes" class="title-slide slide level2"><h2><span class="header-section-number">2.6</span> Constantes</h2><ul>
 <li><p>En programación funcional no existen las variables y un identificador sólo puede ligarse a un valor (un identificador ligado no puede re-ligarse a otro valor distinto).</p>
 <ul>
 <li><p>En la práctica, eso significa que un identificador ligado actúa como un valor constante que no puede cambiar durante la ejecución del programa.</p></li>
@@ -348,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Aunque nada nos impide cambiar su valor (cosa que debemos evitar):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>PI <span class="op">=</span> <span class="dv">99</span></span></code></pre></div></li>
 </ul>
-</section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">2.6</span> Tipado estático vs. dinámico</h2><ul>
+</section><section id="tipado-estático-vs.-dinámico" class="title-slide slide level2"><h2><span class="header-section-number">2.7</span> Tipado estático vs. dinámico</h2><ul>
 <li><p>Cuando una variable tiene asignado un valor, al ser usada en una expresión actúa como si fuera ese valor.</p></li>
 <li><p>Como cada valor tiene un tipo de dato asociado, también podemos hablar del <strong>tipo de una variable</strong>.</p>
 <div class="caja">
@@ -404,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>son diferentes aunque están estrechamente relacionados.</p></li>
 </ul>
-</section><section id="asignación-compuesta" class="title-slide slide level2"><h2><span class="header-section-number">2.7</span> Asignación compuesta</h2><ul>
+</section><section id="asignación-compuesta" class="title-slide slide level2"><h2><span class="header-section-number">2.8</span> Asignación compuesta</h2><ul>
 <li><p>Los operadores de <strong>asignación compuesta</strong> nos permiten realizar operaciones sobre una variable y luego asignar el resultado a la misma variable.</p></li>
 <li><p>Tienen la forma:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;asig_compuesta&gt;</em></span> ::= <span style="color:teal"><em>&lt;identificador&gt;</em></span> <span style="color:teal"><em>&lt;op&gt;</em></span><strong><code>=</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span><br />
@@ -492,7 +502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-</section><section id="asignación-múltiple" class="title-slide slide level2"><h2><span class="header-section-number">2.8</span> Asignación múltiple</h2><ul>
+</section><section id="asignación-múltiple" class="title-slide slide level2"><h2><span class="header-section-number">2.9</span> Asignación múltiple</h2><ul>
 <li><p>Con la <strong>asignación múltiple</strong> podemos asignar valores a varias variables <strong>al mismo tiempo</strong> en una sola sentencia.</p></li>
 <li><p>La sintaxis es:</p>
 <div class="line-block"><span style="color:teal"><em>&lt;asig_múltiple&gt;</em></span> ::= <span style="color:teal"><em>&lt;lista_identificadores&gt;</em></span> <strong><code>=</code></strong> <span style="color:teal"><em>&lt;lista_expresiones&gt;</em></span><br />

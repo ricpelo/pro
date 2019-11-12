@@ -140,7 +140,7 @@ nocite: |
   que se puede **anidar completamente** dentro de otra.
 
 - Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
-  completamente dentro de la otra, o son totalmente independientes.
+  completamente dentro de la otra, o no se tocan en absoluto.
 
 - Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
 
@@ -165,6 +165,7 @@ subgraph cluster0 {
         }
     }
 }
+F
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -185,7 +186,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 ## Programa estructurado
 
 - Un **programa estructurado** es un programa construido combinando las
-  siguientes estructuras de control:
+  siguientes estructuras (llamadas **estructuras de control**):
 
   - La **secuencia** de dos acciones *A* y *B*.
 
@@ -601,7 +602,7 @@ else:
 
 - Es posible escribir programas que gestionen excepciones concretas.
 
-- Para ello se utiliza una nueva estructura de control llamada `try/except`.
+- Para ello se utiliza una estructura de control llamada `try/except`.
 
 - La sintaxis es:
 
@@ -844,7 +845,7 @@ else:
   resultado.
 
 - Pero a diferencia de lo que ocurre en programación funcional, una función en
-  programación imperativa es una **secuencia de sentencias**.
+  programación imperativa contiene **sentencias**.
 
 - Las funciones en programación imperativa conforman los bloques básicos que
   nos permiten **descomponer un programa en partes** que se combinan entre sí.
@@ -852,18 +853,14 @@ else:
 - Todavía podemos construir funciones mediante expresiones lambda, pero las
   funciones imperativas tienen ventajas:
 
-  - Podemos escribir sentencias dentro de las funciones.
+  - Podemos escribir **sentencias** dentro de las funciones imperativas.
 
   - Podemos escribir funciones que no devuelvan ningún resultado porque su
     cometido es provocar algún efecto lateral.
 
 ---
 
-:::: columns
-
-::: {.column width=45%}
-
-- La sintaxis para definir una función imperativa es:
+- La **definición** de una función imperativa tiene la siguiente sintaxis:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -871,24 +868,12 @@ else:
       !NT(cuerpo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::
-
-::: {.column width=5%}
-
-:::
-
-::: {.column width=50%}
-
 - donde:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(cuerpo) ::= !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::::
 
 - Por ejemplo:
 
@@ -901,17 +886,136 @@ else:
       print('Hasta luego, Lucas')
   ```
 
-- Notas importantes:
+---
 
-  - Tiene que haber, al menos, *una* sentencia (o secuencia, claro).
+- La definición de una función imperativa es una **sentencia compuesta**, es
+  decir, una **estructura** (como las estructuras de control `if`, `while`,
+  etc.).
 
-  - Las sentencias van **indentadas** (o *sangradas*) dentro de la definición
-    de la función, como una estructura.
+- Por tanto, puede aparecer en cualquier lugar del programa donde pueda haber
+  una sentencia.
 
-  - El final de la función se deduce al encontrarse una sentencia con un
-    **nivel de indentación superior** (en el caso de arriba, otro `def`).
+- Como en cualquier otra estructura, las sentencias que contiene (las que van
+  en el **cuerpo** de la función) van **indentadas** (o *sangradas*) dentro de
+  la definición de la función.
+
+- Por tanto (de nuevo como en cualquier otra estructura), el final de la
+  función se deduce al encontrarse una sentencia **menos indentada** que el
+  cuerpo, o bien el final del *script*.
+
+## Llamadas a funciones imperativas 
+
+- Cuando se llama a una función imperativa, ocurre lo siguiente (en este
+  orden):
+
+  - Como siempre que se llama a una función, se crea un nuevo marco en el
+    entorno (que contiene las variables locales a su ámbito) y se almacena en
+    la pila de control su registro de activación.
+
+  - Se pasan los argumentos de la llamada a los parámetros de la función.
+  
+    Recordemos que en Python se sigue el orden aplicativo, por lo que primero
+    se evalúan los argumentos y después se pasan sus valores a los parámetros
+    correspondientes.
+
+  - El flujo de control del programa se transfiere al bloque de sentencias que
+    forman el cuerpo de la función y se ejecuta éste.
+
+  - Cuando termina la ejecución de las sentencias que forman el cuerpo de la
+    función, se devuelve el control a la línea que llamó a la función y se
+    continúa la ejecución del programa desde ahí.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  def saluda(persona):
+      print('Hola', persona)
+      print('Encantado de saludarte')
+
+  def despide():
+      print('Hasta luego, Lucas')
+
+  saluda('Pepe')
+  print('El gusto es mío')
+  saluda('Juan')
+  despide()
+  print('Sayonara, baby')
+  ```
+
+- Produce la siguiente salida:
+
+  ```
+  Hola Pepe
+  Encantado de saludarte
+  El gusto es mío
+  Hola Juan
+  Encantado de saludarte
+  Hasta luego, Lucas
+  Sayonara, baby
+  ```
+
+[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+
+---
+
+:::: columns
+
+::: column
+
+- Una función puede llamar a otra. Por ejemplo, el siguiente programa:
+
+  ```python
+  def saluda(persona):
+      print('Hola', persona)
+      quiensoy()
+      print('Encantado de saludarte')
+
+  def despide():
+      print('Hasta luego, Lucas')
+
+  def quiensoy():
+      print('Me llamo Ricardo')
+
+  saluda('Pepe')
+  print('El gusto es mío')
+  saluda('Juan')
+  despide()
+  print('Sayonara, baby')
+  ```
+
+:::
+
+::: column
+
+- Produce la siguiente salida:
+
+  ```
+  Hola Pepe
+  Me llamo Ricardo
+  Encantado de saludarte
+  El gusto es mío
+  Hola Juan
+  Me llamo Ricardo
+  Encantado de saludarte
+  Hasta luego, Lucas
+  Sayonara, baby
+  ```
+
+:::
+
+::::
+
+[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28'Me%20llamo%20Ricardo'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}
 
 ## Paso de argumentos
+
+- En el marco de la función llamada se almacenan, entre otras cosas, los
+  valores de los parámetros de la función.
+
+- Al principio, los parámetros contendrán los valores de los argumentos que se
+  hayan pasado a la función al llamar a la misma.
 
 - Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje
   de programación utilizado. 
@@ -923,7 +1027,7 @@ else:
   argumentos _por asignación_**, que en la práctica resulta bastante sencillo.
 
 - Consiste en suponer que **el argumento _se asigna_ al parámetro**
-  correspondiente, con toda la semántica relacionada con los *alias* de
+  correspondiente, teniendo en cuenta todo lo relacionado con los *alias* de
   variables, inmutabilidad, mutabilidad, etcétera.
 
 ---
@@ -931,6 +1035,13 @@ else:
 - Por ejemplo:
 
   ```{.python .number-lines}
+  def saluda(persona):
+      print('Hola', persona)
+      print('Encantado de saludarte')
+
+  saluda('Manolo')  # Saluda a Manolo
+  x = 'Juan'
+  saluda(x)         # Saluda a Juan
   def saluda(persona):
       print('Hola', persona)
       print('Encantado de saludarte')
@@ -951,7 +1062,7 @@ else:
 
 - En caso de pasar un argumento mutable:
 
-  ```{.python .number-lines}
+  ```python
   def cambia(l):
       print(l)
       l.append(99)
@@ -1082,6 +1193,31 @@ else:
 :::
 
 ::::
+
+---
+
+- Cuando se alcanza el final del cuerpo de una función sin haberse ejecutado
+  antes ninguna sentencia `return`, es como si la última sentencia del cuerpo de la
+  función fuese un `return` sin valor de retorno.
+
+- Por ejemplo:
+
+  ```python
+  def hola():
+      print('Hola')
+  ```
+
+  equivale a:
+
+  ```python
+  def hola():
+      print('Hola')
+      return
+  ```
+
+- Esa última sentencia `return` nunca es necesario ponerla ya que la ejecución
+  de una función termina automáticamente (y retorna al punto donde se la llamó)
+  cuando ya no quedan más sentencias que ejecutar en su cuerpo.
 
 ## Ámbito de variables
 

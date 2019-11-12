@@ -135,6 +135,34 @@ variable -> valor [label = "estado"]
 - El **estado de un programa** es el conjunto de los estados de todas sus
   variables (más cierta información auxiliar gestionada por el intérprete).
 
+## Marcos en programación imperativa
+
+- Hasta ahora, los marcos contenían ligaduras entre identificadores y valores.
+
+- A partir de ahora, un marco contendrá:
+
+  - El conjunto de las **ligaduras entre identificadores y variables**, y
+
+  - El **estado de cada variable**, es decir, el conjunto de las variables y el
+    valor que contiene cada una en un momento dado.
+
+!DOT(marcos-imperativa.svg)()(width=30%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    node [fixedsize = shape, fontname = "monospace"]
+    x [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    4 [shape = circle, width = 0.3, fixedsize = shape]
+    5 [shape = circle, width = 0.3, fixedsize = shape]
+    v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+    x -> v1 -> 4
+    y -> v2 -> 5
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## Sentencia de asignación
 
 - La forma más básica de cambiar el estado de una variable es usando la
