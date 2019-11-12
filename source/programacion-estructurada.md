@@ -1614,8 +1614,10 @@ E -> x [lhead = cluster1]
 - Una función local se define **dentro** de otra función y, por tanto, sólo
   existe dentro de la función en la que se ha definido.
 
-- Su **ámbito** empieza en su definición y acaba al final del cuerpo de la
-  función que la contiene.
+- Su **ámbito** es el cuerpo de la función donde se ha definido (la función que
+  la contiene), pero al igual que pasa con las variables locales, sólo se
+  pueden usar (llamar) después de haberse definido, es decir, después de
+  haberse ejecutado el `def` de la función interna.
 
 - Evita la superpoblación de funciones en el ámbito más externo cuando sólo
   tiene sentido su uso en un ámbito más interno.
