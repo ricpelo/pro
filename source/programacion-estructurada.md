@@ -909,8 +909,9 @@ else:
   orden):
 
   1. Como siempre que se llama a una función, se crea un nuevo marco en el
-     entorno (que contiene las variables locales a su ámbito) y se almacena en
-     la pila de control su registro de activación.
+     entorno (que contiene los parámetros así como las ligaduras y variables
+     locales a su ámbito) y se almacena en la pila de control su registro de
+     activación.
 
   2. Se pasan los argumentos de la llamada a los parámetros de la función.
   
@@ -925,10 +926,10 @@ else:
 - Cuando se finaliza la ejecución de las sentencias que forman el cuerpo de la
   función:
 
-  1. Se saca su registro de activación de la pila.
-  
-  2. Se genera su valor de retorno (en breve veremos cómo).
+  1. Se genera su valor de retorno (en breve veremos cómo).
 
+  2. Se saca su registro de activación de la pila.
+  
   3. Se devuelve el control de la ejecución a la línea de código que llamó a la
      función.
 
