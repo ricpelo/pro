@@ -175,7 +175,7 @@ $(PP):
 	# La última versión está en https://cdsoft.fr/pp/pp-linux-x86_64.txz
 	# pero en Ubuntu 18.04 LTS hay que usar la 2.7.3, que es la última que funciona:
 	wget -q -O - https://cdsoft.fr/pp/archives/pp-linux-x86_64-2.7.3.txz | tar x -J pp
-	sudo apt install default-jre graphviz librsvg2-bin npm python-pyprind
+	sudo apt install default-jre graphviz librsvg2-bin npm python3-pyprind
 
 $(NODE_MODULES):
 	npm install diagrams
