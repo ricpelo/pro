@@ -908,22 +908,34 @@ else:
 - Cuando se llama a una función imperativa, ocurre lo siguiente (en este
   orden):
 
-  - Como siempre que se llama a una función, se crea un nuevo marco en el
-    entorno (que contiene las variables locales a su ámbito) y se almacena en
-    la pila de control su registro de activación.
+  1. Como siempre que se llama a una función, se crea un nuevo marco en el
+     entorno (que contiene las variables locales a su ámbito) y se almacena en
+     la pila de control su registro de activación.
 
-  - Se pasan los argumentos de la llamada a los parámetros de la función.
+  2. Se pasan los argumentos de la llamada a los parámetros de la función.
   
-    Recordemos que en Python se sigue el orden aplicativo, por lo que primero
-    se evalúan los argumentos y después se pasan sus valores a los parámetros
-    correspondientes.
+     Recordemos que en Python se sigue el orden aplicativo (primero se evalúan
+     los argumentos y después se pasan a los parámetros correspondientes).
 
-  - El flujo de control del programa se transfiere al bloque de sentencias que
-    forman el cuerpo de la función y se ejecuta éste.
+  3. El flujo de control del programa se transfiere al bloque de sentencias que
+     forman el cuerpo de la función y se ejecuta éste.
 
-  - Cuando termina la ejecución de las sentencias que forman el cuerpo de la
-    función, se devuelve el control a la línea que llamó a la función y se
-    continúa la ejecución del programa desde ahí.
+---
+
+- Cuando se finaliza la ejecución de las sentencias que forman el cuerpo de la
+  función:
+
+  1. Se saca su registro de activación de la pila.
+  
+  2. Se genera su valor de retorno (en breve veremos cómo).
+
+  3. Se devuelve el control de la ejecución a la línea de código que llamó a la
+     función.
+
+  4. Se sustituye, en dicha línea, la llamada a la función por su valor de
+     retorno.
+
+  5. Se continúa la ejecución del programa desde ese punto.
 
 ---
 
@@ -1108,11 +1120,11 @@ else:
   ```
 
 - La función se define en las líneas 1--2. El intérprete lee la definición de
-  la función pero no ejecuta sus sentencias en ese momento (lo hará cuando se
-  *llame* a la función).
+  la función pero no ejecuta las sentencias de su cuerpo en ese momento (lo
+  hará cuando se *llame* a la función).
 
 - En la línea 6 se llama a la función `suma` pasándole como argumentos los
-  valores de `a` y `b`, asignándose a `x` e `y`, respectivamente.
+  valores de `a` y `b`, asignándoseles a `x` e `y`, respectivamente.
 
 - Dentro de la función, se calcula la suma `x + y` y la sentencia `return`
   finaliza la ejecución de la función, devolviendo el control al punto en el
@@ -1201,8 +1213,8 @@ None
 ---
 
 - Cuando se alcanza el final del cuerpo de una función sin haberse ejecutado
-  antes ninguna sentencia `return`, es como si la última sentencia del cuerpo de la
-  función fuese un `return` sin valor de retorno.
+  antes ninguna sentencia `return`, es como si la última sentencia del cuerpo
+  de la función fuese un `return` sin valor de retorno.
 
 - Por ejemplo:
 
@@ -1247,25 +1259,49 @@ None
   print(res)  # da error
   ```
 
-  Da error porque la variable `res` no está definida en el ámbito actual.
+  Fuera de la función, la variable `res` no está definida en el entorno (que
+  está formado sólo por el ámbito global) y por eso da error en la línea 6.
 
 ### Variables locales
 
 - Al igual que pasa con las expresiones lambda, las definiciones de funciones
   generan un nuevo ámbito.
 
-- Tanto los parámetros como las variables que se definan en el cuerpo de la
-  función son **locales** a ella, y por tanto sólo existen dentro de ella.
+- Tanto los **parámetros** como las **variables** y las **ligaduras** que se
+  crean en el cuerpo de la función son **locales** a ella, y por tanto sólo
+  existen dentro de ella.
+
+  Su **ámbito** es **el cuerpo de la función** a la que pertenecen.
   
-  - El ámbito de un parámetro es el cuerpo de la función.
+- Los **parámetros** se pueden usar libremente en cualquier parte del cuerpo de
+  la función porque ya se les ha asignado un valor.
   
-  - El ámbito del resto de las variables locales es desde su definición hasta
-    el final del cuerpo de la función.
+- En cambio, se produce un error `UnboundLocalError` si se intenta usar una
+  **variable local** antes de asignarle un valor:
+
+  ```python
+  >>> def hola():
+  ...     print(x)  # x es una variable local pero aún no tiene valor asignado
+  ...     x = 1     # aquí es donde empieza a tener un valor
+  ...
+  >>> hola()
+  UnboundLocalError: local variable 'x' referenced before assignment
+  ```
 
 ---
 
-- Eso significa que se crea un nuevo marco en el entorno, que contendrá, en
-  principio, los parámetros y las variables locales a la función.
+- Eso significa que se crea un nuevo marco en el entorno que contendrá, en
+  principio, los parámetros, las variables locales y las ligaduras locales a la
+  función.
+
+  ```{.python .number-lines}
+  def suma(x, y):
+      res = x + y
+      return res
+
+  resultado = suma(4, 3)
+  print(resultado)
+  ```
 
 !SALTOLARGOBEAMER
 
@@ -1365,8 +1401,8 @@ E -> x [lhead = cluster1]
   print(x)  # imprime 4
   ```
 
-- Como en Python no existen las declaraciones de variables, el intérprete tiene
-  que *averiguar* por sí mismo qué ámbito tiene una variable.
+- Como en Python no existen las *declaraciones* de variables, el intérprete
+  tiene que **_averiguar_ por sí mismo qué ámbito tiene una variable**.
 
 - Lo hace con una regla muy sencilla:
 
@@ -1399,13 +1435,14 @@ E -> x [lhead = cluster1]
 
 #### `global`
 
-- Para declarar una variable como global, se usa la sentencia `global`:
+- Para informar al intérprete que una determinada variable es global, se usa la
+  sentencia `global`:
 
   ```python
   x = 4
 
   def prueba():
-      global x  # se declara que la variable x es global
+      global x  # informa que la variable x es global
       x = 5     # cambia el valor de la variable global x
 
   prueba()
@@ -1416,7 +1453,8 @@ E -> x [lhead = cluster1]
 
 - Las reglas básicas de uso de la sentencia `global` en Python son:
 
-  #. Cuando se crea una variable dentro de una función, por omisión es local.
+  #. Cuando se crea una variable dentro de una función (asignándole un valor),
+     por omisión es local.
 
   #. Cuando se define una variable fuera de una función, por omisión es global
      (no hace falta usar la sentencia `global`).
