@@ -1154,41 +1154,45 @@ else:
 
 ::: column
 
-  ```python
-  def hola():
-    print('Hola')
-    return
-    print('Adiós')  # aquí no llega
+```python
+def hola():
+  print('Hola')
+  return
+  print('Adiós')  # aquí no llega
 
-  hola()
-  ```
+hola()
+```
 
-  imprime:
+imprime:
 
-  ```
-  Hola
-  ```
+!SALTOBEAMER
+
+```
+Hola
+```
 
 :::
 
 ::: column
 
-  ```python
-  def hola():
-    print('Hola')
-    return
-    print('Adiós')
+```python
+def hola():
+  print('Hola')
+  return
+  print('Adiós')
 
-  x = hola()  # devuelve None
-  print(x)
-  ```
+x = hola()  # devuelve None
+print(x)
+```
 
-  imprime:
+imprime:
 
-  ```
-  Hola
-  None
-  ```
+!SALTOBEAMER
+
+```
+Hola
+None
+```
 
 :::
 

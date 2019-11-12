@@ -29,6 +29,7 @@ MACROS DE USO GENERAL
 
 !define(SALTO)(!ifndef(LATEX)(<br>\vspace{1em}))
 !define(SALTOLARGO)(!ifndef(LATEX)(<br>\vspace{2em}))
+!define(SALTOBEAMER)(!ifdef(BEAMER)(\vspace{1em}))
 !define(SALTOLARGOBEAMER)(!ifdef(BEAMER)(\vspace{2em}))
 
 !comment
