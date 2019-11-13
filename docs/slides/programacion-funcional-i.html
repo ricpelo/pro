@@ -1369,7 +1369,7 @@ Python&quot;&quot;&quot;</code></pre>
 </section><section id="actividad" class="title-slide slide level3"><h3><span class="header-section-number">5.6.1</span> Actividad</h3><ol start="7" class="example" type="1">
 <li>¿Cuál es la asociatividad del operador ternario? Demostrarlo.</li>
 </ol></section></section>
-<section><section id="definiciones" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Definiciones</h1></section><section id="definiciones-1" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Definiciones</h2><ul>
+<section><section id="definiciones" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Definiciones</h1></section><section id="introducción" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Introducción</h2><ul>
 <li><p>Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente es una <strong>sentencia</strong>) con la que vamos a poder hacer <strong>definiciones</strong>.</p></li>
 <li><p>A esa sentencia (en este momento) la llamaremos <strong>definición</strong>, y expresa el hecho de que <strong>un <em>nombre</em> representa un <em>valor</em></strong>.</p></li>
 <li><p>Las definiciones tienen la siguiente sintaxis:</p>
@@ -1520,22 +1520,25 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
 <li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
-</ul></section><section id="ámbito-de-una-ligadura" class="title-slide slide level2"><h2><span class="header-section-number">6.7</span> Ámbito de una ligadura</h2><ul>
+</ul></section><section id="ámbitos" class="title-slide slide level2"><h2><span class="header-section-number">6.7</span> Ámbitos</h2><ul>
 <li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
-<li><p>Cuando eso ocurre, decimos que esas construcciones sintácticas definen <strong>ámbitos</strong>, y que un ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa.</p></li>
-<li><p>En tal caso, durante la ejecución del programa se creará un nuevo marco cuando se entre en el ámbito (en su construcción sintática correspondiente) y se destruirá cuando se salga de ella.</p></li>
-<li><p>Por ahora sólo tenemos un ámbito que abarca todo el <em>script</em> que se está ejecutando (o la sesión actual si estamos en el intérprete interactivo).</p></li>
-<li><p>A ese ámbito se le llama <strong>ámbito global</strong> y es el que crea el <strong>marco global</strong>.</p></li>
-<li><p>Es decir: el intérprete crea el marco global cuando empieza a ejecutar el <em>script</em> (o cuando inicia una nueva sesión con el intérprete interactivo) y lo asocia al ámbito global.</p></li>
+<li><p>Cuando eso ocurre, decimos que la construcción sintáctica define un <strong>ámbito</strong>, y que el ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa.</p></li>
+<li><p>Durante la ejecución del programa, se creará un nuevo marco cuando se entre en el ámbito (es decir, cuando se entre en su construcción sintática correspondiente) y se destruirá cuando se salga del ámbito.</p></li>
+<li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros.</p></li>
+<li><p>El <strong>ámbito actual</strong> es el ámbito más interno en el que se encuentra la porción de código que se está ejecutando actualmente.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que se define dicha ligadura.</p></li>
-<li><p>Es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, el concepto de <em>ámbito</em> irá cambiando para tener en cuenta más condicionantes.</p></li>
-<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
-<li><p>Por eso también decimos que todas esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
+<li><p>El concepto de <em>ámbito</em> es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para tener en cuenta más condicionantes.</p></li>
+<li><p>Por ahora sólo tenemos un ámbito que abarca todo el <em>script</em> que se está ejecutando (o la sesión actual si estamos en el intérprete interactivo).</p></li>
+<li><p>A ese ámbito se le llama <strong>ámbito global</strong> y es el que crea el <strong>marco global</strong>.</p></li>
+<li><p>Es decir: el intérprete crea el marco global cuando empieza a ejecutar el <em>script</em> (o cuando inicia una nueva sesión con el intérprete interactivo) y lo asocia al ámbito global.</p></li>
 </ul>
-</section></section>
+</section><section id="ámbito-de-una-ligadura" class="title-slide slide level3"><h3><span class="header-section-number">6.7.1</span> Ámbito de una ligadura</h3><ul>
+<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que dicha ligadura tiene validez.</p></li>
+<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
+<li><p>Por eso también decimos que esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
+</ul></section></section>
 <section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Identificadores significativos</h2><ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>

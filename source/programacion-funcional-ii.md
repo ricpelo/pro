@@ -208,8 +208,8 @@ nocite: |
 
 ### Ámbitos
 
-- Recordemos que el **ámbito de una ligadura** es la porción del programa en la
-  que dicha ligadura tiene validez.
+- Recordemos que el **ámbito de una ligadura** es el ámbito (la porción del
+  programa) en la que dicha ligadura tiene validez.
 
 - Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
@@ -233,7 +233,7 @@ nocite: |
   se dice que tienen un **ámbito no local** o, a veces, un **ámbito más
   global**.
 
-  Si además ese ámbito resulta ser el **ámbito global**, decimos directamente
+  Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
   que el identificador (o la ligadura) es **global**.
 
 ---
@@ -304,9 +304,37 @@ nocite: |
   suma = lambda x, y: x + y
   ```
 
-  el cuerpo de la función `suma` define un nuevo ámbito, pero cada vez que se
-  la llama con unos argumentos concretos se crea un nuevo marco que liga sus
-  argumentos con sus parámetros.
+  el cuerpo de la función `suma` define un nuevo ámbito, y cada vez que se
+  llama a `suma` con unos argumentos concretos se crea un nuevo marco que liga
+  sus argumentos con sus parámetros.
+
+---
+
+- El concepto de **entorno** representa el hecho de que los ámbitos se
+  contienen unos a otros (están anidados unos dentro de otros).
+
+- Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
+  contenido en el ámbito de $B$.
+
+- Asimismo, el primer marco de la cadena de marcos del entorno representa el
+  ámbito actual de la porción de código donde se está calculando el entorno.
+
+---
+
+- Si en un determinado punto del programa tenemos el siguiente entorno:
+
+  !IMGP(lambda-entorno-linea3-dentro-despues.svg)()(width=50%)(width=50%)
+
+  Tendríamos que:
+
+  - El ámbito de la expresión lambda está contenido en el ámbito global.
+
+  - El marco actual es el marco de la expresión lambda.
+
+  - El ámbito actual es el cuerpo de la expresión lambda.
+
+  - Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la
+    expresión lambda.
 
 #### Ligaduras *sombreadas*
 

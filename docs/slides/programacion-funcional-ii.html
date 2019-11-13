@@ -325,7 +325,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
 <p><code>x</code> e <code>y</code> son variables ligadas mientras que <code>z</code> es libre.</p></li>
 </ul></section><section id="ámbitos" class="title-slide slide level3"><h3><span class="header-section-number">1.1.4</span> Ámbitos</h3><ul>
-<li><p>Recordemos que el <strong>ámbito de una ligadura</strong> es la porción del programa en la que dicha ligadura tiene validez.</p></li>
+<li><p>Recordemos que el <strong>ámbito de una ligadura</strong> es el ámbito (la porción del programa) en la que dicha ligadura tiene validez.</p></li>
 <li><p>Ampliaremos ahora el concepto de <em>ámbito</em> para incluir los aspectos nuevos que incorporan las expresiones lambda.</p></li>
 </ul></section><section id="ámbito-de-una-variable-ligada" class="slide level4">
 <h4><span class="header-section-number">1.1.4.1</span> Ámbito de una variable ligada</h4>
@@ -335,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Por tanto, <strong>el ámbito de una variable ligada es el cuerpo de la expresión lambda</strong> que la liga con su parámetro.</p></li>
 <li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
 <li><p>Por contraste, los identificadores (y ligaduras) que no tienen ámbito local se dice que tienen un <strong>ámbito no local</strong> o, a veces, un <strong>ámbito más global</strong>.</p>
-<p>Si además ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que el identificador (o la ligadura) es <strong>global</strong>.</p></li>
+<p>Si, además, ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que el identificador (o la ligadura) es <strong>global</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -370,10 +370,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras que se definen dentro de ese ámbito.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
-<p>el cuerpo de la función <code>suma</code> define un nuevo ámbito, pero cada vez que se la llama con unos argumentos concretos se crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
+<p>el cuerpo de la función <code>suma</code> define un nuevo ámbito, y cada vez que se llama a <code>suma</code> con unos argumentos concretos se crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>El concepto de <strong>entorno</strong> representa el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p></li>
+<li><p>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span>, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</p></li>
+<li><p>Asimismo, el primer marco de la cadena de marcos del entorno representa el ámbito actual de la porción de código donde se está calculando el entorno.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Si en un determinado punto del programa tenemos el siguiente entorno:</p>
+<div class="centered">
+<p><img data-src="images/lambda-entorno-linea3-dentro-despues.svg" class="plain" style="width:50.0%" /></p>
+</div>
+<p>Tendríamos que:</p>
+<ul>
+<li><p>El ámbito de la expresión lambda está contenido en el ámbito global.</p></li>
+<li><p>El marco actual es el marco de la expresión lambda.</p></li>
+<li><p>El ámbito actual es el cuerpo de la expresión lambda.</p></li>
+<li><p>Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la expresión lambda.</p></li>
+</ul></li>
 </ul>
 </section><section id="ligaduras-sombreadas" class="slide level4">
-<h4><span class="header-section-number">1.1.4.5</span> Ligaduras <em>sombreadas</em></h4>
+<h4><span class="header-section-number">1.1.4.7</span> Ligaduras <em>sombreadas</em></h4>
 <ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno (en un ámbito más global)?</p></li>
 <li><p>Por ejemplo:</p>
@@ -393,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code> ligado en el ámbito global) al que ahora sí podemos acceder al no estar sombreada.</p></li>
 </ul>
 </section><section id="renombrado-de-parámetros" class="slide level4">
-<h4><span class="header-section-number">1.1.4.7</span> Renombrado de parámetros</h4>
+<h4><span class="header-section-number">1.1.4.9</span> Renombrado de parámetros</h4>
 <ul>
 <li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
 <li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
@@ -405,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
 </ul>
 </section><section id="expresiones-lambda-y-entornos" class="slide level4">
-<h4><span class="header-section-number">1.1.4.8</span> Expresiones lambda y entornos</h4>
+<h4><span class="header-section-number">1.1.4.10</span> Expresiones lambda y entornos</h4>
 <ul>
 <li><p>Para encontrar el valor de un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la cadena de marcos</strong> hasta encontrarla. Si no aparece en ningún marco, querrá decir que el identificador no está ligado (o que su ligadura está fuera del entorno, en otro ámbito).</p></li>
 <li><p>Debemos tener en cuenta también, por tanto, las posibles <strong>variables sombreadas</strong> que puedan aparecer.</p>
@@ -475,7 +497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section><section id="evaluación-de-expresiones-lambda-con-entornos" class="slide level4">
-<h4><span class="header-section-number">1.1.4.13</span> Evaluación de expresiones lambda con entornos</h4>
+<h4><span class="header-section-number">1.1.4.15</span> Evaluación de expresiones lambda con entornos</h4>
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> una aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>

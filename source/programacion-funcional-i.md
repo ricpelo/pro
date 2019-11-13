@@ -1575,7 +1575,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 # Definiciones
 
-## Definiciones
+## Introducción
 
 - Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente
   es una **sentencia**) con la que vamos a poder hacer **definiciones**.
@@ -1884,18 +1884,30 @@ subgraph cluster0 {
   from definiciones import *
   ```
 
-## Ámbito de una ligadura
+## Ámbitos
 
 - Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
   la creación de nuevos marcos.
 
-- Cuando eso ocurre, decimos que esas construcciones sintácticas definen
-  **ámbitos**, y que un ámbito viene definido por la porción de texto que ocupa
+- Cuando eso ocurre, decimos que la construcción sintáctica define un
+  **ámbito**, y que el ámbito viene definido por la porción de texto que ocupa
   esa construcción sintáctica dentro del programa.
 
-- En tal caso, durante la ejecución del programa se creará un nuevo marco
-  cuando se entre en el ámbito (en su construcción sintática correspondiente) y
-  se destruirá cuando se salga de ella.
+- Durante la ejecución del programa, se creará un nuevo marco cuando se entre
+  en el ámbito (es decir, cuando se entre en su construcción sintática
+  correspondiente) y se destruirá cuando se salga del ámbito.
+
+- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
+  dentro de otros.
+
+- El **ámbito actual** es el ámbito más interno en el que se encuentra la
+  porción de código que se está ejecutando actualmente.
+
+---
+
+- El concepto de *ámbito* es un concepto nada trivial y, a medida que vayamos
+  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
+  tener en cuenta más condicionantes.
 
 - Por ahora sólo tenemos un ámbito que abarca todo el *script* que se está
   ejecutando (o la sesión actual si estamos en el intérprete interactivo).
@@ -1907,19 +1919,15 @@ subgraph cluster0 {
   *script* (o cuando inicia una nueva sesión con el intérprete interactivo) y
   lo asocia al ámbito global.
 
----
+### Ámbito de una ligadura
 
-- El **ámbito de una ligadura** es el ámbito en el que se define dicha
-  ligadura.
-
-- Es un concepto nada trivial y, a medida que vayamos incorporando nuevos
-  elementos al lenguaje, el concepto de *ámbito* irá cambiando para tener en
-  cuenta más condicionantes.
+- El **ámbito de una ligadura** es el ámbito en el que dicha ligadura tiene
+  validez.
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.
 
-- Por eso también decimos que todas esas ligaduras tienen ámbito global, o que
+- Por eso también decimos que esas ligaduras tienen ámbito global, o que
   pertenecen al ámbito global, o que están definidas en el ámbito global, o que
   son **globales**.
 
