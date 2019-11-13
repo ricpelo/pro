@@ -1416,6 +1416,13 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p><strong>Palabra reservada</strong>: palabra que no puede emplearse como identificador.</p></li>
 </ul></li>
 </ul></li>
+</ul></section><section id="tipo-de-un-identificador" class="title-slide slide level3"><h3><span class="header-section-number">6.2.2</span> Tipo de un identificador</h3><ul>
+<li><p>Cuando un identificador está ligado a un valor, a efectos prácticos el identificador actúa como si fuera el valor.</p></li>
+<li><p>Como cada valor tiene un tipo de dato asociado, también podemos hablar del <strong>tipo de un identificador</strong>.</p>
+<div class="caja">
+<p>El <strong>tipo de un identificador</strong> es el tipo del dato con el que está ligado.</p>
+</div></li>
+<li><p>Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de dato tiene.</p></li>
 </ul></section><section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Evaluación de expresiones con ligaduras</h2><ul>
 <li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está):</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
@@ -1440,7 +1447,7 @@ Python&quot;&quot;&quot;</code></pre>
 <div class="centered">
 <p><img data-src="images/ligadura-compartida.svg" class="plain" style="width:30.0%" /></p>
 </div>
-</section><section id="marcos-frames" class="title-slide slide level3"><h3><span class="header-section-number">6.3.1</span> Marcos (<em>frames</em>)</h3><ul>
+</section><section id="marcos-frames" class="title-slide slide level2"><h2><span class="header-section-number">6.4</span> Marcos (<em>frames</em>)</h2><ul>
 <li><p>Un <strong>marco</strong> (del inglés <em>frame</em>) es un <strong>conjunto de ligaduras</strong>.</p></li>
 <li><p>En un marco, un identificador sólo puede tener como máximo una ligadura.</p></li>
 <li><p>En cambio, ese mismo identificador puede estar ligado a diferentes valores en diferentes marcos.</p></li>
@@ -1500,19 +1507,12 @@ Python&quot;&quot;&quot;</code></pre>
 </div>
 </div>
 </div>
-</section><section id="entorno-environment" class="title-slide slide level2"><h2><span class="header-section-number">6.4</span> Entorno (<em>environment</em>)</h2><ul>
+</section><section id="entorno-environment" class="title-slide slide level2"><h2><span class="header-section-number">6.5</span> Entorno (<em>environment</em>)</h2><ul>
 <li><p>Un <strong>entorno</strong> (del inglés, <em>environment</em>) es una secuencia de <strong>marcos</strong> que contienen todas las ligaduras válidas en un punto concreto del programa.</p></li>
 <li><p>Es decir, el entorno nos dice qué identificadores son accesibles en un momento dado, y con qué valores están ligados.</p></li>
 <li><p>El entorno, por tanto, depende del punto del programa en el que se calcule.</p></li>
 <li><p>Como por ahora sólo tenemos un marco, que es el <em>marco global</em>, nuestro entorno sólo podrá tener un único marco, es decir, que el entorno coincidirá con el marco global.</p></li>
 <li><p>La cosa cambiará en cuanto empecemos a crear funciones.</p></li>
-</ul></section><section id="tipo-de-un-identificador" class="title-slide slide level2"><h2><span class="header-section-number">6.5</span> Tipo de un identificador</h2><ul>
-<li><p>Cuando un identificador está ligado a un valor, a efectos prácticos el identificador actúa como si fuera el valor.</p></li>
-<li><p>Como cada valor tiene un tipo de dato asociado, también podemos hablar del <strong>tipo de un identificador</strong>.</p>
-<div class="caja">
-<p>El <strong>tipo de un identificador</strong> es el tipo del dato con el que está ligado.</p>
-</div></li>
-<li><p>Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de dato tiene.</p></li>
 </ul></section><section id="scripts" class="title-slide slide level2"><h2><span class="header-section-number">6.6</span> <em>Scripts</em></h2><ul>
 <li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
@@ -1521,10 +1521,21 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul></section><section id="ámbito-de-una-ligadura" class="title-slide slide level2"><h2><span class="header-section-number">6.7</span> Ámbito de una ligadura</h2><ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es la porción del programa en la que dicha ligadura tiene validez.</p></li>
+<li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
+<li><p>Cuando eso ocurre, decimos que esas construcciones sintácticas definen <strong>ámbitos</strong>, y que un ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa.</p></li>
+<li><p>En tal caso, durante la ejecución del programa se creará un nuevo marco cuando se entre en el ámbito (en su construcción sintática correspondiente) y se destruirá cuando se salga de ella.</p></li>
+<li><p>Por ahora sólo tenemos un ámbito que abarca todo el <em>script</em> que se está ejecutando (o la sesión actual si estamos en el intérprete interactivo).</p></li>
+<li><p>A ese ámbito se le llama <strong>ámbito global</strong> y es el que crea el <strong>marco global</strong>.</p></li>
+<li><p>Es decir: el intérprete crea el marco global cuando empieza a ejecutar el <em>script</em> (o cuando inicia una nueva sesión con el intérprete interactivo) y lo asocia al ámbito global.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que se define dicha ligadura.</p></li>
 <li><p>Es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, el concepto de <em>ámbito</em> irá cambiando para tener en cuenta más condicionantes.</p></li>
-<li><p><em>Por ahora</em>, diremos que el ámbito de una ligadura abarca desde su propia definición hasta el final del <em>script</em> (o el final de la sesión actual en el intérprete interactivo).</p></li>
-</ul></section></section>
+<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
+<li><p>Por eso también decimos que todas esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
+</ul>
+</section></section>
 <section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Identificadores significativos</h2><ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>

@@ -1666,6 +1666,22 @@ x -> 7
 
     - **Palabra reservada**: palabra que no puede emplearse como identificador.
 
+### Tipo de un identificador
+
+- Cuando un identificador está ligado a un valor, a efectos prácticos el
+  identificador actúa como si fuera el valor.
+
+- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
+  **tipo de un identificador**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El **tipo de un identificador** es el tipo del dato con el que está ligado.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de
+  dato tiene.
+
 ## Evaluación de expresiones con ligaduras
 
 - Podemos usar un identificador ligado dentro de una expresión (siempre que la
@@ -1711,7 +1727,7 @@ x -> 25
 y -> 25
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Marcos (*frames*)
+## Marcos (*frames*)
 
 - Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
 
@@ -1847,22 +1863,6 @@ subgraph cluster0 {
 
 - La cosa cambiará en cuanto empecemos a crear funciones.
 
-## Tipo de un identificador
-
-- Cuando un identificador está ligado a un valor, a efectos prácticos el
-  identificador actúa como si fuera el valor.
-
-- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
-  **tipo de un identificador**.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de un identificador** es el tipo del dato con el que está ligado.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de
-  dato tiene.
-
 ## *Scripts*
 
 - Cuando tenemos varias definiciones o muy largas resulta tedioso tener que
@@ -1886,16 +1886,42 @@ subgraph cluster0 {
 
 ## Ámbito de una ligadura
 
-- El **ámbito de una ligadura** es la porción del programa en la que dicha
-  ligadura tiene validez.
+- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
+  la creación de nuevos marcos.
+
+- Cuando eso ocurre, decimos que esas construcciones sintácticas definen
+  **ámbitos**, y que un ámbito viene definido por la porción de texto que ocupa
+  esa construcción sintáctica dentro del programa.
+
+- En tal caso, durante la ejecución del programa se creará un nuevo marco
+  cuando se entre en el ámbito (en su construcción sintática correspondiente) y
+  se destruirá cuando se salga de ella.
+
+- Por ahora sólo tenemos un ámbito que abarca todo el *script* que se está
+  ejecutando (o la sesión actual si estamos en el intérprete interactivo).
+
+- A ese ámbito se le llama **ámbito global** y es el que crea el **marco
+  global**.
+
+- Es decir: el intérprete crea el marco global cuando empieza a ejecutar el
+  *script* (o cuando inicia una nueva sesión con el intérprete interactivo) y
+  lo asocia al ámbito global.
+
+---
+
+- El **ámbito de una ligadura** es el ámbito en el que se define dicha
+  ligadura.
 
 - Es un concepto nada trivial y, a medida que vayamos incorporando nuevos
   elementos al lenguaje, el concepto de *ámbito* irá cambiando para tener en
   cuenta más condicionantes.
 
-- *Por ahora*, diremos que el ámbito de una ligadura abarca desde su propia
-  definición hasta el final del *script* (o el final de la sesión actual en el
-  intérprete interactivo).
+- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
+  lo que se almacenan en el marco global.
+
+- Por eso también decimos que todas esas ligaduras tienen ámbito global, o que
+  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
+  son **globales**.
 
 # Documentación interna
 

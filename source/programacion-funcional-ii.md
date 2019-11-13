@@ -227,10 +227,14 @@ nocite: |
   lambda** que la liga con su parámetro.
 
 - También se dice que la variable ligada tiene un **ámbito local** a la
-  expresión lambda.
+  expresión lambda o que es **local** a dicha expresión lambda.
 
-- Por contraste, los identificadores que no tienen ámbito local se dice que
-  tienen un **ámbito no local** o, a veces, un **ámbito más global**.
+- Por contraste, los identificadores (y ligaduras) que no tienen ámbito local
+  se dice que tienen un **ámbito no local** o, a veces, un **ámbito más
+  global**.
+
+  Si además ese ámbito resulta ser el **ámbito global**, decimos directamente
+  que el identificador (o la ligadura) es **global**.
 
 ---
 
@@ -292,7 +296,7 @@ nocite: |
 
 - El **marco** es un concepto *dinámico*: es algo que se crea y se destruye a
   medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras
-  propias de un punto concreto del programa.
+  que se definen dentro de ese ámbito.
  
 - Por ejemplo:
 
@@ -300,9 +304,9 @@ nocite: |
   suma = lambda x, y: x + y
   ```
 
-  la función `suma` define un nuevo ámbito, pero cada vez que se la llama con
-  unos argumentos concretos se crea un nuevo marco que liga sus argumentos con
-  sus parámetros.
+  el cuerpo de la función `suma` define un nuevo ámbito, pero cada vez que se
+  la llama con unos argumentos concretos se crea un nuevo marco que liga sus
+  argumentos con sus parámetros.
 
 #### Ligaduras *sombreadas*
 

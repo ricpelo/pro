@@ -333,8 +333,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Hemos visto que <strong>un parámetro</strong> de una expresión lambda <strong>es una variable ligada</strong> en el cuerpo de dicha expresión lambda.</p></li>
 <li><p>En realidad, lo que hace la expresión lambda es <strong>ligar al parámetro con la variable ligada que está dentro del cuerpo</strong>, y esa ligadura existe únicamente en el cuerpo de la expresión lambda.</p></li>
 <li><p>Por tanto, <strong>el ámbito de una variable ligada es el cuerpo de la expresión lambda</strong> que la liga con su parámetro.</p></li>
-<li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda.</p></li>
-<li><p>Por contraste, los identificadores que no tienen ámbito local se dice que tienen un <strong>ámbito no local</strong> o, a veces, un <strong>ámbito más global</strong>.</p></li>
+<li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
+<li><p>Por contraste, los identificadores (y ligaduras) que no tienen ámbito local se dice que tienen un <strong>ámbito no local</strong> o, a veces, un <strong>ámbito más global</strong>.</p>
+<p>Si además ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que el identificador (o la ligadura) es <strong>global</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -366,10 +367,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Se va formando así una cadena de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos.</p></li>
 <li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se define simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
-<li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras propias de un punto concreto del programa.</p></li>
+<li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras que se definen dentro de ese ámbito.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
-<p>la función <code>suma</code> define un nuevo ámbito, pero cada vez que se la llama con unos argumentos concretos se crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
+<p>el cuerpo de la función <code>suma</code> define un nuevo ámbito, pero cada vez que se la llama con unos argumentos concretos se crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
 </ul>
 </section><section id="ligaduras-sombreadas" class="slide level4">
 <h4><span class="header-section-number">1.1.4.5</span> Ligaduras <em>sombreadas</em></h4>
