@@ -1282,32 +1282,6 @@ None
   Fuera de la función, la variable `res` no está definida en el entorno (que
   está formado sólo por el marco global) y por eso da error en la línea 6.
 
-### Variables locales
-
-- Al igual que pasa con las expresiones lambda, las definiciones de funciones
-  generan un nuevo ámbito.
-
-- Tanto los **parámetros** como las **variables** y las **ligaduras** que se
-  crean en el cuerpo de la función son **locales** a ella, y por tanto sólo
-  existen dentro de ella.
-
-  Su **ámbito** es **el cuerpo de la función** a la que pertenecen.
-  
-- Los **parámetros** se pueden usar libremente en cualquier parte del cuerpo de
-  la función porque ya se les ha asignado un valor.
-  
-- En cambio, se produce un error `UnboundLocalError` si se intenta usar una
-  **variable local** antes de asignarle un valor:
-
-  ```python
-  >>> def hola():
-  ...     print(x)  # x es una variable local pero aún no tiene valor asignado
-  ...     x = 1     # aquí es donde empieza a tener un valor
-  ...
-  >>> hola()
-  UnboundLocalError: local variable 'x' referenced before assignment
-  ```
-
 ---
 
 - Eso significa que se crea un nuevo marco en el entorno que contendrá, en
@@ -1387,6 +1361,32 @@ E -> x [lhead = cluster1]
 
 ::::
 
+### Variables locales
+
+- Al igual que pasa con las expresiones lambda, las definiciones de funciones
+  generan un nuevo ámbito.
+
+- Tanto los **parámetros** como las **variables** y las **ligaduras** que se
+  crean en el cuerpo de la función son **locales** a ella, y por tanto sólo
+  existen dentro de ella.
+
+  Su **ámbito** es **el cuerpo de la función** a la que pertenecen.
+  
+- Los **parámetros** se pueden usar libremente en cualquier parte del cuerpo de
+  la función porque ya se les ha asignado un valor.
+  
+- En cambio, se produce un error `UnboundLocalError` si se intenta usar una
+  **variable local** antes de asignarle un valor:
+
+  ```python
+  >>> def hola():
+  ...     print(x)  # x es una variable local pero aún no tiene valor asignado
+  ...     x = 1     # aquí es donde empieza a tener un valor
+  ...
+  >>> hola()
+  UnboundLocalError: local variable 'x' referenced before assignment
+  ```
+
 ### Variables globales
 
 - Desde dentro de una función es posible usar variables globales, ya que se
@@ -1405,8 +1405,8 @@ E -> x [lhead = cluster1]
 
 ---
 
-- Pero para poder **modificar** una variable global ello es necesario que la
-  función la declare previamente como *global*.
+- Pero para poder **modificar** una variable global es necesario que la función
+  la declare previamente como *global*.
 
 - De no hacerlo así, el intérprete supondría que el programador quiere crear
   una variable local que tiene el mismo nombre que la global:

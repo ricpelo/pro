@@ -1011,28 +1011,16 @@ None</code></pre>
 <span id="cb30-5"><a href="#cb30-5"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
 <span id="cb30-6"><a href="#cb30-6"></a><span class="bu">print</span>(res)  <span class="co"># da error</span></span></code></pre></div>
 <p>Fuera de la función, la variable <code>res</code> no está definida en el entorno (que está formado sólo por el marco global) y por eso da error en la línea 6.</p></li>
-</ul></section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">4.5.1</span> Variables locales</h3><ul>
-<li><p>Al igual que pasa con las expresiones lambda, las definiciones de funciones generan un nuevo ámbito.</p></li>
-<li><p>Tanto los <strong>parámetros</strong> como las <strong>variables</strong> y las <strong>ligaduras</strong> que se crean en el cuerpo de la función son <strong>locales</strong> a ella, y por tanto sólo existen dentro de ella.</p>
-<p>Su <strong>ámbito</strong> es <strong>el cuerpo de la función</strong> a la que pertenecen.</p></li>
-<li><p>Los <strong>parámetros</strong> se pueden usar libremente en cualquier parte del cuerpo de la función porque ya se les ha asignado un valor.</p></li>
-<li><p>En cambio, se produce un error <code>UnboundLocalError</code> si se intenta usar una <strong>variable local</strong> antes de asignarle un valor:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> hola():</span>
-<span id="cb31-2"><a href="#cb31-2"></a>...     <span class="bu">print</span>(x)  <span class="co"># x es una variable local pero aún no tiene valor asignado</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a>...     x <span class="op">=</span> <span class="dv">1</span>     <span class="co"># aquí es donde empieza a tener un valor</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a>...</span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="op">&gt;&gt;&gt;</span> hola()</span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="pp">UnboundLocalError</span>: local variable <span class="st">&#39;x&#39;</span> referenced before assignment</span></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Eso significa que se crea un nuevo marco en el entorno que contendrá, en principio, los parámetros, las variables locales y las ligaduras locales a la función.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb32-2"><a href="#cb32-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
-<span id="cb32-3"><a href="#cb32-3"></a>    <span class="cf">return</span> res</span>
-<span id="cb32-4"><a href="#cb32-4"></a></span>
-<span id="cb32-5"><a href="#cb32-5"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="bu">print</span>(resultado)</span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb31-2"><a href="#cb31-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="cf">return</span> res</span>
+<span id="cb31-4"><a href="#cb31-4"></a></span>
+<span id="cb31-5"><a href="#cb31-5"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="bu">print</span>(resultado)</span></code></pre></div></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1049,7 +1037,19 @@ None</code></pre>
 </div>
 </div>
 </div>
-</section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">4.5.2</span> Variables globales</h3><ul>
+</section><section id="variables-locales" class="title-slide slide level3"><h3><span class="header-section-number">4.5.1</span> Variables locales</h3><ul>
+<li><p>Al igual que pasa con las expresiones lambda, las definiciones de funciones generan un nuevo ámbito.</p></li>
+<li><p>Tanto los <strong>parámetros</strong> como las <strong>variables</strong> y las <strong>ligaduras</strong> que se crean en el cuerpo de la función son <strong>locales</strong> a ella, y por tanto sólo existen dentro de ella.</p>
+<p>Su <strong>ámbito</strong> es <strong>el cuerpo de la función</strong> a la que pertenecen.</p></li>
+<li><p>Los <strong>parámetros</strong> se pueden usar libremente en cualquier parte del cuerpo de la función porque ya se les ha asignado un valor.</p></li>
+<li><p>En cambio, se produce un error <code>UnboundLocalError</code> si se intenta usar una <strong>variable local</strong> antes de asignarle un valor:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> hola():</span>
+<span id="cb32-2"><a href="#cb32-2"></a>...     <span class="bu">print</span>(x)  <span class="co"># x es una variable local pero aún no tiene valor asignado</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>...     x <span class="op">=</span> <span class="dv">1</span>     <span class="co"># aquí es donde empieza a tener un valor</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>...</span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="op">&gt;&gt;&gt;</span> hola()</span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="pp">UnboundLocalError</span>: local variable <span class="st">&#39;x&#39;</span> referenced before assignment</span></code></pre></div></li>
+</ul></section><section id="variables-globales" class="title-slide slide level3"><h3><span class="header-section-number">4.5.2</span> Variables globales</h3><ul>
 <li><p>Desde dentro de una función es posible usar variables globales, ya que se encuentran en el <strong>entorno</strong> de la función.</p></li>
 <li><p>Se puede <strong>acceder</strong> al valor de una variable global directamente:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
@@ -1061,7 +1061,7 @@ None</code></pre>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Pero para poder <strong>modificar</strong> una variable global ello es necesario que la función la declare previamente como <em>global</em>.</p></li>
+<li><p>Pero para poder <strong>modificar</strong> una variable global es necesario que la función la declare previamente como <em>global</em>.</p></li>
 <li><p>De no hacerlo así, el intérprete supondría que el programador quiere crear una variable local que tiene el mismo nombre que la global:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a></span>
