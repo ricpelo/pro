@@ -1133,8 +1133,8 @@ else:
   def suma(x, y):
       return x + y
 
-  a = input('Introduce el primer número: ')
-  b = input('Introduce el segundo número: ')
+  a = int(input('Introduce el primer número: '))
+  b = int(input('Introduce el segundo número: '))
   resultado = suma(a, b)
   print('El resultado es:', resultado)
   ```
@@ -1280,7 +1280,7 @@ None
   ```
 
   Fuera de la función, la variable `res` no está definida en el entorno (que
-  está formado sólo por el ámbito global) y por eso da error en la línea 6.
+  está formado sólo por el marco global) y por eso da error en la línea 6.
 
 ### Variables locales
 
