@@ -1752,4 +1752,105 @@ E -> x [lhead = cluster1]
       print("¡Hola! Te saludo desde la función saludar()")
   ```
 
+# Actividades
+
+## Actividades
+
+@. Considérese la siguiente fórmula (debida a Herón de Alejandrı́a), que expresa
+   el valor de la superficie S de un triángulo cualquiera en función de sus
+   lados, a, b y c: $$S = \sqrt{\frac{a+b+c}{2}\left(\frac{a+b+c}{2}-a\right)\left(\frac{a+b+c}{2}-b\right)\left(\frac{a+b+c}{2}-c\right)}$$
+
+    Escribir una función que obtenga el valor $S$ a partir de $a$, $b$ y $c$,
+    evitando el cálculo repetido del semiperı́metro, $sp = \frac{a+b+c}{2}$, y
+    almacenando el resultado finalmente en la variable S.
+
+@. Escribir tres funciones que impriman las siguientes salidas en función de la
+   cantidad de líneas que se desean (`␣` es un espacio en blanco):
+
+        *****     ␣*         ␣␣␣␣*␣␣␣␣
+        *****     ␣␣*        ␣␣␣***␣␣␣
+        *****     ␣␣␣*       ␣␣*****␣␣
+        *****     ␣␣␣␣*      ␣*******␣
+        *****     ␣␣␣␣␣*     ␣␣␣␣*␣␣␣␣
+
+---
+
+@. Convertir una cantidad de tiempo (en segundos, $\mathbb{Z}$) en la
+   correspondiente en horas, minutos y segundos, con arreglo al siguiente
+   formato:
+
+    3817 segundos = 1 horas, 3 minutos y 37 segundos
+
+@. Escribir un programa que, en primer lugar, lea los coeficientes $a_2$ ,
+   $a_1$ y $a_0$ de un polinomio de segundo grado $$a_2x^2 + a_1x + a_0$$ y
+   escriba ese polinomio. Y, en segundo, lea el valor de $x$ y escriba qué
+   valor toma el polinomio para esa $x$.
+
+    Para facilitar la salida, se supondrá que los coeficientes y $x$ son
+    enteros. Por ejemplo, si los coeficientes y $x$ son 1, 2, 3 y 2,
+    respectivamente, la salida puede ser:
+
+        1x^2 + 2x + 3
+        p(2) = 9
+
+---
+
+@. Escribir un programa apropiado para cada una de las siguientes tareas:
+
+    a. Pedir los dos términos de una fracción y dar el valor de la división
+       correspondiente, a no ser que sea nulo el hipotético denominador, en
+       cuyo caso se avisará del error.
+
+    b. Pedir los coeficientes de una ecuación de segundo grado y dar las dos
+       soluciones correspondientes, comprobando previamente si el discriminante
+       es positivo o no.
+
+    c. Pedir los coeficientes de la recta $ax + by + c = 0$ y dar su pendiente
+       y su ordenada en el origen en caso de que existan, o el mensaje
+       apropiado en otro caso.
+
+    d. Pedir un número natural $n$ y dar sus divisores.
+
+---
+
+
+
+@. Escribir un programa que lea un carácter, correspondiente a un dígito
+   hexadecimal:
+
+    !CENTRAR
+    ~~~~~~~~~~~~~~~~~~~~~~~
+    `0`, `1`, ..., `9`, `A`, `B`, ..., `F`
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+    y lo convierta en el valor decimal correspondiente:
+
+    !CENTRAR
+    ~~~~~~~~~~~~~~~~~~~~~~~
+    `0`, `1`, ..., `9`, `10`, `11`, ..., `15`
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+@. Para hallar en qué fecha cae el Domingo de Pascua de un `anyo` cualquiera,
+   basta con hallar las cantidades `a` y `b` siguientes:
+
+    ```python
+    a = (19 * (anyo mod 19) + 24) mod 30
+    b = (2 * (anyo mod 4) + 4 * (anyo mod 7) + 6 * a + 5) mod 7
+    ```
+
+    y entonces, ese Domingo es el *22 de marzo + `a` + `b` días*, que podrı́a
+    caer en abril. Escriba un programa que realice estos cálculos, produciendo
+    una entrada y salida claras.
+
+---
+
+@. Escribir una función para hallar $\binom{n}{k}$, donde $n$ y $k$ son datos
+   enteros positivos,
+
+    a. mediante la fórmula $\frac{n!}{(n-k)!k!}$
+
+    b. mediante la fórmula $\frac{n(n-1)\cdots(k+1)}{(n-k)!}$
+
+    ¿Qué ventajas presenta la segunda con respecto a la primera?
+
 !BIBLIOGRAFIA
