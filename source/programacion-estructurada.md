@@ -1647,13 +1647,12 @@ E -> x [lhead = cluster1]
 
   ```python
   def fact(n):
-      print(fact_iter(1, 1))  # error: se usa antes de definirse
+      print(fact_iter(n, 1))  # error: se usa antes de definirse
       def fact_iter(n, acc):  # aquí es donde empieza su definición
           if n == 0:
               return acc
           else:
               return fact_iter(n - 1, acc * n)
-      return fact_iter(n, 1)
   ```
 
 ---
@@ -1682,12 +1681,13 @@ E -> x [lhead = cluster1]
   def fact(n):
       def fact_iter(acc):
           nonlocal n
-          n = n - 1
           if n == 0:
               return acc
           else:
-              return fact_iter(acc * n)
-      return fact_iter(n)
+              acc *= n
+              n -= 1
+              return fact_iter(acc)
+      return fact_iter(1)
 
   print(fact(5))
   ```

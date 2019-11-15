@@ -1214,13 +1214,12 @@ La suma vale 13
 <ul>
 <li><p>Lo siguiente daría un error porque intentamos usar <code>fact_iter</code> antes de haber definido:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb44-2"><a href="#cb44-2"></a>    <span class="bu">print</span>(fact_iter(<span class="dv">1</span>, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
 <span id="cb44-3"><a href="#cb44-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
 <span id="cb44-4"><a href="#cb44-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb44-5"><a href="#cb44-5"></a>            <span class="cf">return</span> acc</span>
 <span id="cb44-6"><a href="#cb44-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb44-7"><a href="#cb44-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb44-8"><a href="#cb44-8"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
+<span id="cb44-7"><a href="#cb44-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1238,14 +1237,15 @@ La suma vale 13
 <div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">def</span> fact(n):</span>
 <span id="cb45-2"><a href="#cb45-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
 <span id="cb45-3"><a href="#cb45-3"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb45-4"><a href="#cb45-4"></a>        n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb45-5"><a href="#cb45-5"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb45-6"><a href="#cb45-6"></a>            <span class="cf">return</span> acc</span>
-<span id="cb45-7"><a href="#cb45-7"></a>        <span class="cf">else</span>:</span>
-<span id="cb45-8"><a href="#cb45-8"></a>            <span class="cf">return</span> fact_iter(acc <span class="op">*</span> n)</span>
-<span id="cb45-9"><a href="#cb45-9"></a>    <span class="cf">return</span> fact_iter(n)</span>
-<span id="cb45-10"><a href="#cb45-10"></a></span>
-<span id="cb45-11"><a href="#cb45-11"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<span id="cb45-4"><a href="#cb45-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb45-5"><a href="#cb45-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb45-6"><a href="#cb45-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb45-7"><a href="#cb45-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb45-8"><a href="#cb45-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb45-9"><a href="#cb45-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb45-10"><a href="#cb45-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb45-11"><a href="#cb45-11"></a></span>
+<span id="cb45-12"><a href="#cb45-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
 <li><p>La función local <code>fact_iter</code> puede acceder a la variable <code>n</code>, que es local a la función <code>fact</code> (para ello no es necesario declararla previamente como <strong>no local</strong>).</p></li>
 <li><p>Como la variable <code>n</code> está declarada <strong>no local</strong> en <code>fact_iter</code>, también puede modificarla.</p></li>
