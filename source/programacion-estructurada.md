@@ -1834,8 +1834,8 @@ E -> x [lhead = cluster1]
    basta con hallar las cantidades `a` y `b` siguientes:
 
     ```python
-    a = (19 * (anyo mod 19) + 24) mod 30
-    b = (2 * (anyo mod 4) + 4 * (anyo mod 7) + 6 * a + 5) mod 7
+    a = (19 * (anyo % 19) + 24) % 30
+    b = (2 * (anyo % 4) + 4 * (anyo % 7) + 6 * a + 5) % 7
     ```
 
     y entonces, ese Domingo es el *22 de marzo + `a` + `b` días*, que podrı́a
