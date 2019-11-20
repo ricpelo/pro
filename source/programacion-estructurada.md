@@ -446,7 +446,9 @@ del código.
 if 4 == 3:
     print('Son distintos')
     x = 5
+```
 
+```python
 if 4 == 3:
     print('Son distintos')
     x = 5
@@ -1104,11 +1106,17 @@ else:
   print(lista)      # Imprime [1, 2, 3, 99]
   ```
 
-- La función es capaz de **cambiar el estado de la lista que se ha pasado como
-  argumento** ya que, al llamar a la función, el argumento `lista` se pasa a la
-  función **asignándola** al parámetro `l`, haciendo que ambas variables sean
-  *alias* una de la otra (se refieren al mismo objeto) y, por tanto, la función
-  está modificando la misma variable que se ha pasado como argumento (`lista`).
+- La función es capaz de **cambiar el estado interno de la lista que se ha
+  pasado como argumento** porque:
+  
+  - Al llamar a la función, el argumento `lista` se pasa a la función
+    **asignándola** al parámetro `l` como si hubiera hecho `l = lista`.
+  
+  - Eso hace que ambas variables sean *alias* una de la otra (se refieren al
+    mismo objeto).
+  
+  - Por tanto, la función está modificando la misma variable que se ha pasado
+    como argumento (`lista`).
 
 ## La sentencia `return`
 

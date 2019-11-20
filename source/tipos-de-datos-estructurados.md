@@ -226,6 +226,50 @@ while not fin:
             !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Ejemplos:
+
+:::: columns
+
+::: column
+
+  ```python
+  for i in range(0, 4):
+      print(i)
+  ```
+
+  devuelve:
+
+  ```
+  0
+  1
+  2
+  3
+  ```
+
+:::
+
+::: column
+
+  ```python
+  for x in ['hola', 23.5, 10, [1, 2]]:
+      print(x * 2)
+  ```
+
+  devuelve:
+
+  ```
+  'holahola'
+  47.0
+  20
+  [1, 2, 1, 2]
+  ```
+
+:::
+
+::::
+
 ### El módulo `itertools`
 
 - El módulo `itertools` contiene una variedad de iteradores de uso frecuente
@@ -250,7 +294,7 @@ while not fin:
 
   - `itertools.cycle([1, 2, 3, 4])` $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4, ...
 
-- `itertools.repeat(`!NT(elem)`,` [!NT(n)]`)` devuelve !NT(n) veces el elemento
+- `itertools.repeat(`!NT(elem)[`,` !NT(n)]`)` devuelve !NT(n) veces el elemento
   !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
 
   - `itertools.repeat('abc')` $\Rightarrow$ abc, abc, abc, abc, abc, abc, abc,
@@ -818,7 +862,7 @@ $s$ & $o$
 $s$`.difference(`$o$`)` \           Diferencia entre $s$ y $o$ ($s \setminus o$)
 $s$ - $o$
 
-$s$`.symmetric_difference(`$o$`)` \ Diferencia simétrica entre $s$ y $o$ ($s \triangle o$)
+$s$`.symmetric_difference(`$o$`)` \ Diferencia simétrica entre $s$ y $o$ ($s \vartriangle o$)
 $s$ ^ $o$
 
 $s$`.copy()`                        Devuelve una copia superficial de $s$
