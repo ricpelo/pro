@@ -289,12 +289,12 @@ LAS SIGUIENTES MACROS SON AUXILIARES, NO PARA USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !python3
 ~~~~~~~~~~~~~~~
-x = """!1"""
+x = r"""!1"""
 print(x.replace('"', '\\"'))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(PYNT)(!python3(print("!1".replace('_', '\\_'))))
+!define(PYNT)(!python3(print(r"""!1""".replace('_', '\\_'))))
 
 !define(PYALGO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -401,7 +401,13 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 !NT(sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(especif)]!T(})
 !NT(conversión) ::= !T(s) | !T(r) | !T(a)
 !NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
+!ifdef(HTML)
+~~~~~~~~~~~~~~
 !NT(carácter_literal) ::= !NT(cualquier code point excepto !T({), !T(}) o !T{NULL})
+~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+!NT(carácter_literal) ::= !NT(cualquier code point excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
+~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las partes de la cadena que van fuera de las llaves se tratan literalmente,
@@ -606,11 +612,13 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 ---
 
 - El **contenido** de un rango $r$ vendrá determinado por la fórmula $r[i] =
-  inicio + fin \cdot i$, donde $i \geq 0$. Además:
+  inicio + paso \cdot i$, donde $i \geq 0$. Además:
 
-  - Si el paso es positivo, se impone también la restricción $r[i] < fin$.
+  - Si el paso es positivo, se impone también la restricción $r[i] <
+    \text{\textit{fin}}$.
 
-  - Si el paso es negativo, se impone también la restricción $r[i] > fin$.
+  - Si el paso es negativo, se impone también la restricción $r[i] >
+    \text{\textit{fin}}$.
 
 - Un rango es **vacío** cuando $r[0]$ no satisface las restricciones anteriores.
 
@@ -624,8 +632,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   un patrón muy estricto, y las repeticiones y las concatenaciones a menudo
   violan ese patrón.
 
-- **Los rangos son perezosos** y, por tanto, ocupan mucha menos memoria que las
-  listas o las tuplas.
+- **Los rangos son perezosos** y además ocupan mucha menos memoria que las
+  listas o las tuplas (sólo hay que almacenar *inicio*, *fin* y *paso*).
 
 ---
 
