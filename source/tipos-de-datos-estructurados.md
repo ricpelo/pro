@@ -853,7 +853,7 @@ $s$ `<` $o$              `True` si $s$ es un subconjunto propio de $o$
 $s$`.isuperset(`$o$`)` \ `True` si $s$ es un superconjunto de $o$
 $s$ `>=` $o$
                       
-$s$ `<` $o$              `True` si $s$ es un superconjunto propio de $o$
+$s$ `>` $o$              `True` si $s$ es un superconjunto propio de $o$
 ---------------------------------------------------------------------------------------------
 
 ---
