@@ -336,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section id="expresiones-generadoras" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Expresiones generadoras</h3><ul>
 <li><p>Una <strong>expresión generadora</strong> es una expresión que <strong>devuelve un iterador</strong> y que tiene la misma sintaxis que las <strong>listas por comprensión</strong>, salvo que va encerrada entre paréntesis en lugar de entre corchetes:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;expr_gen&gt;</em></span> ::= <strong><code>(</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> (<strong><code>for</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span> <strong><code>in</code></strong> <span style="color:teal"><em>&lt;secuencia&gt;</em></span> [<strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span>])+<strong><code>)</code></strong></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>expr_gen</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>)</code></strong></div></li>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="op">&gt;&gt;&gt;</span> cuadrados <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="op">&gt;&gt;&gt;</span> cuadrados</span>
@@ -350,18 +350,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></section><section id="el-bucle-for" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> El bucle <code>for</code></h3><ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante un bucle <code>for</code>.</p></li>
 <li><p>Su sintaxis es:</p>
-<div class="line-block"><strong><code>for</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>)* <strong><code>in</code></strong> <span style="color:teal"><em>&lt;iterable&gt;</em></span><strong><code>:</code></strong><br />
-      <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div>
+<div class="line-block"><strong><code>for</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>)* <strong><code>in</code></strong> <span style="color:teal">⟨<em>iterable</em>⟩</span><strong><code>:</code></strong><br />
+      <span style="color:teal">⟨<em>sentencia</em>⟩</span></div>
 <p>que equivale a:</p>
-<div class="line-block">iterador = iter(<span style="color:teal"><em>&lt;iterable&gt;</em></span>)<br />
+<div class="line-block">iterador = iter(<span style="color:teal">⟨<em>iterable</em>⟩</span>)<br />
 fin = False<br />
 while not fin:<br />
       try:<br />
-            <span style="color:teal"><em>&lt;variable&gt;</em></span>(<strong><code>,</code></strong> <span style="color:teal"><em>&lt;variable&gt;</em></span>)* = next(iterador)<br />
+            <span style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>)* = next(iterador)<br />
       except StopIteration:<br />
             fin = True<br />
       else:<br />
-            <span style="color:teal"><em>&lt;sentencia&gt;</em></span></div></li>
+            <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -392,17 +392,17 @@ while not fin:<br />
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p><code>itertools.count(</code>[<span style="color:teal"><em>&lt;inicio&gt;</em></span>[<code>,</code> <span style="color:teal"><em>&lt;paso&gt;</em></span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es 0) y el intervalo entre números (que por defecto es 1):</p>
+<li><p><code>itertools.count(</code>[<span style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es 0) y el intervalo entre números (que por defecto es 1):</p>
 <ul>
 <li><code>itertools.count()</code> <span class="math inline">\Rightarrow</span> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, …</li>
 <li><code>itertools.count(10)</code> <span class="math inline">\Rightarrow</span> 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</li>
 <li><code>itertools.count(10, 5)</code> <span class="math inline">\Rightarrow</span> 10, 15, 20, 25, 30, 35, 40, 45, …</li>
 </ul></li>
-<li><p><code>itertools.cycle(</code><span style="color:teal"><em>&lt;iterador&gt;</em></span><code>)</code> devuelve un nuevo iterador que va generando sus elementos del primero al último, repitiéndolos indefinidamente:</p>
+<li><p><code>itertools.cycle(</code><span style="color:teal">⟨<em>iterador</em>⟩</span><code>)</code> devuelve un nuevo iterador que va generando sus elementos del primero al último, repitiéndolos indefinidamente:</p>
 <ul>
 <li><code>itertools.cycle([1, 2, 3, 4])</code> <span class="math inline">\Rightarrow</span> 1, 2, 3, 4, 1, 2, 3, 4, …</li>
 </ul></li>
-<li><p><code>itertools.repeat(</code><span style="color:teal"><em>&lt;elem&gt;</em></span>[<code>,</code> <span style="color:teal"><em>&lt;n&gt;</em></span>]<code>)</code> devuelve <span style="color:teal"><em>&lt;n&gt;</em></span> veces el elemento <span style="color:teal"><em>&lt;elem&gt;</em></span>, o lo devuelve indefinidamente si no se indica <span style="color:teal"><em>&lt;n&gt;</em></span>:</p>
+<li><p><code>itertools.repeat(</code><span style="color:teal">⟨<em>elem</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>n</em>⟩</span>]<code>)</code> devuelve <span style="color:teal">⟨<em>n</em>⟩</span> veces el elemento <span style="color:teal">⟨<em>elem</em>⟩</span>, o lo devuelve indefinidamente si no se indica <span style="color:teal">⟨<em>n</em>⟩</span>:</p>
 <ul>
 <li><code>itertools.repeat('abc')</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc, abc, abc, …</li>
 <li><code>itertools.repeat('abc', 5)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc</li>
@@ -507,15 +507,15 @@ while not fin:<br />
 
 <ul>
 <li><p>Sintaxis:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;f_string&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>{{</code></strong> | <strong><code>}}</code></strong> | <span style="color:teal"><em>&lt;sustitución&gt;</em></span>)*<br />
-<span style="color:teal"><em>&lt;sustitución&gt;</em></span> ::= <strong><code>{</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> [<strong><code>!</code></strong><span style="color:teal"><em>&lt;conversión&gt;</em></span>] [<strong><code>:</code></strong><span style="color:teal"><em>&lt;especif&gt;</em></span>]<strong><code>}</code></strong><br />
-<span style="color:teal"><em>&lt;conversión&gt;</em></span> ::= <strong><code>s</code></strong> | <strong><code>r</code></strong> | <strong><code>a</code></strong><br />
-<span style="color:teal"><em>&lt;especif&gt;</em></span> ::= (<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> | <strong><code>NULL</code></strong> | <span style="color:teal"><em>&lt;sustitución&gt;</em></span>)*<br />
-<span style="color:teal"><em>&lt;carácter_literal&gt;</em></span> ::= <span style="color:teal"><em>&lt;cualquier code point excepto <strong><code>{</code></strong>, <strong><code>}</code></strong> o <strong><code>NULL</code></strong>&gt;</em></span></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>f_string</em>⟩</span> ::= (<span style="color:teal">⟨<em>carácter_literal</em>⟩</span> | <strong><code>{{</code></strong> | <strong><code>}}</code></strong> | <span style="color:teal">⟨<em>sustitución</em>⟩</span>)*<br />
+<span style="color:teal">⟨<em>sustitución</em>⟩</span> ::= <strong><code>{</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> [<strong><code>!</code></strong><span style="color:teal">⟨<em>conversión</em>⟩</span>] [<strong><code>:</code></strong><span style="color:teal">⟨<em>especif</em>⟩</span>]<strong><code>}</code></strong><br />
+<span style="color:teal">⟨<em>conversión</em>⟩</span> ::= <strong><code>s</code></strong> | <strong><code>r</code></strong> | <strong><code>a</code></strong><br />
+<span style="color:teal">⟨<em>especif</em>⟩</span> ::= (<span style="color:teal">⟨<em>carácter_literal</em>⟩</span> | <strong><code>NULL</code></strong> | <span style="color:teal">⟨<em>sustitución</em>⟩</span>)*<br />
+<span style="color:teal">⟨<em>carácter_literal</em>⟩</span> ::= <span style="color:teal">⟨<em>cualquier code point excepto <strong><code>{</code></strong>, <strong><code>}</code></strong> o <strong><code>NULL</code></strong></em>⟩</span></div></li>
 <li><p>Las partes de la cadena que van fuera de las llaves se tratan literalmente, excepto las dobles llaves <code>{{</code> y <code>}}</code>, que son sustituidas por una sola llave.</p></li>
-<li><p>Una <code>{</code> marca el comienzo de un <strong>campo de sustitución</strong> (<span style="color:teal"><em>&lt;sustitución&gt;</em></span>), que empieza con una expresión.</p></li>
-<li><p>Tras la expresión puede venir un <strong>conversión</strong> (<span style="color:teal"><em>&lt;conversión&gt;</em></span>), introducida por una exclamación <code>!</code>.</p></li>
-<li><p>También puede añadirse un <strong>especificador de formato</strong> (<span style="color:teal"><em>&lt;especif&gt;</em></span>) después de dos puntos <code>:</code>.</p></li>
+<li><p>Una <code>{</code> marca el comienzo de un <strong>campo de sustitución</strong> (<span style="color:teal">⟨<em>sustitución</em>⟩</span>), que empieza con una expresión.</p></li>
+<li><p>Tras la expresión puede venir un <strong>conversión</strong> (<span style="color:teal">⟨<em>conversión</em>⟩</span>), introducida por una exclamación <code>!</code>.</p></li>
+<li><p>También puede añadirse un <strong>especificador de formato</strong> (<span style="color:teal">⟨<em>especif</em>⟩</span>) después de dos puntos <code>:</code>.</p></li>
 <li><p>El campo de sustitución termina con una <code>}</code>.</p></li>
 </ul>
 </section><section class="slide level4">
@@ -538,14 +538,14 @@ while not fin:<br />
 <li>La sintaxis general de un especificador de formato es:</li>
 </ul>
 
-<div class="line-block"><span style="color:teal"><em>&lt;especif&gt;</em></span> ::= [[<span style="color:teal"><em>&lt;relleno&gt;</em></span>]<span style="color:teal"><em>&lt;alig&gt;</em></span>][<span style="color:teal"><em>&lt;signo&gt;</em></span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span style="color:teal"><em>&lt;ancho&gt;</em></span>][<span style="color:teal"><em>&lt;grupos&gt;</em></span>][<strong><code>.</code></strong><span style="color:teal"><em>&lt;precision&gt;</em></span>][<span style="color:teal"><em>&lt;tipo&gt;</em></span>]<br />
-<span style="color:teal"><em>&lt;relleno&gt;</em></span> ::= <span style="color:teal"><em>&lt;cualquier carácter&gt;</em></span><br />
-<span style="color:teal"><em>&lt;alig&gt;</em></span> ::= <strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong> | <strong><code>=</code></strong> | <strong><code>^</code></strong><br />
-<span style="color:teal"><em>&lt;signo&gt;</em></span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <span style="color:teal"><em>&lt;espacio&gt;</em></span><br />
-<span style="color:teal"><em>&lt;ancho&gt;</em></span> ::= <span style="color:teal"><em>&lt;dígito&gt;</em></span>+<br />
-<span style="color:teal"><em>&lt;grupos&gt;</em></span> ::= <strong><code>_</code></strong> | <strong><code>,</code></strong><br />
-<span style="color:teal"><em>&lt;precision&gt;</em></span> ::= <span style="color:teal"><em>&lt;dígito&gt;</em></span>+<br />
-<span style="color:teal"><em>&lt;tipo&gt;</em></span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div>
+<div class="line-block"><span style="color:teal">⟨<em>especif</em>⟩</span> ::= [[<span style="color:teal">⟨<em>relleno</em>⟩</span>]<span style="color:teal">⟨<em>alig</em>⟩</span>][<span style="color:teal">⟨<em>signo</em>⟩</span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span style="color:teal">⟨<em>ancho</em>⟩</span>][<span style="color:teal">⟨<em>grupos</em>⟩</span>][<strong><code>.</code></strong><span style="color:teal">⟨<em>precision</em>⟩</span>][<span style="color:teal">⟨<em>tipo</em>⟩</span>]<br />
+<span style="color:teal">⟨<em>relleno</em>⟩</span> ::= <span style="color:teal">⟨<em>cualquier carácter</em>⟩</span><br />
+<span style="color:teal">⟨<em>alig</em>⟩</span> ::= <strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong> | <strong><code>=</code></strong> | <strong><code>^</code></strong><br />
+<span style="color:teal">⟨<em>signo</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <span style="color:teal">⟨<em>espacio</em>⟩</span><br />
+<span style="color:teal">⟨<em>ancho</em>⟩</span> ::= <span style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
+<span style="color:teal">⟨<em>grupos</em>⟩</span> ::= <strong><code>_</code></strong> | <strong><code>,</code></strong><br />
+<span style="color:teal">⟨<em>precision</em>⟩</span> ::= <span style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
+<span style="color:teal">⟨<em>tipo</em>⟩</span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div>
 
 <ul>
 <li><p>Los especificadores de formato de nivel superior pueden incluir campos de sustitución anidados.</p></li>
@@ -631,12 +631,12 @@ while not fin:<br />
 </section><section id="rangos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Rangos</h3><ul>
 <li><p>Los <strong>rangos</strong> representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
 <li><p>Los rangos se crean con la función <code>range()</code>:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;rango&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong>] <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;paso&gt;</em></span>]<strong><code>)</code></strong></div></li>
-<li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> deben ser números enteros.</p></li>
-<li><p>Cuando se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, se entiende que es <code>0</code>.</p></li>
-<li><p>El valor de <span style="color:teal"><em>&lt;fin&gt;</em></span> no se alcanza nunca.</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> y <span style="color:teal"><em>&lt;fin&gt;</em></span> son iguales, representa el <strong>rango vacío</strong>.</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> es mayor que <span style="color:teal"><em>&lt;fin&gt;</em></span>, el <span style="color:teal"><em>&lt;paso&gt;</em></span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
+<div class="line-block"><span style="color:teal">⟨<em>rango</em>⟩</span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal">⟨<em>inicio</em>⟩</span><strong><code>,</code></strong>] <span style="color:teal">⟨<em>fin</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>paso</em>⟩</span>]<strong><code>)</code></strong></div></li>
+<li><p><span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> y <span style="color:teal">⟨<em>paso</em>⟩</span> deben ser números enteros.</p></li>
+<li><p>Cuando se omite <span style="color:teal">⟨<em>inicio</em>⟩</span>, se entiende que es <code>0</code>.</p></li>
+<li><p>El valor de <span style="color:teal">⟨<em>fin</em>⟩</span> no se alcanza nunca.</p></li>
+<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> y <span style="color:teal">⟨<em>fin</em>⟩</span> son iguales, representa el <strong>rango vacío</strong>.</p></li>
+<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> es mayor que <span style="color:teal">⟨<em>fin</em>⟩</span>, el <span style="color:teal">⟨<em>paso</em>⟩</span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -673,7 +673,7 @@ while not fin:<br />
 </section><section class="slide level4">
 
 <ul>
-<li><p>Dos rangos son considerados iguales si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> o <span style="color:teal"><em>&lt;paso&gt;</em></span>.</p></li>
+<li><p>Dos rangos son considerados iguales si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> o <span style="color:teal">⟨<em>paso</em>⟩</span>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="va">True</span></span>
@@ -689,14 +689,14 @@ while not fin:<br />
 <li><p>Usando corchetes y separando los elementos con comas:</p>
 <p><code>[a]</code></p>
 <p><code>[a, b, c]</code></p></li>
-<li><p>Usando una lista por comprensión: <code>[</code><span class="math inline">x\ </span> <code>for</code> <span class="math inline">\ x\ </span> <code>in</code> <span class="math inline">\!</span> <span style="color:teal"><em>&lt;iterable&gt;</em></span><code>]</code></p></li>
-<li><p>Usando la función <code>list</code>: <code>list()</code> o <code>list(</code><span style="color:teal"><em>&lt;iterable&gt;</em></span><code>)</code></p></li>
+<li><p>Usando una lista por comprensión: <code>[</code><span class="math inline">x\ </span> <code>for</code> <span class="math inline">\ x\ </span> <code>in</code> <span class="math inline">\!</span> <span style="color:teal">⟨<em>iterable</em>⟩</span><code>]</code></p></li>
+<li><p>Usando la función <code>list</code>: <code>list()</code> o <code>list(</code><span style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code></p></li>
 </ul></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>La función <code>list</code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal"><em>&lt;iterable&gt;</em></span>.</p></li>
-<li><p><span style="color:teal"><em>&lt;iterable&gt;</em></span> puede ser:</p>
+<li><p>La función <code>list</code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal">⟨<em>iterable</em>⟩</span>.</p></li>
+<li><p><span style="color:teal">⟨<em>iterable</em>⟩</span> puede ser:</p>
 <ul>
 <li><p>una secuencia,</p></li>
 <li><p>un contenedor sobre el que se pueda iterar, o</p></li>
@@ -1019,7 +1019,7 @@ while not fin:<br />
 <li><p>Tales correspondencias son datos mutables.</p></li>
 <li><p>Los diccionarios se pueden crear:</p>
 <ul>
-<li><p>Encerrando entre llaves una lista de pares <span style="color:teal"><em>&lt;clave&gt;</em></span><strong><code>:</code></strong><span style="color:teal"><em>&lt;valor&gt;</em></span> separados por comas: <code>{'juan': 4098, 'pepe': 4127}</code></p></li>
+<li><p>Encerrando entre llaves una lista de pares <span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span style="color:teal">⟨<em>valor</em>⟩</span> separados por comas: <code>{'juan': 4098, 'pepe': 4127}</code></p></li>
 <li><p>Usando la función <code>dict()</code>.</p></li>
 </ul></li>
 </ul></section><section class="slide level4">

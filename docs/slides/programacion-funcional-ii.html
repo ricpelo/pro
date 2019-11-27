@@ -241,8 +241,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Las <strong>expresiones lambda</strong> (también llamadas <strong>abstracciones lambda</strong> o <strong>funciones anónimas</strong> en algunos lenguajes) son expresiones que capturan la idea abstracta de «<strong>función</strong>».</p></li>
 <li><p>Son la forma más simple y primitiva de describir funciones en un lenguaje funcional.</p></li>
 <li><p>Su sintaxis (simplificada) es:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;expr_lambda&gt;</em></span> ::= <strong><code>lambda</code></strong> [<span style="color:teal"><em>&lt;lista_parámetros&gt;</em></span>]<strong><code>:</code></strong> <span style="color:teal"><em>&lt;expresión&gt;</em></span><br />
-<span style="color:teal"><em>&lt;lista_parámetros&gt;</em></span> := <span style="color:teal"><em>&lt;identificador&gt;</em></span> (<strong><code>,</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span>)*</div></li>
+<div class="line-block"><span style="color:teal">⟨<em>expr_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> := <span style="color:teal">⟨<em>identificador</em>⟩</span> (<strong><code>,</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span>)*</div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div></li>
 </ul></section><section id="parámetros-y-cuerpos" class="title-slide slide level3"><h3><span class="header-section-number">1.1.1</span> Parámetros y cuerpos</h3><ul>
@@ -658,8 +658,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En <strong>Python</strong> la evaluación es <strong>estricta</strong>, salvo algunas excepciones:</p>
 <ul>
 <li><p>El operador ternario:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;expr_condicional&gt;</em></span> ::= <span style="color:teal"><em>&lt;valor_si_cierto&gt;</em></span> <strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span> <strong><code>else</code></strong> <span style="color:teal"><em>&lt;valor_si_falso&gt;</em></span></div>
-<p>evalúa perezosamente <span style="color:teal"><em>&lt;valor_si_cierto&gt;</em></span> y <span style="color:teal"><em>&lt;valor_si_falso&gt;</em></span>.</p></li>
+<div class="line-block"><span style="color:teal">⟨<em>expr_condicional</em>⟩</span> ::= <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span> <strong><code>else</code></strong> <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span></div>
+<p>evalúa perezosamente <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> y <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span>.</p></li>
 <li><p>Los operadores lógicos <code>and</code> y <code>or</code> también son perezosos (se dice que evalúan <strong>en cortocircuito</strong>):</p>
 <ul>
 <li><p><code>True or x</code> siempre es igual a <code>True</code>.</p></li>
@@ -1209,12 +1209,12 @@ proporcional a <code>n</code></td>
 </section><section id="rangos" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Rangos</h2><ul>
 <li><p>Un rango es un tipo de dato cuyos valores representan <strong>sencuencias de números enteros</strong>.</p></li>
 <li><p>Los rangos se crean con la función <code>range</code>, cuya sintaxis es:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;rango&gt;</em></span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal"><em>&lt;inicio&gt;</em></span><strong><code>,</code></strong>] <span style="color:teal"><em>&lt;fin&gt;</em></span>[<strong><code>,</code></strong> <span style="color:teal"><em>&lt;paso&gt;</em></span>]<strong><code>)</code></strong></div></li>
-<li><p><span style="color:teal"><em>&lt;inicio&gt;</em></span>, <span style="color:teal"><em>&lt;fin&gt;</em></span> y <span style="color:teal"><em>&lt;paso&gt;</em></span> deben ser números enteros.</p></li>
-<li><p>Cuando se omite <span style="color:teal"><em>&lt;inicio&gt;</em></span>, se entiende que es <code>0</code>.</p></li>
-<li><p>El valor de <span style="color:teal"><em>&lt;fin&gt;</em></span> no se alcanza nunca.</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> y <span style="color:teal"><em>&lt;fin&gt;</em></span> son iguales, representa el <em>rango vacío</em>.</p></li>
-<li><p>Cuando <span style="color:teal"><em>&lt;inicio&gt;</em></span> es mayor que <span style="color:teal"><em>&lt;fin&gt;</em></span>, el <span style="color:teal"><em>&lt;paso&gt;</em></span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
+<div class="line-block"><span style="color:teal">⟨<em>rango</em>⟩</span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal">⟨<em>inicio</em>⟩</span><strong><code>,</code></strong>] <span style="color:teal">⟨<em>fin</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>paso</em>⟩</span>]<strong><code>)</code></strong></div></li>
+<li><p><span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> y <span style="color:teal">⟨<em>paso</em>⟩</span> deben ser números enteros.</p></li>
+<li><p>Cuando se omite <span style="color:teal">⟨<em>inicio</em>⟩</span>, se entiende que es <code>0</code>.</p></li>
+<li><p>El valor de <span style="color:teal">⟨<em>fin</em>⟩</span> no se alcanza nunca.</p></li>
+<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> y <span style="color:teal">⟨<em>fin</em>⟩</span> son iguales, representa el <em>rango vacío</em>.</p></li>
+<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> es mayor que <span style="color:teal">⟨<em>fin</em>⟩</span>, el <span style="color:teal">⟨<em>paso</em>⟩</span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -1317,7 +1317,7 @@ proporcional a <code>n</code></td>
 <li><p>La función de <code>a</code> que se utiliza para calcular cada término</p></li>
 </ul></li>
 <li><p>Podríamos haber escrito las funciones anteriores rellenando los «casilleros» del siguiente <em>patrón general</em>:</p>
-<div class="line-block"><span style="color:teal"><em>&lt;nombre&gt;</em></span> = <strong><code>lambda</code></strong> a, b: 0 <strong><code>if</code></strong> a &gt; b <strong><code>else</code></strong> <span style="color:teal"><em>&lt;término&gt;</em></span>(a) + <span style="color:teal"><em>&lt;nombre&gt;</em></span>(a + 1, b)</div></li>
+<div class="line-block"><span style="color:teal">⟨<em>nombre</em>⟩</span> = <strong><code>lambda</code></strong> a, b: 0 <strong><code>if</code></strong> a &gt; b <strong><code>else</code></strong> <span style="color:teal">⟨<em>término</em>⟩</span>(a) + <span style="color:teal">⟨<em>nombre</em>⟩</span>(a + 1, b)</div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1353,8 +1353,8 @@ proporcional a <code>n</code></td>
 <span id="cb63-2"><a href="#cb63-2"></a>                          [(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(l[<span class="dv">0</span>])] <span class="op">+</span> elevar_cuarta(l[<span class="dv">1</span>:])</span></code></pre></div></li>
 <li><p>Es evidente que hay un patrón subyacente que se podría abstraer creando una función de orden superior que aplique una función <code>f</code> a los elementos de una lista y devuelva la lista resultante.</p>
 <p>Esa función se llama <code>map</code>, y viene definida en Python:</p>
-<div class="line-block">map(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;iterable&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div>
-<p>donde <span style="color:teal"><em>&lt;iterable&gt;</em></span> puede ser cualquier cosa compuesta de elementos que se puedan recorrer de uno en uno, como una <strong>lista</strong>, una <strong>cadena</strong> o un <strong>rango</strong> (cualquier <em>secuencia</em> de elementos vale).</p></li>
+<div class="line-block">map(<span style="color:teal">⟨<em>función</em>⟩</span>, <span style="color:teal">⟨<em>iterable</em>⟩</span>) -&gt; <span style="color:teal">⟨<em>iterador</em>⟩</span></div>
+<p>donde <span style="color:teal">⟨<em>iterable</em>⟩</span> puede ser cualquier cosa compuesta de elementos que se puedan recorrer de uno en uno, como una <strong>lista</strong>, una <strong>cadena</strong> o un <strong>rango</strong> (cualquier <em>secuencia</em> de elementos vale).</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1381,7 +1381,7 @@ proporcional a <code>n</code></td>
 </section><section id="filter" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> <code>filter</code></h2><ul>
 <li><p><code>filter</code> es una <strong>función de orden superior</strong> que devuelve aquellos elementos de una lista (o cualquier cosa <em>iterable</em>) que cumplen una determinada condición.</p></li>
 <li><p>Su sintaxis es:</p>
-<div class="line-block">filter(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;iterable&gt;</em></span>) -&gt; <span style="color:teal"><em>&lt;iterador&gt;</em></span></div></li>
+<div class="line-block">filter(<span style="color:teal">⟨<em>función</em>⟩</span>, <span style="color:teal">⟨<em>iterable</em>⟩</span>) -&gt; <span style="color:teal">⟨<em>iterador</em>⟩</span></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, [<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">-2</span>, <span class="dv">8</span>, <span class="dv">-3</span>, <span class="dv">9</span>]))</span>
 <span id="cb68-2"><a href="#cb68-2"></a>[<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span></code></pre></div></li>
@@ -1400,9 +1400,9 @@ proporcional a <code>n</code></td>
 <li><p>Si abstraemos ese patrón común podemos crear una función de orden superior que capture la idea de <strong>reducir todos los elementos de una lista a un único valor</strong>.</p></li>
 <li><p>Eso es lo que hace la función <code>reduce</code>.</p></li>
 <li><p>Su sintaxis es:</p>
-<div class="line-block">reduce(<span style="color:teal"><em>&lt;función&gt;</em></span>, <span style="color:teal"><em>&lt;iterable&gt;</em></span>[, <span style="color:teal"><em>&lt;valor_inicial&gt;</em></span>]) -&gt; <span style="color:teal"><em>&lt;valor&gt;</em></span></div></li>
-<li><p>El <span style="color:teal"><em>&lt;valor_inicial&gt;</em></span>, si existe, se usará como primer elemento de la lista en el cálculo y sirve como valor por defecto cuando la lista está vacía.</p></li>
-<li><p>La <span style="color:teal"><em>&lt;función&gt;</em></span> debe recibir dos argumentos y devolver un valor.</p></li>
+<div class="line-block">reduce(<span style="color:teal">⟨<em>función</em>⟩</span>, <span style="color:teal">⟨<em>iterable</em>⟩</span>[, <span style="color:teal">⟨<em>valor_inicial</em>⟩</span>]) -&gt; <span style="color:teal">⟨<em>valor</em>⟩</span></div></li>
+<li><p>El <span style="color:teal">⟨<em>valor_inicial</em>⟩</span>, si existe, se usará como primer elemento de la lista en el cálculo y sirve como valor por defecto cuando la lista está vacía.</p></li>
+<li><p>La <span style="color:teal">⟨<em>función</em>⟩</span> debe recibir dos argumentos y devolver un valor.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1451,11 +1451,11 @@ proporcional a <code>n</code></td>
 <li>Su sintaxis es:</li>
 </ul>
 
-<div class="line-block"><span style="color:teal"><em>&lt;lista_comp&gt;</em></span> ::= <strong><code>[</code></strong><span style="color:teal"><em>&lt;expresión&gt;</em></span> (<strong><code>for</code></strong> <span style="color:teal"><em>&lt;identificador&gt;</em></span> <strong><code>in</code></strong> <span style="color:teal"><em>&lt;secuencia&gt;</em></span> [<strong><code>if</code></strong> <span style="color:teal"><em>&lt;condición&gt;</em></span>])+<strong><code>]</code></strong></div>
+<div class="line-block"><span style="color:teal">⟨<em>lista_comp</em>⟩</span> ::= <strong><code>[</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>]</code></strong></div>
 
 <ul>
-<li><p>Los elementos de la salida generada serán los sucesivos valores de <span style="color:teal"><em>&lt;expresión&gt;</em></span>.</p></li>
-<li><p>Las cláusulas <strong><code>if</code></strong> son opcionales. Si están, la <span style="color:teal"><em>&lt;expresión&gt;</em></span> sólo se evaluará y añadirá al resultado cuando se cumpla la <span style="color:teal"><em>&lt;condición&gt;</em></span>.</p></li>
+<li><p>Los elementos de la salida generada serán los sucesivos valores de <span style="color:teal">⟨<em>expresión</em>⟩</span>.</p></li>
+<li><p>Las cláusulas <strong><code>if</code></strong> son opcionales. Si están, la <span style="color:teal">⟨<em>expresión</em>⟩</span> sólo se evaluará y añadirá al resultado cuando se cumpla la <span style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
 <span id="cb74-2"><a href="#cb74-2"></a><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
