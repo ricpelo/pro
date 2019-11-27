@@ -1221,12 +1221,13 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 - La sintaxis define dos elementos principales:
 
-  - Los componentes léxicos, es decir, los elementos mínimos que forman un
+  - Los **componentes léxicos**, es decir, los elementos mínimos que forman un
     programa (palabras clave, identificadores, caracteres de puntuación como
     paréntesis o comas, etc...).
 
-  - La estructura gramatical, es decir, cómo se pueden combinar los componentes
-    léxicos para formar «frases» correctas según la sintaxis del lenguaje.
+  - La **estructura gramatical**, es decir, cómo se pueden combinar los
+    componentes léxicos para formar «frases» correctas según la sintaxis del
+    lenguaje.
 
 #### Notación EBNF
 
