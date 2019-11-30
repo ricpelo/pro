@@ -1789,8 +1789,8 @@ y -> 25
   >>> z = y
   ```
 
-  Según la línea en la que nos encontremos, tenemos los siguientes marcos
-  globales:
+  Según la línea hasta donde hayamos ejecutado, el marco global contendrá lo
+  siguiente:
 
 &nbsp; 
 
@@ -1849,7 +1849,7 @@ subgraph cluster0 {
 
 ## Entorno (*environment*)
 
-- Un **entorno** (del inglés, *environment*) es una secuencia de **marcos** que
+- Un **entorno** (del inglés, *environment*) es una **secuencia de marcos** que
   contienen todas las ligaduras válidas en un punto concreto del programa.
 
 - Es decir, el entorno nos dice qué identificadores son accesibles en un
