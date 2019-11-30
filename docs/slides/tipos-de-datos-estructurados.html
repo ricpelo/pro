@@ -823,26 +823,72 @@ while not fin:<br />
 </ul>
 </section></section>
 <section><section id="estructuras-no-secuenciales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras no secuenciales</h1></section><section id="conjuntos-set-y-frozenset" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2><ul>
-<li><p>Un conjunto es una colección no ordenada de elementos <em>hashables</em>. Se usan frecuentemente para comprobar si un elemento pertenece a un grupo, para eliminar duplicados en una secuencia y para realizar operaciones matemáticas como la unión, la intersección y la diferencia simétrica.</p></li>
+<li><p>Un conjunto es una colección <strong>no ordenada</strong> de elementos <em>hashables</em>. Se usan frecuentemente para comprobar si un elemento pertenece a un grupo, para eliminar duplicados en una secuencia y para realizar operaciones matemáticas como la unión, la intersección y la diferencia simétrica.</p></li>
 <li><p>Como cualquier otra colección, los conjuntos permiten el uso de:</p>
 <ul>
 <li><span class="math inline">x\ </span> <code>in</code> <span class="math inline">\ c</span></li>
 <li><code>len(</code><span class="math inline">c</span><code>)</code></li>
 <li><code>for</code> <span class="math inline">\ x\ </span> <code>in</code> <span class="math inline">\ c</span></li>
 </ul></li>
-<li><p>Como son colecciones no ordenadas, los conjuntos no almacenan la posición de los elementos o el orden en el que se insertaron.</p></li>
-<li><p>Además, tampoco admite la indexación, las rodajas ni cualquier otro comportamiento propio de las secuencias.</p></li>
+<li><p>Como son colecciones no ordenadas, los conjuntos <strong>no almacenan la posición</strong> de los elementos o el <strong>orden</strong> en el que se insertaron.</p></li>
+<li><p>Por tanto, tampoco admite la indexación, las rodajas ni cualquier otro comportamiento propio de las secuencias.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
-<li><p>El tipo <code>set</code> es mutable, es decir, que su contenido puede cambiar usando métodos como <code>add()</code> y <code>remove()</code>.</p>
+<li><p>Cuando decimos que <strong>un conjunto no está ordenado</strong>, queremos decir que los elementos que contiene no se encuentran situados en una posición concreta.</p>
 <ul>
-<li>Como es mutable, no es <em>hashable</em> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
+<li>A diferencia de lo que ocurre con las sencuencias, donde cada elemento se encuentra en una posición indicada por su <em>índice</em> y podemos acceder a él usando la indexación.</li>
 </ul></li>
-<li><p>El tipo <code>frozenset</code> es inmutable y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
-<li><p>Los conjuntos se crean con las funciones <code>set()</code> y <code>frozenset()</code>.</p></li>
-<li><p>Además, los conjuntos <code>set</code> no vacíos se pueden crear encerrando entre llaves una lista de elementos separados por comas: <code>{'pepe', 'juan'}</code>.</p></li>
+<li><p>Además, en un conjunto <strong>no puede haber elementos repetidos</strong> (un elemento concreto sólo puede estar <em>una vez</em> dentro de un conjunto, es decir, o está una vez o no está).</p></li>
+<li><p>En resumen:</p>
+<div class="caja">
+<p><strong>En un conjunto:</strong></p>
+<p>Un elemento concreto, o está una vez, o no está.</p>
+<p>Si está, no podemos saber en qué posición (no tiene sentido preguntárselo).</p>
+</div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
+<li><p>El tipo <code>set</code> es <strong>mutable</strong>, es decir, que su contenido puede cambiar usando métodos como <code>add()</code> y <code>remove()</code>.</p>
+<ul>
+<li>Como es mutable, <strong>no es <em>hashable</em></strong> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
+</ul></li>
+<li><p>El tipo <code>frozenset</code> es <strong>inmutable</strong> y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Los conjuntos se crean con las funciones <code>set(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code> y <code>frozenset(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code>.</p>
+<ul>
+<li><p>Si se llaman <em>sin argumentos</em>, devuelven un conjunto <strong>vacío</strong>:</p>
+<ul>
+<li><p><code>set()</code> devuelve un conjunto vacío de tipo <code>set</code>.</p></li>
+<li><p><code>frozenset()</code> devuelve un conjunto vacío de tipo <code>frozenset</code>.</p></li>
+</ul></li>
+<li><p>Si se les pasa un <em>iterable</em> (como por ejemplo, una lista), devuelve un conjunto formado por los elementos del iterable:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb14-2"><a href="#cb14-2"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Además, existe una <em>sintaxis especial</em> para escribir <strong>literales de conjuntos no vacíos de tipo <code>set</code></strong>, que consiste en encerrar sus elementos entre llaves y separados por comas: <code>{'pepe', 'juan'}</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> {<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}  <span class="co"># un literal de tipo set, como set([&#39;pepe&#39;, &#39;juan&#39;])</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb15-3"><a href="#cb15-3"></a>{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(x)</span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;set&#39;</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Por tanto, para crear conjuntos congelados usando <code>frozenset()</code> podemos usar esa sintaxis en lugar de usar listas como hicimos antes:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
+<li><p>También podría usarse con la función <code>set()</code>, pero no tendría sentido, ya que devolvería el mismo conjunto:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})  <span class="co"># equivale a poner simplemente {4, 3, 2, 2, 4}</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span></code></pre></div></li>
 </ul>
 </section><section id="operaciones" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Operaciones</h3><ul>
 <li><code>s</code> y <code>o</code> son conjuntos, y <code>x</code> es un valor cualquiera:</li>
@@ -937,10 +983,15 @@ while not fin:<br />
 </section><section class="slide level4">
 
 <ul>
-<li><p>Tanto <code>set</code> como <code>frozenset</code> admiten comparaciones entre conjuntos.</p></li>
-<li><p>Dos conjuntos son iguales si y sólo si cada elemento de un conjunto pertenece también al otro conjunto, y viceversa; es decir, si cada uno es un subconjunto del otro.</p></li>
-<li><p>Un conjunto es menor que otro si y sólo si el primer conjunto está contenido en el otro; es decir, si el primero es un subconjunto propio del segundo (es un subconjunto, pero no es igual).</p></li>
-<li><p>Un conjunto es mayor que otro si y sólo si el primero es un superconjunto propio del segundo (es un superconjunto, pero no es igual).</p></li>
+<li><p>Tanto <code>set</code> como <code>frozenset</code> admiten <strong>comparaciones entre conjuntos</strong>.</p></li>
+<li><p>Suponiendo que <code>a</code> y <code>b</code> son conjuntos:</p>
+<ul>
+<li><p><code>a == b</code> si y sólo si cada elemento de <code>a</code> pertenece también a <code>b</code>, y viceversa; es decir, si cada uno es un subconjunto del otro.</p></li>
+<li><p><code>a &lt;= b</code> si y sólo si <code>a</code> es un <em>subconjunto</em> de <code>b</code> (es decir, si cada elemento de <code>a</code> está también en <code>b</code>).</p></li>
+<li><p><code>a &lt; b</code> si y sólo si <code>a</code> es un <em>subconjunto propio</em> de <code>b</code> (es decir, si <code>a</code> es un subconjunto de <code>b</code>, pero no es igual a <code>b</code>).</p></li>
+<li><p><code>a &gt;= b</code> si y sólo si <code>a</code> es un <em>superconjunto</em> de <code>b</code> (es decir, si cada elemento de <code>b</code> está también en <code>a</code>).</p></li>
+<li><p><code>a &gt; b</code> si y sólo si <code>a</code> es un <em>superconjunto propio</em> de <code>b</code> (es decir, si <code>a</code> es un superconjunto de <code>b</code>, pero no es igual a <code>b</code>).</p></li>
+</ul></li>
 </ul>
 </section><section id="operaciones-sobre-conjuntos-mutables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Operaciones sobre conjuntos mutables</h3><ul>
 <li>Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo <code>set</code> y no al <code>frozenset</code>):</li>
@@ -1036,13 +1087,13 @@ while not fin:<br />
 
 <ul>
 <li><p>Los diccionarios se pueden crear usando la función <code>dict()</code>. Por ejemplo:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="bu">dict</span>(one<span class="op">=</span><span class="dv">1</span>, two<span class="op">=</span><span class="dv">2</span>, three<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> {<span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;three&#39;</span>: <span class="dv">3</span>}</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>, <span class="st">&#39;three&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;two&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;one&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;three&#39;</span>, <span class="dv">3</span>)])</span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;three&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>})</span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="op">==</span> c <span class="op">==</span> d <span class="op">==</span> e</span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="bu">dict</span>(one<span class="op">=</span><span class="dv">1</span>, two<span class="op">=</span><span class="dv">2</span>, three<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> {<span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;three&#39;</span>: <span class="dv">3</span>}</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>, <span class="st">&#39;three&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;two&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;one&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;three&#39;</span>, <span class="dv">3</span>)])</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;three&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;one&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;two&#39;</span>: <span class="dv">2</span>})</span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="op">==</span> c <span class="op">==</span> d <span class="op">==</span> e</span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section><section id="operaciones-1" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Operaciones</h3><ul>
 <li><code>d</code> y <code>o</code> son diccionarios, <code>c</code> es una clave válida y <code>v</code> es un valor cualquiera:</li>

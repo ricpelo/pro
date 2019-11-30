@@ -794,8 +794,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ## Conjuntos (`set` y `frozenset`)
 
-- Un conjunto es una colección no ordenada de elementos *hashables*. Se usan
-  frecuentemente para comprobar si un elemento pertenece a un grupo, para
+- Un conjunto es una colección **no ordenada** de elementos *hashables*. Se
+  usan frecuentemente para comprobar si un elemento pertenece a un grupo, para
   eliminar duplicados en una secuencia y para realizar operaciones matemáticas
   como la unión, la intersección y la diferencia simétrica.
 
@@ -805,30 +805,100 @@ $s$`.reverse()`        Invierte los elementos de $s$
   - `len(`$c$`)`
   - `for` $\ x\ $ `in` $\ c$
 
-- Como son colecciones no ordenadas, los conjuntos no almacenan la posición de
-  los elementos o el orden en el que se insertaron.
+- Como son colecciones no ordenadas, los conjuntos **no almacenan la posición**
+  de los elementos o el **orden** en el que se insertaron.
   
-- Además, tampoco admite la indexación, las rodajas ni cualquier otro
+- Por tanto, tampoco admite la indexación, las rodajas ni cualquier otro
   comportamiento propio de las secuencias.
+
+---
+
+- Cuando decimos que **un conjunto no está ordenado**, queremos decir que los
+  elementos que contiene no se encuentran situados en una posición concreta.
+
+  - A diferencia de lo que ocurre con las sencuencias, donde cada elemento se
+    encuentra en una posición indicada por su *índice* y podemos acceder a él
+    usando la indexación.
+
+- Además, en un conjunto **no puede haber elementos repetidos** (un elemento
+  concreto sólo puede estar *una vez* dentro de un conjunto, es decir, o está
+  una vez o no está).
+
+- En resumen:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **En un conjunto:**
+
+  Un elemento concreto, o está una vez, o no está.
+
+  Si está, no podemos saber en qué posición (no tiene sentido preguntárselo).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - Existen dos tipos predefinidos de conjuntos: `set` y `frozenset`.
 
-- El tipo `set` es mutable, es decir, que su contenido puede cambiar usando
+- El tipo `set` es **mutable**, es decir, que su contenido puede cambiar usando
   métodos como `add()` y `remove()`.
 
-  - Como es mutable, no es *hashable* y, por tanto, no puede usarse como clave
-    de un diccionario o como elemento de otro conjunto.
+  - Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
+    clave de un diccionario o como elemento de otro conjunto.
 
-- El tipo `frozenset` es inmutable y *hashable*. Por tanto, su contenido no se
-  puede cambiar una vez creado y puede usarse como clave de un diccionario o
+- El tipo `frozenset` es **inmutable** y *hashable*. Por tanto, su contenido no
+  se puede cambiar una vez creado y puede usarse como clave de un diccionario o
   como elemento de otro conjunto.
 
-- Los conjuntos se crean con las funciones `set()` y `frozenset()`.
+---
 
-- Además, los conjuntos `set` no vacíos se pueden crear encerrando entre llaves
-  una lista de elementos separados por comas: `{'pepe', 'juan'}`.
+- Los conjuntos se crean con las funciones `set(`[!NT(iterable)]`)` y
+  `frozenset(`[!NT(iterable)]`)`.
+
+  - Si se llaman *sin argumentos*, devuelven un conjunto **vacío**:
+  
+    - `set()` devuelve un conjunto vacío de tipo `set`.
+
+    - `frozenset()` devuelve un conjunto vacío de tipo `frozenset`.
+
+  - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
+    conjunto formado por los elementos del iterable:
+
+    ```python
+    >>> set([4, 3, 2, 2, 4])
+    {2, 3, 4}
+    >>> frozenset([4, 3, 2, 2, 4])
+    frozenset({2, 3, 4})
+    ```
+
+---
+
+- Además, existe una *sintaxis especial* para escribir **literales de conjuntos
+  no vacíos de tipo `set`**, que consiste en encerrar sus elementos entre
+  llaves y separados por comas: `{'pepe', 'juan'}`.
+
+  ```python
+  >>> x = {'pepe', 'juan'}  # un literal de tipo set, como set(['pepe', 'juan'])
+  >>> x
+  {'pepe', 'juan'}
+  >>> type(x)
+  <class 'set'>
+  ```
+
+- Por tanto, para crear conjuntos congelados usando `frozenset()` podemos usar
+  esa sintaxis en lugar de usar listas como hicimos antes:
+
+    ```python
+    >>> frozenset({4, 3, 2, 2, 4})
+    frozenset({2, 3, 4})
+    ```
+
+- También podría usarse con la función `set()`, pero no tendría sentido, ya que
+  devolvería el mismo conjunto:
+
+  ```python
+  >>> set({4, 3, 2, 2, 4})  # equivale a poner simplemente {4, 3, 2, 2, 4}
+  {2, 3, 4}
+  ```
 
 ### Operaciones
 
@@ -878,18 +948,24 @@ $s$`.copy()`                        Devuelve una copia superficial de $s$
 
 ---
 
-- Tanto `set` como `frozenset` admiten comparaciones entre conjuntos.
+- Tanto `set` como `frozenset` admiten **comparaciones entre conjuntos**.
 
-- Dos conjuntos son iguales si y sólo si cada elemento de un conjunto pertenece
-  también al otro conjunto, y viceversa; es decir, si cada uno es un
-  subconjunto del otro.
+- Suponiendo que `a` y `b` son conjuntos:
 
-- Un conjunto es menor que otro si y sólo si el primer conjunto está contenido
-  en el otro; es decir, si el primero es un subconjunto propio del segundo (es
-  un subconjunto, pero no es igual).
+  - `a == b` si y sólo si cada elemento de `a` pertenece también a `b`, y
+    viceversa; es decir, si cada uno es un subconjunto del otro.
 
-- Un conjunto es mayor que otro si y sólo si el primero es un superconjunto
-  propio del segundo (es un superconjunto, pero no es igual).
+  - `a <= b` si y sólo si `a` es un *subconjunto* de `b` (es decir, si cada
+    elemento de `a` está también en `b`).
+
+  - `a < b` si y sólo si `a` es un *subconjunto propio* de `b` (es decir, si
+    `a` es un subconjunto de `b`, pero no es igual a `b`).
+
+  - `a >= b` si y sólo si `a` es un *superconjunto* de `b` (es decir, si cada
+    elemento de `b` está también en `a`).
+
+  - `a > b` si y sólo si `a` es un *superconjunto propio* de `b` (es decir, si
+    `a` es un superconjunto de `b`, pero no es igual a `b`).
 
 ### Operaciones sobre conjuntos mutables
 
