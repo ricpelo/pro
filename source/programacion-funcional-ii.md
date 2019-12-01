@@ -1071,9 +1071,9 @@ E -> x [lhead = cluster0]
 
 ---
 
-- Para poder dominar las abstracciones funcionales, debemos considerar
-  principalmente su **especificación**, que está formada por tres propiedades
-  fundamentales:
+- Técnicamente, se dice que para poder **usar una abstracción funcional** nos
+  basta con conocer su **especificación**, que está formada por tres
+  propiedades fundamentales:
 
   - El **dominio**: el conjunto de argumentos válidos
   - El **rango**: el conjunto de valores que devuelve
