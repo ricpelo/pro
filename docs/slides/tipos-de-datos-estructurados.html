@@ -1105,6 +1105,9 @@ while not fin:<br />
 <span id="cb20-3"><a href="#cb20-3"></a>{<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span></code></pre></div>
 <p>Como se ve, la clave <code>'perro'</code> está repetida y, por tanto, sólo se almacena uno de los dos elementos con clave repetida, que siempre es el último que aparece en el diccionario. En este caso, se almacena el elemento <code>'perro': 'doggy'</code> y se ignora el <code>'perro': 'dog'</code>.</p></li>
 </ul>
+<div class="caja">
+<p>A partir de Python 3.7, <strong>los elementos de un diccionario se almacenan en el orden en el que se van insertando</strong>.</p>
+</div>
 </section><section class="slide level4">
 
 <ul>
@@ -1204,6 +1207,43 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
+</section><section id="recorrido-de-diccionarios" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Recorrido de diccionarios</h3><ul>
+<li><p>Como cualquier otro dato iterable, los diccionarios se pueden recorrer usando iteradores.</p></li>
+<li><p>Los iteradores creados sobre un diccionario, en realidad, recorren sus <strong>claves</strong>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
+<span id="cb23-2"><a href="#cb23-2"></a>{<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(d)</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">&#39;a&#39;</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co">&#39;b&#39;</span></span></code></pre></div></li>
+<li><p>Lo mismo ocurre con un bucle <code>for</code>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb24-2"><a href="#cb24-2"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb24-3"><a href="#cb24-3"></a>...</span>
+<span id="cb24-4"><a href="#cb24-4"></a>a</span>
+<span id="cb24-5"><a href="#cb24-5"></a>b</span></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Si necesitamos acceder también a los valores de un diccionario mientras lo recorremos con un bucle <code>for</code>, tenemos dos opciones:</p>
+<ul>
+<li><p>Acceder al valor a partir de la clave usando <strong>indexación</strong>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb25-2"><a href="#cb25-2"></a>...     <span class="bu">print</span>(k, d[k])</span>
+<span id="cb25-3"><a href="#cb25-3"></a>...</span>
+<span id="cb25-4"><a href="#cb25-4"></a>a <span class="dv">1</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>b <span class="dv">2</span></span></code></pre></div></li>
+<li><p>Usar el método <code>items()</code> sobre el diccionario, que devuelve una lista de tuplas <strong><code>(</code></strong><span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong> <span style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>, combinado con el <strong>desempaquetado de tuplas</strong>:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
+<span id="cb26-2"><a href="#cb26-2"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
+<span id="cb26-4"><a href="#cb26-4"></a>...     <span class="bu">print</span>(k, v)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>...</span>
+<span id="cb26-6"><a href="#cb26-6"></a>a <span class="dv">1</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>b <span class="dv">2</span></span></code></pre></div></li>
+</ul></li>
+</ul>
 </section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
 <div id="ref-python_software_foundation_sitio_nodate">

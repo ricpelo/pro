@@ -1079,6 +1079,12 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   aparece en el diccionario. En este caso, se almacena el elemento `'perro':
   'doggy'` y se ignora el `'perro': 'dog'`.
 
+!CAJA
+~~~~~~~~~~~~~
+A partir de Python 3.7, **los elementos de un diccionario se almacenan en el
+orden en el que se van insertando**.
+~~~~~~~~~~~~~
+
 ---
 
 - Las claves de un diccionario deben ser datos *hashables*.
@@ -1156,5 +1162,62 @@ $d$`.setdefault(`$c$[`,` $def$]`)`  Si $c$ está en $d$, devuelve su valor; si n
 $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $valor$) de $o$,
                                     sobreescribiendo las claves ya existentes, y devuelve `None`
 --------------------------------------------------------------------------------------
+
+### Recorrido de diccionarios
+
+- Como cualquier otro dato iterable, los diccionarios se pueden recorrer usando
+  iteradores.
+
+- Los iteradores creados sobre un diccionario, en realidad, recorren sus
+  **claves**:
+
+  ```python
+  >>> d
+  {'a': 1, 'b': 2}
+  >>> it = iter(d)
+  >>> next(it)
+  'a'
+  >>> next(it)
+  'b'
+  ```
+
+- Lo mismo ocurre con un bucle `for`:
+
+  ```python
+  >>> for k in d:
+  ...     print(k)
+  ...
+  a
+  b
+  ```
+
+---
+
+- Si necesitamos acceder también a los valores de un diccionario mientras lo
+  recorremos con un bucle `for`, tenemos dos opciones:
+
+  - Acceder al valor a partir de la clave usando **indexación**:
+
+    ```python
+    >>> for k in d:
+    ...     print(k, d[k])
+    ...
+    a 1
+    b 2
+    ```
+
+  - Usar el método `items()` sobre el diccionario, que devuelve una lista de
+    tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinado con el
+    **desempaquetado de tuplas**:
+
+    ```python
+    >>> d.items()
+    dict_items([('a', 1), ('b', 2)]
+    >>> for k, v in d.items():
+    ...     print(k, v)
+    ...
+    a 1
+    b 2
+    ```
 
 !BIBLIOGRAFIA
