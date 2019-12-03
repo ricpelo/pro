@@ -14,11 +14,12 @@ nocite: |
   descomponer y programar nuestro programa en partes llamadas **módulos**.
 
   - El concepto de *módulo* hay que entenderlo en sentido amplio: cualquier
-    parte de un programa se puede considerar módulo.
+    parte de un programa se puede considerar «módulo».
 
-- Equivale a la técnica clásica de resolución de problemas basada en
-  descomponer un problema en subproblemas y resolver cada subproblema por
-  separado para así obtener la solución al problema original.
+- Equivale a la técnica clásica de resolución de problemas basada en 1)
+  descomponer un problema en subproblemas; 2) resolver cada subproblema por
+  separado; y 3) combinar las soluciones para así obtener la solución al
+  problema original.
 
 - La **modularidad** es la propiedad que tienen los programas escritos
   siguiendo los principios de la programación modular.
