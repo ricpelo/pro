@@ -860,6 +860,16 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
     - `frozenset()` devuelve un conjunto vacío de tipo `frozenset`.
 
+    ```python
+    >>> set()
+    set()
+    >>> frozenset()
+    frozenset()
+    ```
+
+    Como se ve, esas son, precisamente, las formas normales de un conjunto
+    vacío de tipo `set` y `frozenset`.
+
   - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
     conjunto formado por los elementos del iterable:
 
@@ -883,6 +893,9 @@ $s$`.reverse()`        Invierte los elementos de $s$
   >>> type(x)
   <class 'set'>
   ```
+
+  Esa es, precisamente, la forma normal de un conjunto no vacío cuando se
+  visualiza desde el intérprete o se imprime con `print()`.
 
 - Por tanto, para crear conjuntos congelados usando `frozenset()` podemos usar
   esa sintaxis en lugar de usar listas como hicimos antes:
@@ -1007,24 +1020,71 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 
 ## Diccionarios (`dict`)
 
-- Un **diccionario** es un dato que almacena *correspondencias* (o
-  asociaciones) entre valores.
+- Un **diccionario** es una colección que almacena *correspondencias* (o
+  *asociaciones*) entre valores.
 
-- Tales correspondencias son datos mutables.
+- Por tanto, **los elementos de un diccionario son parejas de valores llamados
+  _clave_ y _valor_**, y lo que hace el diccionario es almacenar las
+  *claves* y el *valor* que le corresponde a cada clave.
 
-- Los diccionarios se pueden crear:
+- Una restricción importante es que, en un diccionario dado, **cada clave sólo
+  puede asociarse con un único valor**.
 
-  - Encerrando entre llaves una lista de pares !NT(clave)!T(:)!NT(valor)
-    separados por comas: `{'juan': 4098, 'pepe': 4127}`
+- Por tanto, **en un diccionario no puede haber claves repetidas**, es decir,
+  que no puede haber dos elementos distintos con la misma clave.
 
-  - Usando la función `dict()`.
+- En la práctica, eso nos sirve para identificar cada elemento del diccionario
+  por su clave.
+
+- Además, los elementos de un diccionario son datos mutables y, por tanto, los
+  diccionarios también son **mutables**. 
 
 ---
 
-- Las claves de un diccionario pueden ser *casi* cualquier dato.
+- Los diccionarios se pueden crear:
 
-- No se pueden usar como claves los datos que no sean *hashables*, es decir,
-  los que contengan listas, diccionarios o cualquier otro tipo mutable.
+  - Encerrando entre llaves una lista de parejas !NT(clave)!T(:)!NT(valor)
+    separadas por comas: `{'juan': 4098, 'pepe': 4127}`
+
+    Esa es precisamente la forma normal de un diccionario cuando se visualiza
+    desde el intérprete o se imprime con `print()`.
+
+  - Usando la función `dict()`.
+
+- Por ejemplo:
+
+  ```python
+  >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
+  >>> b = dict(uno=1, dos=2, tres=3)                   # argumentos con nombre
+  >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
+  >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # innecesario
+  >>> e = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # con dos iterables
+  >>> a == b and b == c and c == d and d == e
+  True
+  ```
+
+---
+
+- Si se intenta crear un diccionario con claves repetidas, sólo se almacenará
+  uno de los elementos que tengan la misma clave (los demás se ignoran):
+
+  ```python
+  >>> a = {'perro': 'dog', 'gato': 'cat', 'perro': 'doggy'}
+  >>> a
+  {'perro': 'doggy', 'gato': 'cat'}
+  ```
+
+  Como se ve, la clave `'perro'` está repetida y, por tanto, sólo se almacena
+  uno de los dos elementos con clave repetida, que siempre es el último que
+  aparece en el diccionario. En este caso, se almacena el elemento `'perro':
+  'doggy'` y se ignora el `'perro': 'dog'`.
+
+---
+
+- Las claves de un diccionario deben ser datos *hashables*.
+
+- Por tanto, no se pueden usar como clave una lista, un diccionario, un
+  conjunto `set` o cualquier otro tipo mutable.
 
 - Los tipos numéricos que se usen como claves obedecen las reglas normales de
   comparación numérica.
@@ -1034,16 +1094,24 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 
 ---
 
-- Los diccionarios se pueden crear usando la función `dict()`. Por ejemplo:
+- Para **acceder a un elemento** del diccionario se usa una sintaxis idéntica a
+  la de la **indexación**, salvo que, en este caso, en lugar de usar el índice
+  o posición del elemento, se usa la clave:
 
   ```python
-  >>> a = dict(one=1, two=2, three=3)
-  >>> b = {'one': 1, 'two': 2, 'three': 3}
-  >>> c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
-  >>> d = dict([('two', 2), ('one', 1), ('three', 3)])
-  >>> e = dict({'three': 3, 'one': 1, 'two': 2})
-  >>> a == b == c == d == e
-  True
+  >>> a = {'perro': 'dog', 'gato': 'cat'}
+  >>> a['perro']
+  'dog'
+  ```
+
+- Si se intenta acceder a un elemento usando una clave que no existe, se lanza
+  una excepción de tipo `KeyError`:
+
+  ```python
+  >>> a['caballo']
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  KeyError: 'caballo'
   ```
 
 ### Operaciones
