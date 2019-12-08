@@ -784,39 +784,7 @@ $$
   **orientados a objetos**, el sistema de tipos se construye a partir de los
   conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
 
-## Tipado fuerte vs. débil
-
-- Un lenguaje de programación es **fuertemente tipado** (o de **tipado
-  fuerte**) si no se permiten violaciones de los tipos de datos.
-  
-- Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro
-  tipo distinto a menos que se haga una *conversión explícita*.
-
-- Un lenguaje es **débilmente tipado** (o de **tipado débil**) si no es de
-  tipado fuerte.
-
-- En los lenguajes de tipado débil se pueden hacer operaciones entre datos cuyo
-  tipos no son los que espera la operación, gracias al mecanismo de *conversión
-  implícita*.
-
----
-
-- Ejemplo:
-
-  - Python es un lenguaje **fuertemente tipado**, por lo que no podemos hacer
-    lo siguiente (da un error de tipos):
-
-    ```python
-    2 + "3"
-    ```
-
-  - En cambio, PHP es un lenguaje **débilmente tipado** y la expresión anterior
-    en PHP es perfectamente válida (y vale **5**).
-
-    El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
-    cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
-
-## Errores de tipos
+### Errores de tipos
 
 - Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
   esa operación, se produce un **error de tipos**.
@@ -856,6 +824,38 @@ $$
     de ejecutarlo. En tal caso, se abortará la compilación para impedir la
     generación de código objeto erróneo.
 
+### Tipado fuerte vs. débil
+
+- Un lenguaje de programación es **fuertemente tipado** (o de **tipado
+  fuerte**) si no se permiten violaciones de los tipos de datos.
+
+- Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro
+  tipo distinto a menos que se haga una *conversión explícita*.
+
+- Un lenguaje es **débilmente tipado** (o de **tipado débil**) si no es de
+  tipado fuerte.
+
+- En los lenguajes de tipado débil se pueden hacer operaciones entre datos cuyo
+  tipos no son los que espera la operación, gracias al mecanismo de *conversión
+  implícita*.
+
+---
+
+- Ejemplo:
+
+  - Python es un lenguaje **fuertemente tipado**, por lo que no podemos hacer
+    lo siguiente (da un error de tipos):
+
+    ```python
+    2 + "3"
+    ```
+
+  - En cambio, PHP es un lenguaje **débilmente tipado** y la expresión anterior
+    en PHP es perfectamente válida (y vale **5**).
+
+    El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
+    cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
+
 ## Tipos de datos básicos
 
 ### Números
@@ -871,7 +871,8 @@ $$
 
     Contienen parte entera y parte fraccionaria, y sus literales se escriben
     con dígitos y con punto decimal separando ambas partes (ej: `4.87`). Los
-    números en notación exponencial (`2e3`) también son reales.
+    números en notación exponencial (`2e3`) también son reales ($2e3 =
+    2.0\times10^3$).
 
 - Las **operaciones** que se pueden realizar con los números son los que cabría
   esperar (aritméticas, trigonométricas, matemáticas en general).
@@ -881,50 +882,6 @@ $$
   que los reales *contienen* a los enteros.
 
   - Ejemplo: `4 + 3.5` devuelve `7.5`.
-
-<!--
-
-| Operador | Descripción     | Ejemplo   | Resultado | Comentarios                    |
-|:--------:|-----------------|:---------:|:---------:|--------------------------------|
-| `+`      | Suma            | `3 + 4`   | `7`       |                                |
-| `-`      | Resta           | `3 - 4`   | `-1`      |                                |
-| `*`      | Producto        | `3 * 4`   | `12`      |                                |
-| `/`      | División        | `3 / 4`   | `0.75`    | Devuelve siempre un `float`    |
-| `%`      | Módulo          | `4 % 3`   | `1`       | Resto de dividir `4` entre `3` |
-| `**`     | Exponente       | `3 ** 4`  | `81`      | Devuelve $3^4$                 |
-| `//`     | División entera | `4 // 3`  | `1`       |                                |
-|          |                 | `-4 // 3` | `-2`      | ??                             |
-
-+----------+-----------------+-------------+-----------+-----------------------------+
-| Operador | Descripción     | Ejemplo     | Resultado | Comentarios                 |
-+:========:+=================+:===========:+:=========:+=============================+
-| `+`      | Suma            | `3 + 4`     | `7`       |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `-`      | Resta           | `3 - 4`     | `-1`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `*`      | Producto        | `3 * 4`     | `12`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `/`      | División        | `3 / 4`     | `0.75`    | Devuelve un `float`         |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `%`      | Módulo          | `4 % 3`     | `1`       | Resto de la división        |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `**`     | Exponente       | `3 ** 4`    | `81`      | Devuelve $3^4$              |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `//`     | División entera | `4 // 3` \  | `1` \     | \hfill{} \                  |
-|          |                 | `-4 // 3`   | `-2`      | ??                          |
-+----------+-----------------+-------------+-----------+-----------------------------+
-
-+---------------+---------------+--------------------+
-| Fruit         | Price         | Advantages         |
-+===============+===============+====================+
-| Bananas       | $1.34         | - built-in wrapper |
-|               |               | - bright color     |
-+---------------+---------------+--------------------+
-| Oranges       | $2.10         | - cures scurvy     |
-|               |               | - tasty            |
-+---------------+---------------+--------------------+
-
--->
 
 ### Cadenas
 

@@ -624,23 +624,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El <strong>sistema de tipos</strong> de un lenguaje es el conjunto de reglas que asigna un tipo a cada elemento del programa.</p></li>
 <li><p>Exceptuando a los lenguajes <strong>no tipados</strong> (Ensamblador, código máquina, Forth…) todos los lenguajes tienen su propio sistema de tipos, con sus características.</p></li>
 <li><p>El sistema de tipos de un lenguaje depende también del paradigma de programación que soporte el lenguaje. Por ejemplo, en los lenguajes <strong>orientados a objetos</strong>, el sistema de tipos se construye a partir de los conceptos propios de la orientación a objetos (<em>clases</em>, <em>interfaces</em>…).</p></li>
-</ul></section><section id="tipado-fuerte-vs.-débil" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Tipado fuerte vs. débil</h2><ul>
-<li><p>Un lenguaje de programación es <strong>fuertemente tipado</strong> (o de <strong>tipado fuerte</strong>) si no se permiten violaciones de los tipos de datos.</p></li>
-<li><p>Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro tipo distinto a menos que se haga una <em>conversión explícita</em>.</p></li>
-<li><p>Un lenguaje es <strong>débilmente tipado</strong> (o de <strong>tipado débil</strong>) si no es de tipado fuerte.</p></li>
-<li><p>En los lenguajes de tipado débil se pueden hacer operaciones entre datos cuyo tipos no son los que espera la operación, gracias al mecanismo de <em>conversión implícita</em>.</p></li>
-</ul></section><section class="slide level4">
-
-<ul>
-<li><p>Ejemplo:</p>
-<ul>
-<li><p>Python es un lenguaje <strong>fuertemente tipado</strong>, por lo que no podemos hacer lo siguiente (da un error de tipos):</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;3&quot;</span></span></code></pre></div></li>
-<li><p>En cambio, PHP es un lenguaje <strong>débilmente tipado</strong> y la expresión anterior en PHP es perfectamente válida (y vale <strong>5</strong>).</p>
-<p>El motivo es que el sistema de tipos de PHP convierte <em>implícitamente</em> la cadena <code>"3"</code> en el entero <code>3</code> cuando se usa en una operación de suma (<code>+</code>).</p></li>
-</ul></li>
-</ul>
-</section><section id="errores-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Errores de tipos</h2><ul>
+</ul></section><section id="errores-de-tipos" class="title-slide slide level3"><h3><span class="header-section-number">4.3.1</span> Errores de tipos</h3><ul>
 <li><p>Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite esa operación, se produce un <strong>error de tipos</strong>.</p></li>
 <li><p>Ese error puede ocurrir cuando:</p>
 <ul>
@@ -648,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los argumentos de una función o método no son del tipo esperado.</p></li>
 </ul></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="dv">4</span> <span class="op">+</span> <span class="st">&quot;hola&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="dv">4</span> <span class="op">+</span> <span class="st">&quot;hola&quot;</span></span></code></pre></div>
 <p>es incorrecto porque el operador <code>+</code> no está definido sobre un entero y una cadena (no se pueden sumar un número y una cadena).</p></li>
 </ul></section><section class="slide level4">
 
@@ -661,63 +645,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Es muy probable que el comprobador de tipos del compilador detecte el error de tipos <strong>durante la compilación</strong> del programa, es decir, antes incluso de ejecutarlo. En tal caso, se abortará la compilación para impedir la generación de código objeto erróneo.</p></li>
 </ul></li>
 </ul>
-</section><section id="tipos-de-datos-básicos" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Tipos de datos básicos</h2></section><section id="números" class="title-slide slide level3"><h3><span class="header-section-number">4.6.1</span> Números</h3><ul>
+</section><section id="tipado-fuerte-vs.-débil" class="title-slide slide level3"><h3><span class="header-section-number">4.3.2</span> Tipado fuerte vs. débil</h3><ul>
+<li><p>Un lenguaje de programación es <strong>fuertemente tipado</strong> (o de <strong>tipado fuerte</strong>) si no se permiten violaciones de los tipos de datos.</p></li>
+<li><p>Es decir, un valor de un tipo concreto no se puede usar como si fuera de otro tipo distinto a menos que se haga una <em>conversión explícita</em>.</p></li>
+<li><p>Un lenguaje es <strong>débilmente tipado</strong> (o de <strong>tipado débil</strong>) si no es de tipado fuerte.</p></li>
+<li><p>En los lenguajes de tipado débil se pueden hacer operaciones entre datos cuyo tipos no son los que espera la operación, gracias al mecanismo de <em>conversión implícita</em>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Ejemplo:</p>
+<ul>
+<li><p>Python es un lenguaje <strong>fuertemente tipado</strong>, por lo que no podemos hacer lo siguiente (da un error de tipos):</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="st">&quot;3&quot;</span></span></code></pre></div></li>
+<li><p>En cambio, PHP es un lenguaje <strong>débilmente tipado</strong> y la expresión anterior en PHP es perfectamente válida (y vale <strong>5</strong>).</p>
+<p>El motivo es que el sistema de tipos de PHP convierte <em>implícitamente</em> la cadena <code>"3"</code> en el entero <code>3</code> cuando se usa en una operación de suma (<code>+</code>).</p></li>
+</ul></li>
+</ul>
+</section><section id="tipos-de-datos-básicos" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Tipos de datos básicos</h2></section><section id="números" class="title-slide slide level3"><h3><span class="header-section-number">4.4.1</span> Números</h3><ul>
 <li><p>Hay dos tipos numéricos básicos en Python: los enteros y los reales.</p>
 <ul>
 <li><p>Los <strong>enteros</strong> se representan con el tipo <code>int</code>.</p>
 <p>Sólo contienen parte entera, y sus literales se escriben con dígitos sin punto decimal (ej: <code>13</code>).</p></li>
 <li><p>Los <strong>reales</strong> se representan con el tipo <code>float</code>.</p>
-<p>Contienen parte entera y parte fraccionaria, y sus literales se escriben con dígitos y con punto decimal separando ambas partes (ej: <code>4.87</code>). Los números en notación exponencial (<code>2e3</code>) también son reales.</p></li>
+<p>Contienen parte entera y parte fraccionaria, y sus literales se escriben con dígitos y con punto decimal separando ambas partes (ej: <code>4.87</code>). Los números en notación exponencial (<code>2e3</code>) también son reales (<span class="math inline">2e3 = 2.0\times10^3</span>).</p></li>
 </ul></li>
 <li><p>Las <strong>operaciones</strong> que se pueden realizar con los números son los que cabría esperar (aritméticas, trigonométricas, matemáticas en general).</p></li>
 <li><p>Los enteros y los reales generalmente se pueden combinar en una misma expresión aritmética y suele resultar en un valor real, ya que se considera que los reales <em>contienen</em> a los enteros.</p>
 <ul>
 <li>Ejemplo: <code>4 + 3.5</code> devuelve <code>7.5</code>.</li>
 </ul></li>
-</ul>
-<!--
-
-| Operador | Descripción     | Ejemplo   | Resultado | Comentarios                    |
-|:--------:|-----------------|:---------:|:---------:|--------------------------------|
-| `+`      | Suma            | `3 + 4`   | `7`       |                                |
-| `-`      | Resta           | `3 - 4`   | `-1`      |                                |
-| `*`      | Producto        | `3 * 4`   | `12`      |                                |
-| `/`      | División        | `3 / 4`   | `0.75`    | Devuelve siempre un `float`    |
-| `%`      | Módulo          | `4 % 3`   | `1`       | Resto de dividir `4` entre `3` |
-| `**`     | Exponente       | `3 ** 4`  | `81`      | Devuelve $3^4$                 |
-| `//`     | División entera | `4 // 3`  | `1`       |                                |
-|          |                 | `-4 // 3` | `-2`      | ??                             |
-
-+----------+-----------------+-------------+-----------+-----------------------------+
-| Operador | Descripción     | Ejemplo     | Resultado | Comentarios                 |
-+:========:+=================+:===========:+:=========:+=============================+
-| `+`      | Suma            | `3 + 4`     | `7`       |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `-`      | Resta           | `3 - 4`     | `-1`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `*`      | Producto        | `3 * 4`     | `12`      |                             |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `/`      | División        | `3 / 4`     | `0.75`    | Devuelve un `float`         |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `%`      | Módulo          | `4 % 3`     | `1`       | Resto de la división        |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `**`     | Exponente       | `3 ** 4`    | `81`      | Devuelve $3^4$              |
-+----------+-----------------+-------------+-----------+-----------------------------+
-| `//`     | División entera | `4 // 3` \  | `1` \     | \hfill{} \                  |
-|          |                 | `-4 // 3`   | `-2`      | ??                          |
-+----------+-----------------+-------------+-----------+-----------------------------+
-
-+---------------+---------------+--------------------+
-| Fruit         | Price         | Advantages         |
-+===============+===============+====================+
-| Bananas       | $1.34         | - built-in wrapper |
-|               |               | - bright color     |
-+---------------+---------------+--------------------+
-| Oranges       | $2.10         | - cures scurvy     |
-|               |               | - tasty            |
-+---------------+---------------+--------------------+
-
---></section><section id="cadenas" class="title-slide slide level3"><h3><span class="header-section-number">4.6.2</span> Cadenas</h3><ul>
+</ul></section><section id="cadenas" class="title-slide slide level3"><h3><span class="header-section-number">4.4.2</span> Cadenas</h3><ul>
 <li><p>Las <strong>cadenas</strong> son secuencias de cero o más caracteres codificados en Unicode.</p></li>
 <li><p>En Python se representan con el tipo <code>str</code>.</p>
 <ul>
@@ -751,7 +708,7 @@ Python&quot;&quot;&quot;</code></pre>
 </ul></li>
 <li><p>Una <strong>cadena vacía</strong> es aquella que no contiene ningún carácter. Se representa con el literal <code>''</code> o <code>""</code>.</p></li>
 </ul>
-</section><section id="conversión-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> Conversión de tipos</h2><ul>
+</section><section id="conversión-de-tipos" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Conversión de tipos</h2><ul>
 <li><p>Hemos visto que en Python las conversiones de tipos deben ser <strong>explícitas</strong>, es decir, que debemos indicar en todo momento qué dato queremos convertir a qué tipo.</p></li>
 <li><p>Para ello existen funciones cuyo nombre coincide con el tipo al que queremos convertir el dato: <code>str()</code>, <code>int()</code> y <code>float()</code>, entre otras.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> <span class="st">&#39;24&#39;</span></span>
@@ -765,8 +722,8 @@ Python&quot;&quot;&quot;</code></pre>
 <span id="cb24-2"><a href="#cb24-2"></a>Traceback (most recent call last):</span>
 <span id="cb24-3"><a href="#cb24-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb24-4"><a href="#cb24-4"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
-</ul></section><section id="operaciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">4.8</span> Operaciones predefinidas</h2></section><section id="operadores-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">4.8.1</span> Operadores predefinidos</h3></section><section id="operadores-aritméticos" class="slide level4">
-<h4><span class="header-section-number">4.8.1.1</span> Operadores aritméticos</h4>
+</ul></section><section id="operaciones-predefinidas" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Operaciones predefinidas</h2></section><section id="operadores-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">4.6.1</span> Operadores predefinidos</h3></section><section id="operadores-aritméticos" class="slide level4">
+<h4><span class="header-section-number">4.6.1.1</span> Operadores aritméticos</h4>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -842,7 +799,7 @@ Python&quot;&quot;&quot;</code></pre>
 </tbody>
 </table>
 </section><section id="operadores-de-cadenas" class="slide level4">
-<h4><span class="header-section-number">4.8.1.2</span> Operadores de cadenas</h4>
+<h4><span class="header-section-number">4.6.1.2</span> Operadores de cadenas</h4>
 <table style="width:93%;">
 <colgroup>
 <col style="width: 18%" />
@@ -885,7 +842,7 @@ Python&quot;&quot;&quot;</code></pre>
 </tr>
 </tbody>
 </table>
-</section><section id="funciones-predefinidas" class="title-slide slide level3"><h3><span class="header-section-number">4.8.2</span> Funciones predefinidas</h3><table>
+</section><section id="funciones-predefinidas" class="title-slide slide level3"><h3><span class="header-section-number">4.6.2</span> Funciones predefinidas</h3><table>
 <colgroup>
 <col style="width: 32%" />
 <col style="width: 25%" />
@@ -942,7 +899,7 @@ Python&quot;&quot;&quot;</code></pre>
 </tr>
 </tbody>
 </table></section><section id="funciones-matemáticas" class="slide level4">
-<h4><span class="header-section-number">4.8.2.1</span> Funciones matemáticas</h4>
+<h4><span class="header-section-number">4.6.2.1</span> Funciones matemáticas</h4>
 <ul>
 <li><p>Python incluye una gran cantidad de funciones matemáticas agrupadas dentro del módulo <code>math</code>.</p></li>
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
@@ -962,10 +919,10 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>La lista completa de funciones que incluye el módulo <code>math</code> se puede consultar en su documentación:</p>
 <p><a href="https://docs.python.org/3/library/math.html" target="_blank">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
-</section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">4.8.3</span> Métodos predefinidos</h3><ul>
+</section><section id="métodos-predefinidos" class="title-slide slide level3"><h3><span class="header-section-number">4.6.3</span> Métodos predefinidos</h3><ul>
 <li><p>Igualmente, en la documentación podemos encontrar una lista de métodos interesantes que operan con datos de tipo cadena:</p>
 <p><a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
-</ul></section><section id="actividades" class="title-slide slide level2"><h2><span class="header-section-number">4.9</span> Actividades</h2><ol class="example" type="1">
+</ul></section><section id="actividades" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> Actividades</h2><ol class="example" type="1">
 <li><p>Representar, según el modelo de sustitución, la evaluación las siguientes expresiones, aplicando paso a paso la reducción que corresponda. Indicar también el tipo del valor resultante:</p>
 <ol type="a">
 <li><code>3 + 6 * 14</code></li>
