@@ -397,7 +397,7 @@ $$
   - El operador `in` para comprobar si un carácter pertenece a una cadena:
 
     ```python
-    "c" in "barco"
+    ("c" in "barco")
     ```
 
     (aquí los operandos son las cadenas `"c"` y `"barco"`)
@@ -411,7 +411,7 @@ $$
 
     Ejemplo: el operador `-` que cambia el signo de su operando:
     ```python
-    -5
+    (-5)
     ```
 
   - **Binarios**: operan sobre dos operandos.
