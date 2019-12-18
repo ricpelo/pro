@@ -1220,4 +1220,58 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
     b 2
     ```
 
+---
+
+- Otros métodos útiles para recorrer un diccionario son `keys()` y `values()`.
+
+:::: columns
+
+::: column
+
+- `keys()` devuelve un **iterador** que recorre las **claves** del
+  diccionario:
+
+
+  ```python
+  >>> d.keys()
+  dict_keys(['a', 'b'])
+  >>> for k in d.keys():
+  ...     print(k)
+  ...
+  a
+  b
+  ```
+
+:::
+
+::: column
+
+- `values()` devuelve un **iterador** que recorre los **valores** del
+  diccionario:
+
+  ```python
+  >>> d.values()
+  dict_values([1, 2])
+  >>> for v in d.values():
+  ...     print(v)
+  ...
+  1
+  2
+  ```
+
+:::
+
+::::
+
+- En la práctica, no resulta muy útil usar `keys()`, ya que se puede hacer lo
+  mismo recorriendo directamente el propio diccionario, como ya sabemos:
+
+  ```python
+  >>> for k in d:
+  ...     print(k)
+  ...
+  a
+  b
+  ```
+
 !BIBLIOGRAFIA

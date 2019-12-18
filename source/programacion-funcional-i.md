@@ -144,7 +144,7 @@ que denominamos el **valor** de la expresión.
 - El ejemplo clásico es el de las *expresiones aritméticas*:
 
   - Están formados por secuencias de números y símbolos que representan
-    operaciones aritḿeticas
+    operaciones aritméticas.
 
   - Denotan un valor numérico, que es el resultado de calcular el valor de la
     expresión tras hacer las operaciones que aparecen en ella.
