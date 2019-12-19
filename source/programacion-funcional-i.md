@@ -1037,15 +1037,21 @@ Función                     Descripción           Ejemplo                  Res
 
 - Son la base de la **programación modular**, que ya estudiaremos.
 
+---
+
 - Para *importar* una función de un módulo se puede usar la orden `from`. Por
   ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
-  de dos números) se haría:
+  de dos números) del módulo `math` se haría:
 
   ```python
   >>> from math import gcd  # importamos la función gcd que está en el módulo math
   >>> gcd(16, 6)            # la función se usa como cualquier otra
   2
   ```
+
+- Una vez importada, la función ya se puede usar como cualquier otra.
+
+---
 
 - También se puede importar directamente el módulo en sí:
 
@@ -1055,12 +1061,27 @@ Función                     Descripción           Ejemplo                  Res
   2
   ```
 
+- Al importar el módulo, lo que se importan no son sus funciones, sino el
+  nombre y la definición del propio módulo, el cual contiene dentro la
+  definición de sus funciones.
+
+- Por eso, para poder llamar a una función del módulo usando esta técnica,
+  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
+  de la función:
+
+  ```python
+  math.gcd(16, 6)
+  ─┬── ─┬─
+   │    └────── función
+   └── módulo
+  ```
+
 ---
 
 - La lista completa de funciones que incluye el módulo `math` se puede
   consultar en su documentación:
 
-  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="_blank"}
+  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
 
 ### Métodos predefinidos
 
@@ -1938,5 +1959,23 @@ subgraph cluster0 {
             # ... y este es el tercero
   texto = "# Esto no es un comentario porque va entre comillas."
   ```
+
+---
+
+- Cuando un comentario ocupa varias líneas, se puede usar el «truco» de poner
+  una cadena con triples comillas:
+
+  ```python
+  x = 1
+  """
+  Esta es una cadena
+  que ocupa varias líneas
+  y que actúa como comentario.
+  """
+  y = 2
+  ```
+
+- Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni
+  ligarse a ningún identificador, simplementa la ignorará (como un comentario).
 
 !BIBLIOGRAFIA

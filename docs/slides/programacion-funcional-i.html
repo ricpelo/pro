@@ -904,14 +904,29 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Python incluye una gran cantidad de funciones matemáticas agrupadas dentro del módulo <code>math</code>.</p></li>
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
 <li><p>Son la base de la <strong>programación modular</strong>, que ya estudiaremos.</p></li>
-<li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code>from</code>. Por ejemplo, para importar la función <code>gcd</code> (que calcula el máximo común divisor de dos números) se haría:</p>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code>from</code>. Por ejemplo, para importar la función <code>gcd</code> (que calcula el máximo común divisor de dos números) del módulo <code>math</code> se haría:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="dv">2</span></span></code></pre></div></li>
+<li><p>Una vez importada, la función ya se puede usar como cualquier otra.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
 <li><p>También se puede importar directamente el módulo en sí:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a><span class="dv">2</span></span></code></pre></div></li>
+<li><p>Al importar el módulo, lo que se importan no son sus funciones, sino el nombre y la definición del propio módulo, el cual contiene dentro la definición de sus funciones.</p></li>
+<li><p>Por eso, para poder llamar a una función del módulo usando esta técnica, debemos indicar el nombre del módulo, seguido de un punto (<code>.</code>) y el nombre de la función:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>─┬── ─┬─</span>
+<span id="cb27-3"><a href="#cb27-3"></a> │    └────── función</span>
+<span id="cb27-4"><a href="#cb27-4"></a> └── módulo</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1002,19 +1017,19 @@ Python&quot;&quot;&quot;</code></pre>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="va">False</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="va">True</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">&lt;</span> <span class="dv">9</span></span>
-<span id="cb27-6"><a href="#cb27-6"></a><span class="va">True</span></span></code></pre></div>
-</div><div class="column">
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">9</span> <span class="op">!=</span> <span class="dv">7</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="va">True</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="va">False</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">8</span> <span class="op">&lt;=</span> <span class="dv">8</span></span>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="va">False</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="va">True</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">&lt;</span> <span class="dv">9</span></span>
 <span id="cb28-6"><a href="#cb28-6"></a><span class="va">True</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">9</span> <span class="op">!=</span> <span class="dv">7</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="va">True</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="va">False</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">8</span> <span class="op">&lt;=</span> <span class="dv">8</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="va">True</span></span></code></pre></div>
 </div>
 </div></section><section id="operadores-lógicos" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Operadores lógicos</h2><ul>
 <li><p>Las <strong>operaciones lógicas</strong> se representan mediante <strong>operadores lógicos</strong>, que son aquellos que toman uno o dos operandos <em>booleanos</em> y devuelven un valor <em>booleano</em>.</p></li>
@@ -1254,23 +1269,23 @@ Python&quot;&quot;&quot;</code></pre>
 <div class="column" style="width:60%;">
 <ol type="1">
 <li><p>Ley asociativa:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>(a <span class="kw">or</span> b) <span class="kw">or</span> c <span class="op">==</span> a <span class="kw">or</span> (b <span class="kw">or</span> c)</span>
-<span id="cb29-2"><a href="#cb29-2"></a>(a <span class="kw">and</span> b) <span class="kw">and</span> c <span class="op">==</span> a <span class="kw">and</span> (b <span class="kw">and</span> c)</span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>(a <span class="kw">or</span> b) <span class="kw">or</span> c <span class="op">==</span> a <span class="kw">or</span> (b <span class="kw">or</span> c)</span>
+<span id="cb30-2"><a href="#cb30-2"></a>(a <span class="kw">and</span> b) <span class="kw">and</span> c <span class="op">==</span> a <span class="kw">and</span> (b <span class="kw">and</span> c)</span></code></pre></div></li>
 <li><p>Ley conmutativa:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>a <span class="kw">or</span> b <span class="op">==</span> b <span class="kw">or</span> a</span>
-<span id="cb30-2"><a href="#cb30-2"></a>a <span class="kw">and</span> b <span class="op">==</span> b <span class="kw">and</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>a <span class="kw">or</span> b <span class="op">==</span> b <span class="kw">or</span> a</span>
+<span id="cb31-2"><a href="#cb31-2"></a>a <span class="kw">and</span> b <span class="op">==</span> b <span class="kw">and</span> a</span></code></pre></div></li>
 <li><p>Ley distributiva:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>a <span class="kw">or</span> (b <span class="kw">and</span> c) <span class="op">==</span> (a <span class="kw">or</span> b) <span class="kw">and</span> (a <span class="kw">or</span> c)</span>
-<span id="cb31-2"><a href="#cb31-2"></a>a <span class="kw">and</span> (b <span class="kw">or</span> c) <span class="op">==</span> (a <span class="kw">and</span> b) <span class="kw">or</span> (a <span class="kw">and</span> c)</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>a <span class="kw">or</span> (b <span class="kw">and</span> c) <span class="op">==</span> (a <span class="kw">or</span> b) <span class="kw">and</span> (a <span class="kw">or</span> c)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>a <span class="kw">and</span> (b <span class="kw">or</span> c) <span class="op">==</span> (a <span class="kw">and</span> b) <span class="kw">or</span> (a <span class="kw">and</span> c)</span></code></pre></div></li>
 </ol>
 </div><div class="column" style="width:40%;">
 <ol start="4" type="1">
 <li><p>Elemento neutro:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
-<span id="cb32-2"><a href="#cb32-2"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
+<span id="cb33-2"><a href="#cb33-2"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Elemento complementario:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>a <span class="kw">and</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>a <span class="kw">and</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
 </ol>
 </div>
 </div></section><section id="teoremas-fundamentales" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> Teoremas fundamentales</h2><ol start="6" type="1">
@@ -1283,24 +1298,24 @@ Python&quot;&quot;&quot;</code></pre>
 <div class="column">
 <ol start="6" type="1">
 <li><p>Ley de idempotencia:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>a <span class="kw">or</span> a <span class="op">==</span> a</span>
-<span id="cb34-2"><a href="#cb34-2"></a>a <span class="kw">and</span> a <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>a <span class="kw">or</span> a <span class="op">==</span> a</span>
+<span id="cb35-2"><a href="#cb35-2"></a>a <span class="kw">and</span> a <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Ley de absorción:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>a <span class="kw">or</span> <span class="va">True</span> <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>a <span class="kw">and</span> <span class="va">False</span> <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>a <span class="kw">or</span> <span class="va">True</span> <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>a <span class="kw">and</span> <span class="va">False</span> <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
 <li><p>Ley de identidad:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
-<span id="cb36-2"><a href="#cb36-2"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
+<span id="cb37-2"><a href="#cb37-2"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
 </ol>
 </div><div class="column">
 <ol start="9" type="1">
 <li><p>Ley de involución:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">not</span> (<span class="kw">not</span> a) <span class="op">==</span> a</span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="kw">not</span> <span class="va">True</span> <span class="op">==</span> <span class="va">False</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="kw">not</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">not</span> (<span class="kw">not</span> a) <span class="op">==</span> a</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">not</span> <span class="va">True</span> <span class="op">==</span> <span class="va">False</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">not</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span></code></pre></div></li>
 <li><p>Leyes de De Morgan:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div></li>
 </ol>
 </div>
 </div></section><section id="el-operador-ternario" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> El operador ternario</h2><ul>
@@ -1320,7 +1335,7 @@ Python&quot;&quot;&quot;</code></pre>
 </ul></li>
 <li><p>El valor de la expresión completa será <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> si la <span style="color:teal">⟨<em>condición</em>⟩</span> es cierta; en caso contrario, su valor será <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span>.</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="dv">25</span> <span class="cf">if</span> <span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">17</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="dv">25</span> <span class="cf">if</span> <span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">17</span></span></code></pre></div>
 <p>evalúa a <code>25</code>.</p></li>
 </ul>
 </section><section id="actividad" class="title-slide slide level3"><h3><span class="header-section-number">5.6.1</span> Actividad</h3><ol start="7" class="example" type="1">
@@ -1332,7 +1347,7 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Las definiciones tienen la siguiente sintaxis:</p>
 <div class="line-block"><span style="color:teal">⟨<em>definición</em>⟩</span> ::= <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>=</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
 <p>A partir de ese momento, el identificador <code>x</code> representa el valor <code>25</code>.</p>
 <p>Y si <code>x</code> vale <code>25</code>, la expresión <code>2 + x * 3</code> vale <code>77</code>.</p></li>
 </ul></section><section id="identificadores-y-ligaduras-binding" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Identificadores y ligaduras (<em>binding</em>)</h2><ul>
@@ -1348,8 +1363,8 @@ Python&quot;&quot;&quot;</code></pre>
 
 <ul>
 <li><p>En un <strong>lenguaje funcional puro</strong>, un identificador ya ligado no se puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/rebinding.svg" class="plain" style="width:30.0%" /></p>
@@ -1382,20 +1397,20 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de dato tiene.</p></li>
 </ul></section><section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2"><h2><span class="header-section-number">6.3</span> Evaluación de expresiones con ligaduras</h2><ul>
 <li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está):</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="dv">77</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="dv">77</span></span></code></pre></div></li>
 <li><p>Intentar usar en una expresión un identificador no ligado provoca un error (<em>nombre no definido</em>):</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb43-2"><a href="#cb43-2"></a>Traceback (most recent call last):</span>
-<span id="cb43-3"><a href="#cb43-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb44-2"><a href="#cb44-2"></a>Traceback (most recent call last):</span>
+<span id="cb44-3"><a href="#cb44-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Podemos hacer:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a>y <span class="op">=</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>y <span class="op">=</span> x</span></code></pre></div>
 <ul>
 <li><p>En este caso estamos ligando a <code>y</code> el valor que tiene <code>x</code>.</p></li>
 <li><p><code>x</code> e <code>y</code> comparten valor.</p></li>
@@ -1420,13 +1435,13 @@ Python&quot;&quot;&quot;</code></pre>
 
 <ul>
 <li><p>En un momento dado, un marco contendrá las ligaduras que se hayan definido hasta ese momento en el contexto asociado a ese marco:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb45-2"><a href="#cb45-2"></a>Traceback (most recent call last):</span>
-<span id="cb45-3"><a href="#cb45-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb45-5"><a href="#cb45-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb45-6"><a href="#cb45-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb45-7"><a href="#cb45-7"></a><span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb46-2"><a href="#cb46-2"></a>Traceback (most recent call last):</span>
+<span id="cb46-3"><a href="#cb46-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb46-7"><a href="#cb46-7"></a><span class="dv">25</span></span></code></pre></div>
 <ul>
 <li><p>Aquí estamos trabajando con el <em>marco global</em> (el único que existe hasta ahora para nosotros).</p></li>
 <li><p>En la línea 1, el identificador <code>x</code> aún no está ligado, por lo que su uso genera un error (el marco global no contiene hasta ahora ninguna ligadura para <code>x</code>).</p></li>
@@ -1439,9 +1454,9 @@ Python&quot;&quot;&quot;</code></pre>
 <div class="column">
 <ul>
 <li><p>Si tenemos:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
 <p>Según la línea hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:</p></li>
 </ul>
 <p> </p>
@@ -1476,7 +1491,7 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
 <li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul></section><section id="ámbitos" class="title-slide slide level2"><h2><span class="header-section-number">6.7</span> Ámbitos</h2><ul>
 <li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
 <li><p>Cuando eso ocurre, decimos que la construcción sintáctica define un <strong>ámbito</strong>, y que el ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa.</p></li>
@@ -1499,26 +1514,39 @@ Python&quot;&quot;&quot;</code></pre>
 <section><section id="documentación-interna" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Documentación interna</h1></section><section id="identificadores-significativos" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Identificadores significativos</h2><ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb48-3"><a href="#cb48-3"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb49-3"><a href="#cb49-3"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb50-3"><a href="#cb50-3"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (<code>_</code>) para separarlas y formar un único identificador:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul></section><section id="comentarios" class="title-slide slide level2"><h2><span class="header-section-number">7.2</span> Comentarios</h2><ul>
 <li><p>Los comentarios en Python empiezan con el carácter <code>#</code> y se extienden hasta el final de la línea.</p></li>
 <li><p>Los comentarios pueden aparecer al comienzo de la línea o a continuación de un espacio en blanco o una porción de código.</p></li>
 <li><p>Los comentarios no pueden ir dentro de un literal de tipo cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un carácter más.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb51-3"><a href="#cb51-3"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb51-4"><a href="#cb51-4"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
-</ul></section></section>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Cuando un comentario ocupa varias líneas, se puede usar el «truco» de poner una cadena con triples comillas:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="co">Esta es una cadena</span></span>
+<span id="cb53-4"><a href="#cb53-4"></a><span class="co">que ocupa varias líneas</span></span>
+<span id="cb53-5"><a href="#cb53-5"></a><span class="co">y que actúa como comentario.</span></span>
+<span id="cb53-6"><a href="#cb53-6"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb53-7"><a href="#cb53-7"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni ligarse a ningún identificador, simplementa la ignorará (como un comentario).</p></li>
+</ul>
+</section></section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
 <div id="ref-abelson_structure_1996">
 <p>Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996. <em>Structure and Interpretation of Computer Programs</em>. 2nd ed. Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.</p>
