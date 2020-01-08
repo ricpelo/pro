@@ -917,27 +917,27 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 - `s` y `o` son conjuntos, y `x` es un valor cualquiera:
 
----------------------------------------------------------------------------------------------
-Operación                Resultado
------------------------- --------------------------------------------------------------------
-`len(`$s$`)`             Número de elementos de $s$ (su cardinalidad)
+----------------------------------------------------------------------------------------------
+Operación                 Resultado
+------------------------- --------------------------------------------------------------------
+`len(`$s$`)`              Número de elementos de $s$ (su cardinalidad)
                        
-$x\ $ `in` $\ s$         `True` si $x$ pertenece a $s$
+$x\ $ `in` $\ s$          `True` si $x$ pertenece a $s$
                        
-$x\ $ `not` `in` $\ s$   `True` si $x$ no pertenece a $s$
+$x\ $ `not` `in` $\ s$    `True` si $x$ no pertenece a $s$
 
-$s$`.isdisjoint(`$o$`)`  `True` si $s$ no tiene ningún elemento en común con $o$
+$s$`.isdisjoint(`$o$`)`   `True` si $s$ no tiene ningún elemento en común con $o$
 
-$s$`.issubset(`$o$`)` \  `True` si $s$ es un subconjunto de $o$
+$s$`.issubset(`$o$`)` \   `True` si $s$ es un subconjunto de $o$
 $s$ `<=` $o$
                       
-$s$ `<` $o$              `True` si $s$ es un subconjunto propio de $o$
+$s$ `<` $o$               `True` si $s$ es un subconjunto propio de $o$
                       
-$s$`.isuperset(`$o$`)` \ `True` si $s$ es un superconjunto de $o$
+$s$`.issuperset(`$o$`)` \ `True` si $s$ es un superconjunto de $o$
 $s$ `>=` $o$
                       
-$s$ `>` $o$              `True` si $s$ es un superconjunto propio de $o$
----------------------------------------------------------------------------------------------
+$s$ `>` $o$               `True` si $s$ es un superconjunto propio de $o$
+----------------------------------------------------------------------------------------------
 
 ---
 
