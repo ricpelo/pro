@@ -171,17 +171,19 @@ nocite: |
   - Un **nombre** (que generalmente coincidirá con el nombre del archivo en el
     que reside).
 
-  - Una **interfaz**, formada por un conjunto de funciones que permiten
-    manipular y acceder al estado interno desde fuera del módulo.
+  - Una **interfaz**, formada por un conjunto de funciones que permiten al
+    usuario consumir sus servicios, así como manipular y acceder al estado
+    interno desde fuera del módulo.
 
   - Una **implementación**, formada por:
 
-    - Su estado interno en forma de variables internas y locales al módulo.
-
-      Como contiene variables, también puede contener constantes.
-
-    - Un conjunto de funciones que manipulan el estado interno dentro del
+    - Su posible estado interno en forma de variables internas y locales al
       módulo.
+
+      Como puede contener variables, también puede contener constantes.
+
+    - Un conjunto de funciones auxiliares que manipulan el estado interno
+      dentro del módulo.
 
       Es decir: funciones pensadas para ser usadas internamente por el propio
       módulo pero no por otras partes del programa.
