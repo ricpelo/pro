@@ -124,8 +124,6 @@ nocite: |
   - A nivel práctico, los módulos se programan físicamente en **archivos
     separados** del resto del programa.
 
-<!-- ## Descomposición de problemas -->
-
 ## Beneficios de la programación modular
 
 - El tiempo de desarrollo se reduce porque grupos separados de programadores
@@ -153,8 +151,9 @@ nocite: |
 - Así que podemos estudiar el diseño de un módulo desde **dos puntos de vista
   complementarios**:
 
-  - La **implementación** del módulo se ocupa de la programación de los
-    detalles internos al módulo, necesarios para que éste funcione
+  - El **creador** o **implementador** del módulo se ocupa de la programación
+    del mismo y, por tanto, debe conocer los detalles internos al módulo,
+    necesarios para que éste funcione.
 
   - Los **usuarios** del módulo (normalmente, otros módulos), como entidades
     externas al mismo, utilizan el módulo como una entidad abstracta sin
@@ -201,25 +200,40 @@ nocite: |
   tenga toda la información necesaria para poder usar el módulo sin tener que
   conocer o acceder a partes internas del mismo.
 
-- En general debería estar formada únicamente por funciones (y, tal vez,
-  constantes) que el usuario del módulo pueda llamar para consumir los
+- En general **debería estar formada únicamente por funciones** (y, tal vez,
+  *constantes*) que el usuario del módulo pueda llamar para consumir los
   servicios que ofrece el módulo.
 
 - Esas funciones deben usarse como abstracciones funcionales, de forma que el
   usuario sólo necesite conocer la **especificación** de la función y no su
   *implementación* concreta.
 
+---
+
+- Acabamos de decir que la interfaz de un módulo debería estar formada
+  únicamente por **funciones** (y, tal vez, *constantes*).
+
+- En teoría, la interfaz podría estar formada también por (algunas o todas las)
+  **variables locales al módulo**, pero en la práctica eso no resulta
+  apropiado, ya que cualquier cambio posterior en la representación interna de
+  los datos almacenados en esas variables afectaría al resto de los módulos que
+  acceden a dichas variables.
+
+  Más adelante estudiaremos este aspecto en profundidad cuando hablemos del
+  **principio de ocultación de información**.
+  
 ### Implementación
 
-- La implementación es la parte del módulo que queda oculta a los usuarios del
-  mismo.
+- La implementación es la parte del módulo que queda **oculta** a los usuarios
+  del mismo.
 
 - Es decir: es la parte que los usuarios del módulo no necesitan (ni deben)
   conocer para poder usarlo adecuadamente.
 
-- Está formado por todas las variables locales al módulo que almacenan su
+- Está formado por todas las **variables locales al módulo** que almacenan su
   estado interno, junto con las funciones que utiliza el propio módulo para
-  gestionarse a sí mismo y que no forman parte de su interfaz.
+  gestionarse a sí mismo y que no forman parte de su interfaz (**funciones
+  _auxiliares_**).
 
 - La implementación debe poder cambiarse tantas veces como sea necesario sin
   que por ello se tenga que cambiar el resto del programa.
@@ -478,9 +492,11 @@ F -> G
 - Y si importamos el módulo dentro de otro, el código del último `if` no se
   ejecutará, por lo que sólo se incorporará la definición de la función `fac`.
 
+<!--
 ### Paquetes
 
 ### Documentación interna
+-->
 
 # Criterios de descomposición modular
 
@@ -573,17 +589,20 @@ F -> G
 
 - Recordemos que un módulo tiene siempre un doble punto de vista:
 
-  - El punto de vista del creador o implementador del módulo.
+  - El punto de vista del *creador* o implementador del módulo.
 
-  - El punto de vista del usuario del módulo.
+  - El punto de vista del *usuario* del módulo.
 
-- La abstracción nos ayuda a definir qué entidades constituyen nuestro programa
-  considerando la relación que se establece entre los creadores y los usuarios
-  de los módulos.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~
+  La abstracción nos ayuda a **definir qué entidades constituyen nuestro
+  programa** considerando la relación que se establece entre los creadores y
+  los usuarios de los módulos.
+  ~~~~~~~~~~~~~~~~~
 
-- Esto es así porque los usuarios de un módulo quieren usar éste como una
-  abstracción: sabiendo qué hace (su función) pero sin necesidad de saber cómo
-  lo hace (sus detalles internos).
+- Esto es así porque **los usuarios de un módulo quieren usar éste como una
+  abstracción**: sabiendo qué hace (su función) pero sin necesidad de saber
+  cómo lo hace (sus detalles internos).
 
 - Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
   mantener.
@@ -604,17 +623,19 @@ F -> G
 - También los aísla de los posibles efectos de cambiar esas decisiones
   posteriormente.
 
-- Implica que la modularidad efectiva se logra definiendo un conjunto de
+- Implica que la modularidad efectiva se logra **definiendo un conjunto de
   módulos independientes que intercambien sólo aquella información
-  estrictamente necesaria para que el programa funcione.
+  estrictamente necesaria para que el programa funcione**.
 
 ---
 
-- La abstracción ayuda a definir qué entidades constituyen el software.
+- La abstracción y la ocultación de información se complementan:
 
-- La ocultación define y hace cumplir las restricciones de acceso a los
-  componentes de un módulo; es decir: define qué cosas deben ser públicas y qué
-  no.
+  - La *abstracción* ayuda a definir qué entidades constituyen el software.
+
+  - La *ocultación* define y hace cumplir las restricciones de acceso a los
+    componentes de un módulo; es decir: define qué cosas deben ser públicas y
+    qué no.
 
 - En definitiva: que **para que un módulo *A* pueda usar a otro *B*, *A* tiene
   que conocer de *B* lo menos posible**, lo imprescindible. *B* debe ocultar al
@@ -635,10 +656,10 @@ F -> G
     los detalles superfluos de implementación.
 
   - Al **creador** del módulo le interesa el **principio de ocultación de
-    información** porque si los usuarios de su módulo conocen más detalles de
-    los necesarios para poder usarlo, el creador no podrá cambiarlos luego
-    (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su
-    módulo.
+    información** porque, si los usuarios de su módulo conocen más detalles de
+    los necesarios para poder usarlo, el creador no tendrá libertad para
+    cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los
+    usuarios de su módulo.
 
 ## Independencia funcional
 
@@ -657,9 +678,12 @@ F -> G
   hagan otros módulos, y también que dependa lo menos posible de los datos que
   puedan facilitarle otros módulos.
 
-- Dicho de otra forma: los módulos deben centrarse en resolver un problema
+- !CAJA
+  ~~~~~~~~~~~~~
+  Dicho de otra forma: los módulos deben centrarse en resolver un problema
   concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a
   relacionarse con otros módulos.
+  ~~~~~~~~~~~~~
 
 ---
 
@@ -705,7 +729,7 @@ F -> G
 ---
 
 - En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos
-  los elementos que lo componen contrubuyen a alcanzar dicho objetivo.
+  los elementos que lo componen deben contrubuir a alcanzar dicho objetivo.
 
 - Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola
   tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice
@@ -863,8 +887,8 @@ F -> G
 
 - **Acoplamiento de datos**: ocurre cuando los módulos comparten datos entre
   ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho
-  parámetro es la única data compartida (por ejemplo, pasando un entero a una
-  función que calcula una raíz cuadrada).
+  parámetro es la única información compartida (por ejemplo, pasando un entero
+  a una función que calcula una raíz cuadrada).
 
 - **Sin acoplamiento**: ocurre cuando los módulos no se comunican para nada uno
   con otro.

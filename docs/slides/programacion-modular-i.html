@@ -295,7 +295,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
-<!-- ## Descomposición de problemas -->
 </section><section id="beneficios-de-la-programación-modular" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Beneficios de la programación modular</h2><ul>
 <li><p>El tiempo de desarrollo se reduce porque grupos separados de programadores pueden trabajar cada uno en un módulo con poca necesidad de comunicación entre ellos.</p></li>
 <li><p>Se mejora la productividad del producto resultante, porque los cambios (pequeños o grandes) realizados en un módulo no afectarían demasiado a los demás.</p></li>
@@ -306,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
 <li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
 <ul>
-<li><p>La <strong>implementación</strong> del módulo se ocupa de la programación de los detalles internos al módulo, necesarios para que éste funcione</p></li>
+<li><p>El <strong>creador</strong> o <strong>implementador</strong> del módulo se ocupa de la programación del mismo y, por tanto, debe conocer los detalles internos al módulo, necesarios para que éste funcione.</p></li>
 <li><p>Los <strong>usuarios</strong> del módulo (normalmente, otros módulos), como entidades externas al mismo, utilizan el módulo como una entidad abstracta sin necesidad de conocer los detalles internos del mismo, sino sólo lo necesario para poder consumir los servicios que proporciona.</p>
 <p>A la parte que un usuario necesita conocer para poder usar el módulo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
 </ul></li>
@@ -331,12 +330,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Es la parte expuesta, pública o visible del mismo.</p></li>
 <li><p>A menudo también se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
 <li><p>Debería estar perfectamente documentada para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
-<li><p>En general debería estar formada únicamente por funciones (y, tal vez, constantes) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
+<li><p>En general <strong>debería estar formada únicamente por funciones</strong> (y, tal vez, <em>constantes</em>) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
 <li><p>Esas funciones deben usarse como abstracciones funcionales, de forma que el usuario sólo necesite conocer la <strong>especificación</strong> de la función y no su <em>implementación</em> concreta.</p></li>
-</ul></section><section id="implementación" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Implementación</h3><ul>
-<li><p>La implementación es la parte del módulo que queda oculta a los usuarios del mismo.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Acabamos de decir que la interfaz de un módulo debería estar formada únicamente por <strong>funciones</strong> (y, tal vez, <em>constantes</em>).</p></li>
+<li><p>En teoría, la interfaz podría estar formada también por (algunas o todas las) <strong>variables locales al módulo</strong>, pero en la práctica eso no resulta apropiado, ya que cualquier cambio posterior en la representación interna de los datos almacenados en esas variables afectaría al resto de los módulos que acceden a dichas variables.</p>
+<p>Más adelante estudiaremos este aspecto en profundidad cuando hablemos del <strong>principio de ocultación de información</strong>.</p></li>
+</ul>
+</section><section id="implementación" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Implementación</h3><ul>
+<li><p>La implementación es la parte del módulo que queda <strong>oculta</strong> a los usuarios del mismo.</p></li>
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
-<li><p>Está formado por todas las variables locales al módulo que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz.</p></li>
+<li><p>Está formado por todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
 </ul></section><section id="diagramas-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Diagramas de estructura</h2><ul>
 <li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>
@@ -456,7 +462,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-2"><a href="#cb14-2"></a>24</span></code></pre></div></li>
 <li><p>Y si importamos el módulo dentro de otro, el código del último <code>if</code> no se ejecutará, por lo que sólo se incorporará la definición de la función <code>fac</code>.</p></li>
 </ul>
-</section><section id="paquetes" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Paquetes</h3></section><section id="documentación-interna" class="title-slide slide level3"><h3><span class="header-section-number">2.3.4</span> Documentación interna</h3></section></section>
+<!--
+### Paquetes
+
+### Documentación interna
+-->
+</section></section>
 <section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Introducción</h2><ul>
 <li><p>No existe una única forma de descomponer un programa en módulos (entiendo aquí por <em>módulo</em> cualquier parte del programa en sentido amplio, incluyendo una simple función).</p></li>
 <li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
@@ -503,11 +514,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
 <li><p>Recordemos que un módulo tiene siempre un doble punto de vista:</p>
 <ul>
-<li><p>El punto de vista del creador o implementador del módulo.</p></li>
-<li><p>El punto de vista del usuario del módulo.</p></li>
-</ul></li>
-<li><p>La abstracción nos ayuda a definir qué entidades constituyen nuestro programa considerando la relación que se establece entre los creadores y los usuarios de los módulos.</p></li>
-<li><p>Esto es así porque los usuarios de un módulo quieren usar éste como una abstracción: sabiendo qué hace (su función) pero sin necesidad de saber cómo lo hace (sus detalles internos).</p></li>
+<li><p>El punto de vista del <em>creador</em> o implementador del módulo.</p></li>
+<li><p>El punto de vista del <em>usuario</em> del módulo.</p></li>
+</ul>
+<div class="caja">
+<p>La abstracción nos ayuda a <strong>definir qué entidades constituyen nuestro programa</strong> considerando la relación que se establece entre los creadores y los usuarios de los módulos.</p>
+</div></li>
+<li><p>Esto es así porque <strong>los usuarios de un módulo quieren usar éste como una abstracción</strong>: sabiendo qué hace (su función) pero sin necesidad de saber cómo lo hace (sus detalles internos).</p></li>
 <li><p>Los módulos definidos como abstracciones son más fáciles de usar, diseñar y mantener.</p></li>
 </ul>
 </section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Ocultación de información</h2><ul>
@@ -515,12 +528,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de decisiones de diseño complejas o que puedan cambiar</strong>, es decir, que los módulos se deben caracterizar por ocultar decisiones de diseño a los demás módulos.</p></li>
 <li><p>Ocultar la información de esa manera aísla a los usuarios de un módulo de necesitar un conocimiento íntimo del diseño interno del mismo para poder usarlo.</p></li>
 <li><p>También los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
-<li><p>Implica que la modularidad efectiva se logra definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione.</p></li>
+<li><p>Implica que la modularidad efectiva se logra <strong>definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione</strong>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>La abstracción ayuda a definir qué entidades constituyen el software.</p></li>
-<li><p>La ocultación define y hace cumplir las restricciones de acceso a los componentes de un módulo; es decir: define qué cosas deben ser públicas y qué no.</p></li>
+<li><p>La abstracción y la ocultación de información se complementan:</p>
+<ul>
+<li><p>La <em>abstracción</em> ayuda a definir qué entidades constituyen el software.</p></li>
+<li><p>La <em>ocultación</em> define y hace cumplir las restricciones de acceso a los componentes de un módulo; es decir: define qué cosas deben ser públicas y qué no.</p></li>
+</ul></li>
 <li><p>En definitiva: que <strong>para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible. <em>B</em> debe ocultar al exterior los detalles internos de implementación y exponer sólo lo necesario para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
 <li><p>Cada módulo es una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p></li>
 </ul>
@@ -530,7 +546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La diferencia entre la <strong>abstracción</strong> y la <strong>ocultación de información</strong> se puede resumir también de la siguiente forma:</p>
 <ul>
 <li><p>Al <strong>usuario</strong> de un módulo le interesa la <strong>abstracción</strong> porque le permite usar el módulo conociendo de él sólo lo imprescindible e ignorando los detalles superfluos de implementación.</p></li>
-<li><p>Al <strong>creador</strong> del módulo le interesa el <strong>principio de ocultación de información</strong> porque si los usuarios de su módulo conocen más detalles de los necesarios para poder usarlo, el creador no podrá cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
+<li><p>Al <strong>creador</strong> del módulo le interesa el <strong>principio de ocultación de información</strong> porque, si los usuarios de su módulo conocen más detalles de los necesarios para poder usarlo, el creador no tendrá libertad para cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
 </ul></li>
 </ul>
 </section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Independencia funcional</h2><ul>
@@ -540,7 +556,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.</p></li>
 <li><p>Y por eso el módulo debe ser tan independiente como sea posible del resto de los módulos del programa, es decir, que dependa lo menos posible de lo que hagan otros módulos, y también que dependa lo menos posible de los datos que puedan facilitarle otros módulos.</p></li>
-<li><p>Dicho de otra forma: los módulos deben centrarse en resolver un problema concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a relacionarse con otros módulos.</p></li>
+<li><div class="caja">
+<p>Dicho de otra forma: los módulos deben centrarse en resolver un problema concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a relacionarse con otros módulos.</p>
+</div></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -560,7 +578,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos los elementos que lo componen contrubuyen a alcanzar dicho objetivo.</p></li>
+<li><p>En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos los elementos que lo componen deben contrubuir a alcanzar dicho objetivo.</p></li>
 <li><p>Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice varias tareas, siempre que contribuyan a una misma finalidad lógica.</p></li>
 <li><p>Sin embargo, para lograr un buen diseño hay que evitar módulos que llevan a cabo funciones no relacionadas.</p></li>
 </ul>
@@ -643,7 +661,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p><strong>Acoplamiento por estampado</strong>: ocurre cuando los módulos comparten una estructura de datos compuesta y usan sólo una parte de ella, posiblemente una parte diferente. Esto podría llevar a cambiar la forma en la que un módulo lee un dato compuesto debido a que un elemento que el módulo no necesita ha sido modificado.</p></li>
-<li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho parámetro es la única data compartida (por ejemplo, pasando un entero a una función que calcula una raíz cuadrada).</p></li>
+<li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho parámetro es la única información compartida (por ejemplo, pasando un entero a una función que calcula una raíz cuadrada).</p></li>
 <li><p><strong>Sin acoplamiento</strong>: ocurre cuando los módulos no se comunican para nada uno con otro.</p></li>
 </ul>
 </section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2><ul>
