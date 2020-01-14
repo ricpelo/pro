@@ -289,7 +289,7 @@ F -> G
 
 - Por tanto, el autor de un módulo puede usar variables globales en el módulo
   sin preocuparse de posibles colisiones accidentales con las variables
-  globales del usuario del módulo.
+  globales de otros módulos.
 
 ### Importación de módulos
 
@@ -302,16 +302,87 @@ F -> G
   ```
 
 - Al importar un módulo de esta forma, lo que se hace es incorporar la
-  definición del propio módulo (el módulo *importado*) dentro del ámbito global
-  del módulo o *script* actual (el módulo *importador*).
+  definición del propio módulo (el módulo *importado*) en el ámbito actual del
+  módulo o *script* que ejecuta el `import` (el módulo *importador*).
   
-- O dicho de otra forma: se incorpora al marco global del módulo importador la
-  ligadura entre el nombre del módulo importado y el propio módulo, por lo que
-  el módulo importador puede acceder al módulo importado a través de su nombre.
+- O dicho de otra forma: se incorpora al marco actual (es decir, el marco del
+  ámbito donde se ejecuta el `import`) la ligadura entre el nombre del módulo
+  importado y el propio módulo, por lo que el módulo importador puede acceder
+  al módulo importado a través de su nombre.
 
-- De esta forma, lo que se importa dentro del marco global actual no es el
-  conjunto de las definiciones que forman el módulo importado, sino el módulo
-  en sí.
+- De esta forma, lo que se importa dentro del marco actual no es el contenido
+  del módulo importado, sino el módulo en sí.
+
+---
+
+- Por ejemplo, si tenemos:
+
+  :::: columns
+
+  ::: {.column width=40%}
+
+  ```python
+  # uno.py
+
+  import dos
+
+  a = 4
+  b = 3
+  ```
+
+  :::
+
+  ::: {.column width=10%}
+
+  :::
+
+  ::: {.column width=40%}
+
+  ```python
+  # dos.py
+
+  x = 9
+  y = 5
+  ```
+
+  :::
+
+  ::::
+
+  !SALTOBEAMER
+
+  al final de la ejecución del script `uno.py` tendremos:
+
+!DOT(import-modulo.svg)(Importación del módulo `dos` en `uno`)(width=50%)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+5 [shape = circle]
+9 [shape = circle]
+4 [shape = circle]
+3 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+dos [shape = plaintext, fillcolor = transparent, label = "dos"]
+a [shape = plaintext, fillcolor = transparent, label = "a"]
+b [shape = plaintext, fillcolor = transparent, label = "b"]
+y [shape = plaintext, fillcolor = transparent, label = "y"]
+subgraph cluster1 {
+    label = "Marco global de uno"
+    bgcolor = white
+    a -> 4
+    b -> 3
+    subgraph cluster0 {
+        label = "Marco global de dos"
+        bgcolor = "white"
+        x -> 9
+        y -> 5
+    }
+    dos -> x [lhead = cluster0, minlen = 2]
+}
+E [shape = point]
+E -> a [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -319,16 +390,51 @@ F -> G
   igual que las listas o las funciones: se pueden asignar a variables, se
   pueden borrar de la memoria con `del`, etc.
 
-- Podemos acceder al contenido de un módulo importado de esta forma, indicando
-  el nombre del módulo seguido de un punto (`.`) delante del nombre del
-  contenido al que queramos acceder.
+- Y significa, además, que los módulos tienen su propio ámbito y, por tanto,
+  crean su propio marco donde se almacenan sus definiciones, aunque eso es algo
+  que ya sabíamos.
 
-- Por ejemplo, para acceder a la función `gcd` definido en el módulo `math`
+- Para acceder al contenido del módulo importado, indicamos el nombre de ese
+  módulo seguido de un punto (`.`) y el nombre del contenido al que queramos
+  acceder.
+
+---
+
+- Por ejemplo, para acceder a la función `gcd` definida en el módulo `math`
   haremos:
 
   ```python
+  import math
+
   x = math.gcd(16, 6)
   ```
+
+!DOT(import-math.svg)(Entorno en la última línea del script anterior)(width=60%)(width=65%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
+math [shape = plaintext, fillcolor = transparent, label = "math"]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+2 [shape = circle]
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    subgraph cluster0 {
+        label = "Marco global de math"
+        bgcolor = "white"
+        gcd -> función
+        m[shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+    }
+    math -> gcd [lhead = cluster0, minlen = 2]
+    x -> 2
+}
+E [shape = point]
+E -> math [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!SALTOHTML
 
 - Se recomienda (aunque no es obligatorio) colocar todas las sentencias
   `import` al principio del módulo importador.
@@ -352,6 +458,31 @@ F -> G
   x = mates.gcd(16, 6)
   ```
 
+!DOT(import-math-as.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=60%)(width=65%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
+mates [shape = plaintext, fillcolor = transparent, label = "mates"]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+2 [shape = circle]
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    subgraph cluster0 {
+        label = "Marco global de mates"
+        bgcolor = "white"
+        gcd -> función
+        m[shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+    }
+    mates -> gcd [lhead = cluster0, minlen = 2]
+    x -> 2
+}
+E [shape = point]
+E -> mates [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - Existe una variante de la sentencia `import` que nos permite importar
@@ -372,6 +503,24 @@ F -> G
   x = gcd(16, 6)
   ```
 
+!DOT(from-math-import-gcd.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=30%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+2 [shape = circle]
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    gcd -> función
+    x -> 2
+}
+E [shape = point]
+E -> gcd [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - De hecho, ahora el módulo importado no está definido en el módulo importador
@@ -379,7 +528,8 @@ F -> G
   ligadura con el nombre del módulo importado).
 
 - En nuestro ejemplo, eso significa que el módulo `math` no existe ahora como
-  tal en el módulo importador.
+  tal en el módulo importador, es decir, que ese nombre no está definido en el
+  ámbito del módulo importador.
 
 - Por tanto, si hacemos:
 
@@ -407,6 +557,24 @@ F -> G
   x = mcd(16, 6)
   ```
 
+!DOT(from-math-import-gcd-as-mcd.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=30%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+mcd [shape = plaintext, fillcolor = transparent, label = "mcd"]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+2 [shape = circle]
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    mcd -> función
+    x -> 2
+}
+E [shape = point]
+E -> mcd [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - Existe incluso una variante para importar todas las definiciones de un
@@ -428,6 +596,23 @@ F -> G
   introducir todo un conjunto de definiciones desconocidas dentro del módulo
   importador, lo que incluso puede provocar que se «*machaquen*» definiciones
   ya existentes.
+
+---
+
+- Para saber qué definiciones contiene un módulo, se puede usar la funcion
+  `dir()`:
+
+  ```python
+  >>> import math
+  >>> dir(math)
+  ['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos',
+  'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'copysign',
+  'cos', 'cosh', 'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs',
+  'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot',
+  'inf', 'isclose', 'isfinite', 'isinf', 'isnan', 'ldexp', 'lgamma', 'log',
+  'log10', 'log1p', 'log2', 'modf', 'nan', 'pi', 'pow', 'radians', 'sin',
+  'sinh', 'sqrt', 'tan', 'tanh', 'tau', 'trunc']
+  ```
 
 ### Módulos como *scripts*
 
