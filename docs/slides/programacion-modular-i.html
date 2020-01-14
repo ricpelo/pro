@@ -305,33 +305,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
 <li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
 <ul>
-<li><p>El <strong>creador</strong> o <strong>implementador</strong> del módulo se ocupa de la programación del mismo y, por tanto, debe conocer los detalles internos al módulo, necesarios para que éste funcione.</p></li>
-<li><p>Los <strong>usuarios</strong> del módulo (normalmente, otros módulos), como entidades externas al mismo, utilizan el módulo como una entidad abstracta sin necesidad de conocer los detalles internos del mismo, sino sólo lo necesario para poder consumir los servicios que proporciona.</p>
+<li><p>El <strong>creador</strong> o <strong>implementador</strong> del módulo es la persona encargada de la programación del mismo y, por tanto, debe conocer todos los detalles internos al módulo, necesarios para que éste funcione (es decir, su <strong>implementación</strong>).</p></li>
+<li><p>Los <strong>usuarios</strong> del módulo son los programadores que desean usar ese módulo en sus programas. También se les llama así a los módulos de un programa que usan a ese módulo (lo necesitan para funcionar).</p>
 <p>A la parte que un usuario necesita conocer para poder usar el módulo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
 </ul></li>
 </ul></section><section class="slide level4">
+
+<div class="caja">
+<p>Los <strong>usuarios</strong> están interesados en usar al módulo como una <strong>entidad abstracta</strong> sin necesidad de conocer los <em>detalles internos</em> del mismo, sino sólo lo necesario para poder consumir los servicios que proporciona (su <strong>interfaz</strong>).</p>
+</div>
+</section><section class="slide level4">
 
 <ul>
 <li><p>Concretando, un módulo tendrá:</p>
 <ul>
 <li><p>Un <strong>nombre</strong> (que generalmente coincidirá con el nombre del archivo en el que reside).</p></li>
-<li><p>Una <strong>interfaz</strong>, formada por un conjunto de funciones que permiten al usuario consumir sus servicios, así como manipular y acceder al estado interno desde fuera del módulo.</p></li>
+<li><p>Una <strong>interfaz</strong>, formada por un conjunto de <strong>especificaciones de funciones</strong> que permiten al usuario consumir sus servicios, así como manipular y acceder al estado interno desde fuera del módulo.</p>
+<p>Es posible que la interfaz también incluya <strong>constantes</strong>.</p></li>
 <li><p>Una <strong>implementación</strong>, formada por:</p>
 <ul>
-<li><p>Su posible estado interno en forma de variables internas y locales al módulo.</p>
-<p>Como puede contener variables, también puede contener constantes.</p></li>
-<li><p>Un conjunto de funciones auxiliares que manipulan el estado interno dentro del módulo.</p>
-<p>Es decir: funciones pensadas para ser usadas internamente por el propio módulo pero no por otras partes del programa.</p></li>
+<li><p>Su posible estado interno en forma de <strong>variables</strong> locales al módulo.</p></li>
+<li><p>Un conjunto de <strong>funciones auxiliares</strong> pensadas para ser usadas exclusivamente por el propio módulo de manera interna, pero no por otras partes del programa.</p></li>
 </ul></li>
 </ul></li>
 </ul>
 </section><section id="interfaz" class="title-slide slide level3"><h3><span class="header-section-number">2.1.1</span> Interfaz</h3><ul>
-<li><p>La interfaz es la parte del módulo que el usuario del mismo necesita conocer para poder utilizarlo.</p></li>
-<li><p>Es la parte expuesta, pública o visible del mismo.</p></li>
-<li><p>A menudo también se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
-<li><p>Debería estar perfectamente documentada para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
-<li><p>En general <strong>debería estar formada únicamente por funciones</strong> (y, tal vez, <em>constantes</em>) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
-<li><p>Esas funciones deben usarse como abstracciones funcionales, de forma que el usuario sólo necesite conocer la <strong>especificación</strong> de la función y no su <em>implementación</em> concreta.</p></li>
+<li><p>La <strong>interfaz</strong> es la parte del módulo que el <strong>usuario</strong> del mismo necesita conocer para poder utilizarlo.</p></li>
+<li><p>Es la parte <strong>expuesta, pública o visible</strong> del mismo.</p></li>
+<li><p>También se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
+<li><p>Debería estar perfectamente <strong>documentada</strong> para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
+<li><p>En general <strong>debería estar formada únicamente por funciones</strong> (y, tal vez, <strong>constantes</strong>) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
+<li><p>Esas funciones deben usarse como <em>abstracciones funcionales</em>, de forma que el usuario sólo necesite conocer las <strong>especificaciones</strong> de las funciones y no sus <em>implementaciones</em> concretas (el <em>cuerpo</em> o código de las funciones).</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -340,9 +344,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Más adelante estudiaremos este aspecto en profundidad cuando hablemos del <strong>principio de ocultación de información</strong>.</p></li>
 </ul>
 </section><section id="implementación" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Implementación</h3><ul>
-<li><p>La implementación es la parte del módulo que queda <strong>oculta</strong> a los usuarios del mismo.</p></li>
+<li><p>La <strong>implementación</strong> es la parte del módulo que queda <strong>oculta a los usuarios</strong> del mismo.</p></li>
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
-<li><p>Está formado por todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
+<li><p>Está formada por todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
 </ul></section><section id="diagramas-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Diagramas de estructura</h2><ul>
 <li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>

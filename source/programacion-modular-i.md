@@ -151,17 +151,27 @@ nocite: |
 - Así que podemos estudiar el diseño de un módulo desde **dos puntos de vista
   complementarios**:
 
-  - El **creador** o **implementador** del módulo se ocupa de la programación
-    del mismo y, por tanto, debe conocer los detalles internos al módulo,
-    necesarios para que éste funcione.
+  - El **creador** o **implementador** del módulo es la persona encargada de la
+    programación del mismo y, por tanto, debe conocer todos los detalles
+    internos al módulo, necesarios para que éste funcione (es decir, su
+    **implementación**).
 
-  - Los **usuarios** del módulo (normalmente, otros módulos), como entidades
-    externas al mismo, utilizan el módulo como una entidad abstracta sin
-    necesidad de conocer los detalles internos del mismo, sino sólo lo
-    necesario para poder consumir los servicios que proporciona.
-
+  - Los **usuarios** del módulo son los programadores que desean usar ese
+    módulo en sus programas. También se les llama así a los módulos de un
+    programa que usan a ese módulo (lo necesitan para funcionar).
+  
     A la parte que un usuario necesita conocer para poder usar el módulo se le
     denomina la **interfaz** del módulo.
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~
+Los **usuarios** están interesados en usar al módulo como una **entidad
+abstracta** sin necesidad de conocer los *detalles internos* del mismo, sino
+sólo lo necesario para poder consumir los servicios que proporciona (su
+**interfaz**).
+~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -170,43 +180,40 @@ nocite: |
   - Un **nombre** (que generalmente coincidirá con el nombre del archivo en el
     que reside).
 
-  - Una **interfaz**, formada por un conjunto de funciones que permiten al
-    usuario consumir sus servicios, así como manipular y acceder al estado
-    interno desde fuera del módulo.
+  - Una **interfaz**, formada por un conjunto de **especificaciones de
+    funciones** que permiten al usuario consumir sus servicios, así como
+    manipular y acceder al estado interno desde fuera del módulo.
+
+    Es posible que la interfaz también incluya **constantes**.
 
   - Una **implementación**, formada por:
 
-    - Su posible estado interno en forma de variables internas y locales al
-      módulo.
+    - Su posible estado interno en forma de **variables** locales al módulo.
 
-      Como puede contener variables, también puede contener constantes.
-
-    - Un conjunto de funciones auxiliares que manipulan el estado interno
-      dentro del módulo.
-
-      Es decir: funciones pensadas para ser usadas internamente por el propio
-      módulo pero no por otras partes del programa.
+    - Un conjunto de **funciones auxiliares** pensadas para ser usadas
+      exclusivamente por el propio módulo de manera interna, pero no por otras
+      partes del programa.
 
 ### Interfaz
 
-- La interfaz es la parte del módulo que el usuario del mismo necesita conocer
-  para poder utilizarlo.
+- La **interfaz** es la parte del módulo que el **usuario** del mismo necesita
+  conocer para poder utilizarlo.
 
-- Es la parte expuesta, pública o visible del mismo.
+- Es la parte **expuesta, pública o visible** del mismo.
 
-- A menudo también se la denomina su **API** (*Application Program Interface*).
+- También se la denomina su **API** (*Application Program Interface*).
 
-- Debería estar perfectamente documentada para que cualquier potencial usuario
-  tenga toda la información necesaria para poder usar el módulo sin tener que
-  conocer o acceder a partes internas del mismo.
+- Debería estar perfectamente **documentada** para que cualquier potencial
+  usuario tenga toda la información necesaria para poder usar el módulo sin
+  tener que conocer o acceder a partes internas del mismo.
 
 - En general **debería estar formada únicamente por funciones** (y, tal vez,
-  *constantes*) que el usuario del módulo pueda llamar para consumir los
+  **constantes**) que el usuario del módulo pueda llamar para consumir los
   servicios que ofrece el módulo.
 
-- Esas funciones deben usarse como abstracciones funcionales, de forma que el
-  usuario sólo necesite conocer la **especificación** de la función y no su
-  *implementación* concreta.
+- Esas funciones deben usarse como *abstracciones funcionales*, de forma que el
+  usuario sólo necesite conocer las **especificaciones** de las funciones y no
+  sus *implementaciones* concretas (el *cuerpo* o código de las funciones).
 
 ---
 
@@ -224,13 +231,13 @@ nocite: |
   
 ### Implementación
 
-- La implementación es la parte del módulo que queda **oculta** a los usuarios
-  del mismo.
+- La **implementación** es la parte del módulo que queda **oculta a los
+  usuarios** del mismo.
 
 - Es decir: es la parte que los usuarios del módulo no necesitan (ni deben)
   conocer para poder usarlo adecuadamente.
 
-- Está formado por todas las **variables locales al módulo** que almacenan su
+- Está formada por todas las **variables locales al módulo** que almacenan su
   estado interno, junto con las funciones que utiliza el propio módulo para
   gestionarse a sí mismo y que no forman parte de su interfaz (**funciones
   _auxiliares_**).
