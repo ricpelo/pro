@@ -547,11 +547,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Introducción</h2><ul>
 <li><p>No existe una única forma de descomponer un programa en módulos (entiendo aquí por <em>módulo</em> cualquier parte del programa en sentido amplio, incluyendo una simple función).</p></li>
 <li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
+<li><p>Nos interesa responder a las siguientes preguntas:</p>
+<ul>
 <li><p>¿Qué criterios se deben seguir para dividir el programa en módulos?</p></li>
+<li><p>¿Qué módulos debe tener nuestro programa?</p></li>
 <li><p>¿Cuántos módulos debe tener nuestro programa?</p></li>
 <li><p>¿De qué tamaño deben ser los módulos?</p></li>
+</ul></li>
 </ul></section><section id="tamaño-y-número" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Tamaño y número</h2><ul>
-<li><p>Según el punto de vista de la división de problemas, sería posible concluir que si el programa se dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta llegar a cero.</p></li>
+<li><p>Se supone que, si seguimos al pie de la letra la estrategia de diseño basada en la división de problemas, sería posible concluir que si el programa se dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta llegar a cero.</p></li>
 <li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.</p></li>
 <li><p>El coste de desarrollar un módulo individual disminuye conforme aumenta el número de módulos.</p></li>
 <li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay, más pequeños son.</p></li>
@@ -579,50 +583,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Abstracción</h2><ul>
 <li><p>La <strong>abstracción</strong> es un proceso mental que se basa en estudiar un aspecto del problema a un determinado nivel centrándose en lo esencial e ignorando momentáneamente los detalles que no son importantes en este nivel.</p></li>
 <li><p>Igualmente, nos permite comprender la esencia de un subsistema sin tener que conocer detalles innecesarios del mismo.</p></li>
-<li><p>Cuando se considera una solución modular a cualquier problema, se pueden definir varios niveles de abstracción:</p>
-<ul>
-<li><p>En el nivel más alto de abstracción, se enuncia una solución en términos más generales usando el lenguaje del entorno del problema.</p></li>
-<li><p>En niveles más bajos de abstracción se da una descripción más detallada de la solución.</p></li>
-</ul></li>
+<li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
+<li><p>La abstracción se usa principalmente como una técnica de <strong>manejo y control de la complejidad</strong>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
+<li><p>Cuando se considera una solución modular a cualquier problema, se pueden definir varios <strong>niveles de abstracción</strong>:</p>
+<ul>
+<li><p>En niveles <strong>más altos</strong> de abstracción, se enuncia una solución en términos más generales usando el lenguaje del entorno del problema.</p>
+<p>A estos niveles hay menos elementos de información, pero más grandes e importantes.</p></li>
+<li><p>En niveles <strong>más bajos</strong> de abstracción se da una descripción más detallada de la solución.</p>
+<p>A estos niveles se revelan más detalles, aparecen más elementos y se aumenta la cantidad de información con la que tenemos que trabajar.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La barrera de separación entre un nivel de abstracción y su inmediatamente inferior es la diferencia entre el <em>qué</em> y el <em>cómo</em>:</p>
+<ul>
+<li><p>Cuando estudiamos un concepto a un determinado nivel de abstracción, estudiamos <em>qué</em> hace.</p></li>
+<li><p>Cuando bajamos al nivel inmediatamente inferior, pasamos a estudiar <em>cómo</em> lo hace.</p></li>
+</ul></li>
+<li><p>Esta división o separación puede continuar en niveles inferiores, de forma que siempre puede considerarse que cualquier nivel responde al <em>qué</em> y el nivel siguiente responde al <em>cómo</em>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
 <li><p>Recordemos que un módulo tiene siempre un doble punto de vista:</p>
 <ul>
 <li><p>El punto de vista del <em>creador</em> o implementador del módulo.</p></li>
 <li><p>El punto de vista del <em>usuario</em> del módulo.</p></li>
 </ul>
 <div class="caja">
-<p>La abstracción nos ayuda a <strong>definir qué entidades constituyen nuestro programa</strong> considerando la relación que se establece entre los creadores y los usuarios de los módulos.</p>
+<p>La abstracción nos ayuda a <strong>definir qué módulos constituyen nuestro programa</strong> considerando la relación que se establece entre los <em>creadores</em> y los <em>usuarios</em> de los módulos.</p>
 </div></li>
-<li><p>Esto es así porque <strong>los usuarios de un módulo quieren usar éste como una abstracción</strong>: sabiendo qué hace (su función) pero sin necesidad de saber cómo lo hace (sus detalles internos).</p></li>
+<li><p>Esto es así porque <strong>los usuarios de un módulo quieren usar a éste como una abstracción</strong>: sabiendo <em>qué</em> hace (su función) pero sin necesidad de saber <em>cómo</em> lo hace (sus detalles internos).</p></li>
+<li><p>El responsable del <em>cómo</em> es únicamente el <strong>creador</strong> del módulo.</p></li>
 <li><p>Los módulos definidos como abstracciones son más fáciles de usar, diseñar y mantener.</p></li>
 </ul>
 </section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Ocultación de información</h2><ul>
-<li><p>David Parnas introdujo el concepto de ocultación de información en 1972.</p></li>
-<li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de decisiones de diseño complejas o que puedan cambiar</strong>, es decir, que los módulos se deben caracterizar por ocultar decisiones de diseño a los demás módulos.</p></li>
-<li><p>Ocultar la información de esa manera aísla a los usuarios de un módulo de necesitar un conocimiento íntimo del diseño interno del mismo para poder usarlo.</p></li>
-<li><p>También los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
+<li><p>David Parnas introdujo el <strong>principio de ocultación de información</strong> en 1972.</p></li>
+<li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de <em>decisiones de diseño</em> complejas o que puedan cambiar en el futuro</strong>, es decir, que los módulos se deben caracterizar por ocultar <em>decisiones de diseño</em> a los demás módulos.</p>
+<div class="caja">
+<p>Por tanto: todos los elementos que necesiten conocer las mismas <em>decisiones de diseño</em>, deben pertenecer al mismo módulo.</p>
+</div></li>
+<li><p>Al ocultar la información de esa manera se evita que los usuarios de un módulo necesiten de un conocimiento íntimo del diseño interno del mismo para poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
 <li><p>Implica que la modularidad efectiva se logra <strong>definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione</strong>.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>La abstracción y la ocultación de información se complementan:</p>
+<li><p>Dicho de otra forma:</p>
 <ul>
-<li><p>La <em>abstracción</em> ayuda a definir qué entidades constituyen el software.</p></li>
-<li><p>La <em>ocultación</em> define y hace cumplir las restricciones de acceso a los componentes de un módulo; es decir: define qué cosas deben ser públicas y qué no.</p></li>
+<li><p><strong>Para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible.</p>
+<div class="caja">
+<p>El uso del módulo debe realizarse únicamente por medio de <strong>interfaces</strong> bien definidas que no cambien (o cambien poco) con el tiempo y que no expongan detalles internos al exterior.</p>
+</div></li>
+<li><p>Por tanto, <em>B</em> debe <strong>ocultar</strong> al exterior sus detalles internos de <strong>implementación</strong> y exponer sólo lo necesario para que otros lo puedan utilizar.</p>
+<p>Ésto aísla a los usuarios de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
 </ul></li>
-<li><p>En definitiva: que <strong>para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible. <em>B</em> debe ocultar al exterior los detalles internos de implementación y exponer sólo lo necesario para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
-<li><p>Cada módulo es una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p></li>
+</ul>
+<div class="caja">
+<p>Es decir: cada módulo debe ser una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La <strong>abstracción</strong> y la <strong>ocultación de información</strong> se complementan:</p>
+<ul>
+<li><p>La <strong>ocultación de información</strong> es un <strong>principio de diseño</strong> que se basa en que los módulos deben ocultar a los demás módulos sus decisiones de diseño y exponer sólo la información estrictamente necesaria para que los demás puedan usarlos.</p></li>
+<li><p>La <strong>abstracción</strong> puede usarse como una <strong>técnica de diseño</strong> que nos ayuda a cumplir con el principio de ocultación de información, porque nos permite descomponer el programa en módulos y <strong>nos ayuda a identificar qué detalles hay que ocultar</strong> y qué información hay que exponer a los demás.</p></li>
+</ul></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>La diferencia entre la <strong>abstracción</strong> y la <strong>ocultación de información</strong> se puede resumir también de la siguiente forma:</p>
+<li><p>Al <strong>usuario</strong> de un módulo…</p>
 <ul>
-<li><p>Al <strong>usuario</strong> de un módulo le interesa la <strong>abstracción</strong> porque le permite usar el módulo conociendo de él sólo lo imprescindible e ignorando los detalles superfluos de implementación.</p></li>
-<li><p>Al <strong>creador</strong> del módulo le interesa el <strong>principio de ocultación de información</strong> porque, si los usuarios de su módulo conocen más detalles de los necesarios para poder usarlo, el creador no tendrá libertad para cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
+<li><p>… le interesa la <strong>abstracción</strong> porque le permite usar el módulo sabiendo únicamente <em>qué</em> hace sin tener que saber <em>cómo</em> lo hace.</p></li>
+<li><p>… le interesa la <strong>ocultación de información</strong> porque cuanta menos información necesite conocer para usar el módulo, más fácil y cómodo le resultará usarlo.</p></li>
+</ul></li>
+<li><p>Al <strong>creador</strong> de un módulo…</p>
+<ul>
+<li><p>… le interesa la <strong>abstracción</strong> como técnica porque le ayuda a determinar qué información debe ocultar su módulo al exterior.</p></li>
+<li><p>… le interesa la <strong>ocultación de información</strong> porque cuantos más detalles necesiten conocer los usuarios para poder usar su módulo, menos libertad dentrá de poder cambiar esos detalles en el futuro (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
 </ul></li>
 </ul>
 </section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Independencia funcional</h2><ul>
@@ -631,8 +674,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>De hecho, la interfaz del módulo debe estar destinada únicamente a cumplir con esa funcionalidad.</li>
 </ul></li>
 <li><p>Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.</p></li>
-<li><p>Y por eso el módulo debe ser tan independiente como sea posible del resto de los módulos del programa, es decir, que dependa lo menos posible de lo que hagan otros módulos, y también que dependa lo menos posible de los datos que puedan facilitarle otros módulos.</p></li>
-<li><div class="caja">
+<li><p>Y por eso el módulo debe ser tan independiente como sea posible del resto de los módulos del programa, es decir, que dependa lo menos posible de lo que hagan otros módulos, y también que dependa lo menos posible de los datos que puedan facilitarle otros módulos.</p>
+<div class="caja">
 <p>Dicho de otra forma: los módulos deben centrarse en resolver un problema concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a relacionarse con otros módulos.</p>
 </div></li>
 </ul></section><section class="slide level4">
@@ -743,9 +786,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2><ul>
 <li><p>La <strong>reusabilidad</strong> es un factor de calidad del software que se puede aplicar tambien a sus componentes o módulos.</p></li>
 <li><p>Un módulo es <strong>reusable</strong> cuando puede aprovecharse para ser utilizado (tal cual o con muy poca modificación) en varios programas.</p></li>
-<li><p>A la hora de diseñar módulos (o de descomponer un programa en módulos) nos interesará que los módulos resultantes sean cuanto más reusables mejor.</p></li>
+<li><p>A la hora de diseñar módulos (o de descomponer un programa en módulos) nos interesa que los módulos resultantes sean cuanto más reusables mejor.</p></li>
 <li><p>Para ello, el módulo en cuestión debe ser lo suficientemente general y resolver un problema patrón que sea suficientemente común y se pueda encontrar en varios contextos y programas diferentes.</p></li>
-<li><p>Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un bajo acoplamiento y, por tanto, no depender de otros módulos del programa.</p></li>
+<li><p>Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un bajo acoplamiento y que, por tanto, no dependa de otros módulos del programa.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>

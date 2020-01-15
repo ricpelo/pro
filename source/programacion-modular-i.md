@@ -703,17 +703,22 @@ E -> mcd [lhead = cluster1]
   equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios
   descritos anteriormente en mayor o menor medida.
 
-- ¿Qué criterios se deben seguir para dividir el programa en módulos?
+- Nos interesa responder a las siguientes preguntas:
 
-- ¿Cuántos módulos debe tener nuestro programa?
+  - ¿Qué criterios se deben seguir para dividir el programa en módulos?
 
-- ¿De qué tamaño deben ser los módulos?
+  - ¿Qué módulos debe tener nuestro programa?
+
+  - ¿Cuántos módulos debe tener nuestro programa?
+
+  - ¿De qué tamaño deben ser los módulos?
 
 ## Tamaño y número
 
-- Según el punto de vista de la división de problemas, sería posible concluir
-  que si el programa se dividiera indefinidamente, cada vez se necesitaría
-  menos esfuerzo hasta llegar a cero.
+- Se supone que, si seguimos al pie de la letra la estrategia de diseño basada
+  en la división de problemas, sería posible concluir que si el programa se
+  dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta
+  llegar a cero.
 
 - Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.
 
@@ -764,20 +769,46 @@ E -> mcd [lhead = cluster1]
 - Igualmente, nos permite comprender la esencia de un subsistema sin tener que
   conocer detalles innecesarios del mismo.
 
-- Cuando se considera una solución modular a cualquier problema, se pueden
-  definir varios niveles de abstracción:
-
-  - En el nivel más alto de abstracción, se enuncia una solución en términos
-    más generales usando el lenguaje del entorno del problema.
-
-  - En niveles más bajos de abstracción se da una descripción más detallada de
-    la solución.
-
----
-
 - La utilización de la abstracción también permite trabajar con conceptos y
   términos que son familiares en el entorno del problema sin tener que
   transformarlos en una estructura no familiar.
+
+- La abstracción se usa principalmente como una técnica de **manejo y control
+  de la complejidad**.
+
+---
+
+- Cuando se considera una solución modular a cualquier problema, se pueden
+  definir varios **niveles de abstracción**:
+
+  - En niveles **más altos** de abstracción, se enuncia una solución en
+    términos más generales usando el lenguaje del entorno del problema.
+
+    A estos niveles hay menos elementos de información, pero más grandes e
+    importantes.
+
+  - En niveles **más bajos** de abstracción se da una descripción más detallada
+    de la solución.
+
+    A estos niveles se revelan más detalles, aparecen más elementos y se
+    aumenta la cantidad de información con la que tenemos que trabajar.
+
+---
+
+- La barrera de separación entre un nivel de abstracción y su inmediatamente
+  inferior es la diferencia entre el *qué* y el *cómo*:
+
+  - Cuando estudiamos un concepto a un determinado nivel de abstracción,
+    estudiamos *qué* hace.
+
+  - Cuando bajamos al nivel inmediatamente inferior, pasamos a
+    estudiar *cómo* lo hace.
+  
+- Esta división o separación puede continuar en niveles inferiores, de forma
+  que siempre puede considerarse que cualquier nivel responde al *qué* y el
+  nivel siguiente responde al *cómo*.
+
+---
 
 - Recordemos que un módulo tiene siempre un doble punto de vista:
 
@@ -787,32 +818,38 @@ E -> mcd [lhead = cluster1]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~
-  La abstracción nos ayuda a **definir qué entidades constituyen nuestro
-  programa** considerando la relación que se establece entre los creadores y
-  los usuarios de los módulos.
+  La abstracción nos ayuda a **definir qué módulos constituyen nuestro
+  programa** considerando la relación que se establece entre los *creadores* y
+  los *usuarios* de los módulos.
   ~~~~~~~~~~~~~~~~~
 
-- Esto es así porque **los usuarios de un módulo quieren usar éste como una
-  abstracción**: sabiendo qué hace (su función) pero sin necesidad de saber
-  cómo lo hace (sus detalles internos).
+- Esto es así porque **los usuarios de un módulo quieren usar a éste como una
+  abstracción**: sabiendo *qué* hace (su función) pero sin necesidad de saber
+  *cómo* lo hace (sus detalles internos).
+  
+- El responsable del *cómo* es únicamente el **creador** del módulo.
 
 - Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
   mantener.
 
 ## Ocultación de información
 
-- David Parnas introdujo el concepto de ocultación de información en 1972.
+- David Parnas introdujo el **principio de ocultación de información** en 1972.
 
 - Afirmó que el criterio principal para la modularización de un sistema debe
-  ser la **ocultación de decisiones de diseño complejas o que puedan cambiar**,
-  es decir, que los módulos se deben caracterizar por ocultar decisiones de
-  diseño a los demás módulos.
+  ser la **ocultación de _decisiones de diseño_ complejas o que puedan cambiar
+  en el futuro**, es decir, que los módulos se deben caracterizar por ocultar
+  *decisiones de diseño* a los demás módulos.
 
-- Ocultar la información de esa manera aísla a los usuarios de un módulo de
-  necesitar un conocimiento íntimo del diseño interno del mismo para poder
-  usarlo.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  Por tanto: todos los elementos que necesiten conocer las mismas *decisiones
+  de diseño*, deben pertenecer al mismo módulo.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- También los aísla de los posibles efectos de cambiar esas decisiones
+- Al ocultar la información de esa manera se evita que los usuarios de un
+  módulo necesiten de un conocimiento íntimo del diseño interno del mismo para
+  poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones
   posteriormente.
 
 - Implica que la modularidad efectiva se logra **definiendo un conjunto de
@@ -821,37 +858,65 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- La abstracción y la ocultación de información se complementan:
+- Dicho de otra forma:
 
-  - La *abstracción* ayuda a definir qué entidades constituyen el software.
+  - **Para que un módulo *A* pueda usar a otro *B*, *A* tiene que conocer de
+    *B* lo menos posible**, lo imprescindible.
+  
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
+    El uso del módulo debe realizarse únicamente por medio de **interfaces**
+    bien definidas que no cambien (o cambien poco) con el tiempo y que no
+    expongan detalles internos al exterior.
+    ~~~~~~~~~~~~~~~~~~~~
 
-  - La *ocultación* define y hace cumplir las restricciones de acceso a los
-    componentes de un módulo; es decir: define qué cosas deben ser públicas y
-    qué no.
+  - Por tanto, *B* debe **ocultar** al exterior sus detalles internos de
+    **implementación** y exponer sólo lo necesario para que otros lo puedan
+    utilizar.
+  
+    Ésto aísla a los usuarios de los posibles cambios internos que pueda haber
+    posteriormente en *B*.
 
-- En definitiva: que **para que un módulo *A* pueda usar a otro *B*, *A* tiene
-  que conocer de *B* lo menos posible**, lo imprescindible. *B* debe ocultar al
-  exterior los detalles internos de implementación y exponer sólo lo necesario
-  para que otros lo puedan utilizar. Ésto aísla a los clientes de los posibles
-  cambios internos que pueda haber posteriormente en *B*.
-
-- Cada módulo es una **caja negra** recelosa de su privacidad que tiene
-  «aversión» por exponer sus interioridades a los demás.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~
+Es decir: cada módulo debe ser una **caja negra** recelosa de su privacidad que
+tiene «aversión» por exponer sus interioridades a los demás.
+~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- La diferencia entre la **abstracción** y la **ocultación de información** se
-  puede resumir también de la siguiente forma:
+- La **abstracción** y la **ocultación de información** se complementan:
 
-  - Al **usuario** de un módulo le interesa la **abstracción** porque le
-    permite usar el módulo conociendo de él sólo lo imprescindible e ignorando
-    los detalles superfluos de implementación.
+  - La **ocultación de información** es un **principio de diseño** que se basa
+    en que los módulos deben ocultar a los demás módulos sus decisiones de
+    diseño y exponer sólo la información estrictamente necesaria para que los
+    demás puedan usarlos.
 
-  - Al **creador** del módulo le interesa el **principio de ocultación de
-    información** porque, si los usuarios de su módulo conocen más detalles de
-    los necesarios para poder usarlo, el creador no tendrá libertad para
-    cambiarlos luego (cuando lo necesite o cuando lo desee) sin afectar a los
-    usuarios de su módulo.
+  - La **abstracción** puede usarse como una **técnica de diseño** que nos
+    ayuda a cumplir con el principio de ocultación de información, porque nos
+    permite descomponer el programa en módulos y **nos ayuda a identificar qué
+    detalles hay que ocultar** y qué información hay que exponer a los demás.
+
+---
+
+- Al **usuario** de un módulo...
+
+  - ... le interesa la **abstracción** porque le permite usar el módulo
+    sabiendo únicamente *qué* hace sin tener que saber *cómo* lo hace.
+
+  - ... le interesa la **ocultación de información** porque cuanta menos
+    información necesite conocer para usar el módulo, más fácil y cómodo le
+    resultará usarlo.
+
+- Al **creador** de un módulo...
+
+  - ... le interesa la **abstracción** como técnica porque le ayuda a
+    determinar qué información debe ocultar su módulo al exterior.
+
+  - ... le interesa la **ocultación de información** porque cuantos más
+    detalles necesiten conocer los usuarios para poder usar su módulo, menos
+    libertad dentrá de poder cambiar esos detalles en el futuro (cuando lo
+    necesite o cuando lo desee) sin afectar a los usuarios de su módulo.
 
 ## Independencia funcional
 
@@ -870,7 +935,7 @@ E -> mcd [lhead = cluster1]
   hagan otros módulos, y también que dependa lo menos posible de los datos que
   puedan facilitarle otros módulos.
 
-- !CAJA
+  !CAJA
   ~~~~~~~~~~~~~
   Dicho de otra forma: los módulos deben centrarse en resolver un problema
   concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a
@@ -1094,14 +1159,14 @@ E -> mcd [lhead = cluster1]
   cual o con muy poca modificación) en varios programas.
 
 - A la hora de diseñar módulos (o de descomponer un programa en módulos) nos
-  interesará que los módulos resultantes sean cuanto más reusables mejor.
+  interesa que los módulos resultantes sean cuanto más reusables mejor.
 
 - Para ello, el módulo en cuestión debe ser lo suficientemente general y
   resolver un problema patrón que sea suficientemente común y se pueda
   encontrar en varios contextos y programas diferentes.
 
 - Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un
-  bajo acoplamiento y, por tanto, no depender de otros módulos del programa.
+  bajo acoplamiento y que, por tanto, no dependa de otros módulos del programa.
 
 ---
 
