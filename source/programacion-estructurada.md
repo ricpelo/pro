@@ -1470,11 +1470,26 @@ E -> x [lhead = cluster1]
   x = 4
 
   def prueba():
-      global x  # informa que la variable x es global
-      x = 5     # cambia el valor de la variable global x
+      global x  # informa que la variable 'x' es global
+      x = 5     # cambia el valor de la variable global 'x'
 
   prueba()
   print(x)  # imprime 5
+  ```
+
+---
+
+- Si la variable global no existe en el momento de realizar la asignación, se
+  crea. Por tanto, una función puede crear nuevas variables globales usando
+  `global`:
+
+  ```python
+  def prueba():
+      global y  # informa que la variable 'y' (que aún no existe) es global
+      y = 9     # se crea una nueva variable global 'y' que antes no existía
+
+  prueba()
+  print(y)  # imprime 9
   ```
 
 ---
@@ -1484,11 +1499,12 @@ E -> x [lhead = cluster1]
   #. Cuando se crea una variable dentro de una función (asignándole un valor),
      por omisión es local.
 
-  #. Cuando se define una variable fuera de una función, por omisión es global
+  #. Cuando se crea una variable fuera de una función, por omisión es global
      (no hace falta usar la sentencia `global`).
 
   #. Se usa la sentencia `global` para cambiar el valor de una variable global
-     dentro de una función.
+     dentro de una función (si la variable global no existía previamente, se
+     crea durante la asignación).
 
   #. El uso de la sentencia `global` fuera de una función no tiene ningún
      efecto.

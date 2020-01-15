@@ -1102,8 +1102,8 @@ None</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb37-2"><a href="#cb37-2"></a></span>
 <span id="cb37-3"><a href="#cb37-3"></a><span class="kw">def</span> prueba():</span>
-<span id="cb37-4"><a href="#cb37-4"></a>    <span class="kw">global</span> x  <span class="co"># informa que la variable x es global</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a>    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global x</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>    <span class="kw">global</span> x  <span class="co"># informa que la variable &#39;x&#39; es global</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a>    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global &#39;x&#39;</span></span>
 <span id="cb37-6"><a href="#cb37-6"></a></span>
 <span id="cb37-7"><a href="#cb37-7"></a>prueba()</span>
 <span id="cb37-8"><a href="#cb37-8"></a><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></span></code></pre></div></li>
@@ -1111,17 +1111,28 @@ None</code></pre>
 </section><section class="slide level4">
 
 <ul>
+<li><p>Si la variable global no existe en el momento de realizar la asignación, se crea. Por tanto, una función puede crear nuevas variables globales usando <code>global</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="kw">global</span> y  <span class="co"># informa que la variable &#39;y&#39; (que aún no existe) es global</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>    y <span class="op">=</span> <span class="dv">9</span>     <span class="co"># se crea una nueva variable global &#39;y&#39; que antes no existía</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>prueba()</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="bu">print</span>(y)  <span class="co"># imprime 9</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
 <li><p>Las reglas básicas de uso de la sentencia <code>global</code> en Python son:</p>
 <ol>
 <li><p>Cuando se crea una variable dentro de una función (asignándole un valor), por omisión es local.</p></li>
-<li><p>Cuando se define una variable fuera de una función, por omisión es global (no hace falta usar la sentencia <code>global</code>).</p></li>
-<li><p>Se usa la sentencia <code>global</code> para cambiar el valor de una variable global dentro de una función.</p></li>
+<li><p>Cuando se crea una variable fuera de una función, por omisión es global (no hace falta usar la sentencia <code>global</code>).</p></li>
+<li><p>Se usa la sentencia <code>global</code> para cambiar el valor de una variable global dentro de una función (si la variable global no existía previamente, se crea durante la asignación).</p></li>
 <li><p>El uso de la sentencia <code>global</code> fuera de una función no tiene ningún efecto.</p></li>
 <li><p>La sentencia <code>global</code> debe aparecer <em>antes</em> de que se use la variable global correspondiente.</p></li>
 </ol></li>
 </ul>
 </section><section id="efectos-laterales" class="slide level4">
-<h4><span class="header-section-number">4.5.2.5</span> Efectos laterales</h4>
+<h4><span class="header-section-number">4.5.2.6</span> Efectos laterales</h4>
 <ul>
 <li><p>Cambiar el estado de una variable global es uno de los ejemplos más claros y conocidos de los llamados <strong>efectos laterales</strong>.</p></li>
 <li><p>Recordemos que una función tiene (o <em>provoca</em>) efectos laterales cuando provoca cambios de estado observables desde el exterior de la función, más allá de devolver su valor de retorno. Típicamente:</p>
@@ -1137,13 +1148,13 @@ None</code></pre>
 
 <ul>
 <li><p>Un ejemplo de <strong>función impura</strong> (con un efecto lateral provocado por una operación de entrada/salida) podría ser:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb38-2"><a href="#cb38-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
-<span id="cb38-3"><a href="#cb38-3"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
-<span id="cb38-4"><a href="#cb38-4"></a>    <span class="cf">return</span> res</span>
-<span id="cb38-5"><a href="#cb38-5"></a></span>
-<span id="cb38-6"><a href="#cb38-6"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="bu">print</span>(resultado)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb39-2"><a href="#cb39-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb39-3"><a href="#cb39-3"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
+<span id="cb39-4"><a href="#cb39-4"></a>    <span class="cf">return</span> res</span>
+<span id="cb39-5"><a href="#cb39-5"></a></span>
+<span id="cb39-6"><a href="#cb39-6"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="bu">print</span>(resultado)</span></code></pre></div>
 <p>Cualquiera que no sepa cómo está construida internamente la función <code>suma</code>, se podría pensar que lo único que hace es calcular la suma de dos números, pero resulta que también imprime un mensaje en la salida, por lo que el resultado final que se obtiene no es el que se esperaba:</p>
 <pre><code>La suma vale 7
 La suma vale 13
@@ -1153,9 +1164,9 @@ La suma vale 13
 
 <ul>
 <li><p>Las llamadas a la función <code>suma</code> no se pueden sustituir por su valor de retorno correspondiente. Es decir, que no es lo mismo hacer:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
 <p>porque en el primer caso se imprimen cosas por pantalla y en el segundo no.</p></li>
 <li><p>Por tanto, la función <code>suma</code> no cumple la <strong>transparencia referencial</strong>.</p></li>
 </ul>
@@ -1164,29 +1175,29 @@ La suma vale 13
 <ul>
 <li><p>El que una función necesite <strong>acceder al valor de una variable global</strong> supone otra forma de <strong>perder transparencia referencial</strong>, ya que la convierte en <strong>impura</strong> porque su valor de retorno podría depender de algo más que de sus argumentos (en este caso, de la variable global).</p></li>
 <li><p>En consecuencia, la función podría producir <strong>resultados distintos en momentos diferentes</strong> ante los mismos argumentos:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb42-2"><a href="#cb42-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a>    <span class="cf">return</span> res</span>
-<span id="cb42-4"><a href="#cb42-4"></a></span>
-<span id="cb42-5"><a href="#cb42-5"></a>z <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a>z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb42-8"><a href="#cb42-8"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb43-2"><a href="#cb43-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="cf">return</span> res</span>
+<span id="cb43-4"><a href="#cb43-4"></a></span>
+<span id="cb43-5"><a href="#cb43-5"></a>z <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a>z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
 <li><p>Igualmente, el <strong>uso de la sentencia <code>global</code></strong> supone otra forma más de <strong>perder transparencia referencial</strong>, puesto que, gracias a ella, una función puede cambiar el valor de una variable global, lo que la convertiría en <strong>impura</strong> porque podría provocar un <strong>efecto lateral</strong> (la modificación de la variable global).</p></li>
 <li><p>En consecuencia, la función podría producir <strong>resultados distintos en momentos diferentes</strong> ante los mismos argumentos:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb43-2"><a href="#cb43-2"></a>    <span class="kw">global</span> z</span>
-<span id="cb43-3"><a href="#cb43-3"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a>    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span>        <span class="co"># efecto lateral: cambia una variable global</span></span>
-<span id="cb43-5"><a href="#cb43-5"></a>    <span class="cf">return</span> res</span>
-<span id="cb43-6"><a href="#cb43-6"></a></span>
-<span id="cb43-7"><a href="#cb43-7"></a>z <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb43-8"><a href="#cb43-8"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></span>
-<span id="cb43-9"><a href="#cb43-9"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb44-2"><a href="#cb44-2"></a>    <span class="kw">global</span> z</span>
+<span id="cb44-3"><a href="#cb44-3"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span>        <span class="co"># efecto lateral: cambia una variable global</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="cf">return</span> res</span>
+<span id="cb44-6"><a href="#cb44-6"></a></span>
+<span id="cb44-7"><a href="#cb44-7"></a>z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
 </ul>
 </section><section id="funciones-locales-a-funciones" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Funciones locales a funciones</h2><ul>
 <li><p>En Python es posible definir <strong>funciones locales</strong> a una función.</p></li>
@@ -1198,18 +1209,18 @@ La suma vale 13
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb44-2"><a href="#cb44-2"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
-<span id="cb44-3"><a href="#cb44-3"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb44-4"><a href="#cb44-4"></a>            <span class="cf">return</span> acc</span>
-<span id="cb44-5"><a href="#cb44-5"></a>        <span class="cf">else</span>:</span>
-<span id="cb44-6"><a href="#cb44-6"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb44-7"><a href="#cb44-7"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb44-8"><a href="#cb44-8"></a></span>
-<span id="cb44-9"><a href="#cb44-9"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
-<span id="cb44-10"><a href="#cb44-10"></a></span>
-<span id="cb44-11"><a href="#cb44-11"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
-<span id="cb44-12"><a href="#cb44-12"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb45-2"><a href="#cb45-2"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb45-3"><a href="#cb45-3"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb45-4"><a href="#cb45-4"></a>            <span class="cf">return</span> acc</span>
+<span id="cb45-5"><a href="#cb45-5"></a>        <span class="cf">else</span>:</span>
+<span id="cb45-6"><a href="#cb45-6"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb45-7"><a href="#cb45-7"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb45-8"><a href="#cb45-8"></a></span>
+<span id="cb45-9"><a href="#cb45-9"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb45-10"><a href="#cb45-10"></a></span>
+<span id="cb45-11"><a href="#cb45-11"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb45-12"><a href="#cb45-12"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
 <li><p>La función <code>fact_iter</code> es local a la función <code>fact</code>. No se puede usar desde fuera de <code>fact</code>.</p></li>
 <li><p>Tampoco se puede usar dentro de <code>fact</code> <em>antes</em> de haberse definido.</p></li>
 </ul>
@@ -1217,13 +1228,13 @@ La suma vale 13
 
 <ul>
 <li><p>Lo siguiente daría un error porque intentamos usar <code>fact_iter</code> antes de haber definido:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb45-2"><a href="#cb45-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
-<span id="cb45-3"><a href="#cb45-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb45-5"><a href="#cb45-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb45-6"><a href="#cb45-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb45-7"><a href="#cb45-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb46-2"><a href="#cb46-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb46-5"><a href="#cb46-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb46-6"><a href="#cb46-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb46-7"><a href="#cb46-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1238,18 +1249,18 @@ La suma vale 13
 <li><p>Es algo similar a lo que ocurre con las variables globales.</p></li>
 </ul></section><section class="slide level4">
 
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb46-2"><a href="#cb46-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
-<span id="cb46-3"><a href="#cb46-3"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb46-4"><a href="#cb46-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb46-5"><a href="#cb46-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb46-6"><a href="#cb46-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb46-7"><a href="#cb46-7"></a>            acc <span class="op">*=</span> n</span>
-<span id="cb46-8"><a href="#cb46-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb46-9"><a href="#cb46-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
-<span id="cb46-10"><a href="#cb46-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
-<span id="cb46-11"><a href="#cb46-11"></a></span>
-<span id="cb46-12"><a href="#cb46-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb47-2"><a href="#cb47-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb47-3"><a href="#cb47-3"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb47-4"><a href="#cb47-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb47-5"><a href="#cb47-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb47-6"><a href="#cb47-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb47-7"><a href="#cb47-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb47-8"><a href="#cb47-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb47-9"><a href="#cb47-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb47-10"><a href="#cb47-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb47-11"><a href="#cb47-11"></a></span>
+<span id="cb47-12"><a href="#cb47-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
 <li><p>La función local <code>fact_iter</code> puede acceder a la variable <code>n</code>, que es local a la función <code>fact</code> (para ello no es necesario declararla previamente como <strong>no local</strong>).</p></li>
 <li><p>Como la variable <code>n</code> está declarada <strong>no local</strong> en <code>fact_iter</code>, también puede modificarla.</p></li>
@@ -1258,33 +1269,33 @@ La suma vale 13
 </section><section id="docstrings" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> <em>Docstrings</em></h2><ul>
 <li><p>Python implementa un mecanismo muy sencillo y elegante para documentar partes del código basado en cadenas llamadas <strong><em>docstrings</em></strong> (<em>cadenas de documentación</em>).</p></li>
 <li><p>En funciones, únicamente tenemos que insertar una cadena en la primera línea del cuerpo:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">def</span> hola(arg):</span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="co">  Este es el docstring de la función.</span></span>
-<span id="cb47-4"><a href="#cb47-4"></a><span class="co">  &quot;&quot;&quot;</span></span>
-<span id="cb47-5"><a href="#cb47-5"></a>  <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>, arg, <span class="st">&quot;!&quot;</span>)</span>
-<span id="cb47-6"><a href="#cb47-6"></a></span>
-<span id="cb47-7"><a href="#cb47-7"></a>hola(<span class="st">&quot;Héctor&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">def</span> hola(arg):</span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="co">  Este es el docstring de la función.</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a><span class="co">  &quot;&quot;&quot;</span></span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>, arg, <span class="st">&quot;!&quot;</span>)</span>
+<span id="cb48-6"><a href="#cb48-6"></a></span>
+<span id="cb48-7"><a href="#cb48-7"></a>hola(<span class="st">&quot;Héctor&quot;</span>)</span></code></pre></div></li>
 <li><p>Las reglas de estilo dictan que esa cadena debe escribirse con triples comillas.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Para consultar la documentación se usa la función <code>help</code> pasándole como argumento la función a consultar:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(hola)</span>
-<span id="cb48-2"><a href="#cb48-2"></a>Help on function hola <span class="kw">in</span> module __main__:</span>
-<span id="cb48-3"><a href="#cb48-3"></a></span>
-<span id="cb48-4"><a href="#cb48-4"></a>hola()</span>
-<span id="cb48-5"><a href="#cb48-5"></a>  Este es el docstring de la función.</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(hola)</span>
+<span id="cb49-2"><a href="#cb49-2"></a>Help on function hola <span class="kw">in</span> module __main__:</span>
+<span id="cb49-3"><a href="#cb49-3"></a></span>
+<span id="cb49-4"><a href="#cb49-4"></a>hola()</span>
+<span id="cb49-5"><a href="#cb49-5"></a>  Este es el docstring de la función.</span></code></pre></div></li>
 <li><p>También se puede documentar un script añadiendo un <em>docstring</em> al principio del mismo (en la primera línea):</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="co">&quot;&quot;&quot;Este es el docstring del script&quot;&quot;&quot;</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a></span>
-<span id="cb49-3"><a href="#cb49-3"></a><span class="kw">def</span> despedir():</span>
-<span id="cb49-4"><a href="#cb49-4"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función despedir&quot;&quot;&quot;</span></span>
-<span id="cb49-5"><a href="#cb49-5"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Adiós! Me despido desde la función despedir()&quot;</span>)</span>
-<span id="cb49-6"><a href="#cb49-6"></a></span>
-<span id="cb49-7"><a href="#cb49-7"></a><span class="kw">def</span> saludar():</span>
-<span id="cb49-8"><a href="#cb49-8"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función saludar&quot;&quot;&quot;</span></span>
-<span id="cb49-9"><a href="#cb49-9"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="co">&quot;&quot;&quot;Este es el docstring del script&quot;&quot;&quot;</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="kw">def</span> despedir():</span>
+<span id="cb50-4"><a href="#cb50-4"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función despedir&quot;&quot;&quot;</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Adiós! Me despido desde la función despedir()&quot;</span>)</span>
+<span id="cb50-6"><a href="#cb50-6"></a></span>
+<span id="cb50-7"><a href="#cb50-7"></a><span class="kw">def</span> saludar():</span>
+<span id="cb50-8"><a href="#cb50-8"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función saludar&quot;&quot;&quot;</span></span>
+<span id="cb50-9"><a href="#cb50-9"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</span></code></pre></div></li>
 </ul>
 </section></section>
 <section><section id="actividades" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Actividades</h1></section><section id="actividades-1" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Actividades</h2><ol class="example" type="1">
@@ -1329,8 +1340,8 @@ p(2) = 9</code></pre></li>
 <p><code>0</code>, <code>1</code>, …, <code>9</code>, <code>10</code>, <code>11</code>, …, <code>15</code></p>
 </div></li>
 <li><p>Para hallar en qué fecha cae el Domingo de Pascua de un <code>anyo</code> cualquiera, basta con hallar las cantidades <code>a</code> y <code>b</code> siguientes:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
 <p>y entonces, ese Domingo es el <em>22 de marzo + <code>a</code> + <code>b</code> días</em>, que podrı́a caer en abril. Escriba un programa que realice estos cálculos, produciendo una entrada y salida claras.</p></li>
 </ol>
 </section><section class="slide level4">
