@@ -1186,4 +1186,348 @@ tiene «aversión» por exponer sus interioridades a los demás.
   programa a base de ir ensamblando módulos reusables como si fueran las piezas
   del engranaje de una máquina.
 
+# Abstracción de datos
+
+## Introducción
+
+- Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a
+  estudiar y manipular sistemas complejos destacando los detalles
+  relevantes e ignorando momentáneamente los demás que ahora mismo no tienen
+  importancia o no son necesarias.
+
+- Asimismo, hemos visto que la abstracción se crea por niveles, es decir, que
+  cuando estudiamos un sistema a un determinado nivel:
+
+  - Se destacan los detalles relevantes en ese nivel.
+
+  - Se ignoran los detalles irrelevantes en ese nivel. Si descendemos de nivel
+    de abstracción, es probable que algunos de esos detalles pasen a ser
+    relevantes.
+
+- Los programas son sistemas complejos, así que resulta importante que el
+  lenguaje de programación nos permita estudiar y diseñar programas mediante
+  sucesivos niveles de abstracción.
+
+---
+
+- La abstracción, además de ser un proceso, es un concepto que se puede
+  manipular directamente en un programa.
+
+- Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
+  funciones, también llamadas abstracciones funcionales.
+
+- Una función es una abstracción funcional porque se destaca el *qué* hace la
+  función y se ignora el *cómo* lo hace. El usuario de la función sólo necesita
+  conocer la especificación de la abstracción (el *qué*) y puede ignorar el
+  resto de los detalles de implementación que se encuentran en el cuerpo de la
+  función (el *cómo*).
+
+- Por eso decimos que las funciones definen dos niveles de abstracción.
+
+- En otras palabras, al diseñar una función estamos creando una abstracción que
+  separa la forma en la que utiliza la función de los detalles de cómo está
+  implementada esa función.
+
+---
+
+- Las abstracciones funcionales son un mecanismo que nos permite componer una
+  función compleja a partir de otras operaciones más simples y poder usarla sin
+  necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de
+  conocer cuáles son esas operaciones más simples que la forman).
+
+- Una vez que la función se ha diseñado y se está utilizando, se puede
+  sustituir por cualquier otra que tenga el mismo comportamiento general.
+
+- De la misma forma, los datos compuestos o estructurados son un mecanismo que
+  nos permite crear un dato a partir de otros datos más simples, formando una
+  única unidad conceptual.
+
+- Por desgracia, estos datos compuestos no ocultan sus detalles de
+  implementación al usuario, sino que éste tiene que conocer cómo está
+  construido.
+
+---
+
+- Por ejemplo, podemos representar un número racional $\frac{a}{b}$ mediante
+  una pareja de números enteros $a$ y $b$ (su numerador y su denominador).
+
+- Si almacenamos los dos números por separado no estaremos creando una sola
+  unidad conceptual (no estaremos componiendo un nuevo dato a partir de otros
+  datos más simples).
+
+- Eso no resulta conveniente. A nosotros, como programadores, nos interesa que
+  el numerador y el denominador de un número racional estén juntos formando una
+  sola cosa, un nuevo valor: un número racional.
+
+- Además, nos interesa que nuestro programa sea capaz de expresar el concepto
+  de «número racional» y que pueda manipular números racionales como valores
+  con entidad propia y definida, no simplemente como parejas de números
+  enteros.
+
+---
+
+- Para ello, es importante que el programa que utilice los números racionales
+  no necesite conocer los detalles internos de cómo está representado
+  internamente un número racional.
+
+- Es decir: que los números racionales se pueden representar internamente como
+  una lista de dos números, o como una tupla, o como un diccionario, o de
+  cualquier otro modo, pero ese detalle interno debe quedar oculto para los
+  usuarios de los números racionales.
+
+- La técnica general de aislar las partes de un programa que se ocupan de cómo
+  se representan los datos de las partes que se ocupan de cómo se manipulan los
+  datos es una poderosa metodología de diseño llamada **abstracción de datos**.
+
+---
+
+- La abstracción de datos es una técnica pero también es un concepto que se
+  puede manipular directamente en un programa.
+
+- Diseñar programas usando abstracción de datos da como resultado la creación
+  y utilización de **tipos abstractos de datos** (o **TAD**), a los que también
+  se se les denomina **abstracciones de datos**.
+
+---
+
+- La abstracción de datos se parece a la abstracción funcional:
+
+  - Cuando creamos una **abstracción funcional**, se ocultan los detalles de
+    cómo se implementa una función, y esa función particular se puede sustituir
+    luego por cualquier otra función que tenga el mismo comportamiento general
+    sin que los usuarios de la función se vean afectados.
+
+    En otras palabras, podemos hacer una abstracción que separe la forma en que
+    se utiliza la función de los detalles de cómo se implementa la función.
+
+  - Igualmente, la **abstracción de datos** separa el uso de un dato compuesto
+    de los detalles de cómo está construido ese dato compuesto, que quedan
+    ocultos para los usuarios de la abstracción de datos.
+
+    Para usar una abstracción de datos no necesitamos conocer sus detalles
+    internos de implementación.
+
+---
+
+- El concepto de **abstracción de datos** (o **tipo abstracto de datos**) fue
+  propuesto por John Guttag en 1974 y dice que:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~
+  **Tipo abstracto de datos**
+
+  Un **tipo abstracto de datos** (o **_abstracción de datos_**) es un conjunto
+  de valores y de operaciones que se definen mediante una **especificación**
+  que es independiente de cualquier representación.
+  ~~~~~~~~~~~~~~~~~~~~~~
+
+- Para ello, los tipos abstractos de datos se definen nombrando, no sus
+  valores, sino sus **operaciones** y las propiedades que cumplen éstas.
+
+- Los **valores** de un tipo abstracto se definen también como operaciones.
+
+---
+
+- Por ejemplo, `set` es un tipo abstracto de datos en Python.
+
+  - Se nos proporcionan **operaciones primitivas** para crear conjuntos y
+    manipular conjuntos (unión, intersección) y también un modo de visualizar
+    sus valores.
+
+  - Pero no se nos especifica cómo se representan internamente los conjuntos en
+    la memoria del ordenador.
+
+- En general, el programador que usa un tipo abstracto puede no saber, e
+  incluso se le impide saber, cómo se representan los elementos del tipo de
+  datos.
+
+- Esas **barreras de abstracción** son muy útiles porque permiten cambiar la
+  representación interna sin afectar a las demás partes del programa que
+  utilizan dicho tipo abstracto.
+
+---
+
+- En resumen, tenemos que un tipo abstracto debe cumplir:
+
+  - **Privacidad de la representación**: los usuarios no conocen la
+    representación de los valores del tipo abstracto en la memoria del
+    ordenador.
+
+  - **Protección**: sólo se pueden utilizar para el nuevo tipo las operaciones
+    previstas en la especificación.
+
+> «Son las abstracciones, y no los programas, los que realmente describen una
+> abstracción; los programas simplemente la implementan.»
+>
+> -- Barbara Liskov
+
+
+---
+
+- El programador de un tipo abstracto debe crear, por tanto, dos partes bien
+  diferenciadas:
+
+  - La **especificación** del tipo: única parte que conoce el usuario del mismo
+    y que consiste en:
+  
+    - El **nombre** del tipo.
+    
+    - La especificación de las **operaciones** permitidas. Esta especificación
+      tendrá:
+
+      - Una parte **sintáctica**: la *signatura* de cada operación.
+
+      - Otra parte **semántica**: que define las **propiedades** que deben
+        cumplir dichas operaciones y que se pueden expresar mediante ecuaciones
+        o directamente en lenguaje natural.
+
+  - La **implementación** del tipo: conocida sólo por el programador del mismo
+    y que consiste en la *representación* del tipo por medio de otros tipos y
+    en la implementación de las operaciones.
+
+---
+
+- Las operaciones que forman parte de la especificación de un tipo abstracto
+  $T$ pueden clasificarse en:
+
+  - **Constructoras**: operaciones que devuelven un valor de tipo $T$.
+
+    - A su vez, las constructoras se dividen en:
+
+      - **Generadoras**: el conjunto de operaciones generadoras está formado
+        por aquellas operaciones constructoras que tienen la propiedad de que
+        sólo con ellas es suficiente para generar cualquier valor del tipo, y
+        excluyendo cualquiera de ellas hay valores que no pueden ser generados.
+
+      - **Modificadoras**: son las operaciones constructoras que no forman
+        parte del conjunto de las generadoras.
+
+  - **Selectoras**: operaciones que toman como argumento uno o más valores de
+    tipo $T$ que no devuelven un valor de tipo $T$.
+
+---
+
+- Un ejemplo de especificación de las **listas** como tipo abstracto sería:
+
+:::: columns
+
+::: column
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _LISTAS_
+    **operaciones**
+          `[]` : $\rightarrow$ _lista_
+          `[`_`]` : _elemento_ $\rightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
+          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+    **var**
+          $x$ : _elemento_; $l, l_1, l_2, l_3$ : _lista_
+    **ecuaciones**
+          $l$ `++` `[]` $\doteq$ $l$
+          `[]` `++` $l$ $\doteq$ $l$
+          ($l_1$ `++` $l_2$) `++` $l_3$ $\doteq$ $l_1$ `++` ($l_2$ `++` $l_3$)
+          $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
+          `len`(`[]`) $\doteq$ 0
+          `len`(`[`$x$`]`) $\doteq$ 1
+          `len`($l_1$ `++` $l_2$) $\doteq$ `len`($l_1$) + `len`($l_2$)
+**fspec**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Este estilo de especificación se denomina **especificación algebraica**.
+
+- Su principal virtud es que permite definir un nuevo tipo de forma *totalmente
+  independiente* de cualquier posible representación o implementación.
+
+- ¿A qué categoría pertenencen cada una de esas operaciones?
+
+:::
+
+::::
+
+---
+
+- Las **pilas** como tipo abstracto se podrían especificar así:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _PILAS_
+    **operaciones**
+          `pvacia` : $\rightarrow$ _pila_
+          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
+          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
+          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
+          `vacia?` : _pila_ $\rightarrow$ $\mathfrak{B}$
+    **var**
+          $p$ : _pila_; $x$ : _elemento_
+    **ecuaciones**
+          `cima`(`apilar`($p$, $x$)) $\doteq$ $x$
+          `desapilar`(`apilar`($p$, $x$)) $\doteq$ $p$
+          `vacia?`(`pvacia`) $\doteq$ $V$
+          `vacia?`(`apilar`($p$, $x$)) $\doteq$ $F$
+          `cima`(`pvacia`) $\doteq$ $error$
+          `desapilar`(`pvacia`) $\doteq$ $error$
+**fspec**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Claramente, un tipo abstracto representa una abstracción:
+
+  - Se destacan los detalles (normalmente pocos) de la especificación, es
+    decir, el comportamiento observable del tipo. Es de esperar que este
+    aspecto sea bastante estable y cambie poco durante la vida útil del
+    programa.
+
+  - Se ocultan los detalles (normalmente numerosos) de la implementación. Este
+    aspecto es, además, propenso a cambios.
+
+## Los tipos abstractos como módulos
+
+- Las propiedades anteriores hacen que el tipo abstracto sea el concepto ideal
+  alrededor del cual basar la descomposición en módulos de un programa grande.
+
+- Recordemos que para que haya una buena modularidad:
+
+  - Las **conexiones** del módulo con el resto del programa han de ser pocas y
+    simples. De este modo se espera lograr una relativa independencia en el
+    desarrollo de cada módulo con respecto a los otros.
+
+  - La **descomposición** en módulos ha de ser tal que la mayor parte de los
+    cambios y mejoras al programa impliquen modificar sólo un módulo o un
+    número muy pequeño de ellos.
+
+  - El **tamaño** de un módulo ha de ser el adecuado: si es demasiado grande,
+    será difícil realizar cambios en él; si es demasiado pequeño, los costes de
+    integración con otros módulos aumenta.
+
+---
+
+- La parte del código fuente de un programa dedicada a la definición de un tipo
+  abstracto de datos es un **candidato a módulo** que cumple los siguientes
+  requisitos:
+
+  - La **interfaz** del tipo abstracto con sus usuarios es un ejemplo de
+    pocas y simples conexiones con el resto del programa: los usuarios
+    simplemente invocan sus operaciones permitidas. Otras conexiones más
+    peligrosas, como compartir variables entre módulos o compartir el
+    conocimiento acerca de la estructura interna, son imposibles.
+
+  - La **implementación** puede cambiarse libremente sin afectar al
+    funcionamiento de los módulos usuarios. Es de esperar, por tanto, que
+    muchos cambios al programa queden localizados en el interior de un sólo
+    módulo.
+
+  - El **tamaño** de una sola función que implementa una abstracción funcional
+    es demasiado pequeño para ser útil como unidad modular. En cambio, la
+    definición de un tipo abstracto consta, en general, de una colección de
+    funciones más una representación, lo que proporciona un tamaño más
+    adecuado.
+
+
 !BIBLIOGRAFIA
