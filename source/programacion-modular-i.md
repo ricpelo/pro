@@ -1390,8 +1390,8 @@ tiene «aversión» por exponer sus interioridades a los demás.
   - **Protección**: sólo se pueden utilizar para el nuevo tipo las operaciones
     previstas en la especificación.
 
-> «Son las abstracciones, y no los programas, los que realmente describen una
-> abstracción; los programas simplemente la implementan.»
+> «Son las especificaciones, y no los programas, los que realmente describen
+> una abstracción; los programas simplemente la implementan.»
 >
 > -- Barbara Liskov
 
