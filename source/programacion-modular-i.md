@@ -1756,20 +1756,20 @@ def imprimir(x):
   manipulan números racionales usando diferentes operaciones, como se describe
   en esta tabla:
 
-  -----------------------------------------------------------------------------------------------
-  Las partes del programa que...     Tratan a los racionales como... Usando sólo...
-  ---------------------------------- ------------------------------- ----------------------------
-  Usan números racionales            valores de datos completos,     `suma`, `mult`, `iguales`,
-  para realizar cálculos             un todo                         `imprimir`
-                                                                  
-  Crean racionales o                 numeradores y denominadores     `racional`, `numer`, `denom`
-  implementan operaciones                                         
-  sobre racionales                                                
-                                                                  
-  Implementan selectores             listas de dos elementos         literales de tipo lista e
-  y constructores de                                                 indexación
-  racionales
-  -----------------------------------------------------------------------------------------------
++-----------------------------------+---------------------------------+--------------------------------+
+| Las partes del programa que...    | Tratan a los racionales como... | Usando sólo...                 |
++===================================+=================================+================================+
+| - Usan números racionales         | - Valores de datos completos,   | - `suma`, `mult`, `iguales`,   |
+|   para realizar cálculos          |   un todo                       |   `imprimir`                   |
++-----------------------------------+---------------------------------+--------------------------------+
+| - Crean racionales o              | - Numeradores y denominadores   | - `racional`, `numer`, `denom` |
+|   implementan operaciones         |                                 |                                |
+|   sobre racionales                |                                 |                                |
++-----------------------------------+---------------------------------+--------------------------------+
+| - Implementan selectores          | - Listas de dos elementos       | - Literales de tipo lista e    |
+|   y constructores de              |                                 |   indexación                   |
+|   racionales                      |                                 |                                |
++-----------------------------------+---------------------------------+--------------------------------+
 
 ---
 
