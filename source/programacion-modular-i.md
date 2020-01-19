@@ -1578,7 +1578,263 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ::::
 
-## El tipo abstracto como abstracción
+---
+
+- Y los **números racionales** se podrían especificar así:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _rac_
+    **operaciones**
+          **parcial** `racional` : $\mathbb{N}$ $\times$ $\mathbb{N}$ $\rightarrow$ _rac_
+          `numer` : _rac_ $\rightarrow$ $\mathbb{N}$
+          `denom` : _rac_ $\rightarrow$ $\mathbb{N}$
+          `suma`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
+          `mult`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
+          `iguales?` : _rac_ $\times$ _rac_ $\rightarrow$ $\mathfrak{B}$
+          `imprimir` : _rac_ $\rightarrow$ $\emptyset$
+    **var**
+          $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{N}$
+    **ecuaciones**
+          `numer`(`racional`($n$, $d$)) $\doteq$ $n$
+          `denom`(`racional`($n$, $d$)) $\doteq$ $d$
+          `suma`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}d_2 + n_2\cdot{}d_1$, $d_1\cdot{}d_2$)
+          `mult`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}n_2$, $d_1\cdot{}d_2$)
+          `iguales?`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ $n_1\cdot{}d_2 = n_2\cdot{}d_1$
+          `imprimir`($r$) \{ imprime el racional $r$ \}
+          `racional`($n$, 0) $\doteq$ $error$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Según la especificación anterior, podemos suponer que disponemos de un
+  constructor y dos selectores a través de las siguientes funciones:
+
+  - `racional(`$n$`, `$d$`)`: devuelve el número racional con numerador $n$ y
+    denominador $d$.
+
+  - `numer(`$x$`)`: devuelve el numerador del número racional $x$.
+
+  - `denom(`$x$`)`: devuelve el denominador del número racional $x$.
+
+- Estamos usando una estrategia poderosa para diseñar programas: el
+  **pensamiento optimista**, ya que todavía no hemos dicho cómo se representa
+  un número racional, o cómo se deben implementar las funciones `numer`,
+  `denom` y `racional`.
+
+- Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar,
+  imprimir y comprobar la igualdad de números racionales, con lo que
+  implementaríamos las funciones `suma`, `mult`, `imprimir` e `iguales?`, ya
+  especificadas, en función de `racional`, `numer` y `denom`.
+
+---
+
+```python
+def suma(x, y):
+    nx, dx = numer(x), denom(x)
+    ny, dy = numer(y), denom(y)
+    return racional(nx * dy + ny * dx, dx * dy)
+
+def mult(x, y):
+    return racional(numer(x) * numer(y), denom(x) * denom(y))
+
+def iguales(x, y):
+    return numer(x) * denom(y) == numer(y) * denom(x)
+
+def imprimir(x):
+    print(numer(x), '/', denom(x), sep='')
+```
+
+## Implementaciones
+
+- Ahora tenemos las operaciones sobre números racionales implementadas sobre
+  las funciones selectoras `numer` y `denom` y la función constructora
+  `racional`, pero aún no hemos implementado estas tres funciones.
+  
+- Lo que necesitamos es alguna forma de unir un numerador y un denominador en
+  un valor compuesto.
+
+- Podemos usar cualquier representación que nos permita combinar ambos valores
+  (numerador y denominador) en una sola unidad y que también nos permita
+  manipular cada valor por separado cuando sea necesario.
+
+---
+
+- Por ejemplo, podemos usar una lista de dos números enteros para representar
+  un racional mediante sus su numerador y su denominador:
+
+  ```python
+  def racional(n, d):
+      """Un racional es una lista que contiene el numerador y el denominador."""
+      return [n, d]
+
+  def numer(x):
+      """El numerador es el primer elemento de la lista."""
+      return x[0]
+
+  def denom(x):
+      """El denominador es el segundo elemento de la lista."""
+      return x[1]
+  ```
+
+- Junto con las operaciones aritméticas que definimos anteriormente, podemos
+  manipular números racionales con las funciones que hemos definido y sin tener
+  que conocer su representación interna:
+
+  ```python
+  >>> medio = racional(1, 2)
+  >>> imprimir(medio)
+  1/2
+  >>> tercio = racional(1, 3)
+  >>> imprimir(mult(medio, tercio))
+  1/6
+  >>> imprimir(suma(tercio, tercio))
+  6/9
+  ```
+
+---
+
+- Como muestra el ejemplo anterior, nuestra implementación de números
+  racionales no simplifica las fracciones resultantes.
+
+- Podemos corregir ese defecto cambiando únicamente la implementación de
+  `racional`.
+
+- Usando el máximo común divisor podemos reducir el numerador y el denominador
+  para obtener un número racional equivalente:
+
+  ```python
+  from math import gcd 
+
+  def racional(n, d): 
+      g = gcd(n, d)
+      return [n // g, d // g]   
+  ```
+
+- Con esta implementación revisada de `racional` nos aseguramos de que los
+  racionales se expresan de la forma más simplificada posible:
+
+  ```python
+  >>> imprimir(suma(tercio, tercio))
+  2/3
+  ```
+
+---
+
+- Lo interesante es que este cambio sólo ha afectado al constructor `racional`,
+  y las demás operaciones no se han visto afectadas por ese cambio.
+
+- Esto es así porque el resto de las operaciones no conocen ni necesitan
+  conocer la representación interna de un número racional, es decir, la
+  implementación del constructor `racional`. Sólo necesitan conocer la
+  **especificación** de `racional`, la cual no ha cambiado.
+
+## Barreras de abstracción
+
+- Parémonos ahora a considerar algunos de las cuestiones planteadas en el
+  ejemplo de los números racionales.
+
+- Hemos definido todas las operaciones de *rac* en términos de un constructor
+  `racional` y dos selectores `numer` y `denom`.
+
+  En general, la idea que hay detrás de la abstracción de datos es la de:
+
+  - identificar un conjunto básico de operaciones sobre las cuales se
+    expresarán todas las manipulaciones de valores de algún tipo de datos, y
+    luego
+  
+  - obligar a usar sólo esas operaciones para manipular los datos.
+
+- Al obligar a usar las operaciones de esta manera, es mucho más fácil cambiar
+  luego la representación de los datos abstractos o la implementación de las
+  operaciones básicas sin tener que cambiar el resto del programa.
+
+---
+
+- Para el caso de los números racionales, diferentes partes del programa
+  manipulan números racionales usando diferentes operaciones, como se describe
+  en esta tabla:
+
+  -----------------------------------------------------------------------------------------------
+  Las partes del programa que...     Tratan a los racionales como... Usando sólo...
+  ---------------------------------- ------------------------------- ----------------------------
+  Usan números racionales            valores de datos completos,     `suma`, `mult`, `iguales`,
+  para realizar cálculos             un todo                         `imprimir`
+                                                                  
+  Crean racionales o                 numeradores y denominadores     `racional`, `numer`, `denom`
+  implementan operaciones                                         
+  sobre racionales                                                
+                                                                  
+  Implementan selectores             listas de dos elementos         literales de tipo lista e
+  y constructores de                                                 indexación
+  racionales
+  -----------------------------------------------------------------------------------------------
+
+---
+
+- Cada una de las filas de la tabla anterior representa un nivel de
+  abstracción, de forma que cada nivel usa las operaciones y las facilidades
+  ofrecidas por el nivel inmediatamente inferior.
+
+- Dicho de otra forma: en cada nivel, las funciones que aparecen en la última
+  columna imponen una barrera de abstracción. Estas funciones son usadas desde
+  un nivel más alto de abstracción e implementadas usando un nivel más bajo de
+  abstracción.
+
+---
+
+- Se produce una violación de una barrera de abstracción cada vez que una parte
+  del programa que puede utilizar una función de nivel superior utiliza una
+  función de un nivel inferior.
+
+- Por ejemplo, una función que calcula el cuadrado de un número racional se
+  implementa mejor en términos de `mult`, que no necesita supone nada sobre
+  cómo se implementa un número racional:
+
+  ```python
+  def cuadrado(x): 
+      return mult(x,x)      
+  ```
+
+---
+
+- Si hiciéramos referencia directa a los numeradores y los denominadores
+  estaríamos violando una barrera de abstracción:
+
+  ```python
+  def cuadrado_viola_una_barrera(x): 
+      return racional(numer(x) * numer(x), denom(x) * denom(x)) 
+  ```
+
+- Y si suponemos que los racionales se representan como listas estaríamos
+  violando dos barreras de abstracción:
+
+  ```python
+  def cuadrado_viola_dos_barreras(x): 
+      return [x[0] * x[0], x[1] * x[1]]    
+  ```
+
+---
+
+- Las barreras de abstracción hacen que los programas sean más fáciles de
+  mantener y modificar.
+
+- Cuantas menos funciones dependan de una representación particular, menos
+  cambios se necesitarán cuando se quiera cambiar esa representación.
+
+- Todas las implementaciones de `cuadrado` que acabamos de ver se comportan
+  correctamente, pero sólo la primera es lo bastante robusta como para soportar
+  bien los futuros cambios de los niveles inferiores.
+
+- La función `cuadrado` no tendrá que cambiarse incluso aunque cambiemos la
+  representación interna de los números racionales.
+
+- Por el contrario, `cuadrado_viola_una_barrera` tendrá que cambiarse cada vez
+  que cambien las signaturas del constructor o los selectores, y
+  `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
+  representación interna de los números racionales.
+
+## El tipo abstracto como módulo
 
 - Claramente, un **tipo abstracto** representa una **abstracción**:
 
@@ -1590,10 +1846,11 @@ tiene «aversión» por exponer sus interioridades a los demás.
   - Se **ocultan** los detalles (normalmente numerosos) de la
     **implementación**. Este aspecto es, además, propenso a cambios.
 
-## El tipo abstracto como módulo
+- Y estas propiedades anteriores hacen que el tipo abstracto sea el concepto
+  ideal alrededor del cual basar la descomposición en módulos de un programa
+  grande.
 
-- Las propiedades anteriores hacen que el tipo abstracto sea el concepto ideal
-  alrededor del cual basar la descomposición en módulos de un programa grande.
+---
 
 - Recordemos que para que haya una buena modularidad:
 
