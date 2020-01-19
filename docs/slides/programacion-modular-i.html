@@ -977,12 +977,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <strong>var</strong><br />
           <span class="math inline">x</span> : <em>elemento</em>; <span class="math inline">l, l_1, l_2, l_3</span> : <em>lista</em><br />
     <strong>ecuaciones</strong><br />
+          <span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span><br />
           <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
           <code>[]</code> <code>++</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
           (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <code>++</code> <span class="math inline">l_3</span> <span class="math inline">\doteq</span> <span class="math inline">l_1</span> <code>++</code> (<span class="math inline">l_2</span> <code>++</code> <span class="math inline">l_3</span>)<br />
-          <span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span><br />
           <code>len</code>(<code>[]</code>) <span class="math inline">\doteq</span> 0<br />
           <code>len</code>(<code>[</code><span class="math inline">x</span><code>]</code>) <span class="math inline">\doteq</span> 1<br />
+          <code>len</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> 1 + <code>len</code>(<span class="math inline">l</span>)<br />
           <code>len</code>(<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <span class="math inline">\doteq</span> <code>len</code>(<span class="math inline">l_1</span>) + <code>len</code>(<span class="math inline">l_2</span>)</div>
 </div><div class="column">
 <ul>
@@ -1019,15 +1020,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div><div class="column">
 <ul>
 <li><p>Y un programa que hiciera uso de las pilas una vez implementado el tipo abstracto de datos, podría ser:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>pila <span class="op">=</span> pvacia()         <span class="co"># crea una pila vacía</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>pila <span class="op">=</span> apilar(pila, <span class="dv">4</span>)  <span class="co"># apila el valor 4</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>pila <span class="op">=</span> apilar(pila, <span class="dv">8</span>)  <span class="co"># apila el valor 8</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="bu">print</span>(vacia(pila))      <span class="co"># imprime False</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="bu">print</span>(cima(pila))       <span class="co"># imprime 8</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(desapilar(pila))  <span class="co"># imprime 8</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a><span class="bu">print</span>(desapilar(pila))  <span class="co"># imprime 4</span></span>
-<span id="cb20-8"><a href="#cb20-8"></a><span class="bu">print</span>(vacia(pila))      <span class="co"># imprime True</span></span>
-<span id="cb20-9"><a href="#cb20-9"></a><span class="bu">print</span>(cima(pvacia))     <span class="co"># devuelve un error</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>p <span class="op">=</span> pvacia()        <span class="co"># crea vacía</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>p <span class="op">=</span> apilar(p, <span class="dv">4</span>)    <span class="co"># apila valor 4</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>p <span class="op">=</span> apilar(p, <span class="dv">8</span>)    <span class="co"># apila valor 8</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime False</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 8</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 8</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 4</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
 <li><p>El programa usa la pila a través de las operaciones sin necesidad de conocer su representación interna (su implementación).</p></li>
 </ul>
 </div>

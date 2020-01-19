@@ -1498,12 +1498,13 @@ tiene «aversión» por exponer sus interioridades a los demás.
     **var**
           $x$ : _elemento_; $l, l_1, l_2, l_3$ : _lista_
     **ecuaciones**
+          $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
           $l$ `++` `[]` $\doteq$ $l$
           `[]` `++` $l$ $\doteq$ $l$
           ($l_1$ `++` $l_2$) `++` $l_3$ $\doteq$ $l_1$ `++` ($l_2$ `++` $l_3$)
-          $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
           `len`(`[]`) $\doteq$ 0
           `len`(`[`$x$`]`) $\doteq$ 1
+          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
           `len`($l_1$ `++` $l_2$) $\doteq$ `len`($l_1$) + `len`($l_2$)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1560,15 +1561,15 @@ tiene «aversión» por exponer sus interioridades a los demás.
   abstracto de datos, podría ser:
 
   ```python
-  pila = pvacia()         # crea una pila vacía
-  pila = apilar(pila, 4)  # apila el valor 4
-  pila = apilar(pila, 8)  # apila el valor 8
-  print(vacia(pila))      # imprime False
-  print(cima(pila))       # imprime 8
-  print(desapilar(pila))  # imprime 8
-  print(desapilar(pila))  # imprime 4
-  print(vacia(pila))      # imprime True
-  print(cima(pvacia))     # devuelve un error
+  p = pvacia()        # crea vacía
+  p = apilar(p, 4)    # apila valor 4
+  p = apilar(p, 8)    # apila valor 8
+  print(vacia(p))     # imprime False
+  print(cima(p))      # imprime 8
+  print(desapilar(p)) # imprime 8
+  print(desapilar(p)) # imprime 4
+  print(vacia(p))     # imprime True
+  print(cima(pvacia)) # error
   ```
 
 - El programa usa la pila a través de las operaciones sin necesidad de conocer
