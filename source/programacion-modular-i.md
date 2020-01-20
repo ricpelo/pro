@@ -1976,13 +1976,101 @@ def imprimir(x):
   que deben cumplir las parejas. La práctica de la abstracción de datos nos
   permite cambiar fácilmente unas representaciones por otras.
 
----
+## Paso de mensajes
 
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
   valores (mediante funciones de orden superior) proporciona la capacidad de
   manipular datos compuestos.
 
 - A este estilo de programación se le denomina **paso de mensajes**.
+
+- El paso de mensajes combina varias técnicas de programación:
+
+  - El almacenamiento y acceso al estado local de una función.
+
+  - Las funciones de orden superior que devuelven otras funciones.
+
+  - La representación de datos como funciones.
+
+- Vamos a analizar algunas de ellas con más detalle.
+
+### Estado local
+
+- Las listas y los diccionarios tienen estado local: son valores cambiantes que
+  tienen ciertos contenidos particulares en cualquier punto de la ejecución de
+  un programa.
+
+- La palabra «estado» implica un proceso evolutivo durante el cual ese estado
+  puede ir cambiando.
+
+- Las funciones también pueden tener estado local.
+
+---
+
+- Por ejemplo, definamos una función que modele el proceso de retirar dinero de
+  una cuenta bancaria.
+
+- Crearemos una función llamada `retirar`, que toma como argumento una cantidad
+  a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada,
+  `retirar` devolverá el saldo restante después de la retirada. De lo
+  contrario, `retirar` producirá el error 'Fondos insuficientes'.
+
+- Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría obtener la
+  siguiente secuencia de valores de retorno al ir llamando a `retirar`:
+
+  ```python
+  >>> retirar(25)
+  75
+  >>> retirar(25)
+  50
+  >>> retirar(60)
+  'Fondos insuficientes'
+  >>> retirar(15)
+  35
+  ```
+
+---
+
+- La expresión `retirar(25)`, evaluada dos veces, produce valores diferentes.
+
+- Por lo tanto, esta función no es pura.
+
+- Llamar a la función no sólo devuelve un valor, sino que también tiene el
+  efecto lateral de cambiar la función de alguna manera, de modo que la
+  siguiente llamada con el mismo argumento devolverá un resultado diferente.
+
+- Este efecto lateral es el resultado de retirar los fondos provocando un
+  cambio en el estado de una variable fuera del marco actual.
+
+- Para que todo funcione, debe empezarse con un saldo incial.
+
+---
+
+- La función `deposito` es una función de orden superior que recibe como
+  argumento un saldo inicial y devuelve la propia función `retirar`.
+
+  ```python
+  >>> retirar = deposito(100)
+  ```
+
+- La implementación de `deposito` requiere un acceso no local al valor de los
+  fondos iniciales y una función local que actualiza y devuelve dicho valor:
+
+  ```python
+  def deposito(fondos):
+      """Devuelve una función que reduce los fondos en cada llamada."""
+      def deposito_local(cantidad):
+          nonlocal fondos
+          if cantidad > fondos:
+              return 'Fondos insuficientes'
+          fondos -= cantidad
+          return fondos
+      return deposito_local
+  ```
+
+- La asignación de estado no local nos ha dado la capacidad de mantener un
+  estado que es local para una función, pero que evoluciona a través de
+  llamadas sucesivas a esa función.
 
 ## El tipo abstracto como módulo
 
