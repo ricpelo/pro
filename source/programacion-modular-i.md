@@ -1730,6 +1730,50 @@ def imprimir(x):
   implementación del constructor `racional`. Sólo necesitan conocer la
   **especificación** de `racional`, la cual no ha cambiado.
 
+---
+
+- Otra posible implementación sería simplificar el racional no cuando se
+  construya, sino cuando se acceda a alguna de sus partes:
+
+  ```python
+  def racional(n, d):
+      return [n, d]
+
+  def numer(x):
+      g = gcd(x[0], x[1])
+      return x[0] // g
+
+  def denom(x):
+      g = gcd(x[0], x[1])
+      return x[1] // g
+  ```
+
+- La diferencia entre esta implementación y la anterior está en cuándo se
+  calcula el máximo común divisor.
+  
+  - Si en los programas que normalmente usan los números racionales accedemos
+    muchas veces a sus numeradores y denominadores, será preferible calcular el
+    m.c.d. en el constructor.
+    
+  - En caso contrario, puede que sea mejor esperar a acceder al numerador o al
+    denominador para calcular el m.c.d.
+
+  - En cualquier caso, cuando se cambia una representación por otra, las demás
+    funciones (`suma`, `mult`, etc.) no necesitan ser modificadas.
+
+---
+
+- Limitar la dependencia de la representación a unas cuantas funciones de la
+  interfaz nos ayuda a diseñar programas así como a modificarlos, porque nos
+  permite conservar la flexibilidad de considerar implementaciones
+  alternativas.
+
+- Por ejemplo, si estamos diseñando un módulo de números racionales y aún no
+  hemos decidido si calcular el m.c.d. en el constructor o en los
+  selectores, la metodología de la abstracción de datos nos permite retrasar
+  esa decisión sin perder la capacidad de seguir programando el resto del
+  programa.
+
 ## Barreras de abstracción
 
 - Parémonos ahora a considerar algunos de las cuestiones planteadas en el
@@ -1783,6 +1827,10 @@ def imprimir(x):
   columna imponen una barrera de abstracción. Estas funciones son usadas desde
   un nivel más alto de abstracción e implementadas usando un nivel más bajo de
   abstracción.
+
+---
+
+!IMGP(barreras-abstraccion.svg)(Barreras de abstracción)(width=75%)(width=55%)
 
 ---
 
@@ -1847,16 +1895,16 @@ def imprimir(x):
   sino que se puede pensar que es, simplemente, un valor devuelto por
   `racional` que se puede pasar a `numer` y `denom`.
 
-- Además, debe mantenerse una relación apropiada entre el constructor y los
-  selectores. Es decir, si construimos un número racional $x$ a partir de los
-  enteros $n$ y $d$, entonces debe cumplirse que `numer(`$x$`) / denom(`$x$`)`
-  sea igual a $\frac{n}{d}$ .
+- Pero además, debe mantenerse una relación apropiada entre el constructor y
+  los selectores. Es decir, si construimos un número racional $x$ a partir de
+  los enteros $n$ y $d$, entonces debe cumplirse que `numer(`$x$`) /
+  denom(`$x$`)` sea igual a $\frac{n}{d}$ .
 
-- En general, podemos expresar datos abstractos utilizando una colección de
-  selectores y constructores, junto con algunas condiciones de comportamiento,
-  que son propiedades que los datos abstractos deben cumplir. Mientras se
-  cumplan dichas propiedades (como la de la división anterior), los selectores
-  y constructores constituyen una representación válida de un tipo de datos.
+- En general, podemos pensar que los datos abstractos se definen mediante una
+  colección de selectores y constructores, junto con algunas condiciones o
+  propiedades que los datos abstractos deben cumplir. Mientras se cumplan
+  dichas propiedades (como la anterior de la división), los selectores y
+  constructores constituyen una representación válida de un tipo de datos.
 
 ---
 
@@ -1883,7 +1931,7 @@ def imprimir(x):
 ---
 
 - En realidad, ni siquiera necesitamos estructuras de datos para representar
-  parejas de números. Podemos implementar dos funciones `pareja` y `select`
+  parejas de números. Podemos implementar dos funciones `pareja` y `select` que
   cumplan con la propiedad anterior tan bien como una lista de dos elementos:
 
   ```python
@@ -1915,7 +1963,7 @@ def imprimir(x):
 
 - Este uso de funciones de orden superior no se corresponde en absoluto con
   nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas
-  funciones son suficientes para representar pares en nuestros programas. Las
+  funciones son suficientes para representar parejas en nuestros programas. Las
   funciones son perfectamente capaces de representar datos compuestos.
 
 - El hecho de ver aquí la representación funcional de una pareja no es porque
@@ -1927,6 +1975,14 @@ def imprimir(x):
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
   que deben cumplir las parejas. La práctica de la abstracción de datos nos
   permite cambiar fácilmente unas representaciones por otras.
+
+---
+
+- Este ejemplo también demuestra que la capacidad de manipular funciones como
+  valores (mediante funciones de orden superior) proporciona la capacidad de
+  manipular datos compuestos.
+
+- A este estilo de programación se le denomina **paso de mensajes**.
 
 ## El tipo abstracto como módulo
 
