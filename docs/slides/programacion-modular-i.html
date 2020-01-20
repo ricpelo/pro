@@ -1150,11 +1150,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Para el caso de los números racionales, diferentes partes del programa manipulan números racionales usando diferentes operaciones, como se describe en esta tabla:</li>
 </ul>
+<p><br></p>
 <table>
 <colgroup>
+<col style="width: 33%" />
 <col style="width: 34%" />
-<col style="width: 32%" />
-<col style="width: 32%" />
+<col style="width: 31%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1165,37 +1166,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td><ul>
-<li>Usan números racionales para realizar cálculos</li>
-</ul></td>
-<td><ul>
-<li>Valores de datos completos, un todo</li>
-</ul></td>
-<td><ul>
-<li><code>suma</code>, <code>mult</code>, <code>iguales</code>, <code>imprimir</code></li>
-</ul></td>
+<td>Usan números racionales para realizar cálculos</td>
+<td>Valores de datos completos, un todo</td>
+<td><code>suma</code>, <code>mult</code>, <code>iguales</code>, <code>imprimir</code></td>
 </tr>
 <tr class="even">
-<td><ul>
-<li>Crean racionales o implementan operaciones sobre racionales</li>
-</ul></td>
-<td><ul>
-<li>Numeradores y denominadores</li>
-</ul></td>
-<td><ul>
-<li><code>racional</code>, <code>numer</code>, <code>denom</code></li>
-</ul></td>
+<td>Crean racionales o implementan operaciones sobre racionales</td>
+<td>Numeradores y denominadores</td>
+<td><code>racional</code>, <code>numer</code>, <code>denom</code></td>
 </tr>
 <tr class="odd">
-<td><ul>
-<li>Implementan selectores y constructores de racionales</li>
-</ul></td>
-<td><ul>
-<li>Listas de dos elementos</li>
-</ul></td>
-<td><ul>
-<li>Literales de tipo lista e indexación</li>
-</ul></td>
+<td>Implementan selectores y constructores de racionales</td>
+<td>Listas de dos elementos</td>
+<td>Literales de tipo lista e indexación</td>
 </tr>
 </tbody>
 </table>
@@ -1232,7 +1215,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La función <code>cuadrado</code> no tendrá que cambiarse incluso aunque cambiemos la representación interna de los números racionales.</p></li>
 <li><p>Por el contrario, <code>cuadrado_viola_una_barrera</code> tendrá que cambiarse cada vez que cambien las signaturas del constructor o los selectores, y <code>cuadrado_viola_dos_barreras</code> tendrá que cambiarse cada vez que cambie la representación interna de los números racionales.</p></li>
 </ul>
-</section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> El tipo abstracto como módulo</h2><ul>
+</section><section id="las-propiedades-de-los-datos" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Las propiedades de los datos</h2><ul>
+<li><p>Las barreras de abstracción determinan la forma en la que pensamos sobre los datos.</p></li>
+<li><p>Una representación válida de un número racional no está limitada a ninguna implementación particular (como, por ejemplo, una lista de dos elementos), sino que se puede pensar que es, simplemente, un valor devuelto por <code>racional</code> que se puede pasar a <code>numer</code> y <code>denom</code>.</p></li>
+<li><p>Además, debe mantenerse una relación apropiada entre el constructor y los selectores. Es decir, si construimos un número racional <span class="math inline">x</span> a partir de los enteros <span class="math inline">n</span> y <span class="math inline">d</span>, entonces debe cumplirse que <code>numer(</code><span class="math inline">x</span><code>) / denom(</code><span class="math inline">x</span><code>)</code> sea igual a <span class="math inline">\frac{n}{d}</span> .</p></li>
+<li><p>En general, podemos expresar datos abstractos utilizando una colección de selectores y constructores, junto con algunas condiciones de comportamiento, que son propiedades que los datos abstractos deben cumplir. Mientras se cumplan dichas propiedades (como la de la división anterior), los selectores y constructores constituyen una representación válida de un tipo de datos.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Los detalles de implementación debajo de una barrera de abstracción pueden cambiar, pero si el comportamiento no lo hace, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
+<li><p>Este punto de vista se puede aplicar en sentido amplio, incluso a los valores en forma de listas que hemos usado para implementar números racionales. En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos. Es decir, la propiedad que se tiene que cumplir es que:</p>
+<div class="caja">
+<p>Si <span class="math inline">p</span> es una pareja construida a partir de los valores <span class="math inline">x</span> e <span class="math inline">y</span>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> devuelve <span class="math inline">x</span> y <code>select(</code><span class="math inline">p</span><code>, 1)</code> devuelve <span class="math inline">y</span>.</p>
+</div></li>
+<li><p>Tales propiedades se describen como ecuaciones en la especificación algebraica del tipo abstracto.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En realidad, ni siquiera necesitamos estructuras de datos para representar parejas de números. Podemos implementar dos funciones <code>pareja</code> y <code>select</code> cumplan con la propiedad anterior tan bien como una lista de dos elementos:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">def</span> pareja(x, y):</span>
+<span id="cb29-2"><a href="#cb29-2"></a>    <span class="co">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>    <span class="kw">def</span> get(indice):</span>
+<span id="cb29-4"><a href="#cb29-4"></a>        <span class="cf">if</span> indice <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb29-5"><a href="#cb29-5"></a>            <span class="cf">return</span> x</span>
+<span id="cb29-6"><a href="#cb29-6"></a>        <span class="cf">elif</span> index <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb29-7"><a href="#cb29-7"></a>            <span class="cf">return</span> y</span>
+<span id="cb29-8"><a href="#cb29-8"></a>    <span class="cf">return</span> get</span>
+<span id="cb29-9"><a href="#cb29-9"></a></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="kw">def</span> select(p, i):</span>
+<span id="cb29-11"><a href="#cb29-11"></a>    <span class="co">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
+<li><p>Con esta implementación, podemos crear y manipular pares:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="dv">20</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="dv">14</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Este uso de funciones de orden superior no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas funciones son suficientes para representar pares en nuestros programas. Las funciones son perfectamente capaces de representar datos compuestos.</p></li>
+<li><p>El hecho de ver aquí la representación funcional de una pareja no es porque Python realmente trabaje de esta manera (las listas se implementan internamente de otra forma, por razones de eficiencia) sino porque podría funcionar de esta manera.</p></li>
+<li><p>La representación funcional, aunque pueda parecer extraña, es una forma perfectamente adecuada de representar parejas, ya que cumple las propiedades que deben cumplir las parejas. La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras.</p></li>
+</ul>
+</section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> El tipo abstracto como módulo</h2><ul>
 <li><p>Claramente, un <strong>tipo abstracto</strong> representa una <strong>abstracción</strong>:</p>
 <ul>
 <li><p>Se <strong>destacan</strong> los detalles (normalmente pocos) de la <strong>especificación</strong>, es decir, el <em>comportamiento observable</em> del tipo. Es de esperar que este aspecto sea bastante estable y cambie poco durante la vida útil del programa.</p></li>

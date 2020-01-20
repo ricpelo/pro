@@ -1756,20 +1756,22 @@ def imprimir(x):
   manipulan números racionales usando diferentes operaciones, como se describe
   en esta tabla:
 
-+-----------------------------------+---------------------------------+--------------------------------+
-| Las partes del programa que...    | Tratan a los racionales como... | Usando sólo...                 |
-+===================================+=================================+================================+
-| - Usan números racionales         | - Valores de datos completos,   | - `suma`, `mult`, `iguales`,   |
-|   para realizar cálculos          |   un todo                       |   `imprimir`                   |
-+-----------------------------------+---------------------------------+--------------------------------+
-| - Crean racionales o              | - Numeradores y denominadores   | - `racional`, `numer`, `denom` |
-|   implementan operaciones         |                                 |                                |
-|   sobre racionales                |                                 |                                |
-+-----------------------------------+---------------------------------+--------------------------------+
-| - Implementan selectores          | - Listas de dos elementos       | - Literales de tipo lista e    |
-|   y constructores de              |                                 |   indexación                   |
-|   racionales                      |                                 |                                |
-+-----------------------------------+---------------------------------+--------------------------------+
+!SALTO
+
++--------------------------------+---------------------------------+------------------------------+
+| Las partes del programa que... | Tratan a los racionales como... | Usando sólo...               |
++================================+=================================+==============================+
+| Usan números racionales        | Valores de datos completos,     | `suma`, `mult`, `iguales`,   |
+| para realizar cálculos         | un todo                         | `imprimir`                   |
++--------------------------------+---------------------------------+------------------------------+
+| Crean racionales o             | Numeradores y denominadores     | `racional`, `numer`, `denom` |
+| implementan operaciones        |                                 |                              |
+| sobre racionales               |                                 |                              |
++--------------------------------+---------------------------------+------------------------------+
+| Implementan selectores         | Listas de dos elementos         | Literales de tipo lista e    |
+| y constructores de             |                                 | indexación                   |
+| racionales                     |                                 |                              |
++--------------------------------+---------------------------------+------------------------------+
 
 ---
 
@@ -1834,6 +1836,97 @@ def imprimir(x):
   que cambien las signaturas del constructor o los selectores, y
   `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
   representación interna de los números racionales.
+
+## Las propiedades de los datos
+
+- Las barreras de abstracción determinan la forma en la que pensamos sobre los
+  datos.
+
+- Una representación válida de un número racional no está limitada a ninguna
+  implementación particular (como, por ejemplo, una lista de dos elementos),
+  sino que se puede pensar que es, simplemente, un valor devuelto por
+  `racional` que se puede pasar a `numer` y `denom`.
+
+- Además, debe mantenerse una relación apropiada entre el constructor y los
+  selectores. Es decir, si construimos un número racional $x$ a partir de los
+  enteros $n$ y $d$, entonces debe cumplirse que `numer(`$x$`) / denom(`$x$`)`
+  sea igual a $\frac{n}{d}$ .
+
+- En general, podemos expresar datos abstractos utilizando una colección de
+  selectores y constructores, junto con algunas condiciones de comportamiento,
+  que son propiedades que los datos abstractos deben cumplir. Mientras se
+  cumplan dichas propiedades (como la de la división anterior), los selectores
+  y constructores constituyen una representación válida de un tipo de datos.
+
+---
+
+- Los detalles de implementación debajo de una barrera de abstracción pueden
+  cambiar, pero si el comportamiento no lo hace, entonces la abstracción de
+  datos sigue siendo válida y cualquier programa escrito utilizando esta
+  abstracción de datos seguirá siendo correcto.
+
+- Este punto de vista se puede aplicar en sentido amplio, incluso a los valores
+  en forma de listas que hemos usado para implementar números racionales. En
+  realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
+  representación que agrupe dos valores juntos. Es decir, la propiedad que se
+  tiene que cumplir es que:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $p$ es una pareja construida a partir de los valores $x$ e $y$, entonces
+  `select(`$p$`, 0)` devuelve $x$ y `select(`$p$`, 1)` devuelve $y$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Tales propiedades se describen como ecuaciones en la especificación
+  algebraica del tipo abstracto.
+
+---
+
+- En realidad, ni siquiera necesitamos estructuras de datos para representar
+  parejas de números. Podemos implementar dos funciones `pareja` y `select`
+  cumplan con la propiedad anterior tan bien como una lista de dos elementos:
+
+  ```python
+  def pareja(x, y):
+      """Devuelve una función que representa una pareja."""
+      def get(indice):
+          if indice == 0:
+              return x
+          elif index == 1:
+              return y
+      return get
+
+  def select(p, i):
+      """Devuelve el elemento situado en el índice i de la pareja p."""
+      return p(i)
+  ```
+
+- Con esta implementación, podemos crear y manipular pares:
+
+  ```python
+  >>> p = pareja(20, 14)
+  >>> select(p, 0)
+  20
+  >>> select(p, 1)
+  14
+  ```
+
+---
+
+- Este uso de funciones de orden superior no se corresponde en absoluto con
+  nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas
+  funciones son suficientes para representar pares en nuestros programas. Las
+  funciones son perfectamente capaces de representar datos compuestos.
+
+- El hecho de ver aquí la representación funcional de una pareja no es porque
+  Python realmente trabaje de esta manera (las listas se implementan
+  internamente de otra forma, por razones de eficiencia) sino porque podría
+  funcionar de esta manera.
+  
+- La representación funcional, aunque pueda parecer extraña, es una forma
+  perfectamente adecuada de representar parejas, ya que cumple las propiedades
+  que deben cumplir las parejas. La práctica de la abstracción de datos nos
+  permite cambiar fácilmente unas representaciones por otras.
 
 ## El tipo abstracto como módulo
 
