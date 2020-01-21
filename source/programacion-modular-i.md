@@ -1949,7 +1949,7 @@ def imprimir(x):
       return p(i)
   ```
 
-- Con esta implementación, podemos crear y manipular pares:
+- Con esta implementación, podemos crear y manipular parejas:
 
   ```python
   >>> p = pareja(20, 14)
@@ -1969,32 +1969,20 @@ def imprimir(x):
 - El hecho de ver aquí la representación funcional de una pareja no es porque
   Python realmente trabaje de esta manera (las listas se implementan
   internamente de otra forma, por razones de eficiencia) sino porque podría
-  funcionar de esta manera.
+  trabajar de esta manera.
   
 - La representación funcional, aunque pueda parecer extraña, es una forma
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
   que deben cumplir las parejas. La práctica de la abstracción de datos nos
   permite cambiar fácilmente unas representaciones por otras.
 
-## Paso de mensajes
+---
 
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
   valores (mediante funciones de orden superior) proporciona la capacidad de
   manipular datos compuestos.
 
-- A este estilo de programación se le denomina **paso de mensajes**.
-
-- El paso de mensajes combina varias técnicas de programación:
-
-  - El almacenamiento y acceso al estado local de una función.
-
-  - Las funciones de orden superior que devuelven otras funciones.
-
-  - La representación de datos como funciones.
-
-- Vamos a analizar algunas de ellas con más detalle.
-
-### Estado local
+## Estado local
 
 - Las listas y los diccionarios tienen estado local: son valores cambiantes que
   tienen ciertos contenidos particulares en cualquier punto de la ejecución de
@@ -2071,6 +2059,20 @@ def imprimir(x):
 - La asignación de estado no local nos ha dado la capacidad de mantener un
   estado que es local para una función, pero que evoluciona a través de
   llamadas sucesivas a esa función.
+
+## Paso de mensajes
+
+- A este estilo de programación se le denomina **paso de mensajes**.
+
+- El paso de mensajes combina varias técnicas de programación:
+
+  - El almacenamiento y acceso al estado local de una función.
+
+  - Las funciones de orden superior que devuelven otras funciones.
+
+  - La representación de datos como funciones.
+
+- Vamos a analizar algunas de ellas con más detalle.
 
 ## El tipo abstracto como módulo
 
