@@ -1662,7 +1662,7 @@ def imprimir(x):
 ---
 
 - Por ejemplo, podemos usar una lista de dos números enteros para representar
-  un racional mediante sus su numerador y su denominador:
+  un racional mediante su numerador y su denominador:
 
   ```python
   def racional(n, d):
@@ -1984,9 +1984,9 @@ def imprimir(x):
 
 ## Estado local
 
-- Las listas y los diccionarios tienen estado local: son valores cambiantes que
-  tienen ciertos contenidos particulares en cualquier punto de la ejecución de
-  un programa.
+- Los datos (como, por ejemplo, las listas y los diccionarios) pueden tener
+  estado local: son valores cambiantes que tienen ciertos contenidos
+  particulares en cualquier punto de la ejecución de un programa.
 
 - La palabra «estado» implica un proceso evolutivo durante el cual ese estado
   puede ir cambiando.
@@ -1998,7 +1998,7 @@ def imprimir(x):
 - Por ejemplo, definamos una función que modele el proceso de retirar dinero de
   una cuenta bancaria.
 
-- Crearemos una función llamada `retirar`, que toma como argumento una cantidad
+- Crearemos una función llamada `retirar`, que tome como argumento una cantidad
   a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada,
   `retirar` devolverá el saldo restante después de la retirada. De lo
   contrario, `retirar` producirá el error 'Fondos insuficientes'.
@@ -2021,7 +2021,7 @@ def imprimir(x):
 
 - La expresión `retirar(25)`, evaluada dos veces, produce valores diferentes.
 
-- Por lo tanto, esta función no es pura.
+- Por lo tanto, la función `retirar` no es pura.
 
 - Llamar a la función no sólo devuelve un valor, sino que también tiene el
   efecto lateral de cambiar la función de alguna manera, de modo que la
@@ -2030,7 +2030,7 @@ def imprimir(x):
 - Este efecto lateral es el resultado de retirar los fondos provocando un
   cambio en el estado de una variable fuera del marco actual.
 
-- Para que todo funcione, debe empezarse con un saldo incial.
+- Para que todo funcione, debe empezarse con un saldo inicial.
 
 ---
 
@@ -2060,6 +2060,123 @@ def imprimir(x):
   estado que es local para una función, pero que evoluciona a través de
   llamadas sucesivas a esa función.
 
+---
+
+- Supongamos que queremos ampliar la idea anterior definiendo más operaciones
+  sobre los fondos de la cuenta corriente.
+
+- Por ejemplo, además de poder retirar una cantidad, queremos también poder
+  ingresar cantidades en la cuenta, así como consultar en todo momento su saldo
+  actual.
+
+- En ese caso, podemos usar una técnica que consiste en usar una función que
+  **despacha** las operaciones en función del *mensaje* recibido.
+
+---
+
+:::: columns
+
+::: {.column width=55%}
+
+```python
+def deposito(fondos):
+    def retirar(cantidad):
+        nonlocal fondos
+        if cantidad > fondos:
+            return 'Fondos insuficientes'
+        fondos -= cantidad
+        return fondos
+
+    def ingresar(cantidad):
+        nonlocal fondos
+        fondos += cantidad
+        return fondos
+
+    def saldo():
+        return fondos
+
+    def despacho(mensaje):
+        if mensaje == 'retirar':
+            return retirar
+        elif mensaje == 'ingresar':
+            return ingresar
+        elif mensaje == 'saldo':
+            return saldo
+        else:
+            return 'Mensaje incorrecto'
+
+    return despacho
+```
+
+:::
+
+::: {.column width=45%}
+
+<!--
+```python
+def retirar(dep, cantidad):
+    return dep('retirar')(cantidad)
+
+def ingresar(dep, cantidad):
+    return dep('ingresar')(cantidad)
+
+def saldo(dep):
+    return dep('saldo')()
+```
+-->
+
+- Ahora, un depósito se representa internamente como una función que recibe
+  mensajes y los despacha a la función correspondiente:
+
+```python
+>>> dep = deposito(100)
+>>> dep
+<function deposito.<locals>.despacho at 0x7f0de1300e18>
+>>> dep('retirar')(25)
+75
+>>> dep('ingresar')(200)
+275
+>>> dep('saldo')()
+275
+```
+
+:::
+
+::::
+
+### Despacho con diccionarios
+
+- Una variante de esta técnica es la de usar un diccionario para asociar cada
+  mensaje con cada operación:
+
+```python
+def deposito(fondos):
+    def retirar(cantidad):
+        nonlocal fondos
+        if cantidad > fondos:
+            return 'Fondos insuficientes'
+        fondos -= cantidad
+        return fondos
+
+    def ingresar(cantidad):
+        nonlocal fondos
+        fondos += cantidad
+        return fondos
+
+    def saldo():
+        return fondos
+
+    d = {'retirar': retirar, 'ingresar': ingresar, 'saldo': saldo}
+
+    def despacho(mensaje):
+        if mensaje in d:
+            return d[mensaje]
+        else:
+            return 'Mensaje incorrecto'
+
+    return despacho
+```
+
 ## Paso de mensajes
 
 - A este estilo de programación se le denomina **paso de mensajes**.
@@ -2071,8 +2188,6 @@ def imprimir(x):
   - Las funciones de orden superior que devuelven otras funciones.
 
   - La representación de datos como funciones.
-
-- Vamos a analizar algunas de ellas con más detalle.
 
 ## El tipo abstracto como módulo
 

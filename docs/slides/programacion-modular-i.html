@@ -1093,7 +1093,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Por ejemplo, podemos usar una lista de dos números enteros para representar un racional mediante sus su numerador y su denominador:</p>
+<li><p>Por ejemplo, podemos usar una lista de dos números enteros para representar un racional mediante su numerador y su denominador:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">def</span> racional(n, d):</span>
 <span id="cb22-2"><a href="#cb22-2"></a>    <span class="co">&quot;&quot;&quot;Un racional es una lista que contiene el numerador y el denominador.&quot;&quot;&quot;</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a>    <span class="cf">return</span> [n, d]</span>
@@ -1280,7 +1280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-10"><a href="#cb30-10"></a><span class="kw">def</span> select(p, i):</span>
 <span id="cb30-11"><a href="#cb30-11"></a>    <span class="co">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
 <span id="cb30-12"><a href="#cb30-12"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
-<li><p>Con esta implementación, podemos crear y manipular pares:</p>
+<li><p>Con esta implementación, podemos crear y manipular parejas:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="dv">20</span></span>
@@ -1291,28 +1291,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Este uso de funciones de orden superior no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas funciones son suficientes para representar parejas en nuestros programas. Las funciones son perfectamente capaces de representar datos compuestos.</p></li>
-<li><p>El hecho de ver aquí la representación funcional de una pareja no es porque Python realmente trabaje de esta manera (las listas se implementan internamente de otra forma, por razones de eficiencia) sino porque podría funcionar de esta manera.</p></li>
+<li><p>El hecho de ver aquí la representación funcional de una pareja no es porque Python realmente trabaje de esta manera (las listas se implementan internamente de otra forma, por razones de eficiencia) sino porque podría trabajar de esta manera.</p></li>
 <li><p>La representación funcional, aunque pueda parecer extraña, es una forma perfectamente adecuada de representar parejas, ya que cumple las propiedades que deben cumplir las parejas. La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras.</p></li>
 </ul>
-</section><section id="paso-de-mensajes" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Paso de mensajes</h2><ul>
-<li><p>Este ejemplo también demuestra que la capacidad de manipular funciones como valores (mediante funciones de orden superior) proporciona la capacidad de manipular datos compuestos.</p></li>
-<li><p>A este estilo de programación se le denomina <strong>paso de mensajes</strong>.</p></li>
-<li><p>El paso de mensajes combina varias técnicas de programación:</p>
+</section><section class="slide level4">
+
 <ul>
-<li><p>El almacenamiento y acceso al estado local de una función.</p></li>
-<li><p>Las funciones de orden superior que devuelven otras funciones.</p></li>
-<li><p>La representación de datos como funciones.</p></li>
-</ul></li>
-<li><p>Vamos a analizar algunas de ellas con más detalle.</p></li>
-</ul></section><section id="estado-local" class="title-slide slide level3"><h3><span class="header-section-number">4.6.1</span> Estado local</h3><ul>
-<li><p>Las listas y los diccionarios tienen estado local: son valores cambiantes que tienen ciertos contenidos particulares en cualquier punto de la ejecución de un programa.</p></li>
+<li>Este ejemplo también demuestra que la capacidad de manipular funciones como valores (mediante funciones de orden superior) proporciona la capacidad de manipular datos compuestos.</li>
+</ul>
+</section><section id="estado-local" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Estado local</h2><ul>
+<li><p>Los datos (como, por ejemplo, las listas y los diccionarios) pueden tener estado local: son valores cambiantes que tienen ciertos contenidos particulares en cualquier punto de la ejecución de un programa.</p></li>
 <li><p>La palabra «estado» implica un proceso evolutivo durante el cual ese estado puede ir cambiando.</p></li>
 <li><p>Las funciones también pueden tener estado local.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
 <li><p>Por ejemplo, definamos una función que modele el proceso de retirar dinero de una cuenta bancaria.</p></li>
-<li><p>Crearemos una función llamada <code>retirar</code>, que toma como argumento una cantidad a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada, <code>retirar</code> devolverá el saldo restante después de la retirada. De lo contrario, <code>retirar</code> producirá el error ‘Fondos insuficientes’.</p></li>
+<li><p>Crearemos una función llamada <code>retirar</code>, que tome como argumento una cantidad a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada, <code>retirar</code> devolverá el saldo restante después de la retirada. De lo contrario, <code>retirar</code> producirá el error ‘Fondos insuficientes’.</p></li>
 <li><p>Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría obtener la siguiente secuencia de valores de retorno al ir llamando a <code>retirar</code>:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
 <span id="cb32-2"><a href="#cb32-2"></a><span class="dv">75</span></span>
@@ -1327,10 +1322,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>La expresión <code>retirar(25)</code>, evaluada dos veces, produce valores diferentes.</p></li>
-<li><p>Por lo tanto, esta función no es pura.</p></li>
+<li><p>Por lo tanto, la función <code>retirar</code> no es pura.</p></li>
 <li><p>Llamar a la función no sólo devuelve un valor, sino que también tiene el efecto lateral de cambiar la función de alguna manera, de modo que la siguiente llamada con el mismo argumento devolverá un resultado diferente.</p></li>
 <li><p>Este efecto lateral es el resultado de retirar los fondos provocando un cambio en el estado de una variable fuera del marco actual.</p></li>
-<li><p>Para que todo funcione, debe empezarse con un saldo incial.</p></li>
+<li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1349,7 +1344,107 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb34-9"><a href="#cb34-9"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
 <li><p>La asignación de estado no local nos ha dado la capacidad de mantener un estado que es local para una función, pero que evoluciona a través de llamadas sucesivas a esa función.</p></li>
 </ul>
-</section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> El tipo abstracto como módulo</h2><ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Supongamos que queremos ampliar la idea anterior definiendo más operaciones sobre los fondos de la cuenta corriente.</p></li>
+<li><p>Por ejemplo, además de poder retirar una cantidad, queremos también poder ingresar cantidades en la cuenta, así como consultar en todo momento su saldo actual.</p></li>
+<li><p>En ese caso, podemos usar una técnica que consiste en usar una función que <strong>despacha</strong> las operaciones en función del <em>mensaje</em> recibido.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb35-2"><a href="#cb35-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb35-3"><a href="#cb35-3"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb35-4"><a href="#cb35-4"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb35-5"><a href="#cb35-5"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb35-7"><a href="#cb35-7"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb35-8"><a href="#cb35-8"></a></span>
+<span id="cb35-9"><a href="#cb35-9"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb35-10"><a href="#cb35-10"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb35-11"><a href="#cb35-11"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb35-12"><a href="#cb35-12"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb35-13"><a href="#cb35-13"></a></span>
+<span id="cb35-14"><a href="#cb35-14"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb35-15"><a href="#cb35-15"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb35-16"><a href="#cb35-16"></a></span>
+<span id="cb35-17"><a href="#cb35-17"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb35-18"><a href="#cb35-18"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb35-19"><a href="#cb35-19"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb35-20"><a href="#cb35-20"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb35-21"><a href="#cb35-21"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb35-22"><a href="#cb35-22"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb35-23"><a href="#cb35-23"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb35-24"><a href="#cb35-24"></a>        <span class="cf">else</span>:</span>
+<span id="cb35-25"><a href="#cb35-25"></a>            <span class="cf">return</span> <span class="st">&#39;Mensaje incorrecto&#39;</span></span>
+<span id="cb35-26"><a href="#cb35-26"></a></span>
+<span id="cb35-27"><a href="#cb35-27"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</div><div class="column" style="width:45%;">
+<!--
+```python
+def retirar(dep, cantidad):
+    return dep('retirar')(cantidad)
+
+def ingresar(dep, cantidad):
+    return dep('ingresar')(cantidad)
+
+def saldo(dep):
+    return dep('saldo')()
+```
+-->
+<ul>
+<li>Ahora, un depósito se representa internamente como una función que recibe mensajes y los despacha a la función correspondiente:</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="dv">75</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="dv">275</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
+<span id="cb36-9"><a href="#cb36-9"></a><span class="dv">275</span></span></code></pre></div>
+</div>
+</div>
+</section><section id="despacho-con-diccionarios" class="title-slide slide level3"><h3><span class="header-section-number">4.6.1</span> Despacho con diccionarios</h3><ul>
+<li>Una variante de esta técnica es la de usar un diccionario para asociar cada mensaje con cada operación:</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb37-2"><a href="#cb37-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb37-3"><a href="#cb37-3"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb37-4"><a href="#cb37-4"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb37-5"><a href="#cb37-5"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb37-7"><a href="#cb37-7"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb37-8"><a href="#cb37-8"></a></span>
+<span id="cb37-9"><a href="#cb37-9"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb37-10"><a href="#cb37-10"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb37-11"><a href="#cb37-11"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb37-12"><a href="#cb37-12"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb37-13"><a href="#cb37-13"></a></span>
+<span id="cb37-14"><a href="#cb37-14"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb37-15"><a href="#cb37-15"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb37-16"><a href="#cb37-16"></a></span>
+<span id="cb37-17"><a href="#cb37-17"></a>    d <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
+<span id="cb37-18"><a href="#cb37-18"></a></span>
+<span id="cb37-19"><a href="#cb37-19"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb37-20"><a href="#cb37-20"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> d:</span>
+<span id="cb37-21"><a href="#cb37-21"></a>            <span class="cf">return</span> d[mensaje]</span>
+<span id="cb37-22"><a href="#cb37-22"></a>        <span class="cf">else</span>:</span>
+<span id="cb37-23"><a href="#cb37-23"></a>            <span class="cf">return</span> <span class="st">&#39;Mensaje incorrecto&#39;</span></span>
+<span id="cb37-24"><a href="#cb37-24"></a></span>
+<span id="cb37-25"><a href="#cb37-25"></a>    <span class="cf">return</span> despacho</span></code></pre></div></section><section id="paso-de-mensajes" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> Paso de mensajes</h2><ul>
+<li><p>A este estilo de programación se le denomina <strong>paso de mensajes</strong>.</p></li>
+<li><p>El paso de mensajes combina varias técnicas de programación:</p>
+<ul>
+<li><p>El almacenamiento y acceso al estado local de una función.</p></li>
+<li><p>Las funciones de orden superior que devuelven otras funciones.</p></li>
+<li><p>La representación de datos como funciones.</p></li>
+</ul></li>
+</ul></section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level2"><h2><span class="header-section-number">4.8</span> El tipo abstracto como módulo</h2><ul>
 <li><p>Claramente, un <strong>tipo abstracto</strong> representa una <strong>abstracción</strong>:</p>
 <ul>
 <li><p>Se <strong>destacan</strong> los detalles (normalmente pocos) de la <strong>especificación</strong>, es decir, el <em>comportamiento observable</em> del tipo. Es de esperar que este aspecto sea bastante estable y cambie poco durante la vida útil del programa.</p></li>
