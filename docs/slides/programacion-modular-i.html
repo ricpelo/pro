@@ -800,6 +800,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section></section>
 <section><section id="abstracción-de-datos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Abstracción de datos</h1></section><section id="introducción-2" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Introducción</h2><ul>
+<li><p>Hemos visto que una buena modularidad se apoya en tres conceptos:</p>
+<ul>
+<li><p><strong>Abstracción</strong>: los usuarios de un módulo tienen que saber qué hace sin necesidad de saber cómo lo hace.</p></li>
+<li><p><strong>Ocultación de información</strong>: los módulos deben ocultar sus decisiones de diseño a sus usuarios.</p></li>
+<li><p><strong>Independencia funcional</strong>: los módulos deben dedicarse a alcanzar un único objetivo, con una alta cohesión entre sus elementos y un bajo acoplamiento con el resto de los módulos.</p></li>
+</ul></li>
+</ul></section><section class="slide level4">
+
+<ul>
 <li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar y manipular sistemas complejos destacando los detalles relevantes e ignorando momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
 <li><p>Asimismo, hemos visto que la abstracción se crea por niveles, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
 <ul>
@@ -807,7 +816,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Se <em>ignoran</em> los detalles irrelevantes en ese nivel. Si descendemos de nivel de abstracción, es probable que algunos de esos detalles pasen a ser relevantes.</p></li>
 </ul></li>
 <li><p>Los programas son sistemas complejos, así que resulta importante que el lenguaje de programación nos permita estudiar y diseñar programas mediante sucesivos niveles de abstracción.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section><section class="slide level4">
 
 <ul>
 <li><p>La abstracción, además de ser un proceso, es un concepto que se puede manipular directamente en un programa.</p></li>
@@ -1041,15 +1051,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="line-block"><strong>espec</strong> <em>rac</em><br />
     <strong>operaciones</strong><br />
-          <strong>parcial</strong> <code>racional</code> : <span class="math inline">\mathbb{N}</span> <span class="math inline">\times</span> <span class="math inline">\mathbb{N}</span> <span class="math inline">\rightarrow</span> <em>rac</em><br />
-          <code>numer</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{N}</span><br />
-          <code>denom</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{N}</span><br />
+          <strong>parcial</strong> <code>racional</code> : <span class="math inline">\mathbb{Z}</span> <span class="math inline">\times</span> <span class="math inline">\mathbb{Z}</span> <span class="math inline">\rightarrow</span> <em>rac</em><br />
+          <code>numer</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{Z}</span><br />
+          <code>denom</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{Z}</span><br />
           <code>suma</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <em>rac</em><br />
           <code>mult</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <em>rac</em><br />
           <code>iguales?</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
           <code>imprimir</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\emptyset</span><br />
     <strong>var</strong><br />
-          <span class="math inline">r</span> : <em>rac</em>; <span class="math inline">n</span>, <span class="math inline">d</span>, <span class="math inline">n_1</span>, <span class="math inline">n_2</span>, <span class="math inline">d_1</span>, <span class="math inline">d_2</span> : <span class="math inline">\mathbb{N}</span><br />
+          <span class="math inline">r</span> : <em>rac</em>; <span class="math inline">n</span>, <span class="math inline">d</span>, <span class="math inline">n_1</span>, <span class="math inline">n_2</span>, <span class="math inline">d_1</span>, <span class="math inline">d_2</span> : <span class="math inline">\mathbb{Z}</span><br />
     <strong>ecuaciones</strong><br />
           <code>numer</code>(<code>racional</code>(<span class="math inline">n</span>, <span class="math inline">d</span>)) <span class="math inline">\doteq</span> <span class="math inline">n</span><br />
           <code>denom</code>(<code>racional</code>(<span class="math inline">n</span>, <span class="math inline">d</span>)) <span class="math inline">\doteq</span> <span class="math inline">d</span><br />
@@ -1088,7 +1098,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-13"><a href="#cb21-13"></a>    <span class="bu">print</span>(numer(x), <span class="st">&#39;/&#39;</span>, denom(x), sep<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div>
 </section><section id="implementaciones" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Implementaciones</h2><ul>
 <li><p>Ahora tenemos las operaciones sobre números racionales implementadas sobre las funciones selectoras <code>numer</code> y <code>denom</code> y la función constructora <code>racional</code>, pero aún no hemos implementado estas tres funciones.</p></li>
-<li><p>Lo que necesitamos es alguna forma de unir un numerador y un denominador en un valor compuesto.</p></li>
+<li><p>Lo que necesitamos es alguna forma de unir un numerador y un denominador en un valor compuesto (una pareja de números).</p></li>
 <li><p>Podemos usar cualquier representación que nos permita combinar ambos valores (numerador y denominador) en una sola unidad y que también nos permita manipular cada valor por separado cuando sea necesario.</p></li>
 </ul></section><section class="slide level4">
 
@@ -1134,12 +1144,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Lo interesante es que este cambio sólo ha afectado al constructor <code>racional</code>, y las demás operaciones no se han visto afectadas por ese cambio.</p></li>
-<li><p>Esto es así porque el resto de las operaciones no conocen ni necesitan conocer la representación interna de un número racional, es decir, la implementación del constructor <code>racional</code>. Sólo necesitan conocer la <strong>especificación</strong> de <code>racional</code>, la cual no ha cambiado.</p></li>
+<li><p>Esto es así porque el resto de las operaciones no conocen ni necesitan conocer la representación interna de un número racional (es decir, la implementación del constructor <code>racional</code>). Sólo necesitan conocer la <strong>especificación</strong> de <code>racional</code>, la cual no ha cambiado.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Otra posible implementación sería simplificar el racional no cuando se construya, sino cuando se acceda a alguna de sus partes:</p>
+<li><p>Otra posible implementación sería simplificar el racional no cuando se <em>construya</em>, sino cuando se <em>acceda</em> a alguna de sus partes:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">def</span> racional(n, d):</span>
 <span id="cb26-2"><a href="#cb26-2"></a>    <span class="cf">return</span> [n, d]</span>
 <span id="cb26-3"><a href="#cb26-3"></a></span>
@@ -1160,18 +1170,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Limitar la dependencia de la representación a unas cuantas funciones de la interfaz nos ayuda a diseñar programas así como a modificarlos, porque nos permite conservar la flexibilidad de considerar implementaciones alternativas.</p></li>
+<li><p>Hacer que la representación dependa sólo de unas cuantas funciones de la interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos permite cambiar la implementación por otras distintas cuando sea necesario.</p></li>
 <li><p>Por ejemplo, si estamos diseñando un módulo de números racionales y aún no hemos decidido si calcular el m.c.d. en el constructor o en los selectores, la metodología de la abstracción de datos nos permite retrasar esa decisión sin perder la capacidad de seguir programando el resto del programa.</p></li>
 </ul>
 </section><section id="barreras-de-abstracción" class="title-slide slide level2"><h2><span class="header-section-number">4.4</span> Barreras de abstracción</h2><ul>
 <li><p>Parémonos ahora a considerar algunos de las cuestiones planteadas en el ejemplo de los números racionales.</p></li>
 <li><p>Hemos definido todas las operaciones de <em>rac</em> en términos de un constructor <code>racional</code> y dos selectores <code>numer</code> y <code>denom</code>.</p>
-<p>En general, la idea que hay detrás de la abstracción de datos es la de:</p>
-<ul>
-<li><p>identificar un conjunto básico de operaciones sobre las cuales se expresarán todas las manipulaciones de valores de algún tipo de datos, y luego</p></li>
-<li><p>obligar a usar sólo esas operaciones para manipular los datos.</p></li>
-</ul></li>
-<li><p>Al obligar a usar las operaciones de esta manera, es mucho más fácil cambiar luego la representación de los datos abstractos o la implementación de las operaciones básicas sin tener que cambiar el resto del programa.</p></li>
+<p>En general, la idea que hay detrás de la <strong>abstracción de datos</strong> es la de:</p>
+<ol>
+<li><p>definir un <strong>nuevo tipo de datos</strong> (abstracto),</p></li>
+<li><p>identificar un <strong>conjunto básico de operaciones</strong> sobre las cuales se expresarán todas las operaciones que manipulen los valores de ese tipo, y luego</p></li>
+<li><p><strong>obligar a usar sólo esas operaciones</strong> para manipular los datos.</p></li>
+</ol></li>
+<li><p>Al obligar a usar los datos únicamente a través de sus operaciones, es mucho más fácil cambiar luego la representación interna de los datos abstractos o la implementación de las operaciones básicas sin tener que cambiar el resto del programa.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -1204,7 +1215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>Implementan selectores y constructores de racionales</td>
-<td>Listas de dos elementos</td>
+<td>Parejas de números representadas como listas de dos elementos</td>
 <td>Literales de tipo lista e indexación</td>
 </tr>
 </tbody>
@@ -1251,29 +1262,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section id="las-propiedades-de-los-datos" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Las propiedades de los datos</h2><ul>
 <li><p>Las barreras de abstracción determinan la forma en la que pensamos sobre los datos.</p></li>
-<li><p>Una representación válida de un número racional no está limitada a ninguna implementación particular (como, por ejemplo, una lista de dos elementos), sino que se puede pensar que es, simplemente, un valor devuelto por <code>racional</code> que se puede pasar a <code>numer</code> y <code>denom</code>.</p></li>
-<li><p>Pero además, debe mantenerse una relación apropiada entre el constructor y los selectores. Es decir, si construimos un número racional <span class="math inline">x</span> a partir de los enteros <span class="math inline">n</span> y <span class="math inline">d</span>, entonces debe cumplirse que <code>numer(</code><span class="math inline">x</span><code>) / denom(</code><span class="math inline">x</span><code>)</code> sea igual a <span class="math inline">\frac{n}{d}</span> .</p></li>
-<li><p>En general, podemos pensar que los datos abstractos se definen mediante una colección de selectores y constructores, junto con algunas condiciones o propiedades que los datos abstractos deben cumplir. Mientras se cumplan dichas propiedades (como la anterior de la división), los selectores y constructores constituyen una representación válida de un tipo de datos.</p></li>
+<li><p>¿Qué es un <em>dato</em>? No basta con decir que es «cualquier cosa que se defina mediante sus correspondientes constructores y selectores». Por ejemplo: es evidente que, para representar a los números racionales, no nos sirve cualquier conjunto de tres funciones.</p></li>
+<li><p>Además, tenemos que garantizar que, entre el constructor <code>racional</code> y los selectores <code>numer</code> y <code>denum</code>, se cumple la siguiente propiedad:</p>
+<div class="caja">
+<p>Si <span class="math inline">x</span> <code>=</code> <code>racional(</code><span class="math inline">n</span>, <span class="math inline">d</span><code>)</code>, entonces <code>numer(</code><span class="math inline">x</span><code>)/denom(</code><span class="math inline">x</span><code>)</code> <code>==</code> <span class="math inline">n/d</span> .</p>
+</div></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Los detalles de implementación debajo de una barrera de abstracción pueden cambiar, pero si el comportamiento no lo hace, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
-<li><p>Este punto de vista se puede aplicar en sentido amplio, incluso a los valores en forma de listas que hemos usado para implementar números racionales. En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos. Es decir, la propiedad que se tiene que cumplir es que:</p>
-<div class="caja">
-<p>Si <span class="math inline">p</span> es una pareja construida a partir de los valores <span class="math inline">x</span> e <span class="math inline">y</span>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> devuelve <span class="math inline">x</span> y <code>select(</code><span class="math inline">p</span><code>, 1)</code> devuelve <span class="math inline">y</span>.</p>
-</div></li>
-<li><p>Tales propiedades se describen como ecuaciones en la especificación algebraica del tipo abstracto.</p></li>
+<li><p>Una representación válida de un número racional no está limitada a ninguna implementación particular (como, por ejemplo, una lista de dos elementos), sino que nos sirve cualquier implementación que satisfaga la propiedad anterior.</p></li>
+<li><p>En general, podemos pensar que <strong>los datos abstractos se definen mediante una colección de selectores y constructores junto con algunas propiedades que los datos abstractos deben cumplir</strong>. Mientras se cumplan dichas propiedades (como la anterior de la división), los selectores y constructores constituyen una representación válida de un tipo de datos.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>En realidad, ni siquiera necesitamos estructuras de datos para representar parejas de números. Podemos implementar dos funciones <code>pareja</code> y <code>select</code> que cumplan con la propiedad anterior tan bien como una lista de dos elementos:</p>
+<li><p>Los detalles de implementación debajo de una barrera de abstracción pueden cambiar, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
+<li><p>Este punto de vista tambíen se puede aplicar a las parejas con forma de lista que hemos usado para implementar números racionales.</p></li>
+<li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos y que nos permita acceder a cada valor por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
+<div class="caja">
+<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span>, <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
+y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>==</code> <span class="math inline">y</span>.</p>
+</div></li>
+<li><p>Tales propiedades se describen como <strong>ecuaciones</strong> en la <strong>especificación algebraica</strong> del tipo abstracto.</p></li>
+</ul>
+</section><section id="representación-funcional" class="title-slide slide level3"><h3><span class="header-section-number">4.5.1</span> Representación funcional</h3><ul>
+<li><p>De hecho, ni siquiera necesitamos estructuras de datos para representar parejas de números. Podemos implementar dos funciones <code>pareja</code> y <code>select</code> que cumplan con la propiedad anterior tan bien como una lista de dos elementos:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">def</span> pareja(x, y):</span>
 <span id="cb30-2"><a href="#cb30-2"></a>    <span class="co">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a>    <span class="kw">def</span> get(indice):</span>
 <span id="cb30-4"><a href="#cb30-4"></a>        <span class="cf">if</span> indice <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb30-5"><a href="#cb30-5"></a>            <span class="cf">return</span> x</span>
-<span id="cb30-6"><a href="#cb30-6"></a>        <span class="cf">elif</span> index <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb30-6"><a href="#cb30-6"></a>        <span class="cf">elif</span> indice <span class="op">==</span> <span class="dv">1</span>:</span>
 <span id="cb30-7"><a href="#cb30-7"></a>            <span class="cf">return</span> y</span>
 <span id="cb30-8"><a href="#cb30-8"></a>    <span class="cf">return</span> get</span>
 <span id="cb30-9"><a href="#cb30-9"></a></span>
@@ -1286,18 +1305,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-3"><a href="#cb31-3"></a><span class="dv">20</span></span>
 <span id="cb31-4"><a href="#cb31-4"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
 <span id="cb31-5"><a href="#cb31-5"></a><span class="dv">14</span></span></code></pre></div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
+<li><p>La función que devuelve <code>pareja</code> y que recibe <code>select</code> <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
+<li><p>A esto se le denomina <strong>representación funcional</strong>.</p></li>
+<li><p>El uso de funciones de orden superior para representar datos no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, <strong>las funciones son perfectamente capaces de representar datos compuestos</strong>. En nuestro caso, estas funciones son suficientes para representar parejas en nuestros programas.</p></li>
+<li><p>El hecho de ver aquí la <strong>representación funcional</strong> de una pareja no es porque Python realmente trabaje de esta manera (las listas en Python se implementan internamente de otra forma, por razones de eficiencia), sino porque podría trabajar de esta manera.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Este uso de funciones de orden superior no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas funciones son suficientes para representar parejas en nuestros programas. Las funciones son perfectamente capaces de representar datos compuestos.</p></li>
-<li><p>El hecho de ver aquí la representación funcional de una pareja no es porque Python realmente trabaje de esta manera (las listas se implementan internamente de otra forma, por razones de eficiencia) sino porque podría trabajar de esta manera.</p></li>
-<li><p>La representación funcional, aunque pueda parecer extraña, es una forma perfectamente adecuada de representar parejas, ya que cumple las propiedades que deben cumplir las parejas. La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras.</p></li>
-</ul>
-</section><section class="slide level4">
-
-<ul>
-<li>Este ejemplo también demuestra que la capacidad de manipular funciones como valores (mediante funciones de orden superior) proporciona la capacidad de manipular datos compuestos.</li>
+<li><p>La representación funcional, aunque pueda parecer extraña, es una forma perfectamente adecuada de representar parejas, ya que cumple las propiedades que deben cumplir las parejas.</p></li>
+<li><p>La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras.</p></li>
+<li><p>Este ejemplo también demuestra que la capacidad de manipular funciones como valores (mediante funciones de orden superior) proporciona la capacidad de manipular datos compuestos.</p></li>
 </ul>
 </section><section id="estado-local" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Estado local</h2><ul>
 <li><p>Los datos (como, por ejemplo, las listas y los diccionarios) pueden tener estado local: son valores cambiantes que tienen ciertos contenidos particulares en cualquier punto de la ejecución de un programa.</p></li>

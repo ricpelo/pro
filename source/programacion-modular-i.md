@@ -1190,10 +1190,24 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ## Introducción
 
+- Hemos visto que una buena modularidad se apoya en tres conceptos:
+
+  - **Abstracción**: los usuarios de un módulo tienen que saber qué hace sin
+    necesidad de saber cómo lo hace.
+
+  - **Ocultación de información**: los módulos deben ocultar sus decisiones de
+    diseño a sus usuarios.
+
+  - **Independencia funcional**: los módulos deben dedicarse a alcanzar un
+    único objetivo, con una alta cohesión entre sus elementos y un bajo
+    acoplamiento con el resto de los módulos.
+
+---
+
 - Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a
-  estudiar y manipular sistemas complejos destacando los detalles
-  relevantes e ignorando momentáneamente los demás que ahora mismo no tienen
-  importancia o no son necesarias.
+  estudiar y manipular sistemas complejos destacando los detalles relevantes e
+  ignorando momentáneamente los demás que ahora mismo no tienen importancia o
+  no son necesarias.
 
 - Asimismo, hemos visto que la abstracción se crea por niveles, es decir, que
   cuando estudiamos un sistema a un determinado nivel:
@@ -1587,15 +1601,15 @@ tiene «aversión» por exponer sus interioridades a los demás.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _rac_
     **operaciones**
-          **parcial** `racional` : $\mathbb{N}$ $\times$ $\mathbb{N}$ $\rightarrow$ _rac_
-          `numer` : _rac_ $\rightarrow$ $\mathbb{N}$
-          `denom` : _rac_ $\rightarrow$ $\mathbb{N}$
+          **parcial** `racional` : $\mathbb{Z}$ $\times$ $\mathbb{Z}$ $\rightarrow$ _rac_
+          `numer` : _rac_ $\rightarrow$ $\mathbb{Z}$
+          `denom` : _rac_ $\rightarrow$ $\mathbb{Z}$
           `suma`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
           `mult`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
           `iguales?` : _rac_ $\times$ _rac_ $\rightarrow$ $\mathfrak{B}$
           `imprimir` : _rac_ $\rightarrow$ $\emptyset$
     **var**
-          $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{N}$
+          $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{Z}$
     **ecuaciones**
           `numer`(`racional`($n$, $d$)) $\doteq$ $n$
           `denom`(`racional`($n$, $d$)) $\doteq$ $d$
@@ -1653,7 +1667,7 @@ def imprimir(x):
   `racional`, pero aún no hemos implementado estas tres funciones.
   
 - Lo que necesitamos es alguna forma de unir un numerador y un denominador en
-  un valor compuesto.
+  un valor compuesto (una pareja de números).
 
 - Podemos usar cualquier representación que nos permita combinar ambos valores
   (numerador y denominador) en una sola unidad y que también nos permita
@@ -1726,14 +1740,14 @@ def imprimir(x):
   y las demás operaciones no se han visto afectadas por ese cambio.
 
 - Esto es así porque el resto de las operaciones no conocen ni necesitan
-  conocer la representación interna de un número racional, es decir, la
-  implementación del constructor `racional`. Sólo necesitan conocer la
+  conocer la representación interna de un número racional (es decir, la
+  implementación del constructor `racional`). Sólo necesitan conocer la
   **especificación** de `racional`, la cual no ha cambiado.
 
 ---
 
 - Otra posible implementación sería simplificar el racional no cuando se
-  construya, sino cuando se acceda a alguna de sus partes:
+  *construya*, sino cuando se *acceda* a alguna de sus partes:
 
   ```python
   def racional(n, d):
@@ -1763,16 +1777,14 @@ def imprimir(x):
 
 ---
 
-- Limitar la dependencia de la representación a unas cuantas funciones de la
-  interfaz nos ayuda a diseñar programas así como a modificarlos, porque nos
-  permite conservar la flexibilidad de considerar implementaciones
-  alternativas.
+- Hacer que la representación dependa sólo de unas cuantas funciones de la
+  interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos
+  permite cambiar la implementación por otras distintas cuando sea necesario.
 
 - Por ejemplo, si estamos diseñando un módulo de números racionales y aún no
-  hemos decidido si calcular el m.c.d. en el constructor o en los
-  selectores, la metodología de la abstracción de datos nos permite retrasar
-  esa decisión sin perder la capacidad de seguir programando el resto del
-  programa.
+  hemos decidido si calcular el m.c.d. en el constructor o en los selectores,
+  la metodología de la abstracción de datos nos permite retrasar esa decisión
+  sin perder la capacidad de seguir programando el resto del programa.
 
 ## Barreras de abstracción
 
@@ -1782,17 +1794,20 @@ def imprimir(x):
 - Hemos definido todas las operaciones de *rac* en términos de un constructor
   `racional` y dos selectores `numer` y `denom`.
 
-  En general, la idea que hay detrás de la abstracción de datos es la de:
+  En general, la idea que hay detrás de la **abstracción de datos** es la de:
 
-  - identificar un conjunto básico de operaciones sobre las cuales se
-    expresarán todas las manipulaciones de valores de algún tipo de datos, y
-    luego
+  #. definir un **nuevo tipo de datos** (abstracto),
+
+  #. identificar un **conjunto básico de operaciones** sobre las cuales se
+     expresarán todas las operaciones que manipulen los valores de ese tipo, y
+     luego
   
-  - obligar a usar sólo esas operaciones para manipular los datos.
+  #. **obligar a usar sólo esas operaciones** para manipular los datos.
 
-- Al obligar a usar las operaciones de esta manera, es mucho más fácil cambiar
-  luego la representación de los datos abstractos o la implementación de las
-  operaciones básicas sin tener que cambiar el resto del programa.
+- Al obligar a usar los datos únicamente a través de sus operaciones, es mucho
+  más fácil cambiar luego la representación interna de los datos abstractos o
+  la implementación de las operaciones básicas sin tener que cambiar el resto
+  del programa.
 
 ---
 
@@ -1812,9 +1827,9 @@ def imprimir(x):
 | implementan operaciones        |                                 |                              |
 | sobre racionales               |                                 |                              |
 +--------------------------------+---------------------------------+------------------------------+
-| Implementan selectores         | Listas de dos elementos         | Literales de tipo lista e    |
-| y constructores de             |                                 | indexación                   |
-| racionales                     |                                 |                              |
+| Implementan selectores         | Parejas de números              | Literales de tipo lista e    |
+| y constructores de             | representadas como listas       | indexación                   |
+| racionales                     | de dos elementos                |                              |
 +--------------------------------+---------------------------------+------------------------------+
 
 ---
@@ -1890,47 +1905,60 @@ def imprimir(x):
 - Las barreras de abstracción determinan la forma en la que pensamos sobre los
   datos.
 
+- ¿Qué es un *dato*? No basta con decir que es «cualquier cosa que se defina
+  mediante sus correspondientes constructores y selectores». Por ejemplo: es
+  evidente que, para representar a los números racionales, no nos sirve
+  cualquier conjunto de tres funciones.
+
+- Además, tenemos que garantizar que, entre el constructor `racional` y los
+  selectores `numer` y `denum`, se cumple la siguiente propiedad:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `=` `racional(`$n$, $d$`)`, entonces `numer(`$x$`)/denom(`$x$`)` `==`
+  $n/d$ .
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+---
+
 - Una representación válida de un número racional no está limitada a ninguna
   implementación particular (como, por ejemplo, una lista de dos elementos),
-  sino que se puede pensar que es, simplemente, un valor devuelto por
-  `racional` que se puede pasar a `numer` y `denom`.
+  sino que nos sirve cualquier implementación que satisfaga la propiedad
+  anterior.
 
-- Pero además, debe mantenerse una relación apropiada entre el constructor y
-  los selectores. Es decir, si construimos un número racional $x$ a partir de
-  los enteros $n$ y $d$, entonces debe cumplirse que `numer(`$x$`) /
-  denom(`$x$`)` sea igual a $\frac{n}{d}$ .
-
-- En general, podemos pensar que los datos abstractos se definen mediante una
-  colección de selectores y constructores, junto con algunas condiciones o
-  propiedades que los datos abstractos deben cumplir. Mientras se cumplan
-  dichas propiedades (como la anterior de la división), los selectores y
-  constructores constituyen una representación válida de un tipo de datos.
+- En general, podemos pensar que **los datos abstractos se definen mediante una
+  colección de selectores y constructores junto con algunas propiedades que los
+  datos abstractos deben cumplir**. Mientras se cumplan dichas propiedades
+  (como la anterior de la división), los selectores y constructores constituyen
+  una representación válida de un tipo de datos.
 
 ---
 
 - Los detalles de implementación debajo de una barrera de abstracción pueden
-  cambiar, pero si el comportamiento no lo hace, entonces la abstracción de
+  cambiar, pero si no cambia su comportamiento, entonces la abstracción de
   datos sigue siendo válida y cualquier programa escrito utilizando esta
   abstracción de datos seguirá siendo correcto.
 
-- Este punto de vista se puede aplicar en sentido amplio, incluso a los valores
-  en forma de listas que hemos usado para implementar números racionales. En
-  realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
-  representación que agrupe dos valores juntos. Es decir, la propiedad que se
-  tiene que cumplir es que:
+- Este punto de vista tambíen se puede aplicar a las parejas con forma de lista
+  que hemos usado para implementar números racionales.
+  
+- En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
+  representación que agrupe dos valores juntos y que nos permita acceder a cada
+  valor por separado. Es decir, la propiedad que tienen que cumplir las parejas
+  es que:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $p$ es una pareja construida a partir de los valores $x$ e $y$, entonces
-  `select(`$p$`, 0)` devuelve $x$ y `select(`$p$`, 1)` devuelve $y$.
+  Si $p$ `=` `pareja(`$x$, $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
+  y `select(`$p$`, 1)` `==` $y$.
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Tales propiedades se describen como ecuaciones en la especificación
-  algebraica del tipo abstracto.
+- Tales propiedades se describen como **ecuaciones** en la **especificación
+  algebraica** del tipo abstracto.
 
----
+### Representación funcional
 
-- En realidad, ni siquiera necesitamos estructuras de datos para representar
+- De hecho, ni siquiera necesitamos estructuras de datos para representar
   parejas de números. Podemos implementar dos funciones `pareja` y `select` que
   cumplan con la propiedad anterior tan bien como una lista de dos elementos:
 
@@ -1940,7 +1968,7 @@ def imprimir(x):
       def get(indice):
           if indice == 0:
               return x
-          elif index == 1:
+          elif indice == 1:
               return y
       return get
 
@@ -1961,22 +1989,34 @@ def imprimir(x):
 
 ---
 
-- Este uso de funciones de orden superior no se corresponde en absoluto con
-  nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, estas
-  funciones son suficientes para representar parejas en nuestros programas. Las
-  funciones son perfectamente capaces de representar datos compuestos.
+- Las funciones `pareja` y `select`, así definidas, son **funciones de orden
+  superior**: la primera porque devuelve una función y la segunda porque recibe
+  una función como argumento.
 
-- El hecho de ver aquí la representación funcional de una pareja no es porque
-  Python realmente trabaje de esta manera (las listas se implementan
-  internamente de otra forma, por razones de eficiencia) sino porque podría
-  trabajar de esta manera.
+- La función que devuelve `pareja` y que recibe `select` **representa una
+  pareja**, es decir, un **dato**.
+
+- A esto se le denomina **representación funcional**.
+
+- El uso de funciones de orden superior para representar datos no se
+  corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los
+  datos. Sin embargo, **las funciones son perfectamente capaces de representar
+  datos compuestos**. En nuestro caso, estas funciones son suficientes para
+  representar parejas en nuestros programas.
+
+- El hecho de ver aquí la **representación funcional** de una pareja no es
+  porque Python realmente trabaje de esta manera (las listas en Python se
+  implementan internamente de otra forma, por razones de eficiencia), sino
+  porque podría trabajar de esta manera.
   
+---
+
 - La representación funcional, aunque pueda parecer extraña, es una forma
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
-  que deben cumplir las parejas. La práctica de la abstracción de datos nos
+  que deben cumplir las parejas.
+  
+- La práctica de la abstracción de datos nos
   permite cambiar fácilmente unas representaciones por otras.
-
----
 
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
   valores (mediante funciones de orden superior) proporciona la capacidad de
