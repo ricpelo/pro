@@ -870,7 +870,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>La abstracción de datos es una técnica pero también es un concepto que se puede manipular directamente en un programa.</p></li>
+<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también es algo que puede formar parte de un programa.</p></li>
 <li><p>Diseñar programas usando abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se se les denomina <strong>abstracciones de datos</strong>.</p></li>
 </ul>
 </section><section class="slide level4">
@@ -886,6 +886,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section class="slide level4">
 
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 34%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elementos del lenguaje</th>
+<th style="text-align: left;">Instrucciones</th>
+<th style="text-align: left;">Datos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Primitivas</td>
+<td style="text-align: left;">Definiciones, literales y sentencias simples</td>
+<td style="text-align: left;">Datos simples (enteros, reales, booleanos…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mecanismos de combinación</td>
+<td style="text-align: left;">Expresiones y sentencias compuestas (estructuras de control)</td>
+<td style="text-align: left;">Datos compuestos (listas, tuplas…)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mecanismos de abstracción</td>
+<td style="text-align: left;">Abstracciones funcionales (funciones)</td>
+<td style="text-align: left;">Abstracciones de datos (tipos abstractos)</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level4">
+
 <ul>
 <li><p>El concepto de <strong>abstracción de datos</strong> (o <strong>tipo abstracto de datos</strong>) fue propuesto por John Guttag en 1974 y dice que:</p>
 <div class="caja">
@@ -898,10 +931,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Por ejemplo, <code>set</code> es un tipo abstracto de datos en Python.</p>
+<li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que actúa como un tipo abstracto de datos.</p>
 <ul>
-<li><p>Se nos proporcionan <strong>operaciones primitivas</strong> para crear conjuntos y manipular conjuntos (unión, intersección) y también un modo de visualizar sus valores.</p></li>
-<li><p>Pero no se nos especifica cómo se representan internamente los conjuntos en la memoria del ordenador.</p></li>
+<li><p>Se nos proporcionan <strong>operaciones primitivas</strong> para crear conjuntos y manipular conjuntos (unión, intersección, etc.) y también un modo de visualizar sus valores.</p></li>
+<li><p>Pero no sabemos, ni necesitamos saber, cómo se representan internamente los conjuntos en la memoria del ordenador. Ese es un detalle interno del intérprete.</p></li>
 </ul></li>
 <li><p>En general, el programador que usa un tipo abstracto puede no saber, e incluso se le impide saber, cómo se representan los elementos del tipo de datos.</p></li>
 <li><p>Esas <strong>barreras de abstracción</strong> son muy útiles porque permiten cambiar la representación interna sin afectar a las demás partes del programa que utilizan dicho tipo abstracto.</p></li>
@@ -1491,6 +1524,17 @@ def saldo(dep):
 <li><p>La <strong>interfaz</strong> del tipo abstracto con sus usuarios es un ejemplo de pocas y simples conexiones con el resto del programa: los usuarios simplemente invocan sus operaciones permitidas. Otras conexiones más peligrosas, como compartir variables entre módulos o compartir el conocimiento acerca de la estructura interna, son imposibles.</p></li>
 <li><p>La <strong>implementación</strong> puede cambiarse libremente sin afectar al funcionamiento de los módulos usuarios. Es de esperar, por tanto, que muchos cambios al programa queden localizados en el interior de un sólo módulo.</p></li>
 <li><p>El <strong>tamaño</strong> de una sola función que implementa una abstracción funcional es demasiado pequeño para ser útil como unidad modular. En cambio, la definición de un tipo abstracto consta, en general, de una colección de funciones más una representación, lo que proporciona un tamaño más adecuado.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Un tipo abstracto de datos conecta perfectamente con los cuatro conceptos más importantes relacionados con la modularidad:</p>
+<ul>
+<li><p>Es una <strong>abstracción</strong>: se usa sin necesidad de saber cómo se implementa.</p></li>
+<li><p><strong>Oculta información</strong>: los detalles y las decisiones de diseño quedan en la implementación del tipo abstracto, y son innecesarios para poder usarlo.</p></li>
+<li><p>Es <strong>funcionalmente independiente</strong>: es un módulo destinado a una sola tarea, con alta cohesión y bajo acoplamiento.</p></li>
+<li><p>Es <strong>reutilizable</strong>: su comportamiento puede resultar tan general que puede usarse en diferentes programas con ninguna o muy poca modificación.</p></li>
 </ul></li>
 </ul>
 </section></section>

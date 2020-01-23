@@ -1329,8 +1329,8 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ---
 
-- La abstracción de datos es una técnica pero también es un concepto que se
-  puede manipular directamente en un programa.
+- La **abstracción de datos** es una **técnica** pero también es algo que puede
+  formar parte de un programa.
 
 - Diseñar programas usando abstracción de datos da como resultado la creación
   y utilización de **tipos abstractos de datos** (o **TAD**), a los que también
@@ -1357,6 +1357,22 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ---
 
+--------------------------------------------------------------------------------
+Elementos del lenguaje      Instrucciones               Datos
+--------------------------- --------------------------- ------------------------
+Primitivas                  Definiciones, literales y   Datos simples (enteros,
+                            sentencias simples          reales, booleanos...
+
+Mecanismos de combinación   Expresiones y sentencias    Datos compuestos
+                            compuestas (estructuras     (listas, tuplas...)
+                            de control)
+
+Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
+                            (funciones)                 (tipos abstractos)
+--------------------------------------------------------------------------------
+
+---
+
 - El concepto de **abstracción de datos** (o **tipo abstracto de datos**) fue
   propuesto por John Guttag en 1974 y dice que:
 
@@ -1376,14 +1392,16 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ---
 
-- Por ejemplo, `set` es un tipo abstracto de datos en Python.
+- Por ejemplo, `set` es un tipo primitivo en Python que actúa como un tipo
+  abstracto de datos.
 
   - Se nos proporcionan **operaciones primitivas** para crear conjuntos y
-    manipular conjuntos (unión, intersección) y también un modo de visualizar
-    sus valores.
+    manipular conjuntos (unión, intersección, etc.) y también un modo de
+    visualizar sus valores.
 
-  - Pero no se nos especifica cómo se representan internamente los conjuntos en
-    la memoria del ordenador.
+  - Pero no sabemos, ni necesitamos saber, cómo se representan internamente los
+    conjuntos en la memoria del ordenador. Ese es un detalle interno del
+    intérprete.
 
 - En general, el programador que usa un tipo abstracto puede no saber, e
   incluso se le impide saber, cómo se representan los elementos del tipo de
@@ -2283,5 +2301,21 @@ def deposito(fondos):
     definición de un tipo abstracto consta, en general, de una colección de
     funciones más una representación, lo que proporciona un tamaño más
     adecuado.
+
+---
+
+- Un tipo abstracto de datos conecta perfectamente con los cuatro conceptos más
+  importantes relacionados con la modularidad:
+
+  - Es una **abstracción**: se usa sin necesidad de saber cómo se implementa.
+
+  - **Oculta información**: los detalles y las decisiones de diseño quedan en
+    la implementación del tipo abstracto, y son innecesarios para poder usarlo.
+
+  - Es **funcionalmente independiente**: es un módulo destinado a una sola
+    tarea, con alta cohesión y bajo acoplamiento.
+
+  - Es **reutilizable**: su comportamiento puede resultar tan general que puede
+    usarse en diferentes programas con ninguna o muy poca modificación.
 
 !BIBLIOGRAFIA
