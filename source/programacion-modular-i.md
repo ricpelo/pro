@@ -1997,6 +1997,10 @@ def imprimir(x):
 
 - Con esta implementación, podemos crear y manipular parejas:
 
+:::: columns
+
+::: column
+
   ```python
   >>> p = pareja(20, 14)
   >>> select(p, 0)
@@ -2004,6 +2008,65 @@ def imprimir(x):
   >>> select(p, 1)
   14
   ```
+
+:::
+
+::: column
+
+[Ver en Pythontutor](http://pythontutor.com/visualize.html#code=def%20pareja%28x,%20y%29%3A%0A%20%20%20%20%22%22%22Devuelve%20una%20funci%C3%B3n%20que%20representa%20una%20pareja.%22%22%22%0A%20%20%20%20def%20get%28indice%29%3A%0A%20%20%20%20%20%20%20%20if%20indice%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20x%0A%20%20%20%20%20%20%20%20elif%20indice%20%3D%3D%201%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20y%0A%20%20%20%20return%20get%0A%0Adef%20select%28p,%20i%29%3A%0A%20%20%20%20%22%22%22Devuelve%20el%20elemento%20situado%20en%20el%20%C3%ADndice%20i%20de%20la%20pareja%20p.%22%22%22%0A%20%20%20%20return%20p%28i%29%0A%0Ap%20%3D%20pareja%2820,%2014%29%0Aprint%28select%28p,%200%29%29%0Aprint%28select%28p,%201%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+
+:::
+
+::::
+
+---
+
+- Las variables `x` e `y` son los parámetros de la función `pareja`, es decir,
+  que son locales a ella. Por tanto, las ligaduras entre sus identificadores y
+  las variables que contienen su valores se almacenan en el marco de `pareja`.
+
+- La función `get` puede acceder a `x` e `y` ya que se encuentran en su
+  entorno.
+
+!DOT(entorno-pareja-get.svg)(Entorno en la función `get` al llamar a `pareja(4, 1)`)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+1 [shape = circle]
+4 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+y [shape = plaintext, fillcolor = transparent, label = "y"]
+i [shape = plaintext, fillcolor = transparent, label = "indice"]
+subgraph cluster0 {
+    label = "Marco de pareja"
+    bgcolor = "white"
+    x -> 4
+    y -> 1
+}
+subgraph cluster1 {
+    label = "Marco de get"
+    bgcolor = white
+    i -> i
+}
+i -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = point]
+E -> i [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Lo interesante es que el marco de la función `pareja` no se elimina de la
+  memoria al salir de la función con `return get`, ya que la función `get`
+  necesita seguir accediendo a valores que están ligados en el marco de
+  `pareja` y no en el suyo.
+
+- Es decir: el intérprete conserva todo el entorno que la función `get`
+  necesita para poder funcionar, incluyendo sus variables no locales, como es
+  el caso aquí de de los parámetros `x` e `y` de la función `pareja`.
+
+- La combinación de una función más el entorno necesario para su ejecución se
+  denomina **clausura**.
 
 ---
 
@@ -2029,37 +2092,49 @@ def imprimir(x):
   
 ---
 
+- La práctica de la abstracción de datos nos permite cambiar fácilmente unas
+  representaciones por otras.
+
 - La representación funcional, aunque pueda parecer extraña, es una forma
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
   que deben cumplir las parejas.
   
-- La práctica de la abstracción de datos nos
-  permite cambiar fácilmente unas representaciones por otras.
-
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
   valores (mediante funciones de orden superior) proporciona la capacidad de
   manipular datos compuestos.
 
-## Estado local
+### Estado interno
 
-- Los datos (como, por ejemplo, las listas y los diccionarios) pueden tener
-  estado local: son valores cambiantes que tienen ciertos contenidos
-  particulares en cualquier punto de la ejecución de un programa.
+- Ciertos datos pueden tener **estado interno**, lo que significa que su
+  contenido puede cambiar durante la ejecución del programa.
 
-- La palabra «estado» implica un proceso evolutivo durante el cual ese estado
-  puede ir cambiando.
+- Por ejemplo:
 
-- Las funciones también pueden tener estado local.
+  - Una **lista** posee un estado interno que se corresponde con su
+    **contenido**, es decir, con los **elementos que contiene** en un momento
+    dado.
+
+  - Esos elementos pueden **cambiar** durante la ejecución del programa:
+    podemos añadir elementos a la lista, eliminar elementos de la lista o
+    cambiar un elemento de la lista por otro distinto.
+
+  - Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos
+    cambiando su estado interno.
+
+- Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual
+  ese estado puede ir cambiando.
+
+- **Las funciones también pueden tener estado interno**.
 
 ---
 
-- Por ejemplo, definamos una función que modele el proceso de retirar dinero de
+- Por ejemplo, definamos una función que simule el proceso de retirar dinero de
   una cuenta bancaria.
 
 - Crearemos una función llamada `retirar`, que tome como argumento una cantidad
   a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada,
   `retirar` devolverá el saldo restante después de la retirada. De lo
-  contrario, `retirar` producirá el error 'Fondos insuficientes'.
+  contrario, `retirar` producirá el error `'Fondos insuficientes'`.
 
 - Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría obtener la
   siguiente secuencia de valores de retorno al ir llamando a `retirar`:
@@ -2079,28 +2154,31 @@ def imprimir(x):
 
 - La expresión `retirar(25)`, evaluada dos veces, produce valores diferentes.
 
-- Por lo tanto, la función `retirar` no es pura.
+- Por lo tanto, la función `retirar` **no es pura**.
 
 - Llamar a la función no sólo devuelve un valor, sino que también tiene el
-  efecto lateral de cambiar la función de alguna manera, de modo que la
+  **efecto lateral** de cambiar la función de alguna manera, de modo que la
   siguiente llamada con el mismo argumento devolverá un resultado diferente.
 
-- Este efecto lateral es el resultado de retirar los fondos provocando un
-  cambio en el estado de una variable fuera del marco actual.
-
-- Para que todo funcione, debe empezarse con un saldo inicial.
+- Este efecto lateral es el resultado de retirar dinero de los fondos
+  disponibles **provocando un cambio en el estado de una variable** que
+  almacena dichos fondos y que se encuentra **fuera del marco actual**.
 
 ---
 
+- Para que todo funcione, debe empezarse con un saldo inicial.
+
 - La función `deposito` es una función de orden superior que recibe como
-  argumento un saldo inicial y devuelve la propia función `retirar`.
+  argumento un saldo inicial y devuelve la propia función `retirar`, pero de
+  forma que esa función **recuerda** el saldo inicial.
 
   ```python
   >>> retirar = deposito(100)
   ```
 
-- La implementación de `deposito` requiere un acceso no local al valor de los
-  fondos iniciales y una función local que actualiza y devuelve dicho valor:
+- La implementación de `deposito` requiere un **acceso no local** al valor de
+  los fondos iniciales y una **función local** que actualiza y devuelve dicho
+  valor:
 
   ```python
   def deposito(fondos):
@@ -2109,16 +2187,17 @@ def imprimir(x):
           nonlocal fondos
           if cantidad > fondos:
               return 'Fondos insuficientes'
-          fondos -= cantidad
+          fondos -= cantidad  # Asignación a variable no local
           return fondos
+
       return deposito_local
   ```
 
-- La asignación de estado no local nos ha dado la capacidad de mantener un
-  estado que es local para una función, pero que evoluciona a través de
-  llamadas sucesivas a esa función.
-
 ---
+
+- Al poder asignar valores a una variable no local, hemos podido conservar un
+  estado que es interno para una función pero que evoluciona y cambia con el
+  tiempo a través de llamadas sucesivas a esa función.
 
 - Supongamos que queremos ampliar la idea anterior definiendo más operaciones
   sobre los fondos de la cuenta corriente.
@@ -2131,10 +2210,6 @@ def imprimir(x):
   **despacha** las operaciones en función del *mensaje* recibido.
 
 ---
-
-:::: columns
-
-::: {.column width=55%}
 
 ```python
 def deposito(fondos):
@@ -2161,14 +2236,12 @@ def deposito(fondos):
         elif mensaje == 'saldo':
             return saldo
         else:
-            return 'Mensaje incorrecto'
+            raise ValueError('Mensaje incorrecto')
 
     return despacho
 ```
 
-:::
-
-::: {.column width=45%}
+---
 
 <!--
 ```python
@@ -2186,21 +2259,32 @@ def saldo(dep):
 - Ahora, un depósito se representa internamente como una función que recibe
   mensajes y los despacha a la función correspondiente:
 
-```python
->>> dep = deposito(100)
->>> dep
-<function deposito.<locals>.despacho at 0x7f0de1300e18>
->>> dep('retirar')(25)
-75
->>> dep('ingresar')(200)
-275
->>> dep('saldo')()
-275
-```
+  ```python
+  >>> dep = deposito(100)
+  >>> dep
+  <function deposito.<locals>.despacho at 0x7f0de1300e18>
+  >>> dep('retirar')(25)
+  75
+  >>> dep('ingresar')(200)
+  275
+  >>> dep('saldo')()
+  275
+  ```
 
-:::
+- También podemos hacer:
 
-::::
+  ```python
+  >>> dep = deposito(100)
+  >>> retirar = dep('retirar')
+  >>> ingresar = dep('ingresar')
+  >>> saldo = dep('saldo')
+  >>> retirar(25)
+  75
+  >>> ingresar(200)
+  275
+  >>> saldo()
+  275
+  ```
 
 ### Despacho con diccionarios
 
@@ -2224,13 +2308,13 @@ def deposito(fondos):
     def saldo():
         return fondos
 
-    d = {'retirar': retirar, 'ingresar': ingresar, 'saldo': saldo}
+    dic = {'retirar': retirar, 'ingresar': ingresar, 'saldo': saldo}
 
     def despacho(mensaje):
         if mensaje in d:
-            return d[mensaje]
+            return dic[mensaje]
         else:
-            return 'Mensaje incorrecto'
+            raise ValueError('Mensaje incorrecto')
 
     return despacho
 ```
@@ -2241,11 +2325,15 @@ def deposito(fondos):
 
 - El paso de mensajes combina varias técnicas de programación:
 
-  - El almacenamiento y acceso al estado local de una función.
+  - El almacenamiento y acceso al estado interno de una función mediante
+    variables no locales.
 
   - Las funciones de orden superior que devuelven otras funciones.
 
   - La representación de datos como funciones.
+
+  - El uso de una función que *despacha* operaciones en función del mensaje
+    recibido.
 
 ## El tipo abstracto como módulo
 
