@@ -802,15 +802,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section><section id="abstracción-de-datos" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Abstracción de datos</h1></section><section id="introducción-2" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Introducción</h2><ul>
 <li><p>Hemos visto que una buena modularidad se apoya en tres conceptos:</p>
 <ul>
-<li><p><strong>Abstracción</strong>: los usuarios de un módulo tienen que saber qué hace sin necesidad de saber cómo lo hace.</p></li>
+<li><p><strong>Abstracción</strong>: los usuarios de un módulo necesitan saber qué hace pero no cómo lo hace.</p></li>
 <li><p><strong>Ocultación de información</strong>: los módulos deben ocultar sus decisiones de diseño a sus usuarios.</p></li>
 <li><p><strong>Independencia funcional</strong>: los módulos deben dedicarse a alcanzar un único objetivo, con una alta cohesión entre sus elementos y un bajo acoplamiento con el resto de los módulos.</p></li>
 </ul></li>
 </ul></section><section class="slide level4">
 
 <ul>
-<li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar y manipular sistemas complejos destacando los detalles relevantes e ignorando momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
-<li><p>Asimismo, hemos visto que la abstracción se crea por niveles, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
+<li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar y manipular sistemas complejos <em>destacando</em> los detalles relevantes e <em>ignorando</em> momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
+<li><p>Asimismo, hemos visto que la abstracción se define por niveles, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
 <ul>
 <li><p>Se <em>destacan</em> los detalles relevantes en ese nivel.</p></li>
 <li><p>Se <em>ignoran</em> los detalles irrelevantes en ese nivel. Si descendemos de nivel de abstracción, es probable que algunos de esos detalles pasen a ser relevantes.</p></li>
@@ -820,19 +820,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>La abstracción, además de ser un proceso, es un concepto que se puede manipular directamente en un programa.</p></li>
+<li><p>La abstracción es un proceso pero también es algo que puede formar parte de un programa.</p></li>
 <li><p>Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las <strong>funciones</strong>, también llamadas <strong>abstracciones funcionales</strong>.</p></li>
-<li><p>Una función es una abstracción funcional porque el usuario de la función sólo necesita conocer la especificación de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de implementación que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
+<li><p>Una función es una abstracción funcional porque el usuario de la función sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
 <li><p>Por eso decimos que las funciones definen dos niveles de abstracción.</p></li>
-<li><p>En otras palabras, al diseñar una función estamos creando una abstracción que separa la forma en la que utiliza la función de los detalles de cómo está implementada esa función.</p></li>
+<li><p>En otras palabras, al diseñar una función estamos creando una abstracción que separa la forma en la que se utiliza la función de la forma en como está implementada esa función.</p></li>
 </ul>
 </section><section class="slide level4">
 
 <ul>
-<li><p>Las abstracciones funcionales son un mecanismo que nos permite componer una <strong>operación compleja</strong> a partir de otras operaciones más simples y poder usarla sin necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman).</p></li>
-<li><p>Una vez que la función se ha diseñado y se está utilizando, se puede sustituir por cualquier otra que tenga el mismo comportamiento general.</p></li>
-<li><p>De la misma forma, los datos compuestos o estructurados son un mecanismo que nos permite crear un <strong>dato complejo</strong> a partir de otros datos más simples, formando una única unidad conceptual.</p></li>
-<li><p>Por desgracia, estos datos compuestos no ocultan sus detalles de implementación al usuario, sino que éste tiene que conocer cómo está construido.</p></li>
+<li><p>Las abstracciones funcionales son un mecanismo que nos permite:</p>
+<ol>
+<li><p>componer una <strong>operación compleja</strong> combinando otras operaciones más simples (dándole un nuevo nombre a todo el conjunto), y</p></li>
+<li><p>poder usar esa nueva operación compleja sin necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman, que son detalles que quedan ocultos al usuario).</p></li>
+</ol></li>
+<li><p>Una vez que la función se ha diseñado y se está utilizando, se puede sustituir por cualquier otra que tenga el mismo comportamiento observable.</p></li>
+<li><p>De forma similar, los datos compuestos o estructurados son un mecanismo que nos permite crear un <strong>dato complejo</strong> combinando otros datos más simples, formando una única unidad conceptual.</p></li>
+<li><p>Pero, por desgracia, estos datos compuestos <strong>no ocultan sus detalles de implementación al usuario</strong>, sino que éste tiene que conocer cómo está construido.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -844,9 +848,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Podríamos representar dicha pareja de números usando una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario<br />
+<li><p>Así que podríamos representar dicha pareja de números usando una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario<br />
 <code>{'numer':</code> <span class="math inline">a</span><code>, 'denom':</code> <span class="math inline">b</span><code>}</code>.</p></li>
 <li><p>Pero estaríamos obligando al usuario de nuestros números racionales a tener que saber cómo representamos los racionales en función de otros tipos más primitivos, lo que nos impide cambiar luego esa representación sin afectar al resto del programa.</p></li>
+<li><p>Es decir: les estamos obligando a conocer detalles de implementación de nuestros números racionales.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1112,7 +1117,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>denom(</code><span class="math inline">x</span><code>)</code>: devuelve el denominador del número racional <span class="math inline">x</span>.</p></li>
 </ul></li>
 <li><p>Estamos usando una estrategia poderosa para diseñar programas: el <strong>pensamiento optimista</strong>, ya que todavía no hemos dicho cómo se representa un número racional, o cómo se deben implementar las funciones <code>numer</code>, <code>denom</code> y <code>racional</code>.</p></li>
-<li><p>Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y comprobar la igualdad de números racionales, con lo que implementaríamos las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code>, ya especificadas, en función de <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
+<li><p>Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y comprobar la igualdad de números racionales, con lo que podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
 </ul>
 </section><section class="slide level4">
 
@@ -1249,7 +1254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td>Implementan selectores y constructores de racionales</td>
 <td>Parejas de números representadas como listas de dos elementos</td>
-<td>Literales de tipo lista e indexación</td>
+<td>Literales de tipo lista <code>[</code>_<code>]</code> e indexación _<code>[</code>_<code>]</code></td>
 </tr>
 </tbody>
 </table>
@@ -1295,8 +1300,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section id="las-propiedades-de-los-datos" class="title-slide slide level2"><h2><span class="header-section-number">4.5</span> Las propiedades de los datos</h2><ul>
 <li><p>Las barreras de abstracción determinan la forma en la que pensamos sobre los datos.</p></li>
-<li><p>¿Qué es un <em>dato</em>? No basta con decir que es «cualquier cosa que se defina mediante sus correspondientes constructores y selectores». Por ejemplo: es evidente que, para representar a los números racionales, no nos sirve cualquier conjunto de tres funciones.</p></li>
-<li><p>Además, tenemos que garantizar que, entre el constructor <code>racional</code> y los selectores <code>numer</code> y <code>denum</code>, se cumple la siguiente propiedad:</p>
+<li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es «cualquier cosa implementada mediante determinados constructores y selectores».</p></li>
+<li><p>Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones (un constructor y dos selectores) no sirven para representar adecuadamente a los números racionales. Además, tenemos que garantizar que, entre el constructor <code>racional</code> y los selectores <code>numer</code> y <code>denum</code>, se cumple la siguiente propiedad:</p>
 <div class="caja">
 <p>Si <span class="math inline">x</span> <code>=</code> <code>racional(</code><span class="math inline">n</span>, <span class="math inline">d</span><code>)</code>, entonces <code>numer(</code><span class="math inline">x</span><code>)/denom(</code><span class="math inline">x</span><code>)</code> <code>==</code> <span class="math inline">n/d</span> .</p>
 </div></li>
@@ -1309,8 +1314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section class="slide level4">
 
 <ul>
-<li><p>Los detalles de implementación debajo de una barrera de abstracción pueden cambiar, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
-<li><p>Este punto de vista tambíen se puede aplicar a las parejas con forma de lista que hemos usado para implementar números racionales.</p></li>
+<li><p><strong>Los detalles de implementación</strong> debajo de una barrera de abstracción <strong>pueden cambiar</strong>, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
+<li><p>Este punto de vista tambíen se puede aplicar, por ejemplo, a las parejas con forma de lista que hemos usado para implementar números racionales.</p></li>
 <li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos y que nos permita acceder a cada valor por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
 <div class="caja">
 <p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span>, <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />

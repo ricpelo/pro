@@ -1192,8 +1192,8 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 - Hemos visto que una buena modularidad se apoya en tres conceptos:
 
-  - **Abstracción**: los usuarios de un módulo tienen que saber qué hace sin
-    necesidad de saber cómo lo hace.
+  - **Abstracción**: los usuarios de un módulo necesitan saber qué hace pero no
+    cómo lo hace.
 
   - **Ocultación de información**: los módulos deben ocultar sus decisiones de
     diseño a sus usuarios.
@@ -1205,11 +1205,11 @@ tiene «aversión» por exponer sus interioridades a los demás.
 ---
 
 - Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a
-  estudiar y manipular sistemas complejos destacando los detalles relevantes e
-  ignorando momentáneamente los demás que ahora mismo no tienen importancia o
-  no son necesarias.
+  estudiar y manipular sistemas complejos *destacando* los detalles relevantes
+  e *ignorando* momentáneamente los demás que ahora mismo no tienen importancia
+  o no son necesarias.
 
-- Asimismo, hemos visto que la abstracción se crea por niveles, es decir, que
+- Asimismo, hemos visto que la abstracción se define por niveles, es decir, que
   cuando estudiamos un sistema a un determinado nivel:
 
   - Se *destacan* los detalles relevantes en ese nivel.
@@ -1224,39 +1224,44 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ---
 
-- La abstracción, además de ser un proceso, es un concepto que se puede
-  manipular directamente en un programa.
+- La abstracción es un proceso pero también es algo que puede formar parte de
+  un programa.
 
 - Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
   **funciones**, también llamadas **abstracciones funcionales**.
 
 - Una función es una abstracción funcional porque el usuario de la función sólo
-  necesita conocer la especificación de la abstracción (el *qué* hace) y puede
-  ignorar el resto de los detalles de implementación que se encuentran en el
-  cuerpo de la función (el *cómo* lo hace).
+  necesita conocer la **especificación** de la abstracción (el *qué* hace) y
+  puede ignorar el resto de los detalles de **implementación** que se
+  encuentran en el cuerpo de la función (el *cómo* lo hace).
 
 - Por eso decimos que las funciones definen dos niveles de abstracción.
 
 - En otras palabras, al diseñar una función estamos creando una abstracción que
-  separa la forma en la que utiliza la función de los detalles de cómo está
+  separa la forma en la que se utiliza la función de la forma en como está
   implementada esa función.
 
 ---
 
-- Las abstracciones funcionales son un mecanismo que nos permite componer una
-  **operación compleja** a partir de otras operaciones más simples y poder
-  usarla sin necesidad de conocer cómo está hecha por dentro (es decir, sin
-  necesidad de conocer cuáles son esas operaciones más simples que la forman).
+- Las abstracciones funcionales son un mecanismo que nos permite:
+
+  #. componer una **operación compleja** combinando otras operaciones más
+     simples (dándole un nuevo nombre a todo el conjunto), y
+
+  #. poder usar esa nueva operación compleja sin necesidad de conocer cómo está
+     hecha por dentro (es decir, sin necesidad de conocer cuáles son esas
+     operaciones más simples que la forman, que son detalles que quedan ocultos
+     al usuario).
 
 - Una vez que la función se ha diseñado y se está utilizando, se puede
-  sustituir por cualquier otra que tenga el mismo comportamiento general.
+  sustituir por cualquier otra que tenga el mismo comportamiento observable.
 
-- De la misma forma, los datos compuestos o estructurados son un mecanismo que
-  nos permite crear un **dato complejo** a partir de otros datos más simples,
+- De forma similar, los datos compuestos o estructurados son un mecanismo que
+  nos permite crear un **dato complejo** combinando otros datos más simples,
   formando una única unidad conceptual.
 
-- Por desgracia, estos datos compuestos no ocultan sus detalles de
-  implementación al usuario, sino que éste tiene que conocer cómo está
+- Pero, por desgracia, estos datos compuestos **no ocultan sus detalles de
+  implementación al usuario**, sino que éste tiene que conocer cómo está
   construido.
 
 ---
@@ -1274,7 +1279,7 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 ---
 
-- Podríamos representar dicha pareja de números usando una lista como
+- Así que podríamos representar dicha pareja de números usando una lista como
   `[`$a$`, ` $b$`]`, o una tupla `(`$a$`, ` $b$`)`, o incluso un diccionario \
   `{'numer': ` $a$`, 'denom': ` $b$`}`.
 
@@ -1282,6 +1287,9 @@ tiene «aversión» por exponer sus interioridades a los demás.
   que saber cómo representamos los racionales en función de otros tipos más
   primitivos, lo que nos impide cambiar luego esa representación sin afectar al
   resto del programa.
+
+- Es decir: les estamos obligando a conocer detalles de implementación de
+  nuestros números racionales.
 
 ---
 
@@ -1656,9 +1664,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   `denom` y `racional`.
 
 - Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar,
-  imprimir y comprobar la igualdad de números racionales, con lo que
-  implementaríamos las funciones `suma`, `mult`, `imprimir` e `iguales?`, ya
-  especificadas, en función de `racional`, `numer` y `denom`.
+  imprimir y comprobar la igualdad de números racionales, con lo que podemos
+  definir las funciones `suma`, `mult`, `imprimir` e `iguales?` en función de
+  `racional`, `numer` y `denom`.
 
 ---
 
@@ -1845,9 +1853,9 @@ def imprimir(x):
 | implementan operaciones        |                                 |                              |
 | sobre racionales               |                                 |                              |
 +--------------------------------+---------------------------------+------------------------------+
-| Implementan selectores         | Parejas de números              | Literales de tipo lista e    |
-| y constructores de             | representadas como listas       | indexación                   |
-| racionales                     | de dos elementos                |                              |
+| Implementan selectores         | Parejas de números              | Literales de tipo lista      |
+| y constructores de             | representadas como listas       | `[`\_`]` e indexación        |
+| racionales                     | de dos elementos                | \_`[`\_`]`                   |
 +--------------------------------+---------------------------------+------------------------------+
 
 ---
@@ -1923,13 +1931,14 @@ def imprimir(x):
 - Las barreras de abstracción determinan la forma en la que pensamos sobre los
   datos.
 
-- ¿Qué es un *dato*? No basta con decir que es «cualquier cosa que se defina
-  mediante sus correspondientes constructores y selectores». Por ejemplo: es
-  evidente que, para representar a los números racionales, no nos sirve
-  cualquier conjunto de tres funciones.
-
-- Además, tenemos que garantizar que, entre el constructor `racional` y los
-  selectores `numer` y `denum`, se cumple la siguiente propiedad:
+- Pero... ¿qué es un *dato*? No basta con decir que es «cualquier cosa
+  implementada mediante determinados constructores y selectores».
+  
+- Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones
+  (un constructor y dos selectores) no sirven para representar adecuadamente a
+  los números racionales. Además, tenemos que garantizar que, entre el
+  constructor `racional` y los selectores `numer` y `denum`, se cumple la
+  siguiente propiedad:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1952,13 +1961,13 @@ def imprimir(x):
 
 ---
 
-- Los detalles de implementación debajo de una barrera de abstracción pueden
-  cambiar, pero si no cambia su comportamiento, entonces la abstracción de
-  datos sigue siendo válida y cualquier programa escrito utilizando esta
-  abstracción de datos seguirá siendo correcto.
+- **Los detalles de implementación** debajo de una barrera de abstracción
+  **pueden cambiar**, pero si no cambia su comportamiento, entonces la
+  abstracción de datos sigue siendo válida y cualquier programa escrito
+  utilizando esta abstracción de datos seguirá siendo correcto.
 
-- Este punto de vista tambíen se puede aplicar a las parejas con forma de lista
-  que hemos usado para implementar números racionales.
+- Este punto de vista tambíen se puede aplicar, por ejemplo, a las parejas con
+  forma de lista que hemos usado para implementar números racionales.
   
 - En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
   representación que agrupe dos valores juntos y que nos permita acceder a cada
