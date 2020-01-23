@@ -2058,8 +2058,8 @@ E -> i [lhead = cluster1]
 
 - Lo interesante es que el marco de la función `pareja` no se elimina de la
   memoria al salir de la función con `return get`, ya que la función `get`
-  necesita seguir accediendo a valores que están ligados en el marco de
-  `pareja` y no en el suyo.
+  necesita seguir accediendo a valores (las variables `x` e `y`) cuyas
+  ligaduras se almacenan en el marco de `pareja` y no en el suyo.
 
 - Es decir: el intérprete conserva todo el entorno que la función `get`
   necesita para poder funcionar, incluyendo sus variables no locales, como es
