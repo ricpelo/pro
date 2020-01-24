@@ -2,10 +2,11 @@
 title: Abstracción de datos
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @python_software_foundation_sitio_nodate, @abelson_structure_1996, @denero_composing_nodate
 ---
 
 # Introducción
-
 
 ## Introducción
 
@@ -280,7 +281,6 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 # Especificaciones
 
-
 ## Sintaxis
 
 :::: columns
@@ -510,7 +510,6 @@ def imprimir(x):
 
 # Implementaciones
 
-
 ## Implementaciones
 
 - Ahora tenemos las operaciones sobre números racionales implementadas sobre
@@ -639,7 +638,6 @@ def imprimir(x):
 
 # Barreras de abstracción
 
-
 ## Barreras de abstracción
 
 - Parémonos ahora a considerar algunos de las cuestiones planteadas en el
@@ -755,7 +753,6 @@ def imprimir(x):
   representación interna de los números racionales.
 
 # Las propiedades de los datos
-
 
 ## Las propiedades de los datos
 
@@ -1172,43 +1169,7 @@ def deposito(fondos):
   - El uso de una función que *despacha* a otras funciones dependiendo del
     mensaje recibido.
 
-<!--
-  - Los datos tienen estado interno.
-
-  - El almacenamiento y acceso al estado interno de una función mediante
-    variables no locales.
-
-  - La representación de datos como funciones.
-
-  - La encapsulación de los datos junto con las operaciones que los manipulan
-    en una sola unidad sintáctica.
--->
-
-# La metáfora del objeto
-
-
-## La metáfora del objeto
-
-- Al principio, distinguíamos entre funciones y datos: las funciones realizan
-  operaciones sobre los datos y éstos esperan pasivamente a que se opere con
-  ellos.
-
-- Cuando empezamos a representar a los datos con funciones, vimos que los datos
-  también pueden encapsular **comportamiento**.
-
-- Esos datos ahora representan información, pero también **se comportan** como
-  las cosas que representan.
-
-- Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que
-  reciben cuando las demás partes del programa les envían mensajes.
-
-- Esta forma de ver a los datos como objetos activos que se relacionan entre sí
-  y que son capaces de reaccionar y cambiar su estado interno en función de los
-  mensajes que reciben, da lugar a todo un nuevo paradigma de programación
-  llamado **programación orientada a objetos**.
-
 # El tipo abstracto como módulo
-
 
 ## El tipo abstracto como módulo
 
