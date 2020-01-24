@@ -14,14 +14,14 @@
 <v t="ricardo.20191208112029.6"><vh>@auto source/tipos-de-datos-estructurados.md</vh></v>
 <v t="ricardo.20191208112029.7"><vh>@auto source/metodologia-de-la-programacion.md</vh></v>
 <v t="ricardo.20191208112029.8"><vh>@auto source/programacion-modular-i.md</vh></v>
+<v t="ricardo.20191208112029.16"><vh>@auto source/abstraccion-de-datos.md</vh></v>
 <v t="ricardo.20191208112029.9"><vh>@auto source/entrada-y-salida-de-informacion.md</vh></v>
 <v t="ricardo.20191208112029.10"><vh>@auto source/calidad-i.md</vh></v>
 <v t="ricardo.20191208112029.11"><vh>@auto source/complejidad-algoritmica.md</vh></v>
-<v t="ricardo.20191208112029.12"><vh>@auto source/introduccion-al-lenguaje-java.md</vh></v>
 <v t="ricardo.20191208112029.13"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
+<v t="ricardo.20191208112029.12"><vh>@auto source/introduccion-al-lenguaje-java.md</vh></v>
 <v t="ricardo.20191208112029.14"><vh>@auto source/diseno-de-clases.md</vh></v>
 <v t="ricardo.20191208112029.15"><vh>@auto source/composicion-herencia-y-polimorfismo.md</vh></v>
-<v t="ricardo.20191208112029.16"><vh>@auto source/abstraccion-de-datos.md</vh></v>
 <v t="ricardo.20191208112029.17"><vh>@auto source/programacion-modular-ii.md</vh></v>
 <v t="ricardo.20191208112029.18"><vh>@auto source/programacion-generica.md</vh></v>
 <v t="ricardo.20191208112029.19"><vh>@auto source/estructuras-de-datos-lineales.md</vh></v>

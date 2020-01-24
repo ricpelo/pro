@@ -6,6 +6,7 @@ author: Ricardo Pérez López
 
 # Introducción
 
+
 ## Recapitulación
 
 - Recordemos lo que hemos aprendido hasta ahora:
@@ -101,92 +102,132 @@ implementamos nuevas clases.
   - La encapsulación de los datos junto con las operaciones que los manipulan
     en una sola unidad sintáctica.
 
-
-
-
 ## Perspectiva histórica
+
 
 ## Lenguajes orientados a objetos
 
+
 # Conceptos básicos
+
 
 ## Clase
 
+
 ## Objeto
+
 
 ### La antisimetría dato-objeto
 
+
 ## Identidad
+
 
 ## Estado
 
+
 ## Propiedad
+
 
 ## Paso de mensajes
 
+
 ## Método
+
 
 ## Encapsulación
 
+
 ## Herencia
+
 
 ## Polimorfismo
 
+
 # Uso básico de objetos
+
 
 ## Instanciación
 
+
 ### `new`
+
 
 ### `instanceof`
 
+
 ## Propiedades
+
 
 ### Acceso y modificación
 
+
 ## Referencias
+
 
 ## Clonación de objetos
 
+
 ## Comparación de objetos
+
 
 ## Destrucción de objetos
 
+
 ### Recolección de basura
+
 
 ## Métodos
 
+
 ## Constantes
+
 
 # Clases básicas
 
+
 ## Cadenas
+
 
 ### Inmutables
 
+
 #### `String`
+
 
 ### Mutables
 
+
 #### `StringBuffer`
+
 
 #### `StringBuilder`
 
+
 #### `StringTokenizer`
+
 
 ### Conversión a `String`
 
+
 ## *Arrays*
+
 
 ## Clases *wrapper*
 
+
 ### Conversiones de empaquetado/desempaquetado (*boxing*/*unboxing*)
+
 
 # Lenguaje UML
 
+
 ## Diagramas de clases
+
 
 ## Diagramas de objetos
 
+
 ## Diagramas de secuencia
+
 

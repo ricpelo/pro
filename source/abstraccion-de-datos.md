@@ -6,6 +6,7 @@ author: Ricardo Pérez López
 
 # Introducción
 
+
 ## Introducción
 
 - Hemos visto que una buena modularidad se apoya en tres conceptos:
@@ -279,6 +280,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 # Especificaciones
 
+
 ## Sintaxis
 
 :::: columns
@@ -508,6 +510,7 @@ def imprimir(x):
 
 # Implementaciones
 
+
 ## Implementaciones
 
 - Ahora tenemos las operaciones sobre números racionales implementadas sobre
@@ -636,6 +639,7 @@ def imprimir(x):
 
 # Barreras de abstracción
 
+
 ## Barreras de abstracción
 
 - Parémonos ahora a considerar algunos de las cuestiones planteadas en el
@@ -751,6 +755,7 @@ def imprimir(x):
   representación interna de los números racionales.
 
 # Las propiedades de los datos
+
 
 ## Las propiedades de los datos
 
@@ -1181,6 +1186,7 @@ def deposito(fondos):
 
 # La metáfora del objeto
 
+
 ## La metáfora del objeto
 
 - Al principio, distinguíamos entre funciones y datos: las funciones realizan
@@ -1202,6 +1208,7 @@ def deposito(fondos):
   llamado **programación orientada a objetos**.
 
 # El tipo abstracto como módulo
+
 
 ## El tipo abstracto como módulo
 
@@ -1275,3 +1282,4 @@ def deposito(fondos):
     usarse en diferentes programas con ninguna o muy poca modificación.
 
 !BIBLIOGRAFIA
+
