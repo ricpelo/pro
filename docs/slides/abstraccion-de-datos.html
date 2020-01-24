@@ -17,6 +17,71 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
+  <style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -30,6 +95,14 @@
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -155,51 +228,830 @@
 </section>
 <section id="TOC" class="slide level2">
 <ul>
-<li><a href="#/tipos-abstractos-de-datos"><span class="toc-section-number">1</span> Tipos abstractos de datos</a></li>
-<li><a href="#/especificación"><span class="toc-section-number">2</span> Especificación</a></li>
-<li><a href="#/implementación"><span class="toc-section-number">3</span> Implementación</a></li>
+<li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/especificaciones"><span class="toc-section-number">2</span> Especificaciones</a></li>
+<li><a href="#/implementaciones"><span class="toc-section-number">3</span> Implementaciones</a></li>
+<li><a href="#/barreras-de-abstracción"><span class="toc-section-number">4</span> Barreras de abstracción</a></li>
+<li><a href="#/las-propiedades-de-los-datos"><span class="toc-section-number">5</span> Las propiedades de los datos</a></li>
+<li><a href="#/la-metáfora-del-objeto"><span class="toc-section-number">6</span> La metáfora del objeto</a></li>
+<li><a href="#/el-tipo-abstracto-como-módulo"><span class="toc-section-number">7</span> El tipo abstracto como módulo</a></li>
+<li><a href="#/bibliografía">Bibliografía</a></li>
 </ul>
 </section>
 </section>
 
-<section><section id="tipos-abstractos-de-datos" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Tipos abstractos de datos</h1></section><section id="concepto-terminología-y-ejemplos" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Concepto, terminología y ejemplos</h2><ul>
-<li><p>Al considerar el amplio conjunto de cosas en el mundo que nos gustaría representar en nuestros programas, descubrimos que la mayoría de ellas tienen una estructura compuesta.</p></li>
-<li><p>Por ejemplo, una posición geográfica tiene coordenadas de latitud y longitud. Para representar posiciones, nos gustaría que nuestro lenguaje de programación tenga la capacidad de juntar una latitud y longitud para formar un par, un valor de datos compuesto que nuestros programas pueden manipular como una sola unidad conceptual, pero que también tiene dos partes que pueden ser considerados individualmente por separado.</p></li>
-<li><p>El uso de datos compuestos nos permite aumentar la modularidad de nuestros programas.</p></li>
-<li><p>Si podemos manipular posiciones geográficas como valores completos, entonces podemos proteger partes de nuestro programa que calculan usando posiciones de los detalles de cómo se representan esas posiciones.</p></li>
-<li><p>La técnica general de aislar las partes de un programa que se ocupan de cómo se representan los datos de las partes que se ocupan de cómo se manipulan los datos es una poderosa metodología de diseño llamada abstracción de datos.</p></li>
-<li><p>La abstracción de datos hace que los programas sean mucho más fáciles de diseñar, mantener y modificar.</p></li>
-<li><p>La abstracción de datos es de carácter similar a la abstracción funcional.</p></li>
-<li><p>Cuando creamos una abstracción funcional, los detalles de cómo se implementa una función pueden ser suprimidos, y la función particular en sí misma puede ser reemplazada por cualquier otra función con el mismo comportamiento general.</p>
+<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Introducción</h2><ul>
+<li><p>Hemos visto que una buena modularidad se apoya en tres conceptos:</p>
 <ul>
-<li>En otras palabras, podemos hacer una abstracción que separe la forma en que se utiliza la función de los detalles de cómo se implementa la función.</li>
+<li><p><strong>Abstracción</strong>: los usuarios de un módulo necesitan saber qué hace pero no cómo lo hace.</p></li>
+<li><p><strong>Ocultación de información</strong>: los módulos deben ocultar sus decisiones de diseño a sus usuarios.</p></li>
+<li><p><strong>Independencia funcional</strong>: los módulos deben dedicarse a alcanzar un único objetivo, con una alta cohesión entre sus elementos y un bajo acoplamiento con el resto de los módulos.</p></li>
 </ul></li>
-<li><p>De manera análoga, la abstracción de datos aísla cómo se usa un valor de datos compuesto de los detalles de cómo se construye.</p></li>
-<li><p>La idea básica de la abstracción de datos es estructurar programas para que operen con datos abstractos. Es decir, nuestros programas deben usar los datos de tal manera que hagan la menor cantidad posible de suposiciones sobre los datos. Al mismo tiempo, una representación de datos concretos se define como una parte independiente del programa.</p></li>
-<li><p>Estas dos partes de un programa, la parte que opera en datos abstractos y la parte que define una representación concreta, están conectadas por un pequeño conjunto de funciones que implementan datos abstractos en términos de la representación concreta. Para ilustrar esta técnica, consideraremos cómo diseñar un conjunto de funciones para manipular números racionales.</p></li>
-</ul></section><section id="ejemplo-números-racionales" class="title-slide slide level3"><h3><span class="header-section-number">1.1.1</span> Ejemplo: números racionales</h3><ul>
-<li><p>Un número racional es una relación de enteros, y los números racionales constituyen una subclase importante de números reales. Un número racional como 1/3 o 17/29 generalmente se escribe como:</p>
-<p><numerador> / <denominador></p>
-<p>donde tanto <numerator> como <denominator> son marcadores de posición para valores enteros. Ambas partes son necesarias para caracterizar exactamente el valor del número racional. La división de enteros en realidad produce una aproximación flotante , perdiendo la precisión exacta de los enteros.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>1 / 3 ,3333333333333333 1 / 3 == 0.333333333333333300000 # La división de números enteros, se obtiene una aproximación verdadera</p>
-</blockquote>
-</blockquote>
-</blockquote></li>
-<li><p>Sin embargo, podemos crear una representación exacta para números racionales combinando juntos el numerador y el denominador.</p></li>
-<li><p>Por el uso de abstracciones funcionales, sabemos que podemos comenzar a programar productivamente antes de implementar algunas partes de nuestro programa. Comencemos suponiendo que ya tenemos una manera de construir un número racional a partir de un numerador y un denominador. También suponemos que, dado un número racional, tenemos una forma de seleccionar su numerador y su componente denominador. Supongamos además que el constructor y los selectores están disponibles como las siguientes tres funciones:</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar y manipular sistemas complejos <em>destacando</em> los detalles relevantes e <em>ignorando</em> momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
+<li><p>Asimismo, hemos visto que la abstracción se define por niveles, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
+<ul>
+<li><p>Se <em>destacan</em> los detalles relevantes en ese nivel.</p></li>
+<li><p>Se <em>ignoran</em> los detalles irrelevantes en ese nivel. Si descendemos de nivel de abstracción, es probable que algunos de esos detalles pasen a ser relevantes.</p></li>
+</ul></li>
+<li><p>Los programas son sistemas complejos, así que resulta importante que el lenguaje de programación nos permita estudiar y diseñar programas mediante sucesivos niveles de abstracción.</p></li>
 </ul>
-<p>racional (n, d) devuelve el número racional con numerador n y denominador d . numer (x) devuelve el numerador del número racional x . denom (x) devuelve el denominador del número racional x . Estamos utilizando una estrategia poderosa para diseñar programas: ilusiones . Todavía no hemos dicho cómo se representa un número racional, o cómo se deben implementar las funciones numer , denom y racional . Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y probar la igualdad de números racionales:</p></section><section id="programación-con-tipos-abstractos-de-datos" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Programación con tipos abstractos de datos</h2></section><section id="modularidad" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Modularidad</h3></section><section id="refinamientos-sucesivos" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Refinamientos sucesivos</h3></section><section id="programación-a-gran-escala" class="title-slide slide level3"><h3><span class="header-section-number">1.2.3</span> Programación a gran escala</h3></section><section id="programación-genérica" class="title-slide slide level3"><h3><span class="header-section-number">1.2.4</span> Programación genérica</h3></section></section>
-<section><section id="especificación" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Especificación</h1></section><section id="especificaciones-algebraicas" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Especificaciones algebraicas</h2></section><section id="signatura-de-un-tad" class="title-slide slide level3"><h3><span class="header-section-number">2.1.1</span> Signatura de un TAD</h3></section><section id="géneros" class="slide level4">
-<h4><span class="header-section-number">2.1.1.1</span> Géneros</h4>
-</section><section id="operaciones" class="slide level4">
-<h4><span class="header-section-number">2.1.1.2</span> Operaciones</h4>
-<h5 id="constructoras"><span class="header-section-number">2.1.1.2.1</span> Constructoras</h5>
-<h5 id="selectoras"><span class="header-section-number">2.1.1.2.2</span> Selectoras</h5>
-</section><section id="términos" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Términos</h3></section><section id="ecuaciones" class="title-slide slide level3"><h3><span class="header-section-number">2.1.3</span> Ecuaciones</h3></section><section id="construcción-de-especificaciones" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Construcción de especificaciones</h2></section><section id="verificación-con-especificaciones-algebraicas" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Verificación con especificaciones algebraicas</h2></section></section>
-<section><section id="implementación" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Implementación</h1></section><section id="pilas" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Pilas</h2></section><section id="colas" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Colas</h2></section><section id="listas" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Listas</h2></section></section>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La abstracción es un proceso pero también es algo que puede formar parte de un programa.</p></li>
+<li><p>Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las <strong>funciones</strong>, también llamadas <strong>abstracciones funcionales</strong>.</p></li>
+<li><p>Una función es una abstracción funcional porque el usuario de la función sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
+<li><p>Por eso decimos que las funciones definen dos niveles de abstracción.</p></li>
+<li><p>En otras palabras, al diseñar una función estamos creando una abstracción que separa la forma en la que se utiliza la función de la forma en como está implementada esa función.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las abstracciones funcionales son un mecanismo que nos permite:</p>
+<ol>
+<li><p>componer una <strong>operación compleja</strong> combinando otras operaciones más simples (dándole un nuevo nombre a todo el conjunto), y</p></li>
+<li><p>poder usar esa nueva operación compleja sin necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman, que son detalles que quedan ocultos al usuario).</p></li>
+</ol></li>
+<li><p>Una vez que la función se ha diseñado y se está utilizando, se puede sustituir por cualquier otra que tenga el mismo comportamiento observable.</p></li>
+<li><p>De forma similar, los datos compuestos o estructurados son un mecanismo que nos permite crear un <strong>dato complejo</strong> combinando otros datos más simples, formando una única unidad conceptual.</p></li>
+<li><p>Pero, por desgracia, estos datos compuestos <strong>no ocultan sus detalles de implementación al usuario</strong>, sino que éste tiene que conocer cómo está construido.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, podemos representar un número racional <span class="math inline">\frac{a}{b}</span> mediante una pareja de números enteros <span class="math inline">a</span> y <span class="math inline">b</span> (su numerador y su denominador).</p></li>
+<li><p>Si almacenamos los dos números por separado no estaremos creando una sola unidad conceptual (no estaremos componiendo un nuevo dato a partir de otros datos más simples).</p></li>
+<li><p>Eso no resulta conveniente. A nosotros, como programadores, nos interesa que el numerador y el denominador de un número racional estén juntos formando una sola cosa, un nuevo valor: un número racional.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Así que podríamos representar dicha pareja de números usando una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario<br />
+<code>{'numer':</code> <span class="math inline">a</span><code>, 'denom':</code> <span class="math inline">b</span><code>}</code>.</p></li>
+<li><p>Pero estaríamos obligando al usuario de nuestros números racionales a tener que saber cómo representamos los racionales en función de otros tipos más primitivos, lo que nos impide cambiar luego esa representación sin afectar al resto del programa.</p></li>
+<li><p>Es decir: les estamos obligando a conocer detalles de implementación de nuestros números racionales.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, si representamos un racional como dos números enteros separados, no podríamos escribir una función que multiplique dos racionales <span class="math inline">\frac{n_1}{d_1}</span> y <span class="math inline">\frac{n_2}{d_2}</span> ya que dicha función tendría que devolver dos valores, el numerador y el denominador del resultado:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> mult_rac(n1, d1, n2, d2):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="cf">return</span> ????</span></code></pre></div></li>
+<li><p>Si representamos un racional <span class="math inline">\frac{n}{d}</span> con, por ejemplo, una tupla <code>(</code><span class="math inline">n</span><code>,</code> <span class="math inline">d</span><code>)</code>, la función que multiplica dos racionales podría ser:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> mult_rac(r1, r2):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="cf">return</span> (r1[<span class="dv">0</span>] <span class="op">*</span> r2[<span class="dv">0</span>], r1[<span class="dv">1</span>] <span class="op">*</span> r2[<span class="dv">1</span>])</span></code></pre></div>
+<p>Es decir, que la función tendría que saber que el racional se representa internamente con una tupla, y que el numerador es el primer elemento y que el denominador es el segundo elemento.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Nos interesa que nuestro programa sea capaz de expresar el concepto de «número racional» y que pueda manipular números racionales como valores con entidad propia y definida, no simplemente como parejas de números enteros, independientemente de su representación interna.</p></li>
+<li><p>Para todo esto, es importante que el programa que utilice los números racionales no necesite conocer los detalles internos de cómo está representado internamente un número racional.</p></li>
+<li><p>Es decir: que los números racionales se pueden representar internamente como una lista de dos números, o como una tupla, o como un diccionario, o de cualquier otro modo, pero ese detalle interno debe quedar oculto para los usuarios de los números racionales.</p></li>
+<li><p>La técnica general de aislar las partes de un programa que se ocupan de <em>cómo se representan</em> los datos de las partes que se ocupan de <em>cómo se usan</em> los datos es una poderosa metodología de diseño llamada <strong>abstracción de datos</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también es algo que puede formar parte de un programa.</p></li>
+<li><p>Diseñar programas usando abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se se les denomina <strong>abstracciones de datos</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La abstracción de datos se parece a la abstracción funcional:</p>
+<ul>
+<li><p>Cuando creamos una <strong>abstracción funcional</strong>, se ocultan los detalles de cómo se implementa una función, y esa función particular se puede sustituir luego por cualquier otra función que tenga el mismo comportamiento general sin que los usuarios de la función se vean afectados.</p>
+<p>En otras palabras, podemos hacer una abstracción que separe la forma en que se utiliza la función de los detalles de cómo se implementa la función.</p></li>
+<li><p>Igualmente, la <strong>abstracción de datos</strong> separa el uso de un dato compuesto de los detalles de cómo está construido ese dato compuesto, que quedan ocultos para los usuarios de la abstracción de datos.</p>
+<p>Para usar una abstracción de datos no necesitamos conocer sus detalles internos de implementación.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 34%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elementos del lenguaje</th>
+<th style="text-align: left;">Instrucciones</th>
+<th style="text-align: left;">Datos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Primitivas</td>
+<td style="text-align: left;">Definiciones, literales y sentencias simples</td>
+<td style="text-align: left;">Datos simples (enteros, reales, booleanos…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mecanismos de combinación</td>
+<td style="text-align: left;">Expresiones y sentencias compuestas (estructuras de control)</td>
+<td style="text-align: left;">Datos compuestos (listas, tuplas…)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mecanismos de abstracción</td>
+<td style="text-align: left;">Abstracciones funcionales (funciones)</td>
+<td style="text-align: left;">Abstracciones de datos (tipos abstractos)</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level4">
+
+<ul>
+<li><p>El concepto de <strong>abstracción de datos</strong> (o <strong>tipo abstracto de datos</strong>) fue propuesto por John Guttag en 1974 y dice que:</p>
+<div class="caja">
+<p><strong>Tipo abstracto de datos</strong></p>
+<p>Un <strong>tipo abstracto de datos</strong> (o <strong><em>abstracción de datos</em></strong>) es un conjunto de valores y de operaciones que se definen mediante una <strong>especificación</strong> que es independiente de cualquier representación.</p>
+</div></li>
+<li><p>Para ello, los tipos abstractos de datos se definen nombrando, no sus valores, sino sus <strong>operaciones</strong> y las propiedades que cumplen éstas.</p></li>
+<li><p>Los <strong>valores</strong> de un tipo abstracto se definen también como operaciones.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que actúa como un tipo abstracto de datos.</p>
+<ul>
+<li><p>Se nos proporcionan <strong>operaciones primitivas</strong> para crear conjuntos y manipular conjuntos (unión, intersección, etc.) y también un modo de visualizar sus valores.</p></li>
+<li><p>Pero no sabemos, ni necesitamos saber, cómo se representan internamente los conjuntos en la memoria del ordenador. Ese es un detalle interno del intérprete.</p></li>
+</ul></li>
+<li><p>En general, el programador que usa un tipo abstracto puede no saber, e incluso se le impide saber, cómo se representan los elementos del tipo de datos.</p></li>
+<li><p>Esas <strong>barreras de abstracción</strong> son muy útiles porque permiten cambiar la representación interna sin afectar a las demás partes del programa que utilizan dicho tipo abstracto.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>En resumen, tenemos que un tipo abstracto debe cumplir:</p>
+<ul>
+<li><p><strong>Privacidad de la representación</strong>: los usuarios no conocen la representación de los valores del tipo abstracto en la memoria del ordenador.</p></li>
+<li><p><strong>Protección</strong>: sólo se pueden utilizar para el nuevo tipo las operaciones previstas en la especificación.</p></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>«Son las especificaciones, y no los programas, los que realmente describen una abstracción; los programas simplemente la implementan.»</p>
+<p>– Barbara Liskov</p>
+</blockquote>
+</section><section class="slide level4">
+
+<ul>
+<li><p>El programador de un tipo abstracto debe crear, por tanto, dos partes bien diferenciadas:</p>
+<ul>
+<li><p>La <strong>especificación</strong> del tipo: única parte que conoce el usuario del mismo y que consiste en:</p>
+<ul>
+<li><p>El <strong>nombre</strong> del tipo.</p></li>
+<li><p>La especificación de las <strong>operaciones</strong> permitidas. Esta especificación tendrá:</p>
+<ul>
+<li><p>Una parte <strong>sintáctica</strong>: la <em>signatura</em> de cada operación.</p></li>
+<li><p>Otra parte <strong>semántica</strong>: que define las <strong>propiedades</strong> que deben cumplir dichas operaciones y que se pueden expresar mediante <strong>ecuaciones</strong> o directamente en lenguaje natural.</p></li>
+</ul></li>
+</ul></li>
+<li><p>La <strong>implementación</strong> del tipo: conocida sólo por el programador del mismo y que consiste en la <em>representación</em> del tipo por medio de otros tipos y en la implementación de las operaciones.</p></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="especificaciones" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Especificaciones</h1></section><section id="sintaxis" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Sintaxis</h2><div class="columns">
+<div class="column">
+<ul>
+<li>La sintaxis de una <strong>especificación algebraica</strong> es la siguiente:</li>
+</ul>
+<div class="line-block"><strong><code>espec</code></strong> <span style="color:teal">⟨<em>tipo</em>⟩</span><br />
+      [<strong><code>parámetros</code></strong><br />
+            <span style="color:teal">⟨<em>parámetro</em>⟩</span>+]<br />
+      <strong><code>operaciones</code></strong><br />
+            (<span style="color:teal">⟨<em>operación</em>⟩</span> <strong><code>:</code></strong> <span style="color:teal">⟨<em>signatura</em>⟩</span>)+<br />
+      [<strong><code>var</code></strong><br />
+            <span style="color:teal">⟨<em>decl_var</em>⟩</span> (<strong><code>;</code></strong> <span style="color:teal">⟨<em>decl_var</em>⟩</span>)*]<br />
+      <strong><code>ecuaciones</code></strong><br />
+            <span style="color:teal">⟨<em>ecuación</em>⟩</span>+</div>
+</div><div class="column">
+<ul>
+<li>Donde:</li>
+</ul>
+<div class="line-block"><span style="color:teal">⟨<em>decl_var</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> <strong><code>:</code></strong> <span style="color:teal">⟨<em>tipo</em>⟩</span><br />
+<span style="color:teal">⟨<em>ecuación</em>⟩</span> ::= <span style="color:teal">⟨<em>izquierda</em>⟩</span> <span class="math inline">\doteq</span> <span style="color:teal">⟨<em>derecha</em>⟩</span></div>
+</div>
+</div></section><section id="operaciones" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Operaciones</h2><ul>
+<li><p>Las operaciones que forman parte de la especificación de un tipo abstracto <span class="math inline">T</span> pueden clasificarse en:</p>
+<ul>
+<li><p><strong>Constructoras</strong>: operaciones que devuelven un valor de tipo <span class="math inline">T</span>.</p>
+<ul>
+<li><p>A su vez, las constructoras se dividen en:</p>
+<ul>
+<li><p><strong>Generadoras</strong>: el conjunto de operaciones generadoras está formado por aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
+<li><p><strong>Modificadoras</strong>: son las operaciones constructoras que no forman parte del conjunto de las generadoras.</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
+</ul></li>
+</ul></section><section id="ejemplos" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Ejemplos</h2><ul>
+<li>Un ejemplo de especificación de las <strong>listas</strong> como tipo abstracto sería:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="line-block"><strong>espec</strong> <em>lista</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>[]</code> : <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>[</code>_<code>]</code> : <em>elemento</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>++</code>_ : <em>lista</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>:</code>_ : <em>elemento</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>len</code> : <em>lista</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{N}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">x</span> : <em>elemento</em>; <span class="math inline">l, l_1, l_2, l_3</span> : <em>lista</em><br />
+    <strong>ecuaciones</strong><br />
+          <span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span><br />
+          <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          <code>[]</code> <code>++</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <code>++</code> <span class="math inline">l_3</span> <span class="math inline">\doteq</span> <span class="math inline">l_1</span> <code>++</code> (<span class="math inline">l_2</span> <code>++</code> <span class="math inline">l_3</span>)<br />
+          <code>len</code>(<code>[]</code>) <span class="math inline">\doteq</span> 0<br />
+          <code>len</code>(<code>[</code><span class="math inline">x</span><code>]</code>) <span class="math inline">\doteq</span> 1<br />
+          <code>len</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> 1 + <code>len</code>(<span class="math inline">l</span>)<br />
+          <code>len</code>(<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <span class="math inline">\doteq</span> <code>len</code>(<span class="math inline">l_1</span>) + <code>len</code>(<span class="math inline">l_2</span>)</div>
+</div><div class="column">
+<ul>
+<li><p>Este estilo de especificación se denomina <strong>especificación algebraica</strong>.</p></li>
+<li><p>Su principal virtud es que permite definir un nuevo tipo de forma <em>totalmente independiente</em> de cualquier posible representación o implementación.</p></li>
+<li><p>¿A qué categoría pertenencen cada una de esas operaciones?</p></li>
+</ul>
+</div>
+</div></section><section class="slide level4">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li>Las <strong>pilas</strong> como tipo abstracto se podrían especificar así:</li>
+</ul>
+<div class="line-block"><strong>espec</strong> <em>pila</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>pvacia</code> : <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <code>apilar</code> : <em>pila</em> <span class="math inline">\times</span> <em>elemento</em> <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <strong>parcial</strong> <code>cima</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <em>elemento</em><br />
+          <strong>parcial</strong> <code>desapilar</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <code>vacia?</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">p</span> : <em>pila</em>; <span class="math inline">x</span> : <em>elemento</em><br />
+    <strong>ecuaciones</strong><br />
+          <code>cima</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">x</span><br />
+          <code>desapilar</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">p</span><br />
+          <code>vacia?</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">V</span><br />
+          <code>vacia?</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">F</span><br />
+          <code>cima</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+          <code>desapilar</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
+</div><div class="column">
+<ul>
+<li><p>Y un programa que hiciera uso de las pilas una vez implementado el tipo abstracto de datos, podría ser:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>p <span class="op">=</span> pvacia()        <span class="co"># crea vacía</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>p <span class="op">=</span> apilar(p, <span class="dv">4</span>)    <span class="co"># apila valor 4</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>p <span class="op">=</span> apilar(p, <span class="dv">8</span>)    <span class="co"># apila valor 8</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime False</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 8</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 8</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 4</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
+<li><p>El programa usa la pila a través de las operaciones sin necesidad de conocer su representación interna (su implementación).</p></li>
+</ul>
+</div>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li>Y los <strong>números racionales</strong> se podrían especificar así:</li>
+</ul>
+
+<div class="line-block"><strong>espec</strong> <em>rac</em><br />
+    <strong>operaciones</strong><br />
+          <strong>parcial</strong> <code>racional</code> : <span class="math inline">\mathbb{Z}</span> <span class="math inline">\times</span> <span class="math inline">\mathbb{Z}</span> <span class="math inline">\rightarrow</span> <em>rac</em><br />
+          <code>numer</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{Z}</span><br />
+          <code>denom</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{Z}</span><br />
+          <code>suma</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <em>rac</em><br />
+          <code>mult</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <em>rac</em><br />
+          <code>iguales?</code> : <em>rac</em> <span class="math inline">\times</span> <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
+          <code>imprimir</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\emptyset</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">r</span> : <em>rac</em>; <span class="math inline">n</span>, <span class="math inline">d</span>, <span class="math inline">n_1</span>, <span class="math inline">n_2</span>, <span class="math inline">d_1</span>, <span class="math inline">d_2</span> : <span class="math inline">\mathbb{Z}</span><br />
+    <strong>ecuaciones</strong><br />
+          <code>numer</code>(<code>racional</code>(<span class="math inline">n</span>, <span class="math inline">d</span>)) <span class="math inline">\doteq</span> <span class="math inline">n</span><br />
+          <code>denom</code>(<code>racional</code>(<span class="math inline">n</span>, <span class="math inline">d</span>)) <span class="math inline">\doteq</span> <span class="math inline">d</span><br />
+          <code>suma</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <code>racional</code>(<span class="math inline">n_1\cdot{}d_2 + n_2\cdot{}d_1</span>, <span class="math inline">d_1\cdot{}d_2</span>)<br />
+          <code>mult</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <code>racional</code>(<span class="math inline">n_1\cdot{}n_2</span>, <span class="math inline">d_1\cdot{}d_2</span>)<br />
+          <code>iguales?</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <span class="math inline">n_1\cdot{}d_2 = n_2\cdot{}d_1</span><br />
+          <code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }<br />
+          <code>racional</code>(<span class="math inline">n</span>, 0) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
+
+</section><section class="slide level4">
+
+<ul>
+<li><p>Según la especificación anterior, podemos suponer que disponemos de un constructor y dos selectores a través de las siguientes funciones:</p>
+<ul>
+<li><p><code>racional(</code><span class="math inline">n</span><code>,</code><span class="math inline">d</span><code>)</code>: devuelve el número racional con numerador <span class="math inline">n</span> y denominador <span class="math inline">d</span>.</p></li>
+<li><p><code>numer(</code><span class="math inline">x</span><code>)</code>: devuelve el numerador del número racional <span class="math inline">x</span>.</p></li>
+<li><p><code>denom(</code><span class="math inline">x</span><code>)</code>: devuelve el denominador del número racional <span class="math inline">x</span>.</p></li>
+</ul></li>
+<li><p>Estamos usando una estrategia poderosa para diseñar programas: el <strong>pensamiento optimista</strong>, ya que todavía no hemos dicho cómo se representa un número racional, o cómo se deben implementar las funciones <code>numer</code>, <code>denom</code> y <code>racional</code>.</p></li>
+<li><p>Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y comprobar la igualdad de números racionales, con lo que podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    nx, dx <span class="op">=</span> numer(x), denom(x)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    ny, dy <span class="op">=</span> numer(y), denom(y)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="cf">return</span> racional(nx <span class="op">*</span> dy <span class="op">+</span> ny <span class="op">*</span> dx, dx <span class="op">*</span> dy)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">def</span> mult(x, y):</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(y), denom(x) <span class="op">*</span> denom(y))</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">def</span> iguales(x, y):</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="cf">return</span> numer(x) <span class="op">*</span> denom(y) <span class="op">==</span> numer(y) <span class="op">*</span> denom(x)</span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="kw">def</span> imprimir(x):</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="bu">print</span>(numer(x), <span class="st">&#39;/&#39;</span>, denom(x), sep<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div>
+</section></section>
+<section><section id="implementaciones" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Implementaciones</h1></section><section id="implementaciones-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Implementaciones</h2><ul>
+<li><p>Ahora tenemos las operaciones sobre números racionales implementadas sobre las funciones selectoras <code>numer</code> y <code>denom</code> y la función constructora <code>racional</code>, pero aún no hemos implementado estas tres funciones.</p></li>
+<li><p>Lo que necesitamos es alguna forma de unir un numerador y un denominador en un valor compuesto (una pareja de números).</p></li>
+<li><p>Podemos usar cualquier representación que nos permita combinar ambos valores (numerador y denominador) en una sola unidad y que también nos permita manipular cada valor por separado cuando sea necesario.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, podemos usar una lista de dos números enteros para representar un racional mediante su numerador y su denominador:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> racional(n, d):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="co">&quot;&quot;&quot;Un racional es una lista que contiene el numerador y el denominador.&quot;&quot;&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="cf">return</span> [n, d]</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">def</span> numer(x):</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="co">&quot;&quot;&quot;El numerador es el primer elemento de la lista.&quot;&quot;&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">return</span> x[<span class="dv">0</span>]</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw">def</span> denom(x):</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="co">&quot;&quot;&quot;El denominador es el segundo elemento de la lista.&quot;&quot;&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="cf">return</span> x[<span class="dv">1</span>]</span></code></pre></div></li>
+<li><p>Junto con las operaciones aritméticas que definimos anteriormente, podemos manipular números racionales con las funciones que hemos definido y sin tener que conocer su representación interna:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> medio <span class="op">=</span> racional(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;&gt;&gt;</span> imprimir(medio)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="dv">1</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="op">&gt;&gt;&gt;</span> tercio <span class="op">=</span> racional(<span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="op">&gt;&gt;&gt;</span> imprimir(mult(medio, tercio))</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="dv">1</span><span class="op">/</span><span class="dv">6</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="op">&gt;&gt;&gt;</span> imprimir(suma(tercio, tercio))</span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="dv">6</span><span class="op">/</span><span class="dv">9</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Como muestra el ejemplo anterior, nuestra implementación de números racionales no simplifica las fracciones resultantes.</p></li>
+<li><p>Podemos corregir ese defecto cambiando únicamente la implementación de <code>racional</code>.</p></li>
+<li><p>Usando el máximo común divisor podemos reducir el numerador y el denominador para obtener un número racional equivalente:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> math <span class="im">import</span> gcd </span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">def</span> racional(n, d): </span>
+<span id="cb7-4"><a href="#cb7-4"></a>    g <span class="op">=</span> gcd(n, d)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="cf">return</span> [n <span class="op">//</span> g, d <span class="op">//</span> g]   </span></code></pre></div></li>
+<li><p>Con esta implementación revisada de <code>racional</code> nos aseguramos de que los racionales se expresan de la forma más simplificada posible:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;&gt;</span> imprimir(suma(tercio, tercio))</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dv">2</span><span class="op">/</span><span class="dv">3</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Lo interesante es que este cambio sólo ha afectado al constructor <code>racional</code>, y las demás operaciones no se han visto afectadas por ese cambio.</p></li>
+<li><p>Esto es así porque el resto de las operaciones no conocen ni necesitan conocer la representación interna de un número racional (es decir, la implementación del constructor <code>racional</code>). Sólo necesitan conocer la <strong>especificación</strong> de <code>racional</code>, la cual no ha cambiado.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Otra posible implementación sería simplificar el racional no cuando se <em>construya</em>, sino cuando se <em>acceda</em> a alguna de sus partes:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> racional(n, d):</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="cf">return</span> [n, d]</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">def</span> numer(x):</span>
+<span id="cb9-5"><a href="#cb9-5"></a>    g <span class="op">=</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="cf">return</span> x[<span class="dv">0</span>] <span class="op">//</span> g</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="kw">def</span> denom(x):</span>
+<span id="cb9-9"><a href="#cb9-9"></a>    g <span class="op">=</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
+<span id="cb9-10"><a href="#cb9-10"></a>    <span class="cf">return</span> x[<span class="dv">1</span>] <span class="op">//</span> g</span></code></pre></div></li>
+<li><p>La diferencia entre esta implementación y la anterior está en cuándo se calcula el máximo común divisor.</p>
+<ul>
+<li><p>Si en los programas que normalmente usan los números racionales accedemos muchas veces a sus numeradores y denominadores, será preferible calcular el m.c.d. en el constructor.</p></li>
+<li><p>En caso contrario, puede que sea mejor esperar a acceder al numerador o al denominador para calcular el m.c.d.</p></li>
+<li><p>En cualquier caso, cuando se cambia una representación por otra, las demás funciones (<code>suma</code>, <code>mult</code>, etc.) no necesitan ser modificadas.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Hacer que la representación dependa sólo de unas cuantas funciones de la interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos permite cambiar la implementación por otras distintas cuando sea necesario.</p></li>
+<li><p>Por ejemplo, si estamos diseñando un módulo de números racionales y aún no hemos decidido si calcular el m.c.d. en el constructor o en los selectores, la metodología de la abstracción de datos nos permite retrasar esa decisión sin perder la capacidad de seguir programando el resto del programa.</p></li>
+</ul>
+</section></section>
+<section><section id="barreras-de-abstracción" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Barreras de abstracción</h1></section><section id="barreras-de-abstracción-1" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Barreras de abstracción</h2><ul>
+<li><p>Parémonos ahora a considerar algunos de las cuestiones planteadas en el ejemplo de los números racionales.</p></li>
+<li><p>Hemos definido todas las operaciones de <em>rac</em> en términos de un constructor <code>racional</code> y dos selectores <code>numer</code> y <code>denom</code>.</p>
+<p>En general, la idea que hay detrás de la <strong>abstracción de datos</strong> es la de:</p>
+<ol>
+<li><p>definir un <strong>nuevo tipo de datos</strong> (abstracto),</p></li>
+<li><p>identificar un <strong>conjunto básico de operaciones</strong> sobre las cuales se expresarán todas las operaciones que manipulen los valores de ese tipo, y luego</p></li>
+<li><p><strong>obligar a usar sólo esas operaciones</strong> para manipular los datos.</p></li>
+</ol></li>
+<li><p>Al obligar a usar los datos únicamente a través de sus operaciones, es mucho más fácil cambiar luego la representación interna de los datos abstractos o la implementación de las operaciones básicas sin tener que cambiar el resto del programa.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li>Para el caso de los números racionales, diferentes partes del programa manipulan números racionales usando diferentes operaciones, como se describe en esta tabla:</li>
+</ul>
+<p><br></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Las partes del programa que…</th>
+<th>Tratan a los racionales como…</th>
+<th>Usando sólo…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Usan números racionales para realizar cálculos</td>
+<td>Valores de datos completos, un todo</td>
+<td><code>suma</code>, <code>mult</code>, <code>iguales</code>, <code>imprimir</code></td>
+</tr>
+<tr class="even">
+<td>Crean racionales o implementan operaciones sobre racionales</td>
+<td>Numeradores y denominadores</td>
+<td><code>racional</code>, <code>numer</code>, <code>denom</code></td>
+</tr>
+<tr class="odd">
+<td>Implementan selectores y constructores de racionales</td>
+<td>Parejas de números representadas como listas de dos elementos</td>
+<td>Literales de tipo lista <code>[</code>_<code>]</code> e indexación _<code>[</code>_<code>]</code></td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Cada una de las filas de la tabla anterior representa un nivel de abstracción, de forma que cada nivel usa las operaciones y las facilidades ofrecidas por el nivel inmediatamente inferior.</p></li>
+<li><p>Dicho de otra forma: en cada nivel, las funciones que aparecen en la última columna imponen una barrera de abstracción. Estas funciones son usadas desde un nivel más alto de abstracción e implementadas usando un nivel más bajo de abstracción.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="centered">
+<figure>
+<img data-src="images/barreras-abstraccion.svg" class="plain" style="width:75.0%" alt="" /><figcaption>Barreras de abstracción</figcaption>
+</figure>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Se produce una violación de una barrera de abstracción cada vez que una parte del programa que puede utilizar una función de nivel superior utiliza una función de un nivel inferior.</p></li>
+<li><p>Por ejemplo, una función que calcula el cuadrado de un número racional se implementa mejor en términos de <code>mult</code>, que no necesita supone nada sobre cómo se implementa un número racional:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> cuadrado(x): </span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="cf">return</span> mult(x,x)      </span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Si hiciéramos referencia directa a los numeradores y los denominadores estaríamos violando una barrera de abstracción:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(x): </span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(x), denom(x) <span class="op">*</span> denom(x)) </span></code></pre></div></li>
+<li><p>Y si suponemos que los racionales se representan como listas estaríamos violando dos barreras de abstracción:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(x): </span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="cf">return</span> [x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">0</span>], x[<span class="dv">1</span>] <span class="op">*</span> x[<span class="dv">1</span>]]    </span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las barreras de abstracción hacen que los programas sean más fáciles de mantener y modificar.</p></li>
+<li><p>Cuantas menos funciones dependan de una representación particular, menos cambios se necesitarán cuando se quiera cambiar esa representación.</p></li>
+<li><p>Todas las implementaciones de <code>cuadrado</code> que acabamos de ver se comportan correctamente, pero sólo la primera es lo bastante robusta como para soportar bien los futuros cambios de los niveles inferiores.</p></li>
+<li><p>La función <code>cuadrado</code> no tendrá que cambiarse incluso aunque cambiemos la representación interna de los números racionales.</p></li>
+<li><p>Por el contrario, <code>cuadrado_viola_una_barrera</code> tendrá que cambiarse cada vez que cambien las signaturas del constructor o los selectores, y <code>cuadrado_viola_dos_barreras</code> tendrá que cambiarse cada vez que cambie la representación interna de los números racionales.</p></li>
+</ul>
+</section></section>
+<section><section id="las-propiedades-de-los-datos" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Las propiedades de los datos</h1></section><section id="las-propiedades-de-los-datos-1" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Las propiedades de los datos</h2><ul>
+<li><p>Las barreras de abstracción determinan la forma en la que pensamos sobre los datos.</p></li>
+<li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es «cualquier cosa implementada mediante determinados constructores y selectores».</p></li>
+<li><p>Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones (un constructor y dos selectores) no sirven para representar adecuadamente a los números racionales. Además, tenemos que garantizar que, entre el constructor <code>racional</code> y los selectores <code>numer</code> y <code>denum</code>, se cumple la siguiente propiedad:</p>
+<div class="caja">
+<p>Si <span class="math inline">x</span> <code>=</code> <code>racional(</code><span class="math inline">n</span>, <span class="math inline">d</span><code>)</code>, entonces <code>numer(</code><span class="math inline">x</span><code>)/denom(</code><span class="math inline">x</span><code>)</code> <code>==</code> <span class="math inline">n/d</span> .</p>
+</div></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Una representación válida de un número racional no está limitada a ninguna implementación particular (como, por ejemplo, una lista de dos elementos), sino que nos sirve cualquier implementación que satisfaga la propiedad anterior.</p></li>
+<li><p>En general, podemos pensar que <strong>los datos abstractos se definen mediante una colección de selectores y constructores junto con algunas propiedades que los datos abstractos deben cumplir</strong>. Mientras se cumplan dichas propiedades (como la anterior de la división), los selectores y constructores constituyen una representación válida de un tipo de datos.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p><strong>Los detalles de implementación</strong> debajo de una barrera de abstracción <strong>pueden cambiar</strong>, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
+<li><p>Este punto de vista tambíen se puede aplicar, por ejemplo, a las parejas con forma de lista que hemos usado para implementar números racionales.</p></li>
+<li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos y que nos permita acceder a cada valor por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
+<div class="caja">
+<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span>, <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
+y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>==</code> <span class="math inline">y</span>.</p>
+</div></li>
+<li><p>Tales propiedades se describen como <strong>ecuaciones</strong> en la <strong>especificación algebraica</strong> del tipo abstracto.</p></li>
+</ul>
+</section><section id="representación-funcional" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Representación funcional</h2><ul>
+<li><p>De hecho, ni siquiera necesitamos estructuras de datos para representar parejas de números. Podemos implementar dos funciones <code>pareja</code> y <code>select</code> que cumplan con la propiedad anterior tan bien como una lista de dos elementos:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> pareja(x, y):</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="co">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="kw">def</span> get(indice):</span>
+<span id="cb13-4"><a href="#cb13-4"></a>        <span class="cf">if</span> indice <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb13-5"><a href="#cb13-5"></a>            <span class="cf">return</span> x</span>
+<span id="cb13-6"><a href="#cb13-6"></a>        <span class="cf">elif</span> indice <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb13-7"><a href="#cb13-7"></a>            <span class="cf">return</span> y</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="cf">return</span> get</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="kw">def</span> select(p, i):</span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="co">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
+<li><p>Con esta implementación, podemos crear y manipular parejas:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="dv">20</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="dv">14</span></span></code></pre></div>
+</div><div class="column">
+<p><a href="http://pythontutor.com/visualize.html#code=def%20pareja%28x,%20y%29%3A%0A%20%20%20%20%22%22%22Devuelve%20una%20funci%C3%B3n%20que%20representa%20una%20pareja.%22%22%22%0A%20%20%20%20def%20get%28indice%29%3A%0A%20%20%20%20%20%20%20%20if%20indice%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20x%0A%20%20%20%20%20%20%20%20elif%20indice%20%3D%3D%201%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20y%0A%20%20%20%20return%20get%0A%0Adef%20select%28p,%20i%29%3A%0A%20%20%20%20%22%22%22Devuelve%20el%20elemento%20situado%20en%20el%20%C3%ADndice%20i%20de%20la%20pareja%20p.%22%22%22%0A%20%20%20%20return%20p%28i%29%0A%0Ap%20%3D%20pareja%2820,%2014%29%0Aprint%28select%28p,%200%29%29%0Aprint%28select%28p,%201%29%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Ver en Pythontutor</a></p>
+</div>
+</div></section><section class="slide level4">
+
+<ul>
+<li><p>Las variables <code>x</code> e <code>y</code> son los parámetros de la función <code>pareja</code>, es decir, que son locales a ella. Por tanto, las ligaduras entre sus identificadores y las variables que contienen su valores se almacenan en el marco de <code>pareja</code>.</p></li>
+<li><p>La función <code>get</code> puede acceder a <code>x</code> e <code>y</code> ya que se encuentran en su entorno.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/entorno-pareja-get.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en la función <code>get</code> al llamar a <code>pareja(4, 1)</code></figcaption>
+</figure>
+</div>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Lo interesante es que el marco de la función <code>pareja</code> no se elimina de la memoria al salir de la función con <code>return get</code>, ya que la función <code>get</code> necesita seguir accediendo a valores (las variables <code>x</code> e <code>y</code>) cuyas ligaduras se almacenan en el marco de <code>pareja</code> y no en el suyo.</p></li>
+<li><p>Es decir: el intérprete conserva todo el entorno que la función <code>get</code> necesita para poder funcionar, incluyendo sus variables no locales, como es el caso aquí de de los parámetros <code>x</code> e <code>y</code> de la función <code>pareja</code>.</p></li>
+<li><p>La combinación de una función más el entorno necesario para su ejecución se denomina <strong>clausura</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
+<li><p>La función que devuelve <code>pareja</code> y que recibe <code>select</code> <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
+<li><p>A esto se le denomina <strong>representación funcional</strong>.</p></li>
+<li><p>El uso de funciones de orden superior para representar datos no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, <strong>las funciones son perfectamente capaces de representar datos compuestos</strong>. En nuestro caso, estas funciones son suficientes para representar parejas en nuestros programas.</p></li>
+<li><p>El hecho de ver aquí la <strong>representación funcional</strong> de una pareja no es porque Python realmente trabaje de esta manera (las listas en Python se implementan internamente de otra forma, por razones de eficiencia), sino porque podría trabajar de esta manera.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras.</p></li>
+<li><p>La representación funcional, aunque pueda parecer extraña, es una forma perfectamente adecuada de representar parejas, ya que cumple las propiedades que deben cumplir las parejas.</p></li>
+<li><p>Este ejemplo también demuestra que la capacidad de manipular funciones como valores (mediante funciones de orden superior) proporciona la capacidad de manipular datos compuestos.</p></li>
+</ul>
+</section><section id="estado-interno" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Estado interno</h2><ul>
+<li><p>Ciertos datos pueden tener <strong>estado interno</strong>, lo que significa que su contenido puede cambiar durante la ejecución del programa.</p></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Una <strong>lista</strong> posee un estado interno que se corresponde con su <strong>contenido</strong>, es decir, con los <strong>elementos que contiene</strong> en un momento dado.</p></li>
+<li><p>Esos elementos pueden <strong>cambiar</strong> durante la ejecución del programa: podemos añadir elementos a la lista, eliminar elementos de la lista o cambiar un elemento de la lista por otro distinto.</p></li>
+<li><p>Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos cambiando su estado interno.</p></li>
+</ul></li>
+<li><p>Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual ese estado puede ir cambiando.</p></li>
+<li><p><strong>Las funciones también pueden tener estado interno</strong>.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Por ejemplo, definamos una función que simule el proceso de retirar dinero de una cuenta bancaria.</p></li>
+<li><p>Crearemos una función llamada <code>retirar</code>, que tome como argumento una cantidad a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada, <code>retirar</code> devolverá el saldo restante después de la retirada. De lo contrario, <code>retirar</code> producirá el error <code>'Fondos insuficientes'</code>.</p></li>
+<li><p>Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría obtener la siguiente secuencia de valores de retorno al ir llamando a <code>retirar</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="dv">75</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="dv">50</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">60</span>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">15</span>)</span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="dv">35</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La expresión <code>retirar(25)</code>, evaluada dos veces, produce valores diferentes.</p></li>
+<li><p>Por lo tanto, la función <code>retirar</code> <strong>no es pura</strong>.</p></li>
+<li><p>Llamar a la función no sólo devuelve un valor, sino que también tiene el <strong>efecto lateral</strong> de cambiar la función de alguna manera, de modo que la siguiente llamada con el mismo argumento devolverá un resultado diferente.</p></li>
+<li><p>Este efecto lateral es el resultado de retirar dinero de los fondos disponibles <strong>provocando un cambio en el estado de una variable</strong> que almacena dichos fondos y que se encuentra <strong>fuera del marco actual</strong>.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
+<li><p>La función <code>deposito</code> es una función de orden superior que recibe como argumento un saldo inicial y devuelve la propia función <code>retirar</code>, pero de forma que esa función <strong>recuerda</strong> el saldo inicial.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<li><p>La implementación de <code>deposito</code> requiere un <strong>acceso no local</strong> al valor de los fondos iniciales y una <strong>función local</strong> que actualiza y devuelve dicho valor:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb17-2"><a href="#cb17-2"></a>    <span class="co">&quot;&quot;&quot;Devuelve una función que reduce los fondos en cada llamada.&quot;&quot;&quot;</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="kw">def</span> deposito_local(cantidad):</span>
+<span id="cb17-4"><a href="#cb17-4"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb17-5"><a href="#cb17-5"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb17-6"><a href="#cb17-6"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>        fondos <span class="op">-=</span> cantidad  <span class="co"># Asignación a variable no local</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb17-9"><a href="#cb17-9"></a></span>
+<span id="cb17-10"><a href="#cb17-10"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Al poder asignar valores a una variable no local, hemos podido conservar un estado que es interno para una función pero que evoluciona y cambia con el tiempo a través de llamadas sucesivas a esa función.</p></li>
+<li><p>Supongamos que queremos ampliar la idea anterior definiendo más operaciones sobre los fondos de la cuenta corriente.</p></li>
+<li><p>Por ejemplo, además de poder retirar una cantidad, queremos también poder ingresar cantidades en la cuenta, así como consultar en todo momento su saldo actual.</p></li>
+<li><p>En ese caso, podemos usar una técnica que consiste en usar una función que <strong>despacha</strong> las operaciones en función del <em>mensaje</em> recibido.</p></li>
+</ul>
+</section><section class="slide level4">
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb18-2"><a href="#cb18-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb18-3"><a href="#cb18-3"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb18-4"><a href="#cb18-4"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb18-5"><a href="#cb18-5"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb18-7"><a href="#cb18-7"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb18-10"><a href="#cb18-10"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb18-11"><a href="#cb18-11"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb18-12"><a href="#cb18-12"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb18-13"><a href="#cb18-13"></a></span>
+<span id="cb18-14"><a href="#cb18-14"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb18-15"><a href="#cb18-15"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb18-16"><a href="#cb18-16"></a></span>
+<span id="cb18-17"><a href="#cb18-17"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb18-18"><a href="#cb18-18"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb18-19"><a href="#cb18-19"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb18-20"><a href="#cb18-20"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb18-21"><a href="#cb18-21"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb18-22"><a href="#cb18-22"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb18-23"><a href="#cb18-23"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb18-24"><a href="#cb18-24"></a>        <span class="cf">else</span>:</span>
+<span id="cb18-25"><a href="#cb18-25"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb18-26"><a href="#cb18-26"></a></span>
+<span id="cb18-27"><a href="#cb18-27"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</section><section class="slide level4">
+
+<!--
+```python
+def retirar(dep, cantidad):
+    return dep('retirar')(cantidad)
+
+def ingresar(dep, cantidad):
+    return dep('ingresar')(cantidad)
+
+def saldo(dep):
+    return dep('saldo')()
+```
+-->
+<ul>
+<li><p>Ahora, un depósito se representa internamente como una función que recibe mensajes y los despacha a la función correspondiente:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="dv">75</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="dv">275</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="dv">275</span></span></code></pre></div></li>
+<li><p>También podemos hacer:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> dep(<span class="st">&#39;retirar&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="op">&gt;&gt;&gt;</span> ingresar <span class="op">=</span> dep(<span class="st">&#39;ingresar&#39;</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="op">&gt;&gt;&gt;</span> saldo <span class="op">=</span> dep(<span class="st">&#39;saldo&#39;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="dv">75</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="op">&gt;&gt;&gt;</span> ingresar(<span class="dv">200</span>)</span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="dv">275</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="dv">275</span></span></code></pre></div></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li>Una variante de esta técnica es la de usar un diccionario para asociar a cada mensaje con cada operación:</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb21-2"><a href="#cb21-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb21-3"><a href="#cb21-3"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb21-4"><a href="#cb21-4"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb21-5"><a href="#cb21-5"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb21-7"><a href="#cb21-7"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-8"><a href="#cb21-8"></a></span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb21-10"><a href="#cb21-10"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb21-11"><a href="#cb21-11"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb21-12"><a href="#cb21-12"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-13"><a href="#cb21-13"></a></span>
+<span id="cb21-14"><a href="#cb21-14"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb21-15"><a href="#cb21-15"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-16"><a href="#cb21-16"></a></span>
+<span id="cb21-17"><a href="#cb21-17"></a>    dic <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
+<span id="cb21-18"><a href="#cb21-18"></a></span>
+<span id="cb21-19"><a href="#cb21-19"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb21-20"><a href="#cb21-20"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> d:</span>
+<span id="cb21-21"><a href="#cb21-21"></a>            <span class="cf">return</span> dic[mensaje]</span>
+<span id="cb21-22"><a href="#cb21-22"></a>        <span class="cf">else</span>:</span>
+<span id="cb21-23"><a href="#cb21-23"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb21-24"><a href="#cb21-24"></a></span>
+<span id="cb21-25"><a href="#cb21-25"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Se denomina <strong>paso de mensajes</strong> a este estilo de programación que consiste en agrupar, dentro de una función que responde a diferentes mensajes, las operaciones que actúan sobre un dato.</p></li>
+<li><p>El paso de mensajes combina dos técnicas de programación:</p>
+<ul>
+<li><p>Las funciones de orden superior que devuelven otras funciones.</p></li>
+<li><p>El uso de una función que <em>despacha</em> a otras funciones dependiendo del mensaje recibido.</p></li>
+</ul></li>
+</ul>
+<!--
+  - Los datos tienen estado interno.
+
+  - El almacenamiento y acceso al estado interno de una función mediante
+    variables no locales.
+
+  - La representación de datos como funciones.
+
+  - La encapsulación de los datos junto con las operaciones que los manipulan
+    en una sola unidad sintáctica.
+-->
+</section></section>
+<section><section id="la-metáfora-del-objeto" class="title-slide slide level1"><h1><span class="header-section-number">6</span> La metáfora del objeto</h1></section><section id="la-metáfora-del-objeto-1" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> La metáfora del objeto</h2><ul>
+<li><p>Al principio, distinguíamos entre funciones y datos: las funciones realizan operaciones sobre los datos y éstos esperan pasivamente a que se opere con ellos.</p></li>
+<li><p>Cuando empezamos a representar a los datos con funciones, vimos que los datos también pueden encapsular <strong>comportamiento</strong>.</p></li>
+<li><p>Esos datos ahora representan información, pero también <strong>se comportan</strong> como las cosas que representan.</p></li>
+<li><p>Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que reciben cuando las demás partes del programa les envían mensajes.</p></li>
+<li><p>Esta forma de ver a los datos como objetos activos que se relacionan entre sí y que son capaces de reaccionar y cambiar su estado interno en función de los mensajes que reciben, da lugar a todo un nuevo paradigma de programación llamado <strong>programación orientada a objetos</strong>.</p></li>
+</ul></section></section>
+<section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level1"><h1><span class="header-section-number">7</span> El tipo abstracto como módulo</h1></section><section id="el-tipo-abstracto-como-módulo-1" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> El tipo abstracto como módulo</h2><ul>
+<li><p>Claramente, un <strong>tipo abstracto</strong> representa una <strong>abstracción</strong>:</p>
+<ul>
+<li><p>Se <strong>destacan</strong> los detalles (normalmente pocos) de la <strong>especificación</strong>, es decir, el <em>comportamiento observable</em> del tipo. Es de esperar que este aspecto sea bastante estable y cambie poco durante la vida útil del programa.</p></li>
+<li><p>Se <strong>ocultan</strong> los detalles (normalmente numerosos) de la <strong>implementación</strong>. Este aspecto es, además, propenso a cambios.</p></li>
+</ul></li>
+<li><p>Y estas propiedades anteriores hacen que el tipo abstracto sea el concepto ideal alrededor del cual basar la descomposición en módulos de un programa grande.</p></li>
+</ul></section><section class="slide level4">
+
+<ul>
+<li><p>Recordemos que para que haya una buena modularidad:</p>
+<ul>
+<li><p>Las <strong>conexiones</strong> del módulo con el resto del programa han de ser pocas y simples. De este modo se espera lograr una relativa independencia en el desarrollo de cada módulo con respecto a los otros.</p></li>
+<li><p>La <strong>descomposición</strong> en módulos ha de ser tal que la mayor parte de los cambios y mejoras al programa impliquen modificar sólo un módulo o un número muy pequeño de ellos.</p></li>
+<li><p>El <strong>tamaño</strong> de un módulo ha de ser el adecuado: si es demasiado grande, será difícil realizar cambios en él; si es demasiado pequeño, los costes de integración con otros módulos aumenta.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>La parte del código fuente de un programa dedicada a la definición de un tipo abstracto de datos es un <strong>candidato a módulo</strong> que cumple los siguientes requisitos:</p>
+<ul>
+<li><p>La <strong>interfaz</strong> del tipo abstracto con sus usuarios es un ejemplo de pocas y simples conexiones con el resto del programa: los usuarios simplemente invocan sus operaciones permitidas. Otras conexiones más peligrosas, como compartir variables entre módulos o compartir el conocimiento acerca de la estructura interna, son imposibles.</p></li>
+<li><p>La <strong>implementación</strong> puede cambiarse libremente sin afectar al funcionamiento de los módulos usuarios. Es de esperar, por tanto, que muchos cambios al programa queden localizados en el interior de un sólo módulo.</p></li>
+<li><p>El <strong>tamaño</strong> de una sola función que implementa una abstracción funcional es demasiado pequeño para ser útil como unidad modular. En cambio, la definición de un tipo abstracto consta, en general, de una colección de funciones más una representación, lo que proporciona un tamaño más adecuado.</p></li>
+</ul></li>
+</ul>
+</section><section class="slide level4">
+
+<ul>
+<li><p>Un tipo abstracto de datos conecta perfectamente con los cuatro conceptos más importantes relacionados con la modularidad:</p>
+<ul>
+<li><p>Es una <strong>abstracción</strong>: se usa sin necesidad de saber cómo se implementa.</p></li>
+<li><p><strong>Oculta información</strong>: los detalles y las decisiones de diseño quedan en la implementación del tipo abstracto, y son innecesarios para poder usarlo.</p></li>
+<li><p>Es <strong>funcionalmente independiente</strong>: es un módulo destinado a una sola tarea, con alta cohesión y bajo acoplamiento.</p></li>
+<li><p>Es <strong>reutilizable</strong>: su comportamiento puede resultar tan general que puede usarse en diferentes programas con ninguna o muy poca modificación.</p></li>
+</ul></li>
+</ul>
+</section></section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1></section>
     </div>
   </div>
 

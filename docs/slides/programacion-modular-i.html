@@ -1508,8 +1508,10 @@ def saldo(dep):
 <span id="cb37-9"><a href="#cb37-9"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
 <span id="cb37-10"><a href="#cb37-10"></a><span class="dv">275</span></span></code></pre></div></li>
 </ul>
-</section><section id="despacho-con-diccionarios" class="title-slide slide level3"><h3><span class="header-section-number">4.5.3</span> Despacho con diccionarios</h3><ul>
-<li>Una variante de esta técnica es la de usar un diccionario para asociar cada mensaje con cada operación:</li>
+</section><section class="slide level4">
+
+<ul>
+<li>Una variante de esta técnica es la de usar un diccionario para asociar a cada mensaje con cada operación:</li>
 </ul>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">def</span> deposito(fondos):</span>
 <span id="cb38-2"><a href="#cb38-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
@@ -1535,15 +1537,34 @@ def saldo(dep):
 <span id="cb38-22"><a href="#cb38-22"></a>        <span class="cf">else</span>:</span>
 <span id="cb38-23"><a href="#cb38-23"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
 <span id="cb38-24"><a href="#cb38-24"></a></span>
-<span id="cb38-25"><a href="#cb38-25"></a>    <span class="cf">return</span> despacho</span></code></pre></div></section><section id="paso-de-mensajes" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> Paso de mensajes</h2><ul>
-<li><p>A este estilo de programación se le denomina <strong>paso de mensajes</strong>.</p></li>
-<li><p>El paso de mensajes combina varias técnicas de programación:</p>
+<span id="cb38-25"><a href="#cb38-25"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</section><section class="slide level4">
+
 <ul>
-<li><p>El almacenamiento y acceso al estado interno de una función mediante variables no locales.</p></li>
+<li><p>Se denomina <strong>paso de mensajes</strong> a este estilo de programación que consiste en agrupar, dentro de una función que responde a diferentes mensajes, las operaciones que actúan sobre un dato.</p></li>
+<li><p>El paso de mensajes combina dos técnicas de programación:</p>
+<ul>
 <li><p>Las funciones de orden superior que devuelven otras funciones.</p></li>
-<li><p>La representación de datos como funciones.</p></li>
-<li><p>El uso de una función que <em>despacha</em> operaciones en función del mensaje recibido.</p></li>
+<li><p>El uso de una función que <em>despacha</em> a otras funciones dependiendo del mensaje recibido.</p></li>
 </ul></li>
+</ul>
+<!--
+  - Los datos tienen estado interno.
+
+  - El almacenamiento y acceso al estado interno de una función mediante
+    variables no locales.
+
+  - La representación de datos como funciones.
+
+  - La encapsulación de los datos junto con las operaciones que los manipulan
+    en una sola unidad sintáctica.
+-->
+</section><section id="la-metáfora-del-objeto" class="title-slide slide level2"><h2><span class="header-section-number">4.6</span> La metáfora del objeto</h2><ul>
+<li><p>Al principio, distinguíamos entre funciones y datos: las funciones realizan operaciones sobre los datos y éstos esperan pasivamente a que se opere con ellos.</p></li>
+<li><p>Cuando empezamos a representar a los datos con funciones, vimos que los datos también pueden encapsular <strong>comportamiento</strong>.</p></li>
+<li><p>Esos datos ahora representan información, pero también <strong>se comportan</strong> como las cosas que representan.</p></li>
+<li><p>Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que reciben cuando las demás partes del programa les envían mensajes.</p></li>
+<li><p>Esta forma de ver a los datos como objetos activos que se relacionan entre sí y que son capaces de reaccionar y cambiar su estado interno en función de los mensajes que reciben, da lugar a todo un nuevo paradigma de programación llamado <strong>programación orientada a objetos</strong>.</p></li>
 </ul></section><section id="el-tipo-abstracto-como-módulo" class="title-slide slide level2"><h2><span class="header-section-number">4.7</span> El tipo abstracto como módulo</h2><ul>
 <li><p>Claramente, un <strong>tipo abstracto</strong> representa una <strong>abstracción</strong>:</p>
 <ul>

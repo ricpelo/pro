@@ -2295,9 +2295,9 @@ def saldo(dep):
   275
   ```
 
-### Despacho con diccionarios
+---
 
-- Una variante de esta técnica es la de usar un diccionario para asociar cada
+- Una variante de esta técnica es la de usar un diccionario para asociar a cada
   mensaje con cada operación:
 
 ```python
@@ -2328,21 +2328,50 @@ def deposito(fondos):
     return despacho
 ```
 
-## Paso de mensajes
+---
 
-- A este estilo de programación se le denomina **paso de mensajes**.
+- Se denomina **paso de mensajes** a este estilo de programación que consiste
+  en agrupar, dentro de una función que responde a diferentes mensajes, las
+  operaciones que actúan sobre un dato.
 
-- El paso de mensajes combina varias técnicas de programación:
+- El paso de mensajes combina dos técnicas de programación:
+
+  - Las funciones de orden superior que devuelven otras funciones.
+
+  - El uso de una función que *despacha* a otras funciones dependiendo del
+    mensaje recibido.
+
+<!--
+  - Los datos tienen estado interno.
 
   - El almacenamiento y acceso al estado interno de una función mediante
     variables no locales.
 
-  - Las funciones de orden superior que devuelven otras funciones.
-
   - La representación de datos como funciones.
 
-  - El uso de una función que *despacha* operaciones en función del mensaje
-    recibido.
+  - La encapsulación de los datos junto con las operaciones que los manipulan
+    en una sola unidad sintáctica.
+-->
+
+## La metáfora del objeto
+
+- Al principio, distinguíamos entre funciones y datos: las funciones realizan
+  operaciones sobre los datos y éstos esperan pasivamente a que se opere con
+  ellos.
+
+- Cuando empezamos a representar a los datos con funciones, vimos que los datos
+  también pueden encapsular **comportamiento**.
+
+- Esos datos ahora representan información, pero también **se comportan** como
+  las cosas que representan.
+
+- Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que
+  reciben cuando las demás partes del programa les envían mensajes.
+
+- Esta forma de ver a los datos como objetos activos que se relacionan entre sí
+  y que son capaces de reaccionar y cambiar su estado interno en función de los
+  mensajes que reciben, da lugar a todo un nuevo paradigma de programación
+  llamado **programación orientada a objetos**.
 
 ## El tipo abstracto como módulo
 
