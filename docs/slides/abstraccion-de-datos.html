@@ -246,6 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Ocultación de información</strong>: los módulos deben ocultar sus decisiones de diseño a sus usuarios.</p></li>
 <li><p><strong>Independencia funcional</strong>: los módulos deben dedicarse a alcanzar un único objetivo, con una alta cohesión entre sus elementos y un bajo acoplamiento con el resto de los módulos.</p></li>
 </ul></li>
+<li><p>Vamos a estudiar con más detalle el primero de ellos: la abstracción.</p></li>
 </ul></section><section class="slide level4">
 
 <ul>
@@ -878,15 +879,12 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb17-9"><a href="#cb17-9"></a></span>
 <span id="cb17-10"><a href="#cb17-10"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
-
-<ul>
+</section><section id="paso-de-mensajes" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Paso de mensajes</h2><ul>
 <li><p>Al poder asignar valores a una variable no local, hemos podido conservar un estado que es interno para una función pero que evoluciona y cambia con el tiempo a través de llamadas sucesivas a esa función.</p></li>
 <li><p>Supongamos que queremos ampliar la idea anterior definiendo más operaciones sobre los fondos de la cuenta corriente.</p></li>
 <li><p>Por ejemplo, además de poder retirar una cantidad, queremos también poder ingresar cantidades en la cuenta, así como consultar en todo momento su saldo actual.</p></li>
 <li><p>En ese caso, podemos usar una técnica que consiste en usar una función que <strong>despacha</strong> las operaciones en función del <em>mensaje</em> recibido.</p></li>
-</ul>
-</section><section class="slide level4">
+</ul></section><section class="slide level4">
 
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> deposito(fondos):</span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
@@ -1038,6 +1036,9 @@ def saldo(dep):
 </div>
 <div id="ref-denero_composing_nodate">
 <p>DeNero, John. n.d. “Composing Programs.” <a href="http://www.composingprograms.com">http://www.composingprograms.com</a>.</p>
+</div>
+<div id="ref-pena_mari_diseno_2003">
+<p>Peña Marí, Ricardo. 2003. <em>Diseño de Programas: Formalismo Y Abstracción</em>. Madrid: Prentice Hall.</p>
 </div>
 <div id="ref-python_software_foundation_sitio_nodate">
 <p>Python Software Foundation. n.d. “Sitio Web de Documentación de Python.” <a href="https://docs.python.org/3">https://docs.python.org/3</a>.</p>

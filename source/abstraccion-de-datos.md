@@ -3,7 +3,7 @@ title: Abstracción de datos
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @python_software_foundation_sitio_nodate, @abelson_structure_1996, @denero_composing_nodate
+  @python_software_foundation_sitio_nodate, @abelson_structure_1996, @denero_composing_nodate, @pena_mari_diseno_2003
 ---
 
 # Introducción
@@ -21,6 +21,8 @@ nocite: |
   - **Independencia funcional**: los módulos deben dedicarse a alcanzar un
     único objetivo, con una alta cohesión entre sus elementos y un bajo
     acoplamiento con el resto de los módulos.
+
+- Vamos a estudiar con más detalle el primero de ellos: la abstracción.
 
 ---
 
@@ -874,12 +876,14 @@ node [fontname = "monospace"]
 4 [shape = circle]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 y [shape = plaintext, fillcolor = transparent, label = "y"]
+get [shape = plaintext, fillcolor = transparent, label = "get"]
 i [shape = plaintext, fillcolor = transparent, label = "indice"]
 subgraph cluster0 {
     label = "Marco de pareja"
     bgcolor = "white"
     x -> 4
     y -> 1
+    get -> función
 }
 subgraph cluster1 {
     label = "Marco de get"
@@ -1030,7 +1034,7 @@ E -> i [lhead = cluster1]
       return deposito_local
   ```
 
----
+## Paso de mensajes
 
 - Al poder asignar valores a una variable no local, hemos podido conservar un
   estado que es interno para una función pero que evoluciona y cambia con el
