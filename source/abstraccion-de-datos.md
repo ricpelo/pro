@@ -638,9 +638,9 @@ def imprimir(x):
   la metodología de la abstracción de datos nos permite retrasar esa decisión
   sin perder la capacidad de seguir programando el resto del programa.
 
-# Barreras de abstracción
+# Niveles y barreras de abstracción
 
-## Barreras de abstracción
+## Niveles de abstracción
 
 - Parémonos ahora a considerar algunos de las cuestiones planteadas en el
   ejemplo de los números racionales.
@@ -686,16 +686,16 @@ def imprimir(x):
 | racionales                     | de dos elementos                | \_`[`\_`]`                   |
 +--------------------------------+---------------------------------+------------------------------+
 
----
+## Barreras de abstracción
 
 - Cada una de las filas de la tabla anterior representa un nivel de
   abstracción, de forma que cada nivel usa las operaciones y las facilidades
   ofrecidas por el nivel inmediatamente inferior.
 
 - Dicho de otra forma: en cada nivel, las funciones que aparecen en la última
-  columna imponen una barrera de abstracción. Estas funciones son usadas desde
-  un nivel más alto de abstracción e implementadas usando un nivel más bajo de
-  abstracción.
+  columna imponen una **barrera de abstracción**. Estas funciones son usadas
+  desde un nivel más alto de abstracción e implementadas usando un nivel más
+  bajo de abstracción.
 
 ---
 
@@ -754,21 +754,24 @@ def imprimir(x):
   `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
   representación interna de los números racionales.
 
-# Las propiedades de los datos
+## Propiedades de los datos
 
-## Las propiedades de los datos
-
-- Las barreras de abstracción determinan la forma en la que pensamos sobre los
+- Las barreras de abstracción definen la forma en como pensamos sobre los
   datos.
+
+- Por ejemplo, podemos pensar que las operaciones `suma`, `mult`, etc. están
+  definidas sobre *datos* (numeradores, denominadores y racionales) cuyo
+  comportamiento está definido por las funciones `racional`, `numer` y `denom`.
 
 - Pero... ¿qué es un *dato*? No basta con decir que es «cualquier cosa
   implementada mediante determinados constructores y selectores».
-  
+
 - Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones
-  (un constructor y dos selectores) no sirven para representar adecuadamente a
-  los números racionales. Además, tenemos que garantizar que, entre el
-  constructor `racional` y los selectores `numer` y `denum`, se cumple la
-  siguiente propiedad:
+  (un constructor y dos selectores) no sirve para representar adecuadamente a
+  los números racionales.
+
+  Además, se tiene que garantizar que, entre el constructor `racional` y los
+  selectores `numer` y `denum`, se cumple la siguiente propiedad:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -777,6 +780,9 @@ def imprimir(x):
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 ---
+
+- De hecho, esta es la única condición que deben cumplir las tres funciones
+  para poder representar adecuadamente a los números racionales.
 
 - Una representación válida de un número racional no está limitada a ninguna
   implementación particular (como, por ejemplo, una lista de dos elementos),
@@ -813,9 +819,65 @@ def imprimir(x):
 - Tales propiedades se describen como **ecuaciones** en la **especificación
   algebraica** del tipo abstracto.
 
+# Las funciones como datos
+
 ## Representación funcional
 
-- De hecho, ni siquiera necesitamos estructuras de datos para representar
+- Anteriormente, hemos dicho que los datos se caracterizan por las
+  **operaciones** (constructoras y selectoras) con las que se manipulan y por
+  las **propiedades** que cumplen dichas operaciones, de manera que **podemos
+  cambiar los detalles de implementación** bajo una barrera de abstracción
+  siempre y cuando no cambiemos su comportamiento.
+
+- Por tanto, bajo esa barrera de abstracción podemos usar cualquier
+  implementación siempre y cuando logren que las operaciones que definen dicha
+  barrera de abstracción satisfagan las propiedades que deben cumplir.
+
+- Por ejemplo, para representar a los números racionales usamos parejas de
+  números, pero esas parejas se pueden representar de muchas maneras. Podemos
+  usar listas, pero en general nos sirve cualquier dato definido por un
+  constructor `pareja` y un selector `select` que cumpla:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $p$ `=` `pareja(`$x$, $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
+  y `select(`$p$`, 1)` `==` $y$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Esas dos operaciones, `pareja` y `select`, que deben cumplir la condición
+  antes indicada, formarían otra barrera de abstracción sobre la cual se
+  podrían implementar los números racionales:
+
+  ```python
+  def racional(x, y):
+      return pareja(x, y)
+
+  def numer(r):
+      return select(r, 0)
+
+  def denom(r):
+      return select(r, 1)
+  ```
+
+- A su vez, para implementar las parejas, nos valdría cualquier implementación
+  que satisfaga la propiedad que deben cumplir las parejas. Por ejemplo,
+  cualquier estructura de datos o tipo compuesto que permita almacenar dos
+  elementos juntos y seleccionar cada elemento por separado, como una lista,
+  una tupla o algo similar:
+
+  ```python
+  def pareja(x, y):
+      return [x, y]
+
+  def select(p, i):
+      return p[i]
+  ```
+
+---
+
+- Pero, de hecho, ni siquiera necesitamos estructuras de datos para representar
   parejas de números. Podemos implementar dos funciones `pareja` y `select` que
   cumplan con la propiedad anterior tan bien como una lista de dos elementos:
 
@@ -827,6 +889,7 @@ def imprimir(x):
               return x
           elif indice == 1:
               return y
+
       return get
 
   def select(p, i):
@@ -879,14 +942,14 @@ y [shape = plaintext, fillcolor = transparent, label = "y"]
 get [shape = plaintext, fillcolor = transparent, label = "get"]
 i [shape = plaintext, fillcolor = transparent, label = "indice"]
 subgraph cluster0 {
-    label = "Marco de pareja"
+    label = <Marco de <b>pareja</b>>
     bgcolor = "white"
     x -> 4
     y -> 1
     get -> función
 }
 subgraph cluster1 {
-    label = "Marco de get"
+    label = <Marco de <b>get</b>>
     bgcolor = white
     i -> i
 }
@@ -915,7 +978,7 @@ E -> i [lhead = cluster1]
   superior**: la primera porque devuelve una función y la segunda porque recibe
   una función como argumento.
 
-- La función que devuelve `pareja` y que recibe `select` **representa una
+- La función `get` que devuelve `pareja` y que recibe `select` **representa una
   pareja**, es decir, un **dato**.
 
 - A esto se le denomina **representación funcional**.
@@ -926,15 +989,15 @@ E -> i [lhead = cluster1]
   datos compuestos**. En nuestro caso, estas funciones son suficientes para
   representar parejas en nuestros programas.
 
-- El hecho de ver aquí la **representación funcional** de una pareja no es
-  porque Python realmente trabaje de esta manera (las listas en Python se
-  implementan internamente de otra forma, por razones de eficiencia), sino
-  porque podría trabajar de esta manera.
-  
+- Esto no quiere decir que Python realmente implemente las listas mediante
+  funciones. En realidad las implementa de otra forma por razones de
+  eficiencia, pero podría implementarlas con funciones sin ningún problema.
+
 ---
 
 - La práctica de la abstracción de datos nos permite cambiar fácilmente unas
-  representaciones por otras.
+  representaciones por otras, y una de esas representaciones puede ser mediante
+  funciones.
 
 - La representación funcional, aunque pueda parecer extraña, es una forma
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
@@ -1173,7 +1236,7 @@ def deposito(fondos):
   - El uso de una función que *despacha* a otras funciones dependiendo del
     mensaje recibido.
 
-# El tipo abstracto como módulo
+# Abstracción de datos y modularidad
 
 ## El tipo abstracto como módulo
 
