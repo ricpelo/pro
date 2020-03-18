@@ -1240,15 +1240,11 @@ True
 - En **lógica proposicional** (un tipo de lógica matemática que tiene
   estructura de álgebra de Boole), se llaman:
   
-  --------------------------
     Operación      Operador
   --------------- ----------
     Disyunción     $\lor$
-
     Conjunción     $\land$
-    
     Negación       $\neg$
-  --------------------------
 
 - En Python se representan como `or`, `and` y `not`, respectivamente.
 
@@ -1267,45 +1263,47 @@ True
 
 ::: {.column width=33%}
 
-------------------------
+\begingroup
+\setlength{\extrarowheight}{0pt}
+
  $A$   $B$   $A\lor{}B$
 ----- ----- ------------
  $F$   $F$      $F$
-              
  $F$   $V$      $V$
-              
  $V$   $F$      $V$
-              
  $V$   $V$      $V$
-------------------------
+
+\endgroup
 
 :::
 
 ::: {.column width=33%}
 
--------------------------
+\begingroup
+\setlength{\extrarowheight}{0pt}
+
  $A$   $B$   $A\land{}B$
 ----- ----- -------------
  $F$   $F$      $F$
-               
  $F$   $V$      $F$
-               
  $V$   $F$      $F$
-               
  $V$   $V$      $V$
--------------------------
+
+\endgroup
 
 :::
 
 ::: {.column width=33%}
 
------------------
+\begingroup
+\setlength{\extrarowheight}{0pt}
+
  $A$   $\neg{}A$
 ----- -----------
  $F$      $V$
-       
  $V$      $F$
------------------
+
+\endgroup
 
 :::
 
@@ -1321,6 +1319,9 @@ True
 
 ::: column
 
+\begingroup
+\setlength{\extrarowheight}{0pt}
+
 |   `A`   |   `B`   |  `A or B`  |
 |:-------:|:-------:|:----------:|
 | `False` | `False` |   `False`  |
@@ -1328,9 +1329,14 @@ True
 |  `True` | `False` |    `True`  |
 |  `True` |  `True` |    `True`  |
 
+\endgroup
+
 :::
 
 ::: column
+
+\begingroup
+\setlength{\extrarowheight}{0pt}
 
 |   `A`   |   `B`   |  `A and B`  |
 |:-------:|:-------:|:-----------:|
@@ -1339,16 +1345,23 @@ True
 |  `True` | `False` |   `False`   |
 |  `True` |  `True` |    `True`   |
 
+\endgroup
+
 :::
 
 ::::
 
 !SALTOLARGO
 
+\begingroup
+\setlength{\extrarowheight}{0pt}
+
 |   `A`   |  `not A`  |
 |:-------:|:---------:|
 | `False` |   `True`  |
 |  `True` |  `False`  |
+
+\endgroup
 
 ## Axiomas
 
@@ -1493,11 +1506,11 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
    not True == False
    not False == True
    ```
-10. Leyes de De Morgan:
-    ```python
-    not (a or b) == (not a) and (not b)
-    not (a and b) == (not a) or (not b)
-    ```
+#. Leyes de De Morgan:
+   ```python
+   not (a or b) == (not a) and (not b)
+   not (a and b) == (not a) or (not b)
+   ```
 
 :::
 

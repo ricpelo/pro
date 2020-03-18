@@ -18,19 +18,18 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -50,7 +49,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -95,14 +94,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -236,7 +241,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 
-<section><section id="introducción" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Introducción</h1></section><section id="modularidad" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Modularidad</h2><ul>
+<section>
+<section id="introducción" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
+
+</section>
+<section id="modularidad" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Modularidad</h2>
+<ul>
 <li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer y programar nuestro programa en partes llamadas <strong>módulos</strong>.</p>
 <ul>
 <li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio: cualquier parte de un programa se puede considerar «módulo».</li>
@@ -244,7 +256,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Equivale a la técnica clásica de resolución de problemas basada en 1) descomponer un problema en subproblemas; 2) resolver cada subproblema por separado; y 3) combinar las soluciones para así obtener la solución al problema original.</p></li>
 <li><p>La <strong>modularidad</strong> es la propiedad que tienen los programas escritos siguiendo los principios de la programación modular.</p></li>
 <li><p>El concepto de modularidad se puede estudiar a nivel <em>metodológico</em> y a nivel <em>práctico</em>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.1.0.1">
 
 <ul>
 <li><p><strong>A nivel metodológico</strong>, la modularidad nos proporciona una herramienta más para controlar la complejidad de forma similar a como lo hace la abstracción.</p></li>
@@ -258,7 +272,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 - Si fuera posible, también nos interesa que los módulos sean lo
   suficientemente genéricos como para que se se puedan reutilizar en otros
   programas. -->
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.1.0.2">
 
 <ul>
 <li><p><strong>A nivel práctico</strong>, la modularidad nos ofrece una herramienta que nos permite partir el programa en partes más manejables.</p></li>
@@ -266,7 +281,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>No sólo resulta incómodo mantener todo el código en un mismo archivo, sino que además resulta intelectualmente más difícil de entender.</p></li>
 <li><p>Lo más práctico es descomponer físicamente nuestro programa en una colección de archivos fuente que se puedan trabajar por separado, lo que se denomina <strong>descomposición física</strong>.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.1.0.3">
 
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
@@ -274,7 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino de forma conjunta formando un todo interrelacionado.</p></li>
 <li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno en forma de datos (variables) manipulables desde dentro del módulo pero también desde fuera.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.1.0.4">
 
 <ul>
 <li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan números racionales.</p></li>
@@ -282,7 +299,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Esos datos (es decir, esa representación interna) también formarían parte del módulo y constituirían su estado interno.</p></li>
 <li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, también resulta evidente que debemos considerarlas como formando un todo conjunto con los datos que manipulan: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.1.0.5">
 
 <ul>
 <li><p>De lo dicho hasta ahora se deducen varias conclusiones importantes:</p>
@@ -295,12 +313,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
-</section><section id="beneficios-de-la-programación-modular" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Beneficios de la programación modular</h2><ul>
+</section>
+
+<section id="beneficios-de-la-programación-modular" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Beneficios de la programación modular</h2>
+<ul>
 <li><p>El tiempo de desarrollo se reduce porque grupos separados de programadores pueden trabajar cada uno en un módulo con poca necesidad de comunicación entre ellos.</p></li>
 <li><p>Se mejora la productividad del producto resultante, porque los cambios (pequeños o grandes) realizados en un módulo no afectarían demasiado a los demás.</p></li>
 <li><p>Comprensibilidad, porque se puede entender mejor el sistema completo cuando se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la vez.</p></li>
-</ul></section></section>
-<section><section id="diseño-modular" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Diseño modular</h1></section><section id="partes-de-un-módulo" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Partes de un módulo</h2><ul>
+</ul>
+</section>
+</section>
+<section>
+<section id="diseño-modular" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Diseño modular</h1>
+
+</section>
+<section id="partes-de-un-módulo" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Partes de un módulo</h2>
+<ul>
 <li><p>Desde la perspectiva de la programación modular, un programa está formado por una colección de módulos que interactúan entre sí.</p></li>
 <li><p>Puede decirse que un módulo proporciona una serie de <em>servicios</em> que son <em>usados</em> o <em>consumidos</em> por otros módulos del programa.</p></li>
 <li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
@@ -309,12 +340,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los <strong>usuarios</strong> del módulo son los programadores que desean usar ese módulo en sus programas. También se les llama así a los módulos de un programa que usan a ese módulo (lo necesitan para funcionar).</p>
 <p>A la parte que un usuario necesita conocer para poder usar el módulo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.1.0.1">
 
 <div class="caja">
 <p>Los <strong>usuarios</strong> están interesados en usar al módulo como una <strong>entidad abstracta</strong> sin necesidad de conocer los <em>detalles internos</em> del mismo, sino sólo lo necesario para poder consumir los servicios que proporciona (su <strong>interfaz</strong>).</p>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.1.0.2">
 
 <ul>
 <li><p>Concretando, un módulo tendrá:</p>
@@ -329,26 +363,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul>
-</section><section id="interfaz" class="title-slide slide level3"><h3><span class="header-section-number">2.1.1</span> Interfaz</h3><ul>
+</section>
+<section id="interfaz" class="title-slide slide level3" data-number="2.1.1">
+<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> Interfaz</h3>
+<ul>
 <li><p>La <strong>interfaz</strong> es la parte del módulo que el <strong>usuario</strong> del mismo necesita conocer para poder utilizarlo.</p></li>
 <li><p>Es la parte <strong>expuesta, pública o visible</strong> del mismo.</p></li>
 <li><p>También se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
 <li><p>Debería estar perfectamente <strong>documentada</strong> para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
 <li><p>En general <strong>debería estar formada únicamente por funciones</strong> (y, tal vez, <strong>constantes</strong>) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
 <li><p>Esas funciones deben usarse como <em>abstracciones funcionales</em>, de forma que el usuario sólo necesite conocer las <strong>especificaciones</strong> de las funciones y no sus <em>implementaciones</em> concretas (el <em>cuerpo</em> o código de las funciones).</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.1.1.1">
 
 <ul>
 <li><p>Acabamos de decir que la interfaz de un módulo debería estar formada únicamente por <strong>funciones</strong> (y, tal vez, <em>constantes</em>).</p></li>
 <li><p>En teoría, la interfaz podría estar formada también por (algunas o todas las) <strong>variables locales al módulo</strong>, pero en la práctica eso no resulta apropiado, ya que cualquier cambio posterior en la representación interna de los datos almacenados en esas variables afectaría al resto de los módulos que acceden a dichas variables.</p>
 <p>Más adelante estudiaremos este aspecto en profundidad cuando hablemos del <strong>principio de ocultación de información</strong>.</p></li>
 </ul>
-</section><section id="implementación" class="title-slide slide level3"><h3><span class="header-section-number">2.1.2</span> Implementación</h3><ul>
+</section>
+
+<section id="implementación" class="title-slide slide level3" data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Implementación</h3>
+<ul>
 <li><p>La <strong>implementación</strong> es la parte del módulo que queda <strong>oculta a los usuarios</strong> del mismo.</p></li>
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
 <li><p>Está formada por todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
-</ul></section><section id="diagramas-de-estructura" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Diagramas de estructura</h2><ul>
+</ul>
+</section>
+
+
+<section id="diagramas-de-estructura" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Diagramas de estructura</h2>
+<ul>
 <li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>
 <li><p>En el diagrama de estructura, cada módulo se representa mediante un rectángulo y las relaciones entre cada par de módulos se dibujan como una línea con punta de flecha entre los dos módulos.</p></li>
 <li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em> representa que el módulo <em>A</em> <em>utiliza</em> o <em>llama</em> o <em>depende</em> del módulo <em>B</em>.</p></li>
@@ -357,27 +406,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <figure>
 <img data-src="images/modulos-dependientes.svg" class="plain" style="width:30.0%" alt="" /><figcaption><em>A</em> depende de <em>B</em></figcaption>
 </figure>
-</div></section><section class="slide level4">
+</div>
+</section>
+<section class="slide level4" data-number="2.2.0.1">
 
 <div class="centered">
 <figure>
 <img data-src="images/diagrama-estructura.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Diagrama de estructura</figcaption>
 </figure>
 </div>
-</section><section id="programación-modular-en-python" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Programación modular en Python</h2><ul>
+</section>
+
+<section id="programación-modular-en-python" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Programación modular en Python</h2>
+<ul>
 <li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
 <li><p>Los módulos contienen definiciones y sentencias.</p></li>
 <li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
 <li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
 <li><p>Cada módulo tiene su propio ámbito local, que es usado como el ámbito global de todas las funciones definidas en el módulo.</p></li>
 <li><p>Por tanto, el autor de un módulo puede usar variables globales en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales de otros módulos.</p></li>
-</ul></section><section id="importación-de-módulos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Importación de módulos</h3><ul>
+</ul>
+</section>
+<section id="importación-de-módulos" class="title-slide slide level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Importación de módulos</h3>
+<ul>
 <li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del módulo actual:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> math</span></code></pre></div></li>
 <li><p>Al importar un módulo de esta forma, lo que se hace es incorporar la definición del propio módulo (el módulo <em>importado</em>) en el ámbito actual del módulo o <em>script</em> que ejecuta el <code>import</code> (el módulo <em>importador</em>).</p></li>
 <li><p>O dicho de otra forma: se incorpora al marco actual (es decir, el marco del ámbito donde se ejecuta el <code>import</code>) la ligadura entre el nombre del módulo importado y el propio módulo, por lo que el módulo importador puede acceder al módulo importado a través de su nombre.</p></li>
 <li><p>De esta forma, lo que se importa dentro del marco actual no es el contenido del módulo importado, sino el módulo en sí.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.1.1">
 
 <ul>
 <li><p>Por ejemplo, si tenemos:</p>
@@ -405,14 +466,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/import-modulo.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Importación del módulo <code>dos</code> en <code>uno</code></figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.2">
 
 <ul>
 <li><p>Eso significa que los módulos en Python son internamente un dato más, al igual que las listas o las funciones: se pueden asignar a variables, se pueden borrar de la memoria con <code>del</code>, etc.</p></li>
 <li><p>Y significa, además, que los módulos tienen su propio ámbito y, por tanto, crean su propio marco donde se almacenan sus definiciones, aunque eso es algo que ya sabíamos.</p></li>
 <li><p>Para acceder al contenido del módulo importado, indicamos el nombre de ese módulo seguido de un punto (<code>.</code>) y el nombre del contenido al que queramos acceder.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.3">
 
 <ul>
 <li><p>Por ejemplo, para acceder a la función <code>gcd</code> definida en el módulo <code>math</code> haremos:</p>
@@ -429,7 +492,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Se recomienda (aunque no es obligatorio) colocar todas las sentencias <code>import</code> al principio del módulo importador.</li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.4">
 
 <ul>
 <li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con la palabra clave <code>as</code>.</p></li>
@@ -443,7 +507,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/import-math-as.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Resultado de ejecutar las dos últimas líneas anteriores</figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.5">
 
 <ul>
 <li><p>Existe una variante de la sentencia <code>import</code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code>from</code>.</p></li>
@@ -457,7 +522,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/from-math-import-gcd.svg" class="plain" style="width:30.0%" alt="" /><figcaption>Resultado de ejecutar las dos últimas líneas anteriores</figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.6">
 
 <ul>
 <li><p>De hecho, ahora el módulo importado no está definido en el módulo importador (es decir, que en el marco global del módulo importador no hay ninguna ligadura con el nombre del módulo importado).</p></li>
@@ -466,7 +532,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
 <p>da error porque no hemos importado el módulo como tal, sino sólo una de sus funciones.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.7">
 
 <ul>
 <li><p>También podemos usar la palabra clave <code>as</code> con la orden <code>from</code>:</p>
@@ -480,7 +547,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/from-math-import-gcd-as-mcd.svg" class="plain" style="width:30.0%" alt="" /><figcaption>Resultado de ejecutar las dos últimas líneas anteriores</figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.8">
 
 <ul>
 <li><p>Existe incluso una variante para importar todas las definiciones de un módulo:</p>
@@ -489,7 +557,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>.</p></li>
 <li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» definiciones ya existentes.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.9">
 
 <ul>
 <li><p>Para saber qué definiciones contiene un módulo, se puede usar la funcion <code>dir()</code>:</p>
@@ -503,12 +572,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-8"><a href="#cb13-8"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
 <span id="cb13-9"><a href="#cb13-9"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
 </ul>
-</section><section id="módulos-como-scripts" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Módulos como <em>scripts</em></h3><ul>
+</section>
+
+<section id="módulos-como-scripts" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Módulos como <em>scripts</em></h3>
+<ul>
 <li><p>Un módulo puede contener sentencias ejecutables además de definiciones.</p></li>
 <li><p>Generalmente, esas sentencias existen para inicializar el módulo.</p></li>
 <li><p>Las sentencias de un módulo se ejecutan sólo la primera vez que se encuentra el nombre de ese módulo en una sentencia <code>import</code>.</p></li>
 <li><p>También se ejecutan si el archivo se ejecuta como un <em>script</em>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.2.1">
 
 <ul>
 <li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes como:</p>
@@ -519,7 +594,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-2"><a href="#cb15-2"></a>    <span class="op">&lt;</span>sentencias<span class="op">&gt;</span></span></code></pre></div>
 <p>el módulo podrá funcionar como un <em>script</em> independiente.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.2.2">
 
 <ul>
 <li><p>Por ejemplo, supongamos el siguiente módulo <code>fact.py</code>:</p>
@@ -543,8 +619,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 ### Documentación interna
 -->
-</section></section>
-<section><section id="criterios-de-descomposición-modular" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Criterios de descomposición modular</h1></section><section id="introducción-1" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Introducción</h2><ul>
+</section>
+
+</section>
+<section>
+<section id="criterios-de-descomposición-modular" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Criterios de descomposición modular</h1>
+
+</section>
+<section id="introducción-1" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Introducción</h2>
+<ul>
 <li><p>No existe una única forma de descomponer un programa en módulos (entiendo aquí por <em>módulo</em> cualquier parte del programa en sentido amplio, incluyendo una simple función).</p></li>
 <li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
 <li><p>Nos interesa responder a las siguientes preguntas:</p>
@@ -554,14 +639,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>¿Cuántos módulos debe tener nuestro programa?</p></li>
 <li><p>¿De qué tamaño deben ser los módulos?</p></li>
 </ul></li>
-</ul></section><section id="tamaño-y-número" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Tamaño y número</h2><ul>
+</ul>
+</section>
+
+<section id="tamaño-y-número" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Tamaño y número</h2>
+<ul>
 <li><p>Se supone que, si seguimos al pie de la letra la estrategia de diseño basada en la división de problemas, sería posible concluir que si el programa se dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta llegar a cero.</p></li>
 <li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.</p></li>
 <li><p>El coste de desarrollar un módulo individual disminuye conforme aumenta el número de módulos.</p></li>
 <li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay, más pequeños son.</p></li>
 <li><p>Sin embargo, cuantos más módulos hay, más cuesta integrarlos.</p></li>
 <li><p>El tamaño de cada módulo debe ser el adecuado: si es demasiado grande, será difícil hacer cambios en él; si es demasiado pequeño, no merecerá la pena tratarlo como un módulo, sino más bien como parte de otros módulos.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.2.0.1">
 
 <ul>
 <li>El valor <span class="math inline">M</span> es el número de módulos ideal, ya que reduce el coste total del desarrollo.</li>
@@ -571,7 +663,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img data-src="images/modulos.png" class="plain" style="width:80.0%" alt="" /><figcaption>Esfuerzo frente al número de módulos</figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.2">
 
 <ul>
 <li><p>Las curvas de la figura anterior constituyen una guía útil al considerar la modularidad.</p></li>
@@ -580,12 +673,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Debe hacerse un diseño con módulos, de manera que el desarrollo pueda planearse con más facilidad, que los cambios se realicen con más facilidad, que las pruebas y la depuración se efectúen con mayor eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de importancia.</p></li>
 <li><p>Para ello nos basaremos en los siguientes <strong>criterios</strong>.</p></li>
 </ul>
-</section><section id="abstracción" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Abstracción</h2><ul>
+</section>
+
+<section id="abstracción" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Abstracción</h2>
+<ul>
 <li><p>La <strong>abstracción</strong> es un proceso mental que se basa en estudiar un aspecto del problema a un determinado nivel centrándose en lo esencial e ignorando momentáneamente los detalles que no son importantes en este nivel.</p></li>
 <li><p>Igualmente, nos permite comprender la esencia de un subsistema sin tener que conocer detalles innecesarios del mismo.</p></li>
 <li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
 <li><p>La abstracción se usa principalmente como una técnica de <strong>manejo y control de la complejidad</strong>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.3.0.1">
 
 <ul>
 <li><p>Cuando se considera una solución modular a cualquier problema, se pueden definir varios <strong>niveles de abstracción</strong>:</p>
@@ -596,7 +695,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A estos niveles se revelan más detalles, aparecen más elementos y se aumenta la cantidad de información con la que tenemos que trabajar.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.3.0.2">
 
 <ul>
 <li><p>La barrera de separación entre un nivel de abstracción y su inmediatamente inferior es la diferencia entre el <em>qué</em> y el <em>cómo</em>:</p>
@@ -606,7 +706,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>Esta división o separación puede continuar en niveles inferiores, de forma que siempre puede considerarse que cualquier nivel responde al <em>qué</em> y el nivel siguiente responde al <em>cómo</em>.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.3.0.3">
 
 <ul>
 <li><p>Recordemos que un módulo tiene siempre un doble punto de vista:</p>
@@ -621,7 +722,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El responsable del <em>cómo</em> es únicamente el <strong>creador</strong> del módulo.</p></li>
 <li><p>Los módulos definidos como abstracciones son más fáciles de usar, diseñar y mantener.</p></li>
 </ul>
-</section><section id="ocultación-de-información" class="title-slide slide level2"><h2><span class="header-section-number">3.4</span> Ocultación de información</h2><ul>
+</section>
+
+<section id="ocultación-de-información" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> Ocultación de información</h2>
+<ul>
 <li><p>David Parnas introdujo el <strong>principio de ocultación de información</strong> en 1972.</p></li>
 <li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de <em>decisiones de diseño</em> complejas o que puedan cambiar en el futuro</strong>, es decir, que los módulos se deben caracterizar por ocultar <em>decisiones de diseño</em> a los demás módulos.</p>
 <div class="caja">
@@ -629,7 +734,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div></li>
 <li><p>Al ocultar la información de esa manera se evita que los usuarios de un módulo necesiten de un conocimiento íntimo del diseño interno del mismo para poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
 <li><p>Implica que la modularidad efectiva se logra <strong>definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione</strong>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.4.0.1">
 
 <ul>
 <li><p>Dicho de otra forma:</p>
@@ -645,7 +752,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="caja">
 <p>Es decir: cada módulo debe ser una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.4.0.2">
 
 <ul>
 <li><p>La <strong>abstracción</strong> y la <strong>ocultación de información</strong> se complementan:</p>
@@ -654,7 +762,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La <strong>abstracción</strong> puede usarse como una <strong>técnica de diseño</strong> que nos ayuda a cumplir con el principio de ocultación de información, porque nos permite descomponer el programa en módulos y <strong>nos ayuda a identificar qué detalles hay que ocultar</strong> y qué información hay que exponer a los demás.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.4.0.3">
 
 <ul>
 <li><p>Al <strong>usuario</strong> de un módulo…</p>
@@ -668,7 +777,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>… le interesa la <strong>ocultación de información</strong> porque cuantos más detalles necesiten conocer los usuarios para poder usar su módulo, menos libertad dentrá de poder cambiar esos detalles en el futuro (cuando lo necesite o cuando lo desee) sin afectar a los usuarios de su módulo.</p></li>
 </ul></li>
 </ul>
-</section><section id="independencia-funcional" class="title-slide slide level2"><h2><span class="header-section-number">3.5</span> Independencia funcional</h2><ul>
+</section>
+
+<section id="independencia-funcional" class="title-slide slide level2" data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span> Independencia funcional</h2>
+<ul>
 <li><p>La independencia funcional se logra desarrollando módulos de manera que cada módulo resuelva una funcionalidad específica y tenga una interfaz sencilla cuando se vea desde otras partes de del programa (idealmente, mediante paso de parámetros).</p>
 <ul>
 <li>De hecho, la interfaz del módulo debe estar destinada únicamente a cumplir con esa funcionalidad.</li>
@@ -678,7 +791,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="caja">
 <p>Dicho de otra forma: los módulos deben centrarse en resolver un problema concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a relacionarse con otros módulos.</p>
 </div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.5.0.1">
 
 <ul>
 <li><p>Los módulos independientes son más fáciles de desarrollar porque la función del programa se subdivide y las interfaces se simplifican, por lo que se pueden desarrollar por separado.</p></li>
@@ -688,20 +803,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La independencia funcional se mide usando dos métricas: la <strong>cohesión</strong> y el <strong>acoplamiento</strong>.</p></li>
 <li><p>El objetivo de la independencia funcional es <strong>maximizar la cohesión y minimizar el acoplamiento</strong>.</p></li>
 </ul>
-</section><section id="cohesión" class="title-slide slide level3"><h3><span class="header-section-number">3.5.1</span> Cohesión</h3><ul>
+</section>
+<section id="cohesión" class="title-slide slide level3" data-number="3.5.1">
+<h3 data-number="3.5.1"><span class="header-section-number">3.5.1</span> Cohesión</h3>
+<ul>
 <li><p>La <strong>cohesión</strong> mide la fuerza con la que se relacionan los componentes de un módulo.</p></li>
 <li><p>Cuanto más cohesivo sea un módulo, mejor será nuestro diseño modular.</p></li>
 <li><p>Un módulo cohesivo realiza una sola función, por lo que requiere interactuar poco con otros componentes en otras partes del programa.</p></li>
 <li><p>En un módulo cohesivo, sus componentes están fuertemente relacionados entre sí y pertenencen al módulo por una razón lógica (no están ahí por casualidad), es decir, todos cooperan para alcanzar un objetivo común que es la función del módulo.</p></li>
 <li><p>Un módulo cohesivo mantiene unidos (<em>atrae</em>) los componentes que están relacionados entre ellos y mantiene fuera (<em>repele</em>) el resto.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.5.1.1">
 
 <ul>
 <li><p>En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos los elementos que lo componen deben contrubuir a alcanzar dicho objetivo.</p></li>
 <li><p>Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice varias tareas, siempre que contribuyan a una misma finalidad lógica.</p></li>
 <li><p>Sin embargo, para lograr un buen diseño hay que evitar módulos que llevan a cabo funciones no relacionadas.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.1.2">
 
 <ul>
 <li><p>La siguiente es una escala de grados de cohesión, ordenada de mayor a menor:</p>
@@ -717,14 +838,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>No hace falta determinar con precisión qué cohesión tenemos. Lo importante es intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión para modificar el diseño y conseguir una mayor independencia funcional.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.1.3">
 
 <ul>
 <li><p><strong>Cohesión funcional</strong>: se da cuando los componentes del módulo pertenecen al mismo porque todos contribuyen a una tarea única y bien definida del módulo.</p></li>
 <li><p><strong>Cohesión secuencial</strong>: se da cuando los componentes del módulo pertenecen al mismo porque la salida de uno es la entrada del otro, como en una cadena de montaje (por ejemplo, una función que lee datos de un archivo y los procesa).</p></li>
 <li><p><strong>Cohesión de comunicación</strong>: se da cuando los componentes del módulo pertenecen al mismo porque trabajan sobre los mismos datos (por ejemplo, un módulo que procesa números racionales).</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.1.4">
 
 <ul>
 <li><p><strong>Cohesión procedimental</strong>: se da cuando los componentes del módulo pertenecen al mismo porque siguen una cierta secuencia de ejecución (por ejemplo, una función que comprueba los permisos de un archivo y después lo abre).</p></li>
@@ -732,7 +855,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Cohesión lógica</strong>: se da cuando los componentes del módulo pertenecen al mismo porque pertenencen a la misma categoría lógica aunque son esencialmente distintos (por ejemplo, un módulo que agrupe las funciones de manejo del teclado o el ratón).</p></li>
 <li><p><strong>Cohesión coincidental</strong>: se da cuando los componentes del módulo pertenecen al mismo por casualidad o por razones arbitrarias, es decir, que la única razón por la que se encuentran en el mismo módulo es porque se han agrupado juntos (por ejemplo, un módulo de «utilidades»).</p></li>
 </ul>
-</section><section id="acoplamiento" class="title-slide slide level3"><h3><span class="header-section-number">3.5.2</span> Acoplamiento</h3><ul>
+</section>
+
+<section id="acoplamiento" class="title-slide slide level3" data-number="3.5.2">
+<h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span> Acoplamiento</h3>
+<ul>
 <li><p>El <strong>acoplamiento</strong> es una medida del grado de interdependencia entre los módulos de un programa.</p></li>
 <li><p>Dicho de otra forma, es la fuerza con la que se relacionan los módulos de un programa.</p></li>
 <li><p>El acoplamiento depende de:</p>
@@ -743,7 +870,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>Lo deseable es tener módulos con poco acoplamiento, es decir, módulos que dependan poco unos de otros.</p></li>
 <li><p>De esta forma obtenemos programas más fáciles de entender y menos propensos al <em>efecto ola</em>, que ocurre cuando se dan errores en un sitio y se propagan por todo el programa.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.5.2.1">
 
 <ul>
 <li><p>Los programas con alto acoplamiento tienden a presentar los siguientes problemas:</p>
@@ -753,7 +882,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Un módulo particular resulta más difícil de reutilizar o probar debido a que hay que incluir en el lote a los módulos de los que depende éste (no se puede reutilizar o probar por separado).</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.2.2">
 
 <ul>
 <li><p>La siguiente es una escala de grados de acoplamiento, ordenada de mayor a menor:</p>
@@ -768,7 +898,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>No hace falta determinar con precisión qué cohesión tenemos. Lo importante es intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión para modificar el diseño y conseguir una mayor independencia funcional.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.2.3">
 
 <ul>
 <li><p><strong>Acoplamiento por contenido</strong>: ocurre cuando un módulo modifica o se apoya en el funcionamiento interno de otro módulo (por ejemplo, accediendo a datos locales del otro módulo). Cambiar la forma en que el segundo módulo produce los datos obligará a cambiar el módulo dependiente.</p></li>
@@ -776,20 +907,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Acoplamiento externo</strong>: ocurre cuando dos módulos comparten un formato de datos impuesto externamente, un protocolo de comunicación o una interfaz de dispositivo de entrada/salida.</p></li>
 <li><p><strong>Acoplamiento de control</strong>: ocurre cuando un módulo controla el flujo de ejecución del otro (por ejemplo, pasándole un <em>conmutador</em> booleano).</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.5.2.4">
 
 <ul>
 <li><p><strong>Acoplamiento por estampado</strong>: ocurre cuando los módulos comparten una estructura de datos compuesta y usan sólo una parte de ella, posiblemente una parte diferente. Esto podría llevar a cambiar la forma en la que un módulo lee un dato compuesto debido a que un elemento que el módulo no necesita ha sido modificado.</p></li>
 <li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho parámetro es la única información compartida (por ejemplo, pasando un entero a una función que calcula una raíz cuadrada).</p></li>
 <li><p><strong>Sin acoplamiento</strong>: ocurre cuando los módulos no se comunican para nada uno con otro.</p></li>
 </ul>
-</section><section id="reusabilidad" class="title-slide slide level2"><h2><span class="header-section-number">3.6</span> Reusabilidad</h2><ul>
+</section>
+
+
+<section id="reusabilidad" class="title-slide slide level2" data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span> Reusabilidad</h2>
+<ul>
 <li><p>La <strong>reusabilidad</strong> es un factor de calidad del software que se puede aplicar tambien a sus componentes o módulos.</p></li>
 <li><p>Un módulo es <strong>reusable</strong> cuando puede aprovecharse para ser utilizado (tal cual o con muy poca modificación) en varios programas.</p></li>
 <li><p>A la hora de diseñar módulos (o de descomponer un programa en módulos) nos interesa que los módulos resultantes sean cuanto más reusables mejor.</p></li>
 <li><p>Para ello, el módulo en cuestión debe ser lo suficientemente general y resolver un problema patrón que sea suficientemente común y se pueda encontrar en varios contextos y programas diferentes.</p></li>
 <li><p>Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un bajo acoplamiento y que, por tanto, no dependa de otros módulos del programa.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.6.0.1">
 
 <ul>
 <li><p>Esos módulos incluso podrían luego formar parte de una <em>biblioteca</em> o <em>repositorio</em> de módulos y ponerlos a disposición de los programadores para que puedan usarlos en sus programas.</p></li>
@@ -797,15 +936,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Es decir: la programación se ha convertido en una actividad consistente principalmente en ir combinando componentes intercambiables.</p></li>
 <li><p>Eso nos permite acortar el tiempo de desarrollo porque podemos construir un programa a base de ir ensamblando módulos reusables como si fueran las piezas del engranaje de una máquina.</p></li>
 </ul>
-</section></section>
-<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
+</section>
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered" data-number="">
+<h1 class="unnumbered" data-number="">Bibliografía</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-pressman_ingenierisoftware:_2004">
 <p>Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>. Madrid: McGraw-Hill.</p>
 </div>
 <div id="ref-python_software_foundation_sitio_nodate">
 <p>Python Software Foundation. n.d. “Sitio Web de Documentación de Python.” <a href="https://docs.python.org/3">https://docs.python.org/3</a>.</p>
 </div>
-</div></section>
+</div>
+</section>
     </div>
   </div>
 

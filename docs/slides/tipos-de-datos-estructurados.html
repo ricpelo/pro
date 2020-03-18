@@ -18,19 +18,18 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -50,7 +49,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -95,14 +94,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -236,7 +241,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 
-<section><section id="conceptos-básicos" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Conceptos básicos</h1></section><section id="introducción" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Introducción</h2><ul>
+<section>
+<section id="conceptos-básicos" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Conceptos básicos</h1>
+
+</section>
+<section id="introducción" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Introducción</h2>
+<ul>
 <li><p>Un <strong>dato estructurado</strong> o <strong>dato compuesto</strong> es un dato formado, a su vez, por otros datos llamados <strong>componentes</strong> o <strong>elementos</strong>.</p></li>
 <li><p>Un <strong>tipo de dato estructurado</strong>, también llamado <strong>tipo compuesto</strong>, es aquel cuyos valores son datos estructurados.</p></li>
 <li><p>Frecuentemente se puede acceder de manera individual a los elementos que componen un dato estructurado y a veces, también, se pueden modificar de manera individual.</p></li>
@@ -245,7 +257,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Usaremos <strong>tipo de dato estructurado</strong> cuando usemos un dato sin conocer sus detalles internos de implementación.</p></li>
 <li><p>Usaremos <strong>estructura de datos</strong> cuando nos interesen esos detalles internos.</p></li>
 </ul></li>
-</ul></section><section id="hashables" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> <em>Hashables</em></h2><ul>
+</ul>
+</section>
+
+<section id="hashables" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> <em>Hashables</em></h2>
+<ul>
 <li><p>Un valor es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
 <ul>
 <li><p>Tiene asociado un valor <em>hash</em> que nunca cambia durante su vida.</p>
@@ -253,7 +270,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos usando el operador <code>==</code>.</p></li>
 </ul></li>
 <li><p>Si dos valores <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.2.0.1">
 
 <ul>
 <li><p>La mayoría de los valores inmutables predefinidos en Python son <em>hashables</em>.</p></li>
@@ -262,7 +281,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>El concepto de <em>hashable</em> es importante en Python ya que existen tipos de datos estructurados que sólo admiten valores <em>hashables</em>.</p></li>
 <li><p>Por ejemplo, los elementos de un conjunto y las claves de un diccionario deben ser <em>hashables</em>.</p></li>
 </ul>
-</section><section id="iterables" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Iterables</h2><ul>
+</section>
+
+<section id="iterables" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Iterables</h2>
+<ul>
 <li><p>Un <strong>iterable</strong> es un dato compuesto que se puede recorrer o visitar elemento a elemento, es decir, que se puede <em>iterar</em> por sus elementos uno a uno.</p></li>
 <li><p>Como iterables tenemos:</p>
 <ul>
@@ -272,14 +295,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>No representa un tipo concreto, sino más bien una <em>familia</em> de tipos que comparten la misma propiedad.</p></li>
 <li><p>Muchas funciones, como <code>map()</code> y <code>filter()</code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
 <li><p>La forma básica de recorrer un dato iterable es usando un <strong>iterador</strong>.</p></li>
-</ul></section><section id="iteradores" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Iteradores</h2><ul>
+</ul>
+</section>
+
+<section id="iteradores" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Iteradores</h2>
+<ul>
 <li><p>Un <strong>iterador</strong> representa un flujo de datos <em>perezoso</em> (no se entregan todos de una vez, sino de uno en uno).</p></li>
 <li><p>Cuando se llama repetidamente a la función <code>next()</code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
 <li><p>Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo <code>StopIteration</code>.</p>
 <p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next()</code> se seguirá levantando esa excepción.</p></li>
 <li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code>iter()</code> al iterable.</p></li>
 <li><p>Si se le pasa un dato no iterable, levanta una excepción <code>TypeError</code>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.0.1">
 
 <ul>
 <li><p>Ejemplo:</p>
@@ -298,7 +328,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-13"><a href="#cb1-13"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb1-14"><a href="#cb1-14"></a><span class="pp">StopIteration</span></span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.0.2">
 
 <ul>
 <li><p>También se suele decir que <strong>los iteradores son iterables perezosos de un solo uso</strong>:</p>
@@ -308,7 +339,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>Se dice que un iterador está <strong>agotado</strong> si se ha consumido completamente, es decir, si se han consumido todos sus elementos.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.0.3">
 
 <ul>
 <li><p>Funciones como <code>map()</code> y <code>filter()</code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
@@ -320,7 +352,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4"></a><span class="op">&gt;&gt;&gt;</span> t</span>
 <span id="cb2-5"><a href="#cb2-5"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.0.4">
 
 <ul>
 <li><p>Los iteradores también son iterables que actúan como sus propios iteradores.</p></li>
@@ -334,7 +367,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="#cb3-7"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span></code></pre></div></li>
 <li><p>Por tanto, también podemos usar un iterador en cualquier sitio donde se espere un iterable.</p></li>
 </ul>
-</section><section id="expresiones-generadoras" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Expresiones generadoras</h3><ul>
+</section>
+<section id="expresiones-generadoras" class="title-slide slide level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Expresiones generadoras</h3>
+<ul>
 <li><p>Una <strong>expresión generadora</strong> es una expresión que <strong>devuelve un iterador</strong> y que tiene la misma sintaxis que las <strong>listas por comprensión</strong>, salvo que va encerrada entre paréntesis en lugar de entre corchetes:</p>
 <div class="line-block"><span style="color:teal">⟨<em>expr_gen</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>)</code></strong></div></li>
 <li><p>Ejemplo:</p>
@@ -347,22 +383,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-7"><a href="#cb4-7"></a><span class="dv">4</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="dv">9</span></span></code></pre></div></li>
-</ul></section><section id="el-bucle-for" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> El bucle <code>for</code></h3><ul>
+</ul>
+</section>
+
+<section id="el-bucle-for" class="title-slide slide level3" data-number="1.4.2">
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> El bucle <code>for</code></h3>
+<ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante un bucle <code>for</code>.</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><strong><code>for</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>)* <strong><code>in</code></strong> <span style="color:teal">⟨<em>iterable</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span></div>
 <p>que equivale a:</p>
 <div class="line-block">iterador = iter(<span style="color:teal">⟨<em>iterable</em>⟩</span>)<br />
-fin = False<br />
-while not fin:<br />
-      try:<br />
+fin = <strong><code>False</code></strong><br />
+<strong><code>while</code></strong> <strong><code>not</code></strong> fin:<br />
+      <strong><code>try</code></strong>:<br />
             <span style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>)* = next(iterador)<br />
-      except StopIteration:<br />
-            fin = True<br />
-      else:<br />
+      <strong><code>except</code></strong> StopIteration:<br />
+            fin = <strong><code>True</code></strong><br />
+      <strong><code>else</code></strong>:<br />
             <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.2.1">
 
 <ul>
 <li>Ejemplos:</li>
@@ -386,10 +429,16 @@ while not fin:<br />
 [1, 2, 1, 2]</code></pre>
 </div>
 </div>
-</section><section id="el-módulo-itertools" class="title-slide slide level3"><h3><span class="header-section-number">1.4.3</span> El módulo <code>itertools</code></h3><ul>
+</section>
+
+<section id="el-módulo-itertools" class="title-slide slide level3" data-number="1.4.3">
+<h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> El módulo <code>itertools</code></h3>
+<ul>
 <li><p>El módulo <code>itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
 <li><p>Veremos algunos ejemplos.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.3.1">
 
 <ul>
 <li><p><code>itertools.count(</code>[<span style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es 0) y el intervalo entre números (que por defecto es 1):</p>
@@ -408,8 +457,17 @@ while not fin:<br />
 <li><code>itertools.repeat('abc', 5)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc</li>
 </ul></li>
 </ul>
-</section></section>
-<section><section id="secuencias" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Secuencias</h1></section><section id="concepto-de-secuencia" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Concepto de secuencia</h2><ul>
+</section>
+
+</section>
+<section>
+<section id="secuencias" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Secuencias</h1>
+
+</section>
+<section id="concepto-de-secuencia" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Concepto de secuencia</h2>
+<ul>
 <li><p>Una secuencia es una estructura de datos que:</p>
 <ul>
 <li><p>permite el acceso eficiente a sus elementos mediante indexación <code>[</code><span class="math inline">i</span><code>]</code> (siendo <span class="math inline">i</span> un entero), y</p></li>
@@ -420,14 +478,21 @@ while not fin:<br />
 <li><p><strong>Inmutables</strong>: cadenas (<code>str</code>), tuplas (<code>tuple</code>) y rangos (<code>range</code>).</p></li>
 <li><p><strong>Mutables</strong>: listas (<code>list</code>)</p></li>
 </ul></li>
-</ul></section><section id="operaciones-comunes" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Operaciones comunes</h2><ul>
+</ul>
+</section>
+
+<section id="operaciones-comunes" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Operaciones comunes</h2>
+<ul>
 <li><p>Todas las secuencias (ya sean cadenas, listas, tuplas o rangos) comparten un conjunto de operaciones comunes.</p></li>
 <li><p>Además de estas operaciones, las secuencias del mismo tipo admiten comparaciones. Las tuplas y las listas se comparan lexicográficamente elemento a elemento.</p>
 <ul>
 <li>Eso significa que dos secuencias son iguales si cada elemento es igual y las dos secuencias son del mismo tipo y tienen la misma longitud.</li>
 </ul></li>
 <li><p>La siguiente tabla enumera las operaciones sobre secuencias, ordenadas por prioridad ascendente. <code>s</code> y <code>t</code> son secuencias del mismo tipo, <code>n</code>, <code>i</code>, <code>j</code> y <code>k</code> son enteros y <code>x</code> es un dato cualquiera que cumple con las restricciones que impone <code>s</code>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.1">
 
 <table>
 <colgroup>
@@ -492,18 +557,29 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section id="inmutables" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Inmutables</h2></section><section id="cadenas-str" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Cadenas (<code>str</code>)</h3><ul>
+</section>
+
+<section id="inmutables" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Inmutables</h2>
+
+</section>
+<section id="cadenas-str" class="title-slide slide level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Cadenas (<code>str</code>)</h3>
+<ul>
 <li><p>Las <strong>cadenas</strong> son secuencias inmutables y <em>hashables</em> de caracteres.</p></li>
 <li><p>No olvidemos que en Python no existe el tipo <em>carácter</em>. En Python, un carácter es una cadena de longitud 1.</p></li>
 <li><p>Las cadenas implementan todas las operaciones de las secuencias, además de los métodos que se pueden consultar en <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
-</ul></section><section id="formateado-de-cadenas" class="slide level4">
-<h4><span class="header-section-number">2.3.1.1</span> Formateado de cadenas</h4>
+</ul>
+</section>
+<section id="formateado-de-cadenas" class="slide level4" data-number="2.3.1.1">
+<h4 data-number="2.3.1.1"><span class="header-section-number">2.3.1.1</span> Formateado de cadenas</h4>
 <ul>
 <li><p>Una <strong>cadena formateada</strong> (también llamada <strong><em>f-string</em></strong>) es una cadena literal que lleva un prefijo <code>f</code> o <code>F</code>.</p></li>
 <li><p>Estas cadenas contienen <strong>campos de sustitución</strong>, que son expresiones encerradas entre llaves.</p></li>
 <li><p>En realidad, las cadenas formateadas son expresiones evaluadas en tiempo de ejecución.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.2">
 
 <ul>
 <li><p>Sintaxis:</p>
@@ -518,7 +594,8 @@ while not fin:<br />
 <li><p>También puede añadirse un <strong>especificador de formato</strong> (<span style="color:teal">⟨<em>especif</em>⟩</span>) después de dos puntos <code>:</code>.</p></li>
 <li><p>El campo de sustitución termina con una <code>}</code>.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.3">
 
 <ul>
 <li><p>Las expresiones en un literal de cadena formateada son tratadas como cualquier otra expresión Python encerrada entre paréntesis, con algunas excepciones:</p>
@@ -532,12 +609,12 @@ while not fin:<br />
 <li><p>A continuación, el resultado es formateado usando <code>format()</code>.</p></li>
 <li><p>Finalmente, el resultado del formateado es incluido en el valor final de la cadena completa.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.4">
 
 <ul>
 <li>La sintaxis general de un especificador de formato es:</li>
 </ul>
-
 <div class="line-block"><span style="color:teal">⟨<em>especif</em>⟩</span> ::= [[<span style="color:teal">⟨<em>relleno</em>⟩</span>]<span style="color:teal">⟨<em>alig</em>⟩</span>][<span style="color:teal">⟨<em>signo</em>⟩</span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span style="color:teal">⟨<em>ancho</em>⟩</span>][<span style="color:teal">⟨<em>grupos</em>⟩</span>][<strong><code>.</code></strong><span style="color:teal">⟨<em>precision</em>⟩</span>][<span style="color:teal">⟨<em>tipo</em>⟩</span>]<br />
 <span style="color:teal">⟨<em>relleno</em>⟩</span> ::= <span style="color:teal">⟨<em>cualquier carácter</em>⟩</span><br />
 <span style="color:teal">⟨<em>alig</em>⟩</span> ::= <strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong> | <strong><code>=</code></strong> | <strong><code>^</code></strong><br />
@@ -546,13 +623,13 @@ while not fin:<br />
 <span style="color:teal">⟨<em>grupos</em>⟩</span> ::= <strong><code>_</code></strong> | <strong><code>,</code></strong><br />
 <span style="color:teal">⟨<em>precision</em>⟩</span> ::= <span style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
 <span style="color:teal">⟨<em>tipo</em>⟩</span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div>
-
 <ul>
 <li><p>Los especificadores de formato de nivel superior pueden incluir campos de sustitución anidados.</p></li>
 <li><p>Estos campos anidados pueden incluir, a su vez, sus propios campos de conversión y sus propios especificadores de formato, pero no pueden incluir más campos de sustitución anidados.</p></li>
 <li><p>Para más información, consultar <a href="https://docs.python.org/3.7/library/string.html#format-specification-mini-language">https://docs.python.org/3.7/library/string.html#format-specification-mini-language</a></p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.5">
 
 <ul>
 <li><p>Algunos ejemplos de cadenas formateadas:</p>
@@ -574,8 +651,9 @@ while not fin:<br />
 <span id="cb9-16"><a href="#cb9-16"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>numero<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></span>
 <span id="cb9-17"><a href="#cb9-17"></a><span class="co">&#39;0x400&#39;</span></span></code></pre></div></li>
 </ul>
-</section><section id="expresiones-regulares" class="slide level4">
-<h4><span class="header-section-number">2.3.1.6</span> Expresiones regulares</h4>
+</section>
+<section id="expresiones-regulares" class="slide level4" data-number="2.3.1.6">
+<h4 data-number="2.3.1.6"><span class="header-section-number">2.3.1.6</span> Expresiones regulares</h4>
 <ul>
 <li><p>Las <strong>expresiones regulares</strong> (también llamados <em>regex</em>) son, esencialmente, un pequeño lenguaje de programación muy especializado incrustado dentro de Python y disponible a través del módulo <code>re</code>.</p></li>
 <li><p>Usando este pequeño lenguaje es posible especificar reglas para comprobar si una cadena se ajusta a un patrón.</p></li>
@@ -583,7 +661,8 @@ while not fin:<br />
 <li><p>A continuación, se pueden hacer preguntas del tipo: <em>«¿Esta cadena se ajusta al patrón?»</em> o <em>«¿Hay algo que se ajuste al patrón en alguna parte de esta cadena?»</em>.</p></li>
 <li><p>También se pueden usar las <em>regexes</em> para modificar una cadena o dividirla en partes.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.7">
 
 <ul>
 <li><p>El lenguaje de las expresiones regulares es relativamente pequeño y restringido, por lo que no es posible usarlo para realizar cualquier tipo de procesamiento de cadenas.</p></li>
@@ -591,7 +670,8 @@ while not fin:<br />
 <li><p>En estos casos, es mejor escribir directamente código Python.</p></li>
 <li><p>Aunque el código resultante pueda resultar más lento, probablemente resulte más fácil de leer.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.1.8">
 
 <ul>
 <li><p>Para más información sobre cómo crear y usar expresiones regulares, consultar:</p>
@@ -600,7 +680,11 @@ while not fin:<br />
 <li><p>Documentación del módulo <code>re</code> en <a href="https://docs.python.org/3/library/re.html">https://docs.python.org/3/library/re.html</a></p></li>
 </ul></li>
 </ul>
-</section><section id="tuplas" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Tuplas</h3><ul>
+</section>
+
+<section id="tuplas" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Tuplas</h3>
+<ul>
 <li><p>Las tuplas son secuencias inmutables, usadas frecuentemente para almacenar colecciones de datos heterogéneos (de tipos distintos).</p></li>
 <li><p>También se usan en aquellos casos en los que se necesita una secuencia inmutable de datos homogéneos (por ejemplo, para almacenar datos en un conjunto o un diccionario).</p></li>
 <li><p>Las tuplas se pueden crear:</p>
@@ -614,7 +698,9 @@ while not fin:<br />
 <p><code>(a, b, c)</code></p></li>
 <li><p>Usando la función <code>tuple()</code></p></li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.2.1">
 
 <ul>
 <li><p>Observar que lo que construye la tupla es realmente la coma, no los paréntesis.</p></li>
@@ -628,7 +714,11 @@ while not fin:<br />
 <li><p>En general, las tuplas se pueden considerar como la versión inmutable de las listas.</p></li>
 <li><p>Además, las tuplas son <em>hashables</em> si sus elementos también lo son.</p></li>
 </ul>
-</section><section id="rangos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> Rangos</h3><ul>
+</section>
+
+<section id="rangos" class="title-slide slide level3" data-number="2.3.3">
+<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Rangos</h3>
+<ul>
 <li><p>Los <strong>rangos</strong> representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
 <li><p>Los rangos se crean con la función <code>range()</code>:</p>
 <div class="line-block"><span style="color:teal">⟨<em>rango</em>⟩</span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal">⟨<em>inicio</em>⟩</span><strong><code>,</code></strong>] <span style="color:teal">⟨<em>fin</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>paso</em>⟩</span>]<strong><code>)</code></strong></div></li>
@@ -637,7 +727,9 @@ while not fin:<br />
 <li><p>El valor de <span style="color:teal">⟨<em>fin</em>⟩</span> no se alcanza nunca.</p></li>
 <li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> y <span style="color:teal">⟨<em>fin</em>⟩</span> son iguales, representa el <strong>rango vacío</strong>.</p></li>
 <li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> es mayor que <span style="color:teal">⟨<em>fin</em>⟩</span>, el <span style="color:teal">⟨<em>paso</em>⟩</span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.3.1">
 
 <ul>
 <li><p>El <strong>contenido</strong> de un rango <span class="math inline">r</span> vendrá determinado por la fórmula <span class="math inline">r[i] = inicio + paso \cdot i</span>, donde <span class="math inline">i \geq 0</span>. Además:</p>
@@ -651,7 +743,8 @@ while not fin:<br />
 <p>Esto es debido a que los rangos sólo pueden representar secuencias que siguen un patrón muy estricto, y las repeticiones y las concatenaciones a menudo violan ese patrón.</p></li>
 <li><p><strong>Los rangos son perezosos</strong> y además ocupan mucha menos memoria que las listas o las tuplas (sólo hay que almacenar <em>inicio</em>, <em>fin</em> y <em>paso</em>).</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.3.2">
 
 <ul>
 <li><p>Ejemplos:</p>
@@ -663,14 +756,15 @@ while not fin:<br />
 <span id="cb10-6"><a href="#cb10-6"></a>[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</span>
 <span id="cb10-7"><a href="#cb10-7"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</span>
 <span id="cb10-8"><a href="#cb10-8"></a>[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">-10</span>, <span class="dv">-1</span>))</span>
-<span id="cb10-10"><a href="#cb10-10"></a>[<span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">-3</span>, <span class="dv">-4</span>, <span class="dv">-5</span>, <span class="dv">-6</span>, <span class="dv">-7</span>, <span class="dv">-8</span>, <span class="dv">-9</span>]</span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb10-10"><a href="#cb10-10"></a>[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>]</span>
 <span id="cb10-11"><a href="#cb10-11"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</span>
 <span id="cb10-12"><a href="#cb10-12"></a>[]</span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb10-14"><a href="#cb10-14"></a>[]</span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.3.3.3">
 
 <ul>
 <li><p>Dos rangos son considerados iguales si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> o <span style="color:teal">⟨<em>paso</em>⟩</span>.</p></li>
@@ -680,7 +774,16 @@ while not fin:<br />
 <span id="cb11-3"><a href="#cb11-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
-</section><section id="mutables" class="title-slide slide level2"><h2><span class="header-section-number">2.4</span> Mutables</h2></section><section id="listas" class="title-slide slide level3"><h3><span class="header-section-number">2.4.1</span> Listas</h3><ul>
+</section>
+
+
+<section id="mutables" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Mutables</h2>
+
+</section>
+<section id="listas" class="title-slide slide level3" data-number="2.4.1">
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Listas</h3>
+<ul>
 <li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para almacenar colecciones de elementos heterogéneos.</p></li>
 <li><p>Al ser mutables, las listas <strong>no</strong> son <em>hashables</em>.</p></li>
 <li><p>Se pueden construir de varias maneras:</p>
@@ -692,7 +795,9 @@ while not fin:<br />
 <li><p>Usando una lista por comprensión: <code>[</code><span class="math inline">x\ </span> <code>for</code> <span class="math inline">\ x\ </span> <code>in</code> <span class="math inline">\!</span> <span style="color:teal">⟨<em>iterable</em>⟩</span><code>]</code></p></li>
 <li><p>Usando la función <code>list</code>: <code>list()</code> o <code>list(</code><span style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code></p></li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.1.1">
 
 <ul>
 <li><p>La función <code>list</code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal">⟨<em>iterable</em>⟩</span>.</p></li>
@@ -709,7 +814,8 @@ while not fin:<br />
 <span id="cb12-3"><a href="#cb12-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>( (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) )</span>
 <span id="cb12-4"><a href="#cb12-4"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.4.1.2">
 
 <ul>
 <li>En la siguiente tabla, <code>s</code> es una instancia de un tipo de secuencia mutable (en nuestro caso, una lista), <code>t</code> es cualquier dato iterable y <code>x</code> es un dato cualquiera que cumple con las restricciones que impone <code>s</code>:</li>
@@ -749,7 +855,8 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.4.1.3">
 
 <table>
 <colgroup>
@@ -809,7 +916,8 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.4.1.4">
 
 <ul>
 <li><p>Las listas, además, admiten el método <code>sort()</code>:</p>
@@ -821,8 +929,17 @@ while not fin:<br />
 <span id="cb13-6"><a href="#cb13-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb13-7"><a href="#cb13-7"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
 </ul>
-</section></section>
-<section><section id="estructuras-no-secuenciales" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Estructuras no secuenciales</h1></section><section id="conjuntos-set-y-frozenset" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2><ul>
+</section>
+
+</section>
+<section>
+<section id="estructuras-no-secuenciales" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Estructuras no secuenciales</h1>
+
+</section>
+<section id="conjuntos-set-y-frozenset" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2>
+<ul>
 <li><p>Un conjunto es una colección <strong>no ordenada</strong> de elementos <em>hashables</em>. Se usan frecuentemente para comprobar si un elemento pertenece a un grupo, para eliminar duplicados en una secuencia y para realizar operaciones matemáticas como la unión, la intersección y la diferencia simétrica.</p></li>
 <li><p>Como cualquier otra colección, los conjuntos permiten el uso de:</p>
 <ul>
@@ -832,7 +949,9 @@ while not fin:<br />
 </ul></li>
 <li><p>Como son colecciones no ordenadas, los conjuntos <strong>no almacenan la posición</strong> de los elementos o el <strong>orden</strong> en el que se insertaron.</p></li>
 <li><p>Por tanto, tampoco admite la indexación, las rodajas ni cualquier otro comportamiento propio de las secuencias.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.1.0.1">
 
 <ul>
 <li><p>Cuando decimos que <strong>un conjunto no está ordenado</strong>, queremos decir que los elementos que contiene no se encuentran situados en una posición concreta.</p>
@@ -847,7 +966,8 @@ while not fin:<br />
 <p>Si está, no podemos saber en qué posición (no tiene sentido preguntárselo).</p>
 </div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.1.0.2">
 
 <ul>
 <li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
@@ -857,7 +977,8 @@ while not fin:<br />
 </ul></li>
 <li><p>El tipo <code>frozenset</code> es <strong>inmutable</strong> y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.1.0.3">
 
 <ul>
 <li><p>Los conjuntos se crean con las funciones <code>set(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code> y <code>frozenset(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code>.</p>
@@ -879,7 +1000,8 @@ while not fin:<br />
 <span id="cb15-4"><a href="#cb15-4"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.1.0.4">
 
 <ul>
 <li><p>Además, existe una <em>sintaxis especial</em> para escribir <strong>literales de conjuntos no vacíos de tipo <code>set</code></strong>, que consiste en encerrar sus elementos entre llaves y separados por comas: <code>{'pepe', 'juan'}</code>.</p>
@@ -896,7 +1018,10 @@ while not fin:<br />
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})  <span class="co"># equivale a poner simplemente {4, 3, 2, 2, 4}</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span></code></pre></div></li>
 </ul>
-</section><section id="operaciones" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Operaciones</h3><ul>
+</section>
+<section id="operaciones" class="title-slide slide level3" data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Operaciones</h3>
+<ul>
 <li><code>s</code> y <code>o</code> son conjuntos, y <code>x</code> es un valor cualquiera:</li>
 </ul>
 <table>
@@ -946,7 +1071,9 @@ while not fin:<br />
 <td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un superconjunto propio de <span class="math inline">o</span></td>
 </tr>
 </tbody>
-</table></section><section class="slide level4">
+</table>
+</section>
+<section class="slide level4" data-number="3.1.1.1">
 
 <table>
 <colgroup>
@@ -986,7 +1113,8 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.1.1.2">
 
 <ul>
 <li><p>Tanto <code>set</code> como <code>frozenset</code> admiten <strong>comparaciones entre conjuntos</strong>.</p></li>
@@ -999,7 +1127,11 @@ while not fin:<br />
 <li><p><code>a &gt; b</code> si y sólo si <code>a</code> es un <em>superconjunto propio</em> de <code>b</code> (es decir, si <code>a</code> es un superconjunto de <code>b</code>, pero no es igual a <code>b</code>).</p></li>
 </ul></li>
 </ul>
-</section><section id="operaciones-sobre-conjuntos-mutables" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Operaciones sobre conjuntos mutables</h3><ul>
+</section>
+
+<section id="operaciones-sobre-conjuntos-mutables" class="title-slide slide level3" data-number="3.1.2">
+<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Operaciones sobre conjuntos mutables</h3>
+<ul>
 <li>Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo <code>set</code> y no al <code>frozenset</code>):</li>
 </ul>
 <table>
@@ -1035,7 +1167,9 @@ while not fin:<br />
 <td style="text-align: left;">Actualiza <span class="math inline">s</span> manteniendo sólo los elementos que están en <span class="math inline">s</span> y <span class="math inline">o</span> pero no en ambos</td>
 </tr>
 </tbody>
-</table></section><section class="slide level4">
+</table>
+</section>
+<section class="slide level4" data-number="3.1.2.1">
 
 <table>
 <colgroup>
@@ -1071,14 +1205,21 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section id="diccionarios-dict" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Diccionarios (<code>dict</code>)</h2><ul>
+</section>
+
+
+<section id="diccionarios-dict" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Diccionarios (<code>dict</code>)</h2>
+<ul>
 <li><p>Un <strong>diccionario</strong> es una colección que almacena <em>correspondencias</em> (o <em>asociaciones</em>) entre valores.</p></li>
 <li><p>Por tanto, <strong>los elementos de un diccionario son parejas de valores llamados <em>clave</em> y <em>valor</em></strong>, y lo que hace el diccionario es almacenar las <em>claves</em> y el <em>valor</em> que le corresponde a cada clave.</p></li>
 <li><p>Una restricción importante es que, en un diccionario dado, <strong>cada clave sólo puede asociarse con un único valor</strong>.</p></li>
 <li><p>Por tanto, <strong>en un diccionario no puede haber claves repetidas</strong>, es decir, que no puede haber dos elementos distintos con la misma clave.</p></li>
 <li><p>En la práctica, eso nos sirve para identificar cada elemento del diccionario por su clave.</p></li>
 <li><p>Además, los elementos de un diccionario son datos mutables y, por tanto, los diccionarios también son <strong>mutables</strong>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.2.0.1">
 
 <ul>
 <li><p>Los diccionarios se pueden crear:</p>
@@ -1096,7 +1237,8 @@ while not fin:<br />
 <span id="cb19-6"><a href="#cb19-6"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e</span>
 <span id="cb19-7"><a href="#cb19-7"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.2">
 
 <ul>
 <li><p>Si se intenta crear un diccionario con claves repetidas, sólo se almacenará uno de los elementos que tengan la misma clave (los demás se ignoran):</p>
@@ -1108,7 +1250,8 @@ while not fin:<br />
 <div class="caja">
 <p>A partir de Python 3.7, <strong>los elementos de un diccionario se almacenan en el orden en el que se van insertando</strong>.</p>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.3">
 
 <ul>
 <li><p>Las claves de un diccionario deben ser datos <em>hashables</em>.</p></li>
@@ -1118,7 +1261,8 @@ while not fin:<br />
 <li>Por tanto, si dos números son considerados iguales (como <code>1</code> y <code>1.0</code>) entonces se consideran la misma clave en el diccionario.</li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.4">
 
 <ul>
 <li><p>Para <strong>acceder a un elemento</strong> del diccionario se usa una sintaxis idéntica a la de la <strong>indexación</strong>, salvo que, en este caso, en lugar de usar el índice o posición del elemento, se usa la clave:</p>
@@ -1131,7 +1275,10 @@ while not fin:<br />
 <span id="cb22-3"><a href="#cb22-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb22-4"><a href="#cb22-4"></a><span class="pp">KeyError</span>: <span class="st">&#39;caballo&#39;</span></span></code></pre></div></li>
 </ul>
-</section><section id="operaciones-1" class="title-slide slide level3"><h3><span class="header-section-number">3.2.1</span> Operaciones</h3><ul>
+</section>
+<section id="operaciones-1" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Operaciones</h3>
+<ul>
 <li><code>d</code> y <code>o</code> son diccionarios, <code>c</code> es una clave válida y <code>v</code> es un valor cualquiera:</li>
 </ul>
 <table>
@@ -1179,7 +1326,9 @@ while not fin:<br />
 <td style="text-align: left;">Elimina y devuelve el valor de <span class="math inline">c</span> si <span class="math inline">c</span> está en <span class="math inline">d</span>; en caso contrario, devuelve <span class="math inline">def</span> (si no se pasa <span class="math inline">def</span> y <span class="math inline">c</span> no está en <span class="math inline">d</span>, produce un <code>KeyError</code>)</td>
 </tr>
 </tbody>
-</table></section><section class="slide level4">
+</table>
+</section>
+<section class="slide level4" data-number="3.2.1.1">
 
 <table>
 <colgroup>
@@ -1207,7 +1356,11 @@ while not fin:<br />
 </tr>
 </tbody>
 </table>
-</section><section id="recorrido-de-diccionarios" class="title-slide slide level3"><h3><span class="header-section-number">3.2.2</span> Recorrido de diccionarios</h3><ul>
+</section>
+
+<section id="recorrido-de-diccionarios" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Recorrido de diccionarios</h3>
+<ul>
 <li><p>Como cualquier otro dato iterable, los diccionarios se pueden recorrer usando iteradores.</p></li>
 <li><p>Los iteradores creados sobre un diccionario, en realidad, recorren sus <strong>claves</strong>:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
@@ -1223,7 +1376,9 @@ while not fin:<br />
 <span id="cb24-3"><a href="#cb24-3"></a>...</span>
 <span id="cb24-4"><a href="#cb24-4"></a>a</span>
 <span id="cb24-5"><a href="#cb24-5"></a>b</span></code></pre></div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.2.2.1">
 
 <ul>
 <li><p>Si necesitamos acceder también a los valores de un diccionario mientras lo recorremos con un bucle <code>for</code>, tenemos dos opciones:</p>
@@ -1244,7 +1399,8 @@ while not fin:<br />
 <span id="cb26-7"><a href="#cb26-7"></a>b <span class="dv">2</span></span></code></pre></div></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.2.2">
 
 <ul>
 <li>Otros métodos útiles para recorrer un diccionario son <code>keys()</code> y <code>values()</code>.</li>
@@ -1282,12 +1438,17 @@ while not fin:<br />
 <span id="cb29-4"><a href="#cb29-4"></a>a</span>
 <span id="cb29-5"><a href="#cb29-5"></a>b</span></code></pre></div></li>
 </ul>
-</section></section>
-<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
+</section>
+
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered" data-number="">
+<h1 class="unnumbered" data-number="">Bibliografía</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-python_software_foundation_sitio_nodate">
 <p>Python Software Foundation. n.d. “Sitio Web de Documentación de Python.” <a href="https://docs.python.org/3">https://docs.python.org/3</a>.</p>
 </div>
-</div></section>
+</div>
+</section>
     </div>
   </div>
 

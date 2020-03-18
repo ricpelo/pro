@@ -18,19 +18,18 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -50,7 +49,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -95,14 +94,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -240,7 +245,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 
-<section><section id="conceptos-básicos" class="title-slide slide level1"><h1><span class="header-section-number">1</span> Conceptos básicos</h1><!--
+<section>
+<section id="conceptos-básicos" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Conceptos básicos</h1>
+<!--
 
 ---
 
@@ -249,7 +257,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the letter A in the English alphabet?","a":[{"option":"8","correct":false},{"option":"14","correct":false},{"option":"1","correct":true},{"option":"23","correct":false}],"correct":"<p><span>\u00a1Eso es!</span>The letter A is the first letter in the alphabet!</p>","incorrect":"<p><span>Mmmm... no.</span>It's the first letter of the alphabet. Did you actually <em>go</em> to kindergarden?</p>"}]}</script>
 ```
 
---></section><section id="informática" class="title-slide slide level2"><h2><span class="header-section-number">1.1</span> Informática</h2><ul>
+-->
+</section>
+<section id="informática" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Informática</h2>
+<ul>
 <li><p>Definición:</p>
 <div class="caja">
 <p><strong>Informática</strong>:</p>
@@ -261,7 +273,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>elementos lógicos (<strong>software</strong>) y</li>
 <li>elementos humanos (profesionales y usuarios).</li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.1.0.1">
 
 <ul>
 <li><p>El <em>hardware</em> es todo aquello que podemos tocar:</p>
@@ -278,7 +292,10 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>Pero en este módulo, cuando hablemos de <em>software</em> en general, nos estaremos refiriendo a <strong>programas</strong>.</p></li>
 </ul>
-</section><section id="procesamiento-automático" class="title-slide slide level3"><h3><span class="header-section-number">1.1.1</span> Procesamiento automático</h3><ul>
+</section>
+<section id="procesamiento-automático" class="title-slide slide level3" data-number="1.1.1">
+<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span> Procesamiento automático</h3>
+<ul>
 <li>El procesamiento automático de la información siempre tiene el mismo esquema de funcionamiento:</li>
 </ul>
 <div class="centered">
@@ -290,8 +307,10 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul>
 <div class="caja">
 <p>La <strong>Programación</strong> es la ciencia y el arte de diseñar dichos programas.</p>
-</div></section><section id="ejemplos" class="slide level4">
-<h4><span class="header-section-number">1.1.1.1</span> Ejemplos</h4>
+</div>
+</section>
+<section id="ejemplos" class="slide level4" data-number="1.1.1.1">
+<h4 data-number="1.1.1.1"><span class="header-section-number">1.1.1.1</span> Ejemplos</h4>
 <ul>
 <li><p>Calcular la suma de cinco números:</p>
 <ul>
@@ -306,7 +325,16 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p><strong>Salida</strong>: la lista ordenada de alumnos aprobados.</p></li>
 </ul></li>
 </ul>
-</section><section id="ordenador" class="title-slide slide level2"><h2><span class="header-section-number">1.2</span> Ordenador</h2></section><section id="definición" class="title-slide slide level3"><h3><span class="header-section-number">1.2.1</span> Definición</h3><div class="caja">
+</section>
+
+
+<section id="ordenador" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Ordenador</h2>
+
+</section>
+<section id="definición" class="title-slide slide level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Definición</h3>
+<div class="caja">
 <p><strong>Ordenador</strong>:</p>
 <p>Un ordenador es una máquina que procesa información automáticamente de acuerdo con un programa almacenado.</p>
 </div>
@@ -316,8 +344,15 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>El procesamiento se realiza de forma <em>automática</em>.</p></li>
 <li><p>El procesamiento se realiza siguiendo un <em>programa</em> (<em>software</em>).</p></li>
 <li><p>Este programa está <em>almacenado</em> en una memoria interna del mismo ordenador (arquitectura de <strong>Von Neumann</strong>).</p></li>
-</ul></section><section id="funcionamiento-básico" class="title-slide slide level3"><h3><span class="header-section-number">1.2.2</span> Funcionamiento básico</h3></section><section id="elementos-funcionales" class="slide level4">
-<h4><span class="header-section-number">1.2.2.1</span> Elementos funcionales</h4>
+</ul>
+</section>
+
+<section id="funcionamiento-básico" class="title-slide slide level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Funcionamiento básico</h3>
+
+</section>
+<section id="elementos-funcionales" class="slide level4" data-number="1.2.2.1">
+<h4 data-number="1.2.2.1"><span class="header-section-number">1.2.2.1</span> Elementos funcionales</h4>
 <ul>
 <li><p>Un ordenador consta de tres componentes principales:</p>
 <ol type="1">
@@ -342,16 +377,18 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ol></li>
 </ul>
-</section><section id="unidad-central-de-proceso-cpu-o-procesador" class="slide level4">
-<h4><span class="header-section-number">1.2.2.2</span> Unidad central de proceso (CPU) o procesador</h4>
+</section>
+<section id="unidad-central-de-proceso-cpu-o-procesador" class="slide level4" data-number="1.2.2.2">
+<h4 data-number="1.2.2.2"><span class="header-section-number">1.2.2.2</span> Unidad central de proceso (CPU) o procesador</h4>
 <ul>
 <li><p><strong>Unidad aritmético-lógica (ALU)</strong>:</p>
 <p>Realiza los cálculos y el procesamiento numérico y lógico.</p></li>
 <li><p><strong>Unidad de control (UC)</strong>:</p>
 <p>Ejecuta de las instrucciones enviando las señales a las distintas unidades funcionales involucradas.</p></li>
 </ul>
-</section><section id="memoria" class="slide level4">
-<h4><span class="header-section-number">1.2.2.3</span> Memoria</h4>
+</section>
+<section id="memoria" class="slide level4" data-number="1.2.2.3">
+<h4 data-number="1.2.2.3"><span class="header-section-number">1.2.2.3</span> Memoria</h4>
 <ul>
 <li><p><strong>Memoria principal</strong> o central:</p>
 <p>Almacena los datos y los programas que los manipulan.</p>
@@ -368,8 +405,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <p>La información no se pierde al apagar el ordenador.</p>
 <p>Más lenta que la memoria principal, pero de mucha más capacidad.</p></li>
 </ul>
-</section><section id="dispositivos-de-es" class="slide level4">
-<h4><span class="header-section-number">1.2.2.4</span> Dispositivos de E/S</h4>
+</section>
+<section id="dispositivos-de-es" class="slide level4" data-number="1.2.2.4">
+<h4 data-number="1.2.2.4"><span class="header-section-number">1.2.2.4</span> Dispositivos de E/S</h4>
 <ul>
 <li><p><strong>Dispositivos de entrada</strong>:</p>
 <p>Introducen datos en el ordenador (<em>ejemplos</em>: teclado, ratón, escáner…)</p></li>
@@ -383,7 +421,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Los soportes de <strong>lectura/escritura</strong> operan como dispositivos de entrada/salida (<em>ejemplos</em>: discos duros, pendrives, tarjetas SD…).</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.2.2.5">
 
 <div class="centered">
 <figure>
@@ -396,8 +435,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Durante la ejecución del programa, la CPU recogerá los datos de entrada desde los dispositivos de entrada y los almacenará en la memoria principal, para que las instrucciones puedan operar con ellos.</p></li>
 <li><p>Al finalizar el programa, los datos de salida se volcarán hacia los dispositivos de salida.</p></li>
 </ul>
-</section><section id="ciclo-de-instrucción" class="slide level4">
-<h4><span class="header-section-number">1.2.2.6</span> Ciclo de instrucción</h4>
+</section>
+<section id="ciclo-de-instrucción" class="slide level4" data-number="1.2.2.6">
+<h4 data-number="1.2.2.6"><span class="header-section-number">1.2.2.6</span> Ciclo de instrucción</h4>
 <ul>
 <li><p>En la <strong>arquitectura Von Neumann</strong>, los programas se almacenan en la memoria principal junto con los datos (por eso también se denomina «arquitectura de <strong>programa almacenado</strong>»).</p></li>
 <li><p>Una vez que el programa está cargado en memoria, la CPU repite siempre los mismos pasos:</p>
@@ -407,15 +447,17 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>(<strong>Execute</strong>) Ejecuta la instrucción (envía las señales de control necesarias a las distintas unidades funcionales).</p></li>
 </ol></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.2.2.7">
 
 <div class="centered">
 <figure>
 <img data-src="images/ciclo-instruccion.svg" class="plain" style="width:80.0%" alt="" /><figcaption>Ciclo de instrucción</figcaption>
 </figure>
 </div>
-</section><section id="representación-de-información" class="slide level4">
-<h4><span class="header-section-number">1.2.2.8</span> Representación de información</h4>
+</section>
+<section id="representación-de-información" class="slide level4" data-number="1.2.2.8">
+<h4 data-number="1.2.2.8"><span class="header-section-number">1.2.2.8</span> Representación de información</h4>
 <ul>
 <li><p>En un sistema informático, toda la información se almacena y se manipula en forma de números.</p></li>
 <li><p>Por tanto, para que un sistema informático pueda procesar información, primero hay que representar dicha información usando números, proceso que se denomina <strong>codificación</strong>.</p>
@@ -425,7 +467,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </div></li>
 <li><p>Una codificación, por tanto, es una correspondencia entre un conjunto de datos y un conjunto de números llamado <strong>código</strong>. Al codificar, lo que hacemos es asociar a cada dato un determinado número dentro del código.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.2.2.9">
 
 <ul>
 <li><p>Hay muchos tipos de información (textos, sonidos, imágenes, valores numéricos…) y eso hace que pueda haber muchas formas de codificación.</p></li>
@@ -435,8 +478,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <div class="centered">
 <p><img data-src="images/codificaciones.svg" class="plain" style="width:80.0%" /></p>
 </div>
-</section><section id="codificación-interna" class="slide level4">
-<h4><span class="header-section-number">1.2.2.10</span> Codificación interna</h4>
+</section>
+<section id="codificación-interna" class="slide level4" data-number="1.2.2.10">
+<h4 data-number="1.2.2.10"><span class="header-section-number">1.2.2.10</span> Codificación interna</h4>
 <ul>
 <li><p>Los ordenadores son <strong>sistemas electrónicos digitales</strong> que trabajan conmutando entre varios posibles estados de una determinada magnitud física (voltaje, intensidad de corriente, etc.).</p></li>
 <li><p>Lo más sencillo y práctico es usar únicamente dos estados posibles.</p>
@@ -447,7 +491,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>A cada uno de los dos posibles estados le hacemos corresponder (arbitrariamente) un valor numérico <strong>0</strong> ó <strong>1</strong>. A ese valor se le denomina <strong>bit</strong> (contracción de <em>binary digit</em>, dígito binario).</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.2.2.11">
 
 <ul>
 <li><p>Por ejemplo, la memoria principal de un ordenador está formada por millones de celdas, parecidas a microscópicos condensadores. Cada uno de estos condensadores puede estar cargado o descargado y, por tanto, es capaz de almacenar un bit:</p>
@@ -468,8 +513,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>1 Tebibyte (TiB) = <span class="math inline">2^{40}</span> bytes = 1024 Gibibytes</li>
 </ul></li>
 </ul>
-</section><section id="sistema-binario" class="slide level4">
-<h4><span class="header-section-number">1.2.2.12</span> Sistema binario</h4>
+</section>
+<section id="sistema-binario" class="slide level4" data-number="1.2.2.12">
+<h4 data-number="1.2.2.12"><span class="header-section-number">1.2.2.12</span> Sistema binario</h4>
 <ul>
 <li><p>El sistema de numeración que usamos habitualmente los seres humanos es el <strong>decimal</strong> o sistema <strong>en base diez</strong>.</p></li>
 <li><p>En ese sistema disponemos de diez dígitos distintos (0, 1, 2, 3, 4, 5, 6, 7, 8 y 9) y cada dígito en un determinado número tiene un peso que es múltiplo de una potencia de diez.</p>
@@ -477,7 +523,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>El sistema de numeración que usan los ordenadores es el <strong>sistema binario</strong> o sistema <strong>en base dos</strong>, en el cual disponemos sólo de dos dígitos (0 y 1) y cada peso es múltiplo de una potencia de dos.</p>
 <p>Por ejemplo: <span class="math display">101 = 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0</span></p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.2.2.13">
 
 <ul>
 <li><p>Generalmente, los números naturales se codifican internamente mediante su representación en binario.</p></li>
@@ -498,8 +545,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Decimal codificado en binario (BCD)</p></li>
 </ul></li>
 </ul>
-</section><section id="codificación-externa" class="slide level4">
-<h4><span class="header-section-number">1.2.2.14</span> Codificación externa</h4>
+</section>
+<section id="codificación-externa" class="slide level4" data-number="1.2.2.14">
+<h4 data-number="1.2.2.14"><span class="header-section-number">1.2.2.14</span> Codificación externa</h4>
 <ul>
 <li><p>Para representar cadenas de caracteres y comunicarse con el exterior, el ordenador utiliza <strong>códigos de E/S</strong> o <strong>códigos externos</strong>.</p></li>
 <li><p>A cada carácter (letra, dígito, signo de puntuación, símbolo especial…) le corresponde un código (número) dentro de un <strong>conjunto de caracteres</strong>.</p></li>
@@ -509,8 +557,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>De <strong>longitud variable</strong>: en el mismo conjunto de caracteres hay códigos más largos y más cortos (por tanto, hay caracteres que ocupan más bytes que otros).</p></li>
 </ul></li>
 </ul>
-</section><section id="ascii" class="slide level4">
-<h4><span class="header-section-number">1.2.2.15</span> ASCII</h4>
+</section>
+<section id="ascii" class="slide level4" data-number="1.2.2.15">
+<h4 data-number="1.2.2.15"><span class="header-section-number">1.2.2.15</span> ASCII</h4>
 <ul>
 <li><p><em>American Standard Code for Information Interchange</em>.</p></li>
 <li><p>El conjunto de caracteres ASCII (o <strong>código ASCII</strong>) es el más implantado en el <em>hardware</em> de los equipos informáticos.</p></li>
@@ -523,8 +572,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>El ISO-8859-1 es un código de 8 bits que extiende el ASCII con un bit más para contener caracteres latinos.</p></li>
 </ul>
-</section><section id="unicode" class="slide level4">
-<h4><span class="header-section-number">1.2.2.16</span> Unicode</h4>
+</section>
+<section id="unicode" class="slide level4" data-number="1.2.2.16">
+<h4 data-number="1.2.2.16"><span class="header-section-number">1.2.2.16</span> Unicode</h4>
 <ul>
 <li><p>Con 8 bits (y con 7 bits aún menos) no es posible representar todos los posibles caracteres de todos los sistemas de escritura usados en el mundo.</p></li>
 <li><p>Unicode es el estándar de codificación de caracteres más completo y universal en la actualidad.</p></li>
@@ -536,18 +586,32 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><strong>UTF-32</strong>: codificación de 32 bits, de longitud fija (cada <em>code point</em> ocupa 1 palabra de 32 bits).</li>
 </ul></li>
 </ul>
-</section><section id="problema" class="title-slide slide level2"><h2><span class="header-section-number">1.3</span> Problema</h2><ul>
+</section>
+
+
+<section id="problema" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Problema</h2>
+<ul>
 <li><p>Escribimos programas para que el ordenador procese información de forma automática.</p></li>
 <li><p>Pero ese procesamiento automático se lleva a cabo por una razón: <strong>resolver un problema</strong> usando un ordenador.</p></li>
 <li><p>Si un problema es <strong>resoluble</strong> usando un ordenador (<em>no todos lo son</em>), podremos escribir un programa que lo resuelva.</p></li>
-</ul></section><section id="generalización" class="title-slide slide level3"><h3><span class="header-section-number">1.3.1</span> Generalización</h3><ul>
+</ul>
+</section>
+<section id="generalización" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Generalización</h3>
+<ul>
 <li><p>En programación nos interesa siempre resolver problemas generales y no casos particulares.</p></li>
 <li><p>Por ejemplo, el problema de calcular la suma de 4 y 3 es un <strong>problema particular</strong>, porque una solución al problema sólo servirá para resolver <em>ese</em> problema en concreto, y no servirá para sumar otro par de números (el 9 y 5, por ejemplo).</p></li>
 <li><p>En cambio, el problema de calcula la suma de cualquier par de números enteros es un <strong>problema general</strong>, ya que una solución al problema serviría para resolver cualquier caso particular de ese problema general.</p>
 <ul>
 <li>Por ejemplo, esa solución al problema general me serviría para calcular la suma de 4 y 3, de 9 y 5, de 12 y 38, … De hecho, infinitos casos particulares.</li>
 </ul></li>
-</ul></section><section id="ejemplares-de-un-problema" class="title-slide slide level3"><h3><span class="header-section-number">1.3.2</span> Ejemplares de un problema</h3><ul>
+</ul>
+</section>
+
+<section id="ejemplares-de-un-problema" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Ejemplares de un problema</h3>
+<ul>
 <li><p>A los casos particulares de un problema general se les denomina <strong>ejemplares</strong> del problema.</p>
 <ul>
 <li>Por ejemplo, la pareja <span class="math inline">(4, 3)</span> es un ejemplar del problema general de sumar dos números enteros.</li>
@@ -557,7 +621,12 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Pero también hay problemas finitos (aunque muy grandes) como el de jugar perfectamente al ajedrez.</li>
 </ul></li>
 <li><p>La solución a un problema debe resolver correctamente todos los ejemplares del mismo, es decir, debe resolver el problema general de forma que sirva para todos sus ejemplares.</p></li>
-</ul></section><section id="dominio-de-definición" class="title-slide slide level3"><h3><span class="header-section-number">1.3.3</span> Dominio de definición</h3><ul>
+</ul>
+</section>
+
+<section id="dominio-de-definición" class="title-slide slide level3" data-number="1.3.3">
+<h3 data-number="1.3.3"><span class="header-section-number">1.3.3</span> Dominio de definición</h3>
+<ul>
 <li><p>El <strong>dominio de definición</strong> de un problema describe con precisión el conjunto de sus ejemplares.</p>
 <ul>
 <li>Por ejemplo: en el problema de sumar dos números enteros, sus ejemplares serán cualquier pareja de números enteros (no vale que los números sean reales o fracciones). Ese es su dominio de definición.</li>
@@ -566,21 +635,29 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <ul>
 <li>Por ejemplo: un programa que resuelva correctamente el problema de sumar dos números enteros no tiene por qué funcionar correctamente si intentamos usarlo para sumar dos fracciones.</li>
 </ul></li>
-</ul></section><section id="jerarquías-de-generalización" class="title-slide slide level3"><h3><span class="header-section-number">1.3.4</span> Jerarquías de generalización</h3><ul>
+</ul>
+</section>
+
+<section id="jerarquías-de-generalización" class="title-slide slide level3" data-number="1.3.4">
+<h3 data-number="1.3.4"><span class="header-section-number">1.3.4</span> Jerarquías de generalización</h3>
+<ul>
 <li><p>Se dice que un problema <span class="math inline">P</span> es <strong>más general</strong> que un problema <span class="math inline">Q</span> si los ejemplares de <span class="math inline">Q</span> también son ejemplares de <span class="math inline">P</span>, y además hay ejemplares de <span class="math inline">P</span> que no lo son de <span class="math inline">Q</span>.</p>
 <ul>
 <li>Es otra forma de decir que el conjunto de ejemplares de <span class="math inline">Q</span> es un <em>subconjunto propio</em> del conjunto de ejemplares de <span class="math inline">P</span>.</li>
 </ul></li>
 <li><p>Igualmente, se dice que <span class="math inline">Q</span> es un problema <strong>menos general</strong> (o <strong>más particular</strong>) que el problema <span class="math inline">P</span>.</p></li>
 <li><p>Este concepto resulta interesante porque, si tenemos una solución al problema <span class="math inline">P</span>, podremos usarla para resolver el problema <span class="math inline">Q</span>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.3.4.1">
 
 <div class="centered">
 <figure>
 <img data-src="images/jerarquias-generalizacion.svg" class="plain" style="width:50.0%" alt="" /><figcaption><span class="math inline">P</span> es un problema más general que <span class="math inline">Q</span></figcaption>
 </figure>
 </div>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.3.4.2">
 
 <ul>
 <li><p>Por ejemplo, el problema de calcular la suma de <em>tres</em> números enteros es un problema <strong>más general</strong> que el de sumar <em>dos</em> números enteros, porque éste último se puede considerar un caso particular del primero (haciendo que uno de los tres números a sumar valga cero).</p></li>
@@ -592,7 +669,16 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <img data-src="images/sumar-dos-numeros.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Sumar dos números es un caso particular de sumar tres</figcaption>
 </figure>
 </div>
-</section><section id="algoritmo" class="title-slide slide level2"><h2><span class="header-section-number">1.4</span> Algoritmo</h2></section><section id="definición-1" class="title-slide slide level3"><h3><span class="header-section-number">1.4.1</span> Definición</h3><div class="caja">
+</section>
+
+
+<section id="algoritmo" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Algoritmo</h2>
+
+</section>
+<section id="definición-1" class="title-slide slide level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Definición</h3>
+<div class="caja">
 <p><strong>Algoritmo</strong>:</p>
 <p>Un algoritmo es un método para resolver un problema.</p>
 </div>
@@ -600,7 +686,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Está formado por una secuencia de pasos o <strong>instrucciones</strong> que se deben seguir (o <strong>ejecutar</strong>) para resolver el problema.</p></li>
 <li><p>La palabra «algoritmo» proviene de <strong>Mohammed Al-Khowârizmi</strong>, matemático persa que vivió durante el siglo IX y reconocido por definir una serie de reglas paso a paso para sumar, restar, multiplicar y dividir números decimales.</p></li>
 <li><p><strong>Euclides</strong>, el gran matemático griego (del siglo IV a. C.) que inventó un método para encontrar el máximo común divisor de dos números, se considera con Al-Khowârizmi el otro gran padre de la Algorítmica (la ciencia que estudia los algoritmos).</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.1.1">
 
 <ul>
 <li><p>El estudio de los algoritmos es importante porque la resolución de un problema exige el diseño de un algoritmo que lo resuelva.</p></li>
@@ -612,7 +700,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <img data-src="images/resolucion-problema.svg" class="plain" style="width:80.0%" alt="" /><figcaption>Resolución de un problema</figcaption>
 </figure>
 </div>
-</section><section id="características" class="title-slide slide level3"><h3><span class="header-section-number">1.4.2</span> Características</h3><ul>
+</section>
+
+<section id="características" class="title-slide slide level3" data-number="1.4.2">
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> Características</h3>
+<ul>
 <li><p>Un algoritmo debe ser:</p>
 <ul>
 <li><p><strong>Preciso</strong>: debe expresarse de forma no ambigua. La precisión afecta por igual a dos aspectos:</p>
@@ -623,7 +715,12 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p><strong>Determinado</strong>: si se sigue un algoritmo dos veces, se debe obtener el mismo resultado cada vez.</p></li>
 <li><p><strong>Finito</strong>: debe terminar en algún momento, es decir, debe tener un número finito de pasos.</p></li>
 </ul></li>
-</ul></section><section id="representación" class="title-slide slide level3"><h3><span class="header-section-number">1.4.3</span> Representación</h3><div class="columns">
+</ul>
+</section>
+
+<section id="representación" class="title-slide slide level3" data-number="1.4.3">
+<h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> Representación</h3>
+<div class="columns">
 <div class="column" style="width:50%;">
 <ul>
 <li><p>Un algoritmo se puede describir usando el <strong>lenguaje natural</strong>, es decir, cualquier idioma humano.</p></li>
@@ -653,30 +750,34 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </div>
 </div>
 </div>
-</div></section><section id="ordinograma" class="slide level4">
-<h4><span class="header-section-number">1.4.3.1</span> Ordinograma</h4>
+</div>
+</section>
+<section id="ordinograma" class="slide level4" data-number="1.4.3.1">
+<h4 data-number="1.4.3.1"><span class="header-section-number">1.4.3.1</span> Ordinograma</h4>
 <ul>
 <li><p>Representación gráfica que describe un algoritmo en forma de diagrama de flujo.</p></li>
 <li><p>Las flechas indican el orden de ejecución de las instrucciones.</p></li>
 <li><p>Los nodos condicionales (los rombos) indican que la ejecución se bifurca a uno u otro camino dependiendo de una condición.</p></li>
 </ul>
-</section><section id="ejemplo" class="slide level4">
-<h4><span class="header-section-number">1.4.3.2</span> Ejemplo</h4>
+</section>
+<section id="ejemplo" class="slide level4" data-number="1.4.3.2">
+<h4 data-number="1.4.3.2"><span class="header-section-number">1.4.3.2</span> Ejemplo</h4>
 <p>Determinar cuál es el máximo de dos números</p>
 <div class="centered">
 <p><img data-src="images/maximo.svg" class="plain" style="width:40.0%" /></p>
 </div>
-</section><section id="pseudocódigo" class="slide level4">
-<h4><span class="header-section-number">1.4.3.3</span> Pseudocódigo</h4>
+</section>
+<section id="pseudocódigo" class="slide level4" data-number="1.4.3.3">
+<h4 data-number="1.4.3.3"><span class="header-section-number">1.4.3.3</span> Pseudocódigo</h4>
 <ul>
 <li><p>Es un lenguaje semi-formal, a medio camino entre el lenguaje natural y el lenguaje que entendería un ordenador (lenguaje de programación).</p></li>
 <li><p>Está pensado para ser interpretado por una persona y no por un ordenador.</p></li>
 <li><p>En general, no se tienen en cuenta las limitaciones impuestas por el <em>hardware</em> (CPU, memoria…) o el <em>software</em> (tamaño máximo de los datos, codificación interna…), siempre y cuando no sea importante el estudio de la eficiencia o la complejidad del algoritmo.</p></li>
 <li><p>En ese sentido, se usa como un lenguaje de programación <em>idealizado</em>.</p></li>
 </ul>
-</section><section id="ejemplo-1" class="slide level4">
-<h4><span class="header-section-number">1.4.3.4</span> Ejemplo</h4>
-
+</section>
+<section id="ejemplo-1" class="slide level4" data-number="1.4.3.4">
+<h4 data-number="1.4.3.4"><span class="header-section-number">1.4.3.4</span> Ejemplo</h4>
 <div class="line-block"><strong>Algoritmo</strong>: Obtener el mayor de dos números<br />
 <br />
 1. <span class="math inline">X \leftarrow</span> <strong>leer</strong> número<br />
@@ -686,21 +787,31 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 5. <strong>saltar</strong> al paso 7<br />
 6. <strong>escribir</strong> “X es mayor que Y”<br />
 7. <strong>fin</strong></div>
+</section>
 
-</section><section id="cualidades-deseables" class="title-slide slide level3"><h3><span class="header-section-number">1.4.4</span> Cualidades deseables</h3><ul>
+<section id="cualidades-deseables" class="title-slide slide level3" data-number="1.4.4">
+<h3 data-number="1.4.4"><span class="header-section-number">1.4.4</span> Cualidades deseables</h3>
+<ul>
 <li><p><strong>Corrección</strong>: El algoritmo debe solucionar correctamente el problema.</p></li>
 <li><p><strong>Claridad</strong>: Cuanto más legible y comprensible para el ser humano, mejor.</p></li>
 <li><p><strong>Generalidad</strong>: Un algoritmo debe resolver problemas generales. Por ejemplo, un algoritmo que sume dos números enteros debe servir para sumar cualquier pareja de números enteros, y no, solamente, para sumar dos números determinados, como pueden ser el 3 y el 5.</p></li>
 <li><p><strong>Eficiencia</strong>: Un algoritmo es mejor cuanto menos recursos (tiempo, espacio…) necesita para resolver el problema. Por eso no debe realizar pasos innecesarios ni recordar más información de la necesaria.</p></li>
 <li><p><strong>Sencillez</strong>: Hay que intentar que la solución sea sencilla, aun a costa de perder un poco de eficiencia, es decir, se tiene que buscar un equilibrio entre la claridad y la eficiencia.</p></li>
 <li><p><strong>Modularidad</strong>: Un algoritmo puede formar parte de la solución a un problema mayor. A su vez, dicho algoritmo puede descomponerse en otros si esto favorece a la claridad del mismo.</p></li>
-</ul></section><section id="computabilidad" class="title-slide slide level3"><h3><span class="header-section-number">1.4.5</span> Computabilidad</h3><ul>
+</ul>
+</section>
+
+<section id="computabilidad" class="title-slide slide level3" data-number="1.4.5">
+<h3 data-number="1.4.5"><span class="header-section-number">1.4.5</span> Computabilidad</h3>
+<ul>
 <li><p>¿Todos los problemas pueden resolverse de forma algorítmica?</p></li>
 <li><p>Dicho de otra forma, queremos saber lo siguiente:</p>
 <div class="caja centered">
 <p>Dado un problema, ¿existe un algoritmo que lo resuelva?</p>
 </div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.5.1">
 
 <ul>
 <li><p>Todo problema <span class="math inline">P</span> lleva asociada una función <span class="math inline">f_P: D \rightarrow R</span>, donde:</p>
@@ -715,13 +826,15 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <p>¿Toda función <span class="math inline">f</span> es computable (resoluble algorítmicamente)?</p>
 </div></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.5.2">
 
 <p>La respuesta es que <strong>NO</strong></p>
 <ul>
 <li>Se puede demostrar que hay más funciones que algoritmos, por lo que <strong>existen funciones que no se pueden computar mediante un algoritmo</strong> (no son computables).</li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.5.3">
 
 <ul>
 <li><p>La dificultad que tiene estudiar la computabilidad de funciones está en que no tenemos una definición formal de «<em>algoritmo</em>».</p></li>
@@ -737,7 +850,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </div></li>
 <li><p>La tesis de Church-Turing es indemostrable pero prácticamente toda la comunidad científica la acepta como verdadera.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="1.4.5.4">
 
 <ul>
 <li><p>Usando esos formalismos, se pudo demostrar que hay que problemas que no se pueden resolver mediante algoritmos.</p></li>
@@ -748,7 +862,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </div></li>
 <li><p>Nunca podremos hacer un algoritmo que resuelva el problema de la parada en términos generales (en casos particulares sí se puede).</p></li>
 </ul>
-</section><section id="corrección" class="title-slide slide level3"><h3><span class="header-section-number">1.4.6</span> Corrección</h3><ul>
+</section>
+
+<section id="corrección" class="title-slide slide level3" data-number="1.4.6">
+<h3 data-number="1.4.6"><span class="header-section-number">1.4.6</span> Corrección</h3>
+<ul>
 <li><p>¿Cómo sabemos si un algoritmo es <strong>correcto</strong>?</p></li>
 <li><p>¿Qué significa eso de que un algoritmo sea correcto?</p></li>
 <li><p>Supongamos que, para un problema <span class="math inline">P</span>, existe un algoritmo <span class="math inline">A</span>. Lo que tenemos que averiguar es si se cumple: <span class="math display">f_P = f_A</span></p></li>
@@ -757,7 +875,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Si el conjunto <span class="math inline">D</span> de datos de entrada es <strong>finito</strong>, podríamos comparar todos los resultados de salida con los resultados esperados y ver si coinciden.</p></li>
 <li><p>Si <span class="math inline">D</span> es <strong>infinito</strong>, es imposible realizar una comprobación empírica de la corrección del algoritmo (en cambio, sí se puede demostrar que es incorrecto.)</p></li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.6.1">
 
 <ul>
 <li><p>Lo mejor es recurrir a <strong>métodos formales</strong>:</p>
@@ -767,7 +887,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>En ambos casos, es importante definir con mucha precisión qué problema queremos resolver: se describe el problema mediante una <strong>especificación formal</strong>.</p></li>
 </ul>
-</section><section id="complejidad" class="title-slide slide level3"><h3><span class="header-section-number">1.4.7</span> Complejidad</h3><ul>
+</section>
+
+<section id="complejidad" class="title-slide slide level3" data-number="1.4.7">
+<h3 data-number="1.4.7"><span class="header-section-number">1.4.7</span> Complejidad</h3>
+<ul>
 <li><p>¿Cómo de <strong>eficiente</strong> es un algoritmo?</p></li>
 <li><p>La eficiencia de un algoritmo se mide en función del <strong>consumo de recursos</strong> que necesita el algoritmo para su ejecución.</p>
 <ul>
@@ -776,7 +900,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Dados dos algoritmos distintos que resuelvan el mismo problema, en general nos interesará usar el más eficiente de ellos (al margen de otras consideraciones, como la claridad, la legibilidad, la mantenibilidad, la reusabilidad, etc.)</p></li>
 <li><p>¿Cómo medimos la eficiencia de un algoritmo?</p></li>
 <li><p>¿Cómo comparamos la eficiencia de dos algoritmos?</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.4.7.1">
 
 <ul>
 <li><p>El <strong>análisis de algoritmos</strong> estudia la eficiencia de un algoritmo desde un punto de vista abstracto (independiente de la máquina, el lenguaje de programación, la carga de trabajo, etc.).</p></li>
@@ -789,7 +915,12 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Ejemplo: <span class="math inline">t(n) \in O(n^2)</span></li>
 </ul></li>
 </ul>
-</section><section id="programa" class="title-slide slide level2"><h2><span class="header-section-number">1.5</span> Programa</h2><ul>
+</section>
+
+
+<section id="programa" class="title-slide slide level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span> Programa</h2>
+<ul>
 <li><p>Definición:</p>
 <div class="caja">
 <p><strong>Programa</strong>:</p>
@@ -799,7 +930,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>El texto del programa escrito en ese lenguaje de programación se denomina <strong>código fuente</strong>. Programar, al final, consiste en escribir (<em>codificar</em>) el código fuente de nuestro programa.</p></li>
 <li><p>El algoritmo está pensado para ser entendido por un ser humano, mientras que el programa se escribe para ser interpretado y ejecutado por un ordenador.</p></li>
 <li><p>Por ello, toda posible ambigüedad que pudiera quedar en el algoritmo debe eliminarse al codificarlo en forma de programa.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="1.5.0.1">
 
 <ul>
 <li><p>Programar depende mucho de las características del lenguaje de programación elegido.</p></li>
@@ -811,11 +944,21 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>La semántica de las instrucciones: un símbolo usado en un algoritmo puede tener otro significado distinto en el programa, o puede que sólo pueda usarse en el programa bajo ciertas condiciones que no hace falta considerar en el algoritmo.</p></li>
 </ul></li>
 </ul>
-</section></section>
-<section><section id="paradigmas-de-programación" class="title-slide slide level1"><h1><span class="header-section-number">2</span> Paradigmas de programación</h1></section><section id="definición-2" class="title-slide slide level2"><h2><span class="header-section-number">2.1</span> Definición</h2><div class="caja">
+</section>
+</section>
+<section>
+<section id="paradigmas-de-programación" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Paradigmas de programación</h1>
+
+</section>
+<section id="definición-2" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Definición</h2>
+<div class="caja">
 <p><strong>Paradigma de programación</strong>:</p>
 <p>Es un <strong>estilo</strong> de desarrollar programas, es decir, un <strong>modelo</strong> para resolver problemas computacionales.</p>
-</div></section><section class="slide level4">
+</div>
+</section>
+<section class="slide level4" data-number="2.1.0.1">
 
 <ul>
 <li><p>Cada paradigma entiende la programación desde una perspectiva diferente, partiendo de unos conceptos básicos diferentes y con unas reglas diferentes.</p></li>
@@ -824,7 +967,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Cada lenguaje de programación (o pseudocódigo) se dice que <em>soporta</em> un determinado paradigma cuando con dicho lenguaje se pueden escribir algoritmos o programas según el «estilo» que impone dicho paradigma.</p></li>
 <li><p>Incluso existen lenguajes <em>multiparadigma</em> capaces de soportar varios paradigmas al mismo tiempo.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.1.0.2">
 
 <ul>
 <li><p>Clasificación de los paradigmas de programación más importantes:</p>
@@ -842,14 +986,19 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="2.1.0.3">
 
 <div class="centered">
 <figure>
 <img data-src="images/paradigmas.png" style="width:80.0%" alt="" /><figcaption>Principales paradigmas (c) 2008 Peter Van Roy</figcaption>
 </figure>
 </div>
-</section><section id="imperativo" class="title-slide slide level2"><h2><span class="header-section-number">2.2</span> Imperativo</h2><ul>
+</section>
+
+<section id="imperativo" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Imperativo</h2>
+<ul>
 <li><p>El <strong>paradigma imperativo</strong> está basado en el concepto de <strong>sentencia</strong>. Un programa imperativo está formado por una sucesión de sentencias que se ejecutan en orden y que llevan a cabo una de estas acciones:</p>
 <ul>
 <li><p><strong>Cambiar el estado</strong> interno del programa, usualmente mediante la sentencia de <em>asignación</em>.</p></li>
@@ -857,7 +1006,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>La ejecución de un programa imperativo, por tanto, consiste en una sucesión de cambios de estado controlados por mecanismos de control y que dependen del orden en el que se realizan.</p></li>
 <li><p>Existen varios paradigmas con las características del paradigma imperativo, por lo que podemos decir que existen varios paradigmas imperativos.</p></li>
-</ul></section><section id="estructurado" class="title-slide slide level3"><h3><span class="header-section-number">2.2.1</span> Estructurado</h3><ul>
+</ul>
+</section>
+<section id="estructurado" class="title-slide slide level3" data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Estructurado</h3>
+<ul>
 <li><p>El <strong>paradigma estructurado</strong> es un paradigma imperativo en el que el flujo de control del programa se define mediante las denominadas <strong>estructuras de control</strong>.</p></li>
 <li><p>Se apoya a nivel teórico en los resultados del conocido <strong>teorema de Böhm y Jacopini</strong>, que establece que cualquier programa se puede escribir usando solamente tres estructuras básicas:</p>
 <ul>
@@ -867,42 +1020,78 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>Con estas tres estructuras conseguimos que los programas se puedan leer de arriba abajo como compuestos por <strong>bloques anidados o independientes</strong> que se leen como un todo conjunto.</p></li>
 <li><p>Su aparición llevó asociada la aparición de una <strong>metodología de desarrollo</strong> según la cual los programas se escriben por niveles de abstracción mediante refinamientos sucesivos y usando en cada nivel sólo las tres estructuras básicas.</p></li>
-</ul></section><section id="orientado-a-objetos" class="title-slide slide level3"><h3><span class="header-section-number">2.2.2</span> Orientado a objetos</h3><ul>
+</ul>
+</section>
+
+<section id="orientado-a-objetos" class="title-slide slide level3" data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Orientado a objetos</h3>
+<ul>
 <li><p>El <strong>paradigma orientado a objetos</strong> se apoya en los conceptos de <strong>objeto</strong> y <strong>mensaje</strong>.</p></li>
 <li><p>Un programa orientado a objetos está formado por una colección de objetos que se intercambian mensajes entre sí.</p></li>
 <li><p>Los objetos son entidades que existen dentro del programa y que poseen un cierto <strong>estado interno</strong>.</p></li>
 <li><p>Cuando un objeto envía un mensaje a otro, el objeto receptor del mensaje reaccionará llevando a cabo alguna acción, que probablemente provocará un <strong>cambio en su estado interno</strong> y que, posiblemente, provocará también el envío de mensajes a otros objetos.</p></li>
 <li><p>La programación orientada a objetos está vista como una forma natural de entender la programación y es, con diferencia, <strong>el paradigma más usado en la actualidad</strong>.</p></li>
-</ul></section><section id="declarativo" class="title-slide slide level2"><h2><span class="header-section-number">2.3</span> Declarativo</h2><ul>
+</ul>
+</section>
+
+
+<section id="declarativo" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Declarativo</h2>
+<ul>
 <li><p>La <strong>programación declarativa</strong> engloba a una familia de paradigmas de programación de muy alto nivel.</p></li>
 <li><p>En programación declarativa se describe la solución a un problema con base en las propiedades que debe cumplir dicha solución y no tanto en forma de instrucciones que se deben ejecutar para resolver el problema.</p></li>
 <li><p>Se dice que un programa imperativo describe <strong>cómo</strong> resolver el problema, mientras que un programa declarativo describe <strong>qué</strong> forma debe tener la solución.</p></li>
 <li><p>Para dar forma a la solución, se utilizan formalismos abstractos matemáticos y lógicos, lo que da lugar a los dos grandes paradigmas declarativos: la <strong>programación funcional</strong> y <strong>la programación lógica</strong>.</p></li>
-</ul></section><section id="funcional" class="title-slide slide level3"><h3><span class="header-section-number">2.3.1</span> Funcional</h3><ul>
+</ul>
+</section>
+<section id="funcional" class="title-slide slide level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Funcional</h3>
+<ul>
 <li><p>La <strong>programación funcional</strong> es un paradigma de programación declarativa basado en el uso de <strong>funciones matemáticas</strong>.</p></li>
 <li><p>Tiene su origen teórico en el <strong>cálculo lambda</strong> de Alonzo Church (los lenguajes funcionales se pueden considerar azúcar sintáctico del cálculo lambda).</p></li>
 <li><p>Una función (en programación funcional) define de un cálculo a realizar a partir de unos datos de entrada, con la propiedad de que el resultado de la función sólo puede depender de dichos datos de entrada (lo que se denomina <strong>transparencia referencial</strong>).</p></li>
 <li><p>Eso significa que una función no puede tener estado interno ni su resultado puede depender del estado interno del programa. Por tanto, no existen los <strong>efectos laterales</strong>.</p></li>
 <li><p>Demostrar la corrección de un programa funcional o paralelizar su ejecución es <strong>mucho más fácil</strong> que con un programa imperativo.</p></li>
-</ul></section><section id="lógico" class="title-slide slide level3"><h3><span class="header-section-number">2.3.2</span> Lógico</h3><ul>
+</ul>
+</section>
+
+<section id="lógico" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Lógico</h3>
+<ul>
 <li><p>La <strong>programación lógica</strong> es un paradigma de programación declarativa basado en el uso de la <strong>lógica de predicados de primer orden</strong>.</p></li>
 <li><p>Básicamente, un programa lógico es una colección de definiciones que forman un conjunto de <strong>axiomas</strong> en un sistema de <strong>deducción lógica</strong>.</p></li>
 <li><p>Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo que trata de <strong>demostrar un teorema</strong> a partir de los axiomas.</p></li>
 <li><p>El ejemplo más característico de este tipo de lenguajes es <strong>Prolog</strong>.</p></li>
-</ul></section><section id="de-bases-de-datos" class="title-slide slide level3"><h3><span class="header-section-number">2.3.3</span> De bases de datos</h3><ul>
+</ul>
+</section>
+
+<section id="de-bases-de-datos" class="title-slide slide level3" data-number="2.3.3">
+<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> De bases de datos</h3>
+<ul>
 <li><p>Los sistemas de gestión de bases de datos relacionales (SGBDR) disponen de un lenguaje que permite al usuario consultar y manipular la información almacenada.</p></li>
 <li><p>A esos lenguajes se los denomina <strong>lenguajes de bases de datos</strong> o <strong>lenguajes de consulta</strong>.</p></li>
 <li><p>El lenguaje de consulta más conocido es el <strong>SQL</strong>.</p></li>
 <li><p>Los SGBDR se basan en el <em>modelo relacional</em>, que es un modelo matemático.</p></li>
 <li><p>SQL es, básicamente, una implementación del <strong>álgebra relacional</strong>.</p></li>
 <li><p>Con SQL, el usuario indica <em>qué</em> desea obtener y el SGBDR determina automáticamente el mejor camino para alcanzar dicho objetivo.</p></li>
-</ul></section><section id="actividades" class="slide level4">
-<h4><span class="header-section-number">2.3.3.1</span> Actividades</h4>
+</ul>
+</section>
+<section id="actividades" class="slide level4" data-number="2.3.3.1">
+<h4 data-number="2.3.3.1"><span class="header-section-number">2.3.3.1</span> Actividades</h4>
 <ol class="example" type="1">
 <li>¿Hay más paradigmas de programación? Busca en Internet y pon un par de ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe en una sola frase sus características básicas.</li>
 </ol>
-</section></section>
-<section><section id="lenguajes-de-programación" class="title-slide slide level1"><h1><span class="header-section-number">3</span> Lenguajes de programación</h1></section><section id="definición-3" class="title-slide slide level2"><h2><span class="header-section-number">3.1</span> Definición</h2><div class="caja">
+</section>
+
+</section>
+<section>
+<section id="lenguajes-de-programación" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Lenguajes de programación</h1>
+
+</section>
+<section id="definición-3" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Definición</h2>
+<div class="caja">
 <p><strong>Lenguaje de programación:</strong></p>
 <p>Un lenguaje de programación es un <strong>lenguaje formal</strong> que proporciona una serie de instrucciones que permiten a un programador escribir programas destinados a controlar el comportamiento físico y lógico de un ordenador.</p>
 </div>
@@ -910,7 +1099,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Un <strong>programa</strong> es la <strong>codificación de un algoritmo</strong> en un lenguaje de programación.</p></li>
 <li><p>Por tanto: cuando escribimos un algoritmo en un lenguaje de programación, obtenemos un programa.</p></li>
 <li><p>Estos lenguajes están determinados por un conjunto de símbolos (llamado <em>alfabeto</em>), reglas gramaticales (léxico/morfológicas y sintácticas) y reglas semánticas, que en conjunto definen las estructuras válidas en el lenguaje y su significado.</p></li>
-</ul></section><section id="sintaxis" class="title-slide slide level3"><h3><span class="header-section-number">3.1.1</span> Sintaxis</h3><ul>
+</ul>
+</section>
+<section id="sintaxis" class="title-slide slide level3" data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Sintaxis</h3>
+<ul>
 <li><p>A la forma visible de un lenguaje de programación se la conoce como <strong>sintaxis</strong>.</p></li>
 <li><p>La sintaxis de un lenguaje de programación describe las combinaciones posibles de los símbolos que forman un programa sintácticamente correcto.</p></li>
 <li><p>La sintaxis define dos elementos principales:</p>
@@ -918,8 +1111,10 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Los <strong>componentes léxicos</strong>, es decir, los elementos mínimos que forman un programa (palabras clave, identificadores, caracteres de puntuación como paréntesis o comas, etc…).</p></li>
 <li><p>La <strong>estructura gramatical</strong>, es decir, cómo se pueden combinar los componentes léxicos para formar «frases» correctas según la sintaxis del lenguaje.</p></li>
 </ul></li>
-</ul></section><section id="notación-ebnf" class="slide level4">
-<h4><span class="header-section-number">3.1.1.1</span> Notación EBNF</h4>
+</ul>
+</section>
+<section id="notación-ebnf" class="slide level4" data-number="3.1.1.1">
+<h4 data-number="3.1.1.1"><span class="header-section-number">3.1.1.1</span> Notación EBNF</h4>
 <ul>
 <li><p>La sintaxis de los lenguajes de programación es definida generalmente utilizando:</p>
 <ul>
@@ -930,8 +1125,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Las expresiones regulares las estudiaremos a lo largo del curso, ya que resultan muy útiles para procesar cadenas.</p></li>
 <li><p>Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría de los lenguajes de programación la utilizan para documentar su sintaxis.</p></li>
 </ul>
-</section><section id="ejemplo-2" class="slide level4">
-<h4><span class="header-section-number">3.1.1.2</span> Ejemplo</h4>
+</section>
+<section id="ejemplo-2" class="slide level4" data-number="3.1.1.2">
+<h4 data-number="3.1.1.2"><span class="header-section-number">3.1.1.2</span> Ejemplo</h4>
 <div class="columns">
 <div class="column">
 <div class="line-block"><span style="color:teal">⟨<em>expresión</em>⟩</span> ::= <span style="color:teal">⟨<em>átomo</em>⟩</span> | <span style="color:teal">⟨<em>lista</em>⟩</span><br />
@@ -956,7 +1152,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul>
 </div>
 </div>
-</section><section id="semántica-estática" class="title-slide slide level3"><h3><span class="header-section-number">3.1.2</span> Semántica estática</h3><ul>
+</section>
+
+<section id="semántica-estática" class="title-slide slide level3" data-number="3.1.2">
+<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Semántica estática</h3>
+<ul>
 <li><p>La semántica estática define las <strong>restricciones</strong> sobre la estructura de los textos válidos que resulta imposible o muy difícil expresar mediante formalismos sintácticos estándar como los que acabamos de ver.</p></li>
 <li><p>Es decir: hay programas sintácticamente correctos que, sin embargo, no resultan ser programas válidos según las reglas de la semántica estática del lenguaje.</p></li>
 <li><p>La semántica estática de un lenguaje está fuertemente relacionado con su <strong>sistema de tipos</strong>.</p></li>
@@ -966,10 +1166,21 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Comprobar que una variable está ligada a un valor antes de usarla en una expresión.</li>
 <li>Comprobar que el número de argumentos en la llamada a una función coincide con el número de parámetros de la función.</li>
 </ul></li>
-</ul></section><section id="semántica-dinámica" class="title-slide slide level3"><h3><span class="header-section-number">3.1.3</span> Semántica dinámica</h3><ul>
+</ul>
+</section>
+
+<section id="semántica-dinámica" class="title-slide slide level3" data-number="3.1.3">
+<h3 data-number="3.1.3"><span class="header-section-number">3.1.3</span> Semántica dinámica</h3>
+<ul>
 <li><p>La semántica dinámica (o simplemente <strong>semántica</strong>) de un lenguaje de programación expresa el <strong>significado</strong> de cada construcción del lenguaje.</p></li>
 <li><p>Es un concepto muy complicado de formalizar y por ello se suele definir de manera informal en la documentación del lenguaje en función de los <strong>efectos</strong> que produce cada construcción del lenguaje dentro de un programa.</p></li>
-</ul></section><section id="evolución-histórica" class="title-slide slide level2"><h2><span class="header-section-number">3.2</span> Evolución histórica</h2><ul>
+</ul>
+</section>
+
+
+<section id="evolución-histórica" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Evolución histórica</h2>
+<ul>
 <li><p><strong>1804: El telar de Jacquard (<em>Joseph Marie Jacquard</em>)</strong></p>
 <ul>
 <li>Tarjetas perforadas para controlar los diseños en los tejidos.</li>
@@ -979,7 +1190,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>En 1842, el matemático italiano Luigi Menabrea escribió una descripción de la máquina en frances.</p></li>
 <li><p>En 1843, <strong>Ada Lovelace</strong> la traduce al inglés e incorpora unas anotaciones propias en las que especifica con detalle un método para calcular los números de Bernoulli con esa máquina. Por ello, se la considera <strong>la primera programadora de la historia</strong>.</p></li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="3.2.0.1">
 
 <ul>
 <li><p><strong>1890: Máquinas tabuladoras electromecánicas (<em>Herman Hollerith, Tabulating Machine Company</em>)</strong></p>
@@ -1001,7 +1214,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p><strong>Sorpresa</strong>: ambos modelos son <strong>equivalentes</strong>.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.2">
 
 <ul>
 <li><p><strong>El trabajo de <em>Konrad Zuse</em>:</strong></p>
@@ -1023,7 +1237,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.3">
 
 <ul>
 <li><p><strong>(<em>Hasta aquí</em>):</strong> Todo se programa en <strong>lenguaje máquina</strong></p></li>
@@ -1034,7 +1249,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p><strong>1955: Autocódigo del Mark 1 (<em>Ralph Anthony Brooker, Universidad de Manchester</em>)</strong></p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.4">
 
 <ul>
 <li><p><strong>1957: Fortran (<em>John Backus, IBM</em>)</strong></p>
@@ -1059,7 +1275,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.5">
 
 <ul>
 <li><p><strong>1959: FLOW-MATIC (<em>Grace Hopper, Remington Rand</em>)</strong></p>
@@ -1081,7 +1298,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Muy usado en la enseñanza de la programación.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.6">
 
 <ul>
 <li><p><strong>1972: Prolog (<em>Alain Colmerauer, Universidad de Marsella</em>)</strong></p>
@@ -1103,7 +1321,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>En realidad es una familia de lenguajes, entre los que se encuentran Standard ML, OCaml o F#.</p></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.7">
 
 <ul>
 <li><p><strong>1980: Smalltalk (<em>Alan Kay, Adele Goldberg, Xerox PARC</em>)</strong></p>
@@ -1123,7 +1342,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Lenguaje multiparadigma interpretado, dinámico y multiplataforma.</li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.8">
 
 <ul>
 <li><p><strong>1995: Un año especialmente destacable:</strong></p>
@@ -1149,7 +1369,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ul></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.2.0.9">
 
 <ul>
 <li><p><strong>2000: C# (<em>Anders Hejlsberg, Microsoft</em>)</strong></p>
@@ -1162,19 +1383,30 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6, Clojure…</p></li>
 </ul>
-</section><section id="actividades-1" class="slide level4">
-<h4><span class="header-section-number">3.2.0.10</span> Actividades</h4>
+</section>
+<section id="actividades-1" class="slide level4" data-number="3.2.0.10">
+<h4 data-number="3.2.0.10"><span class="header-section-number">3.2.0.10</span> Actividades</h4>
 <ol start="2" class="example" type="1">
 <li>Busca en Internet información sobre un lenguaje de programación que no se haya comentado aquí y que se haya creado no antes del año 2000. Anota el paradigma (o paradigmas) que soporta y los lenguajes que influyeron en su diseño.</li>
 </ol>
-</section><section id="clasificación" class="title-slide slide level2"><h2><span class="header-section-number">3.3</span> Clasificación</h2></section><section id="por-nivel" class="title-slide slide level3"><h3><span class="header-section-number">3.3.1</span> Por nivel</h3><ul>
+</section>
+
+<section id="clasificación" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Clasificación</h2>
+
+</section>
+<section id="por-nivel" class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Por nivel</h3>
+<ul>
 <li><p>Dependiendo del <strong>nivel</strong> del lenguaje de programación tenemos:</p>
 <ul>
 <li><p>Lenguajes de bajo nivel</p></li>
 <li><p>Lenguajes de alto nivel</p></li>
 </ul></li>
-</ul></section><section id="lenguajes-de-bajo-nivel" class="slide level4">
-<h4><span class="header-section-number">3.3.1.1</span> Lenguajes de bajo nivel</h4>
+</ul>
+</section>
+<section id="lenguajes-de-bajo-nivel" class="slide level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1"><span class="header-section-number">3.3.1.1</span> Lenguajes de bajo nivel</h4>
 <ul>
 <li><p>Lenguajes más cercanos a la máquina</p></li>
 <li><p>Con poca o nula capacidad de abstracción</p></li>
@@ -1188,8 +1420,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Ensamblador</p></li>
 </ul></li>
 </ul>
-</section><section id="lenguajes-de-alto-nivel" class="slide level4">
-<h4><span class="header-section-number">3.3.1.2</span> Lenguajes de alto nivel</h4>
+</section>
+<section id="lenguajes-de-alto-nivel" class="slide level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2"><span class="header-section-number">3.3.1.2</span> Lenguajes de alto nivel</h4>
 <ul>
 <li><p>Lenguajes más cercanos al ser humano</p></li>
 <li><p>Mayor capacidad de abstracción</p></li>
@@ -1197,7 +1430,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Programas más fáciles de escribir, depurar, mantener y portar</p></li>
 <li><p>Menor control de los recursos de la máquina</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="3.3.1.3">
 
 <ul>
 <li><p>Ejemplos de lenguajes de alto nivel:</p>
@@ -1218,18 +1452,28 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Haskell</li>
 </ul></li>
 </ul>
-</section><section id="actividades-2" class="slide level4">
-<h4><span class="header-section-number">3.3.1.4</span> Actividades</h4>
+</section>
+<section id="actividades-2" class="slide level4" data-number="3.3.1.4">
+<h4 data-number="3.3.1.4"><span class="header-section-number">3.3.1.4</span> Actividades</h4>
 <ol start="3" class="example" type="1">
 <li>Ordena cronológicamente la lista anterior por el año de creación de cada lenguaje.</li>
 </ol>
-</section><section id="por-generación" class="title-slide slide level3"><h3><span class="header-section-number">3.3.2</span> Por generación</h3><ol type="1">
+</section>
+
+<section id="por-generación" class="title-slide slide level3" data-number="3.3.2">
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> Por generación</h3>
+<ol type="1">
 <li><p><strong>Primera generación</strong>: Se programa directamente en <em>código máquina</em>.</p></li>
 <li><p><strong>Segunda generación</strong>: Aparece el <em>lenguaje ensamblador</em> como un lenguaje simbólico que se traduce a lenguaje máquina usando un <em>programa ensamblador</em>.</p></li>
 <li><p><strong>Tercera generación</strong>: Aparecen los <em>lenguajes de alto nivel</em> con los que se puede programar con códigos independientes de la máquina. El código fuente se traduce a código máquina usando programas específicos llamados <strong>traductores</strong>.</p></li>
 <li><p><strong>Cuarta generación</strong>: Herramientas que combinan un lenguaje de programación de alto nivel con un <em>software</em> de generación de pantallas, listados, informes, etc. orientado al desarrollo rápido de aplicaciones. Ejemplos característicos son los lenguajes de <strong>programación visual</strong>.</p></li>
 <li><p><strong>Quinta generación</strong>: Es una denominación que se usó durante un tiempo para los lenguajes de programación de muy alto nivel (funciones y lógicos) destinados principalmente a resolver problemas de <strong>Inteligencia Artificial</strong>, pero como término ya ha caído en desuso.</p></li>
-</ol></section><section id="por-propósito" class="title-slide slide level3"><h3><span class="header-section-number">3.3.3</span> Por propósito</h3><ul>
+</ol>
+</section>
+
+<section id="por-propósito" class="title-slide slide level3" data-number="3.3.3">
+<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> Por propósito</h3>
+<ul>
 <li><p>Dependiendo del tipo de programa que podemos escribir con el lenguaje, tenemos:</p>
 <ul>
 <li><p><strong>Lenguajes de propósito general</strong>: Con ellos se pueden escribir programas muy diversos. No están atados a un tipo concreto de problema a resolver. Ejemplos:</p>
@@ -1243,7 +1487,12 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Lenguajes para desarrollo de aplicaciones de gestión (COBOL)</li>
 </ul></li>
 </ul></li>
-</ul></section><section id="por-paradigma" class="title-slide slide level3"><h3><span class="header-section-number">3.3.4</span> Por paradigma</h3><ul>
+</ul>
+</section>
+
+<section id="por-paradigma" class="title-slide slide level3" data-number="3.3.4">
+<h3 data-number="3.3.4"><span class="header-section-number">3.3.4</span> Por paradigma</h3>
+<ul>
 <li><p>Dependiendo del paradigma de programación que soporta el lenguaje, podemos encontrar:</p>
 <ul>
 <li><p>Lenguajes imperativos</p></li>
@@ -1253,8 +1502,18 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Lenguajes dirigidos por eventos</p></li>
 <li><p>Lenguajes multiparadigma</p></li>
 </ul></li>
-</ul></section></section>
-<section><section id="traductores" class="title-slide slide level1"><h1><span class="header-section-number">4</span> Traductores</h1></section><section id="definición-4" class="title-slide slide level2"><h2><span class="header-section-number">4.1</span> Definición</h2><ul>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="traductores" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Traductores</h1>
+
+</section>
+<section id="definición-4" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Definición</h2>
+<ul>
 <li><p>El único lenguaje que entiende la máquina directamente es el <strong>lenguaje máquina</strong> o <strong>código máquina</strong>, que es un lenguaje de <strong>bajo nivel</strong>.</p></li>
 <li><p>Para poder programar con un lenguaje de <strong>alto nivel</strong>, necesitamos usar herramientas <em>software</em> que traduzcan nuestro programa al lenguaje máquina que entiende el ordenador.</p></li>
 <li><p>Estas herramientas <em>software</em> son los <strong>traductores</strong>.</p>
@@ -1262,7 +1521,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <p><strong>Traductor:</strong></p>
 <p>Es un <em>software</em> que traduce un programa escrito en un lenguaje a otro lenguaje, conservando su significado.</p>
 </div></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="4.1.0.1">
 
 <ul>
 <li><p>El traductor transforma el programa fuente (o <strong>código fuente</strong>) en el programa objeto (o <strong>código objeto</strong>).</p></li>
@@ -1275,7 +1536,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <img data-src="images/traduccion.svg" class="plain" style="width:80.0%" alt="" /><figcaption>El proceso de traducción</figcaption>
 </figure>
 </div>
-</section><section id="compiladores" class="title-slide slide level2"><h2><span class="header-section-number">4.2</span> Compiladores</h2><ul>
+</section>
+
+<section id="compiladores" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Compiladores</h2>
+<ul>
 <li><p>Definición:</p>
 <div class="caja">
 <p><strong>Compilador</strong>:</p>
@@ -1285,7 +1550,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul>
 <div class="centered">
 <p><img data-src="images/compilacion.svg" class="plain" style="width:80.0%" /></p>
-</div></section><section id="ensambladores" class="title-slide slide level3"><h3><span class="header-section-number">4.2.1</span> Ensambladores</h3><ul>
+</div>
+</section>
+<section id="ensambladores" class="title-slide slide level3" data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span> Ensambladores</h3>
+<ul>
 <li><p>Un caso particular de compilador es el <strong>ensamblador</strong>:</p>
 <div class="caja">
 <p><strong>Ensamblador</strong>:</p>
@@ -1295,21 +1564,32 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul>
 <div class="centered">
 <p><img data-src="images/ensamblado.svg" class="plain" style="width:80.0%" /></p>
-</div></section><section id="intérpretes" class="title-slide slide level2"><h2><span class="header-section-number">4.3</span> Intérpretes</h2><ul>
+</div>
+</section>
+
+
+<section id="intérpretes" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Intérpretes</h2>
+<ul>
 <li><p>Un <strong>intérprete</strong> es un caso muy especial de traductor.</p></li>
 <li><p>En lugar de generar código objeto, el intérprete <strong>lee el código fuente y lo ejecuta directamente</strong>.</p></li>
 <li><p>El intérprete funciona, por tanto, como un <strong>simulador</strong> de una máquina que hablara el lenguaje de alto nivel en el que está escrito el programa fuente.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/interpretes.svg" class="plain" style="width:80.0%" /></p>
-</div></section><section class="slide level4">
+</div>
+</section>
+<section class="slide level4" data-number="4.3.0.1">
 
 <ul>
 <li><p>El desarrollo de programas se ve <strong>acelerado</strong> con un intérprete ya que no es necesario pasar por el proceso de compilación ni, por tanto, generar el código objeto para poder ejecutar el programa.</p></li>
 <li><p>Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete no informará de ellos hasta el momento en el que intente ejecutar la instrucción errónea, es decir, <strong>los errores se muestran en tiempo de ejecución, no en tiempo de compilación</strong>.</p></li>
 <li><p>Hay lenguajes <em>compilados</em> y lenguajes <em>interpretados</em>, e incluso lenguajes que son ambas cosas (tienen compiladores e intérpretes).</p></li>
 </ul>
-</section><section id="interactivos-repl" class="title-slide slide level3"><h3><span class="header-section-number">4.3.1</span> Interactivos (<em>REPL</em>)</h3><ul>
+</section>
+<section id="interactivos-repl" class="title-slide slide level3" data-number="4.3.1">
+<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span> Interactivos (<em>REPL</em>)</h3>
+<ul>
 <li><p>A los intérpretes que hemos visto hasta ahora se les denomina <strong>intérpretes por lotes</strong>, ya que tratan al programa fuente como un lote de instrucciones conjuntas.</p></li>
 <li><p>A diferencia de los anteriores, los <strong>intérpretes interactivos</strong> son programas que solicitan al programador que introduzca por teclado, una a una, las instrucciones que se desean ejecutar, y el intérprete las va ejecutando a medida que el programador las va introduciendo.</p></li>
 <li><p>Su comportamiento se resume en el siguiente bucle:</p>
@@ -1319,7 +1599,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Imprimir por la pantalla el resultado (<em><strong>P</strong>rint</em>)</li>
 <li>Repetir el bucle (<em><strong>L</strong>oop</em>)</li>
 </ol></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="4.3.1.1">
 
 <ul>
 <li><p>Los intérpretes interactivos son ideales para:</p>
@@ -1329,12 +1611,23 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Probar rápidamente el efecto de una instrucción.</p></li>
 </ul></li>
 </ul>
-</section></section>
-<section><section id="resolución-de-problemas-mediante-programación" class="title-slide slide level1"><h1><span class="header-section-number">5</span> Resolución de problemas mediante programación</h1></section><section id="introducción" class="title-slide slide level2"><h2><span class="header-section-number">5.1</span> Introducción</h2><ul>
+</section>
+
+</section>
+<section>
+<section id="resolución-de-problemas-mediante-programación" class="title-slide slide level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Resolución de problemas mediante programación</h1>
+
+</section>
+<section id="introducción" class="title-slide slide level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Introducción</h2>
+<ul>
 <li><p>El proceso de resolución de un problema con un ordenador pasa por escribir y ejecutar un programa.</p></li>
 <li><p>Aunque diseñar programas es, esencialmente, un proceso creativo, se puede considerar una serie de fases o pasos comunes, que generalmente deben seguir todos los programadores.</p></li>
 <li><p>Si bien se han ordenado según un esquema lógico, hay que considerar que algunos de esos pasos se repiten a lo largo del desarrollo del programa siguiendo un esquema iterativo e incremental, y otros (como la documentación) se deben realizar continuamente a lo largo de todo el proceso y no sólo al final como un paso más del mismo.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.1.0.1">
 
 <ul>
 <li><p>Estos pasos son:</p>
@@ -1352,7 +1645,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Mantenimiento</li>
 </ol></li>
 </ul>
-</section><section id="especificación" class="title-slide slide level2"><h2><span class="header-section-number">5.2</span> Especificación</h2><ul>
+</section>
+
+<section id="especificación" class="title-slide slide level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Especificación</h2>
+<ul>
 <li><p>En esta fase se define con precisión (cuanto más formal mejor):</p>
 <ul>
 <li><p>Cuál es la <strong>entrada requerida</strong>:</p>
@@ -1367,7 +1664,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 </ul></li>
 <li><p>Se trata al programa como una <strong>caja negra</strong> de la que se sabe <em>qué</em> tiene que hacer pero aún no sabemos <em>cómo</em>.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.2.0.1">
 
 <ul>
 <li><p>Ejemplo: Se desea determinar el máximo de dos números enteros</p>
@@ -1384,7 +1683,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>En las especificaciones está permitido usar funciones que no estén implementadas en el lenguaje, siempre y cuando estén perfectamente especificadas y no las usemos luego en la implementación del algoritmo (está prohibido).</p></li>
 <li><p>A esas funciones se las denomina <strong>funciones ocultas</strong> o <strong>auxiliares</strong>.</p></li>
 </ul>
-</section><section class="slide level4">
+</section>
+<section class="slide level4" data-number="5.2.0.2">
 
 <ul>
 <li><p>Por ejemplo, si disponemos de la función oculta <span class="math inline">max</span> que devuelve el máximo de dos números y cuya especificación coincide exactamente con la del problema que queremos resolver, nuestra especificación podría quedar así:</p>
@@ -1396,26 +1696,36 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Con esta especificación estamos describiendo que, si se reciben como datos de entrada dos números enteros cualesquiera, el programa <em>Máximo</em> calculará y devolverá a la salida el mayor de ellos.</p></li>
 <li><p>Si los datos de entrada no satisfacen los requisitos necesarios, el programa tiene derecho a responder de cualquier manera.</p></li>
 </ul>
-</section><section id="análisis-del-problema" class="title-slide slide level2"><h2><span class="header-section-number">5.3</span> Análisis del problema</h2><ul>
+</section>
+
+<section id="análisis-del-problema" class="title-slide slide level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> Análisis del problema</h2>
+<ul>
 <li><p>A partir de la especificación, se estudia detalladamente el problema a resolver, los requisitos que se deben cumplir y las posibles restricciones que pueda tener la solución.</p></li>
 <li><p>En el ejemplo anterior:</p>
 <ul>
 <li>Hay que comparar el valor de los dos números y devolver el mayor de ellos.</li>
 <li>Si los dos números son iguales, se puede devolver cualquiera de los dos.</li>
 </ul></li>
-</ul></section><section id="diseño-del-algoritmo" class="title-slide slide level2"><h2><span class="header-section-number">5.4</span> Diseño del algoritmo</h2><ul>
+</ul>
+</section>
+
+<section id="diseño-del-algoritmo" class="title-slide slide level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> Diseño del algoritmo</h2>
+<ul>
 <li><p>Una vez analizado el problema con detalle, se diseña un algoritmo que cumpla con todas las posibles restricciones y satisfaga la especificación del problema.</p></li>
 <li><p>El estilo en el que se describa el algoritmo debe ir acorde con el paradigma del lenguaje de programación que se usará luego para codificar el algoritmo en un programa.</p></li>
 <li><p>El algoritmo se representa con cualquier herramienta adecuada para ello: ordinogramas, pseudocódigo, etc., el cual también depende del estilo (paradigma) utilizado.</p>
 <ul>
 <li>Por ejemplo, se podría usar un ordinograma para representar un algoritmo imperativo pero no para uno funcional.</li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.4.0.1">
 
 <ul>
 <li>Un algoritmo descrito en pseudocódigo siguiendo un estilo estructurado podría ser:</li>
 </ul>
-
 <div class="line-block"><strong>Algoritmo:</strong> Cálculo del máximo de dos números<br />
 <strong>Entrada:</strong> <span class="math inline">n_1, n_2 \in \mathbb{Z}</span><br />
 <strong>Salida:</strong> el mayor de ambos<br />
@@ -1426,22 +1736,37 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
     <strong>sino</strong><br />
         <strong>devolver</strong> <span class="math inline">n_2</span><br />
 <strong>fin</strong></div>
+</section>
 
-</section><section id="verificación" class="title-slide slide level2"><h2><span class="header-section-number">5.5</span> Verificación</h2><ul>
+<section id="verificación" class="title-slide slide level2" data-number="5.5">
+<h2 data-number="5.5"><span class="header-section-number">5.5</span> Verificación</h2>
+<ul>
 <li><p>Es el proceso por el cual se intenta <strong>demostrar</strong> que el algoritmo diseñado es <strong>correcto</strong>.</p></li>
 <li><p>Un algoritmo es correcto cuando <strong>satisface su especificación</strong>.</p></li>
 <li><p>Es un proceso basado en las matemáticas y la lógica, y consiste en considerar que el algoritmo es un <strong>teorema</strong> a demostrar en un sistema deductivo lógico en el que hay <em>axiomas</em> y <em>reglas de inferencia</em>.</p></li>
 <li><p>Puede resultar muy difícil incluso en casos sencillos.</p></li>
 <li><p>En la práctica, su uso se reduce a bloques pequeños y críticos del programa.</p></li>
-</ul></section><section id="estudio-de-la-eficiencia" class="title-slide slide level2"><h2><span class="header-section-number">5.6</span> Estudio de la eficiencia</h2><ul>
+</ul>
+</section>
+
+<section id="estudio-de-la-eficiencia" class="title-slide slide level2" data-number="5.6">
+<h2 data-number="5.6"><span class="header-section-number">5.6</span> Estudio de la eficiencia</h2>
+<ul>
 <li><p>Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos optar a estudiar la eficiencia del mismo.</p></li>
 <li><p>Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y se debe optar por diseñar otro algoritmo más eficiente.</p></li>
-</ul></section><section id="codificación" class="title-slide slide level2"><h2><span class="header-section-number">5.7</span> Codificación</h2><ul>
+</ul>
+</section>
+
+<section id="codificación" class="title-slide slide level2" data-number="5.7">
+<h2 data-number="5.7"><span class="header-section-number">5.7</span> Codificación</h2>
+<ul>
 <li><p>Una vez diseñado y verificado el algoritmo, éste se codifica en un lenguaje de programación usando un editor de textos o un IDE (<em>Entorno Integrado de Desarrollo</em>).</p></li>
 <li><p>Se considera una tarea casi mecanizable, pero aún hay decisiones que pueden influir a la hora de codificar un programa y que sólo puede tomar un programador experimentado.</p></li>
 <li><p>El lenguaje de programación utilizado es una decisión de diseño que hay que justificar.</p></li>
 <li><p>El diseño del algoritmo debería ser independiente del lenguaje de programación en el que se vaya a codificar posteriormente el programa, pero el <em>estilo</em> (paradigma) influye.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.7.0.1">
 
 <ul>
 <li><p>Codificación del algoritmo anterior en lenguaje Python:</p>
@@ -1463,7 +1788,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <span id="cb2-9"><a href="#cb2-9"></a>    }</span>
 <span id="cb2-10"><a href="#cb2-10"></a>}</span></code></pre></div></li>
 </ul>
-</section><section id="traducción-y-ejecución" class="title-slide slide level2"><h2><span class="header-section-number">5.8</span> Traducción y ejecución</h2><ul>
+</section>
+
+<section id="traducción-y-ejecución" class="title-slide slide level2" data-number="5.8">
+<h2 data-number="5.8"><span class="header-section-number">5.8</span> Traducción y ejecución</h2>
+<ul>
 <li><p>Una vez escrito el programa, se procede a su ejecución. Para ello:</p>
 <ul>
 <li><p>Si el lenguaje es <strong>compilado</strong>: se compila, se genera el código objeto y se ejecuta éste.</p></li>
@@ -1475,17 +1804,25 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Errores <strong>sintácticos</strong> (por ejemplo, falta o sobra un paréntesis)</p></li>
 <li><p>Errores <strong>de semántica estática</strong> (por ejemplo, se intenta sumar una cadena a un número, detectable mediante un <strong>chequeo de tipos</strong>)</p></li>
 </ul></li>
-</ul></section><section id="actividades-3" class="slide level4">
-<h4><span class="header-section-number">5.8.0.1</span> Actividades</h4>
+</ul>
+</section>
+<section id="actividades-3" class="slide level4" data-number="5.8.0.1">
+<h4 data-number="5.8.0.1"><span class="header-section-number">5.8.0.1</span> Actividades</h4>
 <ol start="4" class="example" type="1">
 <li>Desde el punto de vista de la detección de errores sintácticos o de semántica estática, ¿qué resulta más interesante: un compilador o un intérprete? Razona la respuesta.</li>
 </ol>
-</section><section id="pruebas" class="title-slide slide level2"><h2><span class="header-section-number">5.9</span> Pruebas</h2><ul>
+</section>
+
+<section id="pruebas" class="title-slide slide level2" data-number="5.9">
+<h2 data-number="5.9"><span class="header-section-number">5.9</span> Pruebas</h2>
+<ul>
 <li><p>Para determinar que el programa funciona correctamente, se determina una <strong>batería de pruebas</strong> que debe superar el mismo para concluir que se comporta como debe.</p></li>
 <li><p>Esas baterías de prueba (o <strong>casos de prueba</strong>) consisten en una serie de <strong>datos de entrada</strong> con los que se estimula al programa, emparejados junto a una serie de <strong>resultados esperables</strong> que se comparan con los resultados reales que el programa genera a partir de los datos de entrada.</p></li>
 <li><p>Si los generados coinciden con los esperables, se concluye que el programa está funcionando <strong>correctamente</strong>.</p></li>
 <li><p>En caso contrario, decimos que el programa <strong>falla</strong> y debemos localizar el error (o errores) que provocan el mal funcionamiento.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.9.0.1">
 
 <ul>
 <li><p><strong>Las pruebas pueden detectar la presencia de errores, pero nunca pueden garantizar la ausencia de los mismos.</strong></p></li>
@@ -1497,18 +1834,32 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>También es importante comprobar la <strong>eficiencia</strong> del programa con ejecuciones <em>reales</em>.</p></li>
 </ul></li>
 </ul>
-</section><section id="depuración" class="title-slide slide level2"><h2><span class="header-section-number">5.10</span> Depuración</h2><ul>
+</section>
+
+<section id="depuración" class="title-slide slide level2" data-number="5.10">
+<h2 data-number="5.10"><span class="header-section-number">5.10</span> Depuración</h2>
+<ul>
 <li><p>La <strong>depuración</strong> es el proceso de <strong>encontrar</strong> los errores del programa y <strong>corregir</strong> o eliminar dichos errores.</p></li>
 <li><p>En caso de ser <strong>errores sintácticos o de semántica estática</strong>, el traductor facilita mucho la tarea de localizar la posición concreta del mismo en el programa fuente, gracias a los <strong>mensajes de error</strong> que genera durante la compilación o interpretación del programa.</p></li>
 <li><p>Si tenemos un <strong>error lógico</strong> (un error en la lógica del programa que provoca que éste produzca resultados incorrectos), normalmente resulta más difícil de localizar.</p></li>
-</ul></section><section id="documentación" class="title-slide slide level2"><h2><span class="header-section-number">5.11</span> Documentación</h2><ul>
+</ul>
+</section>
+
+<section id="documentación" class="title-slide slide level2" data-number="5.11">
+<h2 data-number="5.11"><span class="header-section-number">5.11</span> Documentación</h2>
+<ul>
 <li><p>La documentación es el proceso por el cual incorporamos al código fuente del programa de toda la información que pueda ayudar en la comprensión y el mantenimiento del mismo.</p></li>
 <li><p>La documentación de un programa puede ser interna o externa:</p>
 <ul>
 <li><p>La <strong>documentación interna</strong> forma parte del código fuente del programa y se refiere al uso de comentarios, identificadores descriptivos, indentación, reglas de estilo, etc. Todo orientado a ayudar a entender el código cuando lo lea un humano.</p></li>
 <li><p>La <strong>documentación externa</strong> va fuera del código fuente e incluye análisis, diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones para ejecutar el programa y para interpretar los resultados.</p></li>
 </ul></li>
-</ul></section><section id="mantenimiento" class="title-slide slide level2"><h2><span class="header-section-number">5.12</span> Mantenimiento</h2><ul>
+</ul>
+</section>
+
+<section id="mantenimiento" class="title-slide slide level2" data-number="5.12">
+<h2 data-number="5.12"><span class="header-section-number">5.12</span> Mantenimiento</h2>
+<ul>
 <li><p>La vida útil de un programa rara vez termina cuando se ha acabado de programar y los usuarios comienzan a usarlo, sino que a partir de ese momento comienza una de las etapas más importantes y probablemente más costosas en tiempo y esfuerzo: el <strong>mantenimiento</strong>.</p></li>
 <li><p>Mantener un programa consiste en realizar acciones encaminadas a:</p>
 <ul>
@@ -1517,13 +1868,20 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>Mejorar el programa incorporando nuevas funcionalidades.</p></li>
 </ul></li>
 <li><p>Para ello, es fundamental que el programa esté correctamente documentado.</p></li>
-</ul></section><section id="ingeniería-del-software" class="title-slide slide level2"><h2><span class="header-section-number">5.13</span> Ingeniería del software</h2><ul>
+</ul>
+</section>
+
+<section id="ingeniería-del-software" class="title-slide slide level2" data-number="5.13">
+<h2 data-number="5.13"><span class="header-section-number">5.13</span> Ingeniería del software</h2>
+<ul>
 <li><p>En los años 60, los problemas a resolver son cada vez más complejos y los ordenadores son cada vez más potentes pero los programadores son incapaces de escribir programas que aprovechen esa potencia y que sean fiables.</p></li>
 <li><p>Además resulta difícil estimar el presupuesto y el tiempo necesarios para desarrollar programas.</p></li>
 <li><p>En 1968, Fiedrich Bauer habla por primera vez de la <strong>crisis del software</strong> en la primera Conferencia sobre Ingeniería del Software de la OTAN en Garmish (Alemania).</p></li>
 <li><p>Se llega a la conclusión de que no basta con tener mejores herramientas (lenguajes), sino que hay que dar un enfoque más industrial y sistemático al desarrollo de software.</p></li>
 <li><p>Aparece la <strong>ingeniería del software</strong> como disciplina.</p></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="5.13.0.1">
 
 <ul>
 <li><p>La ingeniería del software no considera a la programación como una disciplina científica o como un arte, sino como un proceso sistemático que va más allá de escribir código.</p></li>
@@ -1537,8 +1895,16 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ul></li>
 <li><p>El desarrollo de software complejo requiere pasar por varias etapas que, juntas, forman lo que se llama el <strong>ciclo de vida</strong> del software.</p></li>
 </ul>
-</section></section>
-<section><section id="entornos-integrados-de-desarrollo" class="title-slide slide level1"><h1><span class="header-section-number">6</span> Entornos integrados de desarrollo</h1></section><section id="definición-5" class="title-slide slide level2"><h2><span class="header-section-number">6.1</span> Definición</h2><ul>
+</section>
+</section>
+<section>
+<section id="entornos-integrados-de-desarrollo" class="title-slide slide level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Entornos integrados de desarrollo</h1>
+
+</section>
+<section id="definición-5" class="title-slide slide level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> Definición</h2>
+<ul>
 <li><p>Definición:</p>
 <div class="caja">
 <p>Un <strong>entorno integrado de desarrollo</strong> o <strong>IDE</strong> (del inglés, <em>Integrated Development Environment</em>), es una herramienta <em>software</em> que proporciona servicios que facilitan el desarrollo de software al programador.</p>
@@ -1550,7 +1916,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Visor de documentación</li>
 <li>Intérpretes interactivos</li>
 </ul></li>
-</ul></section><section class="slide level4">
+</ul>
+</section>
+<section class="slide level4" data-number="6.1.0.1">
 
 <ul>
 <li><p>Asimismo, el editor de textos del IDE suele incorporar facilidades que ayudan a escribir código con más comodidad:</p>
@@ -1565,7 +1933,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li><p>IntelliJ IDEA es un IDE para programar en el lenguaje Java.</p></li>
 </ul></li>
 </ul>
-</section><section id="editores-de-textos" class="title-slide slide level2"><h2><span class="header-section-number">6.2</span> Editores de textos</h2><ul>
+</section>
+
+<section id="editores-de-textos" class="title-slide slide level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> Editores de textos</h2>
+<ul>
 <li><p>Un editor de textos, por contra, es una herramienta <em>software</em> que, en principio, sólo cuenta con la posibilidad de editar texto «plano» cuyo contenido puede ser de cualquier tipo (no necesariamente un código fuente).</p></li>
 <li><p>Al ser una herramienta general, no dispone de características específicas para escribir programas.</p></li>
 <li><p>Los principales editores de textos que podemos encontrar en el mercado son:</p>
@@ -1576,17 +1948,36 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Sublime Text</li>
 <li>Visual Studio Code</li>
 </ul></li>
-</ul></section><section id="editores-vs.-ide" class="title-slide slide level3"><h3><span class="header-section-number">6.2.1</span> Editores vs. IDE</h3><ul>
+</ul>
+</section>
+<section id="editores-vs.-ide" class="title-slide slide level3" data-number="6.2.1">
+<h3 data-number="6.2.1"><span class="header-section-number">6.2.1</span> Editores vs. IDE</h3>
+<ul>
 <li><p>Los mejores editores de textos son <strong>extensibles</strong>, es decir, es posible ampliar su funcionalidad por medio de <em>extensiones</em>.</p></li>
 <li><p>Esto hace que podamos personalizar su aspecto y funcionalidad hasta crear con ellos un IDE completo y ajustado a nuestras necesidades.</p></li>
 <li><p>Gracias a ello, podemos usar el mismo editor de textos tanto para crear documentos de texto genéricos como para escribir programas. Por tanto, sólo tenemos que aprender el manejo de una única herramienta.</p></li>
 <li><p>No obstante, los IDE suelen incorporar modos de funcionamiento que <em>imitan</em> a los de los editores de textos más conocidos (como Vim o Emacs).</p></li>
-</ul></section><section id="visual-studio-code" class="title-slide slide level3"><h3><span class="header-section-number">6.2.2</span> Visual Studio Code</h3><ul>
+</ul>
+</section>
+
+<section id="visual-studio-code" class="title-slide slide level3" data-number="6.2.2">
+<h3 data-number="6.2.2"><span class="header-section-number">6.2.2</span> Visual Studio Code</h3>
+<ul>
 <li><p>Es el editor de textos que vamos a usar en clase.</p></li>
 <li><p>Es <em>software</em> libre, y por tanto podemos usarlo sin ningún tipo de restricción.</p></li>
 <li><p>Además, es extensible y dispone de una enorme cantidad de extensiones que nos van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a usar en clase.</p></li>
-</ul></section></section>
-<section><section id="actividades-4" class="title-slide slide level1"><h1><span class="header-section-number">7</span> Actividades</h1></section><section id="actividades-5" class="title-slide slide level2"><h2><span class="header-section-number">7.1</span> Actividades</h2><ol start="5" class="example" type="1">
+</ul>
+</section>
+
+</section>
+<section>
+<section id="actividades-4" class="title-slide slide level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Actividades</h1>
+
+</section>
+<section id="actividades-5" class="title-slide slide level2" data-number="7.1">
+<h2 data-number="7.1"><span class="header-section-number">7.1</span> Actividades</h2>
+<ol start="5" class="example" type="1">
 <li><p>Supongamos los siguientes problemas:</p>
 <ol type="i">
 <li>Resolver una ecuación de primer grado de la forma <span class="math inline">a + bx = 0</span>.</li>
@@ -1603,7 +1994,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <li>Esboces, con tus propias palabras o en pseudocódigo, un algoritmo para los problemas (i), (ii) y (iv).</li>
 </ol></li>
 </ul></li>
-</ol></section><section class="slide level4">
+</ol>
+</section>
+<section class="slide level4" data-number="7.1.0.1">
 
 <ol start="6" class="example" type="1">
 <li><p>El problema de restar dos enteros positivos se puede resolver por un procedimiento análogo al de la suma lenta, al que llamaremos <strong>resta lenta</strong>.</p>
@@ -1618,8 +2011,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 </ol></li>
 </ul></li>
 </ol>
-</section></section>
-<section id="bibliografía" class="title-slide slide level1 unnumbered"><h1>Bibliografía</h1><div id="refs" class="references" role="doc-bibliography">
+</section>
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered" data-number="">
+<h1 class="unnumbered" data-number="">Bibliografía</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-aguilar_fundamentos_2008">
 <p>Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>. Aravaca: McGraw-Hill Interamericana de España.</p>
 </div>
@@ -1629,7 +2025,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"What number is the lette
 <div id="ref-van-roy_concepts_2004">
 <p>Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and Models of Computer Programming</em>. Cambridge, Mass: MIT Press.</p>
 </div>
-</div></section>
+</div>
+</section>
     </div>
   </div>
 

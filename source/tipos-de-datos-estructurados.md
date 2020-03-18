@@ -216,13 +216,13 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   iterador = iter(!NT(iterable))
-fin = False
-while not fin:
-      try:
+fin = !T{False}
+!T{while} !T{not} fin:
+      !T{try}:
             !NT{variable}(!T{,} !NT{variable})\* = next(iterador)
-      except StopIteration:
-            fin = True
-      else:
+      !T{except} StopIteration:
+            fin = !T{True}
+      !T{else}:
             !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
