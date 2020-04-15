@@ -28,7 +28,7 @@ author: Ricardo Pérez López
 
 # Colas
 
-## `java.util.Queue`
+## Interfaz `java.util.Queue`
 
 ### `java.util.ArrayDeque`
 
@@ -36,7 +36,7 @@ author: Ricardo Pérez López
 
 ### `java.util.LinkedList`
 
-## `java.util.Deque`
+## Interfaz `java.util.Deque`
 
 ### `java.util.ArrayDeque`
 
@@ -44,7 +44,7 @@ author: Ricardo Pérez López
 
 # Conjuntos
 
-## `java.util.Set`
+## Interfaz `java.util.Set`
 
 ### `java.util.HashSet`
 
@@ -52,17 +52,17 @@ author: Ricardo Pérez López
 
 ### `java.util.TreeSet`
 
-## `java.util.SortedSet`
+## Interfaz `java.util.SortedSet`
 
 ### `java.util.TreeSet`
 
-## `java.util.NavigableSet`
+## Interfaz `java.util.NavigableSet`
 
 ### `java.util.TreeSet`
 
 # Diccionarios
 
-## `java.util.Map`
+## Interfaz `java.util.Map`
 
 ### `java.util.HashMap`
 
@@ -70,11 +70,11 @@ author: Ricardo Pérez López
 
 ### `java.util.TreeMap`
 
-## `java.util.SortedMap`
+## Interfaz `java.util.SortedMap`
 
 ### `java.util.TreeMap`
 
-## `java.util.NavigableMap`
+## Interfaz `java.util.NavigableMap`
 
 ### `java.util.TreeMap`
 

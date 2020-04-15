@@ -22,5 +22,15 @@ author: Ricardo Pérez López
 
 ## Métodos predeterminados
 
+## Ejemplo: Interfaz `CharSequence`
+
+## Ejemplo: Clonación de objetos
+
+### `Cloneable`
+
+### `Object.clone()`
+
+### Constructor de copia
+
 # Paquetes y módulos
 

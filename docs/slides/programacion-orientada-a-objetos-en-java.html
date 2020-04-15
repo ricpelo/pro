@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Programación orientada a objetos en Java</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" type="image/png" href="/assets/icons/icon.png">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        var el = document.createElement('a');
+        var href = '#/title-slide';
+        el.href = href;
+        el.innerHTML = title;
+        document.getElementById('header-left').appendChild(el);
+        document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
+
+        function updateHeader(nd) {
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    if (n.nodeType == Node.TEXT_NODE) {
+                        continue;
+                    }
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        if (hr.innerHTML != '') {
+                            hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                        }
+                        hr.insertBefore(el, hr.firstChild);
+                    }
+                    break;
+                }
+            }
+        }
+
+        // On Reveal.js ready event, copy header/footer <div>
+        // into each `.slide-background` <div>
+        Reveal.addEventListener('ready', function(event) {
+            var header = document.getElementById('header');
+            document.querySelector('.reveal').appendChild(header);
+            updateHeader(Reveal.getCurrentSlide());
+        });
+
+        Reveal.addEventListener('slidechanged', function(event) {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            updateHeader(event.currentSlide);
+        });
+    });
+</script>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+<section id="title-slide" class="title-slide slide level1">
+  <h1 class="title">Programación orientada a objetos en Java</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2019/2020</p>
+</section>
+<section id="TOC" class="slide level2">
+<ul>
+<li><a href="#/uso-básico-de-objetos"><span class="toc-section-number">1</span> Uso básico de objetos</a></li>
+<li><a href="#/encapsulación"><span class="toc-section-number">2</span> Encapsulación</a></li>
+<li><a href="#/miembros-no-estáticos"><span class="toc-section-number">3</span> Miembros no estáticos</a></li>
+<li><a href="#/miembros-estáticos"><span class="toc-section-number">4</span> Miembros estáticos</a></li>
+</ul>
+</section>
+</section>
+
+<section>
+<section id="uso-básico-de-objetos" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Uso básico de objetos</h1>
+
+</section>
+<section id="instanciación" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Instanciación</h2>
+
+</section>
+<section id="new" class="title-slide slide level3" data-number="1.1.1">
+<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span> <code>new</code></h3>
+
+</section>
+
+<section id="getclass" class="title-slide slide level3" data-number="1.1.2">
+<h3 data-number="1.1.2"><span class="header-section-number">1.1.2</span> <code>getClass()</code></h3>
+
+</section>
+
+<section id="instanceof" class="title-slide slide level3" data-number="1.1.3">
+<h3 data-number="1.1.3"><span class="header-section-number">1.1.3</span> <code>instanceof</code></h3>
+
+</section>
+
+
+<section id="referencias" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Referencias</h2>
+
+</section>
+<section id="null" class="title-slide slide level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> <code>null</code></h3>
+
+</section>
+
+
+<section id="comparación-de-objetos" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Comparación de objetos</h2>
+
+</section>
+<section id="equals" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> <code>equals()</code></h3>
+
+</section>
+
+<section id="hashcode" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> <code>hashCode()</code></h3>
+
+</section>
+
+
+<section id="destrucción-de-objetos" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Destrucción de objetos</h2>
+
+</section>
+<section id="recolección-de-basura" class="title-slide slide level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Recolección de basura</h3>
+
+</section>
+
+</section>
+<section>
+<section id="encapsulación" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Encapsulación</h1>
+
+</section>
+<section id="visibilidad" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Visibilidad</h2>
+
+</section>
+<section id="pública" class="title-slide slide level3" data-number="2.1.1">
+<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> Pública</h3>
+
+</section>
+
+<section id="privada" class="title-slide slide level3" data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Privada</h3>
+
+</section>
+
+<section id="por-defecto" class="title-slide slide level3" data-number="2.1.3">
+<h3 data-number="2.1.3"><span class="header-section-number">2.1.3</span> Por defecto</h3>
+
+</section>
+
+</section>
+<section>
+<section id="miembros-no-estáticos" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Miembros no estáticos</h1>
+
+</section>
+<section id="atributos" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Atributos</h2>
+
+</section>
+<section id="acceso-y-modificación" class="title-slide slide level3" data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Acceso y modificación</h3>
+
+</section>
+
+<section id="atributos-finales" class="title-slide slide level3" data-number="3.1.2">
+<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Atributos finales</h3>
+
+</section>
+
+
+<section id="métodos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Métodos</h2>
+
+</section>
+<section id="referencia-this" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Referencia <code>this</code></h3>
+
+</section>
+
+<section id="constructores-y-destructores" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Constructores y destructores</h3>
+
+</section>
+
+<section id="accesores-y-mutadores" class="title-slide slide level3" data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Accesores y mutadores</h3>
+
+</section>
+
+<section id="sobrecarga" class="title-slide slide level3" data-number="3.2.4">
+<h3 data-number="3.2.4"><span class="header-section-number">3.2.4</span> Sobrecarga</h3>
+
+</section>
+
+<section id="ámbito-de-un-identificador" class="title-slide slide level3" data-number="3.2.5">
+<h3 data-number="3.2.5"><span class="header-section-number">3.2.5</span> Ámbito de un identificador</h3>
+
+</section>
+
+<section id="resolución-de-identificadores" class="title-slide slide level3" data-number="3.2.6">
+<h3 data-number="3.2.6"><span class="header-section-number">3.2.6</span> Resolución de identificadores</h3>
+
+</section>
+
+</section>
+<section>
+<section id="miembros-estáticos" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Miembros estáticos</h1>
+
+</section>
+<section id="métodos-estáticos" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Métodos estáticos</h2>
+
+</section>
+
+<section id="atributos-estáticos" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Atributos estáticos</h2>
+
+</section>
+
+<section id="atributos-estáticos-finales" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Atributos estáticos finales</h2>
+
+</section>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 1080,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-menu/menu.js', async: true },
+          { src: 'reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/customcontrols/customcontrols.js', async: true }
+        ],
+
+        customcontrols: {
+          controls: [
+            { icon: '<i class="fa fa-question-circle"></i>',
+                         css: 'position: fixed; right: 50px; bottom: 50px; z-index: 30; font-size: 24px;',
+                         action: 'Reveal.toggleHelp(); return false;'
+                       }
+          ]
+        },
+
+        menu: {
+          numbers: true,
+          hideMissingTitles: true,
+          themes: true,
+          themesPath: 'reveal.js/css/theme/'
+        }
+      });
+    </script>
+    </body>
+</html>

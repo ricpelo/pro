@@ -4,18 +4,6 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Acceso directo
-
-## *Arrays*
-
-## `java.util.Arrays`
-
-### Comparación de *arrays*
-
-#### `Arrays.equals()`
-
-#### `Arrays.deepEquals()`
-
 # Acceso secuencial
 
 ## Listas
@@ -27,4 +15,8 @@ author: Ricardo Pérez López
 ## Pilas
 
 ## Colas
+
+# Acceso directo
+
+## Tablas *hash*
 
