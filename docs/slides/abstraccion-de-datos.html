@@ -531,6 +531,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section class="slide level4" data-number="2.3.0.1">
 
+<ul>
+<li><p>Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la programación funcional, donde:</p>
+<ul>
+<li><p>No existe mutabilidad ni estado interno ni cambios de estado.</p></li>
+<li><p>Se «simula» el cambio de estado de un dato compuesto creando un nuevo dato con los cambios aplicados.</p></li>
+</ul></li>
+<li><p>Por ejemplo: en programación funcional, la operación <code>:</code> (que añade un elemento al principio de una lista) realmente no modifica dicha lista sino que crea una nueva lista con el elemento situado al principio, y la devuelve.</p></li>
+<li><p>Esto lo podemos expresar en la especificación de la lista con la siguiente ecuación (siendo <span class="math inline">x</span> un elemento y <span class="math inline">l</span> una lista):</p>
+<p><span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span></p>
+<p>Se puede observar que no se modifica la lista <span class="math inline">l</span> para añadir el elemento <span class="math inline">x</span> al principio, sino que se crea una lista nueva por concatenación de otras dos.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.2">
+
+<ul>
+<li>¿Crees que hay ecuaciones que sobran? ¿Se podría crear una especificación equivalente pero más corta, de forma que tenga menos ecuaciones pero que se comporte exactamente igual que la anterior?</li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.3">
+
 <div class="columns">
 <div class="column">
 <ul>
@@ -562,16 +582,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-3"><a href="#cb3-3"></a>p <span class="op">=</span> apilar(p, <span class="dv">8</span>)    <span class="co"># apila valor 8</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime False</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 8</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 8</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(desapilar(p)) <span class="co"># imprime 4</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
+<span id="cb3-6"><a href="#cb3-6"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el 8</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 4</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el 4</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
 <li><p>El programa usa la pila a través de las operaciones sin necesidad de conocer su representación interna (su implementación).</p></li>
 </ul>
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="2.3.0.2">
+<section class="slide level4" data-number="2.3.0.4">
 
 <ul>
 <li>Y los <strong>números racionales</strong> se podrían especificar así:</li>
@@ -596,7 +617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }<br />
           <code>racional</code>(<span class="math inline">n</span>, 0) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
 </section>
-<section class="slide level4" data-number="2.3.0.3">
+<section class="slide level4" data-number="2.3.0.5">
 
 <ul>
 <li><p>Según la especificación anterior, podemos suponer que disponemos de un constructor y dos selectores a través de las siguientes funciones:</p>
@@ -609,7 +630,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y comprobar la igualdad de números racionales, con lo que podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.3.0.4">
+<section class="slide level4" data-number="2.3.0.6">
 
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> suma(x, y):</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    nx, dx <span class="op">=</span> numer(x), denom(x)</span>
@@ -975,10 +996,18 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos cambiando su estado interno.</p></li>
 </ul></li>
 <li><p>Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual ese estado puede ir cambiando.</p></li>
-<li><p><strong>Las funciones también pueden tener estado interno</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="5.2.0.1">
+
+<ul>
+<li><p>Al introducir el concepto de «estado interno» en nuestros datos, estamos introduciendo también la capacidad de cambiar dicho estado, es decir, que los datos ahora son mutables, y la mutabilidad es un concepto propio de la programación imperativa.</p></li>
+<li><p>Además, esto nos va a impedir representar un dato abstracto mutable usando las especificaciones algebraicas que hemos usado hasta ahora, ya que, a partir de ahora, el resultado de una operación puede depender no sólo de lo que dicten las ecuaciones de la especificación sino también de la historia previa que haya tenido el dato abstracto (es decir, de su estado interno).</p></li>
+<li><p>A cambio, ganaremos la posibilidad de modelar de forma fácil y natural el comportamiento de sistemas y procesos que se dan en el mundo real y que son inherentemente dinámicos, es decir, que cambian con el tiempo y que van pasando por distintos estados a medida que se opera con ellos.</p></li>
+<li><p>Para ello, aprovecharemos una característica aún no explorada hasta ahora: <strong>las funciones también pueden tener estado interno</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="5.2.0.2">
 
 <ul>
 <li><p>Por ejemplo, definamos una función que simule el proceso de retirar dinero de una cuenta bancaria.</p></li>
@@ -994,7 +1023,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb17-8"><a href="#cb17-8"></a><span class="dv">35</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level4" data-number="5.2.0.2">
+<section class="slide level4" data-number="5.2.0.3">
 
 <ul>
 <li><p>La expresión <code>retirar(25)</code>, evaluada dos veces, produce valores diferentes.</p></li>
@@ -1003,7 +1032,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Este efecto lateral es el resultado de retirar dinero de los fondos disponibles <strong>provocando un cambio en el estado de una variable</strong> que almacena dichos fondos y que se encuentra <strong>fuera del marco actual</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="5.2.0.3">
+<section class="slide level4" data-number="5.2.0.4">
 
 <ul>
 <li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>

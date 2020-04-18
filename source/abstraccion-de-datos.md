@@ -389,6 +389,35 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
+- Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la
+  programación funcional, donde:
+
+  - No existe mutabilidad ni estado interno ni cambios de estado.
+
+  - Se «simula» el cambio de estado de un dato compuesto creando un nuevo dato
+    con los cambios aplicados.
+
+- Por ejemplo: en programación funcional, la operación `:` (que añade un
+  elemento al principio de una lista) realmente no modifica dicha lista sino
+  que crea una nueva lista con el elemento situado al principio, y la devuelve.
+
+- Esto lo podemos expresar en la especificación de la lista con la siguiente
+  ecuación (siendo $x$ un elemento y $l$ una lista):
+
+  $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
+
+  Se puede observar que no se modifica la lista $l$ para añadir el elemento $x$
+  al principio, sino que se crea una lista nueva por concatenación de otras
+  dos.
+
+---
+
+- ¿Crees que hay ecuaciones que sobran? ¿Se podría crear una especificación
+  equivalente pero más corta, de forma que tenga menos ecuaciones pero que se
+  comporte exactamente igual que la anterior?
+
+---
+
 :::: columns
 
 ::: column
@@ -430,8 +459,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   p = apilar(p, 8)    # apila valor 8
   print(vacia(p))     # imprime False
   print(cima(p))      # imprime 8
-  print(desapilar(p)) # imprime 8
-  print(desapilar(p)) # imprime 4
+  p = desapilar(p)    # desapila el 8
+  print(cima(p))      # imprime 4
+  p = desapilar(p)    # desapila el 4
   print(vacia(p))     # imprime True
   print(cima(pvacia)) # error
   ```
@@ -1028,7 +1058,26 @@ E -> i [lhead = cluster1]
 - Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual
   ese estado puede ir cambiando.
 
-- **Las funciones también pueden tener estado interno**.
+---
+
+- Al introducir el concepto de «estado interno» en nuestros datos, estamos
+  introduciendo también la capacidad de cambiar dicho estado, es decir, que los
+  datos ahora son mutables, y la mutabilidad es un concepto propio de la
+  programación imperativa.
+
+- Además, esto nos va a impedir representar un dato abstracto mutable usando
+  las especificaciones algebraicas que hemos usado hasta ahora, ya que, a
+  partir de ahora, el resultado de una operación puede depender no sólo de lo
+  que dicten las ecuaciones de la especificación sino también de la historia
+  previa que haya tenido el dato abstracto (es decir, de su estado interno).
+
+- A cambio, ganaremos la posibilidad de modelar de forma fácil y natural el
+  comportamiento de sistemas y procesos que se dan en el mundo real y que son
+  inherentemente dinámicos, es decir, que cambian con el tiempo y que van
+  pasando por distintos estados a medida que se opera con ellos.
+
+- Para ello, aprovecharemos una característica aún no explorada hasta ahora:
+  **las funciones también pueden tener estado interno**.
 
 ---
 
