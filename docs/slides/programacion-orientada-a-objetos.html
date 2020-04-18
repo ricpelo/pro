@@ -17,6 +17,70 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
+  <style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #d33682; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #dc322f; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #268bd2; } /* DataType */
+code span.dv { color: #d33682; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #d33682; } /* Float */
+code span.fu { color: #268bd2; } /* Function */
+code span.im { font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #a57800; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #2aa198; } /* SpecialString */
+code span.st { color: #2aa198; } /* String */
+code span.va { color: #6c71c4; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <!-- Printing and PDF exports -->
@@ -174,13 +238,25 @@
 <ul>
 <li><p>Recordemos lo que hemos aprendido hasta ahora:</p>
 <ul>
-<li><p>La abstracción de datos nos permite definir datos complejos mediante las operaciones que los manipulan y de una forma independiente de su implementación.</p></li>
-<li><p>Las funciones pueden tener estado interno usando funciones de orden superior y variables no locales.</p></li>
+<li><p>La <strong>abstracción de datos</strong> nos permite definir tipos de datos complejos llamados <strong>tipos abstractos de datos</strong> (<em>TAD</em>), que se representan únicamente mediante las <strong>operaciones</strong> que manipulan esos datos y con <strong>independencia de su implementación</strong>.</p></li>
+<li><p>Las funciones pueden tener <strong>estado interno</strong> usando funciones de orden superior y variables no locales.</p></li>
 <li><p>Una función puede representar un dato.</p></li>
-<li><p>Los datos pueden tener estado interno usando el estado interno de la función que lo representa.</p></li>
-<li><p>El paso de mensajes agrupa las operaciones que actúan sobre ese dato dentro de una función que responde a diferentes mensajes despachando a otras funciones dependiendo del mensaje recibido.</p></li>
-<li><p>La fución que representa al dato encapsula su estado interno junto con las operaciones que lo manipulan en una sola unidad sintáctica que oculta sus detalles de implementación.</p></li>
+<li><p>Un dato puede tener estado interno usando el estado interno de la función que lo representa.</p></li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level4" data-number="1.1.0.1">
+
+<ul>
+<li><p>Además:</p>
+<ul>
+<li><p>El <strong>paso de mensajes</strong> agrupa las operaciones que actúan sobre ese dato dentro de una función que responde a diferentes mensajes <strong>despachando</strong> a otras funciones dependiendo del mensaje recibido.</p></li>
+<li><p>La función que representa al dato <strong>encapsula su estado interno junto con las operaciones</strong> que lo manipulan en <em>una sola unidad sintáctica</em> que oculta sus detalles de implementación.</p></li>
+</ul></li>
+<li><p>En conclusión:</p>
+<div class="caja">
+<p>Una función, por tanto, puede implementar un tipo abstracto de datos.</p>
+</div></li>
 </ul>
 </section>
 
@@ -191,25 +267,44 @@
 <li><p>Cuando empezamos a representar a los datos con funciones, vimos que los datos también pueden encapsular <strong>comportamiento</strong>.</p></li>
 <li><p>Esos datos ahora representan información, pero también <strong>se comportan</strong> como las cosas que representan.</p></li>
 <li><p>Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que reciben cuando las demás partes del programa les envían mensajes.</p></li>
-<li><p>Esta forma de ver a los datos como objetos activos que se relacionan entre sí y que son capaces de reaccionar y cambiar su estado interno en función de los mensajes que reciben, da lugar a todo un nuevo paradigma de programación llamado <strong>programación orientada a objetos</strong>.</p></li>
+<li><p>Esta forma de ver a los datos como objetos activos que se relacionan entre sí y que son capaces de reaccionar y cambiar su estado interno en función de los mensajes que reciben, da lugar a todo un nuevo paradigma de programación llamado <strong>orientación a objetos</strong> o <strong>programación orientada a objetos</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="1.2.0.1">
 
+<div class="caja">
+<p><strong>Definición:</strong></p>
+<p>La <strong>programación orientada a objetos</strong> es un paradigma de programación en el que los programas son vistos como formados por entidades llamadas <strong>objetos</strong> que recuerdan su propio <strong>estado interno</strong> y que se comunican entre sí mediante el <strong>paso de mensajes</strong> que se intercambian con la finalidad de:</p>
 <ul>
-<li><p>La programación orientada a objetos (OOP) es un método para organizar programas que reúne muchas de las ideas vistas hasta ahora.</p></li>
-<li><p>Al igual que las funciones en la abstracción de datos, los objetos imponen barreras de abstracción entre el uso y la implementación de datos.</p></li>
-<li><p>Al igual que los diccionarios de despacho, los objetos responden a solicitudes de comportamiento.</p></li>
-<li><p>Los objetos tienen un estado interno local al que no se puede acceder directamente desde el entorno global.</p></li>
+<li>cambiar sus estados internos,</li>
+<li>compartir información y</li>
+<li>solicitar a otros objetos el procesamiento de dicha información.</li>
 </ul>
-<p>El sistema de objetos Python proporciona una sintaxis conveniente para promover el uso de estas técnicas para organizar programas. Gran parte de esta sintaxis se comparte entre otros lenguajes de programación orientados a objetos.</p>
-<p>El sistema de objetos ofrece más que solo conveniencia. Permite una nueva metáfora para diseñar programas en los que varios agentes independientes interactúan dentro de la computadora. Cada objeto agrupa el estado local y el comportamiento de una manera que abstrae la complejidad de ambos. Los objetos se comunican entre sí, y los resultados útiles se calculan como consecuencia de su interacción. Los objetos no solo transmiten mensajes, sino que también comparten el comportamiento entre otros objetos del mismo tipo y heredan características de tipos relacionados.</p>
-<p>El paradigma de la programación orientada a objetos tiene su propio vocabulario que respalda la metáfora del objeto. Hemos visto que un objeto es un valor de datos que tiene métodos y atributos, accesibles mediante notación de puntos. Cada objeto también tiene un tipo, llamado su clase . Para crear nuevos tipos de datos, implementamos nuevas clases.</p>
+</div>
+</section>
+<section class="slide level4" data-number="1.2.0.2">
+
 <ul>
-<li><p>Los datos tienen estado interno.</p></li>
-<li><p>El almacenamiento y acceso al estado interno de una función mediante variables no locales.</p></li>
-<li><p>La representación de datos como funciones.</p></li>
-<li><p>La encapsulación de los datos junto con las operaciones que los manipulan en una sola unidad sintáctica.</p></li>
+<li><p>La <strong>programación orientada a objetos</strong> (también llamada <strong>OOP</strong>, del inglés <em>Object-Oriented Programming</em>) es un método para organizar programas que reúne muchas de las ideas vistas hasta ahora.</p></li>
+<li><p>Al igual que las funciones en la abstracción de datos, los objetos imponen barreras de abstracción entre el uso y la implementación de los datos.</p></li>
+<li><p>Al igual que los diccionarios y funciones de despacho, los objetos responden a peticiones que otros objetos le hacen en forma de mensajes para que se comporte de determinada manera.</p></li>
+<li><p>Los objetos tienen un estado interno local al que no se puede acceder directamente desde el entorno global, sino que debe hacerse por medio de las operaciones que proporciona el objeto.</p></li>
+<li><p>A efectos prácticos, por tanto, los objetos son datos abstractos.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="1.2.0.3">
+
+<ul>
+<li><p>El sistema de objetos de Python proporciona una sintaxis cómoda para promover el uso de estas técnicas de organización de programas.</p></li>
+<li><p>Gran parte de esta sintaxis se comparte entre otros lenguajes de programación orientados a objetos.</p></li>
+<li><p>Ese sistema de objetos ofrece algo más que simple comodidad:</p>
+<ul>
+<li><p>Proporciona una nueva metáfora para diseñar programas en los que varios agentes independientes interactúan dentro del ordenador.</p></li>
+<li><p>Cada objeto agrupa el estado local y el comportamiento de una manera que abstrae la complejidad de ambos.</p></li>
+<li><p>Los objetos se comunican entre sí y se obtienen resultados útiles como consecuencia de su interacción.</p></li>
+<li><p>Los objetos no sólo transmiten mensajes, sino que también comparten el comportamiento entre otros objetos del mismo tipo y heredan características de otros tipos relacionados.</p></li>
+</ul></li>
+<li><p>El paradigma de la programación orientada a objetos tiene su propio vocabulario que apoya la metáfora del objeto.</p></li>
 </ul>
 </section>
 
@@ -230,16 +325,130 @@
 </section>
 <section id="clase" class="title-slide slide level2" data-number="2.1">
 <h2 data-number="2.1"><span class="header-section-number">2.1</span> Clase</h2>
+<ul>
+<li>Una <strong>clase</strong> es una construcción sintáctica que los lenguajes de programación orientados a objetos proporcionan como <em>azúcar sintáctico</em> para <strong>implementar tipos abstractos de datos</strong> de una forma cómoda y directa sin necesidad de usar funciones de orden superior, estado local o diccionarios de despacho.</li>
+</ul>
+<div class="caja">
+<p>En programación orientada a objetos:</p>
+<ul>
+<li><p>Se habla siempre de <strong>clases</strong> y no de <em>tipos abstractos de datos</em>.</p></li>
+<li><p>Una <strong>clase</strong> es la <strong>implementación de un tipo abstracto de datos</strong>.</p></li>
+<li><p>Las clases definen <strong>tipos de datos</strong> de pleno derecho en el lenguaje de programación.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level4" data-number="2.1.0.1">
 
+<ul>
+<li>Recordemos el ejemplo del tema anterior en el que implementamos el tipo abstracto de datos <strong>Depósito</strong> mediante la siguiente <strong>función</strong>:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb1-5"><a href="#cb1-5"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb1-19"><a href="#cb1-19"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb1-20"><a href="#cb1-20"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb1-21"><a href="#cb1-21"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb1-23"><a href="#cb1-23"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-25"><a href="#cb1-25"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</div><div class="column">
+<ul>
+<li>Ese mismo TAD se puede implementar como una <strong>clase</strong> de la siguiente forma:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb2-7"><a href="#cb2-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb2-12"><a href="#cb2-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<ul>
+<li>Más tarde estudiaremos los detalles técnicos que diferencian ambas implementaciones.</li>
+</ul>
+</div>
+</div>
 </section>
 
 <section id="objeto" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Objeto</h2>
+<ul>
+<li><p>Un <strong>objeto</strong> representa un <strong>dato abstracto</strong> de la misma manera que una <em>clase</em> representa un <em>tipo abstracto de datos</em>.</p></li>
+<li><p>Es decir: un objeto es un caso particular de una clase, motivo por el que también se le denomina <strong>instancia de una clase</strong>.</p></li>
+<li><p>Un objeto es <strong>un dato que pertenece al tipo definido por la clase</strong> de la que es instancia.</p>
+<p>También se puede decir que «<strong>el objeto <em>pertenece</em> a la clase</strong>» aunque sea más correcto decir que «<strong>es <em>instancia</em> de la clase</strong>».</p></li>
+<li><p>El proceso de crear un objeto a partir de una clase se denomina <strong>instanciar la clase</strong> o <strong>instanciación</strong>.</p></li>
+<li><p>En un lenguaje orientado a objetos <em>puro</em>, todos los datos que manipula el programa son objetos y, por tanto, instancias de alguna clase.</p></li>
+<li><p>Existen lenguajes orientados a objetos <em>impuros</em> o <em>híbridos</em> en los que coexisten objetos con otros datos que no son instancias de clases.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.1">
+
+<ul>
+<li><p>Python es considerado un lenguaje orientado a objetos <strong>puro</strong>, ya que en Python todos los datos son objetos.</p></li>
+<li><p>Por ejemplo, en Python:</p>
+<ul>
+<li><p>El tipo <code>int</code> es una clase.</p></li>
+<li><p>El entero <code>5</code> es un objeto, instancia de la clase <code>int</code>.</p></li>
+</ul></li>
+<li><p>Java es un lenguaje orientado a objetos <strong>impuro</strong>, ya que un programa Java manipula objetos pero también manipula otros datos llamados <em>primitivos</em>, que no son instancias de ninguna clase sino que pertenecen a un <em>tipo primitivo</em> del lenguaje.</p></li>
+<li><p>Por ejemplo, en Java:</p>
+<ul>
+<li><p>El tipo <code>String</code> es una clase, por lo que la cadena “Hola” es un objeto.</p></li>
+<li><p>El tipo <code>int</code> es un tipo primitivo del lenguaje, por lo que el número <code>5</code> no es ningún objeto, sino un dato primitivo.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.2">
+
+<ul>
+<li><p>En Python podemos instanciar una clase (creando así un nuevo objeto) llamando a la clase como si fuera una función, del mismo modo que con la implementación funcional que hemos estado usando hasta ahora:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.3">
 
 </section>
 <section id="la-antisimetría-dato-objeto" class="title-slide slide level3" data-number="2.2.1">
 <h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> La antisimetría dato-objeto</h3>
-
+<ul>
+<li><p>Se da una curiosa contra-analogía entre los conceptos de dato y objeto:</p>
+<ul>
+<li><p>Los objetos ocultan sus datos detrás de abstracciones y exponen las funciones que operan con esos datos.</p></li>
+<li><p>Las estructuras de datos exponen sus datos y no contienen funciones significativas.</p></li>
+</ul></li>
+<li><p>Son definiciones virtualmente opuestas y complementarias.</p></li>
+</ul>
 </section>
 
 
@@ -255,12 +464,20 @@
 
 <section id="propiedad" class="title-slide slide level2" data-number="2.5">
 <h2 data-number="2.5"><span class="header-section-number">2.5</span> Propiedad</h2>
-
+<ul>
+<li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>propiedades</strong> o <strong>atributos</strong> del objeto.</p></li>
+<li><p>Las propiedades se implementan como <em>variables locales</em> al objeto.</p></li>
+<li><p>Cada vez que se crea un objeto, se le asocia un marco que contiene las propiedades del mismo.</p></li>
+<li><p>En Python es posible acceder directamente al estado interno de un objeto (o, lo que es lo mismo, al valor de sus propiedades), cosa que, en principio, podría considerarse una violación del principio de ocultación de información y del concepto mismo de abstracción de datos.</p></li>
+<li><p>No obstante, en la práctica puede resultar útil y, de hecho, dentro de la definición de una clase es necesario hacerlo así para poder acceder al valor de una propiedad de la misma.</p></li>
+</ul>
 </section>
 
 <section id="paso-de-mensajes" class="title-slide slide level2" data-number="2.6">
 <h2 data-number="2.6"><span class="header-section-number">2.6</span> Paso de mensajes</h2>
-
+<ul>
+<li>El paso de mensajes se realiza ahora invocando</li>
+</ul>
 </section>
 
 <section id="método" class="title-slide slide level2" data-number="2.7">
