@@ -522,6 +522,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <code>len</code>(<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <span class="math inline">\doteq</span> <code>len</code>(<span class="math inline">l_1</span>) + <code>len</code>(<span class="math inline">l_2</span>)</div>
 </div><div class="column">
 <ul>
+<li><p>La ecuación <span class="math inline">t_1 \doteq t_2</span> significa que el valor construido mediante <span class="math inline">t_1</span> es <em>el mismo</em> que el construido mediante <span class="math inline">t_2</span>.</p></li>
 <li><p>Este estilo de especificación se denomina <strong>especificación algebraica</strong>.</p></li>
 <li><p>Su principal virtud es que permite definir un nuevo tipo de forma <em>totalmente independiente</em> de cualquier posible representación o implementación.</p></li>
 <li><p>¿A qué categoría pertenencen cada una de esas operaciones?</p></li>
@@ -546,10 +547,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.3.0.2">
 
 <ul>
-<li>¿Crees que hay ecuaciones que sobran? ¿Se podría crear una especificación equivalente pero más corta, de forma que tenga menos ecuaciones pero que se comporte exactamente igual que la anterior?</li>
+<li><p>¿Crees que hay ecuaciones que sobran? ¿Se podría crear una especificación equivalente pero más corta, de forma que tenga menos ecuaciones pero que se comporte exactamente igual que la anterior?</p></li>
+<li><p>En realidad, en la especificación anterior hay ecuaciones que no son estrictamente necesarias ya que se pueden deducir a partir de otras que sí lo son:</p>
+<ul>
+<li><p>Las ecuaciones que son necesarias representan <strong>axiomas</strong> de nuestro sistema.</p></li>
+<li><p>Las ecuaciones que se pueden deducir de otras representan <strong>teoremas</strong> de nuestro sistema.</p></li>
+</ul></li>
+<li><p>Bastaría con tener una especificación algebraica basada en axiomas y que dependan únicamente de operaciones generadoras.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.3.0.3">
+
+<div class="columns">
+<div class="column">
+<div class="line-block"><strong>espec</strong> <em>lista</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>[]</code> : <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>:</code>_ : <em>elemento</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>[</code>_<code>]</code> : <em>elemento</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>++</code>_ : <em>lista</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>len</code> : <em>lista</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{N}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">x</span> : <em>elemento</em>; <span class="math inline">l, l_1, l_2</span> : <em>lista</em><br />
+    <strong>ecuaciones</strong><br />
+          <code>[</code><span class="math inline">x</span><code>]</code> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> <code>[]</code><br />
+          <code>[]</code> <code>++</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          (<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <span class="math inline">l_2</span> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>)<br />
+          <code>len</code>(<code>[]</code>) <span class="math inline">\doteq</span> 0<br />
+          <code>len</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> 1 + <code>len</code>(<span class="math inline">l</span>)</div>
+</div><div class="column">
+<ul>
+<li><p>En el ejemplo de las listas, las <strong>operaciones generadoras</strong> son <code>[]</code> y _<code>:</code>_.</p></li>
+<li><p>El resto de las operaciones se definen a partir de ellas.</p></li>
+<li><p>Las ecuaciones que aparecen ahora en esta especificación son los <strong>axiomas</strong> de la misma, y las que hemos quitado son <strong>teoremas</strong> que se pueden deducir (<em>demostrar</em>) a partir de otras ecuaciones.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level4" data-number="2.3.0.4">
+
+<ul>
+<li>Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente ecuación (que apareció antes en la primera especificación de <em>lista</em>):</li>
+</ul>
+<p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span></p>
+<p>siendo <span class="math inline">l</span> una lista cualquiera.</p>
+<ul>
+<li><p>Se puede demostrar por inducción sobre <span class="math inline">l</span>, a partir de los axiomas de la especificación de <em>lista</em>:</p>
+<ul>
+<li><p>Caso <span class="math inline">l</span> = <code>[]</code>:</p>
+<p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
+<p><code>[]</code> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por el primer axioma de <code>++</code>}</p>
+<p><code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
+<p><span class="math inline">l</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.5">
+
+<ul>
+<li><p>Caso <span class="math inline">l</span> = <span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>:</p>
+<p>Suponemos que la propiedad se cumple para <span class="math inline">l_1</span> (hipótesis inductiva), es decir, que <span class="math inline">l_1</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l_1</span>.</p>
+<p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
+<p>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por el segundo axioma de <code>++</code>}</p>
+<p><span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <code>[]</code>) <span class="math inline">\doteq</span> {por hipótesis inductiva}</p>
+<p><span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
+<p><span class="math inline">l</span></p></li>
+<li><p>Como hemos demostrado que <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span> para cualquiera de las dos formas posibles que puede tener <span class="math inline">l</span>, hemos logrado demostrar la propiedad para cualquier valor de <span class="math inline">l</span>.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.6">
 
 <div class="columns">
 <div class="column">
@@ -576,26 +644,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <code>desapilar</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
 </div><div class="column">
 <ul>
-<li><p>Y un programa que hiciera uso de las pilas una vez implementado el tipo abstracto de datos, podría ser:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>p <span class="op">=</span> pvacia()        <span class="co"># crea vacía</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>p <span class="op">=</span> apilar(p, <span class="dv">4</span>)    <span class="co"># apila valor 4</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>p <span class="op">=</span> apilar(p, <span class="dv">8</span>)    <span class="co"># apila valor 8</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime False</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 8</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el 8</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 4</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el 4</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
-<li><p>El programa usa la pila a través de las operaciones sin necesidad de conocer su representación interna (su implementación).</p></li>
+<li><p>En esta especificación aparecen <strong>operaciones parciales</strong>, que son aquellas que no se pueden aplicar a cualquier operando.</p></li>
+<li><p>Por ejemplo, no se puede (no tiene sentido) calcular la cima de una pila vacía o desapilar una pila vacía. En ambos casos obtenemos un error.</p></li>
+<li><p>Por tanto, ambas operaciones son <em>parciales</em>, porque no se pueden aplicar sobre cualquier tipo de pila (sólo se puede sobre las <em>no vacías</em>).</p></li>
 </ul>
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="2.3.0.4">
+<section class="slide level4" data-number="2.3.0.7">
 
 <ul>
-<li>Y los <strong>números racionales</strong> se podrían especificar así:</li>
+<li><p>Un programa que hiciera uso de las pilas, una vez implementado el tipo abstracto de datos, podría ser:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>p <span class="op">=</span> pvacia()        <span class="co"># crea una pila vacía</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>p <span class="op">=</span> apilar(p, <span class="dv">4</span>)    <span class="co"># apila el valor 4 en la pila p</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>p <span class="op">=</span> apilar(p, <span class="dv">8</span>)    <span class="co"># apila el valor 8 en la pila p</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime False</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 8</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el valor 8 de la pila p</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(cima(p))      <span class="co"># imprime 4</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>p <span class="op">=</span> desapilar(p)    <span class="co"># desapila el valor 4 de la pila p</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(vacia(p))     <span class="co"># imprime True</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>(cima(pvacia)) <span class="co"># error</span></span></code></pre></div></li>
+<li><p>El programa usa la pila a través de las operaciones sin necesidad de conocer su representación interna (su implementación).</p>
+<p>Es decir: no necesitamos saber cómo está hecha la pila por dentro, ni cómo están programadas las funciones <code>pvacia</code>, <code>apilar</code>, <code>cima</code> y <code>desapilar</code>.</p>
+<p>Nos basta con saber las propiedades que deben cumplir esas funciones, y eso viene definido en la especificación.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.8">
+
+<ul>
+<li>Los <strong>números racionales</strong> se podrían especificar así:</li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>rac</em><br />
     <strong>operaciones</strong><br />
@@ -617,7 +695,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }<br />
           <code>racional</code>(<span class="math inline">n</span>, 0) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
 </section>
-<section class="slide level4" data-number="2.3.0.5">
+<section class="slide level4" data-number="2.3.0.9">
+
+<ul>
+<li><p>La operación <code>imprimir</code> es un caso especial, ya que no es una operación <em>pura</em>, sino que su finalidad es la de provocar el <strong>efecto lateral</strong> de imprimir por la salida un número racional de forma «bonita».</p></li>
+<li><p>Por eso no devuelve ningún valor, cosa que se refleja en su signatura usando <span class="math inline">\emptyset</span> como tipo de retorno de la operación:</p></li>
+</ul>
+<p><code>imprimir</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\emptyset</span></p>
+<ul>
+<li>Y el efecto que produce se indica entre llaves en el apartado de ecuaciones:</li>
+</ul>
+<p><code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }</p>
+<ul>
+<li>Introducir operaciones <em>impuras</em> amplía la funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado porque se pierde la transparencia referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre las especificaciones.</li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.10">
 
 <ul>
 <li><p>Según la especificación anterior, podemos suponer que disponemos de un constructor y dos selectores a través de las siguientes funciones:</p>
@@ -626,12 +719,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>numer(</code><span class="math inline">x</span><code>)</code>: devuelve el numerador del número racional <span class="math inline">x</span>.</p></li>
 <li><p><code>denom(</code><span class="math inline">x</span><code>)</code>: devuelve el denominador del número racional <span class="math inline">x</span>.</p></li>
 </ul></li>
+<li><p>Todas las demás operaciones se podrían definir como funciones a partir de éstas tres.</p></li>
 <li><p>Estamos usando una estrategia poderosa para diseñar programas: el <strong>pensamiento optimista</strong>, ya que todavía no hemos dicho cómo se representa un número racional, o cómo se deben implementar las funciones <code>numer</code>, <code>denom</code> y <code>racional</code>.</p></li>
-<li><p>Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar, imprimir y comprobar la igualdad de números racionales, con lo que podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
+<li><p>Nos basta con saber <em>qué</em> hacen y con <em>suponer</em> que ya las tenemos.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.3.0.6">
+<section class="slide level4" data-number="2.3.0.11">
 
+<ul>
+<li><p>Así, podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code> sin necesidad de saber cómo están implementadas esas tres funciones ni cómo se representa internamente un número racional.</p></li>
+<li><p>Esos detalles de implementación quedan ocultos y son innecesarios para definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code>, ya que bastaría con saber <em>qué</em> hacen las funciones <code>racional</code>, <code>numer</code> y <code>denom</code> y no <em>cómo</em> lo hacen.</p></li>
+<li><p>Hasta el punto de que ni siquiera hace falta tener implementadas aún las funciones <code>racional</code>, <code>numer</code> y <code>denom</code> para poder definir las demás. <strong>Suponemos</strong> que las tenemos (<em>pensamiento optimista</em>).</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.3.0.12">
+
+<ul>
+<li><p>Una posible implementación en Python de las operaciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a partir de <code>racional</code>, <code>numer</code> y <code>denom</code> podría ser la siguiente:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> suma(x, y):</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    nx, dx <span class="op">=</span> numer(x), denom(x)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>    ny, dy <span class="op">=</span> numer(y), denom(y)</span>
@@ -644,7 +748,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-10"><a href="#cb4-10"></a>    <span class="cf">return</span> numer(x) <span class="op">*</span> denom(y) <span class="op">==</span> numer(y) <span class="op">*</span> denom(x)</span>
 <span id="cb4-11"><a href="#cb4-11"></a></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="kw">def</span> imprimir(x):</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="bu">print</span>(numer(x), <span class="st">&#39;/&#39;</span>, denom(x), sep<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="bu">print</span>(numer(x), <span class="st">&#39;/&#39;</span>, denom(x), sep<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div></li>
+<li><p>Esta implementación es correcta porque se ha obtenido a partir de la especificación de los racionales, y en cuanto se tengan implementadas las funciones <code>racional</code>, <code>numer</code> y <code>denom</code>, funcionará perfectamente.</p></li>
+</ul>
 </section>
 </section>
 <section>

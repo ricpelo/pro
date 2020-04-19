@@ -376,6 +376,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ::: column
 
+- La ecuación $t_1 \doteq t_2$ significa que el valor construido mediante $t_1$
+  es *el mismo* que el construido mediante $t_2$.
+
 - Este estilo de especificación se denomina **especificación algebraica**.
 
 - Su principal virtud es que permite definir un nuevo tipo de forma *totalmente
@@ -416,6 +419,106 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   equivalente pero más corta, de forma que tenga menos ecuaciones pero que se
   comporte exactamente igual que la anterior?
 
+- En realidad, en la especificación anterior hay ecuaciones que no son
+  estrictamente necesarias ya que se pueden deducir a partir de otras que sí lo
+  son:
+
+  - Las ecuaciones que son necesarias representan **axiomas** de nuestro
+    sistema.
+
+  - Las ecuaciones que se pueden deducir de otras representan **teoremas** de
+    nuestro sistema.
+
+- Bastaría con tener una especificación algebraica basada en axiomas y que
+  dependan únicamente de operaciones generadoras.
+
+---
+
+:::: columns
+
+::: column
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _lista_
+    **parámetros**
+          _elemento_
+    **operaciones**
+          `[]` : $\rightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
+          `[`_`]` : _elemento_ $\rightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
+          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+    **var**
+          $x$ : _elemento_; $l, l_1, l_2$ : _lista_
+    **ecuaciones**
+          `[`$x$`]` $\doteq$ $x$ `:` `[]`
+          `[]` `++` $l$ $\doteq$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$)
+          `len`(`[]`) $\doteq$ 0
+          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- En el ejemplo de las listas, las **operaciones generadoras** son `[]` y
+  \_`:`\_.
+
+- El resto de las operaciones se definen a partir de ellas.
+
+- Las ecuaciones que aparecen ahora en esta especificación son los **axiomas**
+  de la misma, y las que hemos quitado son **teoremas** que se pueden deducir
+  (*demostrar*) a partir de otras ecuaciones.
+
+:::
+
+::::
+
+---
+
+- Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente
+  ecuación (que apareció antes en la primera especificación de *lista*):
+
+$l$ `++` `[]` $\doteq$ $l$
+
+siendo $l$ una lista cualquiera.
+
+- Se puede demostrar por inducción sobre $l$, a partir de los axiomas de la
+  especificación de *lista*:
+
+  - Caso $l$ = `[]`:
+
+    $l$ `++` `[]` $\doteq$ {por definición de $l$}
+
+    `[]` `++` `[]` $\doteq$ {por el primer axioma de `++`}
+
+    `[]` $\doteq$ {por definición de $l$}
+
+    $l$
+
+---
+
+  - Caso $l$ = $x$ `:` $l_1$:
+
+    Suponemos que la propiedad se cumple para $l_1$ (hipótesis inductiva), es
+    decir, que $l_1$ `++` `[]` $\doteq$ $l_1$.
+
+    $l$ `++` `[]` $\doteq$ {por definición de $l$}
+
+    ($x$ `:` $l_1$) `++` `[]` $\doteq$ {por el segundo axioma de `++`}
+
+    $x$ `:` ($l_1$ `++` `[]`) $\doteq$ {por hipótesis inductiva}
+
+    $x$ `:` $l_1$ $\doteq$ {por definición de $l$}
+
+    $l$
+
+- Como hemos demostrado que $l$ `++` `[]` $\doteq$ $l$ para cualquiera de las
+  dos formas posibles que puede tener $l$, hemos logrado demostrar la propiedad
+  para cualquier valor de $l$.
+
 ---
 
 :::: columns
@@ -450,24 +553,14 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ::: column
 
-- Y un programa que hiciera uso de las pilas una vez implementado el tipo
-  abstracto de datos, podría ser:
+- En esta especificación aparecen **operaciones parciales**, que son aquellas
+  que no se pueden aplicar a cualquier operando.
 
-  ```python
-  p = pvacia()        # crea vacía
-  p = apilar(p, 4)    # apila valor 4
-  p = apilar(p, 8)    # apila valor 8
-  print(vacia(p))     # imprime False
-  print(cima(p))      # imprime 8
-  p = desapilar(p)    # desapila el 8
-  print(cima(p))      # imprime 4
-  p = desapilar(p)    # desapila el 4
-  print(vacia(p))     # imprime True
-  print(cima(pvacia)) # error
-  ```
+- Por ejemplo, no se puede (no tiene sentido) calcular la cima de una pila
+  vacía o desapilar una pila vacía. En ambos casos obtenemos un error.
 
-- El programa usa la pila a través de las operaciones sin necesidad de conocer
-  su representación interna (su implementación).
+- Por tanto, ambas operaciones son *parciales*, porque no se pueden aplicar
+  sobre cualquier tipo de pila (sólo se puede sobre las *no vacías*).
 
 :::
 
@@ -475,7 +568,34 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- Y los **números racionales** se podrían especificar así:
+- Un programa que hiciera uso de las pilas, una vez implementado el tipo
+  abstracto de datos, podría ser:
+
+  ```python
+  p = pvacia()        # crea una pila vacía
+  p = apilar(p, 4)    # apila el valor 4 en la pila p
+  p = apilar(p, 8)    # apila el valor 8 en la pila p
+  print(vacia(p))     # imprime False
+  print(cima(p))      # imprime 8
+  p = desapilar(p)    # desapila el valor 8 de la pila p
+  print(cima(p))      # imprime 4
+  p = desapilar(p)    # desapila el valor 4 de la pila p
+  print(vacia(p))     # imprime True
+  print(cima(pvacia)) # error
+  ```
+
+- El programa usa la pila a través de las operaciones sin necesidad de conocer
+  su representación interna (su implementación).
+
+  Es decir: no necesitamos saber cómo está hecha la pila por dentro, ni cómo
+  están programadas las funciones `pvacia`, `apilar`, `cima` y `desapilar`.
+
+  Nos basta con saber las propiedades que deben cumplir esas funciones, y eso
+  viene definido en la especificación.
+
+---
+
+- Los **números racionales** se podrían especificar así:
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -502,6 +622,26 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
+- La operación `imprimir` es un caso especial, ya que no es una operación
+  *pura*, sino que su finalidad es la de provocar el **efecto lateral** de
+  imprimir por la salida un número racional de forma «bonita».
+
+- Por eso no devuelve ningún valor, cosa que se refleja en su signatura usando
+  $\emptyset$ como tipo de retorno de la operación:
+
+`imprimir` : _rac_ $\rightarrow$ $\emptyset$
+
+- Y el efecto que produce se indica entre llaves en el apartado de ecuaciones:
+
+`imprimir`($r$) \{ imprime el racional $r$ \}
+
+- Introducir operaciones *impuras* amplía la funcionalidad de nuestro tipo
+  abstracto, pero hay que tener cuidado porque se pierde la transparencia
+  referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre
+  las especificaciones.
+
+---
+
 - Según la especificación anterior, podemos suponer que disponemos de un
   constructor y dos selectores a través de las siguientes funciones:
 
@@ -512,33 +652,57 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   - `denom(`$x$`)`: devuelve el denominador del número racional $x$.
 
+- Todas las demás operaciones se podrían definir como funciones a partir de
+  éstas tres.
+
 - Estamos usando una estrategia poderosa para diseñar programas: el
   **pensamiento optimista**, ya que todavía no hemos dicho cómo se representa
   un número racional, o cómo se deben implementar las funciones `numer`,
   `denom` y `racional`.
-
-- Aun así, si definimos estas tres funciones, podríamos sumar, multiplicar,
-  imprimir y comprobar la igualdad de números racionales, con lo que podemos
-  definir las funciones `suma`, `mult`, `imprimir` e `iguales?` en función de
-  `racional`, `numer` y `denom`.
+  
+- Nos basta con saber *qué* hacen y con *suponer* que ya las tenemos.
 
 ---
 
-```python
-def suma(x, y):
-    nx, dx = numer(x), denom(x)
-    ny, dy = numer(y), denom(y)
-    return racional(nx * dy + ny * dx, dx * dy)
+- Así, podemos definir las funciones `suma`, `mult`, `imprimir` e `iguales?` en
+  función de `racional`, `numer` y `denom` sin necesidad de saber cómo están
+  implementadas esas tres funciones ni cómo se representa internamente un
+  número racional.
 
-def mult(x, y):
-    return racional(numer(x) * numer(y), denom(x) * denom(y))
+- Esos detalles de implementación quedan ocultos y son innecesarios para
+  definir las funciones `suma`, `mult`, `imprimir` e `iguales?`, ya que
+  bastaría con saber *qué* hacen las funciones `racional`, `numer` y `denom` y
+  no *cómo* lo hacen.
 
-def iguales(x, y):
-    return numer(x) * denom(y) == numer(y) * denom(x)
+- Hasta el punto de que ni siquiera hace falta tener implementadas aún las
+  funciones `racional`, `numer` y `denom` para poder definir las demás.
+  **Suponemos** que las tenemos (*pensamiento optimista*).
 
-def imprimir(x):
-    print(numer(x), '/', denom(x), sep='')
-```
+---
+
+- Una posible implementación en Python de las operaciones `suma`, `mult`,
+  `imprimir` e `iguales?` a partir de `racional`, `numer` y `denom` podría ser
+  la siguiente:
+
+  ```python
+  def suma(x, y):
+      nx, dx = numer(x), denom(x)
+      ny, dy = numer(y), denom(y)
+      return racional(nx * dy + ny * dx, dx * dy)
+
+  def mult(x, y):
+      return racional(numer(x) * numer(y), denom(x) * denom(y))
+
+  def iguales(x, y):
+      return numer(x) * denom(y) == numer(y) * denom(x)
+
+  def imprimir(x):
+      print(numer(x), '/', denom(x), sep='')
+  ```
+
+- Esta implementación es correcta porque se ha obtenido a partir de la
+  especificación de los racionales, y en cuanto se tengan implementadas las
+  funciones `racional`, `numer` y `denom`, funcionará perfectamente.
 
 # Implementaciones
 
