@@ -743,7 +743,7 @@ dep2.otro = 'adiós'
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
 
-### Definición de métodos
+### Invocación de métodos
 
 - Esa es la razón por la que los métodos se definen siempre con un parámetro
   extra que representa el objeto sobre el que se invoca el método (o, dicho de
@@ -782,9 +782,9 @@ class Deposito:
 
 ---
 
-- Por ejemplo, el método `saldo` de la clase `Deposito` recibe un argumento
-  `self` que, durante la llamada al método, contendrá el objeto sobre el que se
-  ha invocado dicho método:
+- El método `saldo` de la clase `Deposito` recibe un argumento `self` que,
+  durante la llamada al método, contendrá el objeto sobre el que se ha invocado
+  dicho método:
 
   ```python
   def saldo(self):
@@ -937,6 +937,307 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   de lo contrario provocará un error de ejecución.
 
 ## Identidad
+
+- Ya hemos dicho que los objetos tienen existencia propia e independiente.
+
+- La **identidad** describe la propiedad que tienen los objetos de distinguirse
+  de los demás objetos.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~
+  Dos objetos del mismo tipo son **idénticos** si un cambio en cualquiera de
+  los objetos provoca también el mismo cambio en el otro objeto.
+  ~~~~~~~~~~~~~~~~
+
+- O dicho de otra forma: dos objetos son idénticos si son intercambiables en el
+  código fuente del programa sin que se vea afectado el comportamiento de éste.
+
+- Es evidente que dos objetos de distinto tipo no pueden ser idénticos.
+
+---
+
+- En el momento en que introducimos mutabilidad en nuestro modelo
+  computacional, muchos conceptos que antes eran sencillos se vuelven
+  problemáticos.
+
+- Consideremos el concepto de que dos cosas sean «la misma cosa».
+
+- Supongamos que hacemos:
+
+  ```python
+  def restador(cantidad):
+      def aux(otro):
+          return otro - cantidad
+      return aux
+  res1 = restador(25)
+  res2 = restador(25)
+  ```
+
+- ¿Son `res1` y `res2` la misma cosa? Una respuesta aceptable podría ser que
+  sí, ya que tanto `res1` como `res2` se comportan de la misma forma (los dos
+  son funciones que restan 25 a su argumento). De hecho, `res1` puede
+  sustituirse por `res2` en cualquier lugar de un programa sin que cambie el
+  resultado.
+
+- En cambio, supongamos que hacemos dos llamadas a `Deposito(100)`:
+
+  ```python
+  dep1 = Deposito(100)
+  dep2 = Deposito(100)
+  ```
+
+- ¿Son `dep1` y `dep2` la misma cosa? Evidentemente no, ya que al enviarles
+  mensajes a uno y otro podemos obtener resultados distintos ante los mismos
+  mensajes:
+
+  ```python
+  >>> dep1.retirar(20)
+  80
+  >>> dep1.saldo()
+  80
+  >>> dep2.saldo()
+  100
+  ```
+
+- Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el sentido
+  de que ambos han sido creados evaluando la misma expresión (`Deposito(100)`),
+  no es verdad que podamos sustituir `dep1` por `dep2` en cualquier expresión
+  sin cambiar el resultado de evaluar dicha expresión.
+
+- Es otra forma de decir que con los objetos no hay transparencia referencial,
+  ya que se pierde en el momento en que incorporamos estado y mutabilidad en
+  nuestro modelo computacional.
+
+- Pero al perder la transparencia referencial, la noción de lo que significa
+  que dos objetos sean «el mismo objeto» se convierte en algo difícil de
+  capturar de una manera formal. De hecho, el significado de «el mismo» en el
+  mundo real que estamos modelando con nuetro programa es ya difícil de
+  entender.
+
+- En general, sólo podemos determinar que dos objetos aparentemente idénticos
+  son realmente «el mismo objeto» modificando uno de ellos y observando a
+  continuación si el otro se ha cambiado de la misma forma.
+
+- Pero, ¿cómo podemos decir si un objeto ha «cambiado» si no es observando el
+  «mismo» objeto dos veces y comprobando si ha cambiado alguna propiedad del
+  objeto de la primera observación a la siguiente?
+
+- Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción
+  previa de «igualdad», y no podemos determinar la igualdad sin observar los
+  efectos del cambio.
+
+- Un ejemplo de cómo puede afectar este problema en la programación,
+  consideremos el caso en que Pedro y Pablo tienen un depósito con 100 € cada
+  uno. Hay una enorme diferencia entre definirlo así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = Deposito(100)
+  ```
+
+y definirlo así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = dep_Pedro
+  ```
+
+- En el primer caso, los dos depósitos son distintos. Las operaciones
+  realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa. En el
+  segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
+  exactamente la misma cosa que `dep_Pedro`. Por tanto, ahora Pedro y Pablo son
+  cotitulares de un depósito compartido, y si Pedro hace una retirada de
+  efectivo a través de `dep_Pedro`, Pablo observará que hay menos dinero en
+  `dep_Pablo`.
+
+- Estas dos situaciones, similares pero distintas, pueden provocar confusión al
+  crear modelos computacionales. Con el depósito compartido, en particular,
+  puede ser especialmente confuso el hecho de que haya un objeto (el depósito)
+  con dos nombres distintos (`dep_Pedro` y `dep_Pablo`). Si estamos buscando
+  todos los sitios de nuestro programa donde pueda cambiarse el depósito de
+  `dep_Pedro`, tendremos que recordar buscar también los sitios donde se cambie
+  a `dep_Pablo`.
+
+- Con respecto a los anteriores comentarios sobre «igualdad» y «cambio»,
+  obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no
+  pudieran realizar operaciones que cambiaran los fondos del depósito, entonces
+  no existiría el problema de comprobar si los dos depósitos son distintos. En
+  general, siempre que no se puedan modificar los objetos, podemos suponer que
+  un objeto compuesto se corresponde con la totalidad de sus partes.
+
+- Por ejemplo, un número racional está determinado por su numerador y su
+  denominador. Pero este punto de vista deja de ser válido cuando incorporamos
+  mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo
+  distinto de las partes que lo componen. Un depósito sigue siendo «el mismo»
+  depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.
+  Igualmente, podemos tener dos depósitos distintos con el mismo estado
+  interno.
+
+- Esta complicación es consecuencia, no de nuestro lenguaje de programación,
+  sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo,
+  no tendría sentido para nosotros considerar que un número racional es un
+  objeto mutable con identidad ya que al cambiar su numerador no tendríamos «el
+  mismo» número racional.
+
+---
+
+- Como usamos **referencias** para referirnos a un determinado objeto y acceder
+  al mismo, resulta fácil comprobar si dos objetos son *idénticos* (es decir,
+  si son el mismo objeto) comparando referencias. Si las referencias son
+  iguales, es que estamos ante un único objeto.
+
+- Esto es así ya que, por lo general, las referencias se corresponden con
+  direcciones de memoria. Es decir: una referencia a un objeto normalmente
+  representa la dirección de memoria donde se empieza a almacenar dicho objeto.
+
+- Dos objetos pueden ser **iguales** y, en cambio, no ser *idénticos*.
+
+---
+
+- La forma de comprobar en Python si dos objetos son *idénticos* es usar el
+  operador `is` que ya conocemos:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~
+  La expresión **_o_ `is` _p_** devolverá `True` si tanto *o* como *p* son
+  referencias al mismo objeto.
+  ~~~~~~~~~~~~~~~~~
+
+:::: columns
+
+::: column
+
+- Por ejemplo:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = dep1
+  >>> dep1 is dep2
+  True
+  ```
+
+:::
+
+::: column
+
+- En cambio:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(100)
+  >>> dep1 is dep2
+  False
+  ```
+
+:::
+
+::::
+
+### Igualdad
+
+- En el código anterior:
+
+  ```python
+  dep1 = Deposito(100)
+  dep2 = Deposito(100)
+  ```
+
+  es evidente que `dep1` y `dep2` hacen referencia a objetos separados y, por
+  tanto, **no son _idénticos_**, ya que no se refieren *al mismo* objeto.
+
+- En cambio, sí podemos decir que **son _iguales_** ya que pertenecen a la
+  misma clase, poseen el mismo estado interno y se comportan de la misma forma
+  ante la recepción de la mismos mensajes en el mismo orden:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(100)
+  >>> dep1.ingresar(30)
+  130
+  >>> dep1.retirar(45)
+  85
+  >>> dep2.ingresar(30)
+  130
+  >>> dep2.retirar(45)
+  85
+  ```
+
+---
+
+- Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:
+
+  ```python
+  >>> dep1 == dep2
+  False
+  ```
+
+- Esto se debe a que, en ausencia de otra definición de *igualdad* y **mientras
+  no se diga lo contrario, dos objetos de clases _definidas por el programador_
+  son iguales si son idénticos**.
+
+- Es decir: por defecto, *x* `==` *y* equivale a *x* `is` *y*.
+
+- Para cambiar ese comportamiento predeterminado, tendremos que indicar qué
+  significa que dos instancias de nuestra clase son iguales.
+
+- Por ejemplo: ¿cuándo podemos decir que dos objetos de la clase `Deposito` son
+  iguales?
+
+  En este caso es fácil: dos instancias de `Deposito` son iguales cuando tienen
+  el mismo estado interno. O lo que es lo mismo: dos depósitos son iguales
+  cuando tienen los mismos fondos.
+
+---
+
+- Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos
+  definir en ella el método mágico `__eq__`.
+
+- Este método se invocará automáticamente cuando se hace una comparación con el
+  operador `==` y el primer operando es una instancia de nuestra clase. El
+  segundo operando se enviará como argumento en la llamda al método.
+
+- Dicho de otra forma:
+
+  - `dep1 == dep2` equivale a `dep1.__eq__(dep2)`, siempre que la clase de
+    `dep1` tenga definido el método `__eq__`.
+  
+  - En caso contrario, seguirá valiendo lo mismo que `dep1 is dep2`, como
+    acabamos de ver.
+
+- No es necesario preocuparse por el operador `!=`, ya que Python 3 lo define
+  automáticamente a partir del `==`.
+
+---
+
+- Una posible implementación del método `__eq__` podría ser:
+
+  ```python
+  def __eq__(self, otro):
+      if type(self) != type(otro):
+          return NotImplemented   # no tiene sentido comparar objetos de distinto tipo
+      return self.fondos == otro.fondos  # son iguales si tienen los mismos fondos
+  ```
+
+  Se devuelve el valor especial `NotImplemented` cuando no tiene sentido
+  comparar un objeto de la clase `Deposito` con un objeto de otro tipo.
+
+- Si introducimos este método dentro de la definición de la clase `Deposito`,
+  tendremos el resultado deseado:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(100)
+  >>> dep1 == dep2
+  True
+  >>> dep1.retirar(30)
+  70
+  >>> dep1 == dep2
+  False
+  >>> dep2.retirar(30)
+  70
+  >>> dep1 == dep2
+  True
+  ```
 
 ## Encapsulación
 
