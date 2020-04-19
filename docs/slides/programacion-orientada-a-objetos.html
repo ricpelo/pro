@@ -396,18 +396,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.1.0.3">
 
 <ul>
-<li><p>La declaración de una clase es una estructura sintáctica que crea su propio ámbito y que está formada por una secuencia de sentencias que se ejecutarán cuando la ejecución del programa alcance dicha declaración:</p>
+<li><p>La definición de una clase es una estructura sintáctica que crea su propio ámbito y que está formada por una secuencia de sentencias que se ejecutarán cuando la ejecución del programa alcance dicha definición:</p>
 <div class="line-block"><strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>+</div></li>
 <li><p>Todas las definiciones que se hagan dentro de la clase serán <strong>locales</strong> a ella, al encontrarse dentro del ámbito de dicha clase.</p></li>
 <li><p>Por ello, las funciones definidas dentro de una clase pertenecen a dicha clase.</p></li>
 <li><p>Por ejemplo, las funciones <code>__init__</code>, <code>retirar</code>, <code>ingresar</code> y <code>saldo</code> son locales a la clase <code>Deposito</code> y sólo existen dentro de ella.</p></li>
+<li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.1.0.4">
 
 <ul>
-<li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=true&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria una estructura similar al diccionario de despacho que creábamos antes a mano, y que asocia el nombre de cara operación con la función correspondiente.</p></li>
+<li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria una estructura similar al diccionario de despacho que creábamos antes a mano, y que asocia el nombre de cara operación con la función (el método) correspondiente.</p></li>
 <li><p>Esa estructura se liga al nombre de la clase en el marco del ámbito donde se haya declarado dicha clase (normalmente será el marco global).</p></li>
 </ul>
 <div class="centered">
@@ -441,7 +442,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Java es un lenguaje orientado a objetos <strong>impuro</strong>, ya que un programa Java manipula objetos pero también manipula otros datos llamados <em>primitivos</em>, que no son instancias de ninguna clase sino que pertenecen a un <em>tipo primitivo</em> del lenguaje.</p></li>
 <li><p>Por ejemplo, en Java:</p>
 <ul>
-<li><p>El tipo <code>String</code> es una clase, por lo que la cadena “Hola” es un objeto.</p></li>
+<li><p>El tipo <code>String</code> es una clase, por lo que la cadena <code>"Hola"</code> es un objeto, instancia de la clase <code>String</code>.</p></li>
 <li><p>El tipo <code>int</code> es un tipo primitivo del lenguaje, por lo que el número <code>5</code> no es ningún objeto, sino un dato primitivo.</p></li>
 </ul></li>
 </ul>
@@ -449,7 +450,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.2.0.2">
 
 <ul>
-<li><p>En Python podemos instanciar una clase (creando así un nuevo objeto) llamando a la clase como si fuera una función, del mismo modo que con la implementación funcional que hemos estado usando hasta ahora:</p>
+<li><p>Las clases, por tanto, son como <em>plantillas</em> para crear objetos con el mismo comportamiento y (posiblemente) la misma estructura interna.</p></li>
+<li><p>En Python podemos instanciar una clase (creando así un nuevo objeto) llamando a la clase como si fuera una función, del mismo modo que hacíamos con la implementación funcional que hemos estado usando hasta ahora:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
@@ -487,7 +489,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong> o <strong>propiedades</strong> del objeto.</p></li>
 <li><p>Los atributos se implementan como <em>variables locales</em> al objeto.</p></li>
-<li><p>Cada vez que se crea un objeto, se le asocia una zona de memoria que almacena los atributos del mismo.</p></li>
+<li><p>Cada vez que se crea un objeto, se le asocia una zona de memoria que almacena los atributos del mismo de forma similar a un <em>marco</em>.</p>
+<p>Pero es importante entender que <strong>los objetos no son marcos</strong>. Entre otras cosas, los marcos se almacenan en la pila, mientras que los objetos residen en el <em>montículo</em>.</p></li>
 </ul>
 <div class="centered">
 <figure>
@@ -498,7 +501,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.5.0.1">
 
 <ul>
-<li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:</li>
+<li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:57%;">
@@ -533,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>En Python es posible acceder directamente al estado interno de un objeto (o, lo que es lo mismo, al valor de sus atributos), cosa que, en principio, podría considerarse una violación del principio de ocultación de información y del concepto mismo de abstracción de datos.</p></li>
-<li><p>No obstante, en la práctica puede resultar útil y, de hecho, dentro de la definición de una clase es necesario hacerlo así para poder acceder al valor de un atributo de la misma.</p></li>
+<li><p>Incluso es posible cambiar directamente el valor de un atributo desde fuera del objeto, o crear atributos nuevos dinámicamente.</p></li>
+<li><p>Todo esto puede resultar chocante para un programador de otros lenguajes, pero en la práctica resulta útil al programador por la naturaleza dinámica del lenguaje Python y por el estilo de programación que promueve.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.5.0.3">
@@ -547,7 +551,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="dv">100</span></span></code></pre></div></li>
-<li><p>Y podemos cambiar el valor del atributo mediante asignación (cosa que, en general, no resulta aconsejable):</p>
+<li><p>Y podemos cambiar el valor del atributo mediante asignación (cosa que, en general, no resultaría aconsejable):</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos <span class="op">=</span> <span class="dv">400</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="dv">400</span></span></code></pre></div></li>
@@ -556,19 +560,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.5.0.4">
 
 <ul>
-<li><p>Otro ejemplo: si tenemos el número complejo <code>4 + 3j</code>, podemos preguntar cuál es su parte real y su parte imaginaria (que son atributos del objeto):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> <span class="ot">3j</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="op">&gt;&gt;&gt;</span> c</span>
-<span id="cb8-3"><a href="#cb8-3"></a>(<span class="dv">4</span><span class="op">+</span><span class="ot">3j</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="op">&gt;&gt;&gt;</span> c.real</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="fl">4.0</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="op">&gt;&gt;&gt;</span> c.imag</span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="fl">3.0</span></span></code></pre></div></li>
-<li><p>Pero esos atributos no se pueden modificar directamente, ya que son de <em>sólo lectura</em>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;&gt;</span> c.real <span class="op">=</span> <span class="fl">9.0</span></span>
+<li><p>Por supuesto, dos objetos distintos pueden tener valores distintos en sus atributos:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.fondos          <span class="co"># el atributo fondos del objeto dep1 vale 100</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="dv">100</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el mismo atributo en el objeto dep2 vale 400</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="dv">400</span></span></code></pre></div></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/clase-dos-objetos-estructura.png" class="plain" style="width:50.0%" alt="" /><figcaption>La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level4" data-number="2.5.0.5">
+
+<ul>
+<li><p>Como cualquier variable en Python, un atributo empieza a existir en el momento en el que se le asigna un valor:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
 <span id="cb9-2"><a href="#cb9-2"></a>Traceback (most recent call last):</span>
 <span id="cb9-3"><a href="#cb9-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="pp">AttributeError</span>: readonly attribute</span></code></pre></div></li>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="op">&gt;&gt;&gt;</span> dep.otro <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">&#39;hola</span></span></code></pre></div></li>
+<li><p>Por tanto, en Python los atributos de un objeto se crean en tiempo de ejecución mediante una simple asignación.</p></li>
+<li><p>Este comportamiento contrasta con el de otros lenguajes de programación, como por ejemplo en Java, donde los atributos de un objeto vienen determinados de antemano por la clase a la que pertenece y siempre son los mismos.</p>
+<p>Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos atributos (aunque el mismo atributo puede tener valores distintos en ambos objetos, naturalmente).</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.5.0.6">
+
+<ul>
+<li><p>El comportamiento dinámico de Python a la hora de crear atributos permite resultados interesantes imposibles de conseguir en Java, como que dos objetos distintos de la misma clase puedan poseer distintos atributos:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span>       <span class="co"># el atributo uno sólo existe en dep1</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span>     <span class="co"># el atributo otro sólo existe en dep2</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno</span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">&#39;hola&#39;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="op">&gt;&gt;&gt;</span> dep2.uno</span>
+<span id="cb10-8"><a href="#cb10-8"></a>Traceback (most recent call last):</span>
+<span id="cb10-9"><a href="#cb10-9"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;uno&#39;</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro</span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">&#39;adiós&#39;</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
+<span id="cb10-15"><a href="#cb10-15"></a>Traceback (most recent call last):</span>
+<span id="cb10-16"><a href="#cb10-16"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.5.0.7">
+
+<ul>
+<li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:57%;">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb11-3"><a href="#cb11-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb11-7"><a href="#cb11-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb11-9"><a href="#cb11-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb11-12"><a href="#cb11-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb11-13"><a href="#cb11-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb11-14"><a href="#cb11-14"></a></span>
+<span id="cb11-15"><a href="#cb11-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb11-16"><a href="#cb11-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb11-17"><a href="#cb11-17"></a></span>
+<span id="cb11-18"><a href="#cb11-18"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb11-19"><a href="#cb11-19"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb11-20"><a href="#cb11-20"></a>dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a>dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span></span></code></pre></div>
+</div><div class="column" style="width:43%;">
+<div class="centered">
+<figure>
+<img data-src="images/clase-dos-objetos-atributos-distintos-estructura.png" class="plain" style="width:100.0%" alt="" /><figcaption>La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> con distintos atributos</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level4" data-number="2.5.0.8">
+
+<ul>
+<li><p>Otro ejemplo: si tenemos el número complejo <code>4 + 3j</code>, podemos preguntar cuál es su parte real y su parte imaginaria (que son atributos del objeto):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> <span class="ot">3j</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="op">&gt;&gt;&gt;</span> c</span>
+<span id="cb12-3"><a href="#cb12-3"></a>(<span class="dv">4</span><span class="op">+</span><span class="ot">3j</span>)</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="op">&gt;&gt;&gt;</span> c.real</span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="fl">4.0</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="op">&gt;&gt;&gt;</span> c.imag</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="fl">3.0</span></span></code></pre></div></li>
+<li><p>Pero esos atributos no se pueden modificar directamente, ya que son de <em>sólo lectura</em>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;&gt;</span> c.real <span class="op">=</span> <span class="fl">9.0</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>Traceback (most recent call last):</span>
+<span id="cb13-3"><a href="#cb13-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="pp">AttributeError</span>: readonly attribute</span></code></pre></div></li>
 </ul>
 </section>
 

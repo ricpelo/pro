@@ -219,9 +219,9 @@ def deposito(fondos):
 
 ---
 
-- La declaración de una clase es una estructura sintáctica que crea su propio
+- La definición de una clase es una estructura sintáctica que crea su propio
   ámbito y que está formada por una secuencia de sentencias que se ejecutarán
-  cuando la ejecución del programa alcance dicha declaración:
+  cuando la ejecución del programa alcance dicha definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,12 +238,14 @@ def deposito(fondos):
 - Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo` son
   locales a la clase `Deposito` y sólo existen dentro de ella.
 
+- Las funciones definidas dentro de una clase se denominan **métodos**.
+
 ---
 
-- Si ejecutamos la anterior definición en el [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=true&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}, observaremos que se
+- Si ejecutamos la anterior definición en el [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}, observaremos que se
   crea en memoria una estructura similar al diccionario de despacho que
   creábamos antes a mano, y que asocia el nombre de cara operación con la
-  función correspondiente.
+  función (el método) correspondiente.
 
 - Esa estructura se liga al nombre de la clase en el marco del ámbito donde se
   haya declarado dicha clase (normalmente será el marco global).
@@ -291,15 +293,19 @@ def deposito(fondos):
 
 - Por ejemplo, en Java:
 
-  - El tipo `String` es una clase, por lo que la cadena "Hola" es un objeto.
+  - El tipo `String` es una clase, por lo que la cadena `"Hola"` es un objeto,
+    instancia de la clase `String`.
 
   - El tipo `int` es un tipo primitivo del lenguaje, por lo que el número `5`
     no es ningún objeto, sino un dato primitivo.
 
 ---
 
+- Las clases, por tanto, son como *plantillas* para crear objetos con el mismo
+  comportamiento y (posiblemente) la misma estructura interna.
+
 - En Python podemos instanciar una clase (creando así un nuevo objeto) llamando
-  a la clase como si fuera una función, del mismo modo que con la
+  a la clase como si fuera una función, del mismo modo que hacíamos con la
   implementación funcional que hemos estado usando hasta ahora:
 
   ```python
@@ -346,7 +352,12 @@ def deposito(fondos):
 - Los atributos se implementan como *variables locales* al objeto.
 
 - Cada vez que se crea un objeto, se le asocia una zona de memoria que almacena
-  los atributos del mismo.
+  los atributos del mismo de forma similar a un *marco*.
+
+  Pero es importante entender que **los objetos no son marcos**. Entre otras
+  cosas, los marcos se almacenan en la pila, mientras que los objetos residen
+  en el *montículo*.
+
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -367,13 +378,11 @@ subgraph cluster1 {
     bgcolor = white
     dep -> fondos [lhead = cluster0, minlen = 2]
 }
-E [shape = point]
-E -> dep [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=true&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
 
 :::: columns
 
@@ -417,9 +426,12 @@ dep = Deposito(100)
   podría considerarse una violación del principio de ocultación de información
   y del concepto mismo de abstracción de datos.
 
-- No obstante, en la práctica puede resultar útil y, de hecho, dentro de la
-  definición de una clase es necesario hacerlo así para poder acceder al valor
-  de un atributo de la misma.
+- Incluso es posible cambiar directamente el valor de un atributo desde fuera
+  del objeto, o crear atributos nuevos dinámicamente.
+
+- Todo esto puede resultar chocante para un programador de otros lenguajes,
+  pero en la práctica resulta útil al programador por la naturaleza dinámica
+  del lenguaje Python y por el estilo de programación que promueve.
 
 ---
 
@@ -438,13 +450,123 @@ dep = Deposito(100)
   ```
 
 - Y podemos cambiar el valor del atributo mediante asignación (cosa que, en
-  general, no resulta aconsejable):
+  general, no resultaría aconsejable):
 
   ```python
   >>> dep.fondos = 400
   >>> dep.fondos
   400
   ```
+
+---
+
+- Por supuesto, dos objetos distintos pueden tener valores distintos en sus
+  atributos:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(400)
+  >>> dep1.fondos          # el atributo fondos del objeto dep1 vale 100
+  100
+  >>> dep2.fondos          # el mismo atributo en el objeto dep2 vale 400
+  400
+  ```
+
+!IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=50%)(width=70%)
+
+---
+
+- Como cualquier variable en Python, un atributo empieza a existir en el
+  momento en el que se le asigna un valor:
+
+  ```python
+  >>> dep.otro
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AttributeError: 'Deposito' object has no attribute 'otro'
+  >>> dep.otro = 'hola'
+  >>> dep.otro
+  'hola
+  ```
+
+- Por tanto, en Python los atributos de un objeto se crean en tiempo de
+  ejecución mediante una simple asignación.
+
+- Este comportamiento contrasta con el de otros lenguajes de programación, como
+  por ejemplo en Java, donde los atributos de un objeto vienen determinados de
+  antemano por la clase a la que pertenece y siempre son los mismos.
+
+  Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos
+  atributos (aunque el mismo atributo puede tener valores distintos en ambos
+  objetos, naturalmente).
+
+---
+
+- El comportamiento dinámico de Python a la hora de crear atributos permite
+  resultados interesantes imposibles de conseguir en Java, como que dos objetos
+  distintos de la misma clase puedan poseer distintos atributos:
+
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(400)
+  >>> dep1.uno = 'hola'       # el atributo uno sólo existe en dep1
+  >>> dep2.otro = 'adiós'     # el atributo otro sólo existe en dep2
+  >>> dep1.uno
+  'hola'
+  >>> dep2.uno
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AttributeError: 'Deposito' object has no attribute 'uno'
+  >>> dep2.otro
+  'adiós'
+  >>> dep1.otro
+  >>> dep1.otro
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AttributeError: 'Deposito' object has no attribute 'otro'
+  ```
+
+---
+
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20'hola'%0Adep2.otro%20%3D%20'adi%C3%B3s'&cumulative=false&curInstr=11&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:
+
+:::: columns
+
+::: {.column width=57%}
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+
+dep1 = Deposito(100)
+dep2 = Deposito(400)
+dep1.uno = 'hola'
+dep2.otro = 'adiós'
+```
+
+:::
+
+::: {.column width=43%}
+
+!IMGP(clase-dos-objetos-atributos-distintos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` con distintos atributos)(width=100%)(width=70%)
+
+:::
+
+::::
 
 ---
 
