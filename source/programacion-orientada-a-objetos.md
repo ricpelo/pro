@@ -159,10 +159,6 @@ En programación orientada a objetos:
 - Recordemos el ejemplo del tema anterior en el que implementamos el tipo
   abstracto de datos **Depósito** mediante la siguiente **función**:
 
-:::: columns
-
-::: column
-
 ```python
 def deposito(fondos):
     def retirar(cantidad):
@@ -193,37 +189,66 @@ def deposito(fondos):
     return despacho
 ```
 
-:::
-
-::: column
+---
 
 - Ese mismo TAD se puede implementar como una **clase** de la siguiente forma:
 
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            return 'Fondos insuficientes'
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              return 'Fondos insuficientes'
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
-```
+      def saldo(self):
+          return self.fondos
+  ```
 
 - Más tarde estudiaremos los detalles técnicos que diferencian ambas
-  implementaciones.
+  implementaciones, pero ya apreciamos que por cada operación sigue habiendo
+  una función (aquí llamada **método**), que desaparece la función `despacho` y
+  que aparece una extraña función `__init__`.
 
-:::
+---
 
-::::
+- La declaración de una clase es una estructura sintáctica que crea su propio
+  ámbito y que está formada por una secuencia de sentencias que se ejecutarán
+  cuando la ejecución del programa alcance dicha declaración:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(class) !NT(nombre)!T(:)
+      !NT(sentencia)+
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Todas las definiciones que se hagan dentro de la clase serán **locales** a
+  ella, al encontrarse dentro del ámbito de dicha clase.
+
+- Por ello, las funciones definidas dentro de una clase pertenecen a dicha
+  clase.
+
+- Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo` son
+  locales a la clase `Deposito` y sólo existen dentro de ella.
+
+---
+
+- Si ejecutamos la anterior definición en el [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=true&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}, observaremos que se
+  crea en memoria una estructura similar al diccionario de despacho que
+  creábamos antes a mano, y que asocia el nombre de cara operación con la
+  función correspondiente.
+
+- Esa estructura se liga al nombre de la clase en el marco del ámbito donde se
+  haya declarado dicha clase (normalmente será el marco global).
+
+!IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=50%)(width=70%)
 
 ## Objeto
 
@@ -283,7 +308,16 @@ class Deposito:
   <__main__.Deposito object at 0x7fba5a16d978>
   ```
 
----
+- Para saber la clase a la que pertenece el objeto, se usa la función `type`
+  (recordemos que en Python todos los tipos son clases):
+
+  ```python
+  >>> type(dep)
+  <class '__main__.Deposito'>
+  ```
+
+  Se nos muestra que la clase del objeto `dep` es `__main__.Deposito`, que
+  representa la clase `Deposito` definida en el módulo `__main__`.
 
 ### La antisimetría dato-objeto
 
@@ -303,31 +337,145 @@ class Deposito:
 ## Estado
 
 
-## Propiedad
+## Atributos
 
 - Las variables de estado que almacenan el estado interno del objeto se
-  denominan, en terminología orientada a objetos, **propiedades** o
-  **atributos** del objeto.
+  denominan, en terminología orientada a objetos, **atributos**, **campos** o
+  **propiedades** del objeto.
 
-- Las propiedades se implementan como *variables locales* al objeto.
+- Los atributos se implementan como *variables locales* al objeto.
 
-- Cada vez que se crea un objeto, se le asocia un marco que contiene las
-  propiedades del mismo.
+- Cada vez que se crea un objeto, se le asocia una zona de memoria que almacena
+  los atributos del mismo.
+
+!DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+100 [shape = circle]
+dep [shape = plaintext, fillcolor = transparent, label = "dep"]
+fondos [shape = plaintext, fillcolor = transparent, label = "fondos"]
+subgraph cluster0 {
+    label = <Objeto <b>dep</b>>
+    bgcolor = white
+    style = rounded
+    fondos -> 100
+}
+subgraph cluster1 {
+    label = <Marco <b>global</b>>
+    bgcolor = white
+    dep -> fondos [lhead = cluster0, minlen = 2]
+}
+E [shape = point]
+E -> dep [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=true&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
+
+:::: columns
+
+::: {.column width=57%}
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+
+dep = Deposito(100)
+```
+
+:::
+
+::: {.column width=43%}
+
+!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
+
+:::
+
+::::
+
+---
 
 - En Python es posible acceder directamente al estado interno de un objeto (o,
-  lo que es lo mismo, al valor de sus propiedades), cosa que, en principio,
+  lo que es lo mismo, al valor de sus atributos), cosa que, en principio,
   podría considerarse una violación del principio de ocultación de información
   y del concepto mismo de abstracción de datos.
 
 - No obstante, en la práctica puede resultar útil y, de hecho, dentro de la
   definición de una clase es necesario hacerlo así para poder acceder al valor
-  de una propiedad de la misma.
+  de un atributo de la misma.
+
+---
+
+- En Python, la única forma de acceder a un atributo de un objeto es usando la
+  *notación punto*:
+
+*objeto*`.`*atributo*
+
+- Por ejemplo, para acceder al atributo `fondos` de un objeto `dep` de la
+  clase `Deposito`, se usaría la expresión `dep.fondos`:
+
+  ```python
+  >>> dep = Deposito(100)
+  >>> dep.fondos
+  100
+  ```
+
+- Y podemos cambiar el valor del atributo mediante asignación (cosa que, en
+  general, no resulta aconsejable):
+
+  ```python
+  >>> dep.fondos = 400
+  >>> dep.fondos
+  400
+  ```
+
+---
+
+- Otro ejemplo: si tenemos el número complejo `4 + 3j`, podemos preguntar cuál
+  es su parte real y su parte imaginaria (que son atributos del objeto):
+
+  ```python
+  >>> c = 4 + 3j
+  >>> c
+  (4+3j)
+  >>> c.real
+  4.0
+  >>> c.imag
+  3.0
+  ```
+
+- Pero esos atributos no se pueden modificar directamente, ya que son de *sólo
+  lectura*:
+
+  ```python
+  >>> c.real = 9.0
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AttributeError: readonly attribute
+  ```
 
 ## Paso de mensajes
 
 - El paso de mensajes se realiza ahora invocando 
 
-## Método
+## Métodos
 
 
 ## Encapsulación
