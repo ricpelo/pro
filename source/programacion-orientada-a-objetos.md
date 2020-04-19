@@ -325,6 +325,89 @@ def deposito(fondos):
   Se nos muestra que la clase del objeto `dep` es `__main__.Deposito`, que
   representa la clase `Deposito` definida en el módulo `__main__`.
 
+---
+
+- Cuando se ejecuta el siguiente código:
+
+  ```python
+  >>> dep = Deposito(100)
+  ```
+
+  lo que ocurre es lo siguiente:
+
+  1. Se crea en memoria una instancia de la clase `Deposito`.
+
+  2. Se invoca el método `__init__` sobre el objeto recién creado (ya
+     hablaremos de ésto más adelante).
+
+  3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
+     que representa, a grandes rasgos, la posición de memoria donde se
+     encuentra almacenado el objeto.
+
+  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: en la
+     variable no se almacena el objeto como tal, sino una referencia al objeto.
+
+  En nuestro caso, 0x7fba5a16d978 es la dirección de memoria donde está
+  almacenado el objeto al que hace referencia la variable `dep`:
+
+  ```python
+  >>> dep
+  <__main__.Deposito object at 0x7fba5a16d978>
+  ```
+
+---
+
+- Los objetos tienen existencia propia e independiente y existirán en la
+  memoria siempre que haya al menos una variable que le haga referencia.
+
+- Si hacemos:
+
+  ```python
+  dep1 = Deposito(100)
+  dep2 = dep1
+  ```
+
+  tendremos dos variables que contienen la misma referencia y, por tanto, **_se
+  refieren_ (o _apuntan_) al mismo objeto** (recordemos que las variables no
+  contienen al objeto en sí mismo, sino una referencia a éste).
+
+- Hasta ahora hemos llamado **alias** a este fenómeno, es decir, hasta ahora
+  hemos dicho que esas dos variables son alias una de la otra.
+
+- A partir de ahora diremos que esas dos variables contienen la misma
+  referencia o que hacen referencia al mismo objeto.
+
+---
+
+- Gráficamente, el caso anterior se puede representar de la siguiente forma:
+
+!IMGP(dos-referencias-iguales.png)(Dos variables que *apuntan* al mismo objeto)(width=80%)(width=70%)
+
+---
+
+- En el momento en que un objeto se vuelva inaccesible (cosa que ocurrirá
+  cuando no haya ninguna variable en el entorno que contenga una referencia a
+  dicho objeto), el intérprete lo marcará como *candidato para ser eliminado*.
+
+- Cada cierto tiempo, el intérprete activará el **recolector de basura**, que
+  es un componente que se encarga de liberar de la memoria a los objetos que
+  están marcados como candidatos para ser eliminados.
+
+- Por tanto, el programador Python no tiene que preocuparse de gestionar
+  manualmente la memoria ocupada por los objetos que componen su programa.
+
+- Por ejemplo:
+
+  ```python
+  dep1 = Deposito(100)  # crea el objeto y guarda una referencia a él en dep1
+  dep2 = dep1  # almacena en dep2 la referencia que hay en dep1
+               # (a partir de ahora, ambas variables apuntan al mismo objeto)
+  del dep1     # elimina una referencia pero el objeto aún tiene otra
+  del dep2     # elimina la otra referencia y ahora el objeto es inaccesible
+               # (cuando el recolector de basura se active, eliminará el objeto)
+  ```
+
+
 ### La antisimetría dato-objeto
 
 - Se da una curiosa contra-analogía entre los conceptos de dato y objeto:
@@ -337,13 +420,17 @@ def deposito(fondos):
 
 - Son definiciones virtualmente opuestas y complementarias.
 
-## Identidad
-
-
 ## Estado
 
+- Los objetos son datos abstractos que poseen su propio estado interno, el cual
+  puede cambiar durante la ejecución del programa como consecuencia de los
+  mensajes recibidos o enviados por los objetos.
 
-## Atributos
+- Eso significa que los objetos son **datos mutables**.
+
+- Dos objetos distintos tendrán estados internos distintos.
+
+### Atributos
 
 - Las variables de estado que almacenan el estado interno del objeto se
   denominan, en terminología orientada a objetos, **atributos**, **campos** o
@@ -595,10 +682,261 @@ dep2.otro = 'adiós'
 
 ## Paso de mensajes
 
-- El paso de mensajes se realiza ahora invocando 
+- Como las clases implementan las operaciones como métodos, el paso de mensajes
+  se realiza ahora invocando sobre el objeto el método correspondiente a la
+  operación asociada al mensaje que se enviaría al objeto.
 
-## Métodos
+- Por ejemplo, si tenemos el objeto `dep` (una instancia de la clase
+  `Deposito`) y queremos enviarle el mensaje `saldo` para saber cuál es el
+  saldo actual de ese depósito, invocaríamos el método `saldo` sobre el objeto
+  `dep` de esta forma:
 
+  ```python
+  >>> dep.saldo()
+  100
+  ```
+
+- Si la operación requiere de argumentos, se le pasarán al método también:
+
+  ```python
+  >>> dep.retirar(25)
+  75
+  ```
+
+### Ejecución de métodos
+
+- En Python, la ejecución de un método *m* con argumentos $a_1, a_2, \ldots,
+  a_n$ sobre un objeto *o* que es instancia de la clase *C* tiene esta forma:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  *o*`.`*m*`(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y el intérprete lo traduce por una llamada a función con esta forma:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  *C*`.`*m*`(`*o*`, `$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es decir: el intérprete llama a la función *m* definida en la clase *C* y le
+  pasa el objeto *o* como primer argumento (el resto de los argumentos
+  originales irían a continuación). 
+
+---
+
+- Por ejemplo, cuando hacemos:
+
+  ```python
+  >>> dep.retirar(25)
+  ```
+
+  equivale a hacer:
+
+  ```python
+  >>> Despacho.retirar(dep, 25)
+  ```
+
+  De hecho, el intérprete traduce el primer código al segundo automáticamente.
+
+- Esto facilita la implementación del intérprete, ya que todo se convierte en
+  llamadas a funciones.
+
+### Definición de métodos
+
+- Esa es la razón por la que los métodos se definen siempre con un parámetro
+  extra que representa el objeto sobre el que se invoca el método (o, dicho de
+  otra forma, el objeto que recibe el mensaje).
+
+- Ese parámetro extra (por regla de estilo) se llama siempre `self`, si bien
+  ese nombre no es ninguna palabra clave y se podría usar cualquier otro.
+
+- Por tanto, siempre que definamos un método, lo haremos como una función que
+  tendrá siempre un parámetro extra que será siempre el primero de sus
+  parámetros y que se llamará `self`.
+
+---
+
+- Por ejemplo, en la clase `Deposito`, obsérvese que todos los métodos tienen
+  `self` como primer parámetro:
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+```
+
+---
+
+- Por ejemplo, el método `saldo` de la clase `Deposito` recibe un argumento
+  `self` que, durante la llamada al método, contendrá el objeto sobre el que se
+  ha invocado dicho método:
+
+  ```python
+  def saldo(self):
+      return self.fondos
+  ```
+
+- En este caso, contendrá el objeto del que se desea conocer los fondos que
+  posee.
+  
+- Por tanto, dentro de `saldo`, accedemos a los fondos del objeto usando la
+  expresión `self.fondos`, y ese es el valor que retorna el método.
+
+- Dentro del programa, la expresión `dep.saldo()` se traducirá como
+  `Deposito.saldo(dep)`.
+
+- Es importante recordar que **el parámetro `self` se pasa automáticamente**
+  durante la llamada al método y, por tanto, **no debemos pasarlo nosotros** o
+  se producirá un error por intentar pasar más parámetros de los requeridos por
+  el método.
+
+---
+
+- El método `ingresar` tiene otro argumento además del `self`, que es la
+  cantidad a ingresar:
+
+  ```python
+  def ingresar(self, cantidad):
+      self.fondos += cantidad
+      return self.fondos
+  ```
+
+- En este caso, `self` contendrá el objeto en el que se desea ingresar la
+  cantidad deseada.
+
+- Dentro del método `ingresar`, la expresión `self.fondos` representa el valor
+  del atributo `fondos` del objeto `self`.
+
+- Por tanto, lo que hace el método es incrementar el valor de dicho atributo en
+  el objeto `self`, sumándole la cantidad indicada en el parámetro. 
+
+- Por ejemplo, la expresión `dep.ingresar(35)` se traducirá como
+  `Deposito.ingresar(dep, 35)`. Por tanto, en la llamada al método, `self`
+  valdrá `dep` y `cantidad` valdrá `35`.
+
+### Métodos *mágicos*
+
+- En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
+  **métodos mágicos** y tienen un comportamiento especial.
+
+- En concreto, el método `__init__` se invoca automáticamente cada vez que se
+  instancia un nuevo objeto a partir de una clase.
+
+- Coloquialmente, se le suele llamar el **constructor** de la clase, y es el
+  responsable de *inicializar* el objeto de forma que tenga un estado inicial
+  adecuado desde el momento de su creación.
+
+- Entre otras cosas, el constructor se encarga de asignarle los valores
+  iniciales adecuados a los atributos del objeto.
+
+- Ese método recibe como argumentos (además del `self`) los argumentos
+  indicados en la llamada a la clase que se usó para instanciar el objeto.
+
+---
+
+- Por ejemplo: en la clase `Deposito`, tenemos:
+
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
+      # ...
+  ```
+
+- Ese método `__init__` se encarga de crear el atributo `fondos` del objeto que
+  se acaba de crear (y que recibe a través del parámetro `self`), asignándole
+  el valor del parámetro `fondos`.
+
+  Cuidado: no confudir la expresión `self.fondos` con `fondos`. La primera se
+  refiere al atributo `fondos` del objeto `self`, mientras que la segunda se
+  refiere al parámetro `fondos`.
+
+---
+
+- Cuando se crea un nuevo objeto de la clase `Deposito`, llamando a la clase
+  como si fuera una función, se debe indicar entre paréntesis (como argumento)
+  el valor del parámetro que luego va a recibir el método `__init__` (en este
+  caso, los fondos iniciales):
+
+  ```python
+  dep = Deposito(100)
+  ```
+
+- La ejecución de este código produce el siguiente efecto:
+
+  1. Se crea en memoria una instancia de la clase `Deposito`.
+
+  2. Se invoca el método `__init__` sobre el objeto recién creado, de forma que
+     el parámetro `self` recibe una referencia a dicho objeto y el parámetro
+     `fondos` toma el valor `100`, que es el valor del argumento en la llamada
+     a `Deposito(100)`.
+
+     En la práctica, esto equivale a decir que la expresión `Deposito(100)` se
+     traduce a *r*.`__init__(100)`, donde *r* es una referencia al objeto
+     recién creado.
+
+  3. La expresión `Deposito(100)` devuelve la referencia al objeto.
+
+  4. Esa referencia es la que se almacena en la variable `dep`.
+
+---
+
+Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}.
+
+---
+
+- En resumen: la expresión *C*`(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)` usada
+  para crear una instancia de la clase *C* lleva a cabo las siguientes
+  acciones:
+
+  1. Crea en memoria una instancia de la clase *C* y guarda en una variable
+     temporal (llamémosla *r*, por ejemplo) una referencia al objeto recién
+     creado.
+
+  2. Invoca a *r*`.__init__(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
+
+  3. Devuelve *r*.
+
+---
+
+- En consecuencia, los argumentos que se indican al instanciar una clase se
+  enviarán al método `__init__` de la clase, lo que significa que tendremos que
+  indicar tantos argumentos (y del tipo apropiado) como espere el método
+  `__init__`.
+
+  En caso contrario, tendremos un error:
+
+  ```python
+  >>> dep = Deposito()  # no indicamos ningún argumento cuando se espera uno
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: __init__() missing 1 required positional argument: 'fondos'
+  >>> dep = Deposito(1, 2)  # mandamos dos argumentos cuando se espera sólo uno
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: __init__() takes 2 positional arguments but 3 were given
+  ```
+
+- Es importante tener en cuenta, además, que **el constructor `__init__` no
+  debe devolver ningún valor** (o, lo que es lo mismo, debe devolver `None`), o
+  de lo contrario provocará un error de ejecución.
+
+## Identidad
 
 ## Encapsulación
 

@@ -94,6 +94,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -461,6 +475,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Se nos muestra que la clase del objeto <code>dep</code> es <code>__main__.Deposito</code>, que representa la clase <code>Deposito</code> definida en el módulo <code>__main__</code>.</p></li>
 </ul>
 </section>
+<section class="slide level4" data-number="2.2.0.3">
+
+<ul>
+<li><p>Cuando se ejecuta el siguiente código:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
+<p>lo que ocurre es lo siguiente:</p>
+<ol type="1">
+<li><p>Se crea en memoria una instancia de la clase <code>Deposito</code>.</p></li>
+<li><p>Se invoca el método <code>__init__</code> sobre el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
+<li><p>La expresión <code>Deposito(100)</code> devuelve una <strong>referencia</strong> al nuevo objeto, que representa, a grandes rasgos, la posición de memoria donde se encuentra almacenado el objeto.</p></li>
+<li><p>Esa referencia es la que se almacena en la variable <code>dep</code>. Es decir: en la variable no se almacena el objeto como tal, sino una referencia al objeto.</p></li>
+</ol>
+<p>En nuestro caso, 0x7fba5a16d978 es la dirección de memoria donde está almacenado el objeto al que hace referencia la variable <code>dep</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.4">
+
+<ul>
+<li><p>Los objetos tienen existencia propia e independiente y existirán en la memoria siempre que haya al menos una variable que le haga referencia.</p></li>
+<li><p>Si hacemos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>dep2 <span class="op">=</span> dep1</span></code></pre></div>
+<p>tendremos dos variables que contienen la misma referencia y, por tanto, <strong><em>se refieren</em> (o <em>apuntan</em>) al mismo objeto</strong> (recordemos que las variables no contienen al objeto en sí mismo, sino una referencia a éste).</p></li>
+<li><p>Hasta ahora hemos llamado <strong>alias</strong> a este fenómeno, es decir, hasta ahora hemos dicho que esas dos variables son alias una de la otra.</p></li>
+<li><p>A partir de ahora diremos que esas dos variables contienen la misma referencia o que hacen referencia al mismo objeto.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.5">
+
+<ul>
+<li>Gráficamente, el caso anterior se puede representar de la siguiente forma:</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/dos-referencias-iguales.png" class="plain" style="width:80.0%" alt="" /><figcaption>Dos variables que <em>apuntan</em> al mismo objeto</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level4" data-number="2.2.0.6">
+
+<ul>
+<li><p>En el momento en que un objeto se vuelva inaccesible (cosa que ocurrirá cuando no haya ninguna variable en el entorno que contenga una referencia a dicho objeto), el intérprete lo marcará como <em>candidato para ser eliminado</em>.</p></li>
+<li><p>Cada cierto tiempo, el intérprete activará el <strong>recolector de basura</strong>, que es un componente que se encarga de liberar de la memoria a los objetos que están marcados como candidatos para ser eliminados.</p></li>
+<li><p>Por tanto, el programador Python no tiene que preocuparse de gestionar manualmente la memoria ocupada por los objetos que componen su programa.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)  <span class="co"># crea el objeto y guarda una referencia a él en dep1</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>dep2 <span class="op">=</span> dep1  <span class="co"># almacena en dep2 la referencia que hay en dep1</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>             <span class="co"># (a partir de ahora, ambas variables apuntan al mismo objeto)</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">del</span> dep1     <span class="co"># elimina una referencia pero el objeto aún tiene otra</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">del</span> dep2     <span class="co"># elimina la otra referencia y ahora el objeto es inaccesible</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>             <span class="co"># (cuando el recolector de basura se active, eliminará el objeto)</span></span></code></pre></div></li>
+</ul>
+</section>
 <section id="la-antisimetría-dato-objeto" class="title-slide slide level3" data-number="2.2.1">
 <h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> La antisimetría dato-objeto</h3>
 <ul>
@@ -474,18 +543,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 
 
-<section id="identidad" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Identidad</h2>
-
+<section id="estado" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Estado</h2>
+<ul>
+<li><p>Los objetos son datos abstractos que poseen su propio estado interno, el cual puede cambiar durante la ejecución del programa como consecuencia de los mensajes recibidos o enviados por los objetos.</p></li>
+<li><p>Eso significa que los objetos son <strong>datos mutables</strong>.</p></li>
+<li><p>Dos objetos distintos tendrán estados internos distintos.</p></li>
+</ul>
 </section>
-
-<section id="estado" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Estado</h2>
-
-</section>
-
-<section id="atributos" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Atributos</h2>
+<section id="atributos" class="title-slide slide level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Atributos</h3>
 <ul>
 <li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong> o <strong>propiedades</strong> del objeto.</p></li>
 <li><p>Los atributos se implementan como <em>variables locales</em> al objeto.</p></li>
@@ -498,31 +565,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section class="slide level4" data-number="2.5.0.1">
+<section class="slide level4" data-number="2.3.1.1">
 
 <ul>
 <li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:57%;">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb5-3"><a href="#cb5-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb5-6"><a href="#cb5-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb5-7"><a href="#cb5-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb5-9"><a href="#cb5-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb5-12"><a href="#cb5-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb5-13"><a href="#cb5-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb5-16"><a href="#cb5-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb5-17"><a href="#cb5-17"></a></span>
-<span id="cb5-18"><a href="#cb5-18"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb9-3"><a href="#cb9-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb9-6"><a href="#cb9-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb9-7"><a href="#cb9-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb9-12"><a href="#cb9-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb9-13"><a href="#cb9-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb9-16"><a href="#cb9-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-18"><a href="#cb9-18"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
 </div><div class="column" style="width:43%;">
 <div class="centered">
 <figure>
@@ -532,7 +599,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="2.5.0.2">
+<section class="slide level4" data-number="2.3.1.2">
 
 <ul>
 <li><p>En Python es posible acceder directamente al estado interno de un objeto (o, lo que es lo mismo, al valor de sus atributos), cosa que, en principio, podría considerarse una violación del principio de ocultación de información y del concepto mismo de abstracción de datos.</p></li>
@@ -540,7 +607,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Todo esto puede resultar chocante para un programador de otros lenguajes, pero en la práctica resulta útil al programador por la naturaleza dinámica del lenguaje Python y por el estilo de programación que promueve.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.5.0.3">
+<section class="slide level4" data-number="2.3.1.3">
 
 <ul>
 <li>En Python, la única forma de acceder a un atributo de un objeto es usando la <em>notación punto</em>:</li>
@@ -548,25 +615,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>objeto</em><code>.</code><em>atributo</em></p>
 <ul>
 <li><p>Por ejemplo, para acceder al atributo <code>fondos</code> de un objeto <code>dep</code> de la clase <code>Deposito</code>, se usaría la expresión <code>dep.fondos</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="dv">100</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="dv">100</span></span></code></pre></div></li>
 <li><p>Y podemos cambiar el valor del atributo mediante asignación (cosa que, en general, no resultaría aconsejable):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="dv">400</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="dv">400</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.5.0.4">
+<section class="slide level4" data-number="2.3.1.4">
 
 <ul>
 <li><p>Por supuesto, dos objetos distintos pueden tener valores distintos en sus atributos:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.fondos          <span class="co"># el atributo fondos del objeto dep1 vale 100</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="dv">100</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el mismo atributo en el objeto dep2 vale 400</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="dv">400</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.fondos          <span class="co"># el atributo fondos del objeto dep1 vale 100</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="dv">100</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el mismo atributo en el objeto dep2 vale 400</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="dv">400</span></span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
@@ -574,73 +641,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section class="slide level4" data-number="2.5.0.5">
+<section class="slide level4" data-number="2.3.1.5">
 
 <ul>
 <li><p>Como cualquier variable en Python, un atributo empieza a existir en el momento en el que se le asigna un valor:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
-<span id="cb9-2"><a href="#cb9-2"></a>Traceback (most recent call last):</span>
-<span id="cb9-3"><a href="#cb9-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="op">&gt;&gt;&gt;</span> dep.otro <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">&#39;hola</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
+<span id="cb13-2"><a href="#cb13-2"></a>Traceback (most recent call last):</span>
+<span id="cb13-3"><a href="#cb13-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="op">&gt;&gt;&gt;</span> dep.otro <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">&#39;hola</span></span></code></pre></div></li>
 <li><p>Por tanto, en Python los atributos de un objeto se crean en tiempo de ejecución mediante una simple asignación.</p></li>
 <li><p>Este comportamiento contrasta con el de otros lenguajes de programación, como por ejemplo en Java, donde los atributos de un objeto vienen determinados de antemano por la clase a la que pertenece y siempre son los mismos.</p>
 <p>Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos atributos (aunque el mismo atributo puede tener valores distintos en ambos objetos, naturalmente).</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.5.0.6">
+<section class="slide level4" data-number="2.3.1.6">
 
 <ul>
 <li><p>El comportamiento dinámico de Python a la hora de crear atributos permite resultados interesantes imposibles de conseguir en Java, como que dos objetos distintos de la misma clase puedan poseer distintos atributos:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span>       <span class="co"># el atributo uno sólo existe en dep1</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span>     <span class="co"># el atributo otro sólo existe en dep2</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno</span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">&#39;hola&#39;</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="op">&gt;&gt;&gt;</span> dep2.uno</span>
-<span id="cb10-8"><a href="#cb10-8"></a>Traceback (most recent call last):</span>
-<span id="cb10-9"><a href="#cb10-9"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;uno&#39;</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro</span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">&#39;adiós&#39;</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
-<span id="cb10-15"><a href="#cb10-15"></a>Traceback (most recent call last):</span>
-<span id="cb10-16"><a href="#cb10-16"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span>       <span class="co"># el atributo uno sólo existe en dep1</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span>     <span class="co"># el atributo otro sólo existe en dep2</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno</span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">&#39;hola&#39;</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="op">&gt;&gt;&gt;</span> dep2.uno</span>
+<span id="cb14-8"><a href="#cb14-8"></a>Traceback (most recent call last):</span>
+<span id="cb14-9"><a href="#cb14-9"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;uno&#39;</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro</span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co">&#39;adiós&#39;</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
+<span id="cb14-15"><a href="#cb14-15"></a>Traceback (most recent call last):</span>
+<span id="cb14-16"><a href="#cb14-16"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.5.0.7">
+<section class="slide level4" data-number="2.3.1.7">
 
 <ul>
 <li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:57%;">
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb11-2"><a href="#cb11-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb11-3"><a href="#cb11-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb11-4"><a href="#cb11-4"></a></span>
-<span id="cb11-5"><a href="#cb11-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb11-6"><a href="#cb11-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb11-7"><a href="#cb11-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb11-9"><a href="#cb11-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb11-10"><a href="#cb11-10"></a></span>
-<span id="cb11-11"><a href="#cb11-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb11-12"><a href="#cb11-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb11-13"><a href="#cb11-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb11-14"><a href="#cb11-14"></a></span>
-<span id="cb11-15"><a href="#cb11-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb11-16"><a href="#cb11-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb11-17"><a href="#cb11-17"></a></span>
-<span id="cb11-18"><a href="#cb11-18"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb11-19"><a href="#cb11-19"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
-<span id="cb11-20"><a href="#cb11-20"></a>dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb11-21"><a href="#cb11-21"></a>dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb15-3"><a href="#cb15-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb15-6"><a href="#cb15-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb15-7"><a href="#cb15-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb15-9"><a href="#cb15-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb15-12"><a href="#cb15-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb15-13"><a href="#cb15-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb15-14"><a href="#cb15-14"></a></span>
+<span id="cb15-15"><a href="#cb15-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb15-16"><a href="#cb15-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb15-17"><a href="#cb15-17"></a></span>
+<span id="cb15-18"><a href="#cb15-18"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb15-19"><a href="#cb15-19"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb15-20"><a href="#cb15-20"></a>dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a>dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span></span></code></pre></div>
 </div><div class="column" style="width:43%;">
 <div class="centered">
 <figure>
@@ -650,49 +717,207 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="2.5.0.8">
+<section class="slide level4" data-number="2.3.1.8">
 
 <ul>
 <li><p>Otro ejemplo: si tenemos el número complejo <code>4 + 3j</code>, podemos preguntar cuál es su parte real y su parte imaginaria (que son atributos del objeto):</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> <span class="ot">3j</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="op">&gt;&gt;&gt;</span> c</span>
-<span id="cb12-3"><a href="#cb12-3"></a>(<span class="dv">4</span><span class="op">+</span><span class="ot">3j</span>)</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="op">&gt;&gt;&gt;</span> c.real</span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="fl">4.0</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="op">&gt;&gt;&gt;</span> c.imag</span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="fl">3.0</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> <span class="ot">3j</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="op">&gt;&gt;&gt;</span> c</span>
+<span id="cb16-3"><a href="#cb16-3"></a>(<span class="dv">4</span><span class="op">+</span><span class="ot">3j</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="op">&gt;&gt;&gt;</span> c.real</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="fl">4.0</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="op">&gt;&gt;&gt;</span> c.imag</span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="fl">3.0</span></span></code></pre></div></li>
 <li><p>Pero esos atributos no se pueden modificar directamente, ya que son de <em>sólo lectura</em>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;&gt;</span> c.real <span class="op">=</span> <span class="fl">9.0</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>Traceback (most recent call last):</span>
-<span id="cb13-3"><a href="#cb13-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="pp">AttributeError</span>: readonly attribute</span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">&gt;&gt;&gt;</span> c.real <span class="op">=</span> <span class="fl">9.0</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>Traceback (most recent call last):</span>
+<span id="cb17-3"><a href="#cb17-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="pp">AttributeError</span>: readonly attribute</span></code></pre></div></li>
 </ul>
 </section>
 
-<section id="paso-de-mensajes" class="title-slide slide level2" data-number="2.6">
-<h2 data-number="2.6"><span class="header-section-number">2.6</span> Paso de mensajes</h2>
+
+<section id="paso-de-mensajes" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Paso de mensajes</h2>
 <ul>
-<li>El paso de mensajes se realiza ahora invocando</li>
+<li><p>Como las clases implementan las operaciones como métodos, el paso de mensajes se realiza ahora invocando sobre el objeto el método correspondiente a la operación asociada al mensaje que se enviaría al objeto.</p></li>
+<li><p>Por ejemplo, si tenemos el objeto <code>dep</code> (una instancia de la clase <code>Deposito</code>) y queremos enviarle el mensaje <code>saldo</code> para saber cuál es el saldo actual de ese depósito, invocaríamos el método <code>saldo</code> sobre el objeto <code>dep</code> de esta forma:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">&gt;&gt;&gt;</span> dep.saldo()</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="dv">100</span></span></code></pre></div></li>
+<li><p>Si la operación requiere de argumentos, se le pasarán al método también:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar(<span class="dv">25</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="dv">75</span></span></code></pre></div></li>
+</ul>
+</section>
+<section id="ejecución-de-métodos" class="title-slide slide level3" data-number="2.4.1">
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Ejecución de métodos</h3>
+<ul>
+<li><p>En Python, la ejecución de un método <em>m</em> con argumentos <span class="math inline">a_1, a_2, \ldots, a_n</span> sobre un objeto <em>o</em> que es instancia de la clase <em>C</em> tiene esta forma:</p>
+<div class="centered">
+<p><em>o</em><code>.</code><em>m</em><code>(</code><span class="math inline">a_1</span><code>,</code><span class="math inline">a_2</span><code>,</code><span class="math inline">\ldots</span><code>,</code><span class="math inline">a_n</span><code>)</code></p>
+</div></li>
+<li><p>Y el intérprete lo traduce por una llamada a función con esta forma:</p>
+<div class="centered">
+<p><em>C</em><code>.</code><em>m</em><code>(</code><em>o</em><code>,</code><span class="math inline">a_1</span><code>,</code><span class="math inline">a_2</span><code>,</code><span class="math inline">\ldots</span><code>,</code><span class="math inline">a_n</span><code>)</code></p>
+</div></li>
+<li><p>Es decir: el intérprete llama a la función <em>m</em> definida en la clase <em>C</em> y le pasa el objeto <em>o</em> como primer argumento (el resto de los argumentos originales irían a continuación).</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.1.1">
+
+<ul>
+<li><p>Por ejemplo, cuando hacemos:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar(<span class="dv">25</span>)</span></code></pre></div>
+<p>equivale a hacer:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="op">&gt;&gt;&gt;</span> Despacho.retirar(dep, <span class="dv">25</span>)</span></code></pre></div>
+<p>De hecho, el intérprete traduce el primer código al segundo automáticamente.</p></li>
+<li><p>Esto facilita la implementación del intérprete, ya que todo se convierte en llamadas a funciones.</p></li>
 </ul>
 </section>
 
-<section id="métodos" class="title-slide slide level2" data-number="2.7">
-<h2 data-number="2.7"><span class="header-section-number">2.7</span> Métodos</h2>
+<section id="definición-de-métodos" class="title-slide slide level3" data-number="2.4.2">
+<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> Definición de métodos</h3>
+<ul>
+<li><p>Esa es la razón por la que los métodos se definen siempre con un parámetro extra que representa el objeto sobre el que se invoca el método (o, dicho de otra forma, el objeto que recibe el mensaje).</p></li>
+<li><p>Ese parámetro extra (por regla de estilo) se llama siempre <code>self</code>, si bien ese nombre no es ninguna palabra clave y se podría usar cualquier otro.</p></li>
+<li><p>Por tanto, siempre que definamos un método, lo haremos como una función que tendrá siempre un parámetro extra que será siempre el primero de sus parámetros y que se llamará <code>self</code>.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.2.1">
+
+<ul>
+<li>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que todos los métodos tienen <code>self</code> como primer parámetro:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb22-3"><a href="#cb22-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb22-6"><a href="#cb22-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb22-7"><a href="#cb22-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb22-9"><a href="#cb22-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb22-10"><a href="#cb22-10"></a></span>
+<span id="cb22-11"><a href="#cb22-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb22-12"><a href="#cb22-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb22-13"><a href="#cb22-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb22-14"><a href="#cb22-14"></a></span>
+<span id="cb22-15"><a href="#cb22-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb22-16"><a href="#cb22-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+</section>
+<section class="slide level4" data-number="2.4.2.2">
+
+<ul>
+<li><p>Por ejemplo, el método <code>saldo</code> de la clase <code>Deposito</code> recibe un argumento <code>self</code> que, durante la llamada al método, contendrá el objeto sobre el que se ha invocado dicho método:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb23-2"><a href="#cb23-2"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+<li><p>En este caso, contendrá el objeto del que se desea conocer los fondos que posee.</p></li>
+<li><p>Por tanto, dentro de <code>saldo</code>, accedemos a los fondos del objeto usando la expresión <code>self.fondos</code>, y ese es el valor que retorna el método.</p></li>
+<li><p>Dentro del programa, la expresión <code>dep.saldo()</code> se traducirá como <code>Deposito.saldo(dep)</code>.</p></li>
+<li><p>Es importante recordar que <strong>el parámetro <code>self</code> se pasa automáticamente</strong> durante la llamada al método y, por tanto, <strong>no debemos pasarlo nosotros</strong> o se producirá un error por intentar pasar más parámetros de los requeridos por el método.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.2.3">
+
+<ul>
+<li><p>El método <code>ingresar</code> tiene otro argumento además del <code>self</code>, que es la cantidad a ingresar:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+<li><p>En este caso, <code>self</code> contendrá el objeto en el que se desea ingresar la cantidad deseada.</p></li>
+<li><p>Dentro del método <code>ingresar</code>, la expresión <code>self.fondos</code> representa el valor del atributo <code>fondos</code> del objeto <code>self</code>.</p></li>
+<li><p>Por tanto, lo que hace el método es incrementar el valor de dicho atributo en el objeto <code>self</code>, sumándole la cantidad indicada en el parámetro.</p></li>
+<li><p>Por ejemplo, la expresión <code>dep.ingresar(35)</code> se traducirá como <code>Deposito.ingresar(dep, 35)</code>. Por tanto, en la llamada al método, <code>self</code> valdrá <code>dep</code> y <code>cantidad</code> valdrá <code>35</code>.</p></li>
+</ul>
+</section>
+
+<section id="métodos-mágicos" class="title-slide slide level3" data-number="2.4.3">
+<h3 data-number="2.4.3"><span class="header-section-number">2.4.3</span> Métodos <em>mágicos</em></h3>
+<ul>
+<li><p>En Python, los métodos cuyo nombre empieza y termina por <code>__</code> se denominan <strong>métodos mágicos</strong> y tienen un comportamiento especial.</p></li>
+<li><p>En concreto, el método <code>__init__</code> se invoca automáticamente cada vez que se instancia un nuevo objeto a partir de una clase.</p></li>
+<li><p>Coloquialmente, se le suele llamar el <strong>constructor</strong> de la clase, y es el responsable de <em>inicializar</em> el objeto de forma que tenga un estado inicial adecuado desde el momento de su creación.</p></li>
+<li><p>Entre otras cosas, el constructor se encarga de asignarle los valores iniciales adecuados a los atributos del objeto.</p></li>
+<li><p>Ese método recibe como argumentos (además del <code>self</code>) los argumentos indicados en la llamada a la clase que se usó para instanciar el objeto.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.3.1">
+
+<ul>
+<li><p>Por ejemplo: en la clase <code>Deposito</code>, tenemos:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb25-3"><a href="#cb25-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb25-4"><a href="#cb25-4"></a>    <span class="co"># ...</span></span></code></pre></div></li>
+<li><p>Ese método <code>__init__</code> se encarga de crear el atributo <code>fondos</code> del objeto que se acaba de crear (y que recibe a través del parámetro <code>self</code>), asignándole el valor del parámetro <code>fondos</code>.</p>
+<p>Cuidado: no confudir la expresión <code>self.fondos</code> con <code>fondos</code>. La primera se refiere al atributo <code>fondos</code> del objeto <code>self</code>, mientras que la segunda se refiere al parámetro <code>fondos</code>.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.3.2">
+
+<ul>
+<li><p>Cuando se crea un nuevo objeto de la clase <code>Deposito</code>, llamando a la clase como si fuera una función, se debe indicar entre paréntesis (como argumento) el valor del parámetro que luego va a recibir el método <code>__init__</code> (en este caso, los fondos iniciales):</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<li><p>La ejecución de este código produce el siguiente efecto:</p>
+<ol type="1">
+<li><p>Se crea en memoria una instancia de la clase <code>Deposito</code>.</p></li>
+<li><p>Se invoca el método <code>__init__</code> sobre el objeto recién creado, de forma que el parámetro <code>self</code> recibe una referencia a dicho objeto y el parámetro <code>fondos</code> toma el valor <code>100</code>, que es el valor del argumento en la llamada a <code>Deposito(100)</code>.</p>
+<p>En la práctica, esto equivale a decir que la expresión <code>Deposito(100)</code> se traduce a <em>r</em>.<code>__init__(100)</code>, donde <em>r</em> es una referencia al objeto recién creado.</p></li>
+<li><p>La expresión <code>Deposito(100)</code> devuelve la referencia al objeto.</p></li>
+<li><p>Esa referencia es la que se almacena en la variable <code>dep</code>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.3.3">
+
+<p>Comprobar el funcionamiento del constructor en <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>.</p>
+</section>
+<section class="slide level4" data-number="2.4.3.4">
+
+<ul>
+<li><p>En resumen: la expresión <em>C</em><code>(</code><span class="math inline">a_1</span><code>,</code><span class="math inline">a_2</span><code>,</code><span class="math inline">\ldots</span><code>,</code><span class="math inline">a_n</span><code>)</code> usada para crear una instancia de la clase <em>C</em> lleva a cabo las siguientes acciones:</p>
+<ol type="1">
+<li><p>Crea en memoria una instancia de la clase <em>C</em> y guarda en una variable temporal (llamémosla <em>r</em>, por ejemplo) una referencia al objeto recién creado.</p></li>
+<li><p>Invoca a <em>r</em><code>.__init__(</code><span class="math inline">a_1</span><code>,</code><span class="math inline">a_2</span><code>,</code><span class="math inline">\ldots</span><code>,</code><span class="math inline">a_n</span><code>)</code></p></li>
+<li><p>Devuelve <em>r</em>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.4.3.5">
+
+<ul>
+<li><p>En consecuencia, los argumentos que se indican al instanciar una clase se enviarán al método <code>__init__</code> de la clase, lo que significa que tendremos que indicar tantos argumentos (y del tipo apropiado) como espere el método <code>__init__</code>.</p>
+<p>En caso contrario, tendremos un error:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito()  <span class="co"># no indicamos ningún argumento cuando se espera uno</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>Traceback (most recent call last):</span>
+<span id="cb27-3"><a href="#cb27-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="pp">TypeError</span>: <span class="fu">__init__</span>() missing <span class="dv">1</span> required positional argument: <span class="st">&#39;fondos&#39;</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co"># mandamos dos argumentos cuando se espera sólo uno</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a>Traceback (most recent call last):</span>
+<span id="cb27-7"><a href="#cb27-7"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="pp">TypeError</span>: <span class="fu">__init__</span>() takes <span class="dv">2</span> positional arguments but <span class="dv">3</span> were given</span></code></pre></div></li>
+<li><p>Es importante tener en cuenta, además, que <strong>el constructor <code>__init__</code> no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe devolver <code>None</code>), o de lo contrario provocará un error de ejecución.</p></li>
+</ul>
+</section>
+
+
+<section id="identidad" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Identidad</h2>
 
 </section>
 
-<section id="encapsulación" class="title-slide slide level2" data-number="2.8">
-<h2 data-number="2.8"><span class="header-section-number">2.8</span> Encapsulación</h2>
+<section id="encapsulación" class="title-slide slide level2" data-number="2.6">
+<h2 data-number="2.6"><span class="header-section-number">2.6</span> Encapsulación</h2>
 
 </section>
 
-<section id="herencia" class="title-slide slide level2" data-number="2.9">
-<h2 data-number="2.9"><span class="header-section-number">2.9</span> Herencia</h2>
+<section id="herencia" class="title-slide slide level2" data-number="2.7">
+<h2 data-number="2.7"><span class="header-section-number">2.7</span> Herencia</h2>
 
 </section>
 
-<section id="polimorfismo" class="title-slide slide level2" data-number="2.10">
-<h2 data-number="2.10"><span class="header-section-number">2.10</span> Polimorfismo</h2>
+<section id="polimorfismo" class="title-slide slide level2" data-number="2.8">
+<h2 data-number="2.8"><span class="header-section-number">2.8</span> Polimorfismo</h2>
 
 </section>
 </section>
@@ -751,7 +976,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 
 
-<section id="métodos-1" class="title-slide slide level2" data-number="3.7">
+<section id="métodos" class="title-slide slide level2" data-number="3.7">
 <h2 data-number="3.7"><span class="header-section-number">3.7</span> Métodos</h2>
 
 </section>
