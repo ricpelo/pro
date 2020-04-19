@@ -916,8 +916,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="2.5.0.1">
 
 <ul>
-<li><p>En el momento en que introducimos mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
-<li><p>Consideremos el concepto de que dos cosas sean «la misma cosa».</p></li>
+<li><p>En el momento en que introducimos la mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
+<li><p>Por ejemplo, consideremos el problema de determinar si dos cosas son «la misma cosa».</p></li>
 <li><p>Supongamos que hacemos:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">def</span> restador(cantidad):</span>
 <span id="cb28-2"><a href="#cb28-2"></a>    <span class="kw">def</span> aux(otro):</span>
@@ -938,23 +938,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-6"><a href="#cb30-6"></a><span class="dv">100</span></span></code></pre></div></li>
 <li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> en cualquier expresión sin cambiar el resultado de evaluar dicha expresión.</p></li>
 <li><p>Es otra forma de decir que con los objetos no hay transparencia referencial, ya que se pierde en el momento en que incorporamos estado y mutabilidad en nuestro modelo computacional.</p></li>
-<li><p>Pero al perder la transparencia referencial, la noción de lo que significa que dos objetos sean «el mismo objeto» se convierte en algo difícil de capturar de una manera formal. De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuetro programa es ya difícil de entender.</p></li>
-<li><p>En general, sólo podemos determinar que dos objetos aparentemente idénticos son realmente «el mismo objeto» modificando uno de ellos y observando a continuación si el otro se ha cambiado de la misma forma.</p></li>
+<li><p>Pero al perder la transparencia referencial, la noción de lo que significa que dos objetos sean «el mismo objeto» se vuelve difícil de capturar de una manera formal. De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuetro programa es ya difícil de entender.</p></li>
+<li><p>En general, sólo podemos determinar si dos objetos aparentemente idénticos son realmente «el mismo objeto» modificando uno de ellos y observando a continuación si el otro se ha cambiado de la misma forma.</p></li>
 <li><p>Pero, ¿cómo podemos decir si un objeto ha «cambiado» si no es observando el «mismo» objeto dos veces y comprobando si ha cambiado alguna propiedad del objeto de la primera observación a la siguiente?</p></li>
 <li><p>Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción previa de «igualdad», y no podemos determinar la igualdad sin observar los efectos del cambio.</p></li>
-<li><p>Un ejemplo de cómo puede afectar este problema en la programación, consideremos el caso en que Pedro y Pablo tienen un depósito con 100 € cada uno. Hay una enorme diferencia entre definirlo así:</p>
+<li><p>Un ejemplo de cómo puede afectar este problema en programación, sería considerar el caso en que Pedro y Pablo tienen un depósito con 100 € cada uno. Hay una enorme diferencia entre definirlo así:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
-</ul>
+<span id="cb31-2"><a href="#cb31-2"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
 <p>y definirlo así:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb32-2"><a href="#cb32-2"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div>
-<ul>
-<li><p>En el primer caso, los dos depósitos son distintos. Las operaciones realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa. En el segundo caso, en cambio, hemos definido a <code>dep_Pablo</code> para que sea exactamente la misma cosa que <code>dep_Pedro</code>. Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y si Pedro hace una retirada de efectivo a través de <code>dep_Pedro</code>, Pablo observará que hay menos dinero en <code>dep_Pablo</code>.</p></li>
-<li><p>Estas dos situaciones, similares pero distintas, pueden provocar confusión al crear modelos computacionales. Con el depósito compartido, en particular, puede ser especialmente confuso el hecho de que haya un objeto (el depósito) con dos nombres distintos (<code>dep_Pedro</code> y <code>dep_Pablo</code>). Si estamos buscando todos los sitios de nuestro programa donde pueda cambiarse el depósito de <code>dep_Pedro</code>, tendremos que recordar buscar también los sitios donde se cambie a <code>dep_Pablo</code>.</p></li>
-<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de comprobar si los dos depósitos son distintos. En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
-<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen. Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo. Igualmente, podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
-<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad ya que al cambiar su numerador no tendríamos «el mismo» número racional.</p></li>
+<span id="cb32-2"><a href="#cb32-2"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div></li>
+<li><p>En el primer caso, los dos depósitos son distintos. Las operaciones realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa.</p></li>
+<li><p>En el segundo caso, en cambio, hemos definido a <code>dep_Pablo</code> para que sea exactamente la misma cosa que <code>dep_Pedro</code>.</p></li>
+<li><p>Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y si Pedro hace una retirada de efectivo a través de <code>dep_Pedro</code>, Pablo observará que hay menos dinero en <code>dep_Pablo</code>.</p></li>
+<li><p>Estas dos situaciones, similares pero distintas, pueden provocar confusión al crear modelos computacionales. Concretamente, con el depósito compartido puede ser especialmente confuso el hecho de que haya un objeto (el depósito) con dos nombres distintos (<code>dep_Pedro</code> y <code>dep_Pablo</code>). Si estamos buscando todos los sitios de nuestro programa donde pueda cambiarse el depósito de <code>dep_Pedro</code>, tendremos que recordar buscar también los sitios donde se cambie a <code>dep_Pablo</code>.</p></li>
+<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de comprobar si los dos depósitos son distintos.</p></li>
+<li><p>En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
+<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen.</p></li>
+<li><p>Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo. Igualmente, podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
+<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad puesto que al cambiar su numerador ya no tenemos «el mismo» número racional.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.5.0.2">

@@ -956,11 +956,12 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ---
 
-- En el momento en que introducimos mutabilidad en nuestro modelo
+- En el momento en que introducimos la mutabilidad en nuestro modelo
   computacional, muchos conceptos que antes eran sencillos se vuelven
   problemáticos.
 
-- Consideremos el concepto de que dos cosas sean «la misma cosa».
+- Por ejemplo, consideremos el problema de determinar si dos cosas son «la
+  misma cosa».
 
 - Supongamos que hacemos:
 
@@ -1009,12 +1010,11 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   nuestro modelo computacional.
 
 - Pero al perder la transparencia referencial, la noción de lo que significa
-  que dos objetos sean «el mismo objeto» se convierte en algo difícil de
-  capturar de una manera formal. De hecho, el significado de «el mismo» en el
-  mundo real que estamos modelando con nuetro programa es ya difícil de
-  entender.
+  que dos objetos sean «el mismo objeto» se vuelve difícil de capturar de una
+  manera formal. De hecho, el significado de «el mismo» en el mundo real que
+  estamos modelando con nuetro programa es ya difícil de entender.
 
-- En general, sólo podemos determinar que dos objetos aparentemente idénticos
+- En general, sólo podemos determinar si dos objetos aparentemente idénticos
   son realmente «el mismo objeto» modificando uno de ellos y observando a
   continuación si el otro se ha cambiado de la misma forma.
 
@@ -1026,8 +1026,8 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   previa de «igualdad», y no podemos determinar la igualdad sin observar los
   efectos del cambio.
 
-- Un ejemplo de cómo puede afectar este problema en la programación,
-  consideremos el caso en que Pedro y Pablo tienen un depósito con 100 € cada
+- Un ejemplo de cómo puede afectar este problema en programación, sería
+  considerar el caso en que Pedro y Pablo tienen un depósito con 100 € cada
   uno. Hay una enorme diferencia entre definirlo así:
 
   ```python
@@ -1035,7 +1035,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   dep_Pablo = Deposito(100)
   ```
 
-y definirlo así:
+  y definirlo así:
 
   ```python
   dep_Pedro = Deposito(100)
@@ -1043,15 +1043,17 @@ y definirlo así:
   ```
 
 - En el primer caso, los dos depósitos son distintos. Las operaciones
-  realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa. En el
-  segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
-  exactamente la misma cosa que `dep_Pedro`. Por tanto, ahora Pedro y Pablo son
-  cotitulares de un depósito compartido, y si Pedro hace una retirada de
-  efectivo a través de `dep_Pedro`, Pablo observará que hay menos dinero en
-  `dep_Pablo`.
+  realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa.
+  
+- En el segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
+  exactamente la misma cosa que `dep_Pedro`.
+  
+- Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y
+  si Pedro hace una retirada de efectivo a través de `dep_Pedro`, Pablo
+  observará que hay menos dinero en `dep_Pablo`.
 
 - Estas dos situaciones, similares pero distintas, pueden provocar confusión al
-  crear modelos computacionales. Con el depósito compartido, en particular,
+  crear modelos computacionales. Concretamente, con el depósito compartido
   puede ser especialmente confuso el hecho de que haya un objeto (el depósito)
   con dos nombres distintos (`dep_Pedro` y `dep_Pablo`). Si estamos buscando
   todos los sitios de nuestro programa donde pueda cambiarse el depósito de
@@ -1061,14 +1063,17 @@ y definirlo así:
 - Con respecto a los anteriores comentarios sobre «igualdad» y «cambio»,
   obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no
   pudieran realizar operaciones que cambiaran los fondos del depósito, entonces
-  no existiría el problema de comprobar si los dos depósitos son distintos. En
-  general, siempre que no se puedan modificar los objetos, podemos suponer que
-  un objeto compuesto se corresponde con la totalidad de sus partes.
+  no existiría el problema de comprobar si los dos depósitos son distintos.
+  
+- En general, siempre que no se puedan modificar los objetos, podemos suponer
+  que un objeto compuesto se corresponde con la totalidad de sus partes.
 
 - Por ejemplo, un número racional está determinado por su numerador y su
   denominador. Pero este punto de vista deja de ser válido cuando incorporamos
   mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo
-  distinto de las partes que lo componen. Un depósito sigue siendo «el mismo»
+  distinto de las partes que lo componen.
+  
+- Un depósito sigue siendo «el mismo»
   depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.
   Igualmente, podemos tener dos depósitos distintos con el mismo estado
   interno.
@@ -1076,8 +1081,8 @@ y definirlo así:
 - Esta complicación es consecuencia, no de nuestro lenguaje de programación,
   sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo,
   no tendría sentido para nosotros considerar que un número racional es un
-  objeto mutable con identidad ya que al cambiar su numerador no tendríamos «el
-  mismo» número racional.
+  objeto mutable con identidad puesto que al cambiar su numerador ya no tenemos
+  «el mismo» número racional.
 
 ---
 

@@ -459,6 +459,25 @@ subgraph cluster0 {
 
 # Mutabilidad
 
+## Introducción
+
+- Ya hemos visto que en programación imperativa es posible cambiar el estado de
+  una variable asignándole un nuevo valor (un nuevo dato).
+
+- Al hacerlo, no estamos cambiando el valor en sí, sino que estamos
+  sustituyendo el valor de la variable por otro nuevo, mediante el uso de la
+  asignación destructiva.
+
+- Sin embargo, también existen valores que poseen su propio estado interno y es
+  posible cambiar dicho estado, no asignando un nuevo valor a la variable que
+  lo contiene, sino modificando el contenido de dicho valor.
+
+- Es decir: no estaríamos cambiando el estado de la variable (haciendo que
+  ahora contenga un nuevo valor) sino el estado interno del propio valor
+  contenido dentro de la variable.
+
+- Los valores que permiten cambiar su estado interno se denominan **mutables**.
+
 ## Tipos mutables e inmutables
 
 - En Python existen tipos cuyos valores son *inmutables* y otros que son
@@ -708,6 +727,36 @@ s | P | y | t | h | o | n |
   >>> x
   [99, 32, 15, 81]
   ```
+
+:::: columns
+
+::: column
+
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{24|32|15|81}"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+lista [shape = record, width = 1.5, fixedsize = true, label = <{<S>24</S><BR/>99|32|15|81}>]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ---
 
@@ -1100,127 +1149,6 @@ y -> v2 -> lista2
 :::
 
 ::::
-
-### Identidad e igualdad
-
-
-- En el momento en que introducimos mutabilidad en nuestro modelo
-  computacional, muchos conceptos que antes eran sencillos se vuelven
-  problemáticos.
-
-- Consideremos el concepto de que dos cosas sean «la misma cosa».
-
-- Supongamos que hacemos:
-
-  ```python
-  restador = lambda cantidad: lambda x: x - cantidad
-  res1 = restador(25)
-  res2 = restador(25)
-  ```
-
-- ¿Son `res1` y `res2` la misma cosa? Una respuesta aceptable podría ser que
-  sí, ya que tanto `res1` como `res2` se comportan de la misma forma (los dos
-  son funciones que restan 25 a su argumento). De hecho, `res1` puede
-  sustituirse por `res2` en cualquier lugar de un programa sin que cambie el
-  resultado.
-
-- En cambio, supongamos que tenemos dos listas:
-
-  ```python
-  l1 = [1, 2, 3]
-  l2 = [1, 2, 3]
-  ```
-
-- ¿Son `l1` y `l2` la misma cosa? Evidentemente no, ya que al cambiar una no se
-  observa el mismo cambio en la otra:
-
-  ```python
-  >>> l1.append(4)
-  >>> l1
-  [1, 2, 3, 4]
-  >>> l2
-  [1, 2, 3]
-  ```
-
-- Incluso aunque podamos pensar que `l1` y `l2` son «iguales» en el sentido
-  de que ambos han sido creados evaluando la misma expresión (`[1, 2, 3]`),
-  no es verdad que podamos sustituir `l1` por `l2` en cualquier expresión
-  sin cambiar el resultado de evaluar dicha expresión.
-
-- Es otra forma de decir que con los datos mutables no hay transparencia
-  referencial, ya que se pierde en el momento en que incorporamos estado y
-  mutabilidad en nuestro modelo computacional.
-
-- Pero al perder la transparencia referencial, la noción de lo que significa
-  que dos datos sean «el mismo datos» se convierte en algo difícil de
-  capturar de una manera formal. De hecho, el significado de «el mismo» en el
-  mundo real que estamos modelando con nuetro programa es ya difícil de
-  entender.
-
-- En general, sólo podemos determinar que dos datos aparentemente idénticos
-  son realmente «el mismo dato» modificando uno de ellos y observando a
-  continuación si el otro se ha cambiado de la misma forma.
-
-- Pero, ¿cómo podemos decir si un dato ha «cambiado» si no es observando el
-  «mismo» dato dos veces y comprobando si ha cambiado alguna propiedad del
-  dato de la primera observación a la siguiente?
-
-- Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción
-  previa de «igualdad», y no podemos determinar la igualdad sin observar los
-  efectos del cambio.
-
-- Un ejemplo de cómo puede afectar este problema en la programación,
-  consideremos el caso en que Pedro y Pablo tienen un depósito con 100 € cada
-  uno. Hay una enorme diferencia entre definirlo así:
-
-  ```python
-  dep_Pedro = Deposito(100)
-  dep_Pablo = Deposito(100)
-  ```
-
-y definirlo así:
-
-  ```python
-  dep_Pedro = Deposito(100)
-  dep_Pablo = dep_Pedro
-  ```
-
-- En el primer caso, los dos depósitos son distintos. Las operaciones
-  realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa. En el
-  segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
-  exactamente la misma cosa que `dep_Pedro`. Por tanto, ahora Pedro y Pablo son
-  cotitulares de un depósito compartido, y si Pedro hace una retirada de
-  efectivo a través de `dep_Pedro`, Pablo observará que hay menos dinero en
-  `dep_Pablo`.
-
-- Estas dos situaciones, similares pero distintas, pueden provocar confusión al
-  crear modelos computacionales. Con el depósito compartido, en particular,
-  puede ser especialmente confuso el hecho de que haya un objeto (el depósito)
-  con dos nombres distintos (`dep_Pedro` y `dep_Pablo`). Si estamos buscando
-  todos los sitios de nuestro programa donde pueda cambiarse el depósito de
-  `dep_Pedro`, tendremos que recordar buscar también los sitios donde se cambie
-  a `dep_Pablo`.
-
-- Con respecto a los anteriores comentarios sobre «igualdad» y «cambio»,
-  obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no
-  pudieran realizar operaciones que cambiaran los fondos del depósito, entonces
-  no existiría el problema de comprobar si los dos depósitos son distintos. En
-  general, siempre que no se puedan modificar los objetos, podemos suponer que
-  un objeto compuesto se corresponde con la totalidad de sus partes.
-
-- Por ejemplo, un número racional está determinado por su numerador y su
-  denominador. Pero este punto de vista deja de ser válido cuando incorporamos
-  mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo
-  distinto de las partes que lo componen. Un depósito sigue siendo «el mismo»
-  depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.
-  Igualmente, podemos tener dos depósitos distintos con el mismo estado
-  interno.
-
-- Esta complicación es consecuencia, no de nuestro lenguaje de programación,
-  sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo,
-  no tendría sentido para nosotros considerar que un número racional es un
-  objeto mutable con identidad ya que al cambiar su numerador no tendríamos «el
-  mismo» número racional.
 
 ### `id`
 

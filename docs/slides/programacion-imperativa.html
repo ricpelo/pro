@@ -600,8 +600,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 data-number="3"><span class="header-section-number">3</span> Mutabilidad</h1>
 
 </section>
-<section id="tipos-mutables-e-inmutables" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Tipos mutables e inmutables</h2>
+<section id="introducción" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Introducción</h2>
+<ul>
+<li><p>Ya hemos visto que en programación imperativa es posible cambiar el estado de una variable asignándole un nuevo valor (un nuevo dato).</p></li>
+<li><p>Al hacerlo, no estamos cambiando el valor en sí, sino que estamos sustituyendo el valor de la variable por otro nuevo, mediante el uso de la asignación destructiva.</p></li>
+<li><p>Sin embargo, también existen valores que poseen su propio estado interno y es posible cambiar dicho estado, no asignando un nuevo valor a la variable que lo contiene, sino modificando el contenido de dicho valor.</p></li>
+<li><p>Es decir: no estaríamos cambiando el estado de la variable (haciendo que ahora contenga un nuevo valor) sino el estado interno del propio valor contenido dentro de la variable.</p></li>
+<li><p>Los valores que permiten cambiar su estado interno se denominan <strong>mutables</strong>.</p></li>
+</ul>
+</section>
+
+<section id="tipos-mutables-e-inmutables" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Tipos mutables e inmutables</h2>
 <ul>
 <li><p>En Python existen tipos cuyos valores son <em>inmutables</em> y otros que son <em>mutables</em>.</p></li>
 <li><p>Un valor <strong>inmutable</strong> es aquel cuyo estado interno no puede cambiar durante la ejecución del programa.</p>
@@ -610,8 +621,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>El principal tipo mutable en Python es la lista (<code>list</code>), pero también están los conjuntos (<code>set</code>) y los diccionarios (<code>dict</code>).</p></li>
 </ul>
 </section>
-<section id="inmutables" class="title-slide slide level3" data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Inmutables</h3>
+<section id="inmutables" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Inmutables</h3>
 <ul>
 <li>Un valor de un tipo inmutable no puede cambiar su contenido.</li>
 </ul>
@@ -636,7 +647,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Lo que hace la asignación <code>x = 5</code> no es cambiar el contenido del valor <code>4</code>, sino hacer que la variable <code>x</code> contenga otro valor distinto (el contenido del valor <code>4</code> en sí mismo no se modifica internamente en ningún momento).</li>
 </ul>
 </section>
-<section class="slide level4" data-number="3.1.1.1">
+<section class="slide level4" data-number="3.2.1.1">
 
 <ul>
 <li><p>Con las cadenas sería exactamente igual.</p></li>
@@ -654,7 +665,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div></li>
 </ul>
 </section>
-<section class="slide level4" data-number="3.1.1.2">
+<section class="slide level4" data-number="3.2.1.2">
 
 <ul>
 <li><p>Aunque las cadenas son datos inmutables, también son datos compuestos y podemos acceder individualmente a sus elementos componentes y operar con ellos aunque no podamos cambiarlos.</p></li>
@@ -703,7 +714,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section class="slide level4" data-number="3.1.1.3">
+<section class="slide level4" data-number="3.2.1.3">
 
 <ul>
 <li>El <em>operador</em> de <strong>indexación</strong> consiste en acceder al elemento situado en la posición indicada entre corchetes:</li>
@@ -757,8 +768,8 @@ s | P | y | t | h | o | n |
 </div>
 </section>
 
-<section id="mutables" class="title-slide slide level3" data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Mutables</h3>
+<section id="mutables" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Mutables</h3>
 <ul>
 <li><p>Los valores de tipos <strong>mutables</strong>, en cambio, pueden cambiar su estado interno durante la ejecución del programa.</p></li>
 <li><p>Hasta ahora, hemos visto un único tipo mutable: la <strong>lista</strong>.</p></li>
@@ -769,8 +780,23 @@ s | P | y | t | h | o | n |
 <span id="cb17-3"><a href="#cb17-3"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb17-4"><a href="#cb17-4"></a>[<span class="dv">99</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
 </ul>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/cambio-estado-lista-antes.svg" class="plain" style="width:50.0%" alt="" /><figcaption>La lista antes de cambiar <code>x[0]</code></figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/cambio-estado-lista-despues.svg" class="plain" style="width:50.0%" alt="" /><figcaption>La lista después de cambiar <code>x[0]</code></figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section class="slide level4" data-number="3.1.2.1">
+<section class="slide level4" data-number="3.2.2.1">
 
 <ul>
 <li><p>Las listas son secuencias mutables y, como tales, se pueden modificar usando ciertas operaciones:</p>
@@ -798,7 +824,7 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>Las siguientes tablas muestran todas las <strong>operaciones</strong> que nos permiten <strong>modificar secuencias mutables</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="3.1.2.2">
+<section class="slide level4" data-number="3.2.2.2">
 
 <p>(<span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> son listas, y <span class="math inline">\underline{x}</span> es un valor cualquiera)</p>
 <table>
@@ -837,7 +863,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </tbody>
 </table>
 </section>
-<section class="slide level4" data-number="3.1.2.3">
+<section class="slide level4" data-number="3.2.2.3">
 
 <table>
 <colgroup>
@@ -887,7 +913,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </tbody>
 </table>
 </section>
-<section class="slide level4" data-number="3.1.2.4">
+<section class="slide level4" data-number="3.2.2.4">
 
 <p>Partiendo de <code>x = [8, 10, 7, 9]</code>:</p>
 <table style="width:58%;">
@@ -927,8 +953,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 
-<section id="alias-de-variables" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Alias de variables</h2>
+<section id="alias-de-variables" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Alias de variables</h2>
 <ul>
 <li><p>Cuando una variable que contiene un valor se asigna a otra, se produce un fenómeno conocido como <strong>alias de variables</strong>, según el cual los dos identificadores se ligan a <strong>la misma variable</strong> (la comparten):</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>x <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
@@ -942,7 +968,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb21-3"><a href="#cb21-3"></a>[<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">40</span>, <span class="dv">9</span>]</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level4" data-number="3.2.0.1">
+<section class="slide level4" data-number="3.3.0.1">
 
 <ul>
 <li><p>No es lo mismo cambiar el <strong>valor</strong> que cambiar el <strong>contenido</strong> del valor.</p></li>
@@ -974,7 +1000,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="3.2.0.2">
+<section class="slide level4" data-number="3.3.0.2">
 
 <ul>
 <li><p>El intérprete puede crear alias de variables <strong>implícitamente</strong> para ahorrar memoria y sin que seamos conscientes de ello.</p></li>
@@ -992,7 +1018,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="3.2.0.3">
+<section class="slide level4" data-number="3.3.0.3">
 
 <ul>
 <li>También crea variables compartidas cuando contienen exactamente las mismas cadenas.</li>
@@ -1018,7 +1044,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li>El intérprete aprovecharía la variable ya creada y no crearía una nueva, para ahorrar memoria.</li>
 </ul>
 </section>
-<section class="slide level4" data-number="3.2.0.4">
+<section class="slide level4" data-number="3.3.0.4">
 
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1038,7 +1064,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="3.2.0.5">
+<section class="slide level4" data-number="3.3.0.5">
 
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1057,49 +1083,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 </section>
-<section id="identidad-e-igualdad" class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Identidad e igualdad</h3>
-<ul>
-<li><p>En el momento en que introducimos mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
-<li><p>Consideremos el concepto de que dos cosas sean «la misma cosa».</p></li>
-<li><p>Supongamos que hacemos:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>restador <span class="op">=</span> <span class="kw">lambda</span> cantidad: <span class="kw">lambda</span> x: x <span class="op">-</span> cantidad</span>
-<span id="cb29-2"><a href="#cb29-2"></a>res1 <span class="op">=</span> restador(<span class="dv">25</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
-<li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa? Una respuesta aceptable podría ser que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan de la misma forma (los dos son funciones que restan 25 a su argumento). De hecho, <code>res1</code> puede sustituirse por <code>res2</code> en cualquier lugar de un programa sin que cambie el resultado.</p></li>
-<li><p>En cambio, supongamos que tenemos dos listas:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>l1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb30-2"><a href="#cb30-2"></a>l2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
-<li><p>¿Son <code>l1</code> y <code>l2</code> la misma cosa? Evidentemente no, ya que al cambiar una no se observa el mismo cambio en la otra:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> l1.append(<span class="dv">4</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="op">&gt;&gt;&gt;</span> l1</span>
-<span id="cb31-3"><a href="#cb31-3"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="op">&gt;&gt;&gt;</span> l2</span>
-<span id="cb31-5"><a href="#cb31-5"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
-<li><p>Incluso aunque podamos pensar que <code>l1</code> y <code>l2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>[1, 2, 3]</code>), no es verdad que podamos sustituir <code>l1</code> por <code>l2</code> en cualquier expresión sin cambiar el resultado de evaluar dicha expresión.</p></li>
-<li><p>Es otra forma de decir que con los datos mutables no hay transparencia referencial, ya que se pierde en el momento en que incorporamos estado y mutabilidad en nuestro modelo computacional.</p></li>
-<li><p>Pero al perder la transparencia referencial, la noción de lo que significa que dos datos sean «el mismo datos» se convierte en algo difícil de capturar de una manera formal. De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuetro programa es ya difícil de entender.</p></li>
-<li><p>En general, sólo podemos determinar que dos datos aparentemente idénticos son realmente «el mismo dato» modificando uno de ellos y observando a continuación si el otro se ha cambiado de la misma forma.</p></li>
-<li><p>Pero, ¿cómo podemos decir si un dato ha «cambiado» si no es observando el «mismo» dato dos veces y comprobando si ha cambiado alguna propiedad del dato de la primera observación a la siguiente?</p></li>
-<li><p>Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción previa de «igualdad», y no podemos determinar la igualdad sin observar los efectos del cambio.</p></li>
-<li><p>Un ejemplo de cómo puede afectar este problema en la programación, consideremos el caso en que Pedro y Pablo tienen un depósito con 100 € cada uno. Hay una enorme diferencia entre definirlo así:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb32-2"><a href="#cb32-2"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
-</ul>
-<p>y definirlo así:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb33-2"><a href="#cb33-2"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div>
-<ul>
-<li><p>En el primer caso, los dos depósitos son distintos. Las operaciones realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa. En el segundo caso, en cambio, hemos definido a <code>dep_Pablo</code> para que sea exactamente la misma cosa que <code>dep_Pedro</code>. Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y si Pedro hace una retirada de efectivo a través de <code>dep_Pedro</code>, Pablo observará que hay menos dinero en <code>dep_Pablo</code>.</p></li>
-<li><p>Estas dos situaciones, similares pero distintas, pueden provocar confusión al crear modelos computacionales. Con el depósito compartido, en particular, puede ser especialmente confuso el hecho de que haya un objeto (el depósito) con dos nombres distintos (<code>dep_Pedro</code> y <code>dep_Pablo</code>). Si estamos buscando todos los sitios de nuestro programa donde pueda cambiarse el depósito de <code>dep_Pedro</code>, tendremos que recordar buscar también los sitios donde se cambie a <code>dep_Pablo</code>.</p></li>
-<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de comprobar si los dos depósitos son distintos. En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
-<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen. Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo. Igualmente, podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
-<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad ya que al cambiar su numerador no tendríamos «el mismo» número racional.</p></li>
-</ul>
-</section>
-
-<section id="id" class="title-slide slide level3" data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> <code>id</code></h3>
+<section id="id" class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> <code>id</code></h3>
 <ul>
 <li><p>Para saber si dos variables son realmente <strong>la misma variable</strong>, se puede usar la función <code>id</code>.</p></li>
 <li><p>La <strong>función <code>id</code></strong> devuelve un identificador único para cada dato en memoria.</p></li>
@@ -1107,24 +1092,24 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="va">True</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="va">False</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb35-6"><a href="#cb35-6"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb35-7"><a href="#cb35-7"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="va">False</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="va">True</span></span></code></pre></div>
 </div>
 </div>
 </section>
 
-<section id="is" class="title-slide slide level3" data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> <code>is</code></h3>
+<section id="is" class="title-slide slide level3" data-number="3.3.2">
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> <code>is</code></h3>
 <ul>
 <li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code>is</code>, que comprueba la <strong>identidad</strong> de un dato:</p></li>
 <li><p>Su sintaxis es:</p>
@@ -1186,13 +1171,13 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h2 data-number="4.4"><span class="header-section-number">4.4</span> Transparencia referencial</h2>
 <ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia referencial</strong>, ya que ahora el valor de una función puede depender no sólo de los valores de sus argumentos, sino también además de los valores de las variables libres que ahora pueden cambiar durante la ejecución del programa:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="dv">9</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb36-7"><a href="#cb36-7"></a><span class="dv">27</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="dv">9</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="dv">27</span></span></code></pre></div></li>
 <li><p>Por tanto, cambiar el valor de una variable global es considerado un <strong>efecto lateral</strong>, ya que puede alterar el comportamiento de otras partes del programa de formas a menudo impredecibles.</p></li>
 </ul>
 </section>
@@ -1202,14 +1187,14 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Cuando el efecto lateral lo produce la propia función también estamos perdiendo transparencia referencial, pues en tal caso no podemos sustituir libremente la llamada a la función por su valor de retorno, ya que ahora la función <strong>hace algo más</strong> que calcular dicho valor y que es observable fuera de la función.</p></li>
 <li><p>Por ejemplo, una función que imprime algo por la pantalla o escribe algo en un archivo del disco tampoco es una función pura y, por tanto, en ella no se cumple la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento mutable. Por ejemplo:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="dv">4</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="dv">3</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
-<span id="cb37-8"><a href="#cb37-8"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="dv">4</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="dv">3</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
+<span id="cb32-8"><a href="#cb32-8"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level4" data-number="4.4.0.2">
@@ -1251,8 +1236,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code>'\n'</code> (el carácter de nueva línea).</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
-<span id="cb38-2"><a href="#cb38-2"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
+<span id="cb33-2"><a href="#cb33-2"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
 </ul>
 </section>
 <section id="el-valor-none" class="slide level4" data-number="4.5.1.1">
@@ -1263,9 +1248,9 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p><code>None</code> es un valor especial que significa <strong>ningún valor</strong> y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code>print</code>.</p></li>
 <li><p>Pertenece a un tipo de datos especial llamado <code>NoneType</code> cuyo único valor posible es <code>None</code>, y para comprobar si un valor es <code>None</code> se usa <span style="color:teal">⟨<em>valor</em>⟩</span> <code>is None</code>.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code>print</code> devuelve <code>None</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1277,10 +1262,10 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>input</em>⟩</span> ::= <strong><code>input</code><code>(</code></strong>[<span style="color:teal">⟨<em>prompt</em>⟩</span>]<strong><code>)</code></strong></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb40-2"><a href="#cb40-2"></a>Introduce tu nombre: Ramón</span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb40-4"><a href="#cb40-4"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>Introduce tu nombre: Ramón</span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
+<span id="cb35-4"><a href="#cb35-4"></a>Hola, Ramón</span></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 </ul>
 </section>
@@ -1305,8 +1290,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
 </ul>
 <p><br></p>
 <div class="columns">
@@ -1321,17 +1306,17 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li>Un ejemplo de uso:</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb42-2"><a href="#cb42-2"></a></span>
-<span id="cb42-3"><a href="#cb42-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb42-5"><a href="#cb42-5"></a><span class="st">goto .fin</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a><span class="st">label .fin</span></span>
-<span id="cb42-8"><a href="#cb42-8"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb42-9"><a href="#cb42-9"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb42-10"><a href="#cb42-10"></a></span>
-<span id="cb42-11"><a href="#cb42-11"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb37-2"><a href="#cb37-2"></a></span>
+<span id="cb37-3"><a href="#cb37-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="st">goto .fin</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="st">label .fin</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb37-10"><a href="#cb37-10"></a></span>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1348,25 +1333,25 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb43-2"><a href="#cb43-2"></a></span>
-<span id="cb43-3"><a href="#cb43-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a><span class="st">primero = 2</span></span>
-<span id="cb43-5"><a href="#cb43-5"></a><span class="st">ultimo = 25</span></span>
-<span id="cb43-6"><a href="#cb43-6"></a></span>
-<span id="cb43-7"><a href="#cb43-7"></a><span class="st">i = primero</span></span>
-<span id="cb43-8"><a href="#cb43-8"></a></span>
-<span id="cb43-9"><a href="#cb43-9"></a><span class="st">label .inicio</span></span>
-<span id="cb43-10"><a href="#cb43-10"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb43-11"><a href="#cb43-11"></a></span>
-<span id="cb43-12"><a href="#cb43-12"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb43-13"><a href="#cb43-13"></a><span class="st">i += 1</span></span>
-<span id="cb43-14"><a href="#cb43-14"></a><span class="st">goto .inicio</span></span>
-<span id="cb43-15"><a href="#cb43-15"></a></span>
-<span id="cb43-16"><a href="#cb43-16"></a><span class="st">label .fin</span></span>
-<span id="cb43-17"><a href="#cb43-17"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb43-18"><a href="#cb43-18"></a></span>
-<span id="cb43-19"><a href="#cb43-19"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb38-2"><a href="#cb38-2"></a></span>
+<span id="cb38-3"><a href="#cb38-3"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="st">primero = 2</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="st">ultimo = 25</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="st">i = primero</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="st">label .inicio</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="st">if i == ultimo: goto .fin</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a></span>
+<span id="cb38-12"><a href="#cb38-12"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a><span class="st">i += 1</span></span>
+<span id="cb38-14"><a href="#cb38-14"></a><span class="st">goto .inicio</span></span>
+<span id="cb38-15"><a href="#cb38-15"></a></span>
+<span id="cb38-16"><a href="#cb38-16"></a><span class="st">label .fin</span></span>
+<span id="cb38-17"><a href="#cb38-17"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb38-18"><a href="#cb38-18"></a></span>
+<span id="cb38-19"><a href="#cb38-19"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
 </ul>
 </section>
 </section>
