@@ -1203,8 +1203,9 @@ E -> i [lhead = cluster1]
 
 ## Estado interno
 
-- Ciertos datos pueden tener **estado interno**, lo que significa que su
-  contenido puede cambiar durante la ejecución del programa.
+- Ciertos datos pueden tener un **estado interno** consistente en información
+  que el dato almacena (o *recuerda*) y que puede cambiar durante la ejecución
+  del programa.
 
 - Por ejemplo:
 

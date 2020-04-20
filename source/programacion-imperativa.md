@@ -87,19 +87,47 @@ nocite: |
 
 # Asignación destructiva
 
+## Referencias al montículo
+
+- Todos los valores se almacenan en una zona de la memoria conocida como el
+  **montículo**.
+
+- Cada vez que aparece un nuevo dato en el programa, el intérprete lo crea
+  dentro del montículo a partir de una determinada dirección de la memoria y
+  ocupando el espacio de memoria que se necesite en función del tamaño que
+  tenga el dato.
+
+- Esa dirección de comienzo de la zona que ocupa el dato dentro del montículo
+  se denomina **referencia** y sirve para identificar al dato y acceder al
+  mismo.
+
+- En determinados casos, el intérprete puede no crear un nuevo dato sino
+  aprovechar otro exactamente igual que ya haya en el montículo (lo
+  estudiaremos más adelante cuando hablemos de los *alias*).
+
 ## Variables
 
-- Una **variable** es un lugar en la **memoria** donde se puede **almacenar un
-  valor**.
+- Una **variable** es un lugar en la **memoria** donde se puede **almacenar una
+  referencia**.
 
-- El valor de una variable **puede cambiar** durante la ejecución del programa.
+- Cuando una variable contiene una referencia a un valor, decimos que la
+  variable **apunta al valor**.
+
+- Por abuso del lenguaje, también se suele decir que la variable **almacena o
+  contiene el valor**, aunque eso no es estríctamente cierto.
+
+- El valor de una variable (o mejor dicho, la referencia que contiene) **puede
+  cambiar** durante la ejecución del programa, haciendo que la variable pueda
+  *apuntar* a distintos valores durante la ejecución del programa.
+
+---
 
 - A partir de ahora, un identificador no se liga directamente con un valor,
   sino que tendremos:
 
   - Una **ligadura** entre un identificador y una **variable**.
 
-  - **La variable almacena el valor**.
+  - La variable **apunta** al valor.
 
 !DOT(identificador-variable-valor.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,11 +142,11 @@ identificador -> variable -> valor
 - La **ligadura** es la asociación que se establece entre un identificador y
   una variable.
 
-- El **estado de una variable** es el valor que tiene una variable en un
+- El **estado de una variable** es el valor al que apunta una variable en un
   momento dado.
 
   Por tanto, el estado es la asociación que se establece entre una variable y
-  un valor.
+  un valor (es decir, la referencia que contiene).
 
 !DOT(identificador-ligadura-variable-estado-valor.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,19 +171,24 @@ variable -> valor [label = "estado"]
 
   - El conjunto de las **ligaduras entre identificadores y variables**, y
 
-  - El **estado de cada variable**, es decir, el conjunto de las variables y el
-    valor que contiene cada una en un momento dado.
+  - El **estado de cada variable**, es decir, el conjunto de las variables y
+    las referencias que contienen en un momento dado.
 
 !DOT(marcos-imperativa.svg)()(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 subgraph cluster0 {
+    label = "Montículo"
+    bgcolor = white
+    style = rounded
+    4 [shape = circle, width = 0.3, fixedsize = shape]
+    5 [shape = circle, width = 0.3, fixedsize = shape]
+}
+subgraph cluster1 {
     label = "Marco global"
     bgcolor = white
     node [fixedsize = shape, fontname = "monospace"]
     x [shape = plaintext, fillcolor = transparent]
     y [shape = plaintext, fillcolor = transparent]
-    4 [shape = circle, width = 0.3, fixedsize = shape]
-    5 [shape = circle, width = 0.3, fixedsize = shape]
     v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
     v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
     x -> v1 -> 4
@@ -173,14 +206,16 @@ subgraph cluster0 {
   significado:
 
   ```python
-  x = 4
+  x = 4      # se lee: «asignar el valor 4 a la variable x»
   ```
 
-  Significa que el identificador `x` está ligado a una variable cuyo valor pasa
-  a ser `4`.
+  El efecto que produce es el de almacenar, en la variable ligada al
+  identificador `x`, una referencia al valor `4` almacenado en el montículo.
 
-- La asignación es **destructiva** porque al cambiar un valor a una variable se
-  destruye su valor anterior. Por ejemplo, si ahora hacemos:
+  También se dice (pero mal dicho) que «la variable `x` pasa a valer `4`».
+
+- La asignación es **destructiva** porque al cambiarle el valor a una variable
+  se destruye su valor anterior. Por ejemplo, si ahora hacemos:
 
   ```python
   x = 9
@@ -198,20 +233,30 @@ subgraph cluster0 {
   *«se asigna el valor `9` a la variable `x`»*
   ~~~~~~~~~~~~~~~~~~~~~~~
 
-  en lugar de:
+  o
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
   *«se asigna el valor `9` a la variable ligada al identificador `x`»*
   ~~~~~~~~~~~~~~~~~~~~~~~
 
+  en lugar de la forma correcta:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  *«se asigna una referencia al valor `9` a la variable ligada al identificador
+  `x`»*
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
 - Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
-  porque llegará el momento en el que podamos tener:
+  porque llegará el momento en que podremos tener:
 
   - Varios identificadores distintos ligados a la misma variable.
 
   - Un mismo identificador ligado a distintas variables en diferentes puntos
     del programa.
+
+  - Varias variables apuntando al mismo valor.
 
 ---
 
@@ -228,15 +273,34 @@ subgraph cluster0 {
   pueden cambiar a lo largo del tiempo según dicten las instrucciones del
   programa que controla al ordenador.
 
+### Un ejemplo completo
+
+- Cuando se ejecuta la siguiente instrucción en el ámbito global:
+
+  ```python
+  x = 2500
+  ```
+
+  ocurre lo siguiente:
+
+  1. Se crea el valor `2500` en el montículo y el intérprete devuelve una
+     referencia al mismo.
+
+  2. El intérprete identifica a qué variable está ligado el identificador `x`
+     consultando el marco global (si no existía dicha variable, la crea en ese
+     momento y la liga a `x`).
+
+  3. Almacena en la variable la referencia creada en el paso 1.
+
 ## Evaluación de expresiones con variables
 
 - Al evaluar expresiones, las variables actúan de modo similar a las ligaduras
-  de la programación funcional, con la única diferencia de que su valor puede
+  de la programación funcional, pero ahora los valores de las variables pueden
   cambiar a lo largo del tiempo, por lo que deberemos *seguirle la pista* a las
-  asignaciones que sufra dicha variable.
+  asignaciones que sufran dichas variables.
 
-- Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado de variables,
-  entornos, etc. se aplica igualmente a las variables.
+- Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado, entornos, etc. se
+  aplica igualmente a las variables.
 
 ## Constantes
 
@@ -250,7 +314,7 @@ subgraph cluster0 {
   - El valor de esa constante es el valor al que está ligado el identificador.
 
 - En programación imperativa, los identificadores se ligan a variables, que son
-  las que realmente contienen los valores.
+  las que realmente apuntan a los valores.
 
 - Una **constante** en programación imperativa sería el equivalente a una
   variable cuyo valor no puede cambiar durante la ejecución del programa.
@@ -266,8 +330,8 @@ subgraph cluster0 {
 - Python no hace ninguna comprobación ni muestra mensajes de error si se cambia
   el valor de una constante.
 
-- En Python, por **convenio**, los identificadores ligados a un valor constante
-  se escriben con todas las letras en **mayúscula**:
+- En Python, por **convenio**, los identificadores ligados a una variable con
+  valor constante se escriben con todas las letras en **mayúscula**:
 
   ```python
   PI = 3.1415926
@@ -291,7 +355,8 @@ subgraph cluster0 {
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de una variable** es el tipo del dato que contiene la variable.
+  El **tipo de una variable** es el tipo del dato al que hace referencia la
+  variable.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Si a una variable se le asigna otro valor de un tipo distinto al del valor
@@ -334,7 +399,7 @@ subgraph cluster0 {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estos lenguajes disponen de construcciones sintácticas que permiten declarar
-  de qué tipo serán los datos que puede contener una variable.
+  de qué tipo serán los datos a los que puede apuntar una variable.
 
   Por ejemplo, en Java podemos hacer:
 
@@ -342,8 +407,8 @@ subgraph cluster0 {
   int x;
   ```
 
-  con lo que declaramos que `x` sólo podrá contener valores de tipo `int` desde
-  el primer momento y a lo largo de toda la ejecución del programa.
+  con lo que declaramos que a `x` sólo se le podrán asignar valores de tipo
+  `int` desde el primer momento y a lo largo de toda la ejecución del programa.
 
 ---
 
@@ -459,7 +524,7 @@ subgraph cluster0 {
 
 # Mutabilidad
 
-## Introducción
+## Estado de un dato
 
 - Ya hemos visto que en programación imperativa es posible cambiar el estado de
   una variable asignándole un nuevo valor (un nuevo dato).
@@ -468,12 +533,12 @@ subgraph cluster0 {
   sustituyendo el valor de la variable por otro nuevo, mediante el uso de la
   asignación destructiva.
 
-- Sin embargo, también existen valores que poseen su propio estado interno y es
-  posible cambiar dicho estado, no asignando un nuevo valor a la variable que
-  lo contiene, sino modificando el contenido de dicho valor.
+- Sin embargo, también existen valores que poseen su propio **estado interno**
+  y es posible cambiar dicho estado, no asignando un nuevo valor a la variable
+  que lo contiene, sino **modificando el contenido de dicho valor**.
 
-- Es decir: no estaríamos cambiando el estado de la variable (haciendo que
-  ahora contenga un nuevo valor) sino el estado interno del propio valor
+- Es decir: no estaríamos **cambiando** el estado de la variable (haciendo que
+  ahora contenga un nuevo valor) sino **el estado interno** del propio valor
   contenido dentro de la variable.
 
 - Los valores que permiten cambiar su estado interno se denominan **mutables**.
@@ -490,15 +555,15 @@ subgraph cluster0 {
   booleanos (`bool`), las cadenas (`str`), las tuplas (`tuple`), los rangos
   (`range`) y los conjuntos congelados (`frozenset`).
 
-- Un valor **mutable** es aquel cuyo estado interno (su **contenido**) puede
-  cambiar durante la ejecución del programa.
+- Un valor **mutable** es aquel cuyo estado interno (normalmente, su
+  **contenido**) puede cambiar durante la ejecución del programa.
 
   El principal tipo mutable en Python es la lista (`list`), pero también están
   los conjuntos (`set`) y los diccionarios (`dict`).
 
 ### Inmutables
 
-- Un valor de un tipo inmutable no puede cambiar su contenido.
+- Un valor de un tipo inmutable no puede cambiar su estado interno.
 
 :::::: columns
 
@@ -531,7 +596,7 @@ y -> v2 -> 5
 y hacemos:
 
 ```python
-x = 5
+x = 7
 ```
 
 quedaría:
@@ -542,7 +607,7 @@ node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
 c2 [shape = circle, width = 0.3, fixedsize = shape, label = "5"]
-c1 [shape = circle, width = 0.3, fixedsize = shape, label = "5"]
+c1 [shape = circle, width = 0.3, fixedsize = shape, label = "7"]
 4 [shape = circle, width = 0.3, fixedsize = shape]
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
@@ -555,9 +620,9 @@ y -> v2 -> c2
 
 ::::::
 
-- Lo que hace la asignación `x = 5` no es cambiar el contenido del valor `4`,
-  sino hacer que la variable `x` contenga otro valor distinto (el contenido del
-  valor `4` en sí mismo no se modifica internamente en ningún momento).
+- Lo que hace la asignación `x = 7` no es cambiar el contenido del valor `4`,
+  sino hacer que la variable `x` contenga otro valor distinto (el valor `4` en
+  sí mismo no se cambia internamente en ningún momento).
 
 ---
 
@@ -587,8 +652,7 @@ y -> v2 -> c2
   **se crea una nueva cadena** y se la asignamos a la variable `x`.
   
   Es decir: la cadena `'hola'` original **no se cambia** (p. ej., no se le
-  añade `' manolo'` al final), sino que desaparece y **se sustituye por una
-  nueva**.
+  añade `' manolo'` al final), sino que **se sustituye por una nueva**.
 
   !DOT(inmutable4.svg)()(width=50%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -716,10 +780,10 @@ s | P | y | t | h | o | n |
 - Hasta ahora, hemos visto un único tipo mutable: la **lista**.
 
 - Una lista puede cambiar el valor de sus elementos, aumentar o disminuir de
-  tamaño.
+  tamaño (cambia su contenido y, por tanto, su estado).
 
-- Al cambiar el estado de una lista no se crea una nueva lista, sino que **se
-  modifica la ya existente**:
+- Al cambiar el estado interno de una lista no se crea una nueva lista, sino
+  que **se modifica la ya existente**:
 
   ```python
   >>> x = [24, 32, 15, 81]
@@ -862,13 +926,13 @@ Ejemplo           Valor de `x` después
 
 ## Alias de variables
 
-- Cuando una variable que contiene un valor se asigna a otra, se produce un
-  fenómeno conocido como **alias de variables**, según el cual los dos
-  identificadores se ligan a **la misma variable** (la comparten):
+- Cuando una variable que tiene un valor se asigna a otra, ambas variables
+  pasan a tener **el mismo valor (lo _comparten_)**, produciéndose un fenómeno
+  conocido como **alias de variables**.
 
   ```python
-  x = [6, 7, 8, 9]
-  y = x  # x se asigna a y
+  x = [66, 77, 88, 99]
+  y = x  # x se asigna a y; ahora y tiene el mismo valor que x
   ```
 
   !DOT(alias1.svg)()(width=40%)
@@ -876,19 +940,20 @@ Ejemplo           Valor de `x` después
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = plaintext, fillcolor = transparent]
   y [shape = plaintext, fillcolor = transparent]
-  lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|8|9}"]
+  lista [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
   v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-  x -> v1
-  y -> v1 -> lista
+  v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+  x -> v1 -> lista
+  y -> v2 -> lista
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Ahora, si el valor es **mutable** y cambiamos su **contenido** desde `x`,
-  también cambiará `y` (y viceversa), pues ambas son **la misma variable**:
+- Si el valor es **mutable** y cambiamos su **contenido** desde `x`, también
+  cambiará `y` (y viceversa), pues ambas variables **apuntan al mismo dato**:
 
   ```python
   >>> y[2] = 40
   >>> x
-  [6, 7, 40, 9]
+  [66, 77, 40, 99]
   ```
 
 ---
@@ -903,7 +968,7 @@ Ejemplo           Valor de `x` después
 ::: {.column width=40%}
 
 ```python
->>> x = [6, 7, 8, 9]
+>>> x = [66, 77, 88, 99]
 >>> y = x
 >>> y[2] = 40
 ```
@@ -917,10 +982,11 @@ Ejemplo           Valor de `x` después
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
-lista [shape = record, width = 1.5, fixedsize = true, label = "{6|7|40|9}"]
+lista [shape = record, width = 1.5, fixedsize = true, label = <{66|77|<S>88</S><BR/>40|99}>]
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1
-y -> v1 -> lista
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> lista
+y -> v2 -> lista
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -929,15 +995,15 @@ y -> v1 -> lista
 
 !SALTOLARGOBEAMER
 
-- Cambiar el **valor** es algo que **siempre** se puede hacer simplemente
-  **asignando** a la variable **un nuevo valor**:
+- Cambiar el **valor** es algo que **siempre** se puede hacer (da igual la
+  mutabilidad) simplemente **asignando** a la variable **un nuevo valor**:
 
 :::: columns
 
 ::: {.column width=40%}
 
 ```python
->>> x = [6, 7, 8, 9]
+>>> x = [66, 77, 88, 99]
 >>> y = x
 >>> y = [1, 2, 3]
 ```
@@ -949,14 +1015,16 @@ y -> v1 -> lista
 !DOT(alias3.svg)()(width=50%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, width = 1.5, fixedsize = true, label = "{6|7|40|9}"]
+y [shape = plaintext, fillcolor = transparent]
 lista2 [shape = record, width = 1.5, fixedsize = true, label = "{1|2|3}"]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+lista1 [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+y -> v2
 x -> v1 -> lista1
-y -> v2 -> lista2
+v2 -> lista2
+v2 -> lista1 [style = dashed, color = grey]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -971,33 +1039,52 @@ y -> v2 -> lista2
 - No tiene mucha importancia práctica, aunque es interesante saberlo en ciertos
   casos.
 
-- Por ejemplo, el intérprete de Python crea internamente una variable para cada
-  número entero comprendido entre $-5$ y $256$, por lo que todas las variables
-  de nuestro programa que contengan el mismo valor dentro de ese intervalo
-  compartirán el mismo espacio en memoria (serán alias):
+- Por ejemplo, el intérprete de Python crea internamente todos los números
+  enteros comprendidos entre $-5$ y $256$, por lo que todas las variables de
+  nuestro programa que contengan el mismo valor dentro de ese intervalo
+  compartirán el mismo valor (serán *alias*):
 
 :::: columns
 
-::: {.column width=40%}
+::: {.column width=50%}
 
 ```python
-x = 5
+x = 5 # está entre -5 y 256
 y = 5
 ```
 
-:::
-
-::: {.column width=60%}
-
-!DOT(inmutable5.svg)()(width=50%)(width=30%)
+!DOT(inmutable5a.svg)(Se comparte el valor)(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
 5 [shape = circle, width = 0.3, fixedsize = shape]
-v [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v -> 5
-y -> v
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> 5
+y -> v2 -> 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: {.column width=50%}
+
+```python
+x = 480 # no está entre -5 y 256
+y = 480
+```
+
+!DOT(inmutable5b.svg)(No se comparte el valor)(width=50%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = plaintext, fillcolor = transparent]
+y [shape = plaintext, fillcolor = transparent]
+c1 [shape = circle, width = 0.5, fixedsize = shape, label = "480"]
+c2 [shape = circle, width = 0.5, fixedsize = shape, label = "480"]
+v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+x -> v1 -> c1
+y -> v2 -> c2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1006,7 +1093,7 @@ y -> v
 
 ---
 
-- También crea variables compartidas cuando contienen exactamente las mismas
+- También crea valores compartidos cuando contienen exactamente las mismas
   cadenas.
 
 !SALTOLARGOBEAMER
@@ -1053,17 +1140,19 @@ node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
 pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
+hola [shape = ellipse, width = 1.0, fixedsize = true, label = "'hola'"]
+v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+v1 -> hola [style = dashed, color = grey]
+y -> v2 -> pepe
 x -> v1 -> pepe
-y -> v1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::::
 
 ::::::
 
-- El intérprete aprovecharía la variable ya creada y no crearía una nueva, para
+- El intérprete aprovecharía el dato ya creado y no crearía uno nuevo, para
   ahorrar memoria.
 
 ---
@@ -1072,7 +1161,7 @@ y -> v1
 
 ::: {.column width=40%}
 
-- También se comparten variables si se usa el mismo dato varias veces.
+- También se comparten valores si se usa el mismo dato varias veces.
 
 - Por ejemplo, si hacemos:
 
@@ -1095,14 +1184,14 @@ graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = true, label = "{1|2|3}", fontsize = 10]
-lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
+lista1 [shape = record, fixedsize = false, label = "{1|2|3}", fontsize = 10]
+lista2 [shape = record, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 x -> v1 -> lista1
 y -> v2 -> lista2
-{rank = same; lista2:f0 -> v1; lista2:f1 -> v1}
+{rank = same; lista2:f0 -> lista1; lista2:f1 -> lista1}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1136,14 +1225,14 @@ graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = true, label = "{99|77|3}", fontsize = 10]
-lista2 [shape = record, label = "{<f0>⬤|<f1>⬤}"]
+lista1 [shape = record, fixedsize = false, label = "{99|77|3}", fontsize = 10]
+lista2 [shape = record, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 x -> v1 -> lista1
 y -> v2 -> lista2
-{rank = same; lista2:f0 -> v1; lista2:f1 -> v1}
+{rank = same; lista2:f0 -> lista1; lista2:f1 -> lista1}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1152,20 +1241,24 @@ y -> v2 -> lista2
 
 ### `id`
 
-- Para saber si dos variables son realmente **la misma variable**, se puede
-  usar la función `id`.
+- Para saber si dos variables comparten **el mismo dato**, se puede usar la
+  función `id`.
 
-- La **función `id`** devuelve un identificador único para cada dato en
-  memoria.
+- La función `id` devuelve un **identificador único** para cada dato.
 
-- Por tanto, si dos variables tienen el mismo `id`, significa que son realmente
-  la misma variable (están situadas en la misma celda de la memoria).
+- Por tanto, si dos variables tienen el mismo `id`, significa que el valor que
+  contienen es realmente el mismo valor.
+  
+- Normalmente, el `id` de un valor se corresponde con la dirección de memoria
+  donde está almacenado dicho valor.
 
 :::: columns
 
 ::: column
 
 ```python
+>>> id('hola') == id('hola')
+True
 >>> x = 'hola'
 >>> y = 'hola'
 >>> id(x) == id(y)
@@ -1208,8 +1301,8 @@ True
   la misma celda de la memoria y, por tanto, son **idénticos**) y `False` en
   caso contrario.
 
-- Cuando se usa con variables, devuelve `True` si son la misma variable, y
-  `False` en caso contrario.
+- Cuando se usa con variables, devuelve `True` si los datos que almacenan las
+  variables son realmente el mismo dato, y `False` en caso contrario.
 
 - En la práctica, equivale a hacer `id(`!NT(valor1)`) == id(`!NT(valor2)`)`
 

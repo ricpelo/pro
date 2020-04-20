@@ -108,18 +108,18 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
 
 - Ese sistema de objetos ofrece algo más que simple comodidad:
 
-  - Proporciona una nueva metáfora para diseñar programas en los que varios
-    agentes independientes interactúan dentro del ordenador.
+  - Proporciona una **nueva metáfora** para diseñar programas en los que varios
+    agentes independientes **interactúan** dentro del ordenador.
   
-  - Cada objeto agrupa el estado local y el comportamiento de una manera que
-    abstrae la complejidad de ambos.
+  - Cada objeto **agrupa (_encapsula_)** el estado local y el comportamiento de
+    una manera que abstrae la complejidad de ambos.
   
-  - Los objetos se comunican entre sí y se obtienen resultados útiles como
+  - Los objetos **se comunican entre sí** y se obtienen resultados útiles como
     consecuencia de su interacción.
   
-  - Los objetos no sólo transmiten mensajes, sino que también comparten el
-    comportamiento entre otros objetos del mismo tipo y heredan características
-    de otros tipos relacionados.
+  - Los objetos no sólo transmiten mensajes, sino que también **comparten el
+    comportamiento** entre otros objetos del mismo tipo y **heredan
+    características** de otros tipos relacionados.
 
 - El paradigma de la programación orientada a objetos tiene su propio
   vocabulario que apoya la metáfora del objeto.
