@@ -55,15 +55,17 @@ author: Ricardo Pérez López
   las cosas que representan.
 
 - Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que
-  reciben cuando las demás partes del programa les envían mensajes.
+  reciben cuando el resto del programa les envía mensajes.
 
-- Esta forma de ver a los datos como objetos activos que se relacionan entre sí
+- Esta forma de ver a los datos como objetos activos que interactúan entre sí
   y que son capaces de reaccionar y cambiar su estado interno en función de los
   mensajes que reciben, da lugar a todo un nuevo paradigma de programación
   llamado **orientación a objetos** o **programación orientada a objetos**.
 
 ---
 
+\begingroup
+\setlist[itemize,1]{labelindent=0pt, label=--}
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Definición:**
@@ -78,6 +80,7 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
 - solicitar a otros objetos el procesamiento de dicha información.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\endgroup
 
 ---
 
@@ -141,6 +144,8 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
   necesidad de usar funciones de orden superior, estado local o diccionarios de
   despacho.
 
+\begingroup
+\setlist[itemize,1]{labelindent=0pt, label=--}
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 En programación orientada a objetos:
@@ -153,6 +158,7 @@ En programación orientada a objetos:
   programación.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\endgroup
 
 ---
 
@@ -327,7 +333,7 @@ def deposito(fondos):
 
 ---
 
-- Cuando se ejecuta el siguiente código:
+- Cuando se ejecuta este código:
 
   ```python
   >>> dep = Deposito(100)
@@ -337,7 +343,7 @@ def deposito(fondos):
 
   1. Se crea en memoria una instancia de la clase `Deposito`.
 
-  2. Se invoca el método `__init__` sobre el objeto recién creado (ya
+  2. Se invoca al método `__init__` sobre el objeto recién creado (ya
      hablaremos de ésto más adelante).
 
   3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
@@ -357,10 +363,51 @@ def deposito(fondos):
 
 ---
 
-- Los objetos tienen existencia propia e independiente y existirán en la
-  memoria siempre que haya al menos una variable que le haga referencia.
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
 
-- Si hacemos:
+:::: columns
+
+::: {.column width=57%}
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+
+dep = Deposito(100)
+```
+
+:::
+
+::: {.column width=43%}
+
+!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
+
+:::
+
+::::
+
+---
+
+- Los objetos tienen existencia propia e independiente y permanecerán en la
+  memoria siempre que haya al menos una referencia que apunte a él.
+
+- De hecho, un objeto puede tener varias referencias apuntándole.
+
+- Por ejemplo, si hacemos:
 
   ```python
   dep1 = Deposito(100)
@@ -368,14 +415,13 @@ def deposito(fondos):
   ```
 
   tendremos dos variables que contienen la misma referencia y, por tanto, **_se
-  refieren_ (o _apuntan_) al mismo objeto** (recordemos que las variables no
-  contienen al objeto en sí mismo, sino una referencia a éste).
+  refieren_ (o _apuntan_) al mismo objeto**.
+  
+- Es exactamente el concepto de **alias de variables** que estudiamos en
+  programación imperativa.
 
-- Hasta ahora hemos llamado **alias** a este fenómeno, es decir, hasta ahora
-  hemos dicho que esas dos variables son alias una de la otra.
-
-- A partir de ahora diremos que esas dos variables contienen la misma
-  referencia o que hacen referencia al mismo objeto.
+- No olvidemos que las variables no contienen al objeto en sí mismo, sino una
+  referencia a éste.
 
 ---
 
@@ -445,7 +491,6 @@ def deposito(fondos):
   cosas, los marcos se almacenan en la pila, mientras que los objetos residen
   en el *montículo*.
 
-
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
@@ -455,56 +500,22 @@ node [fontname = "monospace"]
 dep [shape = plaintext, fillcolor = transparent, label = "dep"]
 fondos [shape = plaintext, fillcolor = transparent, label = "fondos"]
 subgraph cluster0 {
-    label = <Objeto <b>dep</b>>
-    bgcolor = white
+    label = "Montículo"
     style = rounded
-    fondos -> 100
+    bgcolor = grey95
+    subgraph cluster1 {
+        label = <Objeto <b>dep</b>>
+        style = filled
+        bgcolor = white
+        fondos -> 100
+    }
 }
-subgraph cluster1 {
+subgraph cluster2 {
     label = <Marco <b>global</b>>
     bgcolor = white
-    dep -> fondos [lhead = cluster0, minlen = 2]
+    dep -> fondos [lhead = cluster1, minlen = 2]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
-
-:::: columns
-
-::: {.column width=57%}
-
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
-
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            return 'Fondos insuficientes'
-        self.fondos -= cantidad
-        return self.fondos
-
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
-
-    def saldo(self):
-        return self.fondos
-
-dep = Deposito(100)
-```
-
-:::
-
-::: {.column width=43%}
-
-!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
-
-:::
-
-::::
 
 ---
 

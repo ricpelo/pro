@@ -14,7 +14,7 @@ nocite: |
   concepto de **sentencia**.
 
 - Un programa imperativo está formado por una sucesión de sentencias que se
-  ejecutan **en orden**.
+  ejecutan **en un orden determinado, una tras otra**.
 
 - Una sentencia es una instrucción del programa que lleva a cabo una de estas
   acciones:
@@ -31,10 +31,12 @@ nocite: |
 
 ---
 
-- En programación imperativa, el concepto de **tiempo** cobra mucha
-  importancia: el programa actuará de una forma un otra según el estado en el
-  que se encuentre, es decir, según el momento en el que estemos observando al
-  programa.
+- El concepto de **tiempo** cobra mucha importancia en programación imperativa,
+  ya que el estado del programa va cambiando a lo largo del tiempo conforme se
+  van ejecutando las sentencias que lo forman.
+  
+- A su vez, el comportamiento del programa depende del estado en el que se
+  encuentre.
 
   Eso significa que, ante los mismos datos de entrada, una función puede
   devolver **valores distintos en momentos distintos**.
@@ -102,16 +104,17 @@ nocite: |
   mismo.
 
 - En determinados casos, el intérprete puede no crear un nuevo dato sino
-  aprovechar otro exactamente igual que ya haya en el montículo (lo
-  estudiaremos más adelante cuando hablemos de los *alias*).
+  aprovechar otro exactamente igual que ya haya en el montículo para así
+  ahorrar memoria (lo estudiaremos más adelante cuando hablemos de los
+  *alias*).
 
 ## Variables
 
 - Una **variable** es un lugar en la **memoria** donde se puede **almacenar una
-  referencia**.
+  referencia** a un valor almacenado en el montículo.
 
 - Cuando una variable contiene una referencia a un valor, decimos que la
-  variable **apunta al valor**.
+  variable **hace referencia al valor** o que **apunta al valor**.
 
 - Por abuso del lenguaje, también se suele decir que la variable **almacena o
   contiene el valor**, aunque eso no es estríctamente cierto.
@@ -127,7 +130,7 @@ nocite: |
 
   - Una **ligadura** entre un identificador y una **variable**.
 
-  - La variable **apunta** al valor.
+  - La variable **hace referencia** al valor.
 
 !DOT(identificador-variable-valor.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,13 +140,45 @@ valor [shape = circle, width = 0.8, fixedsize = true]
 identificador -> variable -> valor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Este comportamiento es el propio de los **lenguajes de programación
+  _orientados a objetos_** (como Python o Java), que son los lenguajes
+  imperativos más usados a día de hoy.
+
+- Otros lenguajes imperativos más «clásicos» se comportan, en general, de una
+  forma diferente.
+
+- En esos lenguajes (como C o Pascal), los valores se almacenan directamente
+  dentro de las variables, es decir, las variables son contenedores que
+  almacenan valores.
+
+- Por tanto, el compilador tiene que reservar espacio suficiente en la memoria
+  para cada variable del programa de manera que dicha variable pueda contener
+  un dato de un determinado tamaño y que ese dato «quepa» dentro de la
+  variable.
+
+---
+
+- De todos modos, los lenguajes de programación suelen tener un comportamiento
+  híbrido, que combina ambas técnicas:
+
+  - En Java, existen tipos primitivos (cuyos valores se almacenan directamente
+    en las variables) y tipos referencia (cuyos valores se almacenan en el
+    montículo y las variables contienen referencias a esos valores).
+
+  - En C, los valores se almacenan dentro de las variables, pero es posible
+    reservar memoria dinámicamente dentro del montículo y almacenar en una
+    variable un *puntero* al comienzo de dicha zona de memoria, lo que permite
+    crear y destruir datos en tiempo de ejecución.
+
 ## Estado
 
 - La **ligadura** es la asociación que se establece entre un identificador y
   una variable.
 
-- El **estado de una variable** es el valor al que apunta una variable en un
-  momento dado.
+- El **estado de una variable** es el valor al que hace referencia una variable
+  en un momento dado.
 
   Por tanto, el estado es la asociación que se establece entre una variable y
   un valor (es decir, la referencia que contiene).
@@ -178,7 +213,7 @@ variable -> valor [label = "estado"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 subgraph cluster0 {
     label = "Montículo"
-    bgcolor = white
+    bgcolor = grey95
     style = rounded
     4 [shape = circle, width = 0.3, fixedsize = shape]
     5 [shape = circle, width = 0.3, fixedsize = shape]
@@ -285,6 +320,9 @@ subgraph cluster1 {
 
   1. Se crea el valor `2500` en el montículo y el intérprete devuelve una
      referencia al mismo.
+
+     En determinadas situaciones, no crea un nuevo valor si ya había otro
+     exactamente igual en el montículo, pero éste no es el caso.
 
   2. El intérprete identifica a qué variable está ligado el identificador `x`
      consultando el marco global (si no existía dicha variable, la crea en ese
@@ -399,16 +437,17 @@ subgraph cluster1 {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estos lenguajes disponen de construcciones sintácticas que permiten declarar
-  de qué tipo serán los datos a los que puede apuntar una variable.
+  de qué tipo serán los datos que se pueden asignar a una variable.
 
   Por ejemplo, en Java podemos hacer:
 
   ```java
-  int x;
+  String x;
   ```
 
   con lo que declaramos que a `x` sólo se le podrán asignar valores de tipo
-  `int` desde el primer momento y a lo largo de toda la ejecución del programa.
+  `String` (es decir, *cadenas*) desde el primer momento y a lo largo de toda
+  la ejecución del programa.
 
 ---
 
@@ -416,7 +455,7 @@ subgraph cluster1 {
   asignación del valor:
 
   ```java
-  int x = 24;
+  String x = "Hola";
   ```
 
 - Otros lenguajes disponen de un mecanismo conocido como **inferencia de
@@ -425,11 +464,11 @@ subgraph cluster1 {
 - Por ejemplo, en Java podemos hacer:
 
   ```java
-  var x = 24;
+  var x = "Hola";
   ```
 
-  El compilador de Java deduce que la variable `x` debe ser de tipo `int`
-  porque se le está asignando un valor entero (el `24`).
+  El compilador de Java deduce que la variable `x` debe ser de tipo `String`
+  porque se le está asignando una cadena (el valor `"Hola"`).
 
 ---
 
@@ -796,7 +835,7 @@ s | P | y | t | h | o | n |
 
 ::: column
 
-!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=50%)
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=50%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
@@ -809,7 +848,7 @@ x -> v1 -> lista
 
 ::: column
 
-!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=50%)
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=50%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
@@ -1017,7 +1056,7 @@ y -> v2 -> lista
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
 y [shape = plaintext, fillcolor = transparent]
-lista2 [shape = record, width = 1.5, fixedsize = true, label = "{1|2|3}"]
+lista2 [shape = record, label = "{1|2|3}"]
 lista1 [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
@@ -1178,14 +1217,14 @@ x -> v1 -> pepe
 
 nos quedaría:
 
-!DOT(alias4.svg)()(width=50%)(width=40%)
+!DOT(alias4.svg)()(width=50%)(width=2%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = false, label = "{1|2|3}", fontsize = 10]
-lista2 [shape = record, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
+lista1 [shape = record, width = 0.3, fixedsize = false, label = "{1|2|3}", fontsize = 10]
+lista2 [shape = record, width = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
@@ -1219,14 +1258,14 @@ y -> v2 -> lista2
 
 nos quedaría:
 
-!DOT(alias5.svg)()(width=50%)(width=40%)
+!DOT(alias5.svg)()(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = plaintext, fillcolor = transparent]
 x [shape = plaintext, fillcolor = transparent]
-lista1 [shape = record, fixedsize = false, label = "{99|77|3}", fontsize = 10]
-lista2 [shape = record, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
+lista1 [shape = record, width = 0.3, fixedsize = false, label = "{99|77|3}", fontsize = 10]
+lista2 [shape = record, width = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 {rank = same; lista1; v2}
 v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
 v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]

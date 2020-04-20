@@ -252,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Máquina de estados</h2>
 <ul>
 <li><p>La <strong>programación imperativa</strong> es un paradigma de programación basado en el concepto de <strong>sentencia</strong>.</p></li>
-<li><p>Un programa imperativo está formado por una sucesión de sentencias que se ejecutan <strong>en orden</strong>.</p></li>
+<li><p>Un programa imperativo está formado por una sucesión de sentencias que se ejecutan <strong>en un orden determinado, una tras otra</strong>.</p></li>
 <li><p>Una sentencia es una instrucción del programa que lleva a cabo una de estas acciones:</p>
 <ul>
 <li><p><strong>Cambiar el estado interno</strong> del programa, normalmente mediante la llamada <strong>sentencia de asignación</strong>.</p></li>
@@ -264,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="1.1.0.1">
 
 <ul>
-<li><p>En programación imperativa, el concepto de <strong>tiempo</strong> cobra mucha importancia: el programa actuará de una forma un otra según el estado en el que se encuentre, es decir, según el momento en el que estemos observando al programa.</p>
+<li><p>El concepto de <strong>tiempo</strong> cobra mucha importancia en programación imperativa, ya que el estado del programa va cambiando a lo largo del tiempo conforme se van ejecutando las sentencias que lo forman.</p></li>
+<li><p>A su vez, el comportamiento del programa depende del estado en el que se encuentre.</p>
 <p>Eso significa que, ante los mismos datos de entrada, una función puede devolver <strong>valores distintos en momentos distintos</strong>.</p></li>
 <li><p>En programación funcional, en cambio, el comportamiento de una función no depende del momento en el que se ejecute, ya que siempre devolverá los mismos resultados ante los mismos datos de entrada.</p></li>
 <li><p>Eso significa que, para modelar el comportamiento de un programa imperativo, ya <strong>no nos vale el modelo de sustitución</strong>.</p></li>
@@ -306,15 +307,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Todos los valores se almacenan en una zona de la memoria conocida como el <strong>montículo</strong>.</p></li>
 <li><p>Cada vez que aparece un nuevo dato en el programa, el intérprete lo crea dentro del montículo a partir de una determinada dirección de la memoria y ocupando el espacio de memoria que se necesite en función del tamaño que tenga el dato.</p></li>
 <li><p>Esa dirección de comienzo de la zona que ocupa el dato dentro del montículo se denomina <strong>referencia</strong> y sirve para identificar al dato y acceder al mismo.</p></li>
-<li><p>En determinados casos, el intérprete puede no crear un nuevo dato sino aprovechar otro exactamente igual que ya haya en el montículo (lo estudiaremos más adelante cuando hablemos de los <em>alias</em>).</p></li>
+<li><p>En determinados casos, el intérprete puede no crear un nuevo dato sino aprovechar otro exactamente igual que ya haya en el montículo para así ahorrar memoria (lo estudiaremos más adelante cuando hablemos de los <em>alias</em>).</p></li>
 </ul>
 </section>
 
 <section id="variables" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Variables</h2>
 <ul>
-<li><p>Una <strong>variable</strong> es un lugar en la <strong>memoria</strong> donde se puede <strong>almacenar una referencia</strong>.</p></li>
-<li><p>Cuando una variable contiene una referencia a un valor, decimos que la variable <strong>apunta al valor</strong>.</p></li>
+<li><p>Una <strong>variable</strong> es un lugar en la <strong>memoria</strong> donde se puede <strong>almacenar una referencia</strong> a un valor almacenado en el montículo.</p></li>
+<li><p>Cuando una variable contiene una referencia a un valor, decimos que la variable <strong>hace referencia al valor</strong> o que <strong>apunta al valor</strong>.</p></li>
 <li><p>Por abuso del lenguaje, también se suele decir que la variable <strong>almacena o contiene el valor</strong>, aunque eso no es estríctamente cierto.</p></li>
 <li><p>El valor de una variable (o mejor dicho, la referencia que contiene) <strong>puede cambiar</strong> durante la ejecución del programa, haciendo que la variable pueda <em>apuntar</em> a distintos valores durante la ejecución del programa.</p></li>
 </ul>
@@ -325,19 +326,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A partir de ahora, un identificador no se liga directamente con un valor, sino que tendremos:</p>
 <ul>
 <li><p>Una <strong>ligadura</strong> entre un identificador y una <strong>variable</strong>.</p></li>
-<li><p>La variable <strong>apunta</strong> al valor.</p></li>
+<li><p>La variable <strong>hace referencia</strong> al valor.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/identificador-variable-valor.svg" class="plain" style="width:80.0%" /></p>
 </div>
 </section>
+<section class="slide level4" data-number="2.2.0.2">
+
+<ul>
+<li><p>Este comportamiento es el propio de los <strong>lenguajes de programación <em>orientados a objetos</em></strong> (como Python o Java), que son los lenguajes imperativos más usados a día de hoy.</p></li>
+<li><p>Otros lenguajes imperativos más «clásicos» se comportan, en general, de una forma diferente.</p></li>
+<li><p>En esos lenguajes (como C o Pascal), los valores se almacenan directamente dentro de las variables, es decir, las variables son contenedores que almacenan valores.</p></li>
+<li><p>Por tanto, el compilador tiene que reservar espacio suficiente en la memoria para cada variable del programa de manera que dicha variable pueda contener un dato de un determinado tamaño y que ese dato «quepa» dentro de la variable.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.0.3">
+
+<ul>
+<li><p>De todos modos, los lenguajes de programación suelen tener un comportamiento híbrido, que combina ambas técnicas:</p>
+<ul>
+<li><p>En Java, existen tipos primitivos (cuyos valores se almacenan directamente en las variables) y tipos referencia (cuyos valores se almacenan en el montículo y las variables contienen referencias a esos valores).</p></li>
+<li><p>En C, los valores se almacenan dentro de las variables, pero es posible reservar memoria dinámicamente dentro del montículo y almacenar en una variable un <em>puntero</em> al comienzo de dicha zona de memoria, lo que permite crear y destruir datos en tiempo de ejecución.</p></li>
+</ul></li>
+</ul>
+</section>
 
 <section id="estado" class="title-slide slide level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Estado</h2>
 <ul>
 <li><p>La <strong>ligadura</strong> es la asociación que se establece entre un identificador y una variable.</p></li>
-<li><p>El <strong>estado de una variable</strong> es el valor al que apunta una variable en un momento dado.</p>
+<li><p>El <strong>estado de una variable</strong> es el valor al que hace referencia una variable en un momento dado.</p>
 <p>Por tanto, el estado es la asociación que se establece entre una variable y un valor (es decir, la referencia que contiene).</p></li>
 </ul>
 <div class="centered">
@@ -416,7 +436,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>x <span class="op">=</span> <span class="dv">2500</span></span></code></pre></div>
 <p>ocurre lo siguiente:</p>
 <ol type="1">
-<li><p>Se crea el valor <code>2500</code> en el montículo y el intérprete devuelve una referencia al mismo.</p></li>
+<li><p>Se crea el valor <code>2500</code> en el montículo y el intérprete devuelve una referencia al mismo.</p>
+<p>En determinadas situaciones, no crea un nuevo valor si ya había otro exactamente igual en el montículo, pero éste no es el caso.</p></li>
 <li><p>El intérprete identifica a qué variable está ligado el identificador <code>x</code> consultando el marco global (si no existía dicha variable, la crea en ese momento y la liga a <code>x</code>).</p></li>
 <li><p>Almacena en la variable la referencia creada en el paso 1.</p></li>
 </ol></li>
@@ -490,21 +511,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Lenguajes de tipado estático:</strong></p>
 <p>Son aquellos que asocian forzosamente un tipo a cada variable del programa desde que comienza a ejecutarse y <strong>prohíben</strong> que dicho tipo <strong>cambie</strong> durante la ejecución del programa.</p>
 </div></li>
-<li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos a los que puede apuntar una variable.</p>
+<li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos que se pueden asignar a una variable.</p>
 <p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1"></a><span class="dt">int</span> x;</span></code></pre></div>
-<p>con lo que declaramos que a <code>x</code> sólo se le podrán asignar valores de tipo <code>int</code> desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1"></a><span class="bu">String</span> x;</span></code></pre></div>
+<p>con lo que declaramos que a <code>x</code> sólo se le podrán asignar valores de tipo <code>String</code> (es decir, <em>cadenas</em>) desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.8.0.3">
 
 <ul>
 <li><p>A veces, se pueden realizar al mismo tiempo la declaración del tipo y la asignación del valor:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">int</span> x = <span class="dv">24</span>;</span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1"></a><span class="bu">String</span> x = <span class="st">&quot;Hola&quot;</span>;</span></code></pre></div></li>
 <li><p>Otros lenguajes disponen de un mecanismo conocido como <strong>inferencia de tipos</strong>, que permite <em>deducir</em> automáticamente el tipo de una variable.</p></li>
 <li><p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1"></a>var x = <span class="dv">24</span>;</span></code></pre></div>
-<p>El compilador de Java deduce que la variable <code>x</code> debe ser de tipo <code>int</code> porque se le está asignando un valor entero (el <code>24</code>).</p></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1"></a>var x = <span class="st">&quot;Hola&quot;</span>;</span></code></pre></div>
+<p>El compilador de Java deduce que la variable <code>x</code> debe ser de tipo <code>String</code> porque se le está asignando una cadena (el valor <code>"Hola"</code>).</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="2.8.0.4">
