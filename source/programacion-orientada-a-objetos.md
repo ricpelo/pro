@@ -618,7 +618,6 @@ subgraph cluster2 {
   >>> dep2.otro
   'adiós'
   >>> dep1.otro
-  >>> dep1.otro
   Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   AttributeError: 'Deposito' object has no attribute 'otro'
