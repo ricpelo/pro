@@ -867,7 +867,7 @@ x -> v1 -> lista
   ciertas operaciones:
 
   - Los *operadores* de **indexación** y **slicing** combinados con `=` y
-    `del`: !ifdef(LATEX)(\newpage)
+    `del`:
 
     ```
       +-----+-----+-----+-----+-----+-----+

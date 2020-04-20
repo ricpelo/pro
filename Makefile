@@ -162,7 +162,6 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		-V margin-bottom=4cm \
-		-V subparagraph \
 		-V mainfont=Lato \
 		-V monofont=FiraMono \
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \

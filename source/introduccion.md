@@ -762,9 +762,7 @@ cond(no,right)->Ymayor->fin
 
 - En ese sentido, se usa como un lenguaje de programación *idealizado*.
 
-#### Ejemplo
-
-!ifdef(LATEX)(\hfill\break)
+##### Ejemplo
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1247,9 +1245,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
   de los lenguajes de programación la utilizan para documentar su sintaxis.
 
----
-
-#### Ejemplo
+##### Ejemplo
 
 :::: columns
 
@@ -1275,6 +1271,9 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 ::: column
 
+\begingroup
+\setlist[itemize,1]{label=--}
+
 - Los nombres entre ángulos (como !NT(expresión)) se llaman **símbolos no
   terminales**.
 - Los caracteres en negrita y azul (como !T(b)) se llaman **símbolos
@@ -1286,6 +1285,8 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y
   !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
 - Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
+
+\endgroup
 
 :::
 
@@ -1556,17 +1557,19 @@ diseño.
 
 #### Lenguajes de bajo nivel
 
-- Lenguajes más cercanos a la máquina
+- Características:
 
-- Con poca o nula capacidad de abstracción
+  - Lenguajes más cercanos a la máquina.
 
-- Se trabaja directamente con elementos propios del *hardware* del ordenador
+  - Con poca o nula capacidad de abstracción.
 
-- Atados a la arquitectura interna de la máquina para la que se programa
+  - Se trabaja directamente con elementos propios del *hardware* del ordenador.
 
-- Programas difíciles de escribir, depurar, mantener y portar
+  - Atados a la arquitectura interna de la máquina para la que se programa.
 
-- Se consigue el máximo control del ordenador
+  - Programas difíciles de escribir, depurar, mantener y portar.
+
+  - Se consigue el máximo control del ordenador.
 
 - Principales ejemplos:
 
@@ -1576,16 +1579,18 @@ diseño.
 
 #### Lenguajes de alto nivel
 
-- Lenguajes más cercanos al ser humano
+- Características:
 
-- Mayor capacidad de abstracción
+  - Lenguajes más cercanos al ser humano.
 
-- Independiente de la arquitectura y los detalles internos del ordenador o el
-  sistema operativo
+  - Mayor capacidad de abstracción.
 
-- Programas más fáciles de escribir, depurar, mantener y portar
+  - Independiente de la arquitectura y los detalles internos del ordenador o el
+    sistema operativo.
 
-- Menor control de los recursos de la máquina
+  - Programas más fáciles de escribir, depurar, mantener y portar.
+
+  - Menor control de los recursos de la máquina.
 
 ---
 
