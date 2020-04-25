@@ -1523,7 +1523,7 @@ True
   todas las funciones devuelven *algún* valor, en realidad lo que ocurre es que
   **devuelve un valor `None`**.
 
-- `None` es un valor especial que significa **ningún valor** y se utiliza
+- `None` es un valor especial que significa «**ningún valor**» y se utiliza
   principalmente para casos en los que no tiene sentido que una función
   devuelva un valor determinado, como es el caso de `print`.
 
@@ -1565,6 +1565,9 @@ True
 - Provoca el *efecto lateral* de alterar el estado de la consola imprimiendo el
   *prompt* y esperando a que desde el exterior se introduzca el dato
   solicitado (que en cada ejecución podrá tener un valor distinto).
+
+- Eso hace que sea *impura* por partida doble: provoca un efecto lateral y
+  puede devolver un resultado distinto cada vez que se la llama.
 
 # Saltos
 
