@@ -17,7 +17,7 @@ skinparam defaultFontName Lato
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !define(DOTCOMMON)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  graph [rankdir = LR, size = "8!", bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  graph [rankdir = LR, bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
   node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
   edge [fontname = "Lato", fontsize = 12 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
