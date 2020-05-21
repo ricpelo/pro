@@ -4890,6 +4890,13 @@ end{center}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Contenidos que no podrán trabajarse durante el presente curso
 \end_layout
@@ -5610,7 +5617,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "80col%"
+width "95col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -5636,31 +5643,7 @@ status open
 
 \begin_layout Plain Layout
 
-if |
-\backslash
-EV3| > |
-\backslash
-EV2|:
-\end_layout
-
-\begin_layout Plain Layout
-
-    if min(|
-\backslash
-EV1|, |
-\backslash
-EV2|, |
-\backslash
-EV3|) |$
-\backslash
-geq$| 4:
-\end_layout
-
-\begin_layout Plain Layout
-
-        |
-\backslash
-NOTA| = |
+media123 = |
 \backslash
 EV1| * 0.33 + |
 \backslash
@@ -5671,14 +5654,16 @@ EV3| * 0.33
 
 \begin_layout Plain Layout
 
-    else:
+media12 = |
+\backslash
+EV1| * 0.5 + |
+\backslash
+EV2| * 0.5
 \end_layout
 
 \begin_layout Plain Layout
 
-        |
-\backslash
-NOTA| = min(|
+min123 = min(|
 \backslash
 EV1|, |
 \backslash
@@ -5689,45 +5674,83 @@ EV3|)
 
 \begin_layout Plain Layout
 
-else:
-\end_layout
-
-\begin_layout Plain Layout
-
-    if min(|
-\backslash
-EV1|, |
-\backslash
-EV2|) |$
-\backslash
-geq$| 4:
-\end_layout
-
-\begin_layout Plain Layout
-
-        |
-\backslash
-NOTA| = |
-\backslash
-EV1| * 0.5 + |
-\backslash
-EV2| * 0.5
-\end_layout
-
-\begin_layout Plain Layout
-
-    else:
-\end_layout
-
-\begin_layout Plain Layout
-
-        |
-\backslash
-NOTA| = min(|
+min12 = min(|
 \backslash
 EV1|, |
 \backslash
 EV2|)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if media123 > media12:      # si la 3ª ev.
+ favorece al alumno:
+\end_layout
+
+\begin_layout Plain Layout
+
+    if min123 |$
+\backslash
+geq$| 4:             # si tiene un 4 mínimo 4 en las tres ev.:
+\end_layout
+
+\begin_layout Plain Layout
+
+        |
+\backslash
+NOTA| = media123          # la nota es la media de las tres ev.
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:                      # si no tiene un 4 mínimo en las tres ev.:
+\end_layout
+
+\begin_layout Plain Layout
+
+        |
+\backslash
+NOTA| = min123            # la nota es la mínima de las tres ev.
+\end_layout
+
+\begin_layout Plain Layout
+
+else:                       # si la 3ª ev.
+ no favorece al alumno:
+\end_layout
+
+\begin_layout Plain Layout
+
+    if min12 |$
+\backslash
+geq$| 4:              # si tiene un 4 mínimo en las ev.
+ 1 y 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+        |
+\backslash
+NOTA| = media12           # la nota es la media de las ev.
+ 1 y 2
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:                      # si no tiene un 4 mínimo en las ev.
+ 1 y 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+        |
+\backslash
+NOTA| = min12             # la nota es la mínima de las ev.
+ 1 y 2
 \end_layout
 
 \end_inset
