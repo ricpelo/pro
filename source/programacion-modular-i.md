@@ -30,7 +30,8 @@ nocite: |
 ---
 
 - **A nivel metodológico**, la modularidad nos proporciona una herramienta más
-  para controlar la complejidad de forma similar a como lo hace la abstracción.
+  para controlar la complejidad (como la *abstracción*, que de hecho puede
+  servir como técnica de modularización).
 
 - Todos los mecanismos de control de la complejidad actúan de la misma forma:
   la mente humana es incapaz de mantener la atención en muchas cosas a la vez,
@@ -38,17 +39,14 @@ nocite: |
   lado el resto momentáneamente.
 
   - La **abstracción** nos permite controlar la complejidad permitiéndonos
-    estudiar un problema o su solución por niveles, centrándonos en lo esencial
-    e ignorando los detalles que a ese nivel resultan innecesarios.
+    estudiar un problema o su solución por *niveles*, centrándonos en lo
+    esencial e ignorando los detalles que a ese nivel resultan innecesarios.
 
   - Con la **modularidad** buscamos descomponer conceptualmente el programa en
     partes que se puedan estudiar y programar por separado, de forma más o
     menos independiente, lo que se denomina **descomposición lógica**.
       
-<!--
-- Si fuera posible, también nos interesa que los módulos sean lo
-  suficientemente genéricos como para que se se puedan reutilizar en otros
-  programas. -->
+- Ambos conceptos son combinables, como veremos luego.
 
 ---
 
@@ -61,28 +59,28 @@ nocite: |
 - No sólo resulta incómodo mantener todo el código en un mismo archivo,
   sino que además resulta intelectualmente más difícil de entender.
 
-- Lo más práctico es descomponer físicamente nuestro programa en una colección
-  de archivos fuente que se puedan trabajar por separado, lo que se denomina
-  **descomposición física**.
+- Lo más práctico es repartir el código fuente de nuestro programa en una
+  colección de archivos fuente que se puedan trabajar por separado, lo que se
+  denomina **descomposición física**.
 
 ---
 
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya
-  que se ajusta a esa definición (salvo quizás que no habría *descomposición
+- Por tanto, podría decirse que una **función** es un ejemplo de módulo, ya que
+  se ajusta a esa definición (salvo quizás que no habría *descomposición
   física*, aunque se podría colocar cada función en un archivo separado y
   entonces sí).
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
-  criterio la descomposición funcional no resulta adecuado en general, ya que
-  muchas veces nos encontramos con funciones que no actúan por separado, sino
-  de forma conjunta formando un todo interrelacionado.
+  criterio la descomposición *funcional* no resulta adecuado en general, ya que
+  muchas veces nos encontramos con varias funciones que no actúan por separado,
+  sino de forma conjunta entre ellas formando un todo interrelacionado.
 
 - Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
-  sino que también puede tener su propio estado interno en forma de datos
-  (variables) manipulables desde dentro del módulo pero también desde fuera.
+  sino que también puede contener datos (almacenados en variables y constantes)
+  manipulables desde dentro del módulo pero también desde fuera.
 
 ---
 
@@ -90,26 +88,45 @@ nocite: |
   racionales.
 
 - Tendríamos funciones para crear racionales, para sumarlos, para
-  multiplicarlos, para simplificarlos... Y todas esas funciones trabajarían
-  conjuntamente, actuando sobre la misma colección de datos (la representación
-  interna que usa el módulo para implementar los números racionales).
-  
-- Esos datos (es decir, esa representación interna) también formarían parte del
-  módulo y constituirían su estado interno.
+  multiplicarlos, para simplificarlos, etc.
+
+- Todas esas funciones trabajarían conjuntamente, incluso usándose unas a
+  otras, y actuarían sobre colecciones de datos que representarían números
+  racionales de una forma apropiada.
 
 - Por consiguiente, aunque resulta muy apropiado considerar cada función
-  anterior por separado, también resulta evidente que debemos considerarlas
-  como formando un todo conjunto con los datos que manipulan: el *módulo de
-  manipulación de números racionales*.
+  anterior por separado, es más conveniente considerarlas como un todo: el
+  *módulo de manipulación de números racionales*.
+
+---
+
+- Otro ejemplo: supongamos un módulo encargado de realizar operaciones
+  trigonométricas sobre ángulos.
+
+- Esos ángulos serían números reales que podrían representar grados o radianes.
+
+- Ese módulo contendría las funciones encargadas de calcular el seno, coseno,
+  tangente, etc. de un ángulo pasado como parámetro a cada función.
+
+- Para ello, el módulo podría contener un dato (almacenado en una variable
+  dentro del módulo) que indicará si las funciones anteriores deben interpretar
+  los ángulos como grados o como radianes.
+
+- Ese dato constituiría el estado interno del módulo, al ser un valor que se
+  almacena dentro del mismo módulo (pertenece a éste) y puede cambiar su
+  comportamiento dependiendo del valor que tenga el dato.
+
+- Además, probablemente también necesite conocer el valor de $\pi$, que podría
+  almacenar el módulo internamente como una constante.
 
 ---
 
 - De lo dicho hasta ahora se deducen varias conclusiones importantes:
 
-  - Un módulo es una parte del programa.
+  - Un módulo es una parte de un programa.
 
-  - Los módulos nos permiten descomponer el programa en **partes independientes
-    y manejables por separado**.
+  - Los módulos nos permiten descomponer el programa en **partes más o menos
+    independientes y manejables por separado**.
 
   - Una función, en general, no es una candidata con suficiente entidad como
     para ser considerada un módulo.
@@ -117,12 +134,32 @@ nocite: |
   - Los módulos, en general, agrupan colecciones de **funciones
     interrelacionadas**.
 
-  - Los módulos, en general, también poseen un **estado interno** en forma de
-    estructuras de datos, manipulable desde el interior del módulo así como
-    desde el exterior del mismo usando las funciones que forman el módulo.
+  - Los módulos, **además de funciones, pueden contener datos** en forma de
+    **constantes y variables** manipulables desde el interior del módulo así
+    como desde el exterior del mismo usando las funciones que forman el módulo.
+
+  - Las variables del módulo constituyen el **estado interno** del módulo.
 
   - A nivel práctico, los módulos se programan físicamente en **archivos
     separados** del resto del programa.
+
+<!--
+- En un hipotético programa que usara los dos módulos anteriores (de números
+  racionales y de ángulos), ambos serían independientes y estarían separados en
+  archivos distintos, lo que tendría estas ventajas, entre otras:
+
+  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
+    encuentra un fallo en las operaciones con números racionales, sería más
+    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
+    números racionales.
+
+  - Cada módulo se podría programar y poner a punto por separado, incluso al
+    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
+    programadores.
+
+  - El desarrollo del resto del programa también podría ir en paralelo al de
+    estos dos módulos, por las mismas razones.
+-->
 
 ## Beneficios de la programación modular
 

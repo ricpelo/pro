@@ -261,17 +261,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level4" data-number="1.1.0.1">
 
 <ul>
-<li><p><strong>A nivel metodológico</strong>, la modularidad nos proporciona una herramienta más para controlar la complejidad de forma similar a como lo hace la abstracción.</p></li>
+<li><p><strong>A nivel metodológico</strong>, la modularidad nos proporciona una herramienta más para controlar la complejidad (como la <em>abstracción</em>, que de hecho puede servir como técnica de modularización).</p></li>
 <li><p>Todos los mecanismos de control de la complejidad actúan de la misma forma: la mente humana es incapaz de mantener la atención en muchas cosas a la vez, así que lo que hacemos es centrarnos en una parte del problema y dejamos a un lado el resto momentáneamente.</p>
 <ul>
-<li><p>La <strong>abstracción</strong> nos permite controlar la complejidad permitiéndonos estudiar un problema o su solución por niveles, centrándonos en lo esencial e ignorando los detalles que a ese nivel resultan innecesarios.</p></li>
+<li><p>La <strong>abstracción</strong> nos permite controlar la complejidad permitiéndonos estudiar un problema o su solución por <em>niveles</em>, centrándonos en lo esencial e ignorando los detalles que a ese nivel resultan innecesarios.</p></li>
 <li><p>Con la <strong>modularidad</strong> buscamos descomponer conceptualmente el programa en partes que se puedan estudiar y programar por separado, de forma más o menos independiente, lo que se denomina <strong>descomposición lógica</strong>.</p></li>
 </ul></li>
+<li><p>Ambos conceptos son combinables, como veremos luego.</p></li>
 </ul>
-<!--
-- Si fuera posible, también nos interesa que los módulos sean lo
-  suficientemente genéricos como para que se se puedan reutilizar en otros
-  programas. -->
 </section>
 <section class="slide level4" data-number="1.1.0.2">
 
@@ -279,40 +276,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>A nivel práctico</strong>, la modularidad nos ofrece una herramienta que nos permite partir el programa en partes más manejables.</p></li>
 <li><p>A medida que los programas se hacen más y más grandes, el esfuerzo de mantener todo el código dentro de un único <em>script</em> se hace mayor.</p></li>
 <li><p>No sólo resulta incómodo mantener todo el código en un mismo archivo, sino que además resulta intelectualmente más difícil de entender.</p></li>
-<li><p>Lo más práctico es descomponer físicamente nuestro programa en una colección de archivos fuente que se puedan trabajar por separado, lo que se denomina <strong>descomposición física</strong>.</p></li>
+<li><p>Lo más práctico es repartir el código fuente de nuestro programa en una colección de archivos fuente que se puedan trabajar por separado, lo que se denomina <strong>descomposición física</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="1.1.0.3">
 
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
-<li><p>Por tanto, podríamos considerar que una función es un ejemplo de módulo, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
-<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición funcional no resulta adecuado en general, ya que muchas veces nos encontramos con funciones que no actúan por separado, sino de forma conjunta formando un todo interrelacionado.</p></li>
-<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno en forma de datos (variables) manipulables desde dentro del módulo pero también desde fuera.</p></li>
+<li><p>Por tanto, podría decirse que una <strong>función</strong> es un ejemplo de módulo, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
+<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición <em>funcional</em> no resulta adecuado en general, ya que muchas veces nos encontramos con varias funciones que no actúan por separado, sino de forma conjunta entre ellas formando un todo interrelacionado.</p></li>
+<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede contener datos (almacenados en variables y constantes) manipulables desde dentro del módulo pero también desde fuera.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="1.1.0.4">
 
 <ul>
 <li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan números racionales.</p></li>
-<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos… Y todas esas funciones trabajarían conjuntamente, actuando sobre la misma colección de datos (la representación interna que usa el módulo para implementar los números racionales).</p></li>
-<li><p>Esos datos (es decir, esa representación interna) también formarían parte del módulo y constituirían su estado interno.</p></li>
-<li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, también resulta evidente que debemos considerarlas como formando un todo conjunto con los datos que manipulan: el <em>módulo de manipulación de números racionales</em>.</p></li>
+<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos, etc.</p></li>
+<li><p>Todas esas funciones trabajarían conjuntamente, incluso usándose unas a otras, y actuarían sobre colecciones de datos que representarían números racionales de una forma apropiada.</p></li>
+<li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, es más conveniente considerarlas como un todo: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
 </section>
 <section class="slide level4" data-number="1.1.0.5">
 
 <ul>
+<li><p>Otro ejemplo: supongamos un módulo encargado de realizar operaciones trigonométricas sobre ángulos.</p></li>
+<li><p>Esos ángulos serían números reales que podrían representar grados o radianes.</p></li>
+<li><p>Ese módulo contendría las funciones encargadas de calcular el seno, coseno, tangente, etc. de un ángulo pasado como parámetro a cada función.</p></li>
+<li><p>Para ello, el módulo podría contener un dato (almacenado en una variable dentro del módulo) que indicará si las funciones anteriores deben interpretar los ángulos como grados o como radianes.</p></li>
+<li><p>Ese dato constituiría el estado interno del módulo, al ser un valor que se almacena dentro del mismo módulo (pertenece a éste) y puede cambiar su comportamiento dependiendo del valor que tenga el dato.</p></li>
+<li><p>Además, probablemente también necesite conocer el valor de <span class="math inline">\pi</span>, que podría almacenar el módulo internamente como una constante.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="1.1.0.6">
+
+<ul>
 <li><p>De lo dicho hasta ahora se deducen varias conclusiones importantes:</p>
 <ul>
-<li><p>Un módulo es una parte del programa.</p></li>
-<li><p>Los módulos nos permiten descomponer el programa en <strong>partes independientes y manejables por separado</strong>.</p></li>
+<li><p>Un módulo es una parte de un programa.</p></li>
+<li><p>Los módulos nos permiten descomponer el programa en <strong>partes más o menos independientes y manejables por separado</strong>.</p></li>
 <li><p>Una función, en general, no es una candidata con suficiente entidad como para ser considerada un módulo.</p></li>
 <li><p>Los módulos, en general, agrupan colecciones de <strong>funciones interrelacionadas</strong>.</p></li>
-<li><p>Los módulos, en general, también poseen un <strong>estado interno</strong> en forma de estructuras de datos, manipulable desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
+<li><p>Los módulos, <strong>además de funciones, pueden contener datos</strong> en forma de <strong>constantes y variables</strong> manipulables desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
+<li><p>Las variables del módulo constituyen el <strong>estado interno</strong> del módulo.</p></li>
 <li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
+<!--
+- En un hipotético programa que usara los dos módulos anteriores (de números
+  racionales y de ángulos), ambos serían independientes y estarían separados en
+  archivos distintos, lo que tendría estas ventajas, entre otras:
+
+  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
+    encuentra un fallo en las operaciones con números racionales, sería más
+    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
+    números racionales.
+
+  - Cada módulo se podría programar y poner a punto por separado, incluso al
+    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
+    programadores.
+
+  - El desarrollo del resto del programa también podría ir en paralelo al de
+    estos dos módulos, por las mismas razones.
+-->
 </section>
 
 <section id="beneficios-de-la-programación-modular" class="title-slide slide level2" data-number="1.2">
