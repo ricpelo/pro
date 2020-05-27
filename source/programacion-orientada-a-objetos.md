@@ -331,7 +331,7 @@ def deposito(fondos):
   Se nos muestra que la clase del objeto `dep` es `__main__.Deposito`, que
   representa la clase `Deposito` definida en el módulo `__main__`.
 
----
+### Referencias
 
 - Cuando se ejecuta este código:
 
@@ -350,16 +350,30 @@ def deposito(fondos):
      que representa, a grandes rasgos, la posición de memoria donde se
      encuentra almacenado el objeto.
 
-  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: en la
-     variable no se almacena el objeto como tal, sino una referencia al objeto.
+  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: **en
+     la variable no se almacena el objeto como tal, sino una _referencia_ al
+     objeto**.
 
-  En nuestro caso, 0x7fba5a16d978 es la dirección de memoria donde está
+---
+
+- En nuestro caso, `0x7fba5a16d978` es la dirección de memoria donde está
   almacenado el objeto al que hace referencia la variable `dep`:
 
   ```python
   >>> dep
   <__main__.Deposito object at 0x7fba5a16d978>
   ```
+
+- Cuando una variable contiene una referencia a un objeto, decimos que la
+  variable **se refiere** o **apunta** al objeto.
+
+- Aunque actualmente las referencias representan direcciones de memoria, no
+  quiere decir que eso vaya a ser siempre así. Ese es un detalle de
+  implementación basada en una decisión de diseño del intérprete que puede
+  cambiar en posteriores versiones del mismo.
+
+- En la práctica, es una cuestión que no nos afecta (o no debería, al menos) a
+  la hora de escribir nuestros programas.
 
 ---
 
@@ -427,7 +441,7 @@ dep = Deposito(100)
 
 - Gráficamente, el caso anterior se puede representar de la siguiente forma:
 
-!IMGP(dos-referencias-iguales.png)(Dos variables que *apuntan* al mismo objeto)(width=80%)(width=70%)
+!IMGP(dos-referencias-iguales.png)(Dos variables (`dep1` y `dep2`) que *apuntan* al mismo objeto)(width=80%)(width=70%)
 
 ---
 
@@ -488,8 +502,8 @@ dep = Deposito(100)
   los atributos del mismo de forma similar a un *marco*.
 
   Pero es importante entender que **los objetos no son marcos**. Entre otras
-  cosas, los marcos se almacenan en la pila, mientras que los objetos residen
-  en el *montículo*.
+  diferencias, los marcos se almacenan en la **pila**, mientras que los objetos
+  residen en el **montículo**.
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -753,7 +767,7 @@ dep2.otro = 'adiós'
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
 
-### Invocación de métodos
+### Definición de métodos
 
 - Esa es la razón por la que los métodos se definen siempre con un parámetro
   extra que representa el objeto sobre el que se invoca el método (o, dicho de
@@ -839,7 +853,7 @@ class Deposito:
   `Deposito.ingresar(dep, 35)`. Por tanto, en la llamada al método, `self`
   valdrá `dep` y `cantidad` valdrá `35`.
 
-### Métodos *mágicos*
+### Métodos *mágicos* y constructores
 
 - En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
   **métodos mágicos** y tienen un comportamiento especial.
@@ -1257,96 +1271,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 ## Encapsulación
 
 
-## Herencia
+## Variables de clase
 
 
-## Polimorfismo
-
-
-# Uso básico de objetos
-
-
-## Instanciación
-
-
-### `new`
-
-
-### `instanceof`
-
-
-## Propiedades
-
-
-### Acceso y modificación
-
-
-## Referencias
-
-
-## Clonación de objetos
-
-
-## Comparación de objetos
-
-
-## Destrucción de objetos
-
-
-### Recolección de basura
-
-
-## Métodos
-
-
-## Constantes
-
-
-# Clases básicas
-
-
-## Cadenas
-
-
-### Inmutables
-
-
-#### `String`
-
-
-### Mutables
-
-
-#### `StringBuffer`
-
-
-#### `StringBuilder`
-
-
-#### `StringTokenizer`
-
-
-### Conversión a `String`
-
-
-## *Arrays*
-
-
-## Clases *wrapper*
-
-
-### Conversiones de empaquetado/desempaquetado (*boxing*/*unboxing*)
-
-
-# Lenguaje UML
-
-
-## Diagramas de clases
-
-
-## Diagramas de objetos
-
-
-## Diagramas de secuencia
-
-
+## Métodos estáticos

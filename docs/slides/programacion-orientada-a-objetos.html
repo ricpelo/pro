@@ -235,9 +235,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/conceptos-básicos"><span class="toc-section-number">2</span> Conceptos básicos</a></li>
-<li><a href="#/uso-básico-de-objetos"><span class="toc-section-number">3</span> Uso básico de objetos</a></li>
-<li><a href="#/clases-básicas"><span class="toc-section-number">4</span> Clases básicas</a></li>
-<li><a href="#/lenguaje-uml"><span class="toc-section-number">5</span> Lenguaje UML</a></li>
 </ul>
 </section>
 </section>
@@ -475,8 +472,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Se nos muestra que la clase del objeto <code>dep</code> es <code>__main__.Deposito</code>, que representa la clase <code>Deposito</code> definida en el módulo <code>__main__</code>.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.2.0.3">
-
+<section id="referencias" class="title-slide slide level3" data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Referencias</h3>
 <ul>
 <li><p>Cuando se ejecuta este código:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
@@ -485,14 +482,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Se crea en memoria una instancia de la clase <code>Deposito</code>.</p></li>
 <li><p>Se invoca al método <code>__init__</code> sobre el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
 <li><p>La expresión <code>Deposito(100)</code> devuelve una <strong>referencia</strong> al nuevo objeto, que representa, a grandes rasgos, la posición de memoria donde se encuentra almacenado el objeto.</p></li>
-<li><p>Esa referencia es la que se almacena en la variable <code>dep</code>. Es decir: en la variable no se almacena el objeto como tal, sino una referencia al objeto.</p></li>
-</ol>
-<p>En nuestro caso, 0x7fba5a16d978 es la dirección de memoria donde está almacenado el objeto al que hace referencia la variable <code>dep</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Esa referencia es la que se almacena en la variable <code>dep</code>. Es decir: <strong>en la variable no se almacena el objeto como tal, sino una <em>referencia</em> al objeto</strong>.</p></li>
+</ol></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.2.0.4">
+<section class="slide level4" data-number="2.2.1.1">
+
+<ul>
+<li><p>En nuestro caso, <code>0x7fba5a16d978</code> es la dirección de memoria donde está almacenado el objeto al que hace referencia la variable <code>dep</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Cuando una variable contiene una referencia a un objeto, decimos que la variable <strong>se refiere</strong> o <strong>apunta</strong> al objeto.</p></li>
+<li><p>Aunque actualmente las referencias representan direcciones de memoria, no quiere decir que eso vaya a ser siempre así. Ese es un detalle de implementación basada en una decisión de diseño del intérprete que puede cambiar en posteriores versiones del mismo.</p></li>
+<li><p>En la práctica, es una cuestión que no nos afecta (o no debería, al menos) a la hora de escribir nuestros programas.</p></li>
+</ul>
+</section>
+<section class="slide level4" data-number="2.2.1.2">
 
 <ul>
 <li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:</li>
@@ -526,7 +531,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section class="slide level4" data-number="2.2.0.5">
+<section class="slide level4" data-number="2.2.1.3">
 
 <ul>
 <li><p>Los objetos tienen existencia propia e independiente y permanecerán en la memoria siempre que haya al menos una referencia que apunte a él.</p></li>
@@ -539,18 +544,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>No olvidemos que las variables no contienen al objeto en sí mismo, sino una referencia a éste.</p></li>
 </ul>
 </section>
-<section class="slide level4" data-number="2.2.0.6">
+<section class="slide level4" data-number="2.2.1.4">
 
 <ul>
 <li>Gráficamente, el caso anterior se puede representar de la siguiente forma:</li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/dos-referencias-iguales.png" class="plain" style="width:80.0%" alt="" /><figcaption>Dos variables que <em>apuntan</em> al mismo objeto</figcaption>
+<img data-src="images/dos-referencias-iguales.png" class="plain" style="width:80.0%" alt="" /><figcaption>Dos variables (<code>dep1</code> y <code>dep2</code>) que <em>apuntan</em> al mismo objeto</figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level4" data-number="2.2.0.7">
+<section class="slide level4" data-number="2.2.1.5">
 
 <ul>
 <li><p>En el momento en que un objeto se vuelva inaccesible (cosa que ocurrirá cuando no haya ninguna variable en el entorno que contenga una referencia a dicho objeto), el intérprete lo marcará como <em>candidato para ser eliminado</em>.</p></li>
@@ -565,8 +570,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-6"><a href="#cb9-6"></a>             <span class="co"># (cuando el recolector de basura se active, eliminará el objeto)</span></span></code></pre></div></li>
 </ul>
 </section>
-<section id="la-antisimetría-dato-objeto" class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> La antisimetría dato-objeto</h3>
+
+<section id="la-antisimetría-dato-objeto" class="title-slide slide level3" data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> La antisimetría dato-objeto</h3>
 <ul>
 <li><p>Se da una curiosa contra-analogía entre los conceptos de dato y objeto:</p>
 <ul>
@@ -592,7 +598,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong> o <strong>propiedades</strong> del objeto.</p></li>
 <li><p>Los atributos se implementan como <em>variables locales</em> al objeto.</p></li>
 <li><p>Cada vez que se crea un objeto, se le asocia una zona de memoria que almacena los atributos del mismo de forma similar a un <em>marco</em>.</p>
-<p>Pero es importante entender que <strong>los objetos no son marcos</strong>. Entre otras cosas, los marcos se almacenan en la pila, mientras que los objetos residen en el <em>montículo</em>.</p></li>
+<p>Pero es importante entender que <strong>los objetos no son marcos</strong>. Entre otras diferencias, los marcos se almacenan en la <strong>pila</strong>, mientras que los objetos residen en el <strong>montículo</strong>.</p></li>
 </ul>
 <div class="centered">
 <figure>
@@ -775,8 +781,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section>
 
-<section id="invocación-de-métodos" class="title-slide slide level3" data-number="2.4.2">
-<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> Invocación de métodos</h3>
+<section id="definición-de-métodos" class="title-slide slide level3" data-number="2.4.2">
+<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> Definición de métodos</h3>
 <ul>
 <li><p>Esa es la razón por la que los métodos se definen siempre con un parámetro extra que representa el objeto sobre el que se invoca el método (o, dicho de otra forma, el objeto que recibe el mensaje).</p></li>
 <li><p>Ese parámetro extra (por regla de estilo) se llama siempre <code>self</code>, si bien ese nombre no es ninguna palabra clave y se podría usar cualquier otro.</p></li>
@@ -831,8 +837,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section>
 
-<section id="métodos-mágicos" class="title-slide slide level3" data-number="2.4.3">
-<h3 data-number="2.4.3"><span class="header-section-number">2.4.3</span> Métodos <em>mágicos</em></h3>
+<section id="métodos-mágicos-y-constructores" class="title-slide slide level3" data-number="2.4.3">
+<h3 data-number="2.4.3"><span class="header-section-number">2.4.3</span> Métodos <em>mágicos</em> y constructores</h3>
 <ul>
 <li><p>En Python, los métodos cuyo nombre empieza y termina por <code>__</code> se denominan <strong>métodos mágicos</strong> y tienen un comportamiento especial.</p></li>
 <li><p>En concreto, el método <code>__init__</code> se invoca automáticamente cada vez que se instancia un nuevo objeto a partir de una clase.</p></li>
@@ -1072,150 +1078,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </section>
 
-<section id="herencia" class="title-slide slide level2" data-number="2.7">
-<h2 data-number="2.7"><span class="header-section-number">2.7</span> Herencia</h2>
+<section id="variables-de-clase" class="title-slide slide level2" data-number="2.7">
+<h2 data-number="2.7"><span class="header-section-number">2.7</span> Variables de clase</h2>
 
 </section>
 
-<section id="polimorfismo" class="title-slide slide level2" data-number="2.8">
-<h2 data-number="2.8"><span class="header-section-number">2.8</span> Polimorfismo</h2>
-
-</section>
-</section>
-<section>
-<section id="uso-básico-de-objetos" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Uso básico de objetos</h1>
-
-</section>
-<section id="instanciación" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Instanciación</h2>
-
-</section>
-<section id="new" class="title-slide slide level3" data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> <code>new</code></h3>
-
-</section>
-
-<section id="instanceof" class="title-slide slide level3" data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> <code>instanceof</code></h3>
-
-</section>
-
-
-<section id="propiedades" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Propiedades</h2>
-
-</section>
-<section id="acceso-y-modificación" class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Acceso y modificación</h3>
-
-</section>
-
-
-<section id="referencias" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Referencias</h2>
-
-</section>
-
-<section id="clonación-de-objetos" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span> Clonación de objetos</h2>
-
-</section>
-
-<section id="comparación-de-objetos" class="title-slide slide level2" data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span> Comparación de objetos</h2>
-
-</section>
-
-<section id="destrucción-de-objetos" class="title-slide slide level2" data-number="3.6">
-<h2 data-number="3.6"><span class="header-section-number">3.6</span> Destrucción de objetos</h2>
-
-</section>
-<section id="recolección-de-basura" class="title-slide slide level3" data-number="3.6.1">
-<h3 data-number="3.6.1"><span class="header-section-number">3.6.1</span> Recolección de basura</h3>
-
-</section>
-
-
-<section id="métodos" class="title-slide slide level2" data-number="3.7">
-<h2 data-number="3.7"><span class="header-section-number">3.7</span> Métodos</h2>
-
-</section>
-
-<section id="constantes" class="title-slide slide level2" data-number="3.8">
-<h2 data-number="3.8"><span class="header-section-number">3.8</span> Constantes</h2>
-
-</section>
-</section>
-<section>
-<section id="clases-básicas" class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Clases básicas</h1>
-
-</section>
-<section id="cadenas" class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> Cadenas</h2>
-
-</section>
-<section id="inmutables" class="title-slide slide level3" data-number="4.1.1">
-<h3 data-number="4.1.1"><span class="header-section-number">4.1.1</span> Inmutables</h3>
-
-</section>
-<section id="string" class="slide level4" data-number="4.1.1.1">
-<h4 data-number="4.1.1.1"><span class="header-section-number">4.1.1.1</span> <code>String</code></h4>
-</section>
-
-<section id="mutables" class="title-slide slide level3" data-number="4.1.2">
-<h3 data-number="4.1.2"><span class="header-section-number">4.1.2</span> Mutables</h3>
-
-</section>
-<section id="stringbuffer" class="slide level4" data-number="4.1.2.1">
-<h4 data-number="4.1.2.1"><span class="header-section-number">4.1.2.1</span> <code>StringBuffer</code></h4>
-</section>
-<section id="stringbuilder" class="slide level4" data-number="4.1.2.2">
-<h4 data-number="4.1.2.2"><span class="header-section-number">4.1.2.2</span> <code>StringBuilder</code></h4>
-</section>
-<section id="stringtokenizer" class="slide level4" data-number="4.1.2.3">
-<h4 data-number="4.1.2.3"><span class="header-section-number">4.1.2.3</span> <code>StringTokenizer</code></h4>
-</section>
-
-<section id="conversión-a-string" class="title-slide slide level3" data-number="4.1.3">
-<h3 data-number="4.1.3"><span class="header-section-number">4.1.3</span> Conversión a <code>String</code></h3>
-
-</section>
-
-
-<section id="arrays" class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span> <em>Arrays</em></h2>
-
-</section>
-
-<section id="clases-wrapper" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> Clases <em>wrapper</em></h2>
-
-</section>
-<section id="conversiones-de-empaquetadodesempaquetado-boxingunboxing" class="title-slide slide level3" data-number="4.3.1">
-<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span> Conversiones de empaquetado/desempaquetado (<em>boxing</em>/<em>unboxing</em>)</h3>
-
-</section>
-
-</section>
-<section>
-<section id="lenguaje-uml" class="title-slide slide level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Lenguaje UML</h1>
-
-</section>
-<section id="diagramas-de-clases" class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span> Diagramas de clases</h2>
-
-</section>
-
-<section id="diagramas-de-objetos" class="title-slide slide level2" data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span> Diagramas de objetos</h2>
-
-</section>
-
-<section id="diagramas-de-secuencia" class="title-slide slide level2" data-number="5.3">
-<h2 data-number="5.3"><span class="header-section-number">5.3</span> Diagramas de secuencia</h2>
+<section id="métodos-estáticos" class="title-slide slide level2" data-number="2.8">
+<h2 data-number="2.8"><span class="header-section-number">2.8</span> Métodos estáticos</h2>
 
 </section>
 </section>
