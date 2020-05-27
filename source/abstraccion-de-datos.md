@@ -1124,30 +1124,45 @@ siendo $l$ una lista cualquiera.
 - La función `get` puede acceder a `x` e `y` ya que se encuentran en su
   entorno.
 
-!DOT(entorno-pareja-get.svg)(Entorno en la función `get` al llamar a `pareja(4, 1)`)(width=50%)(width=55%)
+!DOT(entorno-pareja-get.svg)(Entorno dentro de la función `get` al llamar a `select(p, 0)`)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-1 [shape = circle]
-4 [shape = circle]
+14 [shape = circle]
+20 [shape = circle]
+0 [shape = circle]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 y [shape = plaintext, fillcolor = transparent, label = "y"]
 get [shape = plaintext, fillcolor = transparent, label = "get"]
 i [shape = plaintext, fillcolor = transparent, label = "indice"]
+pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
+select [shape = plaintext, fillcolor = transparent, label = "select"]
+p [shape = plaintext, fillcolor = transparent, label = "p"]
+f1 [label = "función"]
+f2 [label = "función"]
+f3 [label = "función"]
+subgraph cluster2 {
+    label = <Marco global>
+    bgcolor = white
+    pareja -> f1
+    select -> f2
+    p -> f3
+}
 subgraph cluster0 {
     label = <Marco de <b>pareja</b>>
     bgcolor = "white"
-    x -> 4
-    y -> 1
-    get -> función
+    x -> 20
+    y -> 14
+    get -> f3
 }
 subgraph cluster1 {
     label = <Marco de <b>get</b>>
     bgcolor = white
-    i -> i
+    i -> 0
 }
-i -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+0 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+20 -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2]
 E [shape = point]
 E -> i [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
