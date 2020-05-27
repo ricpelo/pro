@@ -1444,7 +1444,7 @@ def deposito(fondos):
     dic = {'retirar': retirar, 'ingresar': ingresar, 'saldo': saldo}
 
     def despacho(mensaje):
-        if mensaje in d:
+        if mensaje in dic:
             return dic[mensaje]
         else:
             raise ValueError('Mensaje incorrecto')
