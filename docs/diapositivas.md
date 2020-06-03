@@ -14,7 +14,7 @@ Si detectas algún error o algo que corregir o mejorar en los materiales, por fa
 
 | Título | HTML | PDF | Apuntes |
 | ------ |:----:|:---:|:-------:|
-| <strong>Introducción</strong><br><small class="fecha">2020-06-03 12:18:51 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
+| <strong>Introducción</strong><br><small class="fecha">2020-06-03 12:26:19 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional I</strong><br><small class="fecha">2020-05-14 20:28:25 +0200</small> | [HTML](slides/programacion-funcional-i.html){:target="_blank"} | [PDF](pdf/programacion-funcional-i.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-i-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional II</strong><br><small class="fecha">2020-05-14 20:28:25 +0200</small> | [HTML](slides/programacion-funcional-ii.html){:target="_blank"} | [PDF](pdf/programacion-funcional-ii.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-ii-apuntes.pdf){:target="_blank"}
 | <strong>Programación imperativa</strong><br><small class="fecha">2020-05-14 20:28:25 +0200</small> | [HTML](slides/programacion-imperativa.html){:target="_blank"} | [PDF](pdf/programacion-imperativa.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-imperativa-apuntes.pdf){:target="_blank"}

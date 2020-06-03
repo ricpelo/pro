@@ -735,18 +735,7 @@ Un algoritmo es un método para resolver un problema.
 
 Determinar cuál es el máximo de dos números
 
-!FLOWCHART(maximo.svg)()()(width=50%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-inicio=>start: Inicio
-fin=>end: Fin
-leer=>inputoutput: Leer los dos números (X e Y)
-cond=>condition: X > Y
-Xmayor=>inputoutput: Escribir "X es mayor"
-Ymayor=>inputoutput: Escribir "Y es mayor"
-inicio->leer->cond
-cond(yes,left)->Xmayor->fin
-cond(no,right)->Ymayor->fin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(maximo.svg)()(width=50%)(width=50%)
 
 #### Pseudocódigo
 

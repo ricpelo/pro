@@ -110,7 +110,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(NODE_MODULES) $(PANDOC) $(REVEAL
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE_HTML) \
 		--toc --toc-depth=1 -N \
-		--slide-level=4 \
+		--slide-level=5 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
