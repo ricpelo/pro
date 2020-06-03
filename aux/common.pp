@@ -8,7 +8,6 @@ DEFINICIONES GENERALES
 !define(SCRIPTS)(scripts)
 !define(WIDTH)(width=!ifdef(LATEX)(60%)(80%))
 !define(DIAGRAM)(node_modules/diagrams/bin/diagrams.js)
-!define(FLOWCHART_SH)(!SCRIPTS/flowchart.sh)
 !define(UMLCOMMON)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scale 2
