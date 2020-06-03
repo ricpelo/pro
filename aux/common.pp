@@ -54,7 +54,7 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 
 !define(ACT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Actividades {-}
+#### Actividades {-}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(FIN)
