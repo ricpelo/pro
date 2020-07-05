@@ -357,6 +357,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="concepto" class="title-slide slide level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> Concepto</h2>
+<ul>
+<li><p>El código fuente de un programa está formado por elementos que pertenecen a dos grandes grupos principales:</p>
+<ul>
+<li><p><strong>Expresiones</strong>: son secuencias de símbolos que <em>representan valores</em> y que están formados por <em>datos</em> y (posiblemente) <em>operaciones</em> a realizar sobre esos datos. El valor al que representa la expresión se obtiene <em>evaluando</em> dicha expresión.</p></li>
+<li><p><strong>Sentencias</strong>: son <em>instrucciones</em> que sirven para pedirle al intérprete que <em>ejecute</em> una determinada <em>acción</em>. Las sentencias también pueden contener expresiones.</p></li>
+</ul></li>
+</ul>
+<div class="caja centered">
+<p>Las <strong>expresiones</strong> se <em>evalúan</em>.</p>
+<p>Las <strong>sentencias</strong> se <em>ejecutan</em>.</p>
+</div>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
 <div class="caja">
 <p><strong>Expresión:</strong></p>
 <p>Una <strong>expresión</strong> es una frase (secuencia de símbolos) sintáctica y semánticamente correcta según las reglas del lenguaje que estamos utilizando, cuya finalidad es la de <em>representar</em> o <strong>denotar</strong> un determinado objeto, al que denominamos el <strong>valor</strong> de la expresión.</p>
@@ -370,19 +384,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>En general, las expresiones correctamente formadas satisfacen una gramática similar a la siguiente:</p>
 <div class="line-block"><span style="color:teal">⟨<em>expresión</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> <span style="color:teal">⟨<em>opbin</em>⟩</span> <span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong><br />
                    | <strong><code>(</code></strong><span style="color:teal">⟨<em>opun</em>⟩</span> <span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong><br />
-                   | <span style="color:teal">⟨<em>número</em>⟩</span><br />
+                   | <span style="color:teal">⟨<em>literal</em>⟩</span><br />
                    | <span style="color:teal">⟨<em>identificador</em>⟩</span><br />
                    | <span style="color:teal">⟨<em>identificador</em>⟩</span><strong><code>(</code></strong>[<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span>]<strong><code>)</code></strong><br />
 <span style="color:teal">⟨<em>lista_argumentos</em>⟩</span> ::= <span style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span>)*<br />
 <span style="color:teal">⟨<em>opbin</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong> | <strong><code>//</code></strong> | <strong><code>**</code></strong> | <strong><code>%</code></strong><br />
 <span style="color:teal">⟨<em>opun</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong></div></li>
-<li><p>Esta gramática da lugar a expresiones <em>totalmente parentizadas</em>, en las que cada operación a realizar va agrupada entre paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:</p>
+<li><p>Esta gramática da lugar a expresiones aritméticas <em>totalmente parentizadas</em>, en las que cada operación a realizar con operadores va agrupada entre paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:</p>
 <p><code>(3 + (4 - 7))</code></p></li>
 </ul>
 </section>
@@ -393,8 +407,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Ya hemos visto que la ejecución de un programa funcional consiste, en esencia, en evaluar una expresión.</p></li>
 <li><p><strong><em>Evaluar</em> una expresión</strong> consiste en determinar el <strong>valor</strong> de la expresión. Es decir, una expresión <em>representa</em> o <strong>denota</strong> el valor que se obtiene al evaluarla.</p></li>
 <li><p>En programación funcional, el significado de una expresión es su valor, y no puede ocurrir ningún otro efecto, ya sea oculto o no, en ninguna operación que se utilice para calcularlo.</p></li>
-<li><p>Una característica de la programación funcional es que <strong>toda expresión posee un valor definido</strong>, a diferencia de otros paradigmas en los que, por ejemplo, existen las <em>sentencias</em>, que no poseen ningún valor.</p></li>
-<li><p>Además, el orden en el que se evalúe no debe influir en el resultado.</p></li>
+<li><p>Una característica de la programación funcional es que <strong>toda expresión posee un valor definido</strong>, y ese valor no depende del orden en el que se evalúe.</p></li>
+<li><p>Además de las expresiones existen las <em>sentencias</em>, que no poseen ningún valor y que, por tanto, no se evalúan sino que se <em>ejecutan</em>. Las sentencias son básicas en otros paradigmas como el <em>imperativo</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
@@ -546,6 +560,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Los números reales tienen siempre un <code>.</code> decimal.</p></li>
 <li><p>Las cadenas van siempre entre comillas (simples <code>'</code> o dobles <code>"</code>).</p></li>
+<li><p>En apartados posteriores estudiaremos los tipos de datos con más profundidad.</p></li>
 </ul>
 </section>
 

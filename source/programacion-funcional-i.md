@@ -159,6 +159,27 @@ nocite: |
 
 ## Concepto
 
+- El código fuente de un programa está formado por elementos que pertenecen a
+  dos grandes grupos principales:
+
+  - **Expresiones**: son secuencias de símbolos que *representan valores* y que
+    están formados por *datos* y (posiblemente) *operaciones* a realizar sobre
+    esos datos. El valor al que representa la expresión se obtiene *evaluando*
+    dicha expresión.
+
+  - **Sentencias**: son *instrucciones* que sirven para pedirle al intérprete
+    que *ejecute* una determinada *acción*. Las sentencias también pueden
+    contener expresiones.
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Las **expresiones** se *evalúan*.
+
+Las **sentencias** se *ejecutan*.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Expresión:**
@@ -189,7 +210,7 @@ que denominamos el **valor** de la expresión.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(expresión) ::= !T{(}!NT(expresión) !NT(opbin) !NT(expresión)!T{)}
                    | !T{(}!NT(opun) !NT(expresión)!T{)} 
-                   | !NT(número)
+                   | !NT(literal)
                    | !NT(identificador)
                    | !NT(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
@@ -197,9 +218,9 @@ que denominamos el **valor** de la expresión.
 !NT(opun) ::= !T(+) | !T(-)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esta gramática da lugar a expresiones *totalmente parentizadas*, en las que
-  cada operación a realizar va agrupada entre paréntesis, incluso aunque no sea
-  estrictamente necesario. Por ejemplo:
+- Esta gramática da lugar a expresiones aritméticas *totalmente parentizadas*,
+  en las que cada operación a realizar con operadores va agrupada entre
+  paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:
 
   `(3 + (4 - 7))`
 
@@ -217,10 +238,11 @@ que denominamos el **valor** de la expresión.
   que se utilice para calcularlo.
 
 - Una característica de la programación funcional es que **toda expresión posee
-  un valor definido**, a diferencia de otros paradigmas en los que, por
-  ejemplo, existen las *sentencias*, que no poseen ningún valor.
+  un valor definido**, y ese valor no depende del orden en el que se evalúe.
 
-- Además, el orden en el que se evalúe no debe influir en el resultado.
+- Además de las expresiones existen las *sentencias*, que no poseen ningún
+  valor y que, por tanto, no se evalúan sino que se *ejecutan*. Las sentencias
+  son básicas en otros paradigmas como el *imperativo*.
 
 ---
 
@@ -387,6 +409,8 @@ endwhile (no)
 - Los números reales tienen siempre un `.` decimal.
 
 - Las cadenas van siempre entre comillas (simples `'` o dobles `"`).
+
+- En apartados posteriores estudiaremos los tipos de datos con más profundidad.
 
 ## Operaciones, operadores y operandos
 
