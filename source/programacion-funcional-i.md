@@ -35,6 +35,7 @@ nocite: |
 - Python alcanzó la versión 1.0 en enero de 1994.
 
 - Python 2.0 se publicó en octubre de 2000 con muchas grandes mejoras.
+  Actualmente, Python 2 está obsoleto.
 
 - Python 3.0 se publicó en septiembre de 2008 y es una gran revisión del
   lenguaje que no es totalmente retrocompatible con Python 2.
@@ -58,6 +59,33 @@ nocite: |
   **código abierto**.
 
 - La estructura de un programa se define por su anidamiento.
+
+---
+
+- Para entrar en el intérprete, se usa el comando `python` desde la línea de
+  comandos del sistema operativo:
+
+  ```console
+  $ python
+  Python 3.8.2 (default, Apr 27 2020, 15:53:34)
+  [GCC 9.3.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>>
+  ```
+
+  El mensaje que obtengamos puede que no sea exactamente igual, pero es
+  importante comprobar que estamos usando Python 3 y no 2.
+
+- Para salir, se pulsa `Ctrl+D`.
+
+- El `>>>` es el *prompt* del intérprete de Python, desde el que se ejecutan
+  las expresiones y sentencias que tecleemos:
+
+  ```python
+  >>> 4 + 3
+  7
+  >>>
+  ```
 
 # Modelo de ejecución
 
@@ -353,7 +381,7 @@ endwhile (no)
 
   - **Operaciones** a realizar sobre esos datos
 
-- A su vez, las operaciones se pueden representar en forma de:
+- A su vez, las operaciones pueden aparecer en forma de:
 
   - Operadores
 
@@ -502,16 +530,38 @@ $$
 - En Python, todos los operadores son **asociativos por la izquierda** excepto
   el `**`, que es asociativo por la derecha.
 
+### Tipos de operandos
+
+- Es importante respetar el tipo de los operandos que espera recibir un
+  operador. Si los intentamos aplicar sobre operandos de tipos incorrectos,
+  obtendremos resultados inesperados (o, directamente, un error).
+
+- Por ejemplo, los operadores aritméticos esperan operandos de tipo *numérico*.
+  Así, si intentamos dividir dos cadenas usando el operador `/`:
+
+  ```python
+  >>> "hola" / "pepe"
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unsupported operand type(s) for /: 'str' and 'str'
+  >>> 
+  ```
+
+- El concepto de **tipo de dato** es uno de los más importantes en Programación
+  y lo estudiaremos en profundidad más adelante.
+
 ## Funciones y métodos
 
 ### Funciones
+
+- Las funciones son otra forma de representar operaciones.
 
 :::: columns
 
 ::: column
 
-- Matemáticamente, una **función** es una regla que *asocia* a cada elemento de
-  un conjunto (el conjunto *origen* o *dominio*) un único elemento de un
+- Matemáticamente, una **función** es una regla que **asocia** a cada elemento
+  de un conjunto (el conjunto *origen* o *dominio*) un único elemento de un
   segundo conjunto (el conjunto *imagen* o *codominio*).
 
 - Se representa así: $$f: A \rightarrow B$$ $$x \rightarrow f(x)$$
@@ -528,6 +578,9 @@ $$
 
 ::::
 
+- La expresión $f: A \rightarrow B$ es la **declaración** o **signatura** de la
+  función.
+
 ---
 
 - La **aplicación de la función $f$** sobre el elemento $x$ se representa por
@@ -540,7 +593,7 @@ $$
 - Por ejemplo:
 
   La función **valor absoluto**, que asocia a cada número entero ese mismo
-  número sin el signo (un número natural).
+  número sin el signo (un número natural). Su signatura es:
 
   $$abs: \mathbb{Z} \rightarrow \mathbb{N}$$
   $$x \rightarrow abs(x)$$
@@ -549,88 +602,285 @@ $$
   
   $$abs(-35) = 35$$
 
-  El valor $35$ es el resultado de aplicar la función $abs$ a su argumento
+  El valor $35$ es el **resultado** de aplicar la función $abs$ al argumento
   $-35$.
 
-### Igualdad de funciones
+- Otra forma de expresarlo es decir que la función $abs$
+  **recibe** un argumento de tipo entero y **devuelve** un resultado de tipo
+  natural.
 
-- Dos funciones son **iguales** si devuelven resultados iguales para argumentos
-  iguales.
+---
 
-- Este principio recibe el nombre de **principio de extensionalidad**.
+- La función $abs$ se puede usar directamente en Python ya que una función
+  **predefinida** en el lenguaje. Por ejemplo:
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-  **Principio de extensionalidad:**
+  ```python
+  >>> abs(-35)
+  35
+  ```
 
-  $f = g$ si y sólo si $f(x) = g(x)$ para todo $x$.
-  ~~~~~~~~~~~~~~~~~~~~~~~~
+- Al igual que pasa con los operadores, es importante respetar la signatura de
+  una función. Si la aplicamos a un argumento de un tipo incorrecto (por
+  ejemplo, una cadena en lugar de un número), obtendremos un error:
 
-- Por ejemplo, una función que calcule el doble de su argumento multiplicándolo
-  por 2, sería exactamente igual a otra función que calcule el doble de su
-  argumento sumándolo consigo mismo.
 
-  En ambos casos, las dos funciones devolverán siempre los mismos resultados
-  ante los mismos argumentos.
+  ```python
+  >>> abs("hola")
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: bad operand type for abs(): 'str'
+  >>> 
+  ```
+
+---
+
+- Otro ejemplo:
+
+  $$longitud: \mathbb{C} \rightarrow \mathbb{N}$$
+  $$x \rightarrow longitud(x)$$
+ 
+- La función $longitud$ asocia a cada cadena su longitud (la *longitud* de una
+  cadena es el número de caracteres que contiene).
+
+- También puede decirse que devuelve la longitud de la cadena que recibe como
+  argumento.
+
+- Así:
+
+  $$longitud("hola") = 4$$
+
+- En Python, la función $longitud$ se llama `len`:
+
+  ```python
+  >>> len("hola")
+  4
+  ```
 
 ### Funciones con varios argumentos
 
 - El concepto de función se puede generalizar para obtener **funciones con más
   de un argumento**.
 
-- Por ejemplo, podemos definir una función $max$ que asocie a cada par de
-  números el máximo de los dos.
+- Por ejemplo, podemos definir una función $max$ que asocie, a cada par de
+  números enteros, el máximo de los dos:
 
   $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
   $$(x,y) \rightarrow max(x,y)$$
+
+  También podemos decir que $max$ es una función que recibe dos argumentos
+  enteros y devuelve un entero.
 
 - Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
   sería $13$:
 
   $$max(13, -25) = 13$$
 
-### Composición de funciones
+- Al igual que ocurre con los operadores, la **aridad de una función** es el
+  número de argumentos que necesita la función.
 
-- La manera más sencilla de realizar varias operaciones sobre los mismos datos
-  es hacer que el resultado de una operación sea la entrada de otra operación.
+---
 
-- Se va creando así una **secuencia de operaciones** donde la salida de una es
-  la entrada de la siguiente.
+- El símbolo $\times$ representa el **producto cartesiano** de dos conjuntos,
+  y devuelve todas las parejas que se pueden formar emparejando elementos del
+  primer conjunto con elementos del segundo conjunto.
 
-- Es una técnica que ayuda a **descomponer un problema en partes** que se van
-  resolviendo por pasos como en una **cadena de montaje**.
+- Por ejemplo, si tenemos los conjuntos $A = \{1, 2, 3\}$ y $B = \{a, b\}$, el
+  producto cartesiano $A \times B$ resultaría:
 
-- En programación funcional esto se consigue **componiendo funciones**, es
-  decir, haciendo **que el resultado de una función sea un argumento para otra
-  función**:
+  $$A \times B = \{ (1, a), (1, b), (2, a), (2, b), (3, a), (3, b) \}$$
+
+- Este concepto es fundamental en **bases de datos**.
+
+---
+
+- Otro ejemplo de función con varios argumentos:
+
+  $$pow: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}$$
+  $$(x,y) \rightarrow pow(x,y)$$
+ 
+- La función $pow$ recibe dos números (el primero es la *base* y el segundo es
+  el *exponente*) y devuelve el resultado de elevar la base al exponente. Es
+  decir, $pow(x,y) = x^y$.
+
+- Por ejemplo, al aplicar la función $pow$ sobre los valores $3$ y $2$,
+  obtenemos:
+
+  $$pow(3, 2) = 9$$
+
+- Es importante respetar el *orden* de los argumentos. El primero siempre es la
+  base y el segundo siempre es el exponente. Si los pasamos al revés,
+  tendríamos un resultado diferente:
+
+  $$pow(2, 3) = 8$$
+
+---
+
+- Curiosamente, la operación de elevar un número a la potencia del otro existe
+  en Python de dos formas diferentes:
+
+  - Como operador (`**`):
+
+    ```python
+    >>> 2 ** 3
+    8
+    ```
+
+  - Como función (`pow`):
+
+    ```python
+    >>> pow(2, 3)
+    8
+    ```
+
+- En ambos casos, la operación es la misma.
+
+<!--
+
+- Otro ejemplo de función con varios argumentos:
+
+  $$repite: \mathbb{C} \times \mathbb{N} \rightarrow \mathbb{C}$$
+  $$(x,y) \rightarrow repite(x,y)$$
+ 
+- La función $repite$ recibe una cadena y un número natural, y devuelve otra
+  cadena formada repitiendo la cadena original (su primer argumento) tantas
+  veces como indique el número (su segundo argumento).
+
+- Por ejemplo, al aplicar la función $repite$ sobre la cadena $"hola"$ y el
+  número 3, obtenemos:
+
+  $$repite("hola", 3) = "holaholahola"$$
+
+- Es importante respetar el *orden* de los argumentos. El primero
+
+-->
+
+### Evaluación de expresiones con funciones
+
+- En una expresión podemos colocar aplicaciones de función en cualquier
+  lugar donde sea sintácticamente correcto situar un valor.
+
+- La evaluación de una expresión que contiene aplicaciones de función se
+  realiza sustituyendo (*reduciendo*) dichas aplicaciones por su valor
+  correspondiente, es decir, por el valor que dicha función asocia a sus
+  argumentos.
+
+- Por ejemplo, en la siguiente expresión se aplica la función $abs$ al
+  argumento $-12$ y la función $max$ a los argumentos $13$ y $28$:
+
+  `abs(-12) + max(13, 28)`
+
+  Tenemos una expresión donde se combinan varias funciones y operadores.
+
+- ¿Cómo se calcula el valor de toda la expresión anterior?
+
+---
+
+- En la expresión `abs(-12) + max(13, 28)` tenemos la suma de dos valores, pero
+  esos valores aún no los conocemos porque son el resultado de aplicar
+  funciones a argumentos.
+
+- Por tanto, lo primero que tenemos que hacer es evaluar las dos
+  sub-expresiones que contiene dicha expresión:
+
+  - `abs(-12)`
+  - `max(13, 28)`
+
+- ¿Cuál se evalúa primero?
+
+---
+
+- En Matemáticas, no importa el orden de evaluación de las sub-expresiones, ya
+  que el resultado debe ser siempre el mismo, así que da igual evaluar primero
+  uno u otro.
+
+- Por tanto, la evaluación paso a paso de la expresión matemática anterior,
+  podría ser de cualquiera de estas dos formas:
+
+  :::: columns
+
+  ::: column
+
+  $$\begin{array}{l}
+  \underline{abs(-12)} + max(13, 28) \\[6pt]
+  = 12 + \underline{max(13, 28)} \\[6pt]
+  = \underline{12 + 28} \\[6pt]
+  = 40
+  \end{array}$$
+
+  :::
+
+  ::: column
+
+  $$\begin{array}{l}
+  abs(-12) + \underline{max(13, 28)} \\[6pt]
+  = \underline{abs(-12)} + 28 \\[6pt]
+  = \underline{12 + 28} \\[6pt]
+  = 40
+  \end{array}$$
+
+  :::
+
+  ::::
+
+  En cada paso, la sub-expresión $\text{\underline{subrayada}}$ es la que se va
+  a evaluar (reducir) en el paso siguiente.
+
+---
+
+- En programación funcional ocurre lo mismo que en Matemáticas, gracias a la
+  *transparencia referencial*.
+
+- Sin embargo, Python no es un lenguaje funcional puro, y llegado el caso será
+  importante saber cuál es el orden de evaluación que aplica.
+
+- En concreto, y mientras no se diga lo contrario, **Python siempre evalúa las
+  expresiones de izquierda a derecha**.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Importante:**
+
+En **Python**, salvo excepciones, los operandos y los argumentos de las
+funciones se evalúan **de izquierda a derecha**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- En Python, la expresión anterior se escribe exactamente igual, ya que Python
+  conoce las funciones $abs$ y $max$ (son **funciones predefinidas** en el
+  lenguaje):
 
   ```python
-  round(abs(-23.459), 2)  # devuelve 23.46
+  >>> abs(-12) + max(13, 28)
+  40
   ```
 
-!DOT(composicion-funciones.svg)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--23.459 [shape = plaintext, fillcolor = transparent]
-23.459 [shape = plaintext, fillcolor = transparent]
-23.46 [shape = plaintext, fillcolor = transparent]
--23.459 -> abs -> 23.459 -> round -> 23.46
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Sabiendo que Python evalúa de izquierda a derecha, la evaluación de la
+  expresión anterior en Python, siguiendo nuestro modelo de sustitución, sería:
+
+  ```python
+  abs(-12) + max(13, 28)   # se evalúa primero abs(-12)
+  = 12 + max(13, 28)       # ahora se evalúa max(13, 28)
+  = 12 + 28                # se evalúa el operador +
+  = 40
+  ```
 
 ### Métodos
 
 - Los **métodos** son, para la *programación orientada a objetos*, el
   equivalente a las **funciones** para la *programación funcional*.
 
-- Los métodos son como funciones que actúan *sobre* un valor.
+- Los métodos son como funciones, pero en este caso se dice que actúan *sobre*
+  un valor.
 
 - La *aplicación* de un método se denomina **invocación** o **llamada** al
   método, y se escribe:
 
   $$v.m()$$
 
-  que representa la **llamada** al método $m$ sobre el valor $v$.
+  que representa la **llamada** al método $m$ sobre el *objeto* $v$.
 
-- Los métodos también pueden tener argumentos como cualquier función:
+- Los métodos también pueden tener argumentos, como cualquier función:
 
   $$v.m(a_1, a_2, ..., a_n)$$
 
@@ -646,11 +896,11 @@ $$
 
 - Pero conceptualmente, hay una gran diferencia entre un estilo y otro:
 
-  - El primero es más **orientado a objetos** (el *objeto* $v$ «recibe» un
-    mensaje solicitando la ejecución del método $m$).
+  - El primero es más **orientado a objetos**: decimos que el *objeto* $v$
+    «recibe» un mensaje solicitando la ejecución del método $m$.
   
-  - En cambio, el segundo es más **funcional** (la *función* $m$ se aplica a
-    sus argumentos, de los cuales $v$ es uno más).
+  - En cambio, el segundo es más **funcional**: decimos que la *función* $m$ se
+    aplica a sus argumentos, de los cuales $v$ es uno más).
 
 - Python es un lenguaje *multiparadigma* que soporta ambos estilos y por tanto
   dispone tanto de funciones como de métodos. Hasta que no veamos la
@@ -711,6 +961,277 @@ $$
     (4).__add__(3)
     ```
 
+- En general, y mientras no se diga lo contrario, cuando hablemos de
+  operaciones supondremos que están representadas como funciones.
+
+## Composición de operaciones
+
+- Como acabamos de ver, el resultado de una operación puede ser un dato sobre
+  el que aplicar otra operación dentro de la misma expresión:
+
+  - En `4 * (3 + 5)`, el resultado de `(3 + 5)` se usa como operando para el
+    operador `*`.
+
+  - En `abs(-12) + max(13, 28)`, los resultados de las funciones `abs` y `max`
+    son los operandos del operador `+`.
+
+- A esto se le denomina **composición de operaciones**.
+
+---
+
+- La manera más sencilla de realizar varias operaciones sobre los mismos datos
+  es componer las operaciones, es decir, hacer que el resultado de una
+  operación sea la entrada de otra operación.
+
+- Se va creando así una **secuencia de operaciones** donde la salida de una es
+  la entrada de la siguiente.
+
+- Cuando el resultado de una función se usa como argumento de otra función
+  le llamamos **composición de funciones**:
+
+  ```python
+  round(abs(-23.459), 2)  # devuelve 23.46
+  ```
+
+- El orden en el que se evalúan este tipo de expresiones (aquellas que
+  contienen composición de funciones) es algo que se estudiará en profundidad
+  en el siguiente tema.
+
+---
+
+- En programación funcional, la composición de funciones es una técnica que
+  ayuda a **descomponer un problema en partes** que se van resolviendo por
+  pasos como en una **cadena de montaje**.
+
+!DOT(composicion-funciones.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-23.459 [shape = plaintext, fillcolor = transparent]
+23.459 [shape = plaintext, fillcolor = transparent]
+23.46 [shape = plaintext, fillcolor = transparent]
+2 [shape = plaintext, fillcolor = transparent]
+-23.459 -> abs -> 23.459 -> round -> 23.46
+2 -> round
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Igualdad de operaciones
+
+- Dos operaciones son **iguales** si devuelven resultados iguales para
+  argumentos iguales.
+
+- Este principio recibe el nombre de **principio de extensionalidad**.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Principio de extensionalidad:**
+
+  $f = g$ si y sólo si $f(x) = g(x)$ para todo $x$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, una función que calcule el doble de su argumento multiplicándolo
+  por 2, sería exactamente igual a otra función que calcule el doble de su
+  argumento sumándolo consigo mismo.
+
+  En ambos casos, las dos funciones devolverán siempre los mismos resultados
+  ante los mismos argumentos.
+
+- Cuando dos operaciones son iguales, podemos usar una u otra indistintamente.
+
+## Operaciones predefinidas
+
+### Operadores predefinidos
+
+#### Operadores aritméticos
+
+----------------------------------------------------------------------------
+  Operador   Descripción       Ejemplo    Resultado  Comentarios
+------------ --------------- ----------- ----------- -----------------------
+   `+`       Suma            `3 + 4`     `7`
+
+   `-`       Resta           `3 - 4`     `-1`
+
+   `*`       Producto        `3 * 4`     `12`
+
+   `/`       División        `3 / 4`     `0.75`      Devuelve un `float`
+
+
+   `%`       Módulo          `4 % 3` \   `1` \       Resto de la división
+                             `8 % 3`     `2`
+
+   `**`      Exponente       `3 ** 4`    `81`        Devuelve $3^4$
+
+   `//`      División entera `4 // 3` \   `1` \      \hfill{} \
+             hacia abajo     `-4 // 3`    `-2`       ??
+----------------------------------------------------------------------------
+
+#### Operadores de cadenas
+
+------------------------------------------------------------------
+  Operador   Descripción           Ejemplo              Resultado 
+------------ --------------------- -------------------- ----------
+   `+`       Concatenación         `'ab' + 'cd'`        `'abcd'`
+                                   `'ab' 'cd'`                    
+                                                     
+   `*`       Repetición            `'ab' * 3`           `'ababab'`
+                                   `3 * 'ab'`           `'ababab'`
+                                                     
+   `[0]`     Primer carácter       `'hola'[0]`          `'h'`
+                                                     
+   `[1:]`    Resto de cadena       `'hola'[1:]`         `'ola'`
+------------------------------------------------------------------
+
+### Funciones predefinidas
+
+--------------------------------------------------------------------------------------
+Función                     Descripción           Ejemplo                  Resultado
+--------------------------- --------------------- ------------------------ -----------
+`abs(`$n$`)`                Valor absoluto        `abs(-23)`               `23`
+
+`len(`$cad$`)`              Longitud de la cadena `len('hola')`            `4`
+
+`max(`$n_1$(`,` $n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
+
+`min(`$n_1$(`,` $n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
+
+`round(`$n$[`,` $p$]`)`     Redondeo              `round(23.493)`  \       `23` \
+                                                  `round(23.493, 1)`       `23.5`
+
+`type(`$v$`)`               Tipo del valor        `type(23.5)`             `<class` \
+                                                                           `'float'>`
+-------------------------------------------------------------------------------------
+
+#### Funciones matemáticas
+
+- Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
+  del módulo `math`.
+
+- Los **módulos** en Python son conjuntos de funciones (y más cosas) que se
+  pueden **importar** dentro de nuestra sesión o programa.
+
+- Son la base de la **programación modular**, que ya estudiaremos.
+
+---
+
+- Para *importar* una función de un módulo se puede usar la orden `from`. Por
+  ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
+  de dos números) del módulo `math` se haría:
+
+  ```python
+  >>> from math import gcd  # importamos la función gcd que está en el módulo math
+  >>> gcd(16, 6)            # la función se usa como cualquier otra
+  2
+  ```
+
+- Una vez importada, la función ya se puede usar como cualquier otra.
+
+---
+
+- También se puede importar directamente el módulo en sí:
+
+  ```python
+  >>> import math      # importamos el módulo math
+  >>> math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
+  2
+  ```
+
+- Al importar el módulo, lo que se importan no son sus funciones, sino el
+  nombre y la definición del propio módulo, el cual contiene dentro la
+  definición de sus funciones.
+
+- Por eso, para poder llamar a una función del módulo usando esta técnica,
+  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
+  de la función:
+
+  ```python
+  math.gcd(16, 6)
+  ─┬── ─┬─
+   │    └────── función
+   └── módulo
+  ```
+
+---
+
+- La lista completa de funciones que incluye el módulo `math` se puede
+  consultar en su documentación:
+
+  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
+
+### Métodos predefinidos
+
+- Igualmente, en la documentación podemos encontrar una lista de métodos
+  interesantes que operan con datos de tipo cadena:
+
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="_blank"}
+
+## Actividades
+
+@. Representar, según el modelo de sustitución, la evaluación las siguientes
+   expresiones, aplicando paso a paso la reducción que corresponda. Indicar
+   también el tipo del valor resultante:
+
+    a. `3 + 6 * 14`
+    b. `8 + 7 * 3.0 + 4 * 6`
+    c. `–4 * 7 + 2 ** 3 / 4 – 5`
+    d. `4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2`
+
+@. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
+   algebraicas:
+
+    a. $5\cdot(x + y)$
+
+    b. $a^2 + b^2$
+
+    c. $\frac{x + y}{u + \frac{w}{a}}$
+
+    d. $\frac{x}{y}\cdot(z + w)$
+
+---
+
+@. Determinar, según las reglas de prioridad y asociatividad del lenguaje
+   Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas
+   sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:
+
+    a. `(8 + (7 * 3) + 4 * 6)`
+    b. `–(2 ** 3)`
+    c. `(33 + (3 * 4)) / 5`
+    d. `2 ** (2 * 3)`
+    e. `(3.0) + (2 * (18 – 4 ** 2))`
+    f. `(16 * 6) – (3) * 2`
+
+@. Usar la función `math.sqrt` para escribir dos expresiones en Python que
+   calculen las dos soluciones a la ecuación de segundo grado $ax^2+bx+c=0$.
+
+    Recordar que las soluciones son:
+    
+    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
+      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
+
+---
+
+@. Evaluar las siguientes expresiones:
+
+    a. `9 – 5 – 3`
+    b. `2 // 3 + 3 / 5`
+    c. `9 // 2 / 5`
+    d. `7 % 5 % 3`
+    e. `7 % (5 % 3)`
+    f. `(7 % 5) % 3`
+    g. `(7 % 5 % 3)`
+    h. `((12 + 3) // 2) / (8 – (5 + 1))`
+    i. `12 / 2 * 3`
+    j. `math.sqrt(math.cos(4))`
+    k. `math.cos(math.sqrt(4))`
+    l. `math.trunc(815.66) + round(815.66)`
+
+---
+
+@. Escribir las siguientes expresiones algorítmicas como expresiones
+   algebraicas:
+
+    a. `b ** 2 – 4 * a * c`
+    b. `3 * x ** 4 – 5 * x ** 3 + x * 12 – 17`
+    c. `(b + d) / (c + 4)`
+    d. `(x ** 2 + y ** 2) ** (1 / 2)`
+
 # Tipos de datos
 
 ## Concepto
@@ -746,9 +1267,17 @@ $$
     sobre los que se pueden realizar las operaciones aritméticas (suma,
     producto, etc.) entre otras.
 
+    - Se corresponde *más o menos* con el símbolo $\mathbb{Z}$ que ya hemos
+      usado antes.
+
   - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
     pueden realizar otras operaciones (la *concatenación*, la *repetición*,
     etc.).
+
+    - Se corresponde *más o menos* con el símbolo $\mathbb{C}$ que ya hemos
+      usado antes.
+
+(¿Por qué «*más o menos*»?)
 
 ## `type`
 
@@ -963,202 +1492,6 @@ $$
   File "<stdin>", line 1, in <module>
   ValueError: invalid literal for int() with base 10: 'hola'
   ```
-
-## Operaciones predefinidas
-
-### Operadores predefinidos
-
-#### Operadores aritméticos
-
-----------------------------------------------------------------------------
-  Operador   Descripción       Ejemplo    Resultado  Comentarios
------------- --------------- ----------- ----------- -----------------------
-   `+`       Suma            `3 + 4`     `7`
-
-   `-`       Resta           `3 - 4`     `-1`
-
-   `*`       Producto        `3 * 4`     `12`
-
-   `/`       División        `3 / 4`     `0.75`      Devuelve un `float`
-
-
-   `%`       Módulo          `4 % 3` \   `1` \       Resto de la división
-                             `8 % 3`     `2`
-
-   `**`      Exponente       `3 ** 4`    `81`        Devuelve $3^4$
-
-   `//`      División entera `4 // 3` \   `1` \      \hfill{} \
-             hacia abajo     `-4 // 3`    `-2`       ??
-----------------------------------------------------------------------------
-
-#### Operadores de cadenas
-
-------------------------------------------------------------------
-  Operador   Descripción           Ejemplo              Resultado 
------------- --------------------- -------------------- ----------
-   `+`       Concatenación         `'ab' + 'cd'`        `'abcd'`
-                                   `'ab' 'cd'`                    
-                                                     
-   `*`       Repetición            `'ab' * 3`           `'ababab'`
-                                   `3 * 'ab'`           `'ababab'`
-                                                     
-   `[0]`     Primer carácter       `'hola'[0]`          `'h'`
-                                                     
-   `[1:]`    Resto de cadena       `'hola'[1:]`         `'ola'`
-------------------------------------------------------------------
-
-### Funciones predefinidas
-
---------------------------------------------------------------------------------------
-Función                     Descripción           Ejemplo                  Resultado
---------------------------- --------------------- ------------------------ -----------
-`abs(`$n$`)`                Valor absoluto        `abs(-23)`               `23`
-
-`len(`$cad$`)`              Longitud de la cadena `len('hola')`            `4`
-
-`max(`$n_1$(`,` $n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
-
-`min(`$n_1$(`,` $n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
-
-`round(`$n$[`,` $p$]`)`     Redondeo              `round(23.493)`  \       `23` \
-                                                  `round(23.493, 1)`       `23.5`
-
-`type(`$v$`)`               Tipo del valor        `type(23.5)`             `<class` \
-                                                                           `'float'>`
--------------------------------------------------------------------------------------
-
-#### Funciones matemáticas
-
-- Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
-  del módulo `math`.
-
-- Los **módulos** en Python son conjuntos de funciones (y más cosas) que se
-  pueden **importar** dentro de nuestra sesión o programa.
-
-- Son la base de la **programación modular**, que ya estudiaremos.
-
----
-
-- Para *importar* una función de un módulo se puede usar la orden `from`. Por
-  ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
-  de dos números) del módulo `math` se haría:
-
-  ```python
-  >>> from math import gcd  # importamos la función gcd que está en el módulo math
-  >>> gcd(16, 6)            # la función se usa como cualquier otra
-  2
-  ```
-
-- Una vez importada, la función ya se puede usar como cualquier otra.
-
----
-
-- También se puede importar directamente el módulo en sí:
-
-  ```python
-  >>> import math      # importamos el módulo math
-  >>> math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
-  2
-  ```
-
-- Al importar el módulo, lo que se importan no son sus funciones, sino el
-  nombre y la definición del propio módulo, el cual contiene dentro la
-  definición de sus funciones.
-
-- Por eso, para poder llamar a una función del módulo usando esta técnica,
-  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
-  de la función:
-
-  ```python
-  math.gcd(16, 6)
-  ─┬── ─┬─
-   │    └────── función
-   └── módulo
-  ```
-
----
-
-- La lista completa de funciones que incluye el módulo `math` se puede
-  consultar en su documentación:
-
-  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
-
-### Métodos predefinidos
-
-- Igualmente, en la documentación podemos encontrar una lista de métodos
-  interesantes que operan con datos de tipo cadena:
-
-  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="_blank"}
-
-## Actividades
-
-@. Representar, según el modelo de sustitución, la evaluación las siguientes
-   expresiones, aplicando paso a paso la reducción que corresponda. Indicar
-   también el tipo del valor resultante:
-
-    a. `3 + 6 * 14`
-    b. `8 + 7 * 3.0 + 4 * 6`
-    c. `–4 * 7 + 2 ** 3 / 4 – 5`
-    d. `4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2`
-
-@. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
-   algebraicas:
-
-    a. $5\cdot(x + y)$
-
-    b. $a^2 + b^2$
-
-    c. $\frac{x + y}{u + \frac{w}{a}}$
-
-    d. $\frac{x}{y}\cdot(z + w)$
-
----
-
-@. Determinar, según las reglas de prioridad y asociatividad del lenguaje
-   Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas
-   sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:
-
-    a. `(8 + (7 * 3) + 4 * 6)`
-    b. `–(2 ** 3)`
-    c. `(33 + (3 * 4)) / 5`
-    d. `2 ** (2 * 3)`
-    e. `(3.0) + (2 * (18 – 4 ** 2))`
-    f. `(16 * 6) – (3) * 2`
-
-@. Usar la función `math.sqrt` para escribir dos expresiones en Python que
-   calculen las dos soluciones a la ecuación de segundo grado $ax^2+bx+c=0$.
-
-    Recordar que las soluciones son:
-    
-    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
-      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
-
----
-
-@. Evaluar las siguientes expresiones:
-
-    a. `9 – 5 – 3`
-    b. `2 // 3 + 3 / 5`
-    c. `9 // 2 / 5`
-    d. `7 % 5 % 3`
-    e. `7 % (5 % 3)`
-    f. `(7 % 5) % 3`
-    g. `(7 % 5 % 3)`
-    h. `((12 + 3) // 2) / (8 – (5 + 1))`
-    i. `12 / 2 * 3`
-    j. `math.sqrt(math.cos(4))`
-    k. `math.cos(math.sqrt(4))`
-    l. `math.trunc(815.66) + round(815.66)`
-
----
-
-@. Escribir las siguientes expresiones algorítmicas como expresiones
-   algebraicas:
-
-    a. `b ** 2 – 4 * a * c`
-    b. `3 * x ** 4 – 5 * x ** 3 + x * 12 – 17`
-    c. `(b + d) / (c + 4)`
-    d. `(x ** 2 + y ** 2) ** (1 / 2)`
 
 # Álgebra de Boole
 
