@@ -354,16 +354,7 @@ endwhile (no)
 - Un **literal** es un valor escrito directamente en el código del programa (en
   una expresión).
 
-- El literal representa un valor constante.
-
-- Ejemplos:
-
-  `-3`, `-2`, `-1`, `0`, `1`, `2`, `3` (literales que representan números
-  enteros)
-
-  `3.5`, `-2.7` (literales que representan números reales)
-
-  `"hola"`, `"pepe"`, `"25"`, `""` (literales de tipo cadena)
+- El literal representa un **valor constante**.
 
 - Los literales tienen que satisfacer las reglas de sintaxis del lenguaje.
 
@@ -372,6 +363,30 @@ endwhile (no)
 
 - Se deduce, pues, que **un literal debe ser la _expresión canónica_ del valor
   correspondiente**.
+
+---
+
+- Ejemplos de distintos tipos de literales:
+
+!SALTO
+
+---------------------------------------------------------------------
+  Números enteros        Números reales         Cadenas
+---------------------- ----------------------  ----------------------
+    `-2`                 `3.5`                  `"hola"`
+
+    `-1`                 `-2.7`                 `"pepe"`
+
+    `0`                                         `"25"`
+
+    `1`                                         `""`
+
+    `2`
+---------------------------------------------------------------------
+
+- Los números reales tienen siempre un `.` decimal.
+
+- Las cadenas van siempre entre comillas (simples `'` o dobles `"`).
 
 ## Operaciones, operadores y operandos
 
@@ -687,7 +702,7 @@ $$
 - Por ejemplo, si tenemos los conjuntos $A = \{1, 2, 3\}$ y $B = \{a, b\}$, el
   producto cartesiano $A \times B$ resultaría:
 
-  $$A \times B = \{ (1, a), (1, b), (2, a), (2, b), (3, a), (3, b) \}$$
+  $$A \times B = \big\{ (1, a), (1, b), (2, a), (2, b), (3, a), (3, b) \big\}$$
 
 - Este concepto es fundamental en **bases de datos**.
 
@@ -732,7 +747,7 @@ $$
     8
     ```
 
-- En ambos casos, la operación es la misma.
+- En ambos casos, la operación es exactamente la misma.
 
 <!--
 
@@ -759,28 +774,29 @@ $$
 - En una expresión podemos colocar aplicaciones de función en cualquier
   lugar donde sea sintácticamente correcto situar un valor.
 
-- La evaluación de una expresión que contiene aplicaciones de función se
-  realiza sustituyendo (*reduciendo*) dichas aplicaciones por su valor
+- La evaluación de una expresión que contiene aplicaciones de funciones se
+  realiza sustituyendo (*reduciendo*) cada aplicación por su valor
   correspondiente, es decir, por el valor que dicha función asocia a sus
   argumentos.
 
-- Por ejemplo, en la siguiente expresión se aplica la función $abs$ al
-  argumento $-12$ y la función $max$ a los argumentos $13$ y $28$:
+- Por ejemplo, en la siguiente expresión se combinan varias funciones y
+  operadores:
 
   `abs(-12) + max(13, 28)`
 
-  Tenemos una expresión donde se combinan varias funciones y operadores.
+  Aquí se aplica la función $abs$ al argumento $-12$ y la función $max$ a los
+  argumentos $13$ y $28$, y finalmente se suman los dos valores obtenidos.
 
 - ¿Cómo se calcula el valor de toda la expresión anterior?
 
 ---
 
-- En la expresión `abs(-12) + max(13, 28)` tenemos la suma de dos valores, pero
-  esos valores aún no los conocemos porque son el resultado de aplicar
-  funciones a argumentos.
+- En la expresión `abs(-12) + max(13, 28)` tenemos que calcular la suma de dos
+  valores, pero esos valores aún no los conocemos porque son el resultado de
+  aplicar funciones a argumentos.
 
 - Por tanto, lo primero que tenemos que hacer es evaluar las dos
-  sub-expresiones que contiene dicha expresión:
+  sub-expresiones principales que contiene dicha expresión:
 
   - `abs(-12)`
   - `max(13, 28)`
@@ -789,7 +805,7 @@ $$
 
 ---
 
-- En Matemáticas, no importa el orden de evaluación de las sub-expresiones, ya
+- En Matemáticas no importa el orden de evaluación de las sub-expresiones, ya
   que el resultado debe ser siempre el mismo, así que da igual evaluar primero
   uno u otro.
 
@@ -800,23 +816,23 @@ $$
 
   ::: column
 
-  $$\begin{array}{l}
+  1. $\begin{cases}\begin{array}{l}
   \underline{abs(-12)} + max(13, 28) \\[6pt]
   = 12 + \underline{max(13, 28)} \\[6pt]
   = \underline{12 + 28} \\[6pt]
   = 40
-  \end{array}$$
+  \end{array}\end{cases}$
 
   :::
 
   ::: column
 
-  $$\begin{array}{l}
+  2. $\begin{cases}\begin{array}{l}
   abs(-12) + \underline{max(13, 28)} \\[6pt]
   = \underline{abs(-12)} + 28 \\[6pt]
   = \underline{12 + 28} \\[6pt]
   = 40
-  \end{array}$$
+  \end{array}\end{cases}$
 
   :::
 
@@ -827,11 +843,11 @@ $$
 
 ---
 
-- En programación funcional ocurre lo mismo que en Matemáticas, gracias a la
-  *transparencia referencial*.
+- En programación funcional ocurre lo mismo que en Matemáticas, gracias a que
+  se cumple la *transparencia referencial*.
 
 - Sin embargo, Python no es un lenguaje funcional puro, y llegado el caso será
-  importante saber cuál es el orden de evaluación que aplica.
+  importante tener en cuenta el orden de evaluación que aplica.
 
 - En concreto, y mientras no se diga lo contrario, **Python siempre evalúa las
   expresiones de izquierda a derecha**.
@@ -865,32 +881,91 @@ funciones se evalúan **de izquierda a derecha**.
   = 40
   ```
 
+### Composición de operaciones y funciones
+
+- Como acabamos de ver, el resultado de una operación puede ser un dato sobre
+  el que aplicar otra operación dentro de la misma expresión:
+
+  - En `4 * (3 + 5)`, el resultado de `(3 + 5)` se usa como operando para el
+    operador `*`.
+
+  - En `abs(-12) + max(13, 28)`, los resultados de las funciones `abs` y `max`
+    son los operandos del operador `+`.
+
+- A esto se le denomina **composición de operaciones**.
+
+- El orden en el que se evalúan este tipo de expresiones (aquellas que
+  contienen composición de operaciones) es algo que se estudiará más en
+  profundidad en el siguiente tema.
+
+---
+
+- La manera más sencilla de realizar varias operaciones sobre los mismos datos
+  es componer las operaciones, es decir, hacer que el resultado de una
+  operación sea la entrada de otra operación.
+
+- Se va creando así una **secuencia de operaciones** donde la salida de una es
+  la entrada de la siguiente.
+
+- Cuando el resultado de una función se usa como argumento de otra función
+  le llamamos **composición de funciones**:
+
+  ```python
+  round(abs(-23.459), 2)  # devuelve 23.46
+  ```
+
+- En programación funcional, la composición de funciones es una técnica que
+  ayuda a **descomponer un problema en partes** que se van resolviendo por
+  pasos como en una **cadena de montaje**.
+
+!DOT(composicion-funciones.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-23.459 [shape = plaintext, fillcolor = transparent]
+23.459 [shape = plaintext, fillcolor = transparent]
+23.46 [shape = plaintext, fillcolor = transparent]
+2 [shape = plaintext, fillcolor = transparent]
+-23.459 -> abs -> 23.459 -> round -> 23.46
+2 -> round
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### Métodos
 
-- Los **métodos** son, para la *programación orientada a objetos*, el
-  equivalente a las **funciones** para la *programación funcional*.
+- Los **métodos** son, para la **programación orientada a _objetos_**, el
+  equivalente a las **funciones** para la **programación _funcional_**.
 
 - Los métodos son como funciones, pero en este caso se dice que actúan *sobre*
-  un valor.
+  un valor, que es el **objeto** sobre el que recae la acción del método.
 
 - La *aplicación* de un método se denomina **invocación** o **llamada** al
   método, y se escribe:
 
   $$v.m()$$
 
-  que representa la **llamada** al método $m$ sobre el *objeto* $v$.
+  que representa la **llamada** al método $m$ **sobre el _objeto_** $v$.
+
+---
+
+- Esta llamada se puede leer de cualquiera de estas formas:
+
+  - Se **llama** (o **invoca**) al método $m$ sobre el objeto $v$.
+
+  - Se **ejecuta** el método $m$ sobre el objeto $v$.
+
+  - Se **envía el mensaje** $m$ al objeto $v$.
 
 - Los métodos también pueden tener argumentos, como cualquier función:
 
   $$v.m(a_1, a_2, ..., a_n)$$
 
+  y en tal caso, los argumentos se pasarían al método correspondiente.
+
 ---
 
-- En la práctica, no hay mucha diferencia entre hacer:
+- En la práctica, no hay mucha diferencia entre tener un método y hacer:
 
   $$v.m(a_1, a_2, ..., a_n)$$
 
-  y hacer
+  y tener una función y hacer:
 
   $$m(v, a_1, a_2, ..., a_n)$$
 
@@ -933,14 +1008,88 @@ funciones se evalúan **de izquierda a derecha**.
   count('hola caracola', 'ol')
   ```
 
----
+## Otros conceptos sobre operaciones
+
+### Sobrecarga de operaciones
+
+- Un **mismo operador** (o nombre de función o método) puede representar
+  **varias operaciones diferentes**, dependiendo del tipo de los operandos o
+  argumentos sobre los que actúa.
+
+- Un ejemplo sencillo en Python es el operador `+`:
+
+  - Cuando actúa sobre números, representa la operación de suma:
+
+    ```python
+    >>> 2 + 3
+    5
+    ```
+
+  - Cuando actúa sobre cadenas, representa la *concatenación* de cadenas:
+
+    ```python
+    >>> "hola" + "pepe"
+    'holapepe'
+    ```
+
+- Cuando esto ocurre, decimos que el operador (o la función, o el método) está
+  **sobrecargado**.
+
+### Equivalencia entre formas de operaciones
 
 - Una operación podría tener *forma* de **operador**, de **función** o de
   **método**.
 
-- De hecho, en Python hay operaciones que tienen **las tres formas**.
+- También podemos encontrarnos operaciones con más de una forma.
 
-- Por ejemplo, la suma de dos números enteros se puede expresar:
+- Por ejemplo, ya vimos anteriormente la operación *potencia*, que consiste en
+  elevar un número a la potencia de otro ($x^y$). Esta operación se puede
+  hacer:
+
+  - Con el operador `**`:
+
+    ```python
+    >>> 2 ** 4
+    16
+    ```
+
+  - Con la función `pow`:
+
+    ```python
+    >>> pow(2, 4)
+    16
+    ```
+
+---
+
+- Otro ejemplo es la operación *contiene*, que consiste en comprobar si una
+  cadena contiene a otra (una *subcadena*). Esa operación también tiene dos
+  formas:
+
+  - El operador `in`:
+
+    ```python
+    >>> "o" in "hola"
+    True
+    ```
+
+  - El método `__contains__` ejecutado sobre la cadena (y pasando la
+    subcadena como argumento):
+
+    ```python
+    >>> "hola".__contains__("o")
+    True
+    ```
+
+    Observar que, en este caso, el objeto que recibe el mensaje (es decir,
+    el objeto al que se le pide que ejecute el método) es la cadena `"hola"`.
+    Es como si le preguntáramos a la cadena `"hola"` si contiene la subcadena
+    `"o"`.
+
+---
+
+- De hecho, en Python hay operaciones que tienen **las tres formas**. Por
+  ejemplo, la suma de dos números enteros se puede expresar:
 
   - Mediante el operador `+`:
   
@@ -961,59 +1110,38 @@ funciones se evalúan **de izquierda a derecha**.
     (4).__add__(3)
     ```
 
-- En general, y mientras no se diga lo contrario, cuando hablemos de
-  operaciones supondremos que están representadas como funciones.
+---
 
-## Composición de operaciones
+- La forma **más general** y destacada de representar una operación es la
+  **función**, ya que cualquier operador o método se puede expresar en forma de
+  función (lo contrario no siempre es cierto).
 
-- Como acabamos de ver, el resultado de una operación puede ser un dato sobre
-  el que aplicar otra operación dentro de la misma expresión:
+- Es decir: los operadores y los métodos son formas sintácticas especiales
+  para expresar operaciones que se podrían expresar igualmente mediante
+  funciones.
 
-  - En `4 * (3 + 5)`, el resultado de `(3 + 5)` se usa como operando para el
-    operador `*`.
+- Por eso, cuando hablemos de operaciones, y mientras no se diga lo contrario,
+  supondremos que están representadas como funciones.
 
-  - En `abs(-12) + max(13, 28)`, los resultados de las funciones `abs` y `max`
-    son los operandos del operador `+`.
+- Eso implica que los conceptos de *dominio*, *rango*, *aridad*, *argumento*,
+  *resultado*, *composición* y *asociación* (o *correspondencia*), que
+  estudiamos cuando hablamos de las funciones, también existen en los
+  operadores y los métodos.
 
-- A esto se le denomina **composición de operaciones**.
+- Es decir: todos esos son conceptos propios de cualquier operación, da igual
+  la forma que tenga esta.
 
 ---
 
-- La manera más sencilla de realizar varias operaciones sobre los mismos datos
-  es componer las operaciones, es decir, hacer que el resultado de una
-  operación sea la entrada de otra operación.
+- Muchos lenguajes de programación no permiten definir nuevos operadores, pero
+  sí permiten definir nuevas funciones (o métodos, dependiendo del paradigma
+  utilizado).
 
-- Se va creando así una **secuencia de operaciones** donde la salida de una es
-  la entrada de la siguiente.
+- En algunos lenguajes, los operadores son casos particulares de funciones (o
+  métodos) y se pueden definir como tales. Por tanto, en estos lenguajes se
+  pueden crear nuevos operadores definiendo nuevas funciones (o métodos).
 
-- Cuando el resultado de una función se usa como argumento de otra función
-  le llamamos **composición de funciones**:
-
-  ```python
-  round(abs(-23.459), 2)  # devuelve 23.46
-  ```
-
-- El orden en el que se evalúan este tipo de expresiones (aquellas que
-  contienen composición de funciones) es algo que se estudiará en profundidad
-  en el siguiente tema.
-
----
-
-- En programación funcional, la composición de funciones es una técnica que
-  ayuda a **descomponer un problema en partes** que se van resolviendo por
-  pasos como en una **cadena de montaje**.
-
-!DOT(composicion-funciones.svg)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--23.459 [shape = plaintext, fillcolor = transparent]
-23.459 [shape = plaintext, fillcolor = transparent]
-23.46 [shape = plaintext, fillcolor = transparent]
-2 [shape = plaintext, fillcolor = transparent]
--23.459 -> abs -> 23.459 -> round -> 23.46
-2 -> round
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-## Igualdad de operaciones
+### Igualdad de operaciones
 
 - Dos operaciones son **iguales** si devuelven resultados iguales para
   argumentos iguales.
@@ -1027,7 +1155,7 @@ funciones se evalúan **de izquierda a derecha**.
   $f = g$ si y sólo si $f(x) = g(x)$ para todo $x$.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por ejemplo, una función que calcule el doble de su argumento multiplicándolo
+- Por ejemplo: una función que calcule el doble de su argumento multiplicándolo
   por 2, sería exactamente igual a otra función que calcule el doble de su
   argumento sumándolo consigo mismo.
 
@@ -1160,7 +1288,7 @@ Función                     Descripción           Ejemplo                  Res
 - Igualmente, en la documentación podemos encontrar una lista de métodos
   interesantes que operan con datos de tipo cadena:
 
-  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="_blank"}
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
 
 ## Actividades
 
