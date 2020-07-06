@@ -755,6 +755,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-2"><a href="#cb16-2"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul>
 </section>
+<section class="slide level5" data-number="3.5.1.0.4">
+
+<ul>
+<li><p>En Programación, a la aplicación de una función también se le denomina <strong>invocación</strong> o <strong>llamada</strong> a la función.</p></li>
+<li><p>Por ejemplo, cuando hacemos <code>abs(-35)</code> podemos decir que:</p>
+<ul>
+<li><p>Estamos <em>aplicando</em> la función <code>abs</code> al argumento <code>-35</code>.</p></li>
+<li><p>Estamos <em>llamando</em> a la función <code>abs</code> (con el argumento <code>-35</code>).</p></li>
+<li><p>Estamos <em>invocando</em> a la función <code>abs</code> (con el argumento <code>-35</code>).</p></li>
+</ul></li>
+<li><p>De hecho, en Programación es mucho más común decir «<em>se llama a la función</em>» que decir «<em>se aplica la función</em>».</p></li>
+<li><p>También se suele decir que «<em>se <strong>ejecuta</strong> la función</em>».</p></li>
+</ul>
+</section>
 
 <section id="funciones-con-varios-argumentos" class="title-slide slide level3" data-number="3.5.2">
 <h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span> Funciones con varios argumentos</h3>
@@ -838,7 +852,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="3.5.3.0.1">
 
 <ul>
-<li><p>En la expresión <code>abs(-12) + max(13, 28)</code> tenemos que calcular la suma de dos valores, pero esos valores aún no los conocemos porque son el resultado de aplicar funciones a argumentos.</p></li>
+<li><p>En la expresión <code>abs(-12) + max(13, 28)</code> tenemos que calcular la suma de dos valores, pero esos valores aún no los conocemos porque son el resultado de llamar a dos funciones.</p></li>
 <li><p>Por tanto, lo primero que tenemos que hacer es evaluar las dos sub-expresiones principales que contiene dicha expresión:</p>
 <ul>
 <li><code>abs(-12)</code></li>
@@ -898,7 +912,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Como acabamos de ver, el resultado de una operación puede ser un dato sobre el que aplicar otra operación dentro de la misma expresión:</p>
 <ul>
 <li><p>En <code>4 * (3 + 5)</code>, el resultado de <code>(3 + 5)</code> se usa como operando para el operador <code>*</code>.</p></li>
-<li><p>En <code>abs(-12) + max(13, 28)</code>, los resultados de las funciones <code>abs</code> y <code>max</code> son los operandos del operador <code>+</code>.</p></li>
+<li><p>En <code>abs(-12) + max(13, 28)</code>, los resultados de llamar a las funciones <code>abs</code> y <code>max</code> son los operandos del operador <code>+</code>.</p></li>
 </ul></li>
 <li><p>A esto se le denomina <strong>composición de operaciones</strong>.</p></li>
 <li><p>El orden en el que se evalúan este tipo de expresiones (aquellas que contienen composición de operaciones) es algo que se estudiará más en profundidad en el siguiente tema.</p></li>
@@ -1994,14 +2008,14 @@ Python&quot;&quot;&quot;</code></pre>
 
 <ul>
 <li><p>En un <strong>lenguaje funcional puro</strong>, un identificador ya ligado no se puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>x <span class="op">=</span> <span class="dv">4</span>  <span class="co"># ligamos el identificador x al valor 4</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a>x <span class="op">=</span> <span class="dv">7</span>  <span class="co"># intentamos ligar x al valor 7, pero ya está ligado al valor 4</span></span></code></pre></div></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/rebinding.svg" class="plain" style="width:30.0%" /></p>
+<p><img data-src="images/rebinding.svg" class="plain" style="width:25.0%" /></p>
 </div>
 <ul>
-<li><p>Python no es un lenguaje funcional puro, por lo que se permite volver a ligar el mismo identificador a otro valor distinto (<em>rebinding</em>).</p>
+<li><p>Python no es un lenguaje funcional puro, por lo que sí se permite volver a ligar el mismo identificador a otro valor distinto (situación que se denomina <strong><em>rebinding</em></strong>).</p>
 <ul>
 <li><p>Eso hace que se pierda el valor anterior.</p></li>
 <li><p>Por ahora, <strong>no lo hagamos</strong>.</p></li>
@@ -2016,7 +2030,7 @@ Python&quot;&quot;&quot;</code></pre>
 <li><p>¿Cuál es la <strong>longitud máxima</strong> de un identificador?</p></li>
 <li><p>¿Qué <strong>caracteres</strong> se pueden usar?</p></li>
 <li><p>¿Se distinguen <strong>mayúsculas</strong> de <strong>minúsculas</strong>?</p></li>
-<li><p>¿Coincide con una palabras clave o reservada?</p>
+<li><p>¿Coincide con una palabra clave o reservada?</p>
 <ul>
 <li><p><strong>Palabra clave</strong>: palabra que forma parte de la sintaxis del lenguaje.</p></li>
 <li><p><strong>Palabra reservada</strong>: palabra que no puede emplearse como identificador.</p></li>
@@ -2059,12 +2073,12 @@ Python&quot;&quot;&quot;</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
 <span id="cb61-2"><a href="#cb61-2"></a>y <span class="op">=</span> x</span></code></pre></div>
 <ul>
-<li><p>En este caso estamos ligando a <code>y</code> el valor que tiene <code>x</code>.</p></li>
+<li><p>En este caso estamos ligando a <code>y</code> el mismo valor que tiene <code>x</code>.</p></li>
 <li><p><code>x</code> e <code>y</code> comparten valor.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/ligadura-compartida.svg" class="plain" style="width:30.0%" /></p>
+<p><img data-src="images/ligadura-compartida.svg" class="plain" style="width:25.0%" /></p>
 </div>
 </section>
 
@@ -2072,11 +2086,12 @@ Python&quot;&quot;&quot;</code></pre>
 <h2 data-number="6.4"><span class="header-section-number">6.4</span> Marcos (<em>frames</em>)</h2>
 <ul>
 <li><p>Un <strong>marco</strong> (del inglés <em>frame</em>) es un <strong>conjunto de ligaduras</strong>.</p></li>
-<li><p>En un marco, un identificador sólo puede tener como máximo una ligadura.</p></li>
-<li><p>En cambio, ese mismo identificador puede estar ligado a diferentes valores en diferentes marcos.</p></li>
-<li><p>La existencia de un marco dependerá de la estructura y el funcionamiento del programa, es decir, que cuando se ejecutan ciertas construcciones del programa, éstas crean sus propios marcos.</p>
+<li><p>Las ligaduras se almacenan en marcos.</p></li>
+<li><p>En un marco, un identificador sólo puede tener como máximo una ligadura. En cambio, <strong>el mismo identificador puede estar ligado a diferentes valores en diferentes marcos</strong>.</p></li>
+<li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
 <ul>
-<li>Por ejemplo, cuando definamos una función y la apliquemos a unos argumentos, dicha aplicación llevará asociada su propio marco.</li>
+<li><p>Se crean en memoria cuando la ejecución del programa entra en ciertas partes del mismo y se destruyen cuando sale.</p></li>
+<li><p>Van incorporando nuevas ligaduras a medida que se van ejecutando nuevas instrucciones.</p></li>
 </ul></li>
 <li><p>El <strong>marco global</strong> es un marco que siempre existe en cualquier punto del programa y contiene las ligaduras definidas fuera de cualquier construcción o estructura del mismo.</p>
 <ul>
@@ -2087,7 +2102,7 @@ Python&quot;&quot;&quot;</code></pre>
 <section class="slide level5" data-number="6.4.0.0.1">
 
 <ul>
-<li><p>En un momento dado, un marco contendrá las ligaduras que se hayan definido hasta ese momento en el contexto asociado a ese marco:</p>
+<li><p>En un momento dado, un marco contendrá las ligaduras que se hayan definido hasta ese momento en el <em>ámbito</em> asociado a ese marco:</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb62-2"><a href="#cb62-2"></a>Traceback (most recent call last):</span>
 <span id="cb62-3"><a href="#cb62-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
@@ -2104,6 +2119,9 @@ Python&quot;&quot;&quot;</code></pre>
 </section>
 <section class="slide level5" data-number="6.4.0.0.2">
 
+<ul>
+<li>Los marcos se van creando y destruyendo durante la ejecución del programa, y su contenido (las ligaduras) también va cambiando con el tiempo, a medida que se van ejecutando sus instrucciones.</li>
+</ul>
 <div class="columns">
 <div class="column">
 <ul>
@@ -2134,14 +2152,35 @@ Python&quot;&quot;&quot;</code></pre>
 </div>
 </div>
 </section>
+<section class="slide level5" data-number="6.4.0.0.3">
+
+<ul>
+<li><p>Hemos visto que una ligadura es una asociación entre un identificador y un valor.</p></li>
+<li><p><strong>Los marcos almacenan ligaduras, pero <em>NO</em> almacenan los valores</strong> a los que están asociados los identificadores de esas ligaduras.</p></li>
+<li><p>Por eso hemos dibujado a los valores fuera de los marcos en los diagramas anteriores.</p></li>
+<li><p>Los valores se almacenan en una zona de la memoria del intérprete conocida como el <strong>montículo</strong>.</p></li>
+<li><p>Asimismo, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
+</ul>
+</section>
 
 <section id="entorno-environment" class="title-slide slide level2" data-number="6.5">
 <h2 data-number="6.5"><span class="header-section-number">6.5</span> Entorno (<em>environment</em>)</h2>
 <ul>
-<li><p>Un <strong>entorno</strong> (del inglés, <em>environment</em>) es una <strong>secuencia de marcos</strong> que contienen todas las ligaduras válidas en un punto concreto del programa.</p></li>
-<li><p>Es decir, el entorno nos dice qué identificadores son accesibles en un momento dado, y con qué valores están ligados.</p></li>
-<li><p>El entorno, por tanto, depende del punto del programa en el que se calcule.</p></li>
-<li><p>Como por ahora sólo tenemos un marco, que es el <em>marco global</em>, nuestro entorno sólo podrá tener un único marco, es decir, que el entorno coincidirá con el marco global.</p></li>
+<li><p>El entorno es una extensión del concepto de <em>marco</em>.</p></li>
+<li><p>Un <strong>entorno</strong> (del inglés, <em>environment</em>) es una <strong>secuencia o cadena de marcos</strong> que contienen todas las ligaduras válidas en un momento concreto de la ejecución del programa.</p></li>
+<li><p>Es decir, el entorno nos dice <strong>qué identificadores son <em>accesibles</em> en un momento dado, y con qué valores están ligados</strong>.</p></li>
+<li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que depende del momento en el que se calcule, es decir, de por dónde va la ejecución del programa o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.5.0.0.1">
+
+<ul>
+<li><p>Ya hemos visto que, durante la ejecución del programa, se van creando y destruyendo marcos a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
+<li><p><strong>Según se van creando en memoria, esos marcos van enlazándose unos con otros</strong> creando la secuencia de marcos que forman el entorno.</p></li>
+<li><p>Por tanto, en un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
+<li><p>El entorno <strong>siempre contendrá</strong>, al menos, un marco: el <em>marco global</em>.</p></li>
+<li><p><strong>El marco global siempre será el último de la cadena de marcos</strong> que forman el entorno.</p></li>
+<li><p>Como por ahora sólo tenemos ese marco, nuestro entorno sólo contendrá un único marco. Por tanto, el entorno coincidirá con el marco global.</p></li>
 <li><p>La cosa cambiará en cuanto empecemos a crear funciones.</p></li>
 </ul>
 </section>

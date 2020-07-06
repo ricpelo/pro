@@ -695,6 +695,24 @@ $$
   4
   ```
 
+---
+
+- En Programación, a la aplicación de una función también se le denomina
+  **invocación** o **llamada** a la función.
+
+- Por ejemplo, cuando hacemos `abs(-35)` podemos decir que:
+
+  - Estamos *aplicando* la función `abs` al argumento `-35`.
+
+  - Estamos *llamando* a la función `abs` (con el argumento `-35`).
+
+  - Estamos *invocando* a la función `abs` (con el argumento `-35`).
+
+- De hecho, en Programación es mucho más común decir «*se llama a la función*»
+  que decir «*se aplica la función*».
+
+- También se suele decir que «_se **ejecuta** la función_».
+
 ### Funciones con varios argumentos
 
 - El concepto de función se puede generalizar para obtener **funciones con más
@@ -817,7 +835,7 @@ $$
 
 - En la expresión `abs(-12) + max(13, 28)` tenemos que calcular la suma de dos
   valores, pero esos valores aún no los conocemos porque son el resultado de
-  aplicar funciones a argumentos.
+  llamar a dos funciones.
 
 - Por tanto, lo primero que tenemos que hacer es evaluar las dos
   sub-expresiones principales que contiene dicha expresión:
@@ -913,8 +931,8 @@ funciones se evalúan **de izquierda a derecha**.
   - En `4 * (3 + 5)`, el resultado de `(3 + 5)` se usa como operando para el
     operador `*`.
 
-  - En `abs(-12) + max(13, 28)`, los resultados de las funciones `abs` y `max`
-    son los operandos del operador `+`.
+  - En `abs(-12) + max(13, 28)`, los resultados de llamar a las funciones `abs`
+    y `max` son los operandos del operador `+`.
 
 - A esto se le denomina **composición de operaciones**.
 
@@ -2104,11 +2122,11 @@ x -> 25
   ligar a otro valor. Por ejemplo, lo siguiente daría un error:
 
   ```python
-  x = 4
-  x = 7
+  x = 4  # ligamos el identificador x al valor 4
+  x = 7  # intentamos ligar x al valor 7, pero ya está ligado al valor 4
   ```
 
-!DOT(rebinding.svg)()(width=30%)(width=20%)
+!DOT(rebinding.svg)()(width=25%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
@@ -2118,8 +2136,9 @@ x -> 4 [style = dashed, color = grey]
 x -> 7
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Python no es un lenguaje funcional puro, por lo que se permite volver a ligar
-  el mismo identificador a otro valor distinto (*rebinding*).
+- Python no es un lenguaje funcional puro, por lo que sí se permite volver a
+  ligar el mismo identificador a otro valor distinto (situación que se denomina
+  **_rebinding_**).
 
   - Eso hace que se pierda el valor anterior.
 
@@ -2136,7 +2155,7 @@ x -> 7
 
   - ¿Se distinguen **mayúsculas** de **minúsculas**?
 
-  - ¿Coincide con una palabras clave o reservada?
+  - ¿Coincide con una palabra clave o reservada?
 
     - **Palabra clave**: palabra que forma parte de la sintaxis del lenguaje.
 
@@ -2189,11 +2208,11 @@ x -> 7
   y = x
   ```
 
-  - En este caso estamos ligando a `y` el valor que tiene `x`.
+  - En este caso estamos ligando a `y` el mismo valor que tiene `x`.
 
   - `x` e `y` comparten valor.
 
-!DOT(ligadura-compartida.svg)()(width=30%)(width=20%)
+!DOT(ligadura-compartida.svg)()(width=25%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 25 [shape = circle]
@@ -2207,17 +2226,19 @@ y -> 25
 
 - Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
 
-- En un marco, un identificador sólo puede tener como máximo una ligadura.
+- Las ligaduras se almacenan en marcos.
 
-- En cambio, ese mismo identificador puede estar ligado a diferentes valores en
-  diferentes marcos.
+- En un marco, un identificador sólo puede tener como máximo una ligadura. En
+  cambio, **el mismo identificador puede estar ligado a diferentes valores en
+  diferentes marcos**.
 
-- La existencia de un marco dependerá de la estructura y el funcionamiento del
-  programa, es decir, que cuando se ejecutan ciertas construcciones del
-  programa, éstas crean sus propios marcos.
+- Los marcos son conceptos **_dinámicos_**:
 
-  - Por ejemplo, cuando definamos una función y la apliquemos a unos
-    argumentos, dicha aplicación llevará asociada su propio marco.
+  - Se crean en memoria cuando la ejecución del programa entra en ciertas
+    partes del mismo y se destruyen cuando sale.
+
+  - Van incorporando nuevas ligaduras a medida que se van ejecutando nuevas
+    instrucciones.
 
 - El **marco global** es un marco que siempre existe en cualquier punto del
   programa y contiene las ligaduras definidas fuera de cualquier construcción o
@@ -2228,7 +2249,7 @@ y -> 25
 ---
 
 - En un momento dado, un marco contendrá las ligaduras que se hayan definido
-  hasta ese momento en el contexto asociado a ese marco:
+  hasta ese momento en el *ámbito* asociado a ese marco:
 
   ```{.python .number-lines}
   >>> x
@@ -2253,6 +2274,10 @@ y -> 25
 
 ---
 
+- Los marcos se van creando y destruyendo durante la ejecución del programa, y
+  su contenido (las ligaduras) también va cambiando con el tiempo, a medida que
+  se van ejecutando sus instrucciones.
+
 :::: columns
 
 ::: column
@@ -2272,70 +2297,110 @@ y -> 25
 
 !DOT(marco-linea1.svg)(Marco global en la línea 1)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    4 [shape = circle]
     x [shape = plaintext, fillcolor = transparent]
-    x -> 4
 }
+x -> 4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 :::
 
 ::: column
 
 !DOT(marco-linea2.svg)(Marco global en la línea 2)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 [shape = circle]
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    3 [shape = circle]
-    4 [shape = circle]
     x [shape = plaintext, fillcolor = transparent]
     y [shape = plaintext, fillcolor = transparent]
-    x -> 4
-    y -> 3
 }
+x -> 4
+y -> 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 &nbsp; 
 
 !DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 [shape = circle]
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    3 [shape = circle];
-    4 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
     y [shape = plaintext, fillcolor = transparent]
     z [shape = plaintext, fillcolor = transparent]
-    x -> 4
-    y -> 3
-    z -> 3
 }
+x -> 4
+y -> 3
+z -> 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::::
 
+---
+
+- Hemos visto que una ligadura es una asociación entre un identificador y un
+  valor.
+
+- **Los marcos almacenan ligaduras, pero _NO_ almacenan los valores** a los que
+  están asociados los identificadores de esas ligaduras.
+
+- Por eso hemos dibujado a los valores fuera de los marcos en los diagramas
+  anteriores.
+
+- Los valores se almacenan en una zona de la memoria del intérprete conocida
+  como el **montículo**.
+
+- Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
+  la **pila de control**, la cual estudiaremos mejor más adelante.
+
 ## Entorno (*environment*)
 
-- Un **entorno** (del inglés, *environment*) es una **secuencia de marcos** que
-  contienen todas las ligaduras válidas en un punto concreto del programa.
+- El entorno es una extensión del concepto de *marco*.
 
-- Es decir, el entorno nos dice qué identificadores son accesibles en un
-  momento dado, y con qué valores están ligados.
+- Un **entorno** (del inglés, *environment*) es una **secuencia o cadena de
+  marcos** que contienen todas las ligaduras válidas en un momento concreto de
+  la ejecución del programa.
 
-- El entorno, por tanto, depende del punto del programa en el que se calcule.
+- Es decir, el entorno nos dice **qué identificadores son _accesibles_ en un
+  momento dado, y con qué valores están ligados**.
 
-- Como por ahora sólo tenemos un marco, que es el *marco global*, nuestro
-  entorno sólo podrá tener un único marco, es decir, que el entorno coincidirá
-  con el marco global.
+- El entorno, por tanto, es un concepto **_dinámico_** que depende del momento
+  en el que se calcule, es decir, de por dónde va la ejecución del programa o,
+  lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora.
+
+---
+
+- Ya hemos visto que, durante la ejecución del programa, se van creando y
+  destruyendo marcos a medida que la ejecución va entrando y saliendo de
+  ciertas partes del programa.
+
+- **Según se van creando en memoria, esos marcos van enlazándose unos con
+  otros** creando la secuencia de marcos que forman el entorno.
+
+- Por tanto, en un momento dado, el entorno contendrá más o menos marcos
+  dependiendo de por dónde haya pasado la ejecución del programa hasta ese
+  momento.
+
+- El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
+
+- **El marco global siempre será el último de la cadena de marcos** que forman
+  el entorno.
+
+- Como por ahora sólo tenemos ese marco, nuestro entorno sólo contendrá un
+  único marco. Por tanto, el entorno coincidirá con el marco global.
 
 - La cosa cambiará en cuanto empecemos a crear funciones.
 
@@ -2432,8 +2497,8 @@ subgraph cluster0 {
   aunque ambos programas sean equivalentes en cuanto al efecto que producen y
   el resultado que generan.
 
-- Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (`_`)
-  para separarlas y formar un único identificador:
+- Si el identificador representa varias palabras, se puede usar el carácter de
+  guión bajo (`_`) para separarlas y formar un único identificador:
 
   ```python
   altura_triangulo = 34.2
