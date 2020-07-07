@@ -1155,19 +1155,23 @@ E -> x [lhead = cluster0]
   escrito, sino que la puede haber recibido de otro programador como una
   «**caja negra**».
 
----
+### Especificaciones de funciones
 
 - Técnicamente, se dice que para poder **usar una abstracción funcional** nos
   basta con conocer su **especificación**, que está formada por tres
   propiedades fundamentales:
 
-  - El **dominio**: el conjunto de argumentos válidos
-  - El **rango**: el conjunto de valores que devuelve
-  - El **propósito**: qué hace la función, es decir, la relación entre su
-    entrada y su salida
+  - El **dominio**: el conjunto de argumentos válidos.
 
-  aunque nosotros hasta ahora hemos llamado **entrada** al dominio y agrupamos
-  el rango y el propósito en una sola propiedad **salida**.
+  - El **rango**: el conjunto de valores que devuelve.
+
+  - El **propósito**: qué hace la función, es decir, la relación entre su
+    entrada y su salida.
+
+- Aunque nosotros hasta ahora hemos llamado **entrada** al dominio y agrupamos
+  el rango y el propósito en una sola propiedad que hemos llamado **salida**.
+
+---
 
 - Por ejemplo, cualquier función `cuadrado` que usemos para implementar `area`
   debe satisfacer esta especificación:
@@ -1223,7 +1227,80 @@ E -> x [lhead = cluster0]
 
 ---
 
+- Las pre y postcondiciones no es necesario escribirlas de una manera **formal
+  y rigurosa**, usando el lenguaje de las Matemáticas o la Lógica.
+
+- Si la especificación se escribe en *lenguaje natural* y se entiende bien,
+  completamente y sin ambigüedades, no hay problema.
+
+- El motivo de usar un lenguaje formal es que, normalmente, resulta **mucho más
+  conciso y preciso que el lenguaje natural**.
+
+- El lenguaje natural suele ser:
+
+  - **Más prolijo**: necesita más palabras para decir lo mismo que diríamos
+    matemáticamente usando menos caracteres.
+
+  - **Más ambiguo**: lo que se dice en lenguaje natural se puede interpretar de
+    distintas formas.
+
+  - **Menos completo**: quedan flecos y situaciones especiales que no se tienen
+    en cuenta.
+
+---
+
 - Otro ejemplo más completo:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: car \neq \text{\texttt{""}} \land len(car) = 1 \\
+    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
+    \text{\textbf{Post}}: cuenta(cadena, car) \geq 0 \land cuenta(cadena, car) = cadena.count(car)
+  \end{cases}$$
+
+- $count$ es una **función _oculta_ o _auxiliar_** (en este caso, un *método
+  auxiliar*). Las funciones auxiliares se puede usar en la especificación pero
+  está prohibido usarlas en la implementación.
+
+- Con esto estamos diciendo que $cuenta$ es una función que recibe una cadena y
+  un carácter (otra cadena con un único carácter dentro).
+
+- Además, estamos diciendo que devuelve el mismo resultado que devuelve el
+  método `count` (que ya existe en Python).
+
+- Es decir: cuenta el número de veces que el carácter $car$ aparece en
+  $cadena$.
+
+---
+
+- En realidad, las condiciones de la especificación anterior se podrían
+  simplificar aprovechando las propiedades de las expresiones lógicas, quedando
+  así:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: len(car) = 1 \\
+    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
+    \text{\textbf{Post}}: cuenta(cadena, car) = cadena.count(car)
+  \end{cases}$$
+
+- ¿Por qué?
+
+---
+
+- Finalmente, podríamos escribir la misma especificación en lenguaje natural:
+
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: car \text{ debe ser un único carácter} \\
+    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
+    \text{\textbf{Post}}: cuenta(cadena, car) \text{ devuelve el número de veces } \\
+                          \quad\quad\enspace\text{ que aparece el carácter } car \text{ en la cadena } cadena. \\
+                          \quad\quad\enspace\text{ Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la } \\
+                          \quad\quad\enspace\text{ cadena } cadena \text{, debe devolver } 0.
+  \end{cases}$$
+
+---
+
+- Un ejemplo mucho más avanzado para los curiosos:
 
   $$\begin{cases}
     \text{\textbf{Pre}}: lista \neq \texttt{[]} \\
@@ -1231,8 +1308,7 @@ E -> x [lhead = cluster0]
     \text{\textbf{Post}}: suma(lista) = sum(lista)
   \end{cases}$$
 
-- $sum$ es una función oculta o auxiliar, que se puede usar en la
-  especificación pero está prohibido usarla en la implementación.
+- $sum$ es una función auxiliar.
 
 - `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
   puede utilizar para indicar el tipo de una lista cuyos elementos son todos

@@ -159,6 +159,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         document.getElementById('header-left').appendChild(el);
         document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
 
+        // Mueve un poquito el = a la derecha cuando hay que dibujar un "no-igual" con KaTeX:
+        Array.prototype.forEach.call(document.getElementsByClassName("rlap"), function (el) {
+            var e = el;
+            var i = 0;
+            while (e != null && i < 6) {
+                e = e.parentElement;
+                i++;
+            }
+            if (e != null && i == 6 && e.nextSibling != null && e.nextSibling.innerText == "=") {
+                el.style.width = "0.1em";
+            }
+            console.log(el);
+            console.log(e.nextSibling);
+        });
+
         function updateHeader(nd) {
             var hr = document.getElementById('header-right');
             while (hr.children.length > 0) {
@@ -869,16 +884,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Incluso puede que el usuario de una función no sea el mismo que la haya escrito, sino que la puede haber recibido de otro programador como una «<strong>caja negra</strong>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.2">
-
+<section id="especificaciones-de-funciones" class="title-slide slide level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Especificaciones de funciones</h3>
 <ul>
 <li><p>Técnicamente, se dice que para poder <strong>usar una abstracción funcional</strong> nos basta con conocer su <strong>especificación</strong>, que está formada por tres propiedades fundamentales:</p>
 <ul>
-<li>El <strong>dominio</strong>: el conjunto de argumentos válidos</li>
-<li>El <strong>rango</strong>: el conjunto de valores que devuelve</li>
-<li>El <strong>propósito</strong>: qué hace la función, es decir, la relación entre su entrada y su salida</li>
+<li><p>El <strong>dominio</strong>: el conjunto de argumentos válidos.</p></li>
+<li><p>El <strong>rango</strong>: el conjunto de valores que devuelve.</p></li>
+<li><p>El <strong>propósito</strong>: qué hace la función, es decir, la relación entre su entrada y su salida.</p></li>
+</ul></li>
+<li><p>Aunque nosotros hasta ahora hemos llamado <strong>entrada</strong> al dominio y agrupamos el rango y el propósito en una sola propiedad que hemos llamado <strong>salida</strong>.</p></li>
 </ul>
-<p>aunque nosotros hasta ahora hemos llamado <strong>entrada</strong> al dominio y agrupamos el rango y el propósito en una sola propiedad <strong>salida</strong>.</p></li>
+</section>
+<section class="slide level5" data-number="1.4.1.0.1">
+
+<ul>
 <li><p>Por ejemplo, cualquier función <code>cuadrado</code> que usemos para implementar <code>area</code> debe satisfacer esta especificación:</p>
 <p><span class="math display">\begin{cases}
   \text{\textbf{Entrada}}: n \in \mathbb{R} \\
@@ -888,7 +908,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La especificación <strong>no concreta cómo</strong> se debe llevar a cabo el propósito. Ese es un detalle de implementación que se abstrae a este nivel.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.3">
+<section class="slide level5" data-number="1.4.1.0.2">
 
 <ul>
 <li><p>Para especificar una función, resulta más adecuado usar el siguiente esquema:</p>
@@ -903,7 +923,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La especificación se lee así: si se llama a una función cumpliendo con su signatura en un estado que satisface su precondición, la llamada termina y lo hace en un estado que satisface su postcondición.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.4">
+<section class="slide level5" data-number="1.4.1.0.3">
 
 <ul>
 <li><p>En este caso, la precondición es <span class="math inline">True</span>, que equivale a decir que cualquier condición de entrada es buena para usar la función.</p></li>
@@ -912,16 +932,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La signatura se escribe usando la sintaxis del lenguaje de programación que vayamos a usar para implementar la función (en este caso, Python).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.5">
+<section class="slide level5" data-number="1.4.1.0.4">
+
+<ul>
+<li><p>Las pre y postcondiciones no es necesario escribirlas de una manera <strong>formal y rigurosa</strong>, usando el lenguaje de las Matemáticas o la Lógica.</p></li>
+<li><p>Si la especificación se escribe en <em>lenguaje natural</em> y se entiende bien, completamente y sin ambigüedades, no hay problema.</p></li>
+<li><p>El motivo de usar un lenguaje formal es que, normalmente, resulta <strong>mucho más conciso y preciso que el lenguaje natural</strong>.</p></li>
+<li><p>El lenguaje natural suele ser:</p>
+<ul>
+<li><p><strong>Más prolijo</strong>: necesita más palabras para decir lo mismo que diríamos matemáticamente usando menos caracteres.</p></li>
+<li><p><strong>Más ambiguo</strong>: lo que se dice en lenguaje natural se puede interpretar de distintas formas.</p></li>
+<li><p><strong>Menos completo</strong>: quedan flecos y situaciones especiales que no se tienen en cuenta.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.1.0.5">
 
 <ul>
 <li><p>Otro ejemplo más completo:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Pre}}: car \neq \text{\texttt{&quot;&quot;}} \land len(car) = 1 \\
+  cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -&gt; } \texttt{int} \\
+  \text{\textbf{Post}}: cuenta(cadena, car) \geq 0 \land cuenta(cadena, car) = cadena.count(car)
+\end{cases}</span></p></li>
+<li><p><span class="math inline">count</span> es una <strong>función <em>oculta</em> o <em>auxiliar</em></strong> (en este caso, un <em>método auxiliar</em>). Las funciones auxiliares se puede usar en la especificación pero está prohibido usarlas en la implementación.</p></li>
+<li><p>Con esto estamos diciendo que <span class="math inline">cuenta</span> es una función que recibe una cadena y un carácter (otra cadena con un único carácter dentro).</p></li>
+<li><p>Además, estamos diciendo que devuelve el mismo resultado que devuelve el método <code>count</code> (que ya existe en Python).</p></li>
+<li><p>Es decir: cuenta el número de veces que el carácter <span class="math inline">car</span> aparece en <span class="math inline">cadena</span>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.1.0.6">
+
+<ul>
+<li><p>En realidad, las condiciones de la especificación anterior se podrían simplificar aprovechando las propiedades de las expresiones lógicas, quedando así:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Pre}}: len(car) = 1 \\
+  cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -&gt; } \texttt{int} \\
+  \text{\textbf{Post}}: cuenta(cadena, car) = cadena.count(car)
+\end{cases}</span></p></li>
+<li><p>¿Por qué?</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.1.0.7">
+
+<ul>
+<li><p>Finalmente, podríamos escribir la misma especificación en lenguaje natural:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Pre}}: car \text{ debe ser un único carácter} \\
+  cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -&gt; } \texttt{int} \\
+  \text{\textbf{Post}}: cuenta(cadena, car) \text{ devuelve el número de veces } \\
+                        \quad\quad\enspace\text{ que aparece el carácter } car \text{ en la cadena } cadena. \\
+                        \quad\quad\enspace\text{ Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la } \\
+                        \quad\quad\enspace\text{ cadena } cadena \text{, debe devolver } 0.
+\end{cases}</span></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.1.0.8">
+
+<ul>
+<li><p>Un ejemplo mucho más avanzado para los curiosos:</p>
 <p><span class="math display">\begin{cases}
   \text{\textbf{Pre}}: lista \neq \texttt{[]} \\
   suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -&gt; } T \\
   \text{\textbf{Post}}: suma(lista) = sum(lista)
 \end{cases}</span></p></li>
-<li><p><span class="math inline">sum</span> es una función oculta o auxiliar, que se puede usar en la especificación pero está prohibido usarla en la implementación.</p></li>
+<li><p><span class="math inline">sum</span> es una función auxiliar.</p></li>
 <li><p><code>List[</code><span class="math inline">T</span><code>]</code> es un tipo genérico que pertenece al módulo <code>typing</code> y que se puede utilizar para indicar el tipo de una lista cuyos elementos son todos del tipo <span class="math inline">T</span>.</p></li>
 <li><p>Con esto estamos diciendo que <code>suma</code> es una función que recibe una lista no vacía de elementos de un determinado tipo y que devuelve un resultado de ese mismo tipo.</p></li>
 <li><p>Para más información, consultar:</p>
@@ -931,6 +1006,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </section>
+
 </section>
 <section>
 <section id="computabilidad" class="title-slide slide level1" data-number="2">
