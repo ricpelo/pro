@@ -20,6 +20,21 @@
         document.getElementById('header-left').appendChild(el);
         document.getElementById('footer-left').innerHTML = '&copy; ' + author + ' (' + date + ')';
 
+        // Mueve un poquito el = a la derecha cuando hay que dibujar un "no-igual" con KaTeX:
+        Array.prototype.forEach.call(document.getElementsByClassName("rlap"), function (el) {
+            var e = el;
+            var i = 0;
+            while (e != null && i < 6) {
+                e = e.parentElement;
+                i++;
+            }
+            if (e != null && i == 6 && e.nextSibling != null && e.nextSibling.innerText == "=") {
+                el.style.width = "0.1em";
+            }
+            console.log(el);
+            console.log(e.nextSibling);
+        });
+
         function updateHeader(nd) {
             var hr = document.getElementById('header-right');
             while (hr.children.length > 0) {
