@@ -1339,7 +1339,8 @@ E -> x [lhead = cluster0]
 - Los programadores crean programas para **dirigir** a los procesos.
 
 - Es como decir que los programadores son magos que invocan a los espíritus del
-  ordenador con sus conjuros.
+  ordenador (los procesos) con sus conjuros (los programas) escritos en un
+  lenguaje mágico (el lenguaje de programación).
 
 ---
 
@@ -1368,13 +1369,20 @@ E -> x [lhead = cluster0]
 - Las definiciones recursivas son el mecanismo básico para ejecutar
   **repeticiones de instrucciones** en un lenguaje de programación funcional.
 
-- Por ejemplo:
+- Por ejemplo: $$f(n) = n + f(n + 1)$$
 
-  **GNU** significa **GNU No es Unix**.
+  Por tanto, $$f(1) = 1 + f(2) = 1 + 2 + f(3) = 1 + 2 + 3 + f(4) = \ldots$$
 
-  Por tanto, GNU = GNU No es Unix = GNU No es Unix No es Unix...
+- Cada vez que una función se llama a sí misma decimos que se realiza una
+  **llamada recursiva** o **paso recursivo**.
 
-  Y así hasta el infinito.
+!ifdef(HTML)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!IMGP(pintura-recursiva.jpg)()(width=100%)
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Casos base y casos recursivos
 
@@ -1382,17 +1390,19 @@ E -> x [lhead = cluster0]
   proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se
   llama una **recursión infinita**).
 
-- Para ello, en algún momento, la recursión debe alcanzar un punto en el que la
-  función no se llame a sí misma.
+- Por tanto, en algún momento, la recursión debe alcanzar un punto en el que la
+  función no se llame a sí misma y se detenga.
 
-- La función, en cada paso recursivo, debe ir acercándose cada vez más a ese
-  punto.
+- Para ello, es necesario que la función, en cada paso recursivo, se vaya
+  acercando cada vez más a ese punto.
 
-- A ese punto o puntos en los que la función recursiva no se llama a sí misma,
-  se les denomina **casos base**.
+- A ese punto en el que la función recursiva no se llama a sí misma, se le
+  denomina **caso base**, y puede haber más de uno.
 
-- Es decir: la función recursiva, ante ciertos valores de sus argumentos, debe
-  devolver directamente un valor y no llamarse de nuevo recursivamente.
+- Los casos base, por tanto, determinan bajo qué condiciones la función no se
+  llamará a sí misma, o dicho de otra forma, con qué valores de sus argumentos
+  la función devolverá directamente un valor y no provocará una nueva llamada
+  recursiva.
 
 - Los demás casos, que sí provocan llamadas recursivas, se denominan **casos
   recursivos**.
@@ -1401,8 +1411,8 @@ E -> x [lhead = cluster0]
 
 - El ejemplo más típico de función recursiva es el **factorial**.
 
-- El factorial de un número natural $n$ se representa $n!$ y se define como el
-  producto de todos los números desde 1 hasta $n$:
+- El factorial de un número natural $n$ se representa por $n!$ y se define como
+  el producto de todos los números desde 1 hasta $n$:
   $$n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1$$
 
   Por ejemplo:
@@ -1417,8 +1427,8 @@ E -> x [lhead = cluster0]
 
 ---
 
-- Tenemos el **caso recursivo**, pero necesitamos un **caso base** para evitar
-  que la recursión se haga *infinita*.
+- Tenemos el **caso recursivo**, pero necesitamos al menos un **caso base**
+  para evitar que la recursión se haga *infinita*.
 
 - El caso base del factorial se obtiene sabiendo que el factorial de 0 es
   directamente 1 (no hay que llamar al factorial recursivamente):
@@ -1443,22 +1453,24 @@ E -> x [lhead = cluster0]
 
 #### Pensamiento optimista
 
-- Suponer que la función deseada ya existe y es capaz de resolver ejemplares
-  más pequeños del problema (este paso se denomina **hipótesis inductiva**).
+- Consiste en suponer que la función deseada ya existe y es capaz de resolver
+  ejemplares más pequeños del problema (este paso se denomina **hipótesis
+  inductiva**).
 
 - Se trata de encontrar el patrón común de forma que resolver el problema
   principal implique el mismo patrón en un problema más pequeño.
 
 - Ejemplo:
 
-  - ¿Queremos diseñar una función que calcule el factorial de un número?
-    Supongamos que ya contamos con una función que calcula el factorial de un
-    número más pequeño. Tenemos que creer y confiar en que es así, aunque ahora
-    mismo no sea verdad.
+  - Queremos diseñar una función que calcule el factorial de un número.
+
+  - Para ello, supongamos que ya contamos con una función que calcula el
+    factorial de un número más pequeño. Tenemos que creer y confiar en que es
+    así, aunque ahora mismo no sea verdad.
 
     Es decir: si queremos calcular el factorial de $n$, suponemos que tenemos
     ya una función *fact* que no sabe calcular el factorial de $n$, pero sí el
-    de $(n - 1)$. Ésta es nuestra hipótesis inductiva.
+    de $(n - 1)$. *Ésta es nuestra hipótesis inductiva*.
 
 #### Descomposición del problema
 
@@ -1471,31 +1483,47 @@ E -> x [lhead = cluster0]
 
 - Ejemplo:
 
-  - Sabemos que $n! = n\cdot(n - 1)!$, por lo que si usamos la función *fact*
-    para calcular el factorial de $(n - 1)$, lo único que tenemos que hacer
-    para obtener el factorial de $n$ es multiplicar el resultado de $fact(n -
-    1)$ por $n$.
+  - Sabemos que $n! = n\cdot(n - 1)!$
 
+  - Sabemos que la función $fact$ sabe calcular el factorial de $(n - 1)$ (por
+    pensamiento optimista).
+
+  - Por tanto, lo único que tenemos que hacer para obtener el factorial de $n$
+    es multiplicar $n$ por el resultado de $fact(n - 1)$.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
     Dicho de otra forma: **_si yo supiera_ calcular el factorial de $(n - 1)$,
     me bastaría con multiplicarlo por $n$ para obtener el factorial de $n$**.
+    ~~~~~~~~~~~~~~~~~~~~
 
 #### Identificación de problemas no reducibles
 
 - Debemos identificar los ejemplares más pequeños (los que no se pueden reducir
   más) para los cuales hay una solución explícita y directa que no necesita
-  recursividad (los *casos base*).
+  recursividad: los *casos base*.
+
+- Es importante comprobar que la reducción que le hemos realizado al problema
+  en el paso anterior produce ejemplares que están más cerca del caso base.
 
 - Ejemplo:
 
   - En nuestro caso, sabemos que $0! = 1$, por lo que nuestra función podría
     devolver directamente $1$ cuando se le pida calcular el factorial de $0$.
 
-  - Combinando todos los pasos, obtenemos la solución general:
+  - Además, en la reducción obtenida en el paso anterior, pasamos de calcular
+    el factorial de $n$ a calcular el factorial de uno menos, con lo cual, cada
+    vez estaremos más cerca del caso base, que es el factorial de 0. Al final
+    siempre acabaremos alcanzando el caso base.
 
-  $$fact(n) = \begin{cases}
-           1 & \text{si } n = 0 \text{\quad(caso base)} \\
-           n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
-         \end{cases}$$
+---
+
+- Combinando todos los pasos, obtenemos la solución general:
+
+$$fact(n) = \begin{cases}
+         1 & \text{si } n = 0 \text{\quad(caso base)} \\
+         n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
+       \end{cases}$$
 
 ### Recursividad lineal
 

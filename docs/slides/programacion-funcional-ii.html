@@ -1020,7 +1020,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Conforme van evolucionando, los procesos manipulan otras entidades abstractas llamadas <strong>datos</strong>.</p></li>
 <li><p>La evolución de un proceso está dirigida por un patrón de reglas llamada <strong>programa</strong>.</p></li>
 <li><p>Los programadores crean programas para <strong>dirigir</strong> a los procesos.</p></li>
-<li><p>Es como decir que los programadores son magos que invocan a los espíritus del ordenador con sus conjuros.</p></li>
+<li><p>Es como decir que los programadores son magos que invocan a los espíritus del ordenador (los procesos) con sus conjuros (los programas) escritos en un lenguaje mágico (el lenguaje de programación).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.1">
@@ -1043,21 +1043,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Una <strong>función recursiva</strong> es aquella que se define en términos de sí misma.</p></li>
 <li><p>En general, eso quiere decir que la definición de la función contiene una o varias referencias a ella misma y que, por tanto, se llama a sí misma dentro de su cuerpo.</p></li>
 <li><p>Las definiciones recursivas son el mecanismo básico para ejecutar <strong>repeticiones de instrucciones</strong> en un lenguaje de programación funcional.</p></li>
-<li><p>Por ejemplo:</p>
-<p><strong>GNU</strong> significa <strong>GNU No es Unix</strong>.</p>
-<p>Por tanto, GNU = GNU No es Unix = GNU No es Unix No es Unix…</p>
-<p>Y así hasta el infinito.</p></li>
+<li><p>Por ejemplo: <span class="math display">f(n) = n + f(n + 1)</span></p>
+<p>Por tanto, <span class="math display">f(1) = 1 + f(2) = 1 + 2 + f(3) = 1 + 2 + 3 + f(4) = \ldots</span></p></li>
+<li><p>Cada vez que una función se llama a sí misma decimos que se realiza una <strong>llamada recursiva</strong> o <strong>paso recursivo</strong>.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.1">
+
+<div class="centered">
+<p><img data-src="images/pintura-recursiva.jpg" class="plain" style="width:100.0%" /></p>
+</div>
 </section>
 
 <section id="casos-base-y-casos-recursivos" class="title-slide slide level3" data-number="2.2.2">
 <h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Casos base y casos recursivos</h3>
 <ul>
 <li><p>Resulta importante que una definición recursiva se detenga alguna vez y proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se llama una <strong>recursión infinita</strong>).</p></li>
-<li><p>Para ello, en algún momento, la recursión debe alcanzar un punto en el que la función no se llame a sí misma.</p></li>
-<li><p>La función, en cada paso recursivo, debe ir acercándose cada vez más a ese punto.</p></li>
-<li><p>A ese punto o puntos en los que la función recursiva no se llama a sí misma, se les denomina <strong>casos base</strong>.</p></li>
-<li><p>Es decir: la función recursiva, ante ciertos valores de sus argumentos, debe devolver directamente un valor y no llamarse de nuevo recursivamente.</p></li>
+<li><p>Por tanto, en algún momento, la recursión debe alcanzar un punto en el que la función no se llame a sí misma y se detenga.</p></li>
+<li><p>Para ello, es necesario que la función, en cada paso recursivo, se vaya acercando cada vez más a ese punto.</p></li>
+<li><p>A ese punto en el que la función recursiva no se llama a sí misma, se le denomina <strong>caso base</strong>, y puede haber más de uno.</p></li>
+<li><p>Los casos base, por tanto, determinan bajo qué condiciones la función no se llamará a sí misma, o dicho de otra forma, con qué valores de sus argumentos la función devolverá directamente un valor y no provocará una nueva llamada recursiva.</p></li>
 <li><p>Los demás casos, que sí provocan llamadas recursivas, se denominan <strong>casos recursivos</strong>.</p></li>
 </ul>
 </section>
@@ -1066,7 +1071,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span> El factorial</h3>
 <ul>
 <li><p>El ejemplo más típico de función recursiva es el <strong>factorial</strong>.</p></li>
-<li><p>El factorial de un número natural <span class="math inline">n</span> se representa <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>: <span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1</span></p>
+<li><p>El factorial de un número natural <span class="math inline">n</span> se representa por <span class="math inline">n!</span> y se define como el producto de todos los números desde 1 hasta <span class="math inline">n</span>: <span class="math display">n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1</span></p>
 <p>Por ejemplo: <span class="math display">6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720</span></p></li>
 <li><p>Pero para calcular <span class="math inline">6!</span> también se puede calcular <span class="math inline">5!</span> y después multiplicar el resultado por 6, ya que: <span class="math display">6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}</span> <span class="math display">6! = 6\cdot5!</span></p></li>
 <li><p>Por tanto, el factorial se puede definir de forma <strong>recursiva</strong>.</p></li>
@@ -1075,7 +1080,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="2.2.3.0.1">
 
 <ul>
-<li><p>Tenemos el <strong>caso recursivo</strong>, pero necesitamos un <strong>caso base</strong> para evitar que la recursión se haga <em>infinita</em>.</p></li>
+<li><p>Tenemos el <strong>caso recursivo</strong>, pero necesitamos al menos un <strong>caso base</strong> para evitar que la recursión se haga <em>infinita</em>.</p></li>
 <li><p>El caso base del factorial se obtiene sabiendo que el factorial de 0 es directamente 1 (no hay que llamar al factorial recursivamente): <span class="math display">0! = 1</span></p></li>
 <li><p>Combinando ambos casos tendríamos:</p>
 <p><span class="math display">n! = \begin{cases}
@@ -1099,12 +1104,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="pensamiento-optimista" class="title-slide slide level4" data-number="2.2.4.1">
 <h4 data-number="2.2.4.1"><span class="header-section-number">2.2.4.1</span> Pensamiento optimista</h4>
 <ul>
-<li><p>Suponer que la función deseada ya existe y es capaz de resolver ejemplares más pequeños del problema (este paso se denomina <strong>hipótesis inductiva</strong>).</p></li>
+<li><p>Consiste en suponer que la función deseada ya existe y es capaz de resolver ejemplares más pequeños del problema (este paso se denomina <strong>hipótesis inductiva</strong>).</p></li>
 <li><p>Se trata de encontrar el patrón común de forma que resolver el problema principal implique el mismo patrón en un problema más pequeño.</p></li>
 <li><p>Ejemplo:</p>
 <ul>
-<li><p>¿Queremos diseñar una función que calcule el factorial de un número? Supongamos que ya contamos con una función que calcula el factorial de un número más pequeño. Tenemos que creer y confiar en que es así, aunque ahora mismo no sea verdad.</p>
-<p>Es decir: si queremos calcular el factorial de <span class="math inline">n</span>, suponemos que tenemos ya una función <em>fact</em> que no sabe calcular el factorial de <span class="math inline">n</span>, pero sí el de <span class="math inline">(n - 1)</span>. Ésta es nuestra hipótesis inductiva.</p></li>
+<li><p>Queremos diseñar una función que calcule el factorial de un número.</p></li>
+<li><p>Para ello, supongamos que ya contamos con una función que calcula el factorial de un número más pequeño. Tenemos que creer y confiar en que es así, aunque ahora mismo no sea verdad.</p>
+<p>Es decir: si queremos calcular el factorial de <span class="math inline">n</span>, suponemos que tenemos ya una función <em>fact</em> que no sabe calcular el factorial de <span class="math inline">n</span>, pero sí el de <span class="math inline">(n - 1)</span>. <em>Ésta es nuestra hipótesis inductiva</em>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1116,8 +1122,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A continuación, usamos dicha solución <em>parcial</em> para obtener la solución al problema original.</p></li>
 <li><p>Ejemplo:</p>
 <ul>
-<li><p>Sabemos que <span class="math inline">n! = n\cdot(n - 1)!</span>, por lo que si usamos la función <em>fact</em> para calcular el factorial de <span class="math inline">(n - 1)</span>, lo único que tenemos que hacer para obtener el factorial de <span class="math inline">n</span> es multiplicar el resultado de <span class="math inline">fact(n - 1)</span> por <span class="math inline">n</span>.</p>
-<p>Dicho de otra forma: <strong><em>si yo supiera</em> calcular el factorial de <span class="math inline">(n - 1)</span>, me bastaría con multiplicarlo por <span class="math inline">n</span> para obtener el factorial de <span class="math inline">n</span></strong>.</p></li>
+<li><p>Sabemos que <span class="math inline">n! = n\cdot(n - 1)!</span></p></li>
+<li><p>Sabemos que la función <span class="math inline">fact</span> sabe calcular el factorial de <span class="math inline">(n - 1)</span> (por pensamiento optimista).</p></li>
+<li><p>Por tanto, lo único que tenemos que hacer para obtener el factorial de <span class="math inline">n</span> es multiplicar <span class="math inline">n</span> por el resultado de <span class="math inline">fact(n - 1)</span>.</p>
+<div class="caja">
+<p>Dicho de otra forma: <strong><em>si yo supiera</em> calcular el factorial de <span class="math inline">(n - 1)</span>, me bastaría con multiplicarlo por <span class="math inline">n</span> para obtener el factorial de <span class="math inline">n</span></strong>.</p>
+</div></li>
 </ul></li>
 </ul>
 </section>
@@ -1125,17 +1135,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="identificación-de-problemas-no-reducibles" class="title-slide slide level4" data-number="2.2.4.3">
 <h4 data-number="2.2.4.3"><span class="header-section-number">2.2.4.3</span> Identificación de problemas no reducibles</h4>
 <ul>
-<li><p>Debemos identificar los ejemplares más pequeños (los que no se pueden reducir más) para los cuales hay una solución explícita y directa que no necesita recursividad (los <em>casos base</em>).</p></li>
+<li><p>Debemos identificar los ejemplares más pequeños (los que no se pueden reducir más) para los cuales hay una solución explícita y directa que no necesita recursividad: los <em>casos base</em>.</p></li>
+<li><p>Es importante comprobar que la reducción que le hemos realizado al problema en el paso anterior produce ejemplares que están más cerca del caso base.</p></li>
 <li><p>Ejemplo:</p>
 <ul>
 <li><p>En nuestro caso, sabemos que <span class="math inline">0! = 1</span>, por lo que nuestra función podría devolver directamente <span class="math inline">1</span> cuando se le pida calcular el factorial de <span class="math inline">0</span>.</p></li>
-<li><p>Combinando todos los pasos, obtenemos la solución general:</p></li>
+<li><p>Además, en la reducción obtenida en el paso anterior, pasamos de calcular el factorial de <span class="math inline">n</span> a calcular el factorial de uno menos, con lo cual, cada vez estaremos más cerca del caso base, que es el factorial de 0. Al final siempre acabaremos alcanzando el caso base.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.4.3.1">
+
+<ul>
+<li>Combinando todos los pasos, obtenemos la solución general:</li>
 </ul>
 <p><span class="math display">fact(n) = \begin{cases}
          1 &amp; \text{si } n = 0 \text{\quad(caso base)} \\
          n\cdot fact(n-1) &amp; \text{si } n &gt; 0 \text{\quad(caso recursivo)}
-       \end{cases}</span></p></li>
-</ul>
+       \end{cases}</span></p>
 </section>
 
 
