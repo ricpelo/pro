@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="ámbitos" class="title-slide slide level3" data-number="1.1.4">
 <h3 data-number="1.1.4"><span class="header-section-number">1.1.4</span> Ámbitos</h3>
 <ul>
-<li><p>Recordemos que el <strong>ámbito de una ligadura</strong> es el ámbito (la porción del programa) en la que dicha ligadura tiene validez.</p></li>
+<li><p>Recordemos que el <strong>ámbito de una ligadura</strong> es la porción del programa en la que dicha ligadura tiene validez.</p></li>
 <li><p>Ampliaremos ahora el concepto de <em>ámbito</em> para incluir los aspectos nuevos que incorporan las expresiones lambda.</p></li>
 </ul>
 </section>
@@ -397,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 data-number="1.1.4.2"><span class="header-section-number">1.1.4.2</span> Ámbitos, marcos y entornos</h4>
 <ul>
 <li><p>Recordemos que un marco es un conjunto de ligaduras.</p></li>
-<li><p>Y que un entorno es una secuencia de marcos que contienen todas las ligaduras validas en un punto concreto del programa.</p></li>
+<li><p>Y que un entorno es una secuencia de marcos que contienen todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
 <li><p>Cuando la ejecución del programa entra dentro de un ámbito, <strong>se crea un nuevo marco asociado a ese ámbito</strong>.</p></li>
 <li><p>Ahora hemos visto que <strong>cada expresión lambda define un nuevo ámbito</strong>.</p></li>
 <li><p>Por tanto, cuando se aplica una expresión lambda a unos argumentos, se crea un nuevo marco que contiene las ligaduras que define dicha expresión lambda con sus argumentos.</p></li>
@@ -410,7 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Se va formando así una cadena de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos.</p></li>
-<li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se define simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
+<li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se reconoce simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
 <li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras que se definen dentro de ese ámbito.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
@@ -420,7 +420,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="1.1.4.2.2">
 
 <ul>
-<li><p>El concepto de <strong>entorno</strong> representa el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p></li>
+<li><p>El concepto de <strong>entorno</strong> refleja el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p></li>
 <li><p>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span>, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</p></li>
 <li><p>Asimismo, el primer marco de la cadena de marcos del entorno representa el ámbito actual de la porción de código donde se está calculando el entorno.</p></li>
 </ul>
@@ -432,7 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="centered">
 <p><img data-src="images/lambda-entorno-linea3-dentro-despues.svg" class="plain" style="width:50.0%" /></p>
 </div>
-<p>Tendríamos que:</p>
+<p>Podemos afirmar que:</p>
 <ul>
 <li><p>El ámbito de la expresión lambda está contenido en el ámbito global.</p></li>
 <li><p>El marco actual es el marco de la expresión lambda.</p></li>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="ligaduras-sombreadas" class="title-slide slide level4" data-number="1.1.4.3">
 <h4 data-number="1.1.4.3"><span class="header-section-number">1.1.4.3</span> Ligaduras <em>sombreadas</em></h4>
 <ul>
-<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno (en un ámbito más global)?</p></li>
+<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno, en un ámbito más global?</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></span></code></pre></div></li>
@@ -458,11 +458,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Que el parámetro haga sombra al identificador de fuera significa que no podemos acceder a ese identificador externo desde el cuerpo de la expresión lambda como si fuera una variable libre.</p></li>
-<li><p>Si necesitáramos acceder al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code>x</code>. Por ejemplo:</p>
+<li><p>Esto es así porque la primera ligadura del identificador <code>x</code> que nos encontramos al recorrer la secuencia de marcos del entorno es la que está en el marco de la expresión lambda.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-con-sombra.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, con variable sombreada</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="1.1.4.3.2">
+
+<ul>
+<li><p>Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de la <code>x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code>x</code>. Por ejemplo:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></span></code></pre></div>
 <p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code>w</code>) y una variable libre (el identificador <code>x</code> ligado en el ámbito global) al que ahora sí podemos acceder al no estar sombreada.</p></li>
 </ul>
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-sin-sombra.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, sin variable sombreada</figcaption>
+</figure>
+</div>
 </section>
 
 <section id="renombrado-de-parámetros" class="title-slide slide level4" data-number="1.1.4.4">
@@ -482,7 +498,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="expresiones-lambda-y-entornos" class="title-slide slide level4" data-number="1.1.4.5">
 <h4 data-number="1.1.4.5"><span class="header-section-number">1.1.4.5</span> Expresiones lambda y entornos</h4>
 <ul>
-<li><p>Para encontrar el valor de un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la cadena de marcos</strong> hasta encontrarla. Si no aparece en ningún marco, querrá decir que el identificador no está ligado (o que su ligadura está fuera del entorno, en otro ámbito).</p></li>
+<li><p>Para encontrar el valor ligado a un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la cadena de marcos</strong> hasta encontrarla. Si no aparece en ningún marco, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito.</p></li>
 <li><p>Debemos tener en cuenta también, por tanto, las posibles <strong>variables sombreadas</strong> que puedan aparecer.</p>
 <p>Si un identificador en un ámbito más local <em>hace sombra</em> a otro en un ámbito más global, al buscar una ligadura en la cadena de marcos (en el entorno) se encontrará primero la ligadura más local, ignorando las otras.</p></li>
 </ul>
@@ -496,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-3"><a href="#cb23-3"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</span>
 <span id="cb23-4"><a href="#cb23-4"></a>y <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb23-5"><a href="#cb23-5"></a>w <span class="op">=</span> <span class="dv">9</span></span></code></pre></div></li>
-<li><p>En cada línea tendríamos los siguientes entornos:</p></li>
+<li><p>A medida que vamos ejecutando cada línea del código, tendríamos los siguientes entornos:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -560,13 +576,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> una aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)                     <span class="co"># aquí sí</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>Traceback (most recent call last):</span>
 <span id="cb24-4"><a href="#cb24-4"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb24-5"><a href="#cb24-5"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></span>
 <span id="cb24-6"><a href="#cb24-6"></a><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div>
-<p>da error porque <code>z</code> no está definido (no está ligado a ningún valor en el entorno).</p></li>
+<p>da error porque <code>z</code> no está definido (no está ligado a ningún valor en el entorno) en el momento de llamar a <code>prueba</code> en la línea 2.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.4.6.1">
@@ -577,7 +593,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-2"><a href="#cb25-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
 <span id="cb25-4"><a href="#cb25-4"></a><span class="dv">16</span></span></code></pre></div>
-<p>sí funciona (y devuelve <code>16</code>) porque en el momento de evaluar la expresión lambda (en la línea 3) el identificador <code>z</code> está ligado a un valor en el entorno (en este caso, <code>9</code>).</p></li>
+<p>sí funciona (y devuelve <code>16</code>) porque, en el momento de evaluar la aplicación de la expresión lambda (en la línea 3), el identificador <code>z</code> está ligado a un valor en el entorno (en este caso, <code>9</code>).</p></li>
 <li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando <em>se crea</em> la expresión lambda, sino cuando <strong>se evalúa el cuerpo de la expresión lambda</strong>, o sea, cuando se aplica la expresión lambda a unos argumentos.</p></li>
 </ul>
 </section>
@@ -586,9 +602,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="pureza" class="title-slide slide level3" data-number="1.1.5">
 <h3 data-number="1.1.5"><span class="header-section-number">1.1.5</span> Pureza</h3>
 <ul>
-<li><p>Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es una expresión cuyo valor sólo va a depender de los argumentos que se usen cuando se aplique la expresión lambda.</p></li>
-<li><p>En cambio, el valor de una expresión lambda que contenga variables libres dependerá no sólo de los valores de sus argumentos, sino también de los valores a los que estén ligadas las variables libres al evaluar la expresión lambda.</p></li>
-<li><p>En el ejemplo anterior tenemos una expresión que no es pura, ya que su valor depende de una variable libre (<code>z</code>):</p>
+<li><p>Si el cuerpo de una expresión lambda no contiene variables libres, el valor que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que tengan esos argumentos (no dependerá de nada más que sea «<em>exterior</em>» a la expresión lambda).</p></li>
+<li><p>En cambio, si el cuerpo de una expresión lambda sí contiene variables libres, el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del valor de esos argumentos, sino también de los valores a los que estén ligadas las variables libres en el momento de evaluar la aplicación de la expresión lambda.</p></li>
+<li><p>Es el caso del ejemplo anterior, donde tenemos una expresión lambda que contiene una variable libre (<code>z</code>) y, por tanto, cuando la aplicamos a los argumentos <code>4</code> y <code>3</code> obtenemos un valor que depende, no sólo de los valores de <code>x</code> e <code>y</code>, sino también del valor de <code>z</code>:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
@@ -601,17 +617,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En este otro ejemplo, escribimos una expresión lambda que calcula la suma de tres números a partir de otra expresión lambda que calcula la suma de dos números:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
 <span id="cb27-2"><a href="#cb27-2"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
-<p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda <code>suma3</code>, por lo que es una variable libre.</p>
+<p>En este caso, hay un identificador (<code>suma</code>) que no aparece en la lista de parámetros de la expresión lambda <code>suma3</code>, por lo que es una variable libre en el cuerpo de la expresión lambda de <code>suma3</code>.</p>
 <p>En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga <code>suma</code> en el entorno actual.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.0.2">
 
 <ul>
-<li><p>Una expresión lambda es <strong>pura</strong> cuando su valor depende, únicamente, del valor de sus parámetros.</p></li>
-<li><p>También se dice que una expresión lambda que contiene sólo variables ligadas es <strong>más pura</strong> que otra cuyo valor depende, además, de variables libres.</p></li>
-<li><p>En cuanto a <em>grados de pureza</em>, podemos decir que hay <strong>más pureza</strong> si una variable libre representa una <strong>función</strong> a aplicar en el cuerpo de la expresión lambda, que si representa cualquier otro tipo de valor.</p></li>
-<li><p>En el ejemplo anterior, tenemos que la expresión lambda <code>suma3</code>, sin ser <em>totalmente pura</em>, a efectos prácticos se la puede considerar <strong>pura</strong>, ya que su única variable libre se usa como una <strong>función</strong>, y las funciones tienden a no cambiar durante la ejecución del programa, al contrario que los demás tipos de valores.</p></li>
+<li><p>Se dice que una expresión lambda es <strong>pura</strong> si, siempre que la apliquemos a unos argumentos, el valor obtenido va a depender únicamente del valor de esos argumentos, es decir, de sus parámetros o variables ligadas.</p></li>
+<li><p>También se dice que una expresión lambda que contiene sólo variables ligadas es <strong>más pura</strong> que otra que también contiene variables libres.</p></li>
+<li><p>Y también podemos hablar de <strong>grados de pureza</strong>:</p>
+<ul>
+<li><p>Podemos decir que hay <strong>más pureza</strong> si una variable libre representa una <strong>función</strong> a aplicar en el cuerpo de la expresión lambda, que si representa cualquier otro tipo de valor.</p></li>
+<li><p>En el ejemplo anterior, tenemos que la expresión lambda de <code>suma3</code>, sin ser <em>totalmente pura</em>, a efectos prácticos se la puede considerar <strong>pura</strong>, ya que su única variable libre (<code>suma</code>) se usa como una <strong>función</strong>, y las funciones tienden a no cambiar durante la ejecución del programa, al contrario que los demás tipos de valores.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.0.3">
@@ -626,6 +645,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb28-6"><a href="#cb28-6"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
 <span id="cb28-7"><a href="#cb28-7"></a><span class="co"># suma es impura, porque su variable libre no es una función:</span></span>
 <span id="cb28-8"><a href="#cb28-8"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
+<li><p><strong>La pureza de una función es un rasgo deseado y que hay que tratar de alcanzar siempre que sea posible</strong>, ya que facilita el desarrollo y mantenimiento de los programas, además de simplificar el razonamiento sobre los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.</p></li>
+<li><p>Es más incómodo trabajar con <code>suma</code> porque hay que <em>recordar</em> que depende de un valor que está <em>fuera</em> de la expresión lambda, cosa que no resulta evidente a no ser que mires en el cuerpo de la expresión lambda.</p></li>
 </ul>
 </section>
 
@@ -637,7 +658,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Cada lenguaje implementa sus propias estrategias de evaluación que están basadas en las que vamos a ver aquí.</p></li>
 <li><p>Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión hay que reducir, en función de:</p>
 <ul>
-<li><p>El orden (de fuera adentro o de dentro afuera).</p></li>
+<li><p>El orden de evaluación:</p>
+<ul>
+<li><p>De fuera adentro o de dentro afuera.</p></li>
+<li><p>De izquierda a derecha o de derecha a izquierda.</p></li>
+</ul></li>
 <li><p>La necesidad o no de evaluar dicha sub-expresión.</p></li>
 </ul></li>
 </ul>
@@ -739,7 +764,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Hay un resultado teórico que avala lo que acabamos de observar:</p>
 <div class="caja">
 <p><strong>Teorema:</strong></p>
-<p>Si una expresión tiene forma normal, el orden normal de evaluación conduce seguro a la misma.</p>
+<p>Si una expresión tiene forma normal, el <strong>orden normal</strong> de evaluación conduce seguro a la misma.</p>
 </div></li>
 <li><p>En cambio, el orden aplicativo es posible que no encuentre la forma normal de la expresión.</p></li>
 </ul>
@@ -759,8 +784,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>En ambos casos no es necesario evaluar <code>x</code>.</p></li>
 </ul></li>
-<li><p>La mayoría de los lenguajes de programación se basan en la evaluación estricta y el paso de argumentos por valor (siguen el orden aplicativo).</p></li>
-<li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que se basa en la evaluación perezosa y sigue el orden normal.</p></li>
+<li><p>La mayoría de los lenguajes de programación usan evaluación estricta y paso de argumentos por valor (siguen el orden aplicativo).</p></li>
+<li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que usa evaluación perezosa y sigue el orden normal.</p></li>
 </ul>
 </section>
 
@@ -774,8 +799,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La expresión <code>area(11 + 1)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                     <span class="co"># aritmética</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a><span class="op">=</span> area(<span class="dv">12</span>)                                       <span class="co"># definición de area</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># definición de cuadrado</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(r))(<span class="dv">12</span>)  <span class="co"># aplicación</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)           <span class="co"># aplicación</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                        <span class="co"># definición de cuadrado</span></span>
 <span id="cb38-5"><a href="#cb38-5"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))               <span class="co"># aplicación</span></span>
 <span id="cb38-6"><a href="#cb38-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                           <span class="co"># aritmética</span></span>
 <span id="cb38-7"><a href="#cb38-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                                 <span class="co"># aritmética</span></span>
@@ -788,9 +813,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>En detalle:</p>
 <ul>
 <li><p><strong>Línea 1</strong>: Se evalúa primero el argumento.</p></li>
-<li><p><strong>Línea 3</strong>: El <em>redex</em> más interno es <code>r</code>, pero no puede reducirse más en este momento. El siguiente más interno es <code>cuadrado(r)</code>; para evaluarlo hay que reescribir <code>cuadrado</code> con su definición.</p></li>
-<li><p><strong>Línea 4</strong>: El <em>redex</em> más interno es la aplicación del <code>lambda</code> derecho con el argumento <code>r</code>, pero éste aún no está evaluado ni se puede evaluar ahora mismo, así que no es posible reducir la aplicación. El siguiente más interno es el <code>*</code> sobre <code>3.1416</code>, pero el otro operando (el <code>lambda</code> derecho) aún no está evaluado ni se puede evaluar, así que el <em>redex</em> que queda es la aplicación del primer <code>lambda</code> sobre su argumento <code>12</code>.</p></li>
-<li><p><strong>Línea 5</strong>: El <em>redex</em> más interno es la aplicación del <code>lambda</code> derecho con el argumento <code>12</code>, que ahora sí se puede hacer porque el argumento está evaluado.</p></li>
+<li><p><strong>Línea 3</strong>: El <em>redex</em> más interno es <code>r</code>, pero no puede reducirse más en este momento porque se desconoce su valor. El siguiente más interno es <code>cuadrado(r)</code> pero tampoco puede reducirse ya que se desconoce el valor de <code>r</code>. El siguiente más interno es el <code>*</code>, que tampoco se puede reducir porque su operando derecho (el <code>cuadrado(r)</code>) aún no está evaluado ni se puede evaluar, así que el <em>redex</em> que queda es la aplicación del <code>lambda</code> sobre su argumento <code>12</code>.</p></li>
+<li><p><strong>Línea 4</strong>: El <em>redex</em> más interno es <code>cuadrado(12)</code>, que se evalúa reescribiéndolo con su definición.</p></li>
+<li><p><strong>Línea 5</strong>: El <em>redex</em> más interno es la aplicación del <code>lambda</code> sobre su argumento <code>12</code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -818,7 +843,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Línea 1</strong>: Se evalúa el <em>redex</em> más externo, que es <code>area</code> (se reescribe con su definición).</p></li>
 <li><p><strong>Línea 2</strong>: El <em>redex</em> más externo es la aplicación de la expresión <code>lambda</code> a su argumento <code>11 + 1</code>.</p></li>
 <li><p><strong>Línea 3</strong>: El <em>redex</em> más externo es el <code>*</code>, pero para evaluarlo hay que evaluar primero todos sus argumentos, por lo que ahora hay que evaluar <code>cuadrado</code>, reescribiéndolo con su definición.</p></li>
-<li><p><strong>Línea 4</strong>: Igual que en la línea 3, para poder evaluar el <code>*</code> más externo hay que evaluar primero la aplicación del <code>lambda</code> sobre su argumento <code>11 +   1</code>.</p></li>
+<li><p><strong>Línea 4</strong>: Igual que en la línea 3, para poder evaluar el <code>*</code> más externo hay que evaluar primero la aplicación del <code>lambda</code> sobre su argumento <code>11 + 1</code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -828,8 +853,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Aunque es muy sencilla, la función <code>area</code> ejemplifica la propiedad más potente de las funciones definidas por el programador: la <strong>abstracción</strong>.</p></li>
 <li><p>La función <code>area</code> está definida sobre la función <code>cuadrado</code>, pero se basa sólo en la relación que <code>cuadrado</code> establece entre sus argumentos de entrada y su resultado de salida.</p></li>
-<li><p>Podemos escribir <code>area</code> sin preocuparnos de cómo calcular el cuadrado de un número, porque eso ya lo hace la función <code>cuadrado</code>. <strong>Los detalles</strong> sobre cómo se calcula el cuadrado <strong>se ignoran en este momento</strong> para considerarlos más tarde.</p></li>
-<li><p>De hecho, por lo que respecta a <code>area</code>, <code>cuadrado</code> no representa una definición concreta de función, sino más bien la abstracción de una función, lo que se denomina una <strong>abstracción funcional</strong>. A este nivel de abstracción, cualquier función que calcule el cuadrado de un número es igual de buena.</p></li>
+<li><p>Podemos escribir <code>area</code> sin preocuparnos de cómo calcular el cuadrado de un número, porque eso ya lo hace la función <code>cuadrado</code>.</p></li>
+<li><p><strong>Los detalles</strong> sobre cómo se calcula el cuadrado están <strong>ocultos dentro de la definición</strong> de <code>cuadrado</code>. Esos detalles <strong>se ignoran en este momento</strong> para considerarlos más tarde.</p></li>
+<li><p>De hecho, por lo que respecta a <code>area</code>, <code>cuadrado</code> no representa una definición concreta de función, sino más bien la abstracción de una función, lo que se denomina una <strong>abstracción funcional</strong>. A este nivel de abstracción, cualquier función que calcule el cuadrado de un número es igual de buena y le serviría igual de bien a <code>area</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
@@ -839,7 +865,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
 <span id="cb40-2"><a href="#cb40-2"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
 <li><p>En otras palabras: la definición de una función debe ser capaz de <strong>ocultar sus detalles de implementación</strong>.</p></li>
-<li><p><strong>Un programador no debe necesitar saber cómo está implementada una función para poder usarla</strong>. Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del lenguaje: sabemos <em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo hacen.</p></li>
+<li><p><strong>Un programador no debe necesitar saber cómo está implementada una función por dentro para poder usarla</strong>. Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del lenguaje: sabemos <em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo hacen.</p></li>
 <li><p>Incluso puede que el usuario de una función no sea el mismo que la haya escrito, sino que la puede haber recibido de otro programador como una «<strong>caja negra</strong>».</p></li>
 </ul>
 </section>

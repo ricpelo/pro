@@ -208,8 +208,8 @@ nocite: |
 
 ### Ámbitos
 
-- Recordemos que el **ámbito de una ligadura** es el ámbito (la porción del
-  programa) en la que dicha ligadura tiene validez.
+- Recordemos que el **ámbito de una ligadura** es la porción del programa en la
+  que dicha ligadura tiene validez.
 
 - Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
@@ -264,7 +264,7 @@ nocite: |
 - Recordemos que un marco es un conjunto de ligaduras.
 
 - Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
-  validas en un punto concreto del programa.
+  válidas en un punto concreto de la ejecución del programa.
 
 - Cuando la ejecución del programa entra dentro de un ámbito, **se crea un
   nuevo marco asociado a ese ámbito**.
@@ -291,7 +291,7 @@ nocite: |
   que tendremos, además, al menos uno más cada vez que se aplique una expresión
   lambda a unos argumentos.
 
-- El **ámbito** es un concepto *estático*: es algo que existe y se define
+- El **ámbito** es un concepto *estático*: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.
 
 - El **marco** es un concepto *dinámico*: es algo que se crea y se destruye a
@@ -310,8 +310,8 @@ nocite: |
 
 ---
 
-- El concepto de **entorno** representa el hecho de que los ámbitos se
-  contienen unos a otros (están anidados unos dentro de otros).
+- El concepto de **entorno** refleja el hecho de que los ámbitos se contienen
+  unos a otros (están anidados unos dentro de otros).
 
 - Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
   contenido en el ámbito de $B$.
@@ -325,7 +325,7 @@ nocite: |
 
   !IMGP(lambda-entorno-linea3-dentro-despues.svg)()(width=50%)(width=50%)
 
-  Tendríamos que:
+  Podemos afirmar que:
 
   - El ámbito de la expresión lambda está contenido en el ámbito global.
 
@@ -339,7 +339,7 @@ nocite: |
 #### Ligaduras *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
-  ya están definidos (ligados) en el entorno (en un ámbito más global)?
+  ya están definidos (ligados) en el entorno, en un ámbito más global?
 
 - Por ejemplo:
 
@@ -365,9 +365,44 @@ nocite: |
   podemos acceder a ese identificador externo desde el cuerpo de la expresión
   lambda como si fuera una variable libre.
 
-- Si necesitáramos acceder al valor de la `x` que está fuera de la expresión
-  lambda, lo que podemos hacer es **cambiar el nombre** al parámetro `x`. Por
-  ejemplo:
+- Esto es así porque la primera ligadura del identificador `x` que nos
+  encontramos al recorrer la secuencia de marcos del entorno es la que está en
+  el marco de la expresión lambda.
+
+!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con variable sombreada)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+total [shape = plaintext, fillcolor = transparent, label = "total"]
+4 [shape = circle]
+3 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+xl [shape = plaintext, fillcolor = transparent, label = "x"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    total
+    x
+}
+total -> lambda
+x -> 4
+subgraph cluster1 {
+    label = "Marco de lambda"
+    bgcolor = white
+    xl
+}
+xl -> 3
+xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> xl [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de
+  la `x` que está fuera de la expresión lambda, lo que podemos hacer es
+  **cambiar el nombre** al parámetro `x`. Por ejemplo:
 
   ```{.python .number-lines}
   x = 4
@@ -377,6 +412,35 @@ nocite: |
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
   y una variable libre (el identificador `x` ligado en el ámbito global) al que
   ahora sí podemos acceder al no estar sombreada.
+
+!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+total [shape = plaintext, fillcolor = transparent, label = "total"]
+4 [shape = circle]
+3 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, label = "x"]
+w [shape = plaintext, fillcolor = transparent, label = "w"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    total
+    x
+}
+total -> lambda
+x -> 4
+subgraph cluster1 {
+    label = "Marco de lambda"
+    bgcolor = white
+    w
+}
+w -> 3
+w -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Renombrado de parámetros
 
@@ -405,11 +469,11 @@ nocite: |
 
 #### Expresiones lambda y entornos
 
-- Para encontrar el valor de un identificador en el entorno, buscamos **en el
-  primer marco del entorno** una ligadura para ese identificador, y si no la
-  encontramos, **vamos subiendo por la cadena de marcos** hasta encontrarla. Si
-  no aparece en ningún marco, querrá decir que el identificador no está ligado
-  (o que su ligadura está fuera del entorno, en otro ámbito).
+- Para encontrar el valor ligado a un identificador en el entorno, buscamos
+  **en el primer marco del entorno** una ligadura para ese identificador, y si
+  no la encontramos, **vamos subiendo por la cadena de marcos** hasta
+  encontrarla. Si no aparece en ningún marco, querrá decir que el identificador
+  no está ligado, o que su ligadura está fuera del entorno, en otro ámbito.
 
 - Debemos tener en cuenta también, por tanto, las posibles **variables
   sombreadas** que puedan aparecer.
@@ -430,7 +494,8 @@ nocite: |
   w = 9
   ```
 
-- En cada línea tendríamos los siguientes entornos:
+- A medida que vamos ejecutando cada línea del código, tendríamos los
+  siguientes entornos:
 
 :::: columns
 
@@ -439,15 +504,15 @@ nocite: |
 !DOT(lambda-entorno-linea1.svg)(Entorno en la línea 1)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    4 [shape = circle]
     x [shape = plaintext, fillcolor = transparent, label = "x"]
-    x -> 4
 }
-E [shape = point]
+x -> 4
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -458,18 +523,18 @@ E -> x [lhead = cluster0]
 !DOT(lambda-entorno-linea2.svg)(Entorno en la línea 2)(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+1 [shape = circle]
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    1 [shape = circle]
-    4 [shape = circle]
     x [shape = plaintext, fillcolor = transparent, label = "x"]
     z [shape = plaintext, fillcolor = transparent, label = "z"]
-    x -> 4
-    z -> 1
 }
-E [shape = point]
+x -> 4
+z -> 1
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -482,21 +547,20 @@ E -> x [lhead = cluster0]
 !DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=25%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+1 [shape = circle]
+4 [shape = circle]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    1 [shape = circle]
-    4 [shape = circle]
     x [shape = plaintext, fillcolor = transparent, label = "x"]
     z [shape = plaintext, fillcolor = transparent, label = "z"]
-
     suma [shape = plaintext, fillcolor = transparent, label = "suma"]
-    suma -> lambda
-    x -> 4
-    z -> 1
 }
-E [shape = point]
+suma -> lambda
+x -> 4
+z -> 1
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -509,26 +573,26 @@ graph [rankdir = LR]
 node [fontname = "monospace"]
 1 [shape = circle]
 4 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
-xl [shape = plaintext, fillcolor = transparent, label = "x"]
-yl [shape = plaintext, fillcolor = transparent, label = "y"]
-z [shape = plaintext, fillcolor = transparent, label = "z"]
-suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    suma -> lambda
-    x -> 4
-    z -> 1
+    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    z [shape = plaintext, fillcolor = transparent, label = "z"]
 }
+suma -> lambda
+x -> 4
+z -> 1
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
+    xl [shape = plaintext, fillcolor = transparent, label = "x"]
+    yl [shape = plaintext, fillcolor = transparent, label = "y"]
     xl -> xl
     yl -> yl
 }
 xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -537,32 +601,32 @@ E -> xl [lhead = cluster1]
 !DOT(lambda-entorno-linea3-dentro-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de aplicar los argumentos)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
-graph [rankdir = LR, splines = ortho]
+graph [rankdir = LR]
 node [fontname = "monospace"]
 1 [shape = circle]
 4 [shape = circle]
 8 [shape = circle]
 12 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
-xl [shape = plaintext, fillcolor = transparent, label = "x"]
-yl [shape = plaintext, fillcolor = transparent, label = "y"]
-z [shape = plaintext, fillcolor = transparent, label = "z"]
-suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    suma -> lambda
-    x -> 4
-    z -> 1
+    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    z [shape = plaintext, fillcolor = transparent, label = "z"]
 }
+suma -> lambda
+x -> 4
+z -> 1
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
-    xl -> 8
-    yl -> 12
+    xl [shape = plaintext, fillcolor = transparent, label = "x"]
+    yl [shape = plaintext, fillcolor = transparent, label = "y"]
 }
-8 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = point]
+xl -> 8
+yl -> 12
+xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -575,24 +639,24 @@ E -> xl [lhead = cluster1]
 !DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+21 [shape = circle];
+1 [shape = circle];
+3 [shape = circle];
+4 [shape = circle];
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    21 [shape = circle];
-    1 [shape = circle];
-    3 [shape = circle];
-    4 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
     z [shape = plaintext, fillcolor = transparent]
     suma [shape = plaintext, fillcolor = transparent]
     y [shape = plaintext, fillcolor = transparent]
-    x -> 4
-    y -> 3
-    z -> 1
-    suma -> 21
 }
-E [shape = point]
+x -> 4
+y -> 3
+z -> 1
+suma -> 21
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -603,27 +667,27 @@ E -> x [lhead = cluster0]
 !DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
+21 [shape = circle];
+1 [shape = circle];
+3 [shape = circle];
+4 [shape = circle];
+9 [shape = circle];
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    21 [shape = circle];
-    1 [shape = circle];
-    3 [shape = circle];
-    4 [shape = circle];
-    9 [shape = circle];
     x [shape = plaintext, fillcolor = transparent]
     z [shape = plaintext, fillcolor = transparent]
     suma [shape = plaintext, fillcolor = transparent]
     y [shape = plaintext, fillcolor = transparent]
     w [shape = plaintext, fillcolor = transparent]
-    x -> 4
-    y -> 3
-    z -> 1
-    suma -> 21
-    w -> 9
 }
-E [shape = point]
+x -> 4
+y -> 3
+z -> 1
+suma -> 21
+w -> 9
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -639,7 +703,7 @@ E -> x [lhead = cluster0]
 
 - Por ejemplo:
 
-  ```python
+  ```{.python .number-lines}
   >>> prueba = lambda x, y: x + y + z  # aquí no da error
   >>> prueba(4, 3)                     # aquí sí
   Traceback (most recent call last):
@@ -649,7 +713,7 @@ E -> x [lhead = cluster0]
   ```
 
   da error porque `z` no está definido (no está ligado a ningún valor en el
-  entorno).
+  entorno) en el momento de llamar a `prueba` en la línea 2.
 
 ---
 
@@ -662,9 +726,9 @@ E -> x [lhead = cluster0]
   16
   ```
 
-  sí funciona (y devuelve `16`) porque en el momento de evaluar la expresión
-  lambda (en la línea 3) el identificador `z` está ligado a un valor en el
-  entorno (en este caso, `9`).
+  sí funciona (y devuelve `16`) porque, en el momento de evaluar la aplicación
+  de la expresión lambda (en la línea 3), el identificador `z` está ligado a un
+  valor en el entorno (en este caso, `9`).
 
 - Observar que no es necesario que las variables libres estén ligadas en el
   entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa el
@@ -673,17 +737,21 @@ E -> x [lhead = cluster0]
 
 ### Pureza
 
-- Una expresión lambda cuyo cuerpo sólo contiene variables ligadas, es
-  una expresión cuyo valor sólo va a depender de los argumentos que se usen
-  cuando se aplique la expresión lambda.
+- Si el cuerpo de una expresión lambda no contiene variables libres, el valor
+  que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor
+  que tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a
+  la expresión lambda).
 
-- En cambio, el valor de una expresión lambda que contenga variables
-  libres dependerá no sólo de los valores de sus argumentos, sino también de
-  los valores a los que estén ligadas las variables libres al evaluar la
-  expresión lambda.
+- En cambio, si el cuerpo de una expresión lambda sí contiene variables libres,
+  el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del
+  valor de esos argumentos, sino también de los valores a los que estén ligadas
+  las variables libres en el momento de evaluar la aplicación de la expresión
+  lambda.
 
-- En el ejemplo anterior tenemos una expresión que no es pura, ya que su valor
-  depende de una variable libre (`z`):
+- Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
+  contiene una variable libre (`z`) y, por tanto, cuando la aplicamos a los
+  argumentos `4` y `3` obtenemos un valor que depende, no sólo de los valores
+  de `x` e `y`, sino también del valor de `z`:
 
   ```python
   >>> prueba = lambda x, y: x + y + z
@@ -704,28 +772,32 @@ E -> x [lhead = cluster0]
   ```
 
   En este caso, hay un identificador (`suma`) que no aparece en la lista de
-  parámetros de la expresión lambda `suma3`, por lo que es una variable libre.
+  parámetros de la expresión lambda `suma3`, por lo que es una variable libre
+  en el cuerpo de la expresión lambda de `suma3`.
 
   En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
   `suma` en el entorno actual.
 
 ---
 
-- Una expresión lambda es **pura** cuando su valor depende, únicamente, del
-  valor de sus parámetros.
+- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
+  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
+  argumentos, es decir, de sus parámetros o variables ligadas.
 
 - También se dice que una expresión lambda que contiene sólo variables ligadas
-  es **más pura** que otra cuyo valor depende, además, de variables libres.
+  es **más pura** que otra que también contiene variables libres.
 
-- En cuanto a *grados de pureza*, podemos decir que hay **más pureza** si una
-  variable libre representa una **función** a aplicar en el cuerpo de la
-  expresión lambda, que si representa cualquier otro tipo de valor.
+- Y también podemos hablar de **grados de pureza**:
 
-- En el ejemplo anterior, tenemos que la expresión lambda `suma3`, sin ser
-  *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
-  que su única variable libre se usa como una **función**, y las funciones
-  tienden a no cambiar durante la ejecución del programa, al contrario que los
-  demás tipos de valores.
+  - Podemos decir que hay **más pureza** si una variable libre representa una
+    **función** a aplicar en el cuerpo de la expresión lambda, que si
+    representa cualquier otro tipo de valor.
+
+  - En el ejemplo anterior, tenemos que la expresión lambda de `suma3`, sin ser
+    *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
+    que su única variable libre (`suma`) se usa como una **función**, y las
+    funciones tienden a no cambiar durante la ejecución del programa, al
+    contrario que los demás tipos de valores.
 
 ---
 
@@ -743,6 +815,15 @@ E -> x [lhead = cluster0]
   suma = lambda x, y: x + y + z
   ```
 
+- **La pureza de una función es un rasgo deseado y que hay que tratar de
+  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
+  mantenimiento de los programas, además de simplificar el razonamiento sobre
+  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
+
+- Es más incómodo trabajar con `suma` porque hay que *recordar* que depende de
+  un valor que está *fuera* de la expresión lambda, cosa que no resulta
+  evidente a no ser que mires en el cuerpo de la expresión lambda.
+
 ## Estrategias de evaluación
 
 - A la hora de evaluar una expresión (cualquier expresión) existen varias
@@ -754,7 +835,11 @@ E -> x [lhead = cluster0]
 - Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión
   hay que reducir, en función de:
 
-  - El orden (de fuera adentro o de dentro afuera).
+  - El orden de evaluación:
+
+    - De fuera adentro o de dentro afuera.
+
+    - De izquierda a derecha o de derecha a izquierda.
 
   - La necesidad o no de evaluar dicha sub-expresión.
 
@@ -909,8 +994,8 @@ E -> x [lhead = cluster0]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Teorema:**
 
-  Si una expresión tiene forma normal, el orden normal de evaluación conduce
-  seguro a la misma.
+  Si una expresión tiene forma normal, el **orden normal** de evaluación
+  conduce seguro a la misma.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - En cambio, el orden aplicativo es posible que no encuentre la forma normal de
@@ -938,11 +1023,11 @@ E -> x [lhead = cluster0]
 
     En ambos casos no es necesario evaluar `x`.
 
-- La mayoría de los lenguajes de programación se basan en la evaluación
-  estricta y el paso de argumentos por valor (siguen el orden aplicativo).
+- La mayoría de los lenguajes de programación usan evaluación estricta y paso
+  de argumentos por valor (siguen el orden aplicativo).
 
-- **Haskell**, por ejemplo, es un lenguaje funcional puro que se basa en la
-  evaluación perezosa y sigue el orden normal.
+- **Haskell**, por ejemplo, es un lenguaje funcional puro que usa evaluación
+  perezosa y sigue el orden normal.
 
 ## Composición de funciones
 
@@ -959,8 +1044,8 @@ E -> x [lhead = cluster0]
   ```{.python .number-lines}
   area(11 + 1)                                     # aritmética
   = area(12)                                       # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(12)           # definición de cuadrado
-  = (lambda r: 3.1416 * (lambda x: x * x)(r))(12)  # aplicación
+  = (lambda r: 3.1416 * cuadrado(r))(12)           # aplicación
+  = (3.1416 * cuadrado(12))                        # definición de cuadrado
   = (3.1416 * (lambda x: x * x)(12))               # aplicación
   = (3.1416 * (12 * 12))                           # aritmética
   = (3.1416 * 144)                                 # aritmética
@@ -974,19 +1059,18 @@ E -> x [lhead = cluster0]
   - **Línea 1**: Se evalúa primero el argumento.
 
   - **Línea 3**: El *redex* más interno es `r`, pero no puede reducirse más en
-    este momento. El siguiente más interno es `cuadrado(r)`; para evaluarlo hay
-    que reescribir `cuadrado` con su definición.
+    este momento porque se desconoce su valor. El siguiente más interno es
+    `cuadrado(r)` pero tampoco puede reducirse ya que se desconoce el valor de
+    `r`. El siguiente más interno es el `*`, que tampoco se puede reducir
+    porque su operando derecho (el `cuadrado(r)`) aún no está evaluado ni se
+    puede evaluar, así que el *redex* que queda es la aplicación del `lambda`
+    sobre su argumento `12`.
 
-  - **Línea 4**: El *redex* más interno es la aplicación del `lambda` derecho
-    con el argumento `r`, pero éste aún no está evaluado ni se puede evaluar
-    ahora mismo, así que no es posible reducir la aplicación. El siguiente más
-    interno es el `*` sobre `3.1416`, pero el otro operando (el `lambda`
-    derecho) aún no está evaluado ni se puede evaluar, así que el *redex* que
-    queda es la aplicación del primer `lambda` sobre su argumento `12`.
+  - **Línea 4**: El *redex* más interno es `cuadrado(12)`, que se evalúa
+    reescribiéndolo con su definición.
 
-  - **Línea 5**: El *redex* más interno es la aplicación del `lambda` derecho
-    con el argumento `12`, que ahora sí se puede hacer porque el argumento está
-    evaluado.
+  - **Línea 5**: El *redex* más interno es la aplicación del `lambda` sobre su
+    argumento `12`.
 
 ---
 
@@ -1022,8 +1106,8 @@ E -> x [lhead = cluster0]
     `cuadrado`, reescribiéndolo con su definición.
 
   - **Línea 4**: Igual que en la línea 3, para poder evaluar el `*` más externo
-    hay que evaluar primero la aplicación del `lambda` sobre su argumento `11 +
-    1`.
+    hay que evaluar primero la aplicación del `lambda` sobre su argumento
+    `11 + 1`.
 
 ## Las funciones como abstracciones
 
@@ -1035,15 +1119,17 @@ E -> x [lhead = cluster0]
   y su resultado de salida.
 
 - Podemos escribir `area` sin preocuparnos de cómo calcular el cuadrado de un
-  número, porque eso ya lo hace la función `cuadrado`. **Los detalles** sobre
-  cómo se calcula el cuadrado **se ignoran en este momento** para considerarlos
-  más tarde.
+  número, porque eso ya lo hace la función `cuadrado`.
+
+- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
+  la definición** de `cuadrado`. Esos detalles **se ignoran en este momento**
+  para considerarlos más tarde.
 
 - De hecho, por lo que respecta a `area`, `cuadrado` no representa una
   definición concreta de función, sino más bien la abstracción de una función,
   lo que se denomina una **abstracción funcional**. A este nivel de
   abstracción, cualquier función que calcule el cuadrado de un número es igual
-  de buena.
+  de buena y le serviría igual de bien a `area`.
 
 ---
 
@@ -1061,9 +1147,9 @@ E -> x [lhead = cluster0]
  
 
 - **Un programador no debe necesitar saber cómo está implementada una función
-  para poder usarla**. Eso es lo que ocurre, por ejemplo, con las funciones
-  predefinidas del lenguaje: sabemos *qué* hacen pero no necesitamos saber
-  *cómo* lo hacen.
+  por dentro para poder usarla**. Eso es lo que ocurre, por ejemplo, con las
+  funciones predefinidas del lenguaje: sabemos *qué* hacen pero no necesitamos
+  saber *cómo* lo hacen.
 
 - Incluso puede que el usuario de una función no sea el mismo que la haya
   escrito, sino que la puede haber recibido de otro programador como una
