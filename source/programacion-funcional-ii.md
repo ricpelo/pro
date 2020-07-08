@@ -385,6 +385,7 @@ subgraph cluster0 {
     total
     x
 }
+lambda [shape = circle, label = "λ"]
 total -> lambda
 x -> 4
 subgraph cluster1 {
@@ -429,6 +430,7 @@ subgraph cluster0 {
     total
     x
 }
+lambda [shape = circle, label = "λ"]
 total -> lambda
 x -> 4
 subgraph cluster1 {
@@ -557,6 +559,7 @@ subgraph cluster0 {
     z [shape = plaintext, fillcolor = transparent, label = "z"]
     suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 }
+lambda [shape = circle, label = "λ"]
 suma -> lambda
 x -> 4
 z -> 1
@@ -576,10 +579,11 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
     x [shape = plaintext, fillcolor = transparent, label = "x"]
     z [shape = plaintext, fillcolor = transparent, label = "z"]
+    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 }
+lambda [shape = circle, label = "λ"]
 suma -> lambda
 x -> 4
 z -> 1
@@ -610,10 +614,11 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
     x [shape = plaintext, fillcolor = transparent, label = "x"]
     z [shape = plaintext, fillcolor = transparent, label = "z"]
+    suma [shape = plaintext, fillcolor = transparent, label = "suma"]
 }
+lambda [shape = circle, label = "λ"]
 suma -> lambda
 x -> 4
 z -> 1
@@ -636,7 +641,7 @@ E -> xl [lhead = cluster1]
 
 ::: column
 
-!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=40%)(width=25%)
+!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=60%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -664,7 +669,7 @@ E -> x [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=40%)(width=25%)
+!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=60%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1596,8 +1601,8 @@ $$fact(n) = \begin{cases}
   siguiente regla:
 
   $$\begin{cases}
-      acumulado \leftarrow acumulado \cdot contador \\
-      contador \leftarrow contador - 1
+      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\
+      contador_{nuevo} = contador_{viejo} - 1
     \end{cases}$$
 
 - Su traducción a Python podría ser la siguiente, usando una función auxiliar
@@ -1832,8 +1837,8 @@ fib1_5 -> u5
   transformación:
 
   $$\begin{cases}
-      a \leftarrow a + b \\
-      b \leftarrow a
+      a_{nuevo} = a_{viejo} + b_{viejo} \\
+      b_{nuevo} = a_{viejo}
     \end{cases}$$
 
 - Después de $n$ pasos, `a` y `b` contendrán, respectivamente, $fib(n + 1)$ y
@@ -1859,15 +1864,17 @@ fib1_5 -> u5
   - Las **llamadas activas** son aquellas llamadas a funciones que aún no han
     terminado de ejecutarse.
 
-- La pila de control es, básicamente, un **almacén de entornos**.
+- La pila de control es, básicamente, un **almacén de marcos**.
 
 - Cada vez que se hace una nueva llamada a una función, **su marco**
   correspondiente **se almacena en la cima de la pila** sobre los demás marcos
   que pudiera haber.
 
 - Ese marco es el primero de la cadena de marcos que forman el entorno de la
-  función, pero en general no es necesario almacenar toda la cadena en la pila
-  (basta con su primer marco).
+  función, que deberán estar almacenados más abajo en la pila.
+
+- Los marcos se enlazan entre sí para representar los entornos que actúan en
+  las distintas llamadas activas.
 
 ---
 
@@ -1888,11 +1895,11 @@ fib1_5 -> u5
  
 ---
 
-- Supongamos el siguiente código:
-
 :::: columns
 
 ::: column
+
+- Supongamos el siguiente código:
 
 ```python
 g = 1
@@ -1911,53 +1918,73 @@ uno(3)
 rankdir = LR
 compound = true
 node [shape = record]
-pila [label = "<f3>Tres|<f2>Dos|<f1>Uno", xlabel = "Pila de\ncontrol"]
+pila [label = "<f3>Tres|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
+1 [shape = circle]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    g [shape = plaintext, fillcolor = transparent]
+}
+g -> 1
+3 [shape = circle]
 subgraph cluster1 {
     label = "Marco de uno"
     bgcolor = "white"
     node [fontname = "monospace"]
-    3 [shape = circle]
     x [shape = plaintext, fillcolor = transparent]
-    x -> 3
 }
-subgraph cluster2 {
-    label = "Marco de dos"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    6 [shape = circle]
-    y [shape = plaintext, fillcolor = transparent]
-    4 [shape = circle]
-    z [shape = plaintext, fillcolor = transparent]
-    y -> 6
-    z -> 4
-}
+x -> 3
+11 [shape = circle]
 subgraph cluster3 {
     label = "Marco de tres"
     bgcolor = "white"
     node [fontname = "monospace"]
     w [shape = plaintext, fillcolor = transparent]
-    11 [shape = circle]
-    w -> 11
 }
-subgraph cluster0 {
-    label = "Marco global"
+w -> 11
+6 [shape = circle]
+4 [shape = circle]
+subgraph cluster2 {
+    rank = min
+    label = "Marco de dos"
     bgcolor = "white"
     node [fontname = "monospace"]
-    1 [shape = circle]
-    g [shape = plaintext, fillcolor = transparent]
-    g -> 1
+    y [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
 }
-pila:f1 -> x [lhead = cluster1, minlen = 2]
+y -> 6
+z -> 4
+pila:f0 -> g [lhead = cluster0]
+pila:f1 -> x [lhead = cluster1]
 pila:f2 -> y [lhead = cluster2]
 pila:f3 -> w [lhead = cluster3]
-3 -> g [lhead = cluster0, ltail = cluster1]
-6 -> g [lhead = cluster0, ltail = cluster2]
-11 -> g [lhead = cluster0, ltail = cluster3]
+x -> g [lhead = cluster0, ltail = cluster1, minlen = 2]
+y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
+w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::::
+
+---
+
+- Del análisis del diagrama del ejemplo anterior se pueden deducir las
+  siguientes conclusiones:
+
+  - En un momento dado, dentro del ámbito global se ha llamado a la función
+    `uno`, la cual ha llamado a la función `dos`, la cual ha llamado a la
+    función `tres`, la cual aún no ha terminado de ejecutarse.
+
+  - El entorno en la función `uno` empieza por el marco de `uno`, el cual
+    apunta al marco global.
+
+  - El entorno en la función `dos` empieza por el marco de `uno`, el cual
+    apunta al marco global.
+
+  - El entorno en la función `tres` empieza por el marco de `uno`, el cual
+    apunta al marco global.
 
 ---
 
@@ -1987,45 +2014,46 @@ fact(4)
 rankdir = LR
 compound = true
 node [shape = record]
-pila [label = "<f3>fact(2)|<f2>fact(3)|<f1>fact(4)", xlabel = "Pila de\ncontrol"]
+pila [label = "<f3>fact(2)|<f2>fact(3)|<f1>fact(4)|<f0>Global", xlabel = "Pila de\ncontrol"]
+4 [shape = circle]
 subgraph cluster1 {
     label = "Marco de fact(4)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    4 [shape = circle]
     n4 [shape = plaintext, fillcolor = transparent, label = n]
-    n4 -> 4
 }
+n4 -> 4
+3 [shape = circle]
 subgraph cluster2 {
     label = "Marco de fact(3)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    3 [shape = circle]
     n3 [shape = plaintext, fillcolor = transparent, label = n]
-    n3 -> 3
 }
+n3 -> 3
+2 [shape = circle]
 subgraph cluster3 {
     label = "Marco de fact(2)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    2 [shape = circle]
     n2 [shape = plaintext, fillcolor = transparent, label = n]
-    n2 -> 2
 }
+n2 -> 2
+lambda [shape = circle, label = "λ"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    lambda [shape = ellipse]
     fact [shape = plaintext, fillcolor = transparent]
-    fact -> lambda
 }
+fact -> lambda
+pila:f0 -> fact [lhead = cluster0, minlen = 2]
 pila:f1 -> n4 [lhead = cluster1, minlen = 2]
-pila:f2 -> n3 [lhead = cluster2]
-pila:f3 -> n2 [lhead = cluster3]
-4 -> fact [lhead = cluster0, ltail = cluster1]
-3 -> fact [lhead = cluster0, ltail = cluster2]
-2 -> fact [lhead = cluster0, ltail = cluster3]
+pila:f2 -> n3 [lhead = cluster2, minlen = 2]
+pila:f3 -> n2 [lhead = cluster3, minlen = 2]
+n4 -> fact [lhead = cluster0, ltail = cluster1, minlen = 2]
+n3 -> fact [lhead = cluster0, ltail = cluster2, minlen = 2]
+n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::

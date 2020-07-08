@@ -573,13 +573,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-linea4.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Entorno en la línea 4</figcaption>
+<img data-src="images/lambda-entorno-linea4.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Entorno en la línea 4</figcaption>
 </figure>
 </div>
 </div><div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-linea5.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Entorno en la línea 5</figcaption>
+<img data-src="images/lambda-entorno-linea5.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Entorno en la línea 5</figcaption>
 </figure>
 </div>
 </div>
@@ -1208,8 +1208,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A continuación adoptaremos un enfoque diferente.</p></li>
 <li><p>Podemos mantener un producto acumulado y un contador desde <span class="math inline">n</span> hasta 1, de forma que el contador y el producto cambien de un paso al siguiente según la siguiente regla:</p>
 <p><span class="math display">\begin{cases}
-    acumulado \leftarrow acumulado \cdot contador \\
-    contador \leftarrow contador - 1
+    acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\
+    contador_{nuevo} = contador_{viejo} - 1
   \end{cases}</span></p></li>
 <li><p>Su traducción a Python podría ser la siguiente, usando una función auxiliar <code>fact_iter</code>:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
@@ -1384,8 +1384,8 @@ proporcional a <code>n</code></td>
 <li><p>Se puede construir un <strong>proceso iterativo</strong> para calcular los números de Fibonacci.</p></li>
 <li><p>La idea consiste en usar dos variables de estado <code>a</code> y <code>b</code> (con valores iniciales <code>1</code> y <code>0</code>, respectivamente) y aplicar repetidamente la siguiente transformación:</p>
 <p><span class="math display">\begin{cases}
-    a \leftarrow a + b \\
-    b \leftarrow a
+    a_{nuevo} = a_{viejo} + b_{viejo} \\
+    b_{nuevo} = a_{viejo}
   \end{cases}</span></p></li>
 <li><p>Después de <span class="math inline">n</span> pasos, <code>a</code> y <code>b</code> contendrán, respectivamente, <span class="math inline">fib(n + 1)</span> y <span class="math inline">fib(n)</span>.</p></li>
 <li><p>En Python sería:</p>
@@ -1403,9 +1403,10 @@ proporcional a <code>n</code></td>
 <ul>
 <li>Las <strong>llamadas activas</strong> son aquellas llamadas a funciones que aún no han terminado de ejecutarse.</li>
 </ul></li>
-<li><p>La pila de control es, básicamente, un <strong>almacén de entornos</strong>.</p></li>
+<li><p>La pila de control es, básicamente, un <strong>almacén de marcos</strong>.</p></li>
 <li><p>Cada vez que se hace una nueva llamada a una función, <strong>su marco</strong> correspondiente <strong>se almacena en la cima de la pila</strong> sobre los demás marcos que pudiera haber.</p></li>
-<li><p>Ese marco es el primero de la cadena de marcos que forman el entorno de la función, pero en general no es necesario almacenar toda la cadena en la pila (basta con su primer marco).</p></li>
+<li><p>Ese marco es el primero de la cadena de marcos que forman el entorno de la función, que deberán estar almacenados más abajo en la pila.</p></li>
+<li><p>Los marcos se enlazan entre sí para representar los entornos que actúan en las distintas llamadas activas.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.0.0.1">
@@ -1420,11 +1421,11 @@ proporcional a <code>n</code></td>
 </section>
 <section class="slide level5" data-number="2.3.0.0.2">
 
+<div class="columns">
+<div class="column">
 <ul>
 <li>Supongamos el siguiente código:</li>
 </ul>
-<div class="columns">
-<div class="column">
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>g <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a>uno <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">1</span> <span class="op">+</span> dos(<span class="dv">2</span> <span class="op">*</span> x, <span class="dv">4</span>)</span>
 <span id="cb48-3"><a href="#cb48-3"></a>dos <span class="op">=</span> <span class="kw">lambda</span> y, z: tres(y <span class="op">+</span> z <span class="op">+</span> g)</span>
@@ -1440,6 +1441,18 @@ proporcional a <code>n</code></td>
 </div>
 </section>
 <section class="slide level5" data-number="2.3.0.0.3">
+
+<ul>
+<li><p>Del análisis del diagrama del ejemplo anterior se pueden deducir las siguientes conclusiones:</p>
+<ul>
+<li><p>En un momento dado, dentro del ámbito global se ha llamado a la función <code>uno</code>, la cual ha llamado a la función <code>dos</code>, la cual ha llamado a la función <code>tres</code>, la cual aún no ha terminado de ejecutarse.</p></li>
+<li><p>El entorno en la función <code>uno</code> empieza por el marco de <code>uno</code>, el cual apunta al marco global.</p></li>
+<li><p>El entorno en la función <code>dos</code> empieza por el marco de <code>uno</code>, el cual apunta al marco global.</p></li>
+<li><p>El entorno en la función <code>tres</code> empieza por el marco de <code>uno</code>, el cual apunta al marco global.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.4">
 
 <ul>
 <li><p>Hemos dicho que habrá un registro de activación por cada nueva llamada que se realice a una función, y que ese registro se mantendrá en la pila hasta que la llamada finalice.</p></li>
