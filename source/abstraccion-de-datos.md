@@ -46,16 +46,16 @@ nocite: |
 
 ---
 
-- La abstracción es un proceso pero también es algo que puede formar parte de
-  un programa.
+- La abstracción es un proceso pero también un producto: es algo que puede
+  formar parte de un programa.
 
 - Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
   **funciones**, también llamadas **abstracciones funcionales**.
 
-- Una función es una abstracción funcional porque el usuario de la función sólo
-  necesita conocer la **especificación** de la abstracción (el *qué* hace) y
-  puede ignorar el resto de los detalles de **implementación** que se
-  encuentran en el cuerpo de la función (el *cómo* lo hace).
+- Una función es una abstracción porque el usuario de la función sólo necesita
+  conocer la **especificación** de la abstracción (el *qué* hace) y puede
+  ignorar el resto de los detalles de **implementación** que se encuentran en
+  el cuerpo de la función (el *cómo* lo hace).
 
 - Por eso decimos que las funciones definen dos niveles de abstracción.
 
@@ -68,7 +68,9 @@ nocite: |
 - Las abstracciones funcionales son un mecanismo que nos permite:
 
   #. componer una **operación compleja** combinando otras operaciones más
-     simples (dándole un nuevo nombre a todo el conjunto), y
+     simples,
+
+  #. darle un nombre a todo el conjunto, y
 
   #. poder usar esa nueva operación compleja sin necesidad de conocer cómo está
      hecha por dentro (es decir, sin necesidad de conocer cuáles son esas
@@ -78,13 +80,17 @@ nocite: |
 - Una vez que la función se ha diseñado y se está utilizando, se puede
   sustituir por cualquier otra que tenga el mismo comportamiento observable.
 
-- De forma similar, los datos compuestos o estructurados son un mecanismo que
-  nos permite crear un **dato complejo** combinando otros datos más simples,
-  formando una única unidad conceptual.
+---
+
+- Los **datos compuestos o estructurados** son un mecanismo que nos permite
+  crear un **dato complejo** combinando otros datos más simples, formando una
+  única unidad conceptual.
 
 - Pero, por desgracia, estos datos compuestos **no ocultan sus detalles de
   implementación al usuario**, sino que éste tiene que conocer cómo está
   construido.
+
+- Es decir: los datos compuestos, así sin más, no funcionan como abstracciones.
 
 ---
 
@@ -159,8 +165,8 @@ nocite: |
 
 ---
 
-- La **abstracción de datos** es una **técnica** pero también es algo que puede
-  formar parte de un programa.
+- La **abstracción de datos** es una **técnica** pero también un producto: es
+  algo que puede formar parte de un programa.
 
 - Diseñar programas usando abstracción de datos da como resultado la creación
   y utilización de **tipos abstractos de datos** (o **TAD**), a los que también
@@ -176,7 +182,7 @@ nocite: |
     sin que los usuarios de la función se vean afectados.
 
     En otras palabras, podemos hacer una abstracción que separe la forma en que
-    se utiliza la función de los detalles de cómo se implementa la función.
+    _se utiliza_ la función de los detalles de cómo _se implementa_ la función.
 
   - Igualmente, la **abstracción de datos** separa el uso de un dato compuesto
     de los detalles de cómo está construido ese dato compuesto, que quedan
@@ -190,8 +196,9 @@ nocite: |
 --------------------------------------------------------------------------------
 Elementos del lenguaje      Instrucciones               Datos
 --------------------------- --------------------------- ------------------------
-Primitivas                  Definiciones, literales y   Datos simples (enteros,
-                            sentencias simples          reales, booleanos...
+Primitivas                  Definiciones y sentencias   Literales y datos 
+                            simples                     simples (enteros,
+                                                        reales, booleanos...)
 
 Mecanismos de combinación   Expresiones y sentencias    Datos compuestos
                             compuestas (estructuras     (listas, tuplas...)
@@ -223,7 +230,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 ---
 
 - Por ejemplo, `set` es un tipo primitivo en Python que actúa como un tipo
-  abstracto de datos.
+  abstracto de datos:
 
   - Se nos proporcionan **operaciones primitivas** para crear conjuntos y
     manipular conjuntos (unión, intersección, etc.) y también un modo de
@@ -233,8 +240,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     conjuntos en la memoria del ordenador. Ese es un detalle interno del
     intérprete.
 
-- En general, el programador que usa un tipo abstracto puede no saber, e
-  incluso se le impide saber, cómo se representan los elementos del tipo de
+- En general, el programador que usa un tipo abstracto puede no saber (e
+  incluso se le impide saber) cómo se representan los elementos del tipo de
   datos.
 
 - Esas **barreras de abstracción** son muy útiles porque permiten cambiar la
@@ -245,41 +252,41 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 - En resumen, tenemos que un tipo abstracto debe cumplir:
 
-  - **Privacidad de la representación**: los usuarios no conocen la
-    representación de los valores del tipo abstracto en la memoria del
-    ordenador.
+  - **Privacidad de la representación**: los usuarios no conocen cómo se
+    representan los valores del tipo abstracto en la memoria del ordenador.
 
-  - **Protección**: sólo se pueden utilizar para el nuevo tipo las operaciones
-    previstas en la especificación.
-
-> «Son las especificaciones, y no los programas, los que realmente describen
-> una abstracción; los programas simplemente la implementan.»
->
-> -- Barbara Liskov
-
+  - **Protección**: sólo se pueden utilizar con sus valores aquellas
+    operaciones previstas en la especificación.
 
 ---
 
 - El programador de un tipo abstracto debe crear, por tanto, dos partes bien
   diferenciadas:
 
-  - La **especificación** del tipo: única parte que conoce el usuario del mismo
-    y que consiste en:
+  #. **La _especificación_ del tipo:** única parte que conoce el usuario del
+     mismo y que consiste en:
   
-    - El **nombre** del tipo.
+     - El **nombre** del tipo.
     
-    - La especificación de las **operaciones** permitidas. Esta especificación
-      tendrá:
+     - La especificación de las **operaciones** permitidas. Esta especificación
+       tendrá:
 
-      - Una parte **sintáctica**: la *signatura* de cada operación.
+       - Una parte **sintáctica**: la **signatura** de cada operación.
 
-      - Otra parte **semántica**: que define las **propiedades** que deben
-        cumplir dichas operaciones y que se pueden expresar mediante
-        **ecuaciones** o directamente en lenguaje natural.
+       - Otra parte **semántica**: que define las **propiedades** que deben
+         cumplir dichas operaciones y que se pueden expresar mediante
+         **ecuaciones** o directamente en lenguaje natural.
 
-  - La **implementación** del tipo: conocida sólo por el programador del mismo
-    y que consiste en la *representación* del tipo por medio de otros tipos y
-    en la implementación de las operaciones.
+  #. **La _implementación_ del tipo:** conocida sólo por el programador del
+     mismo y que consiste en la *representación* del tipo por medio de otros
+     tipos y en la implementación de las operaciones.
+
+---
+
+> «Son las especificaciones, y no los programas, los que realmente describen
+> una abstracción; los programas simplemente la implementan.»
+>
+> -- Barbara Liskov
 
 # Especificaciones
 
@@ -323,22 +330,22 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 ## Operaciones
 
 - Las operaciones que forman parte de la especificación de un tipo abstracto
-  $T$ pueden clasificarse en:
+  $T$ pueden clasificarse en estas categorías:
 
   - **Constructoras**: operaciones que devuelven un valor de tipo $T$.
 
-    - A su vez, las constructoras se dividen en:
+    A su vez, las constructoras se dividen en:
 
-      - **Generadoras**: el conjunto de operaciones generadoras está formado
-        por aquellas operaciones constructoras que tienen la propiedad de que
-        sólo con ellas es suficiente para generar cualquier valor del tipo, y
-        excluyendo cualquiera de ellas hay valores que no pueden ser generados.
+    - **Generadoras**: el conjunto de operaciones generadoras está formado
+      por aquellas operaciones constructoras que tienen la propiedad de que
+      sólo con ellas es suficiente para generar cualquier valor del tipo, y
+      excluyendo cualquiera de ellas hay valores que no pueden ser generados.
 
-      - **Modificadoras**: son las operaciones constructoras que no forman
-        parte del conjunto de las generadoras.
+    - **Modificadoras**: son las operaciones constructoras que no forman parte
+      del conjunto de las generadoras.
 
   - **Selectoras**: operaciones que toman como argumento uno o más valores de
-    tipo $T$ que no devuelven un valor de tipo $T$.
+    tipo $T$ y que no devuelven un valor de tipo $T$.
 
 ## Ejemplos
 
@@ -481,39 +488,61 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente
   ecuación (que apareció antes en la primera especificación de *lista*):
 
-$l$ `++` `[]` $\doteq$ $l$
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~
+  $l$ `++` `[]` $\doteq$ $l$
+  ~~~~~~~~~~~~~~~~~~~~
 
-siendo $l$ una lista cualquiera.
+  siendo $l$ una lista cualquiera.
+
+- Para ello, tenemos que recordar que una lista sólo puede tener dos formas
+  posibles:
+
+  - Una lista vacía:
+
+    `[]`
+
+  - Un elemento seguido de otra lista:
+
+    $x$ `:` $l_1$
+
+- Por ejemplo, la lista `[1, 2, 3]` es 1`:`(2`:`(3`:[]`)).
+
+---
 
 - Se puede demostrar por inducción sobre $l$, a partir de los axiomas de la
   especificación de *lista*:
 
-  - Caso $l$ = `[]`:
+  a. Caso $l$ = `[]` (caso base):
 
-    $l$ `++` `[]` $\doteq$ {por definición de $l$}
+     ----------------------- ---------------------------------
+     $l$ `++` `[]`           # _por definición de $l$_
 
-    `[]` `++` `[]` $\doteq$ {por el primer axioma de `++`}
+     $\doteq$ `[]` `++` `[]` # _por el primer axioma de `++`_
 
-    `[]` $\doteq$ {por definición de $l$}
+     $\doteq$ `[]`           # _por definición de $l$_
 
-    $l$
+     $\doteq$ $l$
+     ----------------------- ---------------------------------
+
+  b. Caso $l$ = $x$ `:` $l_1$ (caso inductivo):
+
+     Suponemos que la propiedad se cumple para $l_1$ (hipótesis inductiva), es
+     decir, que $l_1$ `++` `[]` $\doteq$ $l_1$. En tal caso, tenemos:
+
+     ---------------------------------- ----------------------------------
+     $l$ `++` `[]`                      # _por definición de $l$_
+ 
+     $\doteq$ ($x$ `:` $l_1$) `++` `[]` # _por el segundo axioma de `++`_
+ 
+     $\doteq$ $x$ `:` ($l_1$ `++` `[]`) # _por hipótesis inductiva_
+
+     $\doteq$ $x$ `:` $l_1$             # _por definición de $l$_
+ 
+     $\doteq$ $l$
+     ---------------------------------- ----------------------------------
 
 ---
-
-  - Caso $l$ = $x$ `:` $l_1$:
-
-    Suponemos que la propiedad se cumple para $l_1$ (hipótesis inductiva), es
-    decir, que $l_1$ `++` `[]` $\doteq$ $l_1$.
-
-    $l$ `++` `[]` $\doteq$ {por definición de $l$}
-
-    ($x$ `:` $l_1$) `++` `[]` $\doteq$ {por el segundo axioma de `++`}
-
-    $x$ `:` ($l_1$ `++` `[]`) $\doteq$ {por hipótesis inductiva}
-
-    $x$ `:` $l_1$ $\doteq$ {por definición de $l$}
-
-    $l$
 
 - Como hemos demostrado que $l$ `++` `[]` $\doteq$ $l$ para cualquiera de las
   dos formas posibles que puede tener $l$, hemos logrado demostrar la propiedad
@@ -616,14 +645,14 @@ siendo $l$ una lista cualquiera.
           `suma`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}d_2 + n_2\cdot{}d_1$, $d_1\cdot{}d_2$)
           `mult`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}n_2$, $d_1\cdot{}d_2$)
           `iguales?`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ $n_1\cdot{}d_2 = n_2\cdot{}d_1$
-          `imprimir`($r$) \{ imprime el racional $r$ \}
+          `imprimir`($r$) \ \ \{ imprime el racional $r$ \}
           `racional`($n$, 0) $\doteq$ $error$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- La operación `imprimir` es un caso especial, ya que no es una operación
-  *pura*, sino que su finalidad es la de provocar el **efecto lateral** de
+- La operación `imprimir` es un caso especial, ya que **no es una operación
+  _pura_**, sino que su finalidad es la de provocar el **efecto lateral** de
   imprimir por la salida un número racional de forma «bonita».
 
 - Por eso no devuelve ningún valor, cosa que se refleja en su signatura usando
@@ -631,11 +660,12 @@ siendo $l$ una lista cualquiera.
 
 `imprimir` : _rac_ $\rightarrow$ $\emptyset$
 
-- Y el efecto que produce se indica entre llaves en el apartado de ecuaciones:
+- Y el *efecto* que produce se indica entre llaves en el apartado de
+  ecuaciones:
 
-`imprimir`($r$) \{ imprime el racional $r$ \}
+`imprimir`($r$) \ \ \{ imprime el racional $r$ \}
 
-- Introducir operaciones *impuras* amplía la funcionalidad de nuestro tipo
+- Introducir **operaciones _impuras_** amplía la funcionalidad de nuestro tipo
   abstracto, pero hay que tener cuidado porque se pierde la transparencia
   referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre
   las especificaciones.
@@ -660,12 +690,12 @@ siendo $l$ una lista cualquiera.
   un número racional, o cómo se deben implementar las funciones `numer`,
   `denom` y `racional`.
   
-- Nos basta con saber *qué* hacen y con *suponer* que ya las tenemos.
+- Nos basta con saber *qué* hacen y *suponer* que ya las tenemos.
 
 ---
 
-- Así, podemos definir las funciones `suma`, `mult`, `imprimir` e `iguales?` en
-  función de `racional`, `numer` y `denom` sin necesidad de saber cómo están
+- Así, podemos definir las funciones `suma`, `mult`, `imprimir` e `iguales?` a
+  partir de `racional`, `numer` y `denom` sin necesidad de saber cómo están
   implementadas esas tres funciones ni cómo se representa internamente un
   número racional.
 
@@ -827,10 +857,15 @@ siendo $l$ una lista cualquiera.
   interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos
   permite cambiar la implementación por otras distintas cuando sea necesario.
 
-- Por ejemplo, si estamos diseñando un módulo de números racionales y aún no
+- Por ejemplo: si estamos diseñando un módulo de números racionales y aún no
   hemos decidido si calcular el m.c.d. en el constructor o en los selectores,
   la metodología de la abstracción de datos nos permite retrasar esa decisión
   sin perder la capacidad de seguir programando el resto del programa.
+
+- Además, si hoy decidimos calcular el m.c.d. en el constructor pero el día de
+  mañana cambiamos de opinión, podemos ponerlo en los selectores sin que el
+  resto del programa se vea afectado. Sólo habría que cambiar la implementación
+  del tipo abstracto.
 
 # Niveles y barreras de abstracción
 

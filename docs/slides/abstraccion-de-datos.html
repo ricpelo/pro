@@ -291,9 +291,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="1.1.0.0.2">
 
 <ul>
-<li><p>La abstracción es un proceso pero también es algo que puede formar parte de un programa.</p></li>
+<li><p>La abstracción es un proceso pero también un producto: es algo que puede formar parte de un programa.</p></li>
 <li><p>Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las <strong>funciones</strong>, también llamadas <strong>abstracciones funcionales</strong>.</p></li>
-<li><p>Una función es una abstracción funcional porque el usuario de la función sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
+<li><p>Una función es una abstracción porque el usuario de la función sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
 <li><p>Por eso decimos que las funciones definen dos niveles de abstracción.</p></li>
 <li><p>En otras palabras, al diseñar una función estamos creando una abstracción que separa la forma en la que se utiliza la función de la forma en como está implementada esa función.</p></li>
 </ul>
@@ -303,15 +303,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Las abstracciones funcionales son un mecanismo que nos permite:</p>
 <ol>
-<li><p>componer una <strong>operación compleja</strong> combinando otras operaciones más simples (dándole un nuevo nombre a todo el conjunto), y</p></li>
+<li><p>componer una <strong>operación compleja</strong> combinando otras operaciones más simples,</p></li>
+<li><p>darle un nombre a todo el conjunto, y</p></li>
 <li><p>poder usar esa nueva operación compleja sin necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman, que son detalles que quedan ocultos al usuario).</p></li>
 </ol></li>
 <li><p>Una vez que la función se ha diseñado y se está utilizando, se puede sustituir por cualquier otra que tenga el mismo comportamiento observable.</p></li>
-<li><p>De forma similar, los datos compuestos o estructurados son un mecanismo que nos permite crear un <strong>dato complejo</strong> combinando otros datos más simples, formando una única unidad conceptual.</p></li>
-<li><p>Pero, por desgracia, estos datos compuestos <strong>no ocultan sus detalles de implementación al usuario</strong>, sino que éste tiene que conocer cómo está construido.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.4">
+
+<ul>
+<li><p>Los <strong>datos compuestos o estructurados</strong> son un mecanismo que nos permite crear un <strong>dato complejo</strong> combinando otros datos más simples, formando una única unidad conceptual.</p></li>
+<li><p>Pero, por desgracia, estos datos compuestos <strong>no ocultan sus detalles de implementación al usuario</strong>, sino que éste tiene que conocer cómo está construido.</p></li>
+<li><p>Es decir: los datos compuestos, así sin más, no funcionan como abstracciones.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
 <li><p>Por ejemplo, podemos representar un número racional <span class="math inline">\frac{a}{b}</span> mediante una pareja de números enteros <span class="math inline">a</span> y <span class="math inline">b</span> (su numerador y su denominador).</p></li>
@@ -319,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Eso no resulta conveniente. A nosotros, como programadores, nos interesa que el numerador y el denominador de un número racional estén juntos formando una sola cosa, un nuevo valor: un número racional.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.5">
+<section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
 <li><p>Así que podríamos representar dicha pareja de números usando una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario<br />
@@ -328,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Es decir: les estamos obligando a conocer detalles de implementación de nuestros números racionales.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.6">
+<section class="slide level5" data-number="1.1.0.0.7">
 
 <ul>
 <li><p>Por ejemplo, si representamos un racional como dos números enteros separados, no podríamos escribir una función que multiplique dos racionales <span class="math inline">\frac{n_1}{d_1}</span> y <span class="math inline">\frac{n_2}{d_2}</span> ya que dicha función tendría que devolver dos valores, el numerador y el denominador del resultado:</p>
@@ -340,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Es decir, que la función tendría que saber que el racional se representa internamente con una tupla, y que el numerador es el primer elemento y que el denominador es el segundo elemento.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.7">
+<section class="slide level5" data-number="1.1.0.0.8">
 
 <ul>
 <li><p>Nos interesa que nuestro programa sea capaz de expresar el concepto de «número racional» y que pueda manipular números racionales como valores con entidad propia y definida, no simplemente como parejas de números enteros, independientemente de su representación interna.</p></li>
@@ -349,26 +356,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>La técnica general de aislar las partes de un programa que se ocupan de <em>cómo se representan</em> los datos de las partes que se ocupan de <em>cómo se usan</em> los datos es una poderosa metodología de diseño llamada <strong>abstracción de datos</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.8">
+<section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
-<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también es algo que puede formar parte de un programa.</p></li>
+<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también un producto: es algo que puede formar parte de un programa.</p></li>
 <li><p>Diseñar programas usando abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se se les denomina <strong>abstracciones de datos</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.9">
+<section class="slide level5" data-number="1.1.0.0.10">
 
 <ul>
 <li><p>La abstracción de datos se parece a la abstracción funcional:</p>
 <ul>
 <li><p>Cuando creamos una <strong>abstracción funcional</strong>, se ocultan los detalles de cómo se implementa una función, y esa función particular se puede sustituir luego por cualquier otra función que tenga el mismo comportamiento general sin que los usuarios de la función se vean afectados.</p>
-<p>En otras palabras, podemos hacer una abstracción que separe la forma en que se utiliza la función de los detalles de cómo se implementa la función.</p></li>
+<p>En otras palabras, podemos hacer una abstracción que separe la forma en que <em>se utiliza</em> la función de los detalles de cómo <em>se implementa</em> la función.</p></li>
 <li><p>Igualmente, la <strong>abstracción de datos</strong> separa el uso de un dato compuesto de los detalles de cómo está construido ese dato compuesto, que quedan ocultos para los usuarios de la abstracción de datos.</p>
 <p>Para usar una abstracción de datos no necesitamos conocer sus detalles internos de implementación.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.10">
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <table>
 <colgroup>
@@ -386,8 +393,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Primitivas</td>
-<td style="text-align: left;">Definiciones, literales y sentencias simples</td>
-<td style="text-align: left;">Datos simples (enteros, reales, booleanos…</td>
+<td style="text-align: left;">Definiciones y sentencias simples</td>
+<td style="text-align: left;">Literales y datos simples (enteros, reales, booleanos…)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Mecanismos de combinación</td>
@@ -402,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="1.1.0.0.11">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>El concepto de <strong>abstracción de datos</strong> (o <strong>tipo abstracto de datos</strong>) fue propuesto por John Guttag en 1974 y dice que:</p>
@@ -414,49 +421,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Los <strong>valores</strong> de un tipo abstracto se definen también como operaciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.12">
+<section class="slide level5" data-number="1.1.0.0.13">
 
 <ul>
-<li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que actúa como un tipo abstracto de datos.</p>
+<li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que actúa como un tipo abstracto de datos:</p>
 <ul>
 <li><p>Se nos proporcionan <strong>operaciones primitivas</strong> para crear conjuntos y manipular conjuntos (unión, intersección, etc.) y también un modo de visualizar sus valores.</p></li>
 <li><p>Pero no sabemos, ni necesitamos saber, cómo se representan internamente los conjuntos en la memoria del ordenador. Ese es un detalle interno del intérprete.</p></li>
 </ul></li>
-<li><p>En general, el programador que usa un tipo abstracto puede no saber, e incluso se le impide saber, cómo se representan los elementos del tipo de datos.</p></li>
+<li><p>En general, el programador que usa un tipo abstracto puede no saber (e incluso se le impide saber) cómo se representan los elementos del tipo de datos.</p></li>
 <li><p>Esas <strong>barreras de abstracción</strong> son muy útiles porque permiten cambiar la representación interna sin afectar a las demás partes del programa que utilizan dicho tipo abstracto.</p></li>
 </ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.13">
-
-<ul>
-<li><p>En resumen, tenemos que un tipo abstracto debe cumplir:</p>
-<ul>
-<li><p><strong>Privacidad de la representación</strong>: los usuarios no conocen la representación de los valores del tipo abstracto en la memoria del ordenador.</p></li>
-<li><p><strong>Protección</strong>: sólo se pueden utilizar para el nuevo tipo las operaciones previstas en la especificación.</p></li>
-</ul></li>
-</ul>
-<blockquote>
-<p>«Son las especificaciones, y no los programas, los que realmente describen una abstracción; los programas simplemente la implementan.»</p>
-<p>– Barbara Liskov</p>
-</blockquote>
 </section>
 <section class="slide level5" data-number="1.1.0.0.14">
 
 <ul>
-<li><p>El programador de un tipo abstracto debe crear, por tanto, dos partes bien diferenciadas:</p>
+<li><p>En resumen, tenemos que un tipo abstracto debe cumplir:</p>
 <ul>
-<li><p>La <strong>especificación</strong> del tipo: única parte que conoce el usuario del mismo y que consiste en:</p>
+<li><p><strong>Privacidad de la representación</strong>: los usuarios no conocen cómo se representan los valores del tipo abstracto en la memoria del ordenador.</p></li>
+<li><p><strong>Protección</strong>: sólo se pueden utilizar con sus valores aquellas operaciones previstas en la especificación.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.15">
+
+<ul>
+<li><p>El programador de un tipo abstracto debe crear, por tanto, dos partes bien diferenciadas:</p>
+<ol>
+<li><p><strong>La <em>especificación</em> del tipo:</strong> única parte que conoce el usuario del mismo y que consiste en:</p>
 <ul>
 <li><p>El <strong>nombre</strong> del tipo.</p></li>
 <li><p>La especificación de las <strong>operaciones</strong> permitidas. Esta especificación tendrá:</p>
 <ul>
-<li><p>Una parte <strong>sintáctica</strong>: la <em>signatura</em> de cada operación.</p></li>
+<li><p>Una parte <strong>sintáctica</strong>: la <strong>signatura</strong> de cada operación.</p></li>
 <li><p>Otra parte <strong>semántica</strong>: que define las <strong>propiedades</strong> que deben cumplir dichas operaciones y que se pueden expresar mediante <strong>ecuaciones</strong> o directamente en lenguaje natural.</p></li>
 </ul></li>
 </ul></li>
-<li><p>La <strong>implementación</strong> del tipo: conocida sólo por el programador del mismo y que consiste en la <em>representación</em> del tipo por medio de otros tipos y en la implementación de las operaciones.</p></li>
-</ul></li>
+<li><p><strong>La <em>implementación</em> del tipo:</strong> conocida sólo por el programador del mismo y que consiste en la <em>representación</em> del tipo por medio de otros tipos y en la implementación de las operaciones.</p></li>
+</ol></li>
 </ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.16">
+
+<blockquote>
+<p>«Son las especificaciones, y no los programas, los que realmente describen una abstracción; los programas simplemente la implementan.»</p>
+<p>– Barbara Liskov</p>
+</blockquote>
 </section>
 </section>
 <section>
@@ -493,17 +503,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="operaciones" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Operaciones</h2>
 <ul>
-<li><p>Las operaciones que forman parte de la especificación de un tipo abstracto <span class="math inline">T</span> pueden clasificarse en:</p>
+<li><p>Las operaciones que forman parte de la especificación de un tipo abstracto <span class="math inline">T</span> pueden clasificarse en estas categorías:</p>
 <ul>
 <li><p><strong>Constructoras</strong>: operaciones que devuelven un valor de tipo <span class="math inline">T</span>.</p>
-<ul>
-<li><p>A su vez, las constructoras se dividen en:</p>
+<p>A su vez, las constructoras se dividen en:</p>
 <ul>
 <li><p><strong>Generadoras</strong>: el conjunto de operaciones generadoras está formado por aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
 <li><p><strong>Modificadoras</strong>: son las operaciones constructoras que no forman parte del conjunto de las generadoras.</p></li>
 </ul></li>
-</ul></li>
-<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
+<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> y que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -604,35 +612,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="2.3.0.0.4">
 
 <ul>
-<li>Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente ecuación (que apareció antes en la primera especificación de <em>lista</em>):</li>
-</ul>
+<li><p>Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente ecuación (que apareció antes en la primera especificación de <em>lista</em>):</p>
+<div class="centered">
 <p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span></p>
-<p>siendo <span class="math inline">l</span> una lista cualquiera.</p>
+</div>
+<p>siendo <span class="math inline">l</span> una lista cualquiera.</p></li>
+<li><p>Para ello, tenemos que recordar que una lista sólo puede tener dos formas posibles:</p>
 <ul>
-<li><p>Se puede demostrar por inducción sobre <span class="math inline">l</span>, a partir de los axiomas de la especificación de <em>lista</em>:</p>
-<ul>
-<li><p>Caso <span class="math inline">l</span> = <code>[]</code>:</p>
-<p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
-<p><code>[]</code> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por el primer axioma de <code>++</code>}</p>
-<p><code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
-<p><span class="math inline">l</span></p></li>
+<li><p>Una lista vacía:</p>
+<p><code>[]</code></p></li>
+<li><p>Un elemento seguido de otra lista:</p>
+<p><span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span></p></li>
 </ul></li>
+<li><p>Por ejemplo, la lista <code>[1, 2, 3]</code> es 1<code>:</code>(2<code>:</code>(3<code>:[]</code>)).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.0.0.5">
 
 <ul>
-<li><p>Caso <span class="math inline">l</span> = <span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>:</p>
-<p>Suponemos que la propiedad se cumple para <span class="math inline">l_1</span> (hipótesis inductiva), es decir, que <span class="math inline">l_1</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l_1</span>.</p>
-<p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
-<p>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> {por el segundo axioma de <code>++</code>}</p>
-<p><span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <code>[]</code>) <span class="math inline">\doteq</span> {por hipótesis inductiva}</p>
-<p><span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span> <span class="math inline">\doteq</span> {por definición de <span class="math inline">l</span>}</p>
-<p><span class="math inline">l</span></p></li>
-<li><p>Como hemos demostrado que <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span> para cualquiera de las dos formas posibles que puede tener <span class="math inline">l</span>, hemos logrado demostrar la propiedad para cualquier valor de <span class="math inline">l</span>.</p></li>
+<li><p>Se puede demostrar por inducción sobre <span class="math inline">l</span>, a partir de los axiomas de la especificación de <em>lista</em>:</p>
+<ol type="a">
+<li><p>Caso <span class="math inline">l</span> = <code>[]</code> (caso base):</p>
+<table style="width:81%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">l</span> <code>++</code> <code>[]</code></td>
+<td style="text-align: left;"># <em>por definición de <span class="math inline">l</span></em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <code>[]</code> <code>++</code> <code>[]</code></td>
+<td style="text-align: left;"># <em>por el primer axioma de <code>++</code></em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <code>[]</code></td>
+<td style="text-align: left;"># <em>por definición de <span class="math inline">l</span></em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <span class="math inline">l</span></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Caso <span class="math inline">l</span> = <span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span> (caso inductivo):</p>
+<p>Suponemos que la propiedad se cumple para <span class="math inline">l_1</span> (hipótesis inductiva), es decir, que <span class="math inline">l_1</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l_1</span>. En tal caso, tenemos:</p>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">l</span> <code>++</code> <code>[]</code></td>
+<td style="text-align: left;"># <em>por definición de <span class="math inline">l</span></em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\doteq</span> (<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <code>[]</code></td>
+<td style="text-align: left;"># <em>por el segundo axioma de <code>++</code></em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <code>[]</code>)</td>
+<td style="text-align: left;"># <em>por hipótesis inductiva</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span></td>
+<td style="text-align: left;"># <em>por definición de <span class="math inline">l</span></em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\doteq</span> <span class="math inline">l</span></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.0.0.6">
+
+<ul>
+<li>Como hemos demostrado que <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span> para cualquiera de las dos formas posibles que puede tener <span class="math inline">l</span>, hemos logrado demostrar la propiedad para cualquier valor de <span class="math inline">l</span>.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.7">
 
 <div class="columns">
 <div class="column">
@@ -666,7 +730,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.0.0.7">
+<section class="slide level5" data-number="2.3.0.0.8">
 
 <ul>
 <li><p>Un programa que hiciera uso de las pilas, una vez implementado el tipo abstracto de datos, podría ser:</p>
@@ -685,7 +749,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Nos basta con saber las propiedades que deben cumplir esas funciones, y eso viene definido en la especificación.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.8">
+<section class="slide level5" data-number="2.3.0.0.9">
 
 <ul>
 <li>Los <strong>números racionales</strong> se podrían especificar así:</li>
@@ -707,25 +771,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <code>suma</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <code>racional</code>(<span class="math inline">n_1\cdot{}d_2 + n_2\cdot{}d_1</span>, <span class="math inline">d_1\cdot{}d_2</span>)<br />
           <code>mult</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <code>racional</code>(<span class="math inline">n_1\cdot{}n_2</span>, <span class="math inline">d_1\cdot{}d_2</span>)<br />
           <code>iguales?</code>(<code>racional</code>(<span class="math inline">n_1</span>, <span class="math inline">d_1</span>), <code>racional</code>(<span class="math inline">n_2</span>, <span class="math inline">d_2</span>)) <span class="math inline">\doteq</span> <span class="math inline">n_1\cdot{}d_2 = n_2\cdot{}d_1</span><br />
-          <code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }<br />
+          <code>imprimir</code>(<span class="math inline">r</span>)   { imprime el racional <span class="math inline">r</span> }<br />
           <code>racional</code>(<span class="math inline">n</span>, 0) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
 </section>
-<section class="slide level5" data-number="2.3.0.0.9">
+<section class="slide level5" data-number="2.3.0.0.10">
 
 <ul>
-<li><p>La operación <code>imprimir</code> es un caso especial, ya que no es una operación <em>pura</em>, sino que su finalidad es la de provocar el <strong>efecto lateral</strong> de imprimir por la salida un número racional de forma «bonita».</p></li>
+<li><p>La operación <code>imprimir</code> es un caso especial, ya que <strong>no es una operación <em>pura</em></strong>, sino que su finalidad es la de provocar el <strong>efecto lateral</strong> de imprimir por la salida un número racional de forma «bonita».</p></li>
 <li><p>Por eso no devuelve ningún valor, cosa que se refleja en su signatura usando <span class="math inline">\emptyset</span> como tipo de retorno de la operación:</p></li>
 </ul>
 <p><code>imprimir</code> : <em>rac</em> <span class="math inline">\rightarrow</span> <span class="math inline">\emptyset</span></p>
 <ul>
-<li>Y el efecto que produce se indica entre llaves en el apartado de ecuaciones:</li>
+<li>Y el <em>efecto</em> que produce se indica entre llaves en el apartado de ecuaciones:</li>
 </ul>
-<p><code>imprimir</code>(<span class="math inline">r</span>) { imprime el racional <span class="math inline">r</span> }</p>
+<p><code>imprimir</code>(<span class="math inline">r</span>)   { imprime el racional <span class="math inline">r</span> }</p>
 <ul>
-<li>Introducir operaciones <em>impuras</em> amplía la funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado porque se pierde la transparencia referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre las especificaciones.</li>
+<li>Introducir <strong>operaciones <em>impuras</em></strong> amplía la funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado porque se pierde la transparencia referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre las especificaciones.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.10">
+<section class="slide level5" data-number="2.3.0.0.11">
 
 <ul>
 <li><p>Según la especificación anterior, podemos suponer que disponemos de un constructor y dos selectores a través de las siguientes funciones:</p>
@@ -736,18 +800,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>Todas las demás operaciones se podrían definir como funciones a partir de éstas tres.</p></li>
 <li><p>Estamos usando una estrategia poderosa para diseñar programas: el <strong>pensamiento optimista</strong>, ya que todavía no hemos dicho cómo se representa un número racional, o cómo se deben implementar las funciones <code>numer</code>, <code>denom</code> y <code>racional</code>.</p></li>
-<li><p>Nos basta con saber <em>qué</em> hacen y con <em>suponer</em> que ya las tenemos.</p></li>
+<li><p>Nos basta con saber <em>qué</em> hacen y <em>suponer</em> que ya las tenemos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.11">
+<section class="slide level5" data-number="2.3.0.0.12">
 
 <ul>
-<li><p>Así, podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> en función de <code>racional</code>, <code>numer</code> y <code>denom</code> sin necesidad de saber cómo están implementadas esas tres funciones ni cómo se representa internamente un número racional.</p></li>
+<li><p>Así, podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a partir de <code>racional</code>, <code>numer</code> y <code>denom</code> sin necesidad de saber cómo están implementadas esas tres funciones ni cómo se representa internamente un número racional.</p></li>
 <li><p>Esos detalles de implementación quedan ocultos y son innecesarios para definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code>, ya que bastaría con saber <em>qué</em> hacen las funciones <code>racional</code>, <code>numer</code> y <code>denom</code> y no <em>cómo</em> lo hacen.</p></li>
 <li><p>Hasta el punto de que ni siquiera hace falta tener implementadas aún las funciones <code>racional</code>, <code>numer</code> y <code>denom</code> para poder definir las demás. <strong>Suponemos</strong> que las tenemos (<em>pensamiento optimista</em>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.12">
+<section class="slide level5" data-number="2.3.0.0.13">
 
 <ul>
 <li><p>Una posible implementación en Python de las operaciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a partir de <code>racional</code>, <code>numer</code> y <code>denom</code> podría ser la siguiente:</p>
@@ -856,7 +920,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul>
 <li><p>Hacer que la representación dependa sólo de unas cuantas funciones de la interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos permite cambiar la implementación por otras distintas cuando sea necesario.</p></li>
-<li><p>Por ejemplo, si estamos diseñando un módulo de números racionales y aún no hemos decidido si calcular el m.c.d. en el constructor o en los selectores, la metodología de la abstracción de datos nos permite retrasar esa decisión sin perder la capacidad de seguir programando el resto del programa.</p></li>
+<li><p>Por ejemplo: si estamos diseñando un módulo de números racionales y aún no hemos decidido si calcular el m.c.d. en el constructor o en los selectores, la metodología de la abstracción de datos nos permite retrasar esa decisión sin perder la capacidad de seguir programando el resto del programa.</p></li>
+<li><p>Además, si hoy decidimos calcular el m.c.d. en el constructor pero el día de mañana cambiamos de opinión, podemos ponerlo en los selectores sin que el resto del programa se vea afectado. Sólo habría que cambiar la implementación del tipo abstracto.</p></li>
 </ul>
 </section>
 </section>
