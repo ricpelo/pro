@@ -1001,7 +1001,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
-<li><p>Se produce una violación de una barrera de abstracción cada vez que una parte del programa que puede utilizar una función de nivel superior utiliza una función de un nivel inferior.</p></li>
+<li><p>Se produce una <strong><em>violación</em> de una barrera de abstracción</strong> cada vez que una parte del programa que puede utilizar una función de un determinado nivel, utiliza una función de un nivel más bajo.</p></li>
 <li><p>Por ejemplo, una función que calcula el cuadrado de un número racional se implementa mejor en términos de <code>mult</code>, que no necesita supone nada sobre cómo se implementa un número racional:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> cuadrado(x): </span>
 <span id="cb10-2"><a href="#cb10-2"></a>    <span class="cf">return</span> mult(x,x)      </span></code></pre></div></li>
@@ -1010,13 +1010,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
-<li><p>Si hiciéramos referencia directa a los numeradores y los denominadores estaríamos violando una barrera de abstracción:</p>
+<li><p>Si hiciéramos referencia directa a los numeradores y los denominadores, estaríamos violando una barrera de abstracción:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(x): </span>
 <span id="cb11-2"><a href="#cb11-2"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(x), denom(x) <span class="op">*</span> denom(x)) </span></code></pre></div></li>
-<li><p>Y si suponemos que los racionales se representan como listas estaríamos violando dos barreras de abstracción:</p>
+<li><p>Y si usamos el conocimiento de que los racionales se representan como listas, estaríamos violando dos barreras de abstracción:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(x): </span>
 <span id="cb12-2"><a href="#cb12-2"></a>    <span class="cf">return</span> [x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">0</span>], x[<span class="dv">1</span>] <span class="op">*</span> x[<span class="dv">1</span>]]    </span></code></pre></div></li>
 </ul>
+<div class="caja">
+<p>Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.</p>
+</div>
 </section>
 <section class="slide level5" data-number="4.2.0.0.4">
 
@@ -1025,7 +1028,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Cuantas menos funciones dependan de una representación particular, menos cambios se necesitarán cuando se quiera cambiar esa representación.</p></li>
 <li><p>Todas las implementaciones de <code>cuadrado</code> que acabamos de ver se comportan correctamente, pero sólo la primera es lo bastante robusta como para soportar bien los futuros cambios de los niveles inferiores.</p></li>
 <li><p>La función <code>cuadrado</code> no tendrá que cambiarse incluso aunque cambiemos la representación interna de los números racionales.</p></li>
-<li><p>Por el contrario, <code>cuadrado_viola_una_barrera</code> tendrá que cambiarse cada vez que cambien las signaturas del constructor o los selectores, y <code>cuadrado_viola_dos_barreras</code> tendrá que cambiarse cada vez que cambie la representación interna de los números racionales.</p></li>
+<li><p>Por el contrario, <code>cuadrado_viola_una_barrera</code> tendrá que cambiarse cada vez que cambien las especificaciones del constructor o los selectores, y <code>cuadrado_viola_dos_barreras</code> tendrá que cambiarse cada vez que cambie la representación interna de los números racionales.</p></li>
 </ul>
 </section>
 
@@ -1034,11 +1037,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Las barreras de abstracción definen la forma en como pensamos sobre los datos.</p></li>
 <li><p>Por ejemplo, podemos pensar que las operaciones <code>suma</code>, <code>mult</code>, etc. están definidas sobre <em>datos</em> (numeradores, denominadores y racionales) cuyo comportamiento está definido por las funciones <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
-<li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es «cualquier cosa implementada mediante determinados constructores y selectores».</p></li>
-<li><p>Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones (un constructor y dos selectores) no sirve para representar adecuadamente a los números racionales.</p>
+<li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es «cualquier cosa implementada mediante ciertos constructores y selectores».</p></li>
+<li><p>Siguiendo con el mismo ejemplo: es evidente que cualquier grupo de tres funciones (un constructor y dos selectores) no sirve para representar adecuadamente a los números racionales.</p>
 <p>Además, se tiene que garantizar que, entre el constructor <code>racional</code> y los selectores <code>numer</code> y <code>denum</code>, se cumple la siguiente propiedad:</p>
 <div class="caja">
-<p>Si <span class="math inline">x</span> <code>=</code> <code>racional(</code><span class="math inline">n</span>, <span class="math inline">d</span><code>)</code>, entonces <code>numer(</code><span class="math inline">x</span><code>)/denom(</code><span class="math inline">x</span><code>)</code> <code>==</code> <span class="math inline">n/d</span> .</p>
+<p>Si <span class="math inline">x</span> <code>=</code> <code>racional(</code><span class="math inline">n</span><code>,</code>  <span class="math inline">d</span><code>)</code>, entonces <code>numer(</code><span class="math inline">x</span><code>)/denom(</code><span class="math inline">x</span><code>)</code> <code>==</code> <span class="math inline">n/d</span> .</p>
 </div></li>
 </ul>
 </section>
@@ -1047,17 +1050,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>De hecho, esta es la única condición que deben cumplir las tres funciones para poder representar adecuadamente a los números racionales.</p></li>
 <li><p>Una representación válida de un número racional no está limitada a ninguna implementación particular (como, por ejemplo, una lista de dos elementos), sino que nos sirve cualquier implementación que satisfaga la propiedad anterior.</p></li>
-<li><p>En general, podemos pensar que <strong>los datos abstractos se definen mediante una colección de selectores y constructores junto con algunas propiedades que los datos abstractos deben cumplir</strong>. Mientras se cumplan dichas propiedades (como la anterior de la división), los selectores y constructores constituyen una representación válida de un tipo de datos.</p></li>
+<li><p>En general, podemos decir que <strong>los datos abstractos se definen mediante una colección de constructores y selectores junto con algunas <em>propiedades</em> que los datos abstractos deben cumplir</strong>.</p></li>
+<li><p>Mientras se cumplan dichas propiedades (como la anterior de la división), los constructores y selectores constituyen una representación válida de un tipo de datos abstracto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.2">
 
 <ul>
 <li><p><strong>Los detalles de implementación</strong> debajo de una barrera de abstracción <strong>pueden cambiar</strong>, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
-<li><p>Este punto de vista tambíen se puede aplicar, por ejemplo, a las parejas con forma de lista que hemos usado para implementar números racionales.</p></li>
-<li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe dos valores juntos y que nos permita acceder a cada valor por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
+<li><p>Este punto de vista tambíen se puede aplicar, por ejemplo, a las listas que hemos usado para implementar números racionales.</p></li>
+<li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe una pareja de valores juntos y que nos permita acceder a cada valor de una pareja por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
 <div class="caja">
-<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span>, <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
+<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span><code>,</code>  <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
 y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>==</code> <span class="math inline">y</span>.</p>
 </div></li>
 <li><p>Tales propiedades se describen como <strong>ecuaciones</strong> en la <strong>especificación algebraica</strong> del tipo abstracto.</p></li>
@@ -1076,7 +1080,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Por tanto, bajo esa barrera de abstracción podemos usar cualquier implementación siempre y cuando logren que las operaciones que definen dicha barrera de abstracción satisfagan las propiedades que deben cumplir.</p></li>
 <li><p>Por ejemplo, para representar a los números racionales usamos parejas de números, pero esas parejas se pueden representar de muchas maneras. Podemos usar listas, pero en general nos sirve cualquier dato definido por un constructor <code>pareja</code> y un selector <code>select</code> que cumpla:</p>
 <div class="caja">
-<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span>, <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
+<p>Si <span class="math inline">p</span> <code>=</code> <code>pareja(</code><span class="math inline">x</span><code>,</code>  <span class="math inline">y</span><code>)</code>, entonces <code>select(</code><span class="math inline">p</span><code>, 0)</code> <code>==</code> <span class="math inline">x</span><br />
 y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>==</code> <span class="math inline">y</span>.</p>
 </div></li>
 </ul>
@@ -1093,7 +1097,8 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb13-6"><a href="#cb13-6"></a></span>
 <span id="cb13-7"><a href="#cb13-7"></a><span class="kw">def</span> denom(r):</span>
 <span id="cb13-8"><a href="#cb13-8"></a>    <span class="cf">return</span> select(r, <span class="dv">1</span>)</span></code></pre></div></li>
-<li><p>A su vez, para implementar las parejas, nos valdría cualquier implementación que satisfaga la propiedad que deben cumplir las parejas. Por ejemplo, cualquier estructura de datos o tipo compuesto que permita almacenar dos elementos juntos y seleccionar cada elemento por separado, como una lista, una tupla o algo similar:</p>
+<li><p>A su vez, para implementar las parejas, nos valdría cualquier implementación que satisfaga la propiedad que deben cumplir las parejas.</p></li>
+<li><p>Por ejemplo, cualquier estructura de datos o tipo compuesto que permita almacenar dos elementos juntos y seleccionar cada elemento por separado, como una lista, una tupla o algo similar:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">def</span> pareja(x, y):</span>
 <span id="cb14-2"><a href="#cb14-2"></a>    <span class="cf">return</span> [x, y]</span>
 <span id="cb14-3"><a href="#cb14-3"></a></span>
@@ -1140,19 +1145,41 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/entorno-pareja-get.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno dentro de la función <code>get</code> al llamar a <code>select(p, 0)</code></figcaption>
+<img data-src="images/entorno-pareja-get.svg" class="plain" style="width:70.0%" alt="" /><figcaption>Entorno dentro de la función <code>get</code> al llamar a <code>select(p, 0)</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="5.1.0.0.4">
 
 <ul>
-<li><p>Lo interesante es que el marco de la función <code>pareja</code> no se elimina de la memoria al salir de la función con <code>return get</code>, ya que la función <code>get</code> necesita seguir accediendo a valores (las variables <code>x</code> e <code>y</code>) cuyas ligaduras se almacenan en el marco de <code>pareja</code> y no en el suyo.</p></li>
+<li><p>Lo interesante es que <strong>el marco de la función <code>pareja</code> no se elimina de la memoria al salir de la función</strong> con <code>return get</code>, ya que la función <code>get</code> necesita seguir accediendo a valores (las variables <code>x</code> e <code>y</code>) cuyas ligaduras se almacenan en el marco de <code>pareja</code> y no en el suyo (el de <code>get</code>).</p></li>
 <li><p>Es decir: el intérprete conserva todo el entorno que la función <code>get</code> necesita para poder funcionar, incluyendo sus variables no locales, como es el caso aquí de de los parámetros <code>x</code> e <code>y</code> de la función <code>pareja</code>.</p></li>
-<li><p>La combinación de una función más el entorno necesario para su ejecución se denomina <strong>clausura</strong>.</p></li>
+<li><p>La combinación de una función más el entorno necesario para su ejecución se denomina <strong>clausura</strong>, y se representa gráficamente como una flecha que va desde la función hasta el primer marco del entorno de la función.</p></li>
 </ul>
+<div class="caja centered">
+<p>Clausura = función + entorno</p>
+</div>
 </section>
 <section class="slide level5" data-number="5.1.0.0.5">
+
+<ul>
+<li>Aquí la clausura es la función que está guardada en <code>p</code>, más el entorno que empieza en el marco de <code>pareja</code>:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/pila-pareja-get.svg" class="plain" style="width:90.0%" alt="" /><figcaption>Pila de control después de hacer <code>p = pareja(20, 14)</code></figcaption>
+</figure>
+</div>
+</div><div class="column">
+<ul>
+<li>En la pila de control no está el registro de activación de la función <code>pareja</code>, ya que ésta no está activa en este momento.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.0.0.6">
 
 <ul>
 <li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
@@ -1162,7 +1189,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Esto no quiere decir que Python realmente implemente las listas mediante funciones. En realidad las implementa de otra forma por razones de eficiencia, pero podría implementarlas con funciones sin ningún problema.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.6">
+<section class="slide level5" data-number="5.1.0.0.7">
 
 <ul>
 <li><p>La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras, y una de esas representaciones puede ser mediante funciones.</p></li>

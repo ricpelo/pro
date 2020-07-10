@@ -932,9 +932,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- Se produce una violación de una barrera de abstracción cada vez que una parte
-  del programa que puede utilizar una función de nivel superior utiliza una
-  función de un nivel inferior.
+- Se produce una **_violación_ de una barrera de abstracción** cada vez que una
+  parte del programa que puede utilizar una función de un determinado nivel,
+  utiliza una función de un nivel más bajo.
 
 - Por ejemplo, una función que calcula el cuadrado de un número racional se
   implementa mejor en términos de `mult`, que no necesita supone nada sobre
@@ -947,7 +947,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- Si hiciéramos referencia directa a los numeradores y los denominadores
+- Si hiciéramos referencia directa a los numeradores y los denominadores,
   estaríamos violando una barrera de abstracción:
 
   ```python
@@ -955,13 +955,18 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
       return racional(numer(x) * numer(x), denom(x) * denom(x)) 
   ```
 
-- Y si suponemos que los racionales se representan como listas estaríamos
-  violando dos barreras de abstracción:
+- Y si usamos el conocimiento de que los racionales se representan como listas,
+  estaríamos violando dos barreras de abstracción:
 
   ```python
   def cuadrado_viola_dos_barreras(x): 
       return [x[0] * x[0], x[1] * x[1]]    
   ```
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -979,7 +984,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   representación interna de los números racionales.
 
 - Por el contrario, `cuadrado_viola_una_barrera` tendrá que cambiarse cada vez
-  que cambien las signaturas del constructor o los selectores, y
+  que cambien las especificaciones del constructor o los selectores, y
   `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
   representación interna de los números racionales.
 
@@ -993,19 +998,19 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   comportamiento está definido por las funciones `racional`, `numer` y `denom`.
 
 - Pero... ¿qué es un *dato*? No basta con decir que es «cualquier cosa
-  implementada mediante determinados constructores y selectores».
+  implementada mediante ciertos constructores y selectores».
 
-- Por ejemplo: es evidente que cualquier conjunto arbitrario de tres funciones
-  (un constructor y dos selectores) no sirve para representar adecuadamente a
-  los números racionales.
+- Siguiendo con el mismo ejemplo: es evidente que cualquier grupo de tres
+  funciones (un constructor y dos selectores) no sirve para representar
+  adecuadamente a los números racionales.
 
   Además, se tiene que garantizar que, entre el constructor `racional` y los
   selectores `numer` y `denum`, se cumple la siguiente propiedad:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `=` `racional(`$n$, $d$`)`, entonces `numer(`$x$`)/denom(`$x$`)` `==`
-  $n/d$ .
+  Si $x$ `=` `racional(`$n$`,`&nbsp; $d$`)`, entonces `numer(`$x$`)/denom(`$x$`)`
+  `==` $n/d$ .
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 ---
@@ -1018,11 +1023,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   sino que nos sirve cualquier implementación que satisfaga la propiedad
   anterior.
 
-- En general, podemos pensar que **los datos abstractos se definen mediante una
-  colección de selectores y constructores junto con algunas propiedades que los
-  datos abstractos deben cumplir**. Mientras se cumplan dichas propiedades
-  (como la anterior de la división), los selectores y constructores constituyen
-  una representación válida de un tipo de datos.
+- En general, podemos decir que **los datos abstractos se definen mediante una
+  colección de constructores y selectores junto con algunas _propiedades_ que
+  los datos abstractos deben cumplir**.
+
+- Mientras se cumplan dichas propiedades (como la anterior de la división), los
+  constructores y selectores constituyen una representación válida de un tipo
+  de datos abstracto.
 
 ---
 
@@ -1031,17 +1038,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   abstracción de datos sigue siendo válida y cualquier programa escrito
   utilizando esta abstracción de datos seguirá siendo correcto.
 
-- Este punto de vista tambíen se puede aplicar, por ejemplo, a las parejas con
-  forma de lista que hemos usado para implementar números racionales.
+- Este punto de vista tambíen se puede aplicar, por ejemplo, a las listas que
+  hemos usado para implementar números racionales.
   
 - En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
-  representación que agrupe dos valores juntos y que nos permita acceder a cada
-  valor por separado. Es decir, la propiedad que tienen que cumplir las parejas
-  es que:
+  representación que agrupe una pareja de valores juntos y que nos permita
+  acceder a cada valor de una pareja por separado. Es decir, la propiedad que
+  tienen que cumplir las parejas es que:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $p$ `=` `pareja(`$x$, $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
+  Si $p$ `=` `pareja(`$x$`,`&nbsp; $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
   y `select(`$p$`, 1)` `==` $y$.
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1069,7 +1076,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $p$ `=` `pareja(`$x$, $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
+  Si $p$ `=` `pareja(`$x$`,`&nbsp; $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
   y `select(`$p$`, 1)` `==` $y$.
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1091,10 +1098,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   ```
 
 - A su vez, para implementar las parejas, nos valdría cualquier implementación
-  que satisfaga la propiedad que deben cumplir las parejas. Por ejemplo,
-  cualquier estructura de datos o tipo compuesto que permita almacenar dos
-  elementos juntos y seleccionar cada elemento por separado, como una lista,
-  una tupla o algo similar:
+  que satisfaga la propiedad que deben cumplir las parejas.
+
+- Por ejemplo, cualquier estructura de datos o tipo compuesto que permita
+  almacenar dos elementos juntos y seleccionar cada elemento por separado, como
+  una lista, una tupla o algo similar:
 
   ```python
   def pareja(x, y):
@@ -1159,7 +1167,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - La función `get` puede acceder a `x` e `y` ya que se encuentran en su
   entorno.
 
-!DOT(entorno-pareja-get.svg)(Entorno dentro de la función `get` al llamar a `select(p, 0)`)(width=50%)(width=55%)
+!DOT(entorno-pareja-get.svg)(Entorno dentro de la función `get` al llamar a `select(p, 0)`)(width=70%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1167,54 +1175,119 @@ node [fontname = "monospace"]
 14 [shape = circle]
 20 [shape = circle]
 0 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
-y [shape = plaintext, fillcolor = transparent, label = "y"]
-get [shape = plaintext, fillcolor = transparent, label = "get"]
-i [shape = plaintext, fillcolor = transparent, label = "indice"]
-pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
-select [shape = plaintext, fillcolor = transparent, label = "select"]
-p [shape = plaintext, fillcolor = transparent, label = "p"]
-f1 [label = "función"]
-f2 [label = "función"]
-f3 [label = "función"]
+f1 [shape = circle, label = "λ"]
+f2 [shape = circle, label = "λ"]
+f3 [shape = circle, label = "λ"]
 subgraph cluster2 {
     label = <Marco global>
     bgcolor = white
-    pareja -> f1
-    select -> f2
-    p -> f3
+    pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
+    select [shape = plaintext, fillcolor = transparent, label = "select"]
+    p [shape = plaintext, fillcolor = transparent, label = "p"]
 }
+pareja -> f1
+select -> f2
+p -> f3
 subgraph cluster0 {
     label = <Marco de <b>pareja</b>>
     bgcolor = "white"
-    x -> 20
-    y -> 14
-    get -> f3
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    y [shape = plaintext, fillcolor = transparent, label = "y"]
+    get [shape = plaintext, fillcolor = transparent, label = "get"]
 }
+x -> 20
+y -> 14
+get -> f3
 subgraph cluster1 {
     label = <Marco de <b>get</b>>
     bgcolor = white
-    i -> 0
+    i [shape = plaintext, fillcolor = transparent, label = "indice"]
 }
-0 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-20 -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2]
-E [shape = point]
+i -> 0
+i -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> i [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Lo interesante es que el marco de la función `pareja` no se elimina de la
-  memoria al salir de la función con `return get`, ya que la función `get`
+- Lo interesante es que **el marco de la función `pareja` no se elimina de la
+  memoria al salir de la función** con `return get`, ya que la función `get`
   necesita seguir accediendo a valores (las variables `x` e `y`) cuyas
-  ligaduras se almacenan en el marco de `pareja` y no en el suyo.
+  ligaduras se almacenan en el marco de `pareja` y no en el suyo (el de `get`).
 
 - Es decir: el intérprete conserva todo el entorno que la función `get`
   necesita para poder funcionar, incluyendo sus variables no locales, como es
   el caso aquí de de los parámetros `x` e `y` de la función `pareja`.
 
 - La combinación de una función más el entorno necesario para su ejecución se
-  denomina **clausura**.
+  denomina **clausura**, y se representa gráficamente como una flecha que va
+  desde la función hasta el primer marco del entorno de la función.
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Clausura = función + entorno
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Aquí la clausura es la función que está guardada en `p`, más el entorno que
+  empieza en el marco de `pareja`:
+
+:::: columns
+
+::: column
+
+!DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=90%)(width=65%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace", shape = record]
+pila [label = "<f0>Global", xlabel = "Pila de\ncontrol"]
+14 [shape = circle]
+20 [shape = circle]
+f1 [shape = circle, label = "λ"]
+f2 [shape = circle, label = "λ"]
+f3 [shape = circle, label = "λ", color = red]
+subgraph cluster2 {
+    label = <Marco global>
+    bgcolor = white
+    pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
+    select [shape = plaintext, fillcolor = transparent, label = "select"]
+    p [shape = plaintext, fillcolor = transparent, label = "p"]
+}
+pareja -> f1
+select -> f2
+p -> f3
+subgraph cluster0 {
+    label = <Marco de <b>pareja</b>>
+    bgcolor = "white"
+    color = red
+    x [shape = plaintext, fillcolor = transparent, label = "x"]
+    y [shape = plaintext, fillcolor = transparent, label = "y"]
+    get [shape = plaintext, fillcolor = transparent, label = "get"]
+}
+x -> 20
+y -> 14
+get -> f3
+x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2, color = red]
+pila:f0 -> select [lhead = cluster2, minlen = 3]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> select [lhead = cluster2, minlen = 2]
+f3 -> y [lhead = cluster0, minlen = 3, color = red]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- En la pila de control no está el registro de activación de la función
+  `pareja`, ya que ésta no está activa en este momento.
+
+:::
+
+::::
 
 ---
 
