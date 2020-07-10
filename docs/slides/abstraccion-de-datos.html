@@ -1166,15 +1166,17 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li>Aquí la clausura es la función que está guardada en <code>p</code>, más el entorno que empieza en el marco de <code>pareja</code>:</li>
 </ul>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:60%;">
 <div class="centered">
 <figure>
 <img data-src="images/pila-pareja-get.svg" class="plain" style="width:90.0%" alt="" /><figcaption>Pila de control después de hacer <code>p = pareja(20, 14)</code></figcaption>
 </figure>
 </div>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <ul>
-<li>En la pila de control no está el registro de activación de la función <code>pareja</code>, ya que ésta no está activa en este momento.</li>
+<li><p>En la pila de control no está el registro de activación de la función <code>pareja</code>, ya que no está activa en este momento.</p></li>
+<li><p>El <span style="color:red">círculo rojo</span> representa la clausura.</p></li>
+<li><p>La <span style="color:blue">flecha azul</span> apunta al entorno de la clausura, que contiene primero el marco de <code>pareja</code> y luego el marco global.</p></li>
 </ul>
 </div>
 </div>
@@ -1183,9 +1185,9 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 
 <ul>
 <li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
-<li><p>La función <code>get</code> que devuelve <code>pareja</code> y que recibe <code>select</code> <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
+<li><p>La función <code>get</code>, que devuelve <code>pareja</code> y que recibe <code>select</code>, <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
 <li><p>A esto se le denomina <strong>representación funcional</strong>.</p></li>
-<li><p>El uso de funciones de orden superior para representar datos no se corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los datos. Sin embargo, <strong>las funciones son perfectamente capaces de representar datos compuestos</strong>. En nuestro caso, estas funciones son suficientes para representar parejas en nuestros programas.</p></li>
+<li><p>El uso de funciones de orden superior para representar datos no se corresponde con nuestra idea intuitiva de lo que deben ser los datos. Sin embargo, <strong>las funciones son perfectamente capaces de representar datos compuestos</strong>. En nuestro caso, estas funciones son suficientes para representar parejas en nuestros programas.</p></li>
 <li><p>Esto no quiere decir que Python realmente implemente las listas mediante funciones. En realidad las implementa de otra forma por razones de eficiencia, pero podría implementarlas con funciones sin ningún problema.</p></li>
 </ul>
 </section>
@@ -1208,19 +1210,29 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Esos elementos pueden <strong>cambiar</strong> durante la ejecución del programa: podemos añadir elementos a la lista, eliminar elementos de la lista o cambiar un elemento de la lista por otro distinto.</p></li>
 <li><p>Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos cambiando su estado interno.</p></li>
 </ul></li>
-<li><p>Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual ese estado puede ir cambiando.</p></li>
+<li><p>Por tanto, la palabra «estado» implica un proceso evolutivo en el tiempo, durante el cual ese estado puede ir cambiando.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
-<li><p>Al introducir el concepto de «estado interno» en nuestros datos, estamos introduciendo también la capacidad de cambiar dicho estado, es decir, que los datos ahora son mutables, y la mutabilidad es un concepto propio de la programación imperativa.</p></li>
-<li><p>Además, esto nos va a impedir representar un dato abstracto mutable usando las especificaciones algebraicas que hemos usado hasta ahora, ya que, a partir de ahora, el resultado de una operación puede depender no sólo de lo que dicten las ecuaciones de la especificación sino también de la historia previa que haya tenido el dato abstracto (es decir, de su estado interno).</p></li>
-<li><p>A cambio, ganaremos la posibilidad de modelar de forma fácil y natural el comportamiento de sistemas y procesos que se dan en el mundo real y que son inherentemente dinámicos, es decir, que cambian con el tiempo y que van pasando por distintos estados a medida que se opera con ellos.</p></li>
-<li><p>Para ello, aprovecharemos una característica aún no explorada hasta ahora: <strong>las funciones también pueden tener estado interno</strong>.</p></li>
+<li><p>Al introducir el concepto de «estado interno» en nuestros datos, estamos introduciendo también la capacidad de cambiar dicho estado, es decir, que <strong>los datos ahora son mutables</strong>, y la <em>mutabilidad</em> es un concepto propio de la <strong>programación imperativa</strong>.</p></li>
+<li><p>Esto nos va a <strong>impedir representar un <em>dato abstracto mutable</em> usando las especificaciones algebraicas</strong> que hemos usado hasta hoy, ya que, a partir de ahora, el resultado de una operación puede depender no sólo de lo que dicten las ecuaciones de la especificación sino también de la historia previa que haya tenido el dato abstracto (es decir, de su estado interno).</p></li>
+<li><p>Y, por supuesto, nos va a impedir usar el modelo de sustitución para razonar sobre nuestros datos, por lo que tendremos que usar el modelo de <strong>máquina de estados</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.2">
+
+<ul>
+<li><p>A cambio, ganaremos dos cosas:</p>
+<ul>
+<li><p>La posibilidad de modelar <strong>sistemas modulares</strong>, basados en partes independientes que actúan como elementos autónomos.</p></li>
+<li><p>La posibilidad de modelar de forma fácil y natural el comportamiento de <strong>sistemas y procesos</strong> que se dan en el mundo real y que son inherentemente <strong>dinámicos</strong>, es decir, que cambian con el tiempo y que van pasando por distintos estados a medida que se opera con ellos.</p></li>
+</ul></li>
+<li><p>Para ello, aprovecharemos una característica aún no explorada hasta ahora: <strong>las funciones también pueden tener estado interno</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.2.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, definamos una función que simule el proceso de retirar dinero de una cuenta bancaria.</p></li>
@@ -1236,7 +1248,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb17-8"><a href="#cb17-8"></a><span class="dv">35</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.3">
+<section class="slide level5" data-number="5.2.0.0.4">
 
 <ul>
 <li><p>La expresión <code>retirar(25)</code>, evaluada dos veces, produce valores diferentes.</p></li>
@@ -1245,7 +1257,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Este efecto lateral es el resultado de retirar dinero de los fondos disponibles <strong>provocando un cambio en el estado de una variable</strong> que almacena dichos fondos y que se encuentra <strong>fuera del marco actual</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.4">
+<section class="slide level5" data-number="5.2.0.0.5">
 
 <ul>
 <li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
@@ -1377,10 +1389,10 @@ def saldo(dep):
 
 <ul>
 <li><p>Se denomina <strong>paso de mensajes</strong> a este estilo de programación que consiste en agrupar, dentro de una función que responde a diferentes mensajes, las operaciones que actúan sobre un dato.</p></li>
-<li><p>El paso de mensajes combina dos técnicas de programación:</p>
+<li><p>El paso de mensajes combina <strong>dos técnicas de programación</strong>:</p>
 <ul>
-<li><p>Las funciones de orden superior que devuelven otras funciones.</p></li>
-<li><p>El uso de una función que <em>despacha</em> a otras funciones dependiendo del mensaje recibido.</p></li>
+<li><p>Las <strong>funciones de orden superior</strong> que devuelven otras funciones.</p></li>
+<li><p>El uso de una función que <strong><em>despacha</em></strong> a otras funciones dependiendo del mensaje recibido.</p></li>
 </ul></li>
 </ul>
 </section>

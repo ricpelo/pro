@@ -1887,12 +1887,16 @@ fib1_5 -> u5
 - Por tanto, **la pila de control almacena registros de activación**.
 
 - Cada llamada activa está representada por su correspondiente registro de
-  activación en la pila.
+  activación en la pila, y cada registro de activación va asociado a un marco.
 
 - En cuanto la llamada finaliza, su registro de activación se saca de la pila y
   se transfiere el control a la llamada que está inmediatamente debajo (si es
   que hay alguna).
- 
+
+- Cuando desaparece un registro de activación, también se elimina de la memoria
+  su marco asociado (hay una excepción a esto, que veremos en posteriores
+  temas cuando hablemos de las *clausuras*).
+
 ---
 
 :::: columns

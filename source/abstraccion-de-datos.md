@@ -1237,7 +1237,7 @@ Clausura = función + entorno
 
 :::: columns
 
-::: column
+::: {.column width=60%}
 
 !DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=90%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1245,8 +1245,8 @@ compound = true
 graph [rankdir = LR]
 node [fontname = "monospace", shape = record]
 pila [label = "<f0>Global", xlabel = "Pila de\ncontrol"]
-14 [shape = circle]
-20 [shape = circle]
+14 [shape = circle, color = grey, fontcolor = grey]
+20 [shape = circle, color = grey, fontcolor = grey]
 f1 [shape = circle, label = "λ"]
 f2 [shape = circle, label = "λ"]
 f3 [shape = circle, label = "λ", color = red]
@@ -1263,27 +1263,33 @@ p -> f3
 subgraph cluster0 {
     label = <Marco de <b>pareja</b>>
     bgcolor = "white"
-    color = red
-    x [shape = plaintext, fillcolor = transparent, label = "x"]
-    y [shape = plaintext, fillcolor = transparent, label = "y"]
-    get [shape = plaintext, fillcolor = transparent, label = "get"]
+    color = grey
+    fontcolor = grey
+    x [shape = plaintext, fillcolor = transparent, label = "x", fontcolor = grey]
+    y [shape = plaintext, fillcolor = transparent, label = "y", fontcolor = grey]
+    get [shape = plaintext, fillcolor = transparent, label = "get", fontcolor = grey]
 }
-x -> 20
-y -> 14
-get -> f3
-x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2, color = red]
+x -> 20 [color = grey]
+y -> 14 [color = grey]
+get -> f3 [color = grey]
+x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2, color = grey]
 pila:f0 -> select [lhead = cluster2, minlen = 3]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> select [lhead = cluster2, minlen = 2]
-f3 -> y [lhead = cluster0, minlen = 3, color = red]
+f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=40%}
 
 - En la pila de control no está el registro de activación de la función
-  `pareja`, ya que ésta no está activa en este momento.
+  `pareja`, ya que no está activa en este momento.
+
+- El !COLOR(red)(círculo rojo) representa la clausura.
+
+- La !COLOR(blue)(flecha azul) apunta al entorno de la clausura, que contiene
+  primero el marco de `pareja` y luego el marco global.
 
 :::
 
@@ -1295,15 +1301,15 @@ f3 -> y [lhead = cluster0, minlen = 3, color = red]
   superior**: la primera porque devuelve una función y la segunda porque recibe
   una función como argumento.
 
-- La función `get` que devuelve `pareja` y que recibe `select` **representa una
-  pareja**, es decir, un **dato**.
+- La función `get`, que devuelve `pareja` y que recibe `select`, **representa
+  una pareja**, es decir, un **dato**.
 
 - A esto se le denomina **representación funcional**.
 
 - El uso de funciones de orden superior para representar datos no se
-  corresponde en absoluto con nuestra noción intuitiva de lo que deben ser los
-  datos. Sin embargo, **las funciones son perfectamente capaces de representar
-  datos compuestos**. En nuestro caso, estas funciones son suficientes para
+  corresponde con nuestra idea intuitiva de lo que deben ser los datos. Sin
+  embargo, **las funciones son perfectamente capaces de representar datos
+  compuestos**. En nuestro caso, estas funciones son suficientes para
   representar parejas en nuestros programas.
 
 - Esto no quiere decir que Python realmente implemente las listas mediante
@@ -1343,26 +1349,37 @@ f3 -> y [lhead = cluster0, minlen = 3, color = red]
   - Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos
     cambiando su estado interno.
 
-- Por tanto, la palabra «estado» implica un proceso evolutivo durante el cual
-  ese estado puede ir cambiando.
+- Por tanto, la palabra «estado» implica un proceso evolutivo en el tiempo,
+  durante el cual ese estado puede ir cambiando.
 
 ---
 
 - Al introducir el concepto de «estado interno» en nuestros datos, estamos
-  introduciendo también la capacidad de cambiar dicho estado, es decir, que los
-  datos ahora son mutables, y la mutabilidad es un concepto propio de la
-  programación imperativa.
+  introduciendo también la capacidad de cambiar dicho estado, es decir, que
+  **los datos ahora son mutables**, y la _mutabilidad_ es un concepto propio de
+  la **programación imperativa**.
 
-- Además, esto nos va a impedir representar un dato abstracto mutable usando
-  las especificaciones algebraicas que hemos usado hasta ahora, ya que, a
-  partir de ahora, el resultado de una operación puede depender no sólo de lo
-  que dicten las ecuaciones de la especificación sino también de la historia
-  previa que haya tenido el dato abstracto (es decir, de su estado interno).
+- Esto nos va a **impedir representar un _dato abstracto mutable_ usando las
+  especificaciones algebraicas** que hemos usado hasta hoy, ya que, a partir de
+  ahora, el resultado de una operación puede depender no sólo de lo que dicten
+  las ecuaciones de la especificación sino también de la historia previa que
+  haya tenido el dato abstracto (es decir, de su estado interno).
 
-- A cambio, ganaremos la posibilidad de modelar de forma fácil y natural el
-  comportamiento de sistemas y procesos que se dan en el mundo real y que son
-  inherentemente dinámicos, es decir, que cambian con el tiempo y que van
-  pasando por distintos estados a medida que se opera con ellos.
+- Y, por supuesto, nos va a impedir usar el modelo de sustitución para razonar
+  sobre nuestros datos, por lo que tendremos que usar el modelo de **máquina de
+  estados**.
+
+---
+
+- A cambio, ganaremos dos cosas:
+
+  - La posibilidad de modelar **sistemas modulares**, basados en partes
+    independientes que actúan como elementos autónomos.
+
+  - La posibilidad de modelar de forma fácil y natural el comportamiento de
+    **sistemas y procesos** que se dan en el mundo real y que son
+    inherentemente **dinámicos**, es decir, que cambian con el tiempo y que van
+    pasando por distintos estados a medida que se opera con ellos.
 
 - Para ello, aprovecharemos una característica aún no explorada hasta ahora:
   **las funciones también pueden tener estado interno**.
@@ -1566,11 +1583,11 @@ def deposito(fondos):
   en agrupar, dentro de una función que responde a diferentes mensajes, las
   operaciones que actúan sobre un dato.
 
-- El paso de mensajes combina dos técnicas de programación:
+- El paso de mensajes combina **dos técnicas de programación**:
 
-  - Las funciones de orden superior que devuelven otras funciones.
+  - Las **funciones de orden superior** que devuelven otras funciones.
 
-  - El uso de una función que *despacha* a otras funciones dependiendo del
+  - El uso de una función que **_despacha_** a otras funciones dependiendo del
     mensaje recibido.
 
 # Abstracción de datos y modularidad
