@@ -33,30 +33,35 @@ nocite: |
 
 - Un valor es *hashable* si cumple las siguientes dos condiciones:
 
-  - Tiene asociado un valor *hash* que nunca cambia durante su vida.
+  #. Tiene asociado un valor *hash* que nunca cambia durante su vida.
 
-    Si un valor es *hashable*, se podrá obtener su *hash* llamando a la función
-    `hash()` sobre el valor. En caso contrario, la llamada generará un error
-    `TypeError`.
+     Si un valor es *hashable*, se podrá obtener su *hash* llamando a la
+     función `hash()` sobre el valor. En caso contrario, la llamada generará un
+     error `TypeError`.
 
-  - Puede compararse con otros valores para ver si es igual a alguno de ellos
-    usando el operador `==`.
+  #. Puede compararse con otros valores para ver si es igual a alguno de ellos
+     usando el operador `==`.
 
 - Si dos valores *hashables* son iguales, entonces deben tener el mismo valor
-  de *hash*.
+  de *hash*:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces `hash(`$x$`) == hash(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - La mayoría de los valores inmutables predefinidos en Python son *hashables*.
 
-- Los contenedores mutables (como las listas o los diccionarios) **no** son
-  *hashables*.
-
-- Los contenedores inmutables (como las tuplas o los `frozenset`s) sólo son
+- Los **contenedores inmutables** (como las tuplas o los `frozenset`s) sólo son
   *hashables* si sus elementos también lo son.
 
+- Los **contenedores mutables** (como las listas o los diccionarios) **NO** son
+  *hashables*.
+
 - El concepto de *hashable* es importante en Python ya que existen tipos de
-  datos estructurados que sólo admiten valores *hashables*.
+  datos estructurados que sólo admiten elementos *hashables*.
 
 - Por ejemplo, los elementos de un conjunto y las claves de un diccionario
   deben ser *hashables*.
@@ -177,7 +182,7 @@ nocite: |
 
 - Una **expresión generadora** es una expresión que **devuelve un iterador** y
   que tiene la misma sintaxis que las **listas por comprensión**, salvo que va
-  encerrada entre paréntesis en lugar de entre corchetes:
+  encerrada entre paréntesis en lugar de corchetes:
 
   !ALGO                                                                            
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -275,19 +280,19 @@ fin = !T{False}
 - El módulo `itertools` contiene una variedad de iteradores de uso frecuente
   así como funciones que combinan varios iteradores.
 
-- Veremos algunos ejemplos.
-
----
-
 - `itertools.count(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
   infinito de valores separados uniformemente. Se puede indicar opcionalmente
   un valor de comienzo (que por defecto es 0) y el intervalo entre números
   (que por defecto es 1):
 
   - `itertools.count()` $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
+
   - `itertools.count(10)` $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
     ...
+
   - `itertools.count(10, 5)` $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40, 45, ...
+
+---
 
 - `itertools.cycle(`!NT(iterador)`)` devuelve un nuevo iterador que va
   generando sus elementos del primero al último, repitiéndolos indefinidamente:
@@ -299,6 +304,7 @@ fin = !T{False}
 
   - `itertools.repeat('abc')` $\Rightarrow$ abc, abc, abc, abc, abc, abc, abc,
     ...
+
   - `itertools.repeat('abc', 5)` $\Rightarrow$ abc, abc, abc, abc, abc
 
 # Secuencias
@@ -324,16 +330,19 @@ fin = !T{False}
   conjunto de operaciones comunes.
 
 - Además de estas operaciones, las secuencias del mismo tipo admiten
-  comparaciones. Las tuplas y las listas se comparan lexicográficamente
-  elemento a elemento.
+  comparaciones.
 
   - Eso significa que dos secuencias son iguales si cada elemento es igual y
     las dos secuencias son del mismo tipo y tienen la misma longitud.
 
+  - Las tuplas, así como las listas, se comparan lexicográficamente elemento a
+    elemento.
+
 - La siguiente tabla enumera las operaciones sobre secuencias, ordenadas por
-  prioridad ascendente. `s` y `t` son secuencias del mismo tipo, `n`, `i`, `j`
-  y `k` son enteros y `x` es un dato cualquiera que cumple con las
-  restricciones que impone `s`.
+  prioridad ascendente. $\underline{s}$ y $\underline{t}$ son secuencias del
+  mismo tipo, $\underline{n}$, $\underline{i}$, $\underline{j}$ y
+  $\underline{k}$ son enteros y $\underline{x}$ es un dato cualquiera que
+  cumple con las restricciones que impone $\underline{s}$.
 
 ---
 
@@ -549,23 +558,23 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   inmutable de datos homogéneos (por ejemplo, para almacenar datos en un
   conjunto o un diccionario).
 
-- Las tuplas se pueden crear:
+- Las tuplas se pueden crear así:
 
-  - Con paréntesis vacíos, para representar la tupla vacía: `()`
+  - Si es una tupla vacía, con paréntesis vacíos: `()`
 
-  - Usando una coma detrás de un único elemento:
+  - Si sólo tiene un elemento, se pone una coma detrás:
     
     `a,`
 
     `(a,)`
 
-  - Separando los elementos con comas:
+  - Si tiene más de un elemento, se separan con comas:
 
     `a, b, c`
 
     `(a, b, c)`
 
-  - Usando la función `tuple()`
+  - Usando la función `tuple`.
 
 ---
 
@@ -611,13 +620,13 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ---
 
-- El **contenido** de un rango $r$ vendrá determinado por la fórmula $r[i] =
-  inicio + paso \cdot i$, donde $i \geq 0$. Además:
+- El **contenido** de un rango $r$ vendrá determinado por la fórmula: $$r[i] =
+  inicio + paso \cdot i$$ donde $i \geq 0$. Además:
 
-  - Si el paso es positivo, se impone también la restricción $r[i] <
+  - Si $paso > 0$, se impone también la restricción $r[i] <
     \text{\textit{fin}}$.
 
-  - Si el paso es negativo, se impone también la restricción $r[i] >
+  - Si $paso < 0$, se impone también la restricción $r[i] >
     \text{\textit{fin}}$.
 
 - Un rango es **vacío** cuando $r[0]$ no satisface las restricciones anteriores.
@@ -625,7 +634,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - Los rangos admiten **índices negativos**, pero se interpretan como si se
   indexara desde el final de la secuencia usando índices positivos.
 
-- Los rangos implementan todas las **operaciones de las secuencias, *excepto*
+- Los rangos implementan **todas las operaciones de las secuencias, *excepto*
   la concatenación y la repetición**.
 
   Esto es debido a que los rangos sólo pueden representar secuencias que siguen
@@ -637,7 +646,44 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ---
 
-- Ejemplos:
+- La **forma normal** de un rango representa los valores *inicio*, *fin* y
+  *paso*, que son los que realmente determinan al rango:
+
+  :::: columns
+
+  ::: {.column width=48%}
+
+  ```python
+  >>> range(10)
+  range(0, 10)
+  >>> range(0, 10)
+  range(0, 10)
+  >>> range(0, 10, 1)
+  range(0, 10)
+  ```
+
+  :::
+
+  ::: {.column width=4%}
+  :::
+
+  ::: {.column width=48%}
+
+  ```python
+  >>> range(0, 30, 5)
+  range(0, 30, 5)
+  >>> range(0, -10, -1)
+  range(0, -10, -1)
+  >>> range(4, -5, -2)
+  range(4, -5, -2)
+  ```
+
+  :::
+
+  ::::
+
+- Para ver con claridad todos los elementos de un rango, podemos convertirlo en
+  una tupla o una lista. Por ejemplo:
 
   ```python
   >>> list(range(10))
@@ -658,16 +704,20 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ---
 
-- Dos rangos son considerados iguales si representan la misma secuencia de
+- Dos rangos son considerados **iguales** si representan la misma secuencia de
   valores, sin importar si tienen distintos valores de !NT(inicio), !NT(fin) o
   !NT(paso).
 
 - Por ejemplo:
 
   ```python
-  >>> range(0) == range(2, 1, 3)
+  >>> range(20) == range(0, 20)
   True
+  >>> range(0, 20) == range(0, 20, 2)
+  False
   >>> range(0, 3, 2) == range(0, 4, 2)
+  True
+  >>> range(0) == range(2, 1, 3)
   True
   ```
 
@@ -690,7 +740,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
     
     `[a, b, c]`
 
-  - Usando una lista por comprensión: `[`$x\ $ `for` $\ x\ $ `in` $\!$
+  - Usando la sintaxis por comprensión: `[`$x\ $ `for` $\ x\ $ `in` $\!$
     !NT(iterable)`]`
 
   - Usando la función `list`: `list()` o `list(`!NT{iterable}`)`
@@ -721,9 +771,10 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ---
 
-- En la siguiente tabla, `s` es una instancia de un tipo de secuencia mutable
-  (en nuestro caso, una lista), `t` es cualquier dato iterable y `x` es un dato
-  cualquiera que cumple con las restricciones que impone `s`:
+- En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
+  secuencia mutable (en nuestro caso, una lista), $\underline{t}$ es cualquier
+  dato iterable y $\underline{x}$ es un dato cualquiera que cumple con las
+  restricciones que impone $\underline{s}$:
 
 !SALTO
 
@@ -778,7 +829,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ---
 
-- Las listas, además, admiten el método `sort()`:
+- Las listas, además, admiten el método `sort()`, que permite ordenar sus
+  elementos de forma ascendente o descendente:
 
   ```python
   >>> x = [3, 6, 2, 9, 1, 4]
@@ -794,21 +846,24 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ## Conjuntos (`set` y `frozenset`)
 
-- Un conjunto es una colección **no ordenada** de elementos *hashables*. Se
-  usan frecuentemente para comprobar si un elemento pertenece a un grupo, para
-  eliminar duplicados en una secuencia y para realizar operaciones matemáticas
-  como la unión, la intersección y la diferencia simétrica.
+- Un conjunto es una colección **no ordenada** de elementos *hashables*.
+
+- Se usan frecuentemente para comprobar si un elemento pertenece a un grupo,
+  para eliminar duplicados en una secuencia y para realizar operaciones
+  matemáticas como la _unión_, la _intersección_ y la _diferencia simétrica_.
 
 - Como cualquier otra colección, los conjuntos permiten el uso de:
 
   - $x\ $ `in` $\ c$
+
   - `len(`$c$`)`
+
   - `for` $\ x\ $ `in` $\ c$
 
 - Como son colecciones no ordenadas, los conjuntos **no almacenan la posición**
   de los elementos o el **orden** en el que se insertaron.
   
-- Por tanto, tampoco admite la indexación, las rodajas ni cualquier otro
+- Por tanto, tampoco admiten la indexación, las rodajas ni cualquier otro
   comportamiento propio de las secuencias.
 
 ---
@@ -851,8 +906,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ---
 
-- Los conjuntos se crean con las funciones `set(`[!NT(iterable)]`)` y
-  `frozenset(`[!NT(iterable)]`)`.
+- Los dos tipos de conjuntos se crean con las funciones
+  `set(`[!NT(iterable)]`)` y `frozenset(`[!NT(iterable)]`)`.
 
   - Si se llaman *sin argumentos*, devuelven un conjunto **vacío**:
   
@@ -867,7 +922,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
     frozenset()
     ```
 
-    Como se ve, esas son, precisamente, las formas normales de un conjunto
+    Como se ve, esas son, precisamente, las **formas normales** de un conjunto
     vacío de tipo `set` y `frozenset`.
 
   - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
@@ -894,8 +949,9 @@ $s$`.reverse()`        Invierte los elementos de $s$
   <class 'set'>
   ```
 
-  Esa es, precisamente, la forma normal de un conjunto no vacío cuando se
-  visualiza desde el intérprete o se imprime con `print()`.
+  Esa es, precisamente, la **forma normal** de un conjunto no vacío y, por
+  tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con
+  `print()`.
 
 - Por tanto, para crear conjuntos congelados usando `frozenset()` podemos usar
   esa sintaxis en lugar de usar listas como hicimos antes:
@@ -905,8 +961,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
     frozenset({2, 3, 4})
     ```
 
-- También podría usarse con la función `set()`, pero no tendría sentido, ya que
-  devolvería el mismo conjunto:
+- También podría usarse con la función `set()`, pero sería innecesario y no
+  tendría sentido, ya que devolvería el mismo conjunto:
 
   ```python
   >>> set({4, 3, 2, 2, 4})  # equivale a poner simplemente {4, 3, 2, 2, 4}
@@ -915,7 +971,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ### Operaciones
 
-- `s` y `o` son conjuntos, y `x` es un valor cualquiera:
+- $\underline{s}$ y $\underline{o}$ son conjuntos, y $\underline{x}$ es un
+  valor cualquiera:
 
 ----------------------------------------------------------------------------------------------
 Operación                 Resultado
@@ -1046,8 +1103,9 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   - Encerrando entre llaves una lista de parejas !NT(clave)!T(:)!NT(valor)
     separadas por comas: `{'juan': 4098, 'pepe': 4127}`
 
-    Esa es precisamente la forma normal de un diccionario cuando se visualiza
-    desde el intérprete o se imprime con `print()`.
+    Esa es precisamente la **forma normal** de un diccionario y, por tanto, la
+    que se usa cuando se visualiza desde el intérprete o se imprime con
+    `print()`.
 
   - Usando la función `dict()`.
 
@@ -1059,7 +1117,7 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
   >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # innecesario
   >>> e = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # con dos iterables
-  >>> a == b and b == c and c == d and d == e
+  >>> a == b and b == c and c == d and d == e          # todos son iguales
   True
   ```
 
@@ -1079,11 +1137,26 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   aparece en el diccionario. En este caso, se almacena el elemento `'perro':
   'doggy'` y se ignora el `'perro': 'dog'`.
 
-!CAJA
-~~~~~~~~~~~~~
-A partir de Python 3.7, **los elementos de un diccionario se almacenan en el
-orden en el que se van insertando**.
-~~~~~~~~~~~~~
+---
+
+- En cuanto al **orden** en el que aparecen los elementos dentro de un
+  diccionario:
+
+  - Antes de la versión 3.7 de Python, el orden de los elementos no estaba
+    determinado, por lo que podrían aparecer en cualquier orden.
+
+  - A partir de la versión 3.7, se decidió que los elementos se almacenarían en
+    el orden de inserción.
+
+- Por tanto:
+
+  !CAJA
+  ~~~~~~~~~~~~~
+  **Importante:**
+
+  A partir de Python 3.7, **los elementos de un diccionario se almacenan en el
+  orden en el que se van insertando**.
+  ~~~~~~~~~~~~~
 
 ---
 
@@ -1122,8 +1195,8 @@ orden en el que se van insertando**.
 
 ### Operaciones
 
-- `d` y `o` son diccionarios, `c` es una clave válida y `v` es un valor
-  cualquiera:
+- $\underline{d}$ y $\underline{o}$ son diccionarios, $\underline{c}$ es una
+  clave válida y $\underline{v}$ es un valor cualquiera:
 
 ------------------------------------------------------------------------------------------------
 Operación                   Resultado
@@ -1207,7 +1280,7 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
     ```
 
   - Usar el método `items()` sobre el diccionario, que devuelve una lista de
-    tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinado con el
+    tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinándolo con el
     **desempaquetado de tuplas**:
 
     ```python
@@ -1223,13 +1296,14 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 ---
 
 - Otros métodos útiles para recorrer un diccionario son `keys()` y `values()`.
+  !SALTOBEAMER
 
 :::: columns
 
 ::: column
 
 - `keys()` devuelve un **iterador** que recorre las **claves** del
-  diccionario:
+  diccionario sobre el que se invoca:
 
 
   ```python
@@ -1246,8 +1320,10 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 
 ::: column
 
+!ifdef(LATEX)(\vspace{0.3em})
+
 - `values()` devuelve un **iterador** que recorre los **valores** del
-  diccionario:
+  diccionario sobre el que se invoca:
 
   ```python
   >>> d.values()
@@ -1262,6 +1338,9 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 :::
 
 ::::
+
+!SALTOBEAMER
+!ifdef(LATEX)(\vspace{0.3em})
 
 - En la práctica, no resulta muy útil usar `keys()`, ya que se puede hacer lo
   mismo recorriendo directamente el propio diccionario, como ya sabemos:
