@@ -1303,7 +1303,7 @@ E -> x [lhead = cluster0]
                           \quad\quad\enspace\text{ cadena } cadena \text{, debe devolver } 0.
   \end{cases}$$
 
----
+<!--
 
 - Un ejemplo mucho más avanzado para los curiosos:
 
@@ -1328,6 +1328,7 @@ E -> x [lhead = cluster0]
   - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
 
   - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
+-->
 
 # Computabilidad
 
@@ -2105,59 +2106,65 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   cadena[1:][0]   # devuelve 'o'
   ```
 
-## Listas
+## Tuplas
 
-- Las **listas** son una generalización de las cadenas.
+- Las **tuplas** son una generalización de las cadenas.
 
-- Una lista es una **secuencia de elementos** que no tienen por qué ser
+- Una tupla es una **secuencia de elementos** que no tienen por qué ser
   caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
-  (números, cadenas, booleanos, incluso otras listas).
+  (números, cadenas, booleanos, ..., incluso otras tuplas).
 
-- Los literales de tipo lista se representan enumerando sus elementos separados
-  por comas y encerrados entre corchetes.
+- Los literales de tipo tupla se representan enumerando sus elementos separados
+  por comas y encerrados entre paréntesis.
 
 - Por ejemplo:
 
   ```python
-  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
+  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  ```
+
+- Si sólo tiene un elemento, hay que poner una coma detrás:
+    
+  ```python
+  tupla = (35,)
   ```
 
 ---
 
-- Las listas también pueden verse como un **tipo de datos recursivo**, ya que
-  toda lista `l`:
+- Las tuplas también pueden verse como un **tipo de datos recursivo**, ya que
+  toda tupla `t`:
 
-  - o bien es la lista vacía, representada mediante `[]` (*caso base*),
+  - o bien es la tupla vacía, representada mediante `()` (*caso base*),
 
   - o bien está formada por dos partes:
 
-    - El **primer elemento** de la lista (al que se accede mediante `l[0]`),
+    - El **primer elemento** de la tupla (al que se accede mediante `t[0]`),
       que hemos visto que puede ser de cualquier tipo.
 
-    - El **resto** de la lista (al que se accede mediante `l[1:]`), que también
-      es una lista (*caso recursivo*).
+    - El **resto** de la tupla (al que se accede mediante `t[1:]`), que también
+      es una tupla (*caso recursivo*).
 
 - Según el ejemplo anterior:
 
   ```python
-  lista = [27, 'hola', True, 73.4, ['a', 'b', 'c'], 99]
-  lista[0]       # devuelve 27
-  lista[1:]      # devuelve ['hola', True, 73.4, ['a', 'b', 'c'], 99]
-  lista[1:][0]   # devuelve 'hola'
+  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  tupla[0]       # devuelve 27
+  tupla[1:]      # devuelve ('hola', True, 73.4, ('a', 'b', 'c'), 99)
+  tupla[1:][0]   # devuelve 'hola'
   ```
 
 ---
 
-- Junto a las operaciones `l[0]` (primer elemento) y `l[1:]` (resto de la
-  lista), tenemos también la operación `+` (**concatenación**), al igual que
-  ocurre con las cadenas.
+- Junto a las operaciones `t[0]` (primer elemento de la tupla) y `t[1:]` (resto
+  de la tupla), tenemos también la operación `+` (**concatenación**), al igual
+  que ocurre con las cadenas.
 
-- Con la concatenación se pueden crear nuevas listas a partir de otras listas.
+- Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
 
 - Por ejemplo:
 
   ```python
-  [1, 2, 3] + [4, 5, 6]  # devuelve [1, 2, 3, 4, 5, 6]
+  (1, 2, 3) + (4, 5, 6)  # devuelve (1, 2, 3, 4, 5, 6)
   ```
 
 ## Rangos
@@ -2219,20 +2226,20 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   rango[1:][0]   # devuelve 5
   ```
 
-## Conversión a lista
+## Conversión a tupla
 
-- Las cadenas y los rangos se pueden convertir fácilmente a listas usando la
-  función `list`:
+- Las cadenas y los rangos se pueden convertir fácilmente a tuplas usando la
+  función `tuple`:
 
 :::: columns
 
 ::: {.column width=40%}
 
 ```python
->>> list('hola')
-['h', 'o', 'l', 'a']
->>> list('')
-[]
+>>> tuple('hola')
+('h', 'o', 'l', 'a')
+>>> tuple('')
+()
 ```
 
 :::
@@ -2240,20 +2247,20 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ::: {.column width=60%}
 
 ```python
->>> list(range(10))
-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
->>> list(range(1, 11))
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
->>> list(range(0, 30, 5))
-[0, 5, 10, 15, 20, 25]
->>> list(range(0, 10, 3))
-[0, 3, 6, 9]
->>> list(range(0, -10, -1))
-[0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
->>> list(range(0))
-[]
->>> list(range(1, 0))
-[]
+>>> tuple(range(10))
+(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+>>> tuple(range(1, 11))
+(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+>>> tuple(range(0, 30, 5))
+(0, 5, 10, 15, 20, 25)
+>>> tuple(range(0, 10, 3))
+(0, 3, 6, 9)
+>>> tuple(range(0, -10, -1))
+(0, -1, -2, -3, -4, -5, -6, -7, -8, -9)
+>>> tuple(range(0))
+()
+>>> tuple(range(1, 0))
+()
 ```
 
 :::
@@ -2401,8 +2408,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## `map`
 
-- Supongamos que queremos escribir una función que, dada una lista de números,
-  nos devuelva otra lista con los mismos números elevados al cubo.
+- Supongamos que queremos escribir una función que, dada una tupla de números,
+  nos devuelva otra tupla con los mismos números elevados al cubo.
 
 - Inténtalo primero como ejercicio.
 
@@ -2411,20 +2418,20 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Una forma de hacerlo sería:
 
   ```python
-  elevar_cubo = lambda l: [] if l == [] else \
-                          [cubo(l[0])] + elevar_cubo(l[1:])
+  elevar_cubo = lambda t: () if t == () else \
+                          (cubo(t[0]),) + elevar_cubo(t[1:])
   ```
 
 - ¿Y elevar a la cuarta potencia?
 
   ```python
-  elevar_cuarta = lambda l: [] if l == [] else \
-                            [(lambda x: x ** 4)(l[0])] + elevar_cuarta(l[1:])
+  elevar_cuarta = lambda t: () if t == () else \
+                            ((lambda x: x ** 4)(t[0]),) + elevar_cuarta(t[1:])
   ```
 
 - Es evidente que hay un patrón subyacente que se podría abstraer creando una
   función de orden superior que aplique una función `f` a los elementos de una
-  lista y devuelva la lista resultante.
+  tupla y devuelva la tupla resultante.
 
   Esa función se llama `map`, y viene definida en Python:
 
@@ -2434,7 +2441,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   ~~~~~~~~~~~~~~~~~~~~~
 
   donde !NT(iterable) puede ser cualquier cosa compuesta de elementos que se
-  puedan recorrer de uno en uno, como una **lista**, una **cadena** o un
+  puedan recorrer de uno en uno, como una **tupla**, una **cadena** o un
   **rango** (cualquier *secuencia* de elementos vale).
 
 ---

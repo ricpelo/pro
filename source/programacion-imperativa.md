@@ -816,10 +816,10 @@ s | P | y | t | h | o | n |
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
   interno durante la ejecución del programa.
 
-- Hasta ahora, hemos visto un único tipo mutable: la **lista**.
+- El tipo mutable más frecuente es la **lista**.
 
-- Una lista puede cambiar el valor de sus elementos, aumentar o disminuir de
-  tamaño (cambia su contenido y, por tanto, su estado).
+- Una lista es como una tupla que puede cambiar sus elementos, aumentar o
+  disminuir de tamaño (puede cambiar su contenido y, por tanto, su estado).
 
 - Al cambiar el estado interno de una lista no se crea una nueva lista, sino
   que **se modifica la ya existente**:
@@ -835,7 +835,7 @@ s | P | y | t | h | o | n |
 
 ::: column
 
-!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=50%)(width=40%)
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=60%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
@@ -848,7 +848,7 @@ x -> v1 -> lista
 
 ::: column
 
-!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=50%)(width=40%)
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=60%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
