@@ -53,7 +53,7 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 
 !define(ACT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Actividades {-}
+##### Actividades {.unnumbered .unlisted}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(FIN)
@@ -65,7 +65,7 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 
 !define(BIBLIOGRAFIA)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Bibliografía {-}
+# Bibliografía {.unnumbered .unlisted}
 
 !ifdef(BEAMER)(\raggedright)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -139,9 +139,9 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !ifndef(HTML)
 ~~~~~~~~~~~~~~~~~~~~
-# Respuestas a las preguntas {-}
+# Respuestas a las preguntas {.unnumbered .unlisted}
 
-#### Respuestas a las preguntas {.unnumbered .allowframebreaks}
+#### Respuestas a las preguntas {.unnumbered .unlisted .allowframebreaks}
 
 \shipoutAnswer
 ~~~~~~~~~~~~~~~~~~~~

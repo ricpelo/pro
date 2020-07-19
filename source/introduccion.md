@@ -174,8 +174,6 @@ acuerdo con un programa almacenado.
 
      - *Dispositivos de salida*
 
----
-
 #### Unidad central de proceso (CPU) o procesador
 
 - **Unidad aritmético-lógica (ALU)**:
@@ -186,8 +184,6 @@ acuerdo con un programa almacenado.
 
   Ejecuta de las instrucciones enviando las señales a las distintas unidades
   funcionales involucradas.
-
----
 
 #### Memoria
 
@@ -216,8 +212,6 @@ acuerdo con un programa almacenado.
   La información no se pierde al apagar el ordenador.
 
   Más lenta que la memoria principal, pero de mucha más capacidad.
-
----
 
 #### Dispositivos de E/S
 
@@ -2267,9 +2261,9 @@ intérprete? Razona la respuesta.
   van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a
   usar en clase.
 
-# Actividades
+# Actividades {.unnumbered .unlisted}
 
-## Actividades
+!ACT
 
 @. Supongamos los siguientes problemas:
 
@@ -2300,4 +2294,4 @@ procedimiento análogo al de la suma lenta, al que llamaremos **resta lenta**.
       d. Estudiar su corrección.
       e. Expresar el algoritmo en pseudocódigo.
 
-!BIBLIOGRAFIA
+!FIN

@@ -102,6 +102,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 	@echo "Generando $@..."
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t revealjs \
+		-V revealjs-url=./reveal.js \
 		--filter=pandoc-citeproc \
 		--katex \
 		--bibliography=$(CITATIONS_BIB) \
