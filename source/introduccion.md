@@ -51,9 +51,11 @@ nocite: |
 
 - Estos sistemas están formados por:
 
-  - elementos físicos (**hardware**)
-  - elementos lógicos (**software**) y
-  - elementos humanos (profesionales y usuarios).
+  - Elementos físicos (**hardware**).
+
+  - Elementos lógicos (**software**).
+
+  - Elementos humanos (profesionales y usuarios).
 
 ---
 
@@ -115,13 +117,26 @@ La **Programación** es la ciencia y el arte de diseñar dichos programas.
   ordenada de mayor a menor por la calificación obtenida y que muestre sólo los
   alumnos aprobados:
 
-  - **Entrada**: Una lista de pares *(Nombre alumno, Calificación)*.
+  - **Entrada**: Una lista de pares *(Nombre del alumno, Calificación)*.
 
   - **Proceso**: Eliminar de la lista los pares que tengan una calificación
     menor que cinco y ordenar la lista resultante de mayor a menor según la
     calificación.
 
   - **Salida**: la lista ordenada de alumnos aprobados.
+
+!EJERCICIO
+
+@. Identificar la entrada, el proceso y la salida en los siguientes supuestos:
+
+    a. Convertir una temperatura en grados Fahrenheit a Celsius.
+
+    b. Calcular el área de un triángulo a partir de su base y su altura.
+
+    c. Calcular el perímetro de un cuadrado.
+
+    d. Determinar si una llamada entrante en un teléfono móvil es sospechosa de
+       *spam*.
 
 ## Ordenador
 
