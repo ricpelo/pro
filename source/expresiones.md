@@ -1250,7 +1250,7 @@ Función                     Descripción           Ejemplo                  Res
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
 
-# Actividades
+!SECCIONEJERCICIOS
 
 @. Representar, según el modelo de sustitución, la evaluación las siguientes
    expresiones, aplicando paso a paso la reducción que corresponda. Indicar

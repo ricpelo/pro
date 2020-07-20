@@ -1162,7 +1162,7 @@ resolver problemas computacionales.
 - Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
   automáticamente el mejor camino para alcanzar dicho objetivo.
 
-!ACT
+!EJERCICIO
 
 @. ¿Hay más paradigmas de programación? Busca en Internet y pon un par de
 ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe
@@ -1521,7 +1521,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 - Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6, Clojure...
 
-!ACT
+!EJERCICIO
 
 @. Busca en Internet información sobre un lenguaje de programación que no se
 haya comentado aquí y que se haya creado no antes del año 2000. Anota el
@@ -1594,7 +1594,7 @@ diseño.
   - PHP
   - Haskell
 
-!ACT
+!EJERCICIO
 
 @. Ordena cronológicamente la lista anterior por el año de creación de cada
 lenguaje.
@@ -2041,7 +2041,7 @@ F -> I
   - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
     a un número, detectable mediante un **chequeo de tipos**)
 
-!ACT
+!EJERCICIO
 
 @. Desde el punto de vista de la detección de errores sintácticos o de
 semántica estática, ¿qué resulta más interesante: un compilador o un
@@ -2261,9 +2261,7 @@ intérprete? Razona la respuesta.
   van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a
   usar en clase.
 
-# Actividades {.unnumbered .unlisted}
-
-!ACT
+!SECCIONEJERCICIOS
 
 @. Supongamos los siguientes problemas:
 

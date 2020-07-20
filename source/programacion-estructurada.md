@@ -1776,9 +1776,7 @@ E -> x [lhead = cluster1]
       print("¡Hola! Te saludo desde la función saludar()")
   ```
 
-# Actividades
-
-## Actividades
+!SECCIONEJERCICIOS
 
 @. Considérese la siguiente fórmula (debida a Herón de Alejandrı́a), que expresa
    el valor de la superficie S de un triángulo cualquiera en función de sus

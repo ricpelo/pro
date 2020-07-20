@@ -771,7 +771,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   evalúa a `25`.
 
-### Actividad
+!EJERCICIO
 
 @. ¿Cuál es la asociatividad del operador ternario? Demostrarlo.
 

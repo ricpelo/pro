@@ -51,9 +51,21 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !ifdef(HTML)([!2]{style="color:!1"})(\textcolor{!1}{!2})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(ACT)
+!define(SECCIONEJERCICIOS)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Actividades {.unnumbered .unlisted}
+# Ejercicios {.unnumbered .unlisted}
+
+## Ejercicios {.unnumbered .unlisted}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(EJERCICIOS)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##### Ejercicios {.unnumbered .unlisted}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(EJERCICIO)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##### Ejercicio {.unnumbered .unlisted}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(FIN)

@@ -128,7 +128,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 		--bibliography=$(CITATIONS_BIB) \
 		--template=$(BEAMER_TEMPLATE) \
 		--toc --toc-depth=1 -N \
-		--slide-level=4 \
+		--slide-level=5 \
 		-H $(PREAMBULO_BEAMER) \
 		--pdf-engine=xelatex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
