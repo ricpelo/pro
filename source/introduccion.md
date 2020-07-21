@@ -150,16 +150,16 @@ Un ordenador es una máquina que procesa información automáticamente de
 acuerdo con un programa almacenado.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  - Es una *máquina*.
+- Es una *máquina*.
 
-  - Su función es *procesar información*.
+- Su función es *procesar información*.
 
-  - El procesamiento se realiza de forma *automática*.
+- El procesamiento se realiza de forma *automática*.
 
-  - El procesamiento se realiza siguiendo un *programa* (*software*).
+- El procesamiento se realiza siguiendo un *programa* (*software*).
 
-  - Este programa está *almacenado* en una memoria interna del mismo ordenador
-    (arquitectura de **Von Neumann**).
+- Este programa está *almacenado* en una memoria interna del mismo ordenador
+  (arquitectura de **Von Neumann**).
 
 ### Funcionamiento básico
 
@@ -263,7 +263,7 @@ compound = true;
 ALU [label = "Unidad Aritmético-Lógica\n(ALU)"];
 UC [label = "Unidad de Control\n(UC)"];
 M [label = "Memoria\nprincipal"];
-MS [label ="Memoria\nsecundaria"];
+MS [label ="Memoria\nsecundaria", shape = "cylinder"];
 E [label = "Dispositivos\n de entrada"];
 S [label = "Dispositivos\n de salida"];
 
@@ -296,8 +296,7 @@ UC -> MS [ltail = cluster0];
   los dispositivos de entrada y los almacenará en la memoria principal, para
   que las instrucciones puedan operar con ellos.
 
-- Al finalizar el programa, los datos de salida se volcarán hacia los
-  dispositivos de salida.
+- Finalmente, los datos de salida se volcarán hacia los dispositivos de salida.
 
 #### Ciclo de instrucción
 
@@ -338,8 +337,7 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
   **Codificación**:
 
   Proceso mediante el cual se representa información dentro de un sistema
-  informático, asociando a cada dato (elemental o estructurado) uno o más
-  valores numéricos.
+  informático, asociando a cada dato uno o más valores numéricos.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Una codificación, por tanto, es una correspondencia entre un conjunto de
@@ -362,9 +360,9 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
 !DOT(codificaciones.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 E [label = "Exterior", shape = oval];
-S [label = "Sistema\ninformático\n\n(Codificación interna)"];
+S [label = <Sistema<br/>informático<br/><br/>(<b><i>Codificación interna</i></b>)>];
 
-S -> E [dir = both, label = "Código de E/S"];
+S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Codificación interna
@@ -482,7 +480,9 @@ S -> E [dir = both, label = "Código de E/S"];
 - Es un código de 7 bits:
 
   - Cada carácter ocupa 7 bits.
+
   - Hay $2^7 = 128$ caracteres posibles.
+
   - Los 32 primeros códigos (del 0 al 31) son no imprimibles (códigos de
     control).
 
@@ -504,8 +504,10 @@ S -> E [dir = both, label = "Código de E/S"];
 
   - **UTF-8**: codificación de 8 bits, de longitud variable (cada *code point*
     puede ocupar de 1 a 4 bytes). **El más usado en la actualidad.**
+
   - **UTF-16**: codificación de 16 bits, de longitud variable (cada *code
     point* puede ocupar 1 ó 2 palabras de 16 bits).
+
   - **UTF-32**: codificación de 32 bits, de longitud fija (cada *code point*
     ocupa 1 palabra de 32 bits).
 
@@ -519,6 +521,8 @@ S -> E [dir = both, label = "Código de E/S"];
 
 - Si un problema es **resoluble** usando un ordenador (*no todos lo son*),
   podremos escribir un programa que lo resuelva.
+
+- Estos son los problemas que nos interesa estudiar en Programación.
 
 ### Generalización
 
@@ -574,15 +578,17 @@ S -> E [dir = both, label = "Código de E/S"];
 
 ### Jerarquías de generalización
 
-- Se dice que un problema $P$ es **más general** que un problema $Q$ si los
-  ejemplares de $Q$ también son ejemplares de $P$, y además hay ejemplares de
-  $P$ que no lo son de $Q$.
+- Se dice que un problema $P$ es **más general** que un problema $Q$ (o bien,
+  que es una **generalización** del problema $Q$) si los ejemplares de $Q$
+  también son ejemplares de $P$, y además hay ejemplares de $P$ que no lo son
+  de $Q$.
 
   - Es otra forma de decir que el conjunto de ejemplares de $Q$ es un
     *subconjunto propio* del conjunto de ejemplares de $P$.
 
-- Igualmente, se dice que $Q$ es un problema **menos general** (o **más
-  particular**) que el problema $P$.
+- Igualmente, se dice que $Q$ es un problema **menos general** o **más
+  particular** que el problema $P$ (o bien, que es una **especialización** del
+  problema $P$).
 
 - Este concepto resulta interesante porque, si tenemos una solución al problema
   $P$, podremos usarla para resolver el problema $Q$.
@@ -625,6 +631,30 @@ z -> suma
 suma -> res
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!EJERCICIOS
+
+@. Con cada uno de los siguientes problemas, dar al menos un ejemplar del mismo
+   e inventar un problema más general:
+
+    a. Calcular cuántos días han pasado entre dos fechas del mismo año.
+
+    b. Calcular el perímetro de un cuadrado a partir de la longitud de uno de
+       sus lados.
+
+@. Inventar un problema más particular para el problema de sumar dos fracciones
+   de números enteros y dar dos ejemplares distintos de cada uno de los dos
+   problemas.
+
+@. Dado el siguiente problema: «Calcular cuántos picos y cuántas patas hay en
+   una granja con $X$ gallinas y $Y$ cerdos», determinar si los siguientes
+   casos son *instancias* del problema o bien son *especializaciones* del
+   problema:
+
+    a. Calcular cuántos picos y cuántas patas hay en una granja con 5 gallinas
+       y 7 cerdos.
+
+    b. Calcular cuántas patas hay en una granja con $Z$ cerdos.
+
 ## Algoritmo
 
 ### Definición
@@ -664,6 +694,64 @@ Un algoritmo es un método para resolver un problema.
 "Problema" -> "Diseño de algoritmo" -> "Programa informático"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+!QUIZ
+~~~~~~~~~~~~~~~~~~~~~~~
+{
+   "info": {
+      "name": "",
+      "main": ""
+   },
+   "questions": [
+      {
+         "q": "¿Qué es lo primero que hay que hacer a la hora de resolver un problema mediante un programa informático?",
+         "a": [
+            {"option": "Diseñar el algoritmo", "correct": false},
+            {"option": "Estudiar el problema", "correct": true},
+            {"option": "Ejecutar el programa", "correct": false},
+            {"option": "Escribir el programa",  "correct": false}
+         ],
+         "correct": "Lo primero que hay que hacer es estudiar el problema que hay que resolver.",
+         "incorrect": "Hay algo que debes hacer antes."
+      },
+      {
+         "q": "¿Y lo segundo?",
+         "a": [
+            {"option": "Ejecutar el programa", "correct": false},
+            {"option": "Estudiar el problema", "correct": false},
+            {"option": "Escribir el programa",  "correct": false},
+            {"option": "Diseñar el algoritmo", "correct": true}
+         ],
+         "correct": "Lo segundo es diseñar el algoritmo que resuelva el problema.",
+         "incorrect": "No es correcto."
+      },
+      {
+         "q": "¿Y lo tercero?",
+         "a": [
+            {"option": "Estudiar el problema", "correct": false},
+            {"option": "Ejecutar el programa", "correct": false},
+            {"option": "Escribir el programa",  "correct": true},
+            {"option": "Diseñar el algoritmo", "correct": false}
+         ],
+         "correct": "Lo tercero es traducir el algoritmo en un programa usando un lenguaje de programación.",
+         "incorrect": "No es correcto."
+      },
+      {
+         "q": "¿Y por último?",
+         "a": [
+            {"option": "Escribir el programa",  "correct": false},
+            {"option": "Ejecutar el programa", "correct": true},
+            {"option": "Estudiar el problema", "correct": false},
+            {"option": "Diseñar el algoritmo", "correct": false}
+         ],
+         "correct": "Por último, se ejecuta el programa en un ordenador.",
+         "incorrect": "Eso se debe hacer antes."
+      }
+   ]
+}
+~~~~~~~~~~~~~~~~~~~~~~~
+
 ### Características
 
 - Un algoritmo debe ser:
@@ -695,7 +783,7 @@ Un algoritmo es un método para resolver un problema.
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
-  **Ambigüedad**
+  !COLOR(red)(**Ambigüedad**)
   ~~~~~~~~~~~~~~~~~~~~~~~
 
 - En ciertos contextos la ambigüedad es asumible, pero **NO** cuando el
@@ -779,7 +867,7 @@ Determinar cuál es el máximo de dos números
 
 - **Corrección**: El algoritmo debe solucionar correctamente el problema.
 
-- **Claridad**: Cuanto más legible y comprensible para el ser humano, mejor.
+- **Claridad**: Debe ser legible y comprensible para el ser humano.
 
 - **Generalidad**: Un algoritmo debe resolver problemas generales. Por ejemplo,
   un algoritmo que sume dos números enteros debe servir para sumar cualquier
@@ -791,7 +879,7 @@ Determinar cuál es el máximo de dos números
   pasos innecesarios ni recordar más información de la necesaria.
 
 - **Sencillez**: Hay que intentar que la solución sea sencilla, aun a costa de
-  perder un poco de eficiencia, es decir, se tiene que buscar un equilibrio
+  perder un poco de eficiencia; es decir, se tiene que buscar un equilibrio
   entre la claridad y la eficiencia.
 
 - **Modularidad**: Un algoritmo puede formar parte de la solución a un problema
@@ -814,6 +902,7 @@ Determinar cuál es el máximo de dos números
 - Todo problema $P$ lleva asociada una función $f_P: D \rightarrow R$, donde:
 
   - $D$ es el conjunto de los datos de entrada.
+
   - $R$ es el conjunto de los resultados del problema.
 
 - Asimismo, todo algoritmo $A$ lleva asociada una función $f_A$.
@@ -829,7 +918,7 @@ Determinar cuál es el máximo de dos números
   
 ---
 
-La respuesta es que **NO**
+La respuesta es que **NO**.
 
 - Se puede demostrar que hay más funciones que algoritmos, por lo que **existen
   funciones que no se pueden computar mediante un algoritmo** (no son
@@ -862,8 +951,8 @@ La respuesta es que **NO**
 
 ---
 
-- Usando esos formalismos, se pudo demostrar que hay que problemas que no se
-  pueden resolver mediante algoritmos.
+- Usando esos formalismos, se pudo demostrar que hay problemas que no se pueden
+  resolver mediante algoritmos.
 
 - Uno de los problemas que no tienen una solución algorítmica es el llamado
   **problema de la parada**:
@@ -872,9 +961,9 @@ La respuesta es que **NO**
   ~~~~~~~~~~~~~~~~~~~~~~~~
   **Problema de la parada**:
 
-  Dado un algoritmo y un posible dato de entrada, determinar (a priori, es
-  decir, sin ejecutarlo previamente) si el algoritmo se detendrá y producirá un
-  valor de salida.
+  Dado un algoritmo y un posible dato de entrada, determinar (a priori, sin
+  ejecutarlo previamente) si el algoritmo se detendrá y producirá un valor de
+  salida.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Nunca podremos hacer un algoritmo que resuelva el problema de la parada en
@@ -893,25 +982,28 @@ La respuesta es que **NO**
 
   - Si el conjunto $D$ de datos de entrada es **finito**, podríamos comparar
     todos los resultados de salida con los resultados esperados y ver si
-    coinciden.
+    coinciden (**pruebas exhaustivas**). Normalmente es imposible.
 
   - Si $D$ es **infinito**, es imposible realizar una comprobación empírica de
-    la corrección del algoritmo (en cambio, sí se puede demostrar que es
-    incorrecto.)
+    la corrección del algoritmo (se pueden realizar **pruebas no exhaustivas**
+    que comprueban algunos datos de entrada pero no todos, por lo que no
+    demuestran que el algoritmo es correcto pero sí pueden demostrar que es
+    incorrecto).
 
 ---
 
-- Lo mejor es recurrir a **métodos formales**:
+- Lo mejor (pero más difícil) es recurrir a **métodos formales**:
 
-  - **Diseño a priori**: se construye el algoritmo en base a una prueba (lo que
-    se denomina también **demostración constructiva**).
+  - **Diseño a priori**: se construye el algoritmo en base a una demostración
+    (lo que se denomina también **demostración constructiva**).
 
   - **Diseño a posteriori**: se construye el algoritmo de forma más o menos
     intuitiva y, una vez diseñado, tratar de demostrar su corrección.
 
 - En ambos casos, es importante definir con mucha precisión qué problema
-  queremos resolver: se describe el problema mediante una **especificación
-  formal**.
+  queremos resolver.
+
+- Para ello, se describe el problema mediante una **especificación formal**.
 
 ### Complejidad
 
@@ -937,13 +1029,57 @@ La respuesta es que **NO**
   punto de vista abstracto (independiente de la máquina, el lenguaje de
   programación, la carga de trabajo, etc.).
 
-- Define el consumo de recursos como una función del tamaño del problema.
+- Define el consumo de recursos **en función del tamaño del ejemplar del
+  problema a resolver**.
 
-  - Ejemplo: $t(n) \simeq 3n^2$
+- Por ejemplo:
 
-- Finalmente, clasifica dicho consumo según una **notación asintótica**.
+  - Supongamos el problema de comprobar cuántas vocales hay en una frase.
 
-  - Ejemplo: $t(n) \in O(n^2)$
+  - La **entrada** al algoritmo será la frase (una cadena de caracteres).
+
+  - La **salida** será el número de vocales que hay en la cadena.
+
+  - Cada una de las posibles cadenas de entrada representan un **ejemplar** del
+    problema a resolver.
+
+  - Cabe esperar que el algoritmo tarde más en dar el resultado cuanto más
+    larga sea la cadena de entrada.
+
+  - Por tanto, el **tamaño del ejemplar** será la longitud de la cadena.
+
+---
+
+- Si tenemos dos algoritmos $A$ y $B$ (que resuelven el mismo problema
+  anterior) con tiempos de ejecución $$t_A(n) \simeq 3n^2$$ y $$t_B(n) \simeq
+  4n$$ siendo $n$ la longitud de la cadena de entrada, el algoritmo $B$ se
+  considera más eficiente que $A$ ya que su tiempo de ejecución es menor a
+  medida que aumenta $n$. 
+
+- Esto es así aunque hay algún caso (como el de $n = 1$) donde el algoritmo $A$
+  es más eficiente que $B$, ya que la constante multiplicativa 3 que aparece en
+  $t_A(n)$ es más pequeña que la constante 4 que aparece en $t_B(n)$.
+
+---
+
+- En general, no estamos interesados en las constantes concretas que puedan
+  aparecer en las $t(n)$, ni en el valor que éstas puedan tomar para un $n$
+  concreto, sino que tan sólo nos interesa la **forma** que puedan tener las
+  funciones $t(n)$ y cómo crecen a medida que aumenta $n$.
+
+- Por eso, clasificamos el consumo de recursos usando una **notación
+  asintótica**, con la cual podemos ordenar las funciones $t(n)$ según
+  determinados *órdenes de crecimiento* cuando $n$ crece hasta el infinito.
+
+- En el ejemplo anterior, tenemos $$t_A(n) \in O(n^2)$$ que se lee «$t_A(n)$ es
+  del orden de $n^2$», y $$t_B(n) \in O(n)$$ que se lee «$t_B(n)$ es del orden
+  de $n$». Podemos decir también que $A$ tiene **tiempo cuadrático** y $B$
+  **tiempo lineal**.
+
+- Como $O(n) \subset O(n^2)$ (porque $n^2$ crece más deprisa que $n$), podemos
+  concluir que $t_B(n) < t_A(n)$ para un valor de $n$ suficientemente grande (o
+  sea, *asintóticamente*). Por tanto, $B$ es un algoritmo más eficiente que
+  $A$.
 
 ## Programa
 
@@ -957,15 +1093,16 @@ La respuesta es que **NO**
   programación.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Si el algoritmo está adecuadamente definido, *traducir* ese algoritmo en un
-  programa equivalente puede resultar trivial.
+- Si el algoritmo está bien definido, *traducir* ese algoritmo en un programa
+  equivalente puede resultar trivial.
 
 - El texto del programa escrito en ese lenguaje de programación se denomina
   **código fuente**. Programar, al final, consiste en escribir (*codificar*) el
   código fuente de nuestro programa.
 
-- El algoritmo está pensado para ser entendido por un ser humano, mientras que
-  el programa se escribe para ser interpretado y ejecutado por un ordenador.
+- Los algoritmos están pensados para ser entendidos por un ser humano, mientras
+  que los programas se escriben para ser interpretados y ejecutados por un
+  ordenador.
 
 - Por ello, toda posible ambigüedad que pudiera quedar en el algoritmo debe
   eliminarse al codificarlo en forma de programa.
@@ -978,20 +1115,20 @@ La respuesta es que **NO**
 - Lo ideal es usar un lenguaje que se parezca lo más posible al
   *pseudolenguaje* utilizado para describir el correspondiente algoritmo.
 
-- En un programa también hay que considerar aspectos y limitaciones que hasta
-  ahora no habíamos tenido en cuenta:
+- En un programa también hay que considerar **aspectos y limitaciones** que
+  no se suelen tener en cuenta en un algoritmo:
 
-  - El tamaño de los datos en memoria: por ejemplo, suele haber límites en
-    cuanto a la cantidad de dígitos que puede tener un número o su precisión
-    decimal.
+  - **El tamaño de los datos en memoria:** por ejemplo, en un lenguaje de
+    programación suele haber límites en cuanto a la cantidad de dígitos que
+    puede tener un número o su precisión decimal.
 
-  - Restricciones en los datos: mutables vs. inmutables, de tamaño fijo vs.
-    tamaño variable, etc.
+  - **Restricciones en los datos:** dependiendo del tipo de los datos, pueden
+    ser mutables o inmutables, de tamaño fijo o variable, etc.
 
-  - La semántica de las instrucciones: un símbolo usado en un algoritmo puede
-    tener otro significado distinto en el programa, o puede que sólo pueda
-    usarse en el programa bajo ciertas condiciones que no hace falta considerar
-    en el algoritmo.
+  - **La semántica de las instrucciones:** un símbolo usado en un algoritmo
+    puede tener otro significado distinto en el programa, o puede que sólo
+    pueda usarse en el programa bajo ciertas condiciones que no hace falta
+    considerar en el algoritmo.
 
 # Paradigmas de programación
 
@@ -1001,7 +1138,7 @@ La respuesta es que **NO**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Paradigma de programación**:
 
-Es un **estilo** de desarrollar programas, es decir, un **modelo** para
+Es un **_estilo_** de desarrollar programas, es decir, un **modelo** para
 resolver problemas computacionales.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1010,23 +1147,23 @@ resolver problemas computacionales.
 - Cada paradigma entiende la programación desde una perspectiva diferente,
   partiendo de unos conceptos básicos diferentes y con unas reglas diferentes.
 
-- Cuando diseñamos un algoritmo o escribimos un programa, lo hacemos con base
-  en un determinado paradigma, y éste impregna por completo la forma en la que
+- Cuando diseñamos un algoritmo o escribimos un programa, lo hacemos siguiendo
+  un determinado paradigma, y éste impregna por completo la forma en la que
   describimos la solución al problema en el que estamos trabajando.
 
 - No existe un único paradigma de programación y cada uno tiene sus
   peculiaridades que lo hacen diferente.
 
-- Cada lenguaje de programación (o pseudocódigo) se dice que *soporta* un
-  determinado paradigma cuando con dicho lenguaje se pueden escribir algoritmos
-  o programas según el «estilo» que impone dicho paradigma.
+- Un **lenguaje de programación (o pseudocódigo)** se dice que **_soporta_ un
+  determinado paradigma** cuando con dicho lenguaje se pueden escribir
+  algoritmos o programas según el «estilo» que impone dicho paradigma.
 
-- Incluso existen lenguajes *multiparadigma* capaces de soportar varios
+- Incluso existen **lenguajes _multiparadigma_** capaces de soportar varios
   paradigmas al mismo tiempo.
 
 ---
 
-- Clasificación de los paradigmas de programación más importantes:
+- Los paradigmas de programación más importantes son:
 
   - Imperativo
 
@@ -1041,6 +1178,22 @@ resolver problemas computacionales.
     - Lógico
 
     - De bases de datos
+
+---
+
+Paradigmas de programación
+$\begin{cases}
+\text{Imperativo} \begin{cases}
+                    \text{Estructurado} \\
+                    \text{Orientado a objetos}
+                  \end{cases} \\
+\\
+\text{Declarativo} \begin{cases}
+                     \text{Funcional} \\
+                     \text{Lógico} \\
+                     \text{De bases de datos}
+                   \end{cases}
+\end{cases}$
 
 ---
 
@@ -1177,11 +1330,46 @@ resolver problemas computacionales.
 - Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
   automáticamente el mejor camino para alcanzar dicho objetivo.
 
-!EJERCICIO
+---
 
-@. ¿Hay más paradigmas de programación? Busca en Internet y pon un par de
-ejemplos de paradigmas que no se hayan nombrado aquí. Para cada uno, describe
-en una sola frase sus características básicas.
+!QUIZ
+~~~~~~~~~~~~~~~~~~~~~~~
+{
+   "info": {
+      "name": "",
+      "main": ""
+   },
+   "questions": [
+      {
+         "q": "El paradigma funcional es un paradigma...",
+         "a": [
+            {"option": "Imperativo",  "correct": false},
+            {"option": "Declarativo", "correct": true}
+         ],
+         "correct": "El paradigma funcional es un paradigma declarativo de gran auge hoy en día.",
+         "incorrect": "El paradigma funcional <em>NO</em> es un paradigma imperativo."
+      },
+      {
+         "q": "Entre los paradigmas imperativos tenemos...",
+         "a": [
+            {"option": "El paradigma de bases de datos",  "correct": false},
+            {"option": "El paradigma lógico", "correct": false},
+            {"option": "El paradigma orientado a objetos", "correct": true}
+         ],
+         "correct": "El paradigma orientado a objetos es un paradigma imperativo porque los objetos cambian su estado al enviarse mensajes entre ellos.",
+         "incorrect": "No es correcto."
+      }
+   ]
+}
+~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIOS
+
+@. ¿Qué paradigmas de programación soportan los lenguajes Python y Java?
+
+@. ¿Hay más paradigmas de programación? Busca en Internet un par de ejemplos de
+paradigmas que no se hayan nombrado aquí. Para cada uno, describe en una sola
+frase sus características básicas.
 
 # Lenguajes de programación
 
@@ -1880,10 +2068,11 @@ F -> I
 
 ---
 
-- Ejemplo: Se desea determinar el máximo de dos números enteros
+- Por ejemplo: Se desea determinar el máximo de dos números enteros.
 
-  - *Entrada*: los dos números (llamémosles $n_1$ y $n_2$) enteros
-  - *Salida*: el mayor de los dos números
+  - *Entrada*: los dos números enteros (llamémosles $n_1$ y $n_2$).
+
+  - *Salida*: el mayor de los dos números.
 
 - Se representaría esquemáticamente así:
 
