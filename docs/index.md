@@ -15,7 +15,7 @@ Módulo profesional de 1.º curso
 Aula P6<br>
 [IES Doñana](http://www.iesdonana.org){:target="_blank"}<br>
 Sanlúcar de Barrameda (Cádiz)<br>
-Curso 2019/2020
+Curso 2020/2021
 
 **Profesor**: Ricardo Pérez López<br>
 **Departamento**: Informática y Comunicaciones<br>

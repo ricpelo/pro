@@ -1,6 +1,6 @@
 .PHONY: all html pdf prog clean limpiar serve touch markdown sobrantes $(ITHACA)
 
-CURSO=2019/2020
+CURSO=2020/2021
 
 # Directorios
 
@@ -148,7 +148,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(INCLUDE_BEFORE_TEX) $(CONSOLE_XML) $(PHP_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
-		perl -0pe "s/\n\n---\n\n/\n\n/g" | \
+		perl -0pe "s/\s*\n\s*\n---\n\s*\n/\n\n/g" | \
 		pandoc -s -t latex \
 		--filter=pandoc-citeproc \
 		--bibliography=$(CITATIONS_BIB) \
