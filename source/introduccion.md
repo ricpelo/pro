@@ -1181,8 +1181,7 @@ resolver problemas computacionales.
 
 ---
 
-Paradigmas de programación
-$\begin{cases}
+$$\text{Paradigmas de programación} \begin{cases}
 \text{Imperativo} \begin{cases}
                     \text{Estructurado} \\
                     \text{Orientado a objetos}
@@ -1193,7 +1192,7 @@ $\begin{cases}
                      \text{Lógico} \\
                      \text{De bases de datos}
                    \end{cases}
-\end{cases}$
+\end{cases}$$
 
 ---
 
@@ -1549,7 +1548,7 @@ controlar el comportamiento físico y lógico de un ordenador.
       definidas.
 
   - **Sorpresa**: ambos modelos son **equivalentes**.
-  
+
 ---
 
 - **El trabajo de _Konrad Zuse_:**

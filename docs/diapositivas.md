@@ -14,7 +14,7 @@ Si detectas algún error o algo que corregir o mejorar en los materiales, por fa
 
 | Título | HTML | PDF | Apuntes |
 | ------ |:----:|:---:|:-------:|
-| <strong>Introducción</strong><br><small class="fecha">2020-07-21 13:33:46 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
+| <strong>Introducción</strong><br><small class="fecha">2020-07-22 13:28:57 +0200</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
 | <strong>Expresiones</strong><br><small class="fecha">2020-07-20 23:40:54 +0200</small> | [HTML](slides/expresiones.html){:target="_blank"} | [PDF](pdf/expresiones.pdf){:target="_blank"} | [Apuntes](apuntes/expresiones-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional I</strong><br><small class="fecha">2020-07-20 23:36:53 +0200</small> | [HTML](slides/programacion-funcional-i.html){:target="_blank"} | [PDF](pdf/programacion-funcional-i.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-i-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional II</strong><br><small class="fecha">2020-07-19 12:30:37 +0200</small> | [HTML](slides/programacion-funcional-ii.html){:target="_blank"} | [PDF](pdf/programacion-funcional-ii.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-ii-apuntes.pdf){:target="_blank"}
