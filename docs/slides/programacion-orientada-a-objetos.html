@@ -233,12 +233,18 @@
 <section id="title-slide">
   <h1 class="title">Programación orientada a objetos</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2019/2020</p>
+  <p class="date">IES Doñana, curso 2020/2021</p>
 </section>
 <section id="TOC">
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
-<li><a href="#/conceptos-básicos"><span class="toc-section-number">2</span> Conceptos básicos</a></li>
+<li><a href="#/clases"><span class="toc-section-number">2</span> Clases</a></li>
+<li><a href="#/objetos"><span class="toc-section-number">3</span> Objetos</a></li>
+<li><a href="#/estado"><span class="toc-section-number">4</span> Estado</a></li>
+<li><a href="#/paso-de-mensajes"><span class="toc-section-number">5</span> Paso de mensajes</a></li>
+<li><a href="#/identidad-e-igualdad"><span class="toc-section-number">6</span> Identidad e igualdad</a></li>
+<li><a href="#/encapsulación"><span class="toc-section-number">7</span> Encapsulación</a></li>
+<li><a href="#/definiciones-de-clase"><span class="toc-section-number">8</span> Definiciones de clase</a></li>
 </ul>
 </section>
 
@@ -333,12 +339,12 @@
 </section>
 </section>
 <section>
-<section id="conceptos-básicos" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Conceptos básicos</h1>
+<section id="clases" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Clases</h1>
 
 </section>
-<section id="clase" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Clase</h2>
+<section id="clases-1" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Clases</h2>
 <ul>
 <li>Una <strong>clase</strong> es una construcción sintáctica que los lenguajes de programación orientados a objetos proporcionan como <em>azúcar sintáctico</em> para <strong>implementar tipos abstractos de datos</strong> de una forma cómoda y directa sin necesidad de usar funciones de orden superior, estado local o diccionarios de despacho.</li>
 </ul>
@@ -431,9 +437,14 @@
 </figure>
 </div>
 </section>
+</section>
+<section>
+<section id="objetos" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Objetos</h1>
 
-<section id="objeto" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Objeto</h2>
+</section>
+<section id="objetos-1" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Objetos</h2>
 <ul>
 <li><p>Un <strong>objeto</strong> representa un <strong>dato abstracto</strong> de la misma manera que una <em>clase</em> representa un <em>tipo abstracto de datos</em>.</p></li>
 <li><p>Es decir: un objeto es un caso particular de una clase, motivo por el que también se le denomina <strong>instancia de una clase</strong>.</p></li>
@@ -444,7 +455,7 @@
 <li><p>Existen lenguajes orientados a objetos <em>impuros</em> o <em>híbridos</em> en los que coexisten objetos con otros datos que no son instancias de clases.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><p>Python es considerado un lenguaje orientado a objetos <strong>puro</strong>, ya que en Python todos los datos son objetos.</p></li>
@@ -461,10 +472,10 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
-<li><p>Las clases, por tanto, son como <em>plantillas</em> para crear objetos con el mismo comportamiento y (posiblemente) la misma estructura interna.</p></li>
+<li><p>Las clases, por tanto, son como <em>plantillas</em> para crear objetos que comparten el mismo comportamiento y (posiblemente) la misma estructura interna.</p></li>
 <li><p>En Python podemos instanciar una clase (creando así un nuevo objeto) llamando a la clase como si fuera una función, del mismo modo que hacíamos con la implementación funcional que hemos estado usando hasta ahora:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
@@ -475,8 +486,9 @@
 <p>Se nos muestra que la clase del objeto <code>dep</code> es <code>__main__.Deposito</code>, que representa la clase <code>Deposito</code> definida en el módulo <code>__main__</code>.</p></li>
 </ul>
 </section>
-<section id="referencias" class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Referencias</h3>
+
+<section id="referencias" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Referencias</h2>
 <ul>
 <li><p>Cuando se ejecuta este código:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
@@ -489,18 +501,18 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.1">
+<section class="slide level5" data-number="3.2.0.0.1">
 
 <ul>
 <li><p>En nuestro caso, <code>0x7fba5a16d978</code> es la dirección de memoria donde está almacenado el objeto al que hace referencia la variable <code>dep</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
 <li><p>Cuando una variable contiene una referencia a un objeto, decimos que la variable <strong>se refiere</strong> o <strong>apunta</strong> al objeto.</p></li>
-<li><p>Aunque actualmente las referencias representan direcciones de memoria, no quiere decir que eso vaya a ser siempre así. Ese es un detalle de implementación basada en una decisión de diseño del intérprete que puede cambiar en posteriores versiones del mismo.</p></li>
-<li><p>En la práctica, es una cuestión que no nos afecta (o no debería, al menos) a la hora de escribir nuestros programas.</p></li>
+<li><p>Aunque actualmente las referencias representan direcciones de memoria, no quiere decir que eso vaya a ser siempre así. Ese es un detalle de implementación basada en una decisión de diseño del intérprete que puede cambiar en posteriores versiones del mismo.</p>
+<p>Esa decisión, en la práctica, es una cuestión que no nos afecta (o no debería, al menos) a la hora de escribir nuestros programas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.2">
+<section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
 <li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:</li>
@@ -534,7 +546,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.1.0.3">
+<section class="slide level5" data-number="3.2.0.0.3">
 
 <ul>
 <li><p>Los objetos tienen existencia propia e independiente y permanecerán en la memoria siempre que haya al menos una referencia que apunte a él.</p></li>
@@ -547,7 +559,7 @@
 <li><p>No olvidemos que las variables no contienen al objeto en sí mismo, sino una referencia a éste.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.4">
+<section class="slide level5" data-number="3.2.0.0.4">
 
 <ul>
 <li>Gráficamente, el caso anterior se puede representar de la siguiente forma:</li>
@@ -558,7 +570,7 @@
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.1.0.5">
+<section class="slide level5" data-number="3.2.0.0.5">
 
 <ul>
 <li><p>En el momento en que un objeto se vuelva inaccesible (cosa que ocurrirá cuando no haya ninguna variable en el entorno que contenga una referencia a dicho objeto), el intérprete lo marcará como <em>candidato para ser eliminado</em>.</p></li>
@@ -574,8 +586,8 @@
 </ul>
 </section>
 
-<section id="la-antisimetría-dato-objeto" class="title-slide slide level3" data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> La antisimetría dato-objeto</h3>
+<section id="la-antisimetría-dato-objeto" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> La antisimetría dato-objeto</h2>
 <ul>
 <li><p>Se da una curiosa contra-analogía entre los conceptos de dato y objeto:</p>
 <ul>
@@ -585,18 +597,23 @@
 <li><p>Son definiciones virtualmente opuestas y complementarias.</p></li>
 </ul>
 </section>
+</section>
+<section>
+<section id="estado" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Estado</h1>
 
-
-<section id="estado" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Estado</h2>
+</section>
+<section id="estado-1" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Estado</h2>
 <ul>
 <li><p>Los objetos son datos abstractos que poseen su propio estado interno, el cual puede cambiar durante la ejecución del programa como consecuencia de los mensajes recibidos o enviados por los objetos.</p></li>
 <li><p>Eso significa que los objetos son <strong>datos mutables</strong>.</p></li>
 <li><p>Dos objetos distintos tendrán estados internos distintos.</p></li>
 </ul>
 </section>
-<section id="atributos" class="title-slide slide level3" data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Atributos</h3>
+
+<section id="atributos" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Atributos</h2>
 <ul>
 <li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong> o <strong>propiedades</strong> del objeto.</p></li>
 <li><p>Los atributos se implementan como <em>variables locales</em> al objeto.</p></li>
@@ -609,7 +626,7 @@
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.1.0.1">
+<section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
 <li><p>En Python es posible acceder directamente al estado interno de un objeto (o, lo que es lo mismo, al valor de sus atributos), cosa que, en principio, podría considerarse una violación del principio de ocultación de información y del concepto mismo de abstracción de datos.</p></li>
@@ -617,7 +634,7 @@
 <li><p>Todo esto puede resultar chocante para un programador de otros lenguajes, pero en la práctica resulta útil al programador por la naturaleza dinámica del lenguaje Python y por el estilo de programación que promueve.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.1.0.2">
+<section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
 <li>En Python, la única forma de acceder a un atributo de un objeto es usando la <em>notación punto</em>:</li>
@@ -634,7 +651,7 @@
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="dv">400</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.1.0.3">
+<section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
 <li><p>Por supuesto, dos objetos distintos pueden tener valores distintos en sus atributos:</p>
@@ -651,7 +668,7 @@
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.1.0.4">
+<section class="slide level5" data-number="4.2.0.0.4">
 
 <ul>
 <li><p>Como cualquier variable en Python, un atributo empieza a existir en el momento en el que se le asigna un valor:</p>
@@ -667,7 +684,7 @@
 <p>Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos atributos (aunque el mismo atributo puede tener valores distintos en ambos objetos, naturalmente).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.1.0.5">
+<section class="slide level5" data-number="4.2.0.0.5">
 
 <ul>
 <li><p>El comportamiento dinámico de Python a la hora de crear atributos permite resultados interesantes imposibles de conseguir en Java, como que dos objetos distintos de la misma clase puedan poseer distintos atributos:</p>
@@ -689,7 +706,7 @@
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.1.0.6">
+<section class="slide level5" data-number="4.2.0.0.6">
 
 <ul>
 <li>Con <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a> podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:</li>
@@ -726,7 +743,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.1.0.7">
+<section class="slide level5" data-number="4.2.0.0.7">
 
 <ul>
 <li><p>Otro ejemplo: si tenemos el número complejo <code>4 + 3j</code>, podemos preguntar cuál es su parte real y su parte imaginaria (que son atributos del objeto):</p>
@@ -744,10 +761,14 @@
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="pp">AttributeError</span>: readonly attribute</span></code></pre></div></li>
 </ul>
 </section>
+</section>
+<section>
+<section id="paso-de-mensajes" class="title-slide slide level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Paso de mensajes</h1>
 
-
-<section id="paso-de-mensajes" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Paso de mensajes</h2>
+</section>
+<section id="paso-de-mensajes-1" class="title-slide slide level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Paso de mensajes</h2>
 <ul>
 <li><p>Como las clases implementan las operaciones como métodos, el paso de mensajes se realiza ahora invocando sobre el objeto el método correspondiente a la operación asociada al mensaje que se enviaría al objeto.</p></li>
 <li><p>Por ejemplo, si tenemos el objeto <code>dep</code> (una instancia de la clase <code>Deposito</code>) y queremos enviarle el mensaje <code>saldo</code> para saber cuál es el saldo actual de ese depósito, invocaríamos el método <code>saldo</code> sobre el objeto <code>dep</code> de esta forma:</p>
@@ -758,8 +779,9 @@
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="dv">75</span></span></code></pre></div></li>
 </ul>
 </section>
-<section id="ejecución-de-métodos" class="title-slide slide level3" data-number="2.4.1">
-<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Ejecución de métodos</h3>
+
+<section id="ejecución-de-métodos" class="title-slide slide level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Ejecución de métodos</h2>
 <ul>
 <li><p>En Python, la ejecución de un método <em>m</em> con argumentos <span class="math inline">a_1, a_2, \ldots, a_n</span> sobre un objeto <em>o</em> que es instancia de la clase <em>C</em> tiene esta forma:</p>
 <div class="centered">
@@ -772,7 +794,7 @@
 <li><p>Es decir: el intérprete llama a la función <em>m</em> definida en la clase <em>C</em> y le pasa el objeto <em>o</em> como primer argumento (el resto de los argumentos originales irían a continuación).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.1.0.1">
+<section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, cuando hacemos:</p>
@@ -784,15 +806,15 @@
 </ul>
 </section>
 
-<section id="definición-de-métodos" class="title-slide slide level3" data-number="2.4.2">
-<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> Definición de métodos</h3>
+<section id="definición-de-métodos" class="title-slide slide level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> Definición de métodos</h2>
 <ul>
 <li><p>Esa es la razón por la que los métodos se definen siempre con un parámetro extra que representa el objeto sobre el que se invoca el método (o, dicho de otra forma, el objeto que recibe el mensaje).</p></li>
 <li><p>Ese parámetro extra (por regla de estilo) se llama siempre <code>self</code>, si bien ese nombre no es ninguna palabra clave y se podría usar cualquier otro.</p></li>
 <li><p>Por tanto, siempre que definamos un método, lo haremos como una función que tendrá siempre un parámetro extra que será siempre el primero de sus parámetros y que se llamará <code>self</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.2.0.1">
+<section class="slide level5" data-number="5.3.0.0.1">
 
 <ul>
 <li>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que todos los métodos tienen <code>self</code> como primer parámetro:</li>
@@ -814,7 +836,7 @@
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="2.4.2.0.2">
+<section class="slide level5" data-number="5.3.0.0.2">
 
 <ul>
 <li><p>El método <code>saldo</code> de la clase <code>Deposito</code> recibe un argumento <code>self</code> que, durante la llamada al método, contendrá el objeto sobre el que se ha invocado dicho método:</p>
@@ -826,7 +848,7 @@
 <li><p>Es importante recordar que <strong>el parámetro <code>self</code> se pasa automáticamente</strong> durante la llamada al método y, por tanto, <strong>no debemos pasarlo nosotros</strong> o se producirá un error por intentar pasar más parámetros de los requeridos por el método.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.2.0.3">
+<section class="slide level5" data-number="5.3.0.0.3">
 
 <ul>
 <li><p>El método <code>ingresar</code> tiene otro argumento además del <code>self</code>, que es la cantidad a ingresar:</p>
@@ -840,8 +862,8 @@
 </ul>
 </section>
 
-<section id="métodos-mágicos-y-constructores" class="title-slide slide level3" data-number="2.4.3">
-<h3 data-number="2.4.3"><span class="header-section-number">2.4.3</span> Métodos <em>mágicos</em> y constructores</h3>
+<section id="métodos-mágicos-y-constructores" class="title-slide slide level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> Métodos <em>mágicos</em> y constructores</h2>
 <ul>
 <li><p>En Python, los métodos cuyo nombre empieza y termina por <code>__</code> se denominan <strong>métodos mágicos</strong> y tienen un comportamiento especial.</p></li>
 <li><p>En concreto, el método <code>__init__</code> se invoca automáticamente cada vez que se instancia un nuevo objeto a partir de una clase.</p></li>
@@ -850,7 +872,7 @@
 <li><p>Ese método recibe como argumentos (además del <code>self</code>) los argumentos indicados en la llamada a la clase que se usó para instanciar el objeto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.3.0.1">
+<section class="slide level5" data-number="5.4.0.0.1">
 
 <ul>
 <li><p>Por ejemplo: en la clase <code>Deposito</code>, tenemos:</p>
@@ -862,7 +884,7 @@
 <p>Cuidado: no confudir la expresión <code>self.fondos</code> con <code>fondos</code>. La primera se refiere al atributo <code>fondos</code> del objeto <code>self</code>, mientras que la segunda se refiere al parámetro <code>fondos</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.3.0.2">
+<section class="slide level5" data-number="5.4.0.0.2">
 
 <ul>
 <li><p>Cuando se crea un nuevo objeto de la clase <code>Deposito</code>, llamando a la clase como si fuera una función, se debe indicar entre paréntesis (como argumento) el valor del parámetro que luego va a recibir el método <code>__init__</code> (en este caso, los fondos iniciales):</p>
@@ -877,11 +899,11 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.3.0.3">
+<section class="slide level5" data-number="5.4.0.0.3">
 
 <p>Comprobar el funcionamiento del constructor en <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>.</p>
 </section>
-<section class="slide level5" data-number="2.4.3.0.4">
+<section class="slide level5" data-number="5.4.0.0.4">
 
 <ul>
 <li><p>En resumen: la expresión <em>C</em><code>(</code><span class="math inline">a_1</span><code>,</code><span class="math inline">a_2</span><code>,</code><span class="math inline">\ldots</span><code>,</code><span class="math inline">a_n</span><code>)</code> usada para crear una instancia de la clase <em>C</em> lleva a cabo las siguientes acciones:</p>
@@ -892,7 +914,7 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.3.0.5">
+<section class="slide level5" data-number="5.4.0.0.5">
 
 <ul>
 <li><p>En consecuencia, los argumentos que se indican al instanciar una clase se enviarán al método <code>__init__</code> de la clase, lo que significa que tendremos que indicar tantos argumentos (y del tipo apropiado) como espere el método <code>__init__</code>.</p>
@@ -908,10 +930,14 @@
 <li><p>Es importante tener en cuenta, además, que <strong>el constructor <code>__init__</code> no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe devolver <code>None</code>), o de lo contrario provocará un error de ejecución.</p></li>
 </ul>
 </section>
+</section>
+<section>
+<section id="identidad-e-igualdad" class="title-slide slide level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Identidad e igualdad</h1>
 
-
-<section id="identidad" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Identidad</h2>
+</section>
+<section id="identidad" class="title-slide slide level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> Identidad</h2>
 <ul>
 <li><p>Ya hemos dicho que los objetos tienen existencia propia e independiente.</p></li>
 <li><p>La <strong>identidad</strong> describe la propiedad que tienen los objetos de distinguirse de los demás objetos.</p>
@@ -922,7 +948,7 @@
 <li><p>Es evidente que dos objetos de distinto tipo no pueden ser idénticos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.1">
+<section class="slide level5" data-number="6.1.0.0.1">
 
 <ul>
 <li><p>En el momento en que introducimos la mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
@@ -968,7 +994,7 @@
 <li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad puesto que al cambiar su numerador ya no tenemos «el mismo» número racional.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.2">
+<section class="slide level5" data-number="6.1.0.0.2">
 
 <ul>
 <li><p>Como usamos <strong>referencias</strong> para referirnos a un determinado objeto y acceder al mismo, resulta fácil comprobar si dos objetos son <em>idénticos</em> (es decir, si son el mismo objeto) comparando referencias. Si las referencias son iguales, es que estamos ante un único objeto.</p></li>
@@ -976,7 +1002,7 @@
 <li><p>Dos objetos pueden ser <strong>iguales</strong> y, en cambio, no ser <em>idénticos</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.3">
+<section class="slide level5" data-number="6.1.0.0.3">
 
 <ul>
 <li><p>La forma de comprobar en Python si dos objetos son <em>idénticos</em> es usar el operador <code>is</code> que ya conocemos:</p>
@@ -1004,8 +1030,9 @@
 </div>
 </div>
 </section>
-<section id="igualdad" class="title-slide slide level3" data-number="2.5.1">
-<h3 data-number="2.5.1"><span class="header-section-number">2.5.1</span> Igualdad</h3>
+
+<section id="igualdad" class="title-slide slide level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> Igualdad</h2>
 <ul>
 <li><p>En el código anterior:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
@@ -1024,7 +1051,7 @@
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true"></a><span class="dv">85</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.1.0.1">
+<section class="slide level5" data-number="6.2.0.0.1">
 
 <ul>
 <li><p>Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:</p>
@@ -1037,7 +1064,7 @@
 <p>En este caso es fácil: dos instancias de <code>Deposito</code> son iguales cuando tienen el mismo estado interno. O lo que es lo mismo: dos depósitos son iguales cuando tienen los mismos fondos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.1.0.2">
+<section class="slide level5" data-number="6.2.0.0.2">
 
 <ul>
 <li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code>__eq__</code>.</p></li>
@@ -1050,7 +1077,7 @@
 <li><p>No es necesario preocuparse por el operador <code>!=</code>, ya que Python 3 lo define automáticamente a partir del <code>==</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.1.0.3">
+<section class="slide level5" data-number="6.2.0.0.3">
 
 <ul>
 <li><p>Una posible implementación del método <code>__eq__</code> podría ser:</p>
@@ -1074,20 +1101,29 @@
 <span id="cb39-12"><a href="#cb39-12" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section>
+</section>
+<section>
+<section id="encapsulación" class="title-slide slide level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Encapsulación</h1>
 
+</section>
+<section id="encapsulación-1" class="title-slide slide level2" data-number="7.1">
+<h2 data-number="7.1"><span class="header-section-number">7.1</span> Encapsulación</h2>
 
-<section id="encapsulación" class="title-slide slide level2" data-number="2.6">
-<h2 data-number="2.6"><span class="header-section-number">2.6</span> Encapsulación</h2>
+</section>
+</section>
+<section>
+<section id="definiciones-de-clase" class="title-slide slide level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Definiciones de clase</h1>
+
+</section>
+<section id="variables-de-clase" class="title-slide slide level2" data-number="8.1">
+<h2 data-number="8.1"><span class="header-section-number">8.1</span> Variables de clase</h2>
 
 </section>
 
-<section id="variables-de-clase" class="title-slide slide level2" data-number="2.7">
-<h2 data-number="2.7"><span class="header-section-number">2.7</span> Variables de clase</h2>
-
-</section>
-
-<section id="métodos-estáticos" class="title-slide slide level2" data-number="2.8">
-<h2 data-number="2.8"><span class="header-section-number">2.8</span> Métodos estáticos</h2>
+<section id="métodos-estáticos" class="title-slide slide level2" data-number="8.2">
+<h2 data-number="8.2"><span class="header-section-number">8.2</span> Métodos estáticos</h2>
 
 </section>
 </section>

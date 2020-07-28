@@ -129,14 +129,11 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
 
 ## Perspectiva histórica
 
-
 ## Lenguajes orientados a objetos
 
+# Clases
 
-# Conceptos básicos
-
-
-## Clase
+## Clases
 
 - Una **clase** es una construcción sintáctica que los lenguajes de
   programación orientados a objetos proporcionan como *azúcar sintáctico* para
@@ -258,7 +255,9 @@ def deposito(fondos):
 
 !IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=50%)(width=70%)
 
-## Objeto
+# Objetos
+
+## Objetos
 
 - Un **objeto** representa un **dato abstracto** de la misma manera que una
   *clase* representa un *tipo abstracto de datos*.
@@ -307,8 +306,8 @@ def deposito(fondos):
 
 ---
 
-- Las clases, por tanto, son como *plantillas* para crear objetos con el mismo
-  comportamiento y (posiblemente) la misma estructura interna.
+- Las clases, por tanto, son como *plantillas* para crear objetos que comparten
+  el mismo comportamiento y (posiblemente) la misma estructura interna.
 
 - En Python podemos instanciar una clase (creando así un nuevo objeto) llamando
   a la clase como si fuera una función, del mismo modo que hacíamos con la
@@ -331,7 +330,7 @@ def deposito(fondos):
   Se nos muestra que la clase del objeto `dep` es `__main__.Deposito`, que
   representa la clase `Deposito` definida en el módulo `__main__`.
 
-### Referencias
+## Referencias
 
 - Cuando se ejecuta este código:
 
@@ -372,8 +371,8 @@ def deposito(fondos):
   implementación basada en una decisión de diseño del intérprete que puede
   cambiar en posteriores versiones del mismo.
 
-- En la práctica, es una cuestión que no nos afecta (o no debería, al menos) a
-  la hora de escribir nuestros programas.
+  Esa decisión, en la práctica, es una cuestión que no nos afecta (o no
+  debería, al menos) a la hora de escribir nuestros programas.
 
 ---
 
@@ -467,8 +466,7 @@ dep = Deposito(100)
                # (cuando el recolector de basura se active, eliminará el objeto)
   ```
 
-
-### La antisimetría dato-objeto
+## La antisimetría dato-objeto
 
 - Se da una curiosa contra-analogía entre los conceptos de dato y objeto:
 
@@ -480,6 +478,8 @@ dep = Deposito(100)
 
 - Son definiciones virtualmente opuestas y complementarias.
 
+# Estado
+
 ## Estado
 
 - Los objetos son datos abstractos que poseen su propio estado interno, el cual
@@ -490,7 +490,7 @@ dep = Deposito(100)
 
 - Dos objetos distintos tendrán estados internos distintos.
 
-### Atributos
+## Atributos
 
 - Las variables de estado que almacenan el estado interno del objeto se
   denominan, en terminología orientada a objetos, **atributos**, **campos** o
@@ -704,6 +704,8 @@ dep2.otro = 'adiós'
   AttributeError: readonly attribute
   ```
 
+# Paso de mensajes
+
 ## Paso de mensajes
 
 - Como las clases implementan las operaciones como métodos, el paso de mensajes
@@ -727,7 +729,7 @@ dep2.otro = 'adiós'
   75
   ```
 
-### Ejecución de métodos
+## Ejecución de métodos
 
 - En Python, la ejecución de un método *m* con argumentos $a_1, a_2, \ldots,
   a_n$ sobre un objeto *o* que es instancia de la clase *C* tiene esta forma:
@@ -767,7 +769,7 @@ dep2.otro = 'adiós'
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
 
-### Definición de métodos
+## Definición de métodos
 
 - Esa es la razón por la que los métodos se definen siempre con un parámetro
   extra que representa el objeto sobre el que se invoca el método (o, dicho de
@@ -853,7 +855,7 @@ class Deposito:
   `Deposito.ingresar(dep, 35)`. Por tanto, en la llamada al método, `self`
   valdrá `dep` y `cantidad` valdrá `35`.
 
-### Métodos *mágicos* y constructores
+## Métodos *mágicos* y constructores
 
 - En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
   **métodos mágicos** y tienen un comportamiento especial.
@@ -959,6 +961,8 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 - Es importante tener en cuenta, además, que **el constructor `__init__` no
   debe devolver ningún valor** (o, lo que es lo mismo, debe devolver `None`), o
   de lo contrario provocará un error de ejecución.
+
+# Identidad e igualdad
 
 ## Identidad
 
@@ -1162,7 +1166,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ::::
 
-### Igualdad
+## Igualdad
 
 - En el código anterior:
 
@@ -1268,10 +1272,12 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   True
   ```
 
+# Encapsulación
+
 ## Encapsulación
 
+# Definiciones de clase
 
 ## Variables de clase
-
 
 ## Métodos estáticos
