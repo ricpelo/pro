@@ -1300,7 +1300,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   **encapsulados**.
 
 - La encapsulación es un concepto fundamental en programación orientada a
-  objetos, si bien no pertenece exclusivamente a este paradigma.
+  objetos, aunque no pertenece exclusivamente a este paradigma.
 
 - Aunque es uno de los conceptos más importantes de la programación orientación
   a objetos, no hay un consenso general y universalmente aceptado sobre su
@@ -1312,14 +1312,24 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ---
 
-- Para nosotros, la encapsulación representará dos aspectos distintos pero
-  relacionados:
+- Nosotros vamos a estudiar la encapsulación como dos **mecanismos**
+  distintos pero relacionados:
 
   - Por una parte, la encapsulación es un **mecanismo** de los lenguajes de
     programación que permite que **los datos y las operaciones** que se puedan
-    realizar sobre esos datos **se agrupen juntos en una sola unidad
-    sintáctica**.
+    realizar sobre esos datos **se agrupen juntos en una sola _unidad
+    sintáctica_**.
 
+  - Por otra parte, la encapsulación es un **mecanismo** de los lenguajes de
+    programación por el cual **sólo se puede acceder al interior de un objeto
+    mediante las operaciones** que forman su **barrera de abstracción**,
+    impidiendo acceder directamente a los datos internos del mismo y
+    garantizando así la **protección de datos**.
+
+    En definitiva, nos referimos a un mecanismo que garantiza que los objetos
+    actúan como **datos abstractos**.
+
+  <!--
   - Por otra parte, la encapsulación es un **principio** según el cual **las
     operaciones** de un objeto representan una **barrera de abstracción** a
     través de la cual el usuario puede manipular el estado interno del objeto,
@@ -1329,31 +1339,42 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
     Como principio, por sí solo no es suficiente para garantizar la protección
     de datos ni la ocultación de información, a no ser que se acompañe de otros
     mecanismos que proporcione el lenguaje.
+  -->
 
-- Vamos a estudiar cada aspecto con más detalle.
+- Vamos a ver cada uno de ellos con más detalle.
 
 ### La encapsulación como unidad sintáctica
 
-- Decimos que los objetos son **ciudadanos de primera clase** (_first-class
-  citizen_).
+- El mecanismo de las **clases** nos permite crear estructuras que **agrupan
+  datos y operaciones en una misma unidad**.
 
-- En un lenguaje de programación, un _ciudadano de primera clase_ es todo
-  aquello que:
+- Al instanciar esas clases, aparecen los **objetos**, que conservan esa misma
+  característica de agrupar datos (estado interno) y operaciones en una sola
+  cosa.
 
-  - Puede ser pasado como argumento de una operación.
-
-  - Puede ser devuelto como resultado de una operación.
-
-  - Puede ser asignado a una variable.
-
-- Además, los objetos almacenan datos (estado interno) y operaciones en una
-  sola unidad.
-
-- De esta forma, las operaciones acompañan a los datos allá donde vayan.
+- De esta forma, las operaciones acompañan a los datos allá donde vaya el
+  objeto.
 
 - Por tanto, al pasar un objeto a alguna otra parte del programa, estamos
-  también pasando las operaciones que sobre ese objeto se pueden realizar, o
-  lo que es lo mismo, los mensajes a los que puede responder.
+  también pasando las operaciones que se pueden realizar sobre ese objeto, o lo
+  que es lo mismo, los mensajes a los que puede responder.
+
+---
+
+- En un lenguaje de programación, llamamos **ciudadano de primera clase**
+  (_first-class citizen_) a todo aquello que:
+
+  - Puede ser **pasado como argumento** de una operación.
+
+  - Puede ser **devuelto como resultado** de una operación.
+
+  - Puede ser **asignado** a una variable.
+
+- Los objetos se pueden manipular (por ejemplo, enviarles mensajes) a través de
+  las _referencias_, y éstas se pueden pasar como argumento, devolver como
+  resultado y asignarse a una variable.
+
+- Por tanto, **los objetos son _ciudadanos de primera clase_**.
 
 ---
 
@@ -1367,21 +1388,33 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - Es decir:
 
-  - La función `diferencia` recibe los objetos como argumentos, por lo que
-    estos son ciudadanos de primera clase.
+  - La función `diferencia` recibe como argumentos los dos depósitos (que son
+    objetos), por lo que éstos son ciudadanos de primera clase.
 
-  - Los objetos encapsulan *todo*:
+  - Los objetos encapsulan:
 
-    - sus datos (su estado interno) y
+    - sus _datos_ (su estado interno) y
 
-    - sus operaciones (los mensajes a los que puede responder)
+    - sus _operaciones_ (los mensajes a los que puede responder)
 
-    juntos en una sola unidad sintáctica, a la que podemos acceder usando
-    `dep1` o `dep2`.
+    juntos en una sola unidad sintáctica, a la que podemos acceder usando una
+    sencilla referencia, como `dep1` o `dep2`.
 
-  - Para obtener el saldo no se usa una función ajena al objeto, sino que se le
-    pregunta a este a través de la operación `saldo` contenida dentro del
+  - Para obtener el saldo no se usa una función externa al objeto, sino que se
+    le pregunta a este a través de la operación `saldo` contenida dentro del
     objeto.
+
+---
+
+- En resumen, decir que los objetos están encapsulados es decir que:
+
+  - Agrupan datos y operaciones en una sola unidad.
+
+  - Son ciudadanos de primera clase.
+
+  - Es posible manipularlos completamente usando simplemente una referencia.
+
+  - La referencia representa al objeto a todos los niveles.
 
 # Definiciones a nivel de clase
 
