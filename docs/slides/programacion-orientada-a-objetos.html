@@ -503,7 +503,7 @@
 <section id="atributos" class="title-slide slide level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Atributos</h3>
 <ul>
-<li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong> o <strong>propiedades</strong> del objeto.</p></li>
+<li><p>Las variables de estado que almacenan el estado interno del objeto se denominan, en terminología orientada a objetos, <strong>atributos</strong>, <strong>campos</strong>, <strong>propiedades</strong> o <strong>variables de instancia</strong> del objeto.</p></li>
 <li><p>Los atributos se implementan como <em>variables locales</em> al objeto.</p></li>
 <li><p>Cuando se crea un objeto, se le asocia en el montículo una zona de memoria que almacena los atributos del objeto de forma similar al diccionario que usan las clases para almacenar sus definiciones locales.</p></li>
 <li><p>Esa estructura en forma de diccionario representa al objeto dentro de la memoria («<em>es</em>» el objeto) y asocia el nombre de cada atributo con el valor que tiene dicho atributo en ese objeto.</p></li>
@@ -781,7 +781,7 @@
 <section id="introducción-1" class="title-slide slide level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> Introducción</h2>
 <ul>
-<li><p>Como las clases implementan las operaciones como métodos, el paso de mensajes se realiza ahora invocando sobre el objeto el método correspondiente a la operación asociada al mensaje que se enviaría al objeto.</p></li>
+<li><p>Como las clases implementan las operaciones como métodos, el paso de mensajes se realiza ahora invocando sobre el objeto el método correspondiente al mensaje que se enviaría al objeto.</p></li>
 <li><p>Por ejemplo, si tenemos el objeto <code>dep</code> (una instancia de la clase <code>Deposito</code>) y queremos enviarle el mensaje <code>saldo</code> para saber cuál es el saldo actual de ese depósito, invocaríamos el método <code>saldo</code> sobre el objeto <code>dep</code> de esta forma:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep.saldo()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="dv">100</span></span></code></pre></div></li>
@@ -1150,8 +1150,8 @@
 <li><p>Vamos a ver cada uno de ellos con más detalle.</p></li>
 </ul>
 </section>
-<section id="la-encapsulación-como-unidad-sintáctica" class="title-slide slide level3" data-number="5.1.1">
-<h3 data-number="5.1.1"><span class="header-section-number">5.1.1</span> La encapsulación como unidad sintáctica</h3>
+<section id="la-encapsulación-como-mecanismo-de-agrupamiento" class="title-slide slide level3" data-number="5.1.1">
+<h3 data-number="5.1.1"><span class="header-section-number">5.1.1</span> La encapsulación como mecanismo de agrupamiento</h3>
 <ul>
 <li><p>El mecanismo de las <strong>clases</strong> nos permite crear estructuras que <strong>agrupan datos y operaciones en una misma unidad</strong>.</p></li>
 <li><p>Al instanciar esas clases, aparecen los <strong>objetos</strong>, que conservan esa misma característica de agrupar datos (estado interno) y operaciones en una sola cosa.</p></li>
@@ -1198,11 +1198,238 @@
 <ul>
 <li><p>Agrupan datos y operaciones en una sola unidad.</p></li>
 <li><p>Son ciudadanos de primera clase.</p></li>
-<li><p>Es posible manipularlos completamente usando simplemente una referencia.</p></li>
+<li><p>Es posible manipularlos por completo usando simplemente una referencia.</p></li>
 <li><p>La referencia representa al objeto a todos los niveles.</p></li>
 </ul></li>
 </ul>
 </section>
+
+<section id="la-encapsulación-como-mecanismo-de-protección-de-datos" class="title-slide slide level3" data-number="5.1.2">
+<h3 data-number="5.1.2"><span class="header-section-number">5.1.2</span> La encapsulación como mecanismo de protección de datos</h3>
+<ul>
+<li><p>Un dato abstracto es aquel que se define en función de las operaciones que se pueden realizar sobre él.</p></li>
+<li><p>Los objetos son datos abstractos y, por tanto, su estado interno debería manejarse únicamente mediante operaciones definidas a tal efecto, impidiendo el acceso directo a los atributos internos del objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.0.1">
+
+<ul>
+<li><p>Según esto, podemos imaginar que:</p>
+<ul>
+<li><p>Los atributos que almacenan el estado interno del objeto están <em>encapsulados</em> dentro del mismo.</p></li>
+<li><p>Las operaciones con las que se puede manipular el objeto <em>rodean</em> a los atributos formando una <em>cápsula</em>, de forma que, para poder acceder al interior, hay que hacerlo necesariamente a través de esas operaciones.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/operaciones-capsula.png" class="plain" style="width:30.0%" alt="" /><figcaption>Las operaciones forman una <em>cápsula</em></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.0.2">
+
+<ul>
+<li>Esas operaciones forman, efectivamente, la <strong>interfaz</strong> del dato abstracto y, por tanto, definen de qué manera podemos manipular al objeto desde el exterior del mismo.</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/operaciones-capsula.jpg" style="width:50.0%" alt="" /><figcaption>Las operaciones forman una <em>cápsula</em></figcaption>
+</figure>
+</div>
+</section>
+<section id="visibilidad" class="title-slide slide level4" data-number="5.1.2.1">
+<h4 data-number="5.1.2.1"><span class="header-section-number">5.1.2.1</span> Visibilidad</h4>
+<ul>
+<li><p>Para garantizar esta restricción de acceso, los lenguajes de programación a menudo facilitan un mecanismo por el cual el programador puede definir la <strong>visibilidad</strong> de cada miembro (atributo o método) de una clase.</p></li>
+<li><p>De esta forma, el programador puede «marcar» que determinados atributos o métodos sólo sean accesibles desde el interior de esa clase o que, por el contrario, sí se pueda acceder a ellos desde el exterior de la misma.</p></li>
+</ul>
+<p><span class="math display">\text{Visibilidad} \begin{cases}
+\text{No se puede acceder desde el exterior, o} \\
+\text{Sí se puede acceder desde el exterior}
+\end{cases}</span></p>
+</section>
+<section class="slide level5" data-number="5.1.2.1.1">
+
+<ul>
+<li><p>Cada una de estas dos posibilidades da lugar a un tipo distinto de visibilidad:</p>
+<ul>
+<li><p><strong>Visibilidad <em>privada</em>:</strong> si un miembro de una clase tiene visibilidad privada, sólo podrá accederse a él desde dentro de esa clase, pero no desde fuera de ella.</p></li>
+<li><p><strong>Visibilidad <em>pública</em>:</strong> si un miembro de una clase tiene visibilidad pública, podrá accederse a él tanto desde dentro como desde fuera de la clase.</p></li>
+<li><p>Por tanto, <strong>desde el exterior de un objeto sólo podremos acceder a los miembros marcados como <em>públicos</em> en la clase de ese objeto</strong>.</p></li>
+</ul></li>
+</ul>
+<div class="caja">
+<p>El conjunto de los miembros públicos de una clase forman la <strong><em>interfaz</em> de la clase</strong>, de forma similar a lo que ocurre con las interfaces de los tipos abstractos de datos.</p>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.1.2">
+
+<div class="centered">
+<figure>
+<img data-src="images/encapsulacion.png" class="plain" style="width:60.0%" alt="" /><figcaption>Miembros <em>públicos</em> y <em>privados</em></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.1.3">
+
+<ul>
+<li><p>Cada lenguaje de programación tiene su propia manera de implementar el mecanismo de la visibilidad.</p></li>
+<li><p>En Python, el mecanismo es muy sencillo:</p>
+<div class="caja">
+<p>Si el nombre de un miembro de una clase (atributo o método) empieza (pero no acaba) por <code>__</code>, entonces es <em>privado</em>. En caso contrario, es <em>público</em>.</p>
+</div></li>
+<li><p>Los <em>métodos mágicos</em> (como <code>__init__</code>, <code>__eq__</code>, etc.) tienen nombres que empiezan <strong>y acaban</strong> por <code>__</code>, así que no cumplen la condición anterior y, por tanto, son <em>públicos</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.1.4">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">class</span> Prueba:</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>    <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a>    <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>    <span class="kw">def</span> __tres__(<span class="va">self</span>):</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método también es público, porque su nombre empieza y acaba por __&quot;</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true"></a>p <span class="op">=</span> Prueba()</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true"></a>p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true"></a>p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true"></a>p.__tres__() <span class="co"># También funciona</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.1.5">
+
+<ul>
+<li><p>Los miembros privados sólo son accesibles desde dentro de la clase:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>...     <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a>...</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a>...     <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>...         <span class="va">self</span>.__uno() <span class="co"># Llama al método privado desde dentro de la clase</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>...</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba()</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__uno&#39;</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true"></a>Este método es público</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true"></a>Este método es privado, ya que su nombre empieza por __</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.1.6">
+
+<ul>
+<li><p>Con las variables de instancia ocurre exactamente igual:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x       <span class="co"># __init__ puede acceder a __x</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a>...                            <span class="co"># ya que los dos están dentro de la misma clase</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__x   <span class="co"># No funciona, ya que __x es privada</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__x&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="accesores-y-mutadores" class="title-slide slide level4" data-number="5.1.2.2">
+<h4 data-number="5.1.2.2"><span class="header-section-number">5.1.2.2</span> Accesores y mutadores</h4>
+<ul>
+<li><p>En muchas ocasiones, ocurre que necesitamos manipular el valor contenido en una variable de instancia privada, pero desde fuera del objeto.</p></li>
+<li><p>Para ello, necesitamos definir operaciones (métodos) que nos permitan acceder y/o modificar el valor del atributos privado del objeto desde fuera del mismo.</p></li>
+<li><p>Estos métodos pueden ser:</p>
+<ul>
+<li><p><strong>Accesores o <em>getters</em>:</strong> permiten acceder al valor de un atributo desde fuera del objeto.</p></li>
+<li><p><strong>Mutadores o <em>setters</em>:</strong> permiten modificar el valor de un atributo desde fuera del objeto.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.2.1">
+
+<ul>
+<li><p>Por ejemplo, si tenemos un atributo privado que deseamos manipular desde el exterior del objeto, podemos definir una pareja de métodos <code>get</code> y <code>set</code> de la siguiente forma:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a>...         <span class="va">self</span>.set_x(x)        <span class="co"># En el constructor aprovechamos el setter</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a>...</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a>...     <span class="kw">def</span> get_x(<span class="va">self</span>):         <span class="co"># Este es el getter del atributo __x</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a>...         <span class="cf">return</span> <span class="va">self</span>.__x</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a>...</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a>...     <span class="kw">def</span> set_x(<span class="va">self</span>, x):      <span class="co"># Este es el setter del atributo __x</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a>...</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos al valor de __x</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true"></a><span class="dv">1</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.set_x(<span class="dv">5</span>)                   <span class="co"># Cambiamos el valor de __x</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos de nuevo al valor de __x</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true"></a><span class="dv">5</span></span></code></pre></div></li>
+<li><p>La pregunta es: ¿qué ganamos con todo esto?</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.2.2">
+
+<ul>
+<li><p>Si necesitamos acceder y/o cambiar el valor de un atributo desde fuera del objeto, ¿por qué hacerlo privado? ¿Por qué no simplemente hacerlo público y así evitamos tener que hacer <em>getters</em> y <em>setters</em>?:</p>
+<ul>
+<li><p>Los atributos públicos rompen con los conceptos de <em>encapsulación</em> y de <em>abstracción de datos</em>, ya que permite acceder al interior de un objeto directamente, en lugar de hacerlo a través de operaciones.</p></li>
+<li><p>Como consecuencia de lo anterior, se rompe con el principio de <em>ocultación de información</em>, ya que exponemos públicamente el tipo y la representación del dato, por lo que nos resultará muy difícil cambiarlos posteriormente si en el futuro nos hace falta hacerlo.</p></li>
+<li><p>Además, los <em>setters</em> nos garantizan que los datos que se almacenan en un atributo cumplen con las <strong>condiciones</strong> necesarias.</p>
+<div class="caja">
+<p>Las condiciones que deben cumplir en todo momento las instancias de una clase se denominan <strong>invariantes de la clase</strong>.</p>
+</div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.2.3">
+
+<ul>
+<li><p>Por ejemplo: si queremos almacenar los datos de una persona y queremos garantizar que la edad no sea negativa, podemos hacer:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true"></a></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privado</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.2.4">
+
+<ul>
+<li><p>En conclusión, se recomienda:</p>
+<ul>
+<li><p>Hacer privados todos los miembros excepto los que sean estrictamente necesarios para poder manipular el objeto desde el exterior del mismo (su <em>interfaz</em>).</p></li>
+<li><p>Crear <em>getters</em> y <em>setters</em> para los atributos que se tengan que manipular desde el exterior del objeto.</p></li>
+<li><p>Dejar claros los invariantes de las clases en el código fuente de las mismas mediante comentarios, y comprobarlos adecuadamente donde corresponda (en los <em>setters</em>, principalmente).</p></li>
+</ul></li>
+</ul>
+</section>
+
 
 </section>
 <section>

@@ -360,8 +360,8 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 ### Atributos
 
 - Las variables de estado que almacenan el estado interno del objeto se
-  denominan, en terminología orientada a objetos, **atributos**, **campos** o
-  **propiedades** del objeto.
+  denominan, en terminología orientada a objetos, **atributos**, **campos**,
+  **propiedades** o **variables de instancia** del objeto.
 
 - Los atributos se implementan como *variables locales* al objeto.
 
@@ -729,8 +729,8 @@ dep = Deposito(100)
 ## Introducción
 
 - Como las clases implementan las operaciones como métodos, el paso de mensajes
-  se realiza ahora invocando sobre el objeto el método correspondiente a la
-  operación asociada al mensaje que se enviaría al objeto.
+  se realiza ahora invocando sobre el objeto el método correspondiente al
+  mensaje que se enviaría al objeto.
 
 - Por ejemplo, si tenemos el objeto `dep` (una instancia de la clase
   `Deposito`) y queremos enviarle el mensaje `saldo` para saber cuál es el
@@ -1343,7 +1343,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - Vamos a ver cada uno de ellos con más detalle.
 
-### La encapsulación como unidad sintáctica
+### La encapsulación como mecanismo de agrupamiento
 
 - El mecanismo de las **clases** nos permite crear estructuras que **agrupan
   datos y operaciones en una misma unidad**.
@@ -1412,9 +1412,273 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
   - Son ciudadanos de primera clase.
 
-  - Es posible manipularlos completamente usando simplemente una referencia.
+  - Es posible manipularlos por completo usando simplemente una referencia.
 
   - La referencia representa al objeto a todos los niveles.
+
+### La encapsulación como mecanismo de protección de datos
+
+- Un dato abstracto es aquel que se define en función de las operaciones que
+  se pueden realizar sobre él.
+
+- Los objetos son datos abstractos y, por tanto, su estado interno debería
+  manejarse únicamente mediante operaciones definidas a tal efecto, impidiendo
+  el acceso directo a los atributos internos del objeto.
+
+---
+
+- Según esto, podemos imaginar que:
+
+  - Los atributos que almacenan el estado interno del objeto están
+    _encapsulados_ dentro del mismo.
+
+  - Las operaciones con las que se puede manipular el objeto _rodean_ a los
+    atributos formando una _cápsula_, de forma que, para poder acceder al
+    interior, hay que hacerlo necesariamente a través de esas operaciones.
+
+!IMGP(operaciones-capsula.png)(Las operaciones forman una _cápsula_)(width=30%)(width=20%)
+
+---
+
+- Esas operaciones forman, efectivamente, la **interfaz** del dato abstracto y,
+  por tanto, definen de qué manera podemos manipular al objeto desde el
+  exterior del mismo.
+
+!IMG(operaciones-capsula.jpg)(Las operaciones forman una _cápsula_)(width=50%)(width=40%)
+
+#### Visibilidad
+
+- Para garantizar esta restricción de acceso, los lenguajes de programación
+  a menudo facilitan un mecanismo por el cual el programador puede definir
+  la **visibilidad** de cada miembro (atributo o método) de una clase.
+
+- De esta forma, el programador puede «marcar» que determinados atributos o
+  métodos sólo sean accesibles desde el interior de esa clase o que, por el
+  contrario, sí se pueda acceder a ellos desde el exterior de la misma.
+
+$$\text{Visibilidad} \begin{cases}
+\text{No se puede acceder desde el exterior, o} \\
+\text{Sí se puede acceder desde el exterior}
+\end{cases}$$
+
+---
+
+- Cada una de estas dos posibilidades da lugar a un tipo distinto de
+  visibilidad:
+
+  - **Visibilidad _privada_:** si un miembro de una clase tiene visibilidad
+    privada, sólo podrá accederse a él desde dentro de esa clase, pero no desde
+    fuera de ella.
+
+  - **Visibilidad _pública_:** si un miembro de una clase tiene visibilidad
+    pública, podrá accederse a él tanto desde dentro como desde fuera de la
+    clase.
+
+  - Por tanto, **desde el exterior de un objeto sólo podremos acceder a los
+    miembros marcados como _públicos_ en la clase de ese objeto**.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El conjunto de los miembros públicos de una clase forman la **_interfaz_ de la
+clase**, de forma similar a lo que ocurre con las interfaces de los tipos
+abstractos de datos.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!IMGP(encapsulacion.png)(Miembros _públicos_ y _privados_)(width=60%)(width=50%)
+
+---
+
+- Cada lenguaje de programación tiene su propia manera de implementar el
+  mecanismo de la visibilidad.
+
+- En Python, el mecanismo es muy sencillo:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si el nombre de un miembro de una clase (atributo o método) empieza (pero no
+  acaba) por `__`, entonces es _privado_. En caso contrario, es _público_.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los _métodos mágicos_ (como `__init__`, `__eq__`, etc.) tienen nombres que
+  empiezan **y acaban** por `__`, así que no cumplen la condición anterior y,
+  por tanto, son _públicos_.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Prueba:
+      def __uno(self):
+          print("Este método es privado, ya que su nombre empieza por __")
+
+      def dos(self):
+          print("Este método es público")
+
+      def __tres__(self):
+          print("Este método también es público, porque su nombre empieza y acaba por __")
+
+  p = Prueba()
+  p.__uno()    # No funciona, ya que __uno() es un método privado
+  p.dos()      # Funciona, ya que el método dos() es público
+  p.__tres__() # También funciona
+  ```
+
+---
+
+- Los miembros privados sólo son accesibles desde dentro de la clase:
+
+  ```python
+  >>> class Prueba:
+  ...     def __uno(self):
+  ...         print("Este método es privado, ya que su nombre empieza por __")
+  ...
+  ...     def dos(self):
+  ...         print("Este método es público")
+  ...         self.__uno() # Llama al método privado desde dentro de la clase
+  ...
+  >>> p = Prueba()
+  >>> p.__uno()    # No funciona, ya que __uno() es un método privado
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  AttributeError: 'Prueba' object has no attribute '__uno'
+  >>> p.dos()      # Funciona, ya que el método dos() es público
+  Este método es público
+  Este método es privado, ya que su nombre empieza por __
+  ```
+
+---
+
+- Con las variables de instancia ocurre exactamente igual:
+
+  ```python
+  >>> class Prueba:
+  ...     def __init__(self, x):
+  ...         self.__x = x       # __init__ puede acceder a __x
+  ...                            # ya que los dos están dentro de la misma clase
+  >>> p = Prueba(1)
+  >>> p.__x   # No funciona, ya que __x es privada
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  AttributeError: 'Prueba' object has no attribute '__x'
+  ```
+
+#### Accesores y mutadores
+
+- En muchas ocasiones, ocurre que necesitamos manipular el valor contenido en
+  una variable de instancia privada, pero desde fuera del objeto.
+
+- Para ello, necesitamos definir operaciones (métodos) que nos permitan acceder
+  y/o modificar el valor del atributos privado del objeto desde fuera del
+  mismo.
+
+- Estos métodos pueden ser:
+
+  - **Accesores o _getters_:** permiten acceder al valor de un atributo desde
+    fuera del objeto.
+
+  - **Mutadores o _setters_:** permiten modificar el valor de un atributo desde
+    fuera del objeto.
+
+---
+
+- Por ejemplo, si tenemos un atributo privado que deseamos manipular desde el
+  exterior del objeto, podemos definir una pareja de métodos `get` y `set` de
+  la siguiente forma:
+
+  ```python
+  >>> class Prueba:
+  ...     def __init__(self, x):
+  ...         self.set_x(x)        # En el constructor aprovechamos el setter
+  ...
+  ...     def get_x(self):         # Este es el getter del atributo __x
+  ...         return self.__x
+  ...
+  ...     def set_x(self, x):      # Este es el setter del atributo __x
+  ...         self.__x = x
+  ...
+  >>> p = Prueba(1)
+  >>> p.get_x()                    # Accedemos al valor de __x
+  1
+  >>> p.set_x(5)                   # Cambiamos el valor de __x
+  >>> p.get_x()                    # Accedemos de nuevo al valor de __x
+  5
+  ```
+
+- La pregunta es: ¿qué ganamos con todo esto?
+
+---
+
+- Si necesitamos acceder y/o cambiar el valor de un atributo desde
+  fuera del objeto, ¿por qué hacerlo privado? ¿Por qué no simplemente hacerlo
+  público y así evitamos tener que hacer _getters_ y _setters_?:
+
+  - Los atributos públicos rompen con los conceptos de _encapsulación_ y de
+    _abstracción de datos_, ya que permite acceder al interior de un objeto
+    directamente, en lugar de hacerlo a través de operaciones.
+
+  - Como consecuencia de lo anterior, se rompe con el principio de _ocultación
+    de información_, ya que exponemos públicamente el tipo y la representación
+    del dato, por lo que nos resultará muy difícil cambiarlos posteriormente si
+    en el futuro nos hace falta hacerlo.
+
+  - Además, los _setters_ nos garantizan que los datos que se almacenan en un
+    atributo cumplen con las **condiciones** necesarias.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Las condiciones que deben cumplir en todo momento las instancias de una
+    clase se denominan **invariantes de la clase**.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por ejemplo: si queremos almacenar los datos de una persona y
+  queremos garantizar que la edad no sea negativa, podemos hacer:
+
+  ```python
+  """
+  Invariante: todas las personas deben tener edad no negativa.
+  """
+  class Persona:
+      def __init__(self, nombre, edad):
+          self.set_nombre(nombre)
+          self.set_edad(edad)
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+
+      def get_nombre(self):
+          return self.__nombre
+
+      def set_edad(self, edad):
+          if edad < 0:
+              raise ValueError("La edad no puede ser negativa")
+          self.__edad = edad
+
+  p = Persona("Manuel", 30)   # Es correcto
+  print(p.set_nombre())       # Imprime 'Manuel'
+  p.set_edad(25)              # Cambia la edad a 25
+  p.set_edad(-14)             # Provoca un error
+  p.__edad = -14              # Funcionaría si __edad no fuese privado
+  ```
+
+---
+
+- En conclusión, se recomienda:
+
+  - Hacer privados todos los miembros excepto los que sean estrictamente
+    necesarios para poder manipular el objeto desde el exterior del mismo (su
+    _interfaz_).
+
+  - Crear _getters_ y _setters_ para los atributos que se tengan que manipular
+    desde el exterior del objeto.
+
+  - Dejar claros los invariantes de las clases en el código fuente de las
+    mismas mediante comentarios, y comprobarlos adecuadamente donde corresponda
+    (en los _setters_, principalmente).
 
 # Definiciones a nivel de clase
 
