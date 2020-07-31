@@ -1680,8 +1680,170 @@ abstractos de datos.
     mismas mediante comentarios, y comprobarlos adecuadamente donde corresponda
     (en los _setters_, principalmente).
 
-# Definiciones a nivel de clase
+# Miembros de clase
 
 ## Variables de clase
+
+- Supogamos que el banco que guarda los depósitos paga intereses a sus clientes
+  en un porcentaje fijo sobre el saldo de sus depósitos.
+
+- Ese porcentaje puede cambiar con el tiempo, pero es el mismo para todos los
+  depósitos.
+
+- Ese valor se guardará en un atributo, pero ese atributo pertenece a la propia
+  clase, no a una instancia concreta de dicha clase, ya que es un valor
+  compartido por todos los objetos de la misma clase.
+
+- Los atributos que pertenecen a la propia clase (en lugar de a instancias
+  concretas) se denominan **atributos de clase**, **variables de clase** o
+  **variables estáticas**.
+
+  - Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
+    las instancias) se denominan **atributos de instancia** o **variables de
+    instancia**.
+
+---
+
+:::: columns
+
+::: {.column width=60%}
+
+- Los atributos de clase se crean mediante **sentencias de asignación** en el
+  _cuerpo_ de la clase, fuera de cualquier definición de método:
+
+```python
+class Deposito:
+    interes = 0.02   # Un atributo de clase
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+```
+
+:::
+
+::: {.column width=40%}
+
+- Este atributo se puede manipular directamente a través de la clase, es decir,
+  pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la
+  sintaxis:
+
+_clase_`.`_atributo_
+
+```python
+>>> Deposito.interes
+0.02
+```
+
+:::
+
+::::
+
+---
+
+- Para cambiar el valor de una variable de clase, se le asigna un valor usando
+  la misma sintaxis _clase_`.`_atributo_:
+
+```python
+>>> Deposito.interes
+0.02
+>>> Deposito.interes = 0.08
+>>> Deposito.interes
+0.08
+```
+
+- Las variables de clase se pueden acceder como cualquier variable de
+  instancia, a partir de una instancia de la clase:
+
+```python
+>>> d1 = Deposito(100)
+>>> d2 = Deposito(400)
+>>> Deposito.interes          # Accede al interés de la clase Deposito
+0.02
+>>> d1.interes                # También
+0.02
+>>> d2.interes                # También
+0.02
+>>> Deposito.interes = 0.08   # Cambia la variable de clase
+>>> Deposito.interes
+0.08                          # Se comprueba que ha cambiado
+>>> d1.interes                # Cambia también para la instancia
+0.08
+>>> d2.interes                # Cambia para todas las instancias
+0.08
+```
+
+- Pero esta segunda forma no es conveniente, como ahora veremos.
+
+---
+
+- Si intentamos cambiar el valor de una variable de clase desde una instancia,
+  lo que ocurre en realidad es que **creamos una nueva variable de instancia
+  con el mismo nombre** que la variable de clase:
+
+```python
+>>> Deposito.interes
+0.02
+>>> d1 = Deposito(100)
+>>> d1.interes
+0.02
+>>> d1.interes = 0.08         # Crea una nueva variable de instancia
+>>> d1.interes                # Accede a la variable de instancia
+0.08
+>>> Deposito.interes          # Accede a la variable de clase
+0.02
+```
+
+- Por ello, es conveniente acostumbrarse a usar siempre el nombre de la clase
+  para acceder y cambiar el valor de una variable de clase, en lugar de hacerlo
+  a través de una instancia.
+
+---
+
+- Si necesitamos acceder al valor de una variable de clase dentro de la misma
+  clase, usaremos la misma sintaxis:
+
+```python
+class Deposito:
+    interes = 0.02   # Un atributo de clase
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+
+    def total(self):
+        # Accede a la variable de clase Deposito.interes
+        # para calcular el saldo total más los intereses:
+        return self.saldo() * (1 + Deposito.interes)
+```
+
+---
+
+!EJERCICIO
+
+@. ¿Qué problema puede haber si en el método `total` del código anterior usamos
+`self.interes` en lugar de `Deposito.interes`?
 
 ## Métodos estáticos

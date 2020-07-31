@@ -242,7 +242,7 @@
 <li><a href="#/paso-de-mensajes"><span class="toc-section-number">3</span> Paso de mensajes</a></li>
 <li><a href="#/identidad-e-igualdad"><span class="toc-section-number">4</span> Identidad e igualdad</a></li>
 <li><a href="#/encapsulación"><span class="toc-section-number">5</span> Encapsulación</a></li>
-<li><a href="#/definiciones-a-nivel-de-clase"><span class="toc-section-number">6</span> Definiciones a nivel de clase</a></li>
+<li><a href="#/miembros-de-clase"><span class="toc-section-number">6</span> Miembros de clase</a></li>
 </ul>
 </section>
 
@@ -1433,13 +1433,140 @@
 
 </section>
 <section>
-<section id="definiciones-a-nivel-de-clase" class="title-slide slide level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Definiciones a nivel de clase</h1>
+<section id="miembros-de-clase" class="title-slide slide level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Miembros de clase</h1>
 
 </section>
 <section id="variables-de-clase" class="title-slide slide level2" data-number="6.1">
 <h2 data-number="6.1"><span class="header-section-number">6.1</span> Variables de clase</h2>
+<ul>
+<li><p>Supogamos que el banco que guarda los depósitos paga intereses a sus clientes en un porcentaje fijo sobre el saldo de sus depósitos.</p></li>
+<li><p>Ese porcentaje puede cambiar con el tiempo, pero es el mismo para todos los depósitos.</p></li>
+<li><p>Ese valor se guardará en un atributo, pero ese atributo pertenece a la propia clase, no a una instancia concreta de dicha clase, ya que es un valor compartido por todos los objetos de la misma clase.</p></li>
+<li><p>Los atributos que pertenecen a la propia clase (en lugar de a instancias concretas) se denominan <strong>atributos de clase</strong>, <strong>variables de clase</strong> o <strong>variables estáticas</strong>.</p>
+<ul>
+<li>Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a las instancias) se denominan <strong>atributos de instancia</strong> o <strong>variables de instancia</strong>.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.1.0.0.1">
 
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Los atributos de clase se crean mediante <strong>sentencias de asignación</strong> en el <em>cuerpo</em> de la clase, fuera de cualquier definición de método:</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Este atributo se puede manipular directamente a través de la clase, es decir, pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la sintaxis:</li>
+</ul>
+<p><em>clase</em><code>.</code><em>atributo</em></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="6.1.0.0.2">
+
+<ul>
+<li>Para cambiar el valor de una variable de clase, se le asigna un valor usando la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<ul>
+<li>Las variables de clase se pueden acceder como cualquier variable de instancia, a partir de una instancia de la clase:</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># También</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># También</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span>   <span class="co"># Cambia la variable de clase</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true"></a><span class="fl">0.08</span>                          <span class="co"># Se comprueba que ha cambiado</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Cambia también para la instancia</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<ul>
+<li>Pero esta segunda forma no es conveniente, como ahora veremos.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.1.0.0.3">
+
+<ul>
+<li>Si intentamos cambiar el valor de una variable de clase desde una instancia, lo que ocurre en realidad es que <strong>creamos una nueva variable de instancia con el mismo nombre</strong> que la variable de clase:</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes <span class="op">=</span> <span class="fl">0.08</span>         <span class="co"># Crea una nueva variable de instancia</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Accede a la variable de instancia</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede a la variable de clase</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+<ul>
+<li>Por ello, es conveniente acostumbrarse a usar siempre el nombre de la clase para acceder y cambiar el valor de una variable de clase, en lugar de hacerlo a través de una instancia.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.1.0.0.4">
+
+<ul>
+<li>Si necesitamos acceder al valor de una variable de clase dentro de la misma clase, usaremos la misma sintaxis:</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true"></a></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true"></a>    <span class="kw">def</span> total(<span class="va">self</span>):</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true"></a>        <span class="co"># Accede a la variable de clase Deposito.interes</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true"></a>        <span class="co"># para calcular el saldo total más los intereses:</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.saldo() <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Deposito.interes)</span></code></pre></div>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li>¿Qué problema puede haber si en el método <code>total</code> del código anterior usamos <code>self.interes</code> en lugar de <code>Deposito.interes</code>?</li>
+</ol>
 </section>
 
 <section id="métodos-estáticos" class="title-slide slide level2" data-number="6.2">
