@@ -2,6 +2,8 @@
 title: Programación orientada a objetos
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @python_software_foundation_sitio_nodate, @denero_composing_nodate
 ---
 
 # Introducción
@@ -127,9 +129,11 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
 - El paradigma de la programación orientada a objetos tiene su propio
   vocabulario que apoya la metáfora del objeto.
 
-## Perspectiva histórica
+!EJERCICIO
 
-## Lenguajes orientados a objetos
+@. Investiga en Wikipedia los principales lenguajes orientados a objetos que
+existen en el mercado. ¿En qué año salieron? ¿Cuál influyó en cuál? ¿Cuáles son
+los más usados a día de hoy?
 
 # Clases y objetos
 
@@ -1609,7 +1613,7 @@ abstractos de datos.
 
 - La pregunta es: ¿qué ganamos con todo esto?
 
----
+#### Invariantes de clase
 
 - Si necesitamos acceder y/o cambiar el valor de un atributo desde
   fuera del objeto, ¿por qué hacerlo privado? ¿Por qué no simplemente hacerlo
@@ -1676,9 +1680,142 @@ abstractos de datos.
   - Crear _getters_ y _setters_ para los atributos que se tengan que manipular
     desde el exterior del objeto.
 
-  - Dejar claros los invariantes de las clases en el código fuente de las
+  - Dejar claros los _invariantes_ de las clases en el código fuente de las
     mismas mediante comentarios, y comprobarlos adecuadamente donde corresponda
     (en los _setters_, principalmente).
+
+---
+
+- El concepto de invariante de una clase, aunque puede parecer nuevo, en
+  realidad es el mismo concepto que ya vimos al estudiar las **abstracciones de
+  datos**.
+
+- Entonces dijimos que una abstracción de datos se define por unas
+  **operaciones** y por las **propiedades** que deben cumplir esas operaciones.
+
+- También dijimos que esas propiedades se describen como _ecuaciones_ en la
+  **especificación** del tipo abstracto (y, por tanto, se deben cumplir
+  independientemente de la implementación).
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cuando implementamos un tipo abstracto mediante una clase, **esas propiedades
+se traducen en invariantes** de la clase.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Asertos
+
+- La comprobación continua de los invariantes cada vez que se actualiza el
+  estado interno de un objeto puede dar lugar a **problemas de rendimiento**,
+  ya que las comprobaciones consumen tiempo de CPU.
+
+- Una técnica alternativa a la comprobación con sentencias condicionales
+  (`if`s) es el uso de **asertos**.
+
+- Un aserto es una **condición que se debe cumplir en un determinado punto del
+  programa**, de forma que el programa abortará en ese punto si no se cumple.
+
+- Para insertar un aserto en un punto del programa, se usa la sentencia
+  `assert`.
+
+---
+
+- El código anterior quedaría así usando `assert`:
+
+  ```python
+  """
+  Invariante: todas las personas deben tener edad no negativa.
+  """
+  class Persona:
+      def __init__(self, nombre, edad):
+          self.set_nombre(nombre)
+          self.set_edad(edad)
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+
+      def get_nombre(self):
+          return self.__nombre
+
+      def set_edad(self, edad):
+          assert edad >= 0      # La edad tiene que ser >= 0
+          self.__edad = edad
+  ```
+
+- El intérprete comprobará el aserto cuando el flujo de control llegue a la
+  sentencia `assert` y, en caso de que no se cumpla, lanzará una excepción de
+  tipo `AssertionError`. 
+
+---
+
+- Lo interesante de los asertos es que podemos pedirle al intérprete que ignore
+  todas las sentencias `assert` cuando ejecute el código.
+
+- Para ello, usamos la opción `-O` al llamar al intérprete de Python desde la
+  línea de comandos del sistema operativo:
+
+```python
+# prueba.py
+print("Antes")
+assert 1 == 0
+print("Después")
+```
+
+```console
+$ python prueba.py
+Antes
+Traceback (most recent call last):
+  File "prueba.py", line 2, in <module>
+    assert False
+AssertionError
+$ python -O prueba.py
+Antes
+Después
+```
+
+- Con la opción `-O` (de «**O**ptimizado») podemos elegir entre mayor
+  rendimiento o mayor seguridad al ejecutar nuestros programas.
+
+---
+
+- Aún así, no siempre es conveniente poder saltarse los asertos. De hecho, a
+  veces lo mejor sigue siendo comprobar condiciones con un `if` y lanzar un
+  error si la condición no se cumple.
+
+- Por ejemplo, si intentamos retirar fondos de un depósito pero no hay saldo
+  suficiente, eso se debería comprobar siempre:
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:                    # Si no hay fondos:
+            raise ValueError("Fondos insuficientes")  # Error
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+```
+
+---
+
+- Resumiendo:
+
+  - Un **invariante de una clase** es una condición que se debe cumplir durante
+    toda la vida de todas las instancias de una clase.
+
+  - Un **aserto** es una condición que se debe cumplir en un determinado punto
+    del programa.
+
+  - Para **implementar invariantes de clase** se pueden usar asertos y
+    sentencias `assert` en puntos adecuados del código fuente de la clase.
 
 # Miembros de clase
 
@@ -1847,3 +1984,5 @@ class Deposito:
 `self.interes` en lugar de `Deposito.interes`?
 
 ## Métodos estáticos
+
+!BIBLIOGRAFIA
