@@ -998,11 +998,12 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   !CAJA
   ~~~~~~~~~~~~~~~~
   Dos objetos del mismo tipo son **idénticos** si un cambio en cualquiera de
-  los objetos provoca también el mismo cambio en el otro objeto.
+  los dos objetos provoca también el mismo cambio en el otro objeto.
   ~~~~~~~~~~~~~~~~
 
 - O dicho de otra forma: dos objetos son idénticos si son intercambiables en el
-  código fuente del programa sin que se vea afectado el comportamiento de éste.
+  código fuente del programa sin que se vea afectado el comportamiento del
+  mismo.
 
 - Es evidente que dos objetos de distinto tipo no pueden ser idénticos.
 
@@ -1012,25 +1013,32 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   computacional, muchos conceptos que antes eran sencillos se vuelven
   problemáticos.
 
-- Por ejemplo, consideremos el problema de determinar si dos cosas son «la
-  misma cosa».
+- Entre ellos, el problema de determinar si dos cosas son «la misma cosa», es
+  decir, si son _idénticos_.
 
-- Supongamos que hacemos:
+- Por ejemplo, supongamos que hacemos:
 
   ```python
   def restador(cantidad):
       def aux(otro):
           return otro - cantidad
+
       return aux
+
   res1 = restador(25)
   res2 = restador(25)
   ```
 
-- ¿Son `res1` y `res2` la misma cosa? Una respuesta aceptable podría ser que
-  sí, ya que tanto `res1` como `res2` se comportan de la misma forma (los dos
-  son funciones que restan 25 a su argumento). De hecho, `res1` puede
-  sustituirse por `res2` en cualquier lugar de un programa sin que cambie el
-  resultado.
+- ¿Son `res1` y `res2` la misma cosa?
+
+  - Una respuesta razonable podría ser que sí, ya que tanto `res1` como `res2`
+    se comportan de la misma forma (los dos son funciones que restan 25 a su
+    argumento).
+
+  - De hecho, `res1` puede sustituirse por `res2` (y viceversa) en cualquier
+    lugar del programa sin que afecte a su funcionamiento.
+
+---
 
 - En cambio, supongamos que hacemos dos llamadas a `Deposito(100)`:
 
@@ -1039,102 +1047,158 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   dep2 = Deposito(100)
   ```
 
-- ¿Son `dep1` y `dep2` la misma cosa? Evidentemente no, ya que al enviarles
-  mensajes a uno y otro podemos obtener resultados distintos ante los mismos
-  mensajes:
+- ¿Son `dep1` y `dep2` la misma cosa?
 
-  ```python
-  >>> dep1.retirar(20)
-  80
-  >>> dep1.saldo()
-  80
-  >>> dep2.saldo()
-  100
-  ```
+  - Evidentemente no, ya que al enviarles mensajes a uno y otro podemos obtener
+    resultados distintos ante los mismos mensajes:
 
-- Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el sentido
-  de que ambos han sido creados evaluando la misma expresión (`Deposito(100)`),
-  no es verdad que podamos sustituir `dep1` por `dep2` en cualquier expresión
-  sin cambiar el resultado de evaluar dicha expresión.
+    ```python
+    >>> dep1.retirar(20)
+    80
+    >>> dep1.saldo()
+    80
+    >>> dep2.saldo()
+    100
+    ```
 
-- Es otra forma de decir que con los objetos no hay transparencia referencial,
-  ya que se pierde en el momento en que incorporamos estado y mutabilidad en
-  nuestro modelo computacional.
+  - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el sentido
+    de que ambos han sido creados evaluando la misma expresión (`Deposito(100)`),
+    no es verdad que podamos sustituir `dep1` por `dep2` (o viceversa) en
+    cualquier parte del programa sin afectar a su funcionamiento.
 
-- Pero al perder la transparencia referencial, la noción de lo que significa
-  que dos objetos sean «el mismo objeto» se vuelve difícil de capturar de una
-  manera formal. De hecho, el significado de «el mismo» en el mundo real que
-  estamos modelando con nuetro programa es ya difícil de entender.
+---
+
+- Es otra forma de decir que **los objetos no tienen transparencia
+  referencial**, ya que se pierde en el momento en que incorporamos **estado y
+  mutabilidad** en nuestro modelo computacional.
+
+- Pero al perder la transparencia referencial, se vuelve más difícil de
+  entender de una manera formal y rigurosa qué es lo que significa que dos
+  objetos sean «el mismo objeto».
+
+- De hecho, el significado de «el mismo» en el mundo real que
+  estamos modelando con nuestro programa es ya bastante difícil de entender.
 
 - En general, sólo podemos determinar si dos objetos aparentemente idénticos
   son realmente «el mismo objeto» modificando uno de ellos y observando a
-  continuación si el otro se ha cambiado de la misma forma.
+  continuación si el otro ha cambiado de la misma forma.
 
-- Pero, ¿cómo podemos decir si un objeto ha «cambiado» si no es observando el
-  «mismo» objeto dos veces y comprobando si ha cambiado alguna propiedad del
-  objeto de la primera observación a la siguiente?
+---
 
-- Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción
-  previa de «igualdad», y no podemos determinar la igualdad sin observar los
-  efectos del cambio.
+- Pero la única manera de saber si un objeto ha «cambiado» es observando el
+  «mismo» objeto dos veces, en dos momentos diferentes, y comprobando si ha
+  cambiado alguna propiedad del objeto de la primera observación a la segunda.
 
-- Un ejemplo de cómo puede afectar este problema en programación, sería
-  considerar el caso en que Pedro y Pablo tienen un depósito con 100 € cada
-  uno. Hay una enorme diferencia entre definirlo así:
+- Por tanto, no podemos decir que ha habido un «cambio» si no podemos
+  determinar si dos objetos son «iguales», y no podemos determinar si son
+  iguales sin observar los efectos de ese cambio.
+
+---
+
+- Por ejemplo, supongamos que Pedro y Pablo tienen un depósito con 100 € cada
+  uno.
+
+- Si los creamos así:
 
   ```python
   dep_Pedro = Deposito(100)
   dep_Pablo = Deposito(100)
   ```
 
-  y definirlo así:
+  los dos depósitos son distintos.
+
+  - Por tanto, las operaciones realizadas en el depósito de Pedro no afectarán
+    al de Pablo, y viceversa.
+
+- En cambio, si los creamos así:
 
   ```python
   dep_Pedro = Deposito(100)
   dep_Pablo = dep_Pedro
   ```
 
-- En el primer caso, los dos depósitos son distintos. Las operaciones
-  realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa.
+  estamos definiendo a `dep_Pablo` para que sea exactamente la misma cosa que
+  `dep_Pedro`.
+
+  - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
+    compartido, y si Pedro hace una retirada de efectivo a través de
+    `dep_Pedro`, Pablo observará que hay menos dinero en `dep_Pablo` (porque
+    son _el mismo_ depósito).
+
+<!--
+
+- Hay una enorme diferencia entre crearlos así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = Deposito(100)
+  ```
+
+  y crearlos así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = dep_Pedro
+  ```
+
+- En el primer caso, los dos depósitos son distintos.
+
+  - Por tanto, las operaciones
+    realizadas en el depósito de Pedro no afectarán al de Pablo, y viceversa.
   
 - En el segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
   exactamente la misma cosa que `dep_Pedro`.
   
-- Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y
-  si Pedro hace una retirada de efectivo a través de `dep_Pedro`, Pablo
-  observará que hay menos dinero en `dep_Pablo`.
+  - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
+    compartido, y si Pedro hace una retirada de efectivo a través de `dep_Pedro`,
+    Pablo observará que hay menos dinero en `dep_Pablo` (porque son _el mismo_
+    depósito).
+
+-->
+
+---
 
 - Estas dos situaciones, similares pero distintas, pueden provocar confusión al
-  crear modelos computacionales. Concretamente, con el depósito compartido
-  puede ser especialmente confuso el hecho de que haya un objeto (el depósito)
-  con dos nombres distintos (`dep_Pedro` y `dep_Pablo`). Si estamos buscando
-  todos los sitios de nuestro programa donde pueda cambiarse el depósito de
-  `dep_Pedro`, tendremos que recordar buscar también los sitios donde se cambie
-  a `dep_Pablo`.
+  crear modelos computacionales.
+
+- En concreto, con el depósito compartido puede ser especialmente confuso el
+  hecho de que haya un objeto (el depósito) con dos nombres distintos
+  (`dep_Pedro` y `dep_Pablo`).
+
+  - Si estamos buscando todos los sitios de nuestro programa donde pueda
+    cambiarse el depósito de `dep_Pedro`, tendremos que recordar buscar también
+    los sitios donde se cambie a `dep_Pablo`.
+
+---
 
 - Con respecto a los anteriores comentarios sobre «igualdad» y «cambio»,
   obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no
   pudieran realizar operaciones que cambiaran los fondos del depósito, entonces
-  no existiría el problema de comprobar si los dos depósitos son distintos.
-  
+  no existiría el problema de tener que comprobar si los dos depósitos son
+  distintos.
+
 - En general, siempre que no se puedan modificar los objetos, podemos suponer
   que un objeto compuesto se corresponde con la totalidad de sus partes.
+
+---
 
 - Por ejemplo, un número racional está determinado por su numerador y su
   denominador. Pero este punto de vista deja de ser válido cuando incorporamos
   mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo
   distinto de las partes que lo componen.
   
-- Un depósito sigue siendo «el mismo»
-  depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.
-  Igualmente, podemos tener dos depósitos distintos con el mismo estado
+- Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos
+  haciendo una retirada de efectivo.
+
+- Pero también podemos tener dos depósitos distintos con el mismo estado
   interno.
 
 - Esta complicación es consecuencia, no de nuestro lenguaje de programación,
-  sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo,
-  no tendría sentido para nosotros considerar que un número racional es un
-  objeto mutable con identidad puesto que al cambiar su numerador ya no tenemos
-  «el mismo» número racional.
+  sino de nuestra percepción del depósito bancario como un objeto.
+
+- Por ejemplo, no tendría sentido para nosotros considerar que un número
+  racional es un objeto mutable con identidad propia, puesto que al cambiar su
+  numerador ya no tenemos «el mismo» número racional.
 
 ---
 
@@ -1204,7 +1268,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - En cambio, sí podemos decir que **son _iguales_** ya que pertenecen a la
   misma clase, poseen el mismo estado interno y se comportan de la misma forma
-  ante la recepción de la mismos mensajes en el mismo orden:
+  al recibir los mismos mensajes en el mismo orden:
 
   ```python
   >>> dep1 = Deposito(100)
@@ -1251,7 +1315,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - Este método se invocará automáticamente cuando se hace una comparación con el
   operador `==` y el primer operando es una instancia de nuestra clase. El
-  segundo operando se enviará como argumento en la llamda al método.
+  segundo operando se enviará como argumento en la llamada al método.
 
 - Dicho de otra forma:
 

@@ -949,9 +949,9 @@
 <li><p>Ya hemos dicho que los objetos tienen existencia propia e independiente.</p></li>
 <li><p>La <strong>identidad</strong> describe la propiedad que tienen los objetos de distinguirse de los demás objetos.</p>
 <div class="caja">
-<p>Dos objetos del mismo tipo son <strong>idénticos</strong> si un cambio en cualquiera de los objetos provoca también el mismo cambio en el otro objeto.</p>
+<p>Dos objetos del mismo tipo son <strong>idénticos</strong> si un cambio en cualquiera de los dos objetos provoca también el mismo cambio en el otro objeto.</p>
 </div></li>
-<li><p>O dicho de otra forma: dos objetos son idénticos si son intercambiables en el código fuente del programa sin que se vea afectado el comportamiento de éste.</p></li>
+<li><p>O dicho de otra forma: dos objetos son idénticos si son intercambiables en el código fuente del programa sin que se vea afectado el comportamiento del mismo.</p></li>
 <li><p>Es evidente que dos objetos de distinto tipo no pueden ser idénticos.</p></li>
 </ul>
 </section>
@@ -959,49 +959,136 @@
 
 <ul>
 <li><p>En el momento en que introducimos la mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
-<li><p>Por ejemplo, consideremos el problema de determinar si dos cosas son «la misma cosa».</p></li>
-<li><p>Supongamos que hacemos:</p>
+<li><p>Entre ellos, el problema de determinar si dos cosas son «la misma cosa», es decir, si son <em>idénticos</em>.</p></li>
+<li><p>Por ejemplo, supongamos que hacemos:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">def</span> restador(cantidad):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>    <span class="kw">def</span> aux(otro):</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>        <span class="cf">return</span> otro <span class="op">-</span> cantidad</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>    <span class="cf">return</span> aux</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>res1 <span class="op">=</span> restador(<span class="dv">25</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
-<li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa? Una respuesta aceptable podría ser que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan de la misma forma (los dos son funciones que restan 25 a su argumento). De hecho, <code>res1</code> puede sustituirse por <code>res2</code> en cualquier lugar de un programa sin que cambie el resultado.</p></li>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>    <span class="cf">return</span> aux</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>res1 <span class="op">=</span> restador(<span class="dv">25</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
+<li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa?</p>
+<ul>
+<li><p>Una respuesta razonable podría ser que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan de la misma forma (los dos son funciones que restan 25 a su argumento).</p></li>
+<li><p>De hecho, <code>res1</code> puede sustituirse por <code>res2</code> (y viceversa) en cualquier lugar del programa sin que afecte a su funcionamiento.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.2">
+
+<ul>
 <li><p>En cambio, supongamos que hacemos dos llamadas a <code>Deposito(100)</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
-<li><p>¿Son <code>dep1</code> y <code>dep2</code> la misma cosa? Evidentemente no, ya que al enviarles mensajes a uno y otro podemos obtener resultados distintos ante los mismos mensajes:</p>
+<li><p>¿Son <code>dep1</code> y <code>dep2</code> la misma cosa?</p>
+<ul>
+<li><p>Evidentemente no, ya que al enviarles mensajes a uno y otro podemos obtener resultados distintos ante los mismos mensajes:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">20</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="dv">80</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.saldo()</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="dv">80</span></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.saldo()</span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dv">100</span></span></code></pre></div></li>
-<li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> en cualquier expresión sin cambiar el resultado de evaluar dicha expresión.</p></li>
-<li><p>Es otra forma de decir que con los objetos no hay transparencia referencial, ya que se pierde en el momento en que incorporamos estado y mutabilidad en nuestro modelo computacional.</p></li>
-<li><p>Pero al perder la transparencia referencial, la noción de lo que significa que dos objetos sean «el mismo objeto» se vuelve difícil de capturar de una manera formal. De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuetro programa es ya difícil de entender.</p></li>
-<li><p>En general, sólo podemos determinar si dos objetos aparentemente idénticos son realmente «el mismo objeto» modificando uno de ellos y observando a continuación si el otro se ha cambiado de la misma forma.</p></li>
-<li><p>Pero, ¿cómo podemos decir si un objeto ha «cambiado» si no es observando el «mismo» objeto dos veces y comprobando si ha cambiado alguna propiedad del objeto de la primera observación a la siguiente?</p></li>
-<li><p>Por tanto, no podemos decir que ha habido un «cambio» sin alguna noción previa de «igualdad», y no podemos determinar la igualdad sin observar los efectos del cambio.</p></li>
-<li><p>Un ejemplo de cómo puede afectar este problema en programación, sería considerar el caso en que Pedro y Pablo tienen un depósito con 100 € cada uno. Hay una enorme diferencia entre definirlo así:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
-<p>y definirlo así:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div></li>
-<li><p>En el primer caso, los dos depósitos son distintos. Las operaciones realizadas por Pedro no afectarán a la cuenta de Pablo, y viceversa.</p></li>
-<li><p>En el segundo caso, en cambio, hemos definido a <code>dep_Pablo</code> para que sea exactamente la misma cosa que <code>dep_Pedro</code>.</p></li>
-<li><p>Por tanto, ahora Pedro y Pablo son cotitulares de un depósito compartido, y si Pedro hace una retirada de efectivo a través de <code>dep_Pedro</code>, Pablo observará que hay menos dinero en <code>dep_Pablo</code>.</p></li>
-<li><p>Estas dos situaciones, similares pero distintas, pueden provocar confusión al crear modelos computacionales. Concretamente, con el depósito compartido puede ser especialmente confuso el hecho de que haya un objeto (el depósito) con dos nombres distintos (<code>dep_Pedro</code> y <code>dep_Pablo</code>). Si estamos buscando todos los sitios de nuestro programa donde pueda cambiarse el depósito de <code>dep_Pedro</code>, tendremos que recordar buscar también los sitios donde se cambie a <code>dep_Pablo</code>.</p></li>
-<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de comprobar si los dos depósitos son distintos.</p></li>
-<li><p>En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
-<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen.</p></li>
-<li><p>Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo. Igualmente, podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
-<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto. Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad puesto que al cambiar su numerador ya no tenemos «el mismo» número racional.</p></li>
+<li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> (o viceversa) en cualquier parte del programa sin afectar a su funcionamiento.</p></li>
+</ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.2">
+<section class="slide level5" data-number="4.1.0.0.3">
+
+<ul>
+<li><p>Es otra forma de decir que <strong>los objetos no tienen transparencia referencial</strong>, ya que se pierde en el momento en que incorporamos <strong>estado y mutabilidad</strong> en nuestro modelo computacional.</p></li>
+<li><p>Pero al perder la transparencia referencial, se vuelve más difícil de entender de una manera formal y rigurosa qué es lo que significa que dos objetos sean «el mismo objeto».</p></li>
+<li><p>De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuestro programa es ya bastante difícil de entender.</p></li>
+<li><p>En general, sólo podemos determinar si dos objetos aparentemente idénticos son realmente «el mismo objeto» modificando uno de ellos y observando a continuación si el otro ha cambiado de la misma forma.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.4">
+
+<ul>
+<li><p>Pero la única manera de saber si un objeto ha «cambiado» es observando el «mismo» objeto dos veces, en dos momentos diferentes, y comprobando si ha cambiado alguna propiedad del objeto de la primera observación a la segunda.</p></li>
+<li><p>Por tanto, no podemos decir que ha habido un «cambio» si no podemos determinar si dos objetos son «iguales», y no podemos determinar si son iguales sin observar los efectos de ese cambio.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.5">
+
+<ul>
+<li><p>Por ejemplo, supongamos que Pedro y Pablo tienen un depósito con 100 € cada uno.</p></li>
+<li><p>Si los creamos así:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
+<p>los dos depósitos son distintos.</p>
+<ul>
+<li>Por tanto, las operaciones realizadas en el depósito de Pedro no afectarán al de Pablo, y viceversa.</li>
+</ul></li>
+<li><p>En cambio, si los creamos así:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div>
+<p>estamos definiendo a <code>dep_Pablo</code> para que sea exactamente la misma cosa que <code>dep_Pedro</code>.</p>
+<ul>
+<li>Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito compartido, y si Pedro hace una retirada de efectivo a través de <code>dep_Pedro</code>, Pablo observará que hay menos dinero en <code>dep_Pablo</code> (porque son <em>el mismo</em> depósito).</li>
+</ul></li>
+</ul>
+<!--
+
+- Hay una enorme diferencia entre crearlos así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = Deposito(100)
+  ```
+
+  y crearlos así:
+
+  ```python
+  dep_Pedro = Deposito(100)
+  dep_Pablo = dep_Pedro
+  ```
+
+- En el primer caso, los dos depósitos son distintos.
+
+  - Por tanto, las operaciones
+    realizadas en el depósito de Pedro no afectarán al de Pablo, y viceversa.
+  
+- En el segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
+  exactamente la misma cosa que `dep_Pedro`.
+  
+  - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
+    compartido, y si Pedro hace una retirada de efectivo a través de `dep_Pedro`,
+    Pablo observará que hay menos dinero en `dep_Pablo` (porque son _el mismo_
+    depósito).
+
+-->
+</section>
+<section class="slide level5" data-number="4.1.0.0.6">
+
+<ul>
+<li><p>Estas dos situaciones, similares pero distintas, pueden provocar confusión al crear modelos computacionales.</p></li>
+<li><p>En concreto, con el depósito compartido puede ser especialmente confuso el hecho de que haya un objeto (el depósito) con dos nombres distintos (<code>dep_Pedro</code> y <code>dep_Pablo</code>).</p>
+<ul>
+<li>Si estamos buscando todos los sitios de nuestro programa donde pueda cambiarse el depósito de <code>dep_Pedro</code>, tendremos que recordar buscar también los sitios donde se cambie a <code>dep_Pablo</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.7">
+
+<ul>
+<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de tener que comprobar si los dos depósitos son distintos.</p></li>
+<li><p>En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.8">
+
+<ul>
+<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen.</p></li>
+<li><p>Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.</p></li>
+<li><p>Pero también podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
+<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto.</p></li>
+<li><p>Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad propia, puesto que al cambiar su numerador ya no tenemos «el mismo» número racional.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.9">
 
 <ul>
 <li><p>Como usamos <strong>referencias</strong> para referirnos a un determinado objeto y acceder al mismo, resulta fácil comprobar si dos objetos son <em>idénticos</em> (es decir, si son el mismo objeto) comparando referencias. Si las referencias son iguales, es que estamos ante un único objeto.</p></li>
@@ -1009,7 +1096,7 @@
 <li><p>Dos objetos pueden ser <strong>iguales</strong> y, en cambio, no ser <em>idénticos</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.3">
+<section class="slide level5" data-number="4.1.0.0.10">
 
 <ul>
 <li><p>La forma de comprobar en Python si dos objetos son <em>idénticos</em> es usar el operador <code>is</code> que ya conocemos:</p>
@@ -1045,7 +1132,7 @@
 <div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
 <p>es evidente que <code>dep1</code> y <code>dep2</code> hacen referencia a objetos separados y, por tanto, <strong>no son <em>idénticos</em></strong>, ya que no se refieren <em>al mismo</em> objeto.</p></li>
-<li><p>En cambio, sí podemos decir que <strong>son <em>iguales</em></strong> ya que pertenecen a la misma clase, poseen el mismo estado interno y se comportan de la misma forma ante la recepción de la mismos mensajes en el mismo orden:</p>
+<li><p>En cambio, sí podemos decir que <strong>son <em>iguales</em></strong> ya que pertenecen a la misma clase, poseen el mismo estado interno y se comportan de la misma forma al recibir los mismos mensajes en el mismo orden:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.ingresar(<span class="dv">30</span>)</span>
@@ -1075,7 +1162,7 @@
 
 <ul>
 <li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code>__eq__</code>.</p></li>
-<li><p>Este método se invocará automáticamente cuando se hace una comparación con el operador <code>==</code> y el primer operando es una instancia de nuestra clase. El segundo operando se enviará como argumento en la llamda al método.</p></li>
+<li><p>Este método se invocará automáticamente cuando se hace una comparación con el operador <code>==</code> y el primer operando es una instancia de nuestra clase. El segundo operando se enviará como argumento en la llamada al método.</p></li>
 <li><p>Dicho de otra forma:</p>
 <ul>
 <li><p><code>dep1 == dep2</code> equivale a <code>dep1.__eq__(dep2)</code>, siempre que la clase de <code>dep1</code> tenga definido el método <code>__eq__</code>.</p></li>
