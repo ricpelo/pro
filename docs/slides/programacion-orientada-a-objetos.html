@@ -951,14 +951,14 @@
 <div class="caja">
 <p>Dos objetos del mismo tipo son <strong>idénticos</strong> si un cambio en cualquiera de los dos objetos provoca también el mismo cambio en el otro objeto.</p>
 </div></li>
-<li><p>O dicho de otra forma: dos objetos son idénticos si son intercambiables en el código fuente del programa sin que se vea afectado el comportamiento del mismo.</p></li>
+<li><p>Dicho de otra forma: dos objetos son idénticos si son intercambiables en el código fuente del programa sin que se vea afectado el comportamiento del mismo.</p></li>
 <li><p>Es evidente que dos objetos de distinto tipo no pueden ser idénticos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.1">
 
 <ul>
-<li><p>En el momento en que introducimos la mutabilidad en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
+<li><p>Cuando introducimos mutabilidad y estado en nuestro modelo computacional, muchos conceptos que antes eran sencillos se vuelven problemáticos.</p></li>
 <li><p>Entre ellos, el problema de determinar si dos cosas son «la misma cosa», es decir, si son <em>idénticos</em>.</p></li>
 <li><p>Por ejemplo, supongamos que hacemos:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">def</span> restador(cantidad):</span>
@@ -971,7 +971,7 @@
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
 <li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa?</p>
 <ul>
-<li><p>Una respuesta razonable podría ser que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan de la misma forma (los dos son funciones que restan 25 a su argumento).</p></li>
+<li><p>Es razonable decir que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan siempre de la misma forma (las dos son funciones que restan 25 a su argumento).</p></li>
 <li><p>De hecho, <code>res1</code> puede sustituirse por <code>res2</code> (y viceversa) en cualquier lugar del programa sin que afecte a su funcionamiento.</p></li>
 </ul></li>
 </ul>
@@ -984,13 +984,13 @@
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>¿Son <code>dep1</code> y <code>dep2</code> la misma cosa?</p>
 <ul>
-<li><p>Evidentemente no, ya que al enviarles mensajes a uno y otro podemos obtener resultados distintos ante los mismos mensajes:</p>
+<li><p>Evidentemente no, ya que al enviarles mensajes a uno y otro obtenemos resultados distintos ante los mismos mensajes:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">20</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="dv">80</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.saldo()</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="dv">80</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.saldo()</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dv">100</span></span></code></pre></div></li>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">20</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="dv">60</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.retirar(<span class="dv">20</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dv">80</span></span></code></pre></div></li>
 <li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> (o viceversa) en cualquier parte del programa sin afectar a su funcionamiento.</p></li>
 </ul></li>
 </ul>
@@ -999,7 +999,7 @@
 
 <ul>
 <li><p>Es otra forma de decir que <strong>los objetos no tienen transparencia referencial</strong>, ya que se pierde en el momento en que incorporamos <strong>estado y mutabilidad</strong> en nuestro modelo computacional.</p></li>
-<li><p>Pero al perder la transparencia referencial, se vuelve más difícil de entender de una manera formal y rigurosa qué es lo que significa que dos objetos sean «el mismo objeto».</p></li>
+<li><p>Pero al perder la transparencia referencial, se vuelve más difícil de definir de una manera formal y rigurosa qué es lo que significa que dos objetos sean «el mismo objeto».</p></li>
 <li><p>De hecho, el significado de «el mismo» en el mundo real que estamos modelando con nuestro programa es ya bastante difícil de entender.</p></li>
 <li><p>En general, sólo podemos determinar si dos objetos aparentemente idénticos son realmente «el mismo objeto» modificando uno de ellos y observando a continuación si el otro ha cambiado de la misma forma.</p></li>
 </ul>
@@ -1008,7 +1008,7 @@
 
 <ul>
 <li><p>Pero la única manera de saber si un objeto ha «cambiado» es observando el «mismo» objeto dos veces, en dos momentos diferentes, y comprobando si ha cambiado alguna propiedad del objeto de la primera observación a la segunda.</p></li>
-<li><p>Por tanto, no podemos decir que ha habido un «cambio» si no podemos determinar si dos objetos son «iguales», y no podemos determinar si son iguales sin observar los efectos de ese cambio.</p></li>
+<li><p>Por tanto, no podemos determinar si ha habido un «cambio» si no podemos determinar si dos objetos son «iguales», y no podemos determinar si son iguales si no podemos observar los efectos de ese cambio.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.5">
@@ -1074,21 +1074,30 @@
 <section class="slide level5" data-number="4.1.0.0.7">
 
 <ul>
-<li><p>Con respecto a los anteriores comentarios sobre «igualdad» y «cambio», obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no pudieran realizar operaciones que cambiaran los fondos del depósito, entonces no existiría el problema de tener que comprobar si los dos depósitos son distintos.</p></li>
-<li><p>En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se corresponde con la totalidad de sus partes.</p></li>
+<li><p>Los problemas de identidad sólo se da cuando permitimos que los objetos sean mutables.</p></li>
+<li><p>Si Pedro y Pablo sólo pudieran comprobar los saldos de sus depósitos y no pudieran realizar operaciones que cambiaran sus fondos, entonces no haría falta comprobar si los dos depósitos son distintos o si por el contrario son realmente el mismo depósito. Daría igual.</p></li>
+<li><p>En general, siempre que no se puedan modificar los objetos, podemos suponer que un objeto compuesto se define como la suma de sus partes.</p></li>
+<li><p>Pero esto deja de ser válido cuando incorporamos mutabilidad, porque entonces un objeto compuesto tiene una «identidad» que es algo diferente de las partes que lo componen.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.8">
 
 <ul>
-<li><p>Por ejemplo, un número racional está determinado por su numerador y su denominador. Pero este punto de vista deja de ser válido cuando incorporamos mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo distinto de las partes que lo componen.</p></li>
-<li><p>Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.</p></li>
-<li><p>Pero también podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
-<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto.</p></li>
-<li><p>Por ejemplo, no tendría sentido para nosotros considerar que un número racional es un objeto mutable con identidad propia, puesto que al cambiar su numerador ya no tenemos «el mismo» número racional.</p></li>
+<li><p>Por ejemplo, un número racional viene definido por su numerador y su denominador.</p>
+<p>El número racional <span class="math inline">\frac{4}{3}</span> está completamente determinado por su numerador 4 y su denominador 3. Es eso y nada más.</p></li>
+<li><p>Pero no tiene sentido considerar que un número racional es un objeto mutable con identidad propia, puesto que si pudiéramos cambiar su numerador o su denominador ya no tendríamos «el mismo» número racional, sino que tendríamos otro diferente.</p>
+<p>Si al racional <span class="math inline">\frac{4}{3}</span> le cambiamos el numerador 4 por 5, obtendríamos el nuevo racional <span class="math inline">\frac{5}{3}</span>, y no tendría sentido decir que ese nuevo racional es el antiguo racional <span class="math inline">\frac{4}{3}</span> modificado. Éste ya no está.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.9">
+
+<ul>
+<li><p>En cambio, un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos haciendo una retirada de efectivo.</p></li>
+<li><p>Pero también podemos tener dos depósitos distintos con el mismo estado interno.</p></li>
+<li><p>Esta complicación es consecuencia, no de nuestro lenguaje de programación, sino de nuestra percepción del depósito bancario como un objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.10">
 
 <ul>
 <li><p>Como usamos <strong>referencias</strong> para referirnos a un determinado objeto y acceder al mismo, resulta fácil comprobar si dos objetos son <em>idénticos</em> (es decir, si son el mismo objeto) comparando referencias. Si las referencias son iguales, es que estamos ante un único objeto.</p></li>
@@ -1096,7 +1105,7 @@
 <li><p>Dos objetos pueden ser <strong>iguales</strong> y, en cambio, no ser <em>idénticos</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.10">
+<section class="slide level5" data-number="4.1.0.0.11">
 
 <ul>
 <li><p>La forma de comprobar en Python si dos objetos son <em>idénticos</em> es usar el operador <code>is</code> que ya conocemos:</p>

@@ -1001,7 +1001,7 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   los dos objetos provoca también el mismo cambio en el otro objeto.
   ~~~~~~~~~~~~~~~~
 
-- O dicho de otra forma: dos objetos son idénticos si son intercambiables en el
+- Dicho de otra forma: dos objetos son idénticos si son intercambiables en el
   código fuente del programa sin que se vea afectado el comportamiento del
   mismo.
 
@@ -1009,9 +1009,8 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ---
 
-- En el momento en que introducimos la mutabilidad en nuestro modelo
-  computacional, muchos conceptos que antes eran sencillos se vuelven
-  problemáticos.
+- Cuando introducimos mutabilidad y estado en nuestro modelo computacional,
+  muchos conceptos que antes eran sencillos se vuelven problemáticos.
 
 - Entre ellos, el problema de determinar si dos cosas son «la misma cosa», es
   decir, si son _idénticos_.
@@ -1031,8 +1030,8 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - ¿Son `res1` y `res2` la misma cosa?
 
-  - Una respuesta razonable podría ser que sí, ya que tanto `res1` como `res2`
-    se comportan de la misma forma (los dos son funciones que restan 25 a su
+  - Es razonable decir que sí, ya que tanto `res1` como `res2` se comportan
+    siempre de la misma forma (las dos son funciones que restan 25 a su
     argumento).
 
   - De hecho, `res1` puede sustituirse por `res2` (y viceversa) en cualquier
@@ -1049,22 +1048,22 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - ¿Son `dep1` y `dep2` la misma cosa?
 
-  - Evidentemente no, ya que al enviarles mensajes a uno y otro podemos obtener
+  - Evidentemente no, ya que al enviarles mensajes a uno y otro obtenemos
     resultados distintos ante los mismos mensajes:
 
     ```python
     >>> dep1.retirar(20)
     80
-    >>> dep1.saldo()
+    >>> dep1.retirar(20)
+    60
+    >>> dep2.retirar(20)
     80
-    >>> dep2.saldo()
-    100
     ```
 
-  - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el sentido
-    de que ambos han sido creados evaluando la misma expresión (`Deposito(100)`),
-    no es verdad que podamos sustituir `dep1` por `dep2` (o viceversa) en
-    cualquier parte del programa sin afectar a su funcionamiento.
+  - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el
+    sentido de que ambos han sido creados evaluando la misma expresión
+    (`Deposito(100)`), no es verdad que podamos sustituir `dep1` por `dep2` (o
+    viceversa) en cualquier parte del programa sin afectar a su funcionamiento.
 
 ---
 
@@ -1072,9 +1071,9 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   referencial**, ya que se pierde en el momento en que incorporamos **estado y
   mutabilidad** en nuestro modelo computacional.
 
-- Pero al perder la transparencia referencial, se vuelve más difícil de
-  entender de una manera formal y rigurosa qué es lo que significa que dos
-  objetos sean «el mismo objeto».
+- Pero al perder la transparencia referencial, se vuelve más difícil de definir
+  de una manera formal y rigurosa qué es lo que significa que dos objetos sean
+  «el mismo objeto».
 
 - De hecho, el significado de «el mismo» en el mundo real que
   estamos modelando con nuestro programa es ya bastante difícil de entender.
@@ -1089,9 +1088,9 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
   «mismo» objeto dos veces, en dos momentos diferentes, y comprobando si ha
   cambiado alguna propiedad del objeto de la primera observación a la segunda.
 
-- Por tanto, no podemos decir que ha habido un «cambio» si no podemos
+- Por tanto, no podemos determinar si ha habido un «cambio» si no podemos
   determinar si dos objetos son «iguales», y no podemos determinar si son
-  iguales sin observar los efectos de ese cambio.
+  iguales si no podemos observar los efectos de ese cambio.
 
 ---
 
@@ -1171,34 +1170,48 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ---
 
-- Con respecto a los anteriores comentarios sobre «igualdad» y «cambio»,
-  obsérvese que si Pedro y Pablo sólo pudieran comprobar sus saldos y no
-  pudieran realizar operaciones que cambiaran los fondos del depósito, entonces
-  no existiría el problema de tener que comprobar si los dos depósitos son
-  distintos.
+- Los problemas de identidad sólo se da cuando permitimos que los objetos sean
+  mutables.
+
+- Si Pedro y Pablo sólo pudieran comprobar los saldos de sus depósitos y no
+  pudieran realizar operaciones que cambiaran sus fondos, entonces no haría
+  falta comprobar si los dos depósitos son distintos o si por el contrario son
+  realmente el mismo depósito. Daría igual.
 
 - En general, siempre que no se puedan modificar los objetos, podemos suponer
-  que un objeto compuesto se corresponde con la totalidad de sus partes.
+  que un objeto compuesto se define como la suma de sus partes.
+
+- Pero esto deja de ser válido cuando incorporamos mutabilidad, porque entonces
+  un objeto compuesto tiene una «identidad» que es algo diferente de las partes
+  que lo componen.
+ 
+---
+
+- Por ejemplo, un número racional viene definido por su numerador y su
+  denominador.
+
+  El número racional $\frac{4}{3}$ está completamente determinado por su
+  numerador 4 y su denominador 3. Es eso y nada más.
+
+- Pero no tiene sentido considerar que un número racional es un objeto mutable
+  con identidad propia, puesto que si pudiéramos cambiar su numerador o su
+  denominador ya no tendríamos «el mismo» número racional, sino que tendríamos
+  otro diferente.
+
+  Si al racional $\frac{4}{3}$ le cambiamos el numerador 4 por 5, obtendríamos
+  el nuevo racional $\frac{5}{3}$, y no tendría sentido decir que ese nuevo
+  racional es el antiguo racional $\frac{4}{3}$ modificado. Éste ya no está.
 
 ---
 
-- Por ejemplo, un número racional está determinado por su numerador y su
-  denominador. Pero este punto de vista deja de ser válido cuando incorporamos
-  mutabilidad, donde un objeto compuesto tiene una «identidad» que es algo
-  distinto de las partes que lo componen.
-  
-- Un depósito sigue siendo «el mismo» depósito aunque cambiemos sus fondos
-  haciendo una retirada de efectivo.
+- En cambio, un depósito sigue siendo «el mismo» depósito aunque cambiemos sus
+  fondos haciendo una retirada de efectivo.
 
 - Pero también podemos tener dos depósitos distintos con el mismo estado
   interno.
 
 - Esta complicación es consecuencia, no de nuestro lenguaje de programación,
   sino de nuestra percepción del depósito bancario como un objeto.
-
-- Por ejemplo, no tendría sentido para nosotros considerar que un número
-  racional es un objeto mutable con identidad propia, puesto que al cambiar su
-  numerador ya no tenemos «el mismo» número racional.
 
 ---
 
