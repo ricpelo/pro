@@ -1828,12 +1828,12 @@ class Deposito:
   depósitos.
 
 - Ese valor se guardará en un atributo, pero ese atributo pertenece a la propia
-  clase, no a una instancia concreta de dicha clase, ya que es un valor
-  compartido por todos los objetos de la misma clase.
+  clase y está ligado a ella, no a una instancia concreta de dicha clase, ya
+  que es un valor compartido por todos los objetos de la misma clase.
 
-- Los atributos que pertenecen a la propia clase (en lugar de a instancias
-  concretas) se denominan **atributos de clase**, **variables de clase** o
-  **variables estáticas**.
+- Los atributos que pertenecen y están ligados a la propia clase (en lugar de a
+  instancias concretas) se denominan **atributos de clase**, **variables de
+  clase** o **variables estáticas**.
 
   - Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
     las instancias) se denominan **atributos de instancia** o **variables de
@@ -1984,5 +1984,204 @@ class Deposito:
 `self.interes` en lugar de `Deposito.interes`?
 
 ## Métodos estáticos
+
+- Los **métodos estáticos** son métodos que **pertenencen y están ligados a una
+  clase**, en lugar de a instancias de la clase.
+
+- Eso significa que **un método estático se ejecuta sobre una clase, no sobre
+  una instancia**.
+
+  - Es decir: se le pide a una clase que ejecute el método, en lugar de
+    pedírselo a un objeto.
+
+- A efectos prácticos es como si le estuviéramos **mandando un mensaje a la
+  clase en sí**, en lugar de mandárselo a un objeto de la clase.
+
+- Al no ejecutarse sobre una instancia, **los métodos estáticos no reciben la
+  instancia como argumento** a través del primer parámetro `self`.
+
+- En realidad, **un método estático es básicamente una función definida dentro
+  del ámbito de una clase**, y poco más.
+
+- Los métodos que van ligados a un objeto se denominan **métodos de
+  instancia**, para distinguirlos de los estáticos.
+
+---
+
+- Por ejemplo, supongamos una clase `Numero` que representa números.
+
+  Una manera de implementarla sin métodos estáticos sería suponer que cada
+  instancia de la clase representa un número y que las operaciones modifican el
+  número en cuestión, recibiendo el resto de operandos mediante argumentos:
+
+  ```python
+  class Numero:
+      def __init__(self, valor):
+          self.set_valor(valor)
+
+      def set_valor(self, valor):
+          self.__valor = valor
+
+      def get_valor(self):
+          return self.__valor
+          
+      def suma(self, otro):
+          self.set_valor(self.get_valor() + otro)
+
+      def mult(self, otro):
+          self.set_valor(self.get_valor() * otro)
+
+  n = Numero(4)
+  n.suma(7)
+  print(n.get_valor())       # Imprime 11
+  n.mult(5)
+  print(n.get_valor())       # Imprime 55
+  ```
+
+---
+
+- Para crear un método estático dentro de una clase:
+
+  - Se añade el **decorador** `@staticmethod` justo encima de la definición del
+    método.
+
+  - El método no debe recibir el parámetro `self`.
+
+- Sabiendo eso, podemos crear una clase `Calculadora` que ni siquiera haría
+  falta instanciar y que contendría las operaciones a realizar con los números:
+
+  ```python
+  class Calculadora:
+      @staticmethod
+      def suma(x, y):
+          return x + y
+
+      @staticmethod
+      def mult(x, y):
+          return x * y
+
+  s = Calculadora.suma(4, 7)   # Llamamos al método suma directamente sobre la clase
+  print(s)                     # Imprime 11
+  m = Calculadora.mult(11, 5)  # Llamamos al método mult directamente sobre la clase
+  print(m)                     # Imprime 55
+  ```
+
+- De este modo, los números no se modifican.
+
+---
+
+- Lo que hace básicamente el decorador `@staticmethod` es decirle al intérprete
+  que se salte el mecanismo interno habitual de pasar automáticamente una
+  referencia del objeto como primer parámetro del método (el que normalmente se
+  llama `self`).
+
+:::: columns
+
+::: column
+
+- Por ejemplo, con la clase `Numero`, si tenemos que:
+
+  ```python
+  n = Numero(4)
+  ```
+
+  es lo mismo hacer:
+
+  ```python
+  n.suma(5)
+  ```
+
+  que hacer:
+
+  ```python
+  Numero.suma(n, 5)
+  ```
+
+  ya que `suma` es un método de instancia en la clase `Numero`.
+
+- Esta última forma no se usa nunca, ya que confunde al lector.
+
+:::
+
+::: column
+
+- En cambio, en la clase `Calculadora`, el método `suma` es estático, no hay
+  objeto _sobre_ el que actuar, así que no se pasa automáticamente ninguna
+  referencia.
+
+- Todos los argumentos deben pasarse expresamente al método:
+
+  ```python
+  s = Calculadora.suma(4, 3)
+  ```
+
+- Como lo que se reciben son enteros y no instancias de `Numero`, no los puede
+  modificar.
+
+:::
+
+::::
+
+---
+
+- Podemos combinar métodos estáticos y no estáticos en la misma clase.
+
+- En tal caso, debemos recordar que los métodos estáticos no pueden acceder a
+  los miembros no estáticos de la clase, ya que no disponen de la referencia al
+  objeto (`self`).
+
+- En cambio, sí pueden acceder a variables de clase o a otros métodos
+  estáticos de la misma clase.
+
+---
+
+- Por ejemplo:
+
+:::: columns
+
+::: {.column width=65%}
+
+```python
+class Numero:
+    def __init__(self, valor):
+        self.set_valor(valor)
+
+    def set_valor(self, valor):
+        self.__valor = valor
+
+    def get_valor(self):
+        return self.__valor
+        
+    def suma(self, otro):
+        self.set_valor(self.get_valor() + otro)
+
+    def mult(self, otro):
+        self.set_valor(self.get_valor() * otro)
+
+    @staticmethod
+    def suma_es(x, y):
+        return x + y
+
+    @staticmethod
+    def mult_es(x, y):
+        return x + y
+```
+
+:::
+
+::: {.column width=35%}
+
+```python
+# El número es 4:
+n = Numero(4)
+# Ahora el número es 9:
+n.suma(5)
+# Devuelve 15:
+s = Numero.suma_es(7, 8)
+```
+
+:::
+
+::::
 
 !BIBLIOGRAFIA
