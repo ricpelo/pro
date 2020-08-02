@@ -294,9 +294,9 @@
 <p><strong>Definición:</strong></p>
 <p>La <strong>programación orientada a objetos</strong> es un paradigma de programación en el que los programas son vistos como formados por entidades llamadas <strong>objetos</strong> que recuerdan su propio <strong>estado interno</strong> y que se comunican entre sí mediante el <strong>paso de mensajes</strong> que se intercambian con la finalidad de:</p>
 <ul>
-<li>cambiar sus estados internos,</li>
-<li>compartir información y</li>
-<li>solicitar a otros objetos el procesamiento de dicha información.</li>
+<li><p>cambiar sus estados internos,</p></li>
+<li><p>compartir información y</p></li>
+<li><p>solicitar a otros objetos el procesamiento de dicha información.</p></li>
 </ul>
 </div>
 </section>
@@ -984,13 +984,13 @@
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>¿Son <code>dep1</code> y <code>dep2</code> la misma cosa?</p>
 <ul>
-<li><p>Evidentemente no, ya que al enviarles mensajes a uno y otro obtenemos resultados distintos ante los mismos mensajes:</p>
+<li><p>Evidentemente no, ya que podemos obtener resultados distintos al enviarles el mismo mensaje (uno que sabemos que no cambia el estado del objeto):</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">20</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="dv">80</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">20</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="dv">60</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.retirar(<span class="dv">20</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dv">80</span></span></code></pre></div></li>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.saldo()  <span class="co"># Mensaje que no cambia el estado del objeto</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="dv">80</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.saldo()  <span class="co"># El mismo mensaje, da un resultado distinto en dep2</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dv">100</span></span></code></pre></div></li>
 <li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> (o viceversa) en cualquier parte del programa sin afectar a su funcionamiento.</p></li>
 </ul></li>
 </ul>
@@ -1100,9 +1100,14 @@
 <section class="slide level5" data-number="4.1.0.0.10">
 
 <ul>
-<li><p>Como usamos <strong>referencias</strong> para referirnos a un determinado objeto y acceder al mismo, resulta fácil comprobar si dos objetos son <em>idénticos</em> (es decir, si son el mismo objeto) comparando referencias. Si las referencias son iguales, es que estamos ante un único objeto.</p></li>
+<li><p>Como usamos <strong>referencias</strong> para referirnos a un determinado objeto y acceder al mismo, resulta fácil comprobar si dos objetos son <em>idénticos</em> (es decir, si son el mismo objeto) simplemente comparando referencias. <strong>Si las referencias son iguales, es que estamos ante un único objeto.</strong></p></li>
 <li><p>Esto es así ya que, por lo general, las referencias se corresponden con direcciones de memoria. Es decir: una referencia a un objeto normalmente representa la dirección de memoria donde se empieza a almacenar dicho objeto.</p></li>
 <li><p>Dos objetos pueden ser <strong>iguales</strong> y, en cambio, no ser <em>idénticos</em>.</p></li>
+<li><p>Resumiendo:</p>
+<ul>
+<li><p>Cuando preguntamos si dos objetos son <strong>iguales</strong>, estamos preguntando si tienen el <strong>mismo contenido</strong>.</p></li>
+<li><p>Cuando preguntamos si son <strong>idénticos</strong>, estamos preguntando si son el <strong>mismo objeto</strong>.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.11">
@@ -1110,7 +1115,7 @@
 <ul>
 <li><p>La forma de comprobar en Python si dos objetos son <em>idénticos</em> es usar el operador <code>is</code> que ya conocemos:</p>
 <div class="caja">
-<p>La expresión <strong><em>o</em> <code>is</code> <em>p</em></strong> devolverá <code>True</code> si tanto <em>o</em> como <em>p</em> son referencias al mismo objeto.</p>
+<p>La expresión <strong><em>o</em> <code>is</code> <em>p</em></strong> devolverá <code>True</code> si tanto <strong><em>o</em></strong> como <strong><em>p</em></strong> son referencias al mismo objeto.</p>
 </div></li>
 </ul>
 <div class="columns">
@@ -1132,77 +1137,112 @@
 </ul>
 </div>
 </div>
+<ul>
+<li><p>Como ya estudiamos en su día, la expresión <strong><em>o</em> <code>is</code> <em>p</em></strong> equivale a <strong><code>id(</code><em>o</em><code>) == id(</code><em>p</em><code>)</code></strong>.</p></li>
+<li><p>Por tanto, lo que hace es comparar el resultado de la función <code>id</code>, que devuelve un identificador único (un número) para cada objeto.</p></li>
+<li><p>Ese identificador es la dirección de memoria donde se almacena el objeto. Por tanto, es la dirección a donde apuntan sus referencias.</p></li>
+</ul>
 </section>
 
 <section id="igualdad" class="title-slide slide level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> Igualdad</h2>
 <ul>
-<li><p>En el código anterior:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
-<p>es evidente que <code>dep1</code> y <code>dep2</code> hacen referencia a objetos separados y, por tanto, <strong>no son <em>idénticos</em></strong>, ya que no se refieren <em>al mismo</em> objeto.</p></li>
-<li><p>En cambio, sí podemos decir que <strong>son <em>iguales</em></strong> ya que pertenecen a la misma clase, poseen el mismo estado interno y se comportan de la misma forma al recibir los mismos mensajes en el mismo orden:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.ingresar(<span class="dv">30</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a><span class="dv">130</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">45</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a><span class="dv">85</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.ingresar(<span class="dv">30</span>)</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true"></a><span class="dv">130</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.retirar(<span class="dv">45</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true"></a><span class="dv">85</span></span></code></pre></div></li>
+<li><p>Supongamos que queremos modelar el funcionamiento de una cola (una estructura de datos en la que los elementos entran por un lado y salen por el contrario en el orden en que se han introducido).</p></li>
+<li><p>El código podría ser el siguiente, utilizando una lista para almacenar los elementos:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="kw">class</span> Cola:</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, els):</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a>        <span class="va">self</span>.items <span class="op">=</span> els</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a>    <span class="kw">def</span> meter(<span class="va">self</span>, el):</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a>        <span class="va">self</span>.items.append(el)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true"></a>    <span class="kw">def</span> sacar(<span class="va">self</span>):</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.items) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Cola vacía&quot;</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true"></a>        <span class="kw">del</span> <span class="va">self</span>.items[<span class="dv">0</span>]</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true"></a>    <span class="kw">def</span> elementos(<span class="va">self</span>):</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.items</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
-<li><p>Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">==</span> dep2</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="va">False</span></span></code></pre></div></li>
-<li><p>Esto se debe a que, en ausencia de otra definición de <em>igualdad</em> y <strong>mientras no se diga lo contrario, dos objetos de clases <em>definidas por el programador</em> son iguales si son idénticos</strong>.</p></li>
-<li><p>Es decir: por defecto, <em>x</em> <code>==</code> <em>y</em> equivale a <em>x</em> <code>is</code> <em>y</em>.</p></li>
-<li><p>Para cambiar ese comportamiento predeterminado, tendremos que indicar qué significa que dos instancias de nuestra clase son iguales.</p></li>
-<li><p>Por ejemplo: ¿cuándo podemos decir que dos objetos de la clase <code>Deposito</code> son iguales?</p>
-<p>En este caso es fácil: dos instancias de <code>Deposito</code> son iguales cuando tienen el mismo estado interno. O lo que es lo mismo: dos depósitos son iguales cuando tienen los mismos fondos.</p></li>
+<li><p>Si hacemos:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>cola1 <span class="op">=</span> Cola([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>cola2 <span class="op">=</span> Cola([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code></pre></div>
+<p>es evidente que <code>cola1</code> y <code>cola2</code> hacen referencia a objetos separados y, por tanto, <strong>no son <em>idénticos</em></strong>, ya que no se refieren <em>al mismo</em> objeto.</p></li>
+<li><p>En cambio, sí podemos decir que <strong>son <em>iguales</em></strong> ya que pertenecen a la misma clase, poseen el mismo estado interno (el mismo contenido) y se comportan de la misma forma al recibir la misma secuencia de mensajes en el mismo orden:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">=</span> Cola([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2 <span class="op">=</span> Cola([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1.meter(<span class="dv">9</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1.elementos()</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>]</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1.sacar()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1.elementos()</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true"></a>[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>]</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2.meter(<span class="dv">9</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2.elementos()</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>]</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2.sacar()</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2.elementos()</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true"></a>[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
-<li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code>__eq__</code>.</p></li>
-<li><p>Este método se invocará automáticamente cuando se hace una comparación con el operador <code>==</code> y el primer operando es una instancia de nuestra clase. El segundo operando se enviará como argumento en la llamada al método.</p></li>
-<li><p>Dicho de otra forma:</p>
-<ul>
-<li><p><code>dep1 == dep2</code> equivale a <code>dep1.__eq__(dep2)</code>, siempre que la clase de <code>dep1</code> tenga definido el método <code>__eq__</code>.</p></li>
-<li><p>En caso contrario, seguirá valiendo lo mismo que <code>dep1 is dep2</code>, como acabamos de ver.</p></li>
-</ul></li>
-<li><p>No es necesario preocuparse por el operador <code>!=</code>, ya que Python 3 lo define automáticamente a partir del <code>==</code>.</p></li>
+<li><p>Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">==</span> cola2</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a><span class="va">False</span></span></code></pre></div></li>
+<li><p>Esto se debe a que, en ausencia de otra definición de <em>igualdad</em> y <strong>mientras no se diga lo contrario, dos objetos de clases <em>definidas por el programador</em> son iguales sólo si son idénticos</strong>.</p></li>
+<li><p>Es decir: por defecto, <strong><em>x</em></strong> <code>==</code> <strong><em>y</em></strong> sólo si <strong><em>x</em></strong> <code>is</code> <strong><em>y</em></strong>.</p></li>
+<li><p>Para cambiar ese comportamiento predeterminado, tendremos que definir qué significa que dos instancias de nuestra clase son iguales.</p></li>
+<li><p>Por ejemplo: ¿cuándo podemos decir que dos objetos de la clase <code>Cola</code> son iguales?</p>
+<p>Podemos decir que dos colas son iguales cuando tienen el mismo estado interno. En este caso: <em>dos colas son iguales cuando tienen los mismos elementos en el mismo orden</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
-<li><p>Una posible implementación del método <code>__eq__</code> podría ser:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span>   <span class="co"># no tiene sentido comparar objetos de distinto tipo</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos <span class="op">==</span> otro.fondos  <span class="co"># son iguales si tienen los mismos fondos</span></span></code></pre></div>
-<p>Se devuelve el valor especial <code>NotImplemented</code> cuando no tiene sentido comparar un objeto de la clase <code>Deposito</code> con un objeto de otro tipo.</p></li>
-<li><p>Si introducimos este método dentro de la definición de la clase <code>Deposito</code>, tendremos el resultado deseado:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">==</span> dep2</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a><span class="va">True</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1.retirar(<span class="dv">30</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a><span class="dv">70</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">==</span> dep2</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true"></a><span class="va">False</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep2.retirar(<span class="dv">30</span>)</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true"></a><span class="dv">70</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">==</span> dep2</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
+<li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code>__eq__</code>.</p></li>
+<li><p>Este método se invoca automáticamente cuando se hace una comparación con el operador <code>==</code> y el primer operando es una instancia de nuestra clase. El segundo operando se envía como argumento en la llamada al método.</p></li>
+<li><p>Dicho de otra forma:</p>
+<ul>
+<li><p>Si la clase de <code>cola1</code> tiene definido el método <code>__eq__</code>, entonces <code>cola1   == cola2</code> equivale a <code>cola1.__eq__(cola2)</code>.</p></li>
+<li><p>En caso contrario, <code>cola1 == cola2</code> seguirá valiendo lo mismo que <code>cola1 is   cola2</code>, como acabamos de ver.</p></li>
+</ul></li>
+<li><p>No es necesario definir el operador <code>!=</code>, ya que Python 3 lo define automáticamente a partir del <code>==</code>.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.4">
+
+<ul>
+<li><p>Para crear una posible implementación del método <code>__eq__</code>, podemos aprovecharnos del hecho de que dos listas son iguales cuando tienen exactamente los mismos elementos en el mismo orden (justo lo que necesitamos para nuestras colas):</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span>   <span class="co"># no tiene sentido comparar objetos de distinto tipo</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a>    <span class="cf">return</span> <span class="va">self</span>.items <span class="op">==</span> otro.items  <span class="co"># son iguales si tienen los mismos elementos</span></span></code></pre></div>
+<p>Se devuelve el valor especial <code>NotImplemented</code> cuando no tiene sentido comparar un objeto de la clase <code>Cola</code> con un objeto de otro tipo.</p></li>
+<li><p>Si introducimos este método dentro de la definición de la clase <code>Cola</code>, tendremos el resultado deseado:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">=</span> Cola([<span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">7</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2 <span class="op">=</span> Cola([<span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">7</span>])</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="kw">is</span> cola2</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true"></a><span class="va">False</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">==</span> cola2</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1.sacar()</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">==</span> cola2</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="va">False</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola2.sacar()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> cola1 <span class="op">==</span> cola2</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div>
+</div>
+</div>
 </section>
 </section>
 <section>
@@ -1268,8 +1308,8 @@
 
 <ul>
 <li><p>Por ejemplo, si definimos una función que calcula la diferencia entre los saldos de dos depósitos, podríamos hacer:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="kw">def</span> diferencia(dep1, dep2):</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a>    <span class="cf">return</span> dep1.saldo() <span class="op">-</span> dep2.saldo()</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="kw">def</span> diferencia(dep1, dep2):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>    <span class="cf">return</span> dep1.saldo() <span class="op">-</span> dep2.saldo()</span></code></pre></div></li>
 <li><p>Es decir:</p>
 <ul>
 <li><p>La función <code>diferencia</code> recibe como argumentos los dos depósitos (que son objetos), por lo que éstos son ciudadanos de primera clase.</p></li>
@@ -1377,57 +1417,57 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">class</span> Prueba:</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>    <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a>    <span class="kw">def</span> dos(<span class="va">self</span>):</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>    <span class="kw">def</span> __tres__(<span class="va">self</span>):</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método también es público, porque su nombre empieza y acaba por __&quot;</span>)</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true"></a>p <span class="op">=</span> Prueba()</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true"></a>p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true"></a>p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true"></a>p.__tres__() <span class="co"># También funciona</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">class</span> Prueba:</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a>    <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a>    <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a>    <span class="kw">def</span> __tres__(<span class="va">self</span>):</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Este método también es público, porque su nombre empieza y acaba por __&quot;</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true"></a>p <span class="op">=</span> Prueba()</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true"></a>p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true"></a>p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true"></a>p.__tres__() <span class="co"># También funciona</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.1.5">
 
 <ul>
 <li><p>Los miembros privados sólo son accesibles desde dentro de la clase:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>...     <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a>...</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a>...     <span class="kw">def</span> dos(<span class="va">self</span>):</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>...         <span class="va">self</span>.__uno() <span class="co"># Llama al método privado desde dentro de la clase</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>...</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba()</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__uno&#39;</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true"></a>Este método es público</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true"></a>Este método es privado, ya que su nombre empieza por __</span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a>...     <span class="kw">def</span> __uno(<span class="va">self</span>):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es privado, ya que su nombre empieza por __&quot;</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a>...</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a>...     <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a>...         <span class="bu">print</span>(<span class="st">&quot;Este método es público&quot;</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a>...         <span class="va">self</span>.__uno() <span class="co"># Llama al método privado desde dentro de la clase</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a>...</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba()</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__uno()    <span class="co"># No funciona, ya que __uno() es un método privado</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__uno&#39;</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.dos()      <span class="co"># Funciona, ya que el método dos() es público</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true"></a>Este método es público</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true"></a>Este método es privado, ya que su nombre empieza por __</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.1.6">
 
 <ul>
 <li><p>Con las variables de instancia ocurre exactamente igual:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x       <span class="co"># __init__ puede acceder a __x</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a>...                            <span class="co"># ya que los dos están dentro de la misma clase</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__x   <span class="co"># No funciona, ya que __x es privada</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__x&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x       <span class="co"># __init__ puede acceder a __x</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a>...                            <span class="co"># ya que los dos están dentro de la misma clase</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.__x   <span class="co"># No funciona, ya que __x es privada</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Prueba&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;__x&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1447,22 +1487,22 @@
 
 <ul>
 <li><p>Por ejemplo, si tenemos un atributo privado que deseamos manipular desde el exterior del objeto, podemos definir una pareja de métodos <code>get</code> y <code>set</code> de la siguiente forma:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a>...         <span class="va">self</span>.set_x(x)        <span class="co"># En el constructor aprovechamos el setter</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a>...</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a>...     <span class="kw">def</span> get_x(<span class="va">self</span>):         <span class="co"># Este es el getter del atributo __x</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a>...         <span class="cf">return</span> <span class="va">self</span>.__x</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a>...</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a>...     <span class="kw">def</span> set_x(<span class="va">self</span>, x):      <span class="co"># Este es el setter del atributo __x</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a>...</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos al valor de __x</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true"></a><span class="dv">1</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.set_x(<span class="dv">5</span>)                   <span class="co"># Cambiamos el valor de __x</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos de nuevo al valor de __x</span></span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true"></a><span class="dv">5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Prueba:</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a>...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x):</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>...         <span class="va">self</span>.set_x(x)        <span class="co"># En el constructor aprovechamos el setter</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a>...</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a>...     <span class="kw">def</span> get_x(<span class="va">self</span>):         <span class="co"># Este es el getter del atributo __x</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a>...         <span class="cf">return</span> <span class="va">self</span>.__x</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>...</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a>...     <span class="kw">def</span> set_x(<span class="va">self</span>, x):      <span class="co"># Este es el setter del atributo __x</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a>...         <span class="va">self</span>.__x <span class="op">=</span> x</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a>...</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Prueba(<span class="dv">1</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos al valor de __x</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true"></a><span class="dv">1</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.set_x(<span class="dv">5</span>)                   <span class="co"># Cambiamos el valor de __x</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> p.get_x()                    <span class="co"># Accedemos de nuevo al valor de __x</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true"></a><span class="dv">5</span></span></code></pre></div></li>
 <li><p>La pregunta es: ¿qué ganamos con todo esto?</p></li>
 </ul>
 </section>
@@ -1485,30 +1525,30 @@
 
 <ul>
 <li><p>Por ejemplo: si queremos almacenar los datos de una persona y queremos garantizar que la edad no sea negativa, podemos hacer:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true"></a></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true"></a></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true"></a></span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privado</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privado</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.3.2">
@@ -1547,23 +1587,23 @@
 
 <ul>
 <li><p>El código anterior quedaría así usando <code>assert</code>:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true"></a></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true"></a>        <span class="cf">assert</span> edad <span class="op">&gt;=</span> <span class="dv">0</span>      <span class="co"># La edad tiene que ser &gt;= 0</span></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true"></a>        <span class="cf">assert</span> edad <span class="op">&gt;=</span> <span class="dv">0</span>      <span class="co"># La edad tiene que ser &gt;= 0</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span></code></pre></div></li>
 <li><p>El intérprete comprobará el aserto cuando el flujo de control llegue a la sentencia <code>assert</code> y, en caso de que no se cumpla, lanzará una excepción de tipo <code>AssertionError</code>.</p></li>
 </ul>
 </section>
@@ -1573,19 +1613,19 @@
 <li><p>Lo interesante de los asertos es que podemos pedirle al intérprete que ignore todas las sentencias <code>assert</code> cuando ejecute el código.</p></li>
 <li><p>Para ello, usamos la opción <code>-O</code> al llamar al intérprete de Python desde la línea de comandos del sistema operativo:</p></li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="co"># prueba.py</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Antes&quot;</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a><span class="cf">assert</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Después&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="kw">$ </span>python prueba.py</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a>Antes</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a>  File &quot;prueba.py&quot;, line 2, in <span class="co">&lt;module&gt;</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a>    assert False</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true"></a>AssertionError</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true"></a><span class="kw">$ </span>python -O prueba.py</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true"></a>Antes</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true"></a>Después</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="co"># prueba.py</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Antes&quot;</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a><span class="cf">assert</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Después&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="kw">$ </span>python prueba.py</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a>Antes</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true"></a>  File &quot;prueba.py&quot;, line 2, in <span class="co">&lt;module&gt;</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true"></a>    assert False</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true"></a>AssertionError</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true"></a><span class="kw">$ </span>python -O prueba.py</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true"></a>Antes</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true"></a>Después</span></code></pre></div>
 <ul>
 <li>Con la opción <code>-O</code> (de «<strong>O</strong>ptimizado») podemos elegir entre mayor rendimiento o mayor seguridad al ejecutar nuestros programas.</li>
 </ul>
@@ -1596,22 +1636,22 @@
 <li><p>Aún así, no siempre es conveniente poder saltarse los asertos. De hecho, a veces lo mejor sigue siendo comprobar condiciones con un <code>if</code> y lanzar un error si la condición no se cumple.</p></li>
 <li><p>Por ejemplo, si intentamos retirar fondos de un depósito pero no hay saldo suficiente, eso se debería comprobar siempre:</p></li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:                    <span class="co"># Si no hay fondos:</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Fondos insuficientes&quot;</span>)  <span class="co"># Error</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true"></a></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true"></a></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:                    <span class="co"># Si no hay fondos:</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Fondos insuficientes&quot;</span>)  <span class="co"># Error</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.1.2.4.4">
 
@@ -1651,30 +1691,30 @@
 <ul>
 <li>Los atributos de clase se crean mediante <strong>sentencias de asignación</strong> en el <em>cuerpo</em> de la clase, fuera de cualquier definición de método:</li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true"></a></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true"></a></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </div><div class="column" style="width:40%;">
 <ul>
 <li>Este atributo se puede manipular directamente a través de la clase, es decir, pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la sintaxis:</li>
 </ul>
 <p><em>clase</em><code>.</code><em>atributo</em></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1683,29 +1723,29 @@
 <ul>
 <li>Para cambiar el valor de una variable de clase, se le asigna un valor usando la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
 <ul>
 <li>Las variables de clase se pueden acceder como cualquier variable de instancia, a partir de una instancia de la clase:</li>
 </ul>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># También</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># También</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span>   <span class="co"># Cambia la variable de clase</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true"></a><span class="fl">0.08</span>                          <span class="co"># Se comprueba que ha cambiado</span></span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Cambia también para la instancia</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true"></a><span class="fl">0.08</span></span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># También</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># También</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span>   <span class="co"># Cambia la variable de clase</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true"></a><span class="fl">0.08</span>                          <span class="co"># Se comprueba que ha cambiado</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Cambia también para la instancia</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
 <ul>
 <li>Pero esta segunda forma no es conveniente, como ahora veremos.</li>
 </ul>
@@ -1715,16 +1755,16 @@
 <ul>
 <li>Si intentamos cambiar el valor de una variable de clase desde una instancia, lo que ocurre en realidad es que <strong>creamos una nueva variable de instancia con el mismo nombre</strong> que la variable de clase:</li>
 </ul>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes <span class="op">=</span> <span class="fl">0.08</span>         <span class="co"># Crea una nueva variable de instancia</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Accede a la variable de instancia</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true"></a><span class="fl">0.08</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede a la variable de clase</span></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes <span class="op">=</span> <span class="fl">0.08</span>         <span class="co"># Crea una nueva variable de instancia</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Accede a la variable de instancia</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede a la variable de clase</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
 <ul>
 <li>Por ello, es conveniente acostumbrarse a usar siempre el nombre de la clase para acceder y cambiar el valor de una variable de clase, en lugar de hacerlo a través de una instancia.</li>
 </ul>
@@ -1734,28 +1774,28 @@
 <ul>
 <li>Si necesitamos acceder al valor de una variable de clase dentro de la misma clase, usaremos la misma sintaxis:</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true"></a></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true"></a></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true"></a></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true"></a></span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true"></a>    <span class="kw">def</span> total(<span class="va">self</span>):</span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true"></a>        <span class="co"># Accede a la variable de clase Deposito.interes</span></span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true"></a>        <span class="co"># para calcular el saldo total más los intereses:</span></span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.saldo() <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Deposito.interes)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true"></a></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true"></a></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true"></a></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true"></a>    <span class="kw">def</span> total(<span class="va">self</span>):</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true"></a>        <span class="co"># Accede a la variable de clase Deposito.interes</span></span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true"></a>        <span class="co"># para calcular el saldo total más los intereses:</span></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.saldo() <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Deposito.interes)</span></code></pre></div>
 </section>
 <section id="ejercicio-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicio</h5>
@@ -1783,27 +1823,27 @@
 <ul>
 <li><p>Por ejemplo, supongamos una clase <code>Numero</code> que representa números.</p>
 <p>Una manera de implementarla sin métodos estáticos sería suponer que cada instancia de la clase representa un número y que las operaciones modifican el número en cuestión, recibiendo el resto de operandos mediante argumentos:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a></span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a>n.suma(<span class="dv">7</span>)</span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 11</span></span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>n.mult(<span class="dv">5</span>)</span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 55</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true"></a></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true"></a></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true"></a></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true"></a>n.suma(<span class="dv">7</span>)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 11</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true"></a>n.mult(<span class="dv">5</span>)</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 55</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.2">
@@ -1815,19 +1855,19 @@
 <li><p>El método no debe recibir el parámetro <code>self</code>.</p></li>
 </ul></li>
 <li><p>Sabiendo eso, podemos crear una clase <code>Calculadora</code> que ni siquiera haría falta instanciar y que contendría las operaciones a realizar con los números:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true"></a></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true"></a>    <span class="kw">def</span> mult(x, y):</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">*</span> y</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true"></a></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">7</span>)   <span class="co"># Llamamos al método suma directamente sobre la clase</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true"></a><span class="bu">print</span>(s)                     <span class="co"># Imprime 11</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true"></a>m <span class="op">=</span> Calculadora.mult(<span class="dv">11</span>, <span class="dv">5</span>)  <span class="co"># Llamamos al método mult directamente sobre la clase</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true"></a><span class="bu">print</span>(m)                     <span class="co"># Imprime 55</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true"></a>    <span class="kw">def</span> mult(x, y):</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true"></a></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">7</span>)   <span class="co"># Llamamos al método suma directamente sobre la clase</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true"></a><span class="bu">print</span>(s)                     <span class="co"># Imprime 11</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true"></a>m <span class="op">=</span> Calculadora.mult(<span class="dv">11</span>, <span class="dv">5</span>)  <span class="co"># Llamamos al método mult directamente sobre la clase</span></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true"></a><span class="bu">print</span>(m)                     <span class="co"># Imprime 55</span></span></code></pre></div></li>
 <li><p>De este modo, los números no se modifican.</p></li>
 </ul>
 </section>
@@ -1840,11 +1880,11 @@
 <div class="column">
 <ul>
 <li><p>Por ejemplo, con la clase <code>Numero</code>, si tenemos que:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span></code></pre></div>
 <p>es lo mismo hacer:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a>Numero.suma(n, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a>Numero.suma(n, <span class="dv">5</span>)</span></code></pre></div>
 <p>ya que <code>suma</code> es un método de instancia en la clase <code>Numero</code>.</p></li>
 <li><p>Esta última forma no se usa nunca, ya que confunde al lector.</p></li>
 </ul>
@@ -1852,7 +1892,7 @@
 <ul>
 <li><p>En cambio, en la clase <code>Calculadora</code>, el método <code>suma</code> es estático, no hay objeto <em>sobre</em> el que actuar, así que no se pasa automáticamente ninguna referencia.</p></li>
 <li><p>Todos los argumentos deben pasarse expresamente al método:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 <li><p>Como lo que se reciben son enteros y no instancias de <code>Numero</code>, no los puede modificar.</p></li>
 </ul>
 </div>
@@ -1873,36 +1913,36 @@
 </ul>
 <div class="columns">
 <div class="column" style="width:65%;">
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true"></a></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true"></a>        </span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true"></a></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true"></a></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true"></a>    <span class="kw">def</span> suma_es(x, y):</span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true"></a></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true"></a>    <span class="kw">def</span> mult_es(x, y):</span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true"></a></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true"></a>        </span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true"></a></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true"></a>    <span class="kw">def</span> suma_es(x, y):</span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true"></a></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true"></a>    <span class="kw">def</span> mult_es(x, y):</span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span></code></pre></div>
 </div><div class="column" style="width:35%;">
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a><span class="co"># El número es 4:</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true"></a><span class="co"># Ahora el número es 9:</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true"></a><span class="co"># Devuelve 15:</span></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true"></a>s <span class="op">=</span> Numero.suma_es(<span class="dv">7</span>, <span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true"></a><span class="co"># El número es 4:</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true"></a><span class="co"># Ahora el número es 9:</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true"></a><span class="co"># Devuelve 15:</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true"></a>s <span class="op">=</span> Numero.suma_es(<span class="dv">7</span>, <span class="dv">8</span>)</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1910,6 +1950,9 @@
 <section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-abelson_structure_1996">
+<p>Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996. <em>Structure and Interpretation of Computer Programs</em>. 2nd ed. Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.</p>
+</div>
 <div id="ref-denero_composing_nodate">
 <p>DeNero, John. n.d. “Composing Programs.” <a href="http://www.composingprograms.com">http://www.composingprograms.com</a>.</p>
 </div>

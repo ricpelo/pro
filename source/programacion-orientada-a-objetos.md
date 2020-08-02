@@ -3,7 +3,7 @@ title: Programación orientada a objetos
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @python_software_foundation_sitio_nodate, @denero_composing_nodate
+  @python_software_foundation_sitio_nodate, @denero_composing_nodate, @abelson_structure_1996
 ---
 
 # Introducción
@@ -78,7 +78,9 @@ que recuerdan su propio **estado interno** y que se comunican entre sí
 mediante el **paso de mensajes** que se intercambian con la finalidad de:
 
 - cambiar sus estados internos,
+
 - compartir información y
+
 - solicitar a otros objetos el procesamiento de dicha información.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1048,16 +1050,16 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - ¿Son `dep1` y `dep2` la misma cosa?
 
-  - Evidentemente no, ya que al enviarles mensajes a uno y otro obtenemos
-    resultados distintos ante los mismos mensajes:
+  - Evidentemente no, ya que podemos obtener resultados distintos al enviarles
+    el mismo mensaje (uno que sabemos que no cambia el estado del objeto):
 
     ```python
     >>> dep1.retirar(20)
     80
-    >>> dep1.retirar(20)
-    60
-    >>> dep2.retirar(20)
+    >>> dep1.saldo()  # Mensaje que no cambia el estado del objeto
     80
+    >>> dep2.saldo()  # El mismo mensaje, da un resultado distinto en dep2
+    100
     ```
 
   - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el
@@ -1217,14 +1219,22 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - Como usamos **referencias** para referirnos a un determinado objeto y acceder
   al mismo, resulta fácil comprobar si dos objetos son *idénticos* (es decir,
-  si son el mismo objeto) comparando referencias. Si las referencias son
-  iguales, es que estamos ante un único objeto.
+  si son el mismo objeto) simplemente comparando referencias. **Si las
+  referencias son iguales, es que estamos ante un único objeto.**
 
 - Esto es así ya que, por lo general, las referencias se corresponden con
   direcciones de memoria. Es decir: una referencia a un objeto normalmente
   representa la dirección de memoria donde se empieza a almacenar dicho objeto.
 
 - Dos objetos pueden ser **iguales** y, en cambio, no ser *idénticos*.
+
+- Resumiendo:
+
+  - Cuando preguntamos si dos objetos son **iguales**, estamos preguntando si
+    tienen el **mismo contenido**.
+
+  - Cuando preguntamos si son **idénticos**, estamos preguntando si son el
+    **mismo objeto**.
 
 ---
 
@@ -1233,8 +1243,8 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~
-  La expresión **_o_ `is` _p_** devolverá `True` si tanto *o* como *p* son
-  referencias al mismo objeto.
+  La expresión **_o_ `is` _p_** devolverá `True` si tanto **_o_** como **_p_**
+  son referencias al mismo objeto.
   ~~~~~~~~~~~~~~~~~
 
 :::: columns
@@ -1267,33 +1277,73 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 ::::
 
+- Como ya estudiamos en su día, la expresión **_o_ `is` _p_** equivale a
+  **`id(`_o_`) == id(`_p_`)`**.
+
+- Por tanto, lo que hace es comparar el resultado de la función `id`, que
+  devuelve un identificador único (un número) para cada objeto.
+
+- Ese identificador es la dirección de memoria donde se almacena el objeto. Por
+  tanto, es la dirección a donde apuntan sus referencias.
+
 ## Igualdad
 
-- En el código anterior:
+- Supongamos que queremos modelar el funcionamiento de una cola (una estructura
+  de datos en la que los elementos entran por un lado y salen por el contrario
+  en el orden en que se han introducido).
+
+- El código podría ser el siguiente, utilizando una lista para almacenar los
+  elementos:
 
   ```python
-  dep1 = Deposito(100)
-  dep2 = Deposito(100)
+  class Cola:
+      def __init__(self, els):
+          self.items = els
+
+      def meter(self, el):
+          self.items.append(el)
+
+      def sacar(self):
+          if len(self.items) == 0:
+              raise ValueError("Cola vacía")
+          del self.items[0]
+
+      def elementos(self):
+          return self.items
   ```
 
-  es evidente que `dep1` y `dep2` hacen referencia a objetos separados y, por
+---
+
+- Si hacemos:
+
+  ```python
+  cola1 = Cola([1, 2, 3])
+  cola2 = Cola([1, 2, 3])
+  ```
+
+  es evidente que `cola1` y `cola2` hacen referencia a objetos separados y, por
   tanto, **no son _idénticos_**, ya que no se refieren *al mismo* objeto.
 
 - En cambio, sí podemos decir que **son _iguales_** ya que pertenecen a la
-  misma clase, poseen el mismo estado interno y se comportan de la misma forma
-  al recibir los mismos mensajes en el mismo orden:
+  misma clase, poseen el mismo estado interno (el mismo contenido) y se
+  comportan de la misma forma al recibir la misma secuencia de mensajes en el
+  mismo orden:
 
   ```python
-  >>> dep1 = Deposito(100)
-  >>> dep2 = Deposito(100)
-  >>> dep1.ingresar(30)
-  130
-  >>> dep1.retirar(45)
-  85
-  >>> dep2.ingresar(30)
-  130
-  >>> dep2.retirar(45)
-  85
+  >>> cola1 = Cola([1, 2, 3])
+  >>> cola2 = Cola([1, 2, 3])
+  >>> cola1.meter(9)
+  >>> cola1.elementos()
+  [1, 2, 3, 9]
+  >>> cola1.sacar()
+  >>> cola1.elementos()
+  [2, 3, 9]
+  >>> cola2.meter(9)
+  >>> cola2.elementos()
+  [1, 2, 3, 9]
+  >>> cola2.sacar()
+  >>> cola2.elementos()
+  [2, 3, 9]
   ```
 
 ---
@@ -1301,77 +1351,95 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 - Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:
 
   ```python
-  >>> dep1 == dep2
+  >>> cola1 == cola2
   False
   ```
 
 - Esto se debe a que, en ausencia de otra definición de *igualdad* y **mientras
   no se diga lo contrario, dos objetos de clases _definidas por el programador_
-  son iguales si son idénticos**.
+  son iguales sólo si son idénticos**.
 
-- Es decir: por defecto, *x* `==` *y* equivale a *x* `is` *y*.
+- Es decir: por defecto, **_x_** `==` **_y_** sólo si **_x_** `is` **_y_**.
 
-- Para cambiar ese comportamiento predeterminado, tendremos que indicar qué
+- Para cambiar ese comportamiento predeterminado, tendremos que definir qué
   significa que dos instancias de nuestra clase son iguales.
 
-- Por ejemplo: ¿cuándo podemos decir que dos objetos de la clase `Deposito` son
+- Por ejemplo: ¿cuándo podemos decir que dos objetos de la clase `Cola` son
   iguales?
 
-  En este caso es fácil: dos instancias de `Deposito` son iguales cuando tienen
-  el mismo estado interno. O lo que es lo mismo: dos depósitos son iguales
-  cuando tienen los mismos fondos.
+  Podemos decir que dos colas son iguales cuando tienen el mismo estado
+  interno. En este caso: _dos colas son iguales cuando tienen los mismos
+  elementos en el mismo orden_.
 
 ---
 
 - Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos
   definir en ella el método mágico `__eq__`.
 
-- Este método se invocará automáticamente cuando se hace una comparación con el
+- Este método se invoca automáticamente cuando se hace una comparación con el
   operador `==` y el primer operando es una instancia de nuestra clase. El
-  segundo operando se enviará como argumento en la llamada al método.
+  segundo operando se envía como argumento en la llamada al método.
 
 - Dicho de otra forma:
 
-  - `dep1 == dep2` equivale a `dep1.__eq__(dep2)`, siempre que la clase de
-    `dep1` tenga definido el método `__eq__`.
+  - Si la clase de `cola1` tiene definido el método `__eq__`, entonces `cola1
+    == cola2` equivale a `cola1.__eq__(cola2)`.
   
-  - En caso contrario, seguirá valiendo lo mismo que `dep1 is dep2`, como
-    acabamos de ver.
+  - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que `cola1 is
+    cola2`, como acabamos de ver.
 
-- No es necesario preocuparse por el operador `!=`, ya que Python 3 lo define
+- No es necesario definir el operador `!=`, ya que Python 3 lo define
   automáticamente a partir del `==`.
 
 ---
 
-- Una posible implementación del método `__eq__` podría ser:
+- Para crear una posible implementación del método `__eq__`, podemos
+  aprovecharnos del hecho de que dos listas son iguales cuando tienen
+  exactamente los mismos elementos en el mismo orden (justo lo que necesitamos
+  para nuestras colas):
 
   ```python
   def __eq__(self, otro):
       if type(self) != type(otro):
           return NotImplemented   # no tiene sentido comparar objetos de distinto tipo
-      return self.fondos == otro.fondos  # son iguales si tienen los mismos fondos
+      return self.items == otro.items  # son iguales si tienen los mismos elementos
   ```
 
   Se devuelve el valor especial `NotImplemented` cuando no tiene sentido
-  comparar un objeto de la clase `Deposito` con un objeto de otro tipo.
+  comparar un objeto de la clase `Cola` con un objeto de otro tipo.
 
-- Si introducimos este método dentro de la definición de la clase `Deposito`,
+- Si introducimos este método dentro de la definición de la clase `Cola`,
   tendremos el resultado deseado:
 
-  ```python
-  >>> dep1 = Deposito(100)
-  >>> dep2 = Deposito(100)
-  >>> dep1 == dep2
-  True
-  >>> dep1.retirar(30)
-  70
-  >>> dep1 == dep2
-  False
-  >>> dep2.retirar(30)
-  70
-  >>> dep1 == dep2
-  True
-  ```
+:::: columns
+
+::: column
+
+```python
+>>> cola1 = Cola([9, 14, 7])
+>>> cola2 = Cola([9, 14, 7])
+>>> cola1 is cola2
+False
+>>> cola1 == cola2
+True
+```
+
+:::
+
+::: column
+
+```python
+>>> cola1.sacar()
+>>> cola1 == cola2
+False
+>>> cola2.sacar()
+>>> cola1 == cola2
+True
+```
+
+:::
+
+::::
 
 # Encapsulación
 
