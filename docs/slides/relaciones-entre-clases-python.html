@@ -82,6 +82,22 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -238,30 +254,56 @@
 <ul>
 <li><p>Los objetos de un programa interactúan entre sí durante la ejecución del mismo, por lo que decimos que <strong>los objetos se relacionan entre sí</strong>.</p></li>
 <li><p>Las <strong>relaciones entre objetos</strong> pueden ser de varios tipos.</p></li>
-<li><p>Por ejemplo, cuando un objeto <strong>envía un mensaje</strong> a otro, tenemos un claro ejemplo de relación del tipo <strong>usa</strong> (el primer objeto «usa» al segundo).</p></li>
+<li><p>Por ejemplo, cuando un objeto <strong>envía un mensaje</strong> a otro, tenemos un ejemplo de relación del tipo <strong>usa</strong> (el primer objeto «usa» al segundo).</p></li>
 <li><p>Otras veces, los objetos <strong>contienen</strong> a otros objetos, o bien <strong>forman parte</strong> de otros objetos.</p></li>
 <li><p>Finalmente, a veces las relaciones entre los objetos son meramente <strong>conceptuales</strong>:</p>
 <ul>
-<li><p>Son relaciones que <strong>no se reflejan</strong> directamente <strong>en el código fuente</strong> del programa, sino que afloran durante el <strong>análisis</strong> del problema a resolver o como parte del <strong>diseño</strong> de la solución.</p></li>
-<li><p>Es decir: aparecen durante las etapas de análisis o diseño del sistema y se representan, por tanto, en los <strong>documentos de análisis y diseño</strong>.</p></li>
+<li>Son relaciones que <strong>no se reflejan</strong> directamente <strong>en el código fuente</strong> del programa, sino que aparecen durante el <strong>análisis</strong> del problema a resolver o como parte del <strong>diseño</strong> de la solución, en las etapas de análisis y diseño del sistema.</li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
-<li><p>Cuando una o varias instancias de una clase está relacionada con una o varias instancias de otra clase, podemos decir que ambas clases también están relacionadas.</p></li>
+<li><p>Cuando una o varias instancias de una clase está relacionada con una o varias instancias de otra clase, también podemos decir que ambas clases están relacionadas.</p></li>
 <li><p>Una <strong>relación entre clases</strong> representa un conjunto de posibles relaciones entre instancias de esas clases.</p></li>
-<li><p>La <strong>multiplicidad de una clase en una relación</strong> representa la cantidad de instancias de esa clase que se pueden relacionar con una instancia de la otra clase en esa relación.</p></li>
-<li><p>El <strong>lenguaje UML</strong> describe la sintaxis y la semántica de las posibles <em>multiplicidades</em> que se pueden usar en una relación entre clases, así como los distintos <em>tipos de relaciones entre clases</em> que se pueden dar en un sistema orientado a objetos.</p></li>
+<li><p>Las relaciones entre clases se pueden representar gráficamente en los llamados <strong>diagramas de clases</strong>.</p></li>
+<li><p>Esos diagramas se construyen usando un <strong>lenguaje de modelado</strong> visual llamado <strong>UML</strong>, que se estudia con detalle en el módulo <em>Entornos de desarrollo</em>.</p></li>
+<li><p>Entre otras cosas, el lenguaje UML describe los distintos <em>tipos de relaciones entre clases</em> que se pueden dar en un sistema orientado a objetos y cómo se representan y se identifican gráficamente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
 
+<div class="centered">
+<figure>
+<img data-src="images/ejemplo-diagrama-clases.png" class="plain" style="width:25.0%" alt="" /><figcaption>Ejemplo de diagrama de clases</figcaption>
+</figure>
+</div>
+<!--*-->
+</section>
+<section class="slide level5" data-number="1.1.0.0.3">
+
 <ul>
-<li><p>En el módulo <em>Entornos de desarrollo</em> se estudian con detalle tanto el lenguaje UML como los distintos tipos de relaciones que se pueden establecer entre clases.</p></li>
-<li><p>En <em>Programación</em> sólo trabajaremos con las relaciones que se reflejen en el código fuente del programa y que, por tanto, formen parte del mismo.</p></li>
-<li><p>Por tanto, las relaciones conceptuales que se puedan establecer a nivel semántico durante el análisis o el diseño del sistema no se verán aquí y sólo se verán en <em>Entornos de desarrollo</em>.</p></li>
+<li><p>La <strong>multiplicidad de una clase en una relación</strong> representa la cantidad de instancias de esa clase que se pueden relacionar con una instancia de la otra clase en esa relación.</p></li>
+<li><p>El lenguaje UML también describe la sintaxis y la semántica de las posibles <em>multiplicidades</em> que se pueden dar en una relación entre clases.</p></li>
+<li><p>Esas multiplicidades también aparecen en los diagramas de clases.</p></li>
+<li><p>Ejemplos de sintaxis:</p>
+<ul>
+<li><p><span class="math inline">n</span>: exactamente <span class="math inline">n</span> instancias (siendo <span class="math inline">n</span> un número entero).</p></li>
+<li><p><span class="math inline">*</span>: cualquier número de instancias.</p></li>
+<li><p><span class="math inline">n..m</span>: de <span class="math inline">n</span> a <span class="math inline">m</span> instancias.</p></li>
+<li><p><span class="math inline">n..*</span>: de <span class="math inline">n</span> instancias en adelante.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.4">
+
+<ul>
+<li><p>En el módulo de <em>Programación</em> sólo trabajaremos con las relaciones que se reflejen en el código fuente del programa y que, por tanto, formen parte del mismo.</p></li>
+<li><p>Por tanto, las relaciones conceptuales que se puedan establecer a nivel semántico durante el análisis o el diseño del sistema no se verán aquí y sólo se trabajarán en <em>Entornos de desarrollo</em>.</p></li>
+<li><p>En ese módulo también se estudia que los diagramas de clases son una forma de modelar la estructura y el funcionamiento de un sistema.</p></li>
+<li><p>Está relacionado también con el modelo de datos que se construye en el módulo de <em>Bases de datos</em>.</p></li>
+<li><p>Todos estos <strong>artefactos</strong> (código fuente, diagrama de clases y modelo de datos) representan puntos de vista distintos pero complementarios del mismo sistema.</p></li>
 </ul>
 </section>
 
@@ -269,7 +311,7 @@
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> Asociación</h2>
 <ul>
 <li><p>Una <strong>asociación</strong> simple es una relación genérica que se establece entre dos clases.</p></li>
-<li><p>En Programación se usa principalmente para representa el hecho de que una clase «usa» a la otra de alguna forma.</p></li>
+<li><p>En <em>Programación</em> se usa principalmente para representa el hecho de que una clase «usa» a la otra de alguna forma.</p></li>
 <li><p>Normalmente se da cuando un método de una clase necesita acceder a una instancia de otra clase.</p></li>
 <li><p>Esa instancia la puede recibir como argumento, o bien puede crearla y destruirla el propio método.</p></li>
 <li><p>Por ejemplo:</p>
@@ -296,30 +338,41 @@
 <ul>
 <li><p>La <strong>agregación</strong> es una relación que se establece entre una clase (la <strong>agregadora</strong>) y otra clase (la <strong>agregada</strong>).</p></li>
 <li><p>Representa la relación «<strong>tiene</strong>»: la agregadora <em>tiene</em> a la agregada.</p></li>
-<li><p>Podríamos decir que la agregada <strong>forma parte</strong> de la agregadora, pero de una forma <strong>débil</strong>, ya que los objetos de la clase agregadora y de la clase agregada tienen su existencia propia, independiente.</p></li>
-<li><p>Por tanto:</p>
-<ul>
-<li><p>La agregada puede formar parte de varias agregadoras.</p></li>
-<li><p>Según sea el caso, el objeto de la clase agregada puede existir aunque no forme parte de ningún objeto agregador.</p></li>
-<li><p>La clase agregadora no tiene por qué ser la responsable de crear el objeto agregado.</p></li>
-<li><p>Cuando se destruye un objeto de la clase agregadora, no es necesario destruir los objetos de la clase agregada.</p></li>
-</ul></li>
+<li><p>Para ello, los objetos de la clase agregadora <strong>almacenan referencias</strong> a los objetos agregados.</p></li>
+<li><p>Podríamos decir que la clase agregada <strong>forma parte</strong> de la agregadora, pero de una forma <strong>débil</strong>, ya que los objetos de la clase agregadora y de la clase agregada tienen su existencia propia, independiente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.1">
 
 <ul>
-<li><p>Por ejemplo:</p>
+<li><p>Por tanto:</p>
 <ul>
-<li><p>Los grupos tienen alumnos. Un alumno puede pertenecer a varios grupos, y un alumno existe por sí mismo aunque no pertenezca a ningún grupo.</p></li>
-<li><p>La clase <code>Grupo</code> «agrega» a la clase <code>Alumno</code>.</p></li>
+<li><p>La clase agregada puede formar parte de varias clases agregadoras.</p></li>
+<li><p>Según sea el caso, un objeto de la clase agregada puede existir aunque no forme parte de ningún objeto de la clase agregadora.</p></li>
+<li><p>La clase agregadora no tiene por qué ser la responsable de crear el objeto agregado.</p></li>
+<li><p>Cuando se destruye un objeto de la clase agregadora, no es necesario destruir los objetos de la clase agregada.</p></li>
 </ul></li>
 </ul>
-<div class="centered">
-<p><img data-src="images/grupo-agrega-alumno.png" class="plain" style="width:20.0%" /></p>
-</div>
 </section>
 <section class="slide level5" data-number="1.3.0.0.2">
+
+<ul>
+<li>Por ejemplo:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Los grupos tienen alumnos. Un alumno puede pertenecer a varios grupos, y un alumno existe por sí mismo aunque no pertenezca a ningún grupo.</p></li>
+<li><p>La clase <code>Grupo</code> «agrega» a la clase <code>Alumno</code> y contiene referencias a los alumnos del grupo.</p></li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<p><img data-src="images/grupo-agrega-alumno.png" class="plain" style="width:30.0%" /></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="1.3.0.0.3">
 
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">class</span> Grupo:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>

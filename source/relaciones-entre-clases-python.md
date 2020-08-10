@@ -13,8 +13,8 @@ author: Ricardo Pérez López
 
 - Las **relaciones entre objetos** pueden ser de varios tipos.
 
-- Por ejemplo, cuando un objeto **envía un mensaje** a otro, tenemos un claro
-  ejemplo de relación del tipo **usa** (el primer objeto «usa» al segundo).
+- Por ejemplo, cuando un objeto **envía un mensaje** a otro, tenemos un ejemplo
+  de relación del tipo **usa** (el primer objeto «usa» al segundo).
 
 - Otras veces, los objetos **contienen** a otros objetos, o bien **forman
   parte** de otros objetos.
@@ -23,49 +23,103 @@ author: Ricardo Pérez López
   **conceptuales**:
 
   - Son relaciones que **no se reflejan** directamente **en el código fuente**
-    del programa, sino que afloran durante el **análisis** del problema a
-    resolver o como parte del **diseño** de la solución.
-
-  - Es decir: aparecen durante las etapas de análisis o diseño del sistema y se
-    representan, por tanto, en los **documentos de análisis y diseño**.
+    del programa, sino que aparecen durante el **análisis** del problema a
+    resolver o como parte del **diseño** de la solución, en las etapas de
+    análisis y diseño del sistema.
 
 ---
 
 - Cuando una o varias instancias de una clase está relacionada con una o varias
-  instancias de otra clase, podemos decir que ambas clases también están
+  instancias de otra clase, también podemos decir que ambas clases están
   relacionadas.
 
 - Una **relación entre clases** representa un conjunto de posibles relaciones
   entre instancias de esas clases.
 
+- Las relaciones entre clases se pueden representar gráficamente en los
+  llamados **diagramas de clases**.
+
+- Esos diagramas se construyen usando un **lenguaje de modelado** visual
+  llamado **UML**, que se estudia con detalle en el módulo _Entornos de
+  desarrollo_.
+
+- Entre otras cosas, el lenguaje UML describe los distintos _tipos de
+  relaciones entre clases_ que se pueden dar en un sistema orientado a objetos
+  y cómo se representan y se identifican gráficamente.
+
+---
+
+!UML(ejemplo-diagrama-clases.png)(Ejemplo de diagrama de clases)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usuario "1" -- "0..*" Tuit : escribe
+Usuario "1..*" --o "0..*" Grupo : pertenece
+Grupo "1" *-- "0..*" Discusión
+Discusión "1" *--- "0..*" Tuit
+class Usuario {
+    -nombre: String
+    -apellidos: String
+}
+class Grupo {
+    -nombre: String
+    -usuarios: Usuario[]
+}
+class Discusión {
+    -título: String
+}
+class Tuit {
+    -texto: String
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<!--*-->
+
+---
+
 - La **multiplicidad de una clase en una relación** representa la cantidad de
   instancias de esa clase que se pueden relacionar con una instancia de la otra
   clase en esa relación.
 
-- El **lenguaje UML** describe la sintaxis y la semántica de las posibles
-  _multiplicidades_ que se pueden usar en una relación entre clases, así como
-  los distintos _tipos de relaciones entre clases_ que se pueden dar en un
-  sistema orientado a objetos.
+- El lenguaje UML también describe la sintaxis y la semántica de las posibles
+  _multiplicidades_ que se pueden dar en una relación entre clases.
+
+- Esas multiplicidades también aparecen en los diagramas de clases.
+
+- Ejemplos de sintaxis:
+
+  - $n$: exactamente $n$ instancias (siendo $n$ un número entero).
+
+  - $*$: cualquier número de instancias.
+
+  - $n..m$: de $n$ a $m$ instancias.
+
+  - $n..*$: de $n$ instancias en adelante.
 
 ---
 
-- En el módulo _Entornos de desarrollo_ se estudian con detalle tanto el
-  lenguaje UML como los distintos tipos de relaciones que se pueden establecer
-  entre clases.
-
-- En _Programación_ sólo trabajaremos con las relaciones que se reflejen en el
-  código fuente del programa y que, por tanto, formen parte del mismo.
+- En el módulo de _Programación_ sólo trabajaremos con las relaciones que se
+  reflejen en el código fuente del programa y que, por tanto, formen parte del
+  mismo.
 
 - Por tanto, las relaciones conceptuales que se puedan establecer a nivel
   semántico durante el análisis o el diseño del sistema no se verán aquí y sólo
-  se verán en _Entornos de desarrollo_.
+  se trabajarán en _Entornos de desarrollo_.
+
+- En ese módulo también se estudia que los diagramas de clases son una forma de
+  modelar la estructura y el funcionamiento de un sistema.
+
+- Está relacionado también con el modelo de datos que se construye en el módulo
+  de _Bases de datos_.
+
+- Todos estos **artefactos** (código fuente, diagrama de clases y modelo de
+  datos) representan puntos de vista distintos pero complementarios del mismo
+  sistema.
 
 ## Asociación
 
 - Una **asociación** simple es una relación genérica que se establece entre dos
   clases.
 
-- En Programación se usa principalmente para representa el hecho de que una
+- En _Programación_ se usa principalmente para representa el hecho de que una
   clase «usa» a la otra de alguna forma.
 
 - Normalmente se da cuando un método de una clase necesita acceder a una
@@ -92,7 +146,7 @@ author: Ricardo Pérez López
 
 !UML(calculadora-asocia-numero.png)()(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Calculadora -- Numero
+Calculadora -- "2" Numero : manipula
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Agregación
@@ -102,16 +156,21 @@ Calculadora -- Numero
 
 - Representa la relación «**tiene**»: la agregadora _tiene_ a la agregada.
 
-- Podríamos decir que la agregada **forma parte** de la agregadora, pero de una
-  forma **débil**, ya que los objetos de la clase agregadora y de la clase
-  agregada tienen su existencia propia, independiente.
+- Para ello, los objetos de la clase agregadora **almacenan referencias** a los
+  objetos agregados.
+
+- Podríamos decir que la clase agregada **forma parte** de la agregadora, pero
+  de una forma **débil**, ya que los objetos de la clase agregadora y de la
+  clase agregada tienen su existencia propia, independiente.
+
+---
 
 - Por tanto:
 
-  - La agregada puede formar parte de varias agregadoras.
+  - La clase agregada puede formar parte de varias clases agregadoras.
 
-  - Según sea el caso, el objeto de la clase agregada puede existir aunque no
-    forme parte de ningún objeto agregador.
+  - Según sea el caso, un objeto de la clase agregada puede existir aunque no
+    forme parte de ningún objeto de la clase agregadora.
 
   - La clase agregadora no tiene por qué ser la responsable de crear el objeto
     agregado.
@@ -123,15 +182,28 @@ Calculadora -- Numero
 
 - Por ejemplo:
 
-  - Los grupos tienen alumnos. Un alumno puede pertenecer a varios grupos, y un
-    alumno existe por sí mismo aunque no pertenezca a ningún grupo.
+:::: columns
 
-  - La clase `Grupo` «agrega» a la clase `Alumno`.
+::: column
 
-!UML(grupo-agrega-alumno.png)()(width=20%)
+- Los grupos tienen alumnos. Un alumno puede pertenecer a varios grupos, y un
+  alumno existe por sí mismo aunque no pertenezca a ningún grupo.
+
+- La clase `Grupo` «agrega» a la clase `Alumno` y contiene referencias a los
+  alumnos del grupo.
+
+:::
+
+::: column
+
+!UML(grupo-agrega-alumno.png)()(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Grupo "0..*" o-- "0..*" Alumno
+Grupo "0..*" o--- "0..*" Alumno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ---
 
