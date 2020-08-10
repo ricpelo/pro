@@ -6,12 +6,67 @@ author: Ricardo Pérez López
 
 # Relaciones básicas
 
+## Introducción
+
+- Los objetos de un programa interactúan entre sí durante la ejecución del
+  mismo, por lo que decimos que **los objetos se relacionan entre sí**.
+
+- Las **relaciones entre objetos** pueden ser de varios tipos.
+
+- Por ejemplo, cuando un objeto **envía un mensaje** a otro, tenemos un claro
+  ejemplo de relación del tipo **usa** (el primer objeto «usa» al segundo).
+
+- Otras veces, los objetos **contienen** a otros objetos, o bien **forman
+  parte** de otros objetos.
+
+- Finalmente, a veces las relaciones entre los objetos son meramente
+  **conceptuales**:
+
+  - Son relaciones que **no se reflejan** directamente **en el código fuente**
+    del programa, sino que afloran durante el **análisis** del problema a
+    resolver o como parte del **diseño** de la solución.
+
+  - Es decir: aparecen durante las etapas de análisis o diseño del sistema y se
+    representan, por tanto, en los **documentos de análisis y diseño**.
+
+---
+
+- Cuando una o varias instancias de una clase está relacionada con una o varias
+  instancias de otra clase, podemos decir que ambas clases también están
+  relacionadas.
+
+- Una **relación entre clases** representa un conjunto de posibles relaciones
+  entre instancias de esas clases.
+
+- La **multiplicidad de una clase en una relación** representa la cantidad de
+  instancias de esa clase que se pueden relacionar con una instancia de la otra
+  clase en esa relación.
+
+- El **lenguaje UML** describe la sintaxis y la semántica de las posibles
+  _multiplicidades_ que se pueden usar en una relación entre clases, así como
+  los distintos _tipos de relaciones entre clases_ que se pueden dar en un
+  sistema orientado a objetos.
+
+---
+
+- En el módulo _Entornos de desarrollo_ se estudian con detalle tanto el
+  lenguaje UML como los distintos tipos de relaciones que se pueden establecer
+  entre clases.
+
+- En _Programación_ sólo trabajaremos con las relaciones que se reflejen en el
+  código fuente del programa y que, por tanto, formen parte del mismo.
+
+- Por tanto, las relaciones conceptuales que se puedan establecer a nivel
+  semántico durante el análisis o el diseño del sistema no se verán aquí y sólo
+  se verán en _Entornos de desarrollo_.
+
 ## Asociación
 
-- Una **asociación** es una relación genérica que se establece entre dos
+- Una **asociación** simple es una relación genérica que se establece entre dos
   clases.
 
-- Representa el hecho de que una clase «usa» a la otra de alguna forma.
+- En Programación se usa principalmente para representa el hecho de que una
+  clase «usa» a la otra de alguna forma.
 
 - Normalmente se da cuando un método de una clase necesita acceder a una
   instancia de otra clase.
