@@ -946,9 +946,9 @@ class Deposito:
 
   4. Esa referencia es la que se almacena en la variable `dep`.
 
----
+!EJERCICIO
 
-Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}.
+@. Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}.
 
 ---
 
@@ -1382,11 +1382,11 @@ Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.
 
 - Dicho de otra forma:
 
-  - Si la clase de `cola1` tiene definido el método `__eq__`, entonces `cola1
-    == cola2` equivale a `cola1.__eq__(cola2)`.
+  - Si la clase de `cola1` tiene definido el método `__eq__`, entonces
+    `cola1 == cola2` equivale a `cola1.__eq__(cola2)`.
   
-  - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que `cola1 is
-    cola2`, como acabamos de ver.
+  - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
+    `cola1 is cola2`, como acabamos de ver.
 
 - No es necesario definir el operador `!=`, ya que Python 3 lo define
   automáticamente a partir del `==`.
@@ -1758,6 +1758,74 @@ abstractos de datos.
 
 - La pregunta es: ¿qué ganamos con todo esto?
 
+---
+
+**¡CUIDADO!**
+
+- Supogamos que tenemos el siguiente código que implementa colas:
+
+  ```python
+  class Cola:
+      """Invariante: self.__cantidad == len(self.__items)."""
+      def __init__(self):
+          self.__cantidad = 0
+          self.__items = []
+
+      def meter(self, el):
+          self.__items.append(el)
+          self.__cantidad += 1
+
+      def sacar(self):
+          if self.__cantidad == 0:
+              raise ValueError("Cola vacía")
+          del self.__items[0]
+          self.__cantidad -= 1
+
+      def get_items(self):
+          return self.__items
+  ```
+
+- Se supone que el atributo `__items` es privado y, por tanto, sólo se puede
+  acceder a él desde el interior de la clase.
+
+- El método `get_items` es un _getter_ para el atributo `__items`.
+
+---
+
+- En teoría, los únicos métodos con los que podemos modificar el contenido del
+  atributo `__items` son `meter` y `sacar`.
+
+- Sin embargo, podemos hacer así:
+
+  ```python
+  c = Cola()
+  c.meter(1)
+  c.meter(2)
+  l = c.get_items() # Obtenemos la lista contenida en __items
+  del l[0]          # Eliminamos un elemento de la lista desde fuera de la cola
+  ```
+
+- Esto se debe a que `get_items` devuelve una referencia al objeto lista
+  contenido dentro de la instancia de `Cola`, con lo cual podemos modificar la
+  lista desde el exterior sin necesidad de usar los _setters_.
+
+- Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
+  que `c.__cantidad` vale 2 y `len(c.__items)` vale 1 (no coinciden).
+
+---
+
+- Para solucionar el problema, tenemos dos opciones:
+
+  - Quitar el método `get_items` si es posible.
+
+  - Si es estrictamente necesario que exista, cambiarlo para que no devuelva
+    una referencia al objeto lista, sino una **copia** de la lista:
+
+  ```python
+  def get_items(self):
+      return self.__items[:]
+  ```
+
 #### Invariantes de clase
 
 - Si necesitamos acceder y/o cambiar el valor de un atributo desde
@@ -1925,7 +1993,7 @@ Después
 
 - Aún así, no siempre es conveniente poder saltarse los asertos. De hecho, a
   veces lo mejor sigue siendo comprobar condiciones con un `if` y lanzar un
-  error si la condición no se cumple.
+  error adecuado si la condición no se cumple.
 
 - Por ejemplo, si intentamos retirar fondos de un depósito pero no hay saldo
   suficiente, eso se debería comprobar siempre:
