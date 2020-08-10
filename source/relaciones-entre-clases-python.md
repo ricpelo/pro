@@ -4,7 +4,7 @@ author: Ricardo Pérez López
 !DATE
 ---
 
-# Asociaciones básicas
+# Relaciones básicas
 
 ## Asociación
 
@@ -14,7 +14,10 @@ author: Ricardo Pérez López
 - Representa el hecho de que una clase «usa» a la otra de alguna forma.
 
 - Normalmente se da cuando un método de una clase necesita acceder a una
-  instancia de la otra clase.
+  instancia de otra clase.
+
+- Esa instancia la puede recibir como argumento, o bien puede crearla y
+  destruirla el propio método.
 
 - Por ejemplo:
 
