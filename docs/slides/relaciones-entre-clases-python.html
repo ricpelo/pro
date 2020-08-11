@@ -265,8 +265,9 @@
 <section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
+<li><p>A la relación específica que se da entre dos objetos concretos se denomina <strong>enlace</strong>.</p></li>
 <li><p>Cuando una o varias instancias de una clase está relacionada con una o varias instancias de otra clase, también podemos decir que ambas clases están relacionadas.</p></li>
-<li><p>Una <strong>relación entre clases</strong> representa un conjunto de posibles relaciones entre instancias de esas clases.</p></li>
+<li><p>Una <strong>relación entre clases</strong> representa un conjunto de posibles relaciones entre instancias de esas clases (un <strong>conjunto de <em>enlaces</em></strong>).</p></li>
 <li><p>Las relaciones entre clases se pueden representar gráficamente en los llamados <strong>diagramas de clases</strong>.</p></li>
 <li><p>Esos diagramas se construyen usando un <strong>lenguaje de modelado</strong> visual llamado <strong>UML</strong>, que se estudia con detalle en el módulo <em>Entornos de desarrollo</em>.</p></li>
 <li><p>Entre otras cosas, el lenguaje UML describe los distintos <em>tipos de relaciones entre clases</em> que se pueden dar en un sistema orientado a objetos y cómo se representan y se identifican gráficamente.</p></li>
@@ -300,9 +301,9 @@
 
 <ul>
 <li><p>En el módulo de <em>Programación</em> sólo trabajaremos con las relaciones que se reflejen en el código fuente del programa y que, por tanto, formen parte del mismo.</p></li>
-<li><p>Por tanto, las relaciones conceptuales que se puedan establecer a nivel semántico durante el análisis o el diseño del sistema no se verán aquí y sólo se trabajarán en <em>Entornos de desarrollo</em>.</p></li>
-<li><p>En ese módulo también se estudia que los diagramas de clases son una forma de modelar la estructura y el funcionamiento de un sistema.</p></li>
-<li><p>Está relacionado también con el modelo de datos que se construye en el módulo de <em>Bases de datos</em>.</p></li>
+<li><p>Por tanto, las <strong>relaciones conceptuales</strong> que se puedan establecer a nivel semántico durante el análisis o el diseño del sistema no se verán aquí y sólo se trabajarán en <em>Entornos de desarrollo</em>.</p></li>
+<li><p>En ese módulo también se estudia que los diagramas de clases son una forma de <strong>modelar la estructura y el funcionamiento de un sistema</strong>.</p></li>
+<li><p>Está relacionado también con el <strong>modelo de datos</strong> que se construye en el módulo de <em>Bases de datos</em>.</p></li>
 <li><p>Todos estos <strong>artefactos</strong> (código fuente, diagrama de clases y modelo de datos) representan puntos de vista distintos pero complementarios del mismo sistema.</p></li>
 </ul>
 </section>
@@ -310,39 +311,81 @@
 <section id="asociación" class="title-slide slide level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> Asociación</h2>
 <ul>
-<li><p>Una <strong>asociación</strong> simple es una relación genérica que se establece entre dos clases.</p></li>
-<li><p>En <em>Programación</em> se usa principalmente para representa el hecho de que una clase «usa» a la otra de alguna forma.</p></li>
-<li><p>Normalmente se da cuando un método de una clase necesita acceder a una instancia de otra clase.</p></li>
-<li><p>Esa instancia la puede recibir como argumento, o bien puede crearla y destruirla el propio método.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="co">&quot;&quot;&quot;Devuelve la suma de dos instancias de la clase Numero.&quot;&quot;&quot;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="cf">return</span> x.get_valor() <span class="op">+</span> y.get_valor()</span></code></pre></div>
-<p>Aquí se establece una <em>asociación</em> entre las clases <code>Calculadora</code> y <code>Numero</code>.</p></li>
+<li><p>Una <strong>asociación</strong> simple es una relación <em>genérica</em> que se establece entre dos clases.</p></li>
+<li><p>Se utiliza cuando se quiere representar el hecho de que las dos clases están relacionadas de alguna manera <strong>distinta a la de otros tipos de relaciones más específicas</strong> (dependencia, agregación, composición, generalización, etc.).</p></li>
+<li><p>Tiene más interés en el módulo de <em>Entornos de desarrollo</em>, ya que se usa principalmente durante el análisis y diseño preliminar del sistema.</p></li>
+<li><p>En <em>Programación</em> tiene menos utilidad y casi siempre se puede sustituir por otro tipo de relación más específica.</p></li>
+<li><p>Las asociaciones suelen llevar nombre, ya que representan una relación conceptual y hay que aclarar cuál es (normalmente es un nombre asociado al <strong>dominio del problema</strong>).</p></li>
+<li><p>En ese sentido, se parecen mucho a las relaciones del <strong>modelo Entidad-Relación</strong> que se estudia en <em>Bases de datos</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.1">
 
 <ul>
-<li>En UML, podríamos representarla así:</li>
+<li><p>Por ejemplo, si estamos construyendo una aplicación que simule una calculadora, podríamos tener las clases <code>Calculadora</code> y <code>Numero</code>.</p></li>
+<li><p>En ese caso, podríamos decir que se establece una <em>asociación</em> entre las clases <code>Calculadora</code> y <code>Numero</code>: la calculadora <em>manipula</em> números.</p></li>
+<li><p>Dicha asociación se puede representar así en un diagrama de clases, usando el lenguaje UML:</p></li>
 </ul>
+<div class="columns">
+<div class="column">
 <div class="centered">
-<p><img data-src="images/calculadora-asocia-numero.png" class="plain" style="width:20.0%" /></p>
+<p><img data-src="images/calculadora-asocia-numero.png" class="plain" style="width:50.0%" /></p>
+</div>
+</div><div class="column">
+<ul>
+<li><p>La asociación se llama <em>manipula</em> y representa una relación que se da conceptualmente en el modelo que estamos haciendo de nuestra aplicación.</p></li>
+<li><p>No hay más pistas sobre qué quiere decir <em>manipular</em> números.</p></li>
+<li><p>Puede ser útil durante el análisis pero no nos ayuda mucho en <em>Programación</em>.</p></li>
+</ul>
+</div>
 </div>
 </section>
 
-<section id="agregación" class="title-slide slide level2" data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span> Agregación</h2>
+<section id="dependencia" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Dependencia</h2>
+<ul>
+<li><p>Una <strong>dependencia</strong> es un tipo de relación que representa el hecho de que una clase depende de otra por algún motivo.</p></li>
+<li><p>Ese motivo se indica en la misma dependencia usando un <strong>estereotipo</strong>.</p></li>
+<li><p>Un <em>estereotipo</em> es una etiqueta entre comillas («») que acompaña a la relación y que indica de qué tipo es, o bien aporta más información.</p></li>
+<li><p>En <em>Programación</em> se puede usar, entre otras cosas, para representar el hecho de que una clase «usa» a la otra de alguna forma.</p></li>
+<li><p>Por ejemplo, cuando un método de una clase necesita acceder a una instancia de otra clase.</p>
+<p>En ese caso, esa instancia la puede recibir como argumento, o bien puede crearla y destruirla el propio método.</p></li>
+<li><p>También cuando una clase llama a un método de la otra clase.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.1">
+
+<ul>
+<li><p>Siguiendo con el ejemplo anterior de la calculadora, si partimos del siguiente código:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="co">&quot;&quot;&quot;Devuelve la suma de dos instancias de la clase Numero.&quot;&quot;&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="cf">return</span> x.get_valor() <span class="op">+</span> y.get_valor()</span></code></pre></div></li>
+<li><p>Aquí ya tenemos claro que se establece una <em>dependencia</em> entre las clases <code>Calculadora</code> y <code>Numero</code>: la clase <code>Calculadora</code> <em>«usa»</em> a la clase <code>Numero</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.2">
+
+<ul>
+<li><p>Esa dependencia se representa gráficamente así:</p>
+<div class="centered">
+<p><img data-src="images/calculadora-dependencia-numero.png" class="plain" style="width:20.0%" /></p>
+</div></li>
+<li><p>En lugar del estereotipo <em>«usa»</em>, también podríamos haber usado el estereotipo <em>«llama»</em>, que representa el hecho de que la clase origen llama a algún método de la clase destino.</p></li>
+</ul>
+</section>
+
+<section id="agregación" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Agregación</h2>
 <ul>
 <li><p>La <strong>agregación</strong> es una relación que se establece entre una clase (la <strong>agregadora</strong>) y otra clase (la <strong>agregada</strong>).</p></li>
 <li><p>Representa la relación «<strong>tiene</strong>»: la agregadora <em>tiene</em> a la agregada.</p></li>
 <li><p>Para ello, los objetos de la clase agregadora <strong>almacenan referencias</strong> a los objetos agregados.</p></li>
-<li><p>Podríamos decir que la clase agregada <strong>forma parte</strong> de la agregadora, pero de una forma <strong>débil</strong>, ya que los objetos de la clase agregadora y de la clase agregada tienen su existencia propia, independiente.</p></li>
+<li><p>Podríamos decir que la clase agregada <strong>forma parte</strong> de la agregadora, pero de una forma <strong>débil</strong>, ya que los objetos de la clase agregadora y de la clase agregada tienen su existencia propia, independiente unos de otros.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.1">
+<section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
 <li><p>Por tanto:</p>
@@ -354,7 +397,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.2">
+<section class="slide level5" data-number="1.4.0.0.2">
 
 <ul>
 <li>Por ejemplo:</li>
@@ -372,7 +415,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="1.3.0.0.3">
+<section class="slide level5" data-number="1.4.0.0.3">
 
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">class</span> Grupo:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
@@ -400,8 +443,8 @@
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>daw2.meter_alumno(juan)  <span class="co"># juan está en daw1 y daw2 al mismo tiempo</span></span></code></pre></div>
 </section>
 
-<section id="composición" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span> Composición</h2>
+<section id="composición" class="title-slide slide level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span> Composición</h2>
 
 </section>
 </section>

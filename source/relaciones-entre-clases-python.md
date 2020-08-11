@@ -29,12 +29,15 @@ author: Ricardo Pérez López
 
 ---
 
+- A la relación específica que se da entre dos objetos concretos se denomina
+  **enlace**.
+
 - Cuando una o varias instancias de una clase está relacionada con una o varias
   instancias de otra clase, también podemos decir que ambas clases están
   relacionadas.
 
 - Una **relación entre clases** representa un conjunto de posibles relaciones
-  entre instancias de esas clases.
+  entre instancias de esas clases (un **conjunto de _enlaces_**).
 
 - Las relaciones entre clases se pueden representar gráficamente en los
   llamados **diagramas de clases**.
@@ -100,15 +103,15 @@ class Tuit {
   reflejen en el código fuente del programa y que, por tanto, formen parte del
   mismo.
 
-- Por tanto, las relaciones conceptuales que se puedan establecer a nivel
+- Por tanto, las **relaciones conceptuales** que se puedan establecer a nivel
   semántico durante el análisis o el diseño del sistema no se verán aquí y sólo
   se trabajarán en _Entornos de desarrollo_.
 
 - En ese módulo también se estudia que los diagramas de clases son una forma de
-  modelar la estructura y el funcionamiento de un sistema.
+  **modelar la estructura y el funcionamiento de un sistema**.
 
-- Está relacionado también con el modelo de datos que se construye en el módulo
-  de _Bases de datos_.
+- Está relacionado también con el **modelo de datos** que se construye en el
+  módulo de _Bases de datos_.
 
 - Todos estos **artefactos** (código fuente, diagrama de clases y modelo de
   datos) representan puntos de vista distintos pero complementarios del mismo
@@ -116,19 +119,87 @@ class Tuit {
 
 ## Asociación
 
-- Una **asociación** simple es una relación genérica que se establece entre dos
-  clases.
+- Una **asociación** simple es una relación _genérica_ que se establece entre
+  dos clases.
 
-- En _Programación_ se usa principalmente para representa el hecho de que una
-  clase «usa» a la otra de alguna forma.
+- Se utiliza cuando se quiere representar el hecho de que las dos clases están
+  relacionadas de alguna manera **distinta a la de otros tipos de relaciones
+  más específicas** (dependencia, agregación, composición, generalización,
+  etc.).
 
-- Normalmente se da cuando un método de una clase necesita acceder a una
+- Tiene más interés en el módulo de _Entornos de desarrollo_, ya que se usa
+  principalmente durante el análisis y diseño preliminar del sistema.
+
+- En _Programación_ tiene menos utilidad y casi siempre se puede sustituir por
+  otro tipo de relación más específica.
+
+- Las asociaciones suelen llevar nombre, ya que representan una relación
+  conceptual y hay que aclarar cuál es (normalmente es un nombre asociado al
+  **dominio del problema**).
+
+- En ese sentido, se parecen mucho a las relaciones del **modelo
+  Entidad-Relación** que se estudia en _Bases de datos_.
+
+---
+
+- Por ejemplo, si estamos construyendo una aplicación que simule una
+  calculadora, podríamos tener las clases `Calculadora` y `Numero`.
+
+- En ese caso, podríamos decir que se establece una _asociación_ entre las
+  clases `Calculadora` y `Numero`: la calculadora _manipula_ números.
+
+- Dicha asociación se puede representar así en un diagrama de clases, usando el
+  lenguaje UML:
+
+:::: columns
+
+::: column
+
+!UML(calculadora-asocia-numero.png)()(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Calculadora -- Numero : manipula
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- La asociación se llama _manipula_ y representa una relación que se da
+  conceptualmente en el modelo que estamos haciendo de nuestra aplicación.
+
+- No hay más pistas sobre qué quiere decir _manipular_ números.
+
+- Puede ser útil durante el análisis pero no nos ayuda mucho en _Programación_.
+
+:::
+
+::::
+
+## Dependencia
+
+- Una **dependencia** es un tipo de relación que representa el hecho de que una
+  clase depende de otra por algún motivo.
+
+- Ese motivo se indica en la misma dependencia usando un **estereotipo**.
+
+- Un _estereotipo_ es una etiqueta entre comillas («») que acompaña a la
+  relación y que indica de qué tipo es, o bien aporta más información.
+
+- En _Programación_ se puede usar, entre otras cosas, para representar el hecho
+  de que una clase «usa» a la otra de alguna forma.
+
+- Por ejemplo, cuando un método de una clase necesita acceder a una
   instancia de otra clase.
 
-- Esa instancia la puede recibir como argumento, o bien puede crearla y
-  destruirla el propio método.
+  En ese caso, esa instancia la puede recibir como argumento, o bien puede
+  crearla y destruirla el propio método.
 
-- Por ejemplo:
+- También cuando una clase llama a un método de la otra clase.
+
+---
+
+- Siguiendo con el ejemplo anterior de la calculadora, si partimos del
+  siguiente código:
 
   ```python
   class Calculadora:
@@ -138,16 +209,21 @@ class Tuit {
           return x.get_valor() + y.get_valor()
   ```
 
-  Aquí se establece una _asociación_ entre las clases `Calculadora` y `Numero`.
+- Aquí ya tenemos claro que se establece una _dependencia_ entre las clases
+  `Calculadora` y `Numero`: la clase `Calculadora` _«usa»_ a la clase `Numero`.
 
 ---
 
-- En UML, podríamos representarla así:
+- Esa dependencia se representa gráficamente así:
 
-!UML(calculadora-asocia-numero.png)()(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Calculadora -- "2" Numero : manipula
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML(calculadora-dependencia-numero.png)()(width=20%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Calculadora ..> Numero : <<usa>>
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En lugar del estereotipo _«usa»_, también podríamos haber usado el
+  estereotipo _«llama»_, que representa el hecho de que la clase origen llama a
+  algún método de la clase destino.
 
 ## Agregación
 
@@ -161,7 +237,7 @@ Calculadora -- "2" Numero : manipula
 
 - Podríamos decir que la clase agregada **forma parte** de la agregadora, pero
   de una forma **débil**, ya que los objetos de la clase agregadora y de la
-  clase agregada tienen su existencia propia, independiente.
+  clase agregada tienen su existencia propia, independiente unos de otros.
 
 ---
 
