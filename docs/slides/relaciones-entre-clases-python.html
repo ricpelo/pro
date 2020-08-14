@@ -381,8 +381,8 @@
 <ul>
 <li><p>La <strong>agregación</strong> es una relación que se establece entre una clase (la <strong>agregadora</strong>) y otra clase (la <strong>agregada</strong>).</p></li>
 <li><p>Representa la relación «<strong>tiene</strong>»: la agregadora <em>tiene</em> a la agregada.</p></li>
-<li><p>Para ello, los objetos de la clase agregadora <strong>almacenan referencias</strong> a los objetos agregados.</p></li>
 <li><p>Podríamos decir que la clase agregada <strong>forma parte</strong> de la agregadora, pero de una forma <strong>débil</strong>, ya que los objetos de la clase agregadora y de la clase agregada tienen su existencia propia, independiente unos de otros.</p></li>
+<li><p>Para ello, los objetos de la clase agregadora <strong>almacenan referencias</strong> a los objetos agregados.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
@@ -445,7 +445,75 @@
 
 <section id="composición" class="title-slide slide level2" data-number="1.5">
 <h2 data-number="1.5"><span class="header-section-number">1.5</span> Composición</h2>
+<ul>
+<li><p>La <strong>composición</strong> es una relación que se establece entre una clase (la clase <strong>compuesta</strong>) y otra clase (la clase <strong>componente</strong>).</p></li>
+<li><p>Representa la relación «<strong>está compuesto por</strong>»: la compuesta <em>está compuesta por</em> sus componentes.</p></li>
+<li><p>También se puede decir que la clase componente <strong>forma parte</strong> de la clase compuesta, pero de una forma <strong>fuerte</strong>, ya que los objetos componentes sólo pueden existir como parte de un objeto compuesto.</p></li>
+<li><p>Para ello, los objetos de la clase compuesta <strong>almacenan referencias</strong> de los objetos compuestos, pero de manera que esas referencias no se pueden compartir entre varios objetos compuestos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.1">
 
+<ul>
+<li><p>Por tanto:</p>
+<ul>
+<li><p>La clase componente sólo puede formar parte de una única clase compuesta; en consecuencia, un objeto componente sólo puede formar parte de un único objeto compuesto.</p></li>
+<li><p>Un objeto de la clase componente sólo puede existir como parte de un objeto compuesto.</p></li>
+<li><p>La clase compuesta es responsable de crear y almacenar todos sus objetos componentes.</p></li>
+<li><p>Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos componentes.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.2">
+
+<ul>
+<li>Por ejemplo:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>En Twitter, una cuenta tiene una serie de tuits. Cada tuit debe pertenecer a una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo. Cuando se elimina una cuenta, se eliminan todos sus tuits.</p></li>
+<li><p>Junto al rombo relleno siempre habrá una multiplicidad de “1”, ya que un componente sólo puede formar parte de un objeto compuesto.</p></li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<p><img data-src="images/cuenta-se-compone-de-tuits.png" class="plain" style="width:30.0%" /></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="1.5.0.0.3">
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">class</span> Tuit:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, texto):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="va">self</span>.__texto <span class="op">=</span> texto</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="va">self</span>.__ident <span class="op">=</span> <span class="bu">id</span>(<span class="va">self</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="kw">def</span> get_ident(<span class="va">self</span>):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__ident</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">class</span> Cuenta:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>        <span class="va">self</span>.__tuits <span class="op">=</span> []  <span class="co"># Guarda una lista de referencias a Tuits</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="kw">def</span> get_tuits(<span class="va">self</span>):</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__tuits[:]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="kw">def</span> crear_tuit(<span class="va">self</span>, texto):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>        t <span class="op">=</span> Tuit(texto)           <span class="co"># El tuit se crea dentro de la cuenta</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        <span class="va">self</span>.__alumnos.append(t)  <span class="co"># La cuenta almacena el tuit</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    <span class="kw">def</span> eliminar_tuit(<span class="va">self</span>, ident):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>        <span class="cf">for</span> t <span class="kw">in</span> <span class="va">self</span>.__tuits:</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>            <span class="cf">if</span> t.get_ident() <span class="op">==</span> ident:</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>                <span class="va">self</span>.__alumnos.remove(t)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;No existe ningún tuit con ese id&quot;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>c1 <span class="op">=</span> Cuenta()</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>c1.crear_tuit(<span class="st">&quot;Este módulo es muy bonito&quot;</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>c1.crear_tuit(<span class="st">&quot;Me encanta DAW&quot;</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>c2 <span class="op">=</span> Cuenta()</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>c2.crear_tuit(<span class="st">&quot;Odio Programación&quot;</span>)</span></code></pre></div>
 </section>
 </section>
 <section>
@@ -453,8 +521,8 @@
 <h1 data-number="2"><span class="header-section-number">2</span> Herencia</h1>
 
 </section>
-<section id="concepto-de-herencia" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Concepto de herencia</h2>
+<section id="generalización" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Generalización</h2>
 
 </section>
 

@@ -232,12 +232,12 @@ Calculadora -- Numero : manipula
 
 - Representa la relación «**tiene**»: la agregadora _tiene_ a la agregada.
 
-- Para ello, los objetos de la clase agregadora **almacenan referencias** a los
-  objetos agregados.
-
 - Podríamos decir que la clase agregada **forma parte** de la agregadora, pero
   de una forma **débil**, ya que los objetos de la clase agregadora y de la
   clase agregada tienen su existencia propia, independiente unos de otros.
+
+- Para ello, los objetos de la clase agregadora **almacenan referencias** a los
+  objetos agregados.
 
 ---
 
@@ -312,9 +312,89 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
 ## Composición
 
+- La **composición** es una relación que se establece entre una clase (la clase **compuesta**) y otra clase (la clase **componente**).
+
+- Representa la relación «**está compuesto por**»: la compuesta _está compuesta por_ sus componentes.
+
+- También se puede decir que la clase componente **forma parte** de la clase compuesta, pero de una forma **fuerte**, ya que los objetos componentes sólo pueden existir como parte de un objeto compuesto.
+
+- Para ello, los objetos de la clase compuesta **almacenan referencias** de los objetos compuestos, pero de manera que esas referencias no se pueden compartir entre varios objetos compuestos.
+
+---
+
+- Por tanto:
+
+  - La clase componente sólo puede formar parte de una única clase compuesta; en consecuencia, un objeto componente sólo puede formar parte de un único objeto compuesto.
+
+  - Un objeto de la clase componente sólo puede existir como parte de un objeto compuesto.
+
+  - La clase compuesta es responsable de crear y almacenar todos sus objetos componentes.
+
+  - Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos componentes.
+
+---
+
+- Por ejemplo:
+
+:::: columns
+
+::: column
+
+- En Twitter, una cuenta tiene una serie de tuits. Cada tuit debe pertenecer a una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo. Cuando se elimina una cuenta, se eliminan todos sus tuits.
+
+- Junto al rombo relleno siempre habrá una multiplicidad de "1", ya que un componente sólo puede formar parte de un objeto compuesto.
+
+:::
+
+::: column
+
+!UML(cuenta-se-compone-de-tuits.png)()(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cuenta "1" *--- "0..*" Tuit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+```python
+class Tuit:
+    def __init__(self, texto):
+        self.__texto = texto
+        self.__ident = id(self)
+
+    def get_ident(self):
+        return self.__ident
+
+class Cuenta:
+    def __init__(self):
+        self.__tuits = []  # Guarda una lista de referencias a Tuits
+
+    def get_tuits(self):
+        return self.__tuits[:]
+
+    def crear_tuit(self, texto):
+        t = Tuit(texto)           # El tuit se crea dentro de la cuenta
+        self.__alumnos.append(t)  # La cuenta almacena el tuit
+
+    def eliminar_tuit(self, ident):
+        for t in self.__tuits:
+            if t.get_ident() == ident:
+                self.__alumnos.remove(t)
+        raise ValueError("No existe ningún tuit con ese id")
+
+c1 = Cuenta()
+c1.crear_tuit("Este módulo es muy bonito")
+c1.crear_tuit("Me encanta DAW")
+c2 = Cuenta()
+c2.crear_tuit("Odio Programación")
+```
+
 # Herencia
 
-## Concepto de herencia
+## Generalización
 
 ## Modos
 
