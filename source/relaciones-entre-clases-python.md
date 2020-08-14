@@ -312,25 +312,34 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
 ## Composición
 
-- La **composición** es una relación que se establece entre una clase (la clase **compuesta**) y otra clase (la clase **componente**).
+- La **composición** es una relación que se establece entre una clase (la clase
+  **compuesta**) y otra clase (la clase **componente**).
 
-- Representa la relación «**está compuesto por**»: la compuesta _está compuesta por_ sus componentes.
+- Representa la relación «**está compuesto por**»: la compuesta _está compuesta
+  por_ sus componentes.
 
-- También se puede decir que la clase componente **forma parte** de la clase compuesta, pero de una forma **fuerte**, ya que los objetos componentes sólo pueden existir como parte de un objeto compuesto.
+- También se puede decir que la clase componente **forma parte** de la clase
+  compuesta, pero de una forma **fuerte**, ya que los objetos componentes sólo
+  pueden existir como parte de un objeto compuesto.
 
-- Para ello, los objetos de la clase compuesta **almacenan referencias** de los objetos compuestos, pero de manera que esas referencias no se pueden compartir entre varios objetos compuestos.
+- Para ello, los objetos de la clase compuesta **almacenan referencias** de los
+  objetos compuestos, pero de manera que esas referencias no se pueden
+  compartir entre varios objetos compuestos.
 
 ---
 
 - Por tanto:
 
-  - La clase componente sólo puede formar parte de una única clase compuesta; en consecuencia, un objeto componente sólo puede formar parte de un único objeto compuesto.
+  - Un objeto componente sólo puede formar parte de un único objeto compuesto.
 
-  - Un objeto de la clase componente sólo puede existir como parte de un objeto compuesto.
+  - Un objeto de la clase componente sólo puede existir como parte de un objeto
+    compuesto.
 
-  - La clase compuesta es responsable de crear y almacenar todos sus objetos componentes.
+  - La clase compuesta es responsable de crear y almacenar todos sus objetos
+    componentes.
 
-  - Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos componentes.
+  - Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos
+    componentes.
 
 ---
 
@@ -340,9 +349,12 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
 ::: column
 
-- En Twitter, una cuenta tiene una serie de tuits. Cada tuit debe pertenecer a una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo. Cuando se elimina una cuenta, se eliminan todos sus tuits.
+- En Twitter, una cuenta tiene una serie de tuits. Cada tuit debe pertenecer a
+  una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo.
+  Cuando se elimina una cuenta, se eliminan todos sus tuits.
 
-- Junto al rombo relleno siempre habrá una multiplicidad de "1", ya que un componente sólo puede formar parte de un objeto compuesto.
+- Junto al rombo relleno siempre habrá una multiplicidad de "1", ya que un
+  componente sólo puede formar parte de un objeto compuesto.
 
 :::
 
@@ -391,6 +403,31 @@ c1.crear_tuit("Me encanta DAW")
 c2 = Cuenta()
 c2.crear_tuit("Odio Programación")
 ```
+
+---
+
+- Resumen:
+
+  ---------------------------------------------------------------
+                                      Agregación     Composición
+  --------------------------------- --------------- -------------
+  Una parte puede pertenecer a...     Varios todos   Un todo
+                                                     únicamente
+
+  Una parte puede existir aunque          Sí             No
+  no pertenezca a un todo.
+
+  El todo es responsable de crear         No             Sí
+  la parte.
+
+  El todo es responsable de               No             Sí
+  almacenar la parte.
+
+  Cuando se destruye el todo, se          No             Sí
+  debe destruir la parte.
+
+  Multiplicidad en el todo.           Cualquiera         1
+  --------------------------------------------------------------
 
 # Herencia
 
