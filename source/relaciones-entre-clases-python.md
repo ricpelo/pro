@@ -433,7 +433,89 @@ c2.crear_tuit("Odio Programación")
 
 ## Generalización
 
+- La relación de **generalización** es un tipo de relación que se da entre una
+  clase (la **superclase** o **clase base**) y otra clase (la **subclase** o
+  **clase derivada**).
+
+- Representa la relación «**es un(a)**»: una instancia de la subclase también
+  _es una_ instancia de la superclase.
+
+- También se puede decir que:
+
+  - La subclase _es una_ forma más especializada de la superclase.
+
+  - La superclase _es una_ forma más general de la subclase.
+
+- La práctica totalidad de los lenguajes orientados a objetos permiten definir
+  clases derivadas a partir de otras clases, creando lo que se denominan
+  **jerarquías de generalización**.
+
+---
+
+Por ejemplo:
+
+- En un Instituto hay dos tipos de trabajadores: docentes y PAS (personal de
+  administración y servicios).
+
+:::: columns
+
+::: column
+
+- Ambos comparten características comunes pero también tienen otras que los
+  diferencian.
+
+- Todo docente «es un» trabajador, y todo PAS también «es un» trabajador.
+
+- Pero no podemos decir que todo trabajador es un docente, ya que podría ser un
+  PAS.
+
+- Por tanto, podemos decir que tanto `Docente` como `PAS` son subclases de
+  `Trabajador`.
+
+:::
+
+::: column
+
+!UML(trabajador-generaliza-docente-pas.png)()(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Trabajador <|--- Docente
+Trabajador <|--- PAS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- Se puede usar la generalización para:
+
+  - Cambiar o ampliar las características de una clase creando a partir de ella
+    otra más especializada (una _subclase_ de la original).
+
+  - Combinar las características de varias clases en una clase más general que
+    agrupe los elementos comunes a todas ellas (una _superclase_ de las
+    originales).
+
 ## Modos
+
+- Existen dos modos de generalización, en función de la cantidad de superclases
+  que se le permite tener a una subclase dada:
+
+  - **Generalización simple**: también llamada **herencia simple**, es cuando
+    una subclase sólo puede tener una superclase.
+
+  - **Generalización múltiple**: también llamada **herencia múltiple**, es
+    cuando una subclase puede tener varias superclases (no sólo una).
+
+- Hay lenguajes que sólo admiten herencia simple y lenguajes que también
+  admiten herencia múltiple.
+
+- En concreto:
+
+  - Python soporta la herencia múltiple.
+
+  - Java sólo soporta la herencia simple.
 
 ### Simple
 
