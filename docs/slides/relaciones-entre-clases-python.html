@@ -618,15 +618,29 @@
 </ul>
 </section>
 
-<section id="modos" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Modos</h2>
+<section id="herencia-1" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Herencia</h2>
+<ul>
+<li><p>A través de la relación de generalización, las subclases adquieren (<em>heredan</em>) las características de la superclase.</p></li>
+<li><p>A ese mecanismo se le denomina <strong>herencia</strong>.</p></li>
+<li><p>Son dos conceptos distintos pero interconectados:</p>
+<ul>
+<li><p>La <em>generalización</em> es la relación por la cual una clase se convierte en subclase de otra.</p></li>
+<li><p>La <em>herencia</em> es el mecanismo por el que una subclase adquiere características de la superclase.</p></li>
+</ul></li>
+<li><p>La herencia puede considerarse como un mecanismo de <strong>reutilización de código</strong> entre la superclase y la subclase, evitando repeticiones innecesarias.</p></li>
+</ul>
+</section>
+
+<section id="modos" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Modos</h2>
 <ul>
 <li><p>Existen dos modos de generalización, en función de la cantidad de superclases que se le permite tener a una subclase dada:</p>
 <ul>
 <li><p><strong>Generalización simple</strong>: también llamada <strong>herencia simple</strong>, es cuando una subclase sólo puede tener una superclase.</p></li>
 <li><p><strong>Generalización múltiple</strong>: también llamada <strong>herencia múltiple</strong>, es cuando una subclase puede tener varias superclases (no sólo una).</p></li>
 </ul></li>
-<li><p>Hay lenguajes que sólo admiten herencia simple y lenguajes que también admiten herencia múltiple.</p></li>
+<li><p>Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten herencia múltiple.</p></li>
 <li><p>En concreto:</p>
 <ul>
 <li><p>Python soporta la herencia múltiple.</p></li>
@@ -634,24 +648,213 @@
 </ul></li>
 </ul>
 </section>
-<section id="simple" class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Simple</h3>
+<section id="simple" class="title-slide slide level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Simple</h3>
+<ul>
+<li><p>En la herencia simple, una clase sólo puede subclase de una única superclase.</p>
+<p>Una clase puede ser superclase de muchas clases, pero en la herencia simple, sólo puede ser subclase de una única superclase.</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Por ejemplo, el caso de un docente que también es un trabajador, de forma que la clase <code>Docente</code> sólo es subclase de <code>Trabajador</code>.</li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<p><img data-src="images/trabajador-generaliza-docente.png" class="plain" style="width:35.0%" /></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.1">
+
+<ul>
+<li><p>Ésto también sería herencia simple, ya que tenemos dos relaciones de generalización separadas pero ninguna clase es subclase de más de una superclase.</p></li>
+<li><p>Por tanto, lo que tenemos son dos herencias simples, no una herencia múltiple:</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/doble-herencia-simple.png" class="plain" style="width:30.0%" alt="" /><figcaption>Una superclase con dos subclases (dos herencias simples)</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.2">
+
+<ul>
+<li>Ésto, en cambio, no sería herencia simple, sino múltiple:</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/herencia-multiple.png" class="plain" style="width:30.0%" alt="" /><figcaption>Una subclase con dos superclases (herencia múltiple)</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.3">
+
+<ul>
+<li><p>Las relaciones de generalización pueden formar una cadena tan larga como sea necesaria.</p></li>
+<li><p>Por ejemplo, aquí tenemos <strong>dos</strong> relaciones de generalización simple:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<p><img data-src="images/trabajador-docente-investigador.png" class="plain" style="width:40.0%" /></p>
+</div>
+</div><div class="column">
+<ul>
+<li><p><code>Trabajador</code> es <strong>superclase <em>directa</em></strong> de <code>Docente</code> y <strong>superclase <em>indirecta</em></strong> de <code>Investigador</code>.</p></li>
+<li><p><code>Docente</code> es subclase (directa) de <code>Trabajador</code> y superclase (directa) de <code>Investigador</code>.</p></li>
+<li><p><code>Investigador</code> es <strong>subclase <em>directa</em></strong> de <code>Docente</code> y <strong>subclase <em>indirecta</em></strong> de <code>Trabajador</code>.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.4">
+
+<ul>
+<li>La forma de codificar la herencia en Python es especificar el nombre de la superclase (o superclases, si hubiera herencia múltiple) detrás del nombre de la subclase, entre paréntesis:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Trabajador es la superclase&quot;&quot;&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Docente es subclase de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>    <span class="kw">def</span> set_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>    <span class="kw">def</span> get_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nrp</span></code></pre></div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Con el código anterior, podemos crear instancias de las clases <code>Trabajador</code> y <code>Docente</code>:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> Trabajador()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t.set_nombre(<span class="st">&quot;Manolo&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t.get_nombre()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="co">&#39;Manolo&#39;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> Docente()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.set_nrp(<span class="dv">273849</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.get_nrp()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="dv">273948</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.5">
+
+<ul>
+<li>Lo interesante del mecanismo de la herencia es que la subclase adquiere las características de la superclase, por lo que la clase <code>Docente</code> también dispone de los métodos <code>set_nombre()</code> y <code>get_nombre()</code> heredados de <code>Trabajador</code>:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Trabajador es la superclase&quot;&quot;&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Docente es subclase de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>    <span class="kw">def</span> set_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>    <span class="kw">def</span> get_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nrp</span></code></pre></div>
+</div><div class="column" style="width:40%;">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> Trabajador()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t.set_nombre(<span class="st">&quot;Manolo&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t.get_nombre()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="co">&#39;Manolo&#39;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> Docente()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.set_nrp(<span class="dv">273849</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.get_nrp()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="dv">273948</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.set_nombre(<span class="st">&quot;Juan&quot;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.get_nombre()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="co">&#39;Juan&#39;</span></span></code></pre></div>
+</div>
+</div>
+<ul>
+<li>Es como si el código de los métodos <code>set_nombre()</code> y <code>get_nombre()</code> se hubiesen «copiado y pegado» dentro de la clase <code>Docente</code>.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.6">
+
+<ul>
+<li><p>En realidad, el mecanismo funciona como una lista enlazada, más o menos como los entornos que hemos estudiado hasta ahora.</p></li>
+<li><p>Ya hemos visto en la unidad anterior que las <strong>definiciones de las clases</strong> se representan internamente mediante una estructura tipo <strong>diccionario</strong>.</p></li>
+<li><p>Esos diccionarios se conectan entre sí formando una <strong>lista enlazada</strong>, de forma que el diccionario que contiene la definición de la subclase <strong>apunta</strong> al diccionario de su <strong>superclase directa</strong>, siguiendo el camino que traza la relación de generalización.</p></li>
+<li><p>Esa lista será tan larga como sea necesario, y tendrá tantos diccionarios como clases haya en la cadena de herencia simple.</p></li>
+<li><p>De esta forma, la herencia va <em>propagando</em> las características de la superclase a todas sus subclases (<em>directas</em> e <em>indirectas</em>).</p></li>
+<li><p>En nuestro caso, el diccionario de <code>Docente</code> apunta al de <code>Trabajador</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.7">
+
+<ul>
+<li><p>Al llamar a un método sobre un objeto, el intérprete busca el método dentro del diccionario que contiene la definición de la clase del objeto:</p>
+<ul>
+<li><p>Si encuentra el método, lo usa.</p></li>
+<li><p>Si no lo encuentra, sigue subiendo por la lista enlazada localizando el siguiente diccionario (que será el que contenga la definición de su superclase directa), buscando ahí el método solicitado.</p>
+<p>El intérprete seguirá buscando en el resto de la lista hasta que encuentre el método o se acabe la lista de herencia, en cuyo caso dará un error <code>AttributeError</code> por método no encontrado.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/cadena-herencia-simple.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Cadena de herencia simple</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.8">
+
+<ul>
+<li><p>Por eso podemos llamar al método <code>set_nombre()</code> sobre una instancia de la clase <code>Docente</code> aunque dicha clase no tenga definido ese método.</p></li>
+<li><p>Por el mecanismo de la herencia, el método lo hereda de su superclase <code>Trabajador</code>.</p></li>
+<li><p>En tiempo de ejecución, el intérprete busca el método recorriendo la cadena de herencia representada en la lista de diccionarios:</p>
+<ul>
+<li><p>Primero lo busca en la definición de la clase <code>Docente</code>.</p></li>
+<li><p>Como no lo encuentra, a continuación lo busca en la definición de la clase <code>Trabajador</code>.</p></li>
+<li><p>Como ahora sí lo ha encontrado, lo ejecuta como si el método hubiese estado definido directamente en la clase <code>Docente</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.9">
+
+<ul>
+<li><p>Al igual que ocurre con los <em>métodos</em>, las <strong>variables de clase</strong> también se heredan de una clase a sus subclases:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">class</span> A:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    cadena <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">class</span> B(A):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>    <span class="kw">def</span> saluda(<span class="va">self</span>):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>        <span class="bu">print</span>(B.cadena)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>b <span class="op">=</span> B()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>b.saluda()  <span class="co"># Imprime &quot;Hola&quot;</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="múltiple" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Múltiple</h3>
 
 </section>
 
-<section id="múltiple" class="title-slide slide level3" data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Múltiple</h3>
+
+<section id="superclases-y-subclases" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Superclases y subclases</h2>
 
 </section>
 
-
-<section id="superclases-y-subclases" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Superclases y subclases</h2>
-
-</section>
-
-<section id="utilización-de-clases-heredadas" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Utilización de clases heredadas</h2>
+<section id="utilización-de-clases-heredadas" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Utilización de clases heredadas</h2>
 
 </section>
 </section>

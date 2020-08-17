@@ -497,6 +497,25 @@ Trabajador <|--- PAS
     agrupe los elementos comunes a todas ellas (una _superclase_ de las
     originales).
 
+## Herencia
+
+- A través de la relación de generalización, las subclases adquieren
+  (_heredan_) las características de la superclase.
+
+- A ese mecanismo se le denomina **herencia**.
+
+- Son dos conceptos distintos pero interconectados:
+
+  - La _generalización_ es la relación por la cual una clase se convierte en
+    subclase de otra.
+
+  - La _herencia_ es el mecanismo por el que una subclase adquiere
+    características de la superclase.
+
+- La herencia puede considerarse como un mecanismo de **reutilización de
+  código** entre la superclase y la subclase, evitando repeticiones
+  innecesarias.
+
 ## Modos
 
 - Existen dos modos de generalización, en función de la cantidad de superclases
@@ -508,8 +527,8 @@ Trabajador <|--- PAS
   - **Generalización múltiple**: también llamada **herencia múltiple**, es
     cuando una subclase puede tener varias superclases (no sólo una).
 
-- Hay lenguajes que sólo admiten herencia simple y lenguajes que también
-  admiten herencia múltiple.
+- Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten
+  herencia múltiple.
 
 - En concreto:
 
@@ -518,6 +537,287 @@ Trabajador <|--- PAS
   - Java sólo soporta la herencia simple.
 
 ### Simple
+
+- En la herencia simple, una clase sólo puede subclase de una única superclase.
+
+  Una clase puede ser superclase de muchas clases, pero en la herencia simple,
+  sólo puede ser subclase de una única superclase.
+
+:::: columns
+
+::: column
+
+- Por ejemplo, el caso de un docente que también es un trabajador, de forma que
+  la clase `Docente` sólo es subclase de `Trabajador`.
+
+:::
+
+::: column
+
+!UML(trabajador-generaliza-docente.png)()(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Trabajador <|-- Docente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- Ésto también sería herencia simple, ya que tenemos dos relaciones de
+  generalización separadas pero ninguna clase es subclase de más de una
+  superclase.
+
+- Por tanto, lo que tenemos son dos herencias simples, no una herencia
+  múltiple:
+
+!UML[doble-herencia-simple.png][Una superclase con dos subclases (dos herencias simples)][width=30%]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A <|-- B
+A <|-- C
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+---
+
+- Ésto, en cambio, no sería herencia simple, sino múltiple:
+
+!UML[herencia-multiple.png][Una subclase con dos superclases (herencia múltiple)][width=30%]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A <|-- C
+B <|-- C
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Las relaciones de generalización pueden formar una cadena tan larga como sea
+  necesaria.
+
+- Por ejemplo, aquí tenemos **dos** relaciones de generalización simple:
+
+:::: columns
+
+::: column
+
+!UML(trabajador-docente-investigador.png)()(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Trabajador <|-- Docente
+Docente <|-- Investigador
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- `Trabajador` es **superclase _directa_** de `Docente` y **superclase
+  _indirecta_** de `Investigador`.
+
+- `Docente` es subclase (directa) de `Trabajador` y superclase (directa) de
+  `Investigador`.
+
+- `Investigador` es **subclase _directa_** de `Docente` y **subclase
+  _indirecta_** de `Trabajador`.
+
+:::
+
+::::
+
+---
+
+- La forma de codificar la herencia en Python es especificar el nombre de la
+  superclase (o superclases, si hubiera herencia múltiple) detrás del nombre de
+  la subclase, entre paréntesis:
+
+:::: columns
+
+::: {.column width=60%}
+
+```python
+class Trabajador:
+    """Trabajador es la superclase"""
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
+
+    def get_nombre(self):
+        return self.__nombre
+
+class Docente(Trabajador):
+    """Docente es subclase de Trabajador"""
+    def set_nrp(self, nrp):
+        self.__nrp = nrp
+
+    def get_nrp(self, nrp):
+        return self.__nrp
+```
+
+:::
+
+::: {.column width=40%}
+
+- Con el código anterior, podemos crear instancias de las clases `Trabajador` y
+  `Docente`:
+
+```python
+>>> t = Trabajador()
+>>> t.set_nombre("Manolo")
+>>> t.get_nombre()
+'Manolo'
+>>> d = Docente()
+>>> d.set_nrp(273849)
+>>> d.get_nrp()
+273948
+```
+
+:::
+
+::::
+
+---
+
+- Lo interesante del mecanismo de la herencia es que la subclase adquiere las
+  características de la superclase, por lo que la clase `Docente` también
+  dispone de los métodos `set_nombre()` y `get_nombre()` heredados de
+  `Trabajador`:
+
+:::: columns
+
+::: {.column width=60%}
+
+```python
+class Trabajador:
+    """Trabajador es la superclase"""
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
+
+    def get_nombre(self):
+        return self.__nombre
+
+class Docente(Trabajador):
+    """Docente es subclase de Trabajador"""
+    def set_nrp(self, nrp):
+        self.__nrp = nrp
+
+    def get_nrp(self, nrp):
+        return self.__nrp
+```
+
+:::
+
+::: {.column width=40%}
+
+```python
+>>> t = Trabajador()
+>>> t.set_nombre("Manolo")
+>>> t.get_nombre()
+'Manolo'
+>>> d = Docente()
+>>> d.set_nrp(273849)
+>>> d.get_nrp()
+273948
+>>> d.set_nombre("Juan")
+>>> d.get_nombre()
+'Juan'
+```
+
+:::
+
+::::
+
+- Es como si el código de los métodos `set_nombre()` y `get_nombre()` se
+  hubiesen «copiado y pegado» dentro de la clase `Docente`.
+
+---
+
+- En realidad, el mecanismo funciona como una lista enlazada, más o menos como
+  los entornos que hemos estudiado hasta ahora.
+
+- Ya hemos visto en la unidad anterior que las **definiciones de las clases**
+  se representan internamente mediante una estructura tipo **diccionario**.
+
+- Esos diccionarios se conectan entre sí formando una **lista enlazada**, de
+  forma que el diccionario que contiene la definición de la subclase **apunta**
+  al diccionario de su **superclase directa**, siguiendo el camino que traza la
+  relación de generalización.
+
+- Esa lista será tan larga como sea necesario, y tendrá tantos diccionarios
+  como clases haya en la cadena de herencia simple.
+
+- De esta forma, la herencia va _propagando_ las características de la
+  superclase a todas sus subclases (_directas_ e _indirectas_).
+
+- En nuestro caso, el diccionario de `Docente` apunta al de `Trabajador`.
+
+---
+
+- Al llamar a un método sobre un objeto, el intérprete busca el método dentro
+  del diccionario que contiene la definición de la clase del objeto:
+
+  - Si encuentra el método, lo usa.
+
+  - Si no lo encuentra, sigue subiendo por la lista enlazada localizando el
+    siguiente diccionario (que será el que contenga la definición de su
+    superclase directa), buscando ahí el método solicitado.
+
+    El intérprete seguirá buscando en el resto de la lista hasta que encuentre
+    el método o se acabe la lista de herencia, en cuyo caso dará un error
+    `AttributeError` por método no encontrado.
+
+!DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=40%)(width=45%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+subgraph cluster0 {
+    label = <Clase <b>Trabajador</b>>
+    bgcolor = white
+    set_nombre [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>set_nombre</td><td>λ</td></tr></table>>]
+    get_nombre [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>get_nombre</td><td>λ</td></tr></table>>]
+}
+subgraph cluster1 {
+    label = <Clase <b>Docente</b>>
+    bgcolor = white
+    set_nrp [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>set_nrp</td><td>λ</td></tr></table>>]
+    get_nrp [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>get_nrp</td><td>λ</td></tr></table>>]
+}
+set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por eso podemos llamar al método `set_nombre()` sobre una instancia de la
+  clase `Docente` aunque dicha clase no tenga definido ese método.
+
+- Por el mecanismo de la herencia, el método lo hereda de su superclase
+  `Trabajador`.
+
+- En tiempo de ejecución, el intérprete busca el método recorriendo la cadena
+  de herencia representada en la lista de diccionarios:
+
+  - Primero lo busca en la definición de la clase `Docente`.
+
+  - Como no lo encuentra, a continuación lo busca en la definición de la clase
+    `Trabajador`.
+
+  - Como ahora sí lo ha encontrado, lo ejecuta como si el método hubiese estado
+    definido directamente en la clase `Docente`.
+
+---
+
+- Al igual que ocurre con los _métodos_, las **variables de clase** también se
+  heredan de una clase a sus subclases:
+
+  ```python
+  class A:
+      cadena = "Hola"
+
+  class B(A):
+      def saluda(self):
+          print(B.cadena)
+
+  b = B()
+  b.saluda()  # Imprime "Hola"
+  ```
 
 ### Múltiple
 
