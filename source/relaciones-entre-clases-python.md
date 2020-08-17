@@ -442,13 +442,13 @@ c2.crear_tuit("Odio Programación")
 
 - También se puede decir que:
 
-  - La subclase _es una_ forma más especializada de la superclase.
+  - La subclase _es una_ forma **más especializada** de la superclase.
 
-  - La superclase _es una_ forma más general de la subclase.
+  - La superclase _es una_ forma **más general** de la subclase.
 
 - La práctica totalidad de los lenguajes orientados a objetos permiten definir
-  clases derivadas a partir de otras clases, creando lo que se denominan
-  **jerarquías de generalización**.
+  subclases a partir de otras clases, creando lo que se denominan **jerarquías
+  de generalización**.
 
 ---
 
@@ -490,12 +490,12 @@ Trabajador <|--- PAS
 
 - Se puede usar la generalización para:
 
-  - Cambiar o ampliar las características de una clase creando a partir de ella
-    otra más especializada (una _subclase_ de la original).
+  - **Cambiar o ampliar** las características de una clase creando a partir de
+    ella otra **más especializada** (una _subclase_ de la original).
 
-  - Combinar las características de varias clases en una clase más general que
-    agrupe los elementos comunes a todas ellas (una _superclase_ de las
-    originales).
+  - **Combinar** las características de varias clases en una clase **más
+    general** que agrupe los elementos comunes a todas ellas (una _superclase_
+    de las originales).
 
 ## Herencia
 
@@ -506,10 +506,10 @@ Trabajador <|--- PAS
 
 - Son dos conceptos distintos pero interconectados:
 
-  - La _generalización_ es la relación por la cual una clase se convierte en
-    subclase de otra.
+  - La **generalización** es la _relación_ por la cual una clase se convierte
+    en subclase de otra.
 
-  - La _herencia_ es el mecanismo por el que una subclase adquiere
+  - La **herencia** es el _mecanismo_ por el que una subclase adquiere
     características de la superclase.
 
 - La herencia puede considerarse como un mecanismo de **reutilización de
@@ -536,12 +536,12 @@ Trabajador <|--- PAS
 
   - Java sólo soporta la herencia simple.
 
-### Simple
+### Herencia simple
 
 - En la herencia simple, una clase sólo puede subclase de una única superclase.
 
-  Una clase puede ser superclase de muchas clases, pero en la herencia simple,
-  sólo puede ser subclase de una única superclase.
+  Una clase siempre puede ser superclase de muchas clases, pero en la herencia
+  simple sólo puede ser subclase de una única superclase.
 
 :::: columns
 
@@ -565,19 +565,18 @@ Trabajador <|-- Docente
 
 ---
 
-- Ésto también sería herencia simple, ya que tenemos dos relaciones de
-  generalización separadas pero ninguna clase es subclase de más de una
-  superclase.
+- El siguiente caso también sería herencia simple, ya que tenemos dos
+  relaciones de generalización separadas, pero ninguna subclase tiene más de
+  una superclase:
 
-- Por tanto, lo que tenemos son dos herencias simples, no una herencia
-  múltiple:
-
-!UML[doble-herencia-simple.png][Una superclase con dos subclases (dos herencias simples)][width=30%]
+!UML[doble-herencia-simple.png][][width=30%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A <|-- B
 A <|-- C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Por tanto, lo que tenemos son dos herencias simples, no una herencia
+  múltiple.
 
 ---
 
@@ -625,9 +624,8 @@ Docente <|-- Investigador
 
 ---
 
-- La forma de codificar la herencia en Python es especificar el nombre de la
-  superclase (o superclases, si hubiera herencia múltiple) detrás del nombre de
-  la subclase, entre paréntesis:
+- La forma de codificar la herencia simple en Python es especificar el nombre
+  de la superclase detrás del nombre de la subclase, entre paréntesis:
 
 :::: columns
 
@@ -655,7 +653,7 @@ class Docente(Trabajador):
 
 ::: {.column width=40%}
 
-- Con el código anterior, podemos crear instancias de las clases `Trabajador` y
+- Con este código podemos crear instancias de las clases `Trabajador` y
   `Docente`:
 
 ```python
@@ -737,8 +735,8 @@ class Docente(Trabajador):
 
 - Esos diccionarios se conectan entre sí formando una **lista enlazada**, de
   forma que el diccionario que contiene la definición de la subclase **apunta**
-  al diccionario de su **superclase directa**, siguiendo el camino que traza la
-  relación de generalización.
+  al diccionario de su **superclase directa**, siguiendo el camino que trazan
+  las relaciones de generalización.
 
 - Esa lista será tan larga como sea necesario, y tendrá tantos diccionarios
   como clases haya en la cadena de herencia simple.
@@ -760,7 +758,7 @@ class Docente(Trabajador):
     superclase directa), buscando ahí el método solicitado.
 
     El intérprete seguirá buscando en el resto de la lista hasta que encuentre
-    el método o se acabe la lista de herencia, en cuyo caso dará un error
+    el método o se acabe la cadena de herencia, en cuyo caso dará un error
     `AttributeError` por método no encontrado.
 
 !DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=40%)(width=45%)
@@ -791,8 +789,9 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 - Por el mecanismo de la herencia, el método lo hereda de su superclase
   `Trabajador`.
 
-- En tiempo de ejecución, el intérprete busca el método recorriendo la cadena
-  de herencia representada en la lista de diccionarios:
+- En tiempo de ejecución, cuando se encuentra una llamada al método
+  `set_nombre()`, el intérprete busca el método recorriendo la cadena de
+  herencia representada en la lista de diccionarios:
 
   - Primero lo busca en la definición de la clase `Docente`.
 
@@ -819,7 +818,7 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   b.saluda()  # Imprime "Hola"
   ```
 
-### Múltiple
+### Herencia múltiple
 
 ## Superclases y subclases
 
