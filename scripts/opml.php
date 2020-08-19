@@ -124,7 +124,8 @@ class Esquema
             $ret .= $this->spc($nivel) . $this->beginEnv();
 
             foreach ($elem->outline as $item) {
-                if (!in_array($item->attributes()->text, ['---', 'Ejercicios'])) {
+                if (!in_array($item->attributes()->text, ['---', 'Ejercicios']) &&
+                    $item->attributes()->status != 'invalid') {
                     $ret .= $this->trad($item, $nivel + 1);
                 }
             }
@@ -187,7 +188,8 @@ class Resumen extends Esquema
         foreach ($elem->outline as $item) {
             $attr = $item->attributes();
             $text = (string) $attr->text;
-            if ($text != '---') {
+            $status = (string) $attr->status;
+            if ($text != '---' && $status != 'invalid') {
                 $text = $this->filtrar($text);
                 $ret .= $ud++ . '. ' . $text;
                 $ret .= $this->ev($attr->tags) . ' & ';
@@ -250,7 +252,8 @@ class RaCe extends Resumen
         foreach ($elem->outline as $item) {
             $attr = $item->attributes();
             $text = (string) $attr->text;
-            if ($text != '---') {
+            $status = (string) $attr->status;
+            if ($text != '---' && $status != 'invalid') {
                 $text = $this->filtrar($text);
                 $ret .= $ud++ . '. ' . $text;
                 $race = $this->generaRaCe($attr->tags);
@@ -339,8 +342,10 @@ class Leo extends Resumen
         foreach ($elem->outline as $item) {
             $attr = $item->attributes();
             $text = (string) $attr->text;
-            if ($text != '---') {
+            $status = (string) $attr->status;
+            if ($text != '---' && $status != 'invalid') {
                 $text = $this->filtrar($text);
+                $text = str_replace(['(', ')'], ['', ''], $text);
                 $ret .= '<v t="ricardo.' . date('YmdHis') . '.' . $ud++ . '">';
                 $ret .= '<vh>@auto ' . $this->source . '/' . $text;
                 $ret .= '</vh></v>' . PHP_EOL;
@@ -414,7 +419,8 @@ class Markdown extends Leo
 
         if (count($elem->outline) > 0 && $nivel < $this->maxNivel) {
             foreach ($elem->outline as $item) {
-                if ($item->attributes()->text != '---') {
+                if ($item->attributes()->text != '---' &&
+                    $item->attributes()->status != 'invalid') {
                     $ret .= $this->trad($item, $nivel + 1);
                 }
             }
