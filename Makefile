@@ -26,7 +26,7 @@ OPML=$(SCRIPTS)/opml.php
 
 # Archivos
 
-PROG=INF-1DAW-PRO-C19-20
+PROG=INF-1DAW-PRO-C20-21
 PROG_LYX=$(PROGDIR)/$(PROG).lyx
 PROG_PDF=$(BUILDDIR)/assets/$(PROG).pdf
 ESQUEMA_OPML=$(PROGDIR)/esquema.opml

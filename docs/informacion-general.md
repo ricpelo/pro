@@ -2,7 +2,7 @@
 title: Información general
 ---
 
-- [Programación de la asignatura](assets/INF-1DAW-PRO-C19-20.pdf){:target="_blank"}
+- [Programación de la asignatura](assets/INF-1DAW-PRO-C20-21.pdf){:target="_blank"}
 - **Normativa de aplicación**: [Orden de 16 de junio de
   2011](http://www.juntadeandalucia.es/boja/2011/149/23), por la que se
   desarrolla el currículo correspondiente al título de Técnico Superior en
@@ -11,4 +11,4 @@ title: Información general
 - **Código**: 0485.
 - **Duración total**: 256 horas / 32 semanas
 - **Carga lectiva semanal**: 8 horas
-- [Planificación y seguimiento](https://checkvist.com/checklists/727747){:target="_blank"}
+- [Planificación y seguimiento](https://checkvist.com/checklists/764817){:target="_blank"}
