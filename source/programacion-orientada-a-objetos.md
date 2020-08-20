@@ -881,7 +881,7 @@ class Deposito:
   `Deposito.ingresar(dep, 35)`. Por tanto, en la llamada al método, `self`
   valdrá `dep` y `cantidad` valdrá `35`.
 
-## Métodos *mágicos* y constructores
+## Métodos *mágicos* !ifdef(HTML)(&nbsp;)()y constructores
 
 - En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
   **métodos mágicos** y tienen un comportamiento especial.
