@@ -842,9 +842,192 @@
 </ul>
 </section>
 
-<section id="herencia-múltiple" class="title-slide slide level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Herencia múltiple</h3>
+<section id="la-clase-object" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> La clase <code>object</code></h3>
+<ul>
+<li><p>En Python, todas las clases heredan, directa o indirectamente, de una clase predefinida especial llamada <code>object</code>.</p></li>
+<li><p>Eso es así incluso aunque no aparezca explícitamente la clase <code>object</code> como superclase en la definición de la clase.</p></li>
+<li><p>Por tanto, la siguiente clase es subclase de <code>object</code> aunque no sea evidente según el código:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">class</span> Prueba:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
+<li><p>Así que lo anterior es equivalente a:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">class</span> Prueba(<span class="bu">object</span>):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
+<li><p>Eso significa que <code>object</code> es la raíz de la jerarquía de clases en todo programa Python.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.2.0.1">
 
+<ul>
+<li>En el ejemplo anterior de los trabajadores, docentes e investigadores, en realidad tendríamos la siguiente jerarquía de clases:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/object-trabajador-docente-investigador.png" class="plain" style="width:70.0%" /></p>
+</div>
+<ul>
+<li><p>Como todas las clases, predefinidas o definidas por el programador, son subclases de <code>object</code> ya sea directa o indirectamente, todas las clases heredarán los atributos (métodos y variables de clase) de la clase <code>object</code>.</p></li>
+<li><p>La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y acaban por <code>__</code>) que traen implementaciones predeterminadas para varias operaciones básicas como <code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&lt;</code>, etc.</p></li>
+<li><p>También hay operaciones utilizadas internamente por el intérprete durante la ejecución del programa para ayudar a su funcionamiento.</p></li>
+</ul>
+</section>
+
+<section id="herencia-múltiple" class="title-slide slide level3" data-number="2.3.3">
+<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Herencia múltiple</h3>
+<ul>
+<li><p>En la <strong>herencia múltiple</strong>, una subclase puede tener <strong>varias superclases</strong>.</p></li>
+<li><p>La herencia múltiple amplía enormemente las posibilidades del lenguaje de programación, ya que permite el modelado de situaciones que se pueden dar con frecuencia y que se pueden expresar de forma natural generalizando una clase a partir de varias superclases simultáneamente.</p></li>
+<li><p>A cambio, introduce una mayor complejidad que la herencia simple a la hora de determinar qué se hereda de dónde.</p></li>
+<li><p>Esa mayor complejidad hace que no muchos lenguajes orientados a objetos soporten la herencia múltiple, siendo los más conocidos: Python, C++, Perl y Eiffel.</p></li>
+<li><p>Los lenguajes orientados a objetos que no soportan herencia múltiple (que son la mayoría) incorporan mecanismos que ayudan a mitigar esa carencia.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.1">
+
+<ul>
+<li><p>Por ejemplo, si queremos modelar el mundo animal, tenemos que hay animales terrestres, acuáticos y anfibios, de manera que estos últimos tienen características de los dos primeros.</p></li>
+<li><p>Por tanto, podríamos modelarlo usando herencia múltiple de la siguiente manera:</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/animales-anfibios.png" class="plain" style="width:30.0%" alt="" /><figcaption>Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.3.0.2">
+
+<ul>
+<li><p>Y en Python se escribiría así:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">class</span> Animal:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Animal</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="kw">class</span> Terrestre(Animal):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="kw">class</span> Acuatico(Animal):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div></li>
+<li><p>Es decir: en la definición de la subclase indicamos todas las superclases que tenga, entre paréntesis y separadas por comas.</p></li>
+<li><p>El orden en el que se escriban las superclases tiene importancia, como veremos luego.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.3">
+
+<ul>
+<li><p>Como <code>Anfibio</code> es subclase de <code>Terrestre</code> y de <code>Acuatico</code> al mismo tiempo, heredará los métodos de ambas clases simultáneamente.</p></li>
+<li><p>También heredará los métodos definidos en la clase <code>Animal</code>, por la sencilla razón de que <code>Terrestre</code> y <code>Acuatico</code> también los hereda, por lo que <code>Anfibio</code> los hereda a través de estas dos.</p></li>
+<li><p>Pero a la hora de buscar un método en la cadena de herencia, ya no es tan fácil como crear una simple lista de diccionarios como teníamos antes, ya que ahora no hay un único camino entre dos clases según las relaciones de generalización.</p></li>
+<li><p>Por ejemplo: para ir de <code>Anfibio</code> a <code>Animal</code>, podemos pasar por <code>Terrestre</code> o por <code>Acuatico</code>.</p></li>
+<li><p>Entonces: ¿cómo se decide ahora en qué orden se busca un método entre todas las clases de la jerarquía de herencia?</p></li>
+<li><p>Este es el llamado problema del <strong>orden de resolución de métodos</strong> (<em>Method Resolution Order</em> o <strong><em>MRO</em></strong>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.4">
+
+<ul>
+<li><p>Por si fuera poco, aún tenemos otro problema que con la herencia simple no teníamos, y que es aún más complicado.</p></li>
+<li><p>Supongamos que tanto la clase <code>Terrestre</code> como <code>Acuatico</code> disponen de un método <code>mover()</code>, de forma que todos los animales terrestres se mueven caminando, mientras que los acuáticos lo hacen nadando.</p></li>
+<li><p>Por tanto, ambas clases disponen de una implementación distinta del mismo método <code>mover()</code>.</p></li>
+<li><p>Son métodos que tienen la misma signatura pero que se comportan de distinta forma.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.5">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li>Tenemos, por tanto, la siguiente situación:</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/animales-anfibios-mover.png" class="plain" style="width:60.0%" alt="" /><figcaption>El método <code>mover()</code> está en <code>Terrestre</code> y <code>Acuatico</code></figcaption>
+</figure>
+</div>
+</div><div class="column">
+<ul>
+<li><p>La pregunta es: ¿cuál de los métodos <code>mover()</code> heredará <code>Anfibio</code>?</p>
+<ul>
+<li><p>¿El de <code>Terrestre</code>?</p></li>
+<li><p>¿El de <code>Acuatico</code>?</p></li>
+<li><p>¿Los dos a la vez?</p></li>
+</ul></li>
+<li><p>Ahí tenemos una ambigüedad que hay que resolver de alguna manera.</p></li>
+<li><p>A este problema se le denomina <strong>problema del diamante</strong>.</p></li>
+<li><p>El mecanismo para resolver esa ambigüedad depende del lenguaje.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.3.0.6">
+
+<ul>
+<li><p>Python implementa un mecanismo basado en un algoritmo llamado <strong>linealización C3</strong>, que establece un orden de prioridad entre todas las clases a la hora de seleccionar un método de la cadena de herencia.</p></li>
+<li><p>Es decir: el algoritmo ordena las clases en una lista, de forma que las clases que aparezcan antes en la lista tendrán más prioridad a la hora de seleccionar un método.</p></li>
+<li><p>De esta forma, si hay métodos repetidos en la cadena de herencia en clases distintas, el algoritmo seleccionará siempre uno de ellos según el orden que haya determinado para las clases.</p></li>
+<li><p>Así, Python resuelve los dos problemas (el del MRO y el del diamante) al mismo tiempo con un solo algoritmo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.7">
+
+<ul>
+<li><p>Para ver en detalle cómo funciona la linealización C3, se recomienda consultar su página en Wikipedia:</p>
+<p><a href="https://en.wikipedia.org/wiki/C3_linearization">https://en.wikipedia.org/wiki/C3_linearization</a></p></li>
+<li><p>A nosotros, lo que nos interesa principalmente es que el programador puede influir en el orden de resolución de métodos según el orden en el que escriba las superclases a la hora de definir la subclase.</p></li>
+<li><p>Por tanto, no es lo mismo hacer:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>   <span class="co"># ...</span></span></code></pre></div>
+<p>Que hacer:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>   <span class="co"># ...</span></span></code></pre></div></li>
+<li><p>Si aplicamos el algoritmo en ambos casos, obtenemos resultados distintos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.8">
+
+<ul>
+<li><p>En concreto, si aplicamos el algoritmo al siguiente código:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">class</span> Animal:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Animal</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="kw">class</span> Terrestre(Animal):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="kw">class</span> Acuatico(Animal):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div>
+<p>obtenemos que el orden de resolución de métodos para la clase <code>Anfibio</code> sería la lista:</p>
+<p><code>[Anfibio, Terrestre, Acuatico, Animal, object]</code></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.9">
+
+<ul>
+<li><p>En cambio, si lo aplicamos al siguiente código:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">class</span> Animal:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Animal</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="kw">class</span> Terrestre(Animal):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="kw">class</span> Acuatico(Animal):</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div>
+<p>el orden de resolución de métodos para la clase <code>Anfibio</code> sería:</p>
+<p><code>[Anfibio, Acuatico, Terrestre, Animal, object]</code></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.10">
+
+<ul>
+<li><p>La lista de clases que devuelve el algoritmo es la que el intérprete iría siguiendo desde el principio hasta encontrar el método solicitado.</p></li>
+<li><p>Es decir: el algoritmo transforma una jerarquía que no es lineal en una lista lineal, por lo que volvemos a tener lo mismo que teníamos en la herencia simple: una lista enlazada de diccionarios que representan clases.</p></li>
+<li><p>Por eso el algoritmo se llama <em>linealización</em> C3.</p></li>
+</ul>
 </section>
 
 
@@ -868,13 +1051,18 @@
 
 </section>
 
-<section id="super" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> <code>super()</code></h2>
+<section id="clases-abstractas-y-métodos-abstractos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Clases abstractas y métodos abstractos</h2>
 
 </section>
 
-<section id="sobreescritura-de-constructores" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Sobreescritura de constructores</h2>
+<section id="super" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> <code>super()</code></h2>
+
+</section>
+
+<section id="sobreescritura-de-constructores" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> Sobreescritura de constructores</h2>
 
 </section>
 </section>

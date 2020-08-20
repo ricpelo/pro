@@ -818,7 +818,298 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   b.saluda()  # Imprime "Hola"
   ```
 
+### La clase `object`
+
+- En Python, todas las clases heredan, directa o indirectamente, de una clase
+  predefinida especial llamada `object`.
+
+- Eso es así incluso aunque no aparezca explícitamente la clase `object` como
+  superclase en la definición de la clase.
+
+- Por tanto, la siguiente clase es subclase de `object` aunque no sea evidente
+  según el código:
+
+  ```python
+  class Prueba:
+      # ... definición de la clase Prueba
+  ```
+
+- Así que lo anterior es equivalente a:
+
+  ```python
+  class Prueba(object):
+      # ... definición de la clase Prueba
+  ```
+
+- Eso significa que `object` es la raíz de la jerarquía de clases en todo
+  programa Python.
+
+---
+
+- En el ejemplo anterior de los trabajadores, docentes e
+  investigadores, en realidad tendríamos la siguiente jerarquía de clases:
+
+!UML(object-trabajador-docente-investigador.png)()(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Investigador -|> Docente
+Docente -|> Trabajador
+Trabajador -|> object
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Como todas las clases, predefinidas o definidas por el programador, son
+  subclases de `object` ya sea directa o indirectamente, todas las clases
+  heredarán los atributos (métodos y variables de clase) de la clase `object`.
+
+- La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y
+  acaban por `__`) que traen implementaciones predeterminadas para varias
+  operaciones básicas como `==`, `!=`, `<=`, `<`, etc.
+
+- También hay operaciones utilizadas internamente por el intérprete durante la
+  ejecución del programa para ayudar a su funcionamiento.
+
 ### Herencia múltiple
+
+- En la **herencia múltiple**, una subclase puede tener **varias superclases**.
+
+- La herencia múltiple amplía enormemente las posibilidades del lenguaje de
+  programación, ya que permite el modelado de situaciones que se pueden dar con
+  frecuencia y que se pueden expresar de forma natural generalizando una clase
+  a partir de varias superclases simultáneamente.
+
+- A cambio, introduce una mayor complejidad que la herencia simple a la hora de
+  determinar qué se hereda de dónde.
+
+- Esa mayor complejidad hace que no muchos lenguajes orientados a objetos
+  soporten la herencia múltiple, siendo los más conocidos: Python, C++, Perl y
+  Eiffel.
+
+- Los lenguajes orientados a objetos que no soportan herencia múltiple (que son
+  la mayoría) incorporan mecanismos que ayudan a mitigar esa carencia.
+
+---
+
+- Por ejemplo, si queremos modelar el mundo animal, tenemos que hay animales
+  terrestres, acuáticos y anfibios, de manera que estos últimos tienen
+  características de los dos primeros.
+
+- Por tanto, podríamos modelarlo usando herencia múltiple de la siguiente
+  manera:
+
+!UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=30%]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Animal <|-- Terrestre
+Animal <|-- Acuatico
+Terrestre <|-- Anfibio
+Acuatico <|-- Anfibio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Y en Python se escribiría así:
+
+  ```python
+  class Animal:
+     # ... definición de la clase Animal
+
+  class Terrestre(Animal):
+     # ... definición de la clase Terrestre
+
+  class Acuatico(Animal):
+     # ... definición de la clase Acuatico
+
+  class Anfibio(Terrestre, Acuatico):
+     # ... definición de la clase Anfibio
+  ```
+
+- Es decir: en la definición de la subclase indicamos todas las superclases que
+  tenga, entre paréntesis y separadas por comas.
+
+- El orden en el que se escriban las superclases tiene importancia, como
+  veremos luego.
+
+---
+
+- Como `Anfibio` es subclase de `Terrestre` y de `Acuatico` al mismo tiempo,
+  heredará los métodos de ambas clases simultáneamente.
+
+- También heredará los métodos definidos en la clase `Animal`, por la sencilla
+  razón de que `Terrestre` y `Acuatico` también los hereda, por lo que
+  `Anfibio` los hereda a través de estas dos.
+
+- Pero a la hora de buscar un método en la cadena de herencia, ya no es tan
+  fácil como crear una simple lista de diccionarios como teníamos antes, ya que
+  ahora no hay un único camino entre dos clases según las relaciones de
+  generalización.
+
+- Por ejemplo: para ir de `Anfibio` a `Animal`, podemos pasar por `Terrestre` o
+  por `Acuatico`.
+
+- Entonces: ¿cómo se decide ahora en qué orden se busca un método entre todas
+  las clases de la jerarquía de herencia?
+
+- Este es el llamado problema del **orden de resolución de métodos** (_Method
+  Resolution Order_ o **_MRO_**).
+
+---
+
+- Por si fuera poco, aún tenemos otro problema que con la herencia simple no
+  teníamos, y que es aún más complicado.
+
+- Supongamos que tanto la clase `Terrestre` como `Acuatico` disponen de un
+  método `mover()`, de forma que todos los animales terrestres se mueven
+  caminando, mientras que los acuáticos lo hacen nadando.
+
+- Por tanto, ambas clases disponen de una implementación distinta del mismo
+  método `mover()`.
+
+- Son métodos que tienen la misma signatura pero que se comportan de distinta
+  forma.
+
+---
+
+:::: columns
+
+::: column
+
+- Tenemos, por tanto, la siguiente situación:
+
+!UML[animales-anfibios-mover.png][El método `mover()` está en `Terrestre` y `Acuatico`][width=60%]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Terrestre {
+    +mover()
+}
+
+class Acuatico {
+    +mover()
+}
+
+Animal <|-- Terrestre
+Animal <|-- Acuatico
+Terrestre <|-- Anfibio
+Acuatico <|-- Anfibio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- La pregunta es: ¿cuál de los métodos `mover()` heredará `Anfibio`?
+
+  - ¿El de `Terrestre`?
+
+  - ¿El de `Acuatico`?
+
+  - ¿Los dos a la vez?
+
+- Ahí tenemos una ambigüedad que hay que resolver de alguna manera.
+
+- A este problema se le denomina **problema del diamante**.
+
+- El mecanismo para resolver esa ambigüedad depende del lenguaje.
+
+:::
+
+::::
+
+---
+
+- Python implementa un mecanismo basado en un algoritmo llamado **linealización
+  C3**, que establece un orden de prioridad entre todas las clases a la hora de
+  seleccionar un método de la cadena de herencia.
+
+- Es decir: el algoritmo ordena las clases en una lista, de forma que las
+  clases que aparezcan antes en la lista tendrán más prioridad a la hora de
+  seleccionar un método.
+
+- De esta forma, si hay métodos repetidos en la cadena de herencia en clases
+  distintas, el algoritmo seleccionará siempre uno de ellos según el orden que
+  haya determinado para las clases.
+
+- Así, Python resuelve los dos problemas (el del MRO y el del diamante) al
+  mismo tiempo con un solo algoritmo.
+
+---
+
+- Para ver en detalle cómo funciona la linealización C3, se recomienda
+  consultar su página en Wikipedia:
+
+  [https://en.wikipedia.org/wiki/C3_linearization](https://en.wikipedia.org/wiki/C3_linearization)
+
+- A nosotros, lo que nos interesa principalmente es que el programador puede
+  influir en el orden de resolución de métodos según el orden en el que escriba
+  las superclases a la hora de definir la subclase.
+
+- Por tanto, no es lo mismo hacer:
+
+  ```python
+  class Anfibio(Terrestre, Acuatico):
+     # ...
+  ```
+
+  Que hacer:
+
+  ```python
+  class Anfibio(Acuatico, Terrestre):
+     # ...
+  ```
+
+- Si aplicamos el algoritmo en ambos casos, obtenemos resultados distintos.
+
+---
+
+- En concreto, si aplicamos el algoritmo al siguiente código:
+
+  ```python
+  class Animal:
+     # ... definición de la clase Animal
+
+  class Terrestre(Animal):
+     # ... definición de la clase Terrestre
+
+  class Acuatico(Animal):
+     # ... definición de la clase Acuatico
+
+  class Anfibio(Terrestre, Acuatico):
+     # ... definición de la clase Anfibio
+  ```
+
+  obtenemos que el orden de resolución de métodos para la clase `Anfibio` sería
+  la lista:
+
+  `[Anfibio, Terrestre, Acuatico, Animal, object]`
+
+---
+
+- En cambio, si lo aplicamos al siguiente código:
+
+  ```python
+  class Animal:
+     # ... definición de la clase Animal
+
+  class Terrestre(Animal):
+     # ... definición de la clase Terrestre
+
+  class Acuatico(Animal):
+     # ... definición de la clase Acuatico
+
+  class Anfibio(Acuatico, Terrestre):
+     # ... definición de la clase Anfibio
+  ```
+
+  el orden de resolución de métodos para la clase `Anfibio` sería:
+
+  `[Anfibio, Acuatico, Terrestre, Animal, object]`
+
+---
+
+- La lista de clases que devuelve el algoritmo es la que el intérprete iría
+  siguiendo desde el principio hasta encontrar el método solicitado.
+
+- Es decir: el algoritmo transforma una jerarquía que no es lineal en una lista
+  lineal, por lo que volvemos a tener lo mismo que teníamos en la herencia
+  simple: una lista enlazada de diccionarios que representan clases.
+
+- Por eso el algoritmo se llama _linealización_ C3.
 
 ## Superclases y subclases
 
@@ -827,6 +1118,8 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 # Polimorfismo
 
 ## Sobreescritura de métodos
+
+## Clases abstractas y métodos abstractos
 
 ## `super()`
 
