@@ -1371,7 +1371,7 @@ class Deposito:
   interno. En este caso: _dos colas son iguales cuando tienen los mismos
   elementos en el mismo orden_.
 
----
+### El método `__eq__`
 
 - Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos
   definir en ella el método mágico `__eq__`.
@@ -1440,6 +1440,101 @@ True
 :::
 
 ::::
+
+### El método `__hash__`
+
+- Recordatorio:
+
+  - Existen datos _hashables_ y datos _no hashables_.
+
+  - Los datos _hashables_ son aquellos que pueden usarse como claves de un
+    diccionario.
+
+  - Los datos mutables no pueden ser _hashables_.
+
+  - Si $x$ es _hashable_, `hash(`$x$`)` debe devolver un número que nunca
+    cambie durante la vida de $x$.
+
+  - Si $x$ no es _hashable_, `hash(`$x$`)` lanza una excepción `TypeError`.
+
+- Lo que hace la función `hash` es llamar al método `__hash__` de su argumento.
+
+- Por tanto, la llamada a `hash(`$x$`)` es equivalente a hacer
+  $x$`.__hash__()`.
+
+---
+
+- Los métodos `__eq__` y `__hash__` están relacionados entre sí, porque siempre
+  se tiene que cumplir la siguiente condición:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces `hash(`$x$`)` debe ser igual que `hash(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, siempre se tiene que cumplir que:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces $x$`.__hash__()` `==` $y$`.__hash__()`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Para ello, debemos tener en cuenta varias consideraciones a la hora de crear
+  nuestras clases:
+
+---
+
+1. Si una clase no define su propio método `__eq__`, tampoco debe definir su
+   propio método `__hash__`.
+
+2. Si una clase define `__hash__`, debe definir también un `__eq__` que vaya a
+   juego con el `__hash__`.
+
+3. Las clases definidas por el programador, de entrada ya traen una
+   implementación predefinida de `__eq__` y `__hash__` (mientras el programador
+   no las cambie por otras) que cumplen que:
+
+   - $x$ `==` $y$ sólo si $x$ `is` $y$, como ya vimos.
+
+   - $x$`.__hash__()` devuelve un valor que garantiza que:
+
+     si $x$ `==` $y$, entonces $x$ `is` $y$ y `hash(`$x$`)` `==` `hash(`$y$`)`.
+
+   (Esto se debe a que la clase _hereda_ los métodos `__eq__` y `__hash__` de
+   la clase `object`, como veremos en la siguiente unidad.)
+
+---
+
+4. Si una clase no define `__eq__` pero no se desea que sus instancias sean
+   _hashables_, debe definir su método `__hash__` como `None` incluyendo la
+   sentencia `__hash__ = None` en la definición de la clase.
+
+5. Si una clase define `__eq__` pero no define `__hash__`, es como si
+   implícitamente hubiera definido `__hash__ = None` (lo hace el intérprete
+   internamente).
+
+   Por tanto, si una clase define `__eq__` pero no define `__hash__`, sus
+   instancias no serán _hashables_.
+
+6. Si las instancias de la clase son mutables y ésta define `__eq__`, no
+   debe definir `__hash__`, ya que los objetos mutables no deben ser
+   _hashables_.
+
+---
+
+- Una forma sencilla de crear el `__hash__` de una clase sería usar el `hash`
+  de una tupla que contenga las variables de estado de la clase (siempre
+  que estas sean _hashables_ también):
+
+  ```python
+  def __hash__(self):
+      return hash((self.nombre, self.apellidos))
+  ```
+
+- Las colas son mutables y, por tanto, no pueden ser _hashables_, así que no
+  definiremos ningún método `__hash__` en la clase `Cola`. Así, como sí hemos
+  definido un método `__eq__`, el intérprete automáticamente hará
+  `__hash__ = None` y convertirá a las colas en _no hashables_.
 
 # Encapsulación
 
