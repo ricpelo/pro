@@ -155,7 +155,7 @@ class Tuit {
 
 ::: column
 
-!UML(calculadora-asocia-numero.png)()(width=50%)
+!UML(calculadora-asocia-numero.png)()(width=50%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Calculadora -- Numero : manipula
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -272,7 +272,7 @@ Calculadora -- Numero : manipula
 
 ::: column
 
-!UML(grupo-agrega-alumno.png)()(width=30%)
+!UML(grupo-agrega-alumno.png)()(width=30%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Grupo "0..*" o--- "0..*" Alumno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -360,7 +360,7 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
 ::: column
 
-!UML(cuenta-se-compone-de-tuits.png)()(width=30%)
+!UML(cuenta-se-compone-de-tuits.png)()(width=30%)(width=12%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Cuenta "1" *--- "0..*" Tuit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -476,7 +476,7 @@ Por ejemplo:
 
 ::: column
 
-!UML(trabajador-generaliza-docente-pas.png)()(width=60%)
+!UML(trabajador-generaliza-docente-pas.png)()(width=60%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Trabajador <|--- Docente
 Trabajador <|--- PAS
@@ -554,7 +554,7 @@ Trabajador <|--- PAS
 
 ::: column
 
-!UML(trabajador-generaliza-docente.png)()(width=35%)
+!UML(trabajador-generaliza-docente.png)()(width=35%)(width=17%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Trabajador <|-- Docente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -569,7 +569,7 @@ Trabajador <|-- Docente
   relaciones de generalización separadas, pero ninguna subclase tiene más de
   una superclase:
 
-!UML[doble-herencia-simple.png][][width=30%]
+!UML[doble-herencia-simple.png][][width=30%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A <|-- B
 A <|-- C
@@ -582,7 +582,7 @@ A <|-- C
 
 - Ésto, en cambio, no sería herencia simple, sino múltiple:
 
-!UML[herencia-multiple.png][Una subclase con dos superclases (herencia múltiple)][width=30%]
+!UML[herencia-multiple.png][Una subclase con dos superclases (herencia múltiple)][width=30%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A <|-- C
 B <|-- C
@@ -599,7 +599,7 @@ B <|-- C
 
 ::: column
 
-!UML(trabajador-docente-investigador.png)()(width=40%)
+!UML(trabajador-docente-investigador.png)()(width=40%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Trabajador <|-- Docente
 Docente <|-- Investigador
@@ -973,7 +973,7 @@ Acuatico <|-- Anfibio
 
 - Tenemos, por tanto, la siguiente situación:
 
-!UML[animales-anfibios-mover.png][El método `mover()` está en `Terrestre` y `Acuatico`][width=60%]
+!UML[animales-anfibios-mover.png][El método `mover()` está en `Terrestre` y `Acuatico`][width=60%][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Terrestre {
     +mover()
@@ -1117,13 +1117,327 @@ Acuatico <|-- Anfibio
 
 # Polimorfismo
 
-## Sobreescritura de métodos
+## Concepto
 
-## Clases abstractas y métodos abstractos
+- El **polimorfismo** es una de las características básicas de la Programación
+  Orientada a Objetos.
+
+- Decimos que **los objetos son _polimórficos_**.
+
+- La palabra «polimorfismo» significa «muchas formas», y se refiere al hecho de
+  que una referencia:
+
+  a. puede apuntar a un objeto cuya clase no está determinada de antemano y
+     puede cambiar durante la ejecución del programa, y
+
+  b. puede pertenecer a varias clases al mismo tiempo.
+
+<!--
+
+- La palabra «polimorfismo» significa «muchas formas», y se refiere al hecho de
+  que la clase del objeto al que apunta una referencia puede no estar
+  determinada de antemano y puede cambiar durante la ejecución del programa.
+
+-->
+
+- Por tanto, cuando tenemos una referencia almacenada en una variable, esta
+  apunta a un objeto que puede pertenecer a una clase de entre muchas, o
+  incluso puede pertenecer a varias clases al mismo tiempo.
+
+---
+
+- Esto debido a que la generalización establece una relación «es un» entre la
+  subclase y la superclase.
+
+- Por ejemplo, `Docente` es subclase de `Trabajador`, por lo que una instancia
+  de la clase `Docente` también se considera una instancia (indirecta) de la
+  clase `Trabajador` (los docentes «son» trabajadores).
+
+- Eso significa que **un objeto puede pertenecer a varias clases al mismo
+  tiempo**, de forma que puede ser instancia directa de una clase y, al mismo
+  tiempo, ser instancia indirecta de otras clases.
+
+- En Python existen las funciones `isinstance` y `issubclass` que nos ayudan a
+  entender las relaciones de generalización entre clases y cuándo un objeto es
+  instancia (directa o indirecta) de una clase.
+
+- En todo caso, se suelen usar muy poco, ya que el gran poder del polimorfismo
+  es precisamente **escribir código que no dependa de la clase concreta a la
+  que pertenezca un objeto**.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  >>> class A:
+  ...     pass
+  ...
+  >>> issubclass(A, object)     # 'A' es subclase de 'object'
+  True
+  >>> issubclass(object, A)     # 'object' NO es subclase de 'A'
+  False
+  >>> issubclass(A, A)          # 'A' es subclase de sí misma
+  True
+  >>> a = A()                   # Creamos 'a' instanciando 'A'
+  >>> isinstance(a, A)          # 'a' es instancia (directa) de 'A'
+  True
+  >>> isinstance(a, object)     # 'a' es instancia (indirecta) de 'object'
+  True
+  >>> isinstance(a, int)        # 'a' NO es instancia de 'int'
+  False
+  ```
+
+## Principio de sustitución de Liskov
+
+- Sabiendo eso, podemos enunciar el llamado **principio de sustitución de
+  Liskov** (introducido por Barbara Liskov en 1987) y que dice así:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Principio de sustitución de Liskov**
+
+  Si $S$ es una subclase de $T$, entonces las instancias de $T$ pueden ser
+  sustituidas por instancias de $S$ sin alterar el correcto funcionamiento del
+  programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- O dicho de otra forma: allí donde se espere una instancia de una determinada
+  clase, es posible colocar una instancia de cualquier subclase suya.
+
+- Este principio es consecuencia del concepto de _generalización_ entre clases,
+  que ya conocemos.
+
+---
+
+- Por ejemplo, supongamos que tenemos una función (o un método) que recibe dos
+  objetos de la clase `Trabajador` y calcula la diferencia entre sus salarios.
+
+- En Python, podría tener este aspecto:
+
+  ```python
+  class Trabajador:
+      def __init__(self, nombre, salario):
+          self.set_nombre(nombre)
+          self.set_salario(salario)
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+
+      def get_nombre(self):
+          return self.__nombre
+
+      def set_salario(self, salario):
+          self.__salario = salario
+
+      def get_salario(self):
+          return self.__salario
+
+  def diferencia_salarios(t1, t2):
+      """t1 y t2 son instancias de Trabajador"""
+      return t1.get_salario() - t2.get_salario()
+  ```
+
+---
+
+- La función `diferencia_salarios` supone que sus dos argumentos son instancias
+  de la clase `Trabajador`, por lo que asume que puede invocar el método
+  `get_salario` sobre cada uno de ellos. De esta forma, obtiene su salario y
+  puede calcular su diferencia:
+
+  ```python
+  >>> pepe = Trabajador("Pepe", 12500)
+  >>> juan = Trabajador("Juan", 8300)
+  >>> diferencia_salarios(pepe, juan)
+  4200
+  ```
+
+- Recordemos que un docente también es un trabajador (es una subclase suya):
+
+  ```python
+  class Docente(Trabajador):
+      def get_especialidad(self):
+          return self.__especialidad
+
+      def set_especialidad(self, especialidad):
+          self.__especialidad = especialidad
+  ```
+
+- Por tanto, `Docente` hereda los métodos de `Trabajador`, incluyendo
+  `get_salario`.
+
+---
+
+- Así, por el principio de sustitución, podemos enviarle como argumentos a
+  `diferencia_salarios` instancias de la clase `Docente` en lugar de instancias
+  de la clase `Trabajador`:
+
+  ```python
+  >>> maria = Docente("María", 18000)      # Se llama al __init__ heredado de Trabajador
+  >>> antonio = Docente("Antonio", 15000)  # Igual
+  >>> diferencia_salarios(maria, antonio)
+  3000
+  ```
+
+- Funciona porque `diferencia_salarios` llama al método `get_salario` de los
+  objetos que recibe, los cuales ahora son instancias de `Docente`, pero
+  `Docente` hereda los métodos de `Trabajador` incluyendo `get_salario`.
+
+- Comprobamos que se cumple perfectamente el principio de sustitución.
+
+- La gran ventaja es que la función `diferencia_salarios` es capaz de calcular
+  la diferencia de salarios de cualquier tipo de trabajador, ya sea un
+  trabajador genérico o un docente, o un investigador... o incluso otro tipo
+  que aún no existe siquiera.
+
+- Eso es así porque sabemos que todos los trabajadores (sean del tipo que sean)
+  responden al mensaje `get_salario`.
+
+---
+
+- En el código de la función `diferencia_salarios`:
+
+  ```python
+  def diferencia_salarios(t1, t2):
+      """t1 y t2 son instancias de Trabajador"""
+      return t1.get_salario() - t2.get_salario()
+  ```
+
+  los argumentos `t1` y `t2` son referencias a objetos que pueden adoptar
+  varias formas:
+
+  - Pueden ser trabajadores o pueden ser cualquier tipo específico de
+    trabajador (docente, investigador o cualquier otro que ni siquiera exista
+    aún).
+
+  - De hecho, pueden ser varias cosas al mismo tiempo:
+
+    - Pueden ser docentes y trabajadores al mismo tiempo.
+
+    - O pueden ser investigadores, docentes y trabajadores al mismo tiempo.
+
+    - Etcétera.
+
+- Por eso se dice que `t1` y `t2` son objetos polimórficos.
+
+## _Duck typing_
+
+- En un lenguaje de tipado dinámico como Python, el principio de sustitución y
+  el polimorfismo adoptan un enfoque aún más extremo.
+
+- Si volvemos al código de la función `diferencia_salarios`:
+
+  ```python
+  def diferencia_salarios(t1, t2):
+      """t1 y t2 son instancias de Trabajador"""
+      return t1.get_salario() - t2.get_salario()
+  ```
+
+  observamos que en ningún momento se exige que `t1` y `t2` sean instancias
+  (directas o indirectas) de la clase `Trabajador`.
+
+- En realidad, lo único que necesita la función es que tanto `t1` como `t2`
+  respondan al mensaje `get_salario` sin recibir ningún argumento y devolviendo
+  un número (para que luego se puedan restar).
+
+- Por tanto, cualquier objeto de cualquier clase nos valdría siempre que
+  cumpliera la condición anterior; no hace falta que sean trabajadores.
+
+---
+
+- En los lenguajes dinámicos hay un dicho que afirma:
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_«Si camina como un pato y habla como un pato, entonces es un pato.»_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A esto se le conoce como **_duck typing_**, y significa que **lo importante
+  no es la clase** a la que pertenece un objeto, sino «qué aspecto tiene», es
+  decir, **a qué mensajes es capaz de responder y cómo**.
+
+- Es exactamente lo que ocurre con la función `diferencia_salarios`. Nos vale
+  cualquier objeto que responda adecuadamente al mensaje `get_salario`.
+
+- El _duck typing_ hace que la programación orientada a objetos resulte mucho
+  más flexible, puesto que lo importante no es la jerarquía de clases que se
+  define, sino cómo se comportan los objetos.
+
+- Son más importantes los objetos que las clases.
+
+---
+
+- Por ejemplo, supongamos que queremos calcular el área de una superficie
+  rectangular dados su ancho y su alto, y suponemos que todos los rectángulos
+  disponen de los métodos `get_ancho` y `get_alto`:
+
+  ```python
+  def area(rect):
+      return rect.get_ancho() * rect.get_alto()
+  ```
+
+- Cualquier objeto que responda correctamente a esos dos métodos nos valdría
+  como argumento `rect` de la función `area`.
+
+- Por ejemplo, una ventana o una figura rectangular tienen ancho y alto, y las
+  clases `Ventana` y `Rectangulo` pueden ser clases totalmente independientes,
+  sin relación entre sí:
+
+:::: columns
+
+::: column
+
+```python
+class Ventana:
+    def get_ancho(self):
+        # ...
+
+    def get_alto(self):
+        # ...
+
+    # ... resto de la clase
+```
+
+:::
+
+::: column
+
+```python
+class Rectangulo:
+    def get_ancho(self):
+        # ...
+
+    def get_alto(self):
+        # ...
+
+    # ... resto de la clase
+```
+
+:::
+
+::::
+
+---
+
+- Y la misma función nos valdría para calcular el área de ventanas, rectángulos
+  y cualquier otra cosa que tenga ancho y alto:
+
+  ```python
+  >>> v = Ventana(4, 3)
+  >>> area(v)
+  12
+  >>> r = Rectangulo(8, 5)
+  >>> area(r)
+  40
+  ```
+
+## Sobreescritura de métodos
 
 ## `super()`
 
 ## Sobreescritura de constructores
+
+## Clases abstractas y métodos abstractos
 
 # Herencia vs. composición
 
