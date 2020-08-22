@@ -1951,10 +1951,8 @@ abstractos de datos.
   queremos garantizar que la edad no sea negativa, podemos hacer:
 
   ```python
-  """
-  Invariante: todas las personas deben tener edad no negativa.
-  """
   class Persona:
+      """Invariante: todas las personas deben tener edad no negativa."""
       def __init__(self, nombre, edad):
           self.set_nombre(nombre)
           self.set_edad(edad)
@@ -2010,6 +2008,48 @@ abstractos de datos.
 Cuando implementamos un tipo abstracto mediante una clase, **esas propiedades
 se traducen en invariantes** de la clase.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Algunas de esas propiedades, en realidad, no son invariantes de la clase,
+  sino condiciones que tienen que cumplir los métodos al entrar o salir de los
+  mismos.
+
+- Las condiciones pueden ser de dos tipos:
+
+  - **Precondición**: condición que tiene que cumplir un método para poder
+    ejecutarse.
+
+  - **Postcondición**: condición que tiene que cumplir un método al acabar de
+    ejecutarse.
+
+- Si se cumple la precondición de un método y éste se ejecuta, al finalizar su
+  ejecución se debe cumplir su postcondición.
+
+#### Interfaz de una clase
+
+- La **interfaz** de una clase (o de un objeto de esa clase) está formada por
+  todo lo que es público y visible desde fuera de la clase.
+
+- Representa lo que es estrictamente necesario conocer para usar la clase (y,
+  por tanto, cualquier objeto de esa clase).
+
+- Describe qué hace la clase (o el objeto) sin detallar cómo.
+
+- Juega un papel análogo a la interfaz de un tipo abstracto de datos.
+
+- Está formado por:
+
+  - Nombre de la clase.
+
+  - Miembros públicos: atributos y métodos.
+
+  - Invariante de la clase.
+
+  - Precondiciones y postcondiciones de los métodos.
+
+  - Documentación adicional que explique la función de la clase y sus
+    operaciones.
 
 #### Asertos
 
@@ -2119,11 +2159,18 @@ class Deposito:
   - Un **invariante de una clase** es una condición que se debe cumplir durante
     toda la vida de todas las instancias de una clase.
 
+  - Una **precondición de un método** es una condición que se debe cumplir
+    justo antes de ejecutar el método.
+
+  - Una **postcondición de un método** es una condición que se debe cumplir
+    justo al finalizar la ejecución del método.
+
   - Un **aserto** es una condición que se debe cumplir en un determinado punto
     del programa.
 
-  - Para **implementar invariantes de clase** se pueden usar asertos y
-    sentencias `assert` en puntos adecuados del código fuente de la clase.
+  - Para **implementar invariantes de clase, precondiciones o postcondiciones
+    de métodos** se pueden usar asertos y sentencias `assert` en puntos
+    adecuados del código fuente de la clase.
 
 # Miembros de clase
 

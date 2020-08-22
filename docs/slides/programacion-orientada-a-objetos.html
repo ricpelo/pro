@@ -1643,30 +1643,28 @@
 
 <ul>
 <li><p>Por ejemplo: si queremos almacenar los datos de una persona y queremos garantizar que la edad no sea negativa, podemos hacer:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a><span class="co">Invariante: todas las personas deben tener edad no negativa.</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a></span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true"></a></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privado</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="kw">class</span> Persona:</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Invariante: todas las personas deben tener edad no negativa.&quot;&quot;&quot;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true"></a></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privado</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.3.2">
@@ -1691,9 +1689,39 @@
 <p>Cuando implementamos un tipo abstracto mediante una clase, <strong>esas propiedades se traducen en invariantes</strong> de la clase.</p>
 </div>
 </section>
+<section class="slide level5" data-number="5.1.2.3.4">
 
-<section id="asertos" class="title-slide slide level4" data-number="5.1.2.4">
-<h4 data-number="5.1.2.4"><span class="header-section-number">5.1.2.4</span> Asertos</h4>
+<ul>
+<li><p>Algunas de esas propiedades, en realidad, no son invariantes de la clase, sino condiciones que tienen que cumplir los métodos al entrar o salir de los mismos.</p></li>
+<li><p>Las condiciones pueden ser de dos tipos:</p>
+<ul>
+<li><p><strong>Precondición</strong>: condición que tiene que cumplir un método para poder ejecutarse.</p></li>
+<li><p><strong>Postcondición</strong>: condición que tiene que cumplir un método al acabar de ejecutarse.</p></li>
+</ul></li>
+<li><p>Si se cumple la precondición de un método y éste se ejecuta, al finalizar su ejecución se debe cumplir su postcondición.</p></li>
+</ul>
+</section>
+
+<section id="interfaz-de-una-clase" class="title-slide slide level4" data-number="5.1.2.4">
+<h4 data-number="5.1.2.4"><span class="header-section-number">5.1.2.4</span> Interfaz de una clase</h4>
+<ul>
+<li><p>La <strong>interfaz</strong> de una clase (o de un objeto de esa clase) está formada por todo lo que es público y visible desde fuera de la clase.</p></li>
+<li><p>Representa lo que es estrictamente necesario conocer para usar la clase (y, por tanto, cualquier objeto de esa clase).</p></li>
+<li><p>Describe qué hace la clase (o el objeto) sin detallar cómo.</p></li>
+<li><p>Juega un papel análogo a la interfaz de un tipo abstracto de datos.</p></li>
+<li><p>Está formado por:</p>
+<ul>
+<li><p>Nombre de la clase.</p></li>
+<li><p>Miembros públicos: atributos y métodos.</p></li>
+<li><p>Invariante de la clase.</p></li>
+<li><p>Precondiciones y postcondiciones de los métodos.</p></li>
+<li><p>Documentación adicional que explique la función de la clase y sus operaciones.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="asertos" class="title-slide slide level4" data-number="5.1.2.5">
+<h4 data-number="5.1.2.5"><span class="header-section-number">5.1.2.5</span> Asertos</h4>
 <ul>
 <li><p>La comprobación continua de los invariantes cada vez que se actualiza el estado interno de un objeto puede dar lugar a <strong>problemas de rendimiento</strong>, ya que las comprobaciones consumen tiempo de CPU.</p></li>
 <li><p>Una técnica alternativa a la comprobación con sentencias condicionales (<code>if</code>s) es el uso de <strong>asertos</strong>.</p></li>
@@ -1701,7 +1729,7 @@
 <li><p>Para insertar un aserto en un punto del programa, se usa la sentencia <code>assert</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.2.4.1">
+<section class="slide level5" data-number="5.1.2.5.1">
 
 <ul>
 <li><p>El código anterior quedaría así usando <code>assert</code>:</p>
@@ -1725,7 +1753,7 @@
 <li><p>El intérprete comprobará el aserto cuando el flujo de control llegue a la sentencia <code>assert</code> y, en caso de que no se cumpla, lanzará una excepción de tipo <code>AssertionError</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.2.4.2">
+<section class="slide level5" data-number="5.1.2.5.2">
 
 <ul>
 <li><p>Lo interesante de los asertos es que podemos pedirle al intérprete que ignore todas las sentencias <code>assert</code> cuando ejecute el código.</p></li>
@@ -1748,7 +1776,7 @@
 <li>Con la opción <code>-O</code> (de «<strong>O</strong>ptimizado») podemos elegir entre mayor rendimiento o mayor seguridad al ejecutar nuestros programas.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.2.4.3">
+<section class="slide level5" data-number="5.1.2.5.3">
 
 <ul>
 <li><p>Aún así, no siempre es conveniente poder saltarse los asertos. De hecho, a veces lo mejor sigue siendo comprobar condiciones con un <code>if</code> y lanzar un error adecuado si la condición no se cumple.</p></li>
@@ -1771,14 +1799,16 @@
 <span id="cb53-15"><a href="#cb53-15" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
 <span id="cb53-16"><a href="#cb53-16" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="5.1.2.4.4">
+<section class="slide level5" data-number="5.1.2.5.4">
 
 <ul>
 <li><p>Resumiendo:</p>
 <ul>
 <li><p>Un <strong>invariante de una clase</strong> es una condición que se debe cumplir durante toda la vida de todas las instancias de una clase.</p></li>
+<li><p>Una <strong>precondición de un método</strong> es una condición que se debe cumplir justo antes de ejecutar el método.</p></li>
+<li><p>Una <strong>postcondición de un método</strong> es una condición que se debe cumplir justo al finalizar la ejecución del método.</p></li>
 <li><p>Un <strong>aserto</strong> es una condición que se debe cumplir en un determinado punto del programa.</p></li>
-<li><p>Para <strong>implementar invariantes de clase</strong> se pueden usar asertos y sentencias <code>assert</code> en puntos adecuados del código fuente de la clase.</p></li>
+<li><p>Para <strong>implementar invariantes de clase, precondiciones o postcondiciones de métodos</strong> se pueden usar asertos y sentencias <code>assert</code> en puntos adecuados del código fuente de la clase.</p></li>
 </ul></li>
 </ul>
 </section>

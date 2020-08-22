@@ -1431,6 +1431,17 @@ class Rectangulo:
   40
   ```
 
+- La función `area` se aprovecha del hecho de que los objetos a los que se les
+  puede calcular el área responden todos a los mismos mensajes.
+
+- Dicho de otra forma: todos esos objetos **comparten la misma _interfaz_**.
+
+- Por tanto, cualquier objeto que tenga la interfaz necesaria, nos servirá como
+  argumento del método `area`.
+
+- Como ya dijimos, trabajar con interfaces en lugar de hacerlo con clases
+  resulta más flexible y soporta mejor los cambios futuros.
+
 ## Sobreescritura de métodos
 
 ## `super()`
