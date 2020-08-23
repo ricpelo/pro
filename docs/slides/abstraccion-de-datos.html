@@ -1220,7 +1220,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <ul>
 <li><p>Al introducir el concepto de «estado interno» en nuestros datos, estamos introduciendo también la capacidad de cambiar dicho estado, es decir, que <strong>los datos ahora son mutables</strong>, y la <em>mutabilidad</em> es un concepto propio de la <strong>programación imperativa</strong>.</p></li>
 <li><p>Esto nos va a <strong>impedir representar un <em>dato abstracto mutable</em> usando las especificaciones algebraicas</strong> que hemos usado hasta hoy, ya que, a partir de ahora, el resultado de una operación puede depender no sólo de lo que dicten las ecuaciones de la especificación sino también de la historia previa que haya tenido el dato abstracto (es decir, de su estado interno).</p></li>
-<li><p>Y, por supuesto, nos va a impedir usar el modelo de sustitución para razonar sobre nuestros datos, por lo que tendremos que usar el modelo de <strong>máquina de estados</strong>.</p></li>
+<li><p>Y, por supuesto, nos va a <strong>impedir usar el modelo de sustitución</strong> para razonar sobre nuestros datos, por lo que tendremos que usar el modelo de <strong>máquina de estados</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.2">
@@ -1396,6 +1396,65 @@ def saldo(dep):
 <li><p>Las <strong>funciones de orden superior</strong> que devuelven otras funciones.</p></li>
 <li><p>El uso de una función que <strong><em>despacha</em></strong> a otras funciones dependiendo del mensaje recibido.</p></li>
 </ul></li>
+</ul>
+</section>
+
+<section id="especificación-de-datos-abstractos-con-estado-interno" class="title-slide slide level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> Especificación de datos abstractos con estado interno</h2>
+<ul>
+<li><p>Ya hemos dicho que las especificaciones algebraicas no nos sirven para especificar un tipo abstracto que contenga estado interno y mutabilidad, porque las operaciones ya no conservan la transparencia referencial y sus propiedades ya no siempre se pueden describir con ecuaciones.</p></li>
+<li><p>Lo que sí se puede hacer es usar el lenguaje natural para describir dichas propiedades.</p></li>
+<li><p>El resultado es mucho menos elegante y formal, además de que favorece la aparición de ambigüedades en la interpretación, pero es lo mejor que podemos hacer, en general.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.4.0.0.1">
+
+<ul>
+<li><p>Por ejemplo, la especificación del tipo <strong>Depósito</strong> podría expresarse así si no hubiera mutabilidad ni estado interno:</p>
+<div class="line-block"><strong>espec</strong> <em>Depósito</em><br />
+      <strong>operaciones</strong><br />
+            <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>Depósito</em><br />
+            <strong>parcial</strong> <code>retirar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+            <code>ingresar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+            <code>saldo</code> : <em>Depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+      <strong>ecuaciones</strong><br />
+            <span class="math inline">f &lt; c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+            <span class="math inline">f \geq c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <code>depósito</code>(<span class="math inline">f - c</span>)<br />
+            <code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <code>depósito</code>(<span class="math inline">f + c</span>)<br />
+            <code>saldo</code>(<code>depósito</code>(<span class="math inline">f</span>)) <span class="math inline">\doteq</span> <span class="math inline">f</span></div></li>
+<li><p><code>deposito</code> es la operación generadora.</p></li>
+<li><p><code>retirar</code> e <code>ingresar</code> son operaciones modificadoras.</p></li>
+<li><p><code>saldo</code> es una operación selectora.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.4.0.0.2">
+
+<ul>
+<li><p>Si el dato abstracto es mutable y recuerda su estado interno, las operaciones modificadoras ya no producen un nuevo dato <strong>Depósito</strong> a partir de otro, sino que cambian directamente el estado interno del dato existente.</p></li>
+<li><p>En tal caso, la especificación debe describir el <strong>efecto</strong> que producen las operaciones modificadoras sobre el dato abstracto:</p>
+<div class="line-block"><strong>espec</strong> <em>Depósito</em><br />
+      <strong>operaciones</strong><br />
+            <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>Depósito</em><br />
+            <strong>parcial</strong> <code>retirar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow \empty</span><br />
+            <code>ingresar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
+            <code>saldo</code> : <em>Depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+      <strong>ecuaciones</strong><br />
+            <span class="math inline">f &lt; c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+            <span class="math inline">f \geq c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>)   { <span class="math inline">f \longleftarrow f - c</span> }<br />
+            <code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>)   { <span class="math inline">f \longleftarrow f + c</span> }<br />
+            <code>retirar</code>(<code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>), <span class="math inline">c</span>)   { <code>nada</code> }<br />
+            <code>saldo</code>(<code>depósito</code>(<span class="math inline">f</span>)) <span class="math inline">\doteq</span> <span class="math inline">f</span></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.4.0.0.3">
+
+<ul>
+<li><p>Los <em>efectos</em> que produce una operación se indican entre llaves { } al lado de la operación correspondiente.</p></li>
+<li><p>La signatura de las operaciones <code>retirar</code> e <code>ingresar</code> indican mediante «<span class="math inline">\rightarrow \empty</span>» que son operaciones que no devuelven ningún valor, ya que su cometido es el de provocar un efecto lateral (en este caso, modificar el estado interno del <strong>Depósito</strong>).</p></li>
+<li><p>La expresión { <span class="math inline">f \longleftarrow f - c</span> } representa una <strong>asignación</strong> que modifica el valor de la variable <span class="math inline">f</span> local que forma parte del estado interno del dato.</p></li>
+<li><p>Expresa que el efecto que produce la operación <code>retirar</code> es la de cambiar los fondos del depósito, restándole el valor de <span class="math inline">c</span>.</p></li>
+<li><p>Por tanto, una vez ejecutada dicha operación, se habrá cambiado el estado interno del dato abstracto.</p></li>
+<li><p>La instrucción <code>nada</code> representa una instrucción que no hace nada (equivale a la sentencia <code>pass</code> de Python).</p></li>
 </ul>
 </section>
 </section>

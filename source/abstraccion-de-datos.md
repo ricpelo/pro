@@ -1385,9 +1385,9 @@ f3 -> y [lhead = cluster0, minlen = 3, color = blue]
   las ecuaciones de la especificación sino también de la historia previa que
   haya tenido el dato abstracto (es decir, de su estado interno).
 
-- Y, por supuesto, nos va a impedir usar el modelo de sustitución para razonar
-  sobre nuestros datos, por lo que tendremos que usar el modelo de **máquina de
-  estados**.
+- Y, por supuesto, nos va a **impedir usar el modelo de sustitución** para
+  razonar sobre nuestros datos, por lo que tendremos que usar el modelo de
+  **máquina de estados**.
 
 ---
 
@@ -1610,6 +1610,93 @@ def deposito(fondos):
   - El uso de una función que **_despacha_** a otras funciones dependiendo del
     mensaje recibido.
 
+## Especificación de datos abstractos con estado interno
+
+- Ya hemos dicho que las especificaciones algebraicas no nos sirven para
+  especificar un tipo abstracto que contenga estado interno y mutabilidad,
+  porque las operaciones ya no conservan la transparencia referencial y sus
+  propiedades ya no siempre se pueden describir con ecuaciones.
+
+- Lo que sí se puede hacer es usar el lenguaje natural para describir dichas
+  propiedades.
+
+- El resultado es mucho menos elegante y formal, además de que favorece la
+  aparición de ambigüedades en la interpretación, pero es lo mejor que podemos
+  hacer, en general.
+
+---
+
+- Por ejemplo, la especificación del tipo **Depósito** podría expresarse así si no hubiera mutabilidad ni estado interno:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **espec** _Depósito_
+      **operaciones**
+            `depósito` : $\mathbb{R}$ $\rightarrow$ _Depósito_
+            **parcial** `retirar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+            `ingresar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+            `saldo` : _Depósito_ $\rightarrow$ $\mathbb{R}$
+      **ecuaciones**
+            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ $error$
+            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ `depósito`($f - c$)
+            `ingresar`(`depósito`($f$), $c$) $\doteq$ `depósito`($f + c$)
+            `saldo`(`depósito`($f$)) $\doteq$ $f$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- `deposito` es la operación generadora.
+
+- `retirar` e `ingresar` son operaciones modificadoras.
+
+- `saldo` es una operación selectora.
+
+---
+
+- Si el dato abstracto es mutable y recuerda su estado interno, las operaciones
+  modificadoras ya no producen un nuevo dato **Depósito** a partir de otro,
+  sino que cambian directamente el estado interno del dato existente.
+
+- En tal caso, la especificación debe describir el **efecto** que producen las
+  operaciones modificadoras sobre el dato abstracto:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **espec** _Depósito_
+      **operaciones**
+            `depósito` : $\mathbb{R}$ $\rightarrow$ _Depósito_
+            **parcial** `retirar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow \empty$
+            `ingresar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
+            `saldo` : _Depósito_ $\rightarrow$ $\mathbb{R}$
+      **ecuaciones**
+            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ $error$
+            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) \ \ \{ $f \longleftarrow f - c$ \}
+            `ingresar`(`depósito`($f$), $c$) \ \ \{ $f \longleftarrow f + c$ \}
+            `retirar`(`ingresar`(`depósito`($f$), $c$), $c$) \ \ \{ `nada` \}
+            `saldo`(`depósito`($f$)) $\doteq$ $f$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Los _efectos_ que produce una operación se indican entre llaves \{ \} al lado
+  de la operación correspondiente.
+
+- La signatura de las operaciones `retirar` e `ingresar` indican mediante
+  «$\rightarrow \empty$» que son operaciones que no devuelven ningún valor, ya
+  que su cometido es el de provocar un efecto lateral (en este caso, modificar
+  el estado interno del **Depósito**).
+
+- La expresión \{ $f \longleftarrow f - c$ \} representa una **asignación** que
+  modifica el valor de la variable $f$ local que forma parte del estado interno
+  del dato.
+
+- Expresa que el efecto que produce la operación `retirar` es la de cambiar los
+  fondos del depósito, restándole el valor de $c$.
+
+- Por tanto, una vez ejecutada dicha operación, se habrá cambiado el estado
+  interno del dato abstracto.
+
+- La instrucción `nada` representa una instrucción que no hace nada (equivale a
+  la sentencia `pass` de Python).
+
 # Abstracción de datos y modularidad
 
 ## El tipo abstracto como módulo
@@ -1684,4 +1771,3 @@ def deposito(fondos):
     usarse en diferentes programas con ninguna o muy poca modificación.
 
 !BIBLIOGRAFIA
-
