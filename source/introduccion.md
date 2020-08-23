@@ -598,9 +598,11 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 !DOT(jerarquias-generalizacion.svg)($P$ es un problema más general que $Q$)(width=50%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 subgraph cluster0 {
-    style = "rounded"
+    style = "rounded, filled"
     label = <<i>P</i>>
-    Q [style = "rounded", label = <<i>Q</i>>]
+    bgcolor = "transparent"
+    fillcolor = "grey99"
+    Q [style = "rounded, filled", label = <<i>Q</i>>, fillcolor = "grey90"]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

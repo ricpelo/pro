@@ -2222,6 +2222,10 @@ class Deposito:
     de métodos** se pueden usar asertos y sentencias `assert` en puntos
     adecuados del código fuente de la clase.
 
+#### Un ejemplo completo
+
+
+
 # Miembros de clase
 
 ## Variables de clase
