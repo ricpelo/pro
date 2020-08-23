@@ -1626,7 +1626,8 @@ def deposito(fondos):
 
 ---
 
-- Por ejemplo, la especificación del tipo **Depósito** podría expresarse así si no hubiera mutabilidad ni estado interno:
+- Por ejemplo, la especificación del tipo **Depósito** podría expresarse así si
+  no hubiera mutabilidad ni estado interno:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1656,7 +1657,7 @@ def deposito(fondos):
   sino que cambian el estado interno del dato existente.
 
 - En tal caso, la especificación debe describir el **efecto** que producen las
-  operaciones modificadoras sobre el dato abstracto:
+  operaciones modificadoras sobre el dato abstracto.
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

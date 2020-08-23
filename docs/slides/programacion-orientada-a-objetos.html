@@ -1889,7 +1889,7 @@
     <strong>ecuaciones</strong><br />
           <span class="math inline">p_1</span> <code>==</code> <span class="math inline">p_2</span> <span class="math inline">\doteq</span> «<span class="math inline">p_1</span> y <span class="math inline">p_2</span> tienen los mismos elementos en el mismo orden»<br />
           <code>vacía?</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> <span class="math inline">p</span> <code>==</code> <code>pila</code><br />
-          <code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)   { Apila el elemento <span class="math inline">x</span> encima de la pila <span class="math inline">p</span> }<br />
+          <code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)   { Apila el elemento <span class="math inline">x</span> en la cima de la pila <span class="math inline">p</span> }<br />
           <code>desapilar</code>(<span class="math inline">p</span>)   { Saca de la pila <span class="math inline">p</span> el elemento situado en su cima }<br />
           <code>cima</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> «el último elemento apilado en <span class="math inline">p</span> y aún no desapilado»<br />
           <code>vacía?</code>(<span class="math inline">p</span>) <span class="math inline">\Rightarrow</span> <code>desapilar</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
@@ -1898,7 +1898,52 @@
 <section class="slide level5" data-number="5.1.2.6.2">
 
 <ul>
-<li>Y una posible implementación con una clase Python podría ser:</li>
+<li><p>A veces, la especificación de un tipo abstracto resulta más conveniente redactarla en lenguaje natural, simplemente porque queda más fácil de entender o más claro o fácil de leer.</p></li>
+<li><p>Por ejemplo, podríamos crear un documento de <strong>especificación en lenguaje natural</strong> del tipo abstracto <em>pila</em> explicando qué funcionalidad tiene y las operaciones que contiene:</p></li>
+</ul>
+<div class="caja">
+<p><strong>Tipo</strong>: <em>pila</em></p>
+<ul>
+<li><p>Define una pila de elementos, de forma que se van almacenando en el orden en que han sido introducidos y se van extrayendo en orden contrario siguiendo una estrategia <em>LIFO</em> (<em>L</em>ast <em>I</em>n, <em>F</em>irst <em>O</em>ut).</p></li>
+<li><p>Los elementos pueden ser de cualquier tipo.</p></li>
+<li><p>Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.3">
+
+<div class="caja">
+<p><strong>Operaciones constructoras y modificadoras:</strong></p>
+<ul>
+<li><p><code>pila()</code> <span class="math inline">\rightarrow</span> <em>pila</em></p>
+<p>Crea una pila vacía (es decir, sin elementos) y la devuelve.</p></li>
+<li><p><code>apilar(</code><span class="math inline">p</span>: <em>pila</em>, <span class="math inline">elem</span><code>)</code> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span></p>
+<p>Introduce el elemento <span class="math inline">elem</span> encima de la pila <span class="math inline">p</span>. Ese elemento pasa a estar ahora en la cima de la pila, por lo que tras su ejecución se debe cumplir que <code>cima(</code><span class="math inline">p</span><code>)</code> <code>==</code> <span class="math inline">elem</span>. La operación no devuelve ningún resultado.</p></li>
+<li><p><code>desapilar(</code><span class="math inline">p</span>: <em>pila</em><code>)</code> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span></p>
+<p>Extrae de la pila <span class="math inline">p</span> el elemento situado en la cima. Si <span class="math inline">p</span> está vacía, da error. El elemento que queda ahora en la cima es el que había justo antes de apilar el elemento recién extraído. La operación no devuelve ningún resultado.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.4">
+
+<div class="caja">
+<p><strong>Operaciones selectoras:</strong></p>
+<ul>
+<li><p><span class="math inline">p_1</span>: <em>pila</em> <code>==</code> <span class="math inline">p_2</span>: <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span></p>
+<p>Devuelve <span class="math inline">V</span> si <span class="math inline">p_1</span> y <span class="math inline">p_2</span> son dos pilas iguales, y <span class="math inline">F</span> en caso contrario.</p>
+<p>Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.</p></li>
+<li><p><code>vacía?(</code><span class="math inline">p</span>: <em>pila</em><code>)</code> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span></p>
+<p>Devuelve <span class="math inline">V</span> si la pila <span class="math inline">p</span> no tiene elementos, y <span class="math inline">F</span> en caso contrario.</p></li>
+<li><p><code>cima(</code><span class="math inline">p</span>: <em>pila</em><code>)</code> <span class="math inline">\rightarrow</span> <span class="math inline">cualquiera</span></p>
+<p>Devuelve el elemento situado en la cima de la pila. Si la pila está vacía, da error.</p>
+<p>El tipo del dato devuelto es el tipo del elemento que hay en la cima.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.5">
+
+<ul>
+<li>Una posible implementación con una clase Python podría ser:</li>
 </ul>
 <div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="kw">class</span> Pila:</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
@@ -1922,6 +1967,17 @@
 <span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>   <span class="kw">def</span> cima(<span class="va">self</span>):</span>
 <span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a>       <span class="cf">assert</span> <span class="kw">not</span> <span class="va">self</span>.vacia()</span>
 <span id="cb54-22"><a href="#cb54-22" aria-hidden="true"></a>       <span class="cf">return</span> <span class="va">self</span>.__elems[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.6">
+
+<ul>
+<li><p>Resulta curioso observar que la implementación, en este caso, es probablemente más corta, elegante, precisa y fácil de entender que cualquiera de las especificaciones que hemos visto anteriormente.</p></li>
+<li><p>De hecho, si considerásemos al lenguaje Python como un lenguaje con el que escribir especificaciones, el código anterior resultaría la mejor especificación de todas las que hemos visto.</p></li>
+<li><p>Eso se debe a que la riqueza de tipos de Python, junto con su sintaxis sencilla, lo hacen un lenguaje fácil de leer y con el que se pueden expresar muchas ideas con pocos caracteres.</p></li>
+<li><p>Así que una implementación puede verse como una especificación, y un lenguaje de programación puede usarse para escribir especificaciones (combinándolo, posiblemente, con algo de lenguaje natural).</p></li>
+<li><p>Aunque esto puede parecer raro en un principio, es algo que se hace a menudo.</p></li>
+<li><p>Las especificaciones escritas con un lenguaje de programación se denominan <strong>especificaciones operacionales</strong>.</p></li>
+</ul>
 </section>
 
 

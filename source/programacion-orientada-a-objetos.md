@@ -2269,7 +2269,7 @@ class Deposito:
     **ecuaciones**
           $p_1$ `==` $p_2$ $\doteq$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
           `vacía?`($p$) $\doteq$ $p$ `==` `pila`
-          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ encima de la pila $p$ \}
+          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
           `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \} 
           `cima`($p$) $\doteq$ «el último elemento apilado en $p$ y aún no desapilado»
           `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\doteq$ $error$
@@ -2278,7 +2278,83 @@ class Deposito:
 
 ---
 
-- Y una posible implementación con una clase Python podría ser:
+- A veces, la especificación de un tipo abstracto resulta más conveniente
+  redactarla en lenguaje natural, simplemente porque queda más fácil de
+  entender o más claro o fácil de leer.
+
+- Por ejemplo, podríamos crear un documento de **especificación en lenguaje
+  natural** del tipo abstracto _pila_ explicando qué funcionalidad tiene y las
+  operaciones que contiene:
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Tipo**: _pila_
+
+- Define una pila de elementos, de forma que se van almacenando en el orden
+  en que han sido introducidos y se van extrayendo en orden contrario
+  siguiendo una estrategia _LIFO_ (*L*ast *I*n, *F*irst *O*ut).
+
+- Los elementos pueden ser de cualquier tipo.
+
+- Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Operaciones constructoras y modificadoras:**
+
+- `pila()` $\rightarrow$ _pila_
+
+  Crea una pila vacía (es decir, sin elementos) y la devuelve.
+
+- `apilar(`$p$: _pila_, $elem$`)` $\rightarrow$ $\empty$
+
+  Introduce el elemento $elem$ encima de la pila $p$. Ese elemento pasa a
+  estar ahora en la cima de la pila, por lo que tras su ejecución se debe
+  cumplir que `cima(`$p$`)` `==` $elem$. La operación no devuelve ningún
+  resultado.
+
+- `desapilar(`$p$: _pila_`)` $\rightarrow$ $\empty$
+
+  Extrae de la pila $p$ el elemento situado en la cima. Si $p$ está vacía, da
+  error. El elemento que queda ahora en la cima es el que había justo antes
+  de apilar el elemento recién extraído. La operación no devuelve ningún
+  resultado.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Operaciones selectoras:**
+
+- $p_1$: _pila_ `==` $p_2$: _pila_ $\rightarrow$ $\mathfrak{B}$
+
+  Devuelve $V$ si $p_1$ y $p_2$ son dos pilas iguales, y $F$ en caso
+  contrario.
+
+  Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
+
+- `vacía?(`$p$: _pila_`)` $\rightarrow$ $\mathfrak{B}$
+
+  Devuelve $V$ si la pila $p$ no tiene elementos, y $F$ en caso contrario.
+
+- `cima(`$p$: _pila_`)` $\rightarrow$ $cualquiera$ 
+
+  Devuelve el elemento situado en la cima de la pila. Si la pila está vacía,
+  da error.
+
+  El tipo del dato devuelto es el tipo del elemento que hay en la cima.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Una posible implementación con una clase Python podría ser:
 
 ```python
 class Pila:
@@ -2304,6 +2380,29 @@ class Pila:
        assert not self.vacia()
        return self.__elems[-1]
 ```
+
+---
+
+- Resulta curioso observar que la implementación, en este caso, es
+  probablemente más corta, elegante, precisa y fácil de entender que cualquiera
+  de las especificaciones que hemos visto anteriormente.
+
+- De hecho, si considerásemos al lenguaje Python como un lenguaje con el que
+  escribir especificaciones, el código anterior resultaría la mejor
+  especificación de todas las que hemos visto.
+
+- Eso se debe a que la riqueza de tipos de Python, junto con su sintaxis
+  sencilla, lo hacen un lenguaje fácil de leer y con el que se pueden expresar
+  muchas ideas con pocos caracteres.
+
+- Así que una implementación puede verse como una especificación, y un lenguaje
+  de programación puede usarse para escribir especificaciones (combinándolo,
+  posiblemente, con algo de lenguaje natural).
+
+- Aunque esto puede parecer raro en un principio, es algo que se hace a menudo.
+
+- Las especificaciones escritas con un lenguaje de programación se denominan
+  **especificaciones operacionales**.
 
 # Miembros de clase
 
