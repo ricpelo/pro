@@ -1630,12 +1630,12 @@ def deposito(fondos):
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **espec** _Depósito_
+  **espec** _depósito_
       **operaciones**
-            `depósito` : $\mathbb{R}$ $\rightarrow$ _Depósito_
-            **parcial** `retirar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-            `ingresar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-            `saldo` : _Depósito_ $\rightarrow$ $\mathbb{R}$
+            `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+            **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+            `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+            `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
       **ecuaciones**
             $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ $error$
             $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ `depósito`($f - c$)
@@ -1653,49 +1653,76 @@ def deposito(fondos):
 
 - Si el dato abstracto es mutable y recuerda su estado interno, las operaciones
   modificadoras ya no producen un nuevo dato **Depósito** a partir de otro,
-  sino que cambian directamente el estado interno del dato existente.
+  sino que cambian el estado interno del dato existente.
 
 - En tal caso, la especificación debe describir el **efecto** que producen las
   operaciones modificadoras sobre el dato abstracto:
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **espec** _Depósito_
-      **operaciones**
-            `depósito` : $\mathbb{R}$ $\rightarrow$ _Depósito_
-            **parcial** `retirar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow \empty$
-            `ingresar` : _Depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
-            `saldo` : _Depósito_ $\rightarrow$ $\mathbb{R}$
-      **ecuaciones**
-            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ $error$
-            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) \ \ \{ $f \longleftarrow f - c$ \}
-            `ingresar`(`depósito`($f$), $c$) \ \ \{ $f \longleftarrow f + c$ \}
-            `retirar`(`ingresar`(`depósito`($f$), $c$), $c$) \ \ \{ `nada` \}
-            `saldo`(`depósito`($f$)) $\doteq$ $f$
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _depósito_
+    **operaciones**
+          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
+          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
+          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+    **var**
+          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+    **ecuaciones**
+          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+                                     y lo devuelve }
+          `saldo`($d$) $\doteq$ «los fondos actuales de $d$»
+          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
+          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\doteq$ $error$
+          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - Los _efectos_ que produce una operación se indican entre llaves \{ \} al lado
   de la operación correspondiente.
 
+  Toda operación _impura_ debe indicar sus efectos entre llaves.
+
 - La signatura de las operaciones `retirar` e `ingresar` indican mediante
   «$\rightarrow \empty$» que son operaciones que no devuelven ningún valor, ya
   que su cometido es el de provocar un efecto lateral (en este caso, modificar
   el estado interno del **Depósito**).
 
-- La expresión \{ $f \longleftarrow f - c$ \} representa una **asignación** que
-  modifica el valor de la variable $f$ local que forma parte del estado interno
-  del dato.
+- En concreto, los efectos que producen dichas operaciones son los de cambiar
+  los fondos del depósito, restándole o sumándole una cantidad.
 
-- Expresa que el efecto que produce la operación `retirar` es la de cambiar los
-  fondos del depósito, restándole el valor de $c$.
+- Por tanto, una vez ejecutada cualquiera de esas operaciones, se habrá
+  cambiado el estado interno del dato abstracto.
 
-- Por tanto, una vez ejecutada dicha operación, se habrá cambiado el estado
-  interno del dato abstracto.
+---
 
-- La instrucción `nada` representa una instrucción que no hace nada (equivale a
-  la sentencia `pass` de Python).
+- Otra opción es que las operaciones modificadoras devolvieran un valor además
+  de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que
+  queda en el depósito tras ingresar o retirar efectivo).
+
+- En tal caso, podría quedar algo así:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _depósito_
+    **operaciones**
+          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$ 
+          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+    **var**
+          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+    **ecuaciones**
+          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+                                     y lo devuelve }
+          `saldo`($d$) $\doteq$ «los fondos actuales de $d$»
+          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
+                                                                  y devuelve el saldo que queda \}
+          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\doteq$ $error$
+          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
+                                         y devuelve el saldo que queda \}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Abstracción de datos y modularidad
 

@@ -2224,7 +2224,86 @@ class Deposito:
 
 #### Un ejemplo completo
 
+- Recordemos la especificación del tipo _pila_ **inmutable**:
 
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _pila_
+    **parámetros**
+          _elemento_
+    **operaciones**
+          `pvacia` : $\rightarrow$ _pila_
+          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
+          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
+          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
+          `vacia?` : _pila_ $\rightarrow$ $\mathfrak{B}$
+    **var**
+          $p$ : _pila_; $x$ : _elemento_
+    **ecuaciones**
+          `cima`(`apilar`($p$, $x$)) $\doteq$ $x$
+          `desapilar`(`apilar`($p$, $x$)) $\doteq$ $p$
+          `vacia?`(`pvacia`) $\doteq$ $V$
+          `vacia?`(`apilar`($p$, $x$)) $\doteq$ $F$
+          `cima`(`pvacia`) $\doteq$ $error$
+          `desapilar`(`pvacia`) $\doteq$ $error$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- La especificación del mismo tipo _pila_ pero **mutable** podría ser:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _pila_
+    **parámetros**
+          _elemento_
+    **operaciones**
+          `pila` : $\rightarrow$ _pila_
+          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ $\empty$
+          **parcial** `desapilar` : _pila_ $\rightarrow$ $\empty$
+          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
+          `vacía?` : _pila_ $\rightarrow$ $\mathfrak{B}$
+          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathfrak{B}$
+    **var**
+          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
+    **ecuaciones**
+          $p_1$ `==` $p_2$ $\doteq$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
+          `vacía?`($p$) $\doteq$ $p$ `==` `pila`
+          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ encima de la pila $p$ \}
+          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \} 
+          `cima`($p$) $\doteq$ «el último elemento apilado en $p$ y aún no desapilado»
+          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\doteq$ $error$
+          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\doteq$ $error$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Y una posible implementación con una clase Python podría ser:
+
+```python
+class Pila:
+   def __init__(self):
+       self.__elems = []
+
+   def __eq__(self, otra):
+       if type(self) != type(otra):
+           return NotImplemented
+       return self.__elems == otra.__elems
+
+   def vacia(self):
+       return self.__elems == []
+
+   def apilar(self, elem):
+       self.__elems.append(elem)
+
+   def desapilar(self):
+       assert not self.vacia()
+       self.__elems.pop()
+
+   def cima(self):
+       assert not self.vacia()
+       return self.__elems[-1]
+```
 
 # Miembros de clase
 

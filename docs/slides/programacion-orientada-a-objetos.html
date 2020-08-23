@@ -1845,6 +1845,85 @@
 </ul>
 </section>
 
+<section id="un-ejemplo-completo" class="title-slide slide level4" data-number="5.1.2.6">
+<h4 data-number="5.1.2.6"><span class="header-section-number">5.1.2.6</span> Un ejemplo completo</h4>
+<ul>
+<li>Recordemos la especificación del tipo <em>pila</em> <strong>inmutable</strong>:</li>
+</ul>
+<div class="line-block"><strong>espec</strong> <em>pila</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>pvacia</code> : <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <code>apilar</code> : <em>pila</em> <span class="math inline">\times</span> <em>elemento</em> <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <strong>parcial</strong> <code>desapilar</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <strong>parcial</strong> <code>cima</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <em>elemento</em><br />
+          <code>vacia?</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">p</span> : <em>pila</em>; <span class="math inline">x</span> : <em>elemento</em><br />
+    <strong>ecuaciones</strong><br />
+          <code>cima</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">x</span><br />
+          <code>desapilar</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">p</span><br />
+          <code>vacia?</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">V</span><br />
+          <code>vacia?</code>(<code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)) <span class="math inline">\doteq</span> <span class="math inline">F</span><br />
+          <code>cima</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+          <code>desapilar</code>(<code>pvacia</code>) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.1">
+
+<ul>
+<li>La especificación del mismo tipo <em>pila</em> pero <strong>mutable</strong> podría ser:</li>
+</ul>
+<div class="line-block"><strong>espec</strong> <em>pila</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>pila</code> : <span class="math inline">\rightarrow</span> <em>pila</em><br />
+          <code>apilar</code> : <em>pila</em> <span class="math inline">\times</span> <em>elemento</em> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
+          <strong>parcial</strong> <code>desapilar</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
+          <strong>parcial</strong> <code>cima</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <em>elemento</em><br />
+          <code>vacía?</code> : <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
+          _ <code>==</code> _ : <em>pila</em> <span class="math inline">\times</span> <em>pila</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathfrak{B}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">p</span>, <span class="math inline">p_1</span>, <span class="math inline">p_2</span> : <em>pila</em>; <span class="math inline">x</span> : <em>elemento</em><br />
+    <strong>ecuaciones</strong><br />
+          <span class="math inline">p_1</span> <code>==</code> <span class="math inline">p_2</span> <span class="math inline">\doteq</span> «<span class="math inline">p_1</span> y <span class="math inline">p_2</span> tienen los mismos elementos en el mismo orden»<br />
+          <code>vacía?</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> <span class="math inline">p</span> <code>==</code> <code>pila</code><br />
+          <code>apilar</code>(<span class="math inline">p</span>, <span class="math inline">x</span>)   { Apila el elemento <span class="math inline">x</span> encima de la pila <span class="math inline">p</span> }<br />
+          <code>desapilar</code>(<span class="math inline">p</span>)   { Saca de la pila <span class="math inline">p</span> el elemento situado en su cima }<br />
+          <code>cima</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> «el último elemento apilado en <span class="math inline">p</span> y aún no desapilado»<br />
+          <code>vacía?</code>(<span class="math inline">p</span>) <span class="math inline">\Rightarrow</span> <code>desapilar</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+          <code>vacía?</code>(<span class="math inline">p</span>) <span class="math inline">\Rightarrow</span> <code>cima</code>(<span class="math inline">p</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span></div>
+</section>
+<section class="slide level5" data-number="5.1.2.6.2">
+
+<ul>
+<li>Y una posible implementación con una clase Python podría ser:</li>
+</ul>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="kw">class</span> Pila:</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a>       <span class="va">self</span>.__elems <span class="op">=</span> []</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a>   <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otra):</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a>       <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otra):</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a>           <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a>       <span class="cf">return</span> <span class="va">self</span>.__elems <span class="op">==</span> otra.__elems</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a>   <span class="kw">def</span> vacia(<span class="va">self</span>):</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a>       <span class="cf">return</span> <span class="va">self</span>.__elems <span class="op">==</span> []</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a>   <span class="kw">def</span> apilar(<span class="va">self</span>, elem):</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>       <span class="va">self</span>.__elems.append(elem)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a>   <span class="kw">def</span> desapilar(<span class="va">self</span>):</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>       <span class="cf">assert</span> <span class="kw">not</span> <span class="va">self</span>.vacia()</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a>       <span class="va">self</span>.__elems.pop()</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>   <span class="kw">def</span> cima(<span class="va">self</span>):</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a>       <span class="cf">assert</span> <span class="kw">not</span> <span class="va">self</span>.vacia()</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true"></a>       <span class="cf">return</span> <span class="va">self</span>.__elems[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+</section>
+
 
 </section>
 <section>
@@ -1871,30 +1950,30 @@
 <ul>
 <li>Los atributos de clase se crean mediante <strong>sentencias de asignación</strong> en el <em>cuerpo</em> de la clase, fuera de cualquier definición de método:</li>
 </ul>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a></span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true"></a></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true"></a></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </div><div class="column" style="width:40%;">
 <ul>
 <li>Este atributo se puede manipular directamente a través de la clase, es decir, pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la sintaxis:</li>
 </ul>
 <p><em>clase</em><code>.</code><em>atributo</em></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1903,29 +1982,29 @@
 <ul>
 <li>Para cambiar el valor de una variable de clase, se le asigna un valor usando la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</li>
 </ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
 <ul>
 <li>Las variables de clase se pueden acceder como cualquier variable de instancia, a partir de una instancia de la clase:</li>
 </ul>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># También</span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># También</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span>   <span class="co"># Cambia la variable de clase</span></span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true"></a><span class="fl">0.08</span>                          <span class="co"># Se comprueba que ha cambiado</span></span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Cambia también para la instancia</span></span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true"></a><span class="fl">0.08</span></span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># También</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># También</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span>   <span class="co"># Cambia la variable de clase</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true"></a><span class="fl">0.08</span>                          <span class="co"># Se comprueba que ha cambiado</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Cambia también para la instancia</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true"></a><span class="fl">0.08</span></span></code></pre></div>
 <ul>
 <li>Pero esta segunda forma no es conveniente, como ahora veremos.</li>
 </ul>
@@ -1935,16 +2014,16 @@
 <ul>
 <li>Si intentamos cambiar el valor de una variable de clase desde una instancia, lo que ocurre en realidad es que <strong>creamos una nueva variable de instancia con el mismo nombre</strong> que la variable de clase:</li>
 </ul>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true"></a><span class="fl">0.02</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes <span class="op">=</span> <span class="fl">0.08</span>         <span class="co"># Crea una nueva variable de instancia</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Accede a la variable de instancia</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true"></a><span class="fl">0.08</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede a la variable de clase</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true"></a><span class="fl">0.02</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes <span class="op">=</span> <span class="fl">0.08</span>         <span class="co"># Crea una nueva variable de instancia</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d1.interes                <span class="co"># Accede a la variable de instancia</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true"></a><span class="fl">0.08</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede a la variable de clase</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
 <ul>
 <li>Por ello, es conveniente acostumbrarse a usar siempre el nombre de la clase para acceder y cambiar el valor de una variable de clase, en lugar de hacerlo a través de una instancia.</li>
 </ul>
@@ -1954,28 +2033,28 @@
 <ul>
 <li>Si necesitamos acceder al valor de una variable de clase dentro de la misma clase, usaremos la misma sintaxis:</li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true"></a></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true"></a></span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true"></a></span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true"></a></span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true"></a>    <span class="kw">def</span> total(<span class="va">self</span>):</span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true"></a>        <span class="co"># Accede a la variable de clase Deposito.interes</span></span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true"></a>        <span class="co"># para calcular el saldo total más los intereses:</span></span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.saldo() <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Deposito.interes)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true"></a></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true"></a></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true"></a></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true"></a></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true"></a>    <span class="kw">def</span> total(<span class="va">self</span>):</span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true"></a>        <span class="co"># Accede a la variable de clase Deposito.interes</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true"></a>        <span class="co"># para calcular el saldo total más los intereses:</span></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.saldo() <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Deposito.interes)</span></code></pre></div>
 </section>
 <section id="ejercicio-2" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicio</h5>
@@ -2003,27 +2082,27 @@
 <ul>
 <li><p>Por ejemplo, supongamos una clase <code>Numero</code> que representa números.</p>
 <p>Una manera de implementarla sin métodos estáticos sería suponer que cada instancia de la clase representa un número y que las operaciones modifican el número en cuestión, recibiendo el resto de operandos mediante argumentos:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true"></a></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true"></a></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true"></a></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true"></a></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true"></a>n.suma(<span class="dv">7</span>)</span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 11</span></span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true"></a>n.mult(<span class="dv">5</span>)</span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 55</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true"></a></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true"></a></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true"></a></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true"></a>n.suma(<span class="dv">7</span>)</span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 11</span></span>
+<span id="cb61-20"><a href="#cb61-20" aria-hidden="true"></a>n.mult(<span class="dv">5</span>)</span>
+<span id="cb61-21"><a href="#cb61-21" aria-hidden="true"></a><span class="bu">print</span>(n.get_valor())       <span class="co"># Imprime 55</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.2">
@@ -2035,19 +2114,19 @@
 <li><p>El método no debe recibir el parámetro <code>self</code>.</p></li>
 </ul></li>
 <li><p>Sabiendo eso, podemos crear una clase <code>Calculadora</code> que ni siquiera haría falta instanciar y que contendría las operaciones a realizar con los números:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true"></a></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true"></a>    <span class="kw">def</span> mult(x, y):</span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">*</span> y</span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true"></a></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">7</span>)   <span class="co"># Llamamos al método suma directamente sobre la clase</span></span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true"></a><span class="bu">print</span>(s)                     <span class="co"># Imprime 11</span></span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true"></a>m <span class="op">=</span> Calculadora.mult(<span class="dv">11</span>, <span class="dv">5</span>)  <span class="co"># Llamamos al método mult directamente sobre la clase</span></span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true"></a><span class="bu">print</span>(m)                     <span class="co"># Imprime 55</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true"></a><span class="kw">class</span> Calculadora:</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true"></a>    <span class="kw">def</span> suma(x, y):</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true"></a>    <span class="kw">def</span> mult(x, y):</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true"></a></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">7</span>)   <span class="co"># Llamamos al método suma directamente sobre la clase</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true"></a><span class="bu">print</span>(s)                     <span class="co"># Imprime 11</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true"></a>m <span class="op">=</span> Calculadora.mult(<span class="dv">11</span>, <span class="dv">5</span>)  <span class="co"># Llamamos al método mult directamente sobre la clase</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true"></a><span class="bu">print</span>(m)                     <span class="co"># Imprime 55</span></span></code></pre></div></li>
 <li><p>De este modo, los números no se modifican.</p></li>
 </ul>
 </section>
@@ -2060,11 +2139,11 @@
 <div class="column">
 <ul>
 <li><p>Por ejemplo, con la clase <code>Numero</code>, si tenemos que:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span></code></pre></div>
 <p>es lo mismo hacer:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true"></a>Numero.suma(n, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true"></a>Numero.suma(n, <span class="dv">5</span>)</span></code></pre></div>
 <p>ya que <code>suma</code> es un método de instancia en la clase <code>Numero</code>.</p></li>
 <li><p>Esta última forma no se usa nunca, ya que confunde al lector.</p></li>
 </ul>
@@ -2072,7 +2151,7 @@
 <ul>
 <li><p>En cambio, en la clase <code>Calculadora</code>, el método <code>suma</code> es estático, no hay objeto <em>sobre</em> el que actuar, así que no se pasa automáticamente ninguna referencia.</p></li>
 <li><p>Todos los argumentos deben pasarse expresamente al método:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true"></a>s <span class="op">=</span> Calculadora.suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 <li><p>Como lo que se reciben son enteros y no instancias de <code>Numero</code>, no los puede modificar.</p></li>
 </ul>
 </div>
@@ -2093,36 +2172,36 @@
 </ul>
 <div class="columns">
 <div class="column" style="width:65%;">
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true"></a></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true"></a></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true"></a>        </span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true"></a></span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
-<span id="cb66-15"><a href="#cb66-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true"></a></span>
-<span id="cb66-17"><a href="#cb66-17" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb66-18"><a href="#cb66-18" aria-hidden="true"></a>    <span class="kw">def</span> suma_es(x, y):</span>
-<span id="cb66-19"><a href="#cb66-19" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
-<span id="cb66-20"><a href="#cb66-20" aria-hidden="true"></a></span>
-<span id="cb66-21"><a href="#cb66-21" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
-<span id="cb66-22"><a href="#cb66-22" aria-hidden="true"></a>    <span class="kw">def</span> mult_es(x, y):</span>
-<span id="cb66-23"><a href="#cb66-23" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true"></a><span class="kw">class</span> Numero:</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(valor)</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true"></a></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true"></a>    <span class="kw">def</span> set_valor(<span class="va">self</span>, valor):</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true"></a>        <span class="va">self</span>.__valor <span class="op">=</span> valor</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true"></a></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true"></a>        </span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true"></a></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true"></a>    <span class="kw">def</span> mult(<span class="va">self</span>, otro):</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">*</span> otro)</span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true"></a></span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true"></a>    <span class="kw">def</span> suma_es(x, y):</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true"></a></span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb67-22"><a href="#cb67-22" aria-hidden="true"></a>    <span class="kw">def</span> mult_es(x, y):</span>
+<span id="cb67-23"><a href="#cb67-23" aria-hidden="true"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span></code></pre></div>
 </div><div class="column" style="width:35%;">
-<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true"></a><span class="co"># El número es 4:</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true"></a><span class="co"># Ahora el número es 9:</span></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true"></a><span class="co"># Devuelve 15:</span></span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true"></a>s <span class="op">=</span> Numero.suma_es(<span class="dv">7</span>, <span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true"></a><span class="co"># El número es 4:</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true"></a>n <span class="op">=</span> Numero(<span class="dv">4</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true"></a><span class="co"># Ahora el número es 9:</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true"></a>n.suma(<span class="dv">5</span>)</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true"></a><span class="co"># Devuelve 15:</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true"></a>s <span class="op">=</span> Numero.suma_es(<span class="dv">7</span>, <span class="dv">8</span>)</span></code></pre></div>
 </div>
 </div>
 </section>

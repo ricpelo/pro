@@ -1411,12 +1411,12 @@ def saldo(dep):
 
 <ul>
 <li><p>Por ejemplo, la especificación del tipo <strong>Depósito</strong> podría expresarse así si no hubiera mutabilidad ni estado interno:</p>
-<div class="line-block"><strong>espec</strong> <em>Depósito</em><br />
+<div class="line-block"><strong>espec</strong> <em>depósito</em><br />
       <strong>operaciones</strong><br />
-            <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>Depósito</em><br />
-            <strong>parcial</strong> <code>retirar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
-            <code>ingresar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
-            <code>saldo</code> : <em>Depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+            <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>depósito</em><br />
+            <strong>parcial</strong> <code>retirar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+            <code>ingresar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+            <code>saldo</code> : <em>depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
       <strong>ecuaciones</strong><br />
             <span class="math inline">f &lt; c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
             <span class="math inline">f \geq c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <code>depósito</code>(<span class="math inline">f - c</span>)<br />
@@ -1430,32 +1430,58 @@ def saldo(dep):
 <section class="slide level5" data-number="5.4.0.0.2">
 
 <ul>
-<li><p>Si el dato abstracto es mutable y recuerda su estado interno, las operaciones modificadoras ya no producen un nuevo dato <strong>Depósito</strong> a partir de otro, sino que cambian directamente el estado interno del dato existente.</p></li>
-<li><p>En tal caso, la especificación debe describir el <strong>efecto</strong> que producen las operaciones modificadoras sobre el dato abstracto:</p>
-<div class="line-block"><strong>espec</strong> <em>Depósito</em><br />
-      <strong>operaciones</strong><br />
-            <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>Depósito</em><br />
-            <strong>parcial</strong> <code>retirar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow \empty</span><br />
-            <code>ingresar</code> : <em>Depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
-            <code>saldo</code> : <em>Depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
-      <strong>ecuaciones</strong><br />
-            <span class="math inline">f &lt; c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
-            <span class="math inline">f \geq c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>)   { <span class="math inline">f \longleftarrow f - c</span> }<br />
-            <code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>)   { <span class="math inline">f \longleftarrow f + c</span> }<br />
-            <code>retirar</code>(<code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>), <span class="math inline">c</span>)   { <code>nada</code> }<br />
-            <code>saldo</code>(<code>depósito</code>(<span class="math inline">f</span>)) <span class="math inline">\doteq</span> <span class="math inline">f</span></div></li>
+<li><p>Si el dato abstracto es mutable y recuerda su estado interno, las operaciones modificadoras ya no producen un nuevo dato <strong>Depósito</strong> a partir de otro, sino que cambian el estado interno del dato existente.</p></li>
+<li><p>En tal caso, la especificación debe describir el <strong>efecto</strong> que producen las operaciones modificadoras sobre el dato abstracto:</p></li>
 </ul>
+<div class="line-block"><strong>espec</strong> <em>depósito</em><br />
+    <strong>operaciones</strong><br />
+          <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>depósito</em><br />
+          <strong>parcial</strong> <code>retirar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
+          <code>ingresar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\empty</span><br />
+          <code>saldo</code> : <em>depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">d</span> : <em>depósito</em>; <span class="math inline">f</span>, <span class="math inline">c</span> : <span class="math inline">\mathbb{R}</span><br />
+    <strong>ecuaciones</strong><br />
+          <code>depósito</code>(<span class="math inline">f</span>)   { Crea un depósito con un fondo (estado interno) inicial de <span class="math inline">f</span><br />
+                                     y lo devuelve }<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">\doteq</span> «los fondos actuales de <span class="math inline">d</span>»<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">\geq</span> <span class="math inline">c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>)   { Reduce en <span class="math inline">c</span> unidades los fondos del depósito <span class="math inline">d</span> }<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">&lt;</span> <span class="math inline">c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+          <code>ingresar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>)   { Aumenta en <span class="math inline">c</span> unidades los fondos del depósito <span class="math inline">d</span> }</div>
 </section>
 <section class="slide level5" data-number="5.4.0.0.3">
 
 <ul>
-<li><p>Los <em>efectos</em> que produce una operación se indican entre llaves { } al lado de la operación correspondiente.</p></li>
+<li><p>Los <em>efectos</em> que produce una operación se indican entre llaves { } al lado de la operación correspondiente.</p>
+<p>Toda operación <em>impura</em> debe indicar sus efectos entre llaves.</p></li>
 <li><p>La signatura de las operaciones <code>retirar</code> e <code>ingresar</code> indican mediante «<span class="math inline">\rightarrow \empty</span>» que son operaciones que no devuelven ningún valor, ya que su cometido es el de provocar un efecto lateral (en este caso, modificar el estado interno del <strong>Depósito</strong>).</p></li>
-<li><p>La expresión { <span class="math inline">f \longleftarrow f - c</span> } representa una <strong>asignación</strong> que modifica el valor de la variable <span class="math inline">f</span> local que forma parte del estado interno del dato.</p></li>
-<li><p>Expresa que el efecto que produce la operación <code>retirar</code> es la de cambiar los fondos del depósito, restándole el valor de <span class="math inline">c</span>.</p></li>
-<li><p>Por tanto, una vez ejecutada dicha operación, se habrá cambiado el estado interno del dato abstracto.</p></li>
-<li><p>La instrucción <code>nada</code> representa una instrucción que no hace nada (equivale a la sentencia <code>pass</code> de Python).</p></li>
+<li><p>En concreto, los efectos que producen dichas operaciones son los de cambiar los fondos del depósito, restándole o sumándole una cantidad.</p></li>
+<li><p>Por tanto, una vez ejecutada cualquiera de esas operaciones, se habrá cambiado el estado interno del dato abstracto.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="5.4.0.0.4">
+
+<ul>
+<li><p>Otra opción es que las operaciones modificadoras devolvieran un valor además de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que queda en el depósito tras ingresar o retirar efectivo).</p></li>
+<li><p>En tal caso, podría quedar algo así:</p></li>
+</ul>
+<div class="line-block"><strong>espec</strong> <em>depósito</em><br />
+    <strong>operaciones</strong><br />
+          <code>depósito</code> : <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <em>depósito</em><br />
+          <strong>parcial</strong> <code>retirar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+          <code>ingresar</code> : <em>depósito</em> <span class="math inline">\times</span> <span class="math inline">\mathbb{R}</span> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+          <code>saldo</code> : <em>depósito</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{R}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">d</span> : <em>depósito</em>; <span class="math inline">f</span>, <span class="math inline">c</span> : <span class="math inline">\mathbb{R}</span><br />
+    <strong>ecuaciones</strong><br />
+          <code>depósito</code>(<span class="math inline">f</span>)   { Crea un depósito con un fondo (estado interno) inicial de <span class="math inline">f</span><br />
+                                     y lo devuelve }<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">\doteq</span> «los fondos actuales de <span class="math inline">d</span>»<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">\geq</span> <span class="math inline">c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>)   { Reduce en <span class="math inline">c</span> unidades los fondos del depósito <span class="math inline">d</span><br />
+                                                                  y devuelve el saldo que queda }<br />
+          <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">&lt;</span> <span class="math inline">c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
+          <code>ingresar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>)   { Aumenta en <span class="math inline">c</span> unidades los fondos del depósito <span class="math inline">d</span><br />
+                                         y devuelve el saldo que queda }</div>
 </section>
 </section>
 <section>
