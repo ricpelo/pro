@@ -300,6 +300,7 @@
 <section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
+<li><p>Además de combinar operaciones, también podemos <strong>combinar datos</strong>.</p></li>
 <li><p>Los <strong>datos compuestos o estructurados</strong> son un mecanismo que nos permite crear un <strong>dato complejo</strong> combinando otros datos más simples, formando una única unidad conceptual.</p></li>
 <li><p>Pero, por desgracia, estos datos compuestos <strong>no ocultan sus detalles de implementación al usuario</strong>, sino que éste tiene que conocer cómo está construido.</p></li>
 <li><p>Es decir: los datos compuestos, así sin más, no funcionan como abstracciones.</p></li>
@@ -346,8 +347,9 @@
 <section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
-<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también un producto: es algo que puede formar parte de un programa.</p></li>
-<li><p>Diseñar programas usando abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se se les denomina <strong>abstracciones de datos</strong>.</p></li>
+<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también es un <strong>producto</strong>.</p></li>
+<li><p>Diseñar programas usando la técnica de la abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se les denomina <strong>abstracciones de datos</strong>.</p></li>
+<li><p>Por tanto, las abstracciones de datos son construcciones que acaban formando parte del programa, de la misma manera que ocurre con las abstracciones funcionales.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.10">
@@ -357,10 +359,12 @@
 <ul>
 <li><p>Cuando creamos una <strong>abstracción funcional</strong>, se ocultan los detalles de cómo se implementa una función, y esa función particular se puede sustituir luego por cualquier otra función que tenga el mismo comportamiento general sin que los usuarios de la función se vean afectados.</p>
 <p>En otras palabras, podemos hacer una abstracción que separe la forma en que <em>se utiliza</em> la función de los detalles de cómo <em>se implementa</em> la función.</p></li>
-<li><p>Igualmente, la <strong>abstracción de datos</strong> separa el uso de un dato compuesto de los detalles de cómo está construido ese dato compuesto, que quedan ocultos para los usuarios de la abstracción de datos.</p>
-<p>Para usar una abstracción de datos no necesitamos conocer sus detalles internos de implementación.</p></li>
+<li><p>Igualmente, la <strong>abstracción de datos</strong> separa el uso de un dato compuesto de los detalles de cómo está construido ese dato compuesto, que quedan ocultos para los usuarios de la abstracción de datos.</p></li>
 </ul></li>
 </ul>
+<div class="caja">
+<p>Para usar una abstracción de datos no necesitamos conocer sus detalles internos de implementación.</p>
+</div>
 </section>
 <section class="slide level5" data-number="1.1.0.0.11">
 
@@ -404,7 +408,7 @@
 <p><strong>Tipo abstracto de datos</strong></p>
 <p>Un <strong>tipo abstracto de datos</strong> (o <strong><em>abstracción de datos</em></strong>) es un conjunto de valores y de operaciones que se definen mediante una <strong>especificación</strong> que es independiente de cualquier representación.</p>
 </div></li>
-<li><p>Para ello, los tipos abstractos de datos se definen nombrando, no sus valores, sino sus <strong>operaciones</strong> y las propiedades que cumplen éstas.</p></li>
+<li><p>Para ello, los tipos abstractos de datos se definen nombrando, no sus valores, sino sus <strong>operaciones</strong> y las <strong>propiedades</strong> que cumplen éstas.</p></li>
 <li><p>Los <strong>valores</strong> de un tipo abstracto se definen también como operaciones.</p></li>
 </ul>
 </section>
@@ -464,7 +468,7 @@
 <section id="sintaxis" class="title-slide slide level2" data-number="2.1">
 <h2 data-number="2.1"><span class="header-section-number">2.1</span> Sintaxis</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:45%;">
 <ul>
 <li>La sintaxis de una <strong>especificación algebraica</strong> es la siguiente:</li>
 </ul>
@@ -477,12 +481,18 @@
             <span style="color:teal">⟨<em>decl_var</em>⟩</span> (<strong><code>;</code></strong> <span style="color:teal">⟨<em>decl_var</em>⟩</span>)*]<br />
       <strong><code>ecuaciones</code></strong><br />
             <span style="color:teal">⟨<em>ecuación</em>⟩</span>+</div>
-</div><div class="column">
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
 <ul>
 <li>Donde:</li>
 </ul>
 <div class="line-block"><span style="color:teal">⟨<em>decl_var</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> <strong><code>:</code></strong> <span style="color:teal">⟨<em>tipo</em>⟩</span><br />
 <span style="color:teal">⟨<em>ecuación</em>⟩</span> ::= <span style="color:teal">⟨<em>izquierda</em>⟩</span> <span class="math inline">\doteq</span> <span style="color:teal">⟨<em>derecha</em>⟩</span></div>
+<ul>
+<li><p>Las <strong>operaciones</strong> son <strong>abstracciones funcionales</strong>.</p></li>
+<li><p>Las <strong>ecuaciones</strong> son las <strong>propiedades</strong> que deben cumplir las operaciones.</p></li>
+</ul>
 </div>
 </div>
 </section>
@@ -495,7 +505,7 @@
 <li><p><strong>Constructoras</strong>: operaciones que devuelven un valor de tipo <span class="math inline">T</span>.</p>
 <p>A su vez, las constructoras se dividen en:</p>
 <ul>
-<li><p><strong>Generadoras</strong>: el conjunto de operaciones generadoras está formado por aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
+<li><p><strong>Generadoras</strong>: son aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
 <li><p><strong>Modificadoras</strong>: son las operaciones constructoras que no forman parte del conjunto de las generadoras.</p></li>
 </ul></li>
 <li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> y que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
@@ -535,20 +545,25 @@
 <li><p>La ecuación <span class="math inline">t_1 \doteq t_2</span> significa que el valor construido mediante <span class="math inline">t_1</span> es <em>el mismo</em> que el construido mediante <span class="math inline">t_2</span>.</p></li>
 <li><p>Este estilo de especificación se denomina <strong>especificación algebraica</strong>.</p></li>
 <li><p>Su principal virtud es que permite definir un nuevo tipo de forma <em>totalmente independiente</em> de cualquier posible representación o implementación.</p></li>
-<li><p>¿A qué categoría pertenencen cada una de esas operaciones?</p></li>
 </ul>
 </div>
 </div>
 </section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li>¿A qué categoría pertenencen cada una de esas operaciones?</li>
+</ol>
+</section>
 <section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
-<li><p>Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la programación funcional, donde:</p>
+<li><p>Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la <strong>programación funcional</strong>, donde:</p>
 <ul>
-<li><p>No existe mutabilidad ni estado interno ni cambios de estado.</p></li>
-<li><p>Se «simula» el cambio de estado de un dato compuesto creando un nuevo dato con los cambios aplicados.</p></li>
+<li><p><strong>No existe mutabilidad</strong> ni estado interno ni cambios de estado.</p></li>
+<li><p>En lugar de cambiar el estado de un dato compuesto, se «simula» ese cambio creando un nuevo dato con los cambios aplicados.</p></li>
 </ul></li>
-<li><p>Por ejemplo: en programación funcional, la operación <code>:</code> (que añade un elemento al principio de una lista) realmente no modifica dicha lista sino que crea una nueva lista con el elemento situado al principio, y la devuelve.</p></li>
+<li><p>Por ejemplo: la operación <code>:</code> (que añade un elemento al principio de una lista) realmente no modifica dicha lista sino que crea una nueva lista con el elemento situado al principio, y la devuelve.</p></li>
 <li><p>Esto lo podemos expresar en la especificación de la lista con la siguiente ecuación (siendo <span class="math inline">x</span> un elemento y <span class="math inline">l</span> una lista):</p>
 <p><span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span></p>
 <p>Se puede observar que no se modifica la lista <span class="math inline">l</span> para añadir el elemento <span class="math inline">x</span> al principio, sino que se crea una lista nueva por concatenación de otras dos.</p></li>
@@ -1022,7 +1037,7 @@
 <section id="propiedades-de-los-datos" class="title-slide slide level2" data-number="4.3">
 <h2 data-number="4.3"><span class="header-section-number">4.3</span> Propiedades de los datos</h2>
 <ul>
-<li><p>Las barreras de abstracción definen la forma en como pensamos sobre los datos.</p></li>
+<li><p>Las barreras de abstracción definen de qué forma pensamos sobre los datos.</p></li>
 <li><p>Por ejemplo, podemos pensar que las operaciones <code>suma</code>, <code>mult</code>, etc. están definidas sobre <em>datos</em> (numeradores, denominadores y racionales) cuyo comportamiento está definido por las funciones <code>racional</code>, <code>numer</code> y <code>denom</code>.</p></li>
 <li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es «cualquier cosa implementada mediante ciertos constructores y selectores».</p></li>
 <li><p>Siguiendo con el mismo ejemplo: es evidente que cualquier grupo de tres funciones (un constructor y dos selectores) no sirve para representar adecuadamente a los números racionales.</p>

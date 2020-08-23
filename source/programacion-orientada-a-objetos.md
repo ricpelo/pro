@@ -22,7 +22,7 @@ nocite: |
     
   - Una función puede representar un dato.
   
-  - Un dato puede tener estado interno usando el estado interno de la función
+  - Un dato puede tener estado interno, usando el estado interno de la función
     que lo representa.
 
 ---
@@ -62,7 +62,8 @@ nocite: |
 - Esta forma de ver a los datos como objetos activos que interactúan entre sí
   y que son capaces de reaccionar y cambiar su estado interno en función de los
   mensajes que reciben, da lugar a todo un nuevo paradigma de programación
-  llamado **orientación a objetos** o **programación orientada a objetos**.
+  llamado **orientación a objetos** o **Programación Orientada a Objetos**
+  (_POO_).
 
 ---
 
@@ -73,9 +74,9 @@ nocite: |
 **Definición:**
 
 La **programación orientada a objetos** es un paradigma de programación en el
-que los programas son vistos como formados por entidades llamadas **objetos**
-que recuerdan su propio **estado interno** y que se comunican entre sí
-mediante el **paso de mensajes** que se intercambian con la finalidad de:
+que los programas se ven como formados por entidades llamadas **objetos** que
+recuerdan su propio **estado interno** y que se comunican entre sí mediante el
+**paso de mensajes** que se intercambian con la finalidad de:
 
 - cambiar sus estados internos,
 
@@ -93,17 +94,17 @@ mediante el **paso de mensajes** que se intercambian con la finalidad de:
   reúne muchas de las ideas vistas hasta ahora.
 
 - Al igual que las funciones en la abstracción de datos, los objetos imponen
-  barreras de abstracción entre el uso y la implementación de los datos.
+  **barreras de abstracción** entre el uso y la implementación de los datos.
 
 - Al igual que los diccionarios y funciones de despacho, los objetos responden
-  a peticiones que otros objetos le hacen en forma de mensajes para que se
+  a peticiones que otros objetos le hacen en forma de **mensajes** para que se
   comporte de determinada manera.
 
-- Los objetos tienen un estado interno local al que no se puede acceder
+- Los objetos tienen un **estado interno local** al que no se puede acceder
   directamente desde el entorno global, sino que debe hacerse por medio de las
   operaciones que proporciona el objeto.
 
-- A efectos prácticos, por tanto, los objetos son datos abstractos.
+- A efectos prácticos, por tanto, **los objetos son datos abstractos**.
 
 ---
 
@@ -1931,13 +1932,13 @@ abstractos de datos.
     _abstracción de datos_, ya que permite acceder al interior de un objeto
     directamente, en lugar de hacerlo a través de operaciones.
 
-  - Como consecuencia de lo anterior, se rompe con el principio de _ocultación
-    de información_, ya que exponemos públicamente el tipo y la representación
-    del dato, por lo que nos resultará muy difícil cambiarlos posteriormente si
-    en el futuro nos hace falta hacerlo.
+  - Ya sabemos que con eso se rompe con el principio de _ocultación de
+    información_, ya que exponemos públicamente el tipo y la representación del
+    dato, por lo que nos resultará muy difícil cambiarlos posteriormente si en
+    el futuro nos hace falta hacerlo.
 
-  - Además, los _setters_ nos garantizan que los datos que se almacenan en un
-    atributo cumplen con las **condiciones** necesarias.
+  - Pero además, los _setters_ nos garantizan que los datos que se almacenan en
+    un atributo cumplen con las **condiciones** necesarias.
 
     !CAJA
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1979,9 +1980,9 @@ abstractos de datos.
 
 - En conclusión, se recomienda:
 
-  - Hacer privados todos los miembros excepto los que sean estrictamente
+  - Hacer **privados** todos los miembros excepto los que sean estrictamente
     necesarios para poder manipular el objeto desde el exterior del mismo (su
-    _interfaz_).
+    **_interfaz_**).
 
   - Crear _getters_ y _setters_ para los atributos que se tengan que manipular
     desde el exterior del objeto.
@@ -2005,57 +2006,106 @@ abstractos de datos.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Cuando implementamos un tipo abstracto mediante una clase, **esas propiedades
-se traducen en invariantes** de la clase.
+Cuando implementamos un tipo abstracto mediante una clase, **algunas de esas
+propiedades se traducen en invariantes** de la clase.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Algunas de esas propiedades, en realidad, no son invariantes de la clase,
-  sino condiciones que tienen que cumplir los métodos al entrar o salir de los
-  mismos.
+- En cambio, otras de esas propiedades **no serán _invariantes_ de la clase,
+  sino _condiciones_ que tienen que cumplir los métodos** (es decir, las
+  operaciones) al entrar o salir de los mismos.
 
-- Las condiciones pueden ser de dos tipos:
+- Esas condiciones son las que forman la **especificación funcional** de cada
+  método de la clase.
 
-  - **Precondición**: condición que tiene que cumplir un método para poder
+- Recordemos que una especificación funcional contiene dos condiciones:
+
+  - **Precondición**: condición que tiene que cumplir el método para poder
     ejecutarse.
 
-  - **Postcondición**: condición que tiene que cumplir un método al acabar de
+  - **Postcondición**: condición que tiene que cumplir el método al acabar de
     ejecutarse.
 
 - Si se cumple la precondición de un método y éste se ejecuta, al finalizar su
   ejecución se debe cumplir su postcondición.
 
-#### Interfaz de una clase
+- Forman una especificación porque describen qué tiene que hacer el método sin
+  entrar a ver el cómo.
 
-- La **interfaz** de una clase (o de un objeto de esa clase) está formada por
-  todo lo que es público y visible desde fuera de la clase.
+---
 
-- Representa lo que es estrictamente necesario conocer para usar la clase (y,
-  por tanto, cualquier objeto de esa clase).
+- Resumiendo:
+
+  - Las clases implementan **tipos abstractos de datos**.
+
+  - Los tipos abstractos de datos se **especifican** indicando sus
+    **operaciones** y las **propiedades** que deben cumplir esas operaciones.
+
+  - Esas propiedades se traducirán en:
+
+    - **Invariantes** de la clase.
+
+    - **Precondiciones** o **postcondiciones** de los métodos que implementan
+      las operaciones del tipo abstracto.
+
+  - El **usuario de la clase** es **responsable** de garantizar que se cumple
+    la **precondición** de un método cuando lo invoca.
+
+  - La **implementación** de la clase es **responsable** de garantizar que se
+    cumple en todo momento las **invariantes** de la clase, así como las
+    **postcondiciones** de los métodos cuando se les invoca en un estado que
+    cumple su precondición.
+
+#### Interfaz y especificación de una clase
+
+- Recordemos que la **interfaz de una clase** (o de un objeto de esa clase)
+  está formada por todo lo que es público y visible desde fuera de la clase.
+
+- En concreto, la interfaz de una clase indica:
+
+  - El **nombre de la clase**.
+
+  - El nombre y tipo de los **atributos públicos**.
+
+  - La **signatura** de los **métodos públicos**.
+
+- Es un concepto puramente sintáctico, porque describe **qué** contiene la clase
+  pero no qué propiedades debe cumplir (para qué sirve la clase).
+
+- Por tanto, podemos decir que el usuario de la clase no tiene suficiente con
+  conocer la interfaz de la clase.
+
+- También necesita saber qué hace, y eso no se indica en la interfaz.
+
+---
+
+- La **especificación de una clase** representa todo lo que es necesario
+  conocer para usar la clase (y, por tanto, cualquier objeto de esa clase).
 
 - Describe qué hace la clase (o el objeto) sin detallar cómo.
 
-- Juega un papel análogo a la interfaz de un tipo abstracto de datos.
+- Tiene un papel similar a la especificación de un tipo abstracto de datos.
 
 - Está formado por:
 
-  - Nombre de la clase.
+  - La **interfaz** de la clase.
 
-  - Miembros públicos: atributos y métodos.
+  - El **invariante** de la clase.
 
-  - Invariante de la clase.
+  - La **especificación funcional** (precondición, postcondición y signatura)
+    de todos los **métodos públicos** de la clase.
 
-  - Precondiciones y postcondiciones de los métodos.
-
-  - Documentación adicional que explique la función de la clase y sus
-    operaciones.
+  - **Documentación adicional** que explique la función de la clase y sus
+    operaciones, así como posible información extra que pueda resultar de
+    interés para el usuario de la clase.
 
 #### Asertos
 
-- La comprobación continua de los invariantes cada vez que se actualiza el
-  estado interno de un objeto puede dar lugar a **problemas de rendimiento**,
-  ya que las comprobaciones consumen tiempo de CPU.
+- La **comprobación** continua de las condiciones (invariantes, precondiciones
+  o postcondiciones) cada vez que se actualiza el estado interno de un objeto
+  puede dar lugar a **problemas de rendimiento**, ya que las comprobaciones
+  consumen tiempo de CPU.
 
 - Una técnica alternativa a la comprobación con sentencias condicionales
   (`if`s) es el uso de **asertos**.

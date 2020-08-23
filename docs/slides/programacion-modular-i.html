@@ -233,7 +233,7 @@
 <section id="title-slide">
   <h1 class="title">Programación modular I</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2019/2020</p>
+  <p class="date">IES Doñana, curso 2020/2021</p>
 </section>
 <section id="TOC">
 <ul>
@@ -285,9 +285,9 @@
 
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
-<li><p>Por tanto, podría decirse que una <strong>función</strong> es un ejemplo de módulo, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
-<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición <em>funcional</em> no resulta adecuado en general, ya que muchas veces nos encontramos con varias funciones que no actúan por separado, sino de forma conjunta entre ellas formando un todo interrelacionado.</p></li>
-<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede contener datos (almacenados en variables y constantes) manipulables desde dentro del módulo pero también desde fuera.</p></li>
+<li><p>Por tanto, podría decirse que <strong>una función es un ejemplo de módulo</strong>, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
+<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición en funciones no resulta adecuado en general, ya que muchas veces nos encontramos con varias funciones que no actúan por separado, sino de forma conjunta entre ellas formando un todo interrelacionado.</p></li>
+<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede contener datos (almacenados en variables y constantes) manipulables desde dentro del módulo y posiblemente también desde fuera.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.4">
@@ -313,11 +313,11 @@
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li><p>De lo dicho hasta ahora se deducen varias conclusiones importantes:</p>
+<li><p>De lo dicho hasta ahora se deducen varias <strong>conclusiones importantes</strong>:</p>
 <ul>
-<li><p>Un módulo es una parte de un programa.</p></li>
+<li><p>Un módulo es <strong>una <em>parte</em> de un programa</strong>.</p></li>
 <li><p>Los módulos nos permiten descomponer el programa en <strong>partes más o menos independientes y manejables por separado</strong>.</p></li>
-<li><p>Una función, en general, no es una candidata con suficiente entidad como para ser considerada un módulo.</p></li>
+<li><p>Una <strong>función</strong> cumple con la definición de módulo pero, en general, <strong>en la práctica no es una buena candidata</strong> para ser considerada un módulo por sí sola.</p></li>
 <li><p>Los módulos, en general, agrupan colecciones de <strong>funciones interrelacionadas</strong>.</p></li>
 <li><p>Los módulos, <strong>además de funciones, pueden contener datos</strong> en forma de <strong>constantes y variables</strong> manipulables desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
 <li><p>Las variables del módulo constituyen el <strong>estado interno</strong> del módulo.</p></li>
@@ -387,7 +387,8 @@
 <li><p>Una <strong>implementación</strong>, formada por:</p>
 <ul>
 <li><p>Su posible estado interno en forma de <strong>variables</strong> locales al módulo.</p></li>
-<li><p>Un conjunto de <strong>funciones auxiliares</strong> pensadas para ser usadas exclusivamente por el propio módulo de manera interna, pero no por otras partes del programa.</p></li>
+<li><p>La <strong>implementación (el cuerpo) de las funciones</strong> que aparecen en la interfaz.</p></li>
+<li><p>Un conjunto de <strong>funciones auxiliares</strong> que no aparecen en la interfaz porque pensadas para ser usadas exclusivamente por el propio módulo de manera interna, pero no por otras partes del programa.</p></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -417,10 +418,28 @@
 <ul>
 <li><p>La <strong>implementación</strong> es la parte del módulo que queda <strong>oculta a los usuarios</strong> del mismo.</p></li>
 <li><p>Es decir: es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
-<li><p>Está formada por todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, junto con las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
+<li><p>Está formada por:</p>
+<ul>
+<li><p>Todas las <strong>variables locales al módulo</strong> que almacenan su estado interno.</p></li>
+<li><p>La <strong>implementación (el <em>cuerpo</em>) de las funciones</strong> que forman la interfaz.</p></li>
+<li><p>Las funciones que utiliza el propio módulo para gestionarse a sí mismo y que no forman parte de su interfaz (<strong>funciones <em>auxiliares</em></strong>).</p></li>
+</ul></li>
 <li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
 </ul>
 </section>
+<section id="resumen" class="title-slide slide level4" data-number="2.1.2.1">
+<h4 data-number="2.1.2.1"><span class="header-section-number">2.1.2.1</span> Resumen</h4>
+<p><span class="math display">\text{Interfaz del módulo}\begin{cases}
+\text{Especificación de funciones}\\
+\text{Posibles constantes}
+\end{cases}</span></p>
+<p><span class="math display">\text{Implementación del módulo}\begin{cases}
+\text{Implementación de funciones}\\
+\text{Variables locales}\\
+\text{Funciones auxiliares}
+\end{cases}</span></p>
+</section>
+
 
 
 <section id="diagramas-de-estructura" class="title-slide slide level2" data-number="2.2">
@@ -524,7 +543,7 @@
 <section class="slide level5" data-number="2.3.1.0.4">
 
 <ul>
-<li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con la palabra clave <code>as</code>.</p></li>
+<li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con <code>as</code>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
 <p>La sentencia anterior importa el módulo <code>math</code> dentro del módulo actual pero con el nombre <code>mates</code> en lugar del <code>math</code> original. Por tanto, para usar la función <code>gcd</code> como en el ejemplo anterior usaremos:</p>

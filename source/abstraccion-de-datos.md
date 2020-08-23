@@ -82,6 +82,8 @@ nocite: |
 
 ---
 
+- Además de combinar operaciones, también podemos **combinar datos**.
+
 - Los **datos compuestos o estructurados** son un mecanismo que nos permite
   crear un **dato complejo** combinando otros datos más simples, formando una
   única unidad conceptual.
@@ -165,12 +167,16 @@ nocite: |
 
 ---
 
-- La **abstracción de datos** es una **técnica** pero también un producto: es
-  algo que puede formar parte de un programa.
+- La **abstracción de datos** es una **técnica** pero también es un
+  **producto**.
 
-- Diseñar programas usando abstracción de datos da como resultado la creación
-  y utilización de **tipos abstractos de datos** (o **TAD**), a los que también
-  se se les denomina **abstracciones de datos**.
+- Diseñar programas usando la técnica de la abstracción de datos da como
+  resultado la creación y utilización de **tipos abstractos de datos** (o
+  **TAD**), a los que también se les denomina **abstracciones de datos**.
+
+- Por tanto, las abstracciones de datos son construcciones que acaban formando
+  parte del programa, de la misma manera que ocurre con las abstracciones
+  funcionales.
 
 ---
 
@@ -188,8 +194,11 @@ nocite: |
     de los detalles de cómo está construido ese dato compuesto, que quedan
     ocultos para los usuarios de la abstracción de datos.
 
-    Para usar una abstracción de datos no necesitamos conocer sus detalles
-    internos de implementación.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Para usar una abstracción de datos no necesitamos conocer sus detalles internos
+de implementación.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -223,7 +232,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   ~~~~~~~~~~~~~~~~~~~~~~
 
 - Para ello, los tipos abstractos de datos se definen nombrando, no sus
-  valores, sino sus **operaciones** y las propiedades que cumplen éstas.
+  valores, sino sus **operaciones** y las **propiedades** que cumplen éstas.
 
 - Los **valores** de un tipo abstracto se definen también como operaciones.
 
@@ -294,7 +303,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::: columns
 
-::: column
+::: {.column width=45%}
 
 - La sintaxis de una **especificación algebraica** es la siguiente:
 
@@ -313,7 +322,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::
 
-::: column
+::: {.column width=5%}
+
+:::
+
+::: {.column width=45%}
 
 - Donde:
 
@@ -322,6 +335,10 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 !NT(decl_var) ::= !NT{variable} !T{:} !NT{tipo}
 !NT(ecuación) ::= !NT(izquierda) $\doteq$ !NT(derecha)
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+- Las **operaciones** son **abstracciones funcionales**.
+
+- Las **ecuaciones** son las **propiedades** que deben cumplir las operaciones.
 
 :::
 
@@ -336,10 +353,10 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
     A su vez, las constructoras se dividen en:
 
-    - **Generadoras**: el conjunto de operaciones generadoras está formado
-      por aquellas operaciones constructoras que tienen la propiedad de que
-      sólo con ellas es suficiente para generar cualquier valor del tipo, y
-      excluyendo cualquiera de ellas hay valores que no pueden ser generados.
+    - **Generadoras**: son aquellas operaciones constructoras que tienen la
+      propiedad de que sólo con ellas es suficiente para generar cualquier
+      valor del tipo, y excluyendo cualquiera de ellas hay valores que no
+      pueden ser generados.
 
     - **Modificadoras**: son las operaciones constructoras que no forman parte
       del conjunto de las generadoras.
@@ -391,25 +408,29 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Su principal virtud es que permite definir un nuevo tipo de forma *totalmente
   independiente* de cualquier posible representación o implementación.
 
-- ¿A qué categoría pertenencen cada una de esas operaciones?
-
 :::
 
 ::::
 
 ---
 
+!EJERCICIO
+
+@. ¿A qué categoría pertenencen cada una de esas operaciones?
+
+---
+
 - Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la
-  programación funcional, donde:
+  **programación funcional**, donde:
 
-  - No existe mutabilidad ni estado interno ni cambios de estado.
+  - **No existe mutabilidad** ni estado interno ni cambios de estado.
 
-  - Se «simula» el cambio de estado de un dato compuesto creando un nuevo dato
-    con los cambios aplicados.
+  - En lugar de cambiar el estado de un dato compuesto, se «simula» ese cambio
+    creando un nuevo dato con los cambios aplicados.
 
-- Por ejemplo: en programación funcional, la operación `:` (que añade un
-  elemento al principio de una lista) realmente no modifica dicha lista sino
-  que crea una nueva lista con el elemento situado al principio, y la devuelve.
+- Por ejemplo: la operación `:` (que añade un elemento al principio de una
+  lista) realmente no modifica dicha lista sino que crea una nueva lista con el
+  elemento situado al principio, y la devuelve.
 
 - Esto lo podemos expresar en la especificación de la lista con la siguiente
   ecuación (siendo $x$ un elemento y $l$ una lista):
@@ -990,8 +1011,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 ## Propiedades de los datos
 
-- Las barreras de abstracción definen la forma en como pensamos sobre los
-  datos.
+- Las barreras de abstracción definen de qué forma pensamos sobre los datos.
 
 - Por ejemplo, podemos pensar que las operaciones `suma`, `mult`, etc. están
   definidas sobre *datos* (numeradores, denominadores y racionales) cuyo

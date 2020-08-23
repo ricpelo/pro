@@ -68,19 +68,20 @@ nocite: |
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Por tanto, podría decirse que una **función** es un ejemplo de módulo, ya que
+- Por tanto, podría decirse que **una función es un ejemplo de módulo**, ya que
   se ajusta a esa definición (salvo quizás que no habría *descomposición
   física*, aunque se podría colocar cada función en un archivo separado y
   entonces sí).
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
-  criterio la descomposición *funcional* no resulta adecuado en general, ya que
-  muchas veces nos encontramos con varias funciones que no actúan por separado,
-  sino de forma conjunta entre ellas formando un todo interrelacionado.
+  criterio la descomposición en funciones no resulta adecuado en general, ya
+  que muchas veces nos encontramos con varias funciones que no actúan por
+  separado, sino de forma conjunta entre ellas formando un todo
+  interrelacionado.
 
 - Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
   sino que también puede contener datos (almacenados en variables y constantes)
-  manipulables desde dentro del módulo pero también desde fuera.
+  manipulables desde dentro del módulo y posiblemente también desde fuera.
 
 ---
 
@@ -121,15 +122,16 @@ nocite: |
 
 ---
 
-- De lo dicho hasta ahora se deducen varias conclusiones importantes:
+- De lo dicho hasta ahora se deducen varias **conclusiones importantes**:
 
-  - Un módulo es una parte de un programa.
+  - Un módulo es **una _parte_ de un programa**.
 
   - Los módulos nos permiten descomponer el programa en **partes más o menos
     independientes y manejables por separado**.
 
-  - Una función, en general, no es una candidata con suficiente entidad como
-    para ser considerada un módulo.
+  - Una **función** cumple con la definición de módulo pero, en general, **en
+    la práctica no es una buena candidata** para ser considerada un módulo por
+    sí sola.
 
   - Los módulos, en general, agrupan colecciones de **funciones
     interrelacionadas**.
@@ -227,9 +229,12 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
 
     - Su posible estado interno en forma de **variables** locales al módulo.
 
-    - Un conjunto de **funciones auxiliares** pensadas para ser usadas
-      exclusivamente por el propio módulo de manera interna, pero no por otras
-      partes del programa.
+    - La **implementación (el cuerpo) de las funciones** que aparecen en la
+      interfaz.
+
+    - Un conjunto de **funciones auxiliares** que no aparecen en la interfaz
+      porque pensadas para ser usadas exclusivamente por el propio módulo de
+      manera interna, pero no por otras partes del programa.
 
 ### Interfaz
 
@@ -274,13 +279,31 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
 - Es decir: es la parte que los usuarios del módulo no necesitan (ni deben)
   conocer para poder usarlo adecuadamente.
 
-- Está formada por todas las **variables locales al módulo** que almacenan su
-  estado interno, junto con las funciones que utiliza el propio módulo para
-  gestionarse a sí mismo y que no forman parte de su interfaz (**funciones
-  _auxiliares_**).
+- Está formada por:
+
+  - Todas las **variables locales al módulo** que almacenan su estado interno.
+
+  - La **implementación (el _cuerpo_) de las funciones** que forman la
+    interfaz.
+
+  - Las funciones que utiliza el propio módulo para gestionarse a sí mismo y
+    que no forman parte de su interfaz (**funciones _auxiliares_**).
 
 - La implementación debe poder cambiarse tantas veces como sea necesario sin
   que por ello se tenga que cambiar el resto del programa.
+
+#### Resumen
+
+$$\text{Interfaz del módulo}\begin{cases}
+\text{Especificación de funciones}\\
+\text{Posibles constantes}
+\end{cases}$$
+
+$$\text{Implementación del módulo}\begin{cases}
+\text{Implementación de funciones}\\
+\text{Variables locales}\\
+\text{Funciones auxiliares}
+\end{cases}$$
 
 ## Diagramas de estructura
 
@@ -406,24 +429,24 @@ node [fontname = "monospace"]
 9 [shape = circle]
 4 [shape = circle]
 3 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
 dos [shape = plaintext, fillcolor = transparent, label = "dos"]
-a [shape = plaintext, fillcolor = transparent, label = "a"]
-b [shape = plaintext, fillcolor = transparent, label = "b"]
-y [shape = plaintext, fillcolor = transparent, label = "y"]
 subgraph cluster1 {
     label = "Marco global de uno"
     bgcolor = white
-    a -> 4
-    b -> 3
+    a [shape = plaintext, fillcolor = transparent, label = "a"]
+    b [shape = plaintext, fillcolor = transparent, label = "b"]
     subgraph cluster0 {
         label = "Marco global de dos"
         bgcolor = "white"
-        x -> 9
-        y -> 5
+        x [shape = plaintext, fillcolor = transparent, label = "x"]
+        y [shape = plaintext, fillcolor = transparent, label = "y"]
     }
     dos -> x [lhead = cluster0, minlen = 2]
 }
+a -> 4
+b -> 3
+x -> 9
+y -> 5
 E [shape = point]
 E -> a [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -462,18 +485,21 @@ gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
 math [shape = plaintext, fillcolor = transparent, label = "math"]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 2 [shape = circle]
+lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
     label = "Marco global del script"
     bgcolor = white
     subgraph cluster0 {
         label = "Marco global de math"
         bgcolor = "white"
-        gcd -> función
-        m[shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+        gcd
+        m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
     }
     math -> gcd [lhead = cluster0, minlen = 2]
-    x -> 2
+    x
 }
+x -> 2
+gcd -> lambda
 E [shape = point]
 E -> math [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -486,7 +512,7 @@ E -> math [lhead = cluster1]
 ---
 
 - Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del
-  marco actual, usando la sentencia `import` con la palabra clave `as`.
+  marco actual, usando la sentencia `import` con `as`.
 
 - Por ejemplo:
 
@@ -511,18 +537,21 @@ gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
 mates [shape = plaintext, fillcolor = transparent, label = "mates"]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 2 [shape = circle]
+lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
     label = "Marco global del script"
     bgcolor = white
     subgraph cluster0 {
         label = "Marco global de mates"
         bgcolor = "white"
-        gcd -> función
+        gcd
         m[shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
     }
     mates -> gcd [lhead = cluster0, minlen = 2]
-    x -> 2
+    x
 }
+x -> 2
+gcd -> lambda
 E [shape = point]
 E -> mates [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -555,12 +584,15 @@ node [fontname = "monospace"]
 gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 2 [shape = circle]
+lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
     label = "Marco global del script"
     bgcolor = white
-    gcd -> función
-    x -> 2
+    gcd
+    x
 }
+x -> 2
+gcd -> lambda
 E [shape = point]
 E -> gcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -609,12 +641,15 @@ node [fontname = "monospace"]
 mcd [shape = plaintext, fillcolor = transparent, label = "mcd"]
 x [shape = plaintext, fillcolor = transparent, label = "x"]
 2 [shape = circle]
+lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
     label = "Marco global del script"
     bgcolor = white
-    mcd -> función
-    x -> 2
+    mcd
+    x
 }
+mcd -> lambda
+x -> 2
 E [shape = point]
 E -> mcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

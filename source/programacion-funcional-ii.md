@@ -1163,18 +1163,22 @@ E -> x [lhead = cluster0]
 ### Especificaciones de funciones
 
 - Técnicamente, se dice que para poder **usar una abstracción funcional** nos
-  basta con conocer su **especificación**, que está formada por tres
+  basta con conocer su **especificación**, que es la descripción de qué hace
+  esa función.
+
+- La especificación de una abstracción funcional está formada por tres
   propiedades fundamentales:
 
   - El **dominio**: el conjunto de argumentos válidos.
 
-  - El **rango**: el conjunto de valores que devuelve.
+  - El **rango**: el conjunto de posibles valores que devuelve.
 
   - El **propósito**: qué hace la función, es decir, la relación entre su
     entrada y su salida.
 
-- Aunque nosotros hasta ahora hemos llamado **entrada** al dominio y agrupamos
-  el rango y el propósito en una sola propiedad que hemos llamado **salida**.
+- Nosotros hasta ahora, al especificar programas, hemos llamado **entrada** al
+  dominio y hemos agrupado el rango y el propósito en una sola propiedad que
+  hemos llamado **salida**.
 
 ---
 
@@ -1190,9 +1194,14 @@ E -> x [lhead = cluster0]
 - La especificación **no concreta cómo** se debe llevar a cabo el propósito.
   Ese es un detalle de implementación que se abstrae a este nivel.
 
+- Este esquema es el que hemos usado hasta ahora para especificar programas, y
+  se podría seguir usando para especificar funciones, ya que éstas son
+  consideradas _subprogramas_.
+
 ---
 
-- Para especificar una función, resulta más adecuado usar el siguiente esquema:
+- Pero para especificar una función, en cambio, resulta más adecuado usar el
+  siguiente esquema, al que llamaremos **especificación funcional**:
 
   $$\begin{cases}
     \text{\textbf{Pre}}: True \\
@@ -1287,7 +1296,9 @@ E -> x [lhead = cluster0]
     \text{\textbf{Post}}: cuenta(cadena, car) = cadena.count(car)
   \end{cases}$$
 
-- ¿Por qué?
+!EJERCICIO
+
+@. ¿Por qué?
 
 ---
 
@@ -1655,7 +1666,7 @@ Recursivo                 Proporcional a `n`      Proporcional a `n`
 Iterativo                 Proporcional a `n`      Constante
 -----------------------------------------------------------------------------
 
-<br>
+<br>* * *<br>
 
 -----------------------------------------------------------------------------
 Tipo de proceso           Número de               Memoria necesaria 
