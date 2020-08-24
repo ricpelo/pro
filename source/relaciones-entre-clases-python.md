@@ -1447,6 +1447,8 @@ class Rectangulo:
 - Por tanto, cualquier objeto que tenga la interfaz necesaria, nos servirá como
   argumento del método `area`.
 
+- Esos objetos (y sus clases) se dice que **implementan la _interfaz_**.
+
 - Como ya dijimos, trabajar con interfaces en lugar de hacerlo con clases
   resulta más flexible y soporta mejor los cambios futuros.
 
