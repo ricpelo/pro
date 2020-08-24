@@ -233,7 +233,7 @@
 <section id="title-slide">
   <h1 class="title">Programación imperativa</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2019/2020</p>
+  <p class="date">IES Doñana, curso 2020/2021</p>
 </section>
 <section id="TOC">
 <ul>
@@ -377,8 +377,8 @@
 <li><p>Hasta ahora, los marcos contenían ligaduras entre identificadores y valores.</p></li>
 <li><p>A partir de ahora, un marco contendrá:</p>
 <ul>
-<li><p>El conjunto de las <strong>ligaduras entre identificadores y variables</strong>, y</p></li>
-<li><p>El <strong>estado de cada variable</strong>, es decir, el conjunto de las variables y las referencias que contienen en un momento dado.</p></li>
+<li><p>Las <strong>ligaduras entre identificadores y variables</strong>, y</p></li>
+<li><p>El <strong>estado de cada variable</strong>, es decir, las referencias que contiene cada variable en un momento dado.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
@@ -393,7 +393,7 @@
 <li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span>      <span class="co"># se lee: «asignar el valor 4 a la variable x»</span></span></code></pre></div>
 <p>El efecto que produce es el de almacenar, en la variable ligada al identificador <code>x</code>, una referencia al valor <code>4</code> almacenado en el montículo.</p>
-<p>También se dice (pero mal dicho) que «la variable <code>x</code> pasa a valer <code>4</code>».</p></li>
+<p>Normalmente se dice (mal dicho) que «la variable <code>x</code> pasa a valer <code>4</code>».</p></li>
 <li><p>La asignación es <strong>destructiva</strong> porque al cambiarle el valor a una variable se destruye su valor anterior. Por ejemplo, si ahora hacemos:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">9</span></span></code></pre></div>
 <p>El valor de la variable a la que está ligada el identificador <code>x</code> pasa ahora a ser <code>9</code>, perdiéndose el valor <code>4</code> anterior.</p></li>
@@ -412,11 +412,11 @@
 </div>
 <p>en lugar de la forma correcta:</p>
 <div class="centered">
-<p><em>«se asigna una referencia al valor <code>9</code> a la variable ligada al identificador <code>x</code>»</em></p>
+<p><em>«se asigna una referencia al valor <code>9</code> a la variable ligada al identificador <code>x</code>»</em>.</p>
 </div></li>
-<li><p>Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado, porque llegará el momento en que podremos tener:</p>
+<li><p>Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado, porque llegado el momento es posible tener:</p>
 <ul>
-<li><p>Varios identificadores distintos ligados a la misma variable.</p></li>
+<li><p>Varios identificadores distintos ligados a la misma variable (ocurre en algunos lenguajes, aunque no en Python ni Java).</p></li>
 <li><p>Un mismo identificador ligado a distintas variables en diferentes puntos del programa.</p></li>
 <li><p>Varias variables apuntando al mismo valor.</p></li>
 </ul></li>
@@ -692,14 +692,14 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 <div class="centered">
-<p><img data-src="images/inmutable1.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/inmutable1.svg" class="plain" style="width:40.0%" /></p>
 </div>
 </div><div class="column">
 <p>y hacemos:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div>
 <p>quedaría:</p>
 <div class="centered">
-<p><img data-src="images/inmutable2.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/inmutable2.svg" class="plain" style="width:40.0%" /></p>
 </div>
 </div>
 </div>
@@ -714,14 +714,14 @@
 <li><p>Si tenemos:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span></code></pre></div>
 <div class="centered">
-<p><img data-src="images/inmutable3.svg" class="plain" style="width:40.0%" /></p>
+<p><img data-src="images/inmutable3.svg" class="plain" style="width:25.0%" /></p>
 </div>
 <p>y luego hacemos:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
 <p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code>x</code>.</p>
 <p>Es decir: la cadena <code>'hola'</code> original <strong>no se cambia</strong> (p. ej., no se le añade <code>' manolo'</code> al final), sino que <strong>se sustituye por una nueva</strong>.</p>
 <div class="centered">
-<p><img data-src="images/inmutable4.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/inmutable4.svg" class="plain" style="width:35.0%" /></p>
 </div></li>
 </ul>
 </section>
@@ -836,27 +836,30 @@ s | P | y | t | h | o | n |
 <li><p>Una lista es como una tupla que puede cambiar sus elementos, aumentar o disminuir de tamaño (puede cambiar su contenido y, por tanto, su estado).</p></li>
 <li><p>Al cambiar el estado interno de una lista no se crea una nueva lista, sino que <strong>se modifica la ya existente</strong>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">99</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>[<span class="dv">99</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>[<span class="dv">24</span>, <span class="dv">99</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
 </ul>
+</section>
+<section class="slide level5" data-number="3.2.2.0.1">
+
 <div class="columns">
 <div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/cambio-estado-lista-antes.svg" class="plain" style="width:60.0%" alt="" /><figcaption>La lista antes de cambiar <code>x[0]</code></figcaption>
+<img data-src="images/cambio-estado-lista-antes.svg" class="plain" style="width:75.0%" alt="" /><figcaption>La lista antes de cambiar <code>x[1]</code></figcaption>
 </figure>
 </div>
 </div><div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/cambio-estado-lista-despues.svg" class="plain" style="width:60.0%" alt="" /><figcaption>La lista después de cambiar <code>x[0]</code></figcaption>
+<img data-src="images/cambio-estado-lista-despues.svg" class="plain" style="width:75.0%" alt="" /><figcaption>La lista después de cambiar <code>x[1]</code></figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.2.0.1">
+<section class="slide level5" data-number="3.2.2.0.2">
 
 <ul>
 <li><p>Las listas son secuencias mutables y, como tales, se pueden modificar usando ciertas operaciones:</p>
@@ -884,7 +887,7 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <li><p>Las siguientes tablas muestran todas las <strong>operaciones</strong> que nos permiten <strong>modificar secuencias mutables</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.2.0.2">
+<section class="slide level5" data-number="3.2.2.0.3">
 
 <p>(<span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> son listas, y <span class="math inline">\underline{x}</span> es un valor cualquiera)</p>
 <table>
@@ -923,7 +926,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="3.2.2.0.3">
+<section class="slide level5" data-number="3.2.2.0.4">
 
 <table>
 <colgroup>
@@ -973,7 +976,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="3.2.2.0.4">
+<section class="slide level5" data-number="3.2.2.0.5">
 
 <p>Partiendo de <code>x = [8, 10, 7, 9]</code>:</p>
 <table style="width:58%;">
@@ -1018,15 +1021,22 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>Cuando una variable que tiene un valor se asigna a otra, ambas variables pasan a tener <strong>el mismo valor (lo <em>comparten</em>)</strong>, produciéndose un fenómeno conocido como <strong>alias de variables</strong>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y; ahora y tiene el mismo valor que x</span></span></code></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y; ahora y tiene el mismo valor que x</span></span></code></pre></div></li>
+</ul>
+<div class="columns">
+<div class="column">
 <div class="centered">
-<p><img data-src="images/alias1.svg" class="plain" style="width:40.0%" /></p>
-</div></li>
+<p><img data-src="images/alias1.svg" class="plain" style="width:70.0%" /></p>
+</div>
+</div><div class="column">
+<ul>
 <li><p>Si el valor es <strong>mutable</strong> y cambiamos su <strong>contenido</strong> desde <code>x</code>, también cambiará <code>y</code> (y viceversa), pues ambas variables <strong>apuntan al mismo dato</strong>:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>[<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">40</span>, <span class="dv">99</span>]</span></code></pre></div></li>
 </ul>
+</div>
+</div>
 </section>
 <section class="slide level5" data-number="3.3.0.0.1">
 
@@ -1041,10 +1051,13 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
-<p><img data-src="images/alias2.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/alias1.svg" class="plain" style="width:60.0%" /></p>
 </div>
 </div>
 </div>
+</section>
+<section class="slide level5" data-number="3.3.0.0.2">
+
 <ul>
 <li>Cambiar el <strong>valor</strong> es algo que <strong>siempre</strong> se puede hacer (da igual la mutabilidad) simplemente <strong>asignando</strong> a la variable <strong>un nuevo valor</strong>:</li>
 </ul>
@@ -1055,12 +1068,12 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
-<p><img data-src="images/alias3.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/alias2.svg" class="plain" style="width:60.0%" /></p>
 </div>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.3.0.0.2">
+<section class="slide level5" data-number="3.3.0.0.3">
 
 <ul>
 <li><p>El intérprete puede crear alias de variables <strong>implícitamente</strong> para ahorrar memoria y sin que seamos conscientes de ello.</p></li>
@@ -1087,7 +1100,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.3.0.0.3">
+<section class="slide level5" data-number="3.3.0.0.4">
 
 <ul>
 <li>También crea valores compartidos cuando contienen exactamente las mismas cadenas.</li>
@@ -1113,7 +1126,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li>El intérprete aprovecharía el dato ya creado y no crearía uno nuevo, para ahorrar memoria.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.4">
+<section class="slide level5" data-number="3.3.0.0.5">
 
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1128,12 +1141,12 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div><div class="column" style="width:60%;">
 <p>nos quedaría:</p>
 <div class="centered">
-<p><img data-src="images/alias4.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/alias3.svg" class="plain" style="width:50.0%" /></p>
 </div>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.3.0.0.5">
+<section class="slide level5" data-number="3.3.0.0.6">
 
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1147,7 +1160,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div><div class="column" style="width:60%;">
 <p>nos quedaría:</p>
 <div class="centered">
-<p><img data-src="images/alias5.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/alias4.svg" class="plain" style="width:50.0%" /></p>
 </div>
 </div>
 </div>

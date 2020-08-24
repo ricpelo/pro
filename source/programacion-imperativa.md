@@ -204,10 +204,10 @@ variable -> valor [label = "estado"]
 
 - A partir de ahora, un marco contendrá:
 
-  - El conjunto de las **ligaduras entre identificadores y variables**, y
+  - Las **ligaduras entre identificadores y variables**, y
 
-  - El **estado de cada variable**, es decir, el conjunto de las variables y
-    las referencias que contienen en un momento dado.
+  - El **estado de cada variable**, es decir, las referencias que contiene cada
+    variable en un momento dado.
 
 !DOT(marcos-imperativa.svg)()(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -247,7 +247,7 @@ subgraph cluster1 {
   El efecto que produce es el de almacenar, en la variable ligada al
   identificador `x`, una referencia al valor `4` almacenado en el montículo.
 
-  También se dice (pero mal dicho) que «la variable `x` pasa a valer `4`».
+  Normalmente se dice (mal dicho) que «la variable `x` pasa a valer `4`».
 
 - La asignación es **destructiva** porque al cambiarle el valor a una variable
   se destruye su valor anterior. Por ejemplo, si ahora hacemos:
@@ -280,13 +280,14 @@ subgraph cluster1 {
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
   *«se asigna una referencia al valor `9` a la variable ligada al identificador
-  `x`»*
+  `x`»*.
   ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
-  porque llegará el momento en que podremos tener:
+  porque llegado el momento es posible tener:
 
-  - Varios identificadores distintos ligados a la misma variable.
+  - Varios identificadores distintos ligados a la misma variable (ocurre en
+    algunos lenguajes, aunque no en Python ni Java).
 
   - Un mismo identificador ligado a distintas variables en diferentes puntos
     del programa.
@@ -615,17 +616,15 @@ x = 4
 y = 5
 ```
 
-!DOT(inmutable1.svg)()(width=50%)(width=30%)
+!DOT(inmutable1.svg)()(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-y [shape = plaintext, fillcolor = transparent]
-x [shape = plaintext, fillcolor = transparent]
-4 [shape = circle, width = 0.3, fixedsize = shape]
-5 [shape = circle, width = 0.3, fixedsize = shape]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> 4
-y -> v2 -> 5
+y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+4 [shape = circle, width = 0.3]
+5 [shape = circle, width = 0.3]
+x:f1 -> 4
+y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::::
@@ -640,19 +639,18 @@ x = 7
 
 quedaría:
 
-!DOT(inmutable2.svg)()(width=50%)(width=30%)
+!DOT(inmutable2.svg)()(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+splines = polyline
 node [fixedsize = shape, fontname = "monospace"]
-y [shape = plaintext, fillcolor = transparent]
-x [shape = plaintext, fillcolor = transparent]
-c2 [shape = circle, width = 0.3, fixedsize = shape, label = "5"]
-c1 [shape = circle, width = 0.3, fixedsize = shape, label = "7"]
-4 [shape = circle, width = 0.3, fixedsize = shape]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> c1
-v1 -> 4 [style = dashed, color = grey]
-y -> v2 -> c2
+y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+5 [shape = circle, width = 0.3]
+7 [shape = circle, width = 0.3]
+4 [shape = circle, width = 0.3]
+x:f1 -> 7
+x:f1 -> 4 [style = dashed, color = grey]
+y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::::
@@ -673,13 +671,12 @@ y -> v2 -> c2
   x = 'hola'
   ```
 
-  !DOT(inmutable3.svg)()(width=40%)(width=30%)
+  !DOT(inmutable3.svg)()(width=25%)(width=30%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
-  x [shape = plaintext, fillcolor = transparent]
-  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+  x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
   hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
-  x -> v1 -> hola
+  x:f1 -> hola
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   y luego hacemos:
@@ -693,15 +690,15 @@ y -> v2 -> c2
   Es decir: la cadena `'hola'` original **no se cambia** (p. ej., no se le
   añade `' manolo'` al final), sino que **se sustituye por una nueva**.
 
-  !DOT(inmutable4.svg)()(width=50%)(width=40%)
+  !DOT(inmutable4.svg)()(width=35%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  splines = polyline
   node [fixedsize = shape, fontname = "monospace"]
-  x [shape = plaintext, fillcolor = transparent]
-  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+  x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
   holamanolo [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
   hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
-  x -> v1 -> holamanolo
-  v1 -> hola [style = dashed, color = grey]
+  x:f1 -> holamanolo
+  x:f1 -> hola [style = dashed, color = grey]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -826,35 +823,53 @@ s | P | y | t | h | o | n |
 
   ```python
   >>> x = [24, 32, 15, 81]
-  >>> x[0] = 99
+  >>> x[1] = 99
   >>> x
-  [99, 32, 15, 81]
+  [24, 99, 15, 81]
   ```
+
+---
 
 :::: columns
 
 ::: column
 
-!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[0]`)(width=60%)(width=50%)
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[1]`)(width=75%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-lista [shape = record, width = 1.5, fixedsize = true, label = "{24|32|15|81}"]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> lista
+x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+24 [shape = circle, width = 0.6]
+32 [shape = circle, width = 0.6]
+15 [shape = circle, width = 0.6]
+81 [shape = circle, width = 0.6]
+lista:f0 -> 24
+lista:f1 -> 32
+lista:f2 -> 15
+lista:f3 -> 81
+x:f1 -> lista
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: column
 
-!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[0]`)(width=60%)(width=50%)
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[1]`)(width=75%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-lista [shape = record, width = 1.5, fixedsize = true, label = <{<S>24</S><BR/>99|32|15|81}>]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> lista
+x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+99 [shape = circle, width = 0.6]
+24 [shape = circle, width = 0.6]
+32 [shape = circle, width = 0.6]
+15 [shape = circle, width = 0.6]
+81 [shape = circle, width = 0.6]
+lista:f0 -> 24
+lista:f1 -> 99
+lista:f1 -> 32 [style = dashed, color = grey]
+lista:f2 -> 15
+lista:f3 -> 81
+x:f1 -> lista
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -974,17 +989,33 @@ Ejemplo           Valor de `x` después
   y = x  # x se asigna a y; ahora y tiene el mismo valor que x
   ```
 
-  !DOT(alias1.svg)()(width=40%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fixedsize = shape, fontname = "monospace"]
-  x [shape = plaintext, fillcolor = transparent]
-  y [shape = plaintext, fillcolor = transparent]
-  lista [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
-  v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-  v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-  x -> v1 -> lista
-  y -> v2 -> lista
+:::: columns
+
+::: column
+
+!DOT(alias1.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+y [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+66 [shape = circle, width = 0.6]
+77 [shape = circle, width = 0.6]
+40 [shape = circle, width = 0.6]
+88 [shape = circle, width = 0.6]
+99 [shape = circle, width = 0.6]
+lista:f0 -> 66
+lista:f1 -> 77
+lista:f2 -> 88 [style = dashed, color = grey]
+lista:f2 -> 40
+lista:f3 -> 99
+x:f1 -> lista
+y:f1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
 
 - Si el valor es **mutable** y cambiamos su **contenido** desde `x`, también
   cambiará `y` (y viceversa), pues ambas variables **apuntan al mismo dato**:
@@ -994,6 +1025,10 @@ Ejemplo           Valor de `x` después
   >>> x
   [66, 77, 40, 99]
   ```
+
+:::
+
+::::
 
 ---
 
@@ -1016,23 +1051,13 @@ Ejemplo           Valor de `x` después
 
 ::: {.column width=60%}
 
-!DOT(alias2.svg)()(width=50%)(width=40%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-lista [shape = record, width = 1.5, fixedsize = true, label = <{66|77|<S>88</S><BR/>40|99}>]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-x -> v1 -> lista
-y -> v2 -> lista
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(alias1.svg)()(width=60%)(width=40%)
 
 :::
 
 ::::
 
-!SALTOLARGOBEAMER
+---
 
 - Cambiar el **valor** es algo que **siempre** se puede hacer (da igual la
   mutabilidad) simplemente **asignando** a la variable **un nuevo valor**:
@@ -1051,19 +1076,42 @@ y -> v2 -> lista
 
 ::: {.column width=60%}
 
-!DOT(alias3.svg)()(width=50%)(width=40%)
+!DOT(alias2.svg)()(width=60%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-lista2 [shape = record, label = "{1|2|3}"]
-lista1 [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
-v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-y -> v2
-x -> v1 -> lista1
-v2 -> lista2
-v2 -> lista1 [style = dashed, color = grey]
+x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+y [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+lista1 [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+lista2 [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤}"]
+66 [shape = circle, width = 0.6]
+77 [shape = circle, width = 0.6]
+88 [shape = circle, width = 0.6]
+99 [shape = circle, width = 0.6]
+1 [shape = circle, width = 0.6]
+2 [shape = circle, width = 0.6]
+3 [shape = circle, width = 0.6]
+lista1:f0 -> 66
+lista1:f1 -> 77
+lista1:f2 -> 88
+lista1:f3 -> 99
+lista2:f0 -> 1
+lista2:f1 -> 2
+lista2:f2 -> 3
+x:f1 -> lista1
+y:f1 -> lista1 [style = dashed, color = grey]
+y:f1 -> lista2
+
+#node [fixedsize = shape, fontname = "monospace"]
+#x [shape = plaintext, fillcolor = transparent]
+#y [shape = plaintext, fillcolor = transparent]
+#lista2 [shape = record, label = "{1|2|3}"]
+#lista1 [shape = record, width = 1.5, fixedsize = true, label = "{66|77|88|99}"]
+#v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+#v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
+#y -> v2
+#x -> v1 -> lista1
+#v2 -> lista2
+#v2 -> lista1 [style = dashed, color = grey]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1217,7 +1265,7 @@ x -> v1 -> pepe
 
 nos quedaría:
 
-!DOT(alias4.svg)()(width=50%)(width=2%)
+!DOT(alias3.svg)()(width=50%)(width=2%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
@@ -1258,7 +1306,7 @@ y -> v2 -> lista2
 
 nos quedaría:
 
-!DOT(alias5.svg)()(width=50%)(width=25%)
+!DOT(alias4.svg)()(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [rankdir = TB, splines = ortho]
 node [fixedsize = shape, fontname = "monospace"]
