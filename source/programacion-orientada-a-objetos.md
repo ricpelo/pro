@@ -244,9 +244,9 @@ def deposito(fondos):
 
 ---
 
-- La definición de una clase es una estructura sintáctica que crea su propio
-  ámbito y que está formada por una secuencia de sentencias que se ejecutarán
-  cuando la ejecución del programa alcance esa definición:
+- La definición de una clase es una estructura sintáctica que está formada por
+  una secuencia de sentencias que se ejecutarán cuando la ejecución del
+  programa alcance esa definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -254,14 +254,15 @@ def deposito(fondos):
       !NT(sentencia)+
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Todas las definiciones que se hagan dentro de la clase serán **locales** a
-  ella, al encontrarse dentro del ámbito de dicha clase.
+- Las clases definen un **espacio de nombres**, y todas las definiciones que se
+  hagan dentro de la clase pertenecerán a su espacio de nombres.
 
-- Por ello, las funciones definidas dentro de una clase pertenecen a dicha
-  clase.
+- Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo`
+  pertenecen a la clase `Deposito` y sólo existen dentro de ella.
 
-- Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo` son
-  locales a la clase `Deposito` y sólo existen dentro de ella.
+- Pero es importante señalar que **las clases no definen un nuevo ámbito** y,
+  por tanto, los elementos que se definan dentro de una clase no se verán entre
+  sí directamente, sino que tendrán que usar el operador punto (`.`).
 
 - Las funciones definidas dentro de una clase se denominan **métodos**.
 
@@ -291,7 +292,7 @@ def deposito(fondos):
 - Otros espacios de nombres que hemos visto hasta ahora en el curso son los
   **marcos** o los módulos.
 
-- Como las clases son espacios de nombres, podemos usar el operador punto (`.`)
+- Como las clases son espacios de nombres, debemos usar el operador punto (`.`)
   para acceder al contenido de una clase, indicando el nombre de la clase y el
   nombre del contenido al que se desea acceder:
 
@@ -2449,17 +2450,19 @@ class Pila:
 - Ese porcentaje puede cambiar con el tiempo, pero es el mismo para todos los
   depósitos.
 
-- Ese valor se guardará en un atributo, pero ese atributo pertenece a la propia
-  clase y está ligado a ella, no a una instancia concreta de dicha clase, ya
-  que es un valor compartido por todos los objetos de la misma clase.
+- Ese valor se guardará en un atributo, pero ese atributo se almacena en la
+  propia clase y está ligado a ella, no a una instancia concreta de dicha
+  clase, ya que es un valor compartido por todos los objetos de la misma clase.
 
 - Los atributos que pertenecen y están ligados a la propia clase (en lugar de a
   instancias concretas) se denominan **atributos de clase**, **variables de
   clase** o **variables estáticas**.
 
-  - Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
-    las instancias) se denominan **atributos de instancia** o **variables de
-    instancia**.
+- Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
+  las instancias) se denominan **atributos de instancia** o **variables de
+  instancia**.
+
+- Las variables de clase pertenecen al **espacio de nombres** de la clase.
 
 ---
 
@@ -2473,6 +2476,7 @@ class Pila:
 ```python
 class Deposito:
     interes = 0.02   # Un atributo de clase
+
     def __init__(self, fondos):
         self.fondos = fondos
 
@@ -2504,6 +2508,9 @@ _clase_`.`_atributo_
 >>> Deposito.interes
 0.02
 ```
+
+- Esto nos indica que los atributos de clase se almacenan en el **diccionario**
+  del **espacio de nombres** de la clase.
 
 :::
 
@@ -2564,6 +2571,9 @@ _clase_`.`_atributo_
 0.02
 ```
 
+- Esto ocurre porque la variable de instancia se almacena en el objeto, no en
+  la clase, y al acceder desde el objeto tiene preferencia.
+
 - Por ello, es conveniente acostumbrarse a usar siempre el nombre de la clase
   para acceder y cambiar el valor de una variable de clase, en lugar de hacerlo
   a través de una instancia.
@@ -2576,6 +2586,7 @@ _clase_`.`_atributo_
 ```python
 class Deposito:
     interes = 0.02   # Un atributo de clase
+
     def __init__(self, fondos):
         self.fondos = fondos
 
@@ -2607,34 +2618,29 @@ class Deposito:
 
 ## Métodos estáticos
 
-- Los **métodos estáticos** son métodos que **pertenencen y están ligados a una
-  clase**, en lugar de a instancias de la clase.
+- Los **métodos estáticos** son métodos definidos dentro de una clase pero que
+  **no se ejecutan sobre ninguna instancia**.
 
-- Eso significa que **un método estático se ejecuta sobre una clase, no sobre
-  una instancia**.
+- Al no haber instancia, **los métodos estáticos no reciben ninguna instancia
+  como argumento** a través del primer parámetro `self`.
 
-  - Es decir: se le pide a una clase que ejecute el método, en lugar de
-    pedírselo a un objeto.
+- En realidad, un método estático es básicamente **una función normal definida
+  dentro del espacio de nombres de una clase** y que se ejecuta como cualquier
+  otra función.
 
-- A efectos prácticos es como si le estuviéramos **mandando un mensaje a la
-  clase en sí**, en lugar de mandárselo a un objeto de la clase.
+- Por contraste, los métodos que se ejecutan sobre un objeto se denominan
+  **métodos de instancia**, para distinguirlos de los estáticos.
 
-- Al no ejecutarse sobre una instancia, **los métodos estáticos no reciben la
-  instancia como argumento** a través del primer parámetro `self`.
-
-- En realidad, **un método estático es básicamente una función definida dentro
-  del ámbito de una clase**, y poco más.
-
-- Los métodos que van ligados a un objeto se denominan **métodos de
-  instancia**, para distinguirlos de los estáticos.
+- Al estar dentro del espacio de nombres de la clase, para acceder a un método
+  estático hay que usar el operador punto (`.`).
 
 ---
 
 - Por ejemplo, supongamos una clase `Numero` que representa números.
 
   Una manera de implementarla sin métodos estáticos sería suponer que cada
-  instancia de la clase representa un número y que las operaciones modifican el
-  número en cuestión, recibiendo el resto de operandos mediante argumentos:
+  instancia de la clase representa un número y que las operaciones modifican
+  ese número, recibiendo el resto de operandos mediante argumentos:
 
   ```python
   class Numero:
@@ -2670,7 +2676,16 @@ class Deposito:
   - El método no debe recibir el parámetro `self`.
 
 - Sabiendo eso, podemos crear una clase `Calculadora` que ni siquiera haría
-  falta instanciar y que contendría las operaciones a realizar con los números:
+  falta instanciar y que contendría las operaciones a realizar con los números.
+
+- Esas operaciones serían métodos estáticos.
+
+- Al estar definidos en el espacio de nombres de la clase `Calculadora`, para
+  acceder a ellos habrá que usar el operador punto (`.`).
+
+---
+
+- Tendríamos, por tanto:
 
   ```python
   class Calculadora:
@@ -2721,7 +2736,7 @@ class Deposito:
 
   ya que `suma` es un método de instancia en la clase `Numero`.
 
-- Esta última forma no se usa nunca, ya que confunde al lector.
+  (Esta última forma no se usa nunca, ya que confunde al lector.)
 
 :::
 
@@ -2748,20 +2763,21 @@ class Deposito:
 
 - Podemos combinar métodos estáticos y no estáticos en la misma clase.
 
-- En tal caso, debemos recordar que los métodos estáticos no pueden acceder a
-  los miembros no estáticos de la clase, ya que no disponen de la referencia al
-  objeto (`self`).
+- En tal caso, debemos recordar que los métodos estáticos de una clase no
+  pueden acceder a los miembros no estáticos de esa clase, ya que no disponen
+  de la referencia al objeto (`self`).
 
-- En cambio, sí pueden acceder a variables de clase o a otros métodos
-  estáticos de la misma clase.
+- En cambio, un método estático sí puede acceder a variables de clase o a otros
+  métodos estáticos (de la misma clase o de cualquier otra clase) usando el
+  operador punto (`.`).
 
 ---
-
-- Por ejemplo:
 
 :::: columns
 
 ::: {.column width=65%}
+
+- Por ejemplo:
 
 ```python
 class Numero:
@@ -2786,7 +2802,12 @@ class Numero:
 
     @staticmethod
     def mult_es(x, y):
-        return x + y
+        ret = 0
+        for i in range(y):
+            # Hay que poner «Numero.»:
+            ret = Numero.suma_es(ret, x)
+        return ret
+    return ret
 ```
 
 :::
@@ -2800,6 +2821,8 @@ n = Numero(4)
 n.suma(5)
 # Devuelve 15:
 s = Numero.suma_es(7, 8)
+# Devuelve 56:
+m = Numero.mult_es(7, 8)
 ```
 
 :::
