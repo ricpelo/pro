@@ -761,7 +761,7 @@ class Docente(Trabajador):
     el método o se acabe la cadena de herencia, en cuyo caso dará un error
     `AttributeError` por método no encontrado.
 
-!DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=40%)(width=45%)
+!DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=50%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -769,15 +769,23 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = <Clase <b>Trabajador</b>>
     bgcolor = white
-    set_nombre [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>set_nombre</td><td>λ</td></tr></table>>]
-    get_nombre [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>get_nombre</td><td>λ</td></tr></table>>]
+    set_nombre [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>set_nombre|<f1>⬤}"]
+    get_nombre [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get_nombre|<f1>⬤}"]
 }
+l1 [shape = circle, width = 0.4, fixedsize = shape, label = "λ"]
+l2 [shape = circle, width = 0.4, fixedsize = shape, label = "λ"]
+set_nombre:f1 -> l1
+get_nombre:f1 -> l2
 subgraph cluster1 {
     label = <Clase <b>Docente</b>>
     bgcolor = white
-    set_nrp [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>set_nrp</td><td>λ</td></tr></table>>]
-    get_nrp [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>get_nrp</td><td>λ</td></tr></table>>]
+    set_nrp [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>set_nrp|<f1>⬤}"]
+    get_nrp [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get_nrp|<f1>⬤}"]
 }
+l3 [shape = circle, width = 0.4, fixedsize = shape, label = "λ"]
+l4 [shape = circle, width = 0.4, fixedsize = shape, label = "λ"]
+set_nrp:f1 -> l3
+get_nrp:f1 -> l4
 set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

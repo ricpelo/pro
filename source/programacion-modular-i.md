@@ -362,7 +362,7 @@ F -> G
 
 - Para que un módulo pueda usar a otros módulos tiene que **importarlos**
   usando la orden `import`. Por ejemplo, la siguiente sentencia importa el
-  módulo `math` dentro del módulo actual:
+  módulo `math` dentro del ámbito actual:
 
   ```python
   import math
@@ -429,24 +429,25 @@ node [fontname = "monospace"]
 9 [shape = circle]
 4 [shape = circle]
 3 [shape = circle]
-dos [shape = plaintext, fillcolor = transparent, label = "dos"]
+dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
+subgraph cluster0 {
+    style = rounded
+    label = "Módulo dos"
+    bgcolor = "white"
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+}
 subgraph cluster1 {
     label = "Marco global de uno"
     bgcolor = white
-    a [shape = plaintext, fillcolor = transparent, label = "a"]
-    b [shape = plaintext, fillcolor = transparent, label = "b"]
-    subgraph cluster0 {
-        label = "Marco global de dos"
-        bgcolor = "white"
-        x [shape = plaintext, fillcolor = transparent, label = "x"]
-        y [shape = plaintext, fillcolor = transparent, label = "y"]
-    }
-    dos -> x [lhead = cluster0, minlen = 2]
+    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>a|<f1>⬤}"]
+    b [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>b|<f1>⬤}"]
+    dos:f1 -> x [lhead = cluster0, minlen = 2]
 }
-a -> 4
-b -> 3
-x -> 9
-y -> 5
+a:f1:e -> 4
+b:f1 -> 3
+x:f1 -> 9
+y:f1 -> 5
 E [shape = point]
 E -> a [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -457,17 +458,60 @@ E -> a [lhead = cluster1]
   igual que las listas o las funciones: se pueden asignar a variables, se
   pueden borrar de la memoria con `del`, etc.
 
-- Y significa, además, que los módulos tienen su propio ámbito y, por tanto,
-  crean su propio marco donde se almacenan sus definiciones, aunque eso es algo
-  que ya sabíamos.
+- Significa, además, que los módulos tienen su propio ámbito.
 
-- Para acceder al contenido del módulo importado, indicamos el nombre de ese
-  módulo seguido de un punto (`.`) y el nombre del contenido al que queramos
-  acceder.
+- Sin embargo, al importar un módulo como tal dentro del ámbito actual, no se
+  crea un nuevo marco donde se almacenan sus definiciones.
+
+- En su lugar, se crea una estructura tipo diccionario que contiene las
+  correspondencias entre los nombres de los elementos definidos y sus valores.
+
+- Esa estructura representa al módulo en memoria («*es*» el módulo), y se
+  almacena en el montículo como cualquier otro dato.
+
+- El dato módulo permanecerá en memoria mientras haya una referencia que apunte
+  a él, como siempre.
+
+#### Espacios de nombres
+
+- Decimos que un módulo es un **espacio de nombres**.
+
+- Los espacios de nombres son estructuras que almacenan correspondencias entre
+  un nombre y un valor, de forma que no haya nombres duplicados (o sea, nombres
+  con más de un valor).
+
+- Hasta ahora, los únicos espacios de nombres que habíamos visto eran los
+  **marcos** que se crean automáticamente cuando se entra en un cierto ámbito y
+  se destruyen cuando se sale de él.
+
+- Los **módulos** también son espacios de nombres (como los marcos) porque
+  tienen que almacenar sus definiciones locales, pero no se comportan como los
+  marcos, sino como datos.
+
+- Los módulos se crean en el montículo cuando se importan y se destruyen cuando
+  no hay más referencias que le apunten y el recolector de basura reclama su
+  espacio.
+
+- En posteriores unidades veremos que hay otros espacios de nombres muy
+  importantes: principalmente, las clases y los objetos.
 
 ---
 
-- Por ejemplo, para acceder a la función `gcd` definida en el módulo `math`
+- Siempre que tengamos una referencia a un espacio de nombres, podemos acceder
+  a los valores que contiene usando el operador punto (`.`), indicando el
+  espacio de nombres y el nombre del elemento local al que queramos acceder:
+
+*espacio_de_nombres*`.`*elemento_local*
+
+- Por tanto, para acceder al contenido del módulo importado, indicaremos el
+  nombre de ese módulo seguido de un punto (`.`) y el nombre del contenido al
+  que queramos acceder:
+
+*módulo*`.`*contenido*
+
+---
+
+- Por ejemplo, para acceder a la función `gcd` definida en el módulo `math`,
   haremos:
 
   ```python
@@ -481,25 +525,32 @@ E -> a [lhead = cluster1]
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
-math [shape = plaintext, fillcolor = transparent, label = "math"]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
+gcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>gcd|<f1>⬤}"]
+math [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>math|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 2 [shape = circle]
-lambda [shape = circle, label = "λ"]
-subgraph cluster1 {
-    label = "Marco global del script"
-    bgcolor = white
+subgraph cluster2 {
+    label = "Montículo"
+    style = rounded
+    bgcolor = "grey95"
+    lambda [shape = circle, label = "λ"]
     subgraph cluster0 {
-        label = "Marco global de math"
+        label = "Módulo math"
+        style = rounded
         bgcolor = "white"
         gcd
         m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
     }
-    math -> gcd [lhead = cluster0, minlen = 2]
+    2
+}
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    math:f1 -> gcd [lhead = cluster0, minlen = 2]
     x
 }
-x -> 2
-gcd -> lambda
+x:f1 -> 2
+gcd:f1 -> lambda
 E [shape = point]
 E -> math [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -533,25 +584,32 @@ E -> math [lhead = cluster1]
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
-mates [shape = plaintext, fillcolor = transparent, label = "mates"]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
+gcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>gcd|<f1>⬤}"]
+mates [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>mates|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 2 [shape = circle]
-lambda [shape = circle, label = "λ"]
-subgraph cluster1 {
-    label = "Marco global del script"
-    bgcolor = white
+subgraph cluster2 {
+    label = "Montículo"
+    style = rounded
+    bgcolor = "grey95"
+    lambda [shape = circle, label = "λ"]
+    2
     subgraph cluster0 {
+        style = rounded
         label = "Marco global de mates"
         bgcolor = "white"
         gcd
-        m[shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+        m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
     }
-    mates -> gcd [lhead = cluster0, minlen = 2]
+}
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    mates:f1 -> gcd [lhead = cluster0, minlen = 2]
     x
 }
-x -> 2
-gcd -> lambda
+x:f1 -> 2
+gcd:f1 -> lambda
 E [shape = point]
 E -> mates [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -581,8 +639,8 @@ E -> mates [lhead = cluster1]
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-gcd [shape = plaintext, fillcolor = transparent, label = "gcd"]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
+gcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>gcd|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 2 [shape = circle]
 lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
@@ -591,8 +649,8 @@ subgraph cluster1 {
     gcd
     x
 }
-x -> 2
-gcd -> lambda
+x:f1 -> 2
+gcd:f1 -> lambda
 E [shape = point]
 E -> gcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -638,8 +696,8 @@ E -> gcd [lhead = cluster1]
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-mcd [shape = plaintext, fillcolor = transparent, label = "mcd"]
-x [shape = plaintext, fillcolor = transparent, label = "x"]
+mcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>mcd|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 2 [shape = circle]
 lambda [shape = circle, label = "λ"]
 subgraph cluster1 {
@@ -648,8 +706,8 @@ subgraph cluster1 {
     mcd
     x
 }
-mcd -> lambda
-x -> 2
+mcd:f1 -> lambda
+x:f1 -> 2
 E [shape = point]
 E -> mcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -692,6 +750,10 @@ E -> mcd [lhead = cluster1]
   'log10', 'log1p', 'log2', 'modf', 'nan', 'pi', 'pow', 'radians', 'sin',
   'sinh', 'sqrt', 'tan', 'tanh', 'tau', 'trunc']
   ```
+
+- La función `dir()` puede usarse con cualquier espacio de nombres al que
+  podamos acceder mediante una referencia (por tanto, también valdrá para
+  clases y objetos cuando los veamos).
 
 ### Módulos como *scripts*
 

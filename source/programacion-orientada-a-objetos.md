@@ -270,13 +270,35 @@ def deposito(fondos):
 - Si ejecutamos la anterior definición en el
   [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
   observaremos que se crea en memoria una estructura similar al **diccionario
-  de despacho** que creábamos antes a mano, y que asocia el nombre de cara
+  de despacho** que creábamos antes a mano, y que asocia el nombre de cada
   operación con la función (el método) correspondiente.
 
-- Esa estructura se liga al nombre de la clase en el marco del ámbito donde se
-  haya declarado la clase (normalmente será el marco global).
+- Esa estructura en forma de diccionario representa a la clase dentro de la
+  memoria («_es_» la clase), y se liga al nombre de la clase en el marco del
+  ámbito donde se haya declarado la clase (normalmente será el marco global).
 
 !IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=55%)(width=70%)
+
+---
+
+- Ese diccionario representa a la clase en memoria, y nos indica que las clases
+  son **espacios de nombres**.
+
+- Recordemos que los espacios de nombres son estructuras que almacenan
+  correspondencias entre un nombre y un valor (que puede ser una función o un
+  método, como es el caso aquí).
+
+- Otros espacios de nombres que hemos visto hasta ahora en el curso son los
+  **marcos** o los módulos.
+
+- Como las clases son espacios de nombres, podemos usar el operador punto (`.`)
+  para acceder al contenido de una clase, indicando el nombre de la clase y el
+  nombre del contenido al que se desea acceder:
+
+  ```python
+  >>> Deposito.retirar
+  <function Deposito.retirar at 0x7f6f04885160>
+  ```
 
 ## Objetos
 
@@ -373,11 +395,11 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 - Los atributos se implementan como *variables locales* al objeto.
 
 - Cuando se crea un objeto, se le asocia en el montículo una zona de memoria
-  que almacena los atributos del objeto de forma similar al diccionario que
+  que almacena los atributos del objeto de forma similar al **diccionario** que
   usan las clases para almacenar sus definiciones locales.
 
 - Esa estructura en forma de diccionario representa al objeto dentro de la
-  memoria («_es_» el objeto) y  asocia el nombre de cada atributo con el valor
+  memoria («_es_» el objeto) y asocia el nombre de cada atributo con el valor
   que tiene dicho atributo en ese objeto.
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=45%)
@@ -391,38 +413,30 @@ subgraph cluster0 {
     label = "Montículo"
     style = rounded
     bgcolor = grey95
+    100 [shape = circle]
     subgraph cluster1 {
         label = <Objeto <b>dep</b>>
-        style = filled
+        style = "rounded, filled"
         bgcolor = white
-        fondos [shape = plaintext, label = <<table border="0" cellborder="1"><tr><td>fondos</td><td>100</td></tr></table>>]
+        fondos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>fondos|<f1>⬤}"]
     }
 }
+fondos:f1 -> 100
 subgraph cluster2 {
     label = <Marco <b>global</b>>
     bgcolor = white
-    dep -> fondos [lhead = cluster1, minlen = 2]
+    dep [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dep|<f1>⬤}"]
+    dep:f1 -> fondos [lhead = cluster1, minlen = 2]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- En Python es posible acceder directamente al estado interno de un objeto (o,
-  lo que es lo mismo, al valor de sus atributos), cosa que, en principio,
-  podría considerarse una violación del principio de ocultación de información
-  y del concepto mismo de abstracción de datos.
+- Los objetos son **espacios de nombres**, ya que cada objeto almacena las
+  correspondencias entre los atributos del objeto y sus valores.
 
-- Incluso es posible cambiar directamente el valor de un atributo desde fuera
-  del objeto, o crear atributos nuevos dinámicamente.
-
-- Todo esto puede resultar chocante para un programador de otros lenguajes,
-  pero en la práctica resulta útil al programador por la naturaleza dinámica
-  del lenguaje Python y por el estilo de programación que promueve.
-
----
-
-- En Python, la única forma de acceder a un atributo de un objeto es usando la
-  *notación punto*:
+- Gracias a ello, podemos usar el operador punto (`.`) para acceder a un
+  atributo del objeto usando la sintaxis:
 
 *objeto*`.`*atributo*
 
@@ -459,6 +473,20 @@ subgraph cluster2 {
   ```
 
 !IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=50%)(width=70%)
+
+---
+
+- En Python es posible acceder directamente al estado interno de un objeto (o,
+  lo que es lo mismo, al valor de sus atributos), cosa que, en principio,
+  podría considerarse una violación del principio de ocultación de información
+  y del concepto mismo de abstracción de datos.
+
+- Incluso es posible cambiar directamente el valor de un atributo desde fuera
+  del objeto, o crear atributos nuevos dinámicamente.
+
+- Todo esto puede resultar chocante para un programador de otros lenguajes,
+  pero en la práctica resulta útil al programador por la naturaleza dinámica
+  del lenguaje Python y por el estilo de programación que promueve.
 
 ---
 
@@ -777,6 +805,8 @@ dep = Deposito(100)
   pasa el objeto *o* como primer argumento (el resto de los argumentos
   originales irían a continuación). 
 
+- No olvidemos que quien almacena los métodos es la clase, no el objeto.
+
 ---
 
 - Por ejemplo, hacer:
@@ -795,6 +825,11 @@ dep = Deposito(100)
 
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
+
+- Para la clase `Despacho`, `retirar` es una función, mientras que para el
+  objeto `dep` es un método.
+
+- Son cosas distintas, y el intérprete los trata de forma distinta.
 
 ## Definición de métodos
 

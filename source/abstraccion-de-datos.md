@@ -1201,31 +1201,31 @@ f3 [shape = circle, label = "λ"]
 subgraph cluster2 {
     label = <Marco global>
     bgcolor = white
-    pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
-    select [shape = plaintext, fillcolor = transparent, label = "select"]
-    p [shape = plaintext, fillcolor = transparent, label = "p"]
+    pareja [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>pareja|<f1>⬤}"]
+    select [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>select|<f1>⬤}"]
+    p [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>p|<f1>⬤}"]
 }
-pareja -> f1
-select -> f2
-p -> f3
+pareja:f1 -> f1
+select:f1 -> f2
+p:f1 -> f3
 subgraph cluster0 {
     label = <Marco de <b>pareja</b>>
     bgcolor = "white"
-    x [shape = plaintext, fillcolor = transparent, label = "x"]
-    y [shape = plaintext, fillcolor = transparent, label = "y"]
-    get [shape = plaintext, fillcolor = transparent, label = "get"]
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    get [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get|<f1>⬤}"]
 }
-x -> 20
-y -> 14
+x:f1 -> 20
+y:f1 -> 14
 get -> f3
 subgraph cluster1 {
     label = <Marco de <b>get</b>>
     bgcolor = white
-    i [shape = plaintext, fillcolor = transparent, label = "indice"]
+    i [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>indice|<f1>⬤}"]
 }
-i -> 0
+i:f1 -> 0
 i -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2]
+x -> select [lhead = cluster2, ltail = cluster0, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> i [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1273,27 +1273,27 @@ f3 [shape = circle, label = "λ", color = red]
 subgraph cluster2 {
     label = <Marco global>
     bgcolor = white
-    pareja [shape = plaintext, fillcolor = transparent, label = "pareja"]
-    select [shape = plaintext, fillcolor = transparent, label = "select"]
-    p [shape = plaintext, fillcolor = transparent, label = "p"]
+    pareja [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>pareja|<f1>⬤}"]
+    select [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>select|<f1>⬤}"]
+    p [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>p|<f1>⬤}"]
 }
-pareja -> f1
-select -> f2
-p -> f3
+pareja:f1 -> f1
+select:f1 -> f2
+p:f1 -> f3
 subgraph cluster0 {
     label = <Marco de <b>pareja</b>>
     bgcolor = "white"
     color = grey
     fontcolor = grey
-    x [shape = plaintext, fillcolor = transparent, label = "x", fontcolor = grey]
-    y [shape = plaintext, fillcolor = transparent, label = "y", fontcolor = grey]
-    get [shape = plaintext, fillcolor = transparent, label = "get", fontcolor = grey]
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    get [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get|<f1>⬤}"]
 }
-x -> 20 [color = grey]
-y -> 14 [color = grey]
-get -> f3 [color = grey]
+x:f1 -> 20 [color = grey]
+y:f1 -> 14 [color = grey]
+get:f1 -> f3 [color = grey]
 x -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2, color = grey]
-pila:f0 -> select [lhead = cluster2, minlen = 3]
+pila:f0 -> pareja [lhead = cluster2, minlen = 3]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> select [lhead = cluster2, minlen = 2]
 f3 -> y [lhead = cluster0, minlen = 3, color = blue]

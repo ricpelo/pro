@@ -1197,8 +1197,6 @@ Función                     Descripción           Ejemplo                  Res
 
 - Son la base de la **programación modular**, que ya estudiaremos.
 
----
-
 - Para *importar* una función de un módulo se puede usar la orden `from`. Por
   ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
   de dos números) del módulo `math` se haría:
@@ -1235,6 +1233,9 @@ Función                     Descripción           Ejemplo                  Res
    │    └────── función
    └── módulo
   ```
+
+- El punto `.` es un operador que nos permite acceder al interior de
+  estructuras que tienen contenido propio, como los módulos.
 
 ---
 
