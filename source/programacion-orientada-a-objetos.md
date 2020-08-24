@@ -279,9 +279,123 @@ def deposito(fondos):
 
 ---
 
+- Por ejemplo, en el código anterior:
+
+```{.python .number-lines}
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+```
+
+---
+
+- En la línea 10 tendríamos el siguiente entorno:
+
+!DOT(entorno-clase-linea10.svg)()(width=60%)(width=45%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+l2 [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
+}
+Deposito:f1 -> init [lhead = cluster1]
+subgraph cluster1 {
+    label = <Marco de la clase <b>Deposito</b>>
+    bgcolor = white
+    init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+    retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+}
+init:f1 -> l1
+retirar:f1 -> l2
+retirar:f1:s -> Deposito:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> init [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y en la línea 12, el entorno sería:
+
+!DOT(entorno-clase-linea12.svg)()(width=80%)(width=45%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+l2 [shape = circle, label = "λ"]
+p1 [shape = circle, label = "..."]
+p2 [shape = circle, label = "..."]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
+}
+Deposito:f1:s -> retirar [lhead = cluster2, minlen = 2]
+subgraph cluster1 {
+    label = <Marco de <b>ingresar</b>>
+    bgcolor = white
+    self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+    cantidad [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>cantidad|<f1>⬤}"]
+}
+cantidad:f1:s -> Deposito:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+subgraph cluster2 {
+    label = <Marco de la clase <b>Deposito</b>>
+    bgcolor = white
+    init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+    retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+}
+init:f1 -> l1
+retirar:f1 -> l2
+self:f1 -> p1
+cantidad:f1 -> p2
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> self [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Con las **clases** ocurre exactamente igual que con los **módulos**:
+
+  - Al entrar en el ámbito de la clase, se crea un nuevo marco en memoria que
+    contiene las definiciones que se van creando durante la ejecución de la
+    clase.
+
+  - **Ese marco no desaparece al salir del ámbito**, sino que permanece en
+    memoria formando una estructura tipo diccionario que almacena el **espacio
+    de nombres** de la clase y que representa a la clase dentro de la memoria.
+
+  - La clase acaba siendo un dato más, almacenado en memoria, que contiene su
+    espacio de nombres, y que se ligará al nombre de la clase en el ámbito
+    donde se haya definido la clase.
+
+  - El nombre de la clase representa el identificador de una variable que
+    almacena una referencia a ese dato, lo que nos permite acceder a la clase
+    desde fuera usando el operador punto (`.`).
+
+- Ese «dato» clase permanecerá en memoria mientras exista, al menos, una
+  referencia que apunte a él.
+
+---
+
 - Si ejecutamos la anterior definición en el
   [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
-  observaremos que se crea en memoria una estructura similar al **diccionario
+  observaremos que se crea en memoria esa estructura similar al **diccionario
   de despacho** que creábamos antes a mano, y que asocia el nombre de cada
   operación con la función (el método) correspondiente.
 
@@ -297,15 +411,15 @@ def deposito(fondos):
   son **espacios de nombres**.
 
 - Recordemos que los espacios de nombres son estructuras que almacenan
-  correspondencias entre un nombre y un valor (que puede ser una función o un
+  correspondencias entre un nombre y un valor (como puede ser una función o un
   método, como es el caso aquí).
 
 - Otros espacios de nombres que hemos visto hasta ahora en el curso son los
   **marcos** o los módulos.
 
 - Como las clases son espacios de nombres, debemos usar el operador punto (`.`)
-  para acceder al contenido de una clase, indicando el nombre de la clase y el
-  nombre del contenido al que se desea acceder:
+  para acceder al contenido de una clase, indicando la referencia a la clase y
+  el nombre del contenido al que se desea acceder:
 
   ```python
   >>> Deposito.retirar
@@ -419,8 +533,6 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-dep [shape = plaintext, fillcolor = transparent, label = "dep"]
-fondos [shape = plaintext, fillcolor = transparent, label = "fondos"]
 subgraph cluster0 {
     label = "Montículo"
     style = rounded
