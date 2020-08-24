@@ -244,9 +244,9 @@ def deposito(fondos):
 
 ---
 
-- La definición de una clase es una estructura sintáctica que está formada por
-  una secuencia de sentencias que se ejecutarán cuando la ejecución del
-  programa alcance esa definición:
+- La definición de una clase es una estructura sintáctica que define su propio
+  **ámbito** y que está formada por una secuencia de sentencias que se
+  ejecutarán cuando la ejecución del programa alcance esa definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -255,16 +255,27 @@ def deposito(fondos):
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las clases definen un **espacio de nombres**, y todas las definiciones que se
-  hagan dentro de la clase pertenecerán a su espacio de nombres.
+  hagan dentro de la clase se almacenarán en su espacio de nombres.
+
+- Al definir su propio ámbito, todos los elementos definidos dentro de la clase
+  son **locales** a la clase.
+
+---
 
 - Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo`
   pertenecen a la clase `Deposito` y sólo existen dentro de ella.
 
-- Pero es importante señalar que **las clases no definen un nuevo ámbito** y,
-  por tanto, los elementos que se definan dentro de una clase no se verán entre
-  sí directamente, sino que tendrán que usar el operador punto (`.`).
-
 - Las funciones definidas dentro de una clase se denominan **métodos**.
+
+- El cuerpo de un método define un nuevo ámbito, pero ese ámbito no está
+  includo dentro del ámbito de la clase.
+
+- Por tanto, desde el interior de un método no se puede acceder directamente al
+  resto de miembros de la clase, ya que están definidos en un ámbito distinto
+  que no es accesible desde el método.
+
+- Para poder acceder a ellos habrá que usar usar el operador punto (`.`), con
+  el que accederemos al interior del espacio de nombres de la clase.
 
 ---
 

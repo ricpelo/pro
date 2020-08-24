@@ -420,16 +420,24 @@
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p>La definición de una clase es una estructura sintáctica que está formada por una secuencia de sentencias que se ejecutarán cuando la ejecución del programa alcance esa definición:</p>
+<li><p>La definición de una clase es una estructura sintáctica que define su propio <strong>ámbito</strong> y que está formada por una secuencia de sentencias que se ejecutarán cuando la ejecución del programa alcance esa definición:</p>
 <div class="line-block"><strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>+</div></li>
-<li><p>Las clases definen un <strong>espacio de nombres</strong>, y todas las definiciones que se hagan dentro de la clase pertenecerán a su espacio de nombres.</p></li>
-<li><p>Por ejemplo, las funciones <code>__init__</code>, <code>retirar</code>, <code>ingresar</code> y <code>saldo</code> pertenecen a la clase <code>Deposito</code> y sólo existen dentro de ella.</p></li>
-<li><p>Pero es importante señalar que <strong>las clases no definen un nuevo ámbito</strong> y, por tanto, los elementos que se definan dentro de una clase no se verán entre sí directamente, sino que tendrán que usar el operador punto (<code>.</code>).</p></li>
-<li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
+<li><p>Las clases definen un <strong>espacio de nombres</strong>, y todas las definiciones que se hagan dentro de la clase se almacenarán en su espacio de nombres.</p></li>
+<li><p>Al definir su propio ámbito, todos los elementos definidos dentro de la clase son <strong>locales</strong> a la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.4">
+
+<ul>
+<li><p>Por ejemplo, las funciones <code>__init__</code>, <code>retirar</code>, <code>ingresar</code> y <code>saldo</code> pertenecen a la clase <code>Deposito</code> y sólo existen dentro de ella.</p></li>
+<li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
+<li><p>El cuerpo de un método define un nuevo ámbito, pero ese ámbito no está includo dentro del ámbito de la clase.</p></li>
+<li><p>Por tanto, desde el interior de un método no se puede acceder directamente al resto de miembros de la clase, ya que están definidos en un ámbito distinto que no es accesible desde el método.</p></li>
+<li><p>Para poder acceder a ellos habrá que usar usar el operador punto (<code>.</code>), con el que accederemos al interior del espacio de nombres de la clase.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.5">
 
 <ul>
 <li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria una estructura similar al <strong>diccionario de despacho</strong> que creábamos antes a mano, y que asocia el nombre de cada operación con la función (el método) correspondiente.</p></li>
@@ -441,7 +449,7 @@
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.1.0.0.5">
+<section class="slide level5" data-number="2.1.0.0.6">
 
 <ul>
 <li><p>Ese diccionario representa a la clase en memoria, y nos indica que las clases son <strong>espacios de nombres</strong>.</p></li>
