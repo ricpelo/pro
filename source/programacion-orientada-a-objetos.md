@@ -320,6 +320,7 @@ Deposito:f1 -> init [lhead = cluster1]
 subgraph cluster1 {
     label = <Marco de la clase <b>Deposito</b>>
     bgcolor = white
+    style = rounded
     init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
     retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
 }
@@ -357,6 +358,7 @@ cantidad:f1:s -> Deposito:w [lhead = cluster0, ltail = cluster1, minlen = 2]
 subgraph cluster2 {
     label = <Marco de la clase <b>Deposito</b>>
     bgcolor = white
+    style = rounded
     init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
     retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
 }
@@ -380,8 +382,8 @@ E -> self [lhead = cluster1]
     memoria formando una estructura tipo diccionario que almacena el **espacio
     de nombres** de la clase y que representa a la clase dentro de la memoria.
 
-  - La clase acaba siendo un dato más, almacenado en memoria, que contiene su
-    espacio de nombres, y que se ligará al nombre de la clase en el ámbito
+  - La clase acaba siendo un dato más, almacenado en el montículo, que contiene
+    su espacio de nombres, y que se ligará al nombre de la clase en el ámbito
     donde se haya definido la clase.
 
   - El nombre de la clase representa el identificador de una variable que

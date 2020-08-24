@@ -344,19 +344,19 @@ F -> G
 - En Python, un módulo es otra forma de llamar a un *script*. Es decir:
   «módulo» y «*script*» son sinónimos en Python.
 
-- Los módulos contienen definiciones y sentencias.
+- Los módulos contienen instrucciones: definiciones y sentencias.
 
 - El nombre del archivo es el nombre del módulo con extensión `.py`.
 
 - Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
   almacenado en la variable global `__name__`.
 
-- Cada módulo tiene su propio ámbito local, que es usado como el ámbito global
-  de todas las funciones definidas en el módulo.
+- Cada módulo tiene su propio **ámbito local**, que es usado como el **ámbito
+  global** de todas las instrucciones que componen el módulo.
 
-- Por tanto, el autor de un módulo puede usar variables globales en el módulo
-  sin preocuparse de posibles colisiones accidentales con las variables
-  globales de otros módulos.
+- Por tanto, el autor de un módulo puede crear variables globales o funciones
+  en el módulo sin preocuparse de posibles colisiones accidentales con las
+  variables globales o funciones de otros módulos.
 
 ### Importación de módulos
 
@@ -375,10 +375,11 @@ F -> G
 - O dicho de otra forma: se incorpora al marco actual (es decir, el marco del
   ámbito donde se ejecuta el `import`) la ligadura entre el nombre del módulo
   importado y el propio módulo, por lo que el módulo importador puede acceder
-  al módulo importado a través de su nombre.
+  al módulo importado a través de su nombre, como una referencia al propio
+  módulo.
 
 - De esta forma, lo que se importa dentro del marco actual no es el contenido
-  del módulo importado, sino el módulo en sí.
+  del módulo importado, sino una **referencia** al módulo.
 
 ---
 
@@ -454,7 +455,7 @@ E -> a [lhead = cluster1]
 
 ---
 
-- Eso significa que los módulos en Python son internamente un dato más, al
+- Eso significa que **los módulos en Python son internamente un dato más**, al
   igual que las listas o las funciones: se pueden asignar a variables, se
   pueden borrar de la memoria con `del`, etc.
 
@@ -488,9 +489,9 @@ E -> a [lhead = cluster1]
   tienen que almacenar sus definiciones locales, pero no se comportan como los
   marcos, sino como datos.
 
-- Los módulos se crean en el montículo cuando se importan y se destruyen cuando
-  no hay más referencias que le apunten y el recolector de basura reclama su
-  espacio.
+- Los módulos se crean en el montículo cuando se importan y se destruyen como
+  cualquier otro dato, cuando no hay más referencias que le apunten y el
+  recolector de basura reclama su espacio.
 
 - En posteriores unidades veremos que hay otros espacios de nombres muy
   importantes: principalmente, las clases y los objetos.

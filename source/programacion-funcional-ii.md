@@ -319,6 +319,12 @@ nocite: |
 - Asimismo, el primer marco de la cadena de marcos del entorno representa el
   ámbito actual de la porción de código donde se está calculando el entorno.
 
+- El último marco siempre es el marco global.
+
+- En realidad, el marco global apunta, a su vez, al marco donde se encuentran
+  las definiciones internas predefinidas del lenguaje (como la función `max`),
+  pero lo ignoraremos de aquí en adelante por simplicar.
+
 ---
 
 - Si en un determinado punto del programa tenemos el siguiente entorno:

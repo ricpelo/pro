@@ -468,11 +468,11 @@
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Programación modular en Python</h2>
 <ul>
 <li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
-<li><p>Los módulos contienen definiciones y sentencias.</p></li>
+<li><p>Los módulos contienen instrucciones: definiciones y sentencias.</p></li>
 <li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
 <li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
-<li><p>Cada módulo tiene su propio ámbito local, que es usado como el ámbito global de todas las funciones definidas en el módulo.</p></li>
-<li><p>Por tanto, el autor de un módulo puede usar variables globales en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales de otros módulos.</p></li>
+<li><p>Cada módulo tiene su propio <strong>ámbito local</strong>, que es usado como el <strong>ámbito global</strong> de todas las instrucciones que componen el módulo.</p></li>
+<li><p>Por tanto, el autor de un módulo puede crear variables globales o funciones en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales o funciones de otros módulos.</p></li>
 </ul>
 </section>
 <section id="importación-de-módulos" class="title-slide slide level3" data-number="2.3.1">
@@ -481,8 +481,8 @@
 <li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del ámbito actual:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> math</span></code></pre></div></li>
 <li><p>Al importar un módulo de esta forma, lo que se hace es incorporar la definición del propio módulo (el módulo <em>importado</em>) en el ámbito actual del módulo o <em>script</em> que ejecuta el <code>import</code> (el módulo <em>importador</em>).</p></li>
-<li><p>O dicho de otra forma: se incorpora al marco actual (es decir, el marco del ámbito donde se ejecuta el <code>import</code>) la ligadura entre el nombre del módulo importado y el propio módulo, por lo que el módulo importador puede acceder al módulo importado a través de su nombre.</p></li>
-<li><p>De esta forma, lo que se importa dentro del marco actual no es el contenido del módulo importado, sino el módulo en sí.</p></li>
+<li><p>O dicho de otra forma: se incorpora al marco actual (es decir, el marco del ámbito donde se ejecuta el <code>import</code>) la ligadura entre el nombre del módulo importado y el propio módulo, por lo que el módulo importador puede acceder al módulo importado a través de su nombre, como una referencia al propio módulo.</p></li>
+<li><p>De esta forma, lo que se importa dentro del marco actual no es el contenido del módulo importado, sino una <strong>referencia</strong> al módulo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.1.0.1">
@@ -517,7 +517,7 @@
 <section class="slide level5" data-number="2.3.1.0.2">
 
 <ul>
-<li><p>Eso significa que los módulos en Python son internamente un dato más, al igual que las listas o las funciones: se pueden asignar a variables, se pueden borrar de la memoria con <code>del</code>, etc.</p></li>
+<li><p>Eso significa que <strong>los módulos en Python son internamente un dato más</strong>, al igual que las listas o las funciones: se pueden asignar a variables, se pueden borrar de la memoria con <code>del</code>, etc.</p></li>
 <li><p>Significa, además, que los módulos tienen su propio ámbito.</p></li>
 <li><p>Sin embargo, al importar un módulo como tal dentro del ámbito actual, no se crea un nuevo marco donde se almacenan sus definiciones.</p></li>
 <li><p>En su lugar, se crea una estructura tipo diccionario que contiene las correspondencias entre los nombres de los elementos definidos y sus valores.</p></li>
@@ -532,7 +532,7 @@
 <li><p>Los espacios de nombres son estructuras que almacenan correspondencias entre un nombre y un valor, de forma que no haya nombres duplicados (o sea, nombres con más de un valor).</p></li>
 <li><p>Hasta ahora, los únicos espacios de nombres que habíamos visto eran los <strong>marcos</strong> que se crean automáticamente cuando se entra en un cierto ámbito y se destruyen cuando se sale de él.</p></li>
 <li><p>Los <strong>módulos</strong> también son espacios de nombres (como los marcos) porque tienen que almacenar sus definiciones locales, pero no se comportan como los marcos, sino como datos.</p></li>
-<li><p>Los módulos se crean en el montículo cuando se importan y se destruyen cuando no hay más referencias que le apunten y el recolector de basura reclama su espacio.</p></li>
+<li><p>Los módulos se crean en el montículo cuando se importan y se destruyen como cualquier otro dato, cuando no hay más referencias que le apunten y el recolector de basura reclama su espacio.</p></li>
 <li><p>En posteriores unidades veremos que hay otros espacios de nombres muy importantes: principalmente, las clases y los objetos.</p></li>
 </ul>
 </section>
