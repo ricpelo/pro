@@ -236,8 +236,12 @@ Calculadora -- Numero : manipula
   de una forma **débil**, ya que los objetos de la clase agregadora y de la
   clase agregada tienen su existencia propia, independiente unos de otros.
 
+- Por tanto, un objeto agregado puede estar en varios objetos agregadores al
+  mismo tiempo.
+
 - Para ello, los objetos de la clase agregadora **almacenan referencias** a los
-  objetos agregados.
+  objetos agregados pero esas no tienen por qué ser las únicas referencias a
+  esos objetos que existen en el programa.
 
 ---
 
@@ -249,14 +253,16 @@ Calculadora -- Numero : manipula
     forme parte de ningún objeto de la clase agregadora.
 
   - La clase agregadora no tiene por qué ser la responsable de crear el objeto
-    agregado.
+    agregado, sino que ese objeto ya puede haber sido creado en otra parte del
+    programa.
 
-  - Cuando se destruye un objeto de la clase agregadora, no es necesario
+  - La clase agregadora no es la responsable de que del objeto agregado
+    permanezca existiendo mientras forme parte de la agregadora.
+
+  - Cuando se destruye un objeto de la clase agregadora, no está obligado a
     destruir los objetos de la clase agregada.
 
----
-
-- Por ejemplo:
+#### Ejemplo
 
 :::: columns
 
@@ -304,10 +310,13 @@ daw1 = Grupo()           # Los objetos los crea...
 pepe = Alumno()          # ... el programa principal, así que ...
 juan = Alumno()          # ... ningún objeto crea a otro.
 daw1.meter_alumno(pepe)  # Metemos en __alumnos una referencia a pepe
+                         # (ahora hay dos referencias al mismo alumno)
 daw1.meter_alumno(juan)  # Metemos en __alumnos una referencia a juan
+                         # (ahora hay dos referencias al mismo alumno)
 daw1.sacar_alumno(pepe)  # Eliminamos de __alumnos la referencia a pepe
 daw2 = Grupo()           # Se crea otro grupo
 daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
+                         # (ahora hay tres referencias al mismo alumno)
 ```
 
 ## Composición
@@ -323,8 +332,9 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
   pueden existir como parte de un objeto compuesto.
 
 - Para ello, los objetos de la clase compuesta **almacenan referencias** de los
-  objetos compuestos, pero de manera que esas referencias no se pueden
-  compartir entre varios objetos compuestos.
+  objetos componentes, pero de manera que esas referencias no se pueden
+  compartir entre varios objetos compuestos y son las únicas referencias que
+  existen de esos objetos componentes.
 
 ---
 
@@ -332,18 +342,19 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
   - Un objeto componente sólo puede formar parte de un único objeto compuesto.
 
-  - Un objeto de la clase componente sólo puede existir como parte de un objeto
-    compuesto.
+  - Un objeto componente sólo debe existir como parte de un objeto compuesto
+    (no debe tener existencia propia fuera del objeto compuesto).
 
-  - La clase compuesta es responsable de crear y almacenar todos sus objetos
-    componentes.
+  - La clase compuesta puede crear sus objetos componentes (y normalmente
+    ocurre así) pero no es estrictamente necesario.
+
+  - La clase compuesta es responsable de almacenar las únicas referencias que
+    deben existir de todos sus objetos componentes.
 
   - Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos
     componentes.
 
----
-
-- Por ejemplo:
+#### Ejemplo
 
 :::: columns
 
@@ -371,6 +382,8 @@ Cuenta "1" *--- "0..*" Tuit
 
 ---
 
+- La clase `Tuit` podría ser tan sencilla como:
+
 ```python
 class Tuit:
     def __init__(self, texto):
@@ -379,55 +392,98 @@ class Tuit:
 
     def get_ident(self):
         return self.__ident
+```
 
+---
+
+- Primera opción, donde la clase `Cuenta` se encarga de crear el tuit:
+
+```python
 class Cuenta:
     def __init__(self):
         self.__tuits = []  # Guarda una lista de referencias a Tuits
 
     def get_tuits(self):
-        return self.__tuits[:]
+        return self.__tuits[:]    # Devuelve una copia
 
     def crear_tuit(self, texto):
         t = Tuit(texto)           # El tuit se crea dentro de la cuenta
         self.__alumnos.append(t)  # La cuenta almacena el tuit
+        return t.get_ident()      # Devuelve el id del tuit
 
     def eliminar_tuit(self, ident):
         for t in self.__tuits:
             if t.get_ident() == ident:
                 self.__alumnos.remove(t)
+                return
         raise ValueError("No existe ningún tuit con ese id")
 
 c1 = Cuenta()
-c1.crear_tuit("Este módulo es muy bonito")
-c1.crear_tuit("Me encanta DAW")
+id1 = c1.crear_tuit("Este módulo es muy bonito")
+id2 = c1.crear_tuit("Me encanta DAW")
 c2 = Cuenta()
-c2.crear_tuit("Odio Programación")
+id3 = c2.crear_tuit("Odio Programación")
+```
+
+---
+
+- Segunda opción, donde el tuit se crea fuera de la clase `Cuenta` y luego se
+  envía a ésta:
+
+```python
+class Cuenta:
+    def __init__(self):
+        self.__tuits = []  # Guarda una lista de referencias a Tuits
+
+    def get_tuits(self):
+        return self.__tuits[:]       # Devuelve una copia
+
+    def guardar_tuit(self, tuit):
+        self.__alumnos.append(tuit)  # La cuenta almacena el tuit
+        return tuit.get_ident()
+
+    def eliminar_tuit(self, ident):
+        for t in self.__tuits:
+            if t.get_ident() == ident:
+                self.__alumnos.remove(t)
+                return
+        raise ValueError("No existe ningún tuit con ese id")
+
+# Los tuits se crean fuera de la clase Cuenta, pero justo a continuación
+# se envían a la cuenta. Así, el objeto cuenta es el único que almacena
+# una referencia al tuit (es la única referencia que existe de ese tuit):
+c1 = Cuenta()
+id1 = c1.guardar_tuit(Tuit("Este módulo es muy bonito"))
+id2 = c1.guardar_tuit(Tuit("Me encanta DAW"))
+c2 = Cuenta()
+id3 = c2.guardar_tuit(Tuit("Odio Programación"))
 ```
 
 ---
 
 - Resumen:
 
-  ---------------------------------------------------------------
-                                      Agregación     Composición
-  --------------------------------- --------------- -------------
-  Una parte puede pertenecer a...     Varios todos   Un todo
-                                                     únicamente
+  ------------------------------------------------------------------
+                                       Agregación     Composición
+  --------------------------------- --------------- ----------------
+  Una parte puede pertenecer a:       Varios todos    Un todo
+                                                      únicamente
 
-  Una parte puede existir aunque          Sí             No
-  no pertenezca a un todo.
+  Una parte puede existir aunque          Sí              No
+  no pertenezca a un todo:
 
-  El todo es responsable de crear         No             Sí
-  la parte.
+  El todo es responsable de crear         No          Normalmente
+  la parte:                                           sí, pero no
+                                                      es necesario
 
-  El todo es responsable de               No             Sí
-  almacenar la parte.
+  El todo es responsable de               No              Sí
+  almacenar la parte:
 
-  Cuando se destruye el todo, se          No             Sí
-  debe destruir la parte.
+  Cuando se destruye el todo, se          No              Sí
+  debe destruir la parte:
 
-  Multiplicidad en el todo.           Cualquiera         1
-  --------------------------------------------------------------
+  Multiplicidad en el todo:           Cualquiera          1
+  ------------------------------------------------------------------
 
 # Herencia
 
