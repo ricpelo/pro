@@ -850,7 +850,7 @@ Determinar cuál es el máximo de dos números
 
 - En ese sentido, se usa como un lenguaje de programación *idealizado*.
 
-##### Ejemplo
+#### Ejemplo
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1432,21 +1432,23 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
   de los lenguajes de programación la utilizan para documentar su sintaxis.
 
-##### Ejemplo
+#### Ejemplo
 
 :::: columns
 
-::: column
+::: {.column width=53%}
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(expresión) ::= !NT(átomo) | !NT(lista)
-!NT(átomo) ::= !NT(número) | !NT(símbolo)
-!NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
-!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)+
-!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))+
-!NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
-!NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
+!NT(frases) ::= !NT{frase} (!T{y} !NT{frase})\* !T{.}
+!NT(frase) ::= !NT(sujeto) !NT(predicado)
+!NT(sujeto) ::= !NT(articulo) !NT(sustantivo) !NT(adjetivo)+
+!NT(predicado) ::= !NT(verbo) [!NT(adverbio)]
+!NT(artículo) ::= !T(el) | !T(la)
+!NT(sustantivo) ::= !T(niño) | !T(vaca)
+!NT(adjetivo) ::= !T(grande) | !T(azul)
+!NT(verbo) ::= !T(come) | !T(salta) | !T(corre)
+!NT(adverbio) ::= !T(mucho) | !T(poco)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cada regla sintáctica (llamada **producción**) está formada por dos partes
@@ -1456,14 +1458,14 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 :::
 
-::: column
+::: {.column width=47%}
 
 \begingroup
 \setlist[itemize,1]{label=--}
 
-- Los nombres entre ángulos (como !NT(expresión)) se llaman **símbolos no
+- Los nombres entre ángulos (como !NT(predicado)) se llaman **símbolos no
   terminales**.
-- Los caracteres en negrita y azul (como !T(b)) se llaman **símbolos
+- Los símbolos en negrita y azul (como !T(la)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
 - El !COLOR(teal)(\*) representa 0, 1 ó más **repeticiones** de lo que
@@ -1479,6 +1481,124 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 ::::
 
+---
+
+- Las gramáticas sirven para _reconocer_ o _producir_ frases correctas en un
+  determinado lenguaje.
+
+- Por ejemplo, podemos preguntarnos si la frase «`el niño grande come mucho`»
+  es sintácticamente correcta según la gramática anterior.
+
+- Para ello, comprobamos si es posible _derivar_ esa frase a partir de las
+  producciones de la gramática, partiendo del **símbolo inicial**, que siempre
+  es el primer símbolo no terminal que aparece en la gramática (en este caso,
+  !NT(frases)).
+
+- Cada paso del procedimiento se llama _derivación_, y consiste en ir
+  sustituyendo, de izquierda a derecha, los símbolos no terminales que vayamos
+  encontrando por su correspondiente definición (lo que hay a la derecha del
+  !COLOR{teal}{::=}).
+
+- Iremos avanzando mientras encontremos símbolos terminales que coincidan con
+  los de la frase.
+
+- El procedimiento finalizará con éxito cuando se acabe la frase, o con fracaso
+  si algún símbolo terminal no coincide con el esperado.
+
+---
+
+- En este caso:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(frases)
+  $\Rightarrow$ !NT(frase) !T(.)
+  $\Rightarrow$ !NT(sujeto) !NT(predicado) !T(.)
+  $\Rightarrow$ !NT(artículo) !NT(sustantivo) !NT(adjetivo)+ !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !NT(sustantivo) !NT(adjetivo)+ !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !NT(adjetivo)+ !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !T(grande) !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !T(grande) !NT(verbo) [!NT(adverbio)] !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !T(grande) !T(come) [!NT(adverbio)] !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !T(grande) !T(come) !T(mucho) !T(.)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El procedimiento ha tenido éxito, por lo que podemos afirmar que la gramática
+  ha reconocido la frase.
+
+- Eso se expresa diciendo que:
+
+!NT(frases) $\stackrel{\ast}{\Rightarrow}$ !T(el) !T(niño) !T(grande) !T(come) !T(mucho) !T(.)
+
+---
+
+- Otra forma de representarlo es mediante un diagrama llamado **árbol de
+  análisis sintáctico**.
+
+!DOT(arbol-analisis.svg)(Árbol de análisis sintáctico para «`el niño come mucho.`»)(width=70%)()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = TB
+node [shape = plaintext, fillcolor = transparent]
+frases [label = <<font color="teal"><i>&lt;frases&gt;</i></font>>]
+frase [label = <<font color="teal"><i>&lt;frase&gt;</i></font>>]
+sujeto [label = <<font color="teal"><i>&lt;sujeto&gt;</i></font>>]
+predicado [label = <<font color="teal"><i>&lt;predicado&gt;</i></font>>]
+articulo [label = <<font color="teal"><i>&lt;artículo&gt;</i></font>>]
+sustantivo [label = <<font color="teal"><i>&lt;sustantivo&gt;</i></font>>]
+adjetivo [label = <<font color="teal"><i>&lt;adjetivo&gt;</i></font>>]
+verbo [label = <<font color="teal"><i>&lt;verbo&gt;</i></font>>]
+adverbio [label = <<font color="teal"><i>&lt;adverbio&gt;</i></font>>]
+punto [label = <<font face="monospace" color="#268bd2"><b>.</b></font>>]
+el [label = <<font face="monospace" color="#268bd2"><b>el</b></font>>]
+nino [label = <<font face="monospace" color="#268bd2"><b>niño</b></font>>]
+grande [label = <<font face="monospace" color="#268bd2"><b>grande</b></font>>]
+come [label = <<font face="monospace" color="#268bd2"><b>come</b></font>>]
+mucho [label = <<font face="monospace" color="#268bd2"><b>mucho</b></font>>]
+frases -> frase
+frases -> punto
+frase -> sujeto
+frase -> predicado
+sujeto -> articulo
+sujeto -> sustantivo
+sujeto -> adjetivo
+articulo -> el
+sustantivo -> nino
+adjetivo -> grande
+predicado -> verbo
+predicado -> adverbio
+verbo -> come
+adverbio -> mucho
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIOS
+
+@. Comprobar si son sintácticamente correctas las siguientes frases según la
+   gramática anterior:
+
+     a. `la vaca corre.`
+     b. `la vaca grande salta.`
+     c. `la vaca grande azul salta.`
+     d. `el niño come.`
+     e. `niño come.`
+     f. `la niño grande salta poco.`
+     g. `la vaca azul come`
+     h. `el niño grande salta poco y la vaca azul corre mucho.`
+
+---
+
+@. ¿Qué frases genera (o reconoce) la siguiente gramática? Poner ejemplos:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    !NT(expresión) ::= !NT(átomo) | !NT(lista)
+!NT(átomo) ::= !NT(número) | !NT(símbolo)
+!NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
+!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)+
+!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))+
+!NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
+!NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### Semántica estática
 
 - La semántica estática define las **restricciones** sobre la estructura de los
@@ -1492,14 +1612,39 @@ controlar el comportamiento físico y lógico de un ordenador.
 - La semántica estática de un lenguaje está fuertemente relacionado con su
   **sistema de tipos**.
 
+---
+
 - Por ejemplo:
 
-  - Comprobar que los tipos de los datos a operar son los correctos (por
-    ejemplo, que no se intente sumar una cadena a un número).
-  - Comprobar que una variable está ligada a un valor antes de usarla en una
+  - Comprobar que los tipos de los datos a operar son los correctos:
+
+    Si intentamos hacer `4 + 'hola'`, sintácticamente puede ser correcto pero
+    no tiene sentido sumar una cadena a un número.
+
+  - Comprobar que un nombre está ligado a un valor antes de usarlo en una
     expresión.
-  - Comprobar que el número de argumentos en la llamada a una función coincide
-    con el número de parámetros de la función.
+
+    Sintácticamente puede ser correcto hacer `4 + x`, pero si no se sabe qué es
+    `x`, el programa no puede realizar la operación.
+
+  - Comprobar que el número y tipo de argumentos en la llamada a una función
+    coincide con el número y tipo de parámetros de la función.
+
+    Si se quiere calcular el coseno de 24 se puede hacer `cos(24)`, pero no
+    tiene sentido hacer `cos(24, 35)` (se llama a la función con dos argumentos
+    en vez de uno) o `cos('hola')` (se la llama con una cadena en lugar de un
+    número).
+
+---
+
+- En el ejemplo que vimos de los niños y las vacas, hemos encontrado frases
+  sintácticamente correctas según la gramática pero que no son completamente
+  correctas o lógicas.
+
+- Por ejemplo, la frase «`la niño grande salta poco.`» es sintácticamente
+  correcta (podemos derivarla a partir del símbolo inicial de la gramática),
+  pero sabemos que no es _completamente_ correcta porque no hay concordancia de
+  género entre el artículo `la` y el sustantivo `niño`.
 
 ### Semántica dinámica
 
