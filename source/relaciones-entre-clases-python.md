@@ -459,15 +459,16 @@ c2 = Cuenta()
 id3 = c2.guardar_tuit(Tuit("Odio Programación"))
 ```
 
----
-
-- Resumen:
+#### Resumen
 
   ------------------------------------------------------------------
                                        Agregación     Composición
   --------------------------------- --------------- ----------------
-  Una parte puede pertenecer a:       Varios todos    Un todo
-                                                      únicamente
+  Al todo se le llama:                Agregador(a)    Compuesto/a
+
+  A la parte se le llama:             Agregado/a      Componente
+
+  Una parte puede pertenecer a:       Varios todos    Un único todo
 
   Una parte puede existir aunque          Sí              No
   no pertenezca a un todo:
