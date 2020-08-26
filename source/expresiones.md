@@ -137,37 +137,76 @@ que denominamos el **valor** de la expresión.
 
 - El ejemplo clásico es el de las *expresiones aritméticas*:
 
-  - Están formados por secuencias de números y símbolos que representan
-    operaciones aritméticas.
+  - Están formadas por secuencias de números junto con símbolos que representan
+    operaciones aritméticas a realizar con esos números.
 
   - Denotan un valor numérico, que es el resultado de calcular el valor de la
     expresión tras hacer las operaciones que aparecen en ella.
 
-    La expresión `(2 * (3 + 5))` denota un valor, que es el número abstracto
-    **16**.
+    Por ejemplo, la expresión `(2 * (3 + 5))` denota un valor, que es el número
+    abstracto **16**.
 
 ---
 
-- En general, las expresiones correctamente formadas satisfacen una gramática
-  similar a la siguiente:
+- Las expresiones correctamente formadas deben satisfacer la gramática del
+  lenguaje en el que están escritas.
+
+- En un lenguaje de programación existen muchos tipos de expresiones
+  dependiendo del tipo de los datos y de las operaciones involucradas en dicha
+  expresión.
+
+- Empezaremos trabajando con las expresiones aritméticas más sencillas para ir
+  incorporando cada vez más elementos nuevos que nos permitan crear expresiones
+  más complejas.
+
+----
+
+- Para ello, nos basaremos en la siguiente gramática, la cual es una
+  simplificación modificada de la gramática real que deben satisfacer las
+  expresiones en Python:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(expresión) ::= !T{(}!NT(expresión) !NT(opbin) !NT(expresión)!T{)}
                    | !T{(}!NT(opun) !NT(expresión)!T{)} 
                    | !NT(literal)
-                   | !NT(identificador)
-                   | !NT(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+                   | !T(identificador)
+                   | !T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
-!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) 
-!NT(opun) ::= !T(+) | !T(-)
+!NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
+!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
+!NT(opun) ::= !T(+) | !T(-) | ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esta gramática da lugar a expresiones aritméticas *totalmente parentizadas*,
-  en las que cada operación a realizar con operadores va agrupada entre
-  paréntesis, incluso aunque no sea estrictamente necesario. Por ejemplo:
+- Esta gramática genera expresiones *totalmente parentizadas*, en las que cada
+  operación a realizar con operadores va agrupada entre paréntesis, aunque no
+  sea estrictamente necesario. Por ejemplo:
 
-  `(3 + (4 - 7))`
+`(3 + (4 - 7))`
+
+---
+
+- Algunos ejemplos de expresiones que genera dicha gramática:
+
+  - `24`
+
+  - `(4 + 5)`
+
+  - `(-(8 * 3.5))`
+
+  - `(9 * (x - 2))`
+
+  - `z`
+
+  - `(abs(-3) + (max(8, 5) / 2))`
+
+- Sabemos que todas esas expresiones son sintácticamente correctas según
+  nuestra la gramática porque podemos construir derivaciones desde el símbolo
+  inicial !NT(expresión) hasta cada expresión.
+
+!EJERCICIO
+
+@. Obtener las derivaciones correspondientes de cada una de las expresiones.
 
 # Valores
 
@@ -177,10 +216,12 @@ que denominamos el **valor** de la expresión.
   expresión. Es decir, una expresión *representa* o **denota** el valor que se
   obtiene al evaluarla.
 
+- Una **subexpresión** es una expresión contenida dentro de otra.
+
 - La **evaluación de una expresión**, en esencia, es el proceso de
-  **sustituir**, dentro de ella, unas *sub-expresiones* por otras que, de
-  alguna manera, estén *más cerca* del valor a calcular, y así hasta calcular el
-  valor de la expresión al completo.
+  **sustituir**, dentro de ella, unas *subexpresiones* por otras que, de alguna
+  manera bien definida, estén *más cerca* del valor a calcular, y así hasta
+  calcular el valor de la expresión al completo.
 
 - Además de las expresiones existen las *sentencias*, que no poseen ningún
   valor y que, por tanto, no se evalúan sino que se *ejecutan*. Las sentencias
@@ -204,7 +245,7 @@ que denominamos el **valor** de la expresión.
 - Cuando introducimos una expresión en el intérprete, lo que hace éste es
   buscar **la representación más simplificada o reducida** posible.
 
-  - En el ejemplo anterior, sería la expresión `3`.
+  En el ejemplo anterior, sería la expresión `3`.
 
 - Por eso a menudo usamos, indistintamente, los términos *reducir*,
   *simplificar* y *evaluar*.
@@ -214,13 +255,13 @@ que denominamos el **valor** de la expresión.
 - Los ordenadores no manipulan valores, sino que sólo pueden manejar
   representaciones concretas de los mismos.
 
-  - Por ejemplo: utilizan la codificación binaria en complemento a 2 para
-    representar los números enteros.
+- Por ejemplo: utilizan la codificación binaria en complemento a 2 para
+  representar los números enteros.
 
-- Pidamos que la **representación del valor** resultado de una evaluación sea
+- Pedimos que la **representación del valor** resultado de una evaluación sea
   **única**.
 
-- De esta forma, seleccionemos de cada conjunto de expresiones que denoten el
+- De esta forma, seleccionaremos de cada conjunto de expresiones que denoten el
   mismo valor, a lo sumo una que llamaremos **expresión canónica de ese
   valor**.
 
@@ -229,26 +270,24 @@ que denominamos el **valor** de la expresión.
 
 - Con esta restricción pueden quedar expresiones sin forma normal.
 
----
+#### Ejemplo
 
-- Ejemplo:
+- De las expresiones anteriores:
 
-  - De las expresiones anteriores:
+  `3`
+
+  `(1 + 2)`
+
+  `(5 - 2)`
   
-    `3`
+  que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
+  expresión `3`) como la **expresión canónica** de ese valor.
 
-    `(1 + 2)`
+- Igualmente, la expresión `3` es la **forma normal** de todas las
+  expresiones anteriores (y de cualquier otra expresión con valor **3**).
 
-    `(5 - 2)`
-    
-    que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
-    expresión `3`) como la **expresión canónica** de ese valor.
-
-  - Igualmente, la expresión `3` es la **forma normal** de todas las
-    expresiones anteriores (y de cualquier otra expresión con valor **3**).
-
-  - Es importante no confundir el valor abstracto **3** con la expresión `3`
-    que representa dicho valor.
+- Es importante no confundir el valor abstracto **3** con la expresión `3`
+  que representa dicho valor.
 
 ---
 
@@ -271,12 +310,23 @@ que denominamos el **valor** de la expresión.
 - Según lo visto hasta ahora, la evaluación de una expresión es el proceso de
   encontrar su forma normal.
 
-- El intérprete evalúa una expresión buscando su forma normal y mostrando este
-  resultado.
+- Para ello, el intérprete evalúa la expresión reduciendo sus subexpresiones
+  según las reglas del lenguaje y las operaciones que aparecen en ellas,
+  buscando su forma normal.
 
-- El sistema de evaluación dentro del intérprete está hecho de forma tal que
-  cuando ya no es posible reducir la expresión es porque se ha llegado a la
+- El sistema de evaluación dentro del intérprete está hecho de tal forma que
+  cuando ya no es posible reducir más la expresión es porque se ha llegado a la
   forma normal.
+
+- Recordemos que no todos los valores tienen forma normal.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Importante (orden de evaluación de las expresiones):**
+
+  Al analizar una expresión buscando subexpresiones que reducir, las
+  subexpresiones siempre se evaluarán **de izquierda a derecha**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -289,20 +339,57 @@ endwhile (no)
 :forma normal;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#### Ejemplos
+
+- Evaluar la expresión `(2 + 3)`:
+
+  - La expresión está formada por un operador `*` que actúa sobre las dos
+    subexpresiones `2` y `3`. Por tanto, habrá que evaluar primero esas dos
+    subexpresiones, siempre de izquierda a derecha:
+
+    ```python
+    (2 + 3)             # se evalúa primero 2 (que devuelve 2)
+    = (2 + 3)           # luego se evalúa 3 (que devuelve 3)
+    = (2 + 3)           # ahora se evalúa (2 + 3) (que devuelve 5)
+    = 5
+    ```
+
+---
+
+- Evaluar la expresión `(2 * (3 + 5))`:
+
+  - La expresión está formada por un operador `*` que actúa sobre las dos
+    subexpresiones `2` y `(3 + 5)`.
+
+  - La segunda subexpresión, a su vez, está formada por un operador `+` que
+    actúa sobre las dos subexpresiones `3` y `5`.
+
+  - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
+    medida que se van reduciendo:
+
+    ```python
+    (2 + (3 * 5))       # se evalúa primero 2 (que devuelve 2)
+    = (2 + (3 * 5))     # se evalúa 3 (que devuelve 3)
+    = (2 + (3 * 5))     # se evalúa 5 (que devuelve 5)
+    = (2 + (3 * 5))     # se evalúa (3 * 5) (que devuelve 15)
+    = (2 + 15)          # se evalúa (2 + 15) (que devuelve 17)
+    = 17
+    ```
+
 ## Literales
 
-- Un **literal** es un valor escrito directamente en el código del programa (en
-  una expresión).
+- Los literales constituyen **las expresiones más sencillas** del lenguaje.
 
-- El literal representa un **valor constante**.
+- Un literal es una expresión simple que denota **un valor concreto, constante
+  y fijo**, codificado directamente en la expresión y ya totalmente reducido (o
+  casi).
 
-- Los literales tienen que satisfacer las reglas de sintaxis del lenguaje.
+- Los literales tienen que satisfacer las **reglas léxicas** del lenguaje, que
+  son las que determinan qué forma pueden tener los componentes léxicos del
+  programa (como números, cadenas, identificadores, etc.).
 
-- Gracias a esas reglas sintácticas, el intérprete puede identificar qué
-  literales son, qué valor representan y de qué tipo son.
-
-- Se deduce, pues, que **un literal debe ser la _expresión canónica_ del valor
-  correspondiente**.
+- Gracias a esas reglas, el intérprete puede identificar qué literales son, qué
+  valor representan y de qué tipo son.
 
 ---
 
@@ -324,11 +411,59 @@ endwhile (no)
     `2`
 ---------------------------------------------------------------------
 
-- Los números reales tienen siempre un `.` decimal.
+- Algunas reglas léxicas son:
 
-- Las cadenas van siempre entre comillas (simples `'` o dobles `"`).
+  - Si el número tiene un `.` decimal, es que es un número real.
+
+  - Las cadenas van siempre entre comillas (simples `'` o dobles `"`).
 
 - En apartados posteriores estudiaremos los tipos de datos con más profundidad.
+
+---
+
+- Con frecuencia, un literal resulta ser la _expresión canónica_ del valor al
+  que denotan y la forma normal de todas las posibles expresiones que denotan
+  ese valor.
+
+- Por consiguiente, suelen estar ya totalmente simplificados.
+
+- Por ejemplo, el `3.5` es un literal que denota el valor numérico **3.5**, es
+  su expresión canónica y es la forma normal de cualquier expresión que denote
+  dicho valor.
+
+- Por tanto, el literal `3.5` es la forma más reducida de representar el
+  **3.5**.
+
+- Es decir: si le pedimos al intérprete que calcule el resultado de `7 / 2`,
+  nos devolverá la expresión `3.5`.
+
+- Sin embargo, el `3.5` no es el único literal que denota el valor numérico
+  **3.5**. Por ejemplo, los literales `3.50`, `3.500` o `03.50` también denotan
+  ese mismo valor, pero la forma normal de todos ellos es `3.5`.
+
+- O sea: hay varias maneras distintas de escribir un literal que denote el
+  valor **3.5**, pero sólo el literal `3.5` es la forma normal de todas ellas.
+
+---
+
+- Igualmente, la forma normal de todas las posibles expresiones que denotan el
+  valor numérico **2** es el literal `2`.
+
+- El literal `2` es la forma más reducida de representar el valor **2**.
+
+- Pero no es el único literal que denota dicho valor.
+
+- El literal `02` no es correcto según las reglas léxicas del lenguaje, pero sí
+  que podemos usar la expresión `0b10`, que es un literal que representa el
+  valor **2** escrito en binario.
+
+- Igualmente, las reglas léxicas del lenguaje permiten usar el carácter `_`
+  dentro de un número, por lo que el valor numérico **cuatro millones** se
+  puede representar con el literal `4_000_000`, si bien su forma normal sigue
+  siendo simplemente `4000000`.
+
+- Finalmente, las cadenas se pueden escribir con comillas simples (`'`) o
+  dobles (`"`), pero la forma normal de una cadena siempre usa las simples.
 
 # Operaciones
 
@@ -397,9 +532,8 @@ $$
   - **Unarios**: operan sobre un único operando.
 
     Ejemplo: el operador `-` que cambia el signo de su operando:
-    ```python
-    (-5)
-    ```
+
+    `(-(5 + 3))`
 
   - **Binarios**: operan sobre dos operandos.
 
@@ -412,11 +546,11 @@ $$
 ### Paréntesis
 
 - Los **paréntesis** sirven para agrupar elementos dentro de una expresión y
-  romper la ambigüedad sobre el orden en el que se han de realizar las
-  operaciones.
+  romper la posible ambigüedad que pueda haber respecto a qué operador actúa
+  sobre qué operandos.
 
-- Se usan, sobre todo, para hacer que varios elementos actúen como uno solo en
-  el contexto de una operación.
+- Se usan, sobre todo, para hacer que varios elementos de una expresión actúen
+  como uno solo (una subexpresión) al realizar una operación.
 
   - Por ejemplo:
 
@@ -424,11 +558,35 @@ $$
 
     `(3 + (4 * 5))` vale `23`
 
-- Para reducir la cantidad de paréntesis en una expresión, se puede:
+- Una expresión está **correctamente parentizada** si tiene los paréntesis bien
+  colocados según dicta la gramática del lenguaje.
 
-  - Quitar los paréntesis más externos que rodean a toda la expresión.
+- Una expresión está **totalmente parentizada** si agrupa con paréntesis a
+  todas las operaciones con sus operandos.
 
-  - Acudir a un esquema de **prioridades** y **asociatividades** de operadores.
+---
+
+- Hasta ahora, según nuestra gramática, las expresiones correctamente
+  parentizadas son precisamente las que están totalmente parentizadas.
+
+- Por ejemplo:
+
+  - `2 +) 3 *( 5(` no está correctamente parentizada.
+
+  - `(4 + (2 * 5))` está correcta y totalmente parentizada.
+
+  - `2 + 5` no está totalmente parentizada y, por tanto, no está correctamente
+    parentizada según nuestra gramática.
+
+- Para reducir la cantidad de paréntesis en una expresión, se puede cambiar
+  nuestra gramática:
+
+  - Quitando los paréntesis más externos que rodean a toda la expresión.
+
+  - Acudiendo a un esquema de **prioridades** y **asociatividades** de
+    operadores.
+
+- Así ya no exigiremos que las expresiones estén totalmente parentizadas.
 
 ### Prioridad de operadores
 
@@ -442,7 +600,7 @@ $$
 
   El `4` está afectado a derecha e izquierda por distintos operadores (`+` y
   `*`), por lo que se aplican las reglas de la prioridad. El `*` tiene *más
-  prioridad* que el `+`, así que actúa primero el `*`. Equivale a hacer:
+  prioridad* que el `+`, así que agrupa primero el `*`. Equivale a hacer:
 
   ```python
   8 + (4 * 2)
@@ -471,7 +629,7 @@ $$
 
   El `4` está afectado a derecha e izquierda por el mismo operador `/`, por lo
   que se aplican las reglas de la asociatividad. El `/` es *asociativo por la
-  izquierda*, así que se actúa primero el operador que está a la izquierda.
+  izquierda*, así que agrupa primero el operador que está a la izquierda.
   Equivale a hacer:
 
   ```python
@@ -488,6 +646,76 @@ $$
 
 - En Python, todos los operadores son **asociativos por la izquierda** excepto
   el `**`, que es asociativo por la derecha.
+
+---
+
+- Es importante entender que los paréntesis sirven para agrupar elementos, pero
+  por sí mismos no son suficientes para imponer un determinado **orden de
+  evaluación**.
+
+- Por ejemplo, en la expresión `4 * (3 + 5)`, el operador más prioritario es el
+  `*` y, por tanto, habría que hacer primero el producto antes que la suma.
+
+- El problema es que no podemos hacer el producto hasta haber calculado primero
+  la suma de `3` y `5`.
+
+- Por eso el intérprete calcula primero la suma y finalmente hace el producto,
+  pero su intención era hacer primero el producto, según las reglas de la
+  prioridad.
+
+- El efecto final es que parece que los paréntesis han obligado a hacer primero
+  la suma, como si los paréntesis fuesen una especie de operador cuya finalidad
+  es la de aumentar la prioridad de lo que hay dentro.
+
+---
+
+- En concreto, la evaluación de esa expresión sería:
+
+  ```python
+  (4 * (3 + 5))       # se evalúa 4 (que devuelve 4)
+  = (4 * (3 + 5))     # se evalúa 3 (que devuelve 3)
+  = (4 * (3 + 5))     # se evalúa 5 (que devuelve 5)
+  = (4 * (3 + 5))     # se evalúa (3 + 5) (que devuelve 8)
+  = (4 * 8)           # se evalúa (4 * 8) (que devuelve 32)
+  = 32
+  ```
+
+---
+
+- Pero, ¿qué ocurre con expresión `(2 + 3) * (4 + 5)`?
+
+- En un principio, ocurre algo parecido a lo de antes: para poder hacer el
+  producto, primero hay que calcular las dos sumas, ya que los operandos del
+  `*` son los valores que resultan de hacer esas sumas.
+
+- La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué
+  orden se evalúan los operandos del operador `*`?
+
+- Matemáticamente no hay ninguna diferencia en calcular primero `2 + 3` y luego
+  `4 + 5` o hacerlo al revés.
+
+- Pero ya sabemos que Python impone un orden de evaluación de izquierda a
+  derecha al reducir las subexpresiones.
+
+- Por tanto, primero se evaluaría `(2 + 3)`, y después `(4 + 5)`.
+
+- El orden de evaluación no viene determinado por los paréntesis, sino por las
+  reglas del lenguaje y el funcionamiento interno del intérprete.
+
+---
+
+- En concreto, la evaluación de esa expresión sería:
+
+  ```python
+  (2 + 3) * (4 + 5)    # se evalúa 2 (que devuelve 2)
+  = (2 + 3) * (4 + 5)  # se evalúa 3 (que devuelve 3)
+  = (2 + 3) * (4 + 5)  # se evalúa (2 + 3) (que devuelve 5)
+  = 5 * (4 + 5)        # se evalúa 4 (que devuelve 4)
+  = 5 * (4 + 5)        # se evalúa 5 (que devuelve 5)
+  = 5 * (4 + 5)        # se evalúa (4 + 5) (que devuelve 9)
+  = 5 * 9              # se evalúa 5 * 9 (que devuelve 45)
+  45
+  ```
 
 ### Tipos de operandos
 
@@ -562,9 +790,8 @@ $$
   El valor $35$ es el **resultado** de aplicar la función $abs$ al argumento
   $-35$.
 
-- Otra forma de expresarlo es decir que la función $abs$
-  **recibe** un argumento de tipo entero y **devuelve** un resultado de tipo
-  natural.
+- Otra forma de expresarlo es decir que la función $abs$ **recibe** un
+  argumento de tipo entero y **devuelve** un resultado de tipo natural.
 
 ---
 
@@ -620,11 +847,11 @@ $$
 
 - Por ejemplo, cuando hacemos `abs(-35)` podemos decir que:
 
-  - Estamos *aplicando* la función `abs` al argumento `-35`.
+«estamos *aplicando* la función `abs` al argumento `-35`», o
 
-  - Estamos *llamando* a la función `abs` (con el argumento `-35`).
+«estamos *llamando* a la función `abs` (con el argumento `-35`)», o
 
-  - Estamos *invocando* a la función `abs` (con el argumento `-35`).
+«estamos *invocando* a la función `abs` (con el argumento `-35`)».
 
 - De hecho, en Programación es mucho más común decir «*se llama a la función*»
   que decir «*se aplica la función*».
@@ -731,32 +958,34 @@ $$
 
 ### Evaluación de expresiones con funciones
 
-- En una expresión podemos colocar aplicaciones de función en cualquier
-  lugar donde sea sintácticamente correcto situar un valor.
+- Una llamada a función es una expresión válida, por lo que podemos colocar
+  llamadas a función en cualquier lugar donde sea sintácticamente correcto
+  situar un valor.
 
-- La evaluación de una expresión que contiene aplicaciones de funciones se
-  realiza sustituyendo (*reduciendo*) cada aplicación por su valor
-  correspondiente, es decir, por el valor que dicha función asocia a sus
-  argumentos.
+- La evaluación de una expresión que contiene llamadas a funciones se
+  realiza sustituyendo (*reduciendo*) cada llamada a función por su valor
+  correspondiente, es decir, por el valor que dicha función devuelve
+  dependiendo de sus argumentos.
 
 - Por ejemplo, en la siguiente expresión se combinan varias funciones y
   operadores:
 
   `abs(-12) + max(13, 28)`
 
-  Aquí se aplica la función $abs$ al argumento $-12$ y la función $max$ a los
-  argumentos $13$ y $28$, y finalmente se suman los dos valores obtenidos.
-
-- ¿Cómo se calcula el valor de toda la expresión anterior?
+  Aquí se llama a la función $abs$ con el argumento $-12$ y a la función $max$
+  con los argumentos $13$ y $28$, y finalmente se suman los dos valores
+  obtenidos.
 
 ---
+
+- ¿Cómo se calcula el valor de toda la expresión anterior?
 
 - En la expresión `abs(-12) + max(13, 28)` tenemos que calcular la suma de dos
   valores, pero esos valores aún no los conocemos porque son el resultado de
   llamar a dos funciones.
 
 - Por tanto, lo primero que tenemos que hacer es evaluar las dos
-  sub-expresiones principales que contiene dicha expresión:
+  subexpresiones principales que contiene dicha expresión:
 
   - `abs(-12)`
   - `max(13, 28)`
@@ -765,7 +994,7 @@ $$
 
 ---
 
-- En Matemáticas no importa el orden de evaluación de las sub-expresiones, ya
+- En Matemáticas no importa el orden de evaluación de las subexpresiones, ya
   que el resultado debe ser siempre el mismo, así que da igual evaluar primero
   uno u otro.
 
@@ -798,7 +1027,7 @@ $$
 
   ::::
 
-  En cada paso, la sub-expresión $\text{\underline{subrayada}}$ es la que se va
+  En cada paso, la subexpresión $\text{\underline{subrayada}}$ es la que se va
   a evaluar (reducir) en el paso siguiente.
 
 ---
@@ -806,19 +1035,12 @@ $$
 - En programación funcional ocurre lo mismo que en Matemáticas, gracias a que
   se cumple la *transparencia referencial*.
 
-- Sin embargo, Python no es un lenguaje funcional puro, y llegado el caso será
-  importante tener en cuenta el orden de evaluación que aplica.
+- Sin embargo, Python no es un lenguaje funcional puro, y llegado el momento
+  será importante tener en cuenta el orden de evaluación que sigue al evaluar
+  las subexpresiones que forman una expresión.
 
-- En concreto, y mientras no se diga lo contrario, **Python siempre evalúa las
-  expresiones de izquierda a derecha**.
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Importante:**
-
-En **Python**, salvo excepciones, los operandos y los argumentos de las
-funciones se evalúan **de izquierda a derecha**.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Por eso, no debemos olvidar que **Python siempre evalúa las expresiones de
+  izquierda a derecha**.
 
 ---
 
@@ -832,12 +1054,15 @@ funciones se evalúan **de izquierda a derecha**.
   ```
 
 - Sabiendo que Python evalúa de izquierda a derecha, la evaluación de la
-  expresión anterior en Python, siguiendo nuestro modelo de sustitución, sería:
+  expresión anterior en Python sería:
 
   ```python
-  abs(-12) + max(13, 28)   # se evalúa primero abs(-12)
-  = 12 + max(13, 28)       # ahora se evalúa max(13, 28)
-  = 12 + 28                # se evalúa el operador +
+  abs(-12) + max(13, 28)   # se evalúa -12 (devuelve -12)
+  abs(-12) + max(13, 28)   # se evalúa abs(-12) (devuelve 12)
+  = 12 + max(13, 28)       # se evalúa 13 (devuelve 13)
+  = 12 + max(13, 28)       # se evalúa 28 (devuelve 28)
+  = 12 + max(13, 28)       # se evalúa max(13, 28) (devuelve 28)
+  = 12 + 28                # se evalúa 12 + 28 (devuelve 40)
   = 40
   ```
 
@@ -1253,9 +1478,8 @@ Función                     Descripción           Ejemplo                  Res
 
 !SECCIONEJERCICIOS
 
-@. Representar, según el modelo de sustitución, la evaluación las siguientes
-   expresiones, aplicando paso a paso la reducción que corresponda. Indicar
-   también el tipo del valor resultante:
+@. Representar la evaluación las siguientes expresiones, aplicando paso a paso
+la reducción que corresponda. Indicar también el tipo del valor resultante:
 
     a. `3 + 6 * 14`
     b. `8 + 7 * 3.0 + 4 * 6`

@@ -1407,8 +1407,8 @@ controlar el comportamiento físico y lógico de un ordenador.
 - La sintaxis define dos elementos principales:
 
   - Los **componentes léxicos**, es decir, los elementos mínimos que forman un
-    programa (palabras clave, identificadores, caracteres de puntuación como
-    paréntesis o comas, etc...).
+    programa (palabras clave, números, identificadores, caracteres de
+    puntuación como paréntesis o comas, etc...).
 
   - La **estructura gramatical**, es decir, cómo se pueden combinar los
     componentes léxicos para formar «frases» correctas según la sintaxis del
@@ -1524,7 +1524,8 @@ controlar el comportamiento físico y lógico de un ordenador.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El procedimiento ha tenido éxito, por lo que podemos afirmar que la gramática
-  ha reconocido la frase.
+  ha _reconocido_ la frase, o que la frase _satisface_ la gramática o que
+  _cumple_ con la gramática.
 
 - Eso se expresa diciendo que:
 
