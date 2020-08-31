@@ -847,16 +847,17 @@ $$
 
 - Por ejemplo, cuando hacemos `abs(-35)` podemos decir que:
 
-«estamos *aplicando* la función `abs` al argumento `-35`», o
+«estamos *aplicando* la función `abs` _al argumento_ `-35`», o
+
+«estamos *aplicando* la función `abs` _sobre el argumento_ `-35`», o
 
 «estamos *llamando* a la función `abs` (con el argumento `-35`)», o
 
 «estamos *invocando* a la función `abs` (con el argumento `-35`)».
 
-- De hecho, en Programación es mucho más común decir «*se llama a la función*»
-  que decir «*se aplica la función*».
-
-- También se suele decir que «_se **ejecuta** la función_».
+- De hecho, en Programación es mucho más común decir «_se **llama** a la
+  función_», «_se **invoca** a la función_» o incluso «_se **ejecuta** la
+  función_» que decir «*se aplica la función*».
 
 ### Funciones con varios argumentos
 

@@ -344,6 +344,36 @@ nocite: |
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
   representa con el literal `''` o `""`.
 
+### Funciones
+
+- En programación funcional, **las funciones también son datos**:
+
+  ```python
+  >>> type(max)
+  <class 'builtin_function_or_method'>
+  ```
+
+- La **única operación** que se puede realizar sobre una función es
+  **llamarla**, que sintácticamente se representa poniendo paréntesis `(` `)`
+  justo a continuación de la función.
+
+  Dentro de los paréntesis se ponen los argumentos que se aplican a la función
+  en esa llamada.
+
+- Por tanto, `max` es la función en sí (un **valor** de tipo _función_) , y
+  `max(3, 4)` es una llamada a la función `max` con los argumentos `3` y `4`
+  (una **operación** realizada sobre la función).
+
+  ```python
+  >>> max                   # la función max
+  <built-in function max>
+  >>> max(3, 4)             # la llamada a max con los argumentos 3 y 4
+  4
+  ```
+
+- Recordemos que **las funciones no tienen expresión canónica**, por lo que el
+  intérprete no intentará nunca visualizar un valor de tipo función.
+
 ## Conversión de tipos
 
 - Hemos visto que en Python las conversiones de tipos deben ser **explícitas**,
@@ -852,6 +882,89 @@ x -> 7
 
   - Por ahora, **no lo hagamos**.
 
+---
+
+- Podemos hacer:
+
+  ```python
+  x = 25
+  y = x
+  ```
+
+- En este caso estamos ligando a `y` el mismo valor que tiene `x`.
+
+- Lo que hace el intérprete en este caso no es crear dos valores `25` en
+  memoria (sería un gasto inútil), sino que `x` e `y` _comparten_ el único
+  valor `25` que existe:
+
+  !DOT(ligadura-compartida.svg)()(width=25%)(width=20%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  25 [shape = circle]
+  x [shape = plaintext, fillcolor = transparent]
+  y [shape = plaintext, fillcolor = transparent]
+  x -> 25
+  y -> 25
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto:
+
+  ```python
+  >>> x = 25
+  >>> y = x
+  >>> y
+  25
+  ```
+
+---
+
+- El **nombre** de una **función** es un identificador que está ligado a la
+  función correspondiente (que en programación funcional es un valor como
+  cualquier otro).
+
+- Por ejemplo, `max` es un identificador ligado a la función que devuelve el
+  máximo de dos números (que representaremos aquí como **λ**):
+
+  !DOT(ligadura-funcion-max.svg)()(width=25%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  lambda [shape = circle, label = "λ"]
+  max [shape = plaintext, fillcolor = transparent]
+  max -> lambda
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Ese valor se puede ligar a otro identificador y, de esta forma, ambos
+  identificadores compartirían el mismo valor y, por tanto, representarían a la
+  misma función. Por ejemplo:
+
+:::: columns
+
+::: column
+
+```python
+>>> maximo = max
+>>> maximo(3, 4)
+4
+```
+
+:::
+
+::: column
+
+!DOT(ligadura-funcion-max-maximo.svg)()(width=55%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+lambda [shape = circle, label = "λ"]
+max [shape = plaintext, fillcolor = transparent]
+maximo [shape = plaintext, fillcolor = transparent]
+max -> lambda
+maximo -> lambda
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
 ### Reglas léxicas
 
 - Cuando hacemos una definición debemos tener en cuenta ciertas cuestiones
@@ -889,7 +1002,10 @@ x -> 7
 
 - Podemos usar un identificador ligado dentro de una expresión (siempre que la
   expresión sea una expresión válida según las reglas del lenguaje, claro
-  está):
+  está).
+
+- El identificador representa a su valor ligado y se evalúa a dicho valor en
+  cualquier expresión donde aparezca el identificador:
 
   ```python
   >>> x = 25
@@ -906,29 +1022,6 @@ x -> 7
     File "<stdin>", line 1, in <module>
   NameError: name 'y' is not defined
   ```
-
----
-
-- Podemos hacer:
-
-  ```python
-  x = 25
-  y = x
-  ```
-
-  - En este caso estamos ligando a `y` el mismo valor que tiene `x`.
-
-  - `x` e `y` comparten valor.
-
-!DOT(ligadura-compartida.svg)()(width=25%)(width=15%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-25 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-y [shape = plaintext, fillcolor = transparent]
-x -> 25
-y -> 25
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Marcos (*frames*)
 
