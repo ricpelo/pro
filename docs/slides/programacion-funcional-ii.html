@@ -320,12 +320,12 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div></li>
 <li><p>Así, la aplicación de la expresión lambda resulta más fácil y clara de escribir:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
-<li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p>
-<div class="caja">
-<p><strong>Importante:</strong></p>
-<p>En <strong>Python</strong>, salvo excepciones, los operandos y los argumentos de las funciones se evalúan <strong>de izquierda a derecha</strong>.</p>
-</div></li>
+<li><p>En ambos casos, el resultado es el mismo (<code>7</code>).</p></li>
 </ul>
+<div class="caja">
+<p><strong>Recuerda:</strong></p>
+<p>En <strong>Python</strong>, las subexpresiones se evalúan <strong>de izquierda a derecha</strong>.</p>
+</div>
 </section>
 
 <section id="ejemplos" class="title-slide slide level4" data-number="1.1.2.3">
@@ -336,12 +336,12 @@
 <p>¿Cuánto vale la expresión siguiente?</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</span></code></pre></div>
 <p>Según el modelo de sustitución, reescribimos:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>suma(<span class="dv">4</span>,<span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)  <span class="co"># definición de suma</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                     <span class="co"># aplicación a 4, 3</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                           <span class="co"># aritmética</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)           <span class="co"># definición de suma</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)                              <span class="co"># aplicación a 2, 7</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>suma(<span class="dv">4</span>,<span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                     <span class="co"># definición de suma</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)  <span class="co"># aplicación a 4, 3</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                     <span class="co"># aritmética</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                           <span class="co"># definición de suma</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)           <span class="co"># aplicación a 2, 7</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)                              <span class="co"># aritmética</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">9</span>                                    <span class="co"># aritmética</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span class="op">=</span> <span class="dv">63</span></span></code></pre></div></li>
 </ul>
@@ -466,7 +466,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-con-sombra.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, con variable sombreada</figcaption>
+<img data-src="images/lambda-entorno-con-sombra.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, con ligadura sombreada</figcaption>
 </figure>
 </div>
 </section>
@@ -480,7 +480,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-sin-sombra.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, sin variable sombreada</figcaption>
+<img data-src="images/lambda-entorno-sin-sombra.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Entorno en el cuerpo de la expresión lambda, sin variable sombreada</figcaption>
 </figure>
 </div>
 </section>
@@ -538,13 +538,13 @@
 
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-linea3.svg" class="plain" style="width:30.0%" alt="" /><figcaption>Entorno en la línea 3 fuera de la expresión lambda</figcaption>
+<img data-src="images/lambda-entorno-linea3.svg" class="plain" style="width:27.0%" alt="" /><figcaption>Entorno en la línea 3 fuera de la expresión lambda</figcaption>
 </figure>
 </div>
 <p> </p>
 <div class="centered">
 <figure>
-<img data-src="images/lambda-entorno-linea3-dentro-antes.svg" class="plain" style="width:60.0%" alt="" /><figcaption>Entorno en la línea 3 en el cuerpo de la expresión lambda, <strong>antes</strong> de aplicar los argumentos</figcaption>
+<img data-src="images/lambda-entorno-linea3-dentro-antes.svg" class="plain" style="width:50.0%" alt="" /><figcaption>Entorno en la línea 3 en el cuerpo de la expresión lambda, <strong>antes</strong> de aplicar los argumentos</figcaption>
 </figure>
 </div>
 </section>
@@ -693,11 +693,11 @@
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
 <p>Según el orden aplicativo, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="op">=</span> cuadrado(<span class="dv">7</span>)              <span class="co"># aritmética</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">7</span>)  <span class="co"># definición de cuadrado</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)                  <span class="co"># aplicación a 7</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">49</span>                       <span class="co"># aritmética</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)            <span class="co"># aritmética</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="op">=</span> cuadrado(<span class="dv">7</span>)              <span class="co"># definición de cuadrado</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">7</span>)  <span class="co"># aplicación a 7</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)                  <span class="co"># aritmética</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div>
 <p>alcanzando la forma normal en 4 pasos de reducción.</p></li>
 </ul>
 </section>
@@ -710,11 +710,11 @@
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
 <p>Según el orden normal, la expresión <code>cuadrado(3 + 4)</code> se reduciría así:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)  <span class="co"># definición de cuadrado</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))          <span class="co"># aplicación a (3 + 4)</span></span>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                <span class="co"># definición de cuadrado</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)  <span class="co"># aplicación a (3 + 4)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))          <span class="co"># aritmética</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                  <span class="co"># aritmética</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                        <span class="co"># aritmética</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                        <span class="co"># aritmética </span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div>
 <p>alcanzando la forma normal en 5 pasos de reducción.</p></li>
 </ul>
@@ -1706,9 +1706,14 @@ proporcional a <code>n</code></td>
 <section id="map" class="title-slide slide level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> <code>map</code></h2>
 <ul>
-<li><p>Supongamos que queremos escribir una función que, dada una tupla de números, nos devuelva otra tupla con los mismos números elevados al cubo.</p></li>
-<li><p>Inténtalo primero como ejercicio.</p></li>
+<li>Supongamos que queremos escribir una función que, dada una tupla de números, nos devuelva otra tupla con los mismos números elevados al cubo.</li>
 </ul>
+</section>
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="2" class="example" type="1">
+<li>Inténtalo.</li>
+</ol>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
@@ -1741,6 +1746,12 @@ proporcional a <code>n</code></td>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true"></a>[<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>]</span></code></pre></div></li>
 <li><p>¿Cómo definirías la función <code>map</code>?</p></li>
 </ul>
+</section>
+<section id="ejercicio-2" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="3" class="example" type="1">
+<li>Inténtalo.</li>
+</ol>
 </section>
 <section class="slide level5" data-number="4.2.0.0.3">
 
@@ -1802,6 +1813,12 @@ proporcional a <code>n</code></td>
 <li><p>¿Cómo podríamos definir la función <code>reduce</code>?</p></li>
 </ul>
 </section>
+<section id="ejercicio-3" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="4" class="example" type="1">
+<li>Inténtalo.</li>
+</ol>
+</section>
 <section class="slide level5" data-number="4.4.0.0.3">
 
 <ul>
@@ -1837,10 +1854,8 @@ proporcional a <code>n</code></td>
 <section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
-<li>Su sintaxis es:</li>
-</ul>
-<div class="line-block"><span style="color:teal">⟨<em>lista_comp</em>⟩</span> ::= <strong><code>[</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>]</code></strong></div>
-<ul>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>lista_comp</em>⟩</span> ::= <strong><code>[</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>]</code></strong></div></li>
 <li><p>Los elementos de la salida generada serán los sucesivos valores de <span style="color:teal">⟨<em>expresión</em>⟩</span>.</p></li>
 <li><p>Las cláusulas <strong><code>if</code></strong> son opcionales. Si están, la <span style="color:teal">⟨<em>expresión</em>⟩</span> sólo se evaluará y añadirá al resultado cuando se cumpla la <span style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
 <li><p>Por ejemplo:</p>

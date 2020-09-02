@@ -145,13 +145,12 @@ nocite: |
 
 - En ambos casos, el resultado es el mismo (`7`).
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Importante:**
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Recuerda:**
 
-  En **Python**, salvo excepciones, los operandos y los argumentos de las
-  funciones se evalúan **de izquierda a derecha**.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Ejemplos
 
@@ -170,12 +169,12 @@ nocite: |
   Según el modelo de sustitución, reescribimos:
 
   ```python
-  suma(4,3) * suma(2, 7)
-  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # definición de suma
-  = (4 + 3) * suma(2, 7)                     # aplicación a 4, 3
-  = 7 * suma(2, 7)                           # aritmética
-  = 7 * (lambda x, y: x + y)(2, 7)           # definición de suma
-  = 7 * (2 + 7)                              # aplicación a 2, 7
+  suma(4,3) * suma(2, 7)                     # definición de suma
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # aplicación a 4, 3
+  = (4 + 3) * suma(2, 7)                     # aritmética
+  = 7 * suma(2, 7)                           # definición de suma
+  = 7 * (lambda x, y: x + y)(2, 7)           # aplicación a 2, 7
+  = 7 * (2 + 7)                              # aritmética
   = 7 * 9                                    # aritmética
   = 63
   ```
@@ -375,16 +374,16 @@ nocite: |
   encontramos al recorrer la secuencia de marcos del entorno es la que está en
   el marco de la expresión lambda.
 
-!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con variable sombreada)(width=50%)(width=55%)
+!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-total [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>total|<f1>⬤}"]
+total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
-x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+x [shape = plaintext, fillcolor = transparent]
+xl [shape = plaintext, fillcolor = transparent, label = "x"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -392,15 +391,15 @@ subgraph cluster0 {
     x
 }
 lambda [shape = circle, label = "λ"]
-total:f1 -> lambda
-x:f1 -> 4
+total -> lambda
+x -> 4
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
     xl
 }
-xl:f1 -> 3
-xl:f1 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+xl -> 3
+xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -420,16 +419,16 @@ E -> xl [lhead = cluster1]
   y una variable libre (el identificador `x` ligado en el ámbito global) al que
   ahora sí podemos acceder al no estar sombreada.
 
-!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=50%)(width=55%)
+!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-total [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>total|<f1>⬤}"]
+total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
-x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-w [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>w|<f1>⬤}"]
+x [shape = plaintext, fillcolor = transparent]
+w [shape = plaintext, fillcolor = transparent]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -437,15 +436,15 @@ subgraph cluster0 {
     x
 }
 lambda [shape = circle, label = "λ"]
-total:f1 -> lambda
-x:f1 -> 4
+total -> lambda
+x -> 4
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
     w
 }
-w:f1 -> 3
-w:f1 -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+w -> 3
+w -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> w [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -517,9 +516,9 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
 }
-x:f1 -> 4
+x -> 4
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -537,11 +536,11 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
 }
-x:f1 -> 4
-z:f1 -> 1
+x -> 4
+z -> 1
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -552,7 +551,7 @@ E -> x [lhead = cluster0]
 
 ---
 
-!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=30%)(width=30%)
+!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=27%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 1 [shape = circle]
@@ -561,21 +560,21 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>suma|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
-suma:f1 -> lambda
-x:f1 -> 4
-z:f1 -> 1
+suma -> lambda
+x -> 4
+z -> 1
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 &nbsp;
 
-!DOT(lambda-entorno-linea3-dentro-antes.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **antes** de aplicar los argumentos)(width=60%)(width=55%)
+!DOT(lambda-entorno-linea3-dentro-antes.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **antes** de aplicar los argumentos)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -585,19 +584,19 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>suma|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
-suma:f1 -> lambda
-x:f1 -> 4
-z:f1 -> 1
+suma -> lambda
+x -> 4
+z -> 1
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
-    xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    yl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    xl [shape = plaintext, fillcolor = transparent, label = "x"]
+    yl [shape = plaintext, fillcolor = transparent, label = "y"]
 }
 xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
@@ -618,22 +617,22 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>suma|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
-suma:f1 -> lambda
-x:f1 -> 4
-z:f1 -> 1
+suma -> lambda
+x -> 4
+z -> 1
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
-    xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    yl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    xl [shape = plaintext, fillcolor = transparent, label = "x"]
+    yl [shape = plaintext, fillcolor = transparent, label = "y"]
 }
-xl:f1 -> 8
-yl:f1 -> 12
+xl -> 8
+yl -> 12
 xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
@@ -656,15 +655,15 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>suma|<f1>⬤}"]
-    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
 }
-x:f1 -> 4
-y:f1 -> 3
-z:f1 -> 1
-suma:f1 -> 21
+x -> 4
+y -> 3
+z -> 1
+suma -> 21
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -685,17 +684,17 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>suma|<f1>⬤}"]
-    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
-    w [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>w|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
+    suma [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent]
+    w [shape = plaintext, fillcolor = transparent]
 }
-x:f1 -> 4
-y:f1 -> 3
-z:f1 -> 1
-suma:f1 -> 21
-w:f1 -> 9
+x -> 4
+y -> 3
+z -> 1
+suma -> 21
+w -> 9
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -892,11 +891,11 @@ E -> x [lhead = cluster0]
   Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
 
   ```python
-  cuadrado(3 + 4)
-  = cuadrado(7)              # aritmética
-  = (lambda x, y: x * x)(7)  # definición de cuadrado
-  = (7 * 7)                  # aplicación a 7
-  = 49                       # aritmética
+  cuadrado(3 + 4)            # aritmética
+  = cuadrado(7)              # definición de cuadrado
+  = (lambda x, y: x * x)(7)  # aplicación a 7
+  = (7 * 7)                  # aritmética
+  = 49
   ```
 
   alcanzando la forma normal en 4 pasos de reducción.
@@ -919,11 +918,11 @@ E -> x [lhead = cluster0]
   Según el orden normal, la expresión `cuadrado(3 + 4)` se reduciría así:
 
   ```python
-  cuadrado(3 + 4)
-  = (lambda x, y: x * x)(3 + 4)  # definición de cuadrado
-  = ((3 + 4) * (3 + 4))          # aplicación a (3 + 4)
+  cuadrado(3 + 4)                # definición de cuadrado
+  = (lambda x, y: x * x)(3 + 4)  # aplicación a (3 + 4)
+  = ((3 + 4) * (3 + 4))          # aritmética
   = 7 * (3 + 4)                  # aritmética
-  = 7 * 7                        # aritmética
+  = 7 * 7                        # aritmética 
   = 49
   ```
 
@@ -1803,14 +1802,14 @@ fib1_5[label = "fib(1)"]
 fib0_1[label = "fib(0)"]
 fib0_2[label = "fib(0)"]
 fib0_3[label = "fib(0)"]
-u1[label = "1", shape = circle, width = 0.3, fixedsize = shape]
-u2[label = "1", shape = circle, width = 0.3, fixedsize = shape]
-u3[label = "1", shape = circle, width = 0.3, fixedsize = shape]
-u4[label = "1", shape = circle, width = 0.3, fixedsize = shape]
-u5[label = "1", shape = circle, width = 0.3, fixedsize = shape]
-c1[label = "0", shape = circle, width = 0.3, fixedsize = shape]
-c2[label = "0", shape = circle, width = 0.3, fixedsize = shape]
-c3[label = "0", shape = circle, width = 0.3, fixedsize = shape]
+u1[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u2[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u3[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u4[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u5[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c1[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c2[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c3[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
 fib5 -> fib4, fib3_2
 fib4 -> fib3_1, fib2_2
 fib3_1 -> fib2_1, fib1_2
@@ -1941,25 +1940,25 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    g [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>g|<f1>⬤}"]
+    g [shape = plaintext, fillcolor = transparent]
 }
-g:f1 -> 1
+g -> 1
 3 [shape = circle]
 subgraph cluster1 {
     label = "Marco de uno"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    x [shape = plaintext, fillcolor = transparent]
 }
-x:f1 -> 3
+x -> 3
 11 [shape = circle]
 subgraph cluster3 {
     label = "Marco de tres"
     bgcolor = "white"
     node [fontname = "monospace"]
-    w [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>w|<f1>⬤}"]
+    w [shape = plaintext, fillcolor = transparent]
 }
-w:f1 -> 11
+w -> 11
 6 [shape = circle]
 4 [shape = circle]
 subgraph cluster2 {
@@ -1967,16 +1966,16 @@ subgraph cluster2 {
     label = "Marco de dos"
     bgcolor = "white"
     node [fontname = "monospace"]
-    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
-    z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
+    y [shape = plaintext, fillcolor = transparent]
+    z [shape = plaintext, fillcolor = transparent]
 }
-y:f1 -> 6
-z:f1 -> 4
+y -> 6
+z -> 4
 pila:f0 -> g [lhead = cluster0]
 pila:f1 -> x [lhead = cluster1]
 pila:f2 -> y [lhead = cluster2]
 pila:f3 -> w [lhead = cluster3]
-x -> g:f0:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+x -> g:s [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
 w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2024,34 +2023,34 @@ subgraph cluster1 {
     label = "Marco de fact(4)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n4 [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>n|<f1>⬤}"]
+    n4 [shape = plaintext, fillcolor = transparent, label = "n"]
 }
-n4:f1 -> 4
+n4 -> 4
 3 [shape = circle]
 subgraph cluster2 {
     label = "Marco de fact(3)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n3 [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>n|<f1>⬤}"]
+    n3 [shape = plaintext, fillcolor = transparent, label = "n"]
 }
-n3:f1 -> 3
+n3 -> 3
 2 [shape = circle]
 subgraph cluster3 {
     label = "Marco de fact(2)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n2 [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>n|<f1>⬤}"]
+    n2 [shape = plaintext, fillcolor = transparent, label = "n"]
 }
-n2:f1 -> 2
+n2 -> 2
 lambda [shape = circle, label = "λ"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    fact [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>fact|<f1>⬤}"]
+    fact [shape = plaintext, fillcolor = transparent]
 }
-fact:f1 -> lambda
-pila:f0 -> fact:f0:s [lhead = cluster0, minlen = 2]
+fact -> lambda
+pila:f0 -> fact:s [lhead = cluster0, minlen = 2]
 pila:f1 -> n4 [lhead = cluster1, minlen = 2]
 pila:f2 -> n3 [lhead = cluster2, minlen = 2]
 pila:f3 -> n2 [lhead = cluster3, minlen = 2]
@@ -2406,7 +2405,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Supongamos que queremos escribir una función que, dada una tupla de números,
   nos devuelva otra tupla con los mismos números elevados al cubo.
 
-- Inténtalo primero como ejercicio.
+!EJERCICIO
+
+@. Inténtalo.
 
 ---
 
@@ -2470,6 +2471,10 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   ```
 
 - ¿Cómo definirías la función `map`?
+
+!EJERCICIO
+
+@. Inténtalo.
 
 ---
 
@@ -2568,6 +2573,10 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - ¿Cómo podríamos definir la función `reduce`?
 
+!EJERCICIO
+
+@. Inténtalo.
+
 ---
 
 - Una forma (con valor inicial obligatorio) podría ser así:
@@ -2608,10 +2617,10 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Su sintaxis es:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(lista_comp) ::= !T([)!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T(])
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(lista_comp) ::= !T([)!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T(])
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los elementos de la salida generada serán los sucesivos valores de
   !NT(expresión).
