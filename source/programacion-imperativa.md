@@ -238,12 +238,6 @@ subgraph cluster1 {
   _ligadura_), y la variable apuntando a su valor en el montículo
   (representando el _estado_).
 
-- El montículo como tal no lo dibujaremos, ya que sabemos que los valores se
-  almacenan en él.
-
-- Igualmente, a veces tampoco dibujaremos el marco si se sobreentiende cuál es
-  (o si no tiene importancia en ese momento).
-
 !DOT(marcos-imperativa-simplificado.svg)()(width=20%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
@@ -254,6 +248,12 @@ y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = tru
 x:f1 -> 4
 y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El montículo como tal no lo dibujaremos, ya que sabemos que los valores se
+  almacenan en él.
+
+- Igualmente, a veces tampoco dibujaremos el marco si se sobreentiende cuál es
+  (o si no tiene importancia en ese momento).
 
 - A veces, y llegado el caso, también dibujaremos el valor directamente
   almacenado en la variable que le apunta, para simplificar.
