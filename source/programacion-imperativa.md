@@ -336,7 +336,7 @@ y:f1 -> 5
   pueden cambiar a lo largo del tiempo según dicten las instrucciones del
   programa que controla al ordenador.
 
-### Un ejemplo completo
+#### Un ejemplo completo
 
 - Cuando se ejecuta la siguiente instrucción en el ámbito global:
 
@@ -763,9 +763,9 @@ $s$`.count(`$x$`)`       Número de veces que aparece $x$ en $s$
 
 :::: columns
 
-::: {.column width=60%}
+::: column
 
-```
+```python
   +---+---+---+---+---+---+
 s | P | y | t | h | o | n |
   +---+---+---+---+---+---+
@@ -775,7 +775,7 @@ s | P | y | t | h | o | n |
 
 :::
 
-::: {.column width=40%}
+::: column
 
 ```python
 >>> s[2]
@@ -788,6 +788,8 @@ s | P | y | t | h | o | n |
 
 ::::
 
+!SALTOBEAMER
+
 - El **slicing** (*hacer rodajas*) es una operación que consiste en obtener una
   subsecuencia a partir de una secuencia, indicando los índices de los
   elementos inicial y final de la misma:
@@ -796,7 +798,7 @@ s | P | y | t | h | o | n |
 
 ::: column
 
-```
+```python
      con paso positivo
   +---+---+---+---+---+---+
 s | P | y | t | h | o | n |
