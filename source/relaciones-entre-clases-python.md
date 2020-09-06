@@ -1190,12 +1190,12 @@ Acuatico <|-- Anfibio
 - Decimos que **los objetos son _polimórficos_**.
 
 - La palabra «polimorfismo» significa «muchas formas», y se refiere al hecho de
-  que una referencia:
+  que una referencia puede apuntar a un objeto:
 
-  a. puede apuntar a un objeto cuya clase no está determinada de antemano y
-     puede cambiar durante la ejecución del programa, y
+  a. cuya clase no está plenamente determinada de antemano (puede ser una
+  cualquiera de varias clases posibles), y
 
-  b. puede pertenecer a varias clases al mismo tiempo.
+  b. que puede pertenecer a varias clases al mismo tiempo.
 
 <!--
 
@@ -1203,11 +1203,11 @@ Acuatico <|-- Anfibio
   que la clase del objeto al que apunta una referencia puede no estar
   determinada de antemano y puede cambiar durante la ejecución del programa.
 
--->
-
 - Por tanto, cuando tenemos una referencia almacenada en una variable, esta
-  apunta a un objeto que puede pertenecer a una clase de entre muchas, o
+  apunta a un objeto que puede pertenecer a una clase de entre varias, o
   incluso puede pertenecer a varias clases al mismo tiempo.
+
+-->
 
 ---
 
