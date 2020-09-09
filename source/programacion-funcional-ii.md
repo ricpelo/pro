@@ -104,9 +104,29 @@ nocite: |
 
 ---
 
-- Como una expresión lambda es una función, aplicar una expresión lambda a unos argumentos es como llamar a una función pasándole dichos argumentos.
+- La evaluación de la llamada a `suma(4, 3)` implicaría realizar los siguientes
+  dos pasos y en este orden:
 
-- Por tanto, nuestra gramática de las expresiones válidas en Python se amplía ahora incorporando las expresiones lambda como un tipo de funciones:
+  1. Sustituir el nombre de la función `suma` por su definición.
+
+  2. Aplicar la expresión lambda a sus argumentos.
+
+- Esto implica la siguiente cadena de reescrituras:
+
+  ```python
+  suma(4, 3)                    # definición de suma
+  = (lambda x, y: x + y)(4, 3)  # aplicación
+  = (4 + 3)                     # aritmética
+  = 7
+  ```
+
+---
+
+- Como una expresión lambda es una función, aplicar una expresión lambda a unos
+  argumentos es como llamar a una función pasándole dichos argumentos.
+
+- Por tanto, nuestra gramática de las expresiones válidas en Python se amplía
+  ahora incorporando las expresiones lambda como un tipo de funciones:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,7 +213,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   Según el modelo de sustitución, reescribimos:
 
   ```python
-  suma(4,3) * suma(2, 7)                     # definición de suma
+  suma(4, 3) * suma(2, 7)                    # definición de suma
   = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # aplicación a 4, 3
   = (4 + 3) * suma(2, 7)                     # aritmética
   = 7 * suma(2, 7)                           # definición de suma
@@ -903,6 +923,9 @@ E -> x [lhead = cluster0]
   afuera*, es decir, empezando siempre por el *redex* más **interno** y más a
   la izquierda.
 
+- Eso implica que los operandos y los argumentos se evalúan **antes** que los
+  operadores y las aplicaciones de funciones.
+
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por valor**.
 
@@ -915,10 +938,10 @@ E -> x [lhead = cluster0]
   Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
 
   ```python
-  cuadrado(3 + 4)            # aritmética
-  = cuadrado(7)              # definición de cuadrado
-  = (lambda x, y: x * x)(7)  # aplicación a 7
-  = (7 * 7)                  # aritmética
+  cuadrado(3 + 4)                # aritmética
+  = cuadrado(7)                  # definición de cuadrado
+  = (lambda x, y: x * x)(7)      # aplicación a 7
+  = (7 * 7)                      # aritmética
   = 49
   ```
 
@@ -929,6 +952,9 @@ E -> x [lhead = cluster0]
 - El **orden normal** consiste en evaluar las expresiones *de fuera adentro*,
   es decir, empezando siempre por el *redex* más **externo** y más a la
   izquierda.
+
+- Eso implica que los operandos y los argumentos se evalúan **después** de las
+  aplicaciones de los operadores y las funciones.
 
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por nombre**.
@@ -1079,8 +1105,7 @@ E -> x [lhead = cluster0]
   = (lambda r: 3.1416 * cuadrado(r))(12)           # aplicación
   = (3.1416 * cuadrado(12))                        # definición de cuadrado
   = (3.1416 * (lambda x: x * x)(12))               # aplicación
-  = (3.1416 * (12 * 12))                           # aritmética
-  = (3.1416 * 144)                                 # aritmética
+  = (3.1416 * (12 * 12))                           # aritmética (varios pasos)
   = 452.3904
   ```
 
@@ -1088,21 +1113,19 @@ E -> x [lhead = cluster0]
 
 - En detalle:
 
-  - **Línea 1**: Se evalúa primero el argumento.
+  - **Línea 1**: Se evalúa primero el argumento (`11 + 1`).
 
-  - **Línea 3**: El *redex* más interno es `r`, pero no puede reducirse más en
-    este momento porque se desconoce su valor. El siguiente más interno es
-    `cuadrado(r)` pero tampoco puede reducirse ya que se desconoce el valor de
-    `r`. El siguiente más interno es el `*`, que tampoco se puede reducir
-    porque su operando derecho (el `cuadrado(r)`) aún no está evaluado ni se
-    puede evaluar, así que el *redex* que queda es la aplicación del `lambda`
-    sobre su argumento `12`.
+  - **Línea 2**: Lo siguiente a evaluar es la aplicación de `area` sobre `12`,
+    lo que se hace en dos pasos. Primero se evalúa `area`, sustituyéndose por
+    su definición...
 
-  - **Línea 4**: El *redex* más interno es `cuadrado(12)`, que se evalúa
-    reescribiéndolo con su definición.
+  - **Línea 3**: ... y ahora se aplica la expresión lambda a su argumento `12`.
 
-  - **Línea 5**: El *redex* más interno es la aplicación del `lambda` sobre su
-    argumento `12`.
+  - **Línea 4**: El *redex* más interno que queda por evaluar es la aplicación
+    de `cuadrado` sobre `12`, lo que se hace en dos pasos. Primero se evalúa
+    `cuadrado`, sustituyéndose por su definición...
+
+  - **Línea 5**: ... y ahora se aplica la expresión lambda a su argumento `12`.
 
 ---
 
@@ -1127,19 +1150,16 @@ E -> x [lhead = cluster0]
 
 - En detalle:
 
-  - **Línea 1**: Se evalúa el *redex* más externo, que es `area` (se reescribe
-    con su definición).
+  - **Línea 1**: Se evalúa el *redex* más externo, que es `area(11 + 1)`. Para
+    ello, se reescribe la definición de `area`...
 
-  - **Línea 2**: El *redex* más externo es la aplicación de la expresión
-    `lambda` a su argumento `11 + 1`.
+  - **Línea 2**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
   - **Línea 3**: El *redex* más externo es el `*`, pero para evaluarlo hay que
     evaluar primero todos sus argumentos, por lo que ahora hay que evaluar
-    `cuadrado`, reescribiéndolo con su definición.
+    `cuadrado(11 + 1)`, por lo que se reescribe la definición de `cuadrado`...
 
-  - **Línea 4**: Igual que en la línea 3, para poder evaluar el `*` más externo
-    hay que evaluar primero la aplicación del `lambda` sobre su argumento
-    `11 + 1`.
+  - **Línea 4**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
 ## Las funciones como abstracciones
 
@@ -1293,7 +1313,7 @@ E -> x [lhead = cluster0]
 - Otro ejemplo más completo:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: car \neq \text{\texttt{""}} \land len(car) = 1 \\
+    \text{\textbf{Pre}}: car !ifdef(HTML)(\mathrel{\char`≠})(\neq) \text{\texttt{""}} \land len(car) = 1 \\
     cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
     \text{\textbf{Post}}: cuenta(cadena, car) \geq 0 \land cuenta(cadena, car) = cadena.count(car)
   \end{cases}$$
