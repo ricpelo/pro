@@ -1,5 +1,5 @@
 ---
-title: Programación funcional I
+title: Programación funcional (I)
 author: Ricardo Pérez López
 !DATE
 nocite: |
