@@ -208,6 +208,8 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(NEQ)(!ifdef(HTML)(\mathrel{\char`≠})(\neq))
+
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 LAS SIGUIENTES MACROS SON AUXILIARES, NO PARA USO GENERAL

@@ -289,7 +289,7 @@ $B$
 **inicio**
 **leer** $a$
 **leer** $b$
-**mientras** $a \neq b$ **hacer**
+**mientras** $a !NEQ b$ **hacer**
       **si** $a < b$ **entonces**
             $b \leftarrow b - a$
       **sino**

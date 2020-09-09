@@ -1313,7 +1313,7 @@ E -> x [lhead = cluster0]
 - Otro ejemplo más completo:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: car !ifdef(HTML)(\mathrel{\char`≠})(\neq) \text{\texttt{""}} \land len(car) = 1 \\
+    \text{\textbf{Pre}}: car !NEQ \text{\texttt{""}} \land len(car) = 1 \\
     cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
     \text{\textbf{Post}}: cuenta(cadena, car) \geq 0 \land cuenta(cadena, car) = cadena.count(car)
   \end{cases}$$
@@ -1371,7 +1371,7 @@ E -> x [lhead = cluster0]
 - Un ejemplo mucho más avanzado para los curiosos:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: lista \neq \texttt{[]} \\
+    \text{\textbf{Pre}}: lista !NEQ \texttt{[]} \\
     suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
     \text{\textbf{Post}}: suma(lista) = sum(lista)
   \end{cases}$$
