@@ -21,8 +21,8 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(lista_parámetros) := !NT{identificador} (!T(,) !NT(identificador))\*
+  !NT(expresión_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+!NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
@@ -101,6 +101,30 @@ nocite: |
   decir que estamos **invocando** o **llamando** a la función. Por ejemplo, en
   `suma(4, 3)` estamos *llamando* a la función `suma`, o hay una *llamada* a la
   función `suma`.
+
+---
+
+- Como una expresión lambda es una función, aplicar una expresión lambda a unos argumentos es como llamar a una función pasándole dichos argumentos.
+
+- Por tanto, nuestra gramática de las expresiones válidas en Python se amplía ahora incorporando las expresiones lambda como un tipo de funciones:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expresión) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
+                   | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
+                   | !NT(literal)
+                   | !NT(llamada_función)
+                   | !T(identificador)
+!NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
+!NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
+!NT(operador_unario) ::= !T(+) | !T(-) | ...
+!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= !T(identificador) | !NT(expresión_lambda)
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+!NT(expresión_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+!NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 #### Evaluación de una aplicación funcional
 
@@ -320,7 +344,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - El último marco siempre es el marco global.
 
-- En realidad, el marco global apunta, a su vez, al marco donde se encuentran
+- En realidad, el marco global apunta, a su vez, a un marco donde se encuentran
   las definiciones internas predefinidas del lenguaje (como la función `max`),
   pero lo ignoraremos de aquí en adelante por simplicar.
 

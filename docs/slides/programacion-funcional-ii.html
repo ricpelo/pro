@@ -255,8 +255,8 @@
 <li><p>Las <strong>expresiones lambda</strong> (también llamadas <strong>abstracciones lambda</strong> o <strong>funciones anónimas</strong> en algunos lenguajes) son expresiones que capturan la idea abstracta de «<strong>función</strong>».</p></li>
 <li><p>Son la forma más simple y primitiva de describir funciones en un lenguaje funcional.</p></li>
 <li><p>Su sintaxis (simplificada) es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>expr_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
-<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> := <span style="color:teal">⟨<em>identificador</em>⟩</span> (<strong><code>,</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span>)*</div></li>
+<div class="line-block"><span style="color:teal">⟨<em>expresión_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> := <strong><code>identificador</code></strong> (<strong><code>,</code></strong> <strong><code>identificador</code></strong>)*</div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div></li>
 </ul>
@@ -298,6 +298,26 @@
 <p>en lugar de</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 <li><p>Cuando aplicamos a sus argumentos una función así definida también podemos decir que estamos <strong>invocando</strong> o <strong>llamando</strong> a la función. Por ejemplo, en <code>suma(4, 3)</code> estamos <em>llamando</em> a la función <code>suma</code>, o hay una <em>llamada</em> a la función <code>suma</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.2.1.1">
+
+<ul>
+<li><p>Como una expresión lambda es una función, aplicar una expresión lambda a unos argumentos es como llamar a una función pasándole dichos argumentos.</p></li>
+<li><p>Por tanto, nuestra gramática de las expresiones válidas en Python se amplía ahora incorporando las expresiones lambda como un tipo de funciones:</p>
+<div class="line-block"><span style="color:teal">⟨<em>expresión</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> <span style="color:teal">⟨<em>operador_binario</em>⟩</span> <span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong><br />
+                   | <strong><code>(</code></strong><span style="color:teal">⟨<em>operador_unario</em>⟩</span> <span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong><br />
+                   | <span style="color:teal">⟨<em>literal</em>⟩</span><br />
+                   | <span style="color:teal">⟨<em>llamada_función</em>⟩</span><br />
+                   | <strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>literal</em>⟩</span> ::= <strong><code>entero</code></strong> | <strong><code>real</code></strong> | <strong><code>cadena</code></strong> | …<br />
+<span style="color:teal">⟨<em>operador_binario</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong> | <strong><code>//</code></strong> | <strong><code>**</code></strong> | <strong><code>%</code></strong> | …<br />
+<span style="color:teal">⟨<em>operador_unario</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | …<br />
+<span style="color:teal">⟨<em>llamada_función</em>⟩</span> ::= <span style="color:teal">⟨<em>función</em>⟩</span><strong><code>(</code></strong>[<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span>]<strong><code>)</code></strong><br />
+<span style="color:teal">⟨<em>función</em>⟩</span> ::= <strong><code>identificador</code></strong> | <span style="color:teal">⟨<em>expresión_lambda</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span> ::= <span style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span>)*<br />
+<span style="color:teal">⟨<em>expresión_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> := <strong><code>identificador</code></strong> (<strong><code>,</code></strong> <strong><code>identificador</code></strong>)*</div></li>
 </ul>
 </section>
 
@@ -426,7 +446,7 @@
 <li><p>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span>, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</p></li>
 <li><p>Asimismo, el primer marco de la cadena de marcos del entorno representa el ámbito actual de la porción de código donde se está calculando el entorno.</p></li>
 <li><p>El último marco siempre es el marco global.</p></li>
-<li><p>En realidad, el marco global apunta, a su vez, al marco donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code>max</code>), pero lo ignoraremos de aquí en adelante por simplicar.</p></li>
+<li><p>En realidad, el marco global apunta, a su vez, a un marco donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code>max</code>), pero lo ignoraremos de aquí en adelante por simplicar.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.4.2.3">

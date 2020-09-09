@@ -167,15 +167,16 @@ que denominamos el **valor** de la expresión.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión) ::= !T{(}!NT(expresión) !NT(opbin) !NT(expresión)!T{)}
-                   | !T{(}!NT(opun) !NT(expresión)!T{)} 
+  !NT(expresión) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
+                   | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
                    | !NT(literal)
+                   | !NT(llamada_función)
                    | !T(identificador)
-                   | !T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
-!NT(opbin) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
-!NT(opun) ::= !T(+) | !T(-) | ...
+!NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
+!NT(operador_unario) ::= !T(+) | !T(-) | ...
+!NT(llamada_función) ::= !T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Esta gramática genera expresiones *totalmente parentizadas*, en las que cada
