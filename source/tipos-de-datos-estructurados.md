@@ -355,7 +355,7 @@ $x\ $ `not` `in` $\ s$    `False` si algún elemento de $s$ es igual a $x$
 
 $s$ `+` $t$               La concatenación de $s$ y $t$
 
-$s$ `*` $n$ \             Equivale a añadir $s$ a sí mismo $n$ veces
+$s$ `*` $n$ \             Equivale a concatenar $s$ consigo misma $n$ veces
 $n$ `*` $s$
                          
 $s$`[`$i$`]`              El $i$-ésimo elemento de $s$, empezando por 0
@@ -385,6 +385,25 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - No olvidemos que en Python no existe el tipo *carácter*. En Python, un
   carácter es una cadena de longitud 1.
 
+- Las cadenas literales se pueden crear:
+
+  - Con comillas simples (`'`) o dobles (`"`):
+
+    ```python
+    >>> 'hola'
+    'hola'
+    >>> "hola"
+    'hola'
+    ```
+
+  - Con triples comillas (`'''` o `"""`):
+
+    ```python
+    >>> """hola
+    ... qué tal"""
+    'hola\nqué tal'
+    ```
+
 - Las cadenas implementan todas las operaciones de las secuencias, además de
   los métodos que se pueden consultar en
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
@@ -412,10 +431,10 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 !NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
 !ifdef(HTML)
 ~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier code point excepto !T({), !T(}) o !T{NULL})
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
 ~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier code point excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
 ~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -509,12 +528,16 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 #### Expresiones regulares
 
-- Las **expresiones regulares** (también llamados *regex*) son, esencialmente,
-  un pequeño lenguaje de programación muy especializado incrustado dentro de
+- Las **expresiones regulares** (también llamados *regex*) constituyen
+  un pequeño lenguaje muy especializado incrustado dentro de
   Python y disponible a través del módulo `re`.
 
-- Usando este pequeño lenguaje es posible especificar reglas para comprobar si
-  una cadena se ajusta a un patrón.
+- Usando este pequeño lenguaje es posible especificar **reglas sintácticas** de
+  una forma distinta pero parecida a las _gramáticas EBNF_ (aunque con menos
+  poder expresivo).
+
+- Esas reglas sintácticas se pueden usar luego para **comprobar si una cadena
+  _se ajusta_ a un patrón**.
 
 - Este patrón puede ser frases en español, o direcciones de correo electrónico
   o cualquier otra cosa.
@@ -523,8 +546,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   al patrón?»* o *«¿Hay algo que se ajuste al patrón en alguna parte de esta
   cadena?»*.
 
-- También se pueden usar las *regexes* para modificar una cadena o dividirla en
-  partes.
+- También se pueden usar las *regexes* para **modificar** una cadena o
+  **dividirla en partes** según el patrón indicado.
 
 ---
 
@@ -535,10 +558,9 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - Además, hay procesamientos que se pueden realizar con *regexes* pero las
   expresiones que resultan se vuelven muy complicadas.
 
-- En estos casos, es mejor escribir directamente código Python.
-
-- Aunque el código resultante pueda resultar más lento, probablemente resulte
-  más fácil de leer.
+- En estos casos, es mejor escribir directamente código Python ya que, aunque
+  el código resultante pueda resultar más lento, probablemente resulte más
+  fácil de leer.
 
 ---
 

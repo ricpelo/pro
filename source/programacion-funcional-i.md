@@ -321,19 +321,15 @@ nocite: |
 - También se pueden escribir literales de tipo cadena encerrándolos entre
   triples comillas (`'''` o `"""`).
 
-  - Estos literales se usan para escribir cadenas formadas por varias líneas.
-    La sintaxis de las triples comillas respetan los saltos de línea.
+  Estos literales se usan para escribir cadenas formadas por varias líneas.
+  La sintaxis de las triples comillas respeta los saltos de línea. Por ejemplo:
 
-  - Ejemplo:
-
-    !CAJA
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ```
-    """Bienvenido
-    a
-    Python"""
-    ```
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```python
+  >>> """Bienvenido
+  ... a
+  ... Python"""
+  'Bienvenido\na\nPython'  # el carácter \n representa un salto de línea
+  ```
 
 - No es lo mismo `27` que `"27"`.
 
@@ -342,7 +338,7 @@ nocite: |
   - `"27"` es una cadena (un literal de tipo `str`).
 
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
-  representa con el literal `''` o `""`.
+  representa con los literales `''`, `""`, `''''''` o `""""""`.
 
 ### Funciones
 
