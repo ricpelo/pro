@@ -36,7 +36,7 @@ nocite: |
   #. Tiene asociado un valor *hash* que nunca cambia durante su vida.
 
      Si un valor es *hashable*, se podrá obtener su *hash* llamando a la
-     función `hash()` sobre el valor. En caso contrario, la llamada generará un
+     función `hash` sobre el valor. En caso contrario, la llamada generará un
      error `TypeError`.
 
   #. Puede compararse con otros valores para ver si es igual a alguno de ellos
@@ -80,8 +80,8 @@ nocite: |
 - No representa un tipo concreto, sino más bien una *familia* de tipos que
   comparten la misma propiedad.
 
-- Muchas funciones, como `map()` y `filter()`, actúan sobre iterables en
-  general, en lugar de hacerlo sobre un tipo concreto.
+- Muchas funciones, como `map` y `filter`, actúan sobre iterables en general,
+  en lugar de hacerlo sobre un tipo concreto.
 
 - La forma básica de recorrer un dato iterable es usando un **iterador**.
 
@@ -90,17 +90,17 @@ nocite: |
 - Un **iterador** representa un flujo de datos *perezoso* (no se entregan todos
   de una vez, sino de uno en uno).
 
-- Cuando se llama repetidamente a la función `next()` aplicada a un iterador,
-  se van obteniendo los sucesivos elementos del flujo.
+- Cuando se llama repetidamente a la función `next` aplicada a un iterador, se
+  van obteniendo los sucesivos elementos del flujo.
 
 - Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo
   `StopIteration`.
 
   Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a
-  la función `next()` se seguirá levantando esa excepción.
+  la función `next` se seguirá levantando esa excepción.
 
 - Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
-  función `iter()` al iterable.
+  función `iter` al iterable.
 
 - Si se le pasa un dato no iterable, levanta una excepción `TypeError`.
 
@@ -141,14 +141,14 @@ nocite: |
 
 ---
 
-- Funciones como `map()` y `filter()` devuelven iteradores porque, al ser
+- Funciones como `map` y `filter` devuelven iteradores porque, al ser
   perezosos, son más eficiente en memoria que devolver toda una lista o tupla.
 
   Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
-  resultado de un `map()`?
+  resultado de un `map`?
 
 - Los iteradores se pueden convertir en listas o tuplas usando las funciones
-  `list()` y `tuple()`:
+  `list` y `tuple`:
 
   ```python
   >>> l = [1, 2, 3]
@@ -162,7 +162,7 @@ nocite: |
 
 - Los iteradores también son iterables que actúan como sus propios iteradores.
 
-- Por tanto, cuando llamamos a `iter()` pasándole un iterador, se devuelve el
+- Por tanto, cuando llamamos a `iter` pasándole un iterador, se devuelve el
   mismo iterador:
 
   ```python
@@ -469,10 +469,10 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - Si se indica una conversión, el resultado de evaluar la expresión se
   convierte antes de aplicar el formateado.
 
-  La conversión `!s` llama a `str()` sobre el resultado, `!r` llama a `repr()`
-  y `!a` llama a `ascii()`.
+  La conversión `!s` llama a la función `str` sobre el resultado, `!r` llama a
+  `repr` y `!a` llama a `ascii`.
 
-- A continuación, el resultado es formateado usando `format()`.
+- A continuación, el resultado es formateado usando la función `format`.
 
 - Finalmente, el resultado del formateado es incluido en el valor final de la
   cadena completa.
@@ -510,7 +510,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   >>> nombre = "Fred"
   >>> f"Dice que su nombre es {nombre!r}."
   "Dice que su nombre es 'Fred'."
-  >>> f"Dice que su nombre es {repr(nombre)}."  # repr() es equivalente a !r
+  >>> f"Dice que su nombre es {repr(nombre)}."  # repr es equivalente a !r
   "Dice que su nombre es 'Fred'."
   >>> ancho = 10
   >>> precision = 4
@@ -626,7 +626,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   enteros y se usan frecuentemente para hacer bucles que se repitan un
   determinado número de veces.
 
-- Los rangos se crean con la función `range()`:
+- Los rangos se crean con la función `range`:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -851,7 +851,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ---
 
-- Las listas, además, admiten el método `sort()`, que permite ordenar sus
+- Las listas, además, admiten el método `sort`, que permite ordenar sus
   elementos de forma ascendente o descendente:
 
   ```python
@@ -917,7 +917,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
 - Existen dos tipos predefinidos de conjuntos: `set` y `frozenset`.
 
 - El tipo `set` es **mutable**, es decir, que su contenido puede cambiar usando
-  métodos como `add()` y `remove()`.
+  métodos como `add` y `remove`.
 
   - Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
     clave de un diccionario o como elemento de otro conjunto.
@@ -973,9 +973,9 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
   Esa es, precisamente, la **forma normal** de un conjunto no vacío y, por
   tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con
-  `print()`.
+  `print`.
 
-- Por tanto, para crear conjuntos congelados usando `frozenset()` podemos usar
+- Por tanto, para crear conjuntos congelados usando `frozenset` podemos usar
   esa sintaxis en lugar de usar listas como hicimos antes:
 
     ```python
@@ -983,7 +983,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
     frozenset({2, 3, 4})
     ```
 
-- También podría usarse con la función `set()`, pero sería innecesario y no
+- También podría usarse con la función `set`, pero sería innecesario y no
   tendría sentido, ya que devolvería el mismo conjunto:
 
   ```python
@@ -1127,9 +1127,9 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 
     Esa es precisamente la **forma normal** de un diccionario y, por tanto, la
     que se usa cuando se visualiza desde el intérprete o se imprime con
-    `print()`.
+    `print`.
 
-  - Usando la función `dict()`.
+  - Usando la función `dict`.
 
 - Por ejemplo:
 
@@ -1301,7 +1301,7 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
     b 2
     ```
 
-  - Usar el método `items()` sobre el diccionario, que devuelve una lista de
+  - Usar el método `items` sobre el diccionario, que devuelve una lista de
     tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinándolo con el
     **desempaquetado de tuplas**:
 
@@ -1317,15 +1317,15 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 
 ---
 
-- Otros métodos útiles para recorrer un diccionario son `keys()` y `values()`.
+- Otros métodos útiles para recorrer un diccionario son `keys` y `values`.
   !SALTOBEAMER
 
 :::: columns
 
 ::: column
 
-- `keys()` devuelve un **iterador** que recorre las **claves** del
-  diccionario sobre el que se invoca:
+- `keys` devuelve un **iterador** que recorre las **claves** del diccionario
+  sobre el que se invoca:
 
 
   ```python
@@ -1344,8 +1344,8 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 
 !ifdef(LATEX)(\vspace{0.3em})
 
-- `values()` devuelve un **iterador** que recorre los **valores** del
-  diccionario sobre el que se invoca:
+- `values` devuelve un **iterador** que recorre los **valores** del diccionario
+  sobre el que se invoca:
 
   ```python
   >>> d.values()
@@ -1364,7 +1364,7 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 !SALTOBEAMER
 !ifdef(LATEX)(\vspace{0.3em})
 
-- En la práctica, no resulta muy útil usar `keys()`, ya que se puede hacer lo
+- En la práctica, no resulta muy útil usar `keys`, ya que se puede hacer lo
   mismo recorriendo directamente el propio diccionario, como ya sabemos:
 
   ```python

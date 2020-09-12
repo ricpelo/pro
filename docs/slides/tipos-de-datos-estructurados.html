@@ -268,7 +268,7 @@
 <li><p>Un valor es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
 <ol>
 <li><p>Tiene asociado un valor <em>hash</em> que nunca cambia durante su vida.</p>
-<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code>hash()</code> sobre el valor. En caso contrario, la llamada generará un error <code>TypeError</code>.</p></li>
+<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code>hash</code> sobre el valor. En caso contrario, la llamada generará un error <code>TypeError</code>.</p></li>
 <li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos usando el operador <code>==</code>.</p></li>
 </ol></li>
 <li><p>Si dos valores <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>:</p>
@@ -298,7 +298,7 @@
 <li><p>Estructuras no secuenciales: diccionarios y conjuntos</p></li>
 </ul></li>
 <li><p>No representa un tipo concreto, sino más bien una <em>familia</em> de tipos que comparten la misma propiedad.</p></li>
-<li><p>Muchas funciones, como <code>map()</code> y <code>filter()</code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
+<li><p>Muchas funciones, como <code>map</code> y <code>filter</code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
 <li><p>La forma básica de recorrer un dato iterable es usando un <strong>iterador</strong>.</p></li>
 </ul>
 </section>
@@ -307,10 +307,10 @@
 <h2 data-number="1.4"><span class="header-section-number">1.4</span> Iteradores</h2>
 <ul>
 <li><p>Un <strong>iterador</strong> representa un flujo de datos <em>perezoso</em> (no se entregan todos de una vez, sino de uno en uno).</p></li>
-<li><p>Cuando se llama repetidamente a la función <code>next()</code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
+<li><p>Cuando se llama repetidamente a la función <code>next</code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
 <li><p>Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo <code>StopIteration</code>.</p>
-<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next()</code> se seguirá levantando esa excepción.</p></li>
-<li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code>iter()</code> al iterable.</p></li>
+<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next</code> se seguirá levantando esa excepción.</p></li>
+<li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code>iter</code> al iterable.</p></li>
 <li><p>Si se le pasa un dato no iterable, levanta una excepción <code>TypeError</code>.</p></li>
 </ul>
 </section>
@@ -348,9 +348,9 @@
 <section class="slide level5" data-number="1.4.0.0.3">
 
 <ul>
-<li><p>Funciones como <code>map()</code> y <code>filter()</code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
-<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code>map()</code>?</p></li>
-<li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code>list()</code> y <code>tuple()</code>:</p>
+<li><p>Funciones como <code>map</code> y <code>filter</code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
+<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code>map</code>?</p></li>
+<li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code>list</code> y <code>tuple</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> iterador <span class="op">=</span> <span class="bu">iter</span>(l)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> <span class="bu">tuple</span>(iterador)</span>
@@ -362,7 +362,7 @@
 
 <ul>
 <li><p>Los iteradores también son iterables que actúan como sus propios iteradores.</p></li>
-<li><p>Por tanto, cuando llamamos a <code>iter()</code> pasándole un iterador, se devuelve el mismo iterador:</p>
+<li><p>Por tanto, cuando llamamos a <code>iter</code> pasándole un iterador, se devuelve el mismo iterador:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(lista)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> it</span>
@@ -622,8 +622,8 @@ fin = <strong><code>False</code></strong><br />
 </ul></li>
 <li><p>Los campos de sustitución pueden contener saltos de línea pero no comentarios.</p></li>
 <li><p>Si se indica una conversión, el resultado de evaluar la expresión se convierte antes de aplicar el formateado.</p>
-<p>La conversión <code>!s</code> llama a <code>str()</code> sobre el resultado, <code>!r</code> llama a <code>repr()</code> y <code>!a</code> llama a <code>ascii()</code>.</p></li>
-<li><p>A continuación, el resultado es formateado usando <code>format()</code>.</p></li>
+<p>La conversión <code>!s</code> llama a la función <code>str</code> sobre el resultado, <code>!r</code> llama a <code>repr</code> y <code>!a</code> llama a <code>ascii</code>.</p></li>
+<li><p>A continuación, el resultado es formateado usando la función <code>format</code>.</p></li>
 <li><p>Finalmente, el resultado del formateado es incluido en el valor final de la cadena completa.</p></li>
 </ul>
 </section>
@@ -653,7 +653,7 @@ fin = <strong><code>False</code></strong><br />
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>nombre<span class="sc">!r}</span><span class="ss">.&quot;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr() es equivalente a !r</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr es equivalente a !r</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="co">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> ancho <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> precision <span class="op">=</span> <span class="dv">4</span></span>
@@ -739,7 +739,7 @@ fin = <strong><code>False</code></strong><br />
 <h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Rangos</h3>
 <ul>
 <li><p>Los <strong>rangos</strong> representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
-<li><p>Los rangos se crean con la función <code>range()</code>:</p>
+<li><p>Los rangos se crean con la función <code>range</code>:</p>
 <div class="line-block"><span style="color:teal">⟨<em>rango</em>⟩</span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal">⟨<em>inicio</em>⟩</span><strong><code>,</code></strong>] <span style="color:teal">⟨<em>fin</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>paso</em>⟩</span>]<strong><code>)</code></strong></div></li>
 <li><p><span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> y <span style="color:teal">⟨<em>paso</em>⟩</span> deben ser números enteros.</p></li>
 <li><p>Cuando se omite <span style="color:teal">⟨<em>inicio</em>⟩</span>, se entiende que es <code>0</code>.</p></li>
@@ -964,7 +964,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="2.4.1.0.4">
 
 <ul>
-<li><p>Las listas, además, admiten el método <code>sort()</code>, que permite ordenar sus elementos de forma ascendente o descendente:</p>
+<li><p>Las listas, además, admiten el método <code>sort</code>, que permite ordenar sus elementos de forma ascendente o descendente:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> x</span>
@@ -1016,7 +1016,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 <ul>
 <li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
-<li><p>El tipo <code>set</code> es <strong>mutable</strong>, es decir, que su contenido puede cambiar usando métodos como <code>add()</code> y <code>remove()</code>.</p>
+<li><p>El tipo <code>set</code> es <strong>mutable</strong>, es decir, que su contenido puede cambiar usando métodos como <code>add</code> y <code>remove</code>.</p>
 <ul>
 <li>Como es mutable, <strong>no es <em>hashable</em></strong> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
 </ul></li>
@@ -1055,11 +1055,11 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(x)</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;set&#39;</span><span class="op">&gt;</span></span></code></pre></div>
-<p>Esa es, precisamente, la <strong>forma normal</strong> de un conjunto no vacío y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print()</code>.</p></li>
-<li><p>Por tanto, para crear conjuntos congelados usando <code>frozenset()</code> podemos usar esa sintaxis en lugar de usar listas como hicimos antes:</p>
+<p>Esa es, precisamente, la <strong>forma normal</strong> de un conjunto no vacío y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print</code>.</p></li>
+<li><p>Por tanto, para crear conjuntos congelados usando <code>frozenset</code> podemos usar esa sintaxis en lugar de usar listas como hicimos antes:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
-<li><p>También podría usarse con la función <code>set()</code>, pero sería innecesario y no tendría sentido, ya que devolvería el mismo conjunto:</p>
+<li><p>También podría usarse con la función <code>set</code>, pero sería innecesario y no tendría sentido, ya que devolvería el mismo conjunto:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})  <span class="co"># equivale a poner simplemente {4, 3, 2, 2, 4}</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span></code></pre></div></li>
 </ul>
@@ -1270,8 +1270,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <li><p>Los diccionarios se pueden crear:</p>
 <ul>
 <li><p>Encerrando entre llaves una lista de parejas <span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span style="color:teal">⟨<em>valor</em>⟩</span> separadas por comas: <code>{'juan': 4098, 'pepe': 4127}</code></p>
-<p>Esa es precisamente la <strong>forma normal</strong> de un diccionario y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print()</code>.</p></li>
-<li><p>Usando la función <code>dict()</code>.</p></li>
+<p>Esa es precisamente la <strong>forma normal</strong> de un diccionario y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print</code>.</p></li>
+<li><p>Usando la función <code>dict</code>.</p></li>
 </ul></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
@@ -1446,7 +1446,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a>...</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a>a <span class="dv">1</span></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a>b <span class="dv">2</span></span></code></pre></div></li>
-<li><p>Usar el método <code>items()</code> sobre el diccionario, que devuelve una lista de tuplas <strong><code>(</code></strong><span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong> <span style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>, combinándolo con el <strong>desempaquetado de tuplas</strong>:</p>
+<li><p>Usar el método <code>items</code> sobre el diccionario, que devuelve una lista de tuplas <strong><code>(</code></strong><span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong> <span style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>, combinándolo con el <strong>desempaquetado de tuplas</strong>:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
@@ -1460,12 +1460,12 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="3.2.2.0.2">
 
 <ul>
-<li>Otros métodos útiles para recorrer un diccionario son <code>keys()</code> y <code>values()</code>.</li>
+<li>Otros métodos útiles para recorrer un diccionario son <code>keys</code> y <code>values</code>.</li>
 </ul>
 <div class="columns">
 <div class="column">
 <ul>
-<li><p><code>keys()</code> devuelve un <strong>iterador</strong> que recorre las <strong>claves</strong> del diccionario sobre el que se invoca:</p>
+<li><p><code>keys</code> devuelve un <strong>iterador</strong> que recorre las <strong>claves</strong> del diccionario sobre el que se invoca:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.keys()</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>dict_keys([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>])</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d.keys():</span>
@@ -1476,7 +1476,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </ul>
 </div><div class="column">
 <ul>
-<li><p><code>values()</code> devuelve un <strong>iterador</strong> que recorre los <strong>valores</strong> del diccionario sobre el que se invoca:</p>
+<li><p><code>values</code> devuelve un <strong>iterador</strong> que recorre los <strong>valores</strong> del diccionario sobre el que se invoca:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> d.values()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a>dict_values([<span class="dv">1</span>, <span class="dv">2</span>])</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> v <span class="kw">in</span> d.values():</span>
@@ -1488,7 +1488,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </div>
 </div>
 <ul>
-<li><p>En la práctica, no resulta muy útil usar <code>keys()</code>, ya que se puede hacer lo mismo recorriendo directamente el propio diccionario, como ya sabemos:</p>
+<li><p>En la práctica, no resulta muy útil usar <code>keys</code>, ya que se puede hacer lo mismo recorriendo directamente el propio diccionario, como ya sabemos:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>...     <span class="bu">print</span>(k)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a>...</span>

@@ -1173,7 +1173,7 @@ $$
 
 - Por ejemplo:
 
-  Las cadenas tienen definidas el método `count()` que devuelve el número de
+  Las cadenas tienen definidas el método `count`, que devuelve el número de
   veces que aparece una subcadena dentro de la cadena:
 
   ```java
@@ -1188,8 +1188,8 @@ $$
 
   devuelve 4.
 
-- Si `count()` fuese una función en lugar de un método, recibiría dos
-  parámetros: la cadena y la subcadena. En tal caso, se usaría así:
+- Si `count` fuese una función en lugar de un método, recibiría dos parámetros:
+  la cadena y la subcadena. En tal caso, se usaría así:
 
   ```python
   count('hola caracola', 'ol')

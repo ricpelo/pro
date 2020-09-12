@@ -377,7 +377,7 @@ nocite: |
   qué tipo.
 
 - Para ello existen funciones cuyo nombre coincide con el tipo al que queremos
-  convertir el dato: `str()`, `int()` y `float()`, entre otras.
+  convertir el dato: `str`, `int` y `float`, entre otras.
 
   ```python
   >>> 4 + '24'

@@ -738,7 +738,7 @@ E -> mcd [lhead = cluster1]
 ---
 
 - Para saber qué definiciones contiene un módulo, se puede usar la funcion
-  `dir()`:
+  `dir`:
 
   ```python
   >>> import math
@@ -752,9 +752,9 @@ E -> mcd [lhead = cluster1]
   'sinh', 'sqrt', 'tan', 'tanh', 'tau', 'trunc']
   ```
 
-- La función `dir()` puede usarse con cualquier espacio de nombres al que
-  podamos acceder mediante una referencia (por tanto, también valdrá para
-  clases y objetos cuando los veamos).
+- La función `dir` puede usarse con cualquier espacio de nombres al que podamos
+  acceder mediante una referencia (por tanto, también valdrá para clases y
+  objetos cuando los veamos).
 
 ### Módulos como *scripts*
 

@@ -732,8 +732,7 @@ class Docente(Trabajador):
 
 - Lo interesante del mecanismo de la herencia es que la subclase adquiere las
   características de la superclase, por lo que la clase `Docente` también
-  dispone de los métodos `set_nombre()` y `get_nombre()` heredados de
-  `Trabajador`:
+  dispone de los métodos `set_nombre` y `get_nombre` heredados de `Trabajador`:
 
 :::: columns
 
@@ -779,8 +778,8 @@ class Docente(Trabajador):
 
 ::::
 
-- Es como si el código de los métodos `set_nombre()` y `get_nombre()` se
-  hubiesen «copiado y pegado» dentro de la clase `Docente`.
+- Es como si el código de los métodos `set_nombre` y `get_nombre` se hubiesen
+  «copiado y pegado» dentro de la clase `Docente`.
 
 ---
 
@@ -848,15 +847,15 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 ---
 
-- Por eso podemos llamar al método `set_nombre()` sobre una instancia de la
-  clase `Docente` aunque dicha clase no tenga definido ese método.
+- Por eso podemos llamar al método `set_nombre` sobre una instancia de la clase
+  `Docente` aunque dicha clase no tenga definido ese método.
 
 - Por el mecanismo de la herencia, el método lo hereda de su superclase
   `Trabajador`.
 
 - En tiempo de ejecución, cuando se encuentra una llamada al método
-  `set_nombre()`, el intérprete busca el método recorriendo la cadena de
-  herencia representada en la lista de diccionarios:
+  `set_nombre`, el intérprete busca el método recorriendo la cadena de herencia
+  representada en la lista de diccionarios:
 
   - Primero lo busca en la definición de la clase `Docente`.
 
@@ -1021,11 +1020,11 @@ Acuatico <|-- Anfibio
   teníamos, y que es aún más complicado.
 
 - Supongamos que tanto la clase `Terrestre` como `Acuatico` disponen de un
-  método `mover()`, de forma que todos los animales terrestres se mueven
+  método `mover`, de forma que todos los animales terrestres se mueven
   caminando, mientras que los acuáticos lo hacen nadando.
 
 - Por tanto, ambas clases disponen de una implementación distinta del mismo
-  método `mover()`.
+  método `mover`.
 
 - Son métodos que tienen la misma signatura pero que se comportan de distinta
   forma.
@@ -1038,7 +1037,7 @@ Acuatico <|-- Anfibio
 
 - Tenemos, por tanto, la siguiente situación:
 
-!UML[animales-anfibios-mover.png][El método `mover()` está en `Terrestre` y `Acuatico`][width=60%][width=35%]
+!UML[animales-anfibios-mover.png][El método `mover` está en `Terrestre` y `Acuatico`][width=60%][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Terrestre {
     +mover()
@@ -1058,7 +1057,7 @@ Acuatico <|-- Anfibio
 
 ::: column
 
-- La pregunta es: ¿cuál de los métodos `mover()` heredará `Anfibio`?
+- La pregunta es: ¿cuál de los métodos `mover` heredará `Anfibio`?
 
   - ¿El de `Terrestre`?
 
@@ -1511,7 +1510,7 @@ class Rectangulo:
 
 ## Sobreescritura de métodos
 
-## `super()`
+## `super`
 
 ## Sobreescritura de constructores
 
