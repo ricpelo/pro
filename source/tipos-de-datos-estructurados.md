@@ -275,8 +275,6 @@ fin = !T{False}
 
 ::::
 
-### Gestores de contexto
-
 ### El módulo `itertools`
 
 - El módulo `itertools` contiene una variedad de iteradores de uso frecuente

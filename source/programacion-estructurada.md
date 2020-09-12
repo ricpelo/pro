@@ -665,6 +665,8 @@ else:
 
 - En cualquiera de los dos casos, siempre acaba diciendo `Fin`.
 
+### Gestores de contexto
+
 # Metodología de la programación estructurada
 
 ## Diseño descendente por refinamiento sucesivo
