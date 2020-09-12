@@ -1614,6 +1614,20 @@ True
 - Eso hace que sea *impura* por partida doble: provoca un efecto lateral y
   puede devolver un resultado distinto cada vez que se la llama.
 
+## Entrada y salida por archivos
+
+### `open`
+
+### `read`
+
+### `readline`
+
+### `write`
+
+### `seek`
+
+### `close`
+
 # Saltos
 
 ## Incondicionales

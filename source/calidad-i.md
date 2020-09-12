@@ -6,7 +6,7 @@ author: Ricardo Pérez López
 
 # Depuración
 
-## `print()`
+## `print`
 
 ## Depuración en el IDE
 
