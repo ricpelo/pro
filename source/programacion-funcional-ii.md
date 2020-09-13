@@ -1161,6 +1161,55 @@ E -> x [lhead = cluster0]
 
   - **Línea 4**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
+---
+
+- A veces no resulta fácil determinar si un *redex* es más interno o externo
+  que otro, sobre todo cuando se mezclan funciones y operadores en una misma
+  expresión.
+
+- En ese caso, puede resultar útil reescribir los operadores como funciones,
+  cuando sea posible.
+
+- Por ejemplo, la siguiente expresión:
+
+  ```python
+  abs(-12) + max(13, 28)
+  ```
+
+  se puede reescribir como:
+
+  ```python
+  int.__add__(abs(-12), max(13, 28))
+  ```
+
+  lo que muestra claramente que la suma es más externa que el valor absoluto y
+  el máximo (que están, a su vez, al mismo nivel de profundidad).
+
+---
+
+- Un ejemplo más complicado:
+
+  ```python
+  abs(-12) * max((2 + 3) ** 5), 37)
+  ```
+
+  se reescribiría como:
+
+  ```python
+  int.__mul__(abs(-12), max(pow(int.__add__(2, 3), 5), 37))
+  ```
+
+  donde se aprecia claramente que el orden de las operaciones, de más interna a
+  más externa, sería:
+
+  1. Suma (`+` o `int.__add__`).
+
+  2. Potencia (`**` o `pow`).
+
+  3. Valor absoluto (`abs`) y máximo (`max`) al mismo nivel.
+
+  4. Producto (`*` o `int.__mul__`).
+
 ## Las funciones como abstracciones
 
 - Aunque es muy sencilla, la función `area` ejemplifica la propiedad más
@@ -1276,8 +1325,8 @@ E -> x [lhead = cluster0]
 
 - Dicho de otra forma, no hace falta que se dé ninguna condición especial para
   usar la función. Siempre que la llamada cumpla con la signatura de la
-  función, el parámetro $n$ puede tomar cualquier valor real y no hay ninguna
-  restricción adicional.
+  función, el parámetro $n$ puede tomar cualquier valor de tipo real y no hay
+  ninguna restricción adicional.
 
 - Tanto la precondición como la postcondición son **predicados**, es decir,
   expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
@@ -1452,6 +1501,11 @@ E -> x [lhead = cluster0]
 
 !IMGP(pintura-recursiva.jpg)()(width=100%)
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIO
+
+@. Desde el principio del curso ya hemos estado trabajando con estructuras que
+pueden tener una definición recursiva. ¿Cuáles son?
 
 ### Casos base y casos recursivos
 

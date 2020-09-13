@@ -692,8 +692,8 @@ $$
 - La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué
   orden se evalúan los operandos del operador `*`?
 
-- Matemáticamente no hay ninguna diferencia en calcular primero `2 + 3` y luego
-  `4 + 5` o hacerlo al revés.
+- Matemáticamente no hay ninguna diferencia entre calcular primero `2 + 3` y
+  luego `4 + 5` o hacerlo al revés.
 
 - Pero ya sabemos que Python impone un orden de evaluación de izquierda a
   derecha al reducir las subexpresiones.
@@ -775,6 +775,14 @@ $$
 
 - En la aplicación $f(x)$, al valor $x$ se le llama **argumento** de la
   función.
+
+- Por tanto:
+
+  - $f$ es la función.
+
+  - $f(x)$ es la aplicación de $f$ sobre el valor $x$.
+
+  - $x$ es el argumento de la función $f$.
 
 - Por ejemplo:
 
@@ -990,6 +998,7 @@ $$
   subexpresiones principales que contiene dicha expresión:
 
   - `abs(-12)`
+
   - `max(13, 28)`
 
 - ¿Cuál se evalúa primero?
@@ -1003,9 +1012,15 @@ $$
 - Por tanto, la evaluación paso a paso de la expresión matemática anterior,
   podría ser de cualquiera de estas dos formas:
 
+  !SALTO
+
   :::: columns
 
-  ::: column
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=43%}
 
   1. $\begin{cases}\begin{array}{l}
   \underline{abs(-12)} + max(13, 28) \\[6pt]
@@ -1016,7 +1031,7 @@ $$
 
   :::
 
-  ::: column
+  ::: {.column width=43%}
 
   2. $\begin{cases}\begin{array}{l}
   abs(-12) + \underline{max(13, 28)} \\[6pt]
@@ -1028,6 +1043,8 @@ $$
   :::
 
   ::::
+
+  !SALTO
 
   En cada paso, la subexpresión $\text{\underline{subrayada}}$ es la que se va
   a evaluar (reducir) en el paso siguiente.
@@ -1229,7 +1246,28 @@ $$
 
 - También podemos encontrarnos operaciones con más de una forma.
 
-- Por ejemplo, ya vimos anteriormente la operación *potencia*, que consiste en
+- Por ejemplo, ya vimos anteriormente la operación *longitud*, que consiste en
+  determinar el número de caracteres que tiene una cadena. Esta operación se
+  puede hacer:
+
+  - Con la función `len`:
+
+    ```python
+    >>> len("hola")
+    4
+    ```
+
+  - Con el método `__len__`:
+
+    ```python
+    >>> "hola".__len__()
+    4
+    ```
+
+---
+
+- De hecho, en Python hay operaciones que tienen **las tres formas**. Por
+  ejemplo, ya vimos anteriormente la operación *potencia*, que consiste en
   elevar un número a la potencia de otro ($x^y$). Esta operación se puede
   hacer:
 
@@ -1247,16 +1285,30 @@ $$
     16
     ```
 
+  - Con el método `__pow__`:
+
+    ```python
+    >>> (2).__pow__(4)
+    16
+    ```
+
 ---
 
 - Otro ejemplo es la operación *contiene*, que consiste en comprobar si una
-  cadena contiene a otra (una *subcadena*). Esa operación también tiene dos
+  cadena contiene a otra (una *subcadena*). Esa operación también tiene tres
   formas:
 
   - El operador `in`:
 
     ```python
     >>> "o" in "hola"
+    True
+    ```
+
+  - La función `str.__contains__`:
+
+    ```python
+    >>> str.__contains__("hola", "o")
     True
     ```
 
@@ -1275,8 +1327,7 @@ $$
 
 ---
 
-- De hecho, en Python hay operaciones que tienen **las tres formas**. Por
-  ejemplo, la suma de dos números enteros se puede expresar:
+- Y la suma de dos números enteros se puede expresar:
 
   - Mediante el operador `+`:
   
@@ -1300,15 +1351,15 @@ $$
 ---
 
 - La forma **más general** y destacada de representar una operación es la
-  **función**, ya que cualquier operador o método se puede expresar en forma de
-  función (lo contrario no siempre es cierto).
+  **función**, ya que _cualquier operación se puede expresar en forma de
+  función_ (cosa que no ocurre con los operadores y los métodos).
 
-- Es decir: los operadores y los métodos son formas sintácticas especiales
-  para expresar operaciones que se podrían expresar igualmente mediante
+- Los operadores y los métodos son **formas sintácticas especiales** para
+  representar operaciones que se podrían representar igualmente mediante
   funciones.
 
-- Por eso, cuando hablemos de operaciones, y mientras no se diga lo contrario,
-  supondremos que están representadas como funciones.
+- Por eso, al hablar de operaciones, y mientras no se diga lo contrario,
+  podremos suponer que están representadas como funciones.
 
 - Eso implica que los conceptos de *dominio*, *rango*, *aridad*, *argumento*,
   *resultado*, *composición* y *asociación* (o *correspondencia*), que
@@ -1462,7 +1513,7 @@ Función                     Descripción           Ejemplo                  Res
   ```
 
 - El punto `.` es un operador que nos permite acceder al interior de
-  estructuras que tienen contenido propio, como los módulos.
+  estructuras que tienen definiciones propias, como los módulos.
 
 ---
 

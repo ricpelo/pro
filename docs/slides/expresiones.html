@@ -761,7 +761,7 @@
 <li><p>Pero, ¿qué ocurre con expresión <code>(2 + 3) * (4 + 5)</code>?</p></li>
 <li><p>En un principio, ocurre algo parecido a lo de antes: para poder hacer el producto, primero hay que calcular las dos sumas, ya que los operandos del <code>*</code> son los valores que resultan de hacer esas sumas.</p></li>
 <li><p>La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué orden se evalúan los operandos del operador <code>*</code>?</p></li>
-<li><p>Matemáticamente no hay ninguna diferencia en calcular primero <code>2 + 3</code> y luego <code>4 + 5</code> o hacerlo al revés.</p></li>
+<li><p>Matemáticamente no hay ninguna diferencia entre calcular primero <code>2 + 3</code> y luego <code>4 + 5</code> o hacerlo al revés.</p></li>
 <li><p>Pero ya sabemos que Python impone un orden de evaluación de izquierda a derecha al reducir las subexpresiones.</p></li>
 <li><p>Por tanto, primero se evaluaría <code>(2 + 3)</code>, y después <code>(4 + 5)</code>.</p></li>
 <li><p>El orden de evaluación no viene determinado por los paréntesis, sino por las reglas del lenguaje y el funcionamiento interno del intérprete.</p></li>
@@ -826,6 +826,12 @@
 <ul>
 <li><p>La <strong>aplicación de la función <span class="math inline">f</span></strong> sobre el elemento <span class="math inline">x</span> se representa por <span class="math inline">f(x)</span> y corresponde al valor que la función asocia al elemento <span class="math inline">x</span> en el conjunto imagen.</p></li>
 <li><p>En la aplicación <span class="math inline">f(x)</span>, al valor <span class="math inline">x</span> se le llama <strong>argumento</strong> de la función.</p></li>
+<li><p>Por tanto:</p>
+<ul>
+<li><p><span class="math inline">f</span> es la función.</p></li>
+<li><p><span class="math inline">f(x)</span> es la aplicación de <span class="math inline">f</span> sobre el valor <span class="math inline">x</span>.</p></li>
+<li><p><span class="math inline">x</span> es el argumento de la función <span class="math inline">f</span>.</p></li>
+</ul></li>
 <li><p>Por ejemplo:</p>
 <p>La función <strong>valor absoluto</strong>, que asocia a cada número entero ese mismo número sin el signo (un número natural). Su signatura es:</p>
 <p><span class="math display">abs: \mathbb{Z} \rightarrow \mathbb{N}</span> <span class="math display">x \rightarrow abs(x)</span></p>
@@ -962,8 +968,8 @@
 <li><p>En la expresión <code>abs(-12) + max(13, 28)</code> tenemos que calcular la suma de dos valores, pero esos valores aún no los conocemos porque son el resultado de llamar a dos funciones.</p></li>
 <li><p>Por tanto, lo primero que tenemos que hacer es evaluar las dos subexpresiones principales que contiene dicha expresión:</p>
 <ul>
-<li><code>abs(-12)</code></li>
-<li><code>max(13, 28)</code></li>
+<li><p><code>abs(-12)</code></p></li>
+<li><p><code>max(13, 28)</code></p></li>
 </ul></li>
 <li><p>¿Cuál se evalúa primero?</p></li>
 </ul>
@@ -973,17 +979,21 @@
 <ul>
 <li><p>En Matemáticas no importa el orden de evaluación de las subexpresiones, ya que el resultado debe ser siempre el mismo, así que da igual evaluar primero uno u otro.</p></li>
 <li><p>Por tanto, la evaluación paso a paso de la expresión matemática anterior, podría ser de cualquiera de estas dos formas:</p>
+<p><br></p>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:5%;">
+
+</div><div class="column" style="width:43%;">
 <ol type="1">
 <li><span class="math inline">\begin{cases}\begin{array}{l} \underline{abs(-12)} + max(13, 28) \\[6pt] = 12 + \underline{max(13, 28)} \\[6pt] = \underline{12 + 28} \\[6pt] = 40 \end{array}\end{cases}</span></li>
 </ol>
-</div><div class="column">
+</div><div class="column" style="width:43%;">
 <ol start="2" type="1">
 <li><span class="math inline">\begin{cases}\begin{array}{l} abs(-12) + \underline{max(13, 28)} \\[6pt] = \underline{abs(-12)} + 28 \\[6pt] = \underline{12 + 28} \\[6pt] = 40 \end{array}\end{cases}</span></li>
 </ol>
 </div>
 </div>
+<p><br></p>
 <p>En cada paso, la subexpresión <span class="math inline">\text{\underline{subrayada}}</span> es la que se va a evaluar (reducir) en el paso siguiente.</p></li>
 </ul>
 </section>
@@ -1119,57 +1129,77 @@
 <ul>
 <li><p>Una operación podría tener <em>forma</em> de <strong>operador</strong>, de <strong>función</strong> o de <strong>método</strong>.</p></li>
 <li><p>También podemos encontrarnos operaciones con más de una forma.</p></li>
-<li><p>Por ejemplo, ya vimos anteriormente la operación <em>potencia</em>, que consiste en elevar un número a la potencia de otro (<span class="math inline">x^y</span>). Esta operación se puede hacer:</p>
+<li><p>Por ejemplo, ya vimos anteriormente la operación <em>longitud</em>, que consiste en determinar el número de caracteres que tiene una cadena. Esta operación se puede hacer:</p>
 <ul>
-<li><p>Con el operador <code>**</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="dv">16</span></span></code></pre></div></li>
-<li><p>Con la función <code>pow</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a><span class="dv">16</span></span></code></pre></div></li>
+<li><p>Con la función <code>len</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="dv">4</span></span></code></pre></div></li>
+<li><p>Con el método <code>__len__</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
-<li><p>Otro ejemplo es la operación <em>contiene</em>, que consiste en comprobar si una cadena contiene a otra (una <em>subcadena</em>). Esa operación también tiene dos formas:</p>
+<li><p>De hecho, en Python hay operaciones que tienen <strong>las tres formas</strong>. Por ejemplo, ya vimos anteriormente la operación <em>potencia</em>, que consiste en elevar un número a la potencia de otro (<span class="math inline">x^y</span>). Esta operación se puede hacer:</p>
 <ul>
-<li><p>El operador <code>in</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;o&quot;</span> <span class="kw">in</span> <span class="st">&quot;hola&quot;</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
-<li><p>El método <code>__contains__</code> ejecutado sobre la cadena (y pasando la subcadena como argumento):</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__contains__</span>(<span class="st">&quot;o&quot;</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div>
-<p>Observar que, en este caso, el objeto que recibe el mensaje (es decir, el objeto al que se le pide que ejecute el método) es la cadena <code>"hola"</code>. Es como si le preguntáramos a la cadena <code>"hola"</code> si contiene la subcadena <code>"o"</code>.</p></li>
+<li><p>Con el operador <code>**</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="dv">16</span></span></code></pre></div></li>
+<li><p>Con la función <code>pow</code>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="dv">16</span></span></code></pre></div></li>
+<li><p>Con el método <code>__pow__</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.2">
 
 <ul>
-<li><p>De hecho, en Python hay operaciones que tienen <strong>las tres formas</strong>. Por ejemplo, la suma de dos números enteros se puede expresar:</p>
+<li><p>Otro ejemplo es la operación <em>contiene</em>, que consiste en comprobar si una cadena contiene a otra (una <em>subcadena</em>). Esa operación también tiene tres formas:</p>
 <ul>
-<li><p>Mediante el operador <code>+</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span></span></code></pre></div></li>
-<li><p>Mediante la función <code>int.__add__</code>:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="bu">int</span>.<span class="fu">__add__</span>(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
-<li><p>Mediante el método <code>__add__</code> ejecutado sobre uno de los enteros (y pasando el otro número como <em>argumento</em> del método):</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a>(<span class="dv">4</span>).<span class="fu">__add__</span>(<span class="dv">3</span>)</span></code></pre></div></li>
+<li><p>El operador <code>in</code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;o&quot;</span> <span class="kw">in</span> <span class="st">&quot;hola&quot;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
+<li><p>La función <code>str.__contains__</code>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>.<span class="fu">__contains__</span>(<span class="st">&quot;hola&quot;</span>, <span class="st">&quot;o&quot;</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
+<li><p>El método <code>__contains__</code> ejecutado sobre la cadena (y pasando la subcadena como argumento):</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__contains__</span>(<span class="st">&quot;o&quot;</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div>
+<p>Observar que, en este caso, el objeto que recibe el mensaje (es decir, el objeto al que se le pide que ejecute el método) es la cadena <code>"hola"</code>. Es como si le preguntáramos a la cadena <code>"hola"</code> si contiene la subcadena <code>"o"</code>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.3">
 
 <ul>
-<li><p>La forma <strong>más general</strong> y destacada de representar una operación es la <strong>función</strong>, ya que cualquier operador o método se puede expresar en forma de función (lo contrario no siempre es cierto).</p></li>
-<li><p>Es decir: los operadores y los métodos son formas sintácticas especiales para expresar operaciones que se podrían expresar igualmente mediante funciones.</p></li>
-<li><p>Por eso, cuando hablemos de operaciones, y mientras no se diga lo contrario, supondremos que están representadas como funciones.</p></li>
+<li><p>Y la suma de dos números enteros se puede expresar:</p>
+<ul>
+<li><p>Mediante el operador <code>+</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span></span></code></pre></div></li>
+<li><p>Mediante la función <code>int.__add__</code>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="bu">int</span>.<span class="fu">__add__</span>(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+<li><p>Mediante el método <code>__add__</code> ejecutado sobre uno de los enteros (y pasando el otro número como <em>argumento</em> del método):</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a>(<span class="dv">4</span>).<span class="fu">__add__</span>(<span class="dv">3</span>)</span></code></pre></div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.2.0.0.4">
+
+<ul>
+<li><p>La forma <strong>más general</strong> y destacada de representar una operación es la <strong>función</strong>, ya que <em>cualquier operación se puede expresar en forma de función</em> (cosa que no ocurre con los operadores y los métodos).</p></li>
+<li><p>Los operadores y los métodos son <strong>formas sintácticas especiales</strong> para representar operaciones que se podrían representar igualmente mediante funciones.</p></li>
+<li><p>Por eso, al hablar de operaciones, y mientras no se diga lo contrario, podremos suponer que están representadas como funciones.</p></li>
 <li><p>Eso implica que los conceptos de <em>dominio</em>, <em>rango</em>, <em>aridad</em>, <em>argumento</em>, <em>resultado</em>, <em>composición</em> y <em>asociación</em> (o <em>correspondencia</em>), que estudiamos cuando hablamos de las funciones, también existen en los operadores y los métodos.</p></li>
 <li><p>Es decir: todos esos son conceptos propios de cualquier operación, da igual la forma que tenga esta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.4">
+<section class="slide level5" data-number="5.2.0.0.5">
 
 <ul>
 <li><p>Muchos lenguajes de programación no permiten definir nuevos operadores, pero sí permiten definir nuevas funciones (o métodos, dependiendo del paradigma utilizado).</p></li>
@@ -1393,9 +1423,9 @@
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
 <li><p>Son la base de la <strong>programación modular</strong>, que ya estudiaremos.</p></li>
 <li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code>from</code>. Por ejemplo, para importar la función <code>gcd</code> (que calcula el máximo común divisor de dos números) del módulo <code>math</code> se haría:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>Una vez importada, la función ya se puede usar como cualquier otra.</p></li>
 </ul>
 </section>
@@ -1403,16 +1433,16 @@
 
 <ul>
 <li><p>También se puede importar directamente el módulo en sí:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>Al importar el módulo, lo que se importan no son sus funciones, sino el nombre y la definición del propio módulo, el cual contiene dentro la definición de sus funciones.</p></li>
 <li><p>Por eso, para poder llamar a una función del módulo usando esta técnica, debemos indicar el nombre del módulo, seguido de un punto (<code>.</code>) y el nombre de la función:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>─┬── ─┬─</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a> │    └────── función</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a> └── módulo</span></code></pre></div></li>
-<li><p>El punto <code>.</code> es un operador que nos permite acceder al interior de estructuras que tienen contenido propio, como los módulos.</p></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>─┬── ─┬─</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a> │    └────── función</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a> └── módulo</span></code></pre></div></li>
+<li><p>El punto <code>.</code> es un operador que nos permite acceder al interior de estructuras que tienen definiciones propias, como los módulos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.1.0.2">
