@@ -1,5 +1,5 @@
 ---
-title: Relaciones entre clases Python
+title: Relaciones entre clases
 author: Ricardo Pérez López
 !DATE
 ---
