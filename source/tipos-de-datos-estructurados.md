@@ -180,9 +180,11 @@ nocite: |
 
 ### Expresiones generadoras
 
-- Una **expresión generadora** es una expresión que **devuelve un iterador** y
-  que tiene la misma sintaxis que las **listas por comprensión**, salvo que va
-  encerrada entre paréntesis en lugar de corchetes:
+- Las **expresiones generadoras** ya son conocidas por nosotros, pues las
+  estudiamos y usamos en unidades anteriores.
+
+- Aquí recordaremos que una expresión generadora es una expresión que
+  **devuelve un iterador**:
 
   !ALGO                                                                            
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -754,7 +756,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Se pueden construir de varias maneras:
 
-  - Usando corchetes vacíos para representar la lista vacía: `[]`
+  - Usando corchetes vacíos para representar la lista vacía: `[]`.
 
   - Usando corchetes y separando los elementos con comas:
   
@@ -762,10 +764,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
     
     `[a, b, c]`
 
-  - Usando la sintaxis por comprensión: `[`$x\ $ `for` $\ x\ $ `in` $\!$
-    !NT(iterable)`]`
-
-  - Usando la función `list`: `list()` o `list(`!NT{iterable}`)`
+  - Usando la función `list` con las sintaxis `list()` o
+    `list(`!NT{iterable}`)`.
 
 ---
 
@@ -787,16 +787,29 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   ```python
   >>> list('abc')
   ['a', 'b', 'c']
-  >>> list( (1, 2, 3) )
+  >>> list((1, 2, 3))
   [1, 2, 3]
   ```
 
----
+#### Listas por comprensión
+
+- También se pueden crear **listas por comprensión** usando la misma sintaxis
+  de las **expresiones generadoras** pero encerrando la expresión entre
+  corchetes en lugar de entre paréntesis:
+
+  ```python
+  >>> [x ** 2 for x in [1, 2, 3]]
+  [1, 4, 9]
+  ```
+
+- Como se ve, el resultado es directamente una lista, no un iterador.
+
+### Operaciones
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
-  secuencia mutable (en nuestro caso, una lista), $\underline{t}$ es cualquier
-  dato iterable y $\underline{x}$ es un dato cualquiera que cumple con las
-  restricciones que impone $\underline{s}$:
+  secuencia mutable (como, por ejemplo, una lista), $\underline{t}$ es
+  cualquier dato iterable y $\underline{x}$ es un dato cualquiera que cumple
+  con las restricciones que impone $\underline{s}$:
 
 !SALTO
 
@@ -990,6 +1003,19 @@ $s$`.reverse()`        Invierte los elementos de $s$
   >>> set({4, 3, 2, 2, 4})  # equivale a poner simplemente {4, 3, 2, 2, 4}
   {2, 3, 4}
   ```
+
+#### Conjuntos por comprensión
+
+- También se pueden crear **conjuntos por comprensión** usando la misma
+  sintaxis de las **expresiones generadoras** pero encerrando la expresión
+  entre llaves en lugar de entre paréntesis:
+
+  ```python
+  >>> {x ** 2 for x in [1, 2, 3]}
+  {1, 4, 9}
+  ```
+
+- El resultado es directamente un valor de tipo `set`, no un iterador.
 
 ### Operaciones
 

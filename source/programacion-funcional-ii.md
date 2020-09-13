@@ -2543,32 +2543,32 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Podemos usarla así:
 
   ```python
-  >>> map(cubo, [1, 2, 3, 4])
+  >>> map(cubo, (1, 2, 3, 4))
   <map object at 0x7f22b25e9d68>
   ```
 
-- Lo que devuelve no es una lista, sino un objeto *iterador* que examinaremos
-  con más detalle en posteriores temas.
+- Lo que devuelve no es una tupla, sino un objeto **iterador** que examinaremos
+  con más detalle más adelante.
 
 - Por ahora, nos basta con saber que un iterador es un flujo de datos que se
   pueden recorrer de uno en uno.
 
-- Lo que haremos aquí será simplemente transformar ese iterador en la lista
-  correspondiente usando la función `list` sobre el resultado de `map`:
+- Lo que haremos aquí será simplemente transformar ese iterador en la tupla
+  correspondiente usando la función `tuple` sobre el resultado de `map`:
 
   ```python
-  >>> list(map(cubo, [1, 2, 3, 4]))
-  [1, 8, 27, 64]
+  >>> tuple(map(cubo, (1, 2, 3, 4)))
+  (1, 8, 27, 64)
   ```
 
-- Además de una lista, también podemos usar un rango:
+- Además de una tupla, también podemos usar un rango como argumento para `map`:
 
   ```python
-  >>> list(map(cubo, range(1, 5)))
-  [1, 8, 27, 64]
+  >>> tuple(map(cubo, range(1, 5)))
+  (1, 8, 27, 64)
   ```
 
-- ¿Cómo definirías la función `map`?
+- ¿Cómo definirías la función `map` de forma que devolviera una tupla?
 
 !EJERCICIO
 
@@ -2579,13 +2579,13 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Podríamos definirla así:
 
   ```python
-  map = lambda f, l: [] if l == [] else [f(l[0])] + map(f, l[1:])
+  map = lambda f, l: () if l == () else (f(l[0]),) + map(f, l[1:])
   ```
 
 ## `filter`
 
 - `filter` es una **función de orden superior** que devuelve aquellos elementos
-  de una lista (o cualquier cosa *iterable*) que cumplen una determinada
+  de una tupla (o cualquier cosa *iterable*) que cumplen una determinada
   condición.
 
 - Su sintaxis es:
@@ -2598,31 +2598,38 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Por ejemplo:
 
   ```python
-  >>> list(filter(lambda x: x > 0, [-4, 3, 5, -2, 8, -3, 9]))
-  [3, 5, 8, 9]
+  >>> list(filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)))
+  (3, 5, 8, 9)
   ```
 
 ## `reduce`
 
 - `reduce` es una **función de orden superior** que aplica, de forma
-  acumulativa, una función a todos los elementos de una lista (o cualquier cosa
+  acumulativa, una función a todos los elementos de una tupla (o cualquier cosa
   *iterable*).
 
 - Las operaciones se hacen agrupándose **por la izquierda**.
 
-- Captura un **patrón muy frecuente** de recursión sobre listas de elementos.
+- Captura un **patrón muy frecuente** de recursión sobre secuencias de
+  elementos.
 
-- Por ejemplo, para calcular la suma de todos los elementos de una lista,
+---
+
+- Por ejemplo, para calcular la suma de todos los elementos de una tupla,
   haríamos:
 
   ```python
-  suma = lambda l: 0 if l == [] else l[0] + suma(l[1:])
+  >>> suma = lambda l: 0 if l == () else l[0] + suma(l[1:])
+  >>> suma((1, 2, 3, 4))
+  10
   ```
 
 - Y para calcular el producto:
 
   ```python
-  producto = lambda l: 1 if l == [] else l[0] * producto(l[1:])
+  >>> producto = lambda l: 1 if l == () else l[0] * producto(l[1:])
+  >>> producto((1, 2, 3, 4))
+  24
   ```
 
 - Como podemos observar, la estrategia de cálculo es esencialmente la misma
@@ -2632,8 +2639,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ---
 
 - Si abstraemos ese patrón común podemos crear una función de orden superior
-  que capture la idea de **reducir todos los elementos de una lista a un único
-  valor**.
+  que capture la idea de **reducir todos los elementos de una tupla (o
+  cualquier iterable) a un único valor**.
 
 - Eso es lo que hace la función `reduce`.
 
@@ -2644,8 +2651,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   reduce(!NT(función), !NT(iterable)[, !NT(valor_inicial)]) -> !NT(valor)
   ~~~~~~~~~~~~~~~~~~~~~
 
-- El !NT(valor_inicial), si existe, se usará como primer elemento de la lista
-  en el cálculo y sirve como valor por defecto cuando la lista está vacía.
+- El !NT(valor_inicial), si existe, se usará como primer elemento sobre el que
+  realizar el cálculo y sirve como valor por defecto cuando la tupla está
+  vacía.
 
 - La !NT(función) debe recibir dos argumentos y devolver un valor.
 
@@ -2660,16 +2668,17 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
     basta con lo que ya sabemos: que contienen definiciones que podemos
     incorporar a nuestros *scripts*.
 
-- Por ejemplo, para calcular la suma y el producto de `[1, 2, 3, 4]`:
+- Por ejemplo, para calcular la suma y el producto de `(1, 2, 3, 4)`:
 
   ```python
   from functools import reduce
-  lista = [1, 2, 3, 4]
-  suma_de_numeros = reduce(lambda x, y: x + y, lista, 0)
-  producto_de_numeros = reduce(lambda x, y: x * y, lista, 1)
+  tupla = (1, 2, 3, 4)
+  suma_de_numeros = reduce(lambda x, y: x + y, tupla, 0)
+  producto_de_numeros = reduce(lambda x, y: x * y, tupla, 1)
   ```
 
-- ¿Cómo podríamos definir la función `reduce`?
+- ¿Cómo podríamos definir la función `reduce` de forma que devolviera una
+  tupla?
 
 !EJERCICIO
 
@@ -2680,35 +2689,45 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Una forma (con valor inicial obligatorio) podría ser así:
 
   ```python
-  reduce = lambda fun, lista, ini: ini if lista == [] else \
-                                   lista[0] if lista[1:] == [] else \
-                                   fun(lista[0], reduce(fun, lista[1:], ini))
+  reduce = lambda fun, tupla, ini: ini if tupla == () else \
+                                   tupla[0] if tupla[1:] == () else \
+                                   fun(tupla[0], reduce(fun, tupla[1:], ini))
   ```
 
-## Listas por comprensión
+## Expresiones generadoras
 
-- Dos operaciones que se realizan con frecuencia sobre un iterador son:
+- Dos operaciones que se realizan con frecuencia sobre una estructura iterable
+  son:
 
   - Realizar alguna operación sobre cada elemento (`map`)
 
   - Seleccionar un subconjunto de elementos que cumplan alguna condición
     (`filter`)
 
-- Las listas por comprensión son una notación copiada del lenguaje Haskell que
-  nos permite realizar ambas operaciones de una forma muy concisa:
+- Las **expresiones generadoras** son una notación copiada del lenguaje Haskell
+  que nos permite realizar ambas operaciones de una forma muy concisa.
+
+- El resultado que devuelve es un iterador que (como ya sabemos) podemos
+  convertir fácilmente en una tupla usando la función `tuple`.
+
+---
+
+- Por ejemplo:
 
   ```python
-  >>> [x ** 3 for x in [1, 2, 3, 4]]
-  [1, 8, 27, 64]
+  >>> tuple(x ** 3 for x in (1, 2, 3, 4))
+  (1, 8, 27, 64)
   # equivale a:
-  >>> list(map(lambda x: x ** 3, [1, 2, 3, 4]))
-  [1, 8, 27, 64]
+  >>> tuple(map(lambda x: x ** 3, (1, 2, 3, 4)))
+  (1, 8, 27, 64)
+  ```
 
-  >>> [x for x in [-4, 3, 5, -2, 8, -3, 9] if x > 0]
-  [3, 5, 8, 9]
+  ```python
+  >>> tuple(x for x in (-4, 3, 5, -2, 8, -3, 9) if x > 0)
+  (3, 5, 8, 9)
   # equivale a:
-  >>> list(filter(lambda x: x > 0, [-4, 3, 5, -2, 8, -3, 9]))
-  [3, 5, 8, 9]
+  >>> tuple(filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)))
+  (3, 5, 8, 9)
   ```
 
 ---
@@ -2717,7 +2736,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(lista_comp) ::= !T([)!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T(])
+  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los elementos de la salida generada serán los sucesivos valores de
@@ -2726,15 +2745,18 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Las cláusulas !T(if) son opcionales. Si están, la !NT(expresión) sólo se
   evaluará y añadirá al resultado cuando se cumpla la !NT(condición).
 
+- Los paréntesis `(` y `)` alrededor de la expresión generadora se pueden
+  quitar si la expresión se usa como único argumento de una función.
+
 - Por ejemplo:
 
   ```python
   >>> sec1 = 'abc'
   >>> sec2 = (1, 2, 3)
-  >>> [(x, y) for x in sec1 for y in sec2]
-  [('a', 1), ('a', 2), ('a', 3),
+  >>> tuple((x, y) for x in sec1 for y in sec2)
+  (('a', 1), ('a', 2), ('a', 3),
    ('b', 1), ('b', 2), ('b', 3),
-   ('c', 1), ('c', 2), ('c', 3)]
+   ('c', 1), ('c', 2), ('c', 3))
   ```
 
 !BIBLIOGRAFIA
