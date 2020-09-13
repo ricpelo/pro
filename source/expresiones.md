@@ -1179,12 +1179,12 @@ $$
     «recibe» un mensaje solicitando la ejecución del método $m$.
   
   - En cambio, el segundo es más **funcional**: decimos que la *función* $m$ se
-    aplica a sus argumentos, de los cuales $v$ es uno más).
+    aplica a sus argumentos, de los cuales $v$ es uno más.
 
-- Python es un lenguaje *multiparadigma* que soporta ambos estilos y por tanto
-  dispone tanto de funciones como de métodos. Hasta que no veamos la
-  orientación a objetos, supondremos que un método es como otra forma de
-  escribir una función.
+- Python es un lenguaje *multiparadigma* que soporta ambos estilos y, por
+  tanto, dispone de funciones y de métodos. Hasta que no veamos la orientación
+  a objetos, supondremos que un método es como otra forma de escribir una
+  función.
 
 ---
 
@@ -1241,7 +1241,7 @@ $$
 
 ## Equivalencia entre formas de operaciones
 
-- Una operación podría tener *forma* de **operador**, de **función** o de
+- Una operación puede tener *forma* de **operador**, de **función** o de
   **método**.
 
 - También podemos encontrarnos operaciones con más de una forma.
@@ -1350,9 +1350,9 @@ $$
 
 ---
 
-- La forma **más general** y destacada de representar una operación es la
-  **función**, ya que _cualquier operación se puede expresar en forma de
-  función_ (cosa que no ocurre con los operadores y los métodos).
+- La forma **más general** de representar una operación es la **función**, ya
+  que _cualquier operación se puede expresar en forma de función_ (cosa que no
+  ocurre con los operadores y los métodos).
 
 - Los operadores y los métodos son **formas sintácticas especiales** para
   representar operaciones que se podrían representar igualmente mediante
