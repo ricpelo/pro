@@ -1018,11 +1018,14 @@ Ejemplo           Valor de `x` después
   y = x  # x se asigna a y; ahora y tiene el mismo valor que x
   ```
 
+- Esto se debe a que las variables almacenan **referencias** a los valores, no
+  los valores en sí mismos.
+
 :::: columns
 
 ::: column
 
-!DOT(alias1.svg)()(width=70%)
+!DOT(alias1.svg)()(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1322,6 +1325,38 @@ lista2:f1 -> lista1
 x:f1 -> lista1
 y:f1 -> lista2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Recolección de basura
+
+- En el momento en que un valor se vuelva inaccesible (cosa que ocurrirá
+  cuando no haya ninguna variable en el entorno que contenga una referencia a
+  dicho valor), el intérprete lo marcará como *candidato para ser eliminado*.
+
+- Cada cierto tiempo, el intérprete activará el **recolector de basura**, que
+  es un componente que se encarga de liberar de la memoria a los valores que
+  están marcados como candidatos para ser eliminados.
+
+- Por tanto, el programador Python no tiene que preocuparse de gestionar
+  manualmente la memoria ocupada por los datos que componen su programa.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  lista1 = [1, 2, 3]  # crea la lista y guarda una referencia a ella en lista1
+  lista2 = lista1     # almacena en lista2 la referencia que hay en lista1
+  ```
+
+  A partir de ahora, ambas variables apuntan al mismo dato.
+
+  ```python
+  del lista1          # elimina una referencia pero el dato aún tiene otra
+  del lista2          # elimina la otra referencia y ahora el dato es inaccesible
+  ```
+
+  Desde este momento, la próxima vez que se active el recolector de basura se
+  active, eliminará la lista.
 
 ### `id`
 

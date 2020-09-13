@@ -470,8 +470,8 @@ E -> a [lhead = cluster1]
 - Esa estructura representa al módulo en memoria («*es*» el módulo), y se
   almacena en el montículo como cualquier otro dato.
 
-- El dato módulo permanecerá en memoria mientras haya una referencia que apunte
-  a él, como siempre.
+- Ese «dato» módulo (cuyo tipo es `module`) permanecerá en memoria mientras
+  haya una referencia que apunte a él, como siempre.
 
 #### Espacios de nombres
 

@@ -1175,10 +1175,6 @@ Acuatico <|-- Anfibio
 
 - Por eso el algoritmo se llama _linealización_ C3.
 
-## Superclases y subclases
-
-## Utilización de clases heredadas
-
 # Polimorfismo
 
 ## Concepto
@@ -1510,7 +1506,178 @@ class Rectangulo:
 
 ## Sobreescritura de métodos
 
+- Una subclase puede definir un método que tenga el mismo nombre que otro
+  heredado desde una de sus superclases.
+
+- En tal caso, decimos que la subclase está **sobreescribiendo** o
+  **redefiniendo** el método.
+
+- Como el nuevo método tiene el mismo nombre que el método heredado, **le hará
+  sombra** a éste cuando se intente invocar desde una instancia de la subclase.
+
+- Se puede decir que el mismo método tiene **varias implementaciones
+  distintas** en clases diferentes.
+
+---
+
+- Por ejemplo, supongamos que la clase `Trabajador` define el método
+  `despedir`.
+
+- Todas las subclases de `Trabajador` heredarán el método:
+
+  ```python
+  class Trabajador:
+      def despedir(self):
+          print("Adiós")
+
+      # ... resto de código
+
+  class Docente(Trabajador):
+      # ... resto de código
+  ```
+
+- Al despedir a un docente, éste dice adiós:
+
+  ```python
+  >>> pepe = Docente("Pepe", 18500)
+  >>> pepe.despedir()
+  Adiós
+  ```
+
+---
+
+- Ahora supongamos que creamos la clase `Directivo`, cuyas instancias son
+  trabajadores que no se pueden despedir.
+
+- Esos trabajadores responderán de una forma distinta cuando se invoque sobre
+  ellos al método `despedir`.
+
+- Para ello, redifinimos el método `despedir` en la clase `Directivo`:
+
+  ```python
+  class Directivo:
+     def despedir(self):
+         print("De aquí no me voy")
+
+     # ... resto de código
+  ```
+
+- Y entonces, cuando llamamos a `despedir` sobre un objeto `Directivo`, el
+  método que se ejecuta es el que está definido en la clase `Directivo`, no el
+  que se ha heredado de `Trabajador`:
+
+  ```python
+  >>> juan = Directivo("Juan", 250000)
+  >>> juan.despedir()
+  De aquí no me voy
+  ```
+
+---
+
+- Esto ocurre así porque, según el orden de resolución de métodos, para
+  encontrar un método desde una instancia de una clase, se busca primero en la
+  misma clase y, si no se encuentra allí, se sigue buscando hacia arriba, como
+  ya sabemos:
+
+  ```python
+  >>> Trabajador.mro()
+  [<class '__main__.Trabajador'>, <class 'object'>]
+  >>> Directivo.mro()
+  [<class '__main__.Directivo'>, <class '__main__.Trabajador'>, <class 'object'>]
+  ```
+
+- Así, se encuentra primero el método `despedir` de la clase `Directivo` antes
+  del método del mismo nombre que se hereda de la clase `Trabajador`. Por
+  tanto, se usa el primero que encuentra y no sigue buscando.
+
+---
+
+- Si ahora creamos una subclase de `Directivo` (por ejemplo, `Jefe`), y
+  llamamos al método `despedir` sobre una instancia de esa subclase, ¿a qué
+  método concreto llamará? ¿Al definido en `Directivo` o al de `Trabajador`?
+
+  ```python
+  class Jefe(Directivo):
+      # ... resto de código
+  ```
+
+  ```python
+  >>> jefe = Jefe("Bill Gates", 2384921)
+  >>> jefe.despedir()
+  De aquí no me voy
+  ```
+
+- Por la misma regla anterior, al buscar la implementación del método
+  `despedir` se encuentra antes la definida en la clase `Directivo`:
+
+  ```python
+  >>> Jefe.mro()
+  [<class '__main__.Jefe'>, <class '__main__.Directivo'>,
+   <class '__main__.Trabajador'>, <class 'object'>]
+  ```
+
+---
+
+- En cambio, si el jefe define su propia implementación del método `despedir`,
+  entonces ejecutaría esa:
+
+  ```python
+  class Jefe(Directivo):
+      def despedir(self):
+          print("Despedido tú")
+
+      # ... resto de código
+  ```
+
+  ```python
+  >>> jefe = Jefe("Bill Gates", 2384921)
+  >>> jefe.despedir()
+  Despedido tú
+  ```
+
 ## `super`
+
+- La función `super` nos permite acceder a los métodos heredados que se han
+  visto **sombreados** por métodos redefinidos con su mismo nombre.
+
+- Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
+  que **delega** las llamadas a métodos a una superclase de la clase actual.
+
+- En caso de estar usando herencia simple, la expresión `super()` devuelve
+  directamente un objeto intermediario de la superclase directa de la clase
+  actual.
+
+- En el caso de estar usando herencia múltiple, `super()` devolverá un objeto
+  intermediario que será instancia de la clase que sigue a la clase actual en
+  el MRO.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Trabajador:
+      def descripcion(self):
+          return f"Soy {self.nombre}"
+
+      # ... resto de código
+
+  class Docente(Trabajador):
+      def descripcion(self):
+          return super().descripcion() + f" y mi especialidad es {self.especialidad}"
+
+      # ... resto de código
+  ```
+
+  ```python
+  >>> manolo = Trabajador("Manolo", 3500)
+  >>> manolo.descripcion()
+  'Soy Manolo'
+  >>> pepe = Docente("Pepe", 18500)
+  >>> pepe.set_especialidad("Informática")
+  >>> pepe.descripcion()
+  'Soy Pepe y mi especialidad es Informática'
+  ```
 
 ## Sobreescritura de constructores
 

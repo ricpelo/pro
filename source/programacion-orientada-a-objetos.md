@@ -274,8 +274,9 @@ def deposito(fondos):
   resto de miembros de la clase, ya que están definidos en un ámbito distinto
   que no es accesible desde el método.
 
-- Para poder acceder a ellos habrá que usar usar el operador punto (`.`), con
-  el que accederemos al interior del espacio de nombres de la clase.
+- Para poder acceder a ellos habrá que usar usar el operador punto (`.`) a
+  través de una referencia a la clase, con el que accederemos al interior del
+  espacio de nombres de la clase.
 
 ---
 
@@ -382,16 +383,19 @@ E -> self [lhead = cluster1]
     memoria formando una estructura tipo diccionario que almacena el **espacio
     de nombres** de la clase y que representa a la clase dentro de la memoria.
 
-  - La clase acaba siendo un dato más, almacenado en el montículo, que contiene
-    su espacio de nombres, y que se ligará al nombre de la clase en el ámbito
-    donde se haya definido la clase.
+  - !CAJA
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    **La clase acaba siendo un dato más, almacenado en el montículo**, que
+    contiene su espacio de nombres, y que se ligará al nombre de la clase en el
+    ámbito donde se haya definido la clase.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  - El nombre de la clase representa el identificador de una variable que
-    almacena una referencia a ese dato, lo que nos permite acceder a la clase
-    desde fuera usando el operador punto (`.`).
+  - Es decir: el nombre de la clase es una **referencia** que apunta a la
+    clase y, al ser un espacio de nombres, nos va a permitir acceder a sus
+    elementos usando el operador punto (`.`).
 
-- Ese «dato» clase permanecerá en memoria mientras exista, al menos, una
-  referencia que apunte a él.
+- Ese «dato» clase (cuyo tipo es `type`) permanecerá en memoria mientras
+  exista, al menos, una referencia que apunte a él.
 
 ---
 
@@ -402,26 +406,27 @@ E -> self [lhead = cluster1]
   operación con la función (el método) correspondiente.
 
 - Esa estructura en forma de diccionario representa a la clase dentro de la
-  memoria («_es_» la clase), y se liga al nombre de la clase en el marco del
-  ámbito donde se haya declarado la clase (normalmente será el marco global).
+  memoria («_es_» la clase como dato), y se liga al nombre de la clase en el
+  marco del ámbito donde se haya declarado la clase (normalmente será el marco
+  global).
 
 !IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=55%)(width=70%)
 
 ---
 
 - Ese diccionario representa a la clase en memoria, y nos indica que las clases
-  son **espacios de nombres**.
+  son datos y también son **espacios de nombres**.
 
 - Recordemos que los espacios de nombres son estructuras que almacenan
   correspondencias entre un nombre y un valor (como puede ser una función o un
   método, como es el caso aquí).
 
 - Otros espacios de nombres que hemos visto hasta ahora en el curso son los
-  **marcos** o los módulos.
+  **marcos** (que no son datos) o los **módulos** (que sí lo son).
 
 - Como las clases son espacios de nombres, debemos usar el operador punto (`.`)
-  para acceder al contenido de una clase, indicando la referencia a la clase y
-  el nombre del contenido al que se desea acceder:
+  para acceder al contenido de una clase, indicando la referencia a la clase
+  (normalmente, su nombre) y el nombre del contenido al que se desea acceder:
 
   ```python
   >>> Deposito.retirar
@@ -477,21 +482,128 @@ E -> self [lhead = cluster1]
 
 ---
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Las clases, por tanto, son como _plantillas_ para crear objetos** que
 comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - En Python podemos instanciar una clase (creando así un nuevo objeto) llamando
   a la clase como si fuera una función, del mismo modo que hacíamos con la
   implementación funcional que hemos estado usando hasta ahora:
 
   ```python
-  >>> dep = Deposito(100)
+  dep = Deposito(100)
+  ```
+
+- Lo que ocurre al ejecutar este código es lo siguiente:
+
+  1. Se crea en el montículo una instancia de la clase `Deposito`, representada
+     por una estructura con forma de diccionario.
+
+  2. Se invoca al método `__init__` sobre el objeto recién creado (ya
+     hablaremos de ésto más adelante).
+
+  3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
+     que representa, a grandes rasgos, la posición de memoria donde se
+     encuentra almacenado el objeto.
+
+  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: **en
+     la variable no se almacena el objeto como tal, sino una _referencia_ al
+     objeto**.
+
+---
+
+- En este ejemplo, `0x7fba5a16d978` es la dirección de memoria donde está
+  almacenado el objeto al que hace referencia la variable `dep`:
+
+  ```python
   >>> dep
   <__main__.Deposito object at 0x7fba5a16d978>
   ```
+
+- Cuando una variable contiene una referencia a un objeto, decimos que la
+  variable **se refiere** al objeto o que **apunta** al objeto.
+
+- Aunque actualmente las referencias representan direcciones de memoria, eso no
+  quiere decir que vaya a ser siempre así. Ese es un detalle de implementación
+  basada en una decisión de diseño del intérprete que puede cambiar en
+  posteriores versiones del mismo.
+
+  Esa decisión, en la práctica, es una cuestión que no nos afecta (o no
+  debería, al menos) a la hora de escribir nuestros programas.
+
+---
+
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
+
+:::: columns
+
+::: {.column width=57%}
+
+```python
+class Deposito:
+    def __init__(self, fondos):
+        self.fondos = fondos
+
+    def retirar(self, cantidad):
+        if cantidad > self.fondos:
+            return 'Fondos insuficientes'
+        self.fondos -= cantidad
+        return self.fondos
+
+    def ingresar(self, cantidad):
+        self.fondos += cantidad
+        return self.fondos
+
+    def saldo(self):
+        return self.fondos
+
+dep = Deposito(100)
+```
+
+:::
+
+::: {.column width=43%}
+
+!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
+
+:::
+
+::::
+
+---
+
+- Los objetos tienen existencia propia e independiente y permanecerán en la
+  memoria siempre que haya al menos una referencia que apunte a él (en caso contrario, el recolector de basura lo eliminará).
+
+- De hecho, un objeto puede tener varias referencias apuntándole.
+
+- Por ejemplo, si hacemos:
+
+  ```python
+  dep1 = Deposito(100)
+  dep2 = dep1
+  ```
+
+  tendremos dos variables que contienen la misma referencia y, por tanto, **_se
+  refieren_ (o _apuntan_) al mismo objeto**.
+  
+- Es exactamente el concepto de **alias de variables** que estudiamos en
+  programación imperativa.
+
+- No olvidemos que las variables no contienen al objeto en sí mismo, sino una
+  referencia a éste.
+
+---
+
+- Gráficamente, el caso anterior se puede representar de la siguiente forma:
+
+!IMGP(dos-referencias-iguales.png)(Dos variables (`dep1` y `dep2`) que *apuntan* al mismo objeto)(width=80%)(width=70%)
+
+---
 
 - Para saber la clase a la que pertenece el objeto, se usa la función `type`
   (recordemos que en Python todos los tipos son clases):
@@ -527,8 +639,8 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
   usan las clases para almacenar sus definiciones locales.
 
 - Esa estructura en forma de diccionario representa al objeto dentro de la
-  memoria («_es_» el objeto) y asocia el nombre de cada atributo con el valor
-  que tiene dicho atributo en ese objeto.
+  memoria («_es_» el objeto como dato) y asocia el nombre de cada atributo con
+  el valor que tiene dicho atributo en ese objeto.
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -562,7 +674,7 @@ subgraph cluster2 {
   correspondencias entre los atributos del objeto y sus valores.
 
 - Gracias a ello, podemos usar el operador punto (`.`) para acceder a un
-  atributo del objeto usando la sintaxis:
+  atributo del objeto a partir de una referencia suya usando la sintaxis:
 
 *objeto*`.`*atributo*
 
@@ -736,143 +848,6 @@ dep2.otro = 'adiós'
 
 -->
 
-## Referencias
-
-- Cuando se ejecuta este código:
-
-  ```python
-  >>> dep = Deposito(100)
-  ```
-
-  lo que ocurre es lo siguiente:
-
-  1. Se crea en el montículo una instancia de la clase `Deposito`, representada
-     por una estructura con forma de diccionario.
-
-  2. Se invoca al método `__init__` sobre el objeto recién creado (ya
-     hablaremos de ésto más adelante).
-
-  3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
-     que representa, a grandes rasgos, la posición de memoria donde se
-     encuentra almacenado el objeto.
-
-  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: **en
-     la variable no se almacena el objeto como tal, sino una _referencia_ al
-     objeto**.
-
----
-
-- En este ejemplo, `0x7fba5a16d978` es la dirección de memoria donde está
-  almacenado el objeto al que hace referencia la variable `dep`:
-
-  ```python
-  >>> dep
-  <__main__.Deposito object at 0x7fba5a16d978>
-  ```
-
-- Cuando una variable contiene una referencia a un objeto, decimos que la
-  variable **se refiere** al objeto o que **apunta** al objeto.
-
-- Aunque actualmente las referencias representan direcciones de memoria, eso no
-  quiere decir que vaya a ser siempre así. Ese es un detalle de implementación
-  basada en una decisión de diseño del intérprete que puede cambiar en
-  posteriores versiones del mismo.
-
-  Esa decisión, en la práctica, es una cuestión que no nos afecta (o no
-  debería, al menos) a la hora de escribir nuestros programas.
-
----
-
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
-
-:::: columns
-
-::: {.column width=57%}
-
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
-
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            return 'Fondos insuficientes'
-        self.fondos -= cantidad
-        return self.fondos
-
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
-
-    def saldo(self):
-        return self.fondos
-
-dep = Deposito(100)
-```
-
-:::
-
-::: {.column width=43%}
-
-!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
-
-:::
-
-::::
-
----
-
-- Los objetos tienen existencia propia e independiente y permanecerán en la
-  memoria siempre que haya al menos una referencia que apunte a él.
-
-- De hecho, un objeto puede tener varias referencias apuntándole.
-
-- Por ejemplo, si hacemos:
-
-  ```python
-  dep1 = Deposito(100)
-  dep2 = dep1
-  ```
-
-  tendremos dos variables que contienen la misma referencia y, por tanto, **_se
-  refieren_ (o _apuntan_) al mismo objeto**.
-  
-- Es exactamente el concepto de **alias de variables** que estudiamos en
-  programación imperativa.
-
-- No olvidemos que las variables no contienen al objeto en sí mismo, sino una
-  referencia a éste.
-
----
-
-- Gráficamente, el caso anterior se puede representar de la siguiente forma:
-
-!IMGP(dos-referencias-iguales.png)(Dos variables (`dep1` y `dep2`) que *apuntan* al mismo objeto)(width=80%)(width=70%)
-
-### Recolección de basura
-
-- En el momento en que un objeto se vuelva inaccesible (cosa que ocurrirá
-  cuando no haya ninguna variable en el entorno que contenga una referencia a
-  dicho objeto), el intérprete lo marcará como *candidato para ser eliminado*.
-
-- Cada cierto tiempo, el intérprete activará el **recolector de basura**, que
-  es un componente que se encarga de liberar de la memoria a los objetos que
-  están marcados como candidatos para ser eliminados.
-
-- Por tanto, el programador Python no tiene que preocuparse de gestionar
-  manualmente la memoria ocupada por los objetos que componen su programa.
-
-- Por ejemplo:
-
-  ```python
-  dep1 = Deposito(100)  # crea el objeto y guarda una referencia a él en dep1
-  dep2 = dep1  # almacena en dep2 la referencia que hay en dep1
-               # (a partir de ahora, ambas variables apuntan al mismo objeto)
-  del dep1     # elimina una referencia pero el objeto aún tiene otra
-  del dep2     # elimina la otra referencia y ahora el objeto es inaccesible
-               # (cuando el recolector de basura se active, eliminará el objeto)
-  ```
-
 ## La antisimetría dato-objeto
 
 - Se da una curiosa contra-analogía entre los conceptos de dato y objeto:
@@ -955,7 +930,8 @@ dep = Deposito(100)
 - Para la clase `Despacho`, `retirar` es una función, mientras que para el
   objeto `dep` es un método.
 
-- Son cosas distintas, y el intérprete los trata de forma distinta.
+- Aunque son la misma cosa, el intérprete los trata de forma distinta según el
+  contexto.
 
 ## Definición de métodos
 

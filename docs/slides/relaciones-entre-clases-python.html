@@ -1082,16 +1082,6 @@
 </ul>
 </section>
 
-
-<section id="superclases-y-subclases" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Superclases y subclases</h2>
-
-</section>
-
-<section id="utilización-de-clases-heredadas" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Utilización de clases heredadas</h2>
-
-</section>
 </section>
 <section>
 <section id="polimorfismo" class="title-slide slide level1" data-number="3">
@@ -1325,12 +1315,122 @@
 
 <section id="sobreescritura-de-métodos" class="title-slide slide level2" data-number="3.4">
 <h2 data-number="3.4"><span class="header-section-number">3.4</span> Sobreescritura de métodos</h2>
+<ul>
+<li><p>Una subclase puede definir un método que tenga el mismo nombre que otro heredado desde una de sus superclases.</p></li>
+<li><p>En tal caso, decimos que la subclase está <strong>sobreescribiendo</strong> o <strong>redefiniendo</strong> el método.</p></li>
+<li><p>Como el nuevo método tiene el mismo nombre que el método heredado, <strong>le hará sombra</strong> a éste cuando se intente invocar desde una instancia de la subclase.</p></li>
+<li><p>Se puede decir que el mismo método tiene <strong>varias implementaciones distintas</strong> en clases diferentes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.1">
 
+<ul>
+<li><p>Por ejemplo, supongamos que la clase <code>Trabajador</code> define el método <code>despedir</code>.</p></li>
+<li><p>Todas las subclases de <code>Trabajador</code> heredarán el método:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Adiós&quot;</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span></code></pre></div></li>
+<li><p>Al despedir a un docente, éste dice adiós:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> pepe.despedir()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a>Adiós</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.2">
+
+<ul>
+<li><p>Ahora supongamos que creamos la clase <code>Directivo</code>, cuyas instancias son trabajadores que no se pueden despedir.</p></li>
+<li><p>Esos trabajadores responderán de una forma distinta cuando se invoque sobre ellos al método <code>despedir</code>.</p></li>
+<li><p>Para ello, redifinimos el método <code>despedir</code> en la clase <code>Directivo</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="kw">class</span> Directivo:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>   <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>       <span class="bu">print</span>(<span class="st">&quot;De aquí no me voy&quot;</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>   <span class="co"># ... resto de código</span></span></code></pre></div></li>
+<li><p>Y entonces, cuando llamamos a <code>despedir</code> sobre un objeto <code>Directivo</code>, el método que se ejecuta es el que está definido en la clase <code>Directivo</code>, no el que se ha heredado de <code>Trabajador</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> juan <span class="op">=</span> Directivo(<span class="st">&quot;Juan&quot;</span>, <span class="dv">250000</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> juan.despedir()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a>De aquí no me voy</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.3">
+
+<ul>
+<li><p>Esto ocurre así porque, según el orden de resolución de métodos, para encontrar un método desde una instancia de una clase, se busca primero en la misma clase y, si no se encuentra allí, se sigue buscando hacia arriba, como ya sabemos:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Trabajador.mro()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Directivo.mro()</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
+<li><p>Así, se encuentra primero el método <code>despedir</code> de la clase <code>Directivo</code> antes del método del mismo nombre que se hereda de la clase <code>Trabajador</code>. Por tanto, se usa el primero que encuentra y no sigue buscando.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.4">
+
+<ul>
+<li><p>Si ahora creamos una subclase de <code>Directivo</code> (por ejemplo, <code>Jefe</code>), y llamamos al método <code>despedir</code> sobre una instancia de esa subclase, ¿a qué método concreto llamará? ¿Al definido en <code>Directivo</code> o al de <code>Trabajador</code>?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="kw">class</span> Jefe(Directivo):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a>De aquí no me voy</span></code></pre></div></li>
+<li><p>Por la misma regla anterior, al buscar la implementación del método <code>despedir</code> se encuentra antes la definida en la clase <code>Directivo</code>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Jefe.mro()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Jefe&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a> <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.5">
+
+<ul>
+<li><p>En cambio, si el jefe define su propia implementación del método <code>despedir</code>, entonces ejecutaría esa:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="kw">class</span> Jefe(Directivo):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Despedido tú&quot;</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a>Despedido tú</span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="super" class="title-slide slide level2" data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span> <code>super</code></h2>
+<ul>
+<li><p>La función <code>super</code> nos permite acceder a los métodos heredados que se han visto <strong>sombreados</strong> por métodos redefinidos con su mismo nombre.</p></li>
+<li><p>Al llamar a la función, ésta devuelve un <em>objeto intermediario</em> («<em>proxy</em>») que <strong>delega</strong> las llamadas a métodos a una superclase de la clase actual.</p></li>
+<li><p>En caso de estar usando herencia simple, la expresión <code>super()</code> devuelve directamente un objeto intermediario de la superclase directa de la clase actual.</p></li>
+<li><p>En el caso de estar usando herencia múltiple, <code>super()</code> devolverá un objeto intermediario que será instancia de la clase que sigue a la clase actual en el MRO.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.1">
 
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="ss">f&quot;Soy </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="bu">super</span>().descripcion() <span class="op">+</span> <span class="ss">f&quot; y mi especialidad es </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>especialidad<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> manolo <span class="op">=</span> Trabajador(<span class="st">&quot;Manolo&quot;</span>, <span class="dv">3500</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> manolo.descripcion()</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a><span class="co">&#39;Soy Manolo&#39;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> pepe.set_especialidad(<span class="st">&quot;Informática&quot;</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> pepe.descripcion()</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a><span class="co">&#39;Soy Pepe y mi especialidad es Informática&#39;</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="sobreescritura-de-constructores" class="title-slide slide level2" data-number="3.6">
