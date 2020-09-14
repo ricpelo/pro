@@ -1416,12 +1416,260 @@
 
 <section id="sobreescritura-de-constructores" class="title-slide slide level2" data-number="3.6">
 <h2 data-number="3.6"><span class="header-section-number">3.6</span> Sobreescritura de constructores</h2>
+<ul>
+<li><p>Los constructores (métodos <code>__init__</code>) se pueden sobreescribir como cualquier otro método.</p></li>
+<li><p>En tal caso, lo normal y lógico es que el constructor de la subclase llame al constructor de la superclase para que ésta pueda inicializar los atributos que le corresponden (es decir, los que la subclase hereda de la superclase).</p></li>
+<li><p>Se trata de que cada clase se responsabilice de inicializar sus propios atributos, para garantizar que se cumplen sus invariantes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.1">
 
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a>        <span class="va">self</span>.set_salario(salario)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario):</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true"></a>        <span class="cf">assert</span> salario <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true"></a>        <span class="va">self</span>.salario <span class="op">=</span> salario</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario, especialidad):</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true"></a>        <span class="co"># Llama al constructor de la superclase</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true"></a>        <span class="co"># para que inicialice el nombre y el salario:</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(nombre, salario)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true"></a>        <span class="va">self</span>.set_especialidad(especialidad)</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true"></a>    <span class="kw">def</span> set_especialidad(<span class="va">self</span>, especialidad):</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true"></a>        <span class="va">self</span>.especialidad <span class="op">=</span> especialidad</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true"></a></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="clases-abstractas-y-métodos-abstractos" class="title-slide slide level2" data-number="3.7">
 <h2 data-number="3.7"><span class="header-section-number">3.7</span> Clases abstractas y métodos abstractos</h2>
+<!--
 
+- El propósito principal de una clase abstracta es el es servir de clase base a
+  partir de la cual derivar otras subclases con estructura y comportamiento
+  comunes.
+
+- Esos elementos comunes a todas las subclases formarían parte en la clase
+  abstracta.
+
+- Las clases abstractas nos permiten estructurar mejor nuestros modelos y
+  sirven como un mecanismo de compartición de código evitando las repeticiones
+  innecesarias.
+
+- Pero para eso nos puede servir cualquier clase. Entonces, ¿qué diferencia a
+  una clase abstracta de cualquier otra clase?
+
+-->
+<ul>
+<li><p>Una <strong>clase abstracta</strong> es aquella que no se puede instanciar porque contiene, al menos, un <em>método abstracto</em>.</p></li>
+<li><p>Los <strong>métodos abstractos</strong> son aquellos métodos definidos únicamente por su signatura: su nombre y sus parámetros. Por tanto, <strong>no tienen implementación</strong>, o sea, <strong>les falta el cuerpo</strong>.</p></li>
+<li><p>Cuando una clase abstracta define un método abstracto, está obligando a cualquier subclase suya que quiera poder ser instanciada a proporcionarle un cuerpo a ese método abstracto que ha heredado de la clase abstracta.</p></li>
+<li><p>Es decir: para poder instanciar una clase, ésta debe proporcionar un cuerpo a todos los métodos abstractos que haya heredado de todas sus superclases. De lo contrario, ella misma será considerada una clase abstracta y no se podrá instanciar.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.1">
+
+<ul>
+<li><p>Que un método sea abstracto y, por tanto, no tenga cuerpo, puede tener sentido en muchas situaciones.</p></li>
+<li><p>Por ejemplo, supongamos que tenemos figuras geométricas, las cuales tienen todas un ancho y un alto:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="kw">class</span> Triangulo:</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true"></a></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="kw">class</span> Rectangulo:</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true"></a></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.2">
+
+<ul>
+<li><p>Los métodos <code>set_ancho</code>, <code>set_alto</code>, <code>get_ancho</code> y <code>get_alto</code> son comunes a ambas clases, así que podríamos una superclase <code>Figura</code> que almacenara esos elementos comunes que luego las subclases recibirían mediante herencia:</p>
+<div class="columns">
+<div class="column" style="width:47%;">
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="kw">class</span> Figura:</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true"></a></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span></code></pre></div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:47%;">
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a>    <span class="co"># resto de código</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.3">
+
+<ul>
+<li><p>Ahora supongamos que queremos expresar el hecho de que todas las figuras tienen un área y exigir que así sea.</p></li>
+<li><p>Para ello, podemos definir un método <code>area</code> en la clase <code>Figura</code>, lo que garantizará que todas las figuras tendrán un área, independientemente de si son triángulos, rectángulos o de cualquier otro tipo.</p></li>
+<li><p>Pero, ¿cómo se calcula el área de una figura genérica? No es posible.</p></li>
+<li><p>Es decir: tenemos claro que las figuras deben responder al mensaje <code>area</code> pero no podemos implementar un cuerpo para ese método en la clase <code>Figura</code> porque el cálculo del área dependerá de la figura concreta que sea en cada caso:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="kw">class</span> Figura:</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.4">
+
+<ul>
+<li><p>En realidad, el cálculo del área lo deberíamos dejar en manos de cada figura concreta (triángulo, rectángulo, etc.).</p></li>
+<li><p>Definiremos el método <code>area</code> en la clase <code>Figura</code> como un método abstracto, y las subclases <code>Triangulo</code> y <code>Rectangulo</code> están obligadas a darle un cuerpo si quieren que se puedan crear instancias suyas.</p></li>
+<li><p>Para definir un método como abstracto en Python, se usa el decorador <code>@abstractmethod</code> del módulo <code>abc</code> y se marca el cuerpo con tres puntos suspensivos (<code>...</code>).</p></li>
+<li><p>Además de lo anterior, tendremos que declarar la clase <code>Figura</code> como abstracta, cosa que en Python se consigue haciendo que sea subclase (directa o indirecta) de una clase especial llamada <code>ABC</code> (de <em>Abstract Base Class</em>) del módulo <code>abc</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.5">
+
+<ul>
+<li><p>En Python se haría así:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod    <span class="co"># importamos del módulo abc</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a><span class="kw">class</span> Figura(ABC):                     <span class="co"># Figura es subclase de ABC</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true"></a></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true"></a>    <span class="at">@abstractmethod</span>                    <span class="co"># declaramos el método como abstracto</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true"></a>        ...                            <span class="co"># representa que no tiene cuerpo</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true"></a></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.6">
+
+<ul>
+<li><p>Si intentamos instanciar la clase <code>Figura</code>, obtenemos un mensaje de error:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura()</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
+<li><p>El mensaje de error dice que no se puede instanciar la clase abstracta <code>Figura</code> al contener el método abstracto <code>area</code>.</p></li>
+<li><p>Si ahora definimos las clases <code>Triangulo</code> y <code>Rectangulo</code> como subclases de <code>Figura</code>, esas clases heredarán el método abstracto <code>area</code> y, por tanto, no se podrán instanciar a menos que le proporcionen un cuerpo.</p></li>
+<li><p>Eso significa que también serán clases abstractas:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo()</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.7">
+
+<ul>
+<li><p>Para que las clases <code>Triangulo</code> y <code>Rectangulo</code> se puedan instanciar, basta con que sobreescriban el método abstracto <code>area</code> con un cuerpo adecuado para cada una:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto() <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true"></a>    <span class="co"># resto de código</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true"></a></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto()</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true"></a></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+</ul>
 </section>
 </section>
 <section id="herencia-vs.-composición" class="title-slide slide level1" data-number="4">

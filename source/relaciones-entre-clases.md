@@ -1681,7 +1681,339 @@ class Rectangulo:
 
 ## Sobreescritura de constructores
 
+- Los constructores (métodos `__init__`) se pueden sobreescribir como cualquier
+  otro método.
+
+- En tal caso, lo normal y lógico es que el constructor de la subclase llame al
+  constructor de la superclase para que ésta pueda inicializar los atributos
+  que le corresponden (es decir, los que la subclase hereda de la superclase).
+
+- Se trata de que cada clase se responsabilice de inicializar sus propios
+  atributos, para garantizar que se cumplen sus invariantes.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Trabajador:
+      def __init__(self, nombre, salario):
+          self.set_nombre(nombre)
+          self.set_salario(salario)
+
+      def set_nombre(self, nombre):
+          self.nombre = nombre
+
+      def set_salario(self, salario):
+          assert salario >= 0
+          self.salario = salario
+
+      # ... resto de código
+
+  class Docente(Trabajador):
+      def __init__(self, nombre, salario, especialidad):
+          # Llama al constructor de la superclase
+          # para que inicialice el nombre y el salario:
+          super().__init__(nombre, salario)
+          self.set_especialidad(especialidad)
+
+      def set_especialidad(self, especialidad):
+          self.especialidad = especialidad
+
+      # resto de código
+  ```
+
 ## Clases abstractas y métodos abstractos
+
+<!--
+
+- El propósito principal de una clase abstracta es el es servir de clase base a
+  partir de la cual derivar otras subclases con estructura y comportamiento
+  comunes.
+
+- Esos elementos comunes a todas las subclases formarían parte en la clase
+  abstracta.
+
+- Las clases abstractas nos permiten estructurar mejor nuestros modelos y
+  sirven como un mecanismo de compartición de código evitando las repeticiones
+  innecesarias.
+
+- Pero para eso nos puede servir cualquier clase. Entonces, ¿qué diferencia a
+  una clase abstracta de cualquier otra clase?
+
+-->
+
+- Una **clase abstracta** es aquella que no se puede instanciar porque
+  contiene, al menos, un _método abstracto_.
+
+- Los **métodos abstractos** son aquellos métodos definidos únicamente por su
+  signatura: su nombre y sus parámetros. Por tanto, **no tienen
+  implementación**, o sea, **les falta el cuerpo**.
+
+- Cuando una clase abstracta define un método abstracto, está obligando a
+  cualquier subclase suya que quiera poder ser instanciada a proporcionarle un
+  cuerpo a ese método abstracto que ha heredado de la clase abstracta.
+
+- Es decir: para poder instanciar una clase, ésta debe proporcionar un cuerpo a
+  todos los métodos abstractos que haya heredado de todas sus superclases. De
+  lo contrario, ella misma será considerada una clase abstracta y no se podrá
+  instanciar.
+
+---
+
+- Que un método sea abstracto y, por tanto, no tenga cuerpo, puede tener
+  sentido en muchas situaciones.
+
+- Por ejemplo, supongamos que tenemos figuras geométricas, las cuales tienen
+  todas un ancho y un alto:
+
+  :::: columns
+
+  ::: {.column width=45%}
+
+  ```python
+  class Triangulo:
+      def set_ancho(self, ancho):
+          self.ancho = ancho
+
+      def set_alto(self, alto):
+          self.alto = alto
+
+      def get_ancho(self):
+          return self.ancho
+
+      def get_alto(self):
+          return self.alto
+
+      def dibujar(self):
+          print("  *  ")
+          print(" *** ")
+          print("*****")
+
+      # resto de código
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=45%}
+
+  ```python
+  class Rectangulo:
+      def set_ancho(self, ancho):
+          self.ancho = ancho
+
+      def set_alto(self, alto):
+          self.alto = alto
+
+      def get_ancho(self):
+          return self.ancho
+
+      def get_alto(self):
+          return self.alto
+
+      def dibujar(self):
+          print("*****")
+          print("*****")
+          print("*****")
+
+      # resto de código
+  ```
+
+  :::
+
+  ::::
+
+---
+
+- Los métodos `set_ancho`, `set_alto`, `get_ancho` y `get_alto` son comunes a
+  ambas clases, así que podríamos una superclase `Figura` que almacenara esos
+  elementos comunes que luego las subclases recibirían mediante herencia:
+
+  ::: columns
+
+  ::: {.column width=47%}
+
+  ```python
+  class Figura:
+      def __init__(self, ancho, alto):
+          self.set_ancho(ancho)
+          self.set_alto(alto)
+
+      def set_ancho(self, ancho):
+          self.ancho = ancho
+
+      def set_alto(self, alto):
+          self.alto = alto
+
+      def get_ancho(self):
+          return self.ancho
+
+      def get_alto(self):
+          return self.alto
+  ```
+
+  :::
+
+  ::: {.column width=2%}
+
+  :::
+
+  ::: {.column width=47%}
+
+  ```python
+  class Triangulo(Figura):
+      def dibujar(self):
+          print("  *  ")
+          print(" *** ")
+          print("*****")
+
+      # resto de código
+
+  class Rectangulo(Figura):
+      def dibujar(self):
+          print("*****")
+          print("*****")
+          print("*****")
+
+      # resto de código
+  ```
+
+  :::
+
+  ::::
+
+---
+
+- Ahora supongamos que queremos expresar el hecho de que todas las figuras
+  tienen un área y exigir que así sea.
+
+- Para ello, podemos definir un método `area` en la clase `Figura`, lo que
+  garantizará que todas las figuras tendrán un área, independientemente de si
+  son triángulos, rectángulos o de cualquier otro tipo.
+
+- Pero, ¿cómo se calcula el área de una figura genérica? No es posible.
+
+- Es decir: tenemos claro que las figuras deben responder al mensaje `area`
+  pero no podemos implementar un cuerpo para ese método en la clase `Figura`
+  porque el cálculo del área dependerá de la figura concreta que sea en cada
+  caso:
+
+  ```python
+  class Figura:
+      def area(self):
+          # ¿Qué ponemos aquí?
+  ```
+
+---
+
+- En realidad, el cálculo del área lo deberíamos dejar en manos de cada figura
+  concreta (triángulo, rectángulo, etc.).
+
+- Definiremos el método `area` en la clase `Figura` como un método abstracto, y
+  las subclases `Triangulo` y `Rectangulo` están obligadas a darle un cuerpo si
+  quieren que se puedan crear instancias suyas.
+
+- Para definir un método como abstracto en Python, se usa el decorador
+  `@abstractmethod` del módulo `abc` y se marca el cuerpo con tres puntos
+  suspensivos (`...`).
+
+- Además de lo anterior, tendremos que declarar la clase `Figura` como
+  abstracta, cosa que en Python se consigue haciendo que sea subclase (directa
+  o indirecta) de una clase especial llamada `ABC` (de _Abstract Base Class_)
+  del módulo `abc`.
+
+---
+
+- En Python se haría así:
+
+  ```python
+  from abc import ABC, abstractmethod    # importamos del módulo abc
+
+  class Figura(ABC):                     # Figura es subclase de ABC
+      def __init__(self, ancho, alto):
+          self.set_ancho(ancho)
+          self.set_alto(alto)
+
+      def set_ancho(self, ancho):
+          self.ancho = ancho
+
+      def set_alto(self, alto):
+          self.alto = alto
+
+      def get_ancho(self):
+          return self.ancho
+
+      def get_alto(self):
+          return self.alto
+
+      @abstractmethod                    # declaramos el método como abstracto
+      def area(self):
+          ...                            # representa que no tiene cuerpo
+
+      # resto de código
+  ```
+
+---
+
+- Si intentamos instanciar la clase `Figura`, obtenemos un mensaje de error:
+
+  ```python
+  >>> fig = Figura()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: Can't instantiate abstract class Figura with abstract methods area
+  ```
+
+- El mensaje de error dice que no se puede instanciar la clase abstracta
+  `Figura` al contener el método abstracto `area`.
+
+- Si ahora definimos las clases `Triangulo` y `Rectangulo` como subclases de
+  `Figura`, esas clases heredarán el método abstracto `area` y, por tanto, no
+  se podrán instanciar a menos que le proporcionen un cuerpo.
+
+- Eso significa que también serán clases abstractas:
+
+  ```python
+  >>> tri = Triangulo()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: Can't instantiate abstract class Triangulo with abstract methods area
+
+  ```
+
+---
+
+- Para que las clases `Triangulo` y `Rectangulo` se puedan instanciar, basta
+  con que sobreescriban el método abstracto `area` con un cuerpo adecuado para
+  cada una:
+
+  ```python
+  class Triangulo(Figura):
+      def area(self):
+          return self.get_ancho() * self.get_alto() / 2
+
+      def dibujar(self):
+          print("  *  ")
+          print(" *** ")
+          print("*****")
+
+      # resto de código
+
+  class Rectangulo(Figura):
+      def area(self):
+          return self.get_ancho() * self.get_alto()
+
+      def dibujar(self):
+          print("*****")
+          print("*****")
+          print("*****")
+
+      # resto de código
+  ```
 
 # Herencia vs. composición
 
