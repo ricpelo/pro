@@ -740,19 +740,15 @@ $$
 
 ## Funciones
 
-- Las funciones son otra forma de representar operaciones.
-
 :::: columns
 
 ::: column
 
+- Las funciones son una forma de representar operaciones.
+
 - Matemáticamente, una **función** es una regla que **asocia** a cada elemento
-  de un conjunto (el conjunto *origen* o *dominio*) un único elemento de un
-  segundo conjunto (el conjunto *imagen* o *codominio*).
-
-- Se representa así: $$f: A \rightarrow B$$ $$x \rightarrow f(x)$$
-
-  donde $A$ es el conjunto *origen* y $B$ el conjunto *imagen*.
+  de un conjunto (el conjunto *origen* o *dominio*) **un único elemento** de un
+  segundo conjunto (el conjunto *imagen*, *rango* o *codominio*).
 
 :::
 
@@ -764,43 +760,132 @@ $$
 
 ::::
 
-- La expresión $f: A \rightarrow B$ es la **declaración** o **signatura** de la
+---
+
+- Matemáticamente, una función se representa mediante su **signatura**, que se
+  escribe así: $$f: A \rightarrow B$$ $$x \rightarrow f(x)$$
+
+  donde:
+
+  - $f$ es el **nombre** de la función.
+
+  - $A$ es el **conjunto _origen_**.
+
+  - $B$ es el **conjunto _imagen_**.
+
+  - $x$ es el **parámetro** de la función.
+
+- El _parámetro_ es una variable matemática que representa cualquier valor del
+  conjunto origen (puede tomar cualquier valor de ese conjunto).
+
+- La signatura de una función describe los elementos básicos que forman la
   función.
 
 ---
 
-- La **aplicación de la función $f$** sobre el elemento $x$ se representa por
-  $f(x)$ y corresponde al valor que la función asocia al elemento $x$ en el
-  conjunto imagen.
+- Si $f$ asocia un elemento $e$ del conjunto origen *A* con un elemento $r$ del
+  conjunto imagen *B*, podemos decir que:
 
-- En la aplicación $f(x)$, al valor $x$ se le llama **argumento** de la
-  función.
+  - $e \in A$ ($e$ pertenece a $A$).
 
-- Por tanto:
+  - $r \in B$ ($r$ pertenece a $B$).
 
-  - $f$ es la función.
+  - $f(e)$ es la **aplicación** de la función $f$ sobre el elemento $e$.
 
-  - $f(x)$ es la aplicación de $f$ sobre el valor $x$.
+  - $e$ es el **argumento** de la función $f$ en la aplicación $f(e)$.
 
-  - $x$ es el argumento de la función $f$.
+  - $r$ es la **imagen** de $e$ en la función $f$.
 
-- Por ejemplo:
+  - $r$ es el **resultado** de aplicar la función $f$ sobre el argumento $e$.
 
-  La función **valor absoluto**, que asocia a cada número entero ese mismo
-  número sin el signo (un número natural). Su signatura es:
+  - $f(e) = r$.
+
+  - $e$ **sustituye** al parámetro $x$ en la aplicación $f(e)$.
+
+  - $f$ **recibe** un argumento del conjunto $A$ y **devuelve** un resultado
+    del conjunto $B$.
+
+#### Ejemplo
+
+- La función **doble**, que asocia a cada número real el doble de ese número,
+  tiene la siguiente signatura:
+
+  $$doble: \mathbb{R} \rightarrow \mathbb{R}$$
+  $$x \rightarrow doble(x)$$
+
+  lo que nos dice que:
+
+  - La función se llama $doble$.
+
+  - Su conjunto origen es el conjunto de los números reales ($\mathbb{R}$).
+
+  - Su conjunto imagen es el mismo conjunto ($\mathbb{R}$).
+
+  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
+    $\mathbb{R}$.
+
+- Algebraicamente, se puede definir de la siguiente forma (entre otras):
+
+  $$doble(x) = 2\cdot{}x$$
+
+---
+
+- $doble(3)$ representa la aplicación de la función $doble$ sobre su argumento
+  $3$.
+
+- Para calcular cuál es el doble de $3$, sustituimos el parámetro $x$ por el
+  argumento $3$ en la definición de $doble(x)$, lo que nos da:
+
+  $$doble(x) = 2\cdot{}x$$
+  $$doble(3) = 2\cdot{}3 = 6$$
+
+- Sabiendo ahora que el doble de $3$ es $6$, podemos decir que:
+
+  - $3$ es el argumento de $doble$ en la aplicación $doble(3)$.
+
+  - $6$ es la imagen de $3$ en la función $doble$.
+
+  - $6$ es el resultado de aplicar $doble$ sobre el argumento $3$.
+
+#### Ejemplo
+
+- La función **valor absoluto**, que asocia a cada número entero ese mismo
+  número sin el signo (un número natural), tiene la siguiente signatura es:
 
   $$abs: \mathbb{Z} \rightarrow \mathbb{N}$$
   $$x \rightarrow abs(x)$$
 
-  Cuando aplicamos la función $abs$ al valor $-35$ obtenemos:
-  
-  $$abs(-35) = 35$$
+  lo que nos dice que:
 
-  El valor $35$ es el **resultado** de aplicar la función $abs$ al argumento
+  - La función se llama $abs$.
+
+  - Su conjunto origen es el conjunto de los números enteros ($\mathbb{Z}$).
+
+  - Su conjunto imagen es el conjunto de los números naturales ($\mathbb{N}$).
+
+  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
+    $\mathbb{Z}$.
+
+- También se puede decir que la función $abs$ **recibe** un argumento de tipo
+  entero y **devuelve** un resultado de tipo natural.
+
+---
+
+- $abs(-35)$ representa la aplicación de la función $abs$ sobre su argumento
   $-35$.
 
-- Otra forma de expresarlo es decir que la función $abs$ **recibe** un
-  argumento de tipo entero y **devuelve** un resultado de tipo natural.
+- No tenemos una definición algebraica de la función $abs$, pero no la
+  necesitamos para saber que la imagen de $-35$ en la función $abs$ es $35$.
+
+  $$abs(-35) = 35$$
+
+- Sabiendo eso, podemos decir que:
+
+  - $-35$ es el argumento de $abs$ en la aplicación $abs(-35)$.
+
+  - $35$ es la imagen de $-35$ en la función $abs$.
+
+  - $-35$ es el resultado de aplicar $abs$ sobre el argumento $-35$.
 
 ---
 
@@ -825,22 +910,46 @@ $$
   >>> 
   ```
 
----
+#### Ejemplo
 
-- Otro ejemplo:
+- La función **longitud**, que asocia a cada cadena su longitud (la _longitud_
+  de una cadena es el número de caracteres que contiene), tiene la siguiente
+  signatura:
 
   $$longitud: \mathbb{C} \rightarrow \mathbb{N}$$
   $$x \rightarrow longitud(x)$$
  
-- La función $longitud$ asocia a cada cadena su longitud (la *longitud* de una
-  cadena es el número de caracteres que contiene).
+  lo que nos dice que:
+
+  - La función se llama $longitud$.
+
+  - Su conjunto origen es el conjunto de las cadenas de caracteres
+    ($\mathbb{C}$).
+
+  - Su conjunto imagen es el conjunto de los números naturales ($\mathbb{N}$).
+
+  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
+    $\mathbb{C}$.
 
 - También puede decirse que devuelve la longitud de la cadena que recibe como
   argumento.
 
-- Así:
+---
+
+- $longitud("hola")$ representa la aplicación de la función $longitud$ sobre la
+  cadena $"hola"$.
+
+- Sabemos que la cadena $"hola"$ tiene cuatro caracteres:
 
   $$longitud("hola") = 4$$
+
+- Sabiendo eso, podemos decir que:
+
+  - $"hola"$ es el argumento de $longitud$ en la aplicación $longitud("hola")$.
+
+  - $4$ es la imagen de $"hola"$ en la función $longitud$.
+
+  - $4$ es el resultado de aplicar $longitud$ sobre el argumento $"hola"$.
 
 - En Python, la función $longitud$ se llama `len`:
 
@@ -868,62 +977,149 @@ $$
   función_», «_se **invoca** a la función_» o incluso «_se **ejecuta** la
   función_» que decir «*se aplica la función*».
 
-### Funciones con varios argumentos
+### Funciones con varios parámetros
 
-- El concepto de función se puede generalizar para obtener **funciones con más
-  de un argumento**.
+- El **producto cartesiano** de dos conjuntos $A$ y $B$, que se representa como
+  $A\times{}B$, se define como el conjunto de todas las posibles parejas que se
+  pueden formar emparejando elementos de $A$ con elementos de $B$.
 
-- Por ejemplo, podemos definir una función $max$ que asocie, a cada par de
-  números enteros, el máximo de los dos:
-
-  $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
-  $$(x,y) \rightarrow max(x,y)$$
-
-  También podemos decir que $max$ es una función que recibe dos argumentos
-  enteros y devuelve un entero.
-
-- Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
-  sería $13$:
-
-  $$max(13, -25) = 13$$
-
-- Al igual que ocurre con los operadores, la **aridad de una función** es el
-  número de argumentos que necesita la función.
-
----
-
-- El símbolo $\times$ representa el **producto cartesiano** de dos conjuntos,
-  y devuelve todas las parejas que se pueden formar emparejando elementos del
-  primer conjunto con elementos del segundo conjunto.
+- Este concepto es fundamental en **bases de datos**.
 
 - Por ejemplo, si tenemos los conjuntos $A = \{1, 2, 3\}$ y $B = \{a, b\}$, el
   producto cartesiano $A \times B$ resultaría:
 
   $$A \times B = \big\{ (1, a), (1, b), (2, a), (2, b), (3, a), (3, b) \big\}$$
 
-- Este concepto es fundamental en **bases de datos**.
+- El orden es muy importante, ya que no es lo mismo $A\times{}B$ que
+  $B\times{}A$:
+
+  $$B \times A = \big\{ (a, 1), (a, 2), (a, 3), (b, 1), (b, 2), (b, 3) \big\}$$
 
 ---
 
-- Otro ejemplo de función con varios argumentos:
+- Si ese concepto lo generalizamos a más de dos conjuntos, podemos hacer el
+  producto cartesiano de tantos conjuntos como sea necesario.
 
-  $$pow: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}$$
-  $$(x,y) \rightarrow pow(x,y)$$
- 
+- Por ejemplo, si además de $A$ y $B$ tenemos $C = \{@, \#\}$, el producto
+  cartesiano $A \times B \times C$ resultaría:
+
+  $$A \times B \times C = \\ \big\{ (1, a, @), (1, a, \#), (1, b, @), (1, b, \#), \\
+                                 (2, a, @), (2, a, \#), (2, b, @), (2, b, \#), \\
+                                 (3, a, @), (3, a, \#), (3, b, @), (3, b, \#) \big\}$$
+
+- El producto cartesiano estaría formado por tríos en lugar de parejas.
+
+- En general, a los elementos de un producto cartesiano se los denomina
+  _tuplas_.
+
+---
+
+- El concepto de función se puede generalizar para obtener **funciones con más
+  de un parámetro**.
+
+- Recordemos que un parámetro puede tomar valores de un conjunto.
+
+- Cuando hay más de un parámetro, cada parámetro puede tomar valores de un
+  conjunto distinto.
+
+- El **dominio** de una función con varios parámetros es el **producto
+  cartesiano** de los conjuntos de los que pueden tomar valores todos sus
+  parámetros.
+
+- Como el producto cartesiano depende del orden, **el orden de los parámetros
+  es importante, así como el orden de los argumentos** en las llamadas a la
+  función.
+
+- Al igual que ocurre con los operadores, la **aridad de una función** es el
+  número de parámetros que posee la función, o lo que es lo mismo, el número de
+  argumentos que necesita una llamada a la función.
+
+#### Ejemplo
+
+- Podemos definir una función $max$ que asocie, a cada par de números enteros,
+  el máximo de los dos:
+
+  $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
+  $$(x,y) \rightarrow max(x,y)$$
+
+- En este caso podemos decir que:
+
+  - La función se llama $max$.
+
+  - Tiene dos parámetros:
+
+    - El primero es $x \in \mathbb{Z}$.
+
+    - El segundo es $y \in \mathbb{Z}$.
+
+  - El dominio de la función es el de las parejas de números enteros.
+
+  - El rango es el conjunto de los números enteros ($\mathbb{Z}$).
+
+  - $max$ es una función que recibe dos argumentos enteros y devuelve un
+    entero.
+
+---
+
+- Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
+  sería $13$:
+
+  $$max(13, -25) = 13$$
+
+- En este caso, tenemos que:
+
+  - $13$ es el primer argumento y sustituye al parámetro $x$.
+
+  - $-25$ es el segundo argumento y sustituye al parámetro $y$.
+
+  - $13$ es el resultado de aplicar la función $max$ a los argumentos $13$ y
+    $-25$, en este orden.
+
+#### Ejemplo
+
 - La función $pow$ recibe dos números (el primero es la *base* y el segundo es
   el *exponente*) y devuelve el resultado de elevar la base al exponente. Es
   decir, $pow(x,y) = x^y$.
 
-- Por ejemplo, al aplicar la función $pow$ sobre los valores $3$ y $2$,
-  obtenemos:
+  $$pow: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}$$
+  $$(x,y) \rightarrow pow(x,y)$$
+ 
+- En este caso podemos decir que:
 
-  $$pow(3, 2) = 9$$
+  - La función se llama $pow$.
 
-- Es importante respetar el *orden* de los argumentos. El primero siempre es la
-  base y el segundo siempre es el exponente. Si los pasamos al revés,
+  - Tiene dos parámetros:
+
+    - El primero es $x \in \mathbb{R}$.
+
+    - El segundo es $y \in \mathbb{R}$.
+
+  - El dominio de la función es el de las parejas de números reales.
+
+  - El rango es el conjunto de los números reales ($\mathbb{R}$).
+
+  - $pow$ es una función que recibe dos argumentos reales y devuelve un real.
+
+---
+
+- Al aplicar la función $pow$ sobre los valores $3$ y $2$, obtenemos:
+
+  $$pow(3, 2) = 3^2 = 9$$
+
+- En este caso, tenemos que:
+
+  - $3$ es el primer argumento y sustituye al parámetro $x$.
+
+  - $2$ es el segundo argumento y sustituye al parámetro $y$.
+
+  - $9$ es el resultado de aplicar la función $pow$ a los argumentos $3$ y
+    $2$, en este orden.
+
+- Es importante **respetar el orden** de los argumentos. El primero siempre es
+  la base y el segundo siempre es el exponente. Si los pasamos al revés,
   tendríamos un resultado diferente:
 
-  $$pow(2, 3) = 8$$
+  $$pow(2, 3) = 2^3 = 8$$
 
 ---
 
@@ -946,25 +1142,49 @@ $$
 
 - En ambos casos, la operación es exactamente la misma.
 
-<!--
+#### Ejemplo
 
-- Otro ejemplo de función con varios argumentos:
+- La función $repite$ recibe una cadena y un número natural (en ese orden), y
+  devuelve otra cadena formada repitiendo la cadena original tantas veces como
+  indique el número. Su signatura es:
 
   $$repite: \mathbb{C} \times \mathbb{N} \rightarrow \mathbb{C}$$
-  $$(x,y) \rightarrow repite(x,y)$$
+  $$(c,v) \rightarrow repite(c,v)$$
  
-- La función $repite$ recibe una cadena y un número natural, y devuelve otra
-  cadena formada repitiendo la cadena original (su primer argumento) tantas
-  veces como indique el número (su segundo argumento).
+- La función se llama $repite$.
+
+- Tiene dos parámetros:
+
+  - El primero es $c \in \mathbb{C}$.
+
+  - El segundo es $v \in \mathbb{N}$.
+
+- El dominio de la función es el de las parejas de elementos donde el primero
+  es una cadena y el segundo es un número entero.
+
+- El rango es el conjunto de las cadenas ($\mathbb{C}$).
+
+- $repite$ es una función que recibe una cadena y un entero (en ese orden) y
+  devuelve una cadena.
+
+---
 
 - Por ejemplo, al aplicar la función $repite$ sobre la cadena $"hola"$ y el
-  número 3, obtenemos:
+  número $3$, obtenemos:
 
   $$repite("hola", 3) = "holaholahola"$$
 
-- Es importante respetar el *orden* de los argumentos. El primero
+- En este caso, tenemos que:
 
--->
+  - $"hola"$ es el primer argumento y sustituye al parámetro $c$.
+
+  - $3$ es el segundo argumento y sustituye al parámetro $v$.
+
+  - $"holaholahola"$ es el resultado de aplicar la función $repite$ a los
+    argumentos $"hola"$ y $3$, en este orden.
+
+- Es importante respetar el *orden* de los argumentos. Si intentamos calcular
+  el resultado de $repite(3, "hola")$, no sería correcto.
 
 ### Evaluación de expresiones con funciones
 
