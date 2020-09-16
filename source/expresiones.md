@@ -167,15 +167,18 @@ que denominamos el **valor** de la expresión.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
-                   | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
-                   | !NT(literal)
-                   | !NT(llamada_función)
-                   | !T(identificador)
+  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre)
+!NT(operación) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
+                     | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
+                     | !NT(llamada_función)
+                     | !NT(llamada_método)
+!NT(nombre) ::= !T(identificador)
 !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
 !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
-!NT(llamada_función) ::= !T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_función) ::= !NT(nombre_función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(nombre_función) ::= !T(identificador)
+!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -465,6 +468,26 @@ endwhile (no)
 
 - Finalmente, las cadenas se pueden escribir con comillas simples (`'`) o
   dobles (`"`), pero la forma normal de una cadena siempre usa las simples.
+
+## Identificadores
+
+- Los **identificadores** son nombres que representan valores u operaciones.
+
+- Por ejemplo, el nombre de una función es un identificador porque representa a
+  la función.
+
+- Los identificadores deben cumplir unas reglas sintácticas que dependen del
+  lenguaje de programación, pero que generalmente se resumen en que:
+
+  - Pueden estar formados por combinaciones de letras, dígitos y algunos
+    caracteres especiales como `_` (por ejemplo, `salida_principal23`).
+
+  - No pueden empezar con un dígito, ya que eso los confundiría con un número
+    (por ejemplo, `9abc`).
+
+  - La mayoría de los lenguajes distinguen las mayúsculas de las minúsculas,
+    por lo que `cantidad`, `Cantidad` y `CANTIDAD` son normalmente
+    identificadores distintos (así ocurre en Python y Java).
 
 # Operaciones
 
@@ -762,135 +785,87 @@ $$
 
 ---
 
-- Matemáticamente, una función se representa mediante su **signatura**, que se
-  escribe así: $$f: A \rightarrow B$$ $$x \rightarrow f(x)$$
+- En Programación, el concepto de _función_ es similar al de una función
+  matemática, aunque con su propia terminología y funcionamiento.
 
-  donde:
+- En Programación, las funciones son operaciones que actúan sobre unos datos de
+  entrada llamados **argumentos** y que **devuelven un resultado** que depende
+  de la operación a realizar y de los datos recibidos como argumentos.
 
-  - $f$ es el **nombre** de la función.
+- Por tanto, los argumentos para las funciones son como los operandos de los
+  operadores.
 
-  - $A$ es el **conjunto _origen_**.
+- Las funciones se definen mediante su **signatura**, la cual informa de:
 
-  - $B$ es el **conjunto _imagen_**.
+  - El nombre de la función.
 
-  - $x$ es el **parámetro** de la función.
+  - El número, tipo y posición de sus parámetros.
 
-- El _parámetro_ es una variable matemática que representa cualquier valor del
-  conjunto origen (puede tomar cualquier valor de ese conjunto).
-
-- La signatura de una función describe los elementos básicos que forman la
-  función.
-
----
-
-- Si $f$ asocia un elemento $e$ del conjunto origen *A* con un elemento $r$ del
-  conjunto imagen *B*, podemos decir que:
-
-  - $e \in A$ ($e$ pertenece a $A$).
-
-  - $r \in B$ ($r$ pertenece a $B$).
-
-  - $f(e)$ es la **aplicación** de la función $f$ sobre el elemento $e$.
-
-  - $e$ es el **argumento** de la función $f$ en la aplicación $f(e)$.
-
-  - $r$ es la **imagen** de $e$ en la función $f$.
-
-  - $r$ es el **resultado** de aplicar la función $f$ sobre el argumento $e$.
-
-  - $f(e) = r$.
-
-  - $e$ **sustituye** al parámetro $x$ en la aplicación $f(e)$.
-
-  - $f$ **recibe** un argumento del conjunto $A$ y **devuelve** un resultado
-    del conjunto $B$.
-
-#### Ejemplo
-
-- La función **doble**, que asocia a cada número real el doble de ese número,
-  tiene la siguiente signatura:
-
-  $$doble: \mathbb{R} \rightarrow \mathbb{R}$$
-  $$x \rightarrow doble(x)$$
-
-  lo que nos dice que:
-
-  - La función se llama $doble$.
-
-  - Su conjunto origen es el conjunto de los números reales ($\mathbb{R}$).
-
-  - Su conjunto imagen es el mismo conjunto ($\mathbb{R}$).
-
-  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
-    $\mathbb{R}$.
-
-- Algebraicamente, se puede definir de la siguiente forma (entre otras):
-
-  $$doble(x) = 2\cdot{}x$$
+  - El tipo del resultado que devuelve.
 
 ---
 
-- $doble(3)$ representa la aplicación de la función $doble$ sobre su argumento
-  $3$.
+- Por ejemplo, la función `abs` está predefinida en Python y tiene la siguiente
+  signatura:
 
-- Para calcular cuál es el doble de $3$, sustituimos el parámetro $x$ por el
-  argumento $3$ en la definición de $doble(x)$, lo que nos da:
+  `abs(`$x$`: Number)->Number`
 
-  $$doble(x) = 2\cdot{}x$$
-  $$doble(3) = 2\cdot{}3 = 6$$
+- Esa signatura nos dice que:
 
-- Sabiendo ahora que el doble de $3$ es $6$, podemos decir que:
+  - La función se llama `abs`.
 
-  - $3$ es el argumento de $doble$ en la aplicación $doble(3)$.
+  - Recibe un único parámetro llamado `x` que puede tomar cualquier valor
+    numérico.
 
-  - $6$ es la imagen de $3$ en la función $doble$.
-
-  - $6$ es el resultado de aplicar $doble$ sobre el argumento $3$.
-
-#### Ejemplo
-
-- La función **valor absoluto**, que asocia a cada número entero ese mismo
-  número sin el signo (un número natural), tiene la siguiente signatura es:
-
-  $$abs: \mathbb{Z} \rightarrow \mathbb{N}$$
-  $$x \rightarrow abs(x)$$
-
-  lo que nos dice que:
-
-  - La función se llama $abs$.
-
-  - Su conjunto origen es el conjunto de los números enteros ($\mathbb{Z}$).
-
-  - Su conjunto imagen es el conjunto de los números naturales ($\mathbb{N}$).
-
-  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
-    $\mathbb{Z}$.
-
-- También se puede decir que la función $abs$ **recibe** un argumento de tipo
-  entero y **devuelve** un resultado de tipo natural.
+  - Devuelve un resultado numérico.
 
 ---
 
-- $abs(-35)$ representa la aplicación de la función $abs$ sobre su argumento
-  $-35$.
+- La **aplicación de una función a unos argumentos** es una expresión mediante
+  la cual solicitamos la realización de la operación correspondiente pasándole
+  en forma de argumentos los datos sobre los que deseamos que actúe la
+  operación.
 
-- No tenemos una definición algebraica de la función $abs$, pero no la
-  necesitamos para saber que la imagen de $-35$ en la función $abs$ es $35$.
+- A la aplicación de una función también se la llama **llamada** o
+  **invocación** de la función.
 
-  $$abs(-35) = 35$$
+- En la llamada a la función, los argumentos **sustituyen** a los parámetros
+  según el orden en el que aparecen en la llamada, haciendo corresponder el
+  primer argumento con el primer parámetro, el segundo con el segundo y así
+  sucesivamente.
 
-- Sabiendo eso, podemos decir que:
+- Dicho de otra forma: los parámetros toman los valores de los argumentos
+  correspondientes.
 
-  - $-35$ es el argumento de $abs$ en la aplicación $abs(-35)$.
-
-  - $35$ es la imagen de $-35$ en la función $abs$.
-
-  - $-35$ es el resultado de aplicar $abs$ sobre el argumento $-35$.
+- Debe haber tantos argumentos como parámetros, ni más ni menos.
 
 ---
 
-- La función $abs$ se puede usar directamente en Python ya que una función
-  **predefinida** en el lenguaje. Por ejemplo:
+- Sintácticamente, la llamada a una función tiene esta forma:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(llamada_función) ::= !NT(nombre_función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(nombre_función) ::= !T(identificador)
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, si queremos calcular el valor absoluto del número $-35$, podemos
+  llamar a la función `abs` pasándole el `-35` como su argumento:
+
+  `abs(-35)`
+
+- El argumento `-35` se pasará a la función a través de su parámetro `x`. Por
+  tanto, se puede decir que, en esta llamada, el parámetro `x` toma el valor
+  `-35`.
+
+- El resultado de la llamada a la función será el valor que devuelve. En este
+  caso, el valor `35`.
+
+---
+
+- Como la función `abs` está **predefinida** en Python, se puede usar
+  directamente. Por ejemplo:
 
   ```python
   >>> abs(-35)
@@ -910,221 +885,46 @@ $$
   >>> 
   ```
 
-#### Ejemplo
-
-- La función **longitud**, que asocia a cada cadena su longitud (la _longitud_
-  de una cadena es el número de caracteres que contiene), tiene la siguiente
-  signatura:
-
-  $$longitud: \mathbb{C} \rightarrow \mathbb{N}$$
-  $$x \rightarrow longitud(x)$$
- 
-  lo que nos dice que:
-
-  - La función se llama $longitud$.
-
-  - Su conjunto origen es el conjunto de las cadenas de caracteres
-    ($\mathbb{C}$).
-
-  - Su conjunto imagen es el conjunto de los números naturales ($\mathbb{N}$).
-
-  - Tiene un parámetro llamado $x$ que puede tomar valores del conjunto
-    $\mathbb{C}$.
-
-- También puede decirse que devuelve la longitud de la cadena que recibe como
-  argumento.
-
 ---
 
-- $longitud("hola")$ representa la aplicación de la función $longitud$ sobre la
-  cadena $"hola"$.
+- Otro ejemplo es la función `len`, que devuelve la longitud de una cadena, es
+  decir, el número de caracteres que contiene. Su signatura podría ser:
 
-- Sabemos que la cadena $"hola"$ tiene cuatro caracteres:
+  `len(`$obj$`: str)->int`
 
-  $$longitud("hola") = 4$$
-
-- Sabiendo eso, podemos decir que:
-
-  - $"hola"$ es el argumento de $longitud$ en la aplicación $longitud("hola")$.
-
-  - $4$ es la imagen de $"hola"$ en la función $longitud$.
-
-  - $4$ es el resultado de aplicar $longitud$ sobre el argumento $"hola"$.
-
-- En Python, la función $longitud$ se llama `len`:
+- Un ejemplo de llamada a la función `len`:
 
   ```python
   >>> len("hola")
   4
   ```
 
----
+- Siempre hay que cumplir la signatura de la función. Por tanto, debemos
+  pasarle un único argumento de tipo cadena. Si le pasamos más argumentos o
+  bien le pasamos un argumento de otro tipo, dará error:
 
-- En Programación, a la aplicación de una función también se le denomina
-  **invocación** o **llamada** a la función.
+  ```python
+  >>> len(23)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: object of type 'int' has no len()
+  >>> len("hola", "pepe")
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: len() takes exactly one argument (2 given)
+  ```
 
-- Por ejemplo, cuando hacemos `abs(-35)` podemos decir que:
-
-«estamos *aplicando* la función `abs` _al argumento_ `-35`», o
-
-«estamos *aplicando* la función `abs` _sobre el argumento_ `-35`», o
-
-«estamos *llamando* a la función `abs` (con el argumento `-35`)», o
-
-«estamos *invocando* a la función `abs` (con el argumento `-35`)».
-
-- De hecho, en Programación es mucho más común decir «_se **llama** a la
-  función_», «_se **invoca** a la función_» o incluso «_se **ejecuta** la
-  función_» que decir «*se aplica la función*».
-
-### Funciones con varios parámetros
-
-- El **producto cartesiano** de dos conjuntos $A$ y $B$, que se representa como
-  $A\times{}B$, se define como el conjunto de todas las posibles parejas que se
-  pueden formar emparejando elementos de $A$ con elementos de $B$.
-
-- Este concepto es fundamental en **bases de datos**.
-
-- Por ejemplo, si tenemos los conjuntos $A = \{1, 2, 3\}$ y $B = \{a, b\}$, el
-  producto cartesiano $A \times B$ resultaría:
-
-  $$A \times B = \big\{ (1, a), (1, b), (2, a), (2, b), (3, a), (3, b) \big\}$$
-
-- El orden es muy importante, ya que no es lo mismo $A\times{}B$ que
-  $B\times{}A$:
-
-  $$B \times A = \big\{ (a, 1), (a, 2), (a, 3), (b, 1), (b, 2), (b, 3) \big\}$$
+- Esto es común a cualquier tipo de operación, tenga la forma que tenga. Por
+  ejemplo, con los operadores también hay que cumplirlo.
 
 ---
 
-- Si ese concepto lo generalizamos a más de dos conjuntos, podemos hacer el
-  producto cartesiano de tantos conjuntos como sea necesario.
+- Otro ejemplo es la función `pow`, que realiza la operación de elevar un
+  número a la potencia de otro. Su signatura es:
 
-- Por ejemplo, si además de $A$ y $B$ tenemos $C = \{@, \#\}$, el producto
-  cartesiano $A \times B \times C$ resultaría:
+  `pow(`$base$`: Number,` ` `$exp$`: Number)->Number`
 
-  $$A \times B \times C = \\ \big\{ (1, a, @), (1, a, \#), (1, b, @), (1, b, \#), \\
-                                 (2, a, @), (2, a, \#), (2, b, @), (2, b, \#), \\
-                                 (3, a, @), (3, a, \#), (3, b, @), (3, b, \#) \big\}$$
-
-- El producto cartesiano estaría formado por tríos en lugar de parejas.
-
-- En general, a los elementos de un producto cartesiano se los denomina
-  _tuplas_.
-
----
-
-- El concepto de función se puede generalizar para obtener **funciones con más
-  de un parámetro**.
-
-- Recordemos que un parámetro puede tomar valores de un conjunto.
-
-- Cuando hay más de un parámetro, cada parámetro puede tomar valores de un
-  conjunto distinto.
-
-- El **dominio** de una función con varios parámetros es el **producto
-  cartesiano** de los conjuntos de los que pueden tomar valores todos sus
-  parámetros.
-
-- Como el producto cartesiano depende del orden, **el orden de los parámetros
-  es importante, así como el orden de los argumentos** en las llamadas a la
-  función.
-
-- Al igual que ocurre con los operadores, la **aridad de una función** es el
-  número de parámetros que posee la función, o lo que es lo mismo, el número de
-  argumentos que necesita una llamada a la función.
-
-#### Ejemplo
-
-- Podemos definir una función $max$ que asocie, a cada par de números enteros,
-  el máximo de los dos:
-
-  $$max: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$$
-  $$(x,y) \rightarrow max(x,y)$$
-
-- En este caso podemos decir que:
-
-  - La función se llama $max$.
-
-  - Tiene dos parámetros:
-
-    - El primero es $x \in \mathbb{Z}$.
-
-    - El segundo es $y \in \mathbb{Z}$.
-
-  - El dominio de la función es el de las parejas de números enteros.
-
-  - El rango es el conjunto de los números enteros ($\mathbb{Z}$).
-
-  - $max$ es una función que recibe dos argumentos enteros y devuelve un
-    entero.
-
----
-
-- Si aplicamos la función $max$ a los argumentos $13$ y $-25$, el resultado
-  sería $13$:
-
-  $$max(13, -25) = 13$$
-
-- En este caso, tenemos que:
-
-  - $13$ es el primer argumento y sustituye al parámetro $x$.
-
-  - $-25$ es el segundo argumento y sustituye al parámetro $y$.
-
-  - $13$ es el resultado de aplicar la función $max$ a los argumentos $13$ y
-    $-25$, en este orden.
-
-#### Ejemplo
-
-- La función $pow$ recibe dos números (el primero es la *base* y el segundo es
-  el *exponente*) y devuelve el resultado de elevar la base al exponente. Es
-  decir, $pow(x,y) = x^y$.
-
-  $$pow: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}$$
-  $$(x,y) \rightarrow pow(x,y)$$
- 
-- En este caso podemos decir que:
-
-  - La función se llama $pow$.
-
-  - Tiene dos parámetros:
-
-    - El primero es $x \in \mathbb{R}$.
-
-    - El segundo es $y \in \mathbb{R}$.
-
-  - El dominio de la función es el de las parejas de números reales.
-
-  - El rango es el conjunto de los números reales ($\mathbb{R}$).
-
-  - $pow$ es una función que recibe dos argumentos reales y devuelve un real.
-
----
-
-- Al aplicar la función $pow$ sobre los valores $3$ y $2$, obtenemos:
-
-  $$pow(3, 2) = 3^2 = 9$$
-
-- En este caso, tenemos que:
-
-  - $3$ es el primer argumento y sustituye al parámetro $x$.
-
-  - $2$ es el segundo argumento y sustituye al parámetro $y$.
-
-  - $9$ es el resultado de aplicar la función $pow$ a los argumentos $3$ y
-    $2$, en este orden.
-
-- Es importante **respetar el orden** de los argumentos. El primero siempre es
-  la base y el segundo siempre es el exponente. Si los pasamos al revés,
-  tendríamos un resultado diferente:
-
-  $$pow(2, 3) = 2^3 = 8$$
-
----
-
-- Curiosamente, la operación de elevar un número a la potencia del otro existe
-  en Python de dos formas diferentes:
+  Curiosamente, la misma operación existe en Python de dos formas diferentes:
 
   - Como operador (`**`):
 
@@ -1140,51 +940,53 @@ $$
     8
     ```
 
-- En ambos casos, la operación es exactamente la misma.
-
-#### Ejemplo
-
-- La función $repite$ recibe una cadena y un número natural (en ese orden), y
-  devuelve otra cadena formada repitiendo la cadena original tantas veces como
-  indique el número. Su signatura es:
-
-  $$repite: \mathbb{C} \times \mathbb{N} \rightarrow \mathbb{C}$$
-  $$(c,v) \rightarrow repite(c,v)$$
- 
-- La función se llama $repite$.
-
-- Tiene dos parámetros:
-
-  - El primero es $c \in \mathbb{C}$.
-
-  - El segundo es $v \in \mathbb{N}$.
-
-- El dominio de la función es el de las parejas de elementos donde el primero
-  es una cadena y el segundo es un número entero.
-
-- El rango es el conjunto de las cadenas ($\mathbb{C}$).
-
-- $repite$ es una función que recibe una cadena y un entero (en ese orden) y
-  devuelve una cadena.
+  - En ambos casos, la operación es exactamente la misma.
 
 ---
 
-- Por ejemplo, al aplicar la función $repite$ sobre la cadena $"hola"$ y el
-  número $3$, obtenemos:
+- Al llamar a la función `pow` hay que tener en cuenta que tiene dos parámetros.
 
-  $$repite("hola", 3) = "holaholahola"$$
+- Por tanto, hay que recordar que importa el orden al pasar los argumentos en
+  la llamada a la función.
 
-- En este caso, tenemos que:
+- El primer argumento se pasaría al primer parámetro ($base$) y el segundo se
+  pasaría al segundo ($exponente$).
 
-  - $"hola"$ es el primer argumento y sustituye al parámetro $c$.
+- Por tanto, el primer argumento debe ser la base y el segundo debe ser el
+  exponente, y no al revés.
 
-  - $3$ es el segundo argumento y sustituye al parámetro $v$.
+- No es lo mismo hacer `pow(2, 3)` que hacer `pow(3, 2)`:
 
-  - $"holaholahola"$ es el resultado de aplicar la función $repite$ a los
-    argumentos $"hola"$ y $3$, en este orden.
+  ```python
+  >>> pow(2, 3)
+  8
+  >>> pow(3, 2)
+  9
+  ```
 
-- Es importante respetar el *orden* de los argumentos. Si intentamos calcular
-  el resultado de $repite(3, "hola")$, no sería correcto.
+---
+
+- Como último ejemplo, la función `max` devuelve el máximo de dos valores
+  recibidos como argumentos:
+
+  `max(`$arg1$`,` ` `$arg2$`)`
+
+- Aquí es más complicado definir su signatura, ya que `max` admite argumentos
+  de varios tipos (se puede calcular el máximo de dos números, de dos
+  cadenas... de casi cualquier par de cosas que sean _comparables_ entre sí).
+
+- Por ejemplo:
+
+  ```python
+  >>> max(13, 28)
+  28
+  >>> max("hola", "pepe")
+  'pepe'
+  >>> max(2, "hola")
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: '>' not supported between instances of 'str' and 'int'
+  ```
 
 ### Evaluación de expresiones con funciones
 
@@ -1368,6 +1170,14 @@ $$
   que representa la **llamada** al método $m$ **sobre el _objeto_** $v$.
 
 ---
+
+- La gramática de las llamadas a métodos es la siguiente:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Esta llamada se puede leer de cualquiera de estas formas:
 
