@@ -214,6 +214,25 @@ que denominamos el **valor** de la expresión.
 
 # Valores
 
+## Introducción
+
+- Los **valores** son los datos que manipulan y procesan los programas.
+
+- Pueden ser:
+
+  - Datos que representan información de interés para el usuario del programa.
+
+  - Datos internos que usa el programa para su correcto funcionamiento.
+
+- Los datos tienen un **tipo**, que determina el conjunto de _valores_ que
+  puede tomar un dato de ese tipo, así como el conjunto de _operaciones_ que se
+  pueden realizar con él.
+
+- **Un valor, por tanto, pertenece a un determinado tipo**.
+
+- Los tipos más básicos en Programación son los **números** (_enteros_ y
+  _reales_), las **cadenas** y los **lógicos**.
+
 ## Evaluación de expresiones
 
 - **_Evaluar_ una expresión** consiste en determinar el **valor** de la
