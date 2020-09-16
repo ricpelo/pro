@@ -130,21 +130,22 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
-                   | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
-                   | !NT(literal)
-                   | !NT(llamada_función)
-                   | !T(identificador)
+  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre)
+!NT(operación) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
+                     | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
+                     | !NT(llamada_función) | !NT(llamada_método)
+!NT(nombre) ::= !T(identificador)
 !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
 !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
 !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= !T(identificador) | !NT(expresión_lambda)
+!NT(función) ::= !NT(nombre_función) | !T{(}!NT(expresión_lambda)!T{)}
+!NT(nombre_función) ::= [!T(identificador)!T(.)]!T(identificador)
+!NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})*
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
-!NT(expresión_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 #### Evaluación de una aplicación funcional
 
