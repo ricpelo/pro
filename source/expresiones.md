@@ -1547,6 +1547,13 @@ Función                     Descripción           Ejemplo                  Res
 
 ---
 
+- Eso significa que debemos ampliar nuestra gramática para permitir que el nombre de una función en una llamada pueda contener la parte del módulo:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(nombre_función) ::= [!T(identificador)!T(.)]!T(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 - La lista completa de funciones que incluye el módulo `math` se puede
   consultar en su documentación:
 
