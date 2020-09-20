@@ -814,6 +814,8 @@ $$
 - Por tanto, los argumentos para las funciones son como los operandos de los
   operadores.
 
+- Las funciones reciben los argumentos a través de sus **parámetros**.
+
 - Las funciones se definen mediante su **signatura**, la cual informa de:
 
   - El nombre de la función.
@@ -833,7 +835,7 @@ $$
 
   - La función se llama `abs`.
 
-  - Recibe un único parámetro llamado `x` que puede tomar cualquier valor
+  - Tiene un único parámetro llamado `x` que puede tomar cualquier valor
     numérico.
 
   - Devuelve un resultado numérico.
@@ -988,7 +990,7 @@ $$
 - Como último ejemplo, la función `max` devuelve el máximo de dos valores
   recibidos como argumentos:
 
-  `max(`$arg1$`,` ` `$arg2$`)`
+  `max(`_arg1_`,` ` `_arg2_`)`
 
 - Aquí es más complicado definir su signatura, ya que `max` admite argumentos
   de varios tipos (se puede calcular el máximo de dos números, de dos
@@ -1009,8 +1011,8 @@ $$
 
 ### Evaluación de expresiones con funciones
 
-- Una llamada a función es una expresión válida, por lo que podemos colocar
-  llamadas a función en cualquier lugar donde sea sintácticamente correcto
+- Una llamada a función es una expresión válida, por lo que podemos colocar una
+  llamada a función en cualquier lugar donde sea sintácticamente correcto
   situar un valor.
 
 - La evaluación de una expresión que contiene llamadas a funciones se
