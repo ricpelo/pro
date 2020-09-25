@@ -1882,7 +1882,9 @@ diseño.
 
 - Características:
 
-  - Lenguajes más cercanos a la máquina.
+  - Lenguajes basados en el paradigma imperativo.
+
+  - Más cercanos a la máquina.
 
   - Con poca o nula capacidad de abstracción.
 
@@ -1904,7 +1906,10 @@ diseño.
 
 - Características:
 
-  - Lenguajes más cercanos al ser humano.
+  - Lenguajes que pueden estar basados en cualquier paradigma, aunque la
+    tendencia es que sean cada vez más _declarativos_.
+
+  - Más cercanos al ser humano.
 
   - Mayor capacidad de abstracción.
 
@@ -1919,6 +1924,10 @@ diseño.
 
 - Ejemplos de lenguajes de alto nivel:
 
+  :::: columns
+
+  ::: column
+
   - Fortran
   - LISP
   - COBOL
@@ -1926,6 +1935,11 @@ diseño.
   - Pascal
   - C
   - Java
+
+  :::
+
+  ::: column
+
   - Ruby
   - C++
   - Python
@@ -1933,6 +1947,10 @@ diseño.
   - C#
   - PHP
   - Haskell
+
+  :::
+
+  ::::
 
 !EJERCICIO
 
@@ -1979,7 +1997,9 @@ lenguaje.
     de propósito general. Ejemplos:
 
     - Lenguajes de consulta a bases de datos (SQL)
+
     - Lenguajes de descripción de hardware (VHDL)
+
     - Lenguajes para desarrollo de aplicaciones de gestión (COBOL)
 
 ### Por paradigma
@@ -2134,10 +2154,13 @@ F -> I
 
 - Su comportamiento se resume en el siguiente bucle:
 
-  1. Leer la siguiente instrucción por teclado (_**R**ead_)
-  2. Ejecutar o evaluar la instrucción (_**E**val_)
-  3. Imprimir por la pantalla el resultado (_**P**rint_)
-  4. Repetir el bucle (_**L**oop_)
+  1. Leer la siguiente instrucción por teclado (_**R**ead_).
+
+  2. Ejecutar o evaluar la instrucción (_**E**val_).
+
+  3. Imprimir por la pantalla el resultado (_**P**rint_).
+
+  4. Repetir el bucle (_**L**oop_).
 
 ---
 
@@ -2168,21 +2191,34 @@ F -> I
 
 ---
 
-- Estos pasos son:
+- Los pasos para la resolución de un problema mediante programación son los
+  siguientes:
 
-  #. Especificación
-  #. Análisis del problema
-  #. Diseño del algoritmo
-  #. Verificación
-  #. Estudio de la eficiencia
-  #. Codificación
-  #. Traducción y ejecución
-  #. Pruebas
-  #. Depuración
-  #. Documentación
-  #. Mantenimiento
+  #. Especificación.
+
+  #. Análisis del problema.
+
+  #. Diseño del algoritmo.
+
+  #. Verificación.
+
+  #. Estudio de la eficiencia.
+
+  #. Codificación.
+
+  #. Traducción y ejecución.
+
+  #. Pruebas.
+
+  #. Depuración.
+
+  #. Documentación.
+
+  #. Mantenimiento.
 
 ## Especificación
+
+- La **especificación** es la descripción del problema que hay que resolver.
 
 - En esta fase se define con precisión (cuanto más formal mejor):
 
@@ -2200,8 +2236,8 @@ F -> I
 
     - Normalmente se describe en función de los datos de entrada.
 
-- Se trata al programa como una **caja negra** de la que se sabe *qué* tiene
-  que hacer pero aún no sabemos *cómo*.
+- El programa que vaya a resolver el problema se trata como una **caja negra**,
+  de la que se sabe *qué* tiene que hacer pero aún no sabemos *cómo*.
 
 ---
 
@@ -2219,12 +2255,12 @@ F -> I
     \text{\textbf{Salida}}: \text{el mayor de ambos}
   \end{cases}$$
 
-- En las especificaciones está permitido usar funciones que no estén
+- En las especificaciones está permitido usar operaciones que no estén
   implementadas en el lenguaje, siempre y cuando estén perfectamente
   especificadas y no las usemos luego en la implementación del algoritmo (está
   prohibido). 
 
-- A esas funciones se las denomina **funciones ocultas** o **auxiliares**.
+- A esas operaciones se las denomina **operaciones ocultas** o **auxiliares**.
 
 ---
 
@@ -2266,9 +2302,9 @@ F -> I
   del lenguaje de programación que se usará luego para codificar el algoritmo
   en un programa.
 
-- El algoritmo se representa con cualquier herramienta adecuada para ello:
-  ordinogramas, pseudocódigo, etc., el cual también depende del estilo
-  (paradigma) utilizado.
+- El algoritmo se representa con cualquier herramienta adecuada para ello
+  (ordinogramas, pseudocódigo, etc.) la cual también depende del estilo o
+  paradigma utilizado.
 
   - Por ejemplo, se podría usar un ordinograma para representar un algoritmo
     imperativo pero no para uno funcional.
@@ -2310,15 +2346,15 @@ F -> I
 ## Estudio de la eficiencia
 
 - Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
-  optar a estudiar la eficiencia del mismo.
+  optar por estudiar la eficiencia del mismo.
 
 - Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
   se debe optar por diseñar otro algoritmo más eficiente.
 
 ## Codificación
 
-- Una vez diseñado y verificado el algoritmo, éste se codifica en un lenguaje
-  de programación usando un editor de textos o un IDE (*Entorno Integrado de
+- Una vez diseñado y verificado, **el algoritmo se codifica en un lenguaje de
+  programación** usando un editor de textos o un IDE (*Entorno Integrado de
   Desarrollo*).
 
 - Se considera una tarea casi mecanizable, pero aún hay decisiones que pueden
@@ -2330,7 +2366,7 @@ F -> I
 
 - El diseño del algoritmo debería ser independiente del lenguaje de
   programación en el que se vaya a codificar posteriormente el programa, pero
-  el *estilo* (paradigma) influye.
+  el *estilo* (paradigma) influye mucho.
 
 ---
 
@@ -2358,6 +2394,17 @@ F -> I
           return n2;
       }
   }
+  ```
+
+---
+
+- Codificación en lenguaje Haskell:
+
+  ```haskell
+  max :: (Ord a) => a -> a -> a
+  max a b
+      | a > b     = a
+      | otherwise = b
   ```
 
 ## Traducción y ejecución
