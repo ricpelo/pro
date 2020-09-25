@@ -2218,9 +2218,18 @@ F -> I
 
 ## Especificación
 
-- La **especificación** es la descripción del problema que hay que resolver.
+- La **especificación de un _problema_** describe **qué** problema hay que
+  resolver sin entrar a detallar **cómo** hay que resolverlo.
 
-- En esta fase se define con precisión (cuanto más formal mejor):
+- La **especificación de un _programa_** describe **qué** tiene que hacer el
+  programa para resolver un problema sin detallar aún **cómo** va a resolverlo.
+
+- En esta fase, se ve al programa como una **caja negra** de la que se sabe
+  _qué_ debe hacer pero aún no sabemos _cómo_ va a hacerlo.
+
+---
+
+- La especificación define con precisión (cuanto más formal mejor):
 
   - Cuál es la **entrada requerida**:
   
@@ -2235,9 +2244,6 @@ F -> I
       problema.
 
     - Normalmente se describe en función de los datos de entrada.
-
-- El programa que vaya a resolver el problema se trata como una **caja negra**,
-  de la que se sabe *qué* tiene que hacer pero aún no sabemos *cómo*.
 
 ---
 
