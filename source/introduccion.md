@@ -404,8 +404,8 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 - En la práctica, se usan unidades múltiplos del bit:
 
   - 1 byte = 8 bits
-  - 1 Kibibyte (KiB) = $2^{10}$ = 1024 bytes
-  - 1 Mebibyte (MiB) = $2^{20}$ bytes = 1024 Kilobytes
+  - 1 Kibibyte (KiB) = $2^{10}$ bytes = 1024 bytes
+  - 1 Mebibyte (MiB) = $2^{20}$ bytes = 1024 Kibibytes
   - 1 Gibibyte (GiB) = $2^{30}$ bytes = 1024 Mebibytes
   - 1 Tebibyte (TiB) = $2^{40}$ bytes = 1024 Gibibytes
 
@@ -428,10 +428,10 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
 ---
 
-- Generalmente, los números naturales se codifican internamente mediante su
+- Generalmente, los **números naturales** se codifican internamente mediante su
   representación en binario.
 
-- Los números enteros se suelen codificar mediante:
+- Los **números enteros** se suelen codificar mediante:
 
   - Bit de signo (signo y magnitud)
 
@@ -439,7 +439,7 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - Complemento a dos
 
-- Los números reales se pueden codificar mediante:
+- Los **números reales** se pueden codificar mediante:
 
   - Coma fija
 
@@ -453,16 +453,20 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
 #### Codificación externa
 
+- La información enviada desde y hacia el exterior del sistema informático se
+  representa en forma de **cadenas de caracteres**.
+
 - Para representar cadenas de caracteres y comunicarse con el exterior, el
   ordenador utiliza **códigos de E/S** o **códigos externos**.
 
 - A cada carácter (letra, dígito, signo de puntuación, símbolo especial...) le
-  corresponde un código (número) dentro de un **conjunto de caracteres**.
+  corresponde un _código_ (que es un número) dentro de un **conjunto de
+  caracteres**.
 
 - Existen conjuntos de caracteres:
 
-  - De **longitud fija**: a todos los caracteres les corresponden un código de
-    igual longitud.
+  - De **longitud fija**: a todos los caracteres les corresponden un código, y
+    todos los códigos tienen la misma longitud (mismo número de bytes).
 
   - De **longitud variable**: en el mismo conjunto de caracteres hay códigos
     más largos y más cortos (por tanto, hay caracteres que ocupan más bytes que
@@ -534,9 +538,9 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   *ese* problema en concreto, y no servirá para sumar otro par de números (el 9
   y 5, por ejemplo).
 
-- En cambio, el problema de calcula la suma de cualquier par de números enteros
-  es un **problema general**, ya que una solución al problema serviría para
-  resolver cualquier caso particular de ese problema general.
+- En cambio, el problema de calcular la suma de cualquier par de números
+  enteros es un **problema general**, ya que una solución al problema serviría
+  para resolver cualquier caso particular de ese problema general.
 
   - Por ejemplo, esa solución al problema general me serviría para calcular la
     suma de 4 y 3, de 9 y 5, de 12 y 38, ... De hecho, infinitos casos
@@ -649,7 +653,7 @@ suma -> res
 
 @. Dado el siguiente problema: «Calcular cuántos picos y cuántas patas hay en
    una granja con $X$ gallinas y $Y$ cerdos», determinar si los siguientes
-   casos son *instancias* del problema o bien son *especializaciones* del
+   casos son *ejemplares* del problema o bien son *especializaciones* del
    problema:
 
     a. Calcular cuántos picos y cuántas patas hay en una granja con 5 gallinas
@@ -828,7 +832,7 @@ Un algoritmo es un método para resolver un problema.
 - Las flechas indican el orden de ejecución de las instrucciones.
 
 - Los nodos condicionales (los rombos) indican que la ejecución se bifurca a
-  uno u otro camino dependiendo de una condición.
+  uno u otro camino dependiendo de si se cumple o no una condición.
 
 #### Ejemplo
 
@@ -838,8 +842,8 @@ Determinar cuál es el máximo de dos números
 
 #### Pseudocódigo
 
-- Es un lenguaje semi-formal, a medio camino entre el lenguaje natural y el
-  lenguaje que entendería un ordenador (lenguaje de programación).
+- Es un **lenguaje _semi-formal_**, a medio camino entre el lenguaje natural y
+  el lenguaje que entendería un ordenador (lenguaje de programación).
 
 - Está pensado para ser interpretado por una persona y no por un ordenador.
 
