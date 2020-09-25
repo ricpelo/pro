@@ -1171,23 +1171,9 @@ resolver problemas computacionales.
 
 - Los paradigmas de programación más importantes son:
 
-  - Imperativo
+!SALTO
 
-    - Estructurado
-
-    - Orientado a objetos
-
-  - Declarativo
-
-    - Funcional
-
-    - Lógico
-
-    - De bases de datos
-
----
-
-$$\text{Paradigmas de programación} \begin{cases}
+$$\text{Paradigmas} \begin{cases}
 \text{Imperativo} \begin{cases}
                     \text{Estructurado} \\
                     \text{Orientado a objetos}
