@@ -233,8 +233,8 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
       interfaz.
 
     - Un conjunto de **funciones auxiliares** que no aparecen en la interfaz
-      porque pensadas para ser usadas exclusivamente por el propio módulo de
-      manera interna, pero no por otras partes del programa.
+      porque están pensadas para ser usadas exclusivamente por el propio módulo
+      de manera interna, pero no por otras partes del programa.
 
 ### Interfaz
 

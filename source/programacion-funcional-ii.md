@@ -1369,14 +1369,15 @@ E -> x [lhead = cluster0]
   \end{cases}$$
 
 - $count$ es una **función _oculta_ o _auxiliar_** (en este caso, un *método
-  auxiliar*). Las funciones auxiliares se puede usar en la especificación pero
-  está prohibido usarlas en la implementación.
+  auxiliar*). Las funciones auxiliares se puede usar en la especificación
+  siempre que estén perfectamente especificadas, aunque no estén implementadas
+  en el lenguaje de programación.
 
 - Con esto estamos diciendo que $cuenta$ es una función que recibe una cadena y
   un carácter (otra cadena con un único carácter dentro).
 
 - Además, estamos diciendo que devuelve el mismo resultado que devuelve el
-  método `count` (que ya existe en Python).
+  método `count` (que casualmente ya existe en Python).
 
 - Es decir: cuenta el número de veces que el carácter $car$ aparece en
   $cadena$.

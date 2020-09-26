@@ -1068,6 +1068,10 @@ La respuesta es que **NO**.
 
 ---
 
+!IMGP(grafica-funciones.svg)(Representación gráfica de $3n^2$ y $4n$)(width=60%)(width=30%)
+
+---
+
 - En general, no estamos interesados en las constantes concretas que puedan
   aparecer en las $t(n)$, ni en el valor que éstas puedan tomar para un $n$
   concreto, sino que tan sólo nos interesa la **forma** que puedan tener las
@@ -1188,7 +1192,7 @@ $$\text{Paradigmas} \begin{cases}
 
 ---
 
-!IMG(paradigmas.png)(Principales paradigmas (c) 2008 Peter Van Roy)()(width=100%)
+!IMG(paradigmas.png)(Principales paradigmas © 2008 Peter Van Roy)(width=100%)(width=97%)
 
 ## Imperativo
 
@@ -1207,7 +1211,7 @@ $$\text{Paradigmas} \begin{cases}
   orden en el que se realizan.
 
 - Existen varios paradigmas con las características del paradigma imperativo,
-  por lo que podemos decir que existen varios paradigmas imperativos.
+  por lo que podemos decir que **existen varios paradigmas imperativos**.
 
 ### Estructurado
 
@@ -1243,7 +1247,7 @@ $$\text{Paradigmas} \begin{cases}
 - Los objetos son entidades que existen dentro del programa y que poseen un
   cierto **estado interno**.
 
-- Cuando un objeto envía un mensaje a otro, el objeto receptor del mensaje
+- Cuando un objeto envía un mensaje a otro, el objeto que recibe el mensaje
   reaccionará llevando a cabo alguna acción, que probablemente provocará un
   **cambio en su estado interno** y que, posiblemente, provocará también el
   envío de mensajes a otros objetos.
@@ -1257,13 +1261,13 @@ $$\text{Paradigmas} \begin{cases}
 - La **programación declarativa** engloba a una familia de paradigmas de
   programación de muy alto nivel.
 
-- En programación declarativa se describe la solución a un problema con base en
-  las propiedades que debe cumplir dicha solución y no tanto en forma de
-  instrucciones que se deben ejecutar para resolver el problema.
+- En programación declarativa se describe la solución a un problema definiendo
+  las **propiedades** que debe cumplir dicha solución en lugar de definir las
+  **instrucciones** que se deben ejecutar para resolver el problema.
 
 - Se dice que un programa imperativo describe **cómo** resolver el problema,
   mientras que un programa declarativo describe **qué** forma debe tener la
-  solución.
+  solución al problema.
 
 - Para dar forma a la solución, se utilizan formalismos abstractos matemáticos
   y lógicos, lo que da lugar a los dos grandes paradigmas declarativos: la
@@ -1301,7 +1305,10 @@ $$\text{Paradigmas} \begin{cases}
 - Ejecutar un programa lógico equivale a poner en marcha un mecanismo deductivo
   que trata de **demostrar un teorema** a partir de los axiomas.
 
-- El ejemplo más característico de este tipo de lenguajes es **Prolog**.
+- Se usa principalmente en **inteligencia artificial**, en **demostración
+  automática** y en **procesamiento del lenguaje natural**.
+
+- El más conocido de los lenguajes de programación lógica es **Prolog**.
 
 ### De bases de datos
 
@@ -1476,7 +1483,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Las gramáticas sirven para _reconocer_ o _producir_ frases correctas en un
   determinado lenguaje.
 
-- Por ejemplo, podemos preguntarnos si la frase «`el niño grande come mucho`»
+- Por ejemplo, podemos preguntarnos si la frase «`el niño grande come mucho.`»
   es sintácticamente correcta según la gramática anterior.
 
 - Para ello, comprobamos si es posible _derivar_ esa frase a partir de las
@@ -2245,9 +2252,9 @@ F -> I
 
     - Normalmente se describe en función de los datos de entrada.
 
----
+#### Ejemplo
 
-- Por ejemplo: Se desea determinar el máximo de dos números enteros.
+- Se desea determinar el máximo de dos números enteros.
 
   - *Entrada*: los dos números enteros (llamémosles $n_1$ y $n_2$).
 
@@ -2261,18 +2268,16 @@ F -> I
     \text{\textbf{Salida}}: \text{el mayor de ambos}
   \end{cases}$$
 
-- En las especificaciones está permitido usar operaciones que no estén
-  implementadas en el lenguaje, siempre y cuando estén perfectamente
-  especificadas y no las usemos luego en la implementación del algoritmo (está
-  prohibido). 
+- En las especificaciones está permitido usar operaciones (funciones, por
+  ejemplo) siempre y cuando estén perfectamente especificadas, aunque no estén
+  implementadas en el lenguaje de programación.
 
 - A esas operaciones se las denomina **operaciones ocultas** o **auxiliares**.
 
 ---
 
 - Por ejemplo, si disponemos de la función oculta $max$ que devuelve el máximo
-  de dos números y cuya especificación coincide exactamente con la del problema
-  que queremos resolver, nuestra especificación podría quedar así:
+  de dos números, nuestra especificación podría quedar así:
 
   $$\begin{cases}
     \text{\textbf{Entrada}}: n_1, n_2 \in \mathbb{Z} \\
@@ -2285,7 +2290,7 @@ F -> I
   devolverá a la salida el mayor de ellos.
 
 - Si los datos de entrada no satisfacen los requisitos necesarios, el programa
-  tiene derecho a responder de cualquier manera.
+  tiene derecho a responder de cualquier manera, o a no responder en absoluto.
 
 ## Análisis del problema
 
