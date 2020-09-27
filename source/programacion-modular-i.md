@@ -1310,12 +1310,13 @@ tiene «aversión» por exponer sus interioridades a los demás.
   que puedan usarlos en sus programas.
 
 - A día de hoy, el desarrollo de programas se basa en gran medida en
-  seleccionar y utilizar módulos (o bibliotecas, *librerías* o *paquetes*)
-  desarrollados por terceros o reutilizados de otros programas elaborados por
-  nosotros mismos anteriormente.
+  seleccionar y utilizar módulos reusables (que en este contexto también se
+  denominan **bibliotecas**, **librerías** o **paquetes**) desarrollados por
+  terceros o reutilizados de otros programas elaborados por nosotros mismos
+  anteriormente.
 
-- Es decir: la programación se ha convertido en una actividad consistente
-  principalmente en ir combinando componentes intercambiables.
+- Es decir: la programación se ha convertido en una actividad que consiste
+  principalmente en ir combinando módulos intercambiables.
 
 - Eso nos permite acortar el tiempo de desarrollo porque podemos construir un
   programa a base de ir ensamblando módulos reusables como si fueran las piezas
