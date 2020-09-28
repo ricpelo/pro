@@ -100,20 +100,33 @@ nocite: |
     dicha expresión.
 
   - **Sentencias**: son *instrucciones* que sirven para pedirle al intérprete
-    que *ejecute* una determinada *acción*. Las sentencias también pueden
-    contener expresiones.
+    que *ejecute* una determinada *acción*.
+
+- Las sentencias pueden contener expresiones.
+
+- En la mayoría de los lenguajes de programación, una expresión por sí sola
+  también es una sentencia válida.
 
 ---
 
 $$
 \text{En un programa hay}
-\begin{cases}
-\text{\textbf{Expresiones}, formadas por} \begin{cases}
-                    \text{\textbf{Datos}} \\
-                    \text{\textbf{Operaciones}}
-                   \end{cases} \\
-\text{\textbf{Sentencias}, que también pueden contener expresiones}
-\end{cases}
+  \begin{cases}
+    \text{\textbf{Expresiones}} \begin{cases}
+      \text{se evalúan} \\
+      \text{representan valores} \\
+      \text{están formadas por} \begin{cases}
+        \text{\textbf{Datos}} \\
+        \text{\textbf{Operaciones}}
+      \end{cases} \\
+      \text{por sí solas también son sentencias}
+    \end{cases} \\\\
+    \text{\textbf{Sentencias}} \begin{cases}
+      \text{son instrucciones} \\
+      \text{se ejecutan} \\
+      \text{pueden contener expresiones}
+    \end{cases}
+  \end{cases}
 $$
 
 !CAJACENTRADA
