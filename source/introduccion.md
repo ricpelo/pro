@@ -1416,7 +1416,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 - La sintaxis de los lenguajes de programación es definida generalmente
   utilizando:
   
-  - **Expresiones regulares** (para la estructura léxica)
+  - **Expresiones regulares** (para los componentes léxicos)
   
   - **Notación de Backus-Naur extendida** (para la estructura gramatical)
 
@@ -1533,7 +1533,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Otra forma de representarlo es mediante un diagrama llamado **árbol de
   análisis sintáctico**.
 
-!DOT(arbol-analisis.svg)(Árbol de análisis sintáctico para «`el niño come mucho.`»)(width=70%)()
+!DOT(arbol-analisis.svg)(Árbol de análisis sintáctico para «`el niño grande come mucho.`»)(width=70%)()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = TB
 node [shape = plaintext, fillcolor = transparent]
