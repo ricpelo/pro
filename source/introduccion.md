@@ -2392,6 +2392,8 @@ F -> I
           return n2
   ```
 
+  !SALTO
+
 - Codificación en lenguaje Java:
 
   ```java
@@ -2416,6 +2418,16 @@ F -> I
   max a b
       | a > b     = a
       | otherwise = b
+  ```
+
+  !SALTO
+
+- Codificación en lenguaje Scheme:
+
+  ```scheme
+  (define (maximo n1 n2)
+    (cond ((> n1 n2) n1)
+          (else n2)))
   ```
 
 ## Traducción y ejecución
@@ -2669,13 +2681,13 @@ intérprete? Razona la respuesta.
     i. Interpretar una partitura al violín.
     i. Hacer la cuenta atrás, desde 10 hasta 0.
 
-    - Para cada uno de ellos, se pide que:
+    - Para cada uno de ellos, se pide:
 
-      a. Identifiques cuáles son los datos y los resultados.
-      b. Describas un problema más general y, si se puede, otro menos general.
-      c. Distingas cuáles de esos problemas pueden resolverse mediante
+      a. Identificar la entrada y la salida.
+      b. Describir un problema más general y, si se puede, otro menos general.
+      c. Distinguir cuáles de esos problemas pueden resolverse mediante
          algoritmos y cuáles no.
-      d. Esboces, con tus propias palabras o en pseudocódigo, un algoritmo para
+      d. Esbozar, con tus propias palabras o en pseudocódigo, un algoritmo para
          los problemas (i), (ii) y (iv).
 
 <!--
