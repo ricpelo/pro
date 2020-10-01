@@ -218,7 +218,7 @@ que denominamos el **valor** de la expresión.
   - `(abs(-3) + (max(8, 5) / 2))`
 
 - Sabemos que todas esas expresiones son sintácticamente correctas según
-  nuestra la gramática porque podemos construir derivaciones desde el símbolo
+  nuestra gramática porque podemos construir derivaciones desde el símbolo
   inicial !NT(expresión) hasta cada expresión.
 
 !EJERCICIO
