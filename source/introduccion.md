@@ -2678,6 +2678,8 @@ intérprete? Razona la respuesta.
       d. Esboces, con tus propias palabras o en pseudocódigo, un algoritmo para
          los problemas (i), (ii) y (iv).
 
+<!--
+
 ---
 
 @. El problema de restar dos enteros positivos se puede resolver por un
@@ -2690,5 +2692,7 @@ procedimiento análogo al de la suma lenta, al que llamaremos **resta lenta**.
       c. Estudiar su complejidad.
       d. Estudiar su corrección.
       e. Expresar el algoritmo en pseudocódigo.
+
+-->
 
 !FIN
