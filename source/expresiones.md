@@ -273,7 +273,7 @@ que denominamos el **valor** de la expresión.
 
   `(5 - 2)`
 
-  denotan todas el mismo valor (el número abstracto **3**).
+  denotan todas el mismo valor (el número abstracto **tres**).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -291,7 +291,7 @@ que denominamos el **valor** de la expresión.
 - Los ordenadores no manipulan valores, sino que sólo pueden manejar
   representaciones concretas de los mismos.
 
-- Por ejemplo: utilizan la codificación binaria en complemento a 2 para
+- Por ejemplo: utilizan la codificación binaria en complemento a dos para
   representar los números enteros.
 
 - Pedimos que la **representación del valor** resultado de una evaluación sea
@@ -316,13 +316,13 @@ que denominamos el **valor** de la expresión.
 
   `(5 - 2)`
   
-  que denotan todas el mismo valor abstracto **3**, seleccionamos una (la
+  que denotan todas el mismo valor abstracto **tres**, seleccionamos una (la
   expresión `3`) como la **expresión canónica** de ese valor.
 
 - Igualmente, la expresión `3` es la **forma normal** de todas las
-  expresiones anteriores (y de cualquier otra expresión con valor **3**).
+  expresiones anteriores (y de cualquier otra expresión con valor **tres**).
 
-- Es importante no confundir el valor abstracto **3** con la expresión `3`
+- Es importante no confundir el valor abstracto **tres** con la expresión `3`
   que representa dicho valor.
 
 ---
@@ -379,7 +379,7 @@ endwhile (no)
 
 - Evaluar la expresión `(2 + 3)`:
 
-  - La expresión está formada por un operador `*` que actúa sobre las dos
+  - La expresión está formada por un operador `+` que actúa sobre las dos
     subexpresiones `2` y `3`. Por tanto, habrá que evaluar primero esas dos
     subexpresiones, siempre de izquierda a derecha:
 
@@ -463,35 +463,36 @@ endwhile (no)
 
 - Por consiguiente, suelen estar ya totalmente simplificados.
 
-- Por ejemplo, el `3.5` es un literal que denota el valor numérico **3.5**, es
-  su expresión canónica y es la forma normal de cualquier expresión que denote
-  dicho valor.
+- Por ejemplo, el `3.5` es un literal que denota el valor numérico **tres y
+  medio**, es su expresión canónica y es la forma normal de cualquier expresión
+  que denote dicho valor.
 
-- Por tanto, el literal `3.5` es la forma más reducida de representar el
-  **3.5**.
+- Por tanto, el literal `3.5` es la forma más reducida de representar el valor
+  **tres y medio**.
 
 - Es decir: si le pedimos al intérprete que calcule el resultado de `7 / 2`,
   nos devolverá la expresión `3.5`.
 
 - Sin embargo, el `3.5` no es el único literal que denota el valor numérico
-  **3.5**. Por ejemplo, los literales `3.50`, `3.500` o `03.50` también denotan
-  ese mismo valor, pero la forma normal de todos ellos es `3.5`.
+  **tres y medio**. Por ejemplo, los literales `3.50`, `3.500` o `03.50`
+  también denotan ese mismo valor, pero la forma normal de todos ellos es
+  `3.5`.
 
-- O sea: hay varias maneras distintas de escribir un literal que denote el
-  valor **3.5**, pero sólo el literal `3.5` es la forma normal de todas ellas.
+- O sea: hay varias maneras de escribir un literal que denote el valor **tres y
+  medio**, pero sólo el literal `3.5` es la forma normal de todas ellas.
 
 ---
 
 - Igualmente, la forma normal de todas las posibles expresiones que denotan el
-  valor numérico **2** es el literal `2`.
+  valor numérico **dos** es el literal `2`.
 
-- El literal `2` es la forma más reducida de representar el valor **2**.
+- El literal `2` es la forma más reducida de representar el valor **dos**.
 
 - Pero no es el único literal que denota dicho valor.
 
 - El literal `02` no es correcto según las reglas léxicas del lenguaje, pero sí
   que podemos usar la expresión `0b10`, que es un literal que representa el
-  valor **2** escrito en binario.
+  valor **dos** escrito en binario.
 
 - Igualmente, las reglas léxicas del lenguaje permiten usar el carácter `_`
   dentro de un número, por lo que el valor numérico **cuatro millones** se
@@ -582,8 +583,9 @@ $$
 
 ### Aridad de operadores
 
-- Los operadores se clasifican en función de la cantidad de operandos sobre los
-  que operan en:
+- La **aridad** de un operador es el número de operandos sobre los que opera.
+
+- Los operadores se clasifican según su aridad en:
 
   - **Unarios**: operan sobre un único operando.
 
