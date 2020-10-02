@@ -306,6 +306,18 @@ que denominamos el **valor** de la expresión.
 
 - Con esta restricción pueden quedar expresiones sin forma normal.
 
+#### Recuerda
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Se dice:
+
+- **Expresión canónica _de un valor_**.
+
+- **Forma normal _de una expresión_**.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #### Ejemplo
 
 - De las expresiones anteriores:
