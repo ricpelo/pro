@@ -648,29 +648,26 @@ $$
   - `2 + 5` no está totalmente parentizada y, por tanto, no está correctamente
     parentizada según nuestra gramática.
 
-- Para reducir la cantidad de paréntesis en una expresión, se puede cambiar
-  nuestra gramática:
-
-  - Quitando los paréntesis más externos que rodean a toda la expresión.
-
-  - Acudiendo a un esquema de **prioridades** y **asociatividades** de
-    operadores.
+- Para reducir la cantidad de paréntesis en una expresión, podemos cambiar
+  nuestra gramática acudiendo a un esquema de **prioridades** y
+  **asociatividades** de operadores.
 
 - Así ya no exigiremos que las expresiones estén totalmente parentizadas.
 
 ### Prioridad de operadores
 
-- En ausencia de paréntesis, cuando un operando está afectado a derecha e
-  izquierda por **distinto operador**, se aplican las reglas de la
+- En ausencia de paréntesis, cuando un operando está afectado a izquierda y
+  derecha por **operadores de distinta prioridad**, se aplican las reglas de la
   **prioridad**:
 
   ```python
   8 + 4 * 2
   ```
 
-  El `4` está afectado a derecha e izquierda por distintos operadores (`+` y
-  `*`), por lo que se aplican las reglas de la prioridad. El `*` tiene *más
-  prioridad* que el `+`, así que agrupa primero el `*`. Equivale a hacer:
+  El `4` está afectado a izquierda y derecha por los operadores `+` y `*`, que
+  tienen distinta prioridad, por lo que se aplican las reglas de la prioridad.
+  El `*` tiene *más prioridad* que el `+`, así que agrupa primero el `*`.
+  Equivale a hacer:
 
   ```python
   8 + (4 * 2)
@@ -689,9 +686,9 @@ $$
 
 ### Asociatividad de operadores
 
-- En ausencia de paréntesis, cuando un operando está afectado a derecha e
-  izquierda por el **mismo operador** (o distintos operadores con la **misma
-  prioridad**), se aplican las reglas de la **asociatividad**:
+- En ausencia de paréntesis, cuando un operando está afectado a izquierda y
+  derecha por **operadores de la misma prioridad** (o por el **mismo
+  operador**), se aplican las reglas de la **asociatividad**:
 
   ```python
   8 / 4 / 2
@@ -723,15 +720,13 @@ $$
   por sí mismos no son suficientes para imponer un determinado **orden de
   evaluación**.
 
-- Por ejemplo, en la expresión `4 * (3 + 5)`, el operador más prioritario es el
-  `*` y, por tanto, habría que hacer primero el producto antes que la suma.
-
-- El problema es que no podemos hacer el producto hasta haber calculado primero
-  la suma de `3` y `5`.
+- Por ejemplo, en la expresión `4 * (3 + 5)`, el intérprete intenta hacer el
+  producto de `4` por `(3 + 5)`, pero no puede hacerlo hasta haber calculado
+  primero la suma de `3` y `5`.
 
 - Por eso el intérprete calcula primero la suma y finalmente hace el producto,
-  pero su intención era hacer primero el producto, según las reglas de la
-  prioridad.
+  porque para hacer el producto primero necesita haber reducido sus operandos a
+  dos números que se puedan multiplicar.
 
 - El efecto final es que parece que los paréntesis han obligado a hacer primero
   la suma, como si los paréntesis fuesen una especie de operador cuya finalidad

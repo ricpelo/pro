@@ -733,11 +733,7 @@
 <li><p><code>(4 + (2 * 5))</code> está correcta y totalmente parentizada.</p></li>
 <li><p><code>2 + 5</code> no está totalmente parentizada y, por tanto, no está correctamente parentizada según nuestra gramática.</p></li>
 </ul></li>
-<li><p>Para reducir la cantidad de paréntesis en una expresión, se puede cambiar nuestra gramática:</p>
-<ul>
-<li><p>Quitando los paréntesis más externos que rodean a toda la expresión.</p></li>
-<li><p>Acudiendo a un esquema de <strong>prioridades</strong> y <strong>asociatividades</strong> de operadores.</p></li>
-</ul></li>
+<li><p>Para reducir la cantidad de paréntesis en una expresión, podemos cambiar nuestra gramática acudiendo a un esquema de <strong>prioridades</strong> y <strong>asociatividades</strong> de operadores.</p></li>
 <li><p>Así ya no exigiremos que las expresiones estén totalmente parentizadas.</p></li>
 </ul>
 </section>
@@ -745,9 +741,9 @@
 <section id="prioridad-de-operadores" class="title-slide slide level3" data-number="4.2.3">
 <h3 data-number="4.2.3"><span class="header-section-number">4.2.3</span> Prioridad de operadores</h3>
 <ul>
-<li><p>En ausencia de paréntesis, cuando un operando está afectado a derecha e izquierda por <strong>distinto operador</strong>, se aplican las reglas de la <strong>prioridad</strong>:</p>
+<li><p>En ausencia de paréntesis, cuando un operando está afectado a izquierda y derecha por <strong>operadores de distinta prioridad</strong>, se aplican las reglas de la <strong>prioridad</strong>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span></span></code></pre></div>
-<p>El <code>4</code> está afectado a derecha e izquierda por distintos operadores (<code>+</code> y <code>*</code>), por lo que se aplican las reglas de la prioridad. El <code>*</code> tiene <em>más prioridad</em> que el <code>+</code>, así que agrupa primero el <code>*</code>. Equivale a hacer:</p>
+<p>El <code>4</code> está afectado a izquierda y derecha por los operadores <code>+</code> y <code>*</code>, que tienen distinta prioridad, por lo que se aplican las reglas de la prioridad. El <code>*</code> tiene <em>más prioridad</em> que el <code>+</code>, así que agrupa primero el <code>*</code>. Equivale a hacer:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="dv">8</span> <span class="op">+</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>Si hiciéramos</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>(<span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> <span class="dv">2</span></span></code></pre></div>
@@ -759,7 +755,7 @@
 <section id="asociatividad-de-operadores" class="title-slide slide level3" data-number="4.2.4">
 <h3 data-number="4.2.4"><span class="header-section-number">4.2.4</span> Asociatividad de operadores</h3>
 <ul>
-<li><p>En ausencia de paréntesis, cuando un operando está afectado a derecha e izquierda por el <strong>mismo operador</strong> (o distintos operadores con la <strong>misma prioridad</strong>), se aplican las reglas de la <strong>asociatividad</strong>:</p>
+<li><p>En ausencia de paréntesis, cuando un operando está afectado a izquierda y derecha por <strong>operadores de la misma prioridad</strong> (o por el <strong>mismo operador</strong>), se aplican las reglas de la <strong>asociatividad</strong>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="dv">8</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
 <p>El <code>4</code> está afectado a derecha e izquierda por el mismo operador <code>/</code>, por lo que se aplican las reglas de la asociatividad. El <code>/</code> es <em>asociativo por la izquierda</em>, así que agrupa primero el operador que está a la izquierda. Equivale a hacer:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>(<span class="dv">8</span> <span class="op">/</span> <span class="dv">4</span>) <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
@@ -773,9 +769,8 @@
 
 <ul>
 <li><p>Es importante entender que los paréntesis sirven para agrupar elementos, pero por sí mismos no son suficientes para imponer un determinado <strong>orden de evaluación</strong>.</p></li>
-<li><p>Por ejemplo, en la expresión <code>4 * (3 + 5)</code>, el operador más prioritario es el <code>*</code> y, por tanto, habría que hacer primero el producto antes que la suma.</p></li>
-<li><p>El problema es que no podemos hacer el producto hasta haber calculado primero la suma de <code>3</code> y <code>5</code>.</p></li>
-<li><p>Por eso el intérprete calcula primero la suma y finalmente hace el producto, pero su intención era hacer primero el producto, según las reglas de la prioridad.</p></li>
+<li><p>Por ejemplo, en la expresión <code>4 * (3 + 5)</code>, el intérprete intenta hacer el producto de <code>4</code> por <code>(3 + 5)</code>, pero no puede hacerlo hasta haber calculado primero la suma de <code>3</code> y <code>5</code>.</p></li>
+<li><p>Por eso el intérprete calcula primero la suma y finalmente hace el producto, porque para hacer el producto primero necesita haber reducido sus operandos a dos números que se puedan multiplicar.</p></li>
 <li><p>El efecto final es que parece que los paréntesis han obligado a hacer primero la suma, como si los paréntesis fuesen una especie de operador cuya finalidad es la de aumentar la prioridad de lo que hay dentro.</p></li>
 </ul>
 </section>
