@@ -191,7 +191,7 @@ que denominamos el **valor** de la expresión.
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
 !NT(llamada_función) ::= !NT(nombre_función)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(nombre_función) ::= !T(identificador)
-!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_método) ::= !NT(expresión) !T(.) !T(identificador) !T{(}[!NT(lista_argumentos)]!T{)}
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -840,7 +840,8 @@ $$
 
 - Para usar una función hay que conocer su **signatura**, la cual informa de:
 
-  - El _nombre_ de la función.
+  - El _nombre_ de la función, que es un _identificador_ que hace referencia a
+    la función.
 
   - El número, tipo y posición de sus _parámetros_.
 
@@ -865,26 +866,26 @@ $$
 ---
 
 - La **aplicación de una función a unos argumentos** es una expresión mediante
-  la cual solicitamos la realización de la operación correspondiente pasándole
-  en forma de argumentos los datos sobre los que deseamos que actúe la
-  operación.
+  la cual solicitamos la realización de una operación que tiene forma de
+  función pasándole a ésta, a través de los argumentos, los datos sobre los que
+  deseamos que actúe la operación.
 
-- A la aplicación de una función también se la llama **llamada** o
-  **invocación** de la función.
+- A la aplicación de una función también se la llama **invocación** de la
+  función o **llamada** a la función.
 
 - En la llamada a la función, los argumentos **sustituyen** a los parámetros
   según el orden en el que aparecen en la llamada, haciendo corresponder el
   primer argumento con el primer parámetro, el segundo con el segundo y así
   sucesivamente.
 
-- Dicho de otra forma: los parámetros toman los valores de los argumentos
-  correspondientes.
+- Dicho de otra forma: **los parámetros toman los valores de los argumentos
+  correspondientes**.
 
 - Debe haber tantos argumentos como parámetros, ni más ni menos.
 
 ---
 
-- Sintácticamente, la llamada a una función tiene esta forma:
+- Sintácticamente, la **llamada a una función** tiene esta forma:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -898,9 +899,9 @@ $$
 
   `abs(-35)`
 
-- El argumento `-35` se pasará a la función a través de su parámetro `x`. Por
-  tanto, se puede decir que, en esta llamada, el parámetro `x` toma el valor
-  `-35`.
+- El argumento `-35` se pasará a la función a través de su parámetro
+  $\underline{x}$. Por tanto, se puede decir que, en esta llamada, el parámetro
+  $\underline{x}$ toma el valor `-35`.
 
 - El resultado de la llamada a la función será el valor que devuelve. En este
   caso, el valor `35`.
@@ -933,7 +934,7 @@ $$
 - Otro ejemplo es la función `len`, que devuelve la longitud de una cadena, es
   decir, el número de caracteres que contiene. Su signatura podría ser:
 
-  `len(`$obj$`: str)->int`
+  `len(`$cadena$`: str)->int`
 
 - Un ejemplo de llamada a la función `len`:
 
@@ -1031,16 +1032,43 @@ $$
   TypeError: '>' not supported between instances of 'str' and 'int'
   ```
 
+---
+
+- Es interesante tener en cuenta que el nombre de una función (como `abs`,
+  `len` o `max`) es un **identificador** que **representa a la propia
+  función**.
+
+- Es decir, que `max` (sin paréntesis detrás) es una **expresión válida cuyo
+  valor es la propia función _máximo de dos números_**.
+
+- Si le pedimos al intérprete que nos muestre el valor de la expresión `max`,
+  nos dice:
+
+  ```
+  >>> max
+  <built-in function max>
+  ```
+
+  (Recordemos que las funciones no tienen forma normal.)
+
+- En resumen: la expresión `max` devuelve la propia función **máximo de dos
+  números** y la expresión `max(4, 8)` devuelve el valor `8`.
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~
+**Conclusión: las funciones también son valores.**
+~~~~~~~~~~~~~~~~~~~~~
+
 ### Evaluación de expresiones con funciones
 
-- Una llamada a función es una expresión válida, por lo que podemos colocar una
-  llamada a función en cualquier lugar donde sea sintácticamente correcto
+- **Una llamada a función es una expresión válida**, por lo que podemos colocar
+  una llamada a función en cualquier lugar donde sea sintácticamente correcto
   situar un valor.
 
 - La evaluación de una expresión que contiene llamadas a funciones se
-  realiza sustituyendo (*reduciendo*) cada llamada a función por su valor
-  correspondiente, es decir, por el valor que dicha función devuelve
-  dependiendo de sus argumentos.
+  realiza **sustituyendo (*reduciendo*) cada llamada a función por su valor
+  correspondiente**, es decir, por el valor que dicha función _devuelve_
+  dependiendo de sus argumentos (**su _resultado_**).
 
 - Por ejemplo, en la siguiente expresión se combinan varias funciones y
   operadores:
@@ -1056,8 +1084,8 @@ $$
 - ¿Cómo se calcula el valor de toda la expresión anterior?
 
 - En la expresión `abs(-12) + max(13, 28)` tenemos que calcular la suma de dos
-  valores, pero esos valores aún no los conocemos porque son el resultado de
-  llamar a dos funciones.
+  valores, pero esos valores aún no los conocemos porque son los resultados que
+  se obtienen al llamar a dos funciones.
 
 - Por tanto, lo primero que tenemos que hacer es evaluar las dos
   subexpresiones principales que contiene dicha expresión:
@@ -1119,11 +1147,11 @@ $$
 - En programación funcional ocurre lo mismo que en Matemáticas, gracias a que
   se cumple la *transparencia referencial*.
 
-- Sin embargo, Python no es un lenguaje funcional puro, y llegado el momento
-  será importante tener en cuenta el orden de evaluación que sigue al evaluar
-  las subexpresiones que forman una expresión.
+- Sin embargo, Python no es un lenguaje funcional puro, por lo que resulta
+  importante tener en cuenta el orden de evaluación que sigue al evaluar las
+  subexpresiones que forman una expresión.
 
-- Por eso, no debemos olvidar que **Python siempre evalúa las expresiones de
+- Concretamente, ya sabemos que **Python siempre evalúa las expresiones de
   izquierda a derecha**.
 
 ---
@@ -1141,8 +1169,10 @@ $$
   expresión anterior en Python sería:
 
   ```python
-  abs(-12) + max(13, 28)   # se evalúa -12 (devuelve -12)
-  abs(-12) + max(13, 28)   # se evalúa abs(-12) (devuelve 12)
+  abs(-12) + max(13, 28)   # se evalúa abs (devuelve una función)
+  = abs(-12) + max(13, 28) # se evalúa -12 (devuelve -12)
+  = abs(-12) + max(13, 28) # se evalúa abs(-12) (devuelve 12)
+  = 12 + max(13, 28)       # se evalúa max (devuelve una función)
   = 12 + max(13, 28)       # se evalúa 13 (devuelve 13)
   = 12 + max(13, 28)       # se evalúa 28 (devuelve 28)
   = 12 + max(13, 28)       # se evalúa max(13, 28) (devuelve 28)
@@ -1162,10 +1192,6 @@ $$
     y `max` son los operandos del operador `+`.
 
 - A esto se le denomina **composición de operaciones**.
-
-- El orden en el que se evalúan este tipo de expresiones (aquellas que
-  contienen composición de operaciones) es algo que se estudiará más en
-  profundidad en el siguiente tema.
 
 ---
 
@@ -1202,15 +1228,21 @@ $$
 - Los **métodos** son, para la **programación orientada a _objetos_**, el
   equivalente a las **funciones** para la **programación _funcional_**.
 
-- Los métodos son como funciones, pero en este caso se dice que actúan *sobre*
-  un valor, que es el **objeto** sobre el que recae la acción del método.
+- En programación orientada a objetos, los objetos son **datos _activos_ o
+  _inteligentes_** a los que podemos **enviar mensajes** y que son capaces de
+  **reaccionar y responder** ante la recepción de esos mensajes.
 
-- La *aplicación* de un método se denomina **invocación** o **llamada** al
-  método, y se escribe:
+- Si le mandamos un mensaje a un objeto, **le estamos pidiendo que ejecute un
+  método**. Al hacerlo, el objeto está **respondiendo** a la recepción de ese
+  mensaje.
 
-  $$v.m()$$
+- **Los métodos son como funciones** pero, al llamar a un método, en la lista
+  de argumentos siempre hay uno especialmente destacado, que es **el objeto que
+  recibe la orden de ejecutar el método** y que, por tanto, es el objeto sobre
+  el que recae directamente la acción del método.
 
-  que representa la **llamada** al método $m$ **sobre el _objeto_** $v$.
+- Por eso decimos que el objeto es quien ejecuta el método, o que el método se
+  invoca (o se llama) **sobre ese objeto**.
 
 ---
 
@@ -1218,72 +1250,85 @@ $$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_método) ::= !NT(objeto) !T(.) !T(identificador) !T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esta llamada se puede leer de cualquiera de estas formas:
+- Según esta gramática, las llamadas a métodos tienen esta forma:
 
-  - Se **llama** (o **invoca**) al método $m$ sobre el objeto $v$.
+  $$o.m(a_1, a_2, \ldots, a_n)$$
 
-  - Se **ejecuta** el método $m$ sobre el objeto $v$.
+  donde:
 
-  - Se **envía el mensaje** $m$ al objeto $v$.
+  - $\underline{o}$ es el objeto que recibe el mensaje (dicho de otra forma: el
+    objeto sobre el que se ejecuta el método).
 
-- Los métodos también pueden tener argumentos, como cualquier función:
+  - $\underline{m}$ es el nombre del método.
 
-  $$v.m(a_1, a_2, ..., a_n)$$
-
-  y en tal caso, los argumentos se pasarían al método correspondiente.
+  - $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$ son los
+    argumentos del método (si los hay).
 
 ---
 
-- En la práctica, no hay mucha diferencia entre tener un método y hacer:
+- Esta llamada se puede leer de cualquiera de estas formas:
 
-  $$v.m(a_1, a_2, ..., a_n)$$
+  - Se **llama** (o **invoca**) al método $m$ sobre el objeto $o$ con los
+    argumentos $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+
+  - Se **ejecuta** el método $m$ sobre el objeto $o$ con los argumentos
+    $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+
+  - Se **envía el mensaje** $m$ al objeto $o$ con los argumentos
+    $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+
+---
+
+- En la práctica, no habría mucha diferencia entre tener un método y hacer:
+
+  $$o.m(a_1, a_2, ..., a_n)$$
 
   y tener una función y hacer:
 
-  $$m(v, a_1, a_2, ..., a_n)$$
+  $$m(o, a_1, a_2, ..., a_n)$$
 
 - Pero conceptualmente, hay una gran diferencia entre un estilo y otro:
 
-  - El primero es más **orientado a objetos**: decimos que el *objeto* $v$
-    «recibe» un mensaje solicitando la ejecución del método $m$.
+  - El primero es más **orientado a objetos**: decimos que el *objeto*
+    $\underline{o}$ «recibe» un mensaje solicitando la ejecución del método
+    $\underline{m}$.
   
-  - En cambio, el segundo es más **funcional**: decimos que la *función* $m$ se
-    aplica a sus argumentos, de los cuales $v$ es uno más.
+  - En cambio, el segundo es más **funcional**: decimos que la *función*
+    $\underline{m}$ se aplica a sus argumentos, de los cuales $\underline{o}$
+    es uno más.
 
 - Python es un lenguaje *multiparadigma* que soporta ambos estilos y, por
-  tanto, dispone de funciones y de métodos. Hasta que no veamos la orientación
-  a objetos, supondremos que un método es como otra forma de escribir una
-  función.
+  tanto, dispone de funciones y de métodos. Hasta que no estudiemos la
+  orientación a objetos, supondremos que un método es como otra forma
+  sintáctica de escribir una función.
 
 ---
 
 - Por ejemplo:
 
-  Las cadenas tienen definidas el método `count`, que devuelve el número de
+  Las cadenas responden al método `count`, que devuelve el número de
   veces que aparece una subcadena dentro de la cadena:
 
-  ```java
-  'hola caracola'.count('ol')
+  ```python
+  >>> 'hola caracola'.count('ol')
+  2
+  >>> 'hola caracola'.count('a')
+  4
   ```
 
-  devuelve 2.
-
-  ```java
-  'hola caracola'.count('a')
-  ```
-
-  devuelve 4.
-
-- Si `count` fuese una función en lugar de un método, recibiría dos parámetros:
-  la cadena y la subcadena. En tal caso, se usaría así:
+- Si `count` fuese una función en Python en lugar de un método, recibiría dos
+  parámetros: la cadena y la subcadena. En tal caso, se usaría así:
 
   ```python
   count('hola caracola', 'ol')
   ```
+
+  (Esto no funciona en Python.)
 
 # Otros conceptos sobre operaciones
 
@@ -1594,7 +1639,7 @@ Función                     Descripción           Ejemplo                  Res
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(nombre_función) ::= [!T(identificador)!T(.)]!T(identificador)
+!NT(nombre_función) ::= [!T(identificador) !T(.)] !T(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - La lista completa de funciones que incluye el módulo `math` se puede
