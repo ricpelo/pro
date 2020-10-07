@@ -157,7 +157,7 @@ que denominamos el **valor** de la expresión.
     expresión tras hacer las operaciones que aparecen en ella.
 
     Por ejemplo, la expresión `(2 * (3 + 5))` denota un valor, que es el número
-    abstracto **16**.
+    abstracto **dieciséis**.
 
 ---
 
@@ -183,27 +183,27 @@ que denominamos el **valor** de la expresión.
   !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre)
 !NT(operación) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
                      | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
-                     | !NT(llamada_función)
-                     | !NT(llamada_método)
+                     | !NT(llamada_función) | !NT(llamada_método)
 !NT(nombre) ::= !T(identificador)
 !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
 !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
-!NT(llamada_función) ::= !NT(nombre_función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(nombre_función) ::= !T(identificador)
-!NT(llamada_método) ::= !NT(expresión) !T(.) !T(identificador) !T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= !T(identificador)
+!NT(llamada_método) ::= !NT(expresión)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(método) ::= !T(identificador)
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esta gramática genera expresiones *totalmente parentizadas*, en las que cada
-  operación a realizar con operadores va agrupada entre paréntesis, aunque no
-  sea estrictamente necesario. Por ejemplo:
+- Esta gramática genera **expresiones _totalmente parentizadas_**, en las que
+  cada operación a realizar con operadores va agrupada entre paréntesis, aunque
+  no sea estrictamente necesario.
 
-`(3 + (4 - 7))`
+- Por ejemplo: `(3 + (4 - 7))`
 
 ---
 
-- Algunos ejemplos de expresiones que genera dicha gramática:
+- Algunos ejemplos de expresiones que satisfacen dicha gramática:
 
   - `24`
 
@@ -255,9 +255,9 @@ que denominamos el **valor** de la expresión.
 - Una **subexpresión** es una expresión contenida dentro de otra.
 
 - La **evaluación de una expresión**, en esencia, es el proceso de
-  **sustituir**, dentro de ella, unas *subexpresiones* por otras que, de alguna
-  manera bien definida, estén *más cerca* del valor a calcular, y así hasta
-  calcular el valor de la expresión al completo.
+  **sustituir** (o **_reescribir_**), dentro de ella, unas *subexpresiones* por
+  otras que, de alguna manera bien definida, estén *más cerca* del valor a
+  calcular, y así hasta calcular el valor de la expresión al completo.
 
 - Además de las expresiones existen las *sentencias*, que no poseen ningún
   valor y que, por tanto, no se evalúan sino que se *ejecutan*. Las sentencias
@@ -830,8 +830,9 @@ $$
   matemática, aunque con su propia terminología y funcionamiento.
 
 - En Programación, las funciones son operaciones que actúan sobre unos datos de
-  entrada llamados **argumentos** y que **devuelven un resultado** que depende
-  de la operación a realizar y de los datos recibidos como argumentos.
+  entrada llamados **argumentos** y que **devuelven un resultado** (también
+  llamado **valor de retorno**) que depende de la operación a realizar y de los
+  datos recibidos como argumentos.
 
 - Por tanto, los argumentos para las funciones son como los operandos de los
   operadores.
@@ -863,17 +864,22 @@ $$
 
   - Devuelve un resultado numérico.
 
+- Para usar la función, lo que hacemos es **llamarla**.
+
+- Y _llamar_ a una función es **aplicar dicha función a unos argumentos** que
+  serán los datos sobre los que queremos que actúe la función.
+
 ---
 
 - La **aplicación de una función a unos argumentos** es una expresión mediante
-  la cual solicitamos la realización de una operación que tiene forma de
-  función pasándole a ésta, a través de los argumentos, los datos sobre los que
-  deseamos que actúe la operación.
+  la cual solicitamos que se realice una operación (que tiene forma de función)
+  pasándole a ésta (a través de los argumentos) los datos sobre los que
+  queremos que actúe la operación.
 
 - A la aplicación de una función también se la llama **invocación** de la
   función o **llamada** a la función.
 
-- En la llamada a la función, los argumentos **sustituyen** a los parámetros
+- En la llamada a la función, **los argumentos _sustituyen_ a los parámetros**
   según el orden en el que aparecen en la llamada, haciendo corresponder el
   primer argumento con el primer parámetro, el segundo con el segundo y así
   sucesivamente.
@@ -881,7 +887,9 @@ $$
 - Dicho de otra forma: **los parámetros toman los valores de los argumentos
   correspondientes**.
 
-- Debe haber tantos argumentos como parámetros, ni más ni menos.
+- También se dice que **los argumentos _se pasan_ a los parámetros**.
+
+- Por eso debe haber tantos argumentos como parámetros, ni más ni menos.
 
 ---
 
@@ -889,22 +897,28 @@ $$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(llamada_función) ::= !NT(nombre_función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(nombre_función) ::= !T(identificador)
+  !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= !T(identificador)
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, si queremos calcular el valor absoluto del número $-35$, podemos
-  llamar a la función `abs` pasándole el `-35` como su argumento:
+  llamar a la función `abs` pasándole `-35` como su argumento:
 
-  `abs(-35)`
+`abs(-35)`
 
-- El argumento `-35` se pasará a la función a través de su parámetro
-  $\underline{x}$. Por tanto, se puede decir que, en esta llamada, el parámetro
-  $\underline{x}$ toma el valor `-35`.
+- En esta llamada, las siguientes tres afirmaciones son equivalentes (son tres
+  formas distintas de decir lo mismo):
 
-- El resultado de la llamada a la función será el valor que devuelve. En este
-  caso, el valor `35`.
+  - El argumento `-35` se pasa a la función `abs` a través del parámetro
+    $\underline{x}$.
+
+  - El argumento `-35` se pasa al parámetro $\underline{x}$.
+
+  - El parámetro $\underline{x}$ toma el valor `-35`.
+
+- El resultado de la llamada a la función será el valor que devuelve (en este
+  caso, el valor `35`). Por tanto, la expresión `abs(-35)` vale `35`.
 
 ---
 
@@ -931,8 +945,8 @@ $$
 
 ---
 
-- Otro ejemplo es la función `len`, que devuelve la longitud de una cadena, es
-  decir, el número de caracteres que contiene. Su signatura podría ser:
+- Otro ejemplo es la función `len`, que devuelve la longitud de una cadena (el
+  número de caracteres que contiene). Su signatura sería:
 
   `len(`$cadena$`: str)->int`
 
@@ -1039,7 +1053,7 @@ $$
   función**.
 
 - Es decir, que `max` (sin paréntesis detrás) es una **expresión válida cuyo
-  valor es la propia función _máximo de dos números_**.
+  valor es la propia función «_máximo de dos números_»**.
 
 - Si le pedimos al intérprete que nos muestre el valor de la expresión `max`,
   nos dice:
@@ -1051,8 +1065,8 @@ $$
 
   (Recordemos que las funciones no tienen forma normal.)
 
-- En resumen: la expresión `max` devuelve la propia función **máximo de dos
-  números** y la expresión `max(4, 8)` devuelve el valor `8`.
+- En resumen: la expresión `max` devuelve la propia función «**máximo de dos
+  números**» y la expresión `max(4, 8)` devuelve el valor `8`.
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1075,8 +1089,8 @@ $$
 
   `abs(-12) + max(13, 28)`
 
-  Aquí se llama a la función $abs$ con el argumento $-12$ y a la función $max$
-  con los argumentos $13$ y $28$, y finalmente se suman los dos valores
+  Aquí se llama a la función `abs` con el argumento `-12` y a la función `max`
+  con los argumentos `13` y `28`, y finalmente se suman los dos valores
   obtenidos.
 
 ---
@@ -1250,9 +1264,10 @@ $$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(llamada_método) ::= !NT(objeto) !T(.) !T(identificador) !T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(objeto) ::= !NT(expresión)
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+!NT(método) ::= !T(identificador)
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Según esta gramática, las llamadas a métodos tienen esta forma:
@@ -1273,14 +1288,16 @@ $$
 
 - Esta llamada se puede leer de cualquiera de estas formas:
 
-  - Se **llama** (o **invoca**) al método $m$ sobre el objeto $o$ con los
-    argumentos $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+  - «Se **llama** (o **invoca**) al método $\underline{m}$ sobre el objeto
+    $\underline{o}$ con los argumentos $\underline{a_1}, \underline{a_2},
+    \ldots, \underline{a_n}$».
 
-  - Se **ejecuta** el método $m$ sobre el objeto $o$ con los argumentos
-    $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+  - «Se **ejecuta** el método $\underline{m}$ sobre el objeto $\underline{o}$
+    con los argumentos $\underline{a_1}, \underline{a_2}, \ldots,
+    \underline{a_n}$».
 
-  - Se **envía el mensaje** $m$ al objeto $o$ con los argumentos
-    $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$.
+  - «Se **envía el mensaje** $\underline{m}$ al objeto $\underline{o}$ con los
+    argumentos $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$».
 
 ---
 
