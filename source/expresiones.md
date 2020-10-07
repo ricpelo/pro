@@ -838,13 +838,13 @@ $$
 
 - Las funciones reciben los argumentos a través de sus **parámetros**.
 
-- Las funciones se definen mediante su **signatura**, la cual informa de:
+- Para usar una función hay que conocer su **signatura**, la cual informa de:
 
-  - El nombre de la función.
+  - El _nombre_ de la función.
 
-  - El número, tipo y posición de sus parámetros.
+  - El número, tipo y posición de sus _parámetros_.
 
-  - El tipo del resultado que devuelve.
+  - El tipo del _resultado_ que devuelve.
 
 ---
 
@@ -857,8 +857,8 @@ $$
 
   - La función se llama `abs`.
 
-  - Tiene un único parámetro llamado `x` que puede tomar cualquier valor
-    numérico.
+  - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
+    valor numérico.
 
   - Devuelve un resultado numérico.
 
@@ -993,7 +993,7 @@ $$
   la llamada a la función.
 
 - El primer argumento se pasaría al primer parámetro ($base$) y el segundo se
-  pasaría al segundo ($exponente$).
+  pasaría al segundo ($exp$).
 
 - Por tanto, el primer argumento debe ser la base y el segundo debe ser el
   exponente, y no al revés.
