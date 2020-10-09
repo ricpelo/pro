@@ -1589,9 +1589,9 @@ Función                     Descripción           Ejemplo                  Res
 
 `len(`$cad$`)`              Longitud de la cadena `len('hola')`            `4`
 
-`max(`$n_1$(`,` $n_2$)\*`)` Valor máximo          `max(2, 5, 3)`           `5`
+`max(`$n_1$(`,` $n_2$)+`)`  Valor máximo          `max(2, 5, 3)`           `5`
 
-`min(`$n_1$(`,` $n_2$)\*`)` Valor mínimo          `min(2, 5, 3)`           `2`
+`min(`$n_1$(`,` $n_2$)+`)`  Valor mínimo          `min(2, 5, 3)`           `2`
 
 `round(`$n$[`,` $p$]`)`     Redondeo              `round(23.493)`  \       `23` \
                                                   `round(23.493, 1)`       `23.5`
@@ -1656,7 +1656,8 @@ Función                     Descripción           Ejemplo                  Res
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(nombre_función) ::= [!T(identificador) !T(.)] !T(identificador)
+!NT(función) ::= [!NT(módulo)!T(.)]!T(identificador)
+!NT(módulo) ::= !T(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - La lista completa de funciones que incluye el módulo `math` se puede
