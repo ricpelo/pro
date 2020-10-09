@@ -246,6 +246,21 @@ que denominamos el **valor** de la expresión.
 - Los tipos más básicos en Programación son los **números** (_enteros_ y
   _reales_), las **cadenas** y los **lógicos**.
 
+---
+
+- En Python, los tipos de datos básicos se llaman de la siguiente forma:
+
+  - Números enteros: `int`
+
+  - Números reales: `float`
+
+  - Cadenas: `str`
+
+  - Lógicos: `bool`
+
+- Por tanto, cuando un dato es un número entero, decimos que pertenece al tipo
+  `int`; cuando es una cadena, decimos que pertenece al tipo `str`; etcétera.
+
 ## Evaluación de expresiones
 
 - **_Evaluar_ una expresión** consiste en determinar el **valor** de la
@@ -437,27 +452,26 @@ endwhile (no)
   programa (como números, cadenas, identificadores, etc.).
 
 - Gracias a esas reglas, el intérprete puede identificar qué literales son, qué
-  valor representan y de qué tipo son.
+  valor representan y de qué **tipo** son.
 
 ---
 
 - Ejemplos de distintos tipos de literales:
 
-!SALTO
+  ---------------------------------------------------------------------
+    Números enteros        Números reales \       Cadenas \
+    (tipo `int`)           (tipo `float`)         (tipo `str`)
+  ---------------------- ----------------------  ----------------------
+      `-2`                 `3.5`                  `"hola"`
 
----------------------------------------------------------------------
-  Números enteros        Números reales         Cadenas
----------------------- ----------------------  ----------------------
-    `-2`                 `3.5`                  `"hola"`
+      `-1`                 `-2.7`                 `"pepe"`
 
-    `-1`                 `-2.7`                 `"pepe"`
+      `0`                                         `"25"`
 
-    `0`                                         `"25"`
+      `1`                                         `""`
 
-    `1`                                         `""`
-
-    `2`
----------------------------------------------------------------------
+      `2`
+  ---------------------------------------------------------------------
 
 - Algunas reglas léxicas son:
 
@@ -860,7 +874,7 @@ $$
   - La función se llama `abs`.
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
-    valor numérico.
+    valor numérico (es lo que representa el tipo especial `Number`).
 
   - Devuelve un resultado numérico.
 
