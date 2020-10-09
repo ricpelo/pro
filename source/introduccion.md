@@ -1429,11 +1429,13 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
   de los lenguajes de programación la utilizan para documentar su sintaxis.
 
-#### Ejemplo
+---
 
 :::: columns
 
 ::: {.column width=53%}
+
+- Ejemplo:
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1465,12 +1467,13 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Los símbolos en negrita y azul (como !T(la)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
-- El !COLOR(teal)(*) representa 0, 1 ó más **repeticiones** de lo que
+- El !COLOR(teal)(*) indica 0, 1 ó más **repeticiones** de lo que
   acompaña.
-- El !COLOR(teal)(!MAS) representa 1 ó más **repeticiones** de lo que acompaña.
+- El !COLOR(teal)(!MAS) indica 1 ó más **repeticiones** de lo que acompaña.
 - Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y
   !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
-- Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
+- Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan** varios
+  elementos juntos.
 
 \endgroup
 
