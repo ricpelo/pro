@@ -1439,7 +1439,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 !NT(frases) ::= !NT{frase} (!T{y} !NT{frase})\* !T{.}
 !NT(frase) ::= !NT(sujeto) !NT(predicado)
-!NT(sujeto) ::= !NT(articulo) !NT(sustantivo) !NT(adjetivo)+
+!NT(sujeto) ::= !NT(articulo) !NT(sustantivo) !NT(adjetivo)!MAS
 !NT(predicado) ::= !NT(verbo) [!NT(adverbio)]
 !NT(artículo) ::= !T(el) | !T(la)
 !NT(sustantivo) ::= !T(niño) | !T(vaca)
@@ -1465,9 +1465,9 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Los símbolos en negrita y azul (como !T(la)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
-- El !COLOR(teal)(\*) representa 0, 1 ó más **repeticiones** de lo que
+- El !COLOR(teal)(*) representa 0, 1 ó más **repeticiones** de lo que
   acompaña.
-- El !COLOR(teal)(+) representa 1 ó más **repeticiones** de lo que acompaña.
+- El !COLOR(teal)(!MAS) representa 1 ó más **repeticiones** de lo que acompaña.
 - Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y
   !COLOR{teal}{!ifdef(HTML)(\])(])} indican **optatividad**.
 - Los paréntesis !COLOR{teal}{(} y !COLOR{teal}{)} **agrupan**.
@@ -1511,9 +1511,9 @@ controlar el comportamiento físico y lógico de un ordenador.
   !NT(frases)
   $\Rightarrow$ !NT(frase) !T(.)
   $\Rightarrow$ !NT(sujeto) !NT(predicado) !T(.)
-  $\Rightarrow$ !NT(artículo) !NT(sustantivo) !NT(adjetivo)+ !NT(predicado) !T(.)
-  $\Rightarrow$ !T(el) !NT(sustantivo) !NT(adjetivo)+ !NT(predicado) !T(.)
-  $\Rightarrow$ !T(el) !T(niño) !NT(adjetivo)+ !NT(predicado) !T(.)
+  $\Rightarrow$ !NT(artículo) !NT(sustantivo) !NT(adjetivo)!MAS !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !NT(sustantivo) !NT(adjetivo)!MAS !NT(predicado) !T(.)
+  $\Rightarrow$ !T(el) !T(niño) !NT(adjetivo)!MAS !NT(predicado) !T(.)
   $\Rightarrow$ !T(el) !T(niño) !T(grande) !NT(predicado) !T(.)
   $\Rightarrow$ !T(el) !T(niño) !T(grande) !NT(verbo) [!NT(adverbio)] !T(.)
   $\Rightarrow$ !T(el) !T(niño) !T(grande) !T(come) [!NT(adverbio)] !T(.)
@@ -1591,8 +1591,8 @@ adverbio -> mucho
     !NT(expresión) ::= !NT(átomo) | !NT(lista)
 !NT(átomo) ::= !NT(número) | !NT(símbolo)
 !NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
-!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)+
-!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))+
+!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)!MAS
+!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))!MAS
 !NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
 !NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
