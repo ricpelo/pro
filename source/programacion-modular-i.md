@@ -455,7 +455,7 @@ E -> a [lhead = cluster1]
 
 ---
 
-- Eso significa que **los módulos en Python son internamente un dato más**, al
+- Eso significa que **los módulos en Python son  un dato más**, al
   igual que las listas o las funciones: se pueden asignar a variables, se
   pueden borrar de la memoria con `del`, etc.
 

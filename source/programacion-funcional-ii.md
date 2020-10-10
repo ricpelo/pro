@@ -130,9 +130,9 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre)
-!NT(operación) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
-                     | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
+  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre) | !T{(}!NT(expresión)!T{)}
+!NT(operación) ::= !NT(expresión) !NT(operador_binario) !NT(expresión)
+                     | !NT(operador_unario) !NT(expresión)
                      | !NT(llamada_función) | !NT(llamada_método)
 !NT(nombre) ::= !T(identificador)
 !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...

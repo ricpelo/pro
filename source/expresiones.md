@@ -729,6 +729,32 @@ $$
 
 ---
 
+- Incorporando las reglas de la prioridad y la asociatividad, y eliminando la
+  necesidad de que las expresiones estén totalmente parentizadas, nuestra
+  gramática quedaría ahora sí:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre) | !T{(}!NT(expresión)!T{)}
+!NT(operación) ::= !NT(expresión) !NT(operador_binario) !NT(expresión)
+                     | !NT(operador_unario) !NT(expresión)
+                     | !NT(llamada_función) | !NT(llamada_método)
+!NT(nombre) ::= !T(identificador)
+!NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
+!NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
+!NT(operador_unario) ::= !T(+) | !T(-) | ...
+!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= !T(identificador)
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
+!NT(método) ::= !T(identificador)
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Ahora, cualquier expresión puede llevar paréntesis si es necesario.
+
+### Paréntesis y orden de evaluación 
+
 - Es importante entender que los paréntesis sirven para agrupar elementos, pero
   por sí mismos no son suficientes para imponer un determinado **orden de
   evaluación**.
@@ -1688,10 +1714,6 @@ Función                     Descripción           Ejemplo                  Res
    └── módulo
   ```
 
-!EJERCICIO
-
-@. Comprobar que el módulo `math` es un valor de tipo `module`.
-
 ---
 
 - Eso significa que podríamos ampliar nuestra gramática para permitir que el
@@ -1718,10 +1740,56 @@ Función                     Descripción           Ejemplo                  Res
 
 ---
 
+- No es lo mismo `math`, que `math.gcd`, que `math.gcd(16, 6)`:
+
+  - `math` es un _módulo_ (un objeto de tipo `module`).
+
+  - `math.gcd` es una _función_.
+
+  - `math.gcd(16, 6)` es una _llamada a función_.
+
+  ```python
+  >>> import math
+  >>> math
+  <module 'math' (built-in)>
+  >>> math.gcd
+  <built-in function gcd>
+  >>> math.gcd(16, 6)
+  2
+  ```
+
 - La lista completa de funciones que incluye el módulo `math` se puede
   consultar en su documentación:
 
   [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
+
+---
+
+- El lenguaje Python es, principalmente, un lenguaje **orientado a objetos**.
+
+- De hecho, **todos los datos en Python son objetos** que tienen sus propios
+  atributos (métodos, entre otros) a los que se le puede acceder usando el
+  operador punto (`.`).
+
+- Por ello, en Python los términos «_dato_», «_valor_» y «_objeto_» son
+  sinónimos en la práctica.
+
+- Los números, las cadenas, los módulos, las funciones... todos son objetos.
+
+- Incluso los métodos son objetos, ya que, en realidad, son funciones
+  contenidas dentro de otros objetos, y las funciones son objetos.
+
+- Hasta los tipos (como `int` o `str`) son objetos que tienen sus propios
+  atributos.
+
+- Entraremos a estudiar más en detalle estas características cuando veamos la
+  **programación orientada a objetos**.
+
+!EJERCICIO
+
+@. Comprobar que el módulo `math` es un valor (objeto) de tipo `module`.
+
+@. ¿Cómo podemos deducir que el tipo `int` también un objeto en Python?
 
 ## Métodos predefinidos
 
