@@ -358,6 +358,8 @@ F -> G
   en el módulo sin preocuparse de posibles colisiones accidentales con las
   variables globales o funciones de otros módulos.
 
+- Esas variables y funciones serán los **atributos** del **objeto _módulo_**.
+
 ### Importación de módulos
 
 - Para que un módulo pueda usar a otros módulos tiene que **importarlos**
@@ -368,18 +370,13 @@ F -> G
   import math
   ```
 
-- Al importar un módulo de esta forma, lo que se hace es incorporar la
-  definición del propio módulo (el módulo *importado*) en el ámbito actual del
-  módulo o *script* que ejecuta el `import` (el módulo *importador*).
-  
-- O dicho de otra forma: se incorpora al marco actual (es decir, el marco del
-  ámbito donde se ejecuta el `import`) la ligadura entre el nombre del módulo
-  importado y el propio módulo, por lo que el módulo importador puede acceder
-  al módulo importado a través de su nombre, como una referencia al propio
-  módulo.
+- Al importar un módulo de esta forma, se incorpora al marco actual (es decir,
+  al marco del ámbito donde se ejecuta el `import`) la ligadura entre el nombre
+  del módulo importado y el propio módulo, que **es un objeto de tipo
+  `module`**.
 
-- De esta forma, lo que se importa dentro del marco actual no es el contenido
-  del módulo importado, sino una **referencia** al módulo.
+- De esta forma, lo que se importa dentro del marco actual es una
+  **referencia** al objeto módulo.
 
 ---
 
@@ -433,13 +430,13 @@ node [fontname = "monospace"]
 dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
 subgraph cluster0 {
     style = rounded
-    label = "Módulo dos"
+    label = <Módulo <font face="monospace">dos</font>>
     bgcolor = "white"
     x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
     y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
 }
 subgraph cluster1 {
-    label = "Marco global de uno"
+    label = <Marco global de <font face="monospace">uno</font>>
     bgcolor = white
     a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>a|<f1>⬤}"]
     b [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>b|<f1>⬤}"]
@@ -455,54 +452,11 @@ E -> a [lhead = cluster1]
 
 ---
 
-- Eso significa que **los módulos en Python son  un dato más**, al
-  igual que las listas o las funciones: se pueden asignar a variables, se
-  pueden borrar de la memoria con `del`, etc.
+- Recordemos que, siempre que tengamos una referencia a un objeto, podemos
+  acceder a los atributos que contiene usando el operador punto (`.`),
+  indicando el objeto y el nombre del atributo al que queramos acceder:
 
-- Significa, además, que los módulos tienen su propio ámbito.
-
-- Sin embargo, al importar un módulo como tal dentro del ámbito actual, no se
-  crea un nuevo marco donde se almacenan sus definiciones.
-
-- En su lugar, se crea una estructura tipo diccionario que contiene las
-  correspondencias entre los nombres de los elementos definidos y sus valores.
-
-- Esa estructura representa al módulo en memoria («*es*» el módulo), y se
-  almacena en el montículo como cualquier otro dato.
-
-- Ese «dato» módulo (cuyo tipo es `module`) permanecerá en memoria mientras
-  haya una referencia que apunte a él, como siempre.
-
-#### Espacios de nombres
-
-- Decimos que un módulo es un **espacio de nombres**.
-
-- Los espacios de nombres son estructuras que almacenan correspondencias entre
-  un nombre y un valor, de forma que no haya nombres duplicados (o sea, nombres
-  con más de un valor).
-
-- Hasta ahora, los únicos espacios de nombres que habíamos visto eran los
-  **marcos** que se crean automáticamente cuando se entra en un cierto ámbito y
-  se destruyen cuando se sale de él.
-
-- Los **módulos** también son espacios de nombres (como los marcos) porque
-  tienen que almacenar sus definiciones locales, pero no se comportan como los
-  marcos, sino como datos.
-
-- Los módulos se crean en el montículo cuando se importan y se destruyen como
-  cualquier otro dato, cuando no hay más referencias que le apunten y el
-  recolector de basura reclama su espacio.
-
-- En posteriores unidades veremos que hay otros espacios de nombres muy
-  importantes: principalmente, las clases y los objetos.
-
----
-
-- Siempre que tengamos una referencia a un espacio de nombres, podemos acceder
-  a los valores que contiene usando el operador punto (`.`), indicando el
-  espacio de nombres y el nombre del elemento local al que queramos acceder:
-
-*espacio_de_nombres*`.`*elemento_local*
+*objeto*`.`*atributo*
 
 - Por tanto, para acceder al contenido del módulo importado, indicaremos el
   nombre de ese módulo seguido de un punto (`.`) y el nombre del contenido al
@@ -536,7 +490,7 @@ subgraph cluster2 {
     bgcolor = "grey95"
     lambda [shape = circle, label = "λ"]
     subgraph cluster0 {
-        label = "Módulo math"
+        label = <Módulo <font face="monospace">math</font>>
         style = rounded
         bgcolor = "white"
         gcd
@@ -597,7 +551,7 @@ subgraph cluster2 {
     2
     subgraph cluster0 {
         style = rounded
-        label = "Marco global de mates"
+        label = <Módulo <font face="monospace">mates</font>>
         bgcolor = "white"
         gcd
         m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
@@ -752,9 +706,8 @@ E -> mcd [lhead = cluster1]
   'sinh', 'sqrt', 'tan', 'tanh', 'tau', 'trunc']
   ```
 
-- La función `dir` puede usarse con cualquier espacio de nombres al que podamos
-  acceder mediante una referencia (por tanto, también valdrá para clases y
-  objetos cuando los veamos).
+- La función `dir` puede usarse con cualquier objeto al que podamos acceder
+  mediante una referencia.
 
 ### Módulos como *scripts*
 

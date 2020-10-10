@@ -254,8 +254,8 @@ def deposito(fondos):
       !NT(sentencia)+
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Las clases definen un **espacio de nombres**, y todas las definiciones que se
-  hagan dentro de la clase se almacenarán en su espacio de nombres.
+- La ejecución de esta sentencia crea un **objeto** que almacenará en forma de
+  **atributos** todas las definiciones que se hagan dentro de la clase.
 
 - Al definir su propio ámbito, todos los elementos definidos dentro de la clase
   son **locales** a la clase.
@@ -275,8 +275,7 @@ def deposito(fondos):
   que no es accesible desde el método.
 
 - Para poder acceder a ellos habrá que usar usar el operador punto (`.`) a
-  través de una referencia a la clase, con el que accederemos al interior del
-  espacio de nombres de la clase.
+  través de una referencia a la clase.
 
 ---
 
@@ -380,22 +379,21 @@ E -> self [lhead = cluster1]
     clase.
 
   - **Ese marco no desaparece al salir del ámbito**, sino que permanece en
-    memoria formando una estructura tipo diccionario que almacena el **espacio
-    de nombres** de la clase y que representa a la clase dentro de la memoria.
+    memoria formando un objeto (de tipo `type`) que contiene sus definiciones
+    en forma de atributos.
 
   - !CAJA
     ~~~~~~~~~~~~~~~~~~~~~~~~~
-    **La clase acaba siendo un dato más, almacenado en el montículo**, que
-    contiene su espacio de nombres, y que se ligará al nombre de la clase en el
-    ámbito donde se haya definido la clase.
+    **La clase acaba siendo un objeto más, almacenado en el montículo**, que
+    se ligará al nombre de la clase en el ámbito donde se haya definido ésta.
     ~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - Es decir: el nombre de la clase es una **referencia** que apunta a la
-    clase y, al ser un espacio de nombres, nos va a permitir acceder a sus
-    elementos usando el operador punto (`.`).
+    clase, la cual es un objeto y, por tanto, nos va a permitir acceder a sus
+    atributos usando el operador punto (`.`).
 
-- Ese «dato» clase (cuyo tipo es `type`) permanecerá en memoria mientras
-  exista, al menos, una referencia que apunte a él.
+- Ese objeto «clase» permanecerá en memoria mientras exista, al menos, una
+  referencia que apunte a él.
 
 ---
 
@@ -405,27 +403,18 @@ E -> self [lhead = cluster1]
   de despacho** que creábamos antes a mano, y que asocia el nombre de cada
   operación con la función (el método) correspondiente.
 
-- Esa estructura en forma de diccionario representa a la clase dentro de la
-  memoria («_es_» la clase como dato), y se liga al nombre de la clase en el
-  marco del ámbito donde se haya declarado la clase (normalmente será el marco
-  global).
+- Esa estructura en forma de diccionario acaba convirtiéndose en un objeto que
+  representa a la clase en la memoria.
+
+- Ese objeto «clase» se liga al nombre de la clase en el marco del ámbito donde
+  se haya declarado la clase (normalmente será el marco global).
 
 !IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=55%)(width=70%)
 
 ---
 
-- Ese diccionario representa a la clase en memoria, y nos indica que las clases
-  son datos y también son **espacios de nombres**.
-
-- Recordemos que los espacios de nombres son estructuras que almacenan
-  correspondencias entre un nombre y un valor (como puede ser una función o un
-  método, como es el caso aquí).
-
-- Otros espacios de nombres que hemos visto hasta ahora en el curso son los
-  **marcos** (que no son datos) o los **módulos** (que sí lo son).
-
-- Como las clases son espacios de nombres, debemos usar el operador punto (`.`)
-  para acceder al contenido de una clase, indicando la referencia a la clase
+- Como las clases son objetos, debemos usar el operador punto (`.`) para
+  acceder al contenido de una clase, indicando la referencia a la clase
   (normalmente, su nombre) y el nombre del contenido al que se desea acceder:
 
   ```python
@@ -670,10 +659,7 @@ subgraph cluster2 {
 
 ---
 
-- Los objetos son **espacios de nombres**, ya que cada objeto almacena las
-  correspondencias entre los atributos del objeto y sus valores.
-
-- Gracias a ello, podemos usar el operador punto (`.`) para acceder a un
+- Recordemos que debemos usar el operador punto (`.`) para acceder a un
   atributo del objeto a partir de una referencia suya usando la sintaxis:
 
 *objeto*`.`*atributo*
@@ -2896,7 +2882,7 @@ class Pila:
   las instancias) se denominan **atributos de instancia** o **variables de
   instancia**.
 
-- Las variables de clase pertenecen al **espacio de nombres** de la clase.
+- Las variables de clase pertenecen a la clase, no a un objeto de la clase.
 
 ---
 
@@ -2943,8 +2929,8 @@ _clase_`.`_atributo_
 0.02
 ```
 
-- Esto nos indica que los atributos de clase se almacenan en el **diccionario**
-  del **espacio de nombres** de la clase.
+- Esto nos indica que los atributos de clase se almacenan en la propia clase,
+  es decir, en el objeto que representa a la clase.
 
 :::
 
@@ -3059,14 +3045,14 @@ class Deposito:
   como argumento** a través del primer parámetro `self`.
 
 - En realidad, un método estático es básicamente **una función normal definida
-  dentro del espacio de nombres de una clase** y que se ejecuta como cualquier
-  otra función.
+  dentro de una clase** y que se ejecuta como cualquier otra función.
 
 - Por contraste, los métodos que se ejecutan sobre un objeto se denominan
   **métodos de instancia**, para distinguirlos de los estáticos.
 
-- Al estar dentro del espacio de nombres de la clase, para acceder a un método
-  estático hay que usar el operador punto (`.`).
+- Al estar dentro de la clase, para acceder a un método estático hay que usar
+  el operador punto (`.`) usando una referencia a la clase como operando
+  izquierdo.
 
 ---
 
@@ -3114,8 +3100,8 @@ class Deposito:
 
 - Esas operaciones serían métodos estáticos.
 
-- Al estar definidos en el espacio de nombres de la clase `Calculadora`, para
-  acceder a ellos habrá que usar el operador punto (`.`).
+- Al estar definidos dentro de la clase `Calculadora`, para acceder a ellos
+  habrá que usar el operador punto (`.`).
 
 ---
 

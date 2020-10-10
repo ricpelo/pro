@@ -404,7 +404,7 @@
 <li><p>La definición de una clase es una estructura sintáctica que define su propio <strong>ámbito</strong> y que está formada por una secuencia de sentencias que se ejecutarán cuando la ejecución del programa alcance esa definición:</p>
 <div class="line-block"><strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>+</div></li>
-<li><p>Las clases definen un <strong>espacio de nombres</strong>, y todas las definiciones que se hagan dentro de la clase se almacenarán en su espacio de nombres.</p></li>
+<li><p>La ejecución de esta sentencia crea un <strong>objeto</strong> que almacenará en forma de <strong>atributos</strong> todas las definiciones que se hagan dentro de la clase.</p></li>
 <li><p>Al definir su propio ámbito, todos los elementos definidos dentro de la clase son <strong>locales</strong> a la clase.</p></li>
 </ul>
 </section>
@@ -415,7 +415,7 @@
 <li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
 <li><p>El cuerpo de un método define un nuevo ámbito, pero ese ámbito no está includo dentro del ámbito de la clase.</p></li>
 <li><p>Por tanto, desde el interior de un método no se puede acceder directamente al resto de miembros de la clase, ya que están definidos en un ámbito distinto que no es accesible desde el método.</p></li>
-<li><p>Para poder acceder a ellos habrá que usar usar el operador punto (<code>.</code>) a través de una referencia a la clase, con el que accederemos al interior del espacio de nombres de la clase.</p></li>
+<li><p>Para poder acceder a ellos habrá que usar usar el operador punto (<code>.</code>) a través de una referencia a la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.5">
@@ -461,34 +461,32 @@
 <li><p>Con las <strong>clases</strong> ocurre exactamente igual que con los <strong>módulos</strong>:</p>
 <ul>
 <li><p>Al entrar en el ámbito de la clase, se crea un nuevo marco en memoria que contiene las definiciones que se van creando durante la ejecución de la clase.</p></li>
-<li><p><strong>Ese marco no desaparece al salir del ámbito</strong>, sino que permanece en memoria formando una estructura tipo diccionario que almacena el <strong>espacio de nombres</strong> de la clase y que representa a la clase dentro de la memoria.</p></li>
+<li><p><strong>Ese marco no desaparece al salir del ámbito</strong>, sino que permanece en memoria formando un objeto (de tipo <code>type</code>) que contiene sus definiciones en forma de atributos.</p></li>
 <li><div class="caja">
-<p><strong>La clase acaba siendo un dato más, almacenado en el montículo</strong>, que contiene su espacio de nombres, y que se ligará al nombre de la clase en el ámbito donde se haya definido la clase.</p>
+<p><strong>La clase acaba siendo un objeto más, almacenado en el montículo</strong>, que se ligará al nombre de la clase en el ámbito donde se haya definido ésta.</p>
 </div></li>
-<li><p>Es decir: el nombre de la clase es una <strong>referencia</strong> que apunta a la clase y, al ser un espacio de nombres, nos va a permitir acceder a sus elementos usando el operador punto (<code>.</code>).</p></li>
+<li><p>Es decir: el nombre de la clase es una <strong>referencia</strong> que apunta a la clase, la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos usando el operador punto (<code>.</code>).</p></li>
 </ul></li>
-<li><p>Ese «dato» clase (cuyo tipo es <code>type</code>) permanecerá en memoria mientras exista, al menos, una referencia que apunte a él.</p></li>
+<li><p>Ese objeto «clase» permanecerá en memoria mientras exista, al menos, una referencia que apunte a él.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.8">
 
 <ul>
 <li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria esa estructura similar al <strong>diccionario de despacho</strong> que creábamos antes a mano, y que asocia el nombre de cada operación con la función (el método) correspondiente.</p></li>
-<li><p>Esa estructura en forma de diccionario representa a la clase dentro de la memoria («<em>es</em>» la clase como dato), y se liga al nombre de la clase en el marco del ámbito donde se haya declarado la clase (normalmente será el marco global).</p></li>
+<li><p>Esa estructura en forma de diccionario acaba convirtiéndose en un objeto que representa a la clase en la memoria.</p></li>
+<li><p>Ese objeto «clase» se liga al nombre de la clase en el marco del ámbito donde se haya declarado la clase (normalmente será el marco global).</p></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/clase-estructura.png" class="plain" style="width:55.0%" alt="" /><figcaption>La clase <code>Deposito</code> en memoria</figcaption>
+<img data-src="images/clase-estructura.png" class="plain" style="width:55.0%" alt="La clase Deposito en memoria" /><figcaption aria-hidden="true">La clase <code>Deposito</code> en memoria</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="2.1.0.0.9">
 
 <ul>
-<li><p>Ese diccionario representa a la clase en memoria, y nos indica que las clases son datos y también son <strong>espacios de nombres</strong>.</p></li>
-<li><p>Recordemos que los espacios de nombres son estructuras que almacenan correspondencias entre un nombre y un valor (como puede ser una función o un método, como es el caso aquí).</p></li>
-<li><p>Otros espacios de nombres que hemos visto hasta ahora en el curso son los <strong>marcos</strong> (que no son datos) o los <strong>módulos</strong> (que sí lo son).</p></li>
-<li><p>Como las clases son espacios de nombres, debemos usar el operador punto (<code>.</code>) para acceder al contenido de una clase, indicando la referencia a la clase (normalmente, su nombre) y el nombre del contenido al que se desea acceder:</p>
+<li><p>Como las clases son objetos, debemos usar el operador punto (<code>.</code>) para acceder al contenido de una clase, indicando la referencia a la clase (normalmente, su nombre) y el nombre del contenido al que se desea acceder:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.retirar</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="op">&lt;</span>function Deposito.retirar at <span class="bn">0x7f6f04885160</span><span class="op">&gt;</span></span></code></pre></div></li>
 </ul>
@@ -582,7 +580,7 @@
 </div><div class="column" style="width:43%;">
 <div class="centered">
 <figure>
-<img data-src="images/clase-objeto-estructura.png" class="plain" style="width:100.0%" alt="" /><figcaption>La clase <code>Deposito</code> y el objeto <code>dep</code> en memoria</figcaption>
+<img data-src="images/clase-objeto-estructura.png" class="plain" style="width:100.0%" alt="La clase Deposito y el objeto dep en memoria" /><figcaption aria-hidden="true">La clase <code>Deposito</code> y el objeto <code>dep</code> en memoria</figcaption>
 </figure>
 </div>
 </div>
@@ -608,7 +606,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/dos-referencias-iguales.png" class="plain" style="width:80.0%" alt="" /><figcaption>Dos variables (<code>dep1</code> y <code>dep2</code>) que <em>apuntan</em> al mismo objeto</figcaption>
+<img data-src="images/dos-referencias-iguales.png" class="plain" style="width:80.0%" alt="Dos variables (dep1 y dep2) que apuntan al mismo objeto" /><figcaption aria-hidden="true">Dos variables (<code>dep1</code> y <code>dep2</code>) que <em>apuntan</em> al mismo objeto</figcaption>
 </figure>
 </div>
 </section>
@@ -640,15 +638,14 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/objeto-atributos.svg" class="plain" style="width:40.0%" alt="" /><figcaption>Objeto <code>dep</code> y su atributo <code>fondos</code></figcaption>
+<img data-src="images/objeto-atributos.svg" class="plain" style="width:40.0%" alt="Objeto dep y su atributo fondos" /><figcaption aria-hidden="true">Objeto <code>dep</code> y su atributo <code>fondos</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="2.3.1.0.1">
 
 <ul>
-<li><p>Los objetos son <strong>espacios de nombres</strong>, ya que cada objeto almacena las correspondencias entre los atributos del objeto y sus valores.</p></li>
-<li><p>Gracias a ello, podemos usar el operador punto (<code>.</code>) para acceder a un atributo del objeto a partir de una referencia suya usando la sintaxis:</p></li>
+<li>Recordemos que debemos usar el operador punto (<code>.</code>) para acceder a un atributo del objeto a partir de una referencia suya usando la sintaxis:</li>
 </ul>
 <p><em>objeto</em><code>.</code><em>atributo</em></p>
 <ul>
@@ -675,7 +672,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/clase-dos-objetos-estructura.png" class="plain" style="width:50.0%" alt="" /><figcaption>La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
+<img data-src="images/clase-dos-objetos-estructura.png" class="plain" style="width:50.0%" alt="La clase Deposito y los objetos dep1 y dep2 en memoria" /><figcaption aria-hidden="true">La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
 </figure>
 </div>
 </section>
@@ -756,7 +753,7 @@
 </div><div class="column" style="width:43%;">
 <div class="centered">
 <figure>
-<img data-src="images/clase-dos-objetos-atributos-distintos-estructura.png" class="plain" style="width:100.0%" alt="" /><figcaption>La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> con distintos atributos</figcaption>
+<img data-src="images/clase-dos-objetos-atributos-distintos-estructura.png" class="plain" style="width:100.0%" alt="La clase Deposito y los objetos dep1 y dep2 con distintos atributos" /><figcaption aria-hidden="true">La clase <code>Deposito</code> y los objetos <code>dep1</code> y <code>dep2</code> con distintos atributos</figcaption>
 </figure>
 </div>
 </div>
@@ -1675,7 +1672,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/operaciones-capsula.png" class="plain" style="width:30.0%" alt="" /><figcaption>Las operaciones forman una <em>cápsula</em></figcaption>
+<img data-src="images/operaciones-capsula.png" class="plain" style="width:30.0%" alt="Las operaciones forman una cápsula" /><figcaption aria-hidden="true">Las operaciones forman una <em>cápsula</em></figcaption>
 </figure>
 </div>
 </section>
@@ -1686,7 +1683,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/operaciones-capsula.jpg" style="width:50.0%" alt="" /><figcaption>Las operaciones forman una <em>cápsula</em></figcaption>
+<img data-src="images/operaciones-capsula.jpg" style="width:50.0%" alt="Las operaciones forman una cápsula" /><figcaption aria-hidden="true">Las operaciones forman una <em>cápsula</em></figcaption>
 </figure>
 </div>
 </section>
@@ -1719,7 +1716,7 @@
 
 <div class="centered">
 <figure>
-<img data-src="images/encapsulacion.png" class="plain" style="width:60.0%" alt="" /><figcaption>Miembros <em>públicos</em> y <em>privados</em></figcaption>
+<img data-src="images/encapsulacion.png" class="plain" style="width:60.0%" alt="Miembros públicos y privados" /><figcaption aria-hidden="true">Miembros <em>públicos</em> y <em>privados</em></figcaption>
 </figure>
 </div>
 </section>
@@ -2251,7 +2248,7 @@
 <li><p>Ese valor se guardará en un atributo, pero ese atributo se almacena en la propia clase y está ligado a ella, no a una instancia concreta de dicha clase, ya que es un valor compartido por todos los objetos de la misma clase.</p></li>
 <li><p>Los atributos que pertenecen y están ligados a la propia clase (en lugar de a instancias concretas) se denominan <strong>atributos de clase</strong>, <strong>variables de clase</strong> o <strong>variables estáticas</strong>.</p></li>
 <li><p>Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a las instancias) se denominan <strong>atributos de instancia</strong> o <strong>variables de instancia</strong>.</p></li>
-<li><p>Las variables de clase pertenecen al <strong>espacio de nombres</strong> de la clase.</p></li>
+<li><p>Las variables de clase pertenecen a la clase, no a un objeto de la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.1.0.0.1">
@@ -2287,7 +2284,7 @@
 <div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true"></a><span class="fl">0.02</span></span></code></pre></div>
 <ul>
-<li>Esto nos indica que los atributos de clase se almacenan en el <strong>diccionario</strong> del <strong>espacio de nombres</strong> de la clase.</li>
+<li>Esto nos indica que los atributos de clase se almacenan en la propia clase, es decir, en el objeto que representa a la clase.</li>
 </ul>
 </div>
 </div>
@@ -2385,9 +2382,9 @@
 <ul>
 <li><p>Los <strong>métodos estáticos</strong> son métodos definidos dentro de una clase pero que <strong>no se ejecutan sobre ninguna instancia</strong>.</p></li>
 <li><p>Al no haber instancia, <strong>los métodos estáticos no reciben ninguna instancia como argumento</strong> a través del primer parámetro <code>self</code>.</p></li>
-<li><p>En realidad, un método estático es básicamente <strong>una función normal definida dentro del espacio de nombres de una clase</strong> y que se ejecuta como cualquier otra función.</p></li>
+<li><p>En realidad, un método estático es básicamente <strong>una función normal definida dentro de una clase</strong> y que se ejecuta como cualquier otra función.</p></li>
 <li><p>Por contraste, los métodos que se ejecutan sobre un objeto se denominan <strong>métodos de instancia</strong>, para distinguirlos de los estáticos.</p></li>
-<li><p>Al estar dentro del espacio de nombres de la clase, para acceder a un método estático hay que usar el operador punto (<code>.</code>).</p></li>
+<li><p>Al estar dentro de la clase, para acceder a un método estático hay que usar el operador punto (<code>.</code>) usando una referencia a la clase como operando izquierdo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.1">
@@ -2428,7 +2425,7 @@
 </ul></li>
 <li><p>Sabiendo eso, podemos crear una clase <code>Calculadora</code> que ni siquiera haría falta instanciar y que contendría las operaciones a realizar con los números.</p></li>
 <li><p>Esas operaciones serían métodos estáticos.</p></li>
-<li><p>Al estar definidos en el espacio de nombres de la clase <code>Calculadora</code>, para acceder a ellos habrá que usar el operador punto (<code>.</code>).</p></li>
+<li><p>Al estar definidos dentro de la clase <code>Calculadora</code>, para acceder a ellos habrá que usar el operador punto (<code>.</code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.3">
