@@ -139,10 +139,11 @@ nocite: |
 !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
 !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= !NT(nombre_función) | !T{(}!NT(expresión_lambda)!T{)}
-!NT(nombre_función) ::= [!T(identificador)!T(.)]!T(identificador)
+!NT(función) ::= !T(identificador) | !T{(}!NT(expresión_lambda)!T{)}
 !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(llamada_método) ::= !NT(expresión)!T(.)!T(identificador)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
+!NT(método) ::= !T(identificador)
 !NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})*
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

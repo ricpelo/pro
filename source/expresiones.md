@@ -190,16 +190,15 @@ que denominamos el **valor** de la expresión.
 !NT(operador_unario) ::= !T(+) | !T(-) | ...
 !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(función) ::= !T(identificador)
-!NT(llamada_método) ::= !NT(expresión)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
 !NT(método) ::= !T(identificador)
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Esta gramática genera **expresiones _totalmente parentizadas_**, en las que
   cada operación a realizar con operadores va agrupada entre paréntesis, aunque
-  no sea estrictamente necesario.
-
-- Por ejemplo: `(3 + (4 - 7))`
+  no sea estrictamente necesario. Por ejemplo: `(3 + (4 - 7))`
 
 ---
 
@@ -1290,13 +1289,13 @@ $$
 
   donde:
 
-  - $\underline{o}$ es el objeto que recibe el mensaje (dicho de otra forma: el
-    objeto sobre el que se ejecuta el método).
+  - $\underline{o}$ es el **objeto** que recibe el mensaje (dicho de otra
+    forma: el objeto sobre el que se ejecuta el método).
 
-  - $\underline{m}$ es el nombre del método.
+  - $\underline{m}$ es el **nombre** del método.
 
   - $\underline{a_1}, \underline{a_2}, \ldots, \underline{a_n}$ son los
-    argumentos del método (si los hay).
+    **argumentos** del método (si los hay).
 
 ---
 
@@ -1360,6 +1359,27 @@ $$
   ```
 
   (Esto no funciona en Python.)
+
+---
+
+- Hemos visto que, para acceder a un método de un objeto, se utiliza el
+  **operador _punto_ (`.`)**.
+
+- Es un operador _binario_, por lo que requiere dos operandos.
+
+- Su **operando izquierdo** debe ser un **_objeto_**:
+
+  - Técnicamente, un **objeto** es un valor estructurado que contiene
+    definiciones de elementos a los que se puede acceder mediante su nombre.
+
+  - A los elementos que contiene un objeto se les denomina **atributos** de ese
+    objeto.
+
+  - Por tanto, **los métodos son atributos**, aunque un objeto puede tener
+    otros atributos que no son métodos y que veremos en posteriores temas.
+
+- Su **operando derecho** debe ser el nombre de un _atributo_ contenido en
+  dicho objeto.
 
 # Otros conceptos sobre operaciones
 
@@ -1614,7 +1634,7 @@ Función                     Descripción           Ejemplo                  Res
                                                                            `'float'>`
 -------------------------------------------------------------------------------------
 
-### Funciones matemáticas
+### Funciones matemáticas y módulos
 
 - Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
   del módulo `math`.
@@ -1634,25 +1654,32 @@ Función                     Descripción           Ejemplo                  Res
   2
   ```
 
-- Una vez importada, la función ya se puede usar como cualquier otra.
+- Una vez importada, la función ya se puede usar directamente como cualquier
+  otra.
 
 ---
 
-- También se puede importar directamente el módulo en sí:
+- También se puede **importar directamente el módulo en sí** usando la orden
+  `import`.
+
+  ```python
+  >>> import math      # importamos el módulo math
+  ```
+
+- Al importar el módulo, lo que se importan no son sus funciones, sino el
+  propio módulo, el cual es un **objeto** (de tipo `module`) al que se accede a
+  través de su nombre y cuyos **atributos** son (entre otras cosas) las
+  funciones que están definidas dentro del módulo.
+
+- Por eso, para poder llamar a una función del módulo usando esta técnica,
+  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
+  de la función:
 
   ```python
   >>> import math      # importamos el módulo math
   >>> math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
   2
   ```
-
-- Al importar el módulo, lo que se importan no son sus funciones, sino el
-  nombre y la definición del propio módulo, el cual contiene dentro la
-  definición de sus funciones.
-
-- Por eso, para poder llamar a una función del módulo usando esta técnica,
-  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
-  de la función:
 
   ```python
   math.gcd(16, 6)
@@ -1661,18 +1688,35 @@ Función                     Descripción           Ejemplo                  Res
    └── módulo
   ```
 
-- El punto `.` es un operador que nos permite acceder al interior de
-  estructuras que tienen definiciones propias, como los módulos.
+!EJERCICIO
+
+@. Comprobar que el módulo `math` es un valor de tipo `module`.
 
 ---
 
-- Eso significa que debemos ampliar nuestra gramática para permitir que el nombre de una función en una llamada pueda contener la parte del módulo:
+- Eso significa que podríamos ampliar nuestra gramática para permitir que el
+  nombre de una función en una llamada pudiera contener la parte del módulo:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
 !NT(función) ::= [!NT(módulo)!T(.)]!T(identificador)
 !NT(módulo) ::= !T(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Pero técnicamente no es necesario, ya que las funciones contenidas en un
+  módulo son realmente **métodos que se ejecutan sobre el _objeto módulo_**,
+  por lo que la sintaxis es la misma que para los métodos y está ya recogida en
+  nuestra gramática:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
+!NT(método) ::= !T(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - La lista completa de funciones que incluye el módulo `math` se puede
   consultar en su documentación:
