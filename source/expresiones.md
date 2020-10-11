@@ -1785,7 +1785,7 @@ Función                     Descripción           Ejemplo                  Res
 - Entraremos a estudiar más en detalle estas características cuando veamos la
   **programación orientada a objetos**.
 
-!EJERCICIO
+!EJERCICIOS
 
 @. Comprobar que el módulo `math` es un valor (objeto) de tipo `module`.
 
