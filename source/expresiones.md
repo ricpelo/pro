@@ -579,32 +579,27 @@ $$
 
 ## Operadores
 
-- Un **operador** es un símbolo o palabra clave que representa la realización
-  de una *operación* sobre unos datos llamados **operandos**.
+- Un **operador** es un símbolo o palabra clave que representa una _operación_
+  a realizar sobre unos _datos_.
 
-- Ejemplos:
+- Los datos sobre los que actúa un operador se denominan **operandos**.
 
-  - Los operadores aritméticos: `+`, `-`, `*`, `/` (entre otros):
+- Por ejemplo, los operadores aritméticos `+`, `-`, `*` y `/`, cuando actúan
+  sobre operandos numéricos, representan las operaciones de suma, resta,
+  multiplicación y división, respectivamente.
 
-    ```python
-    (3 + 4)
-    ```
+  - En la expresión `(3 + 4)`:
 
-    (aquí los operandos son los números `3` y `4`)
+    - Los operandos son `3` y `4`.
 
-    ```python
-    (9 * 8)
-    ```
+    - El operador es `+` y representa la operación «_suma de números_».
 
-    (aquí los operandos son los números `9` y `8`)
+  - En la expresión `(9 * 8)`:
 
-  - El operador `in` para comprobar si un carácter pertenece a una cadena:
+    - Los operandos son `9` y `8`.
 
-    ```python
-    ("c" in "barco")
-    ```
-
-    (aquí los operandos son las cadenas `"c"` y `"barco"`)
+    - El operador es `*` y representa la operación «_multiplicación de
+      números_».
 
 ### Aridad de operadores
 
@@ -1066,7 +1061,7 @@ $$
 - Como último ejemplo, la función `max` devuelve el máximo de dos valores
   recibidos como argumentos:
 
-  `max(`_arg1_`,` ` `_arg2_`)`
+  `max(`$arg_1$`,` ` `$arg_2$`)`
 
 - Aquí es más complicado definir su signatura, ya que `max` admite argumentos
   de varios tipos (se puede calcular el máximo de dos números, de dos
@@ -1097,7 +1092,7 @@ $$
 - Si le pedimos al intérprete que nos muestre el valor de la expresión `max`,
   nos dice:
 
-  ```
+  ```java
   >>> max
   <built-in function max>
   ```
@@ -1377,8 +1372,9 @@ $$
   4
   ```
 
-- Si `count` fuese una función en Python en lugar de un método, recibiría dos
-  parámetros: la cadena y la subcadena. En tal caso, se usaría así:
+- Si `count` fuese una función en Python en lugar de un método (cosa que no
+  ocurre), recibiría dos parámetros: la cadena y la subcadena. En tal caso, se
+  usaría así:
 
   ```python
   count('hola caracola', 'ol')
@@ -1406,6 +1402,36 @@ $$
 
 - Su **operando derecho** debe ser el nombre de un _atributo_ contenido en
   dicho objeto.
+
+---
+
+- Dos consecuencias interesantes de lo anterior:
+
+  - El nombre de un método (como `count`) es el **identificador** de un
+    atributo que pertenece al objeto sobre el que se ejecuta el método.
+
+  - Si !NT(método) es el nombre de un método válido para el objeto !NT(objeto),
+    la expresión !NT(objeto)`.`!NT(método) (sin paréntesis detrás) **nos
+    devuelve el propio método en sí**.
+
+- Por tanto, si le pedimos al intérprete que nos muestre el valor de la
+  expresión `'hola'.count` (sin paréntesis), nos dirá algo así:
+
+  ```python
+  >>> 'hola'.count
+  <built-in method count of str object at 0x7f41e9cb6870>
+  ```
+
+  (Los métodos son casos especiales de funciones y, por tanto, no tienen forma
+  normal.)
+
+- En resumen: la expresión `'hola'.count` devuelve el propio método, y la
+  expresión `'hola'.count('o')` devuelve el valor `1`.
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~
+**Conclusión: los métodos (como las funciones) también son valores.**
+~~~~~~~~~~~~~~~~~~~~~
 
 # Otros conceptos sobre operaciones
 
@@ -1441,18 +1467,18 @@ $$
 
 - También podemos encontrarnos operaciones con más de una forma.
 
-- Por ejemplo, ya vimos anteriormente la operación *longitud*, que consiste en
+- Por ejemplo, ya vimos anteriormente la operación «*longitud*», que consiste en
   determinar el número de caracteres que tiene una cadena. Esta operación se
   puede hacer:
 
-  - Con la función `len`:
+  - Con la función `len`, pasando la cadena como argumento:
 
     ```python
     >>> len("hola")
     4
     ```
 
-  - Con el método `__len__`:
+  - Con el método `__len__` ejecutado sobre la cadena:
 
     ```python
     >>> "hola".__len__()
@@ -1486,6 +1512,8 @@ $$
     >>> (2).__pow__(4)
     16
     ```
+
+<!--
 
 ---
 
@@ -1542,6 +1570,8 @@ $$
     ```python
     (4).__add__(3)
     ```
+
+-->
 
 ---
 
@@ -1727,9 +1757,9 @@ Función                     Descripción           Ejemplo                  Res
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Pero técnicamente no es necesario, ya que las funciones contenidas en un
-  módulo son realmente **métodos que se ejecutan sobre el _objeto módulo_**,
-  por lo que la sintaxis es la misma que para los métodos y está ya recogida en
-  nuestra gramática:
+  módulo se invocan como si fueran **métodos que se ejecutan sobre el _objeto
+  módulo_**, por lo que la sintaxis es la misma que para los métodos y está ya
+  recogida en nuestra gramática:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1738,13 +1768,19 @@ Función                     Descripción           Ejemplo                  Res
 !NT(método) ::= !T(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Esto nos dice que hay una relación muy estrecha entre funciones y métodos (de
+  hecho, los métodos son funciones que se invocan de una forma especial).
+
 ---
+
+- De hecho, cuando el objeto es un módulo, no hablamos de métodos sino de
+  funciones (los módulos no contienen métodos).
 
 - No es lo mismo `math`, que `math.gcd`, que `math.gcd(16, 6)`:
 
   - `math` es un _módulo_ (un objeto de tipo `module`).
 
-  - `math.gcd` es una _función_.
+  - `math.gcd` es una _función_ (no es un método porque `math` es un módulo).
 
   - `math.gcd(16, 6)` es una _llamada a función_.
 
