@@ -312,6 +312,10 @@ nocite: |
     El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
     cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
 
+- Es importante entender que **la conversión de tipos no modifica el dato
+  original**, sino que devuelve un nuevo dato a partir del dato original pero
+  con el tipo cambiado.
+
 ## Tipos de datos básicos
 
 ### Números
@@ -455,6 +459,19 @@ nocite: |
   File "<stdin>", line 1, in <module>
   ValueError: invalid literal for int() with base 10: 'hola'
   ```
+
+---
+
+- Recordando lo que dijimos anteriormente, la conversión de tipos no modifica
+  el dato original, sino que devuelve un nuevo dato a partir del dato original
+  pero con el tipo cambiado.
+
+- Las funciones de conversión de tipos hacen precisamente eso: devuelven un
+  nuevo dato con un determinado tipo a partir del dato original que reciben
+  como argumento.
+
+- Por tanto, la expresión `int('24')` devuelve el entero `24` pero no cambia en
+  modo alguno la cadena `'24'` que ha recibido como argumento.
 
 # Álgebra de Boole
 
