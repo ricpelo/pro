@@ -140,23 +140,29 @@ nocite: |
 
 ---
 
-- Ejemplos:
+- Los tipos de un lenguaje de programación tienen un nombre (un
+  _identificador_) que los representa.
 
-  - El tipo `int` en Python define el conjunto de los **números enteros**,
-    sobre los que se pueden realizar las operaciones aritméticas (suma,
-    producto, etc.) entre otras.
+- Ejemplos en Python:
 
-    - Se corresponde *más o menos* con el símbolo $\mathbb{Z}$ que ya hemos
-      usado antes.
+  - El tipo `int` define el conjunto de los **números enteros**, sobre los que
+    se pueden realizar, entre otras, las operaciones aritméticas.
+
+    Se corresponde *más o menos* con el símbolo matemático $\mathbb{Z}$, que ya
+    hemos usado antes y que representa el conjunto de los números enteros en
+    Matemáticas. (¿Por qué «*más o menos*»?)
+
+  - El tipo `float` define el conjunto de los **números reales**, sobre los que
+    se pueden realizar también operaciones aritméticas.
+
+    Se corresponde *más o menos* con el símbolo matemático $\mathbb{R}$, que
+    representa el conjunto de los números reales en Matemáticas.
 
   - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
     pueden realizar otras operaciones (la *concatenación*, la *repetición*,
     etc.).
 
-    - Se corresponde *más o menos* con el símbolo $\mathbb{C}$ que ya hemos
-      usado antes.
-
-(¿Por qué «*más o menos*»?)
+¿Por qué decimos «*más o menos*»?
 
 ## `type`
 
@@ -249,6 +255,26 @@ nocite: |
 
 ---
 
+- Existen dos mecanismos de conversión de tipos:
+
+  - **Conversión implícita o _coerción_**: cuando el intérprete convierte un
+    valor de un tipo a otro sin que el programador lo haya solicitado
+    expresamente.
+
+  - **Conversión explícita o _casting_**: cuando el programador solicita
+    expresamente la conversión de un valor de un tipo a otro usando alguna
+    construcción u operación del lenguaje.
+
+- Los lenguajes de tipado fuerte no realizan conversiones implícitas de tipos
+  salvo excepciones muy concretas (por ejemplo, conversiones entre enteros y
+  reales en expresiones aritméticas).
+
+- Los lenguajes de tipado débil se caracterizan, precisamente, por realizar
+  conversiones implícitas cuando, en una expresión, el tipo de un valor no se
+  corresponde con el tipo necesario.
+
+---
+
 - Ejemplo:
 
   - Python es un lenguaje **fuertemente tipado**, por lo que no podemos hacer
@@ -285,11 +311,21 @@ nocite: |
 - Las **operaciones** que se pueden realizar con los números son los que cabría
   esperar (aritméticas, trigonométricas, matemáticas en general).
 
+---
+
 - Los enteros y los reales generalmente se pueden combinar en una misma
   expresión aritmética y suele resultar en un valor real, ya que se considera
   que los reales *contienen* a los enteros.
 
   - Ejemplo: `4 + 3.5` devuelve `7.5`.
+
+- Por ello, y aunque el lenguaje sea de tipado fuerte, se permite la conversión
+  implícita entre datos de tipo `int` y `float` dentro de una misma expresión
+  para realizar las operaciones correspondientes.
+
+- En el ejemplo anterior, el valor entero `4` se convierte implícitamente en el
+  real `4.0` debido a que el otro operando de la suma es un valor real (`3.5`).
+  Finalmente, se obtiene un valor real (`7.5`).
 
 ### Cadenas
 
