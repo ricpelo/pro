@@ -111,6 +111,28 @@ nocite: |
   Si $p = q$, entonces $f(p) = f(q)$.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Los **efectos laterales** son aquellos que provocan un cambio de estado
+  irremediable en el sistema, y que provocan (o pueden provocar) que el
+  resultado de una expresión no dependa únicamente de los valores que aparecen
+  en esa expresión.
+
+- Por ejemplo, las **instrucciones de E/S** (entrada y salida) provocan efectos
+  laterales, ya que:
+
+  - Al **leer un dato** de la entrada (ya sea el teclado, un archivo del disco
+    o una base de datos), no se sabe de antemano qué valor se va a recibir, ya
+    que éste proviene del exterior y no lo controlamos.
+
+  - Al **escribir un dato** en la salida (ya sea la pantalla, un archivo o una
+    base de datos), no sólo estamos calculando el resultado de la expresión,
+    sino que además estamos cambiando irremediablemente algo del exterior.
+
+- En posteriores temas veremos que existe un paradigma (el **paradigma
+  imperativo**) que se basa principalmente en provocar efectos laterales, sobre
+  todo mediante la llamada _asignación destructiva_.
+
 # Tipos de datos
 
 ## Concepto
