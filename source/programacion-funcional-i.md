@@ -1053,6 +1053,11 @@ maximo -> lambda
 
     - **Palabra reservada**: palabra que no puede emplearse como identificador.
 
+- En Python, los identificadores pueden ser combinaciones de letras minúsculas
+  y mayúsculas (y distingue entre ellas), dígitos y subrayados (`_`), no pueden
+  empezar por un dígito, no pueden coincidir con una palabra reservada y pueden
+  tener cualquier longitud.
+
 ### Tipo de un identificador
 
 - Cuando un identificador está ligado a un valor, a efectos prácticos el
