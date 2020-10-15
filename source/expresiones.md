@@ -771,13 +771,27 @@ $$
 - En concreto, la evaluación de esa expresión sería:
 
   ```python
-  (4 * (3 + 5))       # se evalúa 4 (que devuelve 4)
-  = (4 * (3 + 5))     # se evalúa 3 (que devuelve 3)
-  = (4 * (3 + 5))     # se evalúa 5 (que devuelve 5)
-  = (4 * (3 + 5))     # se evalúa (3 + 5) (que devuelve 8)
-  = (4 * 8)           # se evalúa (4 * 8) (que devuelve 32)
+  4 * (3 + 5)       # se evalúa 4 (que devuelve 4)
+  = 4 * (3 + 5)     # se evalúa 3 (que devuelve 3)
+  = 4 * (3 + 5)     # se evalúa 5 (que devuelve 5)
+  = 4 * (3 + 5)     # se evalúa (3 + 5) (que devuelve 8)
+  = 4 * 8           # se evalúa 4 * 8 (que devuelve 32)
   = 32
   ```
+
+- Sin paréntesis, la expresión `4 * 3 + 5` se evaluaría así:
+
+  ```python
+  4 * 3 + 5         # se evalúa 4 (que devuelve 4)
+  = 4 * 3 + 5       # se evalúa 3 (que devuelve 3)
+  = 4 * 3 + 5       # se evalúa 4 * 3 (que devuelve 12)
+  = 12 + 5          # se evalúa 5 (que devuelve 5)
+  = 12 + 5          # se evalúa 12 + 5 (que devuelve 17)
+  = 17
+  ```
+
+  Aquí se puede hacer el producto antes que la suma porque los dos operandos
+  del `*` están ya totalmente reducidos.
 
 ---
 
@@ -810,7 +824,7 @@ $$
   = (2 + 3) * (4 + 5)  # se evalúa 3 (que devuelve 3)
   = (2 + 3) * (4 + 5)  # se evalúa (2 + 3) (que devuelve 5)
   = 5 * (4 + 5)        # se evalúa 4 (que devuelve 4)
-  = 5 * (4 + 5)        # se evalúa 5 (que devuelve 5)
+  = 5 * (4 + 5)        # se evalúa el último 5 (que devuelve 5)
   = 5 * (4 + 5)        # se evalúa (4 + 5) (que devuelve 9)
   = 5 * 9              # se evalúa 5 * 9 (que devuelve 45)
   45
@@ -1820,6 +1834,90 @@ Función                     Descripción           Ejemplo                  Res
 
 - Entraremos a estudiar más en detalle estas características cuando veamos la
   **programación orientada a objetos**.
+
+#### El módulo `operator`
+
+- El módulo `operator` contiene, en forma de funciones, las operaciones básicas
+  que hasta ahora hemos utilizado en forma de operadores:
+
+  --------------------------------------------------------
+    Operador     Operación           Función en el \
+                                     módulo `operator`
+  ------------ ------------------- -----------------------
+     `+`         Suma                    `add`
+
+     `-`         Resta                   `sub`
+
+     `-`         Cambio de signo         `neg`
+
+     `*`         Multiplicación          `mul`
+
+     `/`         División                `truediv`
+
+     `%`         Módulo                  `mod`
+
+     `**`        Exponente               `pow`
+
+     `//`        División entera         `floordiv`
+                 hacia abajo
+  --------------------------------------------------------
+
+---
+
+- Gracias al módulo `operator`, podemos reescribir con funciones las
+  expresiones que utilizan operadores.
+
+- Por ejemplo, la expresión:
+
+  ```python
+  >>> 3 * (4 + 5) - 10
+  17
+  ```
+
+  se puede reescribir como:
+
+  ```python
+  >>> from operator import add, mul, sub
+  >>> sub(mul(3, add(4, 5)), 10)
+  17
+  ```
+
+- Pasar los operadores de una expresión a funciones es un ejercicio muy
+  interesante que ayuda a entender en qué orden se evalúan las subexpresiones y
+  por qué.
+
+- En Python, en una llamada a función, los argumentos se evalúan siempre antes
+  que la propia llamada (y de izquierda a derecha).
+
+---
+
+- La expresión `3 * (4 + 5) - 10` se evalúa así:
+
+  ```python
+  3 * (4 + 5) - 10          # se evalúa 3 (devuelve 3)
+  = 3 * (4 + 5) - 10        # se evalúa 4 (devuelve 4)
+  = 3 * (4 + 5) - 10        # se evalúa 5 (devuelve 5)
+  = 3 * (4 + 5) - 10        # se evalúa (4 + 5) (devuelve 9)
+  = 3 * 9 - 10              # se evalúa 3 * 9 (devuelve 27)
+  = 27 - 10                 # se evalúa 27 - 10 (devuelve 17)
+  = 17
+  ```
+
+- Y la expresión `sub(mul(3, add(4, 5)), 10)` se evalúa así:
+
+  ```python
+  sub(mul(3, add(4, 5)), 10)    # se evalúa sub (devuelve la función resta)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa mul (devuelve la función multiplicación)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 3 (devuelve 3)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa add (devuelve la función suma)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 4 (devuelve 4)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 5 (devuelve 5)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa add(4, 5) (devuelve 9)
+  = sub(mul(3, 9), 10)          # se evalúa mul(3, 9) (devuelve 27)
+  = sub(27, 10)                 # se evalúa 10 (devuelve 10)
+  = sub(27, 10)                 # se evalúa sub(27, 10) (devuelve 17)
+  = 17
+  ```
 
 !EJERCICIOS
 
