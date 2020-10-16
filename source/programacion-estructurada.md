@@ -10,22 +10,24 @@ nocite: |
 
 ## Programación estructurada
 
-- La programación estructurada es una técnica de programación cuyo objetivo es,
-  esencialmente, la obtención de programas fiables y fácilmente mantenibles.
+- La **programación estructurada** es una técnica de programación cuyo
+  **objetivo** es, esencialmente, la **obtención de programas fiables y
+  fácilmente mantenibles**.
 
 - Su estudio puede dividirse en dos partes bien diferenciadas:
 
-  - Por una parte, el estudio conceptual se centra en ver qué se entiende por
-    programa estructurado para estudiar con detalle sus características
+  - Por una parte, el **estudio conceptual** se centra en ver qué se entiende
+    por programa estructurado para estudiar con detalle sus características
     fundamentales.
 
-  - Por otra parte, dentro del enfoque práctico se presentará la metodología de
-    refinamientos sucesivos que permite construir programas estructurados paso
-    a paso, detallando cada vez más sus acciones componentes.
+  - Por otra parte, dentro del **enfoque práctico** se presentará la
+    metodología de refinamientos sucesivos que permite construir programas
+    estructurados paso a paso, detallando cada vez más sus acciones
+    componentes.
 
 - Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
-  por E. W. Dijkstra en 1965, aunque el fundamento teórico está basado en los
-  trabajos de Böhm y Jacopini publicados en 1966.
+  por **E. W. Dijkstra** en 1965, aunque el fundamento teórico está basado en
+  los trabajos de **Böhm y Jacopini** publicados en 1966.
 
 ---
 
@@ -366,6 +368,31 @@ $B$
 
 ---
 
+:::: columns
+
+::: column
+
+- La sintaxis es, sencillamente:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(secuencia) ::=
+!NT(sentencia)
+!NT(sentencia)\*
+  ~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Las sentencias deben estar todas al mismo nivel de indentación (misma
+  posición horizontal o _columna_).
+
+:::
+
+::::
+
+
 !CAJA
 ~~~~~~~~~~~~~~~~~
 **Concepto fundamental:**
@@ -386,49 +413,73 @@ del código.
   ```
 
   Estas cuatro sentencias, al estar todas al mismo nivel de indentación, actúan
-  como una sola sentencia en bloque y se ejecutan en orden de arriba abajo.
+  como una sola sentencia en bloque (forman una estructura _secuencial_) y se
+  ejecutan en orden de arriba abajo.
+
+- A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o
+  una sentencia compuesta (una estructura):
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
+!NT(estructura) ::= !NT(secuencia)
+!NT(secuencia) ::=
+!NT(sentencia)
+!NT(sentencia)\*
+~~~~~~~~~~~~~~~~~~~~
 
 ## Selección
 
-- La selección (o estructura alternativa) tiene varias sintaxis en Python:
-
 :::: columns
 
-::: column
+::: {.column width=40%}
 
-- Selección simple:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
-      !NT(sentencia)
-  ~~~~~~~~~~~~~~~~~~~~
-
-- Selección doble:
+- La selección (o estructura alternativa) en Python tiene la siguiente
+  sintaxis:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
+  !NT(selección) ::=
+!T(if) !NT(condición)!T(:)
       !NT(sentencia)
-!T(else)!T(:)
-      !NT(sentencia)
+[!T(elif) !NT(condición)!T(:)
+      !NT(sentencia)]*
+[!T(else)!T(:)
+      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=60%}
 
-- Selección múltiple:
+- Ejemplos:
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~
-  !T(if) !NT(condición)!T(:)
-      !NT(sentencia)
-[!T(elif) !NT(condición)!T(:)
-      !NT(sentencia)]
-[!T(else)!T(:)
-      !NT(sentencia)]
-  ~~~~~~~~~~~~~~~~~~~~
+  ```python
+  if 4 == 3:
+      print('Son distintos')
+      x = 5
+  ```
+
+  ```python
+  if 4 == 3:
+      print('Son distintos')
+      x = 5
+  else:
+      print('Son iguales')
+      x = 9
+  ```
+
+  ```python
+  if x < 2:
+      print('Es menor que dos')
+  elif x <= 9:
+      print('Está comprendido entre 2 y 9')
+      x = 5
+  elif x < 12:
+      print('Es mayor que 9 y menor que 12')
+  else:
+      print('Es mayor o igual que 12')
+  ```
 
 :::
 
@@ -436,46 +487,20 @@ del código.
 
 ---
 
-:::: columns
+- Ahora nuestra gramática se amplía:
 
-::: {.column width=40%}
-
-- Ejemplos:
-
-```python
-if 4 == 3:
-    print('Son distintos')
-    x = 5
-```
-
-```python
-if 4 == 3:
-    print('Son distintos')
-    x = 5
-else:
-    print('Son iguales')
-    x = 9
-```
-
-:::
-
-::: {.column width=60%}
-
-```python
-if x < 2:
-    print('Es menor que dos')
-elif x <= 9:
-    print('Está comprendido entre 2 y 9')
-    x = 5
-elif x < 12:
-    print('Es mayor que 9 y menor que 12')
-else:
-    print('Es mayor o igual que 12')
-```
-
-:::
-
-::::
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
+!NT(estructura) ::= !NT(secuencia) | !NT(selección)
+!NT(selección) ::=
+!T(if) !NT(condición)!T(:)
+      !NT(sentencia)
+[!T(elif) !NT(condición)!T(:)
+      !NT(sentencia)]*
+[!T(else)!T(:)
+      !NT(sentencia)]
+~~~~~~~~~~~~~~~~~~~~
 
 ## Iteración
 
@@ -484,7 +509,8 @@ else:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
-  !T(while) !NT(condición)!T(:)
+  !NT(iteración) ::=
+!T(while) !NT(condición)!T(:)
       !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
@@ -493,6 +519,19 @@ else:
 - La !NT(sentencia) es el **cuerpo** del bucle.
 
 - Cada ejecución del cuerpo del bucle se denomina **iteración**.
+
+---
+
+- Ahora ampliamos de nuevo nuestra gramática:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
+!NT(estructura) ::= !NT(secuencia) | !NT(selección) | !NT(iteración)
+!NT(iteración) ::=
+!T(while) !NT(condición)!T(:)
+      !NT(sentencia)
+~~~~~~~~~~~~~~~~~~~~
 
 ## Otras sentencias de control
 
@@ -610,23 +649,24 @@ else:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !T(try:)
+  !NT(gestión_excepciones) ::=
+!T(try:)
       !NT(sentencia)
 \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-      !NT(sentencia))+
+      !NT(sentencia))!MAS()
 [!T(else:)
       !NT(sentencia)]
 [!T(finally:)
       !NT(sentencia)]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(excepcion) ::= !NT(nombre_excepcion)
-                  | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -664,6 +704,28 @@ else:
   ```
 
 - En cualquiera de los dos casos, siempre acaba diciendo `Fin`.
+
+---
+
+- Y volvemos a ampliar de nuevo nuestra gramática:
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~
+!NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
+!NT(estructura) ::= !NT(secuencia)
+                        | !NT(selección)
+                        | !NT(iteración)
+                        | !NT(gestión_excepciones)
+!NT(gestión_excepciones) ::=
+!T(try:)
+      !NT(sentencia)
+\(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
+      !NT(sentencia))!MAS()
+[!T(else:)
+      !NT(sentencia)]
+[!T(finally:)
+      !NT(sentencia)]
+~~~~~~~~~~~~~~~~~~~~
 
 ### Gestores de contexto
 
@@ -868,16 +930,18 @@ else:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !T(def) !NT(nombre)!T{(}[!NT(parámetros)]!T{)}!T(:)
+  !NT(definición_función) ::=
+!T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
       !NT(cuerpo)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - donde:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(cuerpo) ::= !NT(sentencia)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(lista_parámetros) ::= !T(identificador) [!T(,) !T(identificador)]\*
+!NT(cuerpo) ::= !NT(sentencia)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
 
@@ -906,6 +970,24 @@ else:
 - Por tanto (de nuevo como en cualquier otra estructura), el final de la
   función se deduce al encontrarse una sentencia **menos indentada** que el
   cuerpo, o bien el final del *script*.
+
+---
+
+- En consecuencia, nuestra gramática se vuelve a ampliar:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
+!NT(estructura) ::= !NT(secuencia)
+                        | !NT(selección)
+                        | !NT(iteración)
+                        | !NT(gestión_excepciones)
+                        | !NT(definición_función)
+!NT(definición_función) ::=
+!T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
+      !NT(sentencia)
+~~~~~~~~~~~~~~~~~~~~
+
 
 ## Llamadas a funciones imperativas 
 
@@ -977,11 +1059,13 @@ else:
 
 ---
 
+Una función puede llamar a otra.
+
 :::: columns
 
 ::: column
 
-- Una función puede llamar a otra. Por ejemplo, el siguiente programa:
+- Por ejemplo, este programa:
 
   ```python
   def saluda(persona):
@@ -1055,7 +1139,7 @@ else:
 ## Paso de argumentos
 
 - En el marco de la función llamada se almacenan, entre otras cosas, los
-  valores de los parámetros de la función.
+  parámetros de la función.
 
 - Al principio, los parámetros contendrán los valores de los argumentos que se
   hayan pasado a la función al llamar a la misma.
