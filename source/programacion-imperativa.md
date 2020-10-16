@@ -103,10 +103,9 @@ nocite: |
   se denomina **referencia** y sirve para identificar al dato y acceder al
   mismo.
 
-- En determinados casos, el intérprete puede no crear un nuevo dato sino
-  aprovechar otro exactamente igual que ya haya en el montículo para así
-  ahorrar memoria (lo estudiaremos más adelante cuando hablemos de los
-  *alias*).
+- En determinados casos, el intérprete no crea un nuevo dato sino que aprovecha
+  otro exactamente igual que ya haya en el montículo para así ahorrar memoria
+  (lo estudiaremos más adelante cuando hablemos de los *alias*).
 
 ## Variables
 
@@ -117,7 +116,7 @@ nocite: |
   variable **hace referencia al valor** o que **apunta al valor**.
 
 - Por abuso del lenguaje, también se suele decir que la variable **almacena o
-  contiene el valor**, aunque eso no es estríctamente cierto.
+  contiene el valor**, aunque eso no es estrictamente cierto.
 
 - El valor de una variable (o mejor dicho, la referencia que contiene) **puede
   cambiar** durante la ejecución del programa, haciendo que la variable pueda
@@ -160,12 +159,13 @@ identificador -> variable -> valor
 
 ---
 
-- De todos modos, los lenguajes de programación suelen tener un comportamiento
+- De todos modos, algunos lenguajes de programación tienen un comportamiento
   híbrido, que combina ambas técnicas:
 
-  - En Java, existen tipos primitivos (cuyos valores se almacenan directamente
-    en las variables) y tipos referencia (cuyos valores se almacenan en el
-    montículo y las variables contienen referencias a esos valores).
+  - En Java, existen _tipos primitivos_ (cuyos valores se almacenan
+    directamente en las variables) y _tipos referencia_ (cuyos valores se
+    almacenan en el montículo y las variables contienen referencias a esos
+    valores).
 
   - En C, los valores se almacenan dentro de las variables, pero es posible
     reservar memoria dinámicamente dentro del montículo y almacenar en una
@@ -222,8 +222,8 @@ subgraph cluster1 {
     label = "Marco global"
     bgcolor = white
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.01]
+    y [shape = plaintext, fillcolor = transparent, width = 0.01]
     v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
     v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
     x -> v1 -> 4
@@ -249,14 +249,15 @@ x:f1 -> 4
 y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- El montículo como tal no lo dibujaremos, ya que sabemos que los valores se
-  almacenan en él.
+- El montículo como tal normalmente no lo dibujaremos, ya que sabemos que los
+  valores se almacenan en él.
 
 - Igualmente, a veces tampoco dibujaremos el marco si se sobreentiende cuál es
   (o si no tiene importancia en ese momento).
 
 - A veces, y llegado el caso, también dibujaremos el valor directamente
-  almacenado en la variable que le apunta, para simplificar.
+  almacenado en la variable que le apunta, para simplificar (aunque sabemos que
+  eso no es lo que ocurre en Python).
 
 ## Sentencia de asignación
 
@@ -367,6 +368,18 @@ y:f1 -> 5
 
 - Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado, entornos, etc. se
   aplica igualmente a las variables.
+
+- Por ejemplo:
+
+  ```python
+  >>> x = 4
+  >>> y = 3
+  >>> x * y + 5
+  17
+  >>> x = 9
+  >>> x * y + 5
+  32
+  ```
 
 ## Constantes
 
@@ -528,7 +541,7 @@ y:f1 -> 5
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(asig_compuesta) ::= !NT(identificador) !NT(op)!T(=) !NT(expresión)
+  !NT(asig_compuesta) ::= !T(identificador) !NT(op)!T(=) !NT(expresión)
 !NT(op) ::= !T(+) | !T(-) | !T( * ) | !T(/) | !T(%) | !T(//) | !T( ** ) | !T(&) | !T(|) | !T(^) | !T(>>) | !T(<<)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -574,7 +587,7 @@ y:f1 -> 5
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(asig_múltiple) ::= !NT(lista_identificadores) !T(=) !NT(lista_expresiones)
-!NT(lista_identificadores) ::= !NT{identificador}(!T(,) !NT{identificador})\*
+!NT(lista_identificadores) ::= !T{identificador} (!T(,) !T{identificador})\*
 !NT(lista_expresiones) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1420,8 +1433,10 @@ True
   la misma celda de la memoria y, por tanto, son **idénticos**) y `False` en
   caso contrario.
 
-- Cuando se usa con variables, devuelve `True` si los datos que almacenan las
-  variables son realmente el mismo dato, y `False` en caso contrario.
+- Lo normal es usarlo con variables y, en tal caso, devuelve `True` si los
+  datos que almacenan las variables son realmente el mismo dato.
+
+- No tiene sentido usarlo con literales (y el intérprete lo advierte).
 
 - En la práctica, equivale a hacer `id(`!NT(valor1)`) == id(`!NT(valor2)`)`
 
@@ -1465,8 +1480,13 @@ True
   otras partes del mismo, las cuales podrían verse afectadas por él de una
   manera poco evidente o impredecible.
 
-- Una función puede provocar efectos laterales, o bien verse afectada por
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Una función puede provocar efectos laterales, o bien verse afectada por
   efectos laterales provocados por otras partes del programa.
+
+  En cualquiera de estos casos, tendríamos una función **impura**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los casos típicos de efectos laterales en una función son:
 
@@ -1475,8 +1495,6 @@ True
   - Cambiar el estado de un argumento mutable.
 
   - Realizar una operación de entrada/salida.
-
-  En cualquiera de estos casos, tendríamos una función **impura**.
 
 ## Transparencia referencial
 
@@ -1495,21 +1513,23 @@ True
   27
   ```
 
-- Por tanto, cambiar el valor de una variable global es considerado un **efecto
-  lateral**, ya que puede alterar el comportamiento de otras partes del
-  programa de formas a menudo impredecibles.
+- Por tanto, cambiar el valor de una variable global (en cualquier parte del
+  programa) es considerado un **efecto lateral**, ya que puede alterar el
+  comportamiento de otras partes del programa de formas a menudo impredecibles
+  o poco evidentes.
 
 ---
 
 - Cuando el efecto lateral lo produce la propia función también estamos
   perdiendo transparencia referencial, pues en tal caso no podemos sustituir
-  libremente la llamada a la función por su valor de retorno, ya que ahora la
-  función **hace algo más** que calcular dicho valor y que es observable fuera
-  de la función.
+  libremente la llamada a la función por su valor de retorno, ya que ahora **la
+  función hace _algo más_ que calcular dicho valor**, y ese _algo_ es
+  observable fuera de la función.
 
-- Por ejemplo, una función que imprime algo por la pantalla o escribe algo en
-  un archivo del disco tampoco es una función pura y, por tanto, en ella no se
-  cumple la transparencia referencial.
+- Por ejemplo, una función que imprime por la pantalla o escribe en un archivo
+  del disco está provocando un efecto observable fuera de la función, por lo
+  que tampoco es una función pura y, por tanto, en ella no se cumple la
+  transparencia referencial.
 
 - Lo mismo pasa con las funciones que modifican algún argumento mutable. Por
   ejemplo:
@@ -1528,7 +1548,7 @@ True
 ---
 
 - Los efectos laterales hacen que sea muy difícil razonar sobre el
-  funcionamiento del programa, puesto que las funciones impuras no pueden verse
+  funcionamiento del programa, porque las funciones impuras no pueden verse
   como simples correspondencias entre los datos de entrada y el resultado de
   salida, sino que además hay que tener en cuenta los **efectos ocultos** que
   producen en otras partes del programa.

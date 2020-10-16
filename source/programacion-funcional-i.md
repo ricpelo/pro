@@ -921,7 +921,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(definición) ::= !NT(identificador) !T(=) !NT(expresión)
+  !NT(definición) ::= !T(identificador) !T(=) !NT(expresión)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
