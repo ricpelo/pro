@@ -58,11 +58,9 @@ nocite: |
 - De la misma manera que decíamos que podemos aplicar una función a unos
   argumentos, también podemos aplicar una expresión lambda a unos argumentos.
 
-- Recordemos que *aplicar* una función a unos argumentos produce el valor que
-  la función asocia a esos argumentos en el conjunto imagen.
-
-- Por ejemplo, la aplicación de la función $max$ sobre los argumentos $3$ y
-  $5$ se escribe como $max(3, 5)$ y eso denota el valor $5$.
+- Por ejemplo, la aplicación de la función `max` sobre los argumentos `3` y `5`
+  es una expresión que se escribe como `max(3, 5)` que denota el valor
+  **cinco** (o sea, que la llamada a la función devuelve `5`).
 
 - Igualmente, la aplicación de una expresión lambda como
 
@@ -75,6 +73,31 @@ nocite: |
   ```python
   (lambda x, y: x + y)(4, 3)
   ```
+
+#### Evaluación de una aplicación funcional
+
+- En nuestro modelo de sustitución, la **evaluación de la aplicación de una
+  expresión lambda** consiste en **sustituir**, en el cuerpo de la expresión
+  lambda, **cada parámetro por su argumento correspondiente** (por orden) y
+  devolver la expresión resultante *parentizada* (entre paréntesis).
+
+- A esta operación se la denomina **aplicación funcional** o **β-reducción**.
+
+- Siguiendo con el ejemplo anterior:
+
+  ```python
+  (lambda x, y: x + y)(4, 3)
+  ```
+
+  sustituimos en el cuerpo de la expresión lambda los parámetros `x` e `y` por
+  los argumentos `4` y `3`, respectivamente, y parentizamos la expresión
+  resultante, lo que da:
+
+  ```python
+  (4 + 3)
+  ```
+
+  que simplificando (según las reglas del operador `+`) da `7`.
 
 #### Llamadas a funciones
 
@@ -105,18 +128,22 @@ nocite: |
 ---
 
 - La evaluación de la llamada a `suma(4, 3)` implicaría realizar los siguientes
-  dos pasos y en este orden:
+  tres pasos y en este orden:
 
   1. Sustituir el nombre de la función `suma` por su definición.
 
-  2. Aplicar la expresión lambda a sus argumentos.
+  2. Evaluar sus argumentos.
+
+  3. Aplicar la expresión lambda a sus argumentos.
 
 - Esto implica la siguiente cadena de reescrituras:
 
   ```python
-  suma(4, 3)                    # definición de suma
-  = (lambda x, y: x + y)(4, 3)  # aplicación
-  = (4 + 3)                     # aritmética
+  suma(4, 3)                    # evalúa suma y devuelve su definición
+  = (lambda x, y: x + y)(4, 3)  # evalúa 4 y devuelve 4
+  = (lambda x, y: x + y)(4, 3)  # evalúa 3 y devuelve 3
+  = (lambda x, y: x + y)(4, 3)  # aplica la expresión lambda sus argumentos
+  = (4 + 3)                     # evalúa 4 + 3 y devuelve 7
   = 7
   ```
 
@@ -125,8 +152,8 @@ nocite: |
 - Como una expresión lambda es una función, aplicar una expresión lambda a unos
   argumentos es como llamar a una función pasándole dichos argumentos.
 
-- Por tanto, nuestra gramática de las expresiones válidas en Python se amplía
-  ahora incorporando las expresiones lambda como un tipo de funciones:
+- Por tanto, ampliamos ahora nuestra gramática de las expresiones en Python
+  incorporando las expresiones lambda como un tipo de función:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,35 +172,10 @@ nocite: |
 !NT(objeto) ::= !NT(expresión)
 !NT(método) ::= !T(identificador)
 !NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})*
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
+!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Evaluación de una aplicación funcional
-
-- En nuestro modelo de sustitución, la **evaluación de la aplicación de una
-  expresión lambda** consiste en **sustituir**, en el cuerpo de la expresión
-  lambda, **cada parámetro por su argumento correspondiente** (por orden) y
-  devolver la expresión resultante *parentizada* (entre paréntesis).
-
-- A esta operación se la denomina **aplicación funcional** o **β-reducción**.
-
-- Siguiendo con el ejemplo anterior:
-
-  ```python
-  (lambda x, y: x + y)(4, 3)
-  ```
-
-  sustituimos en el cuerpo de la expresión lambda los parámetros `x` e `y` por
-  los argumentos `4` y `3`, respectivamente, y parentizamos la expresión
-  resultante, lo que da:
-
-  ```python
-  (4 + 3)
-  ```
-
-  que simplificando (según las reglas del operador `+`) da `7`.
-
----
+<!--
 
 - Lo mismo podemos hacer si definimos previamente la expresión lambda
   ligándola a un identificador:
@@ -198,6 +200,8 @@ nocite: |
 En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+-->
+
 #### Ejemplos
 
 - Dado el siguiente código:
@@ -216,20 +220,24 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   ```python
   suma(4, 3) * suma(2, 7)                    # definición de suma
-  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # aplicación a 4, 3
-  = (4 + 3) * suma(2, 7)                     # aritmética
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # evaluación de 4
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # evaluación de 3
+  = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # aplicación a 4 y 3
+  = (4 + 3) * suma(2, 7)                     # evalúa 4 + 3
   = 7 * suma(2, 7)                           # definición de suma
-  = 7 * (lambda x, y: x + y)(2, 7)           # aplicación a 2, 7
-  = 7 * (2 + 7)                              # aritmética
-  = 7 * 9                                    # aritmética
+  = 7 * (lambda x, y: x + y)(2, 7)           # evaluación de 2
+  = 7 * (lambda x, y: x + y)(2, 7)           # evaluación de 7
+  = 7 * (lambda x, y: x + y)(2, 7)           # aplicación a 2 y 7
+  = 7 * (2 + 7)                              # evaluación de 2 + 7
+  = 7 * 9                                    # evaluación de 7 * 9
   = 63
   ```
 
 ### Variables ligadas y libres
 
-- Si un identificador aparece en la lista de parámetros de una expresión
-  lambda, a ese identificador le llamamos **variable ligada** de la expresión
-  lambda.
+- Si un _identificador_ que aparece en el _cuerpo_ de una expresión lambda,
+  también aparece en la _lista de parámetros_ de esa expresión lambda, a ese
+  identificador le llamamos **variable ligada** de la expresión lambda.
 
 - En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
@@ -240,8 +248,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ```
 
   los dos identificadores que aparecen en el cuerpo (`x` e `y`) son variables
-  ligadas, ya que ambos aparecen en la lista de parámetros de la expresión
-  lambda.
+  ligadas, ya que ambos aparecen también en la lista de parámetros de la
+  expresión lambda.
 
 - En cambio, en la expresión lambda:
 
@@ -372,9 +380,37 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Si en un determinado punto del programa tenemos el siguiente entorno:
+- Si en un determinado punto del programa tenemos el siguiente entorno (donde `suma` es una expresión lambda):
 
-  !IMGP(lambda-entorno-linea3-dentro-despues.svg)()(width=50%)(width=50%)
+  !DOT(lambda-suma-entorno.svg)()(width=50%)(width=50%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  1 [shape = circle]
+  8 [shape = circle]
+  12 [shape = circle]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = "white"
+      z [shape = plaintext, fillcolor = transparent, width = 0.1]
+      suma [shape = plaintext, fillcolor = transparent]
+  }
+  lambda [shape = circle, label = "λ"]
+  suma -> lambda
+  z -> 1
+  subgraph cluster1 {
+      label = <Marco de <font face="monospace">suma</font>>
+      bgcolor = white
+      xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+      yl [shape = plaintext, fillcolor = transparent, label = "y", width = 0.1]
+  }
+  xl -> 8
+  yl -> 12
+  xl -> z [lhead = cluster0, ltail = cluster1, minlen = 2]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> xl [lhead = cluster1]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Podemos afirmar que:
 
@@ -428,8 +464,8 @@ node [fontname = "monospace"]
 total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-xl [shape = plaintext, fillcolor = transparent, label = "x"]
+x [shape = plaintext, fillcolor = transparent, width = 0.1]
+xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -473,8 +509,8 @@ node [fontname = "monospace"]
 total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-w [shape = plaintext, fillcolor = transparent]
+x [shape = plaintext, fillcolor = transparent, width = 0.1]
+w [shape = plaintext, fillcolor = transparent, width = 0.1]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
@@ -562,7 +598,7 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 x -> 4
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
@@ -582,8 +618,8 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 x -> 4
 z -> 1
@@ -606,8 +642,8 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
     suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
@@ -630,8 +666,8 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
     suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
@@ -663,8 +699,8 @@ node [fontname = "monospace"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
     suma [shape = plaintext, fillcolor = transparent]
 }
 lambda [shape = circle, label = "λ"]
@@ -674,8 +710,8 @@ z -> 1
 subgraph cluster1 {
     label = "Marco de lambda"
     bgcolor = white
-    xl [shape = plaintext, fillcolor = transparent, label = "x"]
-    yl [shape = plaintext, fillcolor = transparent, label = "y"]
+    xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+    yl [shape = plaintext, fillcolor = transparent, label = "y", width = 0.1]
 }
 xl -> 8
 yl -> 12
@@ -701,10 +737,10 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
     suma [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 x -> 4
 y -> 3
@@ -730,11 +766,11 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
     suma [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
-    w [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent, width = 0.1]
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 x -> 4
 y -> 3
@@ -940,8 +976,8 @@ E -> x [lhead = cluster0]
   Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
 
   ```python
-  cuadrado(3 + 4)                # aritmética
-  = cuadrado(7)                  # definición de cuadrado
+  cuadrado(3 + 4)                # definición de cuadrado
+  = (lambda x, y: x * x)(3 + 4)  # evalúa 3 + 4 y devuelve 7
   = (lambda x, y: x * x)(7)      # aplicación a 7
   = (7 * 7)                      # aritmética
   = 49
@@ -967,7 +1003,7 @@ E -> x [lhead = cluster0]
   cuadrado = lambda x: x * x
   ```
 
-  Según el orden normal, la expresión `cuadrado(3 + 4)` se reduciría así:
+  Según el orden normal, la expresión `cuadrado(3 + 4)` se reduce así:
 
   ```python
   cuadrado(3 + 4)                # definición de cuadrado
@@ -996,10 +1032,10 @@ E -> x [lhead = cluster0]
 
 - Por ejemplo:
 
-  Sabemos que la expresión `1/0` da un error de *división por cero*:
+  Sabemos que la expresión `1 / 0` da un error de *división por cero*:
 
   ```python
-  >>> 1/0
+  >>> 1 / 0
   Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   ZeroDivisionError: division by zero
@@ -1023,7 +1059,7 @@ E -> x [lhead = cluster0]
 - Sabiendo eso... ¿qué valor devolvería la siguiente expresión?
 
   ```python
-  primero(4, 1/0)
+  primero(4, 1 / 0)
   ```
 
 - Curiosamente, el resultado dependerá de si la evaluación es estricta o
@@ -1031,7 +1067,7 @@ E -> x [lhead = cluster0]
 
   - **Si es estricta**, el intérprete evaluará todos los argumentos de la
     expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al
-    evaluar `1/0` devolverá un error.
+    evaluar `1 / 0` devolverá un error.
 
     Es lo que ocurre cuando se evalúa siguiendo el **orden aplicativo**.
 
@@ -1043,7 +1079,7 @@ E -> x [lhead = cluster0]
     Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
 
     ```python
-    primero(4, 1/0) = (lambda x, y: x)(4, 1/0) = (4) = 4
+    primero(4, 1 / 0) = (lambda x, y: x)(4, 1 / 0) = (4) = 4
     ```
 
 ---
@@ -1102,8 +1138,8 @@ E -> x [lhead = cluster0]
 - La expresión `area(11 + 1)` se evaluaría así según el *orden aplicativo*:
 
   ```{.python .number-lines}
-  area(11 + 1)                                     # aritmética
-  = area(12)                                       # definición de area
+  area(11 + 1)                                     # definición de area
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)       # aritmética               
   = (lambda r: 3.1416 * cuadrado(r))(12)           # aplicación
   = (3.1416 * cuadrado(12))                        # definición de cuadrado
   = (3.1416 * (lambda x: x * x)(12))               # aplicación
@@ -1115,19 +1151,21 @@ E -> x [lhead = cluster0]
 
 - En detalle:
 
-  - **Línea 1**: Se evalúa primero el argumento (`11 + 1`).
+  - **Línea 1**: Se evalúa `area`, que devuelve su definición (una expresión
+    lambda).
 
-  - **Línea 2**: Lo siguiente a evaluar es la aplicación de `area` sobre `12`,
-    lo que se hace en dos pasos. Primero se evalúa `area`, sustituyéndose por
-    su definición...
+  - **Línea 2**: Lo siguiente a evaluar es la aplicación de `area` sobre su
+    argumento, por lo que primero evaluamos éste (es el _redex_ más interno).
 
-  - **Línea 3**: ... y ahora se aplica la expresión lambda a su argumento `12`.
+  - **Línea 3**: Ahora se aplica la expresión lambda a su argumento `12`.
 
   - **Línea 4**: El *redex* más interno que queda por evaluar es la aplicación
-    de `cuadrado` sobre `12`, lo que se hace en dos pasos. Primero se evalúa
-    `cuadrado`, sustituyéndose por su definición...
+    de `cuadrado` sobre `12`. Primero se evalúa `cuadrado`, sustituyéndose por
+    su definición...
 
   - **Línea 5**: ... y ahora se aplica la expresión lambda a su argumento `12`.
+
+  - Lo que queda es todo aritmética.
 
 ---
 
@@ -1138,10 +1176,7 @@ E -> x [lhead = cluster0]
   = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación
   = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
   = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación
-  = (3.1416 * ((11 + 1) * (11 + 1)))          # aritmética
-  = (3.1416 * (12 * (11 + 1)))                # aritmética
-  = (3.1416 * (12 * 12))                      # aritmética
-  = (3.1416 * 144)                            # aritmética
+  = (3.1416 * ((11 + 1) * (11 + 1)))          # aritmética (varios pasos)
   = 452.3904
   ```
 
@@ -1163,6 +1198,8 @@ E -> x [lhead = cluster0]
 
   - **Línea 4**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
+  - Lo que queda es todo aritmética.
+
 ---
 
 - A veces no resulta fácil determinar si un *redex* es más interno o externo
@@ -1181,7 +1218,8 @@ E -> x [lhead = cluster0]
   se puede reescribir como:
 
   ```python
-  int.__add__(abs(-12), max(13, 28))
+  from operator import add
+  add(abs(-12), max(13, 28))
   ```
 
   lo que muestra claramente que la suma es más externa que el valor absoluto y
@@ -1198,19 +1236,20 @@ E -> x [lhead = cluster0]
   se reescribiría como:
 
   ```python
-  int.__mul__(abs(-12), max(pow(int.__add__(2, 3), 5), 37))
+  from operator import add, mul
+  mul(abs(-12), max(pow(add(2, 3), 5), 37))
   ```
 
   donde se aprecia claramente que el orden de las operaciones, de más interna a
   más externa, sería:
 
-  1. Suma (`+` o `int.__add__`).
+  1. Suma (`+` o `add`).
 
   2. Potencia (`**` o `pow`).
 
   3. Valor absoluto (`abs`) y máximo (`max`) al mismo nivel.
 
-  4. Producto (`*` o `int.__mul__`).
+  4. Producto (`*` o `mul`).
 
 ## Las funciones como abstracciones
 
@@ -2041,7 +2080,7 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    g [shape = plaintext, fillcolor = transparent]
+    g [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 g -> 1
 3 [shape = circle]
@@ -2049,7 +2088,7 @@ subgraph cluster1 {
     label = "Marco de uno"
     bgcolor = "white"
     node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 x -> 3
 11 [shape = circle]
@@ -2057,7 +2096,7 @@ subgraph cluster3 {
     label = "Marco de tres"
     bgcolor = "white"
     node [fontname = "monospace"]
-    w [shape = plaintext, fillcolor = transparent]
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 w -> 11
 6 [shape = circle]
@@ -2067,8 +2106,8 @@ subgraph cluster2 {
     label = "Marco de dos"
     bgcolor = "white"
     node [fontname = "monospace"]
-    y [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
+    y [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 y -> 6
 z -> 4
@@ -2124,7 +2163,7 @@ subgraph cluster1 {
     label = "Marco de fact(4)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n4 [shape = plaintext, fillcolor = transparent, label = "n"]
+    n4 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
 }
 n4 -> 4
 3 [shape = circle]
@@ -2132,7 +2171,7 @@ subgraph cluster2 {
     label = "Marco de fact(3)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n3 [shape = plaintext, fillcolor = transparent, label = "n"]
+    n3 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
 }
 n3 -> 3
 2 [shape = circle]
@@ -2140,7 +2179,7 @@ subgraph cluster3 {
     label = "Marco de fact(2)"
     bgcolor = "white"
     node [fontname = "monospace"]
-    n2 [shape = plaintext, fillcolor = transparent, label = "n"]
+    n2 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
 }
 n2 -> 2
 lambda [shape = circle, label = "λ"]
