@@ -1378,16 +1378,99 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <section id="entrada-y-salida-por-archivos" class="title-slide slide level2" data-number="4.6">
 <h2 data-number="4.6"><span class="header-section-number">4.6</span> Entrada y salida por archivos</h2>
-
+<ul>
+<li><p>Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este orden):</p>
+<ol>
+<li><p>Abrir el archivo en el modo adecuado.</p></li>
+<li><p>Realizar las operaciones deseadas sobre el archivo.</p></li>
+<li><p>Cerrar el archivo.</p></li>
+</ol></li>
+</ul>
 </section>
 <section id="open" class="title-slide slide level3" data-number="4.6.1">
 <h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> <code>open</code></h3>
+<ul>
+<li>La función <code>open</code> abre un archivo y devuelve un objeto que representa al archivo. Su signatura es:</li>
+</ul>
+<p><code>open(</code><em>nombre</em><code>: str</code> [<code>,</code> <em>modo</em><code>: str</code>]<code>)-&gt;IOBase</code></p>
+<ul>
+<li><p>El <em>nombre</em> es una cadena que contiene el nombre del archivo a abrir.</p></li>
+<li><p>El <em>modo</em> es otra cadena que contiene caracteres que describen de qué forma se va a usar el archivo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.1">
 
+<ul>
+<li><p>Los valores posibles de <em>modo</em> son:</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Carácter</th>
+<th style="text-align: left;">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>'r'</code></td>
+<td style="text-align: left;">Abre el archivo para lectura (valor predeterminado)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>'w'</code></td>
+<td style="text-align: left;">Abre para escritura (si el archivo ya existe lo borrará)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>'x'</code></td>
+<td style="text-align: left;">Abre para creación exclusiva (falla si el archivo ya existe)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>'a'</code></td>
+<td style="text-align: left;">Abre para escritura, añadiendo al final del archivo si ya existe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>'b'</code></td>
+<td style="text-align: left;">Modo binario</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>'t'</code></td>
+<td style="text-align: left;">Modo texto (valor predeterminado)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>'+'</code></td>
+<td style="text-align: left;">Abre para lectura y escritura</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>El modo predeterminado es <code>'r'</code> (abrir para lectura en modo texto, sinónimo de <code>'rt'</code>).</p></li>
+<li><p>Los modos <code>'w+'</code> y <code>'w+b'</code> abren el archivo y lo borra si ya existe.</p></li>
+<li><p>Los modos <code>'r+'</code> y <code>'r+b'</code> abren el archivo sin borrarlo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.2">
+
+<ul>
+<li><p>Normalmente, los archivos se abren en <em>modo texto</em>, lo que significa que se leen y se escriben cadenas (valores de tipo <code>str</code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
+<p>Por ejemplo, los saltos de línea se escriben como <code>\n</code> en Unix o <code>\r\n</code> en Windows, y se leen siempre como <code>\n</code>.</p></li>
+<li><p>Al añadir una <code>'b'</code> en el modo se abre el archivo en <em>modo binario</em>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code>bytes</code>.</p>
+<p>El modo binario es el que debe usarse cuando se trabaje con archivos que no contengan texto.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="read" class="title-slide slide level3" data-number="4.6.2">
 <h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span> <code>read</code></h3>
-
+<ul>
+<li><p>Para leer de un archivo, se usa el método <code>read</code> del objeto que devuelve la función <code>open</code>. Si se alcanza el final del archivo, se devuelve la cadena vacía (<code>''</code>):</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a><span class="co">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="readline" class="title-slide slide level3" data-number="4.6.3">
@@ -1430,8 +1513,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
 </ul>
 <p><br></p>
 <div class="columns">
@@ -1446,17 +1529,17 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li>Un ejemplo de uso:</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a><span class="st">goto .fin</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a><span class="st">label .fin</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a><span class="st">goto .fin</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a><span class="st">label .fin</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1473,25 +1556,25 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a><span class="st">primero = 2</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a><span class="st">ultimo = 25</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a><span class="st">i = primero</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a><span class="st">label .inicio</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true"></a></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true"></a><span class="st">i += 1</span></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true"></a><span class="st">goto .inicio</span></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true"></a></span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true"></a><span class="st">label .fin</span></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true"></a></span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="st">primero = 2</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a><span class="st">ultimo = 25</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a><span class="st">i = primero</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="st">label .inicio</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a><span class="st">if i == ultimo: goto .fin</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a><span class="st">i += 1</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a><span class="st">goto .inicio</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true"></a><span class="st">label .fin</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true"></a></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
 </ul>
 </section>
 </section>

@@ -1671,9 +1671,90 @@ True
 
 ## Entrada y salida por archivos
 
+- Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este
+  orden):
+
+  #. Abrir el archivo en el modo adecuado.
+
+  #. Realizar las operaciones deseadas sobre el archivo.
+
+  #. Cerrar el archivo.
+
 ### `open`
 
+- La función `open` abre un archivo y devuelve un objeto que representa al
+  archivo. Su signatura es:
+
+`open(`_nombre_`: str` [`, ` _modo_`: str`]`)->IOBase`
+
+- El _nombre_ es una cadena que contiene el nombre del archivo a abrir.
+
+- El _modo_ es otra cadena que contiene caracteres que describen de qué forma
+  se va a usar el archivo.
+
+---
+
+- Los valores posibles de _modo_ son:
+
+  ------------------------------------------------------------------------------
+    Carácter   Significado
+  ------------ -----------------------------------------------------------------
+  `'r'`        Abre el archivo para lectura (valor predeterminado)
+
+  `'w'`        Abre para escritura (si el archivo ya existe lo borrará)
+
+  `'x'`        Abre para creación exclusiva (falla si el archivo ya existe)
+
+  `'a'`        Abre para escritura, añadiendo al final del archivo si ya existe
+
+  `'b'`        Modo binario
+
+  `'t'`        Modo texto (valor predeterminado)
+
+  `'+'`        Abre para lectura y escritura
+  ------------------------------------------------------------------------------
+
+- El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo de `'rt'`).
+
+- Los modos `'w+'` y `'w+b'` abren el archivo y lo borra si ya existe.
+
+- Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+
+---
+
+- Normalmente, los archivos se abren en _modo texto_, lo que significa que se
+  leen y se escriben cadenas (valores de tipo `str`) desde y hacia el archivo,
+  las cuales se codifican según una codificación específica que depende de la
+  plataforma.
+
+  Por ejemplo, los saltos de línea se escriben como `\n` en Unix o `\r\n` en
+  Windows, y se leen siempre como `\n`.
+
+- Al añadir una `'b'` en el modo se abre el archivo en _modo binario_. En tal
+  caso, los datos se leen y se escriben en forma de objetos de tipo `bytes`.
+
+  El modo binario es el que debe usarse cuando se trabaje con archivos que no
+  contengan texto.
+
+- Ejemplo:
+
+  ```python
+  f = open('salida.txt', 'w')
+  ```
+
 ### `read`
+
+- Para leer de un archivo, se usa el método `read` del objeto que devuelve la
+  función `open`. Si se alcanza el final del archivo, se devuelve la cadena
+  vacía (`''`):
+
+  ```python
+  >>> f = open('entrada.txt', 'r')
+  >>> f.read()
+  'Este es el contenido del archivo.\n'
+  >>> f.read()
+  ''
+  ```
 
 ### `readline`
 
