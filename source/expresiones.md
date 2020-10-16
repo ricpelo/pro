@@ -1928,7 +1928,7 @@ Función                     Descripción           Ejemplo                  Res
 ## Métodos predefinidos
 
 - Igualmente, en la documentación podemos encontrar una lista de métodos
-  interesantes que operan con datos de tipo cadena:
+  interesantes que operan sobre cadenas:
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
 

@@ -172,7 +172,7 @@ nocite: |
 
     Se corresponde *más o menos* con el símbolo matemático $\mathbb{Z}$, que ya
     hemos usado antes y que representa el conjunto de los números enteros en
-    Matemáticas. (¿Por qué «*más o menos*»?)
+    Matemáticas.
 
   - El tipo `float` define el conjunto de los **números reales**, sobre los que
     se pueden realizar también operaciones aritméticas.
@@ -181,8 +181,7 @@ nocite: |
     representa el conjunto de los números reales en Matemáticas.
 
   - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
-    pueden realizar otras operaciones (la *concatenación*, la *repetición*,
-    etc.).
+    pueden realizar otras operaciones (*concatenación*, *repetición*, etc.).
 
 ¿Por qué decimos «*más o menos*»?
 
@@ -307,7 +306,7 @@ nocite: |
     ```
 
   - En cambio, PHP es un lenguaje **débilmente tipado** y la expresión anterior
-    en PHP es perfectamente válida (y vale **5**).
+    en PHP es perfectamente válida (y vale **cinco**).
 
     El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
     cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
@@ -317,6 +316,20 @@ nocite: |
   con el tipo cambiado.
 
 ## Tipos de datos básicos
+
+- Los tipos de datos básicos que empezaremos a estudiar en Python son:
+
+!SALTO
+
+  $$\text{Tipos básicos}\begin{cases}
+    \text{Números}\begin{cases}
+      \text{Enteros} \\
+      \text{Reales}
+    \end{cases} \\
+    \text{Cadenas} \\
+    \text{Funciones} \\
+    \text{Lógicos (o \textit{booleanos})}
+  \end{cases}$$
 
 ### Números
 
@@ -402,6 +415,24 @@ nocite: |
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
   representa con los literales `''`, `""`, `''''''` o `""""""`.
 
+---
+
+- Si necesitamos meter el carácter de la comilla simple (`'`) o doble (`"`) en
+  un literal de tipo cadena, tenemos dos opciones:
+
+  - Delimitar la cadena con el otro tipo de comillas. Por ejemplo:
+
+    - `'Pepe dijo: "Yo no voy.", así que no fuimos.'`
+
+    - `"Bienvenido, Señor O'Halloran."`
+
+  - «_Escapar_» la comilla, poniéndole delante una barra inclinada hacia la
+    izquierda (`\`):
+
+    - `"Pepe dijo: \"Yo no voy.\", así que no fuimos."`
+
+    - `'Bienvenido, Señor O\'Halloran.'`
+
 ### Funciones
 
 - En programación funcional, **las funciones también son datos**:
@@ -415,8 +446,8 @@ nocite: |
   **llamarla**, que sintácticamente se representa poniendo paréntesis `(` `)`
   justo a continuación de la función.
 
-  Dentro de los paréntesis se ponen los argumentos que se aplican a la función
-  en esa llamada.
+  Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
+  función en esa llamada (si es que los necesita), separados por comas.
 
 - Por tanto, `max` es la función en sí (un **valor** de tipo _función_) , y
   `max(3, 4)` es una llamada a la función `max` con los argumentos `3` y `4`
@@ -899,11 +930,12 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   x = 25
   ```
 
-  A partir de ese momento, el identificador `x` representa el valor `25`.
+  A partir de ese momento, el identificador `x` representa el valor `25` (por
+  lo que la expresión `x` vale `25`).
 
   Y si `x` vale `25`, la expresión `2 + x * 3` vale `77`.
 
-## Identificadores y ligaduras (*binding*)
+## Identificadores y ligaduras (*binding*!ifdef(HTML)(&nbsp;)())
 
 - Los **identificadores** son los nombres o símbolos que representan a los
   elementos del lenguaje.
@@ -916,6 +948,8 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 - Por esa razón, también se dice que una definición es una ligadura.
 
 - También decimos que el identificador está **ligado** (**_bound_**).
+
+- Lo representaremos gráficamente así:
 
 !DOT(ligadura.svg)()(width=30%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1071,8 +1105,8 @@ maximo -> lambda
   El **tipo de un identificador** es el tipo del dato con el que está ligado.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo de
-  dato tiene.
+- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo
+  tiene.
 
 ## Evaluación de expresiones con ligaduras
 
@@ -1099,7 +1133,7 @@ maximo -> lambda
   NameError: name 'y' is not defined
   ```
 
-## Marcos (*frames*)
+## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
 - Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
 
@@ -1243,7 +1277,7 @@ z -> 3
 - Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
 
-## Entorno (*environment*)
+## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
 - El entorno es una extensión del concepto de *marco*.
 
