@@ -312,6 +312,48 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Por ello, la línea 4 dará un error al intentar acceder al valor de un
   identificador no ligado.
 
+#### Entorno (*environment*!ifdef(HTML)(&nbsp;)())
+
+- El **entorno** es una extensión del concepto de _marco_.
+
+- Durante la ejecución del programa, se van creando y destruyendo marcos a
+  medida que la ejecución va entrando y saliendo de ciertas partes del
+  programa.
+
+- Eso hace que, en un momento dado, pueda haber varios marcos activos en
+  memoria.
+
+- **Según se van creando en memoria, esos marcos van enlazándose unos con
+  otros** creando una secuencia o **cadena de marcos** que se denomina
+  **entorno** (del inglés, _environment_).
+
+- En un momento dado, el entorno contendrá más o menos marcos dependiendo de
+  por dónde haya pasado la ejecución del programa hasta ese momento.
+
+---
+
+- El entorno, por tanto, es un concepto **_dinámico_** que **depende del
+  momento en el que se calcule**, es decir, de por dónde va la ejecución del
+  programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta
+  ahora).
+
+- El entorno nos dice **_todos_ los identificadores que son _accesibles_ en un
+  momento concreto de la ejecución del programa, y con qué valores están
+  ligados**.
+
+- El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
+
+- **El marco global siempre será el último de la cadena de marcos** que forman
+  el entorno.
+
+!DOT(cadena-de-marcos.svg)()(width=60%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = LR]
+node [fontname = "monospace"]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> "Marco A" -> "Marco B" -> "Marco global"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #### Ámbitos, marcos y entornos
 
 - Recordemos que un marco es un conjunto de ligaduras.

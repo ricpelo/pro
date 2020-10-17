@@ -1108,7 +1108,7 @@ maximo -> lambda
 - Si un identificador no está ligado, no tiene sentido preguntarse qué tipo
   tiene.
 
-## Evaluación de expresiones con ligaduras
+## Evaluación de expresiones con identificadores
 
 - Podemos usar un identificador ligado dentro de una expresión (siempre que la
   expresión sea una expresión válida según las reglas del lenguaje, claro
@@ -1213,7 +1213,7 @@ subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
+    x [shape = plaintext, fillcolor = transparent] 
 }
 x -> 4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1276,44 +1276,6 @@ z -> 3
 
 - Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
-
-## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
-
-- El entorno es una extensión del concepto de *marco*.
-
-- Un **entorno** (del inglés, *environment*) es una **secuencia o cadena de
-  marcos** que contienen todas las ligaduras válidas en un momento concreto de
-  la ejecución del programa.
-
-- Es decir, el entorno nos dice **qué identificadores son _accesibles_ en un
-  momento dado, y con qué valores están ligados**.
-
-- El entorno, por tanto, es un concepto **_dinámico_** que depende del momento
-  en el que se calcule, es decir, de por dónde va la ejecución del programa o,
-  lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora.
-
----
-
-- Ya hemos visto que, durante la ejecución del programa, se van creando y
-  destruyendo marcos a medida que la ejecución va entrando y saliendo de
-  ciertas partes del programa.
-
-- **Según se van creando en memoria, esos marcos van enlazándose unos con
-  otros** creando la secuencia de marcos que forman el entorno.
-
-- Por tanto, en un momento dado, el entorno contendrá más o menos marcos
-  dependiendo de por dónde haya pasado la ejecución del programa hasta ese
-  momento.
-
-- El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
-
-- **El marco global siempre será el último de la cadena de marcos** que forman
-  el entorno.
-
-- Como por ahora sólo tenemos ese marco, nuestro entorno sólo contendrá un
-  único marco. Por tanto, el entorno coincidirá con el marco global.
-
-- La cosa cambiará en cuanto empecemos a crear funciones.
 
 ## *Scripts*
 

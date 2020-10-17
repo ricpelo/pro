@@ -1075,8 +1075,8 @@
 </section>
 
 
-<section id="evaluación-de-expresiones-con-ligaduras" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> Evaluación de expresiones con ligaduras</h2>
+<section id="evaluación-de-expresiones-con-identificadores" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Evaluación de expresiones con identificadores</h2>
 <ul>
 <li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está).</p></li>
 <li><p>El identificador representa a su valor ligado y se evalúa a dicho valor en cualquier expresión donde aparezca el identificador:</p>
@@ -1172,30 +1172,8 @@
 </ul>
 </section>
 
-<section id="entorno-environment" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> Entorno (<em>environment</em> )</h2>
-<ul>
-<li><p>El entorno es una extensión del concepto de <em>marco</em>.</p></li>
-<li><p>Un <strong>entorno</strong> (del inglés, <em>environment</em>) es una <strong>secuencia o cadena de marcos</strong> que contienen todas las ligaduras válidas en un momento concreto de la ejecución del programa.</p></li>
-<li><p>Es decir, el entorno nos dice <strong>qué identificadores son <em>accesibles</em> en un momento dado, y con qué valores están ligados</strong>.</p></li>
-<li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que depende del momento en el que se calcule, es decir, de por dónde va la ejecución del programa o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.5.0.0.1">
-
-<ul>
-<li><p>Ya hemos visto que, durante la ejecución del programa, se van creando y destruyendo marcos a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
-<li><p><strong>Según se van creando en memoria, esos marcos van enlazándose unos con otros</strong> creando la secuencia de marcos que forman el entorno.</p></li>
-<li><p>Por tanto, en un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
-<li><p>El entorno <strong>siempre contendrá</strong>, al menos, un marco: el <em>marco global</em>.</p></li>
-<li><p><strong>El marco global siempre será el último de la cadena de marcos</strong> que forman el entorno.</p></li>
-<li><p>Como por ahora sólo tenemos ese marco, nuestro entorno sólo contendrá un único marco. Por tanto, el entorno coincidirá con el marco global.</p></li>
-<li><p>La cosa cambiará en cuanto empecemos a crear funciones.</p></li>
-</ul>
-</section>
-
-<section id="scripts" class="title-slide slide level2" data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span> <em>Scripts</em></h2>
+<section id="scripts" class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> <em>Scripts</em></h2>
 <ul>
 <li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
@@ -1206,8 +1184,8 @@
 </ul>
 </section>
 
-<section id="ámbitos" class="title-slide slide level2" data-number="4.7">
-<h2 data-number="4.7"><span class="header-section-number">4.7</span> Ámbitos</h2>
+<section id="ámbitos" class="title-slide slide level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span> Ámbitos</h2>
 <ul>
 <li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
 <li><p>Cuando eso ocurre, decimos que la construcción sintáctica define un <strong>ámbito</strong>, y que el ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa.</p></li>
@@ -1216,7 +1194,7 @@
 <li><p>El <strong>ámbito actual</strong> es el ámbito más interno en el que se encuentra la porción de código que se está ejecutando actualmente.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.1">
+<section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
 <li><p>El concepto de <em>ámbito</em> es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para tener en cuenta más condicionantes.</p></li>
@@ -1225,8 +1203,8 @@
 <li><p>Es decir: el intérprete crea el marco global cuando empieza a ejecutar el <em>script</em> (o cuando inicia una nueva sesión con el intérprete interactivo) y lo asocia al ámbito global.</p></li>
 </ul>
 </section>
-<section id="ámbito-de-una-ligadura" class="title-slide slide level3" data-number="4.7.1">
-<h3 data-number="4.7.1"><span class="header-section-number">4.7.1</span> Ámbito de una ligadura</h3>
+<section id="ámbito-de-una-ligadura" class="title-slide slide level3" data-number="4.6.1">
+<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> Ámbito de una ligadura</h3>
 <ul>
 <li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que dicha ligadura tiene validez.</p></li>
 <li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
