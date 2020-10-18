@@ -1332,9 +1332,10 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span> <code>print</code></h3>
 <ul>
 <li><p>La función <code>print</code> imprime (<em>escribe</em>) por la salida (normalmente la pantalla) el valor de una o varias expresiones.</p></li>
-<li><p>Su sintaxis es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>print</em>⟩</span> ::= <strong><code>print</code><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span>)*<br />
-                                [<strong><code>, sep=</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span>][<strong><code>, end=</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span>]<strong><code>)</code></strong></div></li>
+<li><p>Su signatura es:</p></li>
+</ul>
+<p><code>print(</code><span style="color:teal">⟨<em>expresión</em>⟩</span>(<code>,</code> <span style="color:teal">⟨<em>expresión</em>⟩</span>)* [<code>, sep=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>][<code>, end=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>]<code>)</code></p>
+<ul>
 <li><p>El <code>sep</code> es el <em>separador</em> y su valor por defecto es <code>' '</code> (un espacio).</p></li>
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code>'\n'</code> (el carácter de nueva línea).</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
@@ -1343,17 +1344,32 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
 </ul>
 </section>
-<section id="el-valor-none" class="title-slide slide level4" data-number="4.5.1.1">
-<h4 data-number="4.5.1.1"><span class="header-section-number">4.5.1.1</span> El valor <code>None</code></h4>
+<section id="paso-de-argumentos-por-palabras-clave" class="title-slide slide level4" data-number="4.5.1.1">
+<h4 data-number="4.5.1.1"><span class="header-section-number">4.5.1.1</span> Paso de argumentos por palabras clave</h4>
+<ul>
+<li><p>Normalmente, los argumentos se pasan a los parámetros posicionalmente (lo que se denomina <strong>paso de argumentos posicional</strong>).</p></li>
+<li><p>Según este método, los argumentos se asignan a los parámetros correspondientes según la posición que ocupan en la llamada a la función (el primer argumento se asigna al primer parámetro, el segundo al segundo parámetro y así sucesivamente).</p></li>
+<li><p>En Python también existe el <strong>paso de argumentos por palabra clave</strong>, donde cada argumento se asigna a su parámetro indicando en la llamada el nombre del parámetro y el valor de su argumento correspondiente separados por un <code>=</code>, como si fuera una asignación.</p></li>
+<li><p>Esta técnica se usa en la función <code>print</code> para indicar el separador o el terminador de la lista de expresiones a imprimir.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, end<span class="op">=</span><span class="st">&#39;-&#39;</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="el-valor-none" class="title-slide slide level4" data-number="4.5.1.2">
+<h4 data-number="4.5.1.2"><span class="header-section-number">4.5.1.2</span> El valor <code>None</code></h4>
 <ul>
 <li><p>Es importante resaltar que la función <code>print</code> <strong>no devuelve</strong> el valor de las expresiones, sino que las <strong>imprime</strong> (provoca el efecto lateral de cambiar la pantalla haciendo que aparezcan nuevos caracteres).</p></li>
 <li><p>La función <code>print</code> como tal no devuelve ningún valor, pero como en Python todas las funciones devuelven <em>algún</em> valor, en realidad lo que ocurre es que <strong>devuelve un valor <code>None</code></strong>.</p></li>
 <li><p><code>None</code> es un valor especial que significa «<strong>ningún valor</strong>» y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code>print</code>.</p></li>
 <li><p>Pertenece a un tipo de datos especial llamado <code>NoneType</code> cuyo único valor posible es <code>None</code>, y para comprobar si un valor es <code>None</code> se usa <span style="color:teal">⟨<em>valor</em>⟩</span> <code>is None</code>.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code>print</code> devuelve <code>None</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1361,15 +1377,16 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section id="input" class="title-slide slide level3" data-number="4.5.2">
 <h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span> <code>input</code></h3>
 <ul>
-<li><p>La función <code>input</code> <em>lee</em> datos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido.</p></li>
-<li><p>Siempre devuelve una <strong>cadena</strong>.</p></li>
-<li><p>Su sintaxis es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>input</em>⟩</span> ::= <strong><code>input</code><code>(</code></strong>[<span style="color:teal">⟨<em>prompt</em>⟩</span>]<strong><code>)</code></strong></div></li>
+<li><p>La función <code>input</code> <em>lee</em> datos introducidos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido, que siempre es una <strong>cadena</strong> a la cual se le ha eliminado el posible salto de línea final.</p></li>
+<li><p>Su signatura es:</p></li>
+</ul>
+<p><code>input(</code>[<em>prompt</em><code>: str</code> ]<code>)-&gt;str</code></p>
+<ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>Introduce tu nombre: Ramón</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a>Introduce tu nombre: Ramón</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a>Hola, Ramón</span></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 <li><p>Eso hace que sea <em>impura</em> por partida doble: provoca un efecto lateral y puede devolver un resultado distinto cada vez que se la llama.</p></li>
 </ul>
@@ -1381,21 +1398,22 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este orden):</p>
 <ol>
-<li><p>Abrir el archivo en el modo adecuado.</p></li>
+<li><p>Abrir el archivo en el modo adecuado con <code>open</code>.</p></li>
 <li><p>Realizar las operaciones deseadas sobre el archivo.</p></li>
-<li><p>Cerrar el archivo.</p></li>
+<li><p>Cerrar el archivo con <code>close</code>.</p></li>
 </ol></li>
 </ul>
 </section>
 <section id="open" class="title-slide slide level3" data-number="4.6.1">
 <h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> <code>open</code></h3>
 <ul>
-<li>La función <code>open</code> abre un archivo y devuelve un objeto que representa al archivo. Su signatura es:</li>
+<li>La función <code>open</code> abre un archivo y devuelve un objeto que lo representa. Su signatura es:</li>
 </ul>
-<p><code>open(</code><em>nombre</em><code>: str</code> [<code>,</code> <em>modo</em><code>: str</code>]<code>)-&gt;IOBase</code></p>
+<p><code>open(</code><em>nombre</em><code>: str</code> [<code>,</code> <em>modo</em><code>: str</code>]<code>)</code></p>
 <ul>
 <li><p>El <em>nombre</em> es una cadena que contiene el nombre del archivo a abrir.</p></li>
 <li><p>El <em>modo</em> es otra cadena que contiene caracteres que describen de qué forma se va a usar el archivo.</p></li>
+<li><p>El valor devuelto es un objeto cuyo tipo depende del modo en el que se ha abierto el archivo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.1.0.1">
@@ -1452,45 +1470,224 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="4.6.1.0.2">
 
 <ul>
-<li><p>Normalmente, los archivos se abren en <em>modo texto</em>, lo que significa que se leen y se escriben cadenas (valores de tipo <code>str</code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
+<li><p>Normalmente, los archivos se abren en <strong>modo texto</strong>, lo que significa que se leen y se escriben cadenas (valores de tipo <code>str</code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
 <p>Por ejemplo, los saltos de línea se escriben como <code>\n</code> en Unix o <code>\r\n</code> en Windows, y se leen siempre como <code>\n</code>.</p></li>
-<li><p>Al añadir una <code>'b'</code> en el modo se abre el archivo en <em>modo binario</em>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code>bytes</code>.</p>
-<p>El modo binario es el que debe usarse cuando se trabaje con archivos que no contengan texto.</p></li>
+<li><p>Al añadir una <code>'b'</code> en el modo se abre el archivo en <strong>modo binario</strong>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code>bytes</code>.</p>
+<p>El modo binario es el que debe usarse cuando se trabaje con archivos que no contengan texto (datos binarios <em>crudos</em>).</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.3">
+
+<ul>
+<li><p>El tipo de dato que devuelve <code>open</code> depende de cómo se ha abierto el archivo:</p>
+<ul>
+<li><p>Si se ha abierto en <strong>modo texto</strong>, devuelve un <code>TextIOWrapper</code>.</p></li>
+<li><p>Si se ha abierto en <strong>modo binario</strong>, entonces depende:</p>
+<ul>
+<li><p>En modo <strong>sólo lectura</strong>, devuelve un <code>BufferedReader</code>.</p></li>
+<li><p>En modo <strong>sólo escritura o añadiendo al final</strong>, devuelve un <code>BufferedWriter</code>.</p></li>
+<li><p>En modo <strong>lectura/escritura</strong>, devuelve un <code>BufferedRandom</code>.</p></li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
 
 <section id="read" class="title-slide slide level3" data-number="4.6.2">
 <h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span> <code>read</code></h3>
 <ul>
-<li><p>Para leer de un archivo, se usa el método <code>read</code> del objeto que devuelve la función <code>open</code>. Si se alcanza el final del archivo, se devuelve la cadena vacía (<code>''</code>):</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a><span class="co">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div></li>
+<li>Para leer de un archivo, se puede usar el método <code>read</code> sobre el objeto que devuelve la función <code>open</code>. Su signatura es:</li>
+</ul>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.read(</code>[<em>tamaño</em><code>: str</code>]<code>)</code></p>
+<ul>
+<li><p>El método devuelve una cadena (tipo <code>str</code>) si el archivo se abrió en modo texto, o un objeto de tipo <code>bytes</code> si se abrió en modo binario.</p></li>
+<li><p>El archivo contiene un <strong>puntero interno</strong> que indica hasta dónde se ha leído en el mismo. Cada vez que se llama al método <code>read</code>, se mueve ese puntero para que en posteriores llamadas se continúe leyendo desde ese punto.</p></li>
+<li><p>Si se alcanza el final del archivo, se devuelve la cadena vacía (<code>''</code>).</p></li>
+<li><p>El parámetro <em>tamaño</em> es opcional:</p>
+<ul>
+<li><p>Si se omite o es negativo, se devuelve todo lo que hay desde la posición actual del puntero hasta el final del archivo.</p></li>
+<li><p>En caso contrario, se leerán y devolverán <em>al menos</em> tantos caracteres (en modo texto) o bytes (en modo binario) como se haya indicado.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.2.0.1">
+
+<ul>
+<li><p>Ejemplos de lectura de todo el archivo:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a><span class="co">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div></li>
+<li><p>Ejemplos de lectura del archivo en varios trozos:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a><span class="co">&#39;Este&#39;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a><span class="co">&#39; es &#39;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a><span class="co">&#39;el c&#39;</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a><span class="co">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
 <section id="readline" class="title-slide slide level3" data-number="4.6.3">
 <h3 data-number="4.6.3"><span class="header-section-number">4.6.3</span> <code>readline</code></h3>
+<ul>
+<li><p>El método <code>readline</code> también sirve para leer de un archivo y también se ejecuta sobre el objeto que devuelve <code>open</code> (y que representa al archivo abierto).</p></li>
+<li><p>Su signatura es:</p></li>
+</ul>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.readline(</code>[<em>tamaño</em><code>: str</code>]<code>)</code></p>
+<ul>
+<li><p><code>readline</code> devuelve una línea del archivo, dejando el carácter de salto de línea (<code>\n</code>) al final.</p></li>
+<li><p>El salto de línea sólo se omite cuando es la última línea del archivo y éste no acaba en salto de línea.</p></li>
+<li><p>Si devuelve una cadena vacía (<code>''</code>), significa que se ha alcanzado el final del archivo.</p></li>
+<li><p>Si se devuelve una cadena formada sólo por <code>\n</code>, significa que es una línea en blanco (una línea que sólo contiene un salto de línea).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.3.0.1">
 
+<ul>
+<li><p>El parámetro <em>tamaño</em> es opcional:</p>
+<ul>
+<li><p>Si se omite o es negativo, se devuelve todo desde la posición actual del puntero hasta el final de la línea.</p></li>
+<li><p>En caso contrario, se leerán y devolverán <em>al menos</em> tantos caracteres (en modo texto) o bytes (en modo binario) como se haya indicado.</p></li>
+</ul></li>
+<li><p>Ejemplos:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a><span class="co">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a><span class="co">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a><span class="co">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a><span class="co">&#39;Esta&#39;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a><span class="co">&#39; es &#39;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true"></a><span class="co">&#39;la primera línea.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true"></a><span class="co">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true"></a><span class="co">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true"></a><span class="co">&#39;&#39;</span></span></code></pre></div>
+</div>
+</div>
 </section>
 
 <section id="write" class="title-slide slide level3" data-number="4.6.4">
 <h3 data-number="4.6.4"><span class="header-section-number">4.6.4</span> <code>write</code></h3>
+<ul>
+<li><p>El método <code>write</code> sirve para escribir en un archivo y se ejecuta sobre el objeto que devuelve <code>open</code> (y que representa al archivo abierto).</p></li>
+<li><p>Su signatura es:</p></li>
+</ul>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.write(</code><em>contenido</em><code>)</code></p>
+<ul>
+<li><p>El método escribe el <em>contenido</em> en el <span style="color:teal">⟨<em>archivo</em>⟩</span>. Ese contenido debe ser una <em>cadena</em> si el archivo se abrió en <strong>modo texto</strong>, o un <em>valor de tipo</em> <code>bytes</code> si se abrió en <strong>modo binario</strong>.</p></li>
+<li><p>Al escribir, modifica el puntero interno del archivo.</p></li>
+<li><p>Devuelve el número de caracteres o de bytes que se han escrito, dependiendo de si se abrió en modo texto o en modo binario.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.4.0.1">
 
+<ul>
+<li><p>También se puede usar <code>print</code> para escribir en un archivo.</p></li>
+<li><p>En la práctica, no hay mucha diferencia entre usar <code>print</code> y usar <code>write</code>.</p></li>
+<li><p>Hacer:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<p>equivale a hacer:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
+<li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code>print</code>.</p></li>
+<li><p><code>print</code> escribe en el archivo <code>sys.stdout</code> mientras no se diga lo contrario.</p></li>
+</ul>
 </section>
 
-<section id="seek" class="title-slide slide level3" data-number="4.6.5">
-<h3 data-number="4.6.5"><span class="header-section-number">4.6.5</span> <code>seek</code></h3>
+<section id="seek-y-tell" class="title-slide slide level3" data-number="4.6.5">
+<h3 data-number="4.6.5"><span class="header-section-number">4.6.5</span> <code>seek</code> y <code>tell</code></h3>
+<ul>
+<li><p>El método <code>seek</code> situa el puntero interno del archivo en una determinada posición.</p></li>
+<li><p>El método <code>tell</code> devuelve la posición actual del puntero interno.</p></li>
+<li><p>Sus signaturas son:</p></li>
+</ul>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.seek(</code><em>offset</em><code>: int)-&gt;int</code></p>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.tell()-&gt;int</code></p>
+<ul>
+<li><p>El <em>offset</em> es la posición a la que se desea mover el puntero, empezando por 0 desde el comienzo del archivo.</p></li>
+<li><p>Además de mover el puntero, el método <code>seek</code> devuelve la nueva posición del puntero.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.5.0.1">
 
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)       <span class="co"># abre en modo lectura/escritura</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a><span class="dv">0</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a><span class="co">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a><span class="dv">27</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a><span class="dv">0</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a><span class="co">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="co">&#39;</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a><span class="dv">0</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a><span class="dv">7</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true"></a><span class="dv">7</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true"></a><span class="dv">0</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true"></a><span class="co">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="co">&#39;</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="close" class="title-slide slide level3" data-number="4.6.6">
 <h3 data-number="4.6.6"><span class="header-section-number">4.6.6</span> <code>close</code></h3>
+<ul>
+<li><p>El método <code>close</code> cierra un archivo previamente abierto por <code>open</code>, finalizando la sesión de trabajo con el mismo.</p></li>
+<li><p>Su signatura es:</p></li>
+</ul>
+<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.close()</code></p>
+<ul>
+<li><p>Siempre hay que cerrar un archivo previamente abierto, para así asegurarse de que los cambios realizados se vuelquen al archivo a través del sistema operativo y liberar inmediatamente los recursos del sistema que pudiera estar consumiendo.</p></li>
+<li><p>Una vez que se ha cerrado el archivo ya no se podrá seguir usando:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a>Traceback (most recent call last):</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.6.0.1">
 
+<ul>
+<li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su atributo <code>closed</code>:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true"></a><span class="va">False</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true"></a><span class="va">True</span></span></code></pre></div></li>
+<li><p>Observa que no es un método (no lleva paréntesis), sino un atributo que contiene directamente un valor lógico que el propio objeto modifica al cambiar su estado de abierto a cerrado o viceversa.</p></li>
+</ul>
 </section>
 
 </section>
@@ -1513,8 +1710,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
 </ul>
 <p><br></p>
 <div class="columns">
@@ -1529,17 +1726,17 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li>Un ejemplo de uso:</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a><span class="st">goto .fin</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a><span class="st">label .fin</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true"></a><span class="st">goto .fin</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true"></a><span class="st">label .fin</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true"></a></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1556,25 +1753,25 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="st">primero = 2</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a><span class="st">ultimo = 25</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a><span class="st">i = primero</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="st">label .inicio</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a><span class="st">i += 1</span></span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a><span class="st">goto .inicio</span></span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a></span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true"></a><span class="st">label .fin</span></span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true"></a></span>
-<span id="cb45-19"><a href="#cb45-19" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="st">primero = 2</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a><span class="st">ultimo = 25</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a><span class="st">i = primero</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a><span class="st">label .inicio</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a><span class="st">if i == ultimo: goto .fin</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a><span class="st">i += 1</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a><span class="st">goto .inicio</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a><span class="st">label .fin</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
 </ul>
 </section>
 </section>
