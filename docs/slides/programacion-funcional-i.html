@@ -928,6 +928,7 @@
 <li><p>Las condiciones en un lenguaje de programación se representan mediante expresiones lógicas cuyo valor (<em>verdadero</em> o <em>falso</em>) indica si la condición se cumple o no se cumple.</p></li>
 <li><p>Con el <strong>operador ternario</strong> podemos hacer que el resultado de una expresión varíe entre dos posibles opciones dependiendo de si se cumple o no una condición.</p></li>
 <li><p>El operador ternario se llama así porque es el único operador en Python que actúa sobre tres operandos.</p></li>
+<li><p>El uso del operador ternario permite crear lo que se denomina una <strong>expresión condicional</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.6.0.0.1">
@@ -944,6 +945,40 @@
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="dv">25</span> <span class="cf">if</span> <span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">17</span></span></code></pre></div>
 <p>evalúa a <code>25</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.2">
+
+<ul>
+<li><p>El operador ternario, así como los operadores lógicos <code>and</code> y <code>or</code>, se evalúan siguiendo una estrategia según la cual <strong>no siempre se evalúan todos sus operandos</strong>.</p></li>
+<li><p>La expresión condicional:</p>
+<div class="line-block"><span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span> <strong><code>else</code></strong> <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span></div>
+<p>se evalúa de la siguiente forma:</p>
+<ul>
+<li><p>Primero siempre se evalúa la <span style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
+<li><p>Si es <code>True</code>, evalúa <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span>.</p></li>
+<li><p>Si es <code>False</code>, evalúa <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span>.</p></li>
+</ul></li>
+<li><p>Por tanto, en la expresión condicional nunca se evalúan todos sus operandos, sino sólo los estrictamente necesarios.</p></li>
+<li><p>Además, no se evalúan de izquierda a derecha, como es lo normal.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.3">
+
+<ul>
+<li><p>La evaluación de los operadores <code>and</code> y <code>or</code> sigue un proceso similar:</p>
+<ul>
+<li><p>Primero se evalúa el operando izquierdo.</p></li>
+<li><p>El operando derecho sólo se evalúa si el izquierdo no proporciona la información suficiente para determinar el resultado de la operación.</p></li>
+</ul></li>
+<li><p>Esto es así porque:</p>
+<ul>
+<li><p><code>True or</code> <span class="math inline">\;\underline{x}</span></p>
+<p>siempre es igual a <code>True</code>.</p></li>
+<li><p><code>False and</code> <span class="math inline">\;\underline{x}</span></p>
+<p>siempre es igual a <code>False</code>.</p></li>
+</ul>
+<p>En ambos casos no es necesario evaluar <span class="math inline">\underline{x}</span>.</p></li>
 </ul>
 </section>
 <section id="ejercicio" class="slide level5 unnumbered unlisted">
@@ -964,7 +999,7 @@
 <li><p>Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente es una <strong>sentencia</strong>) con la que vamos a poder hacer <strong>definiciones</strong>.</p></li>
 <li><p>A esa sentencia la llamaremos <strong>definición</strong>, y expresa el hecho de que <strong>un <em>nombre</em> representa un <em>valor</em></strong>.</p></li>
 <li><p>Las definiciones tienen la siguiente sintaxis:</p>
-<div class="line-block"><span style="color:teal">⟨<em>definición</em>⟩</span> ::= <strong><code>identificador</code></strong> <strong><code>=</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>definición</em>⟩</span> ::= <strong><code>identificador</code></strong>  <strong><code>=</code></strong>  <span style="color:teal">⟨<em>expresión</em>⟩</span></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
 <p>A partir de ese momento, el identificador <code>x</code> representa el valor <code>25</code> (por lo que la expresión <code>x</code> vale <code>25</code>).</p>

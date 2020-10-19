@@ -841,16 +841,25 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>El operador ternario:</p>
 <div class="line-block"><span style="color:teal">⟨<em>expr_condicional</em>⟩</span> ::= <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span> <strong><code>else</code></strong> <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span></div>
-<p>evalúa perezosamente <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> y <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span>.</p></li>
+<p>evalúa perezosamente <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> y <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span> dependiendo del valor de la <span style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
 <li><p>Los operadores lógicos <code>and</code> y <code>or</code> también son perezosos (se dice que evalúan <strong>en cortocircuito</strong>):</p>
 <ul>
-<li><p><code>True or x</code> siempre es igual a <code>True</code>.</p></li>
-<li><p><code>False and x</code> siempre es igual a <code>False</code>.</p></li>
+<li><p><code>True or</code>  <span class="math inline">\underline{x}</span></p>
+<p>siempre es igual a <code>True</code>.</p></li>
+<li><p><code>False and</code>  <span class="math inline">\underline{x}</span></p>
+<p>siempre es igual a <code>False</code>.</p></li>
 </ul>
-<p>En ambos casos no es necesario evaluar <code>x</code>.</p></li>
+<p>En ambos casos no es necesario evaluar <span class="math inline">\underline{x}</span>.</p></li>
 </ul></li>
+<li><p>En Java también existe un operador ternario (<code>?</code> <code>:</code>) y unos operadores lógicos (<code>||</code> y <code>&amp;&amp;</code>) que se evalúan de igual forma que en Python.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.5">
+
+<ul>
 <li><p>La mayoría de los lenguajes de programación usan evaluación estricta y paso de argumentos por valor (siguen el orden aplicativo).</p></li>
 <li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que usa evaluación perezosa y sigue el orden normal.</p></li>
+<li><p>La evaluación perezosa en Haskell permite resultados muy interesantes, como la posibilidad de manipular estructuras de datos infinitas.</p></li>
 </ul>
 </section>
 

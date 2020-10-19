@@ -1150,22 +1150,35 @@ E -> x [lhead = cluster0]
     !NT(expr_condicional) ::= !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
     ~~~~~~~~~~~~~~~~~~~~~
 
-    evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso).
+    evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso) dependiendo
+    del valor de la !NT(condición).
 
   - Los operadores lógicos `and` y `or` también son perezosos (se dice que
     evalúan **en cortocircuito**):
 
-    - `True or x` siempre es igual a `True`.
+    - `True or` \ $\underline{x}$
 
-    - `False and x` siempre es igual a `False`.
+      siempre es igual a `True`.
 
-    En ambos casos no es necesario evaluar `x`.
+    - `False and` \ $\underline{x}$
+
+      siempre es igual a `False`.
+
+    En ambos casos no es necesario evaluar $\underline{x}$.
+
+- En Java también existe un operador ternario (`?` `:`) y unos operadores
+  lógicos (`||` y `&&`) que se evalúan de igual forma que en Python.
+
+---
 
 - La mayoría de los lenguajes de programación usan evaluación estricta y paso
   de argumentos por valor (siguen el orden aplicativo).
 
 - **Haskell**, por ejemplo, es un lenguaje funcional puro que usa evaluación
   perezosa y sigue el orden normal.
+
+- La evaluación perezosa en Haskell permite resultados muy interesantes, como
+  la posibilidad de manipular estructuras de datos infinitas.
 
 ## Composición de funciones
 

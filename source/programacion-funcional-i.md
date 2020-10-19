@@ -875,6 +875,9 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 - El operador ternario se llama así porque es el único operador en Python que
   actúa sobre tres operandos.
 
+- El uso del operador ternario permite crear lo que se denomina una **expresión
+  condicional**.
+
 ---
 
 - Su sintaxis es:
@@ -903,6 +906,53 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   evalúa a `25`.
 
+---
+
+- El operador ternario, así como los operadores lógicos `and` y `or`, se
+  evalúan siguiendo una estrategia según la cual **no siempre se evalúan todos
+  sus operandos**.
+
+- La expresión condicional:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~
+  !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  se evalúa de la siguiente forma:
+
+  - Primero siempre se evalúa la !NT(condición).
+
+  - Si es `True`, evalúa !NT(valor_si_cierto).
+
+  - Si es `False`, evalúa !NT(valor_si_falso).
+
+- Por tanto, en la expresión condicional nunca se evalúan todos sus operandos,
+  sino sólo los estrictamente necesarios.
+
+- Además, no se evalúan de izquierda a derecha, como es lo normal.
+
+---
+
+- La evaluación de los operadores `and` y `or` sigue un proceso similar:
+
+  - Primero se evalúa el operando izquierdo.
+
+  - El operando derecho sólo se evalúa si el izquierdo no proporciona la
+    información suficiente para determinar el resultado de la operación.
+
+- Esto es así porque:
+
+  - `True or` $\;\underline{x}$
+
+    siempre es igual a `True`.
+
+  - `False and` $\;\underline{x}$
+
+    siempre es igual a `False`.
+
+  En ambos casos no es necesario evaluar $\underline{x}$.
+
 !EJERCICIO
 
 @. ¿Cuál es la asociatividad del operador ternario? Demostrarlo.
@@ -921,7 +971,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(definición) ::= !T(identificador) !T(=) !NT(expresión)
+  !NT(definición) ::= !T(identificador)\ \ !T(=)\ \ !NT(expresión)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
@@ -1058,9 +1108,9 @@ x -> 7
 
 !DOT(ligadura-funcion-max-maximo.svg)()(width=55%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
+node [fontname = "monospace"]
 lambda [shape = circle, label = "λ"]
-max [shape = plaintext, fillcolor = transparent]
+max [shape = plaintext, fillcolor = transparent, width = 0.1]
 maximo [shape = plaintext, fillcolor = transparent]
 max -> lambda
 maximo -> lambda
