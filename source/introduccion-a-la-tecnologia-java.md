@@ -77,35 +77,17 @@ Java SE 15   15-sep-2020
 
 ::::
 
-## Ediciones
-
-- Sun ha definido y soporta cuatro ediciones distintas de Java, centradas en
-  diferentes entornos de aplicaciones y segmentando mucha de sus API.
-
-- Las plataformas son:
-
-  - **Java Card**: para tarjetas inteligentes.
-
-  - **Java Platform, Micro Edition (Java ME)**: para entornos con recursos
-    limitados.
-
-  - **Java Platform, Standard Edition (Java SE)**: para entornos de estaciones
-    de trabajo.
-
-  - **Java Platform, Enterprise Edition (Java EE)**: para grandes empresas o
-    entornos de Internet.
-
 ## Características principales
 
-- Los cinco objetivos principales que se plantearon al diseñar el lenguaje Java
-  son:
+- Los cinco objetivos principales que se plantearon al diseñar el lenguaje
+  Java, y que a día de hoy siguen siendo sus características principales, son:
 
   - Debe ser sencillo, orientado a objetos y basado en una sintaxis conocida.
 
   - Debe ser robusto y seguro.
 
-  - Debe ser portable y de arquitectura neutral, permitiendo la ejecución de un
-    mismo programa en varios sistemas operativos.
+  - Debe ser portable e independiente de la arquitectura, permitiendo la
+    ejecución de un mismo programa en varios sistemas operativos.
 
   - Debe ejecutarse con gran rendimiento.
 
@@ -118,26 +100,26 @@ Java SE 15   15-sep-2020
 - Una **máquina abstracta** es una máquina diseñada independientemente de una
   determinada tecnología de fabricación.
 
-- Su finalidad principal es la de servir como **modelo de computación
-  teórica**.
+- Su finalidad no es la de ser construida, sino servir como **modelo de
+  computación teórica**.
 
-- Una **máquina virtual** es una máquina simulada mediante un software.
+- Una **máquina virtual** es una máquina emulada mediante hardware o software.
 
-- Las máquinas virtuales pueden ser simulaciones de máquinas reales o
+- Las máquinas virtuales pueden ser emulaciones de máquinas reales o
   abstractas.
 
 ## Código objeto (*bytecode*!ifdef(HTML)(&nbsp;)())
 
 - El compilador de Java traduce el código fuente (archivos con extensión
   `.java`) en código objeto (código binario almacenado en archivos con
-  extensión `.class`) para una máquina virtual llamada **Java Virtual Machine
+  extensión `.class`) para una máquina virtual llamada **_Java Virtual Machine_
   (JVM)**.
 
 - Al código objeto generado por el compilador de Java se le denomina
   **_bytecode_**.
 
 - Por tanto, el _bytecode_ es el lenguaje máquina al que compila el compilador
-  de Java y el lenguaje que entiende la JVM.
+  de Java y es, además, el único lenguaje que entiende la JVM.
 
 !DOT(compilacion-java.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,14 +139,33 @@ F -> "Compilador Java" -> O
 
   - La **máquina virtual** de Java (**_Java Virtual Machine_ (JVM)**).
 
-  - La **implementación** de la JVM y la biblioteca estándar (**_Java Runtime
-    Environment_ (JRE)**).
+  - La **implementación** de la JVM y de la biblioteca estándar (**_Java
+    Runtime Environment_ (JRE)**).
 
   - Las **herramientas de desarrollo** (**_Java Development Kit_ (JDK)**).
 
 - Para poder desarrollar y ejecutar programas Java, necesitamos una
   implementación de la plataforma Java que funcione en nuestro sistema
   operativo y nuestra arquitectura hardware. 
+
+---
+
+- Existen cuatro _ediciones distintas_ de la plataforma Java (cuatro
+  «plataformas Java»), centradas en diferentes entornos de aplicaciones y
+  segmentando mucha de sus API.
+
+- Las plataformas son:
+
+  - **Java Card**: para tarjetas inteligentes.
+
+  - **Java Platform, Micro Edition (Java ME)**: para entornos con recursos
+    limitados.
+
+  - **Java Platform, Standard Edition (Java SE)**: para entornos de estaciones
+    de trabajo.
+
+  - **Java Platform, Enterprise Edition (Java EE)**: para grandes empresas o
+    entornos de Internet.
 
 ### La máquina virtual de Java (JVM)
 
@@ -224,15 +225,15 @@ F -> "Compilador Java" -> O
   operativo subyacente, las aplicaciones no pueden apoyarse en servicios
   ofrecidos por cada sistema en concreto.
 
-- Por tanto, lo que hace la plataforma Java es ofrecer una biblioteca estándar
-  que contiene mucha de las funciones disponibles en los sistemas operativos
-  actuales.
+- Por tanto, lo que hace la plataforma Java es ofrecer una **biblioteca
+  estándar** que contiene mucha de las funciones disponibles en los sistemas
+  operativos actuales.
 
 ---
 
 - Esa biblioteca es accesible desde Java a través de la API de Java. 
 
-- Por tanto, la API de Java especifica el contenido de esa biblioteca, que
+- Por tanto, **la API de Java especifica el contenido de esa biblioteca**, que
   ofrece sus servicios en forma de **clases** y otros elementos relacionados
   (como _interfaces_).
 
@@ -254,16 +255,16 @@ F -> "Compilador Java" -> O
   plataforma Java:
 
   - Ofrecen al programador un conjunto bien definido de funciones para realizar
-    tareas comunes, como manejar listas de elementos u operar de forma
+    **tareas comunes**, como manejar listas de elementos u operar de forma
     sofisticada sobre cadenas de caracteres.
 
-  - Proporcionan una interfaz abstracta para tareas que son altamente
-    dependientes del hardware de la plataforma destino y de su sistema
+  - Proporcionan una **interfaz abstracta** para tareas que son altamente
+    **dependientes del hardware** de la plataforma destino y de su sistema
     operativo.
 
   - No todas las plataformas soportan todas las funciones que una aplicación
-    Java espera. En estos casos, las bibliotecas bien pueden emular esas
-    funciones usando lo que esté disponible, o bien ofrecer un mecanismo para
+    Java espera. En estos casos, las bibliotecas bien pueden **emular esas
+    funciones** usando lo que esté disponible, o bien ofrecer un mecanismo para
     comprobar si una funcionalidad concreta está presente.
 
 ## El entorno de ejecución de Java (JRE)
