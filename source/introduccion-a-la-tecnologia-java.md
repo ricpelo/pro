@@ -136,9 +136,8 @@ Java SE 15   15-sep-2020
 - Al código objeto generado por el compilador de Java se le denomina
   **_bytecode_**.
 
-- Por tanto, podemos decir que el _bytecode_ es el lenguaje máquina al que
-  compila el compilador de Java y el lenguaje que entiende la máquina virtual
-  de Java.
+- Por tanto, el _bytecode_ es el lenguaje máquina al que compila el compilador
+  de Java y el lenguaje que entiende la JVM.
 
 !DOT(compilacion-java.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -149,21 +148,23 @@ F -> "Compilador Java" -> O
 
 ## La plataforma Java
 
-- La **plataforma Java** es el nombre de una arquitectura de desarrollo y
+- La **plataforma Java** es el nombre de una plataforma de desarrollo y
   ejecución de programas que se compone de un amplio abanico de tecnologías:
 
-  - El lenguaje de programación Java.
+  - El **lenguaje de programación** Java.
 
-  - La biblioteca estándar de Java.
+  - La **biblioteca estándar** de Java.
 
-  - La máquina virtual de Java (también llamada **Java Virtual Machine
-    (JVM)**).
+  - La **máquina virtual** de Java (**_Java Virtual Machine_ (JVM)**).
 
-  - La implementación de la JVM y la biblioteca estándar (también llamadas
-    **Java Runtime Environment (JRE)**).
+  - La **implementación** de la JVM y la biblioteca estándar (**_Java Runtime
+    Environment_ (JRE)**).
 
-  - Las herramientas de desarrollo (también llamadas **Java Development Kit
-    (JDK)**).
+  - Las **herramientas de desarrollo** (**_Java Development Kit_ (JDK)**).
+
+- Para poder desarrollar y ejecutar programas Java, necesitamos una
+  implementación de la plataforma Java que funcione en nuestro sistema
+  operativo y nuestra arquitectura hardware. 
 
 ### La máquina virtual de Java (JVM)
 
@@ -176,11 +177,11 @@ F -> "Compilador Java" -> O
   **código máquina de bajo nivel**, viable incluso como lenguaje de entrada
   para un microprocesador físico. 
 
-- La gran ventaja de usar la máquina virtual de Java es la **portabilidad**, de
-  manera que se han creado diferentes implementaciones de la misma máquina
-  virtual para diferentes arquitecturas, y, así, un código objeto (archivo
-  `.class`) puede ser ejecutado en cualquier sistema operativo y arquitectura
-  hardware que disponga de una implementación de la máquina virtual.
+- La gran ventaja de usar la JVM es la **portabilidad**, de manera que se han
+  creado diferentes implementaciones de la misma máquina virtual para
+  diferentes arquitecturas, y, así, un código objeto (archivo `.class`) puede
+  ser ejecutado en cualquier sistema operativo y arquitectura hardware que
+  disponga de una implementación de la máquina virtual.
 
 ---
 
@@ -192,18 +193,19 @@ F -> "Compilador Java" -> O
 
 ---
 
-- La máquina virtual de Java puede estar implementada en software, hardware,
-  una herramienta de desarrollo o un navegador web.
+- La JVM puede estar implementada en software, hardware, una herramienta de
+  desarrollo o un navegador web.
 
-- Lee y ejecuta código _bytecode_ independiente de la plataforma.
+- Lee y ejecuta código _bytecode_ independiente de la plataforma en la que está
+  implementada la JVM.
 
 - La JVM proporciona definiciones para un conjunto de instrucciones, un
   conjunto de registros, un formato para archivos de clases, la pila, un
   montículo con recolector de basura y un área de memoria.
 
-- La definición detallada de la JVM está especificada.
+- La definición detallada de la JVM está especificada mediante un estándar.
 
-- Por tanto, cualquier implementación debe cumplir con la especificación.
+- Por tanto, toda implementación de la JVM debe cumplir con la especificación.
 
 ### La API de Java
 
@@ -222,20 +224,20 @@ F -> "Compilador Java" -> O
   operativo subyacente, las aplicaciones no pueden apoyarse en servicios
   ofrecidos por cada sistema en concreto.
 
-- Por tanto, lo que hace la Plataforma Java, es ofrecer una biblioteca estándar
-  que contiene mucha de las funciones reutilizables disponibles en los sistemas
-  operativos actuales.
+- Por tanto, lo que hace la plataforma Java es ofrecer una biblioteca estándar
+  que contiene mucha de las funciones disponibles en los sistemas operativos
+  actuales.
 
 ---
 
 - Esa biblioteca es accesible desde Java a través de la API de Java. 
 
-- La API de Java especifica, por tanto, el contenido de esa biblioteca, que
+- Por tanto, la API de Java especifica el contenido de esa biblioteca, que
   ofrece sus servicios en forma de **clases** y otros elementos relacionados
   (como _interfaces_).
 
-- La documentación del API de la versión 14 de la plataforma Java Standard
-  Edition (Java SE) se encuentra bajo la siguiente dirección:
+- La documentación del API de la versión 14 de la plataforma _Java Standard
+  Edition_ (Java SE) se encuentra bajo la siguiente dirección:
 
 [https://docs.oracle.com/en/java/javase/14/docs/api/index.html](https://docs.oracle.com/en/java/javase/14/docs/api/index.html)
 
@@ -246,7 +248,75 @@ F -> "Compilador Java" -> O
 - Es fundamental tener siempre a mano la documentación de la API para poder
   programar con agilidad en este lenguaje.
 
+---
+
+- La **biblioteca de Java** tienen **tres funciones principales** dentro de la
+  plataforma Java:
+
+  - Ofrecen al programador un conjunto bien definido de funciones para realizar
+    tareas comunes, como manejar listas de elementos u operar de forma
+    sofisticada sobre cadenas de caracteres.
+
+  - Proporcionan una interfaz abstracta para tareas que son altamente
+    dependientes del hardware de la plataforma destino y de su sistema
+    operativo.
+
+  - No todas las plataformas soportan todas las funciones que una aplicación
+    Java espera. En estos casos, las bibliotecas bien pueden emular esas
+    funciones usando lo que esté disponible, o bien ofrecer un mecanismo para
+    comprobar si una funcionalidad concreta está presente.
+
 ## El entorno de ejecución de Java (JRE)
+
+- El **entorno de ejecución de Java** (del inglés **_Java Runtime
+  Environment_** o **JRE**) es el software necesario para ejecutar programas
+  Java en un determinado sistema operativo y arquitectura hardware.
+
+- Para cada dispositivo (ya sea un teléfono móvil, un PC con Linux o un
+  microondas) debe haber un JRE.
+
+- El JRE actúa como intermediario entre Java y el sistema operativo.
+
+- Básicamente, consiste en una **implementación de la JVM y de la biblioteca
+  estándar** (el API).
+
+- Ambas (JVM y API) deben ser compatibles entre sí, de ahí que sean
+  distribuidas conjuntamente en forma de JRE.
+
+JRE = JVM + API
+
+---
+
+- El JRE actúa como un emulador de la JVM y un intérprete de _bytecode_.
+
+- El JRE lee el código objeto (los archivos `.class`) y va ejecutando
+  (interpretando) paso a paso las instrucciones compiladas en _bytecode_ que se
+  va encontrando.
+
+!DOT(jre.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+F -> "Compilador Java" -> O -> JRE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Desde hace ya tiempo, el JRE lleva a cabo un proceso previo de **compilación
+  _Just In Time_ (JIT)**, que convierte el _bytecode_ a código nativo de la
+  arquitectura donde se está ejecutando el JRE. Esto permite una ejecución
+  mucho más rápida a costa de perder algo de tiempo al arrancar el programa.
+
+!DOT(jit.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+N [label = <Código objeto<br/>(lenguaje máquina nativo)>, shape = note, fillcolor = aliceblue];
+subgraph cluster0 {
+    bgcolor = grey95
+    label = "JRE"
+    JIT -> N
+}
+F -> "Compilador Java" -> O -> JIT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### El intérprete `java`
 
