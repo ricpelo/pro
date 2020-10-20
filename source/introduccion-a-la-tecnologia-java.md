@@ -320,6 +320,41 @@ F -> "Compilador Java" -> O -> JIT
 
 ### El intérprete `java`
 
+- El programa `java` es el intérprete que implementa la JVM en el JRE.
+
+- Es el programa que usamos para ejecutar los programas compilados a _bytecode_
+  almacenados en archivos `.class`.
+
+- Como su extensión indica, un archivo `.class` contiene la definición de una
+  **clase Java** compilada en _bytecode_.
+
+- En Java, las instrucciones que forman un programa están prácticamente todas
+  contenidas en clases. Por tanto, la ejecución de un programa Java empezará
+  siempre desde una clase concreta. 
+
+- Para ejecutar un programa Java, debemos pasarle al intérprete `java` el
+  nombre de la clase desde la cual queremos iniciar la ejecución del programa.
+
+---
+
+- Por ejemplo, si tenemos una clase `Principal` compilada en el archivo
+  `Principal.class`, podemos indicar que queremos empezar desde ahí la
+  ejecución de nuestro programa:
+
+  ```console
+  $ java Principal
+  ```
+
+- Es importante no confundir el nombre de la clase con el nombre del archivo
+  que contiene el código compilado de la clase. En este caso, el nombre de la
+  clase es `Principal`, no `Principal.class`:
+
+  ```console
+  $ java Principal.class
+  Error: no se ha encontrado o cargado la clase principal Principal.class
+  Causado por: java.lang.ClassNotFoundException: Principal.class
+  ```
+
 ## Las herramientas de desarrollo de Java (JDK)
 
 ### El compilador `javac`
