@@ -493,8 +493,8 @@
 <h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> El compilador <code>javac</code></h3>
 <ul>
 <li><p>El programa <code>javac</code> es el <strong>compilador</strong> que traduce el código fuente escrito en lenguaje Java (y almacenado en archivos <code>.java</code>) a <em>bytecode</em> almacenado en archivos <code>.class</code>.</p></li>
-<li><p>Por cada archivo fuente <code>.java</code>, el compilador genera un archivo <code>.class</code> con el código objeto en <em>bytecode</em> generado desde ese archivo fuente.</p></li>
-<li><p>El código objeto se almacena en archivos con extensión <code>.class</code> porque la mayoría de los archivos <code>.java</code> contienen definiciones de <em>clases</em> escritas en lenguaje Java (una clase por archivo).</p></li>
+<li><p>Por cada clase definida en el archivo fuente, el compilador generará un archivo <code>.class</code> con el código objeto en <em>bytecode</em> generado para esa clase.</p></li>
+<li><p>El código objeto se almacena en archivos con extensión <code>.class</code> porque la mayoría de los archivos <code>.java</code> contienen definiciones de <em>clases</em> escritas en lenguaje Java.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/javac.svg" class="plain" style="width:80.0%" /></p>
@@ -503,7 +503,7 @@
 <section class="slide level5" data-number="2.4.1.0.1">
 
 <ul>
-<li><p>Un programa Java estará formado por uno o (lo más normal) varios archivos fuente <code>.java</code> que contendrán, cada uno de ellos, la definición de una clase (en la mayoría de los casos).</p></li>
+<li><p>Un programa Java está formado por uno o varios archivos fuente <code>.java</code> que contienen, cada uno de ellos, una o varias definiciones de clases (salvo excepciones).</p></li>
 <li><p>En Java, prácticamente todas las instrucciones que forman un programa están contenidas en clases.</p></li>
 <li><p>Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta, llamada <strong>clase <em>principal</em></strong>.</p>
 <p>Más adelante veremos que la clase principal no puede ser cualquier clase. Tiene que ser una que tenga definido un método con un nombre determinado.</p></li>
@@ -515,7 +515,7 @@
 <ul>
 <li><p>Por eso, para compilar un programa Java, lo más conveniente es compilar el archivo fuente que contiene la clase principal, ya que ello provocará en cascada la compilación de cualquier archivo fuente de la que dependa ésta.</p></li>
 <li><p>Para compilar un archivo fuente <code>.java</code>, debemos pasarle al compilador <code>javac</code> el nombre de dicho archivo.</p></li>
-<li><p>Por ejemplo, si tenemos un archivo fuente <code>Principal.java</code>, podemos compilarlo con <code>javac</code> y generar con ello el archivo <code>Principal.class</code> con el código objeto en <em>bytecode</em>.</p></li>
+<li><p>Por ejemplo, si tenemos un archivo fuente <code>Principal.java</code> que contiene la definición de la clase <code>Principal</code>, podemos compilarlo con <code>javac</code> y generar con ello el archivo <code>Principal.class</code> con el código objeto en <em>bytecode</em>.</p></li>
 <li><p>Para ello, pasamos a <code>javac</code> el nombre del archivo fuente a través de la línea de órdenes:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>Principal.java</span>
@@ -527,12 +527,15 @@
 <section class="slide level5" data-number="2.4.1.0.3">
 
 <ul>
-<li><p>Si compilamos un archivo fuente <code>.java</code> del que ya existía su correspondiente archivo objeto <code>.class</code>, el compilador generará un nuevo <code>.class</code> que sustituirá al archivo anterior con el mismo nombre:</p>
+<li><p>Si el archivo objeto <code>.class</code> que va a generar el compilador ya existe (normalmente, como consecuencia de una compilación anterior), el nuevo archivo machacará al que ya existe con el mismo nombre:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>Principal.class  Principal.java</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">$ </span>javac Principal.java</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>Principal.class  Principal.java</span></code></pre></div></li>
+<li><p>Si el archivo fuente <code>Principal.java</code> contiene varias definiciones de clases, se generará un <code>.class</code> por cada una de ellas.</p></li>
+<li><p>No es necesario que el nombre del archivo <code>.java</code> coincida con el de ninguna de las clases que se definan en él, pero suele hacerse.</p></li>
+<li><p>De hecho, lo más habitual es que cada definición de clase vaya en un archivo fuente separado, con el mismo nombre que el de la clase.</p></li>
 </ul>
 </section>
 
@@ -574,9 +577,10 @@
 <ul>
 <li><p>El programa <code>java</code> es el <strong>intérprete</strong> que implementa la JVM en el JRE.</p></li>
 <li><p>Es el programa que usamos para cargar y ejecutar los programas compilados a <em>bytecode</em> almacenados en archivos <code>.class</code>.</p></li>
-<li><p>Como su extensión indica, un archivo <code>.class</code> contiene la definición de una <strong>clase Java</strong> compilada en <em>bytecode</em>.</p></li>
+<li><p>Como su extensión indica, un archivo <code>.class</code> contiene generalmente la definición de una <strong>clase Java</strong> compilada en <em>bytecode</em>.</p></li>
 <li><p>En Java, las instrucciones que forman un programa están prácticamente todas contenidas en clases. Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta, llamada <strong>clase <em>principal</em></strong>.</p></li>
 <li><p>Para ejecutar un programa Java, debemos pasarle al intérprete <code>java</code> el nombre de la clase desde la cual queremos iniciar la ejecución del programa.</p></li>
+<li><p>No es necesario disponer de los archivos fuente <code>.java</code> para ejecutar un programa Java; sólo el código objeto almacenado en los <code>.class</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.5.1.0.1">
@@ -642,28 +646,50 @@
 <h1 data-number="4"><span class="header-section-number">4</span> El primer programa Java</h1>
 
 </section>
-<section id="el-método-main" class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> El método <code>main()</code></h2>
+<section id="el-primer-programa-java-1" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> El primer programa Java</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">/**</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a> <span class="co">*</span> ¡Hola<span class="co">,</span> mundo<span class="co">!</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a> <span class="co">*</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a> <span class="co">*</span> Primer programa de ejemplo escrito en Java<span class="co">.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a> <span class="co">*/</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> {</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    }</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>}</span></code></pre></div>
+<ul>
+<li><p>Los comentarios que ocupan varias líneas se encierran entre <code>/*</code> y <code>*/</code>.</p></li>
+<li><p>Los comentarios que empiezan por <code>/**</code> son comentarios de documentación.</p></li>
+<li><p>Las sentencias ejecutables deben pertenecer a una clase.</p></li>
+<li><p>Cada clase debe ir en un archivo <code>.java</code> separado, cuyo nombre debe coincidir con el nombre de la clase (mayúsculas y minúsculas incluidas).</p></li>
+<li><p>En Java no existen funciones: todos son métodos.</p></li>
+<li><p>La estructura del programa se define por bloques delimitados por las llaves <code>{</code> y <code>}</code>.</p></li>
+</ul>
+</section>
+
+<section id="el-método-main" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> El método <code>main()</code></h2>
 
 </section>
 
-<section id="la-clase-system" class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span> La clase <code>System</code></h2>
+<section id="la-clase-system" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> La clase <code>System</code></h2>
 
 </section>
 
-<section id="el-objeto-out" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> El objeto <code>out</code></h2>
+<section id="el-objeto-out" class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span> El objeto <code>out</code></h2>
 
 </section>
 
-<section id="el-método-println" class="title-slide slide level2" data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span> El método <code>println()</code></h2>
+<section id="el-método-println" class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> El método <code>println()</code></h2>
 
 </section>
 
-<section id="compilación-y-ejecución-en-consola-y-en-el-ide" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> Compilación y ejecución en consola y en el IDE</h2>
+<section id="compilación-y-ejecución-en-consola-y-en-el-ide" class="title-slide slide level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span> Compilación y ejecución en consola y en el IDE</h2>
 
 </section>
 </section>

@@ -309,12 +309,12 @@ F -> "Compilador Java" -> O
   en lenguaje Java (y almacenado en archivos `.java`) a _bytecode_ almacenado
   en archivos `.class`.
 
-- Por cada archivo fuente `.java`, el compilador genera un archivo `.class` con
-  el código objeto en _bytecode_ generado desde ese archivo fuente.
+- Por cada clase definida en el archivo fuente, el compilador generará un
+  archivo `.class` con el código objeto en _bytecode_ generado para esa clase.
 
 - El código objeto se almacena en archivos con extensión `.class` porque la
   mayoría de los archivos `.java` contienen definiciones de _clases_ escritas
-  en lenguaje Java (una clase por archivo).
+  en lenguaje Java.
 
 !DOT(javac.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -326,9 +326,9 @@ F -> javac -> O
 
 ---
 
-- Un programa Java estará formado por uno o (lo más normal) varios archivos
-  fuente `.java` que contendrán, cada uno de ellos, la definición de una clase
-  (en la mayoría de los casos).
+- Un programa Java está formado por uno o varios archivos fuente `.java` que
+  contienen, cada uno de ellos, una o varias definiciones de clases (salvo
+  excepciones).
 
 - En Java, prácticamente todas las instrucciones que forman un programa están
   contenidas en clases.
@@ -352,9 +352,9 @@ F -> javac -> O
 - Para compilar un archivo fuente `.java`, debemos pasarle al compilador
   `javac` el nombre de dicho archivo.
 
-- Por ejemplo, si tenemos un archivo fuente `Principal.java`, podemos
-  compilarlo con `javac` y generar con ello el archivo `Principal.class` con el
-  código objeto en _bytecode_.
+- Por ejemplo, si tenemos un archivo fuente `Principal.java` que contiene la
+  definición de la clase `Principal`, podemos compilarlo con `javac` y generar
+  con ello el archivo `Principal.class` con el código objeto en _bytecode_.
 
 - Para ello, pasamos a `javac` el nombre del archivo fuente a través de la
   línea de órdenes:
@@ -369,9 +369,9 @@ F -> javac -> O
 
 ---
 
-- Si compilamos un archivo fuente `.java` del que ya existía su correspondiente
-  archivo objeto `.class`, el compilador generará un nuevo `.class` que
-  sustituirá al archivo anterior con el mismo nombre:
+- Si el archivo objeto `.class` que va a generar el compilador ya existe
+  (normalmente, como consecuencia de una compilación anterior), el nuevo
+  archivo machacará al que ya existe con el mismo nombre:
 
   ```console
   $ ls
@@ -380,6 +380,15 @@ F -> javac -> O
   $ ls
   Principal.class  Principal.java
   ```
+
+- Si el archivo fuente `Principal.java` contiene varias definiciones de clases,
+  se generará un `.class` por cada una de ellas.
+
+- No es necesario que el nombre del archivo `.java` coincida con el de ninguna
+  de las clases que se definan en él, pero suele hacerse.
+
+- De hecho, lo más habitual es que cada definición de clase vaya en un archivo
+  fuente separado, con el mismo nombre que el de la clase.
 
 ### El intérprete interactivo `jshell`
 
@@ -444,8 +453,8 @@ F -> javac -> O -> JIT
 - Es el programa que usamos para cargar y ejecutar los programas compilados a
   _bytecode_ almacenados en archivos `.class`.
 
-- Como su extensión indica, un archivo `.class` contiene la definición de una
-  **clase Java** compilada en _bytecode_.
+- Como su extensión indica, un archivo `.class` contiene generalmente la
+  definición de una **clase Java** compilada en _bytecode_.
 
 - En Java, las instrucciones que forman un programa están prácticamente todas
   contenidas en clases. Por tanto, la ejecución de un programa Java empezará
@@ -453,6 +462,9 @@ F -> javac -> O -> JIT
 
 - Para ejecutar un programa Java, debemos pasarle al intérprete `java` el
   nombre de la clase desde la cual queremos iniciar la ejecución del programa.
+
+- No es necesario disponer de los archivos fuente `.java` para ejecutar un
+  programa Java; sólo el código objeto almacenado en los `.class`.
 
 ---
 
@@ -542,6 +554,34 @@ F -> javac -> O -> JIT
 # Tipado estático vs. dinámico
 
 # El primer programa Java
+
+## El primer programa Java
+
+```java
+/**
+ * ¡Hola, mundo!
+ *
+ * Primer programa de ejemplo escrito en Java.
+ */
+public class Principal {
+    public static void main(String[] args) {
+        System.out.println("Hola\n");
+    }
+}
+```
+
+- Los comentarios que ocupan varias líneas se encierran entre `/*` y `*/`.
+
+- Los comentarios que empiezan por `/**` son comentarios de documentación.
+
+- Las sentencias ejecutables deben pertenecer a una clase.
+
+- Cada clase debe ir en un archivo `.java` separado, cuyo nombre debe coincidir con el nombre de la clase (mayúsculas y minúsculas incluidas).
+
+- En Java no existen funciones: todos son métodos.
+
+- La estructura del programa se define por bloques delimitados por las llaves
+  `{` y `}`.
 
 ## El método `main()`
 
