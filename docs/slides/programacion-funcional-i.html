@@ -1213,9 +1213,20 @@
 <li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
+<li><p>Llegado el momento, los <em>scripts</em> contendrán el código fuente de nuestros programas y los ejecutaremos desde el intérprete por lotes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.0.0.1">
+
+<ul>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
 <li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code>from</code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<p>Observar que en el <code>from</code> se pone el nombre del script pero <strong>sin la extensión <code>.py</code></strong>.</p></li>
+<li><p>Otra opción es iniciar una nueva sesión con el intérprete interactivo indicándole que cargue el <em>script</em> mediante la opción <code>-i</code> en la línea de órdenes del sistema operativo:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="kw">$ </span>python -i definiciones.py</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>&gt;&gt;&gt;</span></code></pre></div>
+<p>En este caso <strong>sí</strong> se pone el nombre completo del script, <strong>con la extensión <code>.py</code></strong>.</p></li>
 </ul>
 </section>
 
@@ -1258,16 +1269,16 @@
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (<code>_</code>) para separarlas y formar un único identificador:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1278,23 +1289,23 @@
 <li><p>Los comentarios pueden aparecer al comienzo de la línea o a continuación de un espacio en blanco o una porción de código.</p></li>
 <li><p>Los comentarios no pueden ir dentro de un literal de tipo cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un carácter más.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el «truco» de poner una cadena con triples comillas:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="co">Esta es una cadena</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a><span class="co">que ocupa varias líneas</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a><span class="co">y que actúa como comentario.</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a><span class="co">Esta es una cadena</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true"></a><span class="co">que ocupa varias líneas</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true"></a><span class="co">y que actúa como comentario.</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni ligarse a ningún identificador, simplementa la ignorará (como un comentario).</p></li>
 </ul>
 </section>

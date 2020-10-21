@@ -1339,14 +1339,34 @@ z -> 3
   definiciones que nos interese usar en nuestras sesiones interactivas con el
   intérprete.
 
+- Llegado el momento, los _scripts_ contendrán el código fuente de nuestros
+  programas y los ejecutaremos desde el intérprete por lotes.
+
+---
+
 - Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
 
 - Para cargar un *script* en nuestra sesión usamos la orden `from`. Por
   ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
 
   ```python
-  from definiciones import *
+  >>> from definiciones import *
   ```
+
+  Observar que en el `from` se pone el nombre del script pero **sin la
+  extensión `.py`**.
+
+- Otra opción es iniciar una nueva sesión con el intérprete interactivo
+  indicándole que cargue el _script_ mediante la opción `-i` en la línea de
+  órdenes del sistema operativo:
+
+  ```console
+  $ python -i definiciones.py
+  >>>
+  ```
+
+  En este caso **sí** se pone el nombre completo del script, **con la extensión
+  `.py`**.
 
 ## Ámbitos
 
