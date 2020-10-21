@@ -267,6 +267,122 @@ F -> "Compilador Java" -> O
     funciones** usando lo que esté disponible, o bien ofrecer un mecanismo para
     comprobar si una funcionalidad concreta está presente.
 
+## Las herramientas de desarrollo de Java (JDK)
+
+- Las **herramientas de desarrollo de Java** (del inglés, **_Java Development
+  Kit_ o JDK**) constituyen el software necesario para desarrollar programas
+  Java.
+
+- Contiene:
+
+  - Un **compilador** (`javac`) que traduce código Java a _bytecode_.
+
+  - Una copia completa del **JRE**.
+
+  - Otras **herramientas de desarrollo**: un generador de documentación, un
+    empaquetador de archivos `.jar`, un desensamblador de archivos `.class`, un
+    depurador, el intérprete interactivo `jshell`...
+
+---
+
+- A lo largo de los años han ido saliendo varios JDK que cumplen con las
+  especificaciones de Java pero que se diferencian en aspectos muy concretos:
+  licencia, técnicas de optimización, recolección de basura...
+
+- El principal JDK usado a día de hoy es **OpenJDK**.
+
+- OpenJDK es una **implementación gratuita y libre de la plataforma Java SE**,
+  publicada bajo la licencia GNU GPL versión 2.
+
+- OpenJDK es la **implementación oficial de referencia** para Java SE desde la
+  versión 7.
+
+- OpenJDK es el resultado de la decisión que tomó Sun en 2006 de hacer que Java
+  fuese **software libre** (al principio no lo era). Desde entonces, a lo largo
+  de los años se han ido liberando partes de la plataforma hasta que,
+  finalmente, **desde diciembre de 2010 todos los componentes del JDK son
+  libres**.
+
+### El compilador `javac`
+
+- El programa `javac` es el **compilador** que traduce el código fuente escrito
+  en lenguaje Java (y almacenado en archivos `.java`) a _bytecode_ almacenado
+  en archivos `.class`.
+
+- Por cada archivo fuente `.java`, el compilador genera un archivo `.class` con
+  el código objeto en _bytecode_ generado desde ese archivo fuente.
+
+- El código objeto se almacena en archivos con extensión `.class` porque la
+  mayoría de los archivos `.java` contienen definiciones de _clases_ escritas
+  en lenguaje Java (una clase por archivo).
+
+!DOT(javac.svg)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+javac [fontname = "monospace"]
+F -> javac -> O
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Un programa Java estará formado por uno o (lo más normal) varios archivos
+  fuente `.java` que contendrán, cada uno de ellos, la definición de una clase
+  (en la mayoría de los casos).
+
+- En Java, prácticamente todas las instrucciones que forman un programa están
+  contenidas en clases.
+
+- Por tanto, la ejecución de un programa Java empezará siempre desde una clase
+  concreta, llamada **clase _principal_**.
+
+  Más adelante veremos que la clase principal no puede ser cualquier clase.
+  Tiene que ser una que tenga definido un método con un nombre determinado.
+
+- La compilación de un archivo fuente puede provocar la compilación _en
+  cascada_ de otros archivos fuente si el primero hace uso de definiciones
+  almacenadas en los otros.
+
+---
+
+- Por eso, para compilar un programa Java, lo más conveniente es compilar el
+  archivo fuente que contiene la clase principal, ya que ello provocará en
+  cascada la compilación de cualquier archivo fuente de la que dependa ésta.
+
+- Para compilar un archivo fuente `.java`, debemos pasarle al compilador
+  `javac` el nombre de dicho archivo.
+
+- Por ejemplo, si tenemos un archivo fuente `Principal.java`, podemos
+  compilarlo con `javac` y generar con ello el archivo `Principal.class` con el
+  código objeto en _bytecode_.
+
+- Para ello, pasamos a `javac` el nombre del archivo fuente a través de la
+  línea de órdenes:
+
+  ```console
+  $ ls
+  Principal.java
+  $ javac Principal.java
+  $ ls
+  Principal.class  Principal.java
+  ```
+
+---
+
+- Si compilamos un archivo fuente `.java` del que ya existía su correspondiente
+  archivo objeto `.class`, el compilador generará un nuevo `.class` que
+  sustituirá al archivo anterior con el mismo nombre:
+
+  ```console
+  $ ls
+  Principal.class  Principal.java
+  $ javac Principal.java
+  $ ls
+  Principal.class  Principal.java
+  ```
+
+### El intérprete interactivo `jshell`
+
 ## El entorno de ejecución de Java (JRE)
 
 - El **entorno de ejecución de Java** (del inglés **_Java Runtime
@@ -298,7 +414,8 @@ JRE = JVM + API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
 O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
-F -> "Compilador Java" -> O -> JRE
+javac [fontname = "monospace"]
+F -> javac -> O -> JRE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Desde hace ya tiempo, el JRE lleva a cabo un proceso previo de **compilación
@@ -316,22 +433,23 @@ subgraph cluster0 {
     label = "JRE"
     JIT -> N
 }
-F -> "Compilador Java" -> O -> JIT
+javac [fontname = "monospace"]
+F -> javac -> O -> JIT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### El intérprete `java`
 
-- El programa `java` es el intérprete que implementa la JVM en el JRE.
+- El programa `java` es el **intérprete** que implementa la JVM en el JRE.
 
-- Es el programa que usamos para ejecutar los programas compilados a _bytecode_
-  almacenados en archivos `.class`.
+- Es el programa que usamos para cargar y ejecutar los programas compilados a
+  _bytecode_ almacenados en archivos `.class`.
 
 - Como su extensión indica, un archivo `.class` contiene la definición de una
   **clase Java** compilada en _bytecode_.
 
 - En Java, las instrucciones que forman un programa están prácticamente todas
   contenidas en clases. Por tanto, la ejecución de un programa Java empezará
-  siempre desde una clase concreta. 
+  siempre desde una clase concreta, llamada **clase _principal_**. 
 
 - Para ejecutar un programa Java, debemos pasarle al intérprete `java` el
   nombre de la clase desde la cual queremos iniciar la ejecución del programa.
@@ -346,6 +464,9 @@ F -> "Compilador Java" -> O -> JIT
   $ java Principal
   ```
 
+  El intérprete `java` arrancaría la JVM, cargaría el archivo `.class` en
+  memoria y comenzaría su ejecución.
+
 - Es importante no confundir el nombre de la clase con el nombre del archivo
   que contiene el código compilado de la clase. En este caso, el nombre de la
   clase es `Principal`, no `Principal.class`:
@@ -356,13 +477,67 @@ F -> "Compilador Java" -> O -> JIT
   Causado por: java.lang.ClassNotFoundException: Principal.class
   ```
 
-## Las herramientas de desarrollo de Java (JDK)
+---
 
-### El compilador `javac`
+- El programa empezaría a ejecutarse a partir de dicha clase, suponiendo que es
+  válida como clase principal.
 
-### El intérprete interactivo `jshell`
+- Ya sabemos que «ejecutar un programa Java» consiste en hacer que el
+  intérprete `java` vaya ejecutando las instrucciones que forman el programa,
+  emulando el funcionamiento de la máquina virtual de Java.
 
-# Características de Java
+- Si durante la ejecución del programa se necesita acceder a una clase cuyo
+  código objeto se encuentra en otro archivo `.class`, el intérprete `java`
+  buscará ese archivo `.class` y lo cargará en la JVM.
+
+- Para localizar los archivos `.class`, el intérprete `java` mira en el
+  directorio actual mientras no se diga lo contrario.
+
+- Si los archivos `.class` se encuentran en otro sitio, debemos indicarlo
+  usando el _classpath_.
+
+---
+
+- El **_classpath_** es una lista de directorios separados por «`:`» que
+  representa las rutas en las que el intérprete debe buscar los archivos
+  `.class`.
+
+- En el _classpath_ se indican las rutas en el orden en el que se desea que
+  busque el intérprete, ordenados por preferencia.
+
+- Por ejemplo, el siguiente _classpath_:
+
+  `/usr/lib/java:/usr/java:/tmp`
+
+  está formado por tres rutas, que se consultarían en el siguiente orden:
+
+  1. Primero se miraría si el archivo `.class` buscado se encuentra en
+     `/usr/lib/java`.
+
+  2. Si no está ahí, entonces se buscaría en `/usr/java`.
+
+  3. Si ahí tampoco está, entonces se buscaría en `/tmp`.
+
+  4. Si tampoco está ahí, el intérprete daría un error y finalizará la
+     ejecución del programa.
+
+---
+
+- Para indicar al intérprete qué _classpath_ se desea usar, se pueden usar dos
+  técnicas:
+
+  - Usar la opción `-cp` del programa `java`:
+
+    ```console
+    $ java -cp /usr/lib/java:/usr/java:/tmp Principal
+    ```
+
+  - Crear y exportar la variable de entorno `CLASSPATH` del sistema operativo:
+
+    ```console
+    $ export CLASSPATH=/usr/lib/java:/usr/java:/tmp
+    $ java Principal
+    ```
 
 # Tipado estático vs. dinámico
 

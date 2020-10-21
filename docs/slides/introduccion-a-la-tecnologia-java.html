@@ -204,9 +204,8 @@
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/compilación-vs.-interpretación"><span class="toc-section-number">2</span> Compilación vs. interpretación</a></li>
-<li><a href="#/características-de-java"><span class="toc-section-number">3</span> Características de Java</a></li>
-<li><a href="#/tipado-estático-vs.-dinámico"><span class="toc-section-number">4</span> Tipado estático vs. dinámico</a></li>
-<li><a href="#/el-primer-programa-java"><span class="toc-section-number">5</span> El primer programa Java</a></li>
+<li><a href="#/tipado-estático-vs.-dinámico"><span class="toc-section-number">3</span> Tipado estático vs. dinámico</a></li>
+<li><a href="#/el-primer-programa-java"><span class="toc-section-number">4</span> El primer programa Java</a></li>
 </ul>
 </section>
 
@@ -468,8 +467,83 @@
 </section>
 
 
-<section id="el-entorno-de-ejecución-de-java-jre" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> El entorno de ejecución de Java (JRE)</h2>
+<section id="las-herramientas-de-desarrollo-de-java-jdk" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Las herramientas de desarrollo de Java (JDK)</h2>
+<ul>
+<li><p>Las <strong>herramientas de desarrollo de Java</strong> (del inglés, <strong><em>Java Development Kit</em> o JDK</strong>) constituyen el software necesario para desarrollar programas Java.</p></li>
+<li><p>Contiene:</p>
+<ul>
+<li><p>Un <strong>compilador</strong> (<code>javac</code>) que traduce código Java a <em>bytecode</em>.</p></li>
+<li><p>Una copia completa del <strong>JRE</strong>.</p></li>
+<li><p>Otras <strong>herramientas de desarrollo</strong>: un generador de documentación, un empaquetador de archivos <code>.jar</code>, un desensamblador de archivos <code>.class</code>, un depurador, el intérprete interactivo <code>jshell</code>…</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.1">
+
+<ul>
+<li><p>A lo largo de los años han ido saliendo varios JDK que cumplen con las especificaciones de Java pero que se diferencian en aspectos muy concretos: licencia, técnicas de optimización, recolección de basura…</p></li>
+<li><p>El principal JDK usado a día de hoy es <strong>OpenJDK</strong>.</p></li>
+<li><p>OpenJDK es una <strong>implementación gratuita y libre de la plataforma Java SE</strong>, publicada bajo la licencia GNU GPL versión 2.</p></li>
+<li><p>OpenJDK es la <strong>implementación oficial de referencia</strong> para Java SE desde la versión 7.</p></li>
+<li><p>OpenJDK es el resultado de la decisión que tomó Sun en 2006 de hacer que Java fuese <strong>software libre</strong> (al principio no lo era). Desde entonces, a lo largo de los años se han ido liberando partes de la plataforma hasta que, finalmente, <strong>desde diciembre de 2010 todos los componentes del JDK son libres</strong>.</p></li>
+</ul>
+</section>
+<section id="el-compilador-javac" class="title-slide slide level3" data-number="2.4.1">
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> El compilador <code>javac</code></h3>
+<ul>
+<li><p>El programa <code>javac</code> es el <strong>compilador</strong> que traduce el código fuente escrito en lenguaje Java (y almacenado en archivos <code>.java</code>) a <em>bytecode</em> almacenado en archivos <code>.class</code>.</p></li>
+<li><p>Por cada archivo fuente <code>.java</code>, el compilador genera un archivo <code>.class</code> con el código objeto en <em>bytecode</em> generado desde ese archivo fuente.</p></li>
+<li><p>El código objeto se almacena en archivos con extensión <code>.class</code> porque la mayoría de los archivos <code>.java</code> contienen definiciones de <em>clases</em> escritas en lenguaje Java (una clase por archivo).</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/javac.svg" class="plain" style="width:80.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="2.4.1.0.1">
+
+<ul>
+<li><p>Un programa Java estará formado por uno o (lo más normal) varios archivos fuente <code>.java</code> que contendrán, cada uno de ellos, la definición de una clase (en la mayoría de los casos).</p></li>
+<li><p>En Java, prácticamente todas las instrucciones que forman un programa están contenidas en clases.</p></li>
+<li><p>Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta, llamada <strong>clase <em>principal</em></strong>.</p>
+<p>Más adelante veremos que la clase principal no puede ser cualquier clase. Tiene que ser una que tenga definido un método con un nombre determinado.</p></li>
+<li><p>La compilación de un archivo fuente puede provocar la compilación <em>en cascada</em> de otros archivos fuente si el primero hace uso de definiciones almacenadas en los otros.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.1.0.2">
+
+<ul>
+<li><p>Por eso, para compilar un programa Java, lo más conveniente es compilar el archivo fuente que contiene la clase principal, ya que ello provocará en cascada la compilación de cualquier archivo fuente de la que dependa ésta.</p></li>
+<li><p>Para compilar un archivo fuente <code>.java</code>, debemos pasarle al compilador <code>javac</code> el nombre de dicho archivo.</p></li>
+<li><p>Por ejemplo, si tenemos un archivo fuente <code>Principal.java</code>, podemos compilarlo con <code>javac</code> y generar con ello el archivo <code>Principal.class</code> con el código objeto en <em>bytecode</em>.</p></li>
+<li><p>Para ello, pasamos a <code>javac</code> el nombre del archivo fuente a través de la línea de órdenes:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>Principal.java</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">$ </span>javac Principal.java</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>Principal.class  Principal.java</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.1.0.3">
+
+<ul>
+<li><p>Si compilamos un archivo fuente <code>.java</code> del que ya existía su correspondiente archivo objeto <code>.class</code>, el compilador generará un nuevo <code>.class</code> que sustituirá al archivo anterior con el mismo nombre:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>Principal.class  Principal.java</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">$ </span>javac Principal.java</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">$ </span>ls</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>Principal.class  Principal.java</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="el-intérprete-interactivo-jshell" class="title-slide slide level3" data-number="2.4.2">
+<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> El intérprete interactivo <code>jshell</code></h3>
+
+</section>
+
+
+<section id="el-entorno-de-ejecución-de-java-jre" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> El entorno de ejecución de Java (JRE)</h2>
 <ul>
 <li><p>El <strong>entorno de ejecución de Java</strong> (del inglés <strong><em>Java Runtime Environment</em></strong> o <strong>JRE</strong>) es el software necesario para ejecutar programas Java en un determinado sistema operativo y arquitectura hardware.</p></li>
 <li><p>Para cada dispositivo (ya sea un teléfono móvil, un PC con Linux o un microondas) debe haber un JRE.</p></li>
@@ -479,7 +553,7 @@
 </ul>
 <p>JRE = JVM + API</p>
 </section>
-<section class="slide level5" data-number="2.4.0.0.1">
+<section class="slide level5" data-number="2.5.0.0.1">
 
 <ul>
 <li><p>El JRE actúa como un emulador de la JVM y un intérprete de <em>bytecode</em>.</p></li>
@@ -495,81 +569,101 @@
 <p><img data-src="images/jit.svg" class="plain" style="width:80.0%" /></p>
 </div>
 </section>
-<section id="el-intérprete-java" class="title-slide slide level3" data-number="2.4.1">
-<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> El intérprete <code>java</code></h3>
+<section id="el-intérprete-java" class="title-slide slide level3" data-number="2.5.1">
+<h3 data-number="2.5.1"><span class="header-section-number">2.5.1</span> El intérprete <code>java</code></h3>
 <ul>
-<li><p>El programa <code>java</code> es el intérprete que implementa la JVM en el JRE.</p></li>
-<li><p>Es el programa que usamos para ejecutar los programas compilados a <em>bytecode</em> almacenados en archivos <code>.class</code>.</p></li>
+<li><p>El programa <code>java</code> es el <strong>intérprete</strong> que implementa la JVM en el JRE.</p></li>
+<li><p>Es el programa que usamos para cargar y ejecutar los programas compilados a <em>bytecode</em> almacenados en archivos <code>.class</code>.</p></li>
 <li><p>Como su extensión indica, un archivo <code>.class</code> contiene la definición de una <strong>clase Java</strong> compilada en <em>bytecode</em>.</p></li>
-<li><p>En Java, las instrucciones que forman un programa están prácticamente todas contenidas en clases. Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta.</p></li>
+<li><p>En Java, las instrucciones que forman un programa están prácticamente todas contenidas en clases. Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta, llamada <strong>clase <em>principal</em></strong>.</p></li>
 <li><p>Para ejecutar un programa Java, debemos pasarle al intérprete <code>java</code> el nombre de la clase desde la cual queremos iniciar la ejecución del programa.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.1.0.1">
+<section class="slide level5" data-number="2.5.1.0.1">
 
 <ul>
 <li><p>Por ejemplo, si tenemos una clase <code>Principal</code> compilada en el archivo <code>Principal.class</code>, podemos indicar que queremos empezar desde ahí la ejecución de nuestro programa:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">$ </span>java Principal</span></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">$ </span>java Principal</span></code></pre></div>
+<p>El intérprete <code>java</code> arrancaría la JVM, cargaría el archivo <code>.class</code> en memoria y comenzaría su ejecución.</p></li>
 <li><p>Es importante no confundir el nombre de la clase con el nombre del archivo que contiene el código compilado de la clase. En este caso, el nombre de la clase es <code>Principal</code>, no <code>Principal.class</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">$ </span>java Principal.class</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>Error: no se ha encontrado o cargado la clase principal Principal.class</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>Causado por: java.lang.ClassNotFoundException: Principal.class</span></code></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">$ </span>java Principal.class</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>Error: no se ha encontrado o cargado la clase principal Principal.class</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>Causado por: java.lang.ClassNotFoundException: Principal.class</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.1.0.2">
+
+<ul>
+<li><p>El programa empezaría a ejecutarse a partir de dicha clase, suponiendo que es válida como clase principal.</p></li>
+<li><p>Ya sabemos que «ejecutar un programa Java» consiste en hacer que el intérprete <code>java</code> vaya ejecutando las instrucciones que forman el programa, emulando el funcionamiento de la máquina virtual de Java.</p></li>
+<li><p>Si durante la ejecución del programa se necesita acceder a una clase cuyo código objeto se encuentra en otro archivo <code>.class</code>, el intérprete <code>java</code> buscará ese archivo <code>.class</code> y lo cargará en la JVM.</p></li>
+<li><p>Para localizar los archivos <code>.class</code>, el intérprete <code>java</code> mira en el directorio actual mientras no se diga lo contrario.</p></li>
+<li><p>Si los archivos <code>.class</code> se encuentran en otro sitio, debemos indicarlo usando el <em>classpath</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.1.0.3">
+
+<ul>
+<li><p>El <strong><em>classpath</em></strong> es una lista de directorios separados por «<code>:</code>» que representa las rutas en las que el intérprete debe buscar los archivos <code>.class</code>.</p></li>
+<li><p>En el <em>classpath</em> se indican las rutas en el orden en el que se desea que busque el intérprete, ordenados por preferencia.</p></li>
+<li><p>Por ejemplo, el siguiente <em>classpath</em>:</p>
+<p><code>/usr/lib/java:/usr/java:/tmp</code></p>
+<p>está formado por tres rutas, que se consultarían en el siguiente orden:</p>
+<ol type="1">
+<li><p>Primero se miraría si el archivo <code>.class</code> buscado se encuentra en <code>/usr/lib/java</code>.</p></li>
+<li><p>Si no está ahí, entonces se buscaría en <code>/usr/java</code>.</p></li>
+<li><p>Si ahí tampoco está, entonces se buscaría en <code>/tmp</code>.</p></li>
+<li><p>Si tampoco está ahí, el intérprete daría un error y finalizará la ejecución del programa.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.1.0.4">
+
+<ul>
+<li><p>Para indicar al intérprete qué <em>classpath</em> se desea usar, se pueden usar dos técnicas:</p>
+<ul>
+<li><p>Usar la opción <code>-cp</code> del programa <code>java</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">$ </span>java -cp /usr/lib/java:/usr/java:/tmp Principal</span></code></pre></div></li>
+<li><p>Crear y exportar la variable de entorno <code>CLASSPATH</code> del sistema operativo:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">$ </span>export CLASSPATH=/usr/lib/java:/usr/java:/tmp</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">$ </span>java Principal</span></code></pre></div></li>
+</ul></li>
 </ul>
 </section>
 
-
-<section id="las-herramientas-de-desarrollo-de-java-jdk" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Las herramientas de desarrollo de Java (JDK)</h2>
-
 </section>
-<section id="el-compilador-javac" class="title-slide slide level3" data-number="2.5.1">
-<h3 data-number="2.5.1"><span class="header-section-number">2.5.1</span> El compilador <code>javac</code></h3>
-
-</section>
-
-<section id="el-intérprete-interactivo-jshell" class="title-slide slide level3" data-number="2.5.2">
-<h3 data-number="2.5.2"><span class="header-section-number">2.5.2</span> El intérprete interactivo <code>jshell</code></h3>
-
-</section>
-
-</section>
-<section id="características-de-java" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Características de Java</h1>
-
-</section>
-
-<section id="tipado-estático-vs.-dinámico" class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Tipado estático vs. dinámico</h1>
+<section id="tipado-estático-vs.-dinámico" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Tipado estático vs. dinámico</h1>
 
 </section>
 
 <section>
-<section id="el-primer-programa-java" class="title-slide slide level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> El primer programa Java</h1>
+<section id="el-primer-programa-java" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> El primer programa Java</h1>
 
 </section>
-<section id="el-método-main" class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span> El método <code>main()</code></h2>
-
-</section>
-
-<section id="la-clase-system" class="title-slide slide level2" data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span> La clase <code>System</code></h2>
+<section id="el-método-main" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> El método <code>main()</code></h2>
 
 </section>
 
-<section id="el-objeto-out" class="title-slide slide level2" data-number="5.3">
-<h2 data-number="5.3"><span class="header-section-number">5.3</span> El objeto <code>out</code></h2>
+<section id="la-clase-system" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> La clase <code>System</code></h2>
 
 </section>
 
-<section id="el-método-println" class="title-slide slide level2" data-number="5.4">
-<h2 data-number="5.4"><span class="header-section-number">5.4</span> El método <code>println()</code></h2>
+<section id="el-objeto-out" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> El objeto <code>out</code></h2>
 
 </section>
 
-<section id="compilación-y-ejecución-en-consola-y-en-el-ide" class="title-slide slide level2" data-number="5.5">
-<h2 data-number="5.5"><span class="header-section-number">5.5</span> Compilación y ejecución en consola y en el IDE</h2>
+<section id="el-método-println" class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span> El método <code>println()</code></h2>
+
+</section>
+
+<section id="compilación-y-ejecución-en-consola-y-en-el-ide" class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> Compilación y ejecución en consola y en el IDE</h2>
 
 </section>
 </section>
