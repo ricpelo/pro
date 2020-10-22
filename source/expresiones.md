@@ -60,7 +60,7 @@ nocite: |
 
 - La estructura de un programa se define por su anidamiento.
 
-#### Instalación
+## Instalación
 
 - **Instalación en Ubuntu:**
 
@@ -96,7 +96,7 @@ nocite: |
   2. Durante la instalación, marcar la casilla que activa la opción de añadir
      comandos al _PATH_.
 
-#### Entrar y salir del intérprete
+## Entrar y salir del intérprete
 
 - Para entrar en el intérprete, se usa el comando `python` desde la línea de
   comandos del sistema operativo:
@@ -123,7 +123,7 @@ nocite: |
   >>>
   ```
 
-#### Instalación de Visual Studio Code
+## Instalación de Visual Studio Code
 
 - **Instalación en Ubuntu:**
 
@@ -141,7 +141,7 @@ nocite: |
      descargar e instalar la versión adecuada a la versión de Windows que se
      está usando.
 
-#### Configuración básica de Visual Studio Code
+### Configuración básica de Visual Studio Code
 
 1. Abrir la aplicación.
 
