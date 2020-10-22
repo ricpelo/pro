@@ -82,7 +82,7 @@ nocite: |
      directamente desde Visual Studio Code):
 
      ```console
-     $ sudo apt purge --autoremove pylint jupyter mypy autopep8
+     $ sudo apt purge --autoremove pylint jupyter mypy python3-autopep8
      ```
 
 ---
