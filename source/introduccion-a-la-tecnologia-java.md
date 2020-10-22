@@ -93,7 +93,7 @@ Java SE 15   15-sep-2020
 
   - Debe ser interpretado, multihilo y de enlace dinámico.
 
-# Compilación vs. interpretación
+# La tecnología Java
 
 ## Máquinas reales vs. virtuales
 
@@ -292,7 +292,8 @@ F -> "Compilador Java" -> O
 - El principal JDK usado a día de hoy es **OpenJDK**.
 
 - OpenJDK es una **implementación gratuita y libre de la plataforma Java SE**,
-  publicada bajo la licencia GNU GPL versión 2.
+  publicada bajo la licencia GNU GPL versión 2 basada en la máquina virtual
+  _HotSpot_ desarrollada inicialmente por Sun.
 
 - OpenJDK es la **implementación oficial de referencia** para Java SE desde la
   versión 7.
@@ -302,6 +303,22 @@ F -> "Compilador Java" -> O
   de los años se han ido liberando partes de la plataforma hasta que,
   finalmente, **desde diciembre de 2010 todos los componentes del JDK son
   libres**.
+
+#### Instalación
+
+- **Instalación en Ubuntu:**
+
+  Ejecutar los siguientes comandos desde un terminal del sistema operativo:
+
+   ```console
+   $ sudo apt update
+   $ sudo apt install openjdk-14-jdk
+   ```
+
+- **Instalación en Windows:**
+
+  Visitar [https://adoptopenjdk.net](https://adoptopenjdk.net), descargar e
+  instalar la versión adecuada a la versión de Windows que se está usando.
 
 ### El compilador `javac`
 
