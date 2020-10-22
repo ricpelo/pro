@@ -103,7 +103,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t revealjs \
 		-V revealjs-url=./reveal.js \
-		--filter=pandoc-citeproc \
+		--citeproc \
 		--katex \
 		--bibliography=$(CITATIONS_BIB) \
 	    --template=$(REVEAL_TEMPLATE) \
@@ -124,7 +124,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 	@echo "Generando $@..."
 	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t beamer \
-		--filter=pandoc-citeproc \
+		--citeproc \
 		--bibliography=$(CITATIONS_BIB) \
 		--template=$(BEAMER_TEMPLATE) \
 		--toc --toc-depth=1 -N \
@@ -150,7 +150,7 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		perl -0pe "s/\s*\n\s*\n---\n\s*\n/\n\n/g" | \
 		pandoc -s -t latex \
-		--filter=pandoc-citeproc \
+		--citeproc \
 		--bibliography=$(CITATIONS_BIB) \
 		--template=$(LATEX_TEMPLATE) \
 		--toc --toc-depth=3 -N \
