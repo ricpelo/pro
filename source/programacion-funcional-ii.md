@@ -257,12 +257,68 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   lambda x, y: x + y + z
   ```
 
-  `x` e `y` son variables ligadas mientras que `z` es libre.
+  `x` e `y` son variables ligadas mientras que `z` es una variable libre.
 
 ### Ámbitos
 
-- Recordemos que el **ámbito de una ligadura** es la porción del programa en la
-  que dicha ligadura tiene validez.
+- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
+  la creación de nuevos marcos.
+
+- Cuando eso ocurre, decimos que esa construcción sintáctica define un
+  **ámbito**, y que el ámbito viene definido por la porción de texto que ocupa
+  esa construcción sintáctica dentro del programa, de forma que:
+
+  - Cuando la ejecución del programa entra en el ámbito, se crea un nuevo
+    marco.
+
+  - Cuando la ejecución se sale del ámbito, se destruye su marco.
+
+- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
+  marco.
+
+- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
+  dentro de otros.
+
+- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
+  se encuentra la instrucción que se está ejecutando actualmente.
+
+---
+
+- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
+  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
+  tener en cuenta más condicionantes.
+
+- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
+
+  - Si se está ejecutando un _script_ en el intérprete por lotes (con `python
+    script.py`), el _ámbito global_ abarca todo el _script_, desde la primera
+    instrucción hasta la última.
+
+  - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
+    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
+    finalicemos la misma.
+
+- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
+  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
+  provoca la creación de un nuevo marco llamado **marco global**.
+
+- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
+  se cierra el intérprete interactivo.
+
+### Ámbito de una ligadura
+
+- El **ámbito de una ligadura** es el ámbito en el que dicha ligadura tiene
+  validez.
+
+- Por tanto, el ámbito de una ligadura determina en qué marco se almacena la
+  ligadura.
+
+- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
+  lo que se almacenan en el marco global.
+
+- Por eso también decimos que esas ligaduras tienen ámbito global, o que
+  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
+  son **globales**.
 
 - Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
@@ -272,12 +328,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Hemos visto que **un parámetro** de una expresión lambda **es una variable
   ligada** en el cuerpo de dicha expresión lambda.
 
-- En realidad, lo que hace la expresión lambda es **ligar al parámetro con la
-  variable ligada que está dentro del cuerpo**, y esa ligadura existe
-  únicamente en el cuerpo de la expresión lambda.
+- En realidad, lo que hace la expresión lambda es **asociar al parámetro con la
+  variable ligada que está dentro del cuerpo**, lo que hace que el parámetro y
+  la variable ligada compartan valor.
 
-- Por tanto, **el ámbito de una variable ligada es el cuerpo de la expresión
-  lambda** que la liga con su parámetro.
+- Esa asociación existe únicamente en el cuerpo de la expresión lambda, por lo
+  que **el _ámbito_ de una variable ligada es el _cuerpo_ de la expresión
+  lambda** que la asocia con su parámetro.
 
 - También se dice que la variable ligada tiene un **ámbito local** a la
   expresión lambda o que es **local** a dicha expresión lambda.
@@ -300,14 +357,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   z = x + 1       # da error
   ```
 
-- La expresión lambda de la línea 2 tiene un parámetro (`x`) ligado a la
+- La expresión lambda de la línea 2 tiene un parámetro (`x`) asociado a la
   variable ligada `x` situada en el cuerpo de la expresión lambda.
 
 - Por tanto, el ámbito de la variable ligada `x` es el **cuerpo** de la
-  expresión lambda (`x * x`).
+  expresión lambda (la expresión `x * x`).
 
-- Eso quiere decir que, fuera de la expresión lambda, no es posible acceder al
-  valor de la variable ligada, al encontrarnos **fuera de su ámbito**.
+- Eso quiere decir que, fuera del cuerpo de la expresión lambda, no es posible
+  acceder al valor de la variable ligada, al encontrarnos **fuera de su
+  ámbito**.
 
 - Por ello, la línea 4 dará un error al intentar acceder al valor de un
   identificador no ligado.
@@ -422,7 +480,8 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
 ---
 
-- Si en un determinado punto del programa tenemos el siguiente entorno (donde `suma` es una expresión lambda):
+- Si en un determinado punto del programa tenemos el siguiente entorno (donde
+  `suma` es una expresión lambda):
 
   !DOT(lambda-suma-entorno.svg)()(width=50%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
