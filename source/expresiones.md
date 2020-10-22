@@ -60,7 +60,43 @@ nocite: |
 
 - La estructura de un programa se define por su anidamiento.
 
+#### Instalación
+
+- **Instalación en Ubuntu:**
+
+  1. Python 3 ya viene instalado en Ubuntu 20.04 y posteriores, pero es
+     conveniente ejecutar los siguientes comandos desde un terminal del
+     sistema operativo:
+
+     ```console
+     $ sudo add-apt-repository universe
+     $ sudo apt update
+     $ sudo apt install python-is-python3 python3-pip
+     $ mkdir -p ~/.local/bin
+     ```
+
+     Al acabar, cerrar la terminal y abrir otra nueva antes de continuar.
+
+  2. Asimismo, es conveniente asegurarse de que no hay ciertos paquetes de
+     Python instalados provenientes del repositorio de Ubuntu (se instalarán
+     directamente desde Visual Studio Code):
+
+     ```console
+     $ sudo apt purge --autoremove pylint jupyter mypy autopep8
+     ```
+
 ---
+
+- **Instalación en Windows:**
+
+  1. Visitar
+     [https://www.python.org/downloads/windows](https://www.python.org/downloads/windows)
+     y descargar desde ahí la última versión estable.
+
+  2. Durante la instalación, marcar la casilla que activa la opción de añadir
+     comandos al _PATH_.
+
+#### Entrar y salir del intérprete
 
 - Para entrar en el intérprete, se usa el comando `python` desde la línea de
   comandos del sistema operativo:
@@ -86,6 +122,61 @@ nocite: |
   7
   >>>
   ```
+
+#### Instalación de Visual Studio Code
+
+- **Instalación en Ubuntu:**
+
+  Instalar Visual Studio Code desde el _Centro de software de Ubuntu_.
+
+  Alternativamente, se puede visitar
+  [https://code.visualstudio.com](https://code.visualstudio.com) para
+  descargar e instalar el paquete adecuado a la versión de Ubuntu que se
+  está usando, que suele ser la que ya sugiere la propia página web
+  (normalmente es el paquete `.deb` de 64 bits).
+
+- **Instalación en Windows:**
+
+  Visitar [https://code.visualstudio.com](https://code.visualstudio.com),
+     descargar e instalar la versión adecuada a la versión de Windows que se
+     está usando.
+
+#### Configuración básica de Visual Studio Code
+
+1. Abrir la aplicación.
+
+2. Acceder al apartado de _Extensiones_ (Ctrl+Mayús+X) e instalar las
+   siguiente extensiones:
+
+   - Python
+
+   - Python Indent
+
+   - Pylance
+
+3. Configurar las siguientes opciones:
+
+   - _Python: Language Server_: `Pylance`
+
+   - _Python > Linting: Enabled_: Activado
+
+   - _Python > Linting: Pylint Enabled_: Activado
+
+   - _Python › Linting: Pylint Args_: `--disable=invalid-name,redefined-outer-name`
+
+---
+
+4. Se recomiendan, además, configurar las siguientes opciones:
+
+   - _Editor: Render Final Newline_: Desactivado
+
+   - _Editor: Smooth Scrolling_: Activado
+
+   - _Files: Insert Final Newline_: Activado
+
+   - _Files: Trim Final Newlines_: Activado
+
+   - _Files: Trim Trailing Whitespace_: Activado
 
 # Elementos de un programa
 
