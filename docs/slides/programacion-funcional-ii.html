@@ -421,7 +421,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <h3 data-number="1.1.4"><span class="header-section-number">1.1.4</span> Ámbitos</h3>
 <ul>
 <li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
-<li><p>Cuando eso ocurre, decimos que esa construcción sintáctica define un <strong>ámbito</strong>, y que ese ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa, de forma que:</p>
+<li><p>Cuando eso ocurre, decimos que esa construcción sintáctica define un <strong>ámbito</strong>, y viene definido por la porción del código fuente que ocupa esa construcción sintáctica dentro del programa, de forma que:</p>
 <ul>
 <li><p>Cuando la ejecución del programa <strong>entra</strong> en el ámbito, se <strong>crea</strong> un nuevo marco.</p></li>
 <li><p>Cuando la ejecución se <strong>sale</strong> del ámbito, se <strong>destruye</strong> su marco.</p></li>
@@ -444,12 +444,47 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Del ámbito global sólo se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.1.4.0.2">
+
+<ul>
+<li>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se realizan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambito-global.png" class="plain" style="width:50.0%" /></p>
+</div>
+</section>
 
 <section id="ámbito-de-una-ligadura" class="title-slide slide level3" data-number="1.1.5">
 <h3 data-number="1.1.5"><span class="header-section-number">1.1.5</span> Ámbito de una ligadura</h3>
 <ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que dicha ligadura tiene validez.</p></li>
-<li><p>Por tanto, el ámbito de una ligadura determina en qué marco se almacena la ligadura.</p></li>
+<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe dicha ligadura.</p></li>
+<li><p>Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el marco del ámbito donde se definen.</p></li>
+<li><p>Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el ámbito en el que se define.</p></li>
+<li><p>Esto es así porque una ligadura empieza a existir en el momento en el que se define (por ejemplo, cuando se ejecuta una sentencia de definición), y no antes.</p></li>
+<li><p>Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son sólo las que se han definido en ese ámbito <strong>hasta ese momento</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.5.0.1">
+
+<ul>
+<li><p>En consecuencia, el ámbito de una ligadura:</p>
+<ul>
+<li><p>Empieza en el punto donde se define.</p></li>
+<li><p>Termina donde lo hace el ámbito en el que se definió la ligadura.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambitos-ligaduras.png" class="plain" style="width:80.0%" /></p>
+</div>
+<div class="caja centered">
+<p>Es importante no confundir «<strong>ámbito</strong>» con «<strong>ámbito de una ligadura</strong>».</p>
+</div>
+</section>
+<section class="slide level5" data-number="1.1.5.0.2">
+
+<ul>
+<li><p>La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea un nuevo marco.</p></li>
+<li><p>Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.</p></li>
 <li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
 <li><p>Por eso también decimos que esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
 <li><p>Ampliaremos ahora el concepto de <em>ámbito</em> para incluir los aspectos nuevos que incorporan las expresiones lambda.</p></li>
@@ -460,9 +495,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>Hemos visto que un <strong>parámetro</strong> de una expresión lambda aparece como una <strong>variable ligada</strong> en el cuerpo de dicha expresión lambda.</p></li>
 <li><p>En realidad, lo que hace la expresión lambda es <strong>ligar al parámetro con la variable ligada que está dentro del cuerpo</strong>, de forma que el parámetro y la variable ligada comparten valor.</p></li>
-<li><p>Esa ligadura existe únicamente en el cuerpo de la expresión lambda, por lo que <strong>el <em>ámbito</em> de la variable ligada es el <em>cuerpo</em> de la expresión lambda</strong> que la asocia con su parámetro.</p></li>
+<li><p>Esa ligadura existe únicamente en el cuerpo de la expresión lambda, por lo que <strong>el <em>ámbito</em> de la variable ligada es el <em>cuerpo</em> de la expresión lambda</strong> que la liga con su parámetro.</p></li>
 <li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> al cuerpo de la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
-<li><p>Como el ámbito de una ligadura es la porción del código en el que dicha ligadura tiene validez, eso significa que <strong>sólo podemos acceder a una variable local dentro del cuerpo de su expresión lambda</strong>.</p></li>
+<li><p>Como el ámbito de una ligadura es la porción del código en el que dicha ligadura tiene validez, eso significa que <strong>sólo podemos acceder al valor de una variable local dentro del cuerpo de su expresión lambda</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.1.1">
@@ -472,6 +507,10 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p>Si, además, ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que la variable (o la ligadura) es <strong>global</strong>.</p></li>
 <li><p>Por ejemplo, las <strong>variables libres</strong> que aparecen en una expresión lambda no son locales a dicha expresión, ya que no están ligadas a los parámetros de la expresión y, por tanto, tienen un ámbito más global que el cuerpo de dicha expresión lambda.</p></li>
 </ul>
+<div class="caja">
+<p><strong>En resumen:</strong></p>
+<p>El <strong>ámbito de una variable ligada</strong> es el ámbito de la ligadura que se establece entre ésta y su parámetro correspondiente, y coincide con el <strong>cuerpo</strong> de la expresión lambda donde aparece.</p>
+</div>
 </section>
 <section id="ejemplo" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>

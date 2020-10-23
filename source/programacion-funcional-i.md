@@ -1417,13 +1417,54 @@ z -> 3
 - Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
   se cierra el intérprete interactivo.
 
+---
+
+- Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
+  ellas se realizan en el ámbito global, que es el único ámbito que existe en
+  el _script_:
+
+!IMGP(ambito-global.png)()(width=50%)
+
 ### Ámbito de una ligadura
 
-- El **ámbito de una ligadura** es el ámbito en el que dicha ligadura tiene
-  validez.
+- El **ámbito de una ligadura** es la porción del código fuente en la que
+  existe dicha ligadura.
 
-- Por tanto, el ámbito de una ligadura determina en qué marco se almacena la
-  ligadura.
+- Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el
+  marco del ámbito donde se definen.
+
+- Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el
+  ámbito en el que se define.
+
+- Esto es así porque una ligadura empieza a existir en el momento en el que se
+  define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
+  antes.
+
+- Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de
+  un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son
+  sólo las que se han definido en ese ámbito **hasta ese momento**.
+
+---
+
+- En consecuencia, el ámbito de una ligadura:
+
+  - Empieza en el punto donde se define.
+
+  - Termina donde lo hace el ámbito en el que se definió la ligadura.
+
+!IMGP(ambitos-ligaduras.png)
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
+  un nuevo marco.
+
+- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.

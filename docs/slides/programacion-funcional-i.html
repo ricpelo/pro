@@ -1278,11 +1278,46 @@
 <li><p>Del ámbito global sólo se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="4.6.0.0.2">
+
+<ul>
+<li>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se realizan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambito-global.png" class="plain" style="width:50.0%" /></p>
+</div>
+</section>
 <section id="ámbito-de-una-ligadura" class="title-slide slide level3" data-number="4.6.1">
 <h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> Ámbito de una ligadura</h3>
 <ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito en el que dicha ligadura tiene validez.</p></li>
-<li><p>Por tanto, el ámbito de una ligadura determina en qué marco se almacena la ligadura.</p></li>
+<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe dicha ligadura.</p></li>
+<li><p>Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el marco del ámbito donde se definen.</p></li>
+<li><p>Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el ámbito en el que se define.</p></li>
+<li><p>Esto es así porque una ligadura empieza a existir en el momento en el que se define (por ejemplo, cuando se ejecuta una sentencia de definición), y no antes.</p></li>
+<li><p>Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son sólo las que se han definido en ese ámbito <strong>hasta ese momento</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.1">
+
+<ul>
+<li><p>En consecuencia, el ámbito de una ligadura:</p>
+<ul>
+<li><p>Empieza en el punto donde se define.</p></li>
+<li><p>Termina donde lo hace el ámbito en el que se definió la ligadura.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambitos-ligaduras.png" class="plain" style="width:80.0%" /></p>
+</div>
+<div class="caja centered">
+<p>Es importante no confundir «<strong>ámbito</strong>» con «<strong>ámbito de una ligadura</strong>».</p>
+</div>
+</section>
+<section class="slide level5" data-number="4.6.1.0.2">
+
+<ul>
+<li><p>La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea un nuevo marco.</p></li>
+<li><p>Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.</p></li>
 <li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
 <li><p>Por eso también decimos que esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
 </ul>
