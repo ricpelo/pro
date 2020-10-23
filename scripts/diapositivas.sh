@@ -9,7 +9,7 @@ title: Diapositivas y apuntes
 
 Los materiales de las diferentes unidades didácticas se organizan de la siguiente manera:
 
-- **HTML**: Diapositivas para su visualización *online* desde un navegador, por lo que requiere conexión a Internet. Estructura las diapositivas en una matriz de filas y columnas para facilitar la navegación.
+- **HTML**: Diapositivas para su visualización *online* desde un navegador, por lo que requiere conexión a Internet. Estructura las diapositivas en una matriz de filas y columnas para facilitar la navegación (**opción recomendada**).
 
 - **PDF**: Diapositivas en formato \`PDF\` para su visualización *offline* desde cualquier visor de este tipo de archivos. Por tanto, no requiere conexión a Internet.
 
