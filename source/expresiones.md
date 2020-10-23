@@ -423,7 +423,7 @@ Se dice:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ejemplo
+!EJEMPLO
 
 - De las expresiones anteriores:
 
@@ -492,7 +492,7 @@ endwhile (no)
 :forma normal;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ejemplos
+!EJEMPLOS
 
 - Evaluar la expresión `(2 + 3)`:
 

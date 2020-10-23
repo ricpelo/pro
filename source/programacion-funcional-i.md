@@ -1368,45 +1368,62 @@ z -> 3
   En este caso **sí** se pone el nombre completo del script, **con la extensión
   `.py`**.
 
+<!-- ¡ATENCIÓN! PARA EL PRÓXIMO AÑO, QUITAR LOS ÁMBITOS DE AQUÍ
+     PORQUE YA ESTÁN EXACTAMENTE IGUAL EN EL SIGUIENTE TEMA -->
+
 ## Ámbitos
 
 - Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
   la creación de nuevos marcos.
 
-- Cuando eso ocurre, decimos que la construcción sintáctica define un
-  **ámbito**, y que el ámbito viene definido por la porción de texto que ocupa
-  esa construcción sintáctica dentro del programa.
+- Cuando eso ocurre, decimos que esa construcción sintáctica define un
+  **ámbito**, y que ese ámbito viene definido por la porción de texto que ocupa
+  esa construcción sintáctica dentro del programa, de forma que:
 
-- Durante la ejecución del programa, se creará un nuevo marco cuando se entre
-  en el ámbito (es decir, cuando se entre en su construcción sintática
-  correspondiente) y se destruirá cuando se salga del ámbito.
+  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
+    nuevo marco.
+
+  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
+
+- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
+  marco.
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
   dentro de otros.
 
-- El **ámbito actual** es el ámbito más interno en el que se encuentra la
-  porción de código que se está ejecutando actualmente.
+- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
+  se encuentra la instrucción que se está ejecutando actualmente.
 
 ---
 
-- El concepto de *ámbito* es un concepto nada trivial y, a medida que vayamos
+- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
   incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
   tener en cuenta más condicionantes.
 
-- Por ahora sólo tenemos un ámbito que abarca todo el *script* que se está
-  ejecutando (o la sesión actual si estamos en el intérprete interactivo).
+- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
 
-- A ese ámbito se le llama **ámbito global** y es el que crea el **marco
-  global**.
+  - Si se está ejecutando un _script_ en el intérprete por lotes (con
+    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
+    primera instrucción hasta la última.
 
-- Es decir: el intérprete crea el marco global cuando empieza a ejecutar el
-  *script* (o cuando inicia una nueva sesión con el intérprete interactivo) y
-  lo asocia al ámbito global.
+  - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
+    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
+    finalicemos la misma.
+
+- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
+  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
+  provoca la creación de un nuevo marco llamado **marco global**.
+
+- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
+  se cierra el intérprete interactivo.
 
 ### Ámbito de una ligadura
 
 - El **ámbito de una ligadura** es el ámbito en el que dicha ligadura tiene
   validez.
+
+- Por tanto, el ámbito de una ligadura determina en qué marco se almacena la
+  ligadura.
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.

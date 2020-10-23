@@ -136,7 +136,7 @@ nocite: |
 
   3. Aplicar la expresión lambda a sus argumentos.
 
-- Esto implica la siguiente cadena de reescrituras:
+- Esto implica la siguiente secuencia de reescrituras:
 
   ```python
   suma(4, 3)                    # evalúa suma y devuelve su definición
@@ -202,7 +202,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 -->
 
-#### Ejemplos
+!EJEMPLOS
 
 - Dado el siguiente código:
 
@@ -241,6 +241,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
+- Una variable ligada se llama así porque está ligada a su parámetro.
+
 - En el ejemplo anterior:
 
   ```python
@@ -265,13 +267,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   la creación de nuevos marcos.
 
 - Cuando eso ocurre, decimos que esa construcción sintáctica define un
-  **ámbito**, y que el ámbito viene definido por la porción de texto que ocupa
+  **ámbito**, y que ese ámbito viene definido por la porción de texto que ocupa
   esa construcción sintáctica dentro del programa, de forma que:
 
-  - Cuando la ejecución del programa entra en el ámbito, se crea un nuevo
-    marco.
+  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
+    nuevo marco.
 
-  - Cuando la ejecución se sale del ámbito, se destruye su marco.
+  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
 
 - Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
   marco.
@@ -290,9 +292,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Por ahora sólo tenemos un ámbito llamado **ámbito global**:
 
-  - Si se está ejecutando un _script_ en el intérprete por lotes (con `python
-    script.py`), el _ámbito global_ abarca todo el _script_, desde la primera
-    instrucción hasta la última.
+  - Si se está ejecutando un _script_ en el intérprete por lotes (con
+    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
+    primera instrucción hasta la última.
 
   - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
     _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
@@ -325,30 +327,40 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 #### Ámbito de una variable ligada
 
-- Hemos visto que **un parámetro** de una expresión lambda **es una variable
-  ligada** en el cuerpo de dicha expresión lambda.
+- Hemos visto que un **parámetro** de una expresión lambda aparece como una
+  **variable ligada** en el cuerpo de dicha expresión lambda.
 
-- En realidad, lo que hace la expresión lambda es **asociar al parámetro con la
-  variable ligada que está dentro del cuerpo**, lo que hace que el parámetro y
-  la variable ligada compartan valor.
+- En realidad, lo que hace la expresión lambda es **ligar al parámetro con la
+  variable ligada que está dentro del cuerpo**, de forma que el parámetro y la
+  variable ligada comparten valor.
 
-- Esa asociación existe únicamente en el cuerpo de la expresión lambda, por lo
-  que **el _ámbito_ de una variable ligada es el _cuerpo_ de la expresión
+- Esa ligadura existe únicamente en el cuerpo de la expresión lambda, por lo
+  que **el _ámbito_ de la variable ligada es el _cuerpo_ de la expresión
   lambda** que la asocia con su parámetro.
 
-- También se dice que la variable ligada tiene un **ámbito local** a la
-  expresión lambda o que es **local** a dicha expresión lambda.
+- También se dice que la variable ligada tiene un **ámbito local** al cuerpo de
+  la expresión lambda o que es **local** a dicha expresión lambda.
 
-- Por contraste, los identificadores (y ligaduras) que no tienen ámbito local
-  se dice que tienen un **ámbito no local** o, a veces, un **ámbito más
-  global**.
-
-  Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
-  que el identificador (o la ligadura) es **global**.
+- Como el ámbito de una ligadura es la porción del código en el que dicha
+  ligadura tiene validez, eso significa que **sólo podemos acceder a una
+  variable local dentro del cuerpo de su expresión lambda**.
 
 ---
 
-- Por ejemplo:
+- Por contraste, las variables (y ligaduras) que no tienen ámbito local se dice
+  que tienen un **ámbito _no local_** o, a veces, un **ámbito _más global_**.
+
+  Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
+  que la variable (o la ligadura) es **global**.
+
+- Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
+  son locales a dicha expresión, ya que no están ligadas a los parámetros de la
+  expresión y, por tanto, tienen un ámbito más global que el cuerpo de dicha
+  expresión lambda.
+
+!EJEMPLO
+
+- En el siguiente _script_:
 
   ```{.python .number-lines}
   # Aquí empieza el script (no hay más definiciones antes de esta línea):
@@ -357,7 +369,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   z = x + 1       # da error
   ```
 
-- La expresión lambda de la línea 2 tiene un parámetro (`x`) asociado a la
+- La expresión lambda de la línea 2 tiene un parámetro (`x`) ligado a la
   variable ligada `x` situada en el cuerpo de la expresión lambda.
 
 - Por tanto, el ámbito de la variable ligada `x` es el **cuerpo** de la
@@ -382,8 +394,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   memoria.
 
 - **Según se van creando en memoria, esos marcos van enlazándose unos con
-  otros** creando una secuencia o **cadena de marcos** que se denomina
-  **entorno** (del inglés, _environment_).
+  otros** creando una **secuencia de marcos** que se denomina **entorno** (del
+  inglés, _environment_).
 
 - En un momento dado, el entorno contendrá más o menos marcos dependiendo de
   por dónde haya pasado la ejecución del programa hasta ese momento.
@@ -401,8 +413,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
 
-- **El marco global siempre será el último de la cadena de marcos** que forman
-  el entorno.
+- **El marco global siempre será el último de la secuencia de marcos** que
+  forman el entorno.
 
 !DOT(cadena-de-marcos.svg)()(width=60%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -424,20 +436,20 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
 - Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**.
 
-- Por tanto, cuando se aplica una expresión lambda a unos argumentos, se crea
-  un nuevo marco que contiene las ligaduras que define dicha expresión lambda
-  con sus argumentos.
+- Por tanto, cuando se aplica una expresión lambda a unos argumentos, **se crea
+  un nuevo marco que contiene las ligaduras que ligan a los parámetros con los
+  valores de esos argumentos**.
 
 - Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
-  más interno *apunta* al más externo), de manera que el último siempre es el
-  marco global.
+  más interno *apunta* al más externo), de manera que el último marco de la
+  secuencia siempre es el marco global.
 
 - El marco desaparece cuando el flujo de control del programa se sale del
   ámbito, ya que cada marco va asociado a un ámbito.
 
 ---
 
-- Se va formando así una cadena de marcos que representa el **entorno** del
+- Se va formando así una secuencia de marcos que representa el **entorno** del
   programa en un punto dado del mismo.
 
 - A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
@@ -469,19 +481,19 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
   contenido en el ámbito de $B$.
 
-- Asimismo, el primer marco de la cadena de marcos del entorno representa el
+- Asimismo, el primer marco de la secuencia de marcos del entorno representa el
   ámbito actual de la porción de código donde se está calculando el entorno.
 
 - El último marco siempre es el marco global.
 
-- En realidad, el marco global apunta, a su vez, a un marco donde se encuentran
-  las definiciones internas predefinidas del lenguaje (como la función `max`),
-  pero lo ignoraremos de aquí en adelante por simplicar.
+- En realidad, el marco global apunta, a su vez, a otro marco donde se
+  encuentran las definiciones internas predefinidas del lenguaje (como la
+  función `max`), pero lo ignoraremos de aquí en adelante por simplicar.
 
 ---
 
-- Si en un determinado punto del programa tenemos el siguiente entorno (donde
-  `suma` es una expresión lambda):
+- Si en un determinado momento de la ejecución del programa tenemos el
+  siguiente entorno (donde `suma` es una expresión lambda):
 
   !DOT(lambda-suma-entorno.svg)()(width=50%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -538,14 +550,14 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
 - La `x` que aparece en la línea 1 es distinta a la que aparece en la línea 2.
 
-- El identificador `x` que aparece en el cuerpo de la expresión
-  lambda **hace referencia al parámetro `x` de la expresión lambda**, y **no**
-  al identificador `x` que está fuera de la expresión lambda (y que aquí está
-  ligado al valor `4`).
+- El identificador `x` que aparece en el cuerpo de la expresión lambda **está
+  ligado al parámetro `x` de la expresión lambda** y, por tanto, **no** se
+  refiere al identificador `x` que está fuera de la expresión lambda (y que
+  aquí está ligado al valor `4`).
 
 - En este caso, decimos que **el parámetro `x` _hace sombra_** al identificador
-  `x` global, y decimos que ese identificador está **sombreado** o que su
-  ligadura está **sombreada**.
+  `x` global, y decimos que este último identificador está **sombreado** o que
+  su ligadura está **sombreada**.
 
 ---
 
@@ -661,16 +673,19 @@ E -> w [lhead = cluster1]
 
 - Para encontrar el valor ligado a un identificador en el entorno, buscamos
   **en el primer marco del entorno** una ligadura para ese identificador, y si
-  no la encontramos, **vamos subiendo por la cadena de marcos** hasta
-  encontrarla. Si no aparece en ningún marco, querrá decir que el identificador
-  no está ligado, o que su ligadura está fuera del entorno, en otro ámbito.
+  no la encontramos, **vamos subiendo por la secuencia de marcos** hasta
+  encontrarla.
+
+  Si no aparece en ningún marco, querrá decir que el identificador no está
+  ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible
+  desde el ámbito actual.
 
 - Debemos tener en cuenta también, por tanto, las posibles **variables
   sombreadas** que puedan aparecer.
 
-  Si un identificador en un ámbito más local *hace sombra* a otro en un
-  ámbito más global, al buscar una ligadura en la cadena de marcos (en el
-  entorno) se encontrará primero la ligadura más local, ignorando las otras.
+  Si un identificador de un ámbito más local *hace sombra* a otro situado en un
+  ámbito más global, al buscar una ligadura en la secuencia de marcos (en el
+  entorno) se encontrará primero la ligadura más local, ignorando las demás.
   
 ---
 
@@ -1846,22 +1861,22 @@ $$fact(n) = \begin{cases}
 
 - Podemos observar un perfil de **expansión** seguido de una **contracción**:
 
-  - La **expansión** ocurre conforme el proceso construye una cadena de
-    operaciones a realizar *posteriormente* (en este caso, una cadena de
+  - La **expansión** ocurre conforme el proceso construye una secuencia de
+    operaciones a realizar *posteriormente* (en este caso, una secuencia de
     multiplicaciones).
 
   - La **contracción** se realiza conforme se van ejecutando realmente las
     multiplicaciones.
 
 - Llamaremos **proceso recursivo** a este tipo de proceso caracterizado por una
-  cadena de **operaciones pendientes de completar**.
+  secuencia de **operaciones pendientes de completar**.
 
 - Para poder ejecutar este proceso, el intérprete necesita **memorizar**, en
   algún lugar, un registro de las multiplicaciones que se han dejado para más
   adelante.
 
-- En el cálculo de $n!$, la longitud de la cadena de operaciones pendientes (y,
-  por tanto, la información que necesita almacenar el intérprete), crece
+- En el cálculo de $n!$, la longitud de la secuencia de operaciones pendientes
+  (y, por tanto, la información que necesita almacenar el intérprete), crece
   *linealmente* con $n$, al igual que el número de pasos de reducción.
 
   - A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
@@ -1960,7 +1975,7 @@ Iterativo lineal          Linealmente \
     
   - En el **proceso recursivo**, el intérprete tiene que mantener cierta
     información *oculta* que no está almacenada en ningún parámetro y que
-    indica en qué punto se encuentra el proceso dentro de la cadena de
+    indica en qué punto se encuentra el proceso dentro de la secuencia de
     operaciones pendientes.
 
 ---
@@ -2144,7 +2159,7 @@ fib1_5 -> u5
   correspondiente **se almacena en la cima de la pila** sobre los demás marcos
   que pudiera haber.
 
-- Ese marco es el primero de la cadena de marcos que forman el entorno de la
+- Ese marco es el primero de la secuencia de marcos que forman el entorno de la
   función, que deberán estar almacenados más abajo en la pila.
 
 - Los marcos se enlazan entre sí para representar los entornos que actúan en

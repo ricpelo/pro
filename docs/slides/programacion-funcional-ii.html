@@ -321,7 +321,7 @@
 <li><p>Evaluar sus argumentos.</p></li>
 <li><p>Aplicar la expresión lambda a sus argumentos.</p></li>
 </ol></li>
-<li><p>Esto implica la siguiente cadena de reescrituras:</p>
+<li><p>Esto implica la siguiente secuencia de reescrituras:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>)                    <span class="co"># evalúa suma y devuelve su definición</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)  <span class="co"># evalúa 4 y devuelve 4</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)  <span class="co"># evalúa 3 y devuelve 3</span></span>
@@ -378,9 +378,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 -->
 </section>
-
-<section id="ejemplos" class="title-slide slide level4" data-number="1.1.2.3">
-<h4 data-number="1.1.2.3"><span class="header-section-number">1.1.2.3</span> Ejemplos</h4>
+<section id="ejemplos" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplos</h5>
 <ul>
 <li><p>Dado el siguiente código:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
@@ -408,6 +407,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>Si un <em>identificador</em> que aparece en el <em>cuerpo</em> de una expresión lambda, también aparece en la <em>lista de parámetros</em> de esa expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
 <li><p>En caso contrario, le llamamos <strong>variable libre</strong> de la expresión lambda.</p></li>
+<li><p>Una variable ligada se llama así porque está ligada a su parámetro.</p></li>
 <li><p>En el ejemplo anterior:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
 <p>los dos identificadores que aparecen en el cuerpo (<code>x</code> e <code>y</code>) son variables ligadas, ya que ambos aparecen también en la lista de parámetros de la expresión lambda.</p></li>
@@ -421,10 +421,10 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <h3 data-number="1.1.4"><span class="header-section-number">1.1.4</span> Ámbitos</h3>
 <ul>
 <li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
-<li><p>Cuando eso ocurre, decimos que esa construcción sintáctica define un <strong>ámbito</strong>, y que el ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa, de forma que:</p>
+<li><p>Cuando eso ocurre, decimos que esa construcción sintáctica define un <strong>ámbito</strong>, y que ese ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa, de forma que:</p>
 <ul>
-<li><p>Cuando la ejecución del programa entra en el ámbito, se crea un nuevo marco.</p></li>
-<li><p>Cuando la ejecución se sale del ámbito, se destruye su marco.</p></li>
+<li><p>Cuando la ejecución del programa <strong>entra</strong> en el ámbito, se <strong>crea</strong> un nuevo marco.</p></li>
+<li><p>Cuando la ejecución se <strong>sale</strong> del ámbito, se <strong>destruye</strong> su marco.</p></li>
 </ul></li>
 <li><p>Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su marco.</p></li>
 <li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros.</p></li>
@@ -437,7 +437,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>El concepto de <em>ámbito</em> es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para tener en cuenta más condicionantes.</p></li>
 <li><p>Por ahora sólo tenemos un ámbito llamado <strong>ámbito global</strong>:</p>
 <ul>
-<li><p>Si se está ejecutando un <em>script</em> en el intérprete por lotes (con <code>python   script.py</code>), el <em>ámbito global</em> abarca todo el <em>script</em>, desde la primera instrucción hasta la última.</p></li>
+<li><p>Si se está ejecutando un <em>script</em> en el intérprete por lotes (con <code>python script.py</code>), el <em>ámbito global</em> abarca todo el <em>script</em>, desde la primera instrucción hasta la última.</p></li>
 <li><p>Si estamos en el intérprete interactivo (con <code>python</code> o <code>ipython3</code>), el <em>ámbito global</em> abarca toda nuestra sesión con el intérprete, hasta que finalicemos la misma.</p></li>
 </ul></li>
 <li><p>En el momento en que se empieza a ejecutar un <em>script</em> o se arranca una nueva sesión con el intérprete interactivo, se entra en el <em>ámbito global</em>, lo que provoca la creación de un nuevo marco llamado <strong>marco global</strong>.</p></li>
@@ -458,23 +458,30 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section id="ámbito-de-una-variable-ligada" class="title-slide slide level4" data-number="1.1.5.1">
 <h4 data-number="1.1.5.1"><span class="header-section-number">1.1.5.1</span> Ámbito de una variable ligada</h4>
 <ul>
-<li><p>Hemos visto que <strong>un parámetro</strong> de una expresión lambda <strong>es una variable ligada</strong> en el cuerpo de dicha expresión lambda.</p></li>
-<li><p>En realidad, lo que hace la expresión lambda es <strong>asociar al parámetro con la variable ligada que está dentro del cuerpo</strong>, lo que hace que el parámetro y la variable ligada compartan valor.</p></li>
-<li><p>Esa asociación existe únicamente en el cuerpo de la expresión lambda, por lo que <strong>el <em>ámbito</em> de una variable ligada es el <em>cuerpo</em> de la expresión lambda</strong> que la asocia con su parámetro.</p></li>
-<li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> a la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
-<li><p>Por contraste, los identificadores (y ligaduras) que no tienen ámbito local se dice que tienen un <strong>ámbito no local</strong> o, a veces, un <strong>ámbito más global</strong>.</p>
-<p>Si, además, ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que el identificador (o la ligadura) es <strong>global</strong>.</p></li>
+<li><p>Hemos visto que un <strong>parámetro</strong> de una expresión lambda aparece como una <strong>variable ligada</strong> en el cuerpo de dicha expresión lambda.</p></li>
+<li><p>En realidad, lo que hace la expresión lambda es <strong>ligar al parámetro con la variable ligada que está dentro del cuerpo</strong>, de forma que el parámetro y la variable ligada comparten valor.</p></li>
+<li><p>Esa ligadura existe únicamente en el cuerpo de la expresión lambda, por lo que <strong>el <em>ámbito</em> de la variable ligada es el <em>cuerpo</em> de la expresión lambda</strong> que la asocia con su parámetro.</p></li>
+<li><p>También se dice que la variable ligada tiene un <strong>ámbito local</strong> al cuerpo de la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
+<li><p>Como el ámbito de una ligadura es la porción del código en el que dicha ligadura tiene validez, eso significa que <strong>sólo podemos acceder a una variable local dentro del cuerpo de su expresión lambda</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.1.1">
 
 <ul>
-<li><p>Por ejemplo:</p>
+<li><p>Por contraste, las variables (y ligaduras) que no tienen ámbito local se dice que tienen un <strong>ámbito <em>no local</em></strong> o, a veces, un <strong>ámbito <em>más global</em></strong>.</p>
+<p>Si, además, ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que la variable (o la ligadura) es <strong>global</strong>.</p></li>
+<li><p>Por ejemplo, las <strong>variables libres</strong> que aparecen en una expresión lambda no son locales a dicha expresión, ya que no están ligadas a los parámetros de la expresión y, por tanto, tienen un ámbito más global que el cuerpo de dicha expresión lambda.</p></li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<ul>
+<li><p>En el siguiente <em>script</em>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Aquí empieza el script (no hay más definiciones antes de esta línea):</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
 <span id="cb16-3"><a href="#cb16-3"></a>y <span class="op">=</span> producto(<span class="dv">3</span>)</span>
 <span id="cb16-4"><a href="#cb16-4"></a>z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></span></code></pre></div></li>
-<li><p>La expresión lambda de la línea 2 tiene un parámetro (<code>x</code>) asociado a la variable ligada <code>x</code> situada en el cuerpo de la expresión lambda.</p></li>
+<li><p>La expresión lambda de la línea 2 tiene un parámetro (<code>x</code>) ligado a la variable ligada <code>x</code> situada en el cuerpo de la expresión lambda.</p></li>
 <li><p>Por tanto, el ámbito de la variable ligada <code>x</code> es el <strong>cuerpo</strong> de la expresión lambda (la expresión <code>x * x</code>).</p></li>
 <li><p>Eso quiere decir que, fuera del cuerpo de la expresión lambda, no es posible acceder al valor de la variable ligada, al encontrarnos <strong>fuera de su ámbito</strong>.</p></li>
 <li><p>Por ello, la línea 4 dará un error al intentar acceder al valor de un identificador no ligado.</p></li>
@@ -487,7 +494,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>El <strong>entorno</strong> es una extensión del concepto de <em>marco</em>.</p></li>
 <li><p>Durante la ejecución del programa, se van creando y destruyendo marcos a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
 <li><p>Eso hace que, en un momento dado, pueda haber varios marcos activos en memoria.</p></li>
-<li><p><strong>Según se van creando en memoria, esos marcos van enlazándose unos con otros</strong> creando una secuencia o <strong>cadena de marcos</strong> que se denomina <strong>entorno</strong> (del inglés, <em>environment</em>).</p></li>
+<li><p><strong>Según se van creando en memoria, esos marcos van enlazándose unos con otros</strong> creando una <strong>secuencia de marcos</strong> que se denomina <strong>entorno</strong> (del inglés, <em>environment</em>).</p></li>
 <li><p>En un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
 </ul>
 </section>
@@ -497,7 +504,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que <strong>depende del momento en el que se calcule</strong>, es decir, de por dónde va la ejecución del programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora).</p></li>
 <li><p>El entorno nos dice <strong><em>todos</em> los identificadores que son <em>accesibles</em> en un momento concreto de la ejecución del programa, y con qué valores están ligados</strong>.</p></li>
 <li><p>El entorno <strong>siempre contendrá</strong>, al menos, un marco: el <em>marco global</em>.</p></li>
-<li><p><strong>El marco global siempre será el último de la cadena de marcos</strong> que forman el entorno.</p></li>
+<li><p><strong>El marco global siempre será el último de la secuencia de marcos</strong> que forman el entorno.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/cadena-de-marcos.svg" class="plain" style="width:60.0%" /></p>
@@ -511,15 +518,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Y que un entorno es una secuencia de marcos que contienen todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
 <li><p>Cuando la ejecución del programa entra dentro de un ámbito, <strong>se crea un nuevo marco asociado a ese ámbito</strong>.</p></li>
 <li><p>Ahora hemos visto que <strong>cada expresión lambda define un nuevo ámbito</strong>.</p></li>
-<li><p>Por tanto, cuando se aplica una expresión lambda a unos argumentos, se crea un nuevo marco que contiene las ligaduras que define dicha expresión lambda con sus argumentos.</p></li>
-<li><p>Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco más interno <em>apunta</em> al más externo), de manera que el último siempre es el marco global.</p></li>
+<li><p>Por tanto, cuando se aplica una expresión lambda a unos argumentos, <strong>se crea un nuevo marco que contiene las ligaduras que ligan a los parámetros con los valores de esos argumentos</strong>.</p></li>
+<li><p>Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco más interno <em>apunta</em> al más externo), de manera que el último marco de la secuencia siempre es el marco global.</p></li>
 <li><p>El marco desaparece cuando el flujo de control del programa se sale del ámbito, ya que cada marco va asociado a un ámbito.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.3.1">
 
 <ul>
-<li><p>Se va formando así una cadena de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
+<li><p>Se va formando así una secuencia de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos.</p></li>
 <li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se reconoce simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
 <li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras que se definen dentro de ese ámbito.</p></li>
@@ -533,15 +540,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>El concepto de <strong>entorno</strong> refleja el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p></li>
 <li><p>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span>, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</p></li>
-<li><p>Asimismo, el primer marco de la cadena de marcos del entorno representa el ámbito actual de la porción de código donde se está calculando el entorno.</p></li>
+<li><p>Asimismo, el primer marco de la secuencia de marcos del entorno representa el ámbito actual de la porción de código donde se está calculando el entorno.</p></li>
 <li><p>El último marco siempre es el marco global.</p></li>
-<li><p>En realidad, el marco global apunta, a su vez, a un marco donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code>max</code>), pero lo ignoraremos de aquí en adelante por simplicar.</p></li>
+<li><p>En realidad, el marco global apunta, a su vez, a otro marco donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code>max</code>), pero lo ignoraremos de aquí en adelante por simplicar.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.3.3">
 
 <ul>
-<li><p>Si en un determinado punto del programa tenemos el siguiente entorno (donde <code>suma</code> es una expresión lambda):</p>
+<li><p>Si en un determinado momento de la ejecución del programa tenemos el siguiente entorno (donde <code>suma</code> es una expresión lambda):</p>
 <div class="centered">
 <p><img data-src="images/lambda-suma-entorno.svg" class="plain" style="width:50.0%" /></p>
 </div>
@@ -563,8 +570,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></span></code></pre></div></li>
 <li><p>La <code>x</code> que aparece en la línea 1 es distinta a la que aparece en la línea 2.</p></li>
-<li><p>El identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>hace referencia al parámetro <code>x</code> de la expresión lambda</strong>, y <strong>no</strong> al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
-<li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> global, y decimos que ese identificador está <strong>sombreado</strong> o que su ligadura está <strong>sombreada</strong>.</p></li>
+<li><p>El identificador <code>x</code> que aparece en el cuerpo de la expresión lambda <strong>está ligado al parámetro <code>x</code> de la expresión lambda</strong> y, por tanto, <strong>no</strong> se refiere al identificador <code>x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code>4</code>).</p></li>
+<li><p>En este caso, decimos que <strong>el parámetro <code>x</code> <em>hace sombra</em></strong> al identificador <code>x</code> global, y decimos que este último identificador está <strong>sombreado</strong> o que su ligadura está <strong>sombreada</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.4.1">
@@ -611,9 +618,10 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section id="expresiones-lambda-y-entornos" class="title-slide slide level4" data-number="1.1.5.6">
 <h4 data-number="1.1.5.6"><span class="header-section-number">1.1.5.6</span> Expresiones lambda y entornos</h4>
 <ul>
-<li><p>Para encontrar el valor ligado a un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la cadena de marcos</strong> hasta encontrarla. Si no aparece en ningún marco, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito.</p></li>
+<li><p>Para encontrar el valor ligado a un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la secuencia de marcos</strong> hasta encontrarla.</p>
+<p>Si no aparece en ningún marco, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible desde el ámbito actual.</p></li>
 <li><p>Debemos tener en cuenta también, por tanto, las posibles <strong>variables sombreadas</strong> que puedan aparecer.</p>
-<p>Si un identificador en un ámbito más local <em>hace sombra</em> a otro en un ámbito más global, al buscar una ligadura en la cadena de marcos (en el entorno) se encontrará primero la ligadura más local, ignorando las otras.</p></li>
+<p>Si un identificador de un ámbito más local <em>hace sombra</em> a otro situado en un ámbito más global, al buscar una ligadura en la secuencia de marcos (en el entorno) se encontrará primero la ligadura más local, ignorando las demás.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.5.6.1">
@@ -1350,12 +1358,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>Podemos observar un perfil de <strong>expansión</strong> seguido de una <strong>contracción</strong>:</p>
 <ul>
-<li><p>La <strong>expansión</strong> ocurre conforme el proceso construye una cadena de operaciones a realizar <em>posteriormente</em> (en este caso, una cadena de multiplicaciones).</p></li>
+<li><p>La <strong>expansión</strong> ocurre conforme el proceso construye una secuencia de operaciones a realizar <em>posteriormente</em> (en este caso, una secuencia de multiplicaciones).</p></li>
 <li><p>La <strong>contracción</strong> se realiza conforme se van ejecutando realmente las multiplicaciones.</p></li>
 </ul></li>
-<li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de proceso caracterizado por una cadena de <strong>operaciones pendientes de completar</strong>.</p></li>
+<li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de proceso caracterizado por una secuencia de <strong>operaciones pendientes de completar</strong>.</p></li>
 <li><p>Para poder ejecutar este proceso, el intérprete necesita <strong>memorizar</strong>, en algún lugar, un registro de las multiplicaciones que se han dejado para más adelante.</p></li>
-<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la cadena de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece <em>linealmente</em> con <span class="math inline">n</span>, al igual que el número de pasos de reducción.</p>
+<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la secuencia de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece <em>linealmente</em> con <span class="math inline">n</span>, al igual que el número de pasos de reducción.</p>
 <ul>
 <li>A este tipo de procesos lo llamaremos <strong>proceso recursivo <em>lineal</em></strong>.</li>
 </ul></li>
@@ -1465,7 +1473,7 @@ proporcional a <code>n</code></td>
 <ul>
 <li><p>En el <strong>proceso iterativo</strong>, las variables ligadas dan una descripción completa del estado del proceso en cada instante.</p>
 <p>Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos hacer para seguir con el cálculo es darle al intérprete el valor de los dos parámetros.</p></li>
-<li><p>En el <strong>proceso recursivo</strong>, el intérprete tiene que mantener cierta información <em>oculta</em> que no está almacenada en ningún parámetro y que indica en qué punto se encuentra el proceso dentro de la cadena de operaciones pendientes.</p></li>
+<li><p>En el <strong>proceso recursivo</strong>, el intérprete tiene que mantener cierta información <em>oculta</em> que no está almacenada en ningún parámetro y que indica en qué punto se encuentra el proceso dentro de la secuencia de operaciones pendientes.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1565,7 +1573,7 @@ proporcional a <code>n</code></td>
 </ul></li>
 <li><p>La pila de control es, básicamente, un <strong>almacén de marcos</strong>.</p></li>
 <li><p>Cada vez que se hace una nueva llamada a una función, <strong>su marco</strong> correspondiente <strong>se almacena en la cima de la pila</strong> sobre los demás marcos que pudiera haber.</p></li>
-<li><p>Ese marco es el primero de la cadena de marcos que forman el entorno de la función, que deberán estar almacenados más abajo en la pila.</p></li>
+<li><p>Ese marco es el primero de la secuencia de marcos que forman el entorno de la función, que deberán estar almacenados más abajo en la pila.</p></li>
 <li><p>Los marcos se enlazan entre sí para representar los entornos que actúan en las distintas llamadas activas.</p></li>
 </ul>
 </section>

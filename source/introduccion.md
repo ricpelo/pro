@@ -102,7 +102,7 @@ E -> Proceso -> S
 La **Programación** es la ciencia y el arte de diseñar dichos programas.
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ejemplos
+!EJEMPLOS
 
 - Calcular la suma de cinco números:
 
@@ -834,7 +834,7 @@ Un algoritmo es un método para resolver un problema.
 - Los nodos condicionales (los rombos) indican que la ejecución se bifurca a
   uno u otro camino dependiendo de si se cumple o no una condición.
 
-#### Ejemplo
+!EJEMPLO
 
 Determinar cuál es el máximo de dos números
 
@@ -854,7 +854,7 @@ Determinar cuál es el máximo de dos números
 
 - En ese sentido, se usa como un lenguaje de programación *idealizado*.
 
-#### Ejemplo
+!EJEMPLO
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2255,7 +2255,7 @@ F -> I
 
     - Normalmente se describe en función de los datos de entrada.
 
-#### Ejemplo
+!EJEMPLO
 
 - Se desea determinar el máximo de dos números enteros.
 

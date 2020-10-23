@@ -262,7 +262,7 @@ Calculadora -- Numero : manipula
   - Cuando se destruye un objeto de la clase agregadora, no está obligado a
     destruir los objetos de la clase agregada.
 
-#### Ejemplo
+!EJEMPLO
 
 :::: columns
 
@@ -354,7 +354,7 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
   - Cuando se destruye un objeto compuesto, se deben destruir todos sus objetos
     componentes.
 
-#### Ejemplo
+!EJEMPLO
 
 :::: columns
 

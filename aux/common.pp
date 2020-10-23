@@ -69,6 +69,16 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ##### Ejercicio {.unnumbered .unlisted}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(EJEMPLOS)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##### Ejemplos {.unnumbered .unlisted}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(EJEMPLO)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##### Ejemplo {.unnumbered .unlisted}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !define(FIN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !RESPUESTAS
