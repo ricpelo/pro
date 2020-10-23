@@ -24,7 +24,7 @@ author: Ricardo Pérez López
 
 ::: {.column width=40%}
 
-!IMGP(java.png)(Logo de Java)(width=40%)(width=20%)
+!IMGP(java.png)(Logo de Java)(width=40%)(width=10%)
 
 :::
 
