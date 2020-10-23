@@ -363,8 +363,8 @@ F -> javac -> O
 ---
 
 - Por eso, para compilar un programa Java, lo más conveniente es compilar el
-  archivo fuente que contiene la clase principal, ya que ello provocará en
-  cascada la compilación de cualquier archivo fuente de la que dependa ésta.
+  archivo fuente que contiene la clase principal, ya que ello provocará la
+  compilación en cascada de cualquier archivo fuente de la que dependa ésta.
 
 - Para compilar un archivo fuente `.java`, debemos pasarle al compilador
   `javac` el nombre de dicho archivo.
