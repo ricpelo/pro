@@ -202,7 +202,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 -->
 
-!EJEMPLOS
+!EJEMPLO
 
 - Dado el siguiente código:
 
@@ -319,7 +319,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
   crean se almacenan en el mismo marco (el marco global).
 
-#### Ámbito de una ligadura
+#### Ámbito de una ligadura y ámbito de definición de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe dicha ligadura.
@@ -347,7 +347,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   - Termina donde lo hace el ámbito en el que se definió la ligadura.
 
-!IMGP(ambitos-ligaduras.png)()(width=100%)(width=40%)
+!IMGP(ambitos-ligaduras.png)()(width=60%)(width=40%)
 
 - Es importante no confundir «**ámbito**» o «**ámbito de definición de una
   ligadura**» con «**ámbito de una ligadura**».
@@ -417,9 +417,9 @@ y, por tanto, no crea marcos.
   - Por tanto, se dice que el _ámbito de definición de esa ligadura_ es el
     ámbito global.
 
-  - Pero también se suele decir que «el identificador `x` es global» (o,
-    simplemente, que «`x` es global»), asociando con el ámbito no la ligadura,
-    sino el identificador en sí.
+  - Pero también se suele decir que «_el identificador `x` es global_» (o,
+    simplemente, que «_`x` es global_»), **asociando al ámbito** no la
+    ligadura, sino **el identificador en sí**.
 
 ---
 
@@ -427,11 +427,21 @@ y, por tanto, no crea marcos.
   en ámbitos diferentes.
 
 - Por tanto, no tendría sentido hablar del ámbito que tiene ese identificador
-  (ya que tendría varios) sino, más bien, **del ámbito que tiene _esa aparición
-  concreta_ de ese identificador**.
+  (ya que podría tener varios) sino, más bien, **del ámbito que tiene _esa
+  aparición concreta_ de ese identificador**.
 
 - Por eso, sólo deberíamos hablar del ámbito de un identificador cuando no haya
   ninguna ambigüedad respecto a qué aparición concreta nos estamos refiriendo.
+
+- Por ejemplo, en el siguiente _script_:
+
+  ```{.python .number-lines}
+  x = 4
+  suma = (lambda x, y: x + y)(2, 3)
+  ```
+
+  el identificador `x` que aparece en la línea 1 y el que aparece en la línea 2
+  pertenecen a ámbitos distintos.
 
 #### Ámbito de una variable ligada
 
@@ -609,7 +619,7 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   externo) y el ámbito del cuerpo de la expresión lambda (más interno y
   anidado dentro del ámbito global):
 
-!IMGP(ambitos-anidados.png)
+!IMGP(ambitos-anidados.png)()(width=60%)
 
 ---
 
@@ -719,11 +729,12 @@ contenido en el ámbito de $B$.**
 - Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
   del otro, decimos que:
 
-  - El identificador que aparece en el ámbito más externo está **sombreado**, o
-    su ligadura está **sombreada**.
+  - El identificador que aparece en el ámbito más externo está **sombreado** (y
+    su ligadura está **sombreada**).
 
   - El identificador que aparece en el ámbito más interno **hace sombra** al
-    que aparece en el ámbito más externo.
+    identificador sombreado (y su ligadura también se dice que **hace sombra**
+    a la ligadura sombreada).
 
 ---
 
@@ -1290,6 +1301,63 @@ m -> 9
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> r [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Visualización en *Pythontutor*
+
+- **Pythontutor** es una herramienta online muy interesante y práctica que nos
+  permite ejecutar un _script_ paso a paso y visualizar sus efectos.
+
+- Muestra la pila de control, los marcos dentro de ésta, las ligaduras dentro
+  de éstos y los datos almacenados en el montículo.
+
+- Entrando en
+  [http://pythontutor.com/visualize.html](http://pythontutor.com/visualize.html)
+  se abre un área de texto donde se puede teclear (o copiar y pegar) el código
+  fuente del _script_ a ejecutar.
+
+- Pulsando en «_Visualize Execution_» se pone en marcha, pudiendo ejecutar todo
+  el _script_ de una vez o hacerlo paso a paso.
+
+- Conviene elegir las siguientes opciones:
+
+  - _Hide exited frames (default)_
+
+  - _Render all objects on the heap (Python/Java)_
+
+  - _Draw pointers as arrows (default)_
+
+---
+
+[Visualizar el _script_ anterior en Pythontutor](http://pythontutor.com/visualize.html#code=w%20%3D%202%0Af%20%3D%20lambda%20x,%20y%3A%205%20%2B%20%28lambda%20z%3A%20z%20%2B%203%29%28x%20%2B%20y%29%0Ar%20%3D%20f%282,%204%29%0Am%20%3D%20%28lambda%20x%3A%20x%20**%202%29%283%29%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+
+!EJERCICIO
+
+@. En el _script_ anterior:
+
+    ```{.python .number-lines}
+    w = 2
+    f = lambda x, y: 5 + (lambda z: z + 3)(x + y)
+    r = f(2, 4)
+    m = (lambda x: x ** 2)(3)
+    ```
+
+    indicar:
+
+    a. Los identificadores.
+
+    a. Los ámbitos.
+
+    a. Los entornos, marcos y ligaduras en cada línea de código.
+
+    a. Los ámbitos de cada ligadura.
+
+    a. Los ámbitos de definición de cada ligadura.
+
+    a. Los ámbitos de cada aparición de cada identificador.
+
+    a. Las ligaduras sombreadas y los identificadores sombreados.
+
+    a. Los identificadores y ligaduras que hacen sombra.
 
 ### Pureza
 
