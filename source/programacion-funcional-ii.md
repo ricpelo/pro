@@ -261,6 +261,30 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   `x` e `y` son variables ligadas mientras que `z` es una variable libre.
 
+---
+
+- En realidad, **una _variable ligada_ y un _parámetro_ son la misma cosa**.
+
+- Tan sólo cambia su denominación dependiendo del lugar donde aparece su
+  identificador en la expresión lambda:
+
+  - Si aparece **antes** del `:`, le llamamos «_parámetro_».
+
+  - Si aparece **después** del `:`, le llamamos «_variable ligada_».
+
+- Por ejemplo: en la siguiente expresión lambda:
+
+  ```python
+  lambda x, y: x + y
+         ┬     ┬
+         │     └────── variable ligada
+         └── parámetro
+  ```
+
+  el identificador `x` aparece dos veces, pero en los dos casos representa la
+  misma cosa. Tan sólo se llama de distinta forma (_parámetro_ o _variable
+  ligada_) dependiendo de dónde aparece.
+
 ### Ámbitos
 
 - Existen ciertos bloques sintácticos que, cuando se ejecutan, provocan la
@@ -319,7 +343,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
   crean se almacenan en el mismo marco (el marco global).
 
-#### Ámbito de una ligadura y ámbito de definición de una ligadura
+#### Ámbito de una ligadura y de definición de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe dicha ligadura.
@@ -443,21 +467,58 @@ y, por tanto, no crea marcos.
   el identificador `x` que aparece en la línea 1 y el que aparece en la línea 2
   pertenecen a ámbitos distintos.
 
+#### Ámbito de un parámetro
+
+- El cuerpo de la expresión lambda define un ámbito.
+
+- Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho
+  ámbito y eso crea un marco.
+
+- Cuando se aplica una expresión lambda a unos argumentos, **cada parámetro de
+  la expresión lambda se liga a uno de esos argumentos** en el orden en que
+  aparecen en la aplicación funcional (primer parámetro con primer argumento,
+  segundo con segundo, etcétera).
+
+- Esas ligaduras se almacenan en el marco de la expresión lambda, por lo que se
+  puede decir que:
+
+  - El ámbito de las ligaduras entre los parámetros y los argumentos es el
+    cuerpo de la expresión lambda.
+
+  - El **ámbito de un parámetro** es el **cuerpo** de su expresión lambda.
+
+---
+
+- En consecuencia, también se dice que el parámetro tiene un **ámbito local**
+  al cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
+
+- Como el ámbito de una ligadura es la porción del código en el que dicha
+  ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
+  un parámetro dentro del cuerpo de su expresión lambda**.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**En resumen:**
+
+El **ámbito de un parámetro** es el ámbito de la ligadura que se establece
+entre éste y su argumento correspondiente, y coincide con el **cuerpo** de la
+expresión lambda donde aparece.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #### Ámbito de una variable ligada
 
-- Hemos visto que un **parámetro** de una expresión lambda aparece como una
-  **variable ligada** en el cuerpo de dicha expresión lambda.
+- Hemos visto que a los **parámetros** de una expresión lambda se les llama
+  **variables ligadas** cuando aparecen dentro del cuerpo de dicha expresión
+  lambda.
 
-- En realidad, lo que hace la expresión lambda es **ligar al parámetro con la
-  variable ligada que está dentro del cuerpo**, de forma que el parámetro y la
-  variable ligada comparten valor.
+- Y que el ámbito de un parámetro es el cuerpo de su expresión lambda.
 
-- Esa ligadura existe únicamente en el cuerpo de la expresión lambda, por lo
-  que **el _ámbito_ de la variable ligada es el _cuerpo_ de la expresión
-  lambda** que la liga con su parámetro.
+- Por tanto, **el _ámbito_ de la variable ligada también es el _cuerpo_ de la
+  expresión lambda** donde aparece.
 
-- También se dice que la variable ligada tiene un **ámbito local** al cuerpo de
-  la expresión lambda o que es **local** a dicha expresión lambda.
+- En consecuencia, también se dice que la variable ligada tiene un **ámbito
+  local** al cuerpo de la expresión lambda o que es **local** a dicha expresión
+  lambda.
 
 - Como el ámbito de una ligadura es la porción del código en el que dicha
   ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
@@ -473,17 +534,16 @@ y, por tanto, no crea marcos.
   que esa variable, identificador o ligadura es **global**.
 
 - Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
-  son locales a dicha expresión, ya que no están ligadas a los parámetros de la
-  expresión y, por tanto, tienen un ámbito más global que el cuerpo de dicha
+  son locales a dicha expresión (ya que no se corresponden con parámetros de la
+  expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
   expresión lambda.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
-El **ámbito de una variable ligada** es el ámbito de la ligadura que se
-establece entre ésta y su parámetro correspondiente, y coincide con el
-**cuerpo** de la expresión lambda donde aparece.
+El **ámbito de una variable ligada** es el **cuerpo** de la expresión lambda
+donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
@@ -497,21 +557,20 @@ establece entre ésta y su parámetro correspondiente, y coincide con el
   z = x + 1       # da error
   ```
 
-- Hay dos ámbitos: el ámbito global y el ámbito local definido el cuerpo de la
-  expresión lambda.
+- Hay dos ámbitos: (1) el ámbito global y (2) el ámbito local definido el
+  cuerpo de la expresión lambda (la expresión `x * x`).
 
-- La expresión lambda de la línea 2 tiene un parámetro (`x`) ligado a la
-  variable ligada `x` situada en el cuerpo de la expresión lambda.
+- La expresión lambda de la línea 2 tiene un parámetro (`x`) que aparece como
+  la variable ligada `x` en el cuerpo de la expresión lambda.
 
-- Por tanto, el ámbito de la variable ligada `x` es el **cuerpo** de la
-  expresión lambda (la expresión `x * x`).
+- El ámbito de la variable ligada `x` es el **cuerpo** de la expresión lambda.
 
-- Eso quiere decir que, fuera del cuerpo de la expresión lambda, no es posible
-  acceder al valor de la variable ligada, al encontrarnos **fuera de su
-  ámbito**.
+- Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al
+  valor de la variable ligada `x`, al encontrarnos **fuera de su ámbito** (la
+  `x` **sólo está ligada en el cuerpo** de la expresión lambda).
 
-- Por ello, la línea 4 dará un error al intentar acceder al valor de un
-  identificador no ligado en el ámbito actual (el global).
+- Por eso, la línea 4 dará un error al intentar acceder al valor del
+  identificador `x`, que no está ligado en el ámbito actual (el global).
 
 #### Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
