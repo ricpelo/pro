@@ -914,7 +914,7 @@ E -> x [lhead = cluster0]
 
 ---
 
-!DOT(lambda-entorno-linea3-dentro-durante.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, después de aplicar los argumentos y **durante** la ejecución del cuerpo)(width=60%)(width=55%)
+!DOT(lambda-entorno-linea3-durante.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, después de aplicar los argumentos y **durante** la ejecución del cuerpo)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -944,7 +944,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(lambda-entorno-linea3-dentro-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de ejecutar el cuerpo y devolver el resultado)(width=30%)(width=30%)
+!DOT(lambda-entorno-linea3-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de ejecutar el cuerpo y devolver el resultado)(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1069,6 +1069,227 @@ E -> z [lhead = cluster0]
   entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa el
   cuerpo de la expresión lambda**, o sea, cuando se aplica la expresión lambda
   a unos argumentos.
+
+!EJEMPLO
+
+- En el siguiente _script_:
+
+  ```{.python .number-lines}
+  w = 2
+  f = lambda x, y: 5 + (lambda z: z + 3)(x + y)
+  r = f(2, 4)
+  m = (lambda x: x ** 2)(3)
+  ```
+
+  existen cuatro ámbitos:
+
+  !IMGP(cuatro-ambitos.png)()(width=100%)
+
+---
+
+- Su ejecución, línea a línea, produce los siguientes entornos:
+
+:::: columns
+
+::: column
+
+!DOT(cuatro-ambitos-entorno-linea1.svg)(Entorno en la línea 1)(width=60%)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+2 [shape = circle]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(cuatro-ambitos-entorno-linea2.svg)(Entorno en la línea 2)(width=60%)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+2 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+!DOT(cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=60%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+2 [shape = circle]
+4 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+subgraph cluster1 {
+    label = "Marco del primer lambda"
+    bgcolor = white
+    xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+    yl [shape = plaintext, fillcolor = transparent, label = "y", width = 0.1]
+}
+xl -> 2
+yl -> 4
+xl -> w [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> xl [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+2 [shape = circle]
+4 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+subgraph cluster1 {
+    label = "Marco del primer lambda"
+    bgcolor = white
+    xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+    yl [shape = plaintext, fillcolor = transparent, label = "y", width = 0.1]
+}
+6 [shape = circle]
+subgraph cluster2 {
+    label = "Marco del segundo lambda"
+    bgcolor = white
+    z [shape = plaintext, fillcolor = transparent, label = "z", width = 0.1]
+}
+z -> 6
+xl -> 2
+yl -> 4
+z -> xl [lhead = cluster1, ltail = cluster2, minlen = 2]
+xl -> w [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> z [lhead = cluster2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!IMGP(cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=60%)(width=55%)
+
+---
+
+!DOT(cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+2 [shape = circle]
+14 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+    r [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+r -> 14
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!DOT(cuatro-ambitos-entorno-linea4-durante-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=60%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+2 [shape = circle]
+3 [shape = circle]
+14 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+    r [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+r -> 14
+subgraph cluster1 {
+    label = "Marco del primer lambda"
+    bgcolor = white
+    xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+}
+xl -> 3
+xl -> r [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> xl [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+2 [shape = circle]
+14 [shape = circle]
+9 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    f [shape = plaintext, fillcolor = transparent, width = 0.1]
+    r [shape = plaintext, fillcolor = transparent, width = 0.1]
+    m [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+w -> 2
+f -> lambda
+r -> 14
+m -> 9
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> r [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Pureza
 
