@@ -263,23 +263,23 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ### Ámbitos
 
-- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
-  la creación de nuevos marcos.
+- Existen ciertos bloques sintácticos que, cuando se ejecutan, provocan la
+  creación de nuevos marcos.
 
-- Cuando eso ocurre, decimos que esa construcción sintáctica define un
-  **ámbito**, y viene definido por la porción del código fuente que ocupa esa
-  construcción sintáctica dentro del programa, de forma que:
+- Cuando eso ocurre, decimos que ese bloque sintáctico define un **ámbito**, y
+  ese ámbito viene definido por la porción del código fuente que ocupa ese
+  bloque sintáctico dentro del programa, de forma que:
 
   - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
     nuevo marco.
 
   - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
 
-- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
-  marco.
+- Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros.
+  dentro de otros, así que una instrucción puede pertenecer a varios ámbitos al
+  mismo tiempo (anidados unos dentro de otros).
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
   se encuentra la instrucción que se está ejecutando actualmente.
@@ -313,18 +313,23 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ellas se realizan en el ámbito global, que es el único ámbito que existe en
   el _script_:
 
-!IMGP(ambito-global.png)()(width=50%)
+  !IMGP(ambito-global.png)()(width=50%)(width=40%)
 
-### Ámbito de una ligadura
+- Ninguna de esas instrucciones crea un nuevo ámbito, por lo que todas se
+  ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
+  crean se almacenan en el mismo marco (el marco global).
+
+#### Ámbito de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe dicha ligadura.
 
-- Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el
-  marco del ámbito donde se definen.
+- El **ámbito de definición de una ligadura** es el ámbito más interno donde se
+  define una ligadura, el cual determina el marco donde se almacenará la
+  ligadura.
 
-- Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el
-  ámbito en el que se define.
+- El ámbito de la ligadura no tiene por qué coincidir exactamente con su
+  ámbito de definición.
 
 - Esto es así porque una ligadura empieza a existir en el momento en el que se
   define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
@@ -342,19 +347,45 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   - Termina donde lo hace el ámbito en el que se definió la ligadura.
 
-!IMGP(ambitos-ligaduras.png)
+!IMGP(ambitos-ligaduras.png)()(width=100%)(width=40%)
 
-!CAJACENTRADA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Es importante no confundir «**ámbito**» o «**ámbito de definición de una
+  ligadura**» con «**ámbito de una ligadura**».
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito:**
+
+Porción de código de un programa que crea un marco al entrar y lo destruye al
+salir. Su marco almacena ligaduras.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito de definición de una ligadura:**
+
+Ambito más interno en el que se define una ligadura y que determina el marco
+donde se almacenará la ligadura.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito de una ligadura:**
+
+Porción de código en el que la ligadura existe, que va desde su definición
+hasta el final del ámbito más interno que lo contiene. No es un ámbito como tal
+y, por tanto, no crea marcos.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
   un nuevo marco.
 
-- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.
+- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen
+  (es el **ámbito de definición de la ligadura**).
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.
@@ -365,6 +396,42 @@ Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
 
 - Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
+
+#### Ámbito de un identificador
+
+- A veces, por economía del lenguaje, se suele hablar del «_ámbito de un
+  identificador_», en lugar de hablar del «_ámbito de definición de la ligadura
+  que liga ese identificador con un valor_».
+
+- Por ejemplo, en el siguiente _script_:
+
+  ```python
+  x = 25
+  ```
+
+  tenemos que:
+
+  - En el ámbito global, se define una ligadura que liga al identificador `x`
+    con el valor `25`.
+
+  - Por tanto, se dice que el _ámbito de definición de esa ligadura_ es el
+    ámbito global.
+
+  - Pero también se suele decir que «el identificador `x` es global» (o,
+    simplemente, que «`x` es global»), asociando con el ámbito no la ligadura,
+    sino el identificador en sí.
+
+---
+
+- Pero hay que tener cuidado, ya que ese mismo identificador puede estar ligado
+  en ámbitos diferentes.
+
+- Por tanto, no tendría sentido hablar del ámbito que tiene ese identificador
+  (ya que tendría varios) sino, más bien, **del ámbito que tiene _esa aparición
+  concreta_ de ese identificador**.
+
+- Por eso, sólo deberíamos hablar del ámbito de un identificador cuando no haya
+  ninguna ambigüedad respecto a qué aparición concreta nos estamos refiriendo.
 
 #### Ámbito de una variable ligada
 
@@ -384,15 +451,16 @@ Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
 
 - Como el ámbito de una ligadura es la porción del código en el que dicha
   ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
-  una variable local dentro del cuerpo de su expresión lambda**.
+  una variable ligada dentro del cuerpo de su expresión lambda**.
 
 ---
 
-- Por contraste, las variables (y ligaduras) que no tienen ámbito local se dice
-  que tienen un **ámbito _no local_** o, a veces, un **ámbito _más global_**.
+- Por contraste, las variables, identificadores y ligaduras que no tienen
+  ámbito local se dice que tienen un **ámbito _no local_** o, a veces, un
+  **ámbito _más global_**.
 
   Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
-  que la variable (o la ligadura) es **global**.
+  que esa variable, identificador o ligadura es **global**.
 
 - Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
   son locales a dicha expresión, ya que no están ligadas a los parámetros de la
@@ -419,6 +487,9 @@ establece entre ésta y su parámetro correspondiente, y coincide con el
   z = x + 1       # da error
   ```
 
+- Hay dos ámbitos: el ámbito global y el ámbito local definido el cuerpo de la
+  expresión lambda.
+
 - La expresión lambda de la línea 2 tiene un parámetro (`x`) ligado a la
   variable ligada `x` situada en el cuerpo de la expresión lambda.
 
@@ -430,36 +501,44 @@ establece entre ésta y su parámetro correspondiente, y coincide con el
   ámbito**.
 
 - Por ello, la línea 4 dará un error al intentar acceder al valor de un
-  identificador no ligado.
+  identificador no ligado en el ámbito actual (el global).
 
 #### Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
 - El **entorno** es una extensión del concepto de _marco_.
 
 - Durante la ejecución del programa, se van creando y destruyendo marcos a
-  medida que la ejecución va entrando y saliendo de ciertas partes del
-  programa.
+  medida que la ejecución va entrando y saliendo de ámbitos.
+
+- Como los ámbitos están anidados unos dentro de otros, una instrucción puede
+  estar en varios ámbitos al mismo tiempo.
 
 - Eso hace que, en un momento dado, pueda haber varios marcos activos en
-  memoria.
+  memoria al mismo tiempo (uno por cada ámbito en el que se encuentre la
+  instrucción que se está ejecutando actualmente).
 
 - **Según se van creando en memoria, esos marcos van enlazándose unos con
   otros** creando una **secuencia de marcos** que se denomina **entorno** (del
   inglés, _environment_).
 
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El entorno nos dice **_todos_ los identificadores que son _accesibles_ en un
+momento concreto de la ejecución del programa, y con qué valores están
+ligados**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+---
+
 - En un momento dado, el entorno contendrá más o menos marcos dependiendo de
   por dónde haya pasado la ejecución del programa hasta ese momento.
-
----
 
 - El entorno, por tanto, es un concepto **_dinámico_** que **depende del
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
   programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta
-  ahora).
-
-- El entorno nos dice **_todos_ los identificadores que son _accesibles_ en un
-  momento concreto de la ejecución del programa, y con qué valores están
-  ligados**.
+  ahora y en qué ámbitos se ha entrado).
 
 - El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
 
@@ -491,8 +570,8 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   valores de esos argumentos**.
 
 - Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
-  más interno *apunta* al más externo), de manera que el último marco de la
-  secuencia siempre es el marco global.
+  del ámbito más interno *apunta* al del más externo), de manera que el último
+  marco de la secuencia siempre es el marco global.
 
 - El marco desaparece cuando el flujo de control del programa se sale del
   ámbito, ya que cada marco va asociado a un ámbito.
@@ -502,10 +581,6 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - Se va formando así una secuencia de marcos que representa el **entorno** del
   programa en un punto dado del mismo.
 
-- A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
-  que tendremos, además, al menos uno más cada vez que se aplique una expresión
-  lambda a unos argumentos.
-
 - El **ámbito** es un concepto *estático*: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.
 
@@ -513,6 +588,12 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras
   que se definen dentro de ese ámbito.
  
+- A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
+  que tendremos, además, al menos uno más cada vez que se aplique una expresión
+  lambda a unos argumentos.
+
+---
+
 - Por ejemplo:
 
   ```python
@@ -520,21 +601,33 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   ```
 
   el cuerpo de la función `suma` define un nuevo ámbito, y cada vez que se
-  llama a `suma` con unos argumentos concretos se crea un nuevo marco que liga
-  sus argumentos con sus parámetros.
+  llama a `suma` con unos argumentos concretos, se entra en el cuerpo, lo que
+  crea un nuevo marco que liga sus argumentos con sus parámetros y variables
+  ligadas.
+
+- Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
+  externo) y el ámbito del cuerpo de la expresión lambda (más interno y
+  anidado dentro del ámbito global):
+
+!IMGP(ambitos-anidados.png)
 
 ---
 
 - El concepto de **entorno** refleja el hecho de que los ámbitos se contienen
   unos a otros (están anidados unos dentro de otros).
 
-- Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
-  contenido en el ámbito de $B$.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
+contenido en el ámbito de $B$.**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Asimismo, el primer marco de la secuencia de marcos del entorno representa el
-  ámbito actual de la porción de código donde se está calculando el entorno.
+- Además:
 
-- El último marco siempre es el marco global.
+  - El **primer marco** del entorno siempre es el marco del _ámbito más
+    interno_ de la instrucción actual.
+
+  - El **último marco** siempre es el _marco global_.
 
 - En realidad, el marco global apunta, a su vez, a otro marco donde se
   encuentran las definiciones internas predefinidas del lenguaje (como la
@@ -545,32 +638,32 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - Si en un determinado momento de la ejecución del programa tenemos el
   siguiente entorno (donde `suma` es una expresión lambda):
 
-  !DOT(lambda-suma-entorno.svg)()(width=50%)(width=50%)
+  !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
   node [fontname = "monospace"]
-  1 [shape = circle]
-  8 [shape = circle]
-  12 [shape = circle]
+  Manolo [shape = ellipse]
+  3 [shape = circle]
+  5 [shape = circle]
   subgraph cluster0 {
       label = "Marco global"
       bgcolor = "white"
-      z [shape = plaintext, fillcolor = transparent, width = 0.1]
+      nombre [shape = plaintext, fillcolor = transparent, width = 0.1]
       suma [shape = plaintext, fillcolor = transparent]
   }
   lambda [shape = circle, label = "λ"]
   suma -> lambda
-  z -> 1
+  nombre -> Manolo
   subgraph cluster1 {
       label = <Marco de <font face="monospace">suma</font>>
       bgcolor = white
       xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
       yl [shape = plaintext, fillcolor = transparent, label = "y", width = 0.1]
   }
-  xl -> 8
-  yl -> 12
-  xl -> z [lhead = cluster0, ltail = cluster1, minlen = 2]
+  xl -> 3
+  yl -> 5
+  xl -> nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
   E -> xl [lhead = cluster1]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -586,6 +679,8 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   - Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la
     expresión lambda.
 
+  - De hecho, está evaluando la llamada `suma(3, 5)`.
+
 #### Ligaduras *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
@@ -598,33 +693,58 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   total = (lambda x: x * x)(3)  # Su valor es 9
   ```
 
-- La `x` que aparece en la línea 1 es distinta a la que aparece en la línea 2.
+- La `x` que aparece en la línea 1 es distinta a las que aparecen en la 2:
 
-- El identificador `x` que aparece en el cuerpo de la expresión lambda **está
-  ligado al parámetro `x` de la expresión lambda** y, por tanto, **no** se
-  refiere al identificador `x` que está fuera de la expresión lambda (y que
-  aquí está ligado al valor `4`).
+  - La `x` de la línea 1 es un identificador ligado a un valor en el ámbito
+    global (el ámbito de definición de esa ligadura es el ámbito global). Esa
+    ligadura, por tanto, se almacena en el marco global, y por eso decimos que
+    esa `x` (la que aparece en la línea 1) es _global_.
 
-- En este caso, decimos que **el parámetro `x` _hace sombra_** al identificador
-  `x` global, y decimos que este último identificador está **sombreado** o que
-  su ligadura está **sombreada**.
+  - Las `x` de la línea 2 son parámetros y variables ligadas de la expresión
+    lambda. Por tanto, el ámbito de esas `x` es _local_ al cuerpo de la
+    expresión lambda.
 
 ---
 
-- Que el parámetro haga sombra al identificador de fuera significa que no
-  podemos acceder a ese identificador externo desde el cuerpo de la expresión
-  lambda como si fuera una variable libre.
+- En el ejemplo, el identificador `x` que aparece en el cuerpo de la expresión
+  lambda **está ligado al parámetro `x` de la expresión lambda**.
+
+- Por tanto, **no** se refiere al identificador `x` que está fuera de la
+  expresión lambda (y que aquí está ligado al valor `4`), sino al parámetro `x`
+  que, en la llamada de la línea 2, está ligado al valor `3` (el argumento de
+  la llamada).
+
+- Eso quiere decir que, dentro del cuerpo, `x` vale `3`, no `4`.
+
+- Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
+  del otro, decimos que:
+
+  - El identificador que aparece en el ámbito más externo está **sombreado**, o
+    su ligadura está **sombreada**.
+
+  - El identificador que aparece en el ámbito más interno **hace sombra** al
+    que aparece en el ámbito más externo.
+
+---
+
+- En nuestro ejemplo, podemos decir que el parámetro `x` de la expresión lambda
+  hace sombra al identificador `x` que aparece en el ámbito global.
+
+- Eso significa que no podemos acceder a ese identificador `x` global desde
+  dentro del cuerpo de la expresión lambda como si fuera una variable libre,
+  porque la `x` dentro del cuerpo siempre se referirá a la `x` local (el
+  parámetro de la expresión lambda).
 
 - Esto es así porque la primera ligadura del identificador `x` que nos
-  encontramos al recorrer la secuencia de marcos del entorno es la que está en
-  el marco de la expresión lambda.
+  encontramos al recorrer la secuencia de marcos del entorno, buscando un valor
+  para `x`, es la que está en el marco de la expresión lambda, que es el marco
+  actual cuando se está ejecutando su cuerpo.
 
-!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=60%)(width=55%)
+!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
 x [shape = plaintext, fillcolor = transparent, width = 0.1]
@@ -632,11 +752,8 @@ xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    total
     x
 }
-lambda [shape = circle, label = "λ"]
-total -> lambda
 x -> 4
 subgraph cluster1 {
     label = "Marco de lambda"
@@ -655,21 +772,21 @@ E -> xl [lhead = cluster1]
   la `x` que está fuera de la expresión lambda, lo que podemos hacer es
   **cambiar el nombre** al parámetro `x`. Por ejemplo:
 
-  ```{.python .number-lines}
+  ```python
   x = 4
   total = (lambda w: w * x)(3)  # Su valor es 12
   ```
 
   Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
   y una variable libre (el identificador `x` ligado en el ámbito global) al que
-  ahora sí podemos acceder al no estar sombreada.
+  ahora sí podemos acceder al no estar sombreada y encontrarse dentro del
+  entorno.
 
 !DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-total [shape = plaintext, fillcolor = transparent]
 4 [shape = circle]
 3 [shape = circle]
 x [shape = plaintext, fillcolor = transparent, width = 0.1]
@@ -677,11 +794,8 @@ w [shape = plaintext, fillcolor = transparent, width = 0.1]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    total
     x
 }
-lambda [shape = circle, label = "λ"]
-total -> lambda
 x -> 4
 subgraph cluster1 {
     label = "Marco de lambda"
@@ -726,16 +840,17 @@ E -> w [lhead = cluster1]
   no la encontramos, **vamos subiendo por la secuencia de marcos** hasta
   encontrarla.
 
-  Si no aparece en ningún marco, querrá decir que el identificador no está
+  **Si no aparece en ningún marco**, querrá decir que el identificador no está
   ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible
-  desde el ámbito actual.
+  desde el ámbito actual. En cualquier caso, **generará un error** de tipo
+  «_nombre no definido_».
 
-- Debemos tener en cuenta también, por tanto, las posibles **variables
-  sombreadas** que puedan aparecer.
+- Debemos tener en cuenta, también, las posibles **variables sombreadas** que
+  puedan aparecer.
 
   Si un identificador de un ámbito más local *hace sombra* a otro situado en un
-  ámbito más global, al buscar una ligadura en la secuencia de marcos (en el
-  entorno) se encontrará primero la ligadura más local, ignorando las demás.
+  ámbito más global, al buscar una ligadura en el entorno se encontrará primero
+  la ligadura más local, ignorando las demás.
   
 ---
 
@@ -799,61 +914,7 @@ E -> x [lhead = cluster0]
 
 ---
 
-!DOT(lambda-entorno-linea3.svg)(Entorno en la línea 3 fuera de la expresión lambda)(width=27%)(width=30%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-1 [shape = circle]
-4 [shape = circle]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent, width = 0.1]
-    z [shape = plaintext, fillcolor = transparent, width = 0.1]
-    suma [shape = plaintext, fillcolor = transparent]
-}
-lambda [shape = circle, label = "λ"]
-suma -> lambda
-x -> 4
-z -> 1
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> x [lhead = cluster0]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-&nbsp;
-
-!DOT(lambda-entorno-linea3-dentro-antes.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **antes** de aplicar los argumentos)(width=50%)(width=55%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-1 [shape = circle]
-4 [shape = circle]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    x [shape = plaintext, fillcolor = transparent, width = 0.1]
-    z [shape = plaintext, fillcolor = transparent, width = 0.1]
-    suma [shape = plaintext, fillcolor = transparent]
-}
-lambda [shape = circle, label = "λ"]
-suma -> lambda
-x -> 4
-z -> 1
-subgraph cluster1 {
-    label = "Marco de lambda"
-    bgcolor = white
-    xl [shape = plaintext, fillcolor = transparent, label = "x"]
-    yl [shape = plaintext, fillcolor = transparent, label = "y"]
-}
-xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> xl [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-!DOT(lambda-entorno-linea3-dentro-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de aplicar los argumentos)(width=60%)(width=55%)
+!DOT(lambda-entorno-linea3-dentro-durante.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, después de aplicar los argumentos y **durante** la ejecución del cuerpo)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -867,10 +928,7 @@ subgraph cluster0 {
     bgcolor = "white"
     x [shape = plaintext, fillcolor = transparent, width = 0.1]
     z [shape = plaintext, fillcolor = transparent, width = 0.1]
-    suma [shape = plaintext, fillcolor = transparent]
 }
-lambda [shape = circle, label = "λ"]
-suma -> lambda
 x -> 4
 z -> 1
 subgraph cluster1 {
@@ -886,13 +944,34 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!DOT(lambda-entorno-linea3-dentro-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de ejecutar el cuerpo y devolver el resultado)(width=30%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+21 [shape = circle];
+1 [shape = circle];
+4 [shape = circle];
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
+    suma [shape = plaintext, fillcolor = transparent]
+}
+x -> 4
+z -> 1
+suma -> 21
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> z [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 :::: columns
 
 ::: column
 
-!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=60%)(width=45%)
+!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=60%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -913,14 +992,14 @@ y -> 3
 z -> 1
 suma -> 21
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> x [lhead = cluster0]
+E -> z [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: column
 
-!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=60%)(width=45%)
+!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=60%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -944,7 +1023,7 @@ z -> 1
 suma -> 21
 w -> 9
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> x [lhead = cluster0]
+E -> z [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
