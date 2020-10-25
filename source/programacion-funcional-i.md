@@ -995,7 +995,7 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - Esa asociación se denomina **ligadura** (o **_binding_**).
 
-- Por esa razón, también se dice que una definición es una ligadura.
+- Por esa razón, también se dice que **una definición crea una ligadura**.
 
 - También decimos que el identificador está **ligado** (**_bound_**).
 

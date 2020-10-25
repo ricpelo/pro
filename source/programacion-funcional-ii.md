@@ -157,20 +157,10 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre) | !T{(}!NT(expresión)!T{)}
-!NT(operación) ::= !NT(expresión) !NT(operador_binario) !NT(expresión)
-                     | !NT(operador_unario) !NT(expresión)
-                     | !NT(llamada_función) | !NT(llamada_método)
-!NT(nombre) ::= !T(identificador)
-!NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
-!NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
-!NT(operador_unario) ::= !T(+) | !T(-) | ...
-!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= !T(identificador) | !T{(}!NT(expresión_lambda)!T{)}
+  !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= !T(identificador)
+                   | !T{(}!NT(expresión_lambda)!T{)}
 !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(objeto) ::= !NT(expresión)
-!NT(método) ::= !T(identificador)
 !NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})*
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -241,8 +231,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
-- Una variable ligada se llama así porque está ligada a su parámetro.
-
 - En el ejemplo anterior:
 
   ```python
@@ -268,9 +256,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Tan sólo cambia su denominación dependiendo del lugar donde aparece su
   identificador en la expresión lambda:
 
-  - Si aparece **antes** del `:`, le llamamos «_parámetro_».
+  - Si aparece **antes** del «`:`», le llamamos «_parámetro_».
 
-  - Si aparece **después** del `:`, le llamamos «_variable ligada_».
+  - Si aparece **después** del «`:`», le llamamos «_variable ligada_».
 
 - Por ejemplo: en la siguiente expresión lambda:
 
@@ -282,8 +270,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ```
 
   el identificador `x` aparece dos veces, pero en los dos casos representa la
-  misma cosa. Tan sólo se llama de distinta forma (_parámetro_ o _variable
-  ligada_) dependiendo de dónde aparece.
+  misma cosa. Tan sólo se llama de distinta forma («_parámetro_» o «_variable
+  ligada_») dependiendo de dónde aparece.
 
 ### Ámbitos
 
@@ -302,7 +290,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros, así que una instrucción puede pertenecer a varios ámbitos al
+  dentro de otros, así que una instrucción puede estar en varios ámbitos al
   mismo tiempo (anidados unos dentro de otros).
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
@@ -343,38 +331,40 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
   crean se almacenan en el mismo marco (el marco global).
 
-#### Ámbito de una ligadura y de definición de una ligadura
+#### Ámbito de una ligadura y de creación de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe dicha ligadura.
 
-- El **ámbito de definición de una ligadura** es el ámbito más interno donde se
-  define una ligadura, el cual determina el marco donde se almacenará la
-  ligadura.
+- El **ámbito de creación de una ligadura** es el ámbito más interno donde se
+  crea una ligadura, y determina el **marco** donde se almacenará la ligadura.
 
-- El ámbito de la ligadura no tiene por qué coincidir exactamente con su
-  ámbito de definición.
+- El ámbito de una ligadura no tiene por qué coincidir exactamente con su
+  ámbito de creación.
 
 - Esto es así porque una ligadura empieza a existir en el momento en el que se
-  define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
-  antes.
+  ejecuta la instrucción que la crea, y no antes.
 
-- Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de
-  un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son
-  sólo las que se han definido en ese ámbito **hasta ese momento**.
+- Por tanto, si en un momento dado se está ejecutando una instrucción dentro de
+  un ámbito, las ligaduras que existirán dentro de ese ámbito en ese momento
+  serán sólo las que se hayan creado en ese ámbito **hasta ese momento**.
 
 ---
 
 - En consecuencia, el ámbito de una ligadura:
 
-  - Empieza en el punto donde se define.
+  - Empieza en el punto donde se crea la ligadura.
 
-  - Termina donde lo hace el ámbito en el que se definió la ligadura.
+  - Termina donde lo hace el ámbito de creación de la ligadura.
 
-!IMGP(ambitos-ligaduras.png)()(width=60%)(width=40%)
+- En el siguiente ejemplo vemos los ámbitos de cada ligadura. Todas esas
+  ligaduras se definen en el ámbito global, por lo que el _ámbito de
+  creación_ de todas ellas es el **ámbito global**.
 
-- Es importante no confundir «**ámbito**» o «**ámbito de definición de una
-  ligadura**» con «**ámbito de una ligadura**».
+!IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
+
+- Es importante no confundir «**ámbito**», «**ámbito de creación de una
+  ligadura**» y «**ámbito de una ligadura**».
 
 ---
 
@@ -383,14 +373,14 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 **Ámbito:**
 
 Porción de código de un programa que crea un marco al entrar y lo destruye al
-salir. Su marco almacena ligaduras.
+salir. Su marco almacena las ligaduras que se crean dentro de ese ámbito.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Ámbito de definición de una ligadura:**
+**Ámbito de creación de una ligadura:**
 
-Ambito más interno en el que se define una ligadura y que determina el marco
+Ambito más interno en el que se crea una ligadura y que determina el marco
 donde se almacenará la ligadura.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -398,18 +388,18 @@ donde se almacenará la ligadura.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-Porción de código en el que la ligadura existe, que va desde su definición
-hasta el final del ámbito más interno que lo contiene. No es un ámbito como tal
-y, por tanto, no crea marcos.
+Porción de código en el que la ligadura existe, que va desde su creación hasta
+el final del ámbito más interno que lo contiene (su _ámbito de creación_). No
+es un ámbito como tal y, por tanto, no crea marcos.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
-  un nuevo marco.
+- La creación de una ligadura (por ejemplo, con una sentencia de definición) no
+  define un nuevo ámbito y, por tanto, no crea un nuevo marco.
 
-- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen
-  (es el **ámbito de definición de la ligadura**).
+- Por eso, las ligaduras se almacenan en el marco del ámbito donde se crean
+  (es el **ámbito de creación de la ligadura**).
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.
@@ -418,13 +408,13 @@ y, por tanto, no crea marcos.
   pertenecen al ámbito global, o que están definidas en el ámbito global, o que
   son **globales**.
 
-- Ampliaremos ahora el concepto de *ámbito* para incluir los aspectos nuevos
+- Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
 
 #### Ámbito de un identificador
 
-- A veces, por economía del lenguaje, se suele hablar del «_ámbito de un
-  identificador_», en lugar de hablar del «_ámbito de definición de la ligadura
+- A veces, por economía del lenguaje, se suele hablar del «**_ámbito de un
+  identificador_**», en lugar de hablar del «_ámbito de creación de la ligadura
   que liga ese identificador con un valor_».
 
 - Por ejemplo, en el siguiente _script_:
@@ -435,10 +425,10 @@ y, por tanto, no crea marcos.
 
   tenemos que:
 
-  - En el ámbito global, se define una ligadura que liga al identificador `x`
-    con el valor `25`.
+  - En el ámbito global, se crea una ligadura que liga al identificador `x` con
+    el valor `25`.
 
-  - Por tanto, se dice que el _ámbito de definición de esa ligadura_ es el
+  - Por tanto, se dice que el _ámbito de creación de esa ligadura_ es el
     ámbito global.
 
   - Pero también se suele decir que «_el identificador `x` es global_» (o,
@@ -447,11 +437,11 @@ y, por tanto, no crea marcos.
 
 ---
 
-- Pero hay que tener cuidado, ya que ese mismo identificador puede estar ligado
-  en ámbitos diferentes.
+- Pero hay que tener cuidado, ya que ese mismo identificador puede ligarse en
+  ámbitos diferentes.
 
 - Por tanto, no tendría sentido hablar del ámbito que tiene ese identificador
-  (ya que podría tener varios) sino, más bien, **del ámbito que tiene _esa
+  (ya que podría tener varios) sino, más bien, **del ámbito que tiene _una
   aparición concreta_ de ese identificador**.
 
 - Por eso, sólo deberíamos hablar del ámbito de un identificador cuando no haya
@@ -465,11 +455,11 @@ y, por tanto, no crea marcos.
   ```
 
   el identificador `x` que aparece en la línea 1 y el que aparece en la línea 2
-  pertenecen a ámbitos distintos.
+  pertenecen a ámbitos distintos (como veremos en breve).
 
 #### Ámbito de un parámetro
 
-- El cuerpo de la expresión lambda define un ámbito.
+- **El cuerpo de la expresión lambda define un ámbito.**
 
 - Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho
   ámbito y eso crea un marco.
@@ -479,17 +469,25 @@ y, por tanto, no crea marcos.
   aparecen en la aplicación funcional (primer parámetro con primer argumento,
   segundo con segundo, etcétera).
 
-- Esas ligaduras se almacenan en el marco de la expresión lambda, por lo que se
-  puede decir que:
+- Esas ligaduras se crean justo al entrar en el ámbito que define el cuerpo de
+  la expresión lambda.
 
-  - El ámbito de las ligaduras entre los parámetros y los argumentos es el
-    cuerpo de la expresión lambda.
-
-  - El **ámbito de un parámetro** es el **cuerpo** de su expresión lambda.
+- Por tanto, **se almacenan en el marco de la expresión lambda** nada más
+  entrar en el cuerpo de la expresión lambda.
 
 ---
 
-- En consecuencia, también se dice que el parámetro tiene un **ámbito local**
+- En consecuencia, podemos decir que:
+
+  - El **ámbito de creación de la ligadura** entre un parámetro y su argumento
+    es el **cuerpo** de la expresión lambda.
+
+  - El **ámbito de esa ligadura** coincide con su ámbito de creación.
+
+- Esto se resume diciendo que el **ámbito de un parámetro** es el **cuerpo** de
+  su expresión lambda.
+
+- También se dice que el parámetro tiene un **ámbito local**
   al cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
 
 - Como el ámbito de una ligadura es la porción del código en el que dicha
@@ -511,18 +509,21 @@ expresión lambda donde aparece.
   **variables ligadas** cuando aparecen dentro del cuerpo de dicha expresión
   lambda.
 
-- Y que el ámbito de un parámetro es el cuerpo de su expresión lambda.
+- Por tanto, todo lo que se dijo sobre el ámbito de un parámetro se aplica
+  exactamente igual al ámbito de una variable ligada.
 
-- Por tanto, **el _ámbito_ de la variable ligada también es el _cuerpo_ de la
-  expresión lambda** donde aparece.
+- Recordemos que el ámbito de un parámetro es el cuerpo de su expresión lambda,
+  que es la porción de código donde podemos acceder al valor del argumento con
+  el que está ligado.
+
+- Por tanto, **el _ámbito_ de una variable ligada también es el _cuerpo_ de la
+  expresión lambda** donde aparece, y es el único lugar dentro del cual
+  podremos acceder al valor de la variable ligada (que también será el valor
+  del argumento con el que está ligada).
 
 - En consecuencia, también se dice que la variable ligada tiene un **ámbito
   local** al cuerpo de la expresión lambda o que es **local** a dicha expresión
   lambda.
-
-- Como el ámbito de una ligadura es la porción del código en el que dicha
-  ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
-  una variable ligada dentro del cuerpo de su expresión lambda**.
 
 ---
 
@@ -534,7 +535,7 @@ expresión lambda donde aparece.
   que esa variable, identificador o ligadura es **global**.
 
 - Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
-  son locales a dicha expresión (ya que no se corresponden con parámetros de la
+  son locales a dicha expresión (ya que no representan parámetros de la
   expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
   expresión lambda.
 
@@ -542,8 +543,9 @@ expresión lambda donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
-El **ámbito de una variable ligada** es el **cuerpo** de la expresión lambda
-donde aparece.
+El **ámbito de una variable ligada** es el ámbito de la ligadura que se
+establece entre ésta y su argumento correspondiente, y coincide con el
+**cuerpo** de la expresión lambda donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
@@ -765,7 +767,7 @@ contenido en el ámbito de $B$.**
 - La `x` que aparece en la línea 1 es distinta a las que aparecen en la 2:
 
   - La `x` de la línea 1 es un identificador ligado a un valor en el ámbito
-    global (el ámbito de definición de esa ligadura es el ámbito global). Esa
+    global (el ámbito de creación de esa ligadura es el ámbito global). Esa
     ligadura, por tanto, se almacena en el marco global, y por eso decimos que
     esa `x` (la que aparece en la línea 1) es _global_.
 
@@ -1410,7 +1412,7 @@ E -> r [lhead = cluster0]
 
     a. Los ámbitos de cada ligadura.
 
-    a. Los ámbitos de definición de cada ligadura.
+    a. Los ámbitos de creación de cada ligadura.
 
     a. Los ámbitos de cada aparición de cada identificador.
 
