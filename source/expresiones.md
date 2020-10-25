@@ -96,10 +96,30 @@ nocite: |
   2. Durante la instalación, marcar la casilla que activa la opción de añadir
      comandos al _PATH_.
 
-## Entrar y salir del intérprete
+## Funcionamiento del intérprete
 
-- Para entrar en el intérprete, se usa el comando `python` desde la línea de
-  comandos del sistema operativo:
+- El intérprete de Python tiene dos **modos de funcionamiento**:
+
+  1. **Modo interactivo (_REPL_):** se abre una **sesión interactiva** con el intérprete
+     donde éste nos solicita que introduzcamos una instrucción (sentencia o
+     expresión) y, a continuación, la ejecuta inmediatamente, para luego volver
+     a solicitar una nueva instrucción, repitiendo este ciclo indefinidamente
+     en un **diálogo continuo entre el programador y el intérprete**.
+
+     Es el modo más apropiado para aprender el lenguaje o hacer pruebas
+     rápidas, y el que empezaremos a usar nosotros.
+
+  2. **Modo por lotes:** el intérprete ejecuta un programa previamente escrito
+     por el programador y almacenado en archivos fuente (llamados _scripts_)
+     que contienen instrucciones que el intérprete va ejecutando una tras otra.
+
+     Es el modo que utilizan los usuarios para ejecutar los programas
+     previamente confeccionados por los programadores.
+
+### Entrar y salir del intérprete
+
+- Para entrar en el intérprete interactivo, se usa el comando `python` desde la
+  línea de órdenes del sistema operativo:
 
   ```console
   $ python
@@ -112,7 +132,7 @@ nocite: |
   El mensaje que obtengamos puede que no sea exactamente igual, pero es
   importante comprobar que estamos usando Python 3 y no 2.
 
-- Para salir, se pulsa `Ctrl+D`.
+- Para salir, se pulsa `Ctrl+D` en Ubuntu o `Ctrl+Z` en Windows.
 
 - El `>>>` es el *prompt* del intérprete de Python, desde el que se ejecutan
   las expresiones y sentencias que tecleemos:
@@ -131,22 +151,22 @@ nocite: |
 
   Alternativamente, se puede visitar
   [https://code.visualstudio.com](https://code.visualstudio.com) para
-  descargar e instalar el paquete adecuado a la versión de Ubuntu que se
-  está usando, que suele ser la que ya sugiere la propia página web
-  (normalmente es el paquete `.deb` de 64 bits).
+  descargar e instalar el paquete adecuado a la versión de Ubuntu que se está
+  usando, que suele ser la que ya sugiere la propia página web (normalmente es
+  el paquete `.deb` de 64 bits).
 
 - **Instalación en Windows:**
 
   Visitar [https://code.visualstudio.com](https://code.visualstudio.com),
-     descargar e instalar la versión adecuada a la versión de Windows que se
-     está usando.
+  descargar e instalar la versión adecuada a la versión de Windows que se está
+  usando.
 
 ### Configuración básica de Visual Studio Code
 
 1. Abrir la aplicación.
 
-2. Acceder al apartado de _Extensiones_ (Ctrl+Mayús+X) e instalar las
-   siguiente extensiones:
+2. Acceder al apartado de _Extensiones_ (`Ctrl+Mayús+X`) e instalar las
+   siguientes extensiones:
 
    - Python
 
