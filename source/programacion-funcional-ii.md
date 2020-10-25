@@ -6,7 +6,7 @@ nocite: |
   @abelson_structure_1996
 ---
 
-# Abstracciones funcionales
+# Abstracciones lambda
 
 ## Expresiones lambda
 
@@ -31,7 +31,7 @@ nocite: |
   lambda x, y: x + y
   ```
 
-### Parámetros y cuerpos
+## Parámetros y cuerpos
 
 - Los identificadores que aparecen entre la palabra clave `lambda` y el
   carácter de dos puntos (`:`) son los **parámetros** de la expresión lambda.
@@ -53,7 +53,7 @@ nocite: |
     principio pueden ser de cualquier tipo, siempre y cuando admitan el
     operador `+`).
 
-### Aplicación funcional
+## Aplicación funcional
 
 - De la misma manera que decíamos que podemos aplicar una función a unos
   argumentos, también podemos aplicar una expresión lambda a unos argumentos.
@@ -74,7 +74,7 @@ nocite: |
   (lambda x, y: x + y)(4, 3)
   ```
 
-#### Evaluación de una aplicación funcional
+### Evaluación de una aplicación funcional
 
 - En nuestro modelo de sustitución, la **evaluación de la aplicación de una
   expresión lambda** consiste en **sustituir**, en el cuerpo de la expresión
@@ -99,7 +99,7 @@ nocite: |
 
   que simplificando (según las reglas del operador `+`) da `7`.
 
-#### Llamadas a funciones
+### Llamadas a funciones
 
 - Si hacemos la siguiente definición:
 
@@ -223,7 +223,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   = 63
   ```
 
-### Variables ligadas y libres
+## Variables ligadas y libres
 
 - Si un _identificador_ que aparece en el _cuerpo_ de una expresión lambda,
   también aparece en la _lista de parámetros_ de esa expresión lambda, a ese
@@ -273,7 +273,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   misma cosa. Tan sólo se llama de distinta forma («_parámetro_» o «_variable
   ligada_») dependiendo de dónde aparece.
 
-### Ámbitos
+# Ámbitos léxicos
+
+## Ambitos
 
 - Existen ciertos bloques sintácticos que, cuando se ejecutan, provocan la
   creación de nuevos marcos.
@@ -337,7 +339,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
   crean se almacenan en el marco global.
 
-#### Ámbito de una ligadura y de creación de una ligadura
+## Ámbito de una ligadura y de creación de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe dicha ligadura.
@@ -417,7 +419,7 @@ es un ámbito como tal y, por tanto, no crea marcos.
 - Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
 
-#### Ámbito de un identificador
+## Ámbito de un identificador
 
 - A veces, por economía del lenguaje, se suele hablar del «**_ámbito de un
   identificador_**», en lugar de hablar del «_ámbito de creación de la ligadura
@@ -463,7 +465,7 @@ es un ámbito como tal y, por tanto, no crea marcos.
   el identificador `x` que aparece en la línea 1 y el que aparece en la línea 2
   pertenecen a ámbitos distintos (como veremos en breve).
 
-#### Ámbito de un parámetro
+## Ámbito de un parámetro
 
 - **El cuerpo de la expresión lambda define un ámbito.**
 
@@ -509,7 +511,7 @@ entre éste y su argumento correspondiente, y coincide con el **cuerpo** de la
 expresión lambda donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ámbito de una variable ligada
+## Ámbito de una variable ligada
 
 - Hemos visto que a los **parámetros** de una expresión lambda se les llama
   **variables ligadas** cuando aparecen dentro del cuerpo de dicha expresión
@@ -580,7 +582,7 @@ establece entre ésta y su argumento correspondiente, y coincide con el
 - Por eso, la línea 4 dará un error al intentar acceder al valor del
   identificador `x`, que no está ligado en el ámbito actual (el global).
 
-#### Entorno (*environment*!ifdef(HTML)(&nbsp;)())
+## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
 - El **entorno** es una extensión del concepto de _marco_.
 
@@ -630,7 +632,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> "Marco A" -> "Marco B" -> "Marco global"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ámbitos, marcos y entornos
+## Ámbitos, marcos y entornos
 
 - Recordemos que un marco es un conjunto de ligaduras.
 
@@ -758,7 +760,7 @@ contenido en el ámbito de $B$.**
 
   - De hecho, está evaluando la llamada `suma(3, 5)`.
 
-#### Ligaduras *sombreadas*
+## Ligaduras *sombreadas*
 
 - ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
   ya están definidos (ligados) en el entorno, en un ámbito más global?
@@ -886,7 +888,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> w [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Renombrado de parámetros
+## Renombrado de parámetros
 
 - Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
   sin que se altere el significado de la expresión lambda.
@@ -911,19 +913,23 @@ E -> w [lhead = cluster1]
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
   **captura de variables**.
 
-#### Evaluación de expresiones con entornos
+# Evaluación
 
-- Para encontrar el valor ligado a un identificador en el entorno, buscamos
-  **en el primer marco del entorno** una ligadura para ese identificador, y si
-  no la encontramos, **vamos subiendo por la secuencia de marcos** hasta
-  encontrarla.
+## Evaluación de expresiones con entornos
+
+- Al evaluar una expresión, el intérprete **buscará en el entorno el valor al
+  que está ligado cada identificador** que aparezca en la expresión.
+
+- Para saber cuánto vale cada identificador, el intérprete buscará **en el
+  primer marco del entorno** una ligadura para ese identificador, y si no la
+  encuentra, **irá subiendo por la secuencia de marcos** hasta encontrarla.
 
   **Si no aparece en ningún marco**, querrá decir que el identificador no está
   ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible
   desde el ámbito actual. En cualquier caso, **generará un error** de tipo
   «_nombre no definido_».
 
-- Debemos tener en cuenta, también, las posibles **variables sombreadas** que
+- Se debe tener en cuenta, también, las posibles **variables sombreadas** que
   puedan aparecer.
 
   Si un identificador de un ámbito más local *hace sombra* a otro situado en un
@@ -1108,10 +1114,10 @@ E -> z [lhead = cluster0]
 
 ::::
 
-#### Evaluación de expresiones lambda con entornos
+## Evaluación de expresiones lambda con entornos
 
 - Para que una expresión lambda funcione, sus variables libres deben
-  estar ligadas a algún valor en el entorno **en el momento de _evaluar_ una
+  estar ligadas a algún valor en el entorno **en el momento de _evaluar_ la
   aplicación de la expresión lambda sobre unos argumentos**.
 
 - Por ejemplo:
@@ -1144,7 +1150,7 @@ E -> z [lhead = cluster0]
   valor en el entorno (en este caso, `9`).
 
 - Observar que no es necesario que las variables libres estén ligadas en el
-  entorno cuando *se crea* la expresión lambda, sino cuando **se evalúa el
+  entorno cuando *se crea* la expresión lambda, sino cuando **_se evalúa_ el
   cuerpo de la expresión lambda**, o sea, cuando se aplica la expresión lambda
   a unos argumentos.
 
@@ -1245,7 +1251,7 @@ E -> xl [lhead = cluster1]
 
 ---
 
-!DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=55%)
+!DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1288,7 +1294,7 @@ E -> z [lhead = cluster2]
 
 ---
 
-!DOT(cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=35%)
+!DOT(cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1307,12 +1313,12 @@ w -> 2
 f -> lambda
 r -> 14
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> w [lhead = cluster0]
+E -> f [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-!DOT(cuatro-ambitos-entorno-linea4-durante-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=60%)(width=55%)
+!DOT(cuatro-ambitos-entorno-linea4-durante-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=60%)(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1332,19 +1338,19 @@ w -> 2
 f -> lambda
 r -> 14
 subgraph cluster1 {
-    label = "Marco del primer lambda"
+    label = "Marco del tercer lambda"
     bgcolor = white
     xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
 }
 xl -> 3
-xl -> r [lhead = cluster0, ltail = cluster1, minlen = 2]
+xl -> f [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=35%)
+!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1366,10 +1372,10 @@ f -> lambda
 r -> 14
 m -> 9
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> r [lhead = cluster0]
+E -> f [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Visualización en *Pythontutor*
+### Visualización en *Pythontutor*
 
 - **Pythontutor** es una herramienta online muy interesante y práctica que nos
   permite ejecutar un _script_ paso a paso y visualizar sus efectos.
@@ -1426,95 +1432,6 @@ E -> r [lhead = cluster0]
 
     a. Los identificadores y ligaduras que hacen sombra.
 
-### Pureza
-
-- Si el cuerpo de una expresión lambda no contiene variables libres, el valor
-  que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor
-  que tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a
-  la expresión lambda).
-
-- En cambio, si el cuerpo de una expresión lambda sí contiene variables libres,
-  el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del
-  valor de esos argumentos, sino también de los valores a los que estén ligadas
-  las variables libres en el momento de evaluar la aplicación de la expresión
-  lambda.
-
-- Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
-  contiene una variable libre (`z`) y, por tanto, cuando la aplicamos a los
-  argumentos `4` y `3` obtenemos un valor que depende, no sólo de los valores
-  de `x` e `y`, sino también del valor de `z`:
-
-  ```python
-  >>> prueba = lambda x, y: x + y + z
-  >>> z = 9
-  >>> prueba(4, 3)
-  16
-  ```
-
----
-
-- En este otro ejemplo, escribimos una expresión lambda que calcula la suma de
-  tres números a partir de otra expresión lambda que calcula la suma de dos
-  números:
-
-  ```python
-  suma = lambda x, y: x + y
-  suma3 = lambda x, y, z: suma(x, y) + z
-  ```
-
-  En este caso, hay un identificador (`suma`) que no aparece en la lista de
-  parámetros de la expresión lambda `suma3`, por lo que es una variable libre
-  en el cuerpo de la expresión lambda de `suma3`.
-
-  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  `suma` en el entorno actual.
-
----
-
-- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
-  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
-  argumentos, es decir, de sus parámetros o variables ligadas.
-
-- También se dice que una expresión lambda que contiene sólo variables ligadas
-  es **más pura** que otra que también contiene variables libres.
-
-- Y también podemos hablar de **grados de pureza**:
-
-  - Podemos decir que hay **más pureza** si una variable libre representa una
-    **función** a aplicar en el cuerpo de la expresión lambda, que si
-    representa cualquier otro tipo de valor.
-
-  - En el ejemplo anterior, tenemos que la expresión lambda de `suma3`, sin ser
-    *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
-    que su única variable libre (`suma`) se usa como una **función**, y las
-    funciones tienden a no cambiar durante la ejecución del programa, al
-    contrario que los demás tipos de valores.
-
----
-
-- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
-  menor pureza, siendo la primera totalmente **pura**:
-
-  ```python
-  # producto es una expresión lambda totalmente pura:
-  producto = lambda x, y: x * y
-  # cuadrado es casi pura; a efectos prácticos se la puede
-  # considerar pura ya que sus variables libres (en este
-  # caso, sólo una: producto) son funciones:
-  cuadrado = lambda x: producto(x, x)
-  # suma es impura, porque su variable libre no es una función:
-  suma = lambda x, y: x + y + z
-  ```
-
-- **La pureza de una función es un rasgo deseado y que hay que tratar de
-  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
-  mantenimiento de los programas, además de simplificar el razonamiento sobre
-  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
-
-- Es más incómodo trabajar con `suma` porque hay que *recordar* que depende de
-  un valor que está *fuera* de la expresión lambda, cosa que no resulta
-  evidente a no ser que mires en el cuerpo de la expresión lambda.
-
 ## Estrategias de evaluación
 
 - A la hora de evaluar una expresión (cualquier expresión) existen varias
@@ -1534,7 +1451,7 @@ E -> r [lhead = cluster0]
 
   - La necesidad o no de evaluar dicha sub-expresión.
 
-### Orden de evaluación
+## Orden de evaluación
 
 - En un lenguaje de programación funcional puro se cumple la **transparencia
   referencial**, según la cual el valor de una expresión depende sólo del valor
@@ -1556,11 +1473,11 @@ E -> r [lhead = cluster0]
 
 - **Python usa el orden aplicativo**, salvo excepciones.
 
-#### Orden aplicativo
+### Orden aplicativo
 
 - El **orden aplicativo** consiste en evaluar las expresiones *de dentro
-  afuera*, es decir, empezando siempre por el *redex* más **interno** y más a
-  la izquierda.
+  afuera*, es decir, empezando por el *redex* más **interno** y a la
+  izquierda.
 
 - Eso implica que los operandos y los argumentos se evalúan **antes** que los
   operadores y las aplicaciones de funciones.
@@ -1568,13 +1485,13 @@ E -> r [lhead = cluster0]
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por valor**.
 
-- Ejemplo:
+- Por ejemplo, si tenemos la siguiente función:
 
   ```python
   cuadrado = lambda x: x * x
   ```
 
-  Según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduciría así:
+  según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduce así:
 
   ```python
   cuadrado(3 + 4)                # definición de cuadrado
@@ -1586,10 +1503,10 @@ E -> r [lhead = cluster0]
 
   alcanzando la forma normal en 4 pasos de reducción.
 
-#### Orden normal
+### Orden normal
 
 - El **orden normal** consiste en evaluar las expresiones *de fuera adentro*,
-  es decir, empezando siempre por el *redex* más **externo** y más a la
+  es decir, empezando siempre por el *redex* más **externo** y a la
   izquierda.
 
 - Eso implica que los operandos y los argumentos se evalúan **después** de las
@@ -1598,13 +1515,13 @@ E -> r [lhead = cluster0]
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por nombre**.
 
-- Ejemplo:
+- Por ejemplo, si tenemos la siguiente función:
 
   ```python
   cuadrado = lambda x: x * x
   ```
 
-  Según el orden normal, la expresión `cuadrado(3 + 4)` se reduce así:
+  según el orden normal, la expresión `cuadrado(3 + 4)` se reduce así:
 
   ```python
   cuadrado(3 + 4)                # definición de cuadrado
@@ -1616,128 +1533,6 @@ E -> r [lhead = cluster0]
   ```
 
   alcanzando la forma normal en 5 pasos de reducción.
-
-### Evaluación estricta y no estricta
-
-- Existe otra forma de ver la evaluación de una expresión:
-
-  - **Evaluación estricta**: Reducir todos los *redexes* aunque no hagan falta.
-
-  - **Evaluación no estricta**: Reducir sólo los *redexes* que sean
-    estrictamente necesarios para calcular el valor de la expresión.
-
-    A esta estrategia de evaluación se la denomina también **evaluación
-    perezosa**.
-
----
-
-- Por ejemplo:
-
-  Sabemos que la expresión `1 / 0` da un error de *división por cero*:
-
-  ```python
-  >>> 1 / 0
-  Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  ZeroDivisionError: division by zero
-  ```
-
-- Supongamos que tenemos la siguiente definición:
-
-  ```python
-  primero = lambda x, y: x
-  ```
-
-  de forma que `primero` es una función que simplemente devuelve el primero de
-  sus argumentos.
-
-- Es evidente que la función `primero` no necesita evaluar nunca su segundo
-  argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos).
-  Por ejemplo, `primero(4, 3)` devuelve `4`.
-
----
-
-- Sabiendo eso... ¿qué valor devolvería la siguiente expresión?
-
-  ```python
-  primero(4, 1 / 0)
-  ```
-
-- Curiosamente, el resultado dependerá de si la evaluación es estricta o
-  perezosa:
-
-  - **Si es estricta**, el intérprete evaluará todos los argumentos de la
-    expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al
-    evaluar `1 / 0` devolverá un error.
-
-    Es lo que ocurre cuando se evalúa siguiendo el **orden aplicativo**.
-
-  - En cambio, **si es perezosa**, el intérprete evaluará únicamente aquellos
-    argumentos que se usen en el cuerpo de la expresión lambda, y en este caso
-    sólo se usa el primero, así que dejará sin evaluar el segundo, no dará
-    error y devolverá directamente `4`.
-
-    Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
-
-    ```python
-    primero(4, 1 / 0) = (lambda x, y: x)(4, 1 / 0) = (4) = 4
-    ```
-
----
-
-- Hay un resultado teórico que avala lo que acabamos de observar:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Teorema:**
-
-  Si una expresión tiene forma normal, el **orden normal** de evaluación
-  conduce seguro a la misma.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- En cambio, el orden aplicativo es posible que no encuentre la forma normal de
-  la expresión.
-
----
-
-- En **Python** la evaluación es **estricta**, salvo algunas excepciones:
-
-  - El operador ternario:
-
-    !ALGO
-    ~~~~~~~~~~~~~~~~~~~~~
-    !NT(expr_condicional) ::= !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
-    ~~~~~~~~~~~~~~~~~~~~~
-
-    evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso) dependiendo
-    del valor de la !NT(condición).
-
-  - Los operadores lógicos `and` y `or` también son perezosos (se dice que
-    evalúan **en cortocircuito**):
-
-    - `True or` \ $\underline{x}$
-
-      siempre es igual a `True`.
-
-    - `False and` \ $\underline{x}$
-
-      siempre es igual a `False`.
-
-    En ambos casos no es necesario evaluar $\underline{x}$.
-
-- En Java también existe un operador ternario (`?` `:`) y unos operadores
-  lógicos (`||` y `&&`) que se evalúan de igual forma que en Python.
-
----
-
-- La mayoría de los lenguajes de programación usan evaluación estricta y paso
-  de argumentos por valor (siguen el orden aplicativo).
-
-- **Haskell**, por ejemplo, es un lenguaje funcional puro que usa evaluación
-  perezosa y sigue el orden normal.
-
-- La evaluación perezosa en Haskell permite resultados muy interesantes, como
-  la posibilidad de manipular estructuras de datos infinitas.
 
 ## Composición de funciones
 
@@ -1865,7 +1660,225 @@ E -> r [lhead = cluster0]
 
   4. Producto (`*` o `mul`).
 
+## Evaluación estricta y no estricta
+
+- Existe otra forma de ver la evaluación de una expresión:
+
+  - **Evaluación estricta**: Reducir todos los *redexes* aunque no hagan falta.
+
+  - **Evaluación no estricta**: Reducir sólo los *redexes* que sean
+    estrictamente necesarios para calcular el valor de la expresión.
+
+    A esta estrategia de evaluación se la denomina también **evaluación
+    perezosa**.
+
+!EJEMPLO
+
+- Sabemos que la expresión `1 / 0` da un error de *división por cero*:
+
+  ```python
+  >>> 1 / 0
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  ZeroDivisionError: division by zero
+  ```
+
+- Supongamos que tenemos la siguiente definición:
+
+  ```python
+  primero = lambda x, y: x
+  ```
+
+  de forma que `primero` es una función que simplemente devuelve el primero de
+  sus argumentos.
+
+- Es evidente que la función `primero` no necesita evaluar nunca su segundo
+  argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos).
+  Por ejemplo, `primero(4, 3)` devuelve `4`.
+
+---
+
+- Sabiendo eso... ¿qué valor devolvería la siguiente expresión?
+
+  ```python
+  primero(4, 1 / 0)
+  ```
+
+- Curiosamente, el resultado dependerá de si la evaluación es estricta o
+  perezosa:
+
+  - **Si es estricta**, el intérprete evaluará todos los argumentos de la
+    expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al
+    evaluar `1 / 0` devolverá un error.
+
+    Es lo que ocurre cuando se evalúa siguiendo el **orden aplicativo**.
+
+  - En cambio, **si es perezosa**, el intérprete evaluará únicamente aquellos
+    argumentos que se usen en el cuerpo de la expresión lambda, y en este caso
+    sólo se usa el primero, así que dejará sin evaluar el segundo, no dará
+    error y devolverá directamente `4`.
+
+    Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
+
+    ```python
+    primero(4, 1 / 0) = (lambda x, y: x)(4, 1 / 0) = (4) = 4
+    ```
+
+---
+
+- Hay un resultado teórico que avala lo que acabamos de observar:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Teorema:**
+
+  Si una expresión tiene forma normal, el **orden normal** de evaluación
+  conduce seguro a la misma.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En cambio, el orden aplicativo es posible que no encuentre la forma normal de
+  la expresión.
+
+---
+
+- En **Python** la evaluación es **estricta**, salvo algunas excepciones:
+
+  - El operador ternario:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~
+    !NT(expr_condicional) ::= !NT(valor_si_cierto) !T(if) !NT(condición) !T(else) !NT(valor_si_falso)
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso) dependiendo
+    del valor de la !NT(condición).
+
+  - Los operadores lógicos `and` y `or` también son perezosos (se dice que
+    evalúan **en cortocircuito**):
+
+    - `True or` \ $\underline{x}$
+
+      siempre es igual a `True`.
+
+    - `False and` \ $\underline{x}$
+
+      siempre es igual a `False`.
+
+    En ambos casos no es necesario evaluar $\underline{x}$.
+
+- En Java también existe un operador ternario (`?` `:`) y unos operadores
+  lógicos (`||` y `&&`) que se evalúan de igual forma que en Python.
+
+---
+
+- La mayoría de los lenguajes de programación usan evaluación estricta y paso
+  de argumentos por valor (siguen el orden aplicativo).
+
+- **Haskell**, por ejemplo, es un lenguaje funcional puro que usa evaluación
+  perezosa y sigue el orden normal.
+
+- La evaluación perezosa en Haskell permite resultados muy interesantes, como
+  la posibilidad de manipular estructuras de datos infinitas.
+
+# Abstracciones funcionales
+
+## Pureza
+
+- Si el cuerpo de una expresión lambda no contiene variables libres, el valor
+  que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor
+  que tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a
+  la expresión lambda).
+
+- En cambio, si el cuerpo de una expresión lambda sí contiene variables libres,
+  el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del
+  valor de esos argumentos, sino también de los valores a los que estén ligadas
+  las variables libres en el momento de evaluar la aplicación de la expresión
+  lambda.
+
+- Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
+  contiene una variable libre (`z`) y, por tanto, cuando la aplicamos a los
+  argumentos `4` y `3` obtenemos un valor que depende, no sólo de los valores
+  de `x` e `y`, sino también del valor de `z`:
+
+  ```python
+  >>> prueba = lambda x, y: x + y + z
+  >>> z = 9
+  >>> prueba(4, 3)
+  16
+  ```
+
+---
+
+- En este otro ejemplo, escribimos una expresión lambda que calcula la suma de
+  tres números a partir de otra expresión lambda que calcula la suma de dos
+  números:
+
+  ```python
+  suma = lambda x, y: x + y
+  suma3 = lambda x, y, z: suma(x, y) + z
+  ```
+
+  En este caso, hay un identificador (`suma`) que no aparece en la lista de
+  parámetros de la expresión lambda `suma3`, por lo que es una variable libre
+  en el cuerpo de la expresión lambda de `suma3`.
+
+  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
+  `suma` en el entorno actual.
+
+---
+
+- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
+  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
+  argumentos, es decir, de sus parámetros o variables ligadas.
+
+- Podemos decir que hay distintos **grados de pureza**:
+
+  - Una expresión lambda que contiene **sólo variables ligadas** es **más
+    pura** que otra que también contiene variables libres.
+
+  - Una expresión lambda cuyas **variables libres** representan **funciones**
+    que se usan en el cuerpo de la expresión lambda, es **más pura** que otra
+    cuyas variables libres representan cualquier otro tipo de valor.
+
+  En el ejemplo anterior, tenemos que la expresión lambda de `suma3`, sin ser
+  *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
+  que su única variable libre (`suma`) se usa como una **función**, y las
+  funciones tienden a no cambiar durante la ejecución del programa, al
+  contrario que los demás tipos de valores.
+
+---
+
+- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
+  menor pureza, siendo la primera totalmente **pura**:
+
+  ```python
+  # producto es una expresión lambda totalmente pura:
+  producto = lambda x, y: x * y
+  # cuadrado es casi pura; a efectos prácticos se la puede
+  # considerar pura ya que sus variables libres (en este
+  # caso, sólo una: producto) son funciones:
+  cuadrado = lambda x: producto(x, x)
+  # suma es impura, porque su variable libre (z) no es una función:
+  suma = lambda x, y: x + y + z
+  ```
+
+- **La pureza de una función es un rasgo deseado y que hay que tratar de
+  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
+  mantenimiento de los programas, además de simplificar el razonamiento sobre
+  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
+
+- Es más incómodo trabajar con `suma` porque hay que *recordar* que depende de
+  un valor que está *fuera* de la expresión lambda, cosa que no resulta
+  evidente a no ser que mires en el cuerpo de la expresión lambda.
+
 ## Las funciones como abstracciones
+
+- Recordemos la definición de la función `area`:
+
+  ```python
+  cuadrado = lambda x: x * x
+  area = lambda r: 3.1416 * cuadrado(r)
+  ```
 
 - Aunque es muy sencilla, la función `area` ejemplifica la propiedad más
   potente de las funciones definidas por el programador: la **abstracción**.
@@ -1881,13 +1894,13 @@ E -> r [lhead = cluster0]
   la definición** de `cuadrado`. Esos detalles **se ignoran en este momento**
   para considerarlos más tarde.
 
+---
+
 - De hecho, por lo que respecta a `area`, `cuadrado` no representa una
   definición concreta de función, sino más bien la abstracción de una función,
   lo que se denomina una **abstracción funcional**. A este nivel de
   abstracción, cualquier función que calcule el cuadrado de un número es igual
   de buena y le serviría igual de bien a `area`.
-
----
 
 - Por tanto, considerando únicamente los valores que devuelven, las dos
   funciones siguientes son indistinguibles e igual de válidas para `area`.
@@ -1901,6 +1914,7 @@ E -> r [lhead = cluster0]
 - En otras palabras: la definición de una función debe ser capaz de **ocultar
   sus detalles de implementación**.
  
+---
 
 - **Un programador no debe necesitar saber cómo está implementada una función
   por dentro para poder usarla**. Eso es lo que ocurre, por ejemplo, con las
