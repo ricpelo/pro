@@ -452,12 +452,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </section>
 <section class="slide level5" data-number="1.1.4.0.2">
 
+<div class="caja">
+<p><strong>Las ligaduras que se crean dentro de un ámbito se almacenan en el marco asociado a ese ámbito.</strong></p>
+</div>
 <ul>
-<li><p>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se realizan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
+<li><p>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se ejecutan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
 <div class="centered">
-<p><img data-src="images/ambito-global.png" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/ambito-global.png" class="plain" style="width:40.0%" /></p>
 </div></li>
-<li><p>Ninguna de esas instrucciones crea un nuevo ámbito, por lo que todas se ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se crean se almacenan en el mismo marco (el marco global).</p></li>
+<li><p>Ninguna de esas instrucciones crea un nuevo ámbito, por lo que todas se ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se crean se almacenan en el marco global.</p></li>
 </ul>
 </section>
 <section id="ámbito-de-una-ligadura-y-de-creación-de-una-ligadura" class="title-slide slide level4" data-number="1.1.4.1">
@@ -641,7 +644,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Recordemos que un marco es un conjunto de ligaduras.</p></li>
 <li><p>Y que un entorno es una secuencia de marcos que contienen todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
 <li><p>Cuando la ejecución del programa entra dentro de un ámbito, <strong>se crea un nuevo marco asociado a ese ámbito</strong>.</p></li>
-<li><p>Ahora hemos visto que <strong>cada expresión lambda define un nuevo ámbito</strong>.</p></li>
+<li><p>Además, <strong>el cuerpo de una expresión lambda define un nuevo ámbito</strong>.</p></li>
 <li><p>Por tanto, cuando se aplica una expresión lambda a unos argumentos, <strong>se crea un nuevo marco que contiene las ligaduras que ligan a los parámetros con los valores de esos argumentos</strong>.</p></li>
 <li><p>Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco del ámbito más interno <em>apunta</em> al del más externo), de manera que el último marco de la secuencia siempre es el marco global.</p></li>
 <li><p>El marco desaparece cuando el flujo de control del programa se sale del ámbito, ya que cada marco va asociado a un ámbito.</p></li>
@@ -661,7 +664,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
-<p>el cuerpo de la función <code>suma</code> define un nuevo ámbito, y cada vez que se llama a <code>suma</code> con unos argumentos concretos, se entra en el cuerpo, lo que crea un nuevo marco que liga sus argumentos con sus parámetros y variables ligadas.</p></li>
+<p>el cuerpo de la función <code>suma</code> define un nuevo ámbito, y cada vez que se llama a <code>suma</code> con unos argumentos concretos, la ejecución del programa entra en el cuerpo, lo que crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
 <li><p>Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más externo) y el ámbito del cuerpo de la expresión lambda (más interno y anidado dentro del ámbito global):</p></li>
 </ul>
 <div class="centered">
@@ -688,7 +691,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="1.1.4.6.4">
 
 <ul>
-<li><p>Si en un determinado momento de la ejecución del programa tenemos el siguiente entorno (donde <code>suma</code> es una expresión lambda):</p>
+<li><p>Por ejemplo, si en un momento concreto de la ejecución del programa tenemos el siguiente entorno (donde <code>suma</code> es una expresión lambda):</p>
 <div class="centered">
 <p><img data-src="images/lambda-suma-entorno.svg" class="plain" style="width:60.0%" /></p>
 </div>
@@ -772,8 +775,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="expresiones-lambda-y-entornos" class="title-slide slide level4" data-number="1.1.4.9">
-<h4 data-number="1.1.4.9"><span class="header-section-number">1.1.4.9</span> Expresiones lambda y entornos</h4>
+<section id="evaluación-de-expresiones-con-entornos" class="title-slide slide level4" data-number="1.1.4.9">
+<h4 data-number="1.1.4.9"><span class="header-section-number">1.1.4.9</span> Evaluación de expresiones con entornos</h4>
 <ul>
 <li><p>Para encontrar el valor ligado a un identificador en el entorno, buscamos <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encontramos, <strong>vamos subiendo por la secuencia de marcos</strong> hasta encontrarla.</p>
 <p><strong>Si no aparece en ningún marco</strong>, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible desde el ámbito actual. En cualquier caso, <strong>generará un error</strong> de tipo «<em>nombre no definido</em>».</p></li>

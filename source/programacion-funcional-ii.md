@@ -321,15 +321,21 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Las ligaduras que se crean dentro de un ámbito se almacenan en el marco
+  asociado a ese ámbito.**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 - Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
-  ellas se realizan en el ámbito global, que es el único ámbito que existe en
+  ellas se ejecutan en el ámbito global, que es el único ámbito que existe en
   el _script_:
 
-  !IMGP(ambito-global.png)()(width=50%)(width=40%)
+  !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
 - Ninguna de esas instrucciones crea un nuevo ámbito, por lo que todas se
   ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
-  crean se almacenan en el mismo marco (el marco global).
+  crean se almacenan en el marco global.
 
 #### Ámbito de una ligadura y de creación de una ligadura
 
@@ -634,7 +640,7 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - Cuando la ejecución del programa entra dentro de un ámbito, **se crea un
   nuevo marco asociado a ese ámbito**.
 
-- Ahora hemos visto que **cada expresión lambda define un nuevo ámbito**.
+- Además, **el cuerpo de una expresión lambda define un nuevo ámbito**.
 
 - Por tanto, cuando se aplica una expresión lambda a unos argumentos, **se crea
   un nuevo marco que contiene las ligaduras que ligan a los parámetros con los
@@ -672,9 +678,9 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   ```
 
   el cuerpo de la función `suma` define un nuevo ámbito, y cada vez que se
-  llama a `suma` con unos argumentos concretos, se entra en el cuerpo, lo que
-  crea un nuevo marco que liga sus argumentos con sus parámetros y variables
-  ligadas.
+  llama a `suma` con unos argumentos concretos, la ejecución del programa entra
+  en el cuerpo, lo que crea un nuevo marco que liga sus argumentos con sus
+  parámetros.
 
 - Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
   externo) y el ámbito del cuerpo de la expresión lambda (más interno y
@@ -706,8 +712,8 @@ contenido en el ámbito de $B$.**
 
 ---
 
-- Si en un determinado momento de la ejecución del programa tenemos el
-  siguiente entorno (donde `suma` es una expresión lambda):
+- Por ejemplo, si en un momento concreto de la ejecución del programa tenemos
+  el siguiente entorno (donde `suma` es una expresión lambda):
 
   !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -905,7 +911,7 @@ E -> w [lhead = cluster1]
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
   **captura de variables**.
 
-#### Expresiones lambda y entornos
+#### Evaluación de expresiones con entornos
 
 - Para encontrar el valor ligado a un identificador en el entorno, buscamos
   **en el primer marco del entorno** una ligadura para ese identificador, y si
