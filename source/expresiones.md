@@ -224,18 +224,18 @@ $$
 \text{En un programa hay}
   \begin{cases}
     \text{\textbf{Expresiones}} \begin{cases}
-      \text{se evalúan} \\
-      \text{representan valores} \\
-      \text{están formadas por} \begin{cases}
+      \text{- Se evalúan} \\
+      \text{- Representan valores} \\
+      \text{- Están formadas por} \begin{cases}
         \text{\textbf{Datos}} \\
         \text{\textbf{Operaciones}}
       \end{cases} \\
-      \text{por sí solas también son sentencias}
+      \text{- Por sí solas también son sentencias}
     \end{cases} \\\\
     \text{\textbf{Sentencias}} \begin{cases}
-      \text{son instrucciones} \\
-      \text{se ejecutan} \\
-      \text{pueden contener expresiones}
+      \text{- Son instrucciones} \\
+      \text{- Se ejecutan} \\
+      \text{- Pueden contener expresiones}
     \end{cases}
   \end{cases}
 $$
@@ -307,13 +307,15 @@ que denominamos el **valor** de la expresión.
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esta gramática genera **expresiones _totalmente parentizadas_**, en las que
-  cada operación a realizar con operadores va agrupada entre paréntesis, aunque
-  no sea estrictamente necesario. Por ejemplo: `(3 + (4 - 7))`
-
 ---
 
-- Algunos ejemplos de expresiones que satisfacen dicha gramática:
+- Esta gramática reconoce **expresiones _totalmente parentizadas_**, en las que
+  cada operación a realizar con operadores va agrupada entre paréntesis, aunque
+  no sea estrictamente necesario, como por ejemplo:
+
+`(3 + (4 - 7))`
+
+- Otros ejemplos de expresiones que satisfacen dicha gramática:
 
   - `24`
 
@@ -547,6 +549,28 @@ endwhile (no)
     = (2 + (3 * 5))     # se evalúa (3 * 5) (que devuelve 15)
     = (2 + 15)          # se evalúa (2 + 15) (que devuelve 17)
     = 17
+    ```
+
+---
+
+- Evaluar la expresión `((2 + 5) * 3)`:
+
+  - La expresión está formada por un operador `*` que actúa sobre las dos
+    subexpresiones `(2 + 5)` y `3`.
+
+  - La primera subexpresión, a su vez, está formada por un operador `+` que
+    actúa sobre las dos subexpresiones `2` y `5`.
+
+  - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
+    medida que se van reduciendo:
+
+    ```python
+    ((2 + 5) * 3)       # se evalúa primero 2 (que devuelve 2)
+    = ((2 + 5) * 3)     # se evalúa 5 (que devuelve 5)
+    = ((2 + 5) * 3)     # se evalúa (2 + 5) (que devuelve 7)
+    = (7 * 3)           # se evalúa 3 (que devuelve 3)
+    = (7 * 3)           # se evalúa (7 * 3) (que devuelve 21)
+    = 21
     ```
 
 ## Literales
@@ -1012,7 +1036,7 @@ $$
 - Por ejemplo, la función `abs` está predefinida en Python y tiene la siguiente
   signatura:
 
-  `abs(`$x$`: Number)->Number`
+  `abs(`$x$`: Number) -> Number`
 
 - Esa signatura nos dice que:
 
@@ -1107,7 +1131,7 @@ $$
 - Otro ejemplo es la función `len`, que devuelve la longitud de una cadena (el
   número de caracteres que contiene). Su signatura sería:
 
-  `len(`$cadena$`: str)->int`
+  `len(`$cadena$`: str) -> int`
 
 - Un ejemplo de llamada a la función `len`:
 
@@ -1139,7 +1163,7 @@ $$
 - Otro ejemplo es la función `pow`, que realiza la operación de elevar un
   número a la potencia de otro. Su signatura es:
 
-  `pow(`$base$`: Number,` ` `$exp$`: Number)->Number`
+  `pow(`$base$`: Number,` ` `$exp$`: Number) -> Number`
 
   Curiosamente, la misma operación existe en Python de dos formas diferentes:
 
@@ -1175,9 +1199,9 @@ $$
 - No es lo mismo hacer `pow(2, 3)` que hacer `pow(3, 2)`:
 
   ```python
-  >>> pow(2, 3)
+  >>> pow(2, 3)  # aquí, el parámetro «base» toma el valor 2 y «exp» el valor 3
   8
-  >>> pow(3, 2)
+  >>> pow(3, 2)  # aquí, el parámetro «base» toma el valor 3 y «exp» el valor 2
   9
   ```
 
