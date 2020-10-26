@@ -6,7 +6,9 @@
 % El texto monoespaciado se muestra de otro color:
 \definecolor{ttcolor}{RGB}{64,112,161}
 \let\Oldtexttt\texttt
-\renewcommand\texttt[1]{{\ttfamily\textcolor{ttcolor}{#1}}}
+\renewcommand\texttt[1]{\textcolor{ttcolor}{\Oldtexttt{#1}}}
+\let\Oldmathtt\mathtt
+\renewcommand\mathtt[1]{\textcolor{ttcolor}{\Oldmathtt{#1}}}
 
 \ifdefined\Shaded
   \renewenvironment{Shaded}{\centering \begin{caja}}{\end{caja}}
@@ -113,6 +115,7 @@ Respuesta a la \ExerciseName\ \ExerciseHeaderNB}\smallskip\par}
 %    BoldFont=LinBiolinum_RB.otf]{LinBiolinum_R.otf}
 \setmathsfont(Greek){XITSMath-Regular.otf}
 \setmathsfont(Latin,Digits){Lato}
+\setallmonofonts[Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate}]{FiraMono}
 %\setmathfont[range=\mathit]{Lato Italic}
 
 \usepackage[yyyymmdd,hhmmss]{datetime}

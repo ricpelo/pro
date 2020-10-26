@@ -1952,7 +1952,7 @@ E -> f [lhead = cluster0]
 
   $$\begin{cases}
     \text{\textbf{Entrada}}: n \in \mathbb{R} \\
-    \text{\textit{cuadrado}} \\
+    \texttt{cuadrado} \\
     \text{\textbf{Salida}}: n^2
   \end{cases}$$
 
@@ -1970,8 +1970,8 @@ E -> f [lhead = cluster0]
 
   $$\begin{cases}
     \text{\textbf{Pre}}: True \\
-    cuadrado\ (n: \texttt{float}) \text{ -> } \texttt{float} \\
-    \text{\textbf{Post}}: cuadrado(n) = n^2
+    \texttt{cuadrado(}n: \texttt{float) -> float} \\
+    \text{\textbf{Post}}: \texttt{cuadrado(}n\texttt{)} = n^2
   \end{cases}$$
 
 - **Pre** representa la **precondición**: la propiedad que debe cumplirse justo
@@ -2031,9 +2031,10 @@ E -> f [lhead = cluster0]
 - Otro ejemplo más completo:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: car !NEQ \text{\texttt{""}} \land len(car) = 1 \\
-    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
-    \text{\textbf{Post}}: cuenta(cadena, car) \geq 0 \land cuenta(cadena, car) = cadena.count(car)
+    \text{\textbf{Pre}}: car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1 \\
+    \texttt{cuenta(}cadena: \texttt{str,}\ car: \texttt{str) -> int} \\
+    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} \geq 0\ \land \\
+    \hspace{2.8em}        \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} = cadena\texttt{.count(}car\texttt{)}
   \end{cases}$$
 
 - $count$ es una **función _oculta_ o _auxiliar_** (en este caso, un *método
@@ -2057,9 +2058,9 @@ E -> f [lhead = cluster0]
   así:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: len(car) = 1 \\
-    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
-    \text{\textbf{Post}}: cuenta(cadena, car) = cadena.count(car)
+    \text{\textbf{Pre}}: \texttt{len(}car\texttt{)} = 1 \\
+    \texttt{cuenta(}cadena: \texttt{str,}\ car: \texttt{str) -> int} \\
+    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} = cadena\texttt{.count(}car\texttt{)}
   \end{cases}$$
 
 !EJERCICIO
@@ -2073,11 +2074,11 @@ E -> f [lhead = cluster0]
 
   $$\begin{cases}
     \text{\textbf{Pre}}: car \text{ debe ser un único carácter} \\
-    cuenta\ (cadena: \texttt{str} ,\  car: \texttt{str}) \text{ -> } \texttt{int} \\
-    \text{\textbf{Post}}: cuenta(cadena, car) \text{ devuelve el número de veces } \\
-                          \quad\quad\enspace\text{ que aparece el carácter } car \text{ en la cadena } cadena. \\
-                          \quad\quad\enspace\text{ Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la } \\
-                          \quad\quad\enspace\text{ cadena } cadena \text{, debe devolver } 0.
+    \texttt{cuenta(}cadena: \texttt{str,}\  car: \texttt{str) -> int} \\
+    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} \text{ devuelve el número de veces } \\
+    \hspace{2.55em}          \text{ que aparece el carácter } car \text{ en la cadena } cadena. \\
+    \hspace{2.55em}          \text{ Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la } \\
+    \hspace{2.55em}          \text{ cadena } cadena \text{, debe devolver } 0.
   \end{cases}$$
 
 - Probablemente resulta más fácil de leer (sobre todo para los novatos), pero
@@ -2233,6 +2234,12 @@ pueden tener una definición recursiva. ¿Cuáles son?
            1 & \text{si } n = 0 \text{\quad(caso base)} \\
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
          \end{cases}$$
+
+- Que traducido a Python podría ser:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
 
 ### Diseño de funciones recursivas
 
