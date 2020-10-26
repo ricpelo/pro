@@ -1440,7 +1440,7 @@ E -> f [lhead = cluster0]
 - Cada lenguaje implementa sus propias estrategias de evaluación que están
   basadas en las que vamos a ver aquí.
 
-- Básicamente se trata de decidir, en cada paso de reducción, qué sub-expresión
+- Básicamente se trata de decidir, en cada paso de reducción, qué subexpresión
   hay que reducir, en función de:
 
   - El orden de evaluación:
@@ -1449,16 +1449,17 @@ E -> f [lhead = cluster0]
 
     - De izquierda a derecha o de derecha a izquierda.
 
-  - La necesidad o no de evaluar dicha sub-expresión.
+  - La necesidad o no de evaluar dicha subexpresión.
 
-## Orden de evaluación
+### Orden de evaluación
 
 - En un lenguaje de programación funcional puro se cumple la **transparencia
   referencial**, según la cual el valor de una expresión depende sólo del valor
-  de sus sub-expresiones (también llamadas *redexes*).
+  de sus subexpresiones (también llamadas *redexes*, del inglés, _reducible
+  expression_).
 
 - Pero eso también implica que **no importa el orden en el que se evalúen las
-  sub-expresiones**: el resultado debe ser siempre el mismo.
+  subexpresiones**: el resultado debe ser siempre el mismo.
 
 - Gracias a ello podemos usar nuestro modelo de sustitución como modelo
   computacional.
@@ -1473,7 +1474,7 @@ E -> f [lhead = cluster0]
 
 - **Python usa el orden aplicativo**, salvo excepciones.
 
-### Orden aplicativo
+#### Orden aplicativo
 
 - El **orden aplicativo** consiste en evaluar las expresiones *de dentro
   afuera*, es decir, empezando por el *redex* más **interno** y a la
@@ -1485,6 +1486,8 @@ E -> f [lhead = cluster0]
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por valor**.
 
+---
+
 - Por ejemplo, si tenemos la siguiente función:
 
   ```python
@@ -1494,16 +1497,16 @@ E -> f [lhead = cluster0]
   según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduce así:
 
   ```python
-  cuadrado(3 + 4)                # definición de cuadrado
-  = (lambda x, y: x * x)(3 + 4)  # evalúa 3 + 4 y devuelve 7
-  = (lambda x, y: x * x)(7)      # aplicación a 7
-  = (7 * 7)                      # aritmética
+  cuadrado(3 + 4)               # definición de cuadrado
+  = (lambda x: x * x)(3 + 4)    # evalúa 3 y devuelve 3
+  = (lambda x: x * x)(3 + 4)    # evalúa 4 y devuelve 4
+  = (lambda x: x * x)(3 + 4)    # evalúa 3 + 4 y devuelve 7
+  = (lambda x: x * x)(7)        # aplicación a 7
+  = (7 * 7)                     # evalúa (7 * 7) y devuelve 49
   = 49
   ```
 
-  alcanzando la forma normal en 4 pasos de reducción.
-
-### Orden normal
+#### Orden normal
 
 - El **orden normal** consiste en evaluar las expresiones *de fuera adentro*,
   es decir, empezando siempre por el *redex* más **externo** y a la
@@ -1515,6 +1518,8 @@ E -> f [lhead = cluster0]
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
   de argumentos por nombre**.
 
+---
+
 - Por ejemplo, si tenemos la siguiente función:
 
   ```python
@@ -1524,17 +1529,19 @@ E -> f [lhead = cluster0]
   según el orden normal, la expresión `cuadrado(3 + 4)` se reduce así:
 
   ```python
-  cuadrado(3 + 4)                # definición de cuadrado
-  = (lambda x, y: x * x)(3 + 4)  # aplicación a (3 + 4)
-  = ((3 + 4) * (3 + 4))          # aritmética
-  = 7 * (3 + 4)                  # aritmética
-  = 7 * 7                        # aritmética 
+  cuadrado(3 + 4)               # definición de cuadrado
+  = (lambda x: x * x)(3 + 4)    # aplicación a (3 + 4)
+  = ((3 + 4) * (3 + 4))         # evalúa 3 y devuelve 3
+  = ((3 + 4) * (3 + 4))         # evalúa 4 y devuelve 4
+  = ((3 + 4) * (3 + 4))         # evalúa (3 + 4) y devuelve 7
+  = 7 * (3 + 4)                 # evalúa 3 y devuelve 3
+  = 7 * (3 + 4)                 # evalúa 4 y devuelve 4
+  = 7 * (3 + 4)                 # evalúa (3 + 4) y devuelve 7
+  = 7 * 7                       # evalúa 7 * 7 y devuelve 49
   = 49
   ```
 
-  alcanzando la forma normal en 5 pasos de reducción.
-
-## Composición de funciones
+### Composición de funciones
 
 - Podemos crear una función que use otra función. Por ejemplo, para calcular el
   área de un círculo usamos otra función que calcule el cuadrado de un número:
@@ -1547,13 +1554,17 @@ E -> f [lhead = cluster0]
 - La expresión `area(11 + 1)` se evaluaría así según el *orden aplicativo*:
 
   ```{.python .number-lines}
-  area(11 + 1)                                     # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)       # aritmética               
-  = (lambda r: 3.1416 * cuadrado(r))(12)           # aplicación
-  = (3.1416 * cuadrado(12))                        # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(12))               # aplicación
-  = (3.1416 * (12 * 12))                           # aritmética (varios pasos)
-  = 452.3904
+  area(11 + 1)                                # definición de area
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 11 y devuelve 11
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 1 y devuelve 1
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 11 + 1 y devuelve 12
+  = (lambda r: 3.1416 * cuadrado(r))(12)      # aplicación a 12
+  = (3.1416 * cuadrado(12))                   # evalúa 3.1416 y devuelve 3.1416
+  = (3.1416 * cuadrado(12))                   # definición de cuadrado
+  = (3.1416 * (lambda x: x * x)(12))          # aplicación a 12
+  = (3.1416 * (12 * 12))                      # evalúa (12 * 12) y devuelve 144
+  = (3.1416 * 144)                            # evalúa (3.1416 * 11) y...
+  = 452.3904                                  # ... devuelve 452.3904
   ```
 
 ---
@@ -1563,16 +1574,19 @@ E -> f [lhead = cluster0]
   - **Línea 1**: Se evalúa `area`, que devuelve su definición (una expresión
     lambda).
 
-  - **Línea 2**: Lo siguiente a evaluar es la aplicación de `area` sobre su
+  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de `area` sobre su
     argumento, por lo que primero evaluamos éste (es el _redex_ más interno).
 
-  - **Línea 3**: Ahora se aplica la expresión lambda a su argumento `12`.
+  - **Línea 5**: Ahora se aplica la expresión lambda a su argumento `12`.
 
-  - **Línea 4**: El *redex* más interno que queda por evaluar es la aplicación
+  - **Línea 6**: El _redex_ más interno y a la izquierda es el `3.1416`, que ya
+    está evaluado.
+
+  - **Línea 7**: El *redex* más interno que queda por evaluar es la aplicación
     de `cuadrado` sobre `12`. Primero se evalúa `cuadrado`, sustituyéndose por
     su definición...
 
-  - **Línea 5**: ... y ahora se aplica la expresión lambda a su argumento `12`.
+  - **Línea 8**: ... y ahora se aplica la expresión lambda a su argumento `12`.
 
   - Lo que queda es todo aritmética.
 
@@ -1582,11 +1596,15 @@ E -> f [lhead = cluster0]
 
   ```{.python .number-lines}
   area(11 + 1)                                # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación
+  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación a (11 + 1)
+  = (3.1416 * cuadrado(11 + 1))               # evalúa 3.1416 y devuelve 3.1416
   = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación
-  = (3.1416 * ((11 + 1) * (11 + 1)))          # aritmética (varios pasos)
-  = 452.3904
+  = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación a (11 + 1)
+  = (3.1416 * ((11 + 1) * (11 + 1)))          # evalúa (11 + 1) y devuelve 12
+  = (3.1416 * (12 * (11 + 1)))                # evalúa (11 + 1) y devuelve 12
+  = (3.1416 * (12 * 12))                      # evalúa (12 * 12) y devuelve 144
+  = (3.1416 * 144)                            # evalúa (3.1416 * 144) y...
+  = 452.3904                                  # ... devuelve 452.3904
   ```
 
 - En ambos casos (orden aplicativo y orden normal) se obtiene el mismo
@@ -1601,11 +1619,14 @@ E -> f [lhead = cluster0]
 
   - **Línea 2**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
-  - **Línea 3**: El *redex* más externo es el `*`, pero para evaluarlo hay que
-    evaluar primero todos sus argumentos, por lo que ahora hay que evaluar
-    `cuadrado(11 + 1)`, por lo que se reescribe la definición de `cuadrado`...
+  - **Línea 3**: El _redex_ más externo es el `*`, pero para evaluarlo hay que
+    evaluar primero todos sus argumentos, por lo que primero se evalúa el
+    izquierdo, que es `3.1416`.
 
-  - **Línea 4**: ... y se aplica la expresión lambda al argumento `11 + 1`.
+  - **Línea 4**: Ahora hay que evaluar el derecho (`cuadrado(11 + 1)`), por lo
+    que se reescribe la definición de `cuadrado`...
+
+  - **Línea 5**: ... y se aplica la expresión lambda al argumento `11 + 1`.
 
   - Lo que queda es todo aritmética.
 
@@ -1660,17 +1681,15 @@ E -> f [lhead = cluster0]
 
   4. Producto (`*` o `mul`).
 
-## Evaluación estricta y no estricta
+### Evaluación estricta y no estricta
 
 - Existe otra forma de ver la evaluación de una expresión:
 
-  - **Evaluación estricta**: Reducir todos los *redexes* aunque no hagan falta.
+  - **Evaluación estricta o _impaciente_**: Reducir todos los *redexes* aunque
+    no hagan falta.
 
-  - **Evaluación no estricta**: Reducir sólo los *redexes* que sean
-    estrictamente necesarios para calcular el valor de la expresión.
-
-    A esta estrategia de evaluación se la denomina también **evaluación
-    perezosa**.
+  - **Evaluación no estricta o _perezosa_**: Reducir sólo los *redexes* que
+    sean estrictamente necesarios para calcular el valor de la expresión.
 
 !EJEMPLO
 
@@ -3204,16 +3223,23 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   función de orden superior que aplique una función `f` a los elementos de una
   tupla y devuelva la tupla resultante.
 
-  Esa función se llama `map`, y viene definida en Python:
+---
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~
-  map(!NT(función), !NT(iterable)) -> !NT(iterador)
-  ~~~~~~~~~~~~~~~~~~~~~
+- Esa función se llama `map`, y viene definida en Python con la siguiente
+  signatura:
 
-  donde !NT(iterable) puede ser cualquier cosa compuesta de elementos que se
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `map(`_func_`, ` _iterable_`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde:
+
+  - _func_ debe ser una función de un solo argumento.
+
+  - _iterable_ puede ser cualquier cosa compuesta de elementos que se
   puedan recorrer de uno en uno, como una **tupla**, una **cadena** o un
-  **rango** (cualquier *secuencia* de elementos vale).
+  **rango** (cualquier *secuencia* de elementos nos vale).
 
 ---
 
@@ -3230,8 +3256,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Por ahora, nos basta con saber que un iterador es un flujo de datos que se
   pueden recorrer de uno en uno.
 
-- Lo que haremos aquí será simplemente transformar ese iterador en la tupla
-  correspondiente usando la función `tuple` sobre el resultado de `map`:
+- Lo que haremos aquí será transformar ese iterador en la tupla correspondiente
+  usando la función `tuple` sobre el resultado de `map`:
 
   ```python
   >>> tuple(map(cubo, (1, 2, 3, 4)))
@@ -3265,17 +3291,23 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   de una tupla (o cualquier cosa *iterable*) que cumplen una determinada
   condición.
 
-- Su sintaxis es:
+- Su signatura es:
 
-  !ALGO
+  !CAJA
   ~~~~~~~~~~~~~~~~~~~~~
-  filter(!NT(función), !NT(iterable)) -> !NT(iterador)
+  `filter(`_function_`, ` _iterable_`)`
   ~~~~~~~~~~~~~~~~~~~~~
+
+  donde _function_ debe ser una función de un solo argumento que devuelva un
+  _booleano_.
+
+- Como `map`, también devuelve un _iterador_, que se puede convertir a tupla
+  con la función `tuple`.
 
 - Por ejemplo:
 
   ```python
-  >>> list(filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)))
+  >>> tuple(filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)))
   (3, 5, 8, 9)
   ```
 
@@ -3321,18 +3353,22 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Eso es lo que hace la función `reduce`.
 
-- Su sintaxis es:
+- Su signatura es:
 
-  !ALGO
+  !CAJA
   ~~~~~~~~~~~~~~~~~~~~~
-  reduce(!NT(función), !NT(iterable)[, !NT(valor_inicial)]) -> !NT(valor)
+  `reduce(`_function_`, ` _sequence_ [`, ` _initial_ ]`)`
   ~~~~~~~~~~~~~~~~~~~~~
 
-- El !NT(valor_inicial), si existe, se usará como primer elemento sobre el que
-  realizar el cálculo y sirve como valor por defecto cuando la tupla está
-  vacía.
+  donde:
 
-- La !NT(función) debe recibir dos argumentos y devolver un valor.
+  - _function_ debe ser una función que reciba dos argumentos.
+
+  - _sequence_ debe ser cualquier objeto iterable.
+
+  - _initial_, si se indica, se usará como primer elemento sobre el que
+    realizar el cálculo y servirá como valor por defecto cuando la secuencia
+    esté vacía (si no se indica y la secuencia está vacía, generará un error).
 
 ---
 
@@ -3354,8 +3390,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   producto_de_numeros = reduce(lambda x, y: x * y, tupla, 1)
   ```
 
-- ¿Cómo podríamos definir la función `reduce` de forma que devolviera una
-  tupla?
+- ¿Cómo podríamos definir la función `reduce` si recibiera una tupla y no
+  cualquier iterable?
 
 !EJERCICIO
 
@@ -3413,7 +3449,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T{)}
+  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los elementos de la salida generada serán los sucesivos valores de
