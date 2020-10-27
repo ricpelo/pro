@@ -1480,11 +1480,14 @@ E -> f [lhead = cluster0]
   afuera*, es decir, empezando por el *redex* más **interno** y a la
   izquierda.
 
+- El _redex_ más interno es el que no contiene a otros _redexes_. Si existe más
+  de uno que cumpla esa condición, se elige el que está más a la izquierda.
+
 - Eso implica que los operandos y los argumentos se evalúan **antes** que los
   operadores y las aplicaciones de funciones.
 
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
-  de argumentos por valor**.
+  de argumentos por valor** (_call-by-value_).
 
 ---
 
@@ -1512,11 +1515,18 @@ E -> f [lhead = cluster0]
   es decir, empezando siempre por el *redex* más **externo** y a la
   izquierda.
 
+- El _redex_ más externo es el que no está contenido en otros _redexes_. Si
+  existe más de uno que cumpla esa condición, se elige el que está más a la
+  izquierda.
+
 - Eso implica que los operandos y los argumentos se evalúan **después** de las
   aplicaciones de los operadores y las funciones.
 
+- Por tanto, los argumentos que se pasan a las funciones lo hacen **sin
+  evaluarse** previamente.
+
 - Corresponde a lo que en muchos lenguajes de programación se denomina **paso
-  de argumentos por nombre**.
+  de argumentos por nombre** (_call-by-name_).
 
 ---
 
@@ -1686,7 +1696,7 @@ E -> f [lhead = cluster0]
 - Existe otra forma de ver la evaluación de una expresión:
 
   - **Evaluación estricta o _impaciente_**: Reducir todos los *redexes* aunque
-    no hagan falta.
+    no hagan falta para calcular el valor de la expresión.
 
   - **Evaluación no estricta o _perezosa_**: Reducir sólo los *redexes* que
     sean estrictamente necesarios para calcular el valor de la expresión.
@@ -1921,12 +1931,13 @@ E -> f [lhead = cluster0]
   abstracción, cualquier función que calcule el cuadrado de un número es igual
   de buena y le serviría igual de bien a `area`.
 
-- Por tanto, considerando únicamente los valores que devuelven, las dos
+- Por tanto, considerando únicamente los valores que devuelven, las tres
   funciones siguientes son indistinguibles e igual de válidas para `area`.
   Ambas reciben un argumento numérico y devuelven el cuadrado de ese número:
 
   ```python
   cuadrado = lambda x: x * x
+  cuadrado = lambda x: x ** 2
   cuadrado = lambda x: x * (x - 1) + x
   ```
 
@@ -1936,13 +1947,15 @@ E -> f [lhead = cluster0]
 ---
 
 - **Un programador no debe necesitar saber cómo está implementada una función
-  por dentro para poder usarla**. Eso es lo que ocurre, por ejemplo, con las
-  funciones predefinidas del lenguaje: sabemos *qué* hacen pero no necesitamos
-  saber *cómo* lo hacen.
+  por dentro para poder usarla**.
+
+- Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
+  lenguaje: sabemos *qué* hacen pero no necesitamos saber *cómo* lo hacen.
 
 - Incluso puede que el usuario de una función no sea el mismo que la haya
   escrito, sino que la puede haber recibido de otro programador como una
-  «**caja negra**».
+  «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
+  funciona por dentro.
 
 ### Especificaciones de funciones
 
@@ -2013,8 +2026,8 @@ E -> f [lhead = cluster0]
 
 - Dicho de otra forma, no hace falta que se dé ninguna condición especial para
   usar la función. Siempre que la llamada cumpla con la signatura de la
-  función, el parámetro $n$ puede tomar cualquier valor de tipo real y no hay
-  ninguna restricción adicional.
+  función, el parámetro $n$ puede tomar cualquier valor de tipo `float` y no
+  hay ninguna restricción adicional.
 
 - Tanto la precondición como la postcondición son **predicados**, es decir,
   expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
@@ -2249,10 +2262,10 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - Combinando ambos casos tendríamos:
 
-  $$n! = \begin{cases}
+  $$n! = \left\{\begin{array}{ll}
            1 & \text{si } n = 0 \text{\quad(caso base)} \\
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
-         \end{cases}$$
+         \end{array}\right.$$
 
 - Que traducido a Python podría ser:
 
@@ -2339,10 +2352,10 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - Combinando todos los pasos, obtenemos la solución general:
 
-$$fact(n) = \begin{cases}
-         1 & \text{si } n = 0 \text{\quad(caso base)} \\
+$$fact(n) = \left\{\begin{array}{ll}
+         1 & \text{si } n = 0 \text{\quad(caso base)} \\!SEP
          n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
-       \end{cases}$$
+       \end{array}\right.$$
 
 ### Recursividad lineal
 
@@ -2414,10 +2427,10 @@ $$fact(n) = \begin{cases}
   forma que el contador y el producto cambien de un paso al siguiente según la
   siguiente regla:
 
-  $$\begin{cases}
-      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\
+  $$\left\{\begin{array}{l}
+      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\!SEP
       contador_{nuevo} = contador_{viejo} - 1
-    \end{cases}$$
+    \end{array}\right.$$
 
 - Su traducción a Python podría ser la siguiente, usando una función auxiliar
   `fact_iter`:
@@ -2459,32 +2472,32 @@ $$fact(n) = \begin{cases}
 
 ---
 
------------------------------------------------------------------------------
-Tipo de proceso           Número de               Memoria necesaria 
-                          reducciones        
-------------------------- --------------------    ---------------------------
-Recursivo                 Proporcional a `n`      Proporcional a `n`
+--------------------------------------------------------------------------------------------
+Tipo de proceso           Número de                          Memoria necesaria 
+                          reducciones
+------------------------- -------------------------------    -------------------------------
+Recursivo                 Proporcional a $\underline{n}$     Proporcional a $\underline{n}$
 
-Iterativo                 Proporcional a `n`      Constante
------------------------------------------------------------------------------
+Iterativo                 Proporcional a $\underline{n}$     Constante
+--------------------------------------------------------------------------------------------
 
-<br>* * *<br>
+!ifdef(LATEX)()(<br>* * *<br>)
 
------------------------------------------------------------------------------
-Tipo de proceso           Número de               Memoria necesaria 
-                          reducciones        
-------------------------- --------------------    ---------------------------
-Recursivo lineal          Linealmente \           Linealmente \
-                          proporcional a `n`      proporcional a `n`
+-------------------------------------------------------------------------------------------
+Tipo de proceso           Número de                         Memoria necesaria
+                          reducciones
+------------------------- -------------------------------   -------------------------------
+Recursivo lineal          Linealmente \                     Linealmente \
+                          proporcional a $\underline{n}$    proporcional a $\underline{n}$
 
 Iterativo lineal          Linealmente \
-                          proporcional a `n`      Constante
------------------------------------------------------------------------------
+                          proporcional a $\underline{n}$    Constante
+-------------------------------------------------------------------------------------------
 
 ---
 
 - En general, un **proceso iterativo** es aquel que está definido por una serie
-  de **variables de estado** junto con una **regla** fija que describe cómo
+  de **coordenadas de estado** junto con una **regla** fija que describe cómo
   actualizar dichas variables conforme cambia el proceso de un estado al
   siguiente.
 
@@ -2542,11 +2555,11 @@ Iterativo lineal          Linealmente \
 - Podemos definir una función que devuelva el $n$-ésimo término de la sucesión
   de Fibonacci:
 
-  $$fib(n) = \begin{cases}
-               0 & \text{si } n = 0 \text{\quad (caso base)} \\
-               1 & \text{si } n = 1 \text{\quad (caso base)} \\
+  $$fib(n) = \left\{\begin{array}{ll}
+               0 & \text{si } n = 0 \text{\quad (caso base)} \\!SEP
+               1 & \text{si } n = 1 \text{\quad (caso base)} \\!SEP
                fib(n - 1) + fib(n - 2) & \text{si } n > 1 \text{\quad (caso recursivo)}
-             \end{cases}$$
+             \end{array}\right.$$
 
 - Que traducida a Python sería:
 
@@ -2646,23 +2659,23 @@ fib1_5 -> u5
 - Se puede construir un **proceso iterativo** para calcular los números de
   Fibonacci.
 
-- La idea consiste en usar dos variables de estado `a` y `b` (con valores
-  iniciales `1` y `0`, respectivamente) y aplicar repetidamente la siguiente
+- La idea consiste en usar dos coordenadas de estado _a_ y _b_ (con valores
+  iniciales 1 y 0, respectivamente) y aplicar repetidamente la siguiente
   transformación:
 
-  $$\begin{cases}
-      a_{nuevo} = a_{viejo} + b_{viejo} \\
+  $$\left\{\begin{array}{l}
+      a_{nuevo} = a_{viejo} + b_{viejo} \\!SEP
       b_{nuevo} = a_{viejo}
-    \end{cases}$$
+    \end{array}\right.$$
 
-- Después de $n$ pasos, `a` y `b` contendrán, respectivamente, $fib(n + 1)$ y
+- Después de $n$ pasos, _a_ y _b_ contendrán, respectivamente, $fib(n + 1)$ y
   $fib(n)$.
 
 - En Python sería:
 
   ```python
   fib_iter = lambda cont, a, b: b if cont == 0 else fib_iter(cont - 1, a + b, a)
-  fib = lambda n: fib_iter(n , 1, 0)
+  fib = lambda n: fib_iter(n, 1, 0)
   ```
 
 - Esta función genera un proceso iterativo lineal, por lo que es mucho más
@@ -2685,7 +2698,7 @@ fib1_5 -> u5
   que pudiera haber.
 
 - Ese marco es el primero de la secuencia de marcos que forman el entorno de la
-  función, que deberán estar almacenados más abajo en la pila.
+  función, que estarán almacenados más abajo en la pila.
 
 - Los marcos se enlazan entre sí para representar los entornos que actúan en
   las distintas llamadas activas.
@@ -2711,9 +2724,7 @@ fib1_5 -> u5
   su marco asociado (hay una excepción a esto, que veremos en posteriores
   temas cuando hablemos de las *clausuras*).
 
----
-
-- Supongamos el siguiente código:
+!EJEMPLO
 
 ```python
 g = 1
@@ -2960,35 +2971,37 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Un rango es un tipo de dato cuyos valores representan **sencuencias de
   números enteros**.
 
-- Los rangos se crean con la función `range`, cuya sintaxis es:
+- Los rangos se crean con la función `range`, cuya signatura es:
 
-  !ALGO
+  !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(paso)]!T{)}
+  `range(`[_start_`,`] _stop_ [`,` _step_]`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.
-- Cuando se omite !NT(inicio), se entiende que es `0`.
-- El valor de !NT(fin) no se alcanza nunca.
-- Cuando !NT(inicio) y !NT(fin) son iguales, representa el *rango vacío*.
-- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.
+- _start_, _stop_ y _step_ deben ser números enteros.
+
+- Cuando se omite _start_, se entiende que es `0`.
+
+- El valor de _stop_ no se alcanza nunca.
+
+- Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
+
+- Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
   En caso contrario, también representaría el rango vacío.
 
----
+!EJEMPLOS
 
-- Ejemplos:
+- `range(10)` representa la secuencia $0, 1, 2, \ldots, 9$.
 
-  - `range(10)` representa la secuencia $0, 1, 2, \ldots, 9$
+- `range(3, 10)` representa la secuencia $3, 4, 5, \ldots, 9$.
 
-  - `range(3, 10)` representa la secuencia $3, 4, 5, \ldots, 9$
+- `range(0, 10, 2)` representa la secuencia $0, 2, 4, 6, 8$.
 
-  - `range(0, 10, 2)` representa la secuencia $0, 2, 4, 6, 8$
+- `range(4, 0, -1)` representa la secuencia $4, 3, 2, 1$.
 
-  - `range(4, 0, -1)` representa la secuencia $4, 3, 2, 1$
+- `range(3, 3)` representa el rango vacío.
 
-  - `range(3, 3)` representa el rango vacío
-
-  - `range(4, 3)` también representa el rango vacío
+- `range(4, 3)` también representa el rango vacío.
 
 ---
 
@@ -3072,16 +3085,16 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   cubo = lambda x: x * x ** 2
   ```
 
-- A efectos de **usar** la función, nos basta con saber que calcula el cubo de
-  un número, sin necesitar saber qué cálculo concreto realizar para obtener el
+- Para **usar** la función, nos basta con saber que calcula el cubo de un
+  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
   resultado. Los detalles de implementación quedan ocultos y por eso también
   decimos que `cubo` es una abstracción.
 
 ---
 
-- Las funciones también son abstracciones en la medida en que describen
-  operaciones compuestas a realizar sobre ciertos valores sin importar cuáles
-  sean esos valores en concreto.
+- Las funciones también son abstracciones porque describen operaciones
+  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
+  valores en concreto.
 
 - Por ejemplo, cuando definimos:
 
@@ -3094,9 +3107,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
   siempre expresiones explícitas (como `3*3*3`, `y*y*y`, etc.) sin usar la
-  palabra «cubo», pero eso nos obligaría siempre a expresarnos en términos de
-  las operaciones primitivas de nuestro lenguaje (como `*`), en vez de poder
-  usar términos de más alto nivel.
+  palabra «cubo», pero eso nos obligaría siempre a expresarnos usando las
+  operaciones primitivas de nuestro lenguaje (como `*`), en vez de poder usar
+  términos de más alto nivel.
 
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
@@ -3105,8 +3118,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Una de las habilidades que deberíamos pedir a un lenguaje potente es la
   posibilidad de **construir abstracciones** asignando un nombre a los patrones
-  más comunes, y luego trabajar directamente en términos de dichas
-  abstracciones.
+  más comunes, y luego trabajar directamente usando dichas abstracciones.
 
 - Las funciones nos permiten esta habilidad y esa es la razón de que todos los
   lenguajes (salvo los más primitivos) incluyan mecanismos para definir
@@ -3124,13 +3136,68 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Para poder abstraer, de nuevo, lo que tienen en común dichas funciones,
   deberíamos ser capaces de manejar funciones que acepten a otras funciones
-  como argumentos o que devuelvan otra función como resultado. A estas
-  funciones que manejan otras funciones las llamaremos **funciones de orden
-  superior**.
+  como argumentos o que devuelvan otra función como resultado.
+
+- A estas funciones que manejan otras funciones las llamaremos **funciones de
+  orden superior**.
+
+- Una función de orden superior es una función que recibe funciones como
+  argumento o devuelve funciones como resultado.
 
 ---
 
-- Por ejemplo, supongamos las dos funciones siguientes: 
+- Por ejemplo, la siguiente función **recibe otra función como argumento** y
+  devuelve el resultado de aplicar dicha función al número 5:
+
+  ```python
+  >>> aplica5 = lambda f: f(5)
+  >>> cuadrado = lambda x: x ** 2
+  >>> cubo = lambda x: x ** 3
+  >>> aplica5(cuadrado)
+  25
+  >>> aplica5(cubo)
+  125
+  ```
+
+- No hace falta crear las funciones `cuadrado` y `cubo` para pasárselas a la
+  función `aplica5` como argumento. Se pueden pasar directamente las
+  expresiones lambda, que también son funciones:
+
+  ```python
+  >>> aplica5(lambda x: x ** 2)
+  25
+  >>> aplica5(lambda x: x ** 3)
+  125
+  ```
+
+- Naturalmente, la función que se pasa a `aplica5` debe recibir un único
+  argumento de tipo numérico.
+
+---
+
+- También se puede **devolver una función como resultado**.
+
+- Por ejemplo, la siguiente función recibe un número (`k`) y devuelve otra
+  función que calcula la suma de ese número con otro (`x`) que se pasa como
+  argumento a la función devuelta:
+
+  ```python
+  >>> suma_rara = lambda k: lambda x: x + k
+  >>> suma2 = suma_rara(2)
+  >>> suma2(3)
+  5
+  >>> suma7 = suma_rara(7)
+  >>> suma7(8)
+  15
+  >>> suma_rara(4)(6)
+  10
+  ```
+
+- Tanto `aplica5` como `suma_rara` son funciones de orden superior.
+
+---
+
+- Ahora supongamos las dos funciones siguientes: 
 
   ```python
   # Suma los enteros comprendidos entre a y b:
@@ -3140,12 +3207,12 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   suma_cubos = lambda a, b: 0 if a > b else cubo(a) + suma_enteros(a + 1, b)
   ```
 
-- Estas dos funciones comparten claramente un patrón subyacente común. Se
-  diferencian solamente en:
+- Estas dos funciones comparten claramente un patrón común. Se diferencian
+  solamente en:
 
-  - El nombre de la función
+  - El _nombre_ de la función.
 
-  - La función de `a` que se utiliza para calcular cada término
+  - La función que se aplica a `a` para calcular cada _término_ de la suma.
 
 - Podríamos haber escrito las funciones anteriores rellenando los «casilleros»
   del siguiente *patrón general*:
@@ -3161,17 +3228,17 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   esperando que la saquemos a la superficie.
 
 - De hecho, los matemáticos han identificado hace mucho tiempo esta abstracción
-  llamándola **suma de una serie**, y la expresan así:
-  $$ \sum _ {n=a}^b f(n) = f(a) + \ldots + f(b)$$
+  llamándola **sumatorio de una serie**, y la expresan así:
+  $$ \sum _ {n=a}^b f(n)$$
 
-- La ventaja que tiene usar la notación anterior es que se puede trabajar
+  La ventaja que tiene usar la notación anterior es que podemos trabajar
   directamente con el concepto de sumatorio en vez de trabajar con sumas
   concretas, y podemos sacar conclusiones generales sobre los sumatorios
-  independientemente de la serie particular que estemos tratando.
+  independientemente de la serie particular con la que estemos trabajando.
 
 - Igualmente, como programadores estamos interesados en que nuestro lenguaje
   tenga la suficiente potencia como para describir directamente el concepto de
-  *sumatorio*, en vez de funciones particulares que calculen sumas concretas.
+  sumatorio, en vez de funciones particulares que calculen sumas concretas.
 
 ---
 
