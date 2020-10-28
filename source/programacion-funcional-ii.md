@@ -1912,26 +1912,25 @@ E -> f [lhead = cluster0]
 - Aunque es muy sencilla, la función `area` ejemplifica la propiedad más
   potente de las funciones definidas por el programador: la **abstracción**.
 
-- La función `area` está definida sobre la función `cuadrado`, pero se basa
-  sólo en la relación que `cuadrado` establece entre sus argumentos de entrada
-  y su resultado de salida.
+- La función `area` está definida sobre la función `cuadrado`, pero sólo
+  necesita saber de ella qué resultados de salida devuelve a partir de sus
+  argumentos de entrada.
 
 - Podemos escribir `area` sin preocuparnos de cómo calcular el cuadrado de un
   número, porque eso ya lo hace la función `cuadrado`.
 
 - **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
   la definición** de `cuadrado`. Esos detalles **se ignoran en este momento**
-  para considerarlos más tarde.
+  al diseñar `area`, para considerarlos más tarde si hiciera falta.
 
 ---
 
 - De hecho, por lo que respecta a `area`, `cuadrado` no representa una
   definición concreta de función, sino más bien la abstracción de una función,
-  lo que se denomina una **abstracción funcional**. A este nivel de
-  abstracción, cualquier función que calcule el cuadrado de un número es igual
-  de buena y le serviría igual de bien a `area`.
+  lo que se denomina una **abstracción funcional**, ya que a `area` le
+  sirve igual de bien cualquier función que calcule el cuadrado de un número.
 
-- Por tanto, considerando únicamente los valores que devuelven, las tres
+- Por tanto, si consideramos únicamente los valores que devuelven, las tres
   funciones siguientes son indistinguibles e igual de válidas para `area`.
   Ambas reciben un argumento numérico y devuelven el cuadrado de ese número:
 
@@ -1942,15 +1941,23 @@ E -> f [lhead = cluster0]
   ```
 
 - En otras palabras: la definición de una función debe ser capaz de **ocultar
-  sus detalles de implementación**.
+  sus detalles internos de funcionamiento**, ya que para usar la función no
+  debe ser necesario conocer esos detalles.
  
 ---
 
+- La **especificación de una _función_** es la descripción de **qué** hace la
+  función sin entrar a detallar **cómo** lo hace.
+
+- La **implementación de una _función_** es la descripción de **cómo** hace lo
+  que hace, es decir, los detalles de su algoritmo interno.
+
 - **Un programador no debe necesitar saber cómo está implementada una función
-  por dentro para poder usarla**.
+  para poder usarla**.
 
 - Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
-  lenguaje: sabemos *qué* hacen pero no necesitamos saber *cómo* lo hacen.
+  lenguaje (como `max`, `abs` o `len`): sabemos *qué* hacen pero no necesitamos
+  saber *cómo* lo hacen.
 
 - Incluso puede que el usuario de una función no sea el mismo que la haya
   escrito, sino que la puede haber recibido de otro programador como una
@@ -1959,9 +1966,12 @@ E -> f [lhead = cluster0]
 
 ### Especificaciones de funciones
 
-- Técnicamente, se dice que para poder **usar una abstracción funcional** nos
-  basta con conocer su **especificación**, que es la descripción de qué hace
-  esa función.
+- Para poder **usar una abstracción funcional** _nos basta_ con conocer su
+  _especificación_, porque es la descripción de qué hace esa función.
+
+- Igualmente, para poder **implementar una abstracción funcional**
+  _necesitamos_ conocer su _especificación_, ya que necesitamos saber _qué
+  tiene que hacer_ la función antes de diseñar _cómo va a hacerlo_.
 
 - La especificación de una abstracción funcional está formada por tres
   propiedades fundamentales:
@@ -1973,11 +1983,11 @@ E -> f [lhead = cluster0]
   - El **propósito**: qué hace la función, es decir, la relación entre su
     entrada y su salida.
 
-- Nosotros hasta ahora, al especificar programas, hemos llamado **entrada** al
-  dominio y hemos agrupado el rango y el propósito en una sola propiedad que
-  hemos llamado **salida**.
-
 ---
+
+- Hasta ahora, al especificar **programas**, hemos llamado «**entrada**» al
+  dominio y hemos agrupado el rango y el propósito en una sola propiedad que
+  hemos llamado «**salida**».
 
 - Por ejemplo, cualquier función `cuadrado` que usemos para implementar `area`
   debe satisfacer esta especificación:
@@ -1989,7 +1999,7 @@ E -> f [lhead = cluster0]
   \end{cases}$$
 
 - La especificación **no concreta cómo** se debe llevar a cabo el propósito.
-  Ese es un detalle de implementación que se abstrae a este nivel.
+  Esos son **detalles de implementación** que se abstraen a este nivel.
 
 - Este esquema es el que hemos usado hasta ahora para especificar programas, y
   se podría seguir usando para especificar funciones, ya que éstas son
@@ -2006,35 +2016,38 @@ E -> f [lhead = cluster0]
     \text{\textbf{Post}}: \texttt{cuadrado(}n\texttt{)} = n^2
   \end{cases}$$
 
-- **Pre** representa la **precondición**: la propiedad que debe cumplirse justo
-  *antes* de llamar a la función.
+- «**Pre**» representa la **precondición**: la propiedad que debe cumplirse
+  justo _en el momento_ de llamar a la función.
 
-- **Post** representa la **postcondición**: la propiedad que debe cumplirse
+- «**Post**» representa la **postcondición**: la propiedad que debe cumplirse
   justo *después* de llamar a la función.
 
 - Lo que hay en medio es la **signatura**: el nombre de la función, el nombre y
   tipo de sus parámetros y el tipo del valor de retorno.
 
-- La especificación se lee así: si se llama a una función cumpliendo con su
-  signatura en un estado que satisface su precondición, la llamada termina y lo
-  hace en un estado que satisface su postcondición.
+- La especificación se lee así: «_si se llama a la función respetando su
+  signatura y cumpliendo su precondición, la llamada termina cumpliendo su
+  postcondición_».
 
 ---
 
-- En este caso, la precondición es $True$, que equivale a decir que cualquier
-  condición de entrada es buena para usar la función.
+- En este caso, la **precondición** es $True$, que equivale a decir que
+  cualquier condición de entrada es buena para usar la función.
 
-- Dicho de otra forma, no hace falta que se dé ninguna condición especial para
-  usar la función. Siempre que la llamada cumpla con la signatura de la
-  función, el parámetro $n$ puede tomar cualquier valor de tipo `float` y no
-  hay ninguna restricción adicional.
+- Dicho de otra forma: no hace falta que se dé ninguna condición especial para
+  usar la función. Siempre que la llamada respete la signatura de la función,
+  el parámetro $n$ puede tomar cualquier valor de tipo `float` y no hay ninguna
+  restricción adicional.
+
+- Por otro lado, la **postcondición** dice que al llamar a la función
+  `cuadrado` con el argumento $n$ se debe devolver $n^2$.
 
 - Tanto la precondición como la postcondición son **predicados**, es decir,
   expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
   la lógica.
 
-- La signatura se escribe usando la sintaxis del lenguaje de programación que
-  vayamos a usar para implementar la función (en este caso, Python).
+- La **signatura** se escribe usando la sintaxis del lenguaje de programación
+  que se vaya a usar para implementar la función (Python, en este caso).
 
 ---
 
@@ -2069,12 +2082,11 @@ E -> f [lhead = cluster0]
     \hspace{2.8em}        \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} = cadena\texttt{.count(}car\texttt{)}
   \end{cases}$$
 
-- $count$ es una **función _oculta_ o _auxiliar_** (en este caso, un *método
+- `count` es una **función _oculta_ o _auxiliar_** (en este caso, un *método
   auxiliar*). Las funciones auxiliares se puede usar en la especificación
-  siempre que estén perfectamente especificadas, aunque no estén implementadas
-  en el lenguaje de programación.
+  siempre que estén perfectamente especificadas, aunque no estén implementadas.
 
-- Con esto estamos diciendo que $cuenta$ es una función que recibe una cadena y
+- Con esto estamos diciendo que `cuenta` es una función que recibe una cadena y
   un carácter (otra cadena con un único carácter dentro).
 
 - Además, estamos diciendo que devuelve el mismo resultado que devuelve el
@@ -2154,7 +2166,7 @@ E -> f [lhead = cluster0]
 - Conforme van evolucionando, los procesos manipulan otras entidades abstractas
   llamadas **datos**.
 
-- La evolución de un proceso está dirigida por un patrón de reglas llamada
+- La evolución de un proceso está dirigida por un patrón de reglas llamado
   **programa**.
 
 - Los programadores crean programas para **dirigir** a los procesos.
@@ -2165,10 +2177,11 @@ E -> f [lhead = cluster0]
 
 ---
 
-- Una **función** describe la *evolución local* de un **proceso**.
+- Una **función** describe la *evolución local* de un **proceso**, es decir,
+  cómo se debe comportar el proceso durante la ejecución de la función.
 
-- En cada paso se calcula el *siguiente estado* del proceso basándonos en el
-  estado actual y en las reglas definidas por la función.
+- En cada paso de la ejecución se calcula el *siguiente estado* del proceso
+  basándonos en el estado actual y en las reglas definidas por la función.
 
 - Nos gustaría ser capaces de visualizar y de realizar afirmaciones sobre el
   comportamiento global del proceso cuya evolución local está definida por la
@@ -2183,12 +2196,17 @@ E -> f [lhead = cluster0]
 
 - Una **función recursiva** es aquella que se define en términos de sí misma.
 
-- En general, eso quiere decir que la definición de la función contiene una o
-  varias referencias a ella misma y que, por tanto, se llama a sí misma dentro
-  de su cuerpo.
+- Eso quiere decir que, durante la ejecución de una llamada a la función,
+  tenemos que ejecutar otra llamada a la misma función.
+
+- En general, eso ocurre cuando la definición de la función contiene una o
+  varias referencias a ella misma y, por tanto, la función se llama a sí misma
+  dentro de su cuerpo.
 
 - Las definiciones recursivas son el mecanismo básico para ejecutar
   **repeticiones de instrucciones** en un lenguaje de programación funcional.
+
+---
 
 - Por ejemplo: $$f(n) = n + f(n + 1)$$
 
@@ -2267,11 +2285,25 @@ pueden tener una definición recursiva. ¿Cuáles son?
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
          \end{array}\right.$$
 
-- Que traducido a Python podría ser:
+---
+
+- La **especificación** de una función que calcule el factorial de un número
+  sería:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: n >= 0 \\
+    \texttt{factorial(}n: \texttt{int) -> int} \\
+    \text{\textbf{Post}}: \texttt{factorial(}n\texttt{)} = n!
+  \end{cases}$$
+
+- Y su **implementación** en Python podría ser la siguiente:
 
   ```python
   factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
   ```
+
+  que sería prácticamente una traducción literal de la definición recursiva de
+  factorial que acabamos de obtener.
 
 ### Diseño de funciones recursivas
 
@@ -2427,10 +2459,10 @@ $$fact(n) = \left\{\begin{array}{ll}
   forma que el contador y el producto cambien de un paso al siguiente según la
   siguiente regla:
 
-  $$\left\{\begin{array}{l}
+  $$\begin{array}{l}
       acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\!SEP
       contador_{nuevo} = contador_{viejo} - 1
-    \end{array}\right.$$
+    \end{array}$$
 
 - Su traducción a Python podría ser la siguiente, usando una función auxiliar
   `fact_iter`:
@@ -2438,7 +2470,7 @@ $$fact(n) = \left\{\begin{array}{ll}
   ```python
   fact_iter = lambda cont, acc: acc if cont == 0 else \
                                 fact_iter(cont - 1, cont * acc)
-  fact = lambda n: fact_iter(n, 1)
+  factorial = lambda n: fact_iter(n, 1)
   ```
 
 ---
@@ -2447,7 +2479,7 @@ $$fact(n) = \left\{\begin{array}{ll}
   proceso del cálculo de $6!$:
 
   ```python
-  fact(6)
+  factorial(6)
   = fact_iter(6, 1)
   = fact_iter(5, 6)
   = fact_iter(4, 30)
@@ -2504,8 +2536,8 @@ Iterativo lineal          Linealmente \
 - La **diferencia entre los procesos recursivo e iterativo** se puede describir
   de esta otra manera:
 
-  - En el **proceso iterativo**, las variables ligadas dan una descripción
-    completa del estado del proceso en cada instante.
+  - En el **proceso iterativo**, los parámetros dan una descripción completa
+    del estado del proceso en cada instante.
 
     Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos
     hacer para seguir con el cálculo es darle al intérprete el valor de los dos
@@ -2534,6 +2566,33 @@ Iterativo lineal          Linealmente \
   completamente por dos variables ligadas, y para ejecutar el proceso sólo se
   necesita almacenar esas dos variables.
 
+---
+
+- Aquí hemos visto un ejemplo donde se aprecia claramente que **una función
+  sólo puede tener una especificación** pero **puede tener varias
+  implementaciones** distintas.
+
+- Eso sí: todas las implementaciones de una función deben satisfacer su
+  especificación.
+
+- En este caso, las dos implementaciones son:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+  y
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, cont * acc)
+  factorial = lambda n: fact_iter(n, 1)
+  ```
+
+- Y aunque las dos satisfacen la misma especificación y, por tanto, calculan
+  exactamente los mismos valores, lo hacen de una forma muy diferente,
+  generando incluso procesos de distinto tipo.
+
 ### Recursividad en árbol
 
 - La **recursividad en árbol** se produce cuando la función tiene
@@ -2552,8 +2611,8 @@ Iterativo lineal          Linealmente \
 
 ---
 
-- Podemos definir una función que devuelva el $n$-ésimo término de la sucesión
-  de Fibonacci:
+- Podemos definir una función recursiva que devuelva el $n$-ésimo término de la
+  sucesión de Fibonacci:
 
   $$fib(n) = \left\{\begin{array}{ll}
                0 & \text{si } n = 0 \text{\quad (caso base)} \\!SEP
@@ -2561,7 +2620,19 @@ Iterativo lineal          Linealmente \
                fib(n - 1) + fib(n - 2) & \text{si } n > 1 \text{\quad (caso recursivo)}
              \end{array}\right.$$
 
-- Que traducida a Python sería:
+---
+
+- La especificación de una función que devuelva el $n$-ésimo término de la
+  sucesión de Fibonacci sería:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: n >= 0 \\
+    \texttt{fib(}n: \texttt{int) -> int} \\
+    \text{\textbf{Post}}: \texttt{fib(}n\texttt{)} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci}
+  \end{cases}$$
+
+
+- Y su implementación en Python podría ser:
 
   ```python
   fib = lambda n: 0 if n == 0 else 1 if n == 1 else fib(n - 1) + fib(n - 2)
@@ -2663,10 +2734,10 @@ fib1_5 -> u5
   iniciales 1 y 0, respectivamente) y aplicar repetidamente la siguiente
   transformación:
 
-  $$\left\{\begin{array}{l}
+  $$\begin{array}{l}
       a_{nuevo} = a_{viejo} + b_{viejo} \\!SEP
       b_{nuevo} = a_{viejo}
-    \end{array}\right.$$
+    \end{array}$$
 
 - Después de $n$ pasos, _a_ y _b_ contendrán, respectivamente, $fib(n + 1)$ y
   $fib(n)$.
