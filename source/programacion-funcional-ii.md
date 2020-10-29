@@ -2876,7 +2876,7 @@ fib1_5 -> u5
   su marco asociado (hay una excepción a esto, que veremos en posteriores
   temas cuando hablemos de las *clausuras*).
 
-!EJEMPLO
+!EJEMPLOS
 
 ```python
 g = 1
@@ -2949,11 +2949,71 @@ w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
   - El entorno en la función `uno` empieza por el marco de `uno`, el cual
     apunta al marco global.
 
-  - El entorno en la función `dos` empieza por el marco de `uno`, el cual
+  - El entorno en la función `dos` empieza por el marco de `dos`, el cual
     apunta al marco global.
 
-  - El entorno en la función `tres` empieza por el marco de `uno`, el cual
+  - El entorno en la función `tres` empieza por el marco de `tres`, el cual
     apunta al marco global.
+
+---
+
+- Si tenemos ámbitos anidados, los marcos se apuntarán entre sí en el entorno.
+  Por ejemplo:
+
+  ```python
+  g = 1
+  uno = lambda x: dos(x - 1)
+  dos = lambda y: 1 + (lambda z: z * 2)(y ** 3)
+  uno(3)
+  ```
+
+!DOT(pila-control-ambitos-anidados.svg)(Pila de control con ámbitos anidados y la función `dos` activada)(width=90%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = LR
+compound = true
+node [shape = record]
+pila [label = "<f3>Lambda interior|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
+1 [shape = circle]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    g [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+g -> 1
+3 [shape = circle]
+subgraph cluster1 {
+    label = "Marco de uno"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    x [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+x -> 3
+8 [shape = circle]
+subgraph cluster3 {
+    label = "Marco del lambda interior"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    z [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+z -> 8
+2 [shape = circle]
+subgraph cluster2 {
+    rank = min
+    label = "Marco de dos"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    y [shape = plaintext, fillcolor = transparent, width = 0.1]
+}
+y -> 2
+pila:f0 -> g [lhead = cluster0]
+pila:f1 -> x [lhead = cluster1]
+pila:f2 -> y [lhead = cluster2]
+pila:f3 -> z [lhead = cluster3]
+x -> g:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
+z -> y [lhead = cluster2, ltail = cluster3, minlen = 2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
