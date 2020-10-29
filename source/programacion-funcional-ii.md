@@ -3095,14 +3095,15 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## Cadenas
 
-- Las **cadenas** se pueden considerar **datos recursivos compuestos**, ya que
-  podemos decir que toda cadena `c`:
+- Las **cadenas** se pueden considerar **estructuras de datos recursivas**, ya
+  que podemos decir que toda cadena `c`:
 
   - o bien es la cadena vacía `''` (*caso base*),
   
   - o bien está formada por dos partes:
 
-    - El **primer carácter** de la cadena, al que se accede mediante `c[0]`.
+    - El **primer carácter** de la cadena, al que se accede mediante `c[0]` (y
+      que es en Python es una cadena de longitud 1).
 
     - El **resto** de la cadena (al que se accede mediante `c[1:]`), que
       también es una cadena (*caso recursivo*).
