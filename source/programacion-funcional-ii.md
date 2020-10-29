@@ -2190,6 +2190,79 @@ E -> f [lhead = cluster0]
 - Esto, en general, es muy difícil, pero al menos vamos a describir algunos de
   los modelos típicos de evolución de los procesos.
 
+## Funciones _ad-hoc_
+
+- Supongamos que queremos diseñar una función llamada `permutas` que reciba un
+  número entero $n$ y que calcule cuántas permutaciones distintas podemos hacer
+  con $n$ elementos.
+
+- Por ejemplo: si tenemos 3 elementos (digamos, _A_, _B_ y _C_), podemos formar
+  con ellos las siguientes permutaciones:
+
+  $$ABC, ACB, BAC, BCA, CAB, CBA$$
+
+  y, por tanto, con 3 elementos podemos formar 6 permutaciones distintas. En
+  consecuencia, `permutas(3)` debe devolver `6`.
+
+---
+
+- La implementación de esa función deberá satisfacer la siguiente
+  especificación:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: n \geq 0 \\
+    \texttt{permutas(}n: \texttt{int) -> int} \\
+    \text{\textbf{Post}}: \texttt{permutas(}n\texttt{)} = \text{el número de permutaciones que} \\
+    \hspace{10.5em} \text{podemos formar con } n \text{ elementos}
+  \end{cases}$$
+
+---
+
+- Un programador con poca idea de programación (o muy listillo) se podría
+  plantear una implementación parecida a la siguiente:
+
+  ```python
+  permutas = lambda n: 0 if n == 0 else 1 if n == 1 else 2 if n == 2 else ...
+  ```
+
+  que se puede escribir mejor usando la barra invertida (`\`) para poder
+  separar una instrucción en varias líneas:
+
+  ```python
+  permutas = lambda n: 0 if n == 0 else \
+                       1 if n == 1 else \
+                       2 if n == 2 else \
+                       6 if n == 3 else \
+                       24 if n == 4 else \
+                       ...                    # sigue y sigue
+  ```
+
+- Pero este algoritmo en realidad es _tramposo_, porque no calcula nada, sino
+  que se limita a asociar el dato de entrada con el de salida, que se ha tenido
+  que calcular previamente usando otro procedimiento.
+
+- Este tipo de algoritmos se denominan **algoritmos _ad-hoc_**, y las funciones
+  que los implementan se denominan **funciones _ad-hoc_**.
+
+---
+
+- Las funciones _ad-hoc_ **no son convenientes** porque:
+
+  - Realmente son **tramposos** (no calculan nada).
+
+  - **No son útiles**, porque al final el cálculo se tiene que hacer con otra
+    cosa.
+
+  - Generalmente resulta **imposible** que una función de este tipo abarque
+    todos los posibles datos de entrada, ya que, en principio, puede haber
+    **infinitos** y, por tanto, su código fuente también tendría que ser
+    infinito.
+
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Usar algoritmos y funciones _ad-hoc_ se penaliza en esta asignatura.**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## Funciones recursivas
 
 ### Definición
@@ -2210,7 +2283,13 @@ E -> f [lhead = cluster0]
 
 - Por ejemplo: $$f(n) = n + f(n + 1)$$
 
-  Por tanto, $$f(1) = 1 + f(2) = 1 + 2 + f(3) = 1 + 2 + 3 + f(4) = \ldots$$
+- Esta función matemática es _recursiva_ porque aparece ella misma en su propia
+  definición.
+
+  Para calcular el valor de $f(n)$ tenemos que volver a utilizar la propia
+  función $f$.
+
+- Por ejemplo: $$f(1) = 1 + f(2) = 1 + 2 + f(3) = 1 + 2 + 3 + f(4) = \ldots$$
 
 - Cada vez que una función se llama a sí misma decimos que se realiza una
   **llamada recursiva** o **paso recursivo**.
@@ -2240,7 +2319,9 @@ pueden tener una definición recursiva. ¿Cuáles son?
 - Para ello, es necesario que la función, en cada paso recursivo, se vaya
   acercando cada vez más a ese punto.
 
-- A ese punto en el que la función recursiva no se llama a sí misma, se le
+---
+
+- Ese punto en el que la función recursiva **no se llama a sí misma**, se
   denomina **caso base**, y puede haber más de uno.
 
 - Los casos base, por tanto, determinan bajo qué condiciones la función no se
@@ -2281,7 +2362,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
 - Combinando ambos casos tendríamos:
 
   $$n! = \left\{\begin{array}{ll}
-           1 & \text{si } n = 0 \text{\quad(caso base)} \\
+           1 & \text{si } n = 0 \text{\quad(caso base)} \\!SEP
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
          \end{array}\right.$$
 
@@ -2291,7 +2372,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
   sería:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: n >= 0 \\
+    \text{\textbf{Pre}}: n \geq 0 \\
     \texttt{factorial(}n: \texttt{int) -> int} \\
     \text{\textbf{Post}}: \texttt{factorial(}n\texttt{)} = n!
   \end{cases}$$
@@ -2626,7 +2707,7 @@ Iterativo lineal          Linealmente \
   sucesión de Fibonacci sería:
 
   $$\begin{cases}
-    \text{\textbf{Pre}}: n >= 0 \\
+    \text{\textbf{Pre}}: n \geq \\
     \texttt{fib(}n: \texttt{int) -> int} \\
     \text{\textbf{Post}}: \texttt{fib(}n\texttt{)} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci}
   \end{cases}$$
