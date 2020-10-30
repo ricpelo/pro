@@ -1988,15 +1988,15 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 
 <ul>
 <li><p>Se puede construir un <strong>proceso iterativo</strong> para calcular los números de Fibonacci.</p></li>
-<li><p>La idea consiste en usar dos coordenadas de estado <em>a</em> y <em>b</em> (con valores iniciales 1 y 0, respectivamente) y aplicar repetidamente la siguiente transformación:</p>
+<li><p>La idea consiste en usar dos coordenadas de estado <em>a</em> y <em>b</em> (con valores iniciales 0 y 1, respectivamente) y aplicar repetidamente la siguiente transformación:</p>
 <p><span class="math display">\begin{array}{l}
-    a_{nuevo} = a_{viejo} + b_{viejo} \\[4pt]
-    b_{nuevo} = a_{viejo}
+    a_{nuevo} = b_{viejo} \\[4pt]
+    b_{nuevo} = b_{viejo} + a_{viejo}
   \end{array}</span></p></li>
-<li><p>Después de <span class="math inline">n</span> pasos, <em>a</em> y <em>b</em> contendrán, respectivamente, <span class="math inline">fib(n + 1)</span> y <span class="math inline">fib(n)</span>.</p></li>
+<li><p>Después de <span class="math inline">n</span> pasos, <em>a</em> y <em>b</em> contendrán <span class="math inline">fib(n)</span> y <span class="math inline">fib(n + 1)</span>, respectivamente.</p></li>
 <li><p>En Python sería:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: b <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, a <span class="op">+</span> b, a)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: a <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, b, a <span class="op">+</span> b)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>Esta función genera un proceso iterativo lineal, por lo que es mucho más eficiente.</p></li>
 </ul>
 </section>

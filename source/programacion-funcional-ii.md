@@ -2812,22 +2812,22 @@ fib1_5 -> u5
   Fibonacci.
 
 - La idea consiste en usar dos coordenadas de estado _a_ y _b_ (con valores
-  iniciales 1 y 0, respectivamente) y aplicar repetidamente la siguiente
+  iniciales 0 y 1, respectivamente) y aplicar repetidamente la siguiente
   transformación:
 
   $$\begin{array}{l}
-      a_{nuevo} = a_{viejo} + b_{viejo} \\!SEP
-      b_{nuevo} = a_{viejo}
+      a_{nuevo} = b_{viejo} \\!SEP
+      b_{nuevo} = b_{viejo} + a_{viejo}
     \end{array}$$
 
-- Después de $n$ pasos, _a_ y _b_ contendrán, respectivamente, $fib(n + 1)$ y
-  $fib(n)$.
+- Después de $n$ pasos, _a_ y _b_ contendrán $fib(n)$ y $fib(n + 1)$,
+  respectivamente.
 
 - En Python sería:
 
   ```python
-  fib_iter = lambda cont, a, b: b if cont == 0 else fib_iter(cont - 1, a + b, a)
-  fib = lambda n: fib_iter(n, 1, 0)
+  fib_iter = lambda cont, a, b: a if cont == 0 else fib_iter(cont - 1, b, a + b)
+  fib = lambda n: fib_iter(n, 0, 1)
   ```
 
 - Esta función genera un proceso iterativo lineal, por lo que es mucho más
