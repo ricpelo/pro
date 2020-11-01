@@ -1411,7 +1411,7 @@ subgraph cluster0 {
     suma -> v1 -> función
     resultado -> v2 -> 7
 }
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> suma [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
 
@@ -1447,7 +1447,7 @@ subgraph cluster1 {
     x -> v4 -> 4
     res -> v5
 }
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -79,6 +79,25 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -531,10 +550,10 @@
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>f <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>z <span class="op">=</span> f(x <span class="op">+</span> y)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> f(x <span class="op">+</span> y)</span></code></pre></div>
 <p>Estas cuatro sentencias, al estar todas al mismo nivel de indentación, actúan como una sola sentencia en bloque (forman una estructura <em>secuencial</em>) y se ejecutan en orden de arriba abajo.</p></li>
 <li><p>A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o una sentencia compuesta (una estructura):</p>
 <div class="line-block"><span style="color:teal">⟨<em>sentencia</em>⟩</span> ::= <span style="color:teal">⟨<em>sentencia_simple</em>⟩</span> | <span style="color:teal">⟨<em>estructura</em>⟩</span><br />
@@ -562,24 +581,24 @@
 </div><div class="column" style="width:60%;">
 <ul>
 <li><p>Ejemplos:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="cf">else</span>:</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Son iguales&#39;</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">9</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">2</span>:</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Es menor que dos&#39;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="dv">9</span>:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Está comprendido entre 2 y 9&#39;</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="cf">elif</span> x <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Es mayor que 9 y menor que 12&#39;</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="cf">else</span>:</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Es mayor o igual que 12&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Son iguales&#39;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">9</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Es menor que dos&#39;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="dv">9</span>:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Está comprendido entre 2 y 9&#39;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> x <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Es mayor que 9 y menor que 12&#39;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Es mayor o igual que 12&#39;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -634,16 +653,16 @@
 <li><p>La sentencia <code>break</code> finaliza el bucle que la contiene.</p></li>
 <li><p>El flujo de control del programa pasa a la sentencia inmediatamente posterior al cuerpo del bucle.</p></li>
 <li><p>Si la sentencia <code>break</code> se encuentra dentro de un bucle anidado (un bucle dentro de otro bucle), finalizará el bucle más interno.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    val <span class="op">=</span> s[i]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        <span class="cf">break</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="bu">print</span>(val)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[i]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
@@ -657,16 +676,16 @@ Fin</code></pre></li>
 <ul>
 <li><p>La sentencia <code>continue</code> se usa para saltarse el resto del código dentro de un bucle en la iteración actual.</p></li>
 <li><p>El bucle no finaliza sino que continúa con la siguiente iteración.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    val <span class="op">=</span> s[i]</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>        <span class="cf">continue</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>    <span class="bu">print</span>(val)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[i]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div>
 <p>produce:</p>
 <pre><code>s
 t
@@ -689,18 +708,18 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="pp">ZeroDivisionError</span>: division by zero</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> spam <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="pp">NameError</span>: name <span class="st">&#39;spam&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;2&#39;</span> <span class="op">+</span> <span class="dv">2</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>Traceback (most recent call last):</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t convert &#39;</span><span class="bu">int</span><span class="st">&#39; object to str implicitly</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ZeroDivisionError</span>: division by zero</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> spam <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;spam&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;2&#39;</span> <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t convert &#39;</span><span class="bu">int</span><span class="st">&#39; object to str implicitly</span></span></code></pre></div></li>
 <li><p>La última línea del mensaje de error indica qué ha ocurrido.</p></li>
 <li><p>Hay distintos tipos de excepciones y ese tipo se muestra como parte del mensaje: los tipos del ejemplo anterior son <code>ZeroDivisionError</code>, <code>NameError</code> y <code>TypeError</code>.</p></li>
 <li><p>El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo causó.</p></li>
@@ -742,15 +761,15 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca un número entero por la entrada. Si el dato introducido es correcto (es un número entero), lo muestra a la salida multiplicado por tres y dice que la cosa acabó bien. Si no, muestra un mensaje de advertencia:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="cf">try</span>:</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    x <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Introduzca un número entero: &quot;</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">3</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Vaya! No ha introducido un número entero.&quot;</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="cf">else</span>:</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;La cosa ha acabado bien.&quot;</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="cf">finally</span>:</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Introduzca un número entero: &quot;</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Vaya! No ha introducido un número entero.&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;La cosa ha acabado bien.&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Fin&quot;</span>)</span></code></pre></div></li>
 <li><p>En cualquiera de los dos casos, siempre acaba diciendo <code>Fin</code>.</p></li>
 </ul>
 </section>
@@ -887,28 +906,28 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Ese programa es directamente traducible a Python:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> n:</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>        <span class="bu">print</span>(i <span class="op">*</span> j, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    <span class="bu">print</span>()</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> n:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i <span class="op">*</span> j, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div></li>
 <li><p>O mejor aún:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="cf">try</span>:</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>        j <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>        <span class="cf">while</span> j <span class="op">&lt;=</span> n):</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>        <span class="bu">print</span>()</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">&lt;=</span> n):</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 </section>
@@ -942,12 +961,12 @@ Fin</code></pre></li>
 <div class="line-block"><span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> ::= <strong><code>identificador</code></strong> [<strong><code>,</code></strong> <strong><code>identificador</code></strong>]*<br />
 <span style="color:teal">⟨<em>cuerpo</em>⟩</span> ::= <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">def</span> saluda(persona):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="kw">def</span> despide():</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.2">
@@ -1004,18 +1023,18 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">def</span> saluda(persona):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="kw">def</span> despide():</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>despide()</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>despide()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
 <li><p>Produce la siguiente salida:</p>
 <pre><code>Hola Pepe
 Encantado de saludarte
@@ -1034,22 +1053,22 @@ Sayonara, baby</code></pre></li>
 <div class="column">
 <ul>
 <li><p>Por ejemplo, este programa:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">def</span> saluda(persona):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>    quiensoy()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="kw">def</span> despide():</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="kw">def</span> quiensoy():</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Me llamo Ricardo&#39;</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a>despide()</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    quiensoy()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quiensoy():</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Me llamo Ricardo&#39;</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>despide()</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
@@ -1116,13 +1135,13 @@ Sayonara, baby</code></pre></li>
 
 <ul>
 <li><p>En caso de pasar un argumento mutable:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">def</span> cambia(l):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>    <span class="bu">print</span>(l)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>    l.append(<span class="dv">99</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a>cambia(lista)     <span class="co"># Imprime [1, 2, 3]</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(l):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(l)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    l.append(<span class="dv">99</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>cambia(lista)     <span class="co"># Imprime [1, 2, 3]</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></span></code></pre></div></li>
 <li><p>La función es capaz de <strong>cambiar el estado interno de la lista que se ha pasado como argumento</strong> porque:</p>
 <ul>
 <li><p>Al llamar a la función, el argumento <code>lista</code> se pasa a la función <strong>asignándola</strong> al parámetro <code>l</code> como si hubiera hecho <code>l = lista</code>.</p></li>
@@ -1166,7 +1185,7 @@ Sayonara, baby</code></pre></li>
 <li><p>El valor de retorno de la función sustituye a la llamada a la función en la expresión en la que aparece dicha llamada, al igual que ocurre con las expresiones lambda.</p></li>
 <li><p>Por tanto, una vez finalizada la ejecución de la función, la línea 6 se reescribe sustituyendo la llamada a la función por su valor.</p></li>
 <li><p>Si, por ejemplo, suponemos que el usuario ha introducido los valores <code>5</code> y <code>7</code> en las variables <code>a</code> y <code>b</code>, respectivamente, tras finalizar la ejecución de la función tendríamos que la línea 6 quedaría:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>resultado <span class="op">=</span> <span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">12</span></span></code></pre></div>
 <p>y la ejecución del programa continuaría por ahí.</p></li>
 </ul>
 </section>
@@ -1180,22 +1199,22 @@ Sayonara, baby</code></pre></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">def</span> hola():</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>  <span class="cf">return</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)  <span class="co"># aquí no llega</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>hola()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)  <span class="co"># aquí no llega</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>hola()</span></code></pre></div>
 <p>imprime:</p>
 <pre><code>Hola</code></pre>
 </div><div class="column">
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">def</span> hola():</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>  <span class="cf">return</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>x <span class="op">=</span> hola()  <span class="co"># devuelve None</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hola()  <span class="co"># devuelve None</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
 <p>imprime:</p>
 <pre><code>Hola
 None</code></pre>
@@ -1207,12 +1226,12 @@ None</code></pre>
 <ul>
 <li><p>Cuando se alcanza el final del cuerpo de una función sin haberse ejecutado antes ninguna sentencia <code>return</code>, es como si la última sentencia del cuerpo de la función fuese un <code>return</code> sin valor de retorno.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="kw">def</span> hola():</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span></code></pre></div>
 <p>equivale a:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="kw">def</span> hola():</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a>    <span class="cf">return</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code></pre></div></li>
 <li><p>Esa última sentencia <code>return</code> nunca es necesario ponerla ya que la ejecución de una función termina automáticamente (y retorna al punto donde se la llamó) cuando ya no quedan más sentencias que ejecutar en su cuerpo.</p></li>
 </ul>
 </section>
@@ -1221,9 +1240,9 @@ None</code></pre>
 <h2 data-number="4.5"><span class="header-section-number">4.5</span> Ámbito de variables</h2>
 <ul>
 <li><p>La función <code>suma</code> se podría haber escrito así:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a>    <span class="cf">return</span> res</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
 <p>y el efecto final habría sido el mismo.</p></li>
 <li><p>La variable <code>res</code> que aparece en el cuerpo de la función es una <strong>variable local</strong> y sólo existe dentro de la función. Por tanto, esto sería incorrecto:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">def</span> suma(x, y):</span>
@@ -1270,12 +1289,12 @@ None</code></pre>
 <p>Su <strong>ámbito</strong> es <strong>el cuerpo de la función</strong> a la que pertenecen.</p></li>
 <li><p>Los <strong>parámetros</strong> se pueden usar libremente en cualquier parte del cuerpo de la función porque ya se les ha asignado un valor.</p></li>
 <li><p>En cambio, se produce un error <code>UnboundLocalError</code> si se intenta usar una <strong>variable local</strong> antes de asignarle un valor:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> hola():</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a>...     <span class="bu">print</span>(x)  <span class="co"># x es una variable local pero aún no tiene valor asignado</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a>...     x <span class="op">=</span> <span class="dv">1</span>     <span class="co"># aquí es donde empieza a tener un valor</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a>...</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> hola()</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a><span class="pp">UnboundLocalError</span>: local variable <span class="st">&#39;x&#39;</span> referenced before assignment</span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> hola():</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(x)  <span class="co"># x es una variable local pero aún no tiene valor asignado</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>...     x <span class="op">=</span> <span class="dv">1</span>     <span class="co"># aquí es donde empieza a tener un valor</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> hola()</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="pp">UnboundLocalError</span>: local variable <span class="st">&#39;x&#39;</span> referenced before assignment</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1284,12 +1303,12 @@ None</code></pre>
 <ul>
 <li><p>Desde dentro de una función es posible usar variables globales, ya que se encuentran en el <strong>entorno</strong> de la función.</p></li>
 <li><p>Se puede <strong>acceder</strong> al valor de una variable global directamente:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="kw">def</span> prueba():</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a>    <span class="bu">print</span>(x)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a>prueba()  <span class="co"># imprime 4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>prueba()  <span class="co"># imprime 4</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.1">
@@ -1297,13 +1316,13 @@ None</code></pre>
 <ul>
 <li><p>Pero para poder <strong>modificar</strong> una variable global es necesario que la función la declare previamente como <em>global</em>.</p></li>
 <li><p>De no hacerlo así, el intérprete supondría que el programador quiere crear una variable local que tiene el mismo nombre que la global:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="kw">def</span> prueba():</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span>  <span class="co"># esta variable es local</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true"></a>prueba()</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true"></a><span class="bu">print</span>(x)  <span class="co"># imprime 4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>  <span class="co"># esta variable es local</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)  <span class="co"># imprime 4</span></span></code></pre></div></li>
 <li><p>Como en Python no existen las <em>declaraciones</em> de variables, el intérprete tiene que <strong><em>averiguar</em> por sí mismo qué ámbito tiene una variable</strong>.</p></li>
 <li><p>Lo hace con una regla muy sencilla:</p>
 <div class="caja">
@@ -1315,13 +1334,13 @@ None</code></pre>
 
 <ul>
 <li><p>El siguiente código genera un error «<em>UnboundLocalError: local variable ‘x’ referenced before assignment</em>». ¿Por qué?</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a><span class="kw">def</span> prueba():</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">4</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true"></a>    <span class="bu">print</span>(x)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true"></a>prueba()</span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">4</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>prueba()</span></code></pre></div></li>
 <li><p>Como la función asigna un valor a <code>x</code>, Python considera que <code>x</code> es local.</p></li>
 <li><p>Pero en la expresión <code>x + 4</code>, la variable <code>x</code> aún no tiene ningún valor asignado, por lo que genera un error «<em>variable local <code>x</code> referenciada antes de ser asignada</em>».</p></li>
 </ul>
@@ -1330,26 +1349,26 @@ None</code></pre>
 <h4 data-number="4.5.2.1"><span class="header-section-number">4.5.2.1</span> <code>global</code></h4>
 <ul>
 <li><p>Para informar al intérprete que una determinada variable es global, se usa la sentencia <code>global</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="kw">def</span> prueba():</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a>    <span class="kw">global</span> x  <span class="co"># informa que la variable &#39;x&#39; es global</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global &#39;x&#39;</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a>prueba()</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true"></a><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> x  <span class="co"># informa que la variable &#39;x&#39; es global</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global &#39;x&#39;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.1.1">
 
 <ul>
 <li><p>Si la variable global no existe en el momento de realizar la asignación, se crea. Por tanto, una función puede crear nuevas variables globales usando <code>global</code>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="kw">def</span> prueba():</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a>    <span class="kw">global</span> y  <span class="co"># informa que la variable &#39;y&#39; (que aún no existe) es global</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a>    y <span class="op">=</span> <span class="dv">9</span>     <span class="co"># se crea una nueva variable global &#39;y&#39; que antes no existía</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true"></a>prueba()</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true"></a><span class="bu">print</span>(y)  <span class="co"># imprime 9</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> y  <span class="co"># informa que la variable &#39;y&#39; (que aún no existe) es global</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="dv">9</span>     <span class="co"># se crea una nueva variable global &#39;y&#39; que antes no existía</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)  <span class="co"># imprime 9</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.1.2">
@@ -1384,13 +1403,13 @@ None</code></pre>
 
 <ul>
 <li><p>Un ejemplo de <strong>función impura</strong> (con un efecto lateral provocado por una operación de entrada/salida) podría ser:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a>    <span class="cf">return</span> res</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a><span class="bu">print</span>(resultado)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resultado)</span></code></pre></div>
 <p>Cualquiera que no sepa cómo está construida internamente la función <code>suma</code>, se podría pensar que lo único que hace es calcular la suma de dos números, pero resulta que también imprime un mensaje en la salida, por lo que el resultado final que se obtiene no es el que se esperaba:</p>
 <pre><code>La suma vale 7
 La suma vale 13
@@ -1401,9 +1420,9 @@ La suma vale 13
 
 <ul>
 <li><p>Las llamadas a la función <code>suma</code> no se pueden sustituir por su valor de retorno correspondiente. Es decir, que no es lo mismo hacer:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
 <p>porque en el primer caso se imprimen cosas por pantalla y en el segundo no.</p></li>
 <li><p>Por tanto, la función <code>suma</code> no cumple la <strong>transparencia referencial</strong>.</p></li>
 </ul>
@@ -1413,14 +1432,14 @@ La suma vale 13
 <ul>
 <li><p>El que una función necesite <strong>acceder al valor de una variable global</strong> supone otra forma de <strong>perder transparencia referencial</strong>, ya que la convierte en <strong>impura</strong> porque su valor de retorno podría depender de algo más que de sus argumentos (en este caso, de la variable global).</p></li>
 <li><p>En consecuencia, la función podría producir <strong>resultados distintos en momentos diferentes</strong> ante los mismos argumentos:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>    <span class="cf">return</span> res</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a>z <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.2.4">
@@ -1428,15 +1447,15 @@ La suma vale 13
 <ul>
 <li><p>Igualmente, el <strong>uso de la sentencia <code>global</code></strong> supone otra forma más de <strong>perder transparencia referencial</strong>, puesto que, gracias a ella, una función puede cambiar el valor de una variable global, lo que la convertiría en <strong>impura</strong> porque podría provocar un <strong>efecto lateral</strong> (la modificación de la variable global).</p></li>
 <li><p>En consecuencia, la función podría producir <strong>resultados distintos en momentos diferentes</strong> ante los mismos argumentos:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="kw">def</span> suma(x, y):</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a>    <span class="kw">global</span> z</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a>    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span>        <span class="co"># efecto lateral: cambia una variable global</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a>    <span class="cf">return</span> res</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>z <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> z</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> z <span class="op">+</span> <span class="dv">1</span>        <span class="co"># efecto lateral: cambia una variable global</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1456,18 +1475,18 @@ La suma vale 13
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a>            <span class="cf">return</span> acc</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
 <li><p>La función <code>fact_iter</code> es local a la función <code>fact</code>. No se puede usar desde fuera de <code>fact</code>.</p></li>
 <li><p>Tampoco se puede usar dentro de <code>fact</code> <em>antes</em> de haberse definido.</p></li>
 </ul>
@@ -1476,13 +1495,13 @@ La suma vale 13
 
 <ul>
 <li><p>Lo siguiente daría un error porque intentamos usar <code>fact_iter</code> antes de haber definido:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a>            <span class="cf">return</span> acc</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.0.0.3">
@@ -1503,18 +1522,18 @@ La suma vale 13
 </section>
 <section class="slide level5" data-number="4.6.1.0.1">
 
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a>    <span class="kw">def</span> fact_iter(acc):</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true"></a>            <span class="cf">return</span> acc</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true"></a>            acc <span class="op">*=</span> n</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true"></a>            <span class="cf">return</span> fact_iter(acc)</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
 <li><p>La función local <code>fact_iter</code> puede acceder a la variable <code>n</code>, que es local a la función <code>fact</code> (para ello no es necesario declararla previamente como <strong>no local</strong>).</p></li>
 <li><p>Como la variable <code>n</code> está declarada <strong>no local</strong> en <code>fact_iter</code>, también puede modificarla.</p></li>
@@ -1528,13 +1547,13 @@ La suma vale 13
 <ul>
 <li><p>Python implementa un mecanismo muy sencillo y elegante para documentar partes del código basado en cadenas llamadas <strong><em>docstrings</em></strong> (<em>cadenas de documentación</em>).</p></li>
 <li><p>En funciones, únicamente tenemos que insertar una cadena en la primera línea del cuerpo:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="kw">def</span> hola(arg):</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a>  <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a><span class="co">  Este es el docstring de la función.</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true"></a><span class="co">  &quot;&quot;&quot;</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true"></a>  <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>, arg, <span class="st">&quot;!&quot;</span>)</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true"></a></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true"></a>hola(<span class="st">&quot;Héctor&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola(arg):</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Este es el docstring de la función.</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co">  &quot;&quot;&quot;</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>, arg, <span class="st">&quot;!&quot;</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>hola(<span class="st">&quot;Héctor&quot;</span>)</span></code></pre></div></li>
 <li><p>Las reglas de estilo dictan que esa cadena debe escribirse con triples comillas.</p></li>
 </ul>
 </section>
@@ -1542,21 +1561,21 @@ La suma vale 13
 
 <ul>
 <li><p>Para consultar la documentación se usa la función <code>help</code> pasándole como argumento la función a consultar:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(hola)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>Help on function hola <span class="kw">in</span> module __main__:</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a>hola()</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>  Este es el docstring de la función.</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(hola)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>Help on function hola <span class="kw">in</span> module __main__:</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>hola()</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  Este es el docstring de la función.</span></code></pre></div></li>
 <li><p>También se puede documentar un script añadiendo un <em>docstring</em> al principio del mismo (en la primera línea):</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="co">&quot;&quot;&quot;Este es el docstring del script&quot;&quot;&quot;</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a><span class="kw">def</span> despedir():</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función despedir&quot;&quot;&quot;</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Adiós! Me despido desde la función despedir()&quot;</span>)</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true"></a></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true"></a><span class="kw">def</span> saludar():</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función saludar&quot;&quot;&quot;</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;Este es el docstring del script&quot;&quot;&quot;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despedir():</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función despedir&quot;&quot;&quot;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Adiós! Me despido desde la función despedir()&quot;</span>)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saludar():</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Este es el docstring de la función saludar&quot;&quot;&quot;</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;¡Hola! Te saludo desde la función saludar()&quot;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 </section>
@@ -1613,8 +1632,8 @@ p(2) = 9</code></pre></li>
 <p><code>0</code>, <code>1</code>, …, <code>9</code>, <code>10</code>, <code>11</code>, …, <code>15</code></p>
 </div></li>
 <li><p>Para hallar en qué fecha cae el Domingo de Pascua de un <code>anyo</code> cualquiera, basta con hallar las cantidades <code>a</code> y <code>b</code> siguientes:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
 <p>y entonces, ese Domingo es el <em>22 de marzo + <code>a</code> + <code>b</code> días</em>, que podrı́a caer en abril. Escriba un programa que realice estos cálculos, produciendo una entrada y salida claras.</p></li>
 </ol>
 </section>
@@ -1632,9 +1651,9 @@ p(2) = 9</code></pre></li>
 </section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
-<div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-pareja_flores_desarrollo_1997">
-<p>Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada, and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos Y Técnicas de Programación En Pascal</em>. Madrid: Ra-Ma.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-pareja_flores_desarrollo_1997" class="csl-entry" role="doc-biblioentry">
+Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada, and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
 </div>
 </div>
 </section>

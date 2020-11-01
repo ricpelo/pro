@@ -344,9 +344,31 @@ F -> G
 - En Python, un módulo es otra forma de llamar a un *script*. Es decir:
   «módulo» y «*script*» son sinónimos en Python.
 
-- Los módulos contienen instrucciones: definiciones y sentencias.
+- Los módulos contienen instrucciones: definiciones y otras sentencias.
 
 - El nombre del archivo es el nombre del módulo con extensión `.py`.
+
+- Eso quiere decir que un módulo se puede ejecutar de dos maneras:
+
+  - Como un _script_ independiente, llamándolo desde la línea de órdenes del
+    sistema operativo:
+
+    ```console
+    $ python modulo.py
+    ```
+
+  - Importándolo dentro de otros módulos que quieran usar los servicios que
+    proporciona, usando la sentencia `import` (o `from ... import`):
+
+    ```python
+    import modulo
+    ```
+
+---
+
+- Las sentencias que contiene un módulo se ejecutan sólo la primera vez que se
+  encuentra el nombre de ese módulo en una sentencia `import`, o bien cuando el
+  archivo se ejecuta como un *script*.
 
 - Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
   almacenado en la variable global `__name__`.
@@ -358,7 +380,25 @@ F -> G
   en el módulo sin preocuparse de posibles colisiones accidentales con las
   variables globales o funciones de otros módulos.
 
-- Esas variables y funciones serán los **atributos** del **objeto _módulo_**.
+- Esas variables y funciones serán los **atributos** del **objeto _módulo_**
+  que se creará posteriormente en caso necesario.
+
+---
+
+- Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo
+  ámbito que constituirá **el ámbito global del módulo**. Ese ámbito creará
+  un nuevo marco, que constituirá **el nuevo _marco global_ durante la
+  ejecución del módulo**.
+
+- Los demás marcos que pudieran existir antes de ejecutar el módulo actual
+  seguirán más abajo en la pila, pero no serán accesibles desde el módulo
+  actual porque **un entorno siempre acaba en el marco global**.
+
+- Por tanto, los ámbitos que existieran antes de ejecutar el módulo (incluyendo
+  el que hasta entonces era el ámbito global del script que ha importado al
+  módulo) quedan fuera del entorno y se recuperarán al finalizar la ejecución
+  del módulo.
+
 
 ### Importación de módulos
 
@@ -380,14 +420,17 @@ F -> G
 
 ---
 
-- Por ejemplo, si tenemos:
+- Por ejemplo, si tenemos los siguientes _scripts_ (o módulos, que es lo mismo
+  en Python) `uno.py` y `dos.py`, y empezamos a ejecutar `uno.py`:
 
   :::: columns
 
   ::: {.column width=40%}
 
-  ```python
+  ```{.python .number-lines}
   # uno.py
+
+  x = 7
 
   import dos
 
@@ -416,38 +459,132 @@ F -> G
 
   !SALTOBEAMER
 
-  al final de la ejecución del script `uno.py` tendremos:
+- Al ejecutar la línea 3 tendremos el siguiente entorno:
 
-!DOT(import-modulo.svg)(Importación del módulo `dos` en `uno`)(width=50%)(width=50%)
+!DOT(import-modulo-entorno-linea3.svg)(Entorno en la línea 3 del módulo `uno`)(width=40%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
-5 [shape = circle]
-9 [shape = circle]
-4 [shape = circle]
-3 [shape = circle]
-dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
+7 [shape = circle]
 subgraph cluster0 {
-    style = rounded
-    label = <Módulo <font face="monospace">dos</font>>
+    label = <Marco global de <font face="monospace">uno</font>>
     bgcolor = "white"
     x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+}
+x:f1 -> 7
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> x [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Al ejecutar `import dos` en la línea 5 de `uno.py`, pasaremos a ejecutar el
+  _script_ `dos.py` y el marco global del entorno será ahora el marco global de
+  `dos`. Los marcos creados hasta ahora durante la ejecución de `uno`
+  (incluyendo el marco global de `uno`) no estarán en el entorno:
+
+!DOT(import-modulo-dentro-dos.svg)(Ejecución de `dos` durante su importación en `uno`)(width=40%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+7 [shape = circle]
+5 [shape = circle]
+9 [shape = circle]
+x:f1 -> 7
+subgraph cluster0 {
+    label = <Marco global de <font face="monospace">dos</font>>
+    bgcolor = "white"
+    xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
     y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
 }
 subgraph cluster1 {
     label = <Marco global de <font face="monospace">uno</font>>
     bgcolor = white
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+}
+xl:f1 -> 9
+y:f1 -> 5
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> xl [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Al finalizar la ejecución del _script_ `dos.py`, se sale de su ámbito, el
+  marco global de `dos` se convierte en un objeto de tipo `module` y sus
+  ligaduras se convierten en atributos del objeto. Ese objeto se ligará al
+  identificador `dos` en el marco global de `uno`, que volverá a estar en el
+  entorno y pasará a ser de nuevo el marco global del mismo:
+
+!DOT(import-modulo-sale-dos.svg)(Entorno tras ejecutar `import dos`)(width=70%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+7 [shape = circle]
+5 [shape = circle]
+9 [shape = circle]
+x:f1 -> 7
+dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
+subgraph cluster0 {
+    style = rounded
+    label = <Módulo <font face="monospace">dos</font>>
+    bgcolor = "white"
+    xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+}
+subgraph cluster1 {
+    label = <Marco global de <font face="monospace">uno</font>>
+    bgcolor = white
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    dos:f1 -> xl [lhead = cluster0, minlen = 2]
+}
+xl:f1 -> 9
+y:f1 -> 5
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> x [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Finalmente, tras ejecutar todo el script `uno.py` tendríamos el siguiente
+  entorno:
+
+!DOT(import-modulo-sigue-uno.svg)(Entorno justo al final de la ejecución de `uno`)(width=70%)(width=60%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+7 [shape = circle]
+5 [shape = circle]
+9 [shape = circle]
+4 [shape = circle]
+3 [shape = circle]
+x:f1 -> 7
+dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
+subgraph cluster0 {
+    style = rounded
+    label = <Módulo <font face="monospace">dos</font>>
+    bgcolor = "white"
+    xl [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+}
+subgraph cluster1 {
+    label = <Marco global de <font face="monospace">uno</font>>
+    bgcolor = white
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
     a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>a|<f1>⬤}"]
     b [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>b|<f1>⬤}"]
-    dos:f1 -> x [lhead = cluster0, minlen = 2]
+    dos:f1 -> xl [lhead = cluster0, minlen = 2]
 }
 a:f1:e -> 4
 b:f1 -> 3
-x:f1 -> 9
+xl:f1 -> 9
 y:f1 -> 5
-E [shape = point]
-E -> a [lhead = cluster1]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> dos [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -475,7 +612,7 @@ E -> a [lhead = cluster1]
   x = math.gcd(16, 6)
   ```
 
-!DOT(import-math.svg)(Entorno en la última línea del script anterior)(width=60%)(width=65%)
+!DOT(import-math.svg)(Entorno tras ejecutar las dos sentencias anteriores)(width=60%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -506,7 +643,7 @@ subgraph cluster1 {
 }
 x:f1 -> 2
 gcd:f1 -> lambda
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> math [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -534,7 +671,7 @@ E -> math [lhead = cluster1]
   x = mates.gcd(16, 6)
   ```
 
-!DOT(import-math-as.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=60%)(width=65%)
+!DOT(import-math-as.svg)(Resultado de ejecutar las dos líneas anteriores)(width=60%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -565,7 +702,7 @@ subgraph cluster1 {
 }
 x:f1 -> 2
 gcd:f1 -> lambda
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> mates [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -589,7 +726,7 @@ E -> mates [lhead = cluster1]
   x = gcd(16, 6)
   ```
 
-!DOT(from-math-import-gcd.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=30%)(width=35%)
+!DOT(from-math-import-gcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=30%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -606,7 +743,7 @@ subgraph cluster1 {
 }
 x:f1 -> 2
 gcd:f1 -> lambda
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> gcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -646,7 +783,7 @@ E -> gcd [lhead = cluster1]
   x = mcd(16, 6)
   ```
 
-!DOT(from-math-import-gcd-as-mcd.svg)(Resultado de ejecutar las dos últimas líneas anteriores)(width=30%)(width=35%)
+!DOT(from-math-import-gcd-as-mcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=30%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -663,7 +800,7 @@ subgraph cluster1 {
 }
 mcd:f1 -> lambda
 x:f1 -> 2
-E [shape = point]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> mcd [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -682,7 +819,7 @@ E -> mcd [lhead = cluster1]
   Las definiciones con nombres que comienzan por `_` son consideradas
   **privadas** o internas al módulo, lo que significa que no están concebidas
   para ser usadas por los usuarios del módulo y que, por tanto, no forman parte
-  de su **interfaz**.
+  de su **interfaz** (no deben usarse _fuera_ del módulo).
   
 - En general, los programadores no suelen usar esta funcionalidad ya que puede
   introducir todo un conjunto de definiciones desconocidas dentro del módulo
@@ -711,36 +848,26 @@ E -> mcd [lhead = cluster1]
 
 ### Módulos como *scripts*
 
-- Un módulo puede contener sentencias ejecutables además de definiciones.
-
-- Generalmente, esas sentencias existen para inicializar el módulo.
-
-- Las sentencias de un módulo se ejecutan sólo la primera vez que se encuentra
-  el nombre de ese módulo en una sentencia `import`.
-
-- También se ejecutan si el archivo se ejecuta como un *script*.
-
----
-
 - Cuando se ejecuta un módulo Python desde la línea de órdenes como:
 
   ```console
   $ python3 fact.py <argumentos>
   ```
 
-  se ejecutará el código del módulo como si fuera un *script* más, igual que si
-  se hubiera importado con un `import` dentro de otro módulo, pero con la
-  diferencia de que la variable global `__name__` contendrá el valor
-  `"__main__"`.
+  se ejecutará el módulo como un *script*, igual que si se hubiera importado
+  con un `import` dentro de otro módulo, pero con la diferencia de que la
+  variable global `__name__` contendrá el valor `"__main__"`.
 
 - Eso significa que si se añade este código al final del módulo:
 
   ```python
   if __name__ == "__main__":
-      <sentencias>
+      # <sentencias>
   ```
 
   el módulo podrá funcionar como un *script* independiente.
+
+- Generalmente, esas sentencias existen para inicializar el módulo.
 
 ---
 
@@ -759,7 +886,7 @@ E -> mcd [lhead = cluster1]
   ```
 
 - Este módulo se podrá usar como un *script* separado o como un módulo que se
-  pueda importar dentro de otro.
+  puede importar dentro de otro.
 
 - Si se usa como *script*, podremos llamarlo desde la línea de órdenes del
   sistema operativo:
@@ -769,8 +896,9 @@ E -> mcd [lhead = cluster1]
   24
   ```
 
-- Y si importamos el módulo dentro de otro, el código del último `if` no se
-  ejecutará, por lo que sólo se incorporará la definición de la función `fac`.
+- Y si importamos el módulo dentro de otro, la condición del último `if` no se
+  cumplirá, por lo que su único efecto será el de incorporar la definición de
+  la función `fac` dentro del módulo importador.
 
 <!--
 ### Paquetes
