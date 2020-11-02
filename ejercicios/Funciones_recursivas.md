@@ -28,11 +28,12 @@ date: Curso 2020/21
 
 #. La función `potencia` tiene la siguiente especificación:
 
-   $$\left\{ \begin{array}{l}
-   \textbf{Pre}:b\geq0\\
-   \texttt{potencia(}a\texttt{:\;int, }b\texttt{:\;int)\;-> int}\\
-   \textbf{Post}:\texttt{potencia(}a\texttt{, }b\texttt{)}=a^{b}
-   \end{array}\right.$$
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(b \geq 0)
+   !SIGNAT(\texttt{potencia(!VAR(a\,): int, !VAR(b\,): int) -> int})
+   !POST(\texttt{potencia(!VAR(a), !VAR(b))}=a^{b})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    #. Implementar la función de forma no recursiva.
 
@@ -40,11 +41,12 @@ date: Curso 2020/21
 
 #. La función `repite` tiene la siguiente especificación:
 
-   $$\left\{ \begin{array}{l}
-   \textbf{Pre}:n\geq0\\
-   \texttt{repite(}s\texttt{:\;str, }n\texttt{:\;int)\;-> str}\\
-   \textbf{Post}:\texttt{repite(}s\texttt{, }n\texttt{)}=s\texttt{ * }n
-   \end{array}\right.$$
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(n \geq 0)
+   !SIGNAT(\texttt{repite(!VAR(s\,): str, !VAR(n\,): int) -> str})
+   !POST(\texttt{repite(!VAR(s), !VAR(n))}=s\texttt{ * }n)
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Implementar la función de forma recursiva.
 
@@ -176,11 +178,12 @@ date: Curso 2020/21
 
 #.   
 
-    #. $\left\{ \begin{array}{l}
-       \textbf{Pre}:a\geq0\\
-       \texttt{suma\_lenta(}a\texttt{:\;int, }b\texttt{:\;int)\;-> int}\\
-       \textbf{Post}:\texttt{suma\_lenta(}a\texttt{, }b\texttt{)}=a+b
-       \end{array}\right.$
+    #. !ESPECINLINE
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       !PRE(a \geq 0)
+       !SIGNAT(\texttt{suma\_lenta(!VAR(a\,): int, !VAR(b\,): int) -> int})
+       !POST(\texttt{suma\_lenta(!VAR(a), !VAR(b))} = a + b)
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #.
        ```python
@@ -189,11 +192,12 @@ date: Curso 2020/21
 
 #.   
 
-    #. $\left\{ \begin{array}{l}
-       \textbf{Pre}:n\geq0\\
-       \texttt{suma\_digitos(}n\texttt{:\;int)\;-> int}\\
-       \textbf{Post}:\texttt{suma\_digitos(}n\texttt{)}=\textrm{la suma de los dígitos de \emph{n}}
-       \end{array}\right.$
+    #. !ESPECINLINE
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       !PRE(n \geq 0)
+       !SIGNAT(\texttt{suma\_digitos(!VAR(n\,): int) -> int})
+       !POST(\texttt{suma\_digitos(!VAR(n))} = \text{la suma de los dígitos de \emph{n}})
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #.
        ```python
@@ -202,11 +206,12 @@ date: Curso 2020/21
 
 #.   
 
-    #. $\left\{ \begin{array}{l}
-       \textbf{Pre}:n\geq0\\
-       \texttt{voltea(}n\texttt{:\;int)\;-> int}\\
-       \textbf{Post}:\texttt{voltea(}n\texttt{)}=\textrm{el número \emph{n} con los dígitos al revés}
-       \end{array}\right.$
+    #. !ESPECINLINE
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       !PRE(n \geq 0)
+       !SIGNAT(\texttt{voltea(!VAR(n\,): int) -> int})
+       !POST(\texttt{voltea(!VAR(n))} = \text{el número \emph{n} con los dígitos al revés})
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #.
        ```python
@@ -216,14 +221,15 @@ date: Curso 2020/21
 
 #.   
 
-    #. $\left\{ \begin{array}{l}
-       \textbf{Pre}:n\geq0\\
-       \texttt{par\_positivo(}n\texttt{:\;int)\;-> bool}\\
-       \textbf{Post}:\texttt{par\_positivo(}n\texttt{)}=\begin{cases}
-       \texttt{True} & \textrm{si \emph{n} es par}\\
-       \texttt{False} & \textrm{en caso contrario}
-       \end{cases}
-       \end{array}\right.$
+    #. !ESPECINLINE
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       !PRE(n \geq 0)
+       !SIGNAT(\texttt{par\_positivo(!VAR(n\,): int) -> bool}) \\[-0.8em]
+       !POST
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+       \texttt{par\_positivo(!VAR(n))} = \begin{cases}\texttt{True} & \text{si \emph{n} es par}\\\texttt{False} & \text{en caso contrario}\end{cases}
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #.
        ```python
@@ -234,14 +240,15 @@ date: Curso 2020/21
 
 #. 
 
-   #. $\left\{ \begin{array}{l}
-      \textbf{Pre}:\texttt{True}\\
-      \texttt{par(}n\texttt{:\;int)\;-> bool}\\
-      \textbf{Post}:\texttt{par(}n\texttt{)}=\begin{cases}
-      \texttt{True} & \textrm{si \emph{n} es par }\\
-      \texttt{False} & \textrm{en caso contrario}
-      \end{cases}
-      \end{array}\right.$
+   #. !ESPECINLINE
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      !PRE(\texttt{True})
+      !SIGNAT(\texttt{par(n: int) -> bool}) \\[-0.8em]
+      !POST
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      \texttt{par(!VAR(n))} = \begin{cases}\texttt{True} & \textrm{si \emph{n} es par }\\ \texttt{False} & \textrm{en caso contrario}\end{cases}
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    #.
       ```python

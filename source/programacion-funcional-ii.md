@@ -2012,7 +2012,7 @@ E -> f [lhead = cluster0]
 
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PRE(True)
+  !PRE(\texttt{True})
   !SIGNAT(\texttt{cuadrado(!VAR(n\,): float) -> float})
   !POST(\texttt{cuadrado(}n\texttt{)} = n^2)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2032,7 +2032,7 @@ E -> f [lhead = cluster0]
 
 ---
 
-- En este caso, la **precondición** es $True$, que equivale a decir que
+- En este caso, la **precondición** es `True`, que equivale a decir que
   cualquier condición de entrada es buena para usar la función.
 
 - Dicho de otra forma: no hace falta que se dé ninguna condición especial para

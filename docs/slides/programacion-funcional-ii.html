@@ -1393,8 +1393,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>Pero para especificar una función, en cambio, resulta más adecuado usar el siguiente esquema, al que llamaremos <strong>especificación funcional</strong>:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; True \\[0.5em]
-&amp; \texttt{cuadrado($n\,$: float) -&gt; float} \\[0.5em]
+  \text{\textbf{Pre}}: &amp; \texttt{True} \\[0.5em]
+&amp; \texttt{cuadrado(\(n\,\): float) -&gt; float} \\[0.5em]
 \text{\textbf{Post}}: &amp; \texttt{cuadrado(}n\texttt{)} = n^2
 \end{array}\right.</span></p></li>
 <li><p>«<strong>Pre</strong>» representa la <strong>precondición</strong>: la propiedad que debe cumplirse justo <em>en el momento</em> de llamar a la función.</p></li>
@@ -1406,7 +1406,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="4.2.1.0.3">
 
 <ul>
-<li><p>En este caso, la <strong>precondición</strong> es <span class="math inline">True</span>, que equivale a decir que cualquier condición de entrada es buena para usar la función.</p></li>
+<li><p>En este caso, la <strong>precondición</strong> es <code>True</code>, que equivale a decir que cualquier condición de entrada es buena para usar la función.</p></li>
 <li><p>Dicho de otra forma: no hace falta que se dé ninguna condición especial para usar la función. Siempre que la llamada respete la signatura de la función, el parámetro <span class="math inline">n</span> puede tomar cualquier valor de tipo <code>float</code> y no hay ninguna restricción adicional.</p></li>
 <li><p>Por otro lado, la <strong>postcondición</strong> dice que al llamar a la función <code>cuadrado</code> con el argumento <span class="math inline">n</span> se debe devolver <span class="math inline">n^2</span>.</p></li>
 <li><p>Tanto la precondición como la postcondición son <strong>predicados</strong>, es decir, expresiones lógicas que se escriben usando el lenguaje de las matemáticas y la lógica.</p></li>
@@ -1433,9 +1433,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Otro ejemplo más completo:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; car \mathrel{\char`≠} \text{\texttt{&quot;&quot;}} \land \texttt{len(}car\texttt{)} = 1 \\[0.5em]
-&amp; \texttt{cuenta($cadena\,$: str, $car\,$: str) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta($cadena$, $car$)} \geq 0\ \land\\[0.1em]
-&amp; \texttt{cuenta($cadena$, $car$)} = cadena\texttt{.count($car$)}
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} \geq 0\ \land\\[0.1em]
+&amp; \texttt{cuenta(\(cadena\), \(car\))} = cadena\texttt{.count(\(car\))}
 \end{array}\right.</span></p></li>
 <li><p><code>count</code> es una <strong>función <em>oculta</em> o <em>auxiliar</em></strong> (en este caso, un <em>método auxiliar</em>). Las funciones auxiliares se puede usar en la especificación siempre que estén perfectamente especificadas, aunque no estén implementadas.</p></li>
 <li><p>Con esto estamos diciendo que <code>cuenta</code> es una función que recibe una cadena y un carácter (otra cadena con un único carácter dentro).</p></li>
@@ -1448,9 +1448,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se podrían simplificar aprovechando las propiedades de las expresiones lógicas, quedando así:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; \texttt{len($car$)} = 1 \\[0.5em]
-&amp; \texttt{cuenta($cadena\,$: str, $car\,$: str) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta($cadena$, $car$)} = cadena\texttt{.count($car$)}
+  \text{\textbf{Pre}}: &amp; \texttt{len(\(car\))} = 1 \\[0.5em]
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} = cadena\texttt{.count(\(car\))}
 \end{array}\right.</span></p></li>
 </ul>
 </section>
@@ -1466,8 +1466,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Finalmente, podríamos escribir la misma especificación en lenguaje natural:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; car \text{ debe ser un único carácter} \\[0.5em]
-&amp; \texttt{cuenta($cadena\,$: str, $car\,$: str) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta($cadena$, $car$)} \text{ devuelve el número de veces}\\[0.1em]
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} \text{ devuelve el número de veces}\\[0.1em]
 &amp; \text{que aparece el carácter } car \text{ en la cadena } cadena.\\[0.1em]
 &amp; \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}\\[0.1em]
 &amp; \text{cadena } cadena \text{, debe devolver } 0.
@@ -1544,8 +1544,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>La implementación de esa función deberá satisfacer la siguiente especificación:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; n \geq 0 \\[0.5em]
-&amp; \texttt{permutas($n\,$: int) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{permutas($n$)} = \text{el número de permutaciones que}\\[0.1em]
+&amp; \texttt{permutas(\(n\,\): int) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{permutas(\(n\))} = \text{el número de permutaciones que}\\[0.1em]
 &amp; \text{podemos formar con } n \text{ elementos}
 \end{array}\right.</span></p></li>
 </ul>
@@ -1662,8 +1662,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>La <strong>especificación</strong> de una función que calcule el factorial de un número sería:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; n \geq 0 \\[0.5em]
-&amp; \texttt{factorial($n\,$: int) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{factorial($n$)} = n!
+&amp; \texttt{factorial(\(n\,\): int) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{factorial(\(n\))} = n!
 \end{array}\right.</span></p></li>
 <li><p>Y su <strong>implementación</strong> en Python podría ser la siguiente:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
@@ -1945,8 +1945,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <li><p>La especificación de una función que devuelva el <span class="math inline">n</span>-ésimo término de la sucesión de Fibonacci sería:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; n \geq 0 \\[0.5em]
-&amp; \texttt{fib($n\,$: int) -&gt; int} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{fib($n$)} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci}
+&amp; \texttt{fib(\(n\,\): int) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{fib(\(n\))} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci}
 \end{array}\right.</span></p></li>
 <li><p>Y su implementación en Python podría ser:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div>
