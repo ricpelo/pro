@@ -1,4 +1,4 @@
-.PHONY: all html pdf prog clean limpiar serve touch markdown sobrantes $(ITHACA)
+.PHONY: all html pdf prog ejercicios clean limpiar serve touch markdown sobrantes $(ITHACA)
 
 CURSO=2020/2021
 
@@ -16,6 +16,11 @@ ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
+
+EJER_SRCDIR=ejercicios
+EJER_BUILDDIR_PDF=ejercicios
+EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
+EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=.pdf))
 
 # Scripts y programas
 
@@ -62,7 +67,7 @@ APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apun
 
 # Objetivos generales
 
-all: $(DIAPOS) html pdf apuntes prog limpiar
+all: $(DIAPOS) html pdf apuntes prog ejercicios limpiar
 
 $(DIAPOS): $(SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
 	$(DIAPOSITIVAS_SH) > $(DIAPOS)
@@ -74,6 +79,8 @@ pdf: $(OBJECTS_PDF)
 apuntes: $(APUNTES_PDF)
 
 prog: $(PROG_PDF)
+
+ejercicios: $(EJER_OBJECTS_PDF)
 
 limpiar:
 	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml $(IMAGES)/*.dot
@@ -179,6 +186,17 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V mathspec \
 		-V fontsize=10pt -V lang=es-ES -o $@
+
+$(EJER_OBJECTS_PDF): $(EJER_SOURCES)
+	$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+		pandoc -s -t latex \
+		--highlight-style=$(HIGHLIGHT_STYLE) \
+		--syntax-definition=$(PHP_XML) \
+		--syntax-definition=$(CONSOLE_XML) \
+		--syntax-definition=$(PYTHON_XML) \
+		--syntax-definition=$(COMMENTS_XML) \
+		--syntax-definition=$(SPDX_COMMENTS_XML) \
+		-o $@
 
 # Objetivos auxiliares
 

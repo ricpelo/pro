@@ -6,6 +6,11 @@ header-includes:
   \usepackage{biolinum}
   \usepackage[scaled=0.8]{beramono}
   \usepackage[libertine]{newtxmath}
+  \definecolor{ttcolor}{RGB}{38,139,210}
+  \let\Oldtexttt\texttt
+  \renewcommand\texttt[1]{\textcolor{ttcolor}{\Oldtexttt{#1}}}
+  \let\Oldmathtt\mathtt
+  \renewcommand\mathtt[1]{\textcolor{ttcolor}{\Oldmathtt{#1}}}
 fontfamily: libertinus
 fontsize: 12pt
 author:
@@ -14,7 +19,7 @@ author:
   IES Doñana
 title: Ejercicios de funciones recursivas
 subtitle: Programación --- DAW
-date: Curso 2020/21
+date: Curso !CURSO
 ---
 
 #. Dada la siguiente función matemática:
