@@ -1241,7 +1241,7 @@ $$
 - Si le pedimos al intérprete que nos muestre el valor de la expresión `max`,
   nos dice:
 
-  ```java
+  ```python
   >>> max
   <built-in function max>
   ```

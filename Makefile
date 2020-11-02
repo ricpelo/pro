@@ -47,6 +47,9 @@ INCLUDE_BEFORE_TEX=$(AUX)/include-before.tex
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 PHP_XML=$(AUX)/php.xml
 CONSOLE_XML=$(AUX)/console.xml
+PYTHON_XML=$(AUX)/python.xml
+COMMENTS_XML=$(AUX)/comments.xml
+SPDX_COMMENTS_XML=$(AUX)/spdx-comments.xml
 COMMON_PP=$(AUX)/common.pp
 CITATIONS_BIB=$(SRCDIR)/citations.bib
 
@@ -98,7 +101,7 @@ $(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
 $(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(INDEX_LEO)
 
-$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE_HTML)
+$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE_HTML)
 	@echo "Generando $@..."
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t revealjs \
@@ -114,13 +117,16 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
+		--syntax-definition=$(PYTHON_XML) \
+		--syntax-definition=$(COMMENTS_XML) \
+		--syntax-definition=$(SPDX_COMMENTS_XML) \
 		--css custom.css -V slideNumber=true \
 		-V theme=solarized -V transition=slide \
 		-V width=1280 -V height=1080 -o $@
 
 # Diapositivas en formato PDF
 
-$(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) | $(ITHACA)
+$(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_BEAMER) $(PHP_XML) $(CONSOLE_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML) | $(ITHACA)
 	@echo "Generando $@..."
 	@$(PP) -DBEAMER -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t beamer \
@@ -134,6 +140,9 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
+		--syntax-definition=$(PYTHON_XML) \
+		--syntax-definition=$(COMMENTS_XML) \
+		--syntax-definition=$(SPDX_COMMENTS_XML) \
 		-V theme=Ithaca \
 		-V mainfont=Lato \
 		-V monofont=FiraMono \
@@ -145,7 +154,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 
 # Apuntes en formato PDF
 
-$(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(INCLUDE_BEFORE_TEX) $(CONSOLE_XML) $(PHP_XML)
+$(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLATE) $(HIGHLIGHT_STYLE) $(PREAMBULO_LATEX) $(INCLUDE_BEFORE_TEX) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		perl -0pe "s/\s*\n\s*\n---\n\s*\n/\n\n/g" | \
@@ -161,6 +170,9 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
+		--syntax-definition=$(PYTHON_XML) \
+		--syntax-definition=$(COMMENTS_XML) \
+		--syntax-definition=$(SPDX_COMMENTS_XML) \
 		-V margin-bottom=4cm \
 		-V mainfont=Lato \
 		-V monofont=FiraMono \
