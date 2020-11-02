@@ -2010,11 +2010,12 @@ E -> f [lhead = cluster0]
 - Pero para especificar una función, en cambio, resulta más adecuado usar el
   siguiente esquema, al que llamaremos **especificación funcional**:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: True \\
-    \texttt{cuadrado(}n: \texttt{float) -> float} \\
-    \text{\textbf{Post}}: \texttt{cuadrado(}n\texttt{)} = n^2
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(True)
+  !SIGNAT(\texttt{cuadrado(!VAR(n\,): float) -> float})
+  !POST(\texttt{cuadrado(}n\texttt{)} = n^2)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - «**Pre**» representa la **precondición**: la propiedad que debe cumplirse
   justo _en el momento_ de llamar a la función.
@@ -2075,12 +2076,16 @@ E -> f [lhead = cluster0]
 
 - Otro ejemplo más completo:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1 \\
-    \texttt{cuenta(}cadena: \texttt{str,}\ car: \texttt{str) -> int} \\
-    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} \geq 0\ \land \\
-    \hspace{2.8em}        \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} = cadena\texttt{.count(}car\texttt{)}
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1)
+  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
+  !POST
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \texttt{cuenta(!VAR(cadena), !VAR(car))} \geq 0\ \land
+  & \texttt{cuenta(!VAR(cadena), !VAR(car))} = cadena\texttt{.count(!VAR(car))}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `count` es una **función _oculta_ o _auxiliar_** (en este caso, un *método
   auxiliar*). Las funciones auxiliares se puede usar en la especificación
@@ -2101,11 +2106,12 @@ E -> f [lhead = cluster0]
   simplificar aprovechando las propiedades de las expresiones lógicas, quedando
   así:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: \texttt{len(}car\texttt{)} = 1 \\
-    \texttt{cuenta(}cadena: \texttt{str,}\ car: \texttt{str) -> int} \\
-    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} = cadena\texttt{.count(}car\texttt{)}
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(\texttt{len(!VAR(car))} = 1)
+  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
+  !POST(\texttt{cuenta(!VAR(cadena), !VAR(car))} = cadena\texttt{.count(!VAR(car))})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJERCICIO
 
@@ -2115,15 +2121,18 @@ E -> f [lhead = cluster0]
 
 - Finalmente, podríamos escribir la misma especificación en lenguaje natural:
 
-
-  $$\begin{cases}
-    \text{\textbf{Pre}}: car \text{ debe ser un único carácter} \\
-    \texttt{cuenta(}cadena: \texttt{str,}\  car: \texttt{str) -> int} \\
-    \text{\textbf{Post}}: \texttt{cuenta(}cadena\texttt{,}\ car\texttt{)} \text{ devuelve el número de veces } \\
-    \hspace{2.55em}          \text{ que aparece el carácter } car \text{ en la cadena } cadena. \\
-    \hspace{2.55em}          \text{ Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la } \\
-    \hspace{2.55em}          \text{ cadena } cadena \text{, debe devolver } 0.
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(car \text{ debe ser un único carácter})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
+  !POST
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+    \texttt{cuenta(!VAR(cadena), !VAR(car))} \text{ devuelve el número de veces}
+  & \text{que aparece el carácter } car \text{ en la cadena } cadena.
+  & \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}
+  & \text{cadena } cadena \text{, debe devolver } 0.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Probablemente resulta más fácil de leer (sobre todo para los novatos), pero
   también es más largo y prolijo.
@@ -2209,12 +2218,16 @@ E -> f [lhead = cluster0]
 - La implementación de esa función deberá satisfacer la siguiente
   especificación:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: n \geq 0 \\
-    \texttt{permutas(}n: \texttt{int) -> int} \\
-    \text{\textbf{Post}}: \texttt{permutas(}n\texttt{)} = \text{el número de permutaciones que} \\
-    \hspace{10.5em} \text{podemos formar con } n \text{ elementos}
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(n \geq 0)
+  !SIGNAT(\texttt{permutas(!VAR(n\,): int) -> int})
+  !POST
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \texttt{permutas(!VAR(n))} = \text{el número de permutaciones que}
+  & \text{podemos formar con } n \text{ elementos}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -2371,11 +2384,12 @@ pueden tener una definición recursiva. ¿Cuáles son?
 - La **especificación** de una función que calcule el factorial de un número
   sería:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: n \geq 0 \\
-    \texttt{factorial(}n: \texttt{int) -> int} \\
-    \text{\textbf{Post}}: \texttt{factorial(}n\texttt{)} = n!
-  \end{cases}$$
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(n \geq 0)
+  !SIGNAT(\texttt{factorial(!VAR(n\,): int) -> int})
+  !POST(\texttt{factorial(!VAR(n))} = n!)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y su **implementación** en Python podría ser la siguiente:
 
@@ -2706,12 +2720,12 @@ Iterativo lineal          Linealmente \
 - La especificación de una función que devuelva el $n$-ésimo término de la
   sucesión de Fibonacci sería:
 
-  $$\begin{cases}
-    \text{\textbf{Pre}}: n \geq \\
-    \texttt{fib(}n: \texttt{int) -> int} \\
-    \text{\textbf{Post}}: \texttt{fib(}n\texttt{)} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci}
-  \end{cases}$$
-
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(n \geq 0)
+  !SIGNAT(\texttt{fib(!VAR(n\,): int) -> int})
+  !POST(\texttt{fib(!VAR(n))} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y su implementación en Python podría ser:
 

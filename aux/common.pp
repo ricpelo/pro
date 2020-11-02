@@ -219,9 +219,28 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(NEQ)(!ifdef(HTML)(\mathrel{\char`≠})(\neq))
+!comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ESPECIFICACIONES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(SEP)(!ifdef(HTML)([4pt])())
+!define(ESPEC)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$$\left\{\begin{array}{ll}
+  !1\end{array}\right.$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(PRE)(\text{\textbf{Pre}}: & !1 \\!MASSEP)
+
+!define(POST)(\text{\textbf{Post}}: & !PYPOST(!1))
+
+!define(SIGNAT)(& !1 \\!MASSEP)
+!define(VAR)($!ifdef(HTML)(!1)(\textcolor{black}{!1})$)
+!define(OTRALINEA)(\\!MENOSSEP)
+!define(NEQ)(!ifdef(HTML)(\mathrel{\char`≠})(\neq))
+!define(SEP)(!ifdef(HTML)([0.5em])())
+!define(MASSEP)(!ifdef(HTML)([0.5em])())
+!define(MENOSSEP)(!ifndef(HTML)([-0.5em])([0.1em]))
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -298,6 +317,15 @@ x = r"""!1"""
 print(' | ' + x.replace("\n", "\n| "))
 ~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!define(PYPOST)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!python3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+x = r"""!1"""
+print((r'!OTRALINEA' + '\n').join(x.rstrip().split('\n')).rstrip())
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(DOT2)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
