@@ -1080,7 +1080,7 @@ x -> 7
 - Por ejemplo, `max` es un identificador ligado a la función que devuelve el
   máximo de dos números (que representaremos aquí como **λ**):
 
-  !DOT(ligadura-funcion-max.svg)()(width=25%)(width=15%)
+  !DOT(ligadura-funcion-max.svg)()(width=25%)(width=22%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   lambda [shape = circle, label = "λ"]
@@ -1106,7 +1106,7 @@ x -> 7
 
 ::: column
 
-!DOT(ligadura-funcion-max-maximo.svg)()(width=55%)(width=35%)
+!DOT(ligadura-funcion-max-maximo.svg)()(width=55%)(width=23%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fontname = "monospace"]
 lambda [shape = circle, label = "λ"]
@@ -1256,7 +1256,7 @@ maximo -> lambda
 
 &nbsp; 
 
-!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=40%)(width=30%)
+!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 4 [shape = circle]
 subgraph cluster0 {
@@ -1272,7 +1272,7 @@ x -> 4
 
 ::: column
 
-!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=40%)(width=30%)
+!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 3 [shape = circle]
 4 [shape = circle]
@@ -1289,7 +1289,7 @@ y -> 3
 
 &nbsp; 
 
-!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=30%)
+!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 3 [shape = circle]
 4 [shape = circle]
@@ -1423,7 +1423,7 @@ z -> 3
   ellas se realizan en el ámbito global, que es el único ámbito que existe en
   el _script_:
 
-!IMGP(ambito-global.png)()(width=50%)
+!IMGP(ambito-global.png)()(width=50%)(width=40%)
 
 ### Ámbito de una ligadura
 
