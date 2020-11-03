@@ -499,6 +499,23 @@
 <li>Obtener las derivaciones correspondientes de cada una de las expresiones.</li>
 </ol>
 </section>
+<section class="slide level5" data-number="2.2.0.0.4">
+
+<ul>
+<li><p>Muchas veces, de ahora en adelante representaremos las expresiones combinando <strong>distintos colores y estilos tipográficos</strong> con la única finalidad de facilitar la lectura y ayudar a reconocer los diferentes elementos sintácticos que las componen.</p></li>
+<li><p>A esta técnica se la denomina <strong>resaltado de sintaxis</strong>.</p></li>
+<li><p>Por ejemplo, las expresiones anteriores quedarían así:</p>
+<ul>
+<li><p><code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> (<span class="dv">4</span> <span class="op">-</span> <span class="dv">7</span>))</code></p></li>
+<li><p><code class="sourceCode python"><span class="dv">24</span></code></p></li>
+<li><p><code class="sourceCode python">(<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>)</code></p></li>
+<li><p><code class="sourceCode python">(<span class="op">-</span>(<span class="dv">8</span> <span class="op">*</span> <span class="fl">3.5</span>))</code></p></li>
+<li><p><code class="sourceCode python">(<span class="dv">9</span> <span class="op">*</span> (x <span class="op">-</span> <span class="dv">2</span>))</code></p></li>
+<li><p><code class="sourceCode python">z</code></p></li>
+<li><p><code class="sourceCode python">(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">3</span>) <span class="op">+</span> (<span class="bu">max</span>(<span class="dv">8</span>, <span class="dv">5</span>) <span class="op">/</span> <span class="dv">2</span>))</code></p></li>
+</ul></li>
+</ul>
+</section>
 </section>
 <section>
 <section id="valores" class="title-slide slide level1" data-number="3">
@@ -546,13 +563,13 @@
 
 <ul>
 <li><p>Podemos decir que las expresiones:</p>
-<p><code>3</code></p>
-<p><code>(1 + 2)</code></p>
-<p><code>(5 - 2)</code></p>
+<p><code class="sourceCode python"><span class="dv">3</span></code></p>
+<p><code class="sourceCode python">(<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>)</code></p>
+<p><code class="sourceCode python">(<span class="dv">5</span> <span class="op">-</span> <span class="dv">2</span>)</code></p>
 <p>denotan todas el mismo valor (el número abstracto <strong>tres</strong>).</p></li>
 <li><p>Es decir: todas esas expresiones son representaciones diferentes del mismo ente abstracto.</p></li>
 <li><p>Cuando introducimos una expresión en el intérprete, lo que hace éste es buscar <strong>la representación más simplificada o reducida</strong> posible.</p>
-<p>En el ejemplo anterior, sería la expresión <code>3</code>.</p></li>
+<p>En el ejemplo anterior, sería la expresión <code class="sourceCode python"><span class="dv">3</span></code>.</p></li>
 <li><p>Por eso a menudo usamos, indistintamente, los términos <em>reducir</em>, <em>simplificar</em> y <em>evaluar</em>.</p></li>
 </ul>
 </section>
@@ -582,12 +599,12 @@
 <h5 class="unnumbered unlisted">Ejemplo</h5>
 <ul>
 <li><p>De las expresiones anteriores:</p>
-<p><code>3</code></p>
-<p><code>(1 + 2)</code></p>
-<p><code>(5 - 2)</code></p>
-<p>que denotan todas el mismo valor abstracto <strong>tres</strong>, seleccionamos una (la expresión <code>3</code>) como la <strong>expresión canónica</strong> de ese valor.</p></li>
-<li><p>Igualmente, la expresión <code>3</code> es la <strong>forma normal</strong> de todas las expresiones anteriores (y de cualquier otra expresión con valor <strong>tres</strong>).</p></li>
-<li><p>Es importante no confundir el valor abstracto <strong>tres</strong> con la expresión <code>3</code> que representa dicho valor.</p></li>
+<p><code class="sourceCode python"><span class="dv">3</span></code></p>
+<p><code class="sourceCode python">(<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>)</code></p>
+<p><code class="sourceCode python">(<span class="dv">5</span> <span class="op">-</span> <span class="dv">2</span>)</code></p>
+<p>que denotan todas el mismo valor abstracto <strong>tres</strong>, seleccionamos una (la expresión <code class="sourceCode python"><span class="dv">3</span></code>) como la <strong>expresión canónica</strong> de ese valor.</p></li>
+<li><p>Igualmente, la expresión <code class="sourceCode python"><span class="dv">3</span></code> es la <strong>forma normal</strong> de todas las expresiones anteriores (y de cualquier otra expresión con valor <strong>tres</strong>).</p></li>
+<li><p>Es importante no confundir el valor abstracto <strong>tres</strong> con la expresión <code class="sourceCode python"><span class="dv">3</span></code> que representa dicho valor.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.1.1">
@@ -613,25 +630,36 @@
 <li><p>Según lo visto hasta ahora, la evaluación de una expresión es el proceso de encontrar su forma normal.</p></li>
 <li><p>Para ello, el intérprete evalúa la expresión reduciendo sus subexpresiones según las reglas del lenguaje y las operaciones que aparecen en ellas, buscando su forma normal.</p></li>
 <li><p>El sistema de evaluación dentro del intérprete está hecho de tal forma que cuando ya no es posible reducir más la expresión es porque se ha llegado a la forma normal.</p></li>
-<li><p>Recordemos que no todos los valores tienen forma normal.</p>
-<div class="caja">
-<p><strong>Importante (orden de evaluación de las expresiones):</strong></p>
-<p>Al analizar una expresión buscando subexpresiones que reducir, las subexpresiones siempre se evaluarán <strong>de izquierda a derecha</strong>.</p>
-</div></li>
+<li><p>Recordemos que no todos los valores tienen forma normal.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.1">
 
+<ul>
+<li><p>El orden en el que se van reduciendo las subexpresiones no debe influir en el resultado de evaluar una expresión, así que debería dar igual elegir una u otra subexpresión.</p></li>
+<li><p>De todas formas, los lenguajes de programación suelen imponer un orden concreto a la hora de evaluar las expresiones.</p></li>
+<li><p>Tanto en Python como en Java (los dos lenguajes que veremos), el orden de evaluación es de izquierda a derecha (salvo excepciones):</p>
+<div class="caja">
+<p><strong>Orden de evaluación de las expresiones:</strong></p>
+<p>Al evaluar una expresión, las subexpresiones que la forman siempre se evaluarán <strong>de izquierda a derecha</strong>.</p>
+</div></li>
+<li><p>El orden de evaluación de las subexpresiones es un asunto más complejo de lo que parece, y lo estudiaremos en profundidad en posteriores apartados.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.2">
+
 <div class="centered">
-<p><img data-src="images/evaluacion.svg" class="plain" style="width:40.0%" /></p>
+<figure>
+<img data-src="images/evaluacion.svg" class="plain" style="width:40.0%" alt="Evaluación de una expresión" /><figcaption aria-hidden="true">Evaluación de una expresión</figcaption>
+</figure>
 </div>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
 <ul>
-<li><p>Evaluar la expresión <code>(2 + 3)</code>:</p>
+<li><p>Evaluar la expresión <code class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code>:</p>
 <ul>
-<li><p>La expresión está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code>2</code> y <code>3</code>. Por tanto, habrá que evaluar primero esas dos subexpresiones, siempre de izquierda a derecha:</p>
+<li><p>La expresión está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code class="sourceCode python"><span class="dv">2</span></code> y <code class="sourceCode python"><span class="dv">3</span></code>. Por tanto, habrá que evaluar primero esas dos subexpresiones, siempre de izquierda a derecha:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)             <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)           <span class="co"># luego se evalúa 3 (que devuelve 3)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)           <span class="co"># ahora se evalúa (2 + 3) (que devuelve 5)</span></span>
@@ -639,13 +667,13 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.0.0.2">
+<section class="slide level5" data-number="3.4.0.0.3">
 
 <ul>
-<li><p>Evaluar la expresión <code>(2 * (3 + 5))</code>:</p>
+<li><p>Evaluar la expresión <code class="sourceCode python">(<span class="dv">2</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>))</code>:</p>
 <ul>
-<li><p>La expresión está formada por un operador <code>*</code> que actúa sobre las dos subexpresiones <code>2</code> y <code>(3 + 5)</code>.</p></li>
-<li><p>La segunda subexpresión, a su vez, está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code>3</code> y <code>5</code>.</p></li>
+<li><p>La expresión está formada por un operador <code>*</code> que actúa sobre las dos subexpresiones <code class="sourceCode python"><span class="dv">2</span></code> y <code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</code>.</p></li>
+<li><p>La segunda subexpresión, a su vez, está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code class="sourceCode python"><span class="dv">3</span></code> y <code class="sourceCode python"><span class="dv">5</span></code>.</p></li>
 <li><p>Todas las subexpresiones se evalúan siempre de izquierda a derecha, a medida que se van reduciendo:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))       <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa 3 (que devuelve 3)</span></span>
@@ -656,13 +684,13 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.0.0.3">
+<section class="slide level5" data-number="3.4.0.0.4">
 
 <ul>
-<li><p>Evaluar la expresión <code>((2 + 5) * 3)</code>:</p>
+<li><p>Evaluar la expresión <code class="sourceCode python">((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)</code>:</p>
 <ul>
-<li><p>La expresión está formada por un operador <code>*</code> que actúa sobre las dos subexpresiones <code>(2 + 5)</code> y <code>3</code>.</p></li>
-<li><p>La primera subexpresión, a su vez, está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code>2</code> y <code>5</code>.</p></li>
+<li><p>La expresión está formada por un operador <code>*</code> que actúa sobre las dos subexpresiones <code class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>)</code> y <code class="sourceCode python"><span class="dv">3</span></code>.</p></li>
+<li><p>La primera subexpresión, a su vez, está formada por un operador <code>+</code> que actúa sobre las dos subexpresiones <code class="sourceCode python"><span class="dv">2</span></code> y <code class="sourceCode python"><span class="dv">5</span></code>.</p></li>
 <li><p>Todas las subexpresiones se evalúan siempre de izquierda a derecha, a medida que se van reduciendo:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)       <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)     <span class="co"># se evalúa 5 (que devuelve 5)</span></span>
@@ -704,27 +732,27 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><code>-2</code></td>
-<td style="text-align: center;"><code>3.5</code></td>
-<td style="text-align: center;"><code>"hola"</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">-</span><span class="dv">2</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="fl">3.5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&quot;hola&quot;</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>-1</code></td>
-<td style="text-align: center;"><code>-2.7</code></td>
-<td style="text-align: center;"><code>"pepe"</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">-</span><span class="fl">2.7</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&quot;pepe&quot;</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">0</span></code></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"><code>"25"</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&quot;25&quot;</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">1</span></code></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"><code>""</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&quot;&quot;</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>2</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">2</span></code></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
@@ -743,21 +771,21 @@
 <ul>
 <li><p>Con frecuencia, un literal resulta ser la <em>expresión canónica</em> del valor al que denotan y la forma normal de todas las posibles expresiones que denotan ese valor.</p></li>
 <li><p>Por consiguiente, suelen estar ya totalmente simplificados.</p></li>
-<li><p>Por ejemplo, el <code>3.5</code> es un literal que denota el valor numérico <strong>tres y medio</strong>, es su expresión canónica y es la forma normal de cualquier expresión que denote dicho valor.</p></li>
-<li><p>Por tanto, el literal <code>3.5</code> es la forma más reducida de representar el valor <strong>tres y medio</strong>.</p></li>
-<li><p>Es decir: si le pedimos al intérprete que calcule el resultado de <code>7 / 2</code>, nos devolverá la expresión <code>3.5</code>.</p></li>
-<li><p>Sin embargo, el <code>3.5</code> no es el único literal que denota el valor numérico <strong>tres y medio</strong>. Por ejemplo, los literales <code>3.50</code>, <code>3.500</code> o <code>03.50</code> también denotan ese mismo valor, pero la forma normal de todos ellos es <code>3.5</code>.</p></li>
-<li><p>O sea: hay varias maneras de escribir un literal que denote el valor <strong>tres y medio</strong>, pero sólo el literal <code>3.5</code> es la forma normal de todas ellas.</p></li>
+<li><p>Por ejemplo, el <code class="sourceCode python"><span class="fl">3.5</span></code> es un literal que denota el valor numérico <strong>tres y medio</strong>, es su expresión canónica y es la forma normal de cualquier expresión que denote dicho valor.</p></li>
+<li><p>Por tanto, el literal <code class="sourceCode python"><span class="fl">3.5</span></code> es la forma más reducida de representar el valor <strong>tres y medio</strong>.</p></li>
+<li><p>Es decir: si le pedimos al intérprete que calcule el resultado de <code class="sourceCode python"><span class="dv">7</span> <span class="op">/</span>   <span class="dv">2</span></code>, nos devolverá la expresión <code class="sourceCode python"><span class="fl">3.5</span></code>.</p></li>
+<li><p>Sin embargo, el <code class="sourceCode python"><span class="fl">3.5</span></code> no es el único literal que denota el valor numérico <strong>tres y medio</strong>. Por ejemplo, los literales <code class="sourceCode python"><span class="fl">3.50</span></code>, <code class="sourceCode python"><span class="fl">3.500</span></code> o <code class="sourceCode python"><span class="fl">03.50</span></code> también denotan ese mismo valor, pero la forma normal de todos ellos es <code class="sourceCode python"><span class="fl">3.5</span></code>.</p></li>
+<li><p>O sea: hay varias maneras de escribir un literal que denote el valor <strong>tres y medio</strong>, pero sólo el literal <code class="sourceCode python"><span class="fl">3.5</span></code> es la forma normal de todas ellas.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.3">
 
 <ul>
-<li><p>Igualmente, la forma normal de todas las posibles expresiones que denotan el valor numérico <strong>dos</strong> es el literal <code>2</code>.</p></li>
-<li><p>El literal <code>2</code> es la forma más reducida de representar el valor <strong>dos</strong>.</p></li>
+<li><p>Igualmente, la forma normal de todas las posibles expresiones que denotan el valor numérico <strong>dos</strong> es el literal <code class="sourceCode python"><span class="dv">2</span></code>.</p></li>
+<li><p>El literal <code class="sourceCode python"><span class="dv">2</span></code> es la forma más reducida de representar el valor <strong>dos</strong>.</p></li>
 <li><p>Pero no es el único literal que denota dicho valor.</p></li>
-<li><p>El literal <code>02</code> no es correcto según las reglas léxicas del lenguaje, pero sí que podemos usar la expresión <code>0b10</code>, que es un literal que representa el valor <strong>dos</strong> escrito en binario.</p></li>
-<li><p>Igualmente, las reglas léxicas del lenguaje permiten usar el carácter <code>_</code> dentro de un número, por lo que el valor numérico <strong>cuatro millones</strong> se puede representar con el literal <code>4_000_000</code>, si bien su forma normal sigue siendo simplemente <code>4000000</code>.</p></li>
+<li><p>El literal <code class="sourceCode python"><span class="dv">02</span></code> no es correcto según las reglas léxicas del lenguaje, pero sí que podemos usar la expresión <code class="sourceCode python"><span class="bn">0b10</span></code>, que es un literal que representa el valor <strong>dos</strong> escrito en binario.</p></li>
+<li><p>Igualmente, las reglas léxicas del lenguaje permiten usar el carácter <code>_</code> dentro de un número, por lo que el valor numérico <strong>cuatro millones</strong> se puede representar con el literal <code class="sourceCode python"><span class="dv">4_000_000</span></code>, si bien su forma normal sigue siendo simplemente <code class="sourceCode python"><span class="dv">4000000</span></code>.</p></li>
 <li><p>Finalmente, las cadenas se pueden escribir con comillas simples (<code>'</code>) o dobles (<code>"</code>), pero la forma normal de una cadena siempre usa las simples.</p></li>
 </ul>
 </section>
@@ -816,14 +844,14 @@
 <li><p>Los datos sobre los que actúa un operador se denominan <strong>operandos</strong>.</p></li>
 <li><p>Por ejemplo, los operadores aritméticos <code>+</code>, <code>-</code>, <code>*</code> y <code>/</code>, cuando actúan sobre operandos numéricos, representan las operaciones de suma, resta, multiplicación y división, respectivamente.</p>
 <ul>
-<li><p>En la expresión <code>(3 + 4)</code>:</p>
+<li><p>En la expresión <code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</code>:</p>
 <ul>
-<li><p>Los operandos son <code>3</code> y <code>4</code>.</p></li>
-<li><p>El operador es <code>+</code> y representa la operación «<em>suma de números</em>».</p></li>
+<li><p>Los operandos son <code class="sourceCode python"><span class="dv">3</span></code> y <code class="sourceCode python"><span class="dv">4</span></code>.</p></li>
+<li><p>El operador es <code class="sourceCode python"><span class="op">+</span></code> y representa la operación «<em>suma de números</em>».</p></li>
 </ul></li>
-<li><p>En la expresión <code>(9 * 8)</code>:</p>
+<li><p>En la expresión <code class="sourceCode python">(<span class="dv">9</span> <span class="op">*</span> <span class="dv">8</span>)</code>:</p>
 <ul>
-<li><p>Los operandos son <code>9</code> y <code>8</code>.</p></li>
+<li><p>Los operandos son <code class="sourceCode python"><span class="dv">9</span></code> y <code class="sourceCode python"><span class="dv">8</span></code>.</p></li>
 <li><p>El operador es <code>*</code> y representa la operación «<em>multiplicación de números</em>».</p></li>
 </ul></li>
 </ul></li>
@@ -837,7 +865,7 @@
 <ul>
 <li><p><strong>Unarios</strong>: operan sobre un único operando.</p>
 <p>Ejemplo: el operador <code>-</code> que cambia el signo de su operando:</p>
-<p><code>(-(5 + 3))</code></p></li>
+<p><code class="sourceCode python">(<span class="op">-</span>(<span class="dv">5</span> <span class="op">+</span> <span class="dv">3</span>))</code></p></li>
 <li><p><strong>Binarios</strong>: operan sobre dos operandos.</p>
 <p>Ejemplo: la mayoría de operadores aritméticos.</p></li>
 <li><p><strong>Ternarios</strong>: operan sobre tres operandos.</p>
@@ -853,8 +881,8 @@
 <li><p>Se usan, sobre todo, para hacer que varios elementos de una expresión actúen como uno solo (una subexpresión) al realizar una operación.</p>
 <ul>
 <li><p>Por ejemplo:</p>
-<p><code>((3 + 4) * 5)</code> vale <code>35</code></p>
-<p><code>(3 + (4 * 5))</code> vale <code>23</code></p></li>
+<p><code class="sourceCode python">((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> <span class="dv">5</span>)</code> vale <code class="sourceCode python"><span class="dv">35</span></code></p>
+<p><code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">5</span>))</code> vale <code class="sourceCode python"><span class="dv">23</span></code></p></li>
 </ul></li>
 <li><p>Una expresión está <strong>correctamente parentizada</strong> si tiene los paréntesis bien colocados según dicta la gramática del lenguaje.</p></li>
 <li><p>Una expresión está <strong>totalmente parentizada</strong> si agrupa con paréntesis a todas las operaciones con sus operandos.</p></li>
@@ -866,9 +894,9 @@
 <li><p>Hasta ahora, según nuestra gramática, las expresiones correctamente parentizadas son precisamente las que están totalmente parentizadas.</p></li>
 <li><p>Por ejemplo:</p>
 <ul>
-<li><p><code>2 +) 3 *( 5(</code> no está correctamente parentizada.</p></li>
-<li><p><code>(4 + (2 * 5))</code> está correcta y totalmente parentizada.</p></li>
-<li><p><code>2 + 5</code> no está totalmente parentizada y, por tanto, no está correctamente parentizada según nuestra gramática.</p></li>
+<li><p><code class="sourceCode python"><span class="dv">2</span> <span class="op">+</span>) <span class="dv">3</span> <span class="op">*</span>( <span class="dv">5</span>(</code> no está correctamente parentizada.</p></li>
+<li><p><code class="sourceCode python">(<span class="dv">4</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">5</span>))</code> está correcta y totalmente parentizada.</p></li>
+<li><p><code class="sourceCode python"><span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span></code> no está totalmente parentizada y, por tanto, no está correctamente parentizada según nuestra gramática.</p></li>
 </ul></li>
 <li><p>Para reducir la cantidad de paréntesis en una expresión, podemos cambiar nuestra gramática acudiendo a un esquema de <strong>prioridades</strong> y <strong>asociatividades</strong> de operadores.</p></li>
 <li><p>Así ya no exigiremos que las expresiones estén totalmente parentizadas.</p></li>
@@ -880,7 +908,7 @@
 <ul>
 <li><p>En ausencia de paréntesis, cuando un operando está afectado a izquierda y derecha por <strong>operadores de distinta prioridad</strong>, se aplican las reglas de la <strong>prioridad</strong>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span></span></code></pre></div>
-<p>El <code>4</code> está afectado a izquierda y derecha por los operadores <code>+</code> y <code>*</code>, que tienen distinta prioridad, por lo que se aplican las reglas de la prioridad. El <code>*</code> tiene <em>más prioridad</em> que el <code>+</code>, así que agrupa primero el <code>*</code>. Equivale a hacer:</p>
+<p>El <code class="sourceCode python"><span class="dv">4</span></code> está afectado a izquierda y derecha por los operadores <code>+</code> y <code>*</code>, que tienen distinta prioridad, por lo que se aplican las reglas de la prioridad. El <code>*</code> tiene <em>más prioridad</em> que el <code>+</code>, así que agrupa primero el <code>*</code>. Equivale a hacer:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">+</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>Si hiciéramos</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> <span class="dv">2</span></span></code></pre></div>
@@ -894,7 +922,7 @@
 <ul>
 <li><p>En ausencia de paréntesis, cuando un operando está afectado a izquierda y derecha por <strong>operadores de la misma prioridad</strong> (o por el <strong>mismo operador</strong>), se aplican las reglas de la <strong>asociatividad</strong>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
-<p>El <code>4</code> está afectado a derecha e izquierda por el mismo operador <code>/</code>, por lo que se aplican las reglas de la asociatividad. El <code>/</code> es <em>asociativo por la izquierda</em>, así que agrupa primero el operador que está a la izquierda. Equivale a hacer:</p>
+<p>El <code class="sourceCode python"><span class="dv">4</span></code> está afectado a derecha e izquierda por el mismo operador <code>/</code>, por lo que se aplican las reglas de la asociatividad. El <code>/</code> es <em>asociativo por la izquierda</em>, así que agrupa primero el operador que está a la izquierda. Equivale a hacer:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> <span class="op">/</span> <span class="dv">4</span>) <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
 <p>Si hiciéramos</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">/</span> (<span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span>)</span></code></pre></div>
@@ -928,7 +956,7 @@
 <h3 data-number="4.2.5"><span class="header-section-number">4.2.5</span> Paréntesis y orden de evaluación</h3>
 <ul>
 <li><p>Es importante entender que los paréntesis sirven para agrupar elementos, pero por sí mismos no son suficientes para imponer un determinado <strong>orden de evaluación</strong>.</p></li>
-<li><p>Por ejemplo, en la expresión <code>4 * (3 + 5)</code>, el intérprete intenta hacer el producto de <code>4</code> por <code>(3 + 5)</code>, pero no puede hacerlo hasta haber calculado primero la suma de <code>3</code> y <code>5</code>.</p></li>
+<li><p>Por ejemplo, en la expresión <code class="sourceCode python"><span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</code>, el intérprete intenta hacer el producto de <code class="sourceCode python"><span class="dv">4</span></code> por <code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</code>, pero no puede hacerlo hasta haber calculado primero la suma de <code class="sourceCode python"><span class="dv">3</span></code> y <code class="sourceCode python"><span class="dv">5</span></code>.</p></li>
 <li><p>Por eso el intérprete calcula primero la suma y finalmente hace el producto, porque para hacer el producto primero necesita haber reducido sus operandos a dos números que se puedan multiplicar.</p></li>
 <li><p>El efecto final es que parece que los paréntesis han obligado a hacer primero la suma, como si los paréntesis fuesen una especie de operador cuya finalidad es la de aumentar la prioridad de lo que hay dentro.</p></li>
 </ul>
@@ -943,7 +971,7 @@
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)     <span class="co"># se evalúa (3 + 5) (que devuelve 8)</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">8</span>           <span class="co"># se evalúa 4 * 8 (que devuelve 32)</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">32</span></span></code></pre></div></li>
-<li><p>Sin paréntesis, la expresión <code>4 * 3 + 5</code> se evaluaría así:</p>
+<li><p>Sin paréntesis, la expresión <code class="sourceCode python"><span class="dv">4</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span></code> se evaluaría así:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>         <span class="co"># se evalúa 4 (que devuelve 4)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>       <span class="co"># se evalúa 3 (que devuelve 3)</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>       <span class="co"># se evalúa 4 * 3 (que devuelve 12)</span></span>
@@ -956,12 +984,12 @@
 <section class="slide level5" data-number="4.2.5.0.2">
 
 <ul>
-<li><p>Pero, ¿qué ocurre con expresión <code>(2 + 3) * (4 + 5)</code>?</p></li>
+<li><p>Pero, ¿qué ocurre con expresión <code class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>)</code>?</p></li>
 <li><p>En un principio, ocurre algo parecido a lo de antes: para poder hacer el producto, primero hay que calcular las dos sumas, ya que los operandos del <code>*</code> son los valores que resultan de hacer esas sumas.</p></li>
 <li><p>La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué orden se evalúan los operandos del operador <code>*</code>?</p></li>
-<li><p>Matemáticamente no hay ninguna diferencia entre calcular primero <code>2 + 3</code> y luego <code>4 + 5</code> o hacerlo al revés.</p></li>
+<li><p>Matemáticamente no hay ninguna diferencia entre calcular primero <code class="sourceCode python"><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></code> y luego <code class="sourceCode python"><span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span></code> o hacerlo al revés.</p></li>
 <li><p>Pero ya sabemos que Python impone un orden de evaluación de izquierda a derecha al reducir las subexpresiones.</p></li>
-<li><p>Por tanto, primero se evaluaría <code>(2 + 3)</code>, y después <code>(4 + 5)</code>.</p></li>
+<li><p>Por tanto, primero se evaluaría <code class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code>, y después <code class="sourceCode python">(<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>)</code>.</p></li>
 <li><p>El orden de evaluación no viene determinado por los paréntesis, sino por las reglas del lenguaje y el funcionamiento interno del intérprete.</p></li>
 </ul>
 </section>
@@ -1030,12 +1058,12 @@
 <section class="slide level5" data-number="4.3.0.0.2">
 
 <ul>
-<li><p>Por ejemplo, la función <code>abs</code> está predefinida en Python y tiene la siguiente signatura:</p>
+<li><p>Por ejemplo, la función <code class="sourceCode python"><span class="bu">abs</span></code> está predefinida en Python y tiene la siguiente signatura:</p>
 <p><code>abs(</code><span class="math inline">x</span><code>: Number) -&gt; Number</code></p></li>
 <li><p>Esa signatura nos dice que:</p>
 <ul>
-<li><p>La función se llama <code>abs</code>.</p></li>
-<li><p>Tiene un único parámetro llamado <span class="math inline">\underline{x}</span> que puede tomar cualquier valor numérico (es lo que representa el tipo especial <code>Number</code>).</p></li>
+<li><p>La función se llama <code class="sourceCode python"><span class="bu">abs</span></code>.</p></li>
+<li><p>Tiene un único parámetro llamado <span class="math inline">\underline{x}</span> que puede tomar cualquier valor numérico (es lo que representa el tipo especial <code class="sourceCode python">Number</code>).</p></li>
 <li><p>Devuelve un resultado numérico.</p></li>
 </ul></li>
 <li><p>Para usar la función, lo que hacemos es <strong>llamarla</strong>.</p></li>
@@ -1060,25 +1088,25 @@
 <div class="line-block"><span style="color:teal">⟨<em>llamada_función</em>⟩</span> ::= <span style="color:teal">⟨<em>función</em>⟩</span><strong><code>(</code></strong>[<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span>]<strong><code>)</code></strong><br />
 <span style="color:teal">⟨<em>función</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
 <span style="color:teal">⟨<em>lista_argumentos</em>⟩</span> ::= <span style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span>)*</div></li>
-<li><p>Por ejemplo, si queremos calcular el valor absoluto del número <span class="math inline">-35</span>, podemos llamar a la función <code>abs</code> pasándole <code>-35</code> como su argumento:</p></li>
+<li><p>Por ejemplo, si queremos calcular el valor absoluto del número <span class="math inline">-3</span>, podemos llamar a la función <code class="sourceCode python"><span class="bu">abs</span></code> pasándole <code class="sourceCode python"><span class="op">-</span><span class="dv">3</span></code> como su argumento:</p></li>
 </ul>
-<p><code>abs(-35)</code></p>
+<p><code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">3</span>)</code></p>
 <ul>
 <li><p>En esta llamada, las siguientes tres afirmaciones son equivalentes (son tres formas distintas de decir lo mismo):</p>
 <ul>
-<li><p>El argumento <code>-35</code> se pasa a la función <code>abs</code> a través del parámetro <span class="math inline">\underline{x}</span>.</p></li>
-<li><p>El argumento <code>-35</code> se pasa al parámetro <span class="math inline">\underline{x}</span>.</p></li>
-<li><p>El parámetro <span class="math inline">\underline{x}</span> toma el valor <code>-35</code>.</p></li>
+<li><p>«El argumento <code class="sourceCode python"><span class="op">-</span><span class="dv">3</span></code> se pasa a la función <code class="sourceCode python"><span class="bu">abs</span></code> a través del parámetro <span class="math inline">\underline{x}</span>».</p></li>
+<li><p>«El argumento <code class="sourceCode python"><span class="op">-</span><span class="dv">3</span></code> se pasa al parámetro <span class="math inline">\underline{x}</span>».</p></li>
+<li><p>«El parámetro <span class="math inline">\underline{x}</span> toma el valor <code class="sourceCode python"><span class="op">-</span><span class="dv">3</span></code>».</p></li>
 </ul></li>
-<li><p>El resultado de la llamada a la función será el valor que devuelve (en este caso, el valor <code>35</code>). Por tanto, la expresión <code>abs(-35)</code> vale <code>35</code>.</p></li>
+<li><p>El resultado de la llamada a la función será el valor que devuelve (en este caso, el valor <code class="sourceCode python"><span class="dv">3</span></code>). Por tanto, la expresión <code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">3</span>)</code> vale <code class="sourceCode python"><span class="dv">3</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.5">
 
 <ul>
-<li><p>Como la función <code>abs</code> está <strong>predefinida</strong> en Python, se puede usar directamente. Por ejemplo:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">abs</span>(<span class="op">-</span><span class="dv">35</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
+<li><p>Como la función <code class="sourceCode python"><span class="bu">abs</span></code> está <strong>predefinida</strong> en Python, se puede usar directamente. Por ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">abs</span>(<span class="op">-</span><span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div></li>
 <li><p>Al igual que pasa con los operadores, es importante respetar la signatura de una función. Si la aplicamos a un argumento de un tipo incorrecto (por ejemplo, una cadena en lugar de un número), obtendremos un error:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">abs</span>(<span class="st">&quot;hola&quot;</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
@@ -1090,9 +1118,9 @@
 <section class="slide level5" data-number="4.3.0.0.6">
 
 <ul>
-<li><p>Otro ejemplo es la función <code>len</code>, que devuelve la longitud de una cadena (el número de caracteres que contiene). Su signatura sería:</p>
+<li><p>Otro ejemplo es la función <code class="sourceCode python"><span class="bu">len</span></code>, que devuelve la longitud de una cadena (el número de caracteres que contiene). Su signatura sería:</p>
 <p><code>len(</code><span class="math inline">cadena</span><code>: str) -&gt; int</code></p></li>
-<li><p>Un ejemplo de llamada a la función <code>len</code>:</p>
+<li><p>Un ejemplo de llamada a la función <code class="sourceCode python"><span class="bu">len</span></code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 <li><p>Siempre hay que cumplir la signatura de la función. Por tanto, debemos pasarle un único argumento de tipo cadena. Si le pasamos más argumentos o bien le pasamos un argumento de otro tipo, dará error:</p>
@@ -1110,14 +1138,14 @@
 <section class="slide level5" data-number="4.3.0.0.7">
 
 <ul>
-<li><p>Otro ejemplo es la función <code>pow</code>, que realiza la operación de elevar un número a la potencia de otro. Su signatura es:</p>
+<li><p>Otro ejemplo es la función <code class="sourceCode python"><span class="bu">pow</span></code>, que realiza la operación de elevar un número a la potencia de otro. Su signatura es:</p>
 <p><code>pow(</code><span class="math inline">base</span><code>: Number,</code> <code></code><span class="math inline">exp</span><code>: Number) -&gt; Number</code></p>
 <p>Curiosamente, la misma operación existe en Python de dos formas diferentes:</p>
 <ul>
 <li><p>Como operador (<code>**</code>):</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div></li>
-<li><p>Como función (<code>pow</code>):</p>
+<li><p>Como función (<code class="sourceCode python"><span class="bu">pow</span></code>):</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span></code></pre></div></li>
 <li><p>En ambos casos, la operación es exactamente la misma.</p></li>
@@ -1127,11 +1155,11 @@
 <section class="slide level5" data-number="4.3.0.0.8">
 
 <ul>
-<li><p>Al llamar a la función <code>pow</code> hay que tener en cuenta que tiene dos parámetros.</p></li>
+<li><p>Al llamar a la función <code class="sourceCode python"><span class="bu">pow</span></code> hay que tener en cuenta que tiene dos parámetros.</p></li>
 <li><p>Por tanto, hay que recordar que importa el orden al pasar los argumentos en la llamada a la función.</p></li>
 <li><p>El primer argumento se pasaría al primer parámetro (<span class="math inline">base</span>) y el segundo se pasaría al segundo (<span class="math inline">exp</span>).</p></li>
 <li><p>Por tanto, el primer argumento debe ser la base y el segundo debe ser el exponente, y no al revés.</p></li>
-<li><p>No es lo mismo hacer <code>pow(2, 3)</code> que hacer <code>pow(3, 2)</code>:</p>
+<li><p>No es lo mismo hacer <code class="sourceCode python"><span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">3</span>)</code> que hacer <code class="sourceCode python"><span class="bu">pow</span>(<span class="dv">3</span>, <span class="dv">2</span>)</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">3</span>)  <span class="co"># aquí, el parámetro «base» toma el valor 2 y «exp» el valor 3</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">3</span>, <span class="dv">2</span>)  <span class="co"># aquí, el parámetro «base» toma el valor 3 y «exp» el valor 2</span></span>
@@ -1141,9 +1169,9 @@
 <section class="slide level5" data-number="4.3.0.0.9">
 
 <ul>
-<li><p>Como último ejemplo, la función <code>max</code> devuelve el máximo de dos valores recibidos como argumentos:</p>
+<li><p>Como último ejemplo, la función <code class="sourceCode python"><span class="bu">max</span></code> devuelve el máximo de dos valores recibidos como argumentos:</p>
 <p><code>max(</code><span class="math inline">arg_1</span><code>,</code> <code></code><span class="math inline">arg_2</span><code>)</code></p></li>
-<li><p>Aquí es más complicado definir su signatura, ya que <code>max</code> admite argumentos de varios tipos (se puede calcular el máximo de dos números, de dos cadenas… de casi cualquier par de cosas que sean <em>comparables</em> entre sí).</p></li>
+<li><p>Aquí es más complicado definir su signatura, ya que <code class="sourceCode python"><span class="bu">max</span></code> admite argumentos de varios tipos (se puede calcular el máximo de dos números, de dos cadenas… de casi cualquier par de cosas que sean <em>comparables</em> entre sí).</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span></span>
@@ -1158,13 +1186,13 @@
 <section class="slide level5" data-number="4.3.0.0.10">
 
 <ul>
-<li><p>Es interesante tener en cuenta que el nombre de una función (como <code>abs</code>, <code>len</code> o <code>max</code>) es un <strong>identificador</strong> que <strong>representa a la propia función</strong>.</p></li>
-<li><p>Es decir, que <code>max</code> (sin paréntesis detrás) es una <strong>expresión válida cuyo valor es la propia función «<em>máximo de dos números</em>»</strong>.</p></li>
-<li><p>Si le pedimos al intérprete que nos muestre el valor de la expresión <code>max</code>, nos dice:</p>
+<li><p>Es interesante tener en cuenta que el nombre de una función (como <code class="sourceCode python"><span class="bu">abs</span></code>, <code class="sourceCode python"><span class="bu">len</span></code> o <code class="sourceCode python"><span class="bu">max</span></code>) es un <strong>identificador</strong> que <strong>representa a la propia función</strong>.</p></li>
+<li><p>Es decir, que <code class="sourceCode python"><span class="bu">max</span></code> es una <strong>expresión válida cuyo valor es la propia función «<em>máximo de dos números</em>»</strong>.</p></li>
+<li><p>Si le pedimos al intérprete que nos muestre el valor de la expresión <code class="sourceCode python"><span class="bu">max</span></code>, nos dice:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function <span class="bu">max</span><span class="op">&gt;</span></span></code></pre></div>
 <p>(Recordemos que las funciones no tienen forma normal.)</p></li>
-<li><p>En resumen: la expresión <code>max</code> devuelve la propia función «<strong>máximo de dos números</strong>» y la expresión <code>max(4, 8)</code> devuelve el valor <code>8</code>.</p></li>
+<li><p>En resumen: la expresión <code class="sourceCode python"><span class="bu">max</span></code> devuelve la propia función «<strong>máximo de dos números</strong>» y la expresión <code class="sourceCode python"><span class="bu">max</span>(<span class="dv">4</span>, <span class="dv">8</span>)</code> devuelve el valor <code class="sourceCode python"><span class="dv">8</span></code>.</p></li>
 </ul>
 <div class="caja centered">
 <p><strong>Conclusión: las funciones también son valores.</strong></p>
@@ -1176,19 +1204,19 @@
 <li><p><strong>Una llamada a función es una expresión válida</strong>, por lo que podemos colocar una llamada a función en cualquier lugar donde sea sintácticamente correcto situar un valor.</p></li>
 <li><p>La evaluación de una expresión que contiene llamadas a funciones se realiza <strong>sustituyendo (<em>reduciendo</em>) cada llamada a función por su valor correspondiente</strong>, es decir, por el valor que dicha función <em>devuelve</em> dependiendo de sus argumentos (<strong>su <em>resultado</em></strong>).</p></li>
 <li><p>Por ejemplo, en la siguiente expresión se combinan varias funciones y operadores:</p>
-<p><code>abs(-12) + max(13, 28)</code></p>
-<p>Aquí se llama a la función <code>abs</code> con el argumento <code>-12</code> y a la función <code>max</code> con los argumentos <code>13</code> y <code>28</code>, y finalmente se suman los dos valores obtenidos.</p></li>
+<p><code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</code></p>
+<p>Aquí se llama a la función <code class="sourceCode python"><span class="bu">abs</span></code> con el argumento <code class="sourceCode python"><span class="op">-</span><span class="dv">12</span></code> y a la función <code class="sourceCode python"><span class="bu">max</span></code> con los argumentos <code class="sourceCode python"><span class="dv">13</span></code> y <code class="sourceCode python"><span class="dv">28</span></code>, y finalmente se suman los dos valores obtenidos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.1.0.1">
 
 <ul>
 <li><p>¿Cómo se calcula el valor de toda la expresión anterior?</p></li>
-<li><p>En la expresión <code>abs(-12) + max(13, 28)</code> tenemos que calcular la suma de dos valores, pero esos valores aún no los conocemos porque son los resultados que se obtienen al llamar a dos funciones.</p></li>
+<li><p>En la expresión <code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</code> tenemos que calcular la suma de dos valores, pero esos valores aún no los conocemos porque son los resultados que se obtienen al llamar a dos funciones.</p></li>
 <li><p>Por tanto, lo primero que tenemos que hacer es evaluar las dos subexpresiones principales que contiene dicha expresión:</p>
 <ul>
-<li><p><code>abs(-12)</code></p></li>
-<li><p><code>max(13, 28)</code></p></li>
+<li><p><code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>)</code></p></li>
+<li><p><code class="sourceCode python"><span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</code></p></li>
 </ul></li>
 <li><p>¿Cuál se evalúa primero?</p></li>
 </ul>
@@ -1248,8 +1276,8 @@
 <ul>
 <li><p>Como acabamos de ver, el resultado de una operación puede ser un dato sobre el que aplicar otra operación dentro de la misma expresión:</p>
 <ul>
-<li><p>En <code>4 * (3 + 5)</code>, el resultado de <code>(3 + 5)</code> se usa como operando para el operador <code>*</code>.</p></li>
-<li><p>En <code>abs(-12) + max(13, 28)</code>, los resultados de llamar a las funciones <code>abs</code> y <code>max</code> son los operandos del operador <code>+</code>.</p></li>
+<li><p>En <code class="sourceCode python"><span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</code>, el resultado de <code class="sourceCode python">(<span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</code> se usa como operando para el operador <code>*</code>.</p></li>
+<li><p>En <code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</code>, los resultados de llamar a las funciones <code class="sourceCode python"><span class="bu">abs</span></code> y <code class="sourceCode python"><span class="bu">max</span></code> son los operandos del operador <code>+</code>.</p></li>
 </ul></li>
 <li><p>A esto se le denomina <strong>composición de operaciones</strong>.</p></li>
 </ul>
@@ -1327,12 +1355,12 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<p>Las cadenas responden al método <code>count</code>, que devuelve el número de veces que aparece una subcadena dentro de la cadena:</p>
+<p>Las cadenas responden al método <code class="sourceCode python">count</code>, que devuelve el número de veces que aparece una subcadena dentro de la cadena:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola caracola&#39;</span>.count(<span class="st">&#39;ol&#39;</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola caracola&#39;</span>.count(<span class="st">&#39;a&#39;</span>)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
-<li><p>Si <code>count</code> fuese una función en Python en lugar de un método (cosa que no ocurre), recibiría dos parámetros: la cadena y la subcadena. En tal caso, se usaría así:</p>
+<li><p>Si <code class="sourceCode python">count</code> fuese una función en Python en lugar de un método (cosa que no ocurre), recibiría dos parámetros: la cadena y la subcadena. En tal caso, se usaría así:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>count(<span class="st">&#39;hola caracola&#39;</span>, <span class="st">&#39;ol&#39;</span>)</span></code></pre></div>
 <p>(Esto no funciona en Python.)</p></li>
 </ul>
@@ -1356,14 +1384,14 @@
 <ul>
 <li><p>Dos consecuencias interesantes de lo anterior:</p>
 <ul>
-<li><p>El nombre de un método (como <code>count</code>) es el <strong>identificador</strong> de un atributo que pertenece al objeto sobre el que se ejecuta el método.</p></li>
+<li><p>El nombre de un método (como <code class="sourceCode python">count</code>) es el <strong>identificador</strong> de un atributo que pertenece al objeto sobre el que se ejecuta el método.</p></li>
 <li><p>Si <span style="color:teal">⟨<em>método</em>⟩</span> es el nombre de un método válido para el objeto <span style="color:teal">⟨<em>objeto</em>⟩</span>, la expresión <span style="color:teal">⟨<em>objeto</em>⟩</span><code>.</code><span style="color:teal">⟨<em>método</em>⟩</span> <strong>nos devuelve el propio método en sí</strong>.</p></li>
 </ul></li>
-<li><p>Por tanto, si le pedimos al intérprete que nos muestre el valor de la expresión <code>'hola'.count</code> (sin paréntesis), nos dirá algo así:</p>
+<li><p>Por tanto, si le pedimos al intérprete que nos muestre el valor de la expresión <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count</code>, nos dirá algo así:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola&#39;</span>.count</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> method count of <span class="bu">str</span> <span class="bu">object</span> at <span class="bn">0x7f41e9cb6870</span><span class="op">&gt;</span></span></code></pre></div>
 <p>(Los métodos son casos especiales de funciones y, por tanto, no tienen forma normal.)</p></li>
-<li><p>En resumen: la expresión <code>'hola'.count</code> devuelve el propio método, y la expresión <code>'hola'.count('o')</code> devuelve el valor <code>1</code>.</p></li>
+<li><p>En resumen: la expresión <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count</code> devuelve el propio método, y la expresión <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)</code> devuelve el valor <code class="sourceCode python"><span class="dv">1</span></code>.</p></li>
 </ul>
 <div class="caja centered">
 <p><strong>Conclusión: los métodos (como las funciones) también son valores.</strong></p>
@@ -1399,10 +1427,10 @@
 <li><p>También podemos encontrarnos operaciones con más de una forma.</p></li>
 <li><p>Por ejemplo, ya vimos anteriormente la operación «<em>longitud</em>», que consiste en determinar el número de caracteres que tiene una cadena. Esta operación se puede hacer:</p>
 <ul>
-<li><p>Con la función <code>len</code>, pasando la cadena como argumento:</p>
+<li><p>Con la función <code class="sourceCode python"><span class="bu">len</span></code>, pasando la cadena como argumento:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
-<li><p>Con el método <code>__len__</code> ejecutado sobre la cadena:</p>
+<li><p>Con el método <code class="sourceCode python"><span class="fu">__len__</span></code> ejecutado sobre la cadena:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
@@ -1416,10 +1444,10 @@
 <li><p>Con el operador <code>**</code>:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-<li><p>Con la función <code>pow</code>:</p>
+<li><p>Con la función <code class="sourceCode python"><span class="bu">pow</span></code>:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-<li><p>Con el método <code>__pow__</code>:</p>
+<li><p>Con el método <code class="sourceCode python"><span class="fu">__pow__</span></code>:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul></li>
@@ -1487,7 +1515,7 @@
 <section class="slide level5" data-number="5.2.0.0.2">
 
 <ul>
-<li><p>La forma <strong>más general</strong> de representar una operación es la <strong>función</strong>, ya que <em>cualquier operación se puede expresar en forma de función</em> (cosa que no ocurre con los operadores y los métodos).</p></li>
+<li><p>La forma <strong>más general</strong> de representar una operación es la <strong>función</strong>, ya que <strong>cualquier operación se puede expresar en forma de función</strong> (cosa que no ocurre con los operadores y los métodos).</p></li>
 <li><p>Los operadores y los métodos son <strong>formas sintácticas especiales</strong> para representar operaciones que se podrían representar igualmente mediante funciones.</p></li>
 <li><p>Por eso, al hablar de operaciones, y mientras no se diga lo contrario, podremos suponer que están representadas como funciones.</p></li>
 <li><p>Eso implica que los conceptos de <em>dominio</em>, <em>rango</em>, <em>aridad</em>, <em>argumento</em>, <em>resultado</em>, <em>composición</em> y <em>asociación</em> (o <em>correspondencia</em>), que estudiamos cuando hablamos de las funciones, también existen en los operadores y los métodos.</p></li>
@@ -1530,11 +1558,11 @@
 <h3 data-number="6.1.1"><span class="header-section-number">6.1.1</span> Operadores aritméticos</h3>
 <table>
 <colgroup>
-<col style="width: 16%" />
+<col style="width: 11%" />
 <col style="width: 20%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 31%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 24%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1549,54 +1577,54 @@
 <tr class="odd">
 <td style="text-align: center;"><code>+</code></td>
 <td style="text-align: left;">Suma</td>
-<td style="text-align: center;"><code>3 + 4</code></td>
-<td style="text-align: center;"><code>7</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">7</span></code></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>-</code></td>
 <td style="text-align: left;">Resta</td>
-<td style="text-align: center;"><code>3 - 4</code></td>
-<td style="text-align: center;"><code>-1</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">3</span> <span class="op">-</span> <span class="dv">4</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>*</code></td>
 <td style="text-align: left;">Producto</td>
-<td style="text-align: center;"><code>3 * 4</code></td>
-<td style="text-align: center;"><code>12</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">12</span></code></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>/</code></td>
 <td style="text-align: left;">División</td>
-<td style="text-align: center;"><code>3 / 4</code></td>
-<td style="text-align: center;"><code>0.75</code></td>
-<td style="text-align: left;">Devuelve un <code>float</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">3</span> <span class="op">/</span> <span class="dv">4</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="fl">0.75</span></code></td>
+<td style="text-align: left;">Devuelve un <code class="sourceCode python"><span class="bu">float</span></code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>%</code></td>
 <td style="text-align: left;">Módulo</td>
-<td style="text-align: center;"><code>4 % 3</code><br />
-<code>8 % 3</code></td>
-<td style="text-align: center;"><code>1</code><br />
-<code>2</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">4</span> <span class="op">%</span> <span class="dv">3</span></code><br />
+<code class="sourceCode python"><span class="dv">8</span> <span class="op">%</span> <span class="dv">3</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">1</span></code><br />
+<code class="sourceCode python"><span class="dv">2</span></code></td>
 <td style="text-align: left;">Resto de la división</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>**</code></td>
 <td style="text-align: left;">Exponente</td>
-<td style="text-align: center;"><code>3 ** 4</code></td>
-<td style="text-align: center;"><code>81</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">3</span> <span class="op">**</span> <span class="dv">4</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">81</span></code></td>
 <td style="text-align: left;">Devuelve <span class="math inline">3^4</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>//</code></td>
 <td style="text-align: left;">División entera hacia abajo</td>
-<td style="text-align: center;"><code>4 // 3</code><br />
-<code>-4 // 3</code></td>
-<td style="text-align: center;"><code>1</code><br />
-<code>-2</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">4</span> <span class="op">//</span> <span class="dv">3</span></code><br />
+<code class="sourceCode python"><span class="op">-</span><span class="dv">4</span> <span class="op">//</span> <span class="dv">3</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">1</span></code><br />
+<code class="sourceCode python"><span class="op">-</span><span class="dv">2</span></code></td>
 <td style="text-align: left;"><br />
 ??</td>
 </tr>
@@ -1606,45 +1634,47 @@
 
 <section id="operadores-de-cadenas" class="title-slide slide level3" data-number="6.1.2">
 <h3 data-number="6.1.2"><span class="header-section-number">6.1.2</span> Operadores de cadenas</h3>
-<table style="width:93%;">
+<table>
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
 <col style="width: 29%" />
-<col style="width: 15%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Operador</th>
 <th style="text-align: left;">Descripción</th>
-<th style="text-align: left;">Ejemplo</th>
-<th style="text-align: left;">Resultado</th>
+<th style="text-align: center;">Ejemplo</th>
+<th style="text-align: center;">Resultado</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><code>+</code></td>
 <td style="text-align: left;">Concatenación</td>
-<td style="text-align: left;"><code>'ab' + 'cd'</code> <code>'ab' 'cd'</code></td>
-<td style="text-align: left;"><code>'abcd'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">+</span> <span class="st">&#39;cd&#39;</span></code> <code class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="st">&#39;cd&#39;</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;abcd&#39;</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>*</code></td>
 <td style="text-align: left;">Repetición</td>
-<td style="text-align: left;"><code>'ab' * 3</code> <code>3 * 'ab'</code></td>
-<td style="text-align: left;"><code>'ababab'</code> <code>'ababab'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">*</span> <span class="dv">3</span></code><br />
+<code class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> <span class="st">&#39;ab&#39;</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code><br />
+<code class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>[0]</code></td>
+<td style="text-align: center;"><code class="sourceCode python">[<span class="dv">0</span>]</code></td>
 <td style="text-align: left;">Primer carácter</td>
-<td style="text-align: left;"><code>'hola'[0]</code></td>
-<td style="text-align: left;"><code>'h'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">0</span>]</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;h&#39;</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>[1:]</code></td>
+<td style="text-align: center;"><code class="sourceCode python">[<span class="dv">1</span>:]</code></td>
 <td style="text-align: left;">Resto de cadena</td>
-<td style="text-align: left;"><code>'hola'[1:]</code></td>
-<td style="text-align: left;"><code>'ola'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">1</span>:]</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;ola&#39;</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1655,58 +1685,58 @@
 <h2 data-number="6.2"><span class="header-section-number">6.2</span> Funciones predefinidas</h2>
 <table>
 <colgroup>
-<col style="width: 32%" />
-<col style="width: 25%" />
-<col style="width: 28%" />
-<col style="width: 13%" />
+<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Función</th>
 <th style="text-align: left;">Descripción</th>
 <th style="text-align: left;">Ejemplo</th>
-<th style="text-align: left;">Resultado</th>
+<th style="text-align: center;">Resultado</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><code>abs(</code><span class="math inline">n</span><code>)</code></td>
 <td style="text-align: left;">Valor absoluto</td>
-<td style="text-align: left;"><code>abs(-23)</code></td>
-<td style="text-align: left;"><code>23</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">23</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">23</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>len(</code><span class="math inline">cad</span><code>)</code></td>
 <td style="text-align: left;">Longitud de la cadena</td>
-<td style="text-align: left;"><code>len('hola')</code></td>
-<td style="text-align: left;"><code>4</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">len</span>(<span class="st">&#39;hola&#39;</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">4</span></code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>max(</code><span class="math inline">n_1(</span><code>,</code> <span class="math inline">n_2)^+</span><code>)</code></td>
 <td style="text-align: left;">Valor máximo</td>
-<td style="text-align: left;"><code>max(2, 5, 3)</code></td>
-<td style="text-align: left;"><code>5</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">max</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>min(</code><span class="math inline">n_1(</span><code>,</code> <span class="math inline">n_2)^+</span><code>)</code></td>
 <td style="text-align: left;">Valor mínimo</td>
-<td style="text-align: left;"><code>min(2, 5, 3)</code></td>
-<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">min</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">2</span></code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>round(</code><span class="math inline">n</span>[<code>,</code> <span class="math inline">p</span>]<code>)</code></td>
 <td style="text-align: left;">Redondeo</td>
-<td style="text-align: left;"><code>round(23.493)</code><br />
-<code>round(23.493, 1)</code></td>
-<td style="text-align: left;"><code>23</code><br />
-<code>23.5</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">round</span>(<span class="fl">23.493</span>)</code><br />
+<code class="sourceCode python"><span class="bu">round</span>(<span class="fl">23.493</span>, <span class="dv">1</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="dv">23</span></code><br />
+<code class="sourceCode python"><span class="fl">23.5</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>type(</code><span class="math inline">v</span><code>)</code></td>
 <td style="text-align: left;">Tipo del valor</td>
-<td style="text-align: left;"><code>type(23.5)</code></td>
-<td style="text-align: left;"><code>&lt;class</code><br />
-<code>'float'&gt;</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">type</span>(<span class="fl">23.5</span>)</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">&lt;</span><span class="kw">class</span></code><br />
+<code class="sourceCode python"><span class="st">&#39;float&#39;</span><span class="op">&gt;</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1714,10 +1744,10 @@
 <section id="funciones-matemáticas-y-módulos" class="title-slide slide level3" data-number="6.2.1">
 <h3 data-number="6.2.1"><span class="header-section-number">6.2.1</span> Funciones matemáticas y módulos</h3>
 <ul>
-<li><p>Python incluye una gran cantidad de funciones matemáticas agrupadas dentro del módulo <code>math</code>.</p></li>
+<li><p>Python incluye una gran cantidad de funciones matemáticas agrupadas dentro del módulo <code class="sourceCode python">math</code>.</p></li>
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
 <li><p>Son la base de la <strong>programación modular</strong>, que ya estudiaremos.</p></li>
-<li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code>from</code>. Por ejemplo, para importar la función <code>gcd</code> (que calcula el máximo común divisor de dos números) del módulo <code>math</code> se haría:</p>
+<li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code class="sourceCode python"><span class="im">from</span></code>. Por ejemplo, para importar la función <code class="sourceCode python">gcd</code> del módulo <code class="sourceCode python">math</code> se haría:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
@@ -1727,9 +1757,9 @@
 <section class="slide level5" data-number="6.2.1.0.1">
 
 <ul>
-<li><p>También se puede <strong>importar directamente el módulo en sí</strong> usando la orden <code>import</code>.</p>
+<li><p>También se puede <strong>importar directamente el módulo en sí</strong> usando la orden <code class="sourceCode python"><span class="im">import</span></code>.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span></code></pre></div></li>
-<li><p>Al importar el módulo, lo que se importan no son sus funciones, sino el propio módulo, el cual es un <strong>objeto</strong> (de tipo <code>module</code>) al que se accede a través de su nombre y cuyos <strong>atributos</strong> son (entre otras cosas) las funciones que están definidas dentro del módulo.</p></li>
+<li><p>Al importar el módulo, lo que se importan no son sus funciones, sino el propio módulo, el cual es un <strong>objeto</strong> (de tipo <code class="sourceCode python">module</code>) al que se accede a través de su nombre y cuyos <strong>atributos</strong> son (entre otras cosas) las funciones que están definidas dentro del módulo.</p></li>
 <li><p>Por eso, para poder llamar a una función del módulo usando esta técnica, debemos indicar el nombre del módulo, seguido de un punto (<code>.</code>) y el nombre de la función:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
@@ -1758,11 +1788,11 @@
 
 <ul>
 <li><p>De hecho, cuando el objeto es un módulo, no hablamos de métodos sino de funciones (los módulos no contienen métodos).</p></li>
-<li><p>No es lo mismo <code>math</code>, que <code>math.gcd</code>, que <code>math.gcd(16, 6)</code>:</p>
+<li><p>No es lo mismo <code class="sourceCode python">math</code>, que <code class="sourceCode python">math.gcd</code>, que <code class="sourceCode python">math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</code>:</p>
 <ul>
-<li><p><code>math</code> es un <em>módulo</em> (un objeto de tipo <code>module</code>).</p></li>
-<li><p><code>math.gcd</code> es una <em>función</em> (no es un método porque <code>math</code> es un módulo).</p></li>
-<li><p><code>math.gcd(16, 6)</code> es una <em>llamada a función</em>.</p></li>
+<li><p><code class="sourceCode python">math</code> es un <em>módulo</em> (un objeto de tipo <code>module</code>).</p></li>
+<li><p><code class="sourceCode python">math.gcd</code> es una <em>función</em> (no es un método porque <code>math</code> es un módulo).</p></li>
+<li><p><code class="sourceCode python">math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</code> es una <em>llamada a función</em>.</p></li>
 </ul>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math</span>
@@ -1771,7 +1801,7 @@
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function gcd<span class="op">&gt;</span></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
-<li><p>La lista completa de funciones que incluye el módulo <code>math</code> se puede consultar en su documentación:</p>
+<li><p>La lista completa de funciones que incluye el módulo <code class="sourceCode python">math</code> se puede consultar en su documentación:</p>
 <p><a href="https://docs.python.org/3/library/math.html" target="_blank">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
 </section>
@@ -1783,14 +1813,14 @@
 <li><p>Por ello, en Python los términos «<em>dato</em>», «<em>valor</em>» y «<em>objeto</em>» son sinónimos en la práctica.</p></li>
 <li><p>Los números, las cadenas, los módulos, las funciones… todos son objetos.</p></li>
 <li><p>Incluso los métodos son objetos, ya que, en realidad, son funciones contenidas dentro de otros objetos, y las funciones son objetos.</p></li>
-<li><p>Hasta los tipos (como <code>int</code> o <code>str</code>) son objetos que tienen sus propios atributos.</p></li>
+<li><p>Hasta los tipos (como <code class="sourceCode python"><span class="bu">int</span></code> o <code class="sourceCode python"><span class="bu">str</span></code>) son objetos que tienen sus propios atributos.</p></li>
 <li><p>Entraremos a estudiar más en detalle estas características cuando veamos la <strong>programación orientada a objetos</strong>.</p></li>
 </ul>
 </section>
 <section id="el-módulo-operator" class="title-slide slide level4" data-number="6.2.1.1">
 <h4 data-number="6.2.1.1"><span class="header-section-number">6.2.1.1</span> El módulo <code>operator</code></h4>
 <ul>
-<li><p>El módulo <code>operator</code> contiene, en forma de funciones, las operaciones básicas que hasta ahora hemos utilizado en forma de operadores:</p>
+<li><p>El módulo <code class="sourceCode python">operator</code> contiene, en forma de funciones, las operaciones básicas que hasta ahora hemos utilizado en forma de operadores:</p>
 <table style="width:79%;">
 <colgroup>
 <col style="width: 18%" />
@@ -1809,42 +1839,42 @@ módulo <code>operator</code></th>
 <tr class="odd">
 <td style="text-align: center;"><code>+</code></td>
 <td style="text-align: center;">Suma</td>
-<td style="text-align: center;"><code>add</code></td>
+<td style="text-align: center;"><code class="sourceCode python">add</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>-</code></td>
 <td style="text-align: center;">Resta</td>
-<td style="text-align: center;"><code>sub</code></td>
+<td style="text-align: center;"><code class="sourceCode python">sub</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>-</code></td>
 <td style="text-align: center;">Cambio de signo</td>
-<td style="text-align: center;"><code>neg</code></td>
+<td style="text-align: center;"><code class="sourceCode python">neg</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>*</code></td>
 <td style="text-align: center;">Multiplicación</td>
-<td style="text-align: center;"><code>mul</code></td>
+<td style="text-align: center;"><code class="sourceCode python">mul</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>/</code></td>
 <td style="text-align: center;">División</td>
-<td style="text-align: center;"><code>truediv</code></td>
+<td style="text-align: center;"><code class="sourceCode python">truediv</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>%</code></td>
 <td style="text-align: center;">Módulo</td>
-<td style="text-align: center;"><code>mod</code></td>
+<td style="text-align: center;"><code class="sourceCode python">mod</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>**</code></td>
 <td style="text-align: center;">Exponente</td>
-<td style="text-align: center;"><code>pow</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="bu">pow</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>//</code></td>
 <td style="text-align: center;">División entera hacia abajo</td>
-<td style="text-align: center;"><code>floordiv</code></td>
+<td style="text-align: center;"><code class="sourceCode python">floordiv</code></td>
 </tr>
 </tbody>
 </table></li>
@@ -1853,7 +1883,7 @@ módulo <code>operator</code></th>
 <section class="slide level5" data-number="6.2.1.1.1">
 
 <ul>
-<li><p>Gracias al módulo <code>operator</code>, podemos reescribir con funciones las expresiones que utilizan operadores.</p></li>
+<li><p>Gracias al módulo <code class="sourceCode python">operator</code>, podemos reescribir con funciones las expresiones que utilizan operadores.</p></li>
 <li><p>Por ejemplo, la expresión:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div>
@@ -1868,7 +1898,7 @@ módulo <code>operator</code></th>
 <section class="slide level5" data-number="6.2.1.1.2">
 
 <ul>
-<li><p>La expresión <code>3 * (4 + 5) - 10</code> se evalúa así:</p>
+<li><p>La expresión <code class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></code> se evalúa así:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>          <span class="co"># se evalúa 3 (devuelve 3)</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 4 (devuelve 4)</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 5 (devuelve 5)</span></span>
@@ -1876,7 +1906,7 @@ módulo <code>operator</code></th>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">9</span> <span class="op">-</span> <span class="dv">10</span>              <span class="co"># se evalúa 3 * 9 (devuelve 27)</span></span>
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">27</span> <span class="op">-</span> <span class="dv">10</span>                 <span class="co"># se evalúa 27 - 10 (devuelve 17)</span></span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
-<li><p>Y la expresión <code>sub(mul(3, add(4, 5)), 10)</code> se evalúa así:</p>
+<li><p>Y la expresión <code class="sourceCode python">sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</code> se evalúa así:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)    <span class="co"># se evalúa sub (devuelve la función resta)</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa mul (devuelve la función multiplicación)</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 3 (devuelve 3)</span></span>
@@ -1893,7 +1923,7 @@ módulo <code>operator</code></th>
 <section id="ejercicios" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicios</h5>
 <ol start="2" class="example" type="1">
-<li><p>Comprobar que el módulo <code>math</code> es un valor (objeto) de tipo <code>module</code>.</p></li>
+<li><p>Comprobar que el módulo <code class="sourceCode python">math</code> es un valor (objeto) de tipo <code class="sourceCode python">module</code>.</p></li>
 <li><p>¿Cómo podemos deducir que el tipo <code>int</code> también un objeto en Python?</p></li>
 </ol>
 </section>
@@ -1918,10 +1948,10 @@ módulo <code>operator</code></th>
 <ol start="4" class="example" type="1">
 <li><p>Representar la evaluación las siguientes expresiones, aplicando paso a paso la reducción que corresponda. Indicar también el tipo del valor resultante:</p>
 <ol type="a">
-<li><code>3 + 6 * 14</code></li>
-<li><code>8 + 7 * 3.0 + 4 * 6</code></li>
-<li><code>–4 * 7 + 2 ** 3 / 4 – 5</code></li>
-<li><code>4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2</code></li>
+<li><code class="sourceCode python"><span class="dv">3</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> <span class="dv">14</span></code></li>
+<li><code class="sourceCode python"><span class="dv">8</span> <span class="op">+</span> <span class="dv">7</span> <span class="op">*</span> <span class="fl">3.0</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span></code></li>
+<li><code class="sourceCode python"><span class="op">-</span><span class="dv">4</span> <span class="op">*</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">-</span> <span class="dv">5</span></code></li>
+<li><code class="sourceCode python"><span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">6</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">5</span> <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span></code></li>
 </ol></li>
 <li><p>Convertir en expresiones aritméticas algorítmicas las siguientes expresiones algebraicas:</p>
 <ol type="a">
@@ -1937,14 +1967,14 @@ módulo <code>operator</code></th>
 <ol start="6" class="example" type="1">
 <li><p>Determinar, según las reglas de prioridad y asociatividad del lenguaje Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:</p>
 <ol type="a">
-<li><code>(8 + (7 * 3) + 4 * 6)</code></li>
-<li><code>–(2 ** 3)</code></li>
-<li><code>(33 + (3 * 4)) / 5</code></li>
-<li><code>2 ** (2 * 3)</code></li>
-<li><code>(3.0) + (2 * (18 – 4 ** 2))</code></li>
-<li><code>(16 * 6) – (3) * 2</code></li>
+<li><code class="sourceCode python">(<span class="dv">8</span> <span class="op">+</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)</code></li>
+<li><code class="sourceCode python"><span class="op">-</span>(<span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span>)</code></li>
+<li><code class="sourceCode python">(<span class="dv">33</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>)) <span class="op">/</span> <span class="dv">5</span></code></li>
+<li><code class="sourceCode python"><span class="dv">2</span> <span class="op">**</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span>)</code></li>
+<li><code class="sourceCode python">(<span class="fl">3.0</span>) <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">18</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">**</span> <span class="dv">2</span>))</code></li>
+<li><code class="sourceCode python">(<span class="dv">16</span> <span class="op">*</span> <span class="dv">6</span>) <span class="op">-</span> (<span class="dv">3</span>) <span class="op">*</span> <span class="dv">2</span></code></li>
 </ol></li>
-<li><p>Usar la función <code>math.sqrt</code> para escribir dos expresiones en Python que calculen las dos soluciones a la ecuación de segundo grado <span class="math inline">ax^2+bx+c=0</span>.</p>
+<li><p>Usar la función <code class="sourceCode python">math.sqrt</code> para escribir dos expresiones en Python que calculen las dos soluciones a la ecuación de segundo grado <span class="math display">ax^2+bx+c=0.</span></p>
 <p>Recordar que las soluciones son:</p>
 <p><span class="math display">x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
   x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}</span></p></li>
@@ -1955,18 +1985,18 @@ módulo <code>operator</code></th>
 <ol start="8" class="example" type="1">
 <li><p>Evaluar las siguientes expresiones:</p>
 <ol type="a">
-<li><code>9 – 5 – 3</code></li>
-<li><code>2 // 3 + 3 / 5</code></li>
-<li><code>9 // 2 / 5</code></li>
-<li><code>7 % 5 % 3</code></li>
-<li><code>7 % (5 % 3)</code></li>
-<li><code>(7 % 5) % 3</code></li>
-<li><code>(7 % 5 % 3)</code></li>
-<li><code>((12 + 3) // 2) / (8 – (5 + 1))</code></li>
-<li><code>12 / 2 * 3</code></li>
-<li><code>math.sqrt(math.cos(4))</code></li>
-<li><code>math.cos(math.sqrt(4))</code></li>
-<li><code>math.trunc(815.66) + round(815.66)</code></li>
+<li><code class="sourceCode python"><span class="dv">9</span> – <span class="dv">5</span> – <span class="dv">3</span></code></li>
+<li><code class="sourceCode python"><span class="dv">2</span> <span class="op">//</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">5</span></code></li>
+<li><code class="sourceCode python"><span class="dv">9</span> <span class="op">//</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">5</span></code></li>
+<li><code class="sourceCode python"><span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span></code></li>
+<li><code class="sourceCode python"><span class="dv">7</span> <span class="op">%</span> (<span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span>)</code></li>
+<li><code class="sourceCode python">(<span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">3</span></code></li>
+<li><code class="sourceCode python">(<span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span>)</code></li>
+<li><code class="sourceCode python">((<span class="dv">12</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">//</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="dv">8</span> – (<span class="dv">5</span> <span class="op">+</span> <span class="dv">1</span>))</code></li>
+<li><code class="sourceCode python"><span class="dv">12</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span></code></li>
+<li><code class="sourceCode python">math.sqrt(math.cos(<span class="dv">4</span>))</code></li>
+<li><code class="sourceCode python">math.cos(math.sqrt(<span class="dv">4</span>))</code></li>
+<li><code class="sourceCode python">math.trunc(<span class="fl">815.66</span>) <span class="op">+</span> <span class="bu">round</span>(<span class="fl">815.66</span>)</code></li>
 </ol></li>
 </ol>
 </section>
@@ -1975,10 +2005,10 @@ módulo <code>operator</code></th>
 <ol start="9" class="example" type="1">
 <li><p>Escribir las siguientes expresiones algorítmicas como expresiones algebraicas:</p>
 <ol type="a">
-<li><code>b ** 2 – 4 * a * c</code></li>
-<li><code>3 * x ** 4 – 5 * x ** 3 + x * 12 – 17</code></li>
-<li><code>(b + d) / (c + 4)</code></li>
-<li><code>(x ** 2 + y ** 2) ** (1 / 2)</code></li>
+<li><code class="sourceCode python">b <span class="op">**</span> <span class="dv">2</span> – <span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c</code></li>
+<li><code class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">4</span> – <span class="dv">5</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">3</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">12</span> – <span class="dv">17</span></code></li>
+<li><code class="sourceCode python">(b <span class="op">+</span> d) <span class="op">/</span> (c <span class="op">+</span> <span class="dv">4</span>)</code></li>
+<li><code class="sourceCode python">(x <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> y <span class="op">**</span> <span class="dv">2</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>)</code></li>
 </ol></li>
 </ol>
 </section>

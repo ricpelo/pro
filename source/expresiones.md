@@ -337,6 +337,32 @@ que denominamos el **valor** de la expresión.
 
 @. Obtener las derivaciones correspondientes de cada una de las expresiones.
 
+---
+
+- Muchas veces, de ahora en adelante representaremos las expresiones combinando
+  **distintos colores y estilos tipográficos** con la única finalidad de
+  facilitar la lectura y ayudar a reconocer los diferentes elementos
+  sintácticos que las componen.
+
+- A esta técnica se la denomina **resaltado de sintaxis**.
+
+- Por ejemplo, las expresiones anteriores quedarían así:
+
+  - !PYTHON((3 + (4 - 7)))
+
+  - !PYTHON(24)
+
+  - !PYTHON((4 + 5))
+
+  - !PYTHON((-(8 * 3.5)))
+
+  - !PYTHON((9 * (x - 2)))
+
+  - !PYTHON(z)
+
+  - !PYTHON((abs(-3) + (max(8, 5) / 2)))
+
+
 # Valores
 
 ## Introducción
@@ -394,11 +420,11 @@ que denominamos el **valor** de la expresión.
 
 - Podemos decir que las expresiones:
 
-  `3`
+  !PYTHON(3)
 
-  `(1 + 2)`
+  !PYTHON((1 + 2))
 
-  `(5 - 2)`
+  !PYTHON((5 - 2))
 
   denotan todas el mismo valor (el número abstracto **tres**).
 
@@ -408,7 +434,7 @@ que denominamos el **valor** de la expresión.
 - Cuando introducimos una expresión en el intérprete, lo que hace éste es
   buscar **la representación más simplificada o reducida** posible.
 
-  En el ejemplo anterior, sería la expresión `3`.
+  En el ejemplo anterior, sería la expresión !PYTHON(3).
 
 - Por eso a menudo usamos, indistintamente, los términos *reducir*,
   *simplificar* y *evaluar*.
@@ -449,20 +475,20 @@ Se dice:
 
 - De las expresiones anteriores:
 
-  `3`
+  !PYTHON(3)
 
-  `(1 + 2)`
+  !PYTHON((1 + 2))
 
-  `(5 - 2)`
+  !PYTHON((5 - 2))
   
   que denotan todas el mismo valor abstracto **tres**, seleccionamos una (la
-  expresión `3`) como la **expresión canónica** de ese valor.
+  expresión !PYTHON(3)) como la **expresión canónica** de ese valor.
 
-- Igualmente, la expresión `3` es la **forma normal** de todas las
+- Igualmente, la expresión !PYTHON(3) es la **forma normal** de todas las
   expresiones anteriores (y de cualquier otra expresión con valor **tres**).
 
-- Es importante no confundir el valor abstracto **tres** con la expresión `3`
-  que representa dicho valor.
+- Es importante no confundir el valor abstracto **tres** con la expresión
+  !PYTHON(3) que representa dicho valor.
 
 ---
 
@@ -495,17 +521,32 @@ Se dice:
 
 - Recordemos que no todos los valores tienen forma normal.
 
+---
+
+- El orden en el que se van reduciendo las subexpresiones no debe influir en el
+  resultado de evaluar una expresión, así que debería dar igual elegir una u
+  otra subexpresión.
+
+- De todas formas, los lenguajes de programación suelen imponer un orden
+  concreto a la hora de evaluar las expresiones.
+
+- Tanto en Python como en Java (los dos lenguajes que veremos), el orden de
+  evaluación es de izquierda a derecha (salvo excepciones):
+
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Importante (orden de evaluación de las expresiones):**
+  **Orden de evaluación de las expresiones:**
 
-  Al analizar una expresión buscando subexpresiones que reducir, las
-  subexpresiones siempre se evaluarán **de izquierda a derecha**.
+  Al evaluar una expresión, las subexpresiones que la forman siempre se
+  evaluarán **de izquierda a derecha**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El orden de evaluación de las subexpresiones es un asunto más complejo de lo
+  que parece, y lo estudiaremos en profundidad en posteriores apartados.
 
 ---
 
-!UML(evaluacion.svg)()(width=40%)(width=30%)
+!UML(evaluacion.svg)(Evaluación de una expresión)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :expresión;
 while (¿es posible reducir?) is (sí)
@@ -516,11 +557,11 @@ endwhile (no)
 
 !EJEMPLOS
 
-- Evaluar la expresión `(2 + 3)`:
+- Evaluar la expresión !PYTHON((2 + 3)):
 
   - La expresión está formada por un operador `+` que actúa sobre las dos
-    subexpresiones `2` y `3`. Por tanto, habrá que evaluar primero esas dos
-    subexpresiones, siempre de izquierda a derecha:
+    subexpresiones !PYTHON(2) y !PYTHON(3). Por tanto, habrá que evaluar
+    primero esas dos subexpresiones, siempre de izquierda a derecha:
 
     ```python
     (2 + 3)             # se evalúa primero 2 (que devuelve 2)
@@ -531,13 +572,13 @@ endwhile (no)
 
 ---
 
-- Evaluar la expresión `(2 * (3 + 5))`:
+- Evaluar la expresión !PYTHON((2 * (3 + 5))):
 
   - La expresión está formada por un operador `*` que actúa sobre las dos
-    subexpresiones `2` y `(3 + 5)`.
+    subexpresiones !PYTHON(2) y !PYTHON((3 + 5)).
 
   - La segunda subexpresión, a su vez, está formada por un operador `+` que
-    actúa sobre las dos subexpresiones `3` y `5`.
+    actúa sobre las dos subexpresiones !PYTHON(3) y !PYTHON(5).
 
   - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
     medida que se van reduciendo:
@@ -553,13 +594,13 @@ endwhile (no)
 
 ---
 
-- Evaluar la expresión `((2 + 5) * 3)`:
+- Evaluar la expresión !PYTHON(((2 + 5) * 3)):
 
   - La expresión está formada por un operador `*` que actúa sobre las dos
-    subexpresiones `(2 + 5)` y `3`.
+    subexpresiones !PYTHON((2 + 5)) y !PYTHON(3).
 
   - La primera subexpresión, a su vez, está formada por un operador `+` que
-    actúa sobre las dos subexpresiones `2` y `5`.
+    actúa sobre las dos subexpresiones !PYTHON(2) y !PYTHON(5).
 
   - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
     medida que se van reduciendo:
@@ -596,15 +637,15 @@ endwhile (no)
     Números enteros        Números reales \       Cadenas \
     (tipo `int`)           (tipo `float`)         (tipo `str`)
   ---------------------- ----------------------  ----------------------
-      `-2`                 `3.5`                  `"hola"`
+      !PYTHON(-2)            !PYTHON(3.5)           !PYTHON("hola")
 
-      `-1`                 `-2.7`                 `"pepe"`
+      !PYTHON(-1)            !PYTHON(-2.7)          !PYTHON("pepe")
 
-      `0`                                         `"25"`
+      !PYTHON(0)                                    !PYTHON("25")
 
-      `1`                                         `""`
+      !PYTHON(1)                                    !PYTHON("")
 
-      `2`
+      !PYTHON(2)
   ---------------------------------------------------------------------
 
 - Algunas reglas léxicas son:
@@ -623,41 +664,42 @@ endwhile (no)
 
 - Por consiguiente, suelen estar ya totalmente simplificados.
 
-- Por ejemplo, el `3.5` es un literal que denota el valor numérico **tres y
-  medio**, es su expresión canónica y es la forma normal de cualquier expresión
-  que denote dicho valor.
+- Por ejemplo, el !PYTHON(3.5) es un literal que denota el valor numérico
+  **tres y medio**, es su expresión canónica y es la forma normal de cualquier
+  expresión que denote dicho valor.
 
-- Por tanto, el literal `3.5` es la forma más reducida de representar el valor
-  **tres y medio**.
+- Por tanto, el literal !PYTHON(3.5) es la forma más reducida de representar el
+  valor **tres y medio**.
 
-- Es decir: si le pedimos al intérprete que calcule el resultado de `7 / 2`,
-  nos devolverá la expresión `3.5`.
+- Es decir: si le pedimos al intérprete que calcule el resultado de !PYTHON(7 /
+  2), nos devolverá la expresión !PYTHON(3.5).
 
-- Sin embargo, el `3.5` no es el único literal que denota el valor numérico
-  **tres y medio**. Por ejemplo, los literales `3.50`, `3.500` o `03.50`
-  también denotan ese mismo valor, pero la forma normal de todos ellos es
-  `3.5`.
+- Sin embargo, el !PYTHON(3.5) no es el único literal que denota el valor
+  numérico **tres y medio**. Por ejemplo, los literales !PYTHON(3.50),
+  !PYTHON(3.500) o !PYTHON(03.50) también denotan ese mismo valor, pero la
+  forma normal de todos ellos es !PYTHON(3.5).
 
 - O sea: hay varias maneras de escribir un literal que denote el valor **tres y
-  medio**, pero sólo el literal `3.5` es la forma normal de todas ellas.
+  medio**, pero sólo el literal !PYTHON(3.5) es la forma normal de todas ellas.
 
 ---
 
 - Igualmente, la forma normal de todas las posibles expresiones que denotan el
-  valor numérico **dos** es el literal `2`.
+  valor numérico **dos** es el literal !PYTHON(2).
 
-- El literal `2` es la forma más reducida de representar el valor **dos**.
+- El literal !PYTHON(2) es la forma más reducida de representar el valor
+  **dos**.
 
 - Pero no es el único literal que denota dicho valor.
 
-- El literal `02` no es correcto según las reglas léxicas del lenguaje, pero sí
-  que podemos usar la expresión `0b10`, que es un literal que representa el
-  valor **dos** escrito en binario.
+- El literal !PYTHON(02) no es correcto según las reglas léxicas del lenguaje,
+  pero sí que podemos usar la expresión !PYTHON(0b10), que es un literal que
+  representa el valor **dos** escrito en binario.
 
 - Igualmente, las reglas léxicas del lenguaje permiten usar el carácter `_`
   dentro de un número, por lo que el valor numérico **cuatro millones** se
-  puede representar con el literal `4_000_000`, si bien su forma normal sigue
-  siendo simplemente `4000000`.
+  puede representar con el literal !PYTHON(4_000_000), si bien su forma normal
+  sigue siendo simplemente !PYTHON(4000000).
 
 - Finalmente, las cadenas se pueden escribir con comillas simples (`'`) o
   dobles (`"`), pero la forma normal de una cadena siempre usa las simples.
@@ -723,15 +765,15 @@ $$
   sobre operandos numéricos, representan las operaciones de suma, resta,
   multiplicación y división, respectivamente.
 
-  - En la expresión `(3 + 4)`:
+  - En la expresión !PYTHON((3 + 4)):
 
-    - Los operandos son `3` y `4`.
+    - Los operandos son !PYTHON(3) y !PYTHON(4).
 
-    - El operador es `+` y representa la operación «_suma de números_».
+    - El operador es !PYTHON(+) y representa la operación «_suma de números_».
 
-  - En la expresión `(9 * 8)`:
+  - En la expresión !PYTHON((9 * 8)):
 
-    - Los operandos son `9` y `8`.
+    - Los operandos son !PYTHON(9) y !PYTHON(8).
 
     - El operador es `*` y representa la operación «_multiplicación de
       números_».
@@ -746,7 +788,7 @@ $$
 
     Ejemplo: el operador `-` que cambia el signo de su operando:
 
-    `(-(5 + 3))`
+    !PYTHON((-(5 + 3)))
 
   - **Binarios**: operan sobre dos operandos.
 
@@ -767,9 +809,9 @@ $$
 
   - Por ejemplo:
 
-    `((3 + 4) * 5)` vale `35`
+    !PYTHON(((3 + 4) * 5)) vale !PYTHON(35)
 
-    `(3 + (4 * 5))` vale `23`
+    !PYTHON((3 + (4 * 5))) vale !PYTHON(23)
 
 - Una expresión está **correctamente parentizada** si tiene los paréntesis bien
   colocados según dicta la gramática del lenguaje.
@@ -784,12 +826,12 @@ $$
 
 - Por ejemplo:
 
-  - `2 +) 3 *( 5(` no está correctamente parentizada.
+  - `2 +) 3 *( 5(`{.python} no está correctamente parentizada.
 
-  - `(4 + (2 * 5))` está correcta y totalmente parentizada.
+  - !PYTHON((4 + (2 * 5))) está correcta y totalmente parentizada.
 
-  - `2 + 5` no está totalmente parentizada y, por tanto, no está correctamente
-    parentizada según nuestra gramática.
+  - !PYTHON(2 + 5) no está totalmente parentizada y, por tanto, no está
+    correctamente parentizada según nuestra gramática.
 
 - Para reducir la cantidad de paréntesis en una expresión, podemos cambiar
   nuestra gramática acudiendo a un esquema de **prioridades** y
@@ -807,10 +849,10 @@ $$
   8 + 4 * 2
   ```
 
-  El `4` está afectado a izquierda y derecha por los operadores `+` y `*`, que
-  tienen distinta prioridad, por lo que se aplican las reglas de la prioridad.
-  El `*` tiene *más prioridad* que el `+`, así que agrupa primero el `*`.
-  Equivale a hacer:
+  El !PYTHON(4) está afectado a izquierda y derecha por los operadores `+` y
+  `*`, que tienen distinta prioridad, por lo que se aplican las reglas de la
+  prioridad. El `*` tiene *más prioridad* que el `+`, así que agrupa primero el
+  `*`. Equivale a hacer:
 
   ```python
   8 + (4 * 2)
@@ -837,10 +879,10 @@ $$
   8 / 4 / 2
   ```
 
-  El `4` está afectado a derecha e izquierda por el mismo operador `/`, por lo
-  que se aplican las reglas de la asociatividad. El `/` es *asociativo por la
-  izquierda*, así que agrupa primero el operador que está a la izquierda.
-  Equivale a hacer:
+  El !PYTHON(4) está afectado a derecha e izquierda por el mismo operador `/`,
+  por lo que se aplican las reglas de la asociatividad. El `/` es *asociativo
+  por la izquierda*, así que agrupa primero el operador que está a la
+  izquierda. Equivale a hacer:
 
   ```python
   (8 / 4) / 2
@@ -889,9 +931,9 @@ $$
   por sí mismos no son suficientes para imponer un determinado **orden de
   evaluación**.
 
-- Por ejemplo, en la expresión `4 * (3 + 5)`, el intérprete intenta hacer el
-  producto de `4` por `(3 + 5)`, pero no puede hacerlo hasta haber calculado
-  primero la suma de `3` y `5`.
+- Por ejemplo, en la expresión !PYTHON(4 * (3 + 5)), el intérprete intenta
+  hacer el producto de !PYTHON(4) por !PYTHON((3 + 5)), pero no puede hacerlo
+  hasta haber calculado primero la suma de !PYTHON(3) y !PYTHON(5).
 
 - Por eso el intérprete calcula primero la suma y finalmente hace el producto,
   porque para hacer el producto primero necesita haber reducido sus operandos a
@@ -914,7 +956,7 @@ $$
   = 32
   ```
 
-- Sin paréntesis, la expresión `4 * 3 + 5` se evaluaría así:
+- Sin paréntesis, la expresión !PYTHON(4 * 3 + 5) se evaluaría así:
 
   ```python
   4 * 3 + 5         # se evalúa 4 (que devuelve 4)
@@ -930,7 +972,7 @@ $$
 
 ---
 
-- Pero, ¿qué ocurre con expresión `(2 + 3) * (4 + 5)`?
+- Pero, ¿qué ocurre con expresión !PYTHON((2 + 3) * (4 + 5))?
 
 - En un principio, ocurre algo parecido a lo de antes: para poder hacer el
   producto, primero hay que calcular las dos sumas, ya que los operandos del
@@ -939,13 +981,13 @@ $$
 - La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué
   orden se evalúan los operandos del operador `*`?
 
-- Matemáticamente no hay ninguna diferencia entre calcular primero `2 + 3` y
-  luego `4 + 5` o hacerlo al revés.
+- Matemáticamente no hay ninguna diferencia entre calcular primero
+  !PYTHON(2 + 3) y luego !PYTHON(4 + 5) o hacerlo al revés.
 
 - Pero ya sabemos que Python impone un orden de evaluación de izquierda a
   derecha al reducir las subexpresiones.
 
-- Por tanto, primero se evaluaría `(2 + 3)`, y después `(4 + 5)`.
+- Por tanto, primero se evaluaría !PYTHON((2 + 3)), y después !PYTHON((4 + 5)).
 
 - El orden de evaluación no viene determinado por los paréntesis, sino por las
   reglas del lenguaje y el funcionamiento interno del intérprete.
@@ -1033,17 +1075,17 @@ $$
 
 ---
 
-- Por ejemplo, la función `abs` está predefinida en Python y tiene la siguiente
-  signatura:
+- Por ejemplo, la función !PYTHON(abs) está predefinida en Python y tiene la
+  siguiente signatura:
 
   `abs(`$x$`: Number) -> Number`
 
 - Esa signatura nos dice que:
 
-  - La función se llama `abs`.
+  - La función se llama !PYTHON(abs).
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
-    valor numérico (es lo que representa el tipo especial `Number`).
+    valor numérico (es lo que representa el tipo especial !PYTHON(Number)).
 
   - Devuelve un resultado numérico.
 
@@ -1085,32 +1127,33 @@ $$
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por ejemplo, si queremos calcular el valor absoluto del número $-35$, podemos
-  llamar a la función `abs` pasándole `-35` como su argumento:
+- Por ejemplo, si queremos calcular el valor absoluto del número $-3$, podemos
+  llamar a la función !PYTHON(abs) pasándole !PYTHON(-3) como su argumento:
 
-`abs(-35)`
+!PYTHON(abs(-3))
 
 - En esta llamada, las siguientes tres afirmaciones son equivalentes (son tres
   formas distintas de decir lo mismo):
 
-  - El argumento `-35` se pasa a la función `abs` a través del parámetro
-    $\underline{x}$.
+  - «El argumento !PYTHON(-3) se pasa a la función !PYTHON(abs) a través del
+    parámetro $\underline{x}$».
 
-  - El argumento `-35` se pasa al parámetro $\underline{x}$.
+  - «El argumento !PYTHON(-3) se pasa al parámetro $\underline{x}$».
 
-  - El parámetro $\underline{x}$ toma el valor `-35`.
+  - «El parámetro $\underline{x}$ toma el valor !PYTHON(-3)».
 
 - El resultado de la llamada a la función será el valor que devuelve (en este
-  caso, el valor `35`). Por tanto, la expresión `abs(-35)` vale `35`.
+  caso, el valor !PYTHON(3)). Por tanto, la expresión !PYTHON(abs(-3)) vale
+  !PYTHON(3).
 
 ---
 
-- Como la función `abs` está **predefinida** en Python, se puede usar
+- Como la función !PYTHON(abs) está **predefinida** en Python, se puede usar
   directamente. Por ejemplo:
 
   ```python
-  >>> abs(-35)
-  35
+  >>> abs(-3)
+  3
   ```
 
 - Al igual que pasa con los operadores, es importante respetar la signatura de
@@ -1128,12 +1171,12 @@ $$
 
 ---
 
-- Otro ejemplo es la función `len`, que devuelve la longitud de una cadena (el
-  número de caracteres que contiene). Su signatura sería:
+- Otro ejemplo es la función !PYTHON(len), que devuelve la longitud de una
+  cadena (el número de caracteres que contiene). Su signatura sería:
 
   `len(`$cadena$`: str) -> int`
 
-- Un ejemplo de llamada a la función `len`:
+- Un ejemplo de llamada a la función !PYTHON(len):
 
   ```python
   >>> len("hola")
@@ -1160,8 +1203,8 @@ $$
 
 ---
 
-- Otro ejemplo es la función `pow`, que realiza la operación de elevar un
-  número a la potencia de otro. Su signatura es:
+- Otro ejemplo es la función !PYTHON(pow), que realiza la operación de elevar
+  un número a la potencia de otro. Su signatura es:
 
   `pow(`$base$`: Number,` ` `$exp$`: Number) -> Number`
 
@@ -1174,7 +1217,7 @@ $$
     8
     ```
 
-  - Como función (`pow`):
+  - Como función (!PYTHON(pow)):
 
     ```python
     >>> pow(2, 3)
@@ -1185,7 +1228,8 @@ $$
 
 ---
 
-- Al llamar a la función `pow` hay que tener en cuenta que tiene dos parámetros.
+- Al llamar a la función !PYTHON(pow) hay que tener en cuenta que tiene dos
+  parámetros.
 
 - Por tanto, hay que recordar que importa el orden al pasar los argumentos en
   la llamada a la función.
@@ -1196,7 +1240,7 @@ $$
 - Por tanto, el primer argumento debe ser la base y el segundo debe ser el
   exponente, y no al revés.
 
-- No es lo mismo hacer `pow(2, 3)` que hacer `pow(3, 2)`:
+- No es lo mismo hacer !PYTHON(pow(2, 3)) que hacer !PYTHON(pow(3, 2)):
 
   ```python
   >>> pow(2, 3)  # aquí, el parámetro «base» toma el valor 2 y «exp» el valor 3
@@ -1207,14 +1251,15 @@ $$
 
 ---
 
-- Como último ejemplo, la función `max` devuelve el máximo de dos valores
-  recibidos como argumentos:
+- Como último ejemplo, la función !PYTHON(max) devuelve el máximo de dos
+  valores recibidos como argumentos:
 
   `max(`$arg_1$`,` ` `$arg_2$`)`
 
-- Aquí es más complicado definir su signatura, ya que `max` admite argumentos
-  de varios tipos (se puede calcular el máximo de dos números, de dos
-  cadenas... de casi cualquier par de cosas que sean _comparables_ entre sí).
+- Aquí es más complicado definir su signatura, ya que !PYTHON(max) admite
+  argumentos de varios tipos (se puede calcular el máximo de dos números, de
+  dos cadenas... de casi cualquier par de cosas que sean _comparables_ entre
+  sí).
 
 - Por ejemplo:
 
@@ -1231,15 +1276,15 @@ $$
 
 ---
 
-- Es interesante tener en cuenta que el nombre de una función (como `abs`,
-  `len` o `max`) es un **identificador** que **representa a la propia
-  función**.
+- Es interesante tener en cuenta que el nombre de una función (como
+  !PYTHON(abs), !PYTHON(len) o !PYTHON(max)) es un **identificador** que
+  **representa a la propia función**.
 
-- Es decir, que `max` (sin paréntesis detrás) es una **expresión válida cuyo
-  valor es la propia función «_máximo de dos números_»**.
+- Es decir, que !PYTHON(max) (sin paréntesis detrás) es una **expresión válida
+  cuyo valor es la propia función «_máximo de dos números_»**.
 
-- Si le pedimos al intérprete que nos muestre el valor de la expresión `max`,
-  nos dice:
+- Si le pedimos al intérprete que nos muestre el valor de la expresión
+  !PYTHON(max), nos dice:
 
   ```python
   >>> max
@@ -1248,8 +1293,9 @@ $$
 
   (Recordemos que las funciones no tienen forma normal.)
 
-- En resumen: la expresión `max` devuelve la propia función «**máximo de dos
-  números**» y la expresión `max(4, 8)` devuelve el valor `8`.
+- En resumen: la expresión !PYTHON(max) devuelve la propia función «**máximo de
+  dos números**» y la expresión !PYTHON(max(4, 8)) devuelve el valor
+  !PYTHON(8).
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1270,26 +1316,26 @@ $$
 - Por ejemplo, en la siguiente expresión se combinan varias funciones y
   operadores:
 
-  `abs(-12) + max(13, 28)`
+  !PYTHON(abs(-12) + max(13, 28))
 
-  Aquí se llama a la función `abs` con el argumento `-12` y a la función `max`
-  con los argumentos `13` y `28`, y finalmente se suman los dos valores
-  obtenidos.
+  Aquí se llama a la función !PYTHON(abs) con el argumento !PYTHON(-12) y a la
+  función !PYTHON(max) con los argumentos !PYTHON(13) y !PYTHON(28), y
+  finalmente se suman los dos valores obtenidos.
 
 ---
 
 - ¿Cómo se calcula el valor de toda la expresión anterior?
 
-- En la expresión `abs(-12) + max(13, 28)` tenemos que calcular la suma de dos
-  valores, pero esos valores aún no los conocemos porque son los resultados que
-  se obtienen al llamar a dos funciones.
+- En la expresión !PYTHON(abs(-12) + max(13, 28)) tenemos que calcular la suma
+  de dos valores, pero esos valores aún no los conocemos porque son los
+  resultados que se obtienen al llamar a dos funciones.
 
 - Por tanto, lo primero que tenemos que hacer es evaluar las dos
   subexpresiones principales que contiene dicha expresión:
 
-  - `abs(-12)`
+  - !PYTHON(abs(-12))
 
-  - `max(13, 28)`
+  - !PYTHON(max(13, 28))
 
 - ¿Cuál se evalúa primero?
 
@@ -1382,11 +1428,11 @@ $$
 - Como acabamos de ver, el resultado de una operación puede ser un dato sobre
   el que aplicar otra operación dentro de la misma expresión:
 
-  - En `4 * (3 + 5)`, el resultado de `(3 + 5)` se usa como operando para el
-    operador `*`.
+  - En !PYTHON(4 * (3 + 5)), el resultado de !PYTHON((3 + 5)) se usa como
+    operando para el operador `*`.
 
-  - En `abs(-12) + max(13, 28)`, los resultados de llamar a las funciones `abs`
-    y `max` son los operandos del operador `+`.
+  - En !PYTHON(abs(-12) + max(13, 28)), los resultados de llamar a las
+    funciones !PYTHON(abs) y !PYTHON(max) son los operandos del operador `+`.
 
 - A esto se le denomina **composición de operaciones**.
 
@@ -1511,7 +1557,7 @@ $$
 
 - Por ejemplo:
 
-  Las cadenas responden al método `count`, que devuelve el número de
+  Las cadenas responden al método !PYTHON(count), que devuelve el número de
   veces que aparece una subcadena dentro de la cadena:
 
   ```python
@@ -1521,9 +1567,9 @@ $$
   4
   ```
 
-- Si `count` fuese una función en Python en lugar de un método (cosa que no
-  ocurre), recibiría dos parámetros: la cadena y la subcadena. En tal caso, se
-  usaría así:
+- Si !PYTHON(count) fuese una función en Python en lugar de un método (cosa que
+  no ocurre), recibiría dos parámetros: la cadena y la subcadena. En tal caso,
+  se usaría así:
 
   ```python
   count('hola caracola', 'ol')
@@ -1556,7 +1602,7 @@ $$
 
 - Dos consecuencias interesantes de lo anterior:
 
-  - El nombre de un método (como `count`) es el **identificador** de un
+  - El nombre de un método (como !PYTHON(count)) es el **identificador** de un
     atributo que pertenece al objeto sobre el que se ejecuta el método.
 
   - Si !NT(método) es el nombre de un método válido para el objeto !NT(objeto),
@@ -1564,7 +1610,7 @@ $$
     devuelve el propio método en sí**.
 
 - Por tanto, si le pedimos al intérprete que nos muestre el valor de la
-  expresión `'hola'.count` (sin paréntesis), nos dirá algo así:
+  expresión !PYTHON('hola'.count) (sin paréntesis), nos dirá algo así:
 
   ```python
   >>> 'hola'.count
@@ -1574,8 +1620,8 @@ $$
   (Los métodos son casos especiales de funciones y, por tanto, no tienen forma
   normal.)
 
-- En resumen: la expresión `'hola'.count` devuelve el propio método, y la
-  expresión `'hola'.count('o')` devuelve el valor `1`.
+- En resumen: la expresión !PYTHON('hola'.count) devuelve el propio método, y
+  la expresión !PYTHON('hola'.count('o')) devuelve el valor !PYTHON(1).
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1620,14 +1666,14 @@ $$
   determinar el número de caracteres que tiene una cadena. Esta operación se
   puede hacer:
 
-  - Con la función `len`, pasando la cadena como argumento:
+  - Con la función !PYTHON(len), pasando la cadena como argumento:
 
     ```python
     >>> len("hola")
     4
     ```
 
-  - Con el método `__len__` ejecutado sobre la cadena:
+  - Con el método !PYTHON(__len__) ejecutado sobre la cadena:
 
     ```python
     >>> "hola".__len__()
@@ -1648,14 +1694,14 @@ $$
     16
     ```
 
-  - Con la función `pow`:
+  - Con la función !PYTHON(pow):
 
     ```python
     >>> pow(2, 4)
     16
     ```
 
-  - Con el método `__pow__`:
+  - Con el método !PYTHON(__pow__):
 
     ```python
     >>> (2).__pow__(4)
@@ -1725,8 +1771,8 @@ $$
 ---
 
 - La forma **más general** de representar una operación es la **función**, ya
-  que _cualquier operación se puede expresar en forma de función_ (cosa que no
-  ocurre con los operadores y los métodos).
+  que **cualquier operación se puede expresar en forma de función** (cosa que
+  no ocurre con los operadores y los métodos).
 
 - Los operadores y los métodos son **formas sintácticas especiales** para
   representar operaciones que se podrían representar igualmente mediante
@@ -1782,76 +1828,77 @@ $$
 
 ### Operadores aritméticos
 
-----------------------------------------------------------------------------
-  Operador   Descripción       Ejemplo    Resultado  Comentarios
------------- --------------- ----------- ----------- -----------------------
-   `+`       Suma            `3 + 4`     `7`
-
-   `-`       Resta           `3 - 4`     `-1`
-
-   `*`       Producto        `3 * 4`     `12`
-
-   `/`       División        `3 / 4`     `0.75`      Devuelve un `float`
-
-
-   `%`       Módulo          `4 % 3` \   `1` \       Resto de la división
-                             `8 % 3`     `2`
-
-   `**`      Exponente       `3 ** 4`    `81`        Devuelve $3^4$
-
-   `//`      División entera `4 // 3` \   `1` \      \hfill{} \
-             hacia abajo     `-4 // 3`    `-2`       ??
-----------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+ Operador  Descripción           Ejemplo           Resultado          Comentarios
+---------- ------------------ ------------------- ------------------- ----------------------
+   `+`     Suma                !PYTHON(3 + 4)      !PYTHON(7)
+                             
+   `-`     Resta               !PYTHON(3 - 4)      !PYTHON(-1)
+                             
+   `*`     Producto            !PYTHON(3 * 4)      !PYTHON(12)
+                             
+   `/`     División            !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
+                                                                      !PYTHON(float)
+                             
+   `%`     Módulo              !PYTHON(4 % 3) \    !PYTHON(1) \       Resto de la división
+                               !PYTHON(8 % 3)      !PYTHON(2)
+                             
+   `**`    Exponente           !PYTHON(3 ** 4)     !PYTHON(81)        Devuelve $3^4$
+                             
+   `//`    División entera     !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
+           hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ??
+--------------------------------------------------------------------------------------------
 
 ### Operadores de cadenas
 
-------------------------------------------------------------------
-  Operador   Descripción           Ejemplo              Resultado 
------------- --------------------- -------------------- ----------
-   `+`       Concatenación         `'ab' + 'cd'`        `'abcd'`
-                                   `'ab' 'cd'`                    
-                                                     
-   `*`       Repetición            `'ab' * 3`           `'ababab'`
-                                   `3 * 'ab'`           `'ababab'`
-                                                     
-   `[0]`     Primer carácter       `'hola'[0]`          `'h'`
-                                                     
-   `[1:]`    Resto de cadena       `'hola'[1:]`         `'ola'`
-------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+  Operador         Descripción           Ejemplo                Resultado 
+------------------ ------------------ ------------------------ --------------------
+   `+`             Concatenación       !PYTHON('ab' + 'cd')     !PYTHON('abcd')
+                                       !PYTHON('ab' 'cd')                      
+                                                             
+   `*`             Repetición          !PYTHON('ab' * 3) \      !PYTHON('ababab') \
+                                       !PYTHON(3 * 'ab')        !PYTHON('ababab')
+                                                             
+   !PYTHON([0])    Primer carácter     !PYTHON('hola'[0])       !PYTHON('h')
+                                                             
+   !PYTHON([1:])   Resto de cadena     !PYTHON('hola'[1:])      !PYTHON('ola')
+-----------------------------------------------------------------------------------
 
 ## Funciones predefinidas
 
---------------------------------------------------------------------------------------
-Función                     Descripción           Ejemplo                  Resultado
---------------------------- --------------------- ------------------------ -----------
-`abs(`$n$`)`                Valor absoluto        `abs(-23)`               `23`
-
-`len(`$cad$`)`              Longitud de la cadena `len('hola')`            `4`
-
-`max(`$n_1($`,` $n_2)^+$`)` Valor máximo          `max(2, 5, 3)`           `5`
-
-`min(`$n_1($`,` $n_2)^+$`)` Valor mínimo          `min(2, 5, 3)`           `2`
-
-`round(`$n$[`,` $p$]`)`     Redondeo              `round(23.493)`  \       `23` \
-                                                  `round(23.493, 1)`       `23.5`
-
-`type(`$v$`)`               Tipo del valor        `type(23.5)`             `<class` \
-                                                                           `'float'>`
--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+Función                       Descripción           Ejemplo                       Resultado
+----------------------------- --------------------- ---------------------------- -----------------
+`abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))             !PYTHON(23)
+                             
+`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
+                             
+`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
+                             
+`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
+                             
+`round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \     !PYTHON(23) \
+                                                    !PYTHON(round(23.493, 1))     !PYTHON(23.5)
+                             
+`type(`$v$`)`                 Tipo del valor        !PYTHON(type(23.5))           !PYTHON(<class) \
+                                                                                  !PYTHON('float'>)
+--------------------------------------------------------------------------------------------------
 
 ### Funciones matemáticas y módulos
 
 - Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
-  del módulo `math`.
+  del módulo !PYTHON(math).
 
 - Los **módulos** en Python son conjuntos de funciones (y más cosas) que se
   pueden **importar** dentro de nuestra sesión o programa.
 
 - Son la base de la **programación modular**, que ya estudiaremos.
 
-- Para *importar* una función de un módulo se puede usar la orden `from`. Por
-  ejemplo, para importar la función `gcd` (que calcula el máximo común divisor
-  de dos números) del módulo `math` se haría:
+- Para *importar* una función de un módulo se puede usar la orden
+  !PYTHON(from). Por ejemplo, para importar la función !PYTHON(gcd) (que
+  calcula el máximo común divisor de dos números) del módulo !PYTHON(math) se
+  haría:
 
   ```python
   >>> from math import gcd  # importamos la función gcd que está en el módulo math
@@ -1865,16 +1912,16 @@ Función                     Descripción           Ejemplo                  Res
 ---
 
 - También se puede **importar directamente el módulo en sí** usando la orden
-  `import`.
+  !PYTHON(import).
 
   ```python
   >>> import math      # importamos el módulo math
   ```
 
 - Al importar el módulo, lo que se importan no son sus funciones, sino el
-  propio módulo, el cual es un **objeto** (de tipo `module`) al que se accede a
-  través de su nombre y cuyos **atributos** son (entre otras cosas) las
-  funciones que están definidas dentro del módulo.
+  propio módulo, el cual es un **objeto** (de tipo !PYTHON(module)) al que se
+  accede a través de su nombre y cuyos **atributos** son (entre otras cosas)
+  las funciones que están definidas dentro del módulo.
 
 - Por eso, para poder llamar a una función del módulo usando esta técnica,
   debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
@@ -1925,13 +1972,15 @@ Función                     Descripción           Ejemplo                  Res
 - De hecho, cuando el objeto es un módulo, no hablamos de métodos sino de
   funciones (los módulos no contienen métodos).
 
-- No es lo mismo `math`, que `math.gcd`, que `math.gcd(16, 6)`:
+- No es lo mismo !PYTHON(math), que !PYTHON(math.gcd), que
+  !PYTHON(math.gcd(16, 6)):
 
-  - `math` es un _módulo_ (un objeto de tipo `module`).
+  - !PYTHON(math) es un _módulo_ (un objeto de tipo `module`).
 
-  - `math.gcd` es una _función_ (no es un método porque `math` es un módulo).
+  - !PYTHON(math.gcd) es una _función_ (no es un método porque `math` es un
+    módulo).
 
-  - `math.gcd(16, 6)` es una _llamada a función_.
+  - !PYTHON(math.gcd(16, 6)) es una _llamada a función_.
 
   ```python
   >>> import math
@@ -1943,7 +1992,7 @@ Función                     Descripción           Ejemplo                  Res
   2
   ```
 
-- La lista completa de funciones que incluye el módulo `math` se puede
+- La lista completa de funciones que incluye el módulo !PYTHON(math) se puede
   consultar en su documentación:
 
   [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
@@ -1964,42 +2013,42 @@ Función                     Descripción           Ejemplo                  Res
 - Incluso los métodos son objetos, ya que, en realidad, son funciones
   contenidas dentro de otros objetos, y las funciones son objetos.
 
-- Hasta los tipos (como `int` o `str`) son objetos que tienen sus propios
-  atributos.
+- Hasta los tipos (como !PYTHON(int) o !PYTHON(str)) son objetos que tienen sus
+  propios atributos.
 
 - Entraremos a estudiar más en detalle estas características cuando veamos la
   **programación orientada a objetos**.
 
 #### El módulo `operator`
 
-- El módulo `operator` contiene, en forma de funciones, las operaciones básicas
-  que hasta ahora hemos utilizado en forma de operadores:
+- El módulo !PYTHON(operator) contiene, en forma de funciones, las operaciones
+  básicas que hasta ahora hemos utilizado en forma de operadores:
 
   --------------------------------------------------------
     Operador     Operación           Función en el \
                                      módulo `operator`
   ------------ ------------------- -----------------------
-     `+`         Suma                    `add`
+     `+`         Suma                  !PYTHON(add)
 
-     `-`         Resta                   `sub`
+     `-`         Resta                 !PYTHON(sub)
 
-     `-`         Cambio de signo         `neg`
+     `-`         Cambio de signo       !PYTHON(neg)
 
-     `*`         Multiplicación          `mul`
+     `*`         Multiplicación        !PYTHON(mul)
 
-     `/`         División                `truediv`
+     `/`         División              !PYTHON(truediv)
 
-     `%`         Módulo                  `mod`
+     `%`         Módulo                !PYTHON(mod)
 
-     `**`        Exponente               `pow`
+     `**`        Exponente             !PYTHON(pow)
 
-     `//`        División entera         `floordiv`
+     `//`        División entera       !PYTHON(floordiv)
                  hacia abajo
   --------------------------------------------------------
 
 ---
 
-- Gracias al módulo `operator`, podemos reescribir con funciones las
+- Gracias al módulo !PYTHON(operator), podemos reescribir con funciones las
   expresiones que utilizan operadores.
 
 - Por ejemplo, la expresión:
@@ -2026,7 +2075,7 @@ Función                     Descripción           Ejemplo                  Res
 
 ---
 
-- La expresión `3 * (4 + 5) - 10` se evalúa así:
+- La expresión !PYTHON(3 * (4 + 5) - 10) se evalúa así:
 
   ```python
   3 * (4 + 5) - 10          # se evalúa 3 (devuelve 3)
@@ -2038,7 +2087,7 @@ Función                     Descripción           Ejemplo                  Res
   = 17
   ```
 
-- Y la expresión `sub(mul(3, add(4, 5)), 10)` se evalúa así:
+- Y la expresión !PYTHON(sub(mul(3, add(4, 5)), 10)) se evalúa así:
 
   ```python
   sub(mul(3, add(4, 5)), 10)    # se evalúa sub (devuelve la función resta)
@@ -2056,7 +2105,8 @@ Función                     Descripción           Ejemplo                  Res
 
 !EJERCICIOS
 
-@. Comprobar que el módulo `math` es un valor (objeto) de tipo `module`.
+@. Comprobar que el módulo !PYTHON(math) es un valor (objeto) de tipo
+!PYTHON(module).
 
 @. ¿Cómo podemos deducir que el tipo `int` también un objeto en Python?
 
@@ -2072,10 +2122,10 @@ Función                     Descripción           Ejemplo                  Res
 @. Representar la evaluación las siguientes expresiones, aplicando paso a paso
 la reducción que corresponda. Indicar también el tipo del valor resultante:
 
-    a. `3 + 6 * 14`
-    b. `8 + 7 * 3.0 + 4 * 6`
-    c. `–4 * 7 + 2 ** 3 / 4 – 5`
-    d. `4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2`
+    a. !PYTHON(3 + 6 * 14)
+    b. !PYTHON(8 + 7 * 3.0 + 4 * 6)
+    c. !PYTHON(-4 * 7 + 2 ** 3 / 4 - 5)
+    d. !PYTHON(4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2)
 
 @. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
    algebraicas:
@@ -2094,15 +2144,15 @@ la reducción que corresponda. Indicar también el tipo del valor resultante:
    Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas
    sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:
 
-    a. `(8 + (7 * 3) + 4 * 6)`
-    b. `–(2 ** 3)`
-    c. `(33 + (3 * 4)) / 5`
-    d. `2 ** (2 * 3)`
-    e. `(3.0) + (2 * (18 – 4 ** 2))`
-    f. `(16 * 6) – (3) * 2`
+    a. !PYTHON((8 + (7 * 3) + 4 * 6))
+    b. !PYTHON(-(2 ** 3))
+    c. !PYTHON((33 + (3 * 4)) / 5)
+    d. !PYTHON(2 ** (2 * 3))
+    e. !PYTHON((3.0) + (2 * (18 - 4 ** 2)))
+    f. !PYTHON((16 * 6) - (3) * 2)
 
-@. Usar la función `math.sqrt` para escribir dos expresiones en Python que
-   calculen las dos soluciones a la ecuación de segundo grado $ax^2+bx+c=0$.
+@. Usar la función !PYTHON(math.sqrt) para escribir dos expresiones en Python
+que calculen las dos soluciones a la ecuación de segundo grado $$ax^2+bx+c=0.$$
 
     Recordar que las soluciones son:
     
@@ -2113,27 +2163,27 @@ la reducción que corresponda. Indicar también el tipo del valor resultante:
 
 @. Evaluar las siguientes expresiones:
 
-    a. `9 – 5 – 3`
-    b. `2 // 3 + 3 / 5`
-    c. `9 // 2 / 5`
-    d. `7 % 5 % 3`
-    e. `7 % (5 % 3)`
-    f. `(7 % 5) % 3`
-    g. `(7 % 5 % 3)`
-    h. `((12 + 3) // 2) / (8 – (5 + 1))`
-    i. `12 / 2 * 3`
-    j. `math.sqrt(math.cos(4))`
-    k. `math.cos(math.sqrt(4))`
-    l. `math.trunc(815.66) + round(815.66)`
+    a. !PYTHON(9 – 5 – 3)
+    b. !PYTHON(2 // 3 + 3 / 5)
+    c. !PYTHON(9 // 2 / 5)
+    d. !PYTHON(7 % 5 % 3)
+    e. !PYTHON(7 % (5 % 3))
+    f. !PYTHON((7 % 5) % 3)
+    g. !PYTHON((7 % 5 % 3))
+    h. !PYTHON(((12 + 3) // 2) / (8 – (5 + 1)))
+    i. !PYTHON(12 / 2 * 3)
+    j. !PYTHON(math.sqrt(math.cos(4)))
+    k. !PYTHON(math.cos(math.sqrt(4)))
+    l. !PYTHON(math.trunc(815.66) + round(815.66))
 
 ---
 
 @. Escribir las siguientes expresiones algorítmicas como expresiones
    algebraicas:
 
-    a. `b ** 2 – 4 * a * c`
-    b. `3 * x ** 4 – 5 * x ** 3 + x * 12 – 17`
-    c. `(b + d) / (c + 4)`
-    d. `(x ** 2 + y ** 2) ** (1 / 2)`
+    a. !PYTHON(b ** 2 – 4 * a * c)
+    b. !PYTHON(3 * x ** 4 – 5 * x ** 3 + x * 12 – 17)
+    c. !PYTHON((b + d) / (c + 4))
+    d. !PYTHON((x ** 2 + y ** 2) ** (1 / 2))
 
 !BIBLIOGRAFIA

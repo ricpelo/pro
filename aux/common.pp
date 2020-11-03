@@ -153,9 +153,11 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(PYTHON)(`!1`{.python})
+
 !define(QUIZ)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!sh(!SCRIPTS/quiz.php !ifdef(HTML)(html)(!ifdef(LATEX)(latex)(beamer)) "!PY(!1)")
+!sh(!SCRIPTS/quiz.php !ifdef(HTML)(html)(!ifdef(LATEX)(latex)(beamer)) "!PYQUOTE(!1)")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(RESPUESTAS)
@@ -301,7 +303,7 @@ LAS SIGUIENTES MACROS SON AUXILIARES, NO PARA USO GENERAL
 ~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(PY)
+!define(PYQUOTE)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !python3
 ~~~~~~~~~~~~~~~
