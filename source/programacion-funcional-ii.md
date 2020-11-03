@@ -33,7 +33,7 @@ nocite: |
 
 ## Parámetros y cuerpos
 
-- Los identificadores que aparecen entre la palabra clave `lambda` y el
+- Los identificadores que aparecen entre la palabra clave !PYTHON(lambda) y el
   carácter de dos puntos (`:`) son los **parámetros** de la expresión lambda.
 
 - La expresión que aparece tras los dos puntos (`:`) es el **cuerpo** de la
@@ -45,9 +45,9 @@ nocite: |
   lambda x, y: x + y
   ```
 
-  - Los parámetros son `x` e `y`.
+  - Los parámetros son !PYTHON(x) e !PYTHON(y).
 
-  - El cuerpo es `x + y`.
+  - El cuerpo es !PYTHON(x + y).
 
   - Esta expresión lambda captura la idea general de sumar dos valores (que en
     principio pueden ser de cualquier tipo, siempre y cuando admitan el
@@ -58,9 +58,10 @@ nocite: |
 - De la misma manera que decíamos que podemos aplicar una función a unos
   argumentos, también podemos aplicar una expresión lambda a unos argumentos.
 
-- Por ejemplo, la aplicación de la función `max` sobre los argumentos `3` y `5`
-  es una expresión que se escribe como `max(3, 5)` que denota el valor
-  **cinco** (o sea, que la llamada a la función devuelve `5`).
+- Por ejemplo, la aplicación de la función !PYTHON(max) sobre los argumentos
+  !PYTHON(3) y !PYTHON(5) es una expresión que se escribe como
+  !PYTHON(max(3, 5)) que denota el valor **cinco** (o sea, que la llamada a la
+  función devuelve !PYTHON(5)).
 
 - Igualmente, la aplicación de una expresión lambda como
 
@@ -68,7 +69,7 @@ nocite: |
   lambda x, y: x + y
   ```
 
-  sobre los argumentos `4` y `3` se representa así:
+  sobre los argumentos !PYTHON(4) y !PYTHON(3) se representa así:
 
   ```python
   (lambda x, y: x + y)(4, 3)
@@ -89,15 +90,15 @@ nocite: |
   (lambda x, y: x + y)(4, 3)
   ```
 
-  sustituimos en el cuerpo de la expresión lambda los parámetros `x` e `y` por
-  los argumentos `4` y `3`, respectivamente, y parentizamos la expresión
-  resultante, lo que da:
+  sustituimos en el cuerpo de la expresión lambda los parámetros !PYTHON(x) e
+  !PYTHON(y) por los argumentos !PYTHON(4) y !PYTHON(3), respectivamente, y
+  parentizamos la expresión resultante, lo que da:
 
   ```python
   (4 + 3)
   ```
 
-  que simplificando (según las reglas del operador `+`) da `7`.
+  que simplificando (según las reglas del operador `+`) da !PYTHON(7).
 
 ### Llamadas a funciones
 
@@ -107,7 +108,7 @@ nocite: |
   suma = lambda x, y: x + y
   ```
 
-  a partir de ese momento podemos usar `suma` en lugar de su valor (la
+  a partir de ese momento podemos usar !PYTHON(suma) en lugar de su valor (la
   expresión lambda), por lo que podemos hacer:
 
   ```python
@@ -122,15 +123,15 @@ nocite: |
 
 - Cuando aplicamos a sus argumentos una función así definida también podemos
   decir que estamos **invocando** o **llamando** a la función. Por ejemplo, en
-  `suma(4, 3)` estamos *llamando* a la función `suma`, o hay una *llamada* a la
-  función `suma`.
+  !PYTHON(suma(4, 3)) estamos *llamando* a la función !PYTHON(suma), o hay una
+  *llamada* a la función !PYTHON(suma).
 
 ---
 
-- La evaluación de la llamada a `suma(4, 3)` implicaría realizar los siguientes
-  tres pasos y en este orden:
+- La evaluación de la llamada a !PYTHON(suma(4, 3)) implicaría realizar los
+  siguientes tres pasos y en este orden:
 
-  1. Sustituir el nombre de la función `suma` por su definición.
+  1. Sustituir el nombre de la función !PYTHON(suma) por su definición.
 
   2. Evaluar sus argumentos.
 
@@ -237,9 +238,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   lambda x, y: x + y
   ```
 
-  los dos identificadores que aparecen en el cuerpo (`x` e `y`) son variables
-  ligadas, ya que ambos aparecen también en la lista de parámetros de la
-  expresión lambda.
+  los dos identificadores que aparecen en el cuerpo (!PYTHON(x) e !PYTHON(y))
+  son variables ligadas, ya que ambos aparecen también en la lista de
+  parámetros de la expresión lambda.
 
 - En cambio, en la expresión lambda:
 
@@ -247,7 +248,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   lambda x, y: x + y + z
   ```
 
-  `x` e `y` son variables ligadas mientras que `z` es una variable libre.
+  !PYTHON(x) e !PYTHON(y) son variables ligadas mientras que !PYTHON(z) es una
+  variable libre.
 
 ---
 
@@ -269,9 +271,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
          └── parámetro
   ```
 
-  el identificador `x` aparece dos veces, pero en los dos casos representa la
-  misma cosa. Tan sólo se llama de distinta forma («_parámetro_» o «_variable
-  ligada_») dependiendo de dónde aparece.
+  el identificador !PYTHON(x) aparece dos veces, pero en los dos casos
+  representa la misma cosa. Tan sólo se llama de distinta forma («_parámetro_»
+  o «_variable ligada_») dependiendo de dónde aparece.
 
 # Ámbitos léxicos
 
@@ -363,11 +365,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   - Empieza en el punto donde se crea la ligadura.
 
-  - Termina donde lo hace el ámbito de creación de la ligadura.
+  - Termina donde lo hace el _ámbito de creación_ de la ligadura.
 
 - En el siguiente ejemplo vemos los ámbitos de cada ligadura. Todas esas
-  ligaduras se definen en el ámbito global, por lo que el _ámbito de
-  creación_ de todas ellas es el **ámbito global**.
+  ligaduras se definen en el ámbito global, por lo que el **ámbito de
+  creación** de todas ellas es el **ámbito global**.
 
 !IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
 
@@ -397,7 +399,7 @@ donde se almacenará la ligadura.
 **Ámbito de una ligadura:**
 
 Porción de código en el que la ligadura existe, que va desde su creación hasta
-el final del ámbito más interno que lo contiene (su _ámbito de creación_). No
+el final del ámbito más interno que la contiene (su _ámbito de creación_). No
 es un ámbito como tal y, por tanto, no crea marcos.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -433,15 +435,15 @@ es un ámbito como tal y, por tanto, no crea marcos.
 
   tenemos que:
 
-  - En el ámbito global, se crea una ligadura que liga al identificador `x` con
-    el valor `25`.
+  - En el ámbito global, se crea una ligadura que liga al identificador
+    !PYTHON(x) con el valor !PYTHON(25).
 
   - Por tanto, se dice que el _ámbito de creación de esa ligadura_ es el
     ámbito global.
 
-  - Pero también se suele decir que «_el identificador `x` es global_» (o,
-    simplemente, que «_`x` es global_»), **asociando al ámbito** no la
-    ligadura, sino **el identificador en sí**.
+  - Pero también se suele decir que «_el identificador !PYTHON(x) es global_»
+    (o, simplemente, que «_!PYTHON(x) es global_»), **asociando al ámbito** no
+    la ligadura, sino **el identificador en sí**.
 
 ---
 
@@ -462,8 +464,8 @@ es un ámbito como tal y, por tanto, no crea marcos.
   suma = (lambda x, y: x + y)(2, 3)
   ```
 
-  el identificador `x` que aparece en la línea 1 y el que aparece en la línea 2
-  pertenecen a ámbitos distintos (como veremos en breve).
+  el identificador !PYTHON(x) que aparece en la línea 1 y el que aparece en la
+  línea 2 pertenecen a ámbitos distintos (como veremos en breve).
 
 ## Ámbito de un parámetro
 
@@ -492,8 +494,8 @@ es un ámbito como tal y, por tanto, no crea marcos.
 
   - El **ámbito de esa ligadura** coincide con su ámbito de creación.
 
-- Esto se resume diciendo que el **ámbito de un parámetro** es el **cuerpo** de
-  su expresión lambda.
+- Esto se resume diciendo que «el **ámbito de un parámetro** es el **cuerpo**
+  de su expresión lambda».
 
 - También se dice que el parámetro tiene un **ámbito local**
   al cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
@@ -568,19 +570,21 @@ establece entre ésta y su argumento correspondiente, y coincide con el
   ```
 
 - Hay dos ámbitos: (1) el ámbito global y (2) el ámbito local definido el
-  cuerpo de la expresión lambda (la expresión `x * x`).
+  cuerpo de la expresión lambda (la expresión !PYTHON(x * x)).
 
-- La expresión lambda de la línea 2 tiene un parámetro (`x`) que aparece como
-  la variable ligada `x` en el cuerpo de la expresión lambda.
+- La expresión lambda de la línea 2 tiene un parámetro (!PYTHON(x)) que aparece
+  como la variable ligada !PYTHON(x) en el cuerpo de la expresión lambda.
 
-- El ámbito de la variable ligada `x` es el **cuerpo** de la expresión lambda.
+- El ámbito de la variable ligada !PYTHON(x) es el **cuerpo** de la expresión
+  lambda.
 
 - Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al
-  valor de la variable ligada `x`, al encontrarnos **fuera de su ámbito** (la
-  `x` **sólo está ligada en el cuerpo** de la expresión lambda).
+  valor de la variable ligada !PYTHON(x), al encontrarnos **fuera de su
+  ámbito** (la !PYTHON(x) **sólo está ligada en el cuerpo** de la expresión
+  lambda).
 
 - Por eso, la línea 4 dará un error al intentar acceder al valor del
-  identificador `x`, que no está ligado en el ámbito actual (el global).
+  identificador !PYTHON(x), que no está ligado en el ámbito actual (el global).
 
 ## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
@@ -679,10 +683,10 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   suma = lambda x, y: x + y
   ```
 
-  el cuerpo de la función `suma` define un nuevo ámbito, y cada vez que se
-  llama a `suma` con unos argumentos concretos, la ejecución del programa entra
-  en el cuerpo, lo que crea un nuevo marco que liga sus argumentos con sus
-  parámetros.
+  el cuerpo de la función !PYTHON(suma) define un nuevo ámbito, y cada vez que
+  se llama a !PYTHON(suma) con unos argumentos concretos, la ejecución del
+  programa entra en el cuerpo, lo que crea un nuevo marco que liga sus
+  argumentos con sus parámetros.
 
 - Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
   externo) y el ámbito del cuerpo de la expresión lambda (más interno y
@@ -710,12 +714,12 @@ contenido en el ámbito de $B$.**
 
 - En realidad, el marco global apunta, a su vez, a otro marco donde se
   encuentran las definiciones internas predefinidas del lenguaje (como la
-  función `max`), pero lo ignoraremos de aquí en adelante por simplicar.
+  función !PYTHON(max)), pero lo ignoraremos de aquí en adelante por simplicar.
 
 ---
 
 - Por ejemplo, si en un momento concreto de la ejecución del programa tenemos
-  el siguiente entorno (donde `suma` es una expresión lambda):
+  el siguiente entorno (donde !PYTHON(suma) es una expresión lambda):
 
   !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -758,7 +762,7 @@ contenido en el ámbito de $B$.**
   - Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la
     expresión lambda.
 
-  - De hecho, está evaluando la llamada `suma(3, 5)`.
+  - De hecho, está evaluando la llamada !PYTHON(suma(3, 5)).
 
 ## Ligaduras *sombreadas*
 
@@ -772,28 +776,31 @@ contenido en el ámbito de $B$.**
   total = (lambda x: x * x)(3)  # Su valor es 9
   ```
 
-- La `x` que aparece en la línea 1 es distinta a las que aparecen en la 2:
+- La !PYTHON(x) que aparece en la línea 1 es distinta a las que aparecen en la
+  2:
 
-  - La `x` de la línea 1 es un identificador ligado a un valor en el ámbito
-    global (el ámbito de creación de esa ligadura es el ámbito global). Esa
-    ligadura, por tanto, se almacena en el marco global, y por eso decimos que
-    esa `x` (la que aparece en la línea 1) es _global_.
+  - La !PYTHON(x) de la línea 1 es un identificador ligado a un valor en el
+    ámbito global (el ámbito de creación de esa ligadura es el ámbito global).
+    Esa ligadura, por tanto, se almacena en el marco global, y por eso decimos
+    que esa !PYTHON(x) (la que aparece en la línea 1) es _global_.
 
-  - Las `x` de la línea 2 son parámetros y variables ligadas de la expresión
-    lambda. Por tanto, el ámbito de esas `x` es _local_ al cuerpo de la
-    expresión lambda.
+  - Las !PYTHON(x) de la línea 2 son parámetros y variables ligadas de la
+    expresión lambda. Por tanto, el ámbito de esas !PYTHON(x) es _local_ al
+    cuerpo de la expresión lambda.
 
 ---
 
-- En el ejemplo, el identificador `x` que aparece en el cuerpo de la expresión
-  lambda **está ligado al parámetro `x` de la expresión lambda**.
+- En el ejemplo, el identificador !PYTHON(x) que aparece en el cuerpo de la
+  expresión lambda **está ligado al parámetro !PYTHON(x) de la expresión
+  lambda**.
 
-- Por tanto, **no** se refiere al identificador `x` que está fuera de la
-  expresión lambda (y que aquí está ligado al valor `4`), sino al parámetro `x`
-  que, en la llamada de la línea 2, está ligado al valor `3` (el argumento de
-  la llamada).
+- Por tanto, **no** se refiere al identificador !PYTHON(x) que está fuera de la
+  expresión lambda (y que aquí está ligado al valor !PYTHON(4)), sino al
+  parámetro !PYTHON(x) que, en la llamada de la línea 2, está ligado al valor
+  !PYTHON(3) (el argumento de la llamada).
 
-- Eso quiere decir que, dentro del cuerpo, `x` vale `3`, no `4`.
+- Eso quiere decir que, dentro del cuerpo, !PYTHON(x) vale !PYTHON(3), no
+  !PYTHON(4).
 
 - Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
   del otro, decimos que:
@@ -807,18 +814,19 @@ contenido en el ámbito de $B$.**
 
 ---
 
-- En nuestro ejemplo, podemos decir que el parámetro `x` de la expresión lambda
-  hace sombra al identificador `x` que aparece en el ámbito global.
+- En nuestro ejemplo, podemos decir que el parámetro !PYTHON(x) de la expresión
+  lambda hace sombra al identificador !PYTHON(x) que aparece en el ámbito
+  global.
 
-- Eso significa que no podemos acceder a ese identificador `x` global desde
-  dentro del cuerpo de la expresión lambda como si fuera una variable libre,
-  porque la `x` dentro del cuerpo siempre se referirá a la `x` local (el
-  parámetro de la expresión lambda).
+- Eso significa que no podemos acceder a ese identificador !PYTHON(x) global
+  desde dentro del cuerpo de la expresión lambda como si fuera una variable
+  libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
+  !PYTHON(x) local (el parámetro de la expresión lambda).
 
-- Esto es así porque la primera ligadura del identificador `x` que nos
+- Esto es así porque la primera ligadura del identificador !PYTHON(x) que nos
   encontramos al recorrer la secuencia de marcos del entorno, buscando un valor
-  para `x`, es la que está en el marco de la expresión lambda, que es el marco
-  actual cuando se está ejecutando su cuerpo.
+  para !PYTHON(x), es la que está en el marco de la expresión lambda, que es el
+  marco actual cuando se está ejecutando su cuerpo.
 
 !DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -849,18 +857,18 @@ E -> xl [lhead = cluster1]
 ---
 
 - Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de
-  la `x` que está fuera de la expresión lambda, lo que podemos hacer es
-  **cambiar el nombre** al parámetro `x`. Por ejemplo:
+  la !PYTHON(x) que está fuera de la expresión lambda, lo que podemos hacer es
+  **cambiar el nombre** al parámetro !PYTHON(x). Por ejemplo:
 
   ```python
   x = 4
   total = (lambda w: w * x)(3)  # Su valor es 12
   ```
 
-  Así, tendremos en la expresión lambda una variable ligada (el parámetro `w`)
-  y una variable libre (el identificador `x` ligado en el ámbito global) al que
-  ahora sí podemos acceder al no estar sombreada y encontrarse dentro del
-  entorno.
+  Así, tendremos en la expresión lambda una variable ligada (el parámetro
+  !PYTHON(w)) y una variable libre (el identificador !PYTHON(x) ligado en el
+  ámbito global) al que ahora sí podemos acceder al no estar sombreada y
+  encontrarse dentro del entorno.
 
 !DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -904,7 +912,7 @@ E -> w [lhead = cluster1]
   lambda x, y: x + y + z
   ```
 
-  si renombramos `x` a `z` tendríamos:
+  si renombramos !PYTHON(x) a !PYTHON(z) tendríamos:
 
   ```python
   lambda z, y: z + y + z
@@ -1131,8 +1139,8 @@ E -> z [lhead = cluster0]
   NameError: name 'z' is not defined
   ```
 
-  da error porque `z` no está definido (no está ligado a ningún valor en el
-  entorno) en el momento de llamar a `prueba` en la línea 2.
+  da error porque !PYTHON(z) no está definido (no está ligado a ningún valor en
+  el entorno) en el momento de llamar a !PYTHON(prueba) en la línea 2.
 
 ---
 
@@ -1145,9 +1153,9 @@ E -> z [lhead = cluster0]
   16
   ```
 
-  sí funciona (y devuelve `16`) porque, en el momento de evaluar la aplicación
-  de la expresión lambda (en la línea 3), el identificador `z` está ligado a un
-  valor en el entorno (en este caso, `9`).
+  sí funciona (y devuelve !PYTHON(16)) porque, en el momento de evaluar la
+  aplicación de la expresión lambda (en la línea 3), el identificador
+  !PYTHON(z) está ligado a un valor en el entorno (en este caso, !PYTHON(9)).
 
 - Observar que no es necesario que las variables libres estén ligadas en el
   entorno cuando *se crea* la expresión lambda, sino cuando **_se evalúa_ el
@@ -1497,7 +1505,8 @@ E -> f [lhead = cluster0]
   cuadrado = lambda x: x * x
   ```
 
-  según el orden aplicativo, la expresión `cuadrado(3 + 4)` se reduce así:
+  según el orden aplicativo, la expresión !PYTHON(cuadrado(3 + 4)) se reduce
+  así:
 
   ```python
   cuadrado(3 + 4)               # definición de cuadrado
@@ -1536,7 +1545,7 @@ E -> f [lhead = cluster0]
   cuadrado = lambda x: x * x
   ```
 
-  según el orden normal, la expresión `cuadrado(3 + 4)` se reduce así:
+  según el orden normal, la expresión !PYTHON(cuadrado(3 + 4)) se reduce así:
 
   ```python
   cuadrado(3 + 4)               # definición de cuadrado
@@ -1561,7 +1570,8 @@ E -> f [lhead = cluster0]
   area = lambda r: 3.1416 * cuadrado(r)
   ```
 
-- La expresión `area(11 + 1)` se evaluaría así según el *orden aplicativo*:
+- La expresión !PYTHON(area(11 + 1)) se evaluaría así según el *orden
+  aplicativo*:
 
   ```{.python .number-lines}
   area(11 + 1)                                # definición de area
@@ -1581,28 +1591,31 @@ E -> f [lhead = cluster0]
 
 - En detalle:
 
-  - **Línea 1**: Se evalúa `area`, que devuelve su definición (una expresión
-    lambda).
+  - **Línea 1**: Se evalúa !PYTHON(area), que devuelve su definición (una
+    expresión lambda).
 
-  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de `area` sobre su
-    argumento, por lo que primero evaluamos éste (es el _redex_ más interno).
+  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de !PYTHON(area)
+    sobre su argumento, por lo que primero evaluamos éste (es el _redex_ más
+    interno).
 
-  - **Línea 5**: Ahora se aplica la expresión lambda a su argumento `12`.
+  - **Línea 5**: Ahora se aplica la expresión lambda a su argumento
+    !PYTHON(12).
 
-  - **Línea 6**: El _redex_ más interno y a la izquierda es el `3.1416`, que ya
-    está evaluado.
+  - **Línea 6**: El _redex_ más interno y a la izquierda es el !PYTHON(3.1416),
+    que ya está evaluado.
 
   - **Línea 7**: El *redex* más interno que queda por evaluar es la aplicación
-    de `cuadrado` sobre `12`. Primero se evalúa `cuadrado`, sustituyéndose por
-    su definición...
+    de !PYTHON(cuadrado) sobre !PYTHON(12). Primero se evalúa
+    !PYTHON(cuadrado), sustituyéndose por su definición...
 
-  - **Línea 8**: ... y ahora se aplica la expresión lambda a su argumento `12`.
+  - **Línea 8**: ... y ahora se aplica la expresión lambda a su argumento
+    !PYTHON(12).
 
   - Lo que queda es todo aritmética.
 
 ---
 
-- La expresión `area(11 + 1)` se evaluaría así según el *orden normal*:
+- La expresión !PYTHON(area(11 + 1)) se evaluaría así según el *orden normal*:
 
   ```{.python .number-lines}
   area(11 + 1)                                # definición de area
@@ -1624,19 +1637,22 @@ E -> f [lhead = cluster0]
 
 - En detalle:
 
-  - **Línea 1**: Se evalúa el *redex* más externo, que es `area(11 + 1)`. Para
-    ello, se reescribe la definición de `area`...
+  - **Línea 1**: Se evalúa el *redex* más externo, que es
+    !PYTHON(area(11 + 1)). Para ello, se reescribe la definición de
+    !PYTHON(area)...
 
-  - **Línea 2**: ... y se aplica la expresión lambda al argumento `11 + 1`.
+  - **Línea 2**: ... y se aplica la expresión lambda al argumento
+    !PYTHON(11 + 1).
 
   - **Línea 3**: El _redex_ más externo es el `*`, pero para evaluarlo hay que
     evaluar primero todos sus argumentos, por lo que primero se evalúa el
-    izquierdo, que es `3.1416`.
+    izquierdo, que es !PYTHON(3.1416).
 
-  - **Línea 4**: Ahora hay que evaluar el derecho (`cuadrado(11 + 1)`), por lo
-    que se reescribe la definición de `cuadrado`...
+  - **Línea 4**: Ahora hay que evaluar el derecho (!PYTHON(cuadrado(11 + 1))),
+    por lo que se reescribe la definición de !PYTHON(cuadrado)...
 
-  - **Línea 5**: ... y se aplica la expresión lambda al argumento `11 + 1`.
+  - **Línea 5**: ... y se aplica la expresión lambda al argumento
+    !PYTHON(11 + 1).
 
   - Lo que queda es todo aritmética.
 
@@ -1683,13 +1699,13 @@ E -> f [lhead = cluster0]
   donde se aprecia claramente que el orden de las operaciones, de más interna a
   más externa, sería:
 
-  1. Suma (`+` o `add`).
+  1. Suma (`+` o !PYTHON(add)).
 
-  2. Potencia (`**` o `pow`).
+  2. Potencia (`**` o !PYTHON(pow)).
 
-  3. Valor absoluto (`abs`) y máximo (`max`) al mismo nivel.
+  3. Valor absoluto (!PYTHON(abs)) y máximo (!PYTHON(max)) al mismo nivel.
 
-  4. Producto (`*` o `mul`).
+  4. Producto (`*` o !PYTHON(mul)).
 
 ### Evaluación estricta y no estricta
 
@@ -1703,7 +1719,7 @@ E -> f [lhead = cluster0]
 
 !EJEMPLO
 
-- Sabemos que la expresión `1 / 0` da un error de *división por cero*:
+- Sabemos que la expresión !PYTHON(1 / 0) da un error de *división por cero*:
 
   ```python
   >>> 1 / 0
@@ -1718,12 +1734,12 @@ E -> f [lhead = cluster0]
   primero = lambda x, y: x
   ```
 
-  de forma que `primero` es una función que simplemente devuelve el primero de
-  sus argumentos.
+  de forma que !PYTHON(primero) es una función que simplemente devuelve el
+  primero de sus argumentos.
 
-- Es evidente que la función `primero` no necesita evaluar nunca su segundo
-  argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos).
-  Por ejemplo, `primero(4, 3)` devuelve `4`.
+- Es evidente que la función !PYTHON(primero) no necesita evaluar nunca su
+  segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de
+  ellos). Por ejemplo, !PYTHON(primero(4, 3)) devuelve !PYTHON(4).
 
 ---
 
@@ -1738,14 +1754,14 @@ E -> f [lhead = cluster0]
 
   - **Si es estricta**, el intérprete evaluará todos los argumentos de la
     expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al
-    evaluar `1 / 0` devolverá un error.
+    evaluar !PYTHON(1 / 0) devolverá un error.
 
     Es lo que ocurre cuando se evalúa siguiendo el **orden aplicativo**.
 
   - En cambio, **si es perezosa**, el intérprete evaluará únicamente aquellos
     argumentos que se usen en el cuerpo de la expresión lambda, y en este caso
     sólo se usa el primero, así que dejará sin evaluar el segundo, no dará
-    error y devolverá directamente `4`.
+    error y devolverá directamente !PYTHON(4).
 
     Es lo que ocurre cuando se evalúa siguiendo el **orden normal**:
 
@@ -1759,7 +1775,7 @@ E -> f [lhead = cluster0]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Teorema:**
+  **Teorema de estandarización:**
 
   Si una expresión tiene forma normal, el **orden normal** de evaluación
   conduce seguro a la misma.
@@ -1782,16 +1798,16 @@ E -> f [lhead = cluster0]
     evalúa perezosamente !NT(valor_si_cierto) y !NT(valor_si_falso) dependiendo
     del valor de la !NT(condición).
 
-  - Los operadores lógicos `and` y `or` también son perezosos (se dice que
-    evalúan **en cortocircuito**):
+  - Los operadores lógicos !PYTHON(and) y !PYTHON(or) también son perezosos (se
+    dice que evalúan **en cortocircuito**):
 
-    - `True or` \ $\underline{x}$
+    - !PYTHON(True or) \ $\;\underline{x}$
 
-      siempre es igual a `True`.
+      siempre es igual a !PYTHON(True).
 
-    - `False and` \ $\underline{x}$
+    - !PYTHON(False and) \ $\;\underline{x}$
 
-      siempre es igual a `False`.
+      siempre es igual a !PYTHON(False).
 
     En ambos casos no es necesario evaluar $\underline{x}$.
 
@@ -1825,9 +1841,10 @@ E -> f [lhead = cluster0]
   lambda.
 
 - Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
-  contiene una variable libre (`z`) y, por tanto, cuando la aplicamos a los
-  argumentos `4` y `3` obtenemos un valor que depende, no sólo de los valores
-  de `x` e `y`, sino también del valor de `z`:
+  contiene una variable libre (!PYTHON(z)) y, por tanto, cuando la aplicamos a
+  los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que depende, no
+  sólo de los valores de !PYTHON(x) e !PYTHON(y), sino también del valor de
+  !PYTHON(z):
 
   ```python
   >>> prueba = lambda x, y: x + y + z
@@ -1847,12 +1864,12 @@ E -> f [lhead = cluster0]
   suma3 = lambda x, y, z: suma(x, y) + z
   ```
 
-  En este caso, hay un identificador (`suma`) que no aparece en la lista de
-  parámetros de la expresión lambda `suma3`, por lo que es una variable libre
-  en el cuerpo de la expresión lambda de `suma3`.
+  En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
+  de parámetros de la expresión lambda !PYTHON(suma3), por lo que es una
+  variable libre en el cuerpo de la expresión lambda de !PYTHON(suma3).
 
   En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  `suma` en el entorno actual.
+  !PYTHON(suma) en el entorno actual.
 
 ---
 
@@ -1869,11 +1886,11 @@ E -> f [lhead = cluster0]
     que se usan en el cuerpo de la expresión lambda, es **más pura** que otra
     cuyas variables libres representan cualquier otro tipo de valor.
 
-  En el ejemplo anterior, tenemos que la expresión lambda de `suma3`, sin ser
-  *totalmente pura*, a efectos prácticos se la puede considerar **pura**, ya
-  que su única variable libre (`suma`) se usa como una **función**, y las
-  funciones tienden a no cambiar durante la ejecución del programa, al
-  contrario que los demás tipos de valores.
+  En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
+  sin ser *totalmente pura*, a efectos prácticos se la puede considerar
+  **pura**, ya que su única variable libre (!PYTHON(suma)) se usa como una
+  **función**, y las funciones tienden a no cambiar durante la ejecución del
+  programa, al contrario que los demás tipos de valores.
 
 ---
 
@@ -1896,43 +1913,46 @@ E -> f [lhead = cluster0]
   mantenimiento de los programas, además de simplificar el razonamiento sobre
   los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
 
-- Es más incómodo trabajar con `suma` porque hay que *recordar* que depende de
-  un valor que está *fuera* de la expresión lambda, cosa que no resulta
-  evidente a no ser que mires en el cuerpo de la expresión lambda.
+- Es más incómodo trabajar con !PYTHON(suma) porque hay que *recordar* que
+  depende de un valor que está *fuera* de la expresión lambda, cosa que no
+  resulta evidente a no ser que mires en el cuerpo de la expresión lambda.
 
 ## Las funciones como abstracciones
 
-- Recordemos la definición de la función `area`:
+- Recordemos la definición de la función !PYTHON(area):
 
   ```python
   cuadrado = lambda x: x * x
   area = lambda r: 3.1416 * cuadrado(r)
   ```
 
-- Aunque es muy sencilla, la función `area` ejemplifica la propiedad más
+- Aunque es muy sencilla, la función !PYTHON(area) ejemplifica la propiedad más
   potente de las funciones definidas por el programador: la **abstracción**.
 
-- La función `area` está definida sobre la función `cuadrado`, pero sólo
-  necesita saber de ella qué resultados de salida devuelve a partir de sus
-  argumentos de entrada.
+- La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
+  pero sólo necesita saber de ella qué resultados de salida devuelve a partir
+  de sus argumentos de entrada.
 
-- Podemos escribir `area` sin preocuparnos de cómo calcular el cuadrado de un
-  número, porque eso ya lo hace la función `cuadrado`.
+- Podemos escribir !PYTHON(area) sin preocuparnos de cómo calcular el cuadrado
+  de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
 
 - **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
-  la definición** de `cuadrado`. Esos detalles **se ignoran en este momento**
-  al diseñar `area`, para considerarlos más tarde si hiciera falta.
+  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
+  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
+  falta.
 
 ---
 
-- De hecho, por lo que respecta a `area`, `cuadrado` no representa una
-  definición concreta de función, sino más bien la abstracción de una función,
-  lo que se denomina una **abstracción funcional**, ya que a `area` le
-  sirve igual de bien cualquier función que calcule el cuadrado de un número.
+- De hecho, por lo que respecta a !PYTHON(area), !PYTHON(cuadrado) no
+  representa una definición concreta de función, sino más bien la abstracción
+  de una función, lo que se denomina una **abstracción funcional**, ya que a
+  !PYTHON(area) le sirve igual de bien cualquier función que calcule el
+  cuadrado de un número.
 
 - Por tanto, si consideramos únicamente los valores que devuelven, las tres
-  funciones siguientes son indistinguibles e igual de válidas para `area`.
-  Ambas reciben un argumento numérico y devuelven el cuadrado de ese número:
+  funciones siguientes son indistinguibles e igual de válidas para
+  !PYTHON(area). Ambas reciben un argumento numérico y devuelven el cuadrado de
+  ese número:
 
   ```python
   cuadrado = lambda x: x * x
@@ -1956,8 +1976,8 @@ E -> f [lhead = cluster0]
   para poder usarla**.
 
 - Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
-  lenguaje (como `max`, `abs` o `len`): sabemos *qué* hacen pero no necesitamos
-  saber *cómo* lo hacen.
+  lenguaje (como !PYTHON(max), !PYTHON(abs) o !PYTHON(len)): sabemos *qué*
+  hacen pero no necesitamos saber *cómo* lo hacen.
 
 - Incluso puede que el usuario de una función no sea el mismo que la haya
   escrito, sino que la puede haber recibido de otro programador como una
@@ -1989,8 +2009,8 @@ E -> f [lhead = cluster0]
   dominio y hemos agrupado el rango y el propósito en una sola propiedad que
   hemos llamado «**salida**».
 
-- Por ejemplo, cualquier función `cuadrado` que usemos para implementar `area`
-  debe satisfacer esta especificación:
+- Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
+  !PYTHON(area) debe satisfacer esta especificación:
 
   $$\begin{cases}
     \text{\textbf{Entrada}}: n \in \mathbb{R} \\
@@ -2032,16 +2052,16 @@ E -> f [lhead = cluster0]
 
 ---
 
-- En este caso, la **precondición** es `True`, que equivale a decir que
+- En este caso, la **precondición** es !PYTHON(True), que equivale a decir que
   cualquier condición de entrada es buena para usar la función.
 
 - Dicho de otra forma: no hace falta que se dé ninguna condición especial para
   usar la función. Siempre que la llamada respete la signatura de la función,
-  el parámetro $n$ puede tomar cualquier valor de tipo `float` y no hay ninguna
-  restricción adicional.
+  el parámetro $n$ puede tomar cualquier valor de tipo !PYTHON(float) y no hay
+  ninguna restricción adicional.
 
 - Por otro lado, la **postcondición** dice que al llamar a la función
-  `cuadrado` con el argumento $n$ se debe devolver $n^2$.
+  !PYTHON(cuadrado) con el argumento $n$ se debe devolver $n^2$.
 
 - Tanto la precondición como la postcondición son **predicados**, es decir,
   expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
@@ -2087,15 +2107,16 @@ E -> f [lhead = cluster0]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `count` es una **función _oculta_ o _auxiliar_** (en este caso, un *método
-  auxiliar*). Las funciones auxiliares se puede usar en la especificación
-  siempre que estén perfectamente especificadas, aunque no estén implementadas.
+- !PYTHON(count) es una **función _oculta_ o _auxiliar_** (en este caso, un
+  *método auxiliar*). Las funciones auxiliares se puede usar en la
+  especificación siempre que estén perfectamente especificadas, aunque no estén
+  implementadas.
 
-- Con esto estamos diciendo que `cuenta` es una función que recibe una cadena y
-  un carácter (otra cadena con un único carácter dentro).
+- Con esto estamos diciendo que !PYTHON(cuenta) es una función que recibe una
+  cadena y un carácter (otra cadena con un único carácter dentro).
 
 - Además, estamos diciendo que devuelve el mismo resultado que devuelve el
-  método `count` (que casualmente ya existe en Python).
+  método !PYTHON(count) (que casualmente ya existe en Python).
 
 - Es decir: cuenta el número de veces que el carácter $car$ aparece en
   $cadena$.
@@ -2201,9 +2222,9 @@ E -> f [lhead = cluster0]
 
 ## Funciones _ad-hoc_
 
-- Supongamos que queremos diseñar una función llamada `permutas` que reciba un
-  número entero $n$ y que calcule cuántas permutaciones distintas podemos hacer
-  con $n$ elementos.
+- Supongamos que queremos diseñar una función llamada !PYTHON(permutas) que
+  reciba un número entero $n$ y que calcule cuántas permutaciones distintas
+  podemos hacer con $n$ elementos.
 
 - Por ejemplo: si tenemos 3 elementos (digamos, _A_, _B_ y _C_), podemos formar
   con ellos las siguientes permutaciones:
@@ -2587,8 +2608,8 @@ $$fact(n) = \left\{\begin{array}{ll}
 
 - Este proceso no tiene expansiones ni contracciones ya que, en cada instante,
   toda la información que se necesita almacenar es el valor actual de los
-  parámetros `cont` y `acc`, por lo que el tamaño de la memoria necesaria es
-  constante.
+  parámetros !PYTHON(cont) y !PYTHON(acc), por lo que el tamaño de la memoria
+  necesaria es constante.
 
 - A este tipo de procesos lo llamaremos **proceso iterativo**.
 
@@ -2625,7 +2646,7 @@ Iterativo lineal          Linealmente \
 
 - En general, un **proceso iterativo** es aquel que está definido por una serie
   de **coordenadas de estado** junto con una **regla** fija que describe cómo
-  actualizar dichas variables conforme cambia el proceso de un estado al
+  actualizar dichas coordenadas conforme cambia el proceso de un estado al
   siguiente.
 
 - La **diferencia entre los procesos recursivo e iterativo** se puede describir
@@ -2655,7 +2676,7 @@ Iterativo lineal          Linealmente \
     desenvuelve la ejecución de la función.
 
 - Puede parecer extraño que digamos que una función recursiva (por ejemplo,
-  `fact_iter`) genera un proceso iterativo.
+  !PYTHON(fact_iter)) genera un proceso iterativo.
 
   Sin embargo, el proceso es realmente iterativo porque su estado está definido
   completamente por dos variables ligadas, y para ejecutar el proceso sólo se
@@ -2743,14 +2764,16 @@ Iterativo lineal          Linealmente \
 
 ---
 
-- Si vemos el perfil de ejecución de `fib(5)`, vemos que:
+- Si vemos el perfil de ejecución de !PYTHON(fib(5)), vemos que:
 
-  - Para calcular `fib(5)`, antes debemos calcular `fib(4)` y `fib(3)`.
+  - Para calcular !PYTHON(fib(5)), antes debemos calcular !PYTHON(fib(4)) y
+    !PYTHON(fib(3)).
 
-  - Para calcular `fib(4)`, antes debemos calcular `fib(3)` y `fib(2)`.
+  - Para calcular !PYTHON(fib(4)), antes debemos calcular !PYTHON(fib(3)) y
+    !PYTHON(fib(2)).
 
-  - Así sucesivamente hasta poner todo en función de `fib(0)` y `fib(1)`, que
-    se pueden calcular directamente (son los casos base).
+  - Así sucesivamente hasta poner todo en función de !PYTHON(fib(0)) y
+    !PYTHON(fib(1)), que se pueden calcular directamente (son los casos base).
 
 - En general, el proceso resultante parece un árbol.
 
@@ -2957,17 +2980,18 @@ w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
   siguientes conclusiones:
 
   - En un momento dado, dentro del ámbito global se ha llamado a la función
-    `uno`, la cual ha llamado a la función `dos`, la cual ha llamado a la
-    función `tres`, la cual aún no ha terminado de ejecutarse.
+    !PYTHON(uno), la cual ha llamado a la función !PYTHON(dos), la cual ha
+    llamado a la función !PYTHON(tres), la cual aún no ha terminado de
+    ejecutarse.
 
-  - El entorno en la función `uno` empieza por el marco de `uno`, el cual
-    apunta al marco global.
+  - El entorno en la función !PYTHON(uno) empieza por el marco de !PYTHON(uno),
+    el cual apunta al marco global.
 
-  - El entorno en la función `dos` empieza por el marco de `dos`, el cual
-    apunta al marco global.
+  - El entorno en la función !PYTHON(dos) empieza por el marco de !PYTHON(dos),
+    el cual apunta al marco global.
 
-  - El entorno en la función `tres` empieza por el marco de `tres`, el cual
-    apunta al marco global.
+  - El entorno en la función !PYTHON(tres) empieza por el marco de
+    !PYTHON(tres), el cual apunta al marco global.
 
 ---
 
@@ -3110,20 +3134,20 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ## Cadenas
 
 - Las **cadenas** se pueden considerar **estructuras de datos recursivas**, ya
-  que podemos decir que toda cadena `c`:
+  que podemos decir que toda cadena !PYTHON(c):
 
-  - o bien es la cadena vacía `''` (*caso base*),
+  - o bien es la cadena vacía !PYTHON('') (*caso base*),
   
   - o bien está formada por dos partes:
 
-    - El **primer carácter** de la cadena, al que se accede mediante `c[0]` (y
-      que es en Python es una cadena de longitud 1).
+    - El **primer carácter** de la cadena, al que se accede mediante
+      !PYTHON(c[0]) (y que es en Python es una cadena de longitud 1).
 
-    - El **resto** de la cadena (al que se accede mediante `c[1:]`), que
+    - El **resto** de la cadena (al que se accede mediante !PYTHON(c[1:])), que
       también es una cadena (*caso recursivo*).
 
 - Eso significa que podemos acceder al segundo carácter de la cadena
-  (suponiendo que exista) mediante `c[1:][0]`.
+  (suponiendo que exista) mediante !PYTHON(c[1:][0]).
 
   ```python
   cadena = 'hola'
@@ -3158,17 +3182,17 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ---
 
 - Las tuplas también pueden verse como un **tipo de datos recursivo**, ya que
-  toda tupla `t`:
+  toda tupla !PYTHON(t):
 
-  - o bien es la tupla vacía, representada mediante `()` (*caso base*),
+  - o bien es la tupla vacía, representada mediante !PYTHON(()) (*caso base*),
 
   - o bien está formada por dos partes:
 
-    - El **primer elemento** de la tupla (al que se accede mediante `t[0]`),
-      que hemos visto que puede ser de cualquier tipo.
+    - El **primer elemento** de la tupla (al que se accede mediante
+      !PYTHON(t[0])), que hemos visto que puede ser de cualquier tipo.
 
-    - El **resto** de la tupla (al que se accede mediante `t[1:]`), que también
-      es una tupla (*caso recursivo*).
+    - El **resto** de la tupla (al que se accede mediante !PYTHON(t[1:])), que
+      también es una tupla (*caso recursivo*).
 
 - Según el ejemplo anterior:
 
@@ -3181,9 +3205,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ---
 
-- Junto a las operaciones `t[0]` (primer elemento de la tupla) y `t[1:]` (resto
-  de la tupla), tenemos también la operación `+` (**concatenación**), al igual
-  que ocurre con las cadenas.
+- Junto a las operaciones !PYTHON(t[0]) (primer elemento de la tupla) y
+  !PYTHON(t[1:]) (resto de la tupla), tenemos también la operación `+`
+  (**concatenación**), al igual que ocurre con las cadenas.
 
 - Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
 
@@ -3198,7 +3222,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Un rango es un tipo de dato cuyos valores representan **sencuencias de
   números enteros**.
 
-- Los rangos se crean con la función `range`, cuya signatura es:
+- Los rangos se crean con la función !PYTHON(range), cuya signatura es:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3207,7 +3231,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - _start_, _stop_ y _step_ deben ser números enteros.
 
-- Cuando se omite _start_, se entiende que es `0`.
+- Cuando se omite _start_, se entiende que es !PYTHON(0).
 
 - El valor de _stop_ no se alcanza nunca.
 
@@ -3218,32 +3242,32 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 !EJEMPLOS
 
-- `range(10)` representa la secuencia $0, 1, 2, \ldots, 9$.
+- !PYTHON(range(10)) representa la secuencia $0, 1, 2, \ldots, 9$.
 
-- `range(3, 10)` representa la secuencia $3, 4, 5, \ldots, 9$.
+- !PYTHON(range(3, 10)) representa la secuencia $3, 4, 5, \ldots, 9$.
 
-- `range(0, 10, 2)` representa la secuencia $0, 2, 4, 6, 8$.
+- !PYTHON(range(0, 10, 2)) representa la secuencia $0, 2, 4, 6, 8$.
 
-- `range(4, 0, -1)` representa la secuencia $4, 3, 2, 1$.
+- !PYTHON(range(4, 0, -1)) representa la secuencia $4, 3, 2, 1$.
 
-- `range(3, 3)` representa el rango vacío.
+- !PYTHON(range(3, 3)) representa el rango vacío.
 
-- `range(4, 3)` también representa el rango vacío.
+- !PYTHON(range(4, 3)) también representa el rango vacío.
 
 ---
 
 - Los rangos también pueden verse como un **tipo de datos recursivo**, ya que
-  todo rango `r`:
+  todo rango !PYTHON(r):
 
   - o bien es el rango vacío (*caso base*),
 
   - o bien está formado por dos partes:
 
-    - El **primer elemento** del rango (al que se accede mediante `r[0]`),
-      que hemos visto que tiene que ser un número entero.
+    - El **primer elemento** del rango (al que se accede mediante
+      !PYTHON(r[0])), que hemos visto que tiene que ser un número entero.
 
-    - El **resto** del rango (al que se accede mediante `r[1:]`), que también
-      es un rango (*caso recursivo*).
+    - El **resto** del rango (al que se accede mediante !PYTHON(r[1:])), que
+      también es un rango (*caso recursivo*).
 
 - Según el ejemplo anterior:
 
@@ -3257,7 +3281,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ## Conversión a tupla
 
 - Las cadenas y los rangos se pueden convertir fácilmente a tuplas usando la
-  función `tuple`:
+  función !PYTHON(tuple):
 
 :::: columns
 
@@ -3303,7 +3327,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   medida en que nos permiten usarlas sin tener que conocer los detalles
   internos del procesamiento que realizan.
 
-- Por ejemplo, si queremos usar la función `cubo`, nos da igual que dicha
+- Por ejemplo, si queremos usar la función !PYTHON(cubo), nos da igual que dicha
   función esté implementada de cualquiera de las siguientes maneras:
 
   ```python
@@ -3315,7 +3339,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Para **usar** la función, nos basta con saber que calcula el cubo de un
   número, sin necesidad de saber qué cálculo concreto realiza para obtener el
   resultado. Los detalles de implementación quedan ocultos y por eso también
-  decimos que `cubo` es una abstracción.
+  decimos que !PYTHON(cubo) es una abstracción.
 
 ---
 
@@ -3333,10 +3357,10 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   **método** para calcular el cubo de un número.
 
 - Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
-  siempre expresiones explícitas (como `3*3*3`, `y*y*y`, etc.) sin usar la
-  palabra «cubo», pero eso nos obligaría siempre a expresarnos usando las
-  operaciones primitivas de nuestro lenguaje (como `*`), en vez de poder usar
-  términos de más alto nivel.
+  siempre expresiones explícitas (como !PYTHON(3*3*3), !PYTHON(y*y*y), etc.)
+  sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos
+  usando las operaciones primitivas de nuestro lenguaje (como `*`), en vez de
+  poder usar términos de más alto nivel.
 
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
@@ -3386,9 +3410,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   125
   ```
 
-- No hace falta crear las funciones `cuadrado` y `cubo` para pasárselas a la
-  función `aplica5` como argumento. Se pueden pasar directamente las
-  expresiones lambda, que también son funciones:
+- No hace falta crear las funciones !PYTHON(cuadrado) y !PYTHON(cubo) para
+  pasárselas a la función !PYTHON(aplica5) como argumento. Se pueden pasar
+  directamente las expresiones lambda, que también son funciones:
 
   ```python
   >>> aplica5(lambda x: x ** 2)
@@ -3397,16 +3421,16 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   125
   ```
 
-- Naturalmente, la función que se pasa a `aplica5` debe recibir un único
+- Naturalmente, la función que se pasa a !PYTHON(aplica5) debe recibir un único
   argumento de tipo numérico.
 
 ---
 
 - También se puede **devolver una función como resultado**.
 
-- Por ejemplo, la siguiente función recibe un número (`k`) y devuelve otra
-  función que calcula la suma de ese número con otro (`x`) que se pasa como
-  argumento a la función devuelta:
+- Por ejemplo, la siguiente función recibe un número (!PYTHON(k)) y devuelve
+  otra función que calcula la suma de ese número con otro (!PYTHON(x)) que se
+  pasa como argumento a la función devuelta:
 
   ```python
   >>> suma_rara = lambda k: lambda x: x + k
@@ -3420,7 +3444,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   10
   ```
 
-- Tanto `aplica5` como `suma_rara` son funciones de orden superior.
+- Tanto !PYTHON(aplica5) como !PYTHON(suma_rara) son funciones de orden
+  superior.
 
 ---
 
@@ -3439,7 +3464,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
   - El _nombre_ de la función.
 
-  - La función que se aplica a `a` para calcular cada _término_ de la suma.
+  - La función que se aplica a !PYTHON(a) para calcular cada _término_ de la
+    suma.
 
 - Podríamos haber escrito las funciones anteriores rellenando los «casilleros»
   del siguiente *patrón general*:
@@ -3476,8 +3502,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   suma = lambda term, a, b: 0 if a > b else term(a) + suma(term, a + 1, b)
   ```
 
-- De esta forma, las dos funciones `suma_enteros` y `suma_cubos` anteriores se
-  podrían definir en términos de esta `suma`:
+- De esta forma, las dos funciones !PYTHON(suma_enteros) y !PYTHON(suma_cubos)
+  anteriores se podrían definir en términos de esta !PYTHON(suma):
 
   ```python
   suma_enteros = lambda a, b: suma(lambda x: x, a, b)
@@ -3486,7 +3512,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   suma_cubos = lambda a, b: suma(cubo, a, b)
   ```
 
-- ¿Se podría generalizar aún más la función `suma`?
+- ¿Se podría generalizar aún más la función !PYTHON(suma)?
 
 ## `map`
 
@@ -3514,13 +3540,13 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   ```
 
 - Es evidente que hay un patrón subyacente que se podría abstraer creando una
-  función de orden superior que aplique una función `f` a los elementos de una
-  tupla y devuelva la tupla resultante.
+  función de orden superior que aplique una función !PYTHON(f) a los elementos
+  de una tupla y devuelva la tupla resultante.
 
 ---
 
-- Esa función se llama `map`, y viene definida en Python con la siguiente
-  signatura:
+- Esa función se llama !PYTHON(map), y viene definida en Python con la
+  siguiente signatura:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3551,21 +3577,22 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   pueden recorrer de uno en uno.
 
 - Lo que haremos aquí será transformar ese iterador en la tupla correspondiente
-  usando la función `tuple` sobre el resultado de `map`:
+  usando la función !PYTHON(tuple) sobre el resultado de !PYTHON(map):
 
   ```python
   >>> tuple(map(cubo, (1, 2, 3, 4)))
   (1, 8, 27, 64)
   ```
 
-- Además de una tupla, también podemos usar un rango como argumento para `map`:
+- Además de una tupla, también podemos usar un rango como argumento para
+  !PYTHON(map):
 
   ```python
   >>> tuple(map(cubo, range(1, 5)))
   (1, 8, 27, 64)
   ```
 
-- ¿Cómo definirías la función `map` de forma que devolviera una tupla?
+- ¿Cómo definirías la función !PYTHON(map) de forma que devolviera una tupla?
 
 !EJERCICIO
 
@@ -3581,9 +3608,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## `filter`
 
-- `filter` es una **función de orden superior** que devuelve aquellos elementos
-  de una tupla (o cualquier cosa *iterable*) que cumplen una determinada
-  condición.
+- !PYTHON(filter) es una **función de orden superior** que devuelve aquellos
+  elementos de una tupla (o cualquier cosa *iterable*) que cumplen una
+  determinada condición.
 
 - Su signatura es:
 
@@ -3595,8 +3622,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   donde _function_ debe ser una función de un solo argumento que devuelva un
   _booleano_.
 
-- Como `map`, también devuelve un _iterador_, que se puede convertir a tupla
-  con la función `tuple`.
+- Como !PYTHON(map), también devuelve un _iterador_, que se puede convertir a
+  tupla con la función !PYTHON(tuple).
 
 - Por ejemplo:
 
@@ -3607,7 +3634,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## `reduce`
 
-- `reduce` es una **función de orden superior** que aplica, de forma
+- !PYTHON(reduce) es una **función de orden superior** que aplica, de forma
   acumulativa, una función a todos los elementos de una tupla (o cualquier cosa
   *iterable*).
 
@@ -3637,7 +3664,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - Como podemos observar, la estrategia de cálculo es esencialmente la misma
   (sólo se diferencian en la operación a realizar (`+` o `*`) y en el valor
-  inicial o *elemento neutro* (`0` o `1`).
+  inicial o *elemento neutro* (!PYTHON(0) o !PYTHON(1)).
 
 ---
 
@@ -3645,7 +3672,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   que capture la idea de **reducir todos los elementos de una tupla (o
   cualquier iterable) a un único valor**.
 
-- Eso es lo que hace la función `reduce`.
+- Eso es lo que hace la función !PYTHON(reduce).
 
 - Su signatura es:
 
@@ -3666,16 +3693,17 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ---
 
-- Para usarla, tenemos que *importarla* previamente del *módulo* `functools`.
+- Para usarla, tenemos que *importarla* previamente del *módulo*
+  !PYTHON(functools).
 
   - No es la primera vez que importamos un módulo. Ya lo hicimos con el módulo
-    `math`.
+    !PYTHON(math).
 
   - En su momento estudiaremos con detalle qué son los módulos. Por ahora nos
     basta con lo que ya sabemos: que contienen definiciones que podemos
     incorporar a nuestros *scripts*.
 
-- Por ejemplo, para calcular la suma y el producto de `(1, 2, 3, 4)`:
+- Por ejemplo, para calcular la suma y el producto de !PYTHON((1, 2, 3, 4)):
 
   ```python
   from functools import reduce
@@ -3684,8 +3712,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   producto_de_numeros = reduce(lambda x, y: x * y, tupla, 1)
   ```
 
-- ¿Cómo podríamos definir la función `reduce` si recibiera una tupla y no
-  cualquier iterable?
+- ¿Cómo podríamos definir la función !PYTHON(reduce) si recibiera una tupla y
+  no cualquier iterable?
 
 !EJERCICIO
 
@@ -3706,16 +3734,16 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Dos operaciones que se realizan con frecuencia sobre una estructura iterable
   son:
 
-  - Realizar alguna operación sobre cada elemento (`map`)
+  - Realizar alguna operación sobre cada elemento (!PYTHON(map))
 
   - Seleccionar un subconjunto de elementos que cumplan alguna condición
-    (`filter`)
+    (!PYTHON(filter))
 
 - Las **expresiones generadoras** son una notación copiada del lenguaje Haskell
   que nos permite realizar ambas operaciones de una forma muy concisa.
 
 - El resultado que devuelve es un iterador que (como ya sabemos) podemos
-  convertir fácilmente en una tupla usando la función `tuple`.
+  convertir fácilmente en una tupla usando la función !PYTHON(tuple).
 
 ---
 
