@@ -309,7 +309,8 @@ nocite: |
     en PHP es perfectamente válida (y vale **cinco**).
 
     El motivo es que el sistema de tipos de PHP convierte *implícitamente* la
-    cadena `"3"` en el entero `3` cuando se usa en una operación de suma (`+`).
+    cadena !PYTHON("3") en el entero !PYTHON(3) cuando se usa en una operación
+    de suma (`+`).
 
 - Es importante entender que **la conversión de tipos no modifica el dato
   original**, sino que devuelve un nuevo dato a partir del dato original pero
@@ -338,14 +339,14 @@ nocite: |
   - Los **enteros** se representan con el tipo `int`.
 
     Sólo contienen parte entera, y sus literales se escriben con dígitos sin
-    punto decimal (ej: `13`).
+    punto decimal (ej: !PYTHON(13)).
 
   - Los **reales** se representan con el tipo `float`.
 
     Contienen parte entera y parte fraccionaria, y sus literales se escriben
-    con dígitos y con punto decimal separando ambas partes (ej: `4.87`). Los
-    números en notación exponencial (`2e3`) también son reales ($2e3 =
-    2.0\times10^3$).
+    con dígitos y con punto decimal separando ambas partes (ej: !PYTHON(4.87)).
+    Los números en notación exponencial (!PYTHON(2e3)) también son reales ($2e3
+    = 2.0\times10^3$).
 
 - Las **operaciones** que se pueden realizar con los números son los que cabría
   esperar (aritméticas, trigonométricas, matemáticas en general).
@@ -356,15 +357,16 @@ nocite: |
   expresión aritmética y suele resultar en un valor real, ya que se considera
   que los reales *contienen* a los enteros.
 
-  - Ejemplo: `4 + 3.5` devuelve `7.5`.
+  - Ejemplo: !PYTHON(4 + 3.5) devuelve !PYTHON(7.5).
 
 - Por ello, y aunque el lenguaje sea de tipado fuerte, se permite la conversión
   implícita entre datos de tipo `int` y `float` dentro de una misma expresión
   para realizar las operaciones correspondientes.
 
-- En el ejemplo anterior, el valor entero `4` se convierte implícitamente en el
-  real `4.0` debido a que el otro operando de la suma es un valor real (`3.5`).
-  Finalmente, se obtiene un valor real (`7.5`).
+- En el ejemplo anterior, el valor entero !PYTHON(4) se convierte
+  implícitamente en el real !PYTHON(4.0) debido a que el otro operando de la
+  suma es un valor real (!PYTHON(3.5)). Finalmente, se obtiene un valor real
+  (!PYTHON(7.5)).
 
 ### Cadenas
 
@@ -385,11 +387,11 @@ nocite: |
 
 - Ejemplos:
 
-  `"hola"`
+  !PYTHON("hola")
 
-  `'Manolo'`
+  !PYTHON('Manolo')
 
-  `"27"`
+  !PYTHON("27")
 
 ---
 
@@ -406,11 +408,11 @@ nocite: |
   'Bienvenido\na\nPython'  # el carácter \n representa un salto de línea
   ```
 
-- No es lo mismo `27` que `"27"`.
+- No es lo mismo !PYTHON(27) que !PYTHON("27").
 
-  - `27` es un número entero (un literal de tipo `int`).
+  - !PYTHON(27) es un número entero (un literal de tipo `int`).
 
-  - `"27"` es una cadena (un literal de tipo `str`).
+  - !PYTHON("27") es una cadena (un literal de tipo `str`).
 
 - Una **cadena vacía** es aquella que no contiene ningún carácter. Se
   representa con los literales `''`, `""`, `''''''` o `""""""`.
@@ -422,16 +424,16 @@ nocite: |
 
   - Delimitar la cadena con el otro tipo de comillas. Por ejemplo:
 
-    - `'Pepe dijo: "Yo no voy.", así que no fuimos.'`
+    - !PYTHON('Pepe dijo: "Yo no voy.", así que no fuimos.')
 
-    - `"Bienvenido, Señor O'Halloran."`
+    - !PYTHON("Bienvenido, Señor O'Halloran.")
 
   - «_Escapar_» la comilla, poniéndole delante una barra inclinada hacia la
     izquierda (`\`):
 
-    - `"Pepe dijo: \"Yo no voy.\", así que no fuimos."`
+    - !PYTHON("Pepe dijo: \"Yo no voy.\", así que no fuimos.")
 
-    - `'Bienvenido, Señor O\'Halloran.'`
+    - !PYTHON('Bienvenido, Señor O\'Halloran.')
 
 ### Funciones
 
@@ -449,9 +451,10 @@ nocite: |
   Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
   función en esa llamada (si es que los necesita), separados por comas.
 
-- Por tanto, `max` es la función en sí (un **valor** de tipo _función_) , y
-  `max(3, 4)` es una llamada a la función `max` con los argumentos `3` y `4`
-  (una **operación** realizada sobre la función).
+- Por tanto, !PYTHON(max) es la función en sí (un **valor** de tipo _función_)
+  , y !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
+  argumentos !PYTHON(3) y !PYTHON(4) (una **operación** realizada sobre la
+  función).
 
   ```python
   >>> max                   # la función max
@@ -501,8 +504,9 @@ nocite: |
   nuevo dato con un determinado tipo a partir del dato original que reciben
   como argumento.
 
-- Por tanto, la expresión `int('24')` devuelve el entero `24` pero no cambia en
-  modo alguno la cadena `'24'` que ha recibido como argumento.
+- Por tanto, la expresión !PYTHON(int('24')) devuelve el entero !PYTHON(24)
+  pero no cambia en modo alguno la cadena !PYTHON('24') que ha recibido como
+  argumento.
 
 # Álgebra de Boole
 
@@ -517,11 +521,12 @@ nocite: |
 - Su nombre proviene de **George Boole**, matemático que definió por primera
   vez un sistema algebraico para la lógica a mediados del S. XIX.
 
-- En Python, el tipo de dato lógico se representa como `bool` y sus posibles
-  valores son `False` y `True` (con la inicial en mayúscula).
+- En Python, el tipo de dato lógico se representa como !PYTHON(bool) y sus
+  posibles valores son !PYTHON(False) y !PYTHON(True) (con la inicial en
+  mayúscula).
 
-- Esos dos valores son *formas especiales* para los enteros `0` y `1`,
-  respectivamente.
+- Esos dos valores son *formas especiales* para los enteros !PYTHON(0) y
+  !PYTHON(1), respectivamente.
 
 ## Operadores relacionales
 
@@ -589,7 +594,8 @@ True
     Conjunción     $\land$
     Negación       $\neg$
 
-- En Python se representan como `or`, `and` y `not`, respectivamente.
+- En Python se representan como !PYTHON(or), !PYTHON(and) y !PYTHON(not),
+  respectivamente.
 
 ### Tablas de verdad
 
@@ -665,12 +671,12 @@ True
 \begingroup
 \setlength{\extrarowheight}{0pt}
 
-|   `A`   |   `B`   |  `A or B`  |
-|:-------:|:-------:|:----------:|
-| `False` | `False` |   `False`  |
-| `False` |  `True` |    `True`  |
-|  `True` | `False` |    `True`  |
-|  `True` |  `True` |    `True`  |
+|   !PYTHON(A)   |   !PYTHON(B)   |  !PYTHON(A or B)  |
+|:--------------:|:--------------:|:-----------------:|
+| !PYTHON(False) | !PYTHON(False) |   !PYTHON(False)  |
+| !PYTHON(False) |  !PYTHON(True) |    !PYTHON(True)  |
+|  !PYTHON(True) | !PYTHON(False) |    !PYTHON(True)  |
+|  !PYTHON(True) |  !PYTHON(True) |    !PYTHON(True)  |
 
 \endgroup
 
@@ -681,12 +687,12 @@ True
 \begingroup
 \setlength{\extrarowheight}{0pt}
 
-|   `A`   |   `B`   |  `A and B`  |
-|:-------:|:-------:|:-----------:|
-| `False` | `False` |   `False`   |
-| `False` |  `True` |   `False`   |
-|  `True` | `False` |   `False`   |
-|  `True` |  `True` |    `True`   |
+|   !PYTHON(A)   |   !PYTHON(B)   |  !PYTHON(A and B)  |
+|:--------------:|:--------------:|:------------------:|
+| !PYTHON(False) | !PYTHON(False) |   !PYTHON(False)   |
+| !PYTHON(False) |  !PYTHON(True) |   !PYTHON(False)   |
+|  !PYTHON(True) | !PYTHON(False) |   !PYTHON(False)   |
+|  !PYTHON(True) |  !PYTHON(True) |    !PYTHON(True)   |
 
 \endgroup
 
@@ -699,10 +705,10 @@ True
 \begingroup
 \setlength{\extrarowheight}{0pt}
 
-|   `A`   |  `not A`  |
-|:-------:|:---------:|
-| `False` |   `True`  |
-|  `True` |  `False`  |
+|   !PYTHON(A)   |  !PYTHON(not A)  |
+|:--------------:|:----------------:|
+| !PYTHON(False) |   !PYTHON(True)  |
+|  !PYTHON(True) |  !PYTHON(False)  |
 
 \endgroup
 
@@ -904,13 +910,13 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   25 if 3 > 2 else 17
   ```
 
-  evalúa a `25`.
+  evalúa a !PYTHON(25).
 
 ---
 
-- El operador ternario, así como los operadores lógicos `and` y `or`, se
-  evalúan siguiendo una estrategia según la cual **no siempre se evalúan todos
-  sus operandos**.
+- El operador ternario, así como los operadores lógicos !PYTHON(and) y
+  !PYTHON(or), se evalúan siguiendo una estrategia según la cual **no siempre
+  se evalúan todos sus operandos**.
 
 - La expresión condicional:
 
@@ -923,9 +929,9 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
   - Primero siempre se evalúa la !NT(condición).
 
-  - Si es `True`, evalúa !NT(valor_si_cierto).
+  - Si es !PYTHON(True), evalúa !NT(valor_si_cierto).
 
-  - Si es `False`, evalúa !NT(valor_si_falso).
+  - Si es !PYTHON(False), evalúa !NT(valor_si_falso).
 
 - Por tanto, en la expresión condicional nunca se evalúan todos sus operandos,
   sino sólo los estrictamente necesarios.
@@ -934,7 +940,8 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 ---
 
-- La evaluación de los operadores `and` y `or` sigue un proceso similar:
+- La evaluación de los operadores !PYTHON(and) y !PYTHON(or) sigue un proceso
+  similar:
 
   - Primero se evalúa el operando izquierdo.
 
@@ -943,13 +950,13 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - Esto es así porque:
 
-  - `True or` $\;\underline{x}$
+  - !PYTHON(True or) $\ \underline{x}$
 
-    siempre es igual a `True`.
+    siempre es igual a !PYTHON(True).
 
-  - `False and` $\;\underline{x}$
+  - !PYTHON(False and) $\ \underline{x}$
 
-    siempre es igual a `False`.
+    siempre es igual a !PYTHON(False).
 
   En ambos casos no es necesario evaluar $\underline{x}$.
 
@@ -980,10 +987,11 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   x = 25
   ```
 
-  A partir de ese momento, el identificador `x` representa el valor `25` (por
-  lo que la expresión `x` vale `25`).
+  A partir de ese momento, el identificador !PYTHON(x) representa el valor
+  !PYTHON(25) (por lo que la expresión !PYTHON(x) vale !PYTHON(25)).
 
-  Y si `x` vale `25`, la expresión `2 + x * 3` vale `77`.
+  Y si !PYTHON(x) vale !PYTHON(25), la expresión !PYTHON(2 + x * 3) vale
+  !PYTHON(77).
 
 ## Identificadores y ligaduras (*binding*!ifdef(HTML)(&nbsp;)())
 
@@ -1046,11 +1054,12 @@ x -> 7
   y = x
   ```
 
-- En este caso estamos ligando a `y` el mismo valor que tiene `x`.
+- En este caso estamos ligando a !PYTHON(y) el mismo valor que tiene
+  !PYTHON(x).
 
-- Lo que hace el intérprete en este caso no es crear dos valores `25` en
-  memoria (sería un gasto inútil), sino que `x` e `y` _comparten_ el único
-  valor `25` que existe:
+- Lo que hace el intérprete en este caso no es crear dos valores !PYTHON(25) en
+  memoria (sería un gasto inútil), sino que !PYTHON(x) e !PYTHON(y) _comparten_
+  el único valor !PYTHON(25) que existe:
 
   !DOT(ligadura-compartida.svg)()(width=25%)(width=20%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1077,8 +1086,8 @@ x -> 7
   función correspondiente (que en programación funcional es un valor como
   cualquier otro).
 
-- Por ejemplo, `max` es un identificador ligado a la función que devuelve el
-  máximo de dos números (que representaremos aquí como **λ**):
+- Por ejemplo, !PYTHON(max) es un identificador ligado a la función que
+  devuelve el máximo de dos números (que representaremos aquí como **λ**):
 
   !DOT(ligadura-funcion-max.svg)()(width=25%)(width=22%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1225,13 +1234,14 @@ maximo -> lambda
   - Aquí estamos trabajando con el *marco global* (el único que existe hasta
     ahora para nosotros).
 
-  - En la línea 1, el identificador `x` aún no está ligado, por lo que su uso
-    genera un error (el marco global no contiene hasta ahora ninguna ligadura
-    para `x`).
+  - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
+    su uso genera un error (el marco global no contiene hasta ahora ninguna
+    ligadura
+    para !PYTHON(x)).
 
   - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
     sido ligado previamente en la línea 5 (el marco global ahora contiene una
-    ligadura para `x` con el valor 25).
+    ligadura para !PYTHON(x) con el valor 25).
 
 ---
 
@@ -1346,14 +1356,14 @@ z -> 3
 
 - Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
 
-- Para cargar un *script* en nuestra sesión usamos la orden `from`. Por
+- Para cargar un *script* en nuestra sesión usamos la orden !PYTHON(from). Por
   ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
 
   ```python
   >>> from definiciones import *
   ```
 
-  Observar que en el `from` se pone el nombre del script pero **sin la
+  Observar que en el !PYTHON(from) se pone el nombre del script pero **sin la
   extensión `.py`**.
 
 - Otra opción es iniciar una nueva sesión con el intérprete interactivo
