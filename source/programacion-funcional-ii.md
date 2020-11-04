@@ -2395,10 +2395,10 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - Combinando ambos casos tendríamos:
 
-  $$n! = \left\{\begin{array}{ll}
-           1 & \text{si } n = 0 \text{\quad(caso base)} \\!SEP
+  $$n! = \begin{cases}
+           1 & \text{si } n = 0 \text{\quad(caso base)} \\
            n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
-         \end{array}\right.$$
+         \end{cases}$$
 
 ---
 
@@ -2500,10 +2500,10 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - Combinando todos los pasos, obtenemos la solución general:
 
-$$fact(n) = \left\{\begin{array}{ll}
-         1 & \text{si } n = 0 \text{\quad(caso base)} \\!SEP
+$$fact(n) = \begin{cases}
+         1 & \text{si } n = 0 \text{\quad(caso base)} \\
          n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
-       \end{array}\right.$$
+       \end{cases}$$
 
 ### Recursividad lineal
 
@@ -2576,7 +2576,7 @@ $$fact(n) = \left\{\begin{array}{ll}
   siguiente regla:
 
   $$\begin{array}{l}
-      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\!SEP
+      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\!MASSEP
       contador_{nuevo} = contador_{viejo} - 1
     \end{array}$$
 
@@ -2730,11 +2730,11 @@ Iterativo lineal          Linealmente \
 - Podemos definir una función recursiva que devuelva el $n$-ésimo término de la
   sucesión de Fibonacci:
 
-  $$fib(n) = \left\{\begin{array}{ll}
-               0 & \text{si } n = 0 \text{\quad (caso base)} \\!SEP
-               1 & \text{si } n = 1 \text{\quad (caso base)} \\!SEP
+  $$fib(n) = \begin{cases}
+               0 & \text{si } n = 0 \text{\quad (caso base)} \\
+               1 & \text{si } n = 1 \text{\quad (caso base)} \\
                fib(n - 1) + fib(n - 2) & \text{si } n > 1 \text{\quad (caso recursivo)}
-             \end{array}\right.$$
+             \end{cases}$$
 
 ---
 
@@ -2853,7 +2853,7 @@ fib1_5 -> u5
   transformación:
 
   $$\begin{array}{l}
-      a_{nuevo} = b_{viejo} \\!SEP
+      a_{nuevo} = b_{viejo} \\!MASSEP
       b_{nuevo} = b_{viejo} + a_{viejo}
     \end{array}$$
 

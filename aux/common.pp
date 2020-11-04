@@ -244,7 +244,7 @@ $\left\{\begin{array}{ll}
 !define(VAR)(\(!ifdef(HTML)(!1)(\textcolor{black}{!1})\))
 !define(OTRALINEA)(\\!MENOSSEP)
 !define(NEQ)(!ifdef(HTML)(\mathrel{\char`≠})(\neq))
-!define(SEP)(!ifdef(HTML)([0.5em])())
+!define(SEP)(!MASSEP)
 !define(MASSEP)(!ifdef(HTML)([0.5em])())
 !define(MENOSSEP)(!ifndef(HTML)([-0.5em])([0.1em]))
 
