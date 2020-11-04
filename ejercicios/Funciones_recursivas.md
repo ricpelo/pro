@@ -83,7 +83,7 @@ date: Curso !CURSO
  
    ```python
    suma_digitos(423) = 4 + 2 + 3 = 9
-   suma_digitos(7) = 0
+   suma_digitos(7) = 7
    ```
 
    Se pide:
