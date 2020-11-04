@@ -613,7 +613,7 @@ True
 ::: {.column width=33%}
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
  $A$   $B$   $A\lor{}B$
 ----- ----- ------------
@@ -629,7 +629,7 @@ True
 ::: {.column width=33%}
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
  $A$   $B$   $A\land{}B$
 ----- ----- -------------
@@ -645,7 +645,7 @@ True
 ::: {.column width=33%}
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
  $A$   $\neg{}A$
 ----- -----------
@@ -669,7 +669,7 @@ True
 ::: column
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
 |   !PYTHON(A)   |   !PYTHON(B)   |  !PYTHON(A or B)  |
 |:--------------:|:--------------:|:-----------------:|
@@ -685,7 +685,7 @@ True
 ::: column
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
 |   !PYTHON(A)   |   !PYTHON(B)   |  !PYTHON(A and B)  |
 |:--------------:|:--------------:|:------------------:|
@@ -703,7 +703,7 @@ True
 !SALTOLARGO
 
 \begingroup
-\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1}
 
 |   !PYTHON(A)   |  !PYTHON(not A)  |
 |:--------------:|:----------------:|

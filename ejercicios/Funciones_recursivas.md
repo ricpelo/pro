@@ -22,6 +22,8 @@ subtitle: Programación --- DAW
 date: Curso !CURSO
 ---
 
+\renewcommand{\arraystretch}{1.5}
+
 #. Dada la siguiente función matemática:
 
    $$f(n)=\begin{cases}
@@ -229,7 +231,7 @@ date: Curso !CURSO
     #. !ESPECINLINE
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        !PRE(n \geq 0)
-       !SIGNAT(\texttt{par\_positivo(!VAR(n\,): int) -> bool}) \\[-0.8em]
+       !SIGNAT(\texttt{par\_positivo(!VAR(n\,): int) -> bool}) \\[-1.2em]
        !POST
        ~~~~~~~~~~~~~~~~~~~~~~~~~~
        \texttt{par\_positivo(!VAR(n))} = \begin{cases}\texttt{True} & \text{si \emph{n} es par}\\\texttt{False} & \text{en caso contrario}\end{cases}
@@ -248,7 +250,7 @@ date: Curso !CURSO
    #. !ESPECINLINE
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       !PRE(\texttt{True})
-      !SIGNAT(\texttt{par(n: int) -> bool}) \\[-0.8em]
+      !SIGNAT(\texttt{par(n: int) -> bool}) \\[-1.2em]
       !POST
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       \texttt{par(!VAR(n))} = \begin{cases}\texttt{True} & \textrm{si \emph{n} es par }\\ \texttt{False} & \textrm{en caso contrario}\end{cases}
