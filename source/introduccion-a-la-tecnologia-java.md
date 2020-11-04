@@ -575,7 +575,7 @@ F -> javac -> O -> JIT
 ## El primer programa Java
 
 ```java
-/**
+/*
  * ¡Hola, mundo!
  *
  * Primer programa de ejemplo escrito en Java.
