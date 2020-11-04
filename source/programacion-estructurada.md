@@ -361,7 +361,8 @@ $B$
 
 - Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una
   estructura) y, por tanto, **toda estructura es también una sentencia** (actúa
-  como si fuera una única sentencia pero compuesta por otras).
+  como si fuera una única sentencia pero compuesta por otras de forma
+  recursiva).
 
 - Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede
   poner una estructura.
@@ -385,7 +386,7 @@ $B$
 
 ::: column
 
-- Las sentencias deben estar todas al mismo nivel de indentación (misma
+- Las sentencias deben empezar todas en el mismo nivel de indentación (misma
   posición horizontal o _columna_).
 
 :::
@@ -401,6 +402,10 @@ En Python, la **estructura** del programa viene definida por la **indentación**
 del código.
 ~~~~~~~~~~~~~~~~~
 
+- Por tanto, las instrucciones que aparecen juntas en el mismo nivel de
+  indentación (es decir, las que empiezan en la misma columna) pertenecen a la
+  misma estructura.
+
 ---
 
 - Ejemplo:
@@ -412,9 +417,9 @@ del código.
   z = f(x + y)
   ```
 
-  Estas cuatro sentencias, al estar todas al mismo nivel de indentación, actúan
-  como una sola sentencia en bloque (forman una estructura _secuencial_) y se
-  ejecutan en orden de arriba abajo.
+  Estas cuatro sentencias, al estar todas juntas y en el mismo nivel de
+  indentación, actúan como una sola sentencia en bloque (forman una estructura
+  _secuencial_) y se ejecutan en orden de arriba abajo.
 
 - A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o
   una sentencia compuesta (una estructura):
@@ -487,6 +492,40 @@ del código.
 
 ---
 
+- En el siguiente código:
+
+  ```{.python .number-lines}
+  a = 4
+  b = 3
+  if a == b:
+      print('Son distintos')
+      x = 5
+  else:
+      print('Son iguales')
+  ```
+
+  tenemos las siguientes estructuras, anidadas una dentro de la otra:
+
+  #. Una secuencia formada por un bloque de tres sentencias: las asignaciones
+     !PYTHON(a = 4) y !PYTHON(b = 3) y la sentencia !PYTHON(if ... else) que va
+     desde la línea 3 hasta la 8.
+
+  #. La selección !PYTHON(if ... else).
+
+  #. Una secuencia formada por las sentencias de las líneas 4--5.
+
+- Cada estructura es una sentencia en sí misma, y contiene a otras sentencias
+  (que pueden ser simples u otras estructuras).
+
+---
+
+- Aquí se ven representadas visualmente las estructuras que forman el código
+  fuente del programa:
+
+!IMGP(estructuras-de-control-if.svg)(Representación de las distintas estructuras que forman el código)(width=50%)(width=40%)
+
+---
+
 - Ahora nuestra gramática se amplía:
 
   !ALGO
@@ -519,6 +558,56 @@ del código.
 - La !NT(sentencia) es el **cuerpo** del bucle.
 
 - Cada ejecución del cuerpo del bucle se denomina **iteración**.
+
+!EJEMPLOS
+
+:::: columns
+
+::: column
+
+- El siguiente código:
+
+  ```python
+  x = 0
+  while x < 5:
+      print(x)
+      x += 1
+  print('Fin')
+  ```
+
+  genera la siguiente salida:
+
+  ```
+  0
+  1
+  2
+  3
+  4
+  Fin
+  ```
+
+:::
+
+::: column
+
+!IMGP(estructuras-de-control-while1.svg)(Estructuras en el código)(width=60%)(width=40%)
+
+:::
+
+::::
+
+---
+
+```python
+salida = False
+while not salida:
+    x = input('Introduce un número: ')
+    if x == 2:
+        salida = True
+    print(x)
+```
+
+!IMGP(estructuras-de-control-while2.svg)(Estructuras en el código)(width=60%)(width=40%)
 
 ---
 
@@ -554,7 +643,6 @@ del código.
       if val == "i":
           break
       print(val)
-
   print("Fin")
   ```
 
@@ -583,7 +671,6 @@ del código.
       if val == "i":
           continue
       print(val)
-
   print("Fin")
   ```
 
