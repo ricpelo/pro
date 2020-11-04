@@ -2232,7 +2232,7 @@ E -> f [lhead = cluster0]
   $$ABC, ACB, BAC, BCA, CAB, CBA$$
 
   y, por tanto, con 3 elementos podemos formar 6 permutaciones distintas. En
-  consecuencia, `permutas(3)` debe devolver `6`.
+  consecuencia, !PYTHON(permutas(3)) debe devolver !PYTHON(6).
 
 ---
 
