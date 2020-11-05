@@ -2576,7 +2576,7 @@ $$fact(n) = \begin{cases}
   siguiente regla:
 
   $$\begin{array}{l}
-      acumulado_{nuevo} = acumulado_{viejo} \cdot contador_{viejo} \\!MASSEP
+      acumulador_{nuevo} = acumulador_{viejo} \cdot contador_{viejo} \\!MASSEP
       contador_{nuevo} = contador_{viejo} - 1
     \end{array}$$
 
@@ -2661,8 +2661,8 @@ Iterativo lineal          Linealmente \
     
   - En el **proceso recursivo**, el intérprete tiene que mantener cierta
     información *oculta* que no está almacenada en ningún parámetro y que
-    indica en qué punto se encuentra el proceso dentro de la secuencia de
-    operaciones pendientes.
+    indica qué operaciones ha realizado hasta ahora y cuáles quedan pendientes
+    por hacer.
 
 ---
 
@@ -2679,8 +2679,8 @@ Iterativo lineal          Linealmente \
   !PYTHON(fact_iter)) genera un proceso iterativo.
 
   Sin embargo, el proceso es realmente iterativo porque su estado está definido
-  completamente por dos variables ligadas, y para ejecutar el proceso sólo se
-  necesita almacenar esas dos variables.
+  completamente por dos parámetros, y para ejecutar el proceso sólo se necesita
+  almacenar el valor de esos dos parámetros.
 
 ---
 
@@ -2705,8 +2705,8 @@ Iterativo lineal          Linealmente \
   factorial = lambda n: fact_iter(n, 1)
   ```
 
-- Y aunque las dos satisfacen la misma especificación y, por tanto, calculan
-  exactamente los mismos valores, lo hacen de una forma muy diferente,
+- Y aunque las dos satisfacen la misma especificación (y, por tanto, calculan
+  exactamente los mismos valores), lo hacen de una forma muy diferente,
   generando incluso procesos de distinto tipo.
 
 ### Recursividad en árbol
@@ -2714,8 +2714,9 @@ Iterativo lineal          Linealmente \
 - La **recursividad en árbol** se produce cuando la función tiene
   **recursividad múltiple**.
 
-- Una función tiene **recursividad múltiple** cuando una llamada a la función
-  recursiva puede generar más de una llamada recursiva a la misma función.
+- Una función tiene **recursividad múltiple** cuando la misma llamada a la
+  función recursiva puede generar más de una llamada recursiva a la misma
+  función.
 
 - El ejemplo clásico es la función que calcula los términos de la **sucesión de
   Fibonacci**.
@@ -2754,7 +2755,7 @@ Iterativo lineal          Linealmente \
   fib = lambda n: 0 if n == 0 else 1 if n == 1 else fib(n - 1) + fib(n - 2)
   ```
 
-  o bien:
+  o bien, separando la definición en varias líneas:
 
   ```python
   fib = lambda n: 0 if n == 0 else \
@@ -2839,9 +2840,9 @@ fib1_5 -> u5
   porque en un cierto momento del cálculo sólo hay que memorizar los nodos que
   hay por encima.
 
-- En general, en un proceso recursivo en árbol el tiempo de ejecución crece con
-  el número de nodos mientras que el espacio necesario crece con la altura
-  máxima del árbol.
+- En general, en un proceso recursivo en árbol **el tiempo de ejecución crece
+  con el _número de nodos_ del árbol** mientras que **el espacio necesario
+  crece con la _altura máxima_ del árbol**.
 
 ---
 
@@ -2923,7 +2924,7 @@ tres = lambda w: "W vale " + str(w)
 uno(3)
 ```
 
-!DOT(pila-control.svg)(Pila de control con la función `tres` activada)(width=60%)(width=60%)
+!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=60%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
@@ -3067,7 +3068,7 @@ fact = lambda n: 1 if n == 0 else n * fact(n - 1)
 fact(4)
 ```
 
-!DOT(pila-control-factorial.svg)(Pila de control de `fact` tras tres activaciones desde `fact(4)`)(width=60%)(width=60%)
+!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=60%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
