@@ -1204,22 +1204,33 @@ maximo -> lambda
 
 - Los marcos son conceptos **_dinámicos_**:
 
-  - Se crean en memoria cuando la ejecución del programa entra en ciertas
-    partes del mismo y se destruyen cuando sale.
+  - Se crean y se destruyen a medida que la ejecución del programa pasa por
+    ciertas partes del mismo.
 
-  - Van incorporando nuevas ligaduras a medida que se van ejecutando nuevas
+  - Van almacenando nuevas ligaduras conforme se van ejecutando nuevas
     instrucciones.
-
-- El **marco global** es un marco que siempre existe en cualquier punto del
-  programa y contiene las ligaduras definidas fuera de cualquier construcción o
-  estructura del mismo.
-
-  - Por ahora es el único marco que existe para nosotros.
 
 ---
 
-- En un momento dado, un marco contendrá las ligaduras que se hayan definido
-  hasta ese momento en el *ámbito* asociado a ese marco:
+- Por ahora, el único marco que existe en nuestros programas es el llamado
+  **_marco global_**.
+
+- El marco global se crea en el momento en que **se empieza a ejecutar el
+  programa** y existe durante toda la ejecución del mismo (sólo se destruye al
+  finalizar la ejecución del programa).
+
+- Si se está trabajando en una sesión con el intérprete interactivo, el marco
+  global **se crea justo al empezar la sesión** y existe durante toda la sesión
+  (sólo se destruye al salir de la misma).
+
+  Por tanto, las definiciones que se ejecutan directamente en una sesión
+  interactiva con el intérprete crean ligaduras que se almacenan en el marco
+  global.
+
+---
+
+- Por ejemplo, si iniciamos una sesión con el intérprete interactivo y justo a
+  continuación tecleamos lo siguiente:
 
   ```{.python .number-lines}
   >>> x
@@ -1245,28 +1256,41 @@ maximo -> lambda
 
 ---
 
-- Los marcos se van creando y destruyendo durante la ejecución del programa, y
-  su contenido (las ligaduras) también va cambiando con el tiempo, a medida que
-  se van ejecutando sus instrucciones.
+- Tanto los marcos como su contenido (las ligaduras) se van creando y
+  destruyendo a medida que se van ejecutando las instrucciones que forman el
+  programa.
 
-:::: columns
-
-::: column
-
-- Si tenemos:
+- Si tenemos la siguiente sesión interactiva:
 
   ```{.python .number-lines}
+  >>> 2 + 3
+  5
   >>> x = 4
   >>> y = 3
   >>> z = y
   ```
 
-  Según la línea hasta donde hayamos ejecutado, el marco global contendrá lo
-  siguiente:
+  Según hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:
 
-&nbsp; 
+:::: columns
 
-!DOT(marco-linea1.svg)(Marco global en la línea 1)(width=40%)(width=25%)
+::: column
+
+!DOT(marco-lineas12.svg)(Marco global en las líneas 1--2)(width=25%)(width=25%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fixedsize = shape, fontname = "monospace"]
+    x [shape = plaintext, fillcolor = transparent, label = ""] 
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 4 [shape = circle]
 subgraph cluster0 {
@@ -1280,9 +1304,15 @@ x -> 4
 
 :::
 
+::::
+
+---
+
+:::: columns
+
 ::: column
 
-!DOT(marco-linea2.svg)(Marco global en la línea 2)(width=40%)(width=25%)
+!DOT(marco-linea4.svg)(Marco global en la línea 4)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 3 [shape = circle]
 4 [shape = circle]
@@ -1297,9 +1327,11 @@ x -> 4
 y -> 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-&nbsp; 
+:::
 
-!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=25%)
+::: column
+
+!DOT(marco-linea5.svg)(Marco global en la línea 5)(width=40%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 3 [shape = circle]
 4 [shape = circle]
@@ -1339,15 +1371,20 @@ z -> 3
 
 ## *Scripts*
 
-- Cuando tenemos varias definiciones o muy largas resulta tedioso tener que
-  introducirlas una y otra vez en el intérprete interactivo.
+- Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que
+  introducirlas una y otra vez cada vez que abrimos una nueva sesión con el
+  intérprete interactivo.
 
-- Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos
-  desde dentro del intérprete.
+- Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego
+  cargaremos desde dentro del intérprete.
 
 - Ese archivo se llama **_script_** y, por ahora, contendrá una lista de las
   definiciones que nos interese usar en nuestras sesiones interactivas con el
   intérprete.
+
+- Al cargar el _script_, se ejecutarán sus instrucciones una tras otra casi de
+  la misma forma que si las estuviéramos tecleando nosotros directamente en
+  nuestra sesión con el intérprete.
 
 - Llegado el momento, los _scripts_ contendrán el código fuente de nuestros
   programas y los ejecutaremos desde el intérprete por lotes.
@@ -1356,30 +1393,92 @@ z -> 3
 
 - Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
 
-- Para cargar un *script* en nuestra sesión usamos la orden !PYTHON(from). Por
-  ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
+- Para cargar un *script* en nuestra sesión tenemos dos opciones:
+
+  #. Usar la orden !PYTHON(from) dentro de la sesión actual.
+
+     Por ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
+
+     ```python
+     >>> from definiciones import *
+     ```
+
+     Observar que en el !PYTHON(from) se pone el nombre del script pero **sin
+     la extensión `.py`**.
+
+  #. Iniciar una nueva sesión con el intérprete interactivo indicándole que
+     cargue el _script_ mediante la opción `-i` en la línea de órdenes del
+     sistema operativo:
+
+     ```console
+     $ python -i definiciones.py
+     >>>
+     ```
+
+     En este caso **sí** se pone el nombre completo del script, **con la
+     extensión `.py`**.
+
+---
+
+- A partir de ese momento, en el intérprete interactivo podremos usar las
+  definiciones que se hayan cargado desde del _script_.
+
+- Por ejemplo, si el _script_ `definiciones.py` tiene el siguiente contenido:
 
   ```python
-  >>> from definiciones import *
+  x = 25
+  j = 14
   ```
 
-  Observar que en el !PYTHON(from) se pone el nombre del script pero **sin la
-  extensión `.py`**.
+- Al cargar el _script_ (usando cualquiera de las dos opciones que hemos visto
+  anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en
+  consecuencia, se crearán en el marco global las ligaduras
+  `x`$\longrightarrow$`25` y `j`$\longrightarrow$`14`:
 
-- Otra opción es iniciar una nueva sesión con el intérprete interactivo
-  indicándole que cargue el _script_ mediante la opción `-i` en la línea de
-  órdenes del sistema operativo:
-
-  ```console
-  $ python -i definiciones.py
-  >>>
+  ```python
+  >>> x                                   # antes de cargar el script, da error
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'x' is not defined
+  >>> from definiciones import *          # aquí cargamos el script, y ahora
+  >>> x                                   # la x sí está ligada a un valor
+  25
   ```
 
-  En este caso **sí** se pone el nombre completo del script, **con la extensión
-  `.py`**.
+---
+
+- Una limitación importante que hay que tener en cuenta es que **el _script_
+  sólo puede usar definiciones que se hayan creado en el mismo _script_**
+  (exceptuando las definiciones predefinidas del lenguaje).
+
+- Por ejemplo, si tenemos el siguiente _script_ llamado `prueba.py`:
+
+  ```python
+  j = w + 1
+  ```
+
+  donde se intenta ligar a `j` el valor ligado a `w` más uno, lo siguiente no
+  funcionará:
+
+  ```python
+  >>> w = 3
+  >>> from prueba import *
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "/home/ricardo/python/prueba.py", line 1, in <module>
+      j = w + 1
+  NameError: name 'w' is not defined
+  ```
+
+- Aunque `w` esté ligado a un valor al cargar el _script_, éste no podrá
+  acceder a esa ligadura y da error de «_nombre no definido_».
+
+- Cuando estudiemos la programación modular entenderemos por qué.
 
 <!-- ¡ATENCIÓN! PARA EL PRÓXIMO AÑO, QUITAR LOS ÁMBITOS DE AQUÍ
      PORQUE YA ESTÁN EXACTAMENTE IGUAL EN EL SIGUIENTE TEMA -->
+
+<!--
 
 ## Ámbitos
 
@@ -1482,6 +1581,8 @@ Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
 - Por eso también decimos que esas ligaduras tienen ámbito global, o que
   pertenecen al ámbito global, o que están definidas en el ámbito global, o que
   son **globales**.
+
+-->
 
 # Documentación interna
 

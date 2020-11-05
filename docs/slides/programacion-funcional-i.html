@@ -1153,19 +1153,24 @@
 <li><p>En un marco, un identificador sólo puede tener como máximo una ligadura. En cambio, <strong>el mismo identificador puede estar ligado a diferentes valores en diferentes marcos</strong>.</p></li>
 <li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
 <ul>
-<li><p>Se crean en memoria cuando la ejecución del programa entra en ciertas partes del mismo y se destruyen cuando sale.</p></li>
-<li><p>Van incorporando nuevas ligaduras a medida que se van ejecutando nuevas instrucciones.</p></li>
-</ul></li>
-<li><p>El <strong>marco global</strong> es un marco que siempre existe en cualquier punto del programa y contiene las ligaduras definidas fuera de cualquier construcción o estructura del mismo.</p>
-<ul>
-<li>Por ahora es el único marco que existe para nosotros.</li>
+<li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
+<li><p>Van almacenando nuevas ligaduras conforme se van ejecutando nuevas instrucciones.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.1">
 
 <ul>
-<li><p>En un momento dado, un marco contendrá las ligaduras que se hayan definido hasta ese momento en el <em>ámbito</em> asociado a ese marco:</p>
+<li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>.</p></li>
+<li><p>El marco global se crea en el momento en que <strong>se empieza a ejecutar el programa</strong> y existe durante toda la ejecución del mismo (sólo se destruye al finalizar la ejecución del programa).</p></li>
+<li><p>Si se está trabajando en una sesión con el intérprete interactivo, el marco global <strong>se crea justo al empezar la sesión</strong> y existe durante toda la sesión (sólo se destruye al salir de la misma).</p>
+<p>Por tanto, las definiciones que se ejecutan directamente en una sesión interactiva con el intérprete crean ligaduras que se almacenan en el marco global.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.4.0.0.2">
+
+<ul>
+<li><p>Por ejemplo, si iniciamos una sesión con el intérprete interactivo y justo a continuación tecleamos lo siguiente:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb30-2"><a href="#cb30-2"></a>Traceback (most recent call last):</span>
 <span id="cb30-3"><a href="#cb30-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
@@ -1180,33 +1185,26 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="4.4.0.0.3">
 
 <ul>
-<li>Los marcos se van creando y destruyendo durante la ejecución del programa, y su contenido (las ligaduras) también va cambiando con el tiempo, a medida que se van ejecutando sus instrucciones.</li>
+<li><p>Tanto los marcos como su contenido (las ligaduras) se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
+<li><p>Si tenemos la siguiente sesión interactiva:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="dv">5</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
+<p>Según hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<ul>
-<li><p>Si tenemos:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
-<p>Según la línea hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:</p></li>
-</ul>
-<p> </p>
 <div class="centered">
 <figure>
-<img data-src="images/marco-linea1.svg" class="plain" style="width:40.0%" alt="Marco global en la línea 1" /><figcaption aria-hidden="true">Marco global en la línea 1</figcaption>
+<img data-src="images/marco-lineas12.svg" class="plain" style="width:25.0%" alt="Marco global en las líneas 1–2" /><figcaption aria-hidden="true">Marco global en las líneas 1–2</figcaption>
 </figure>
 </div>
 </div><div class="column">
-<div class="centered">
-<figure>
-<img data-src="images/marco-linea2.svg" class="plain" style="width:40.0%" alt="Marco global en la línea 2" /><figcaption aria-hidden="true">Marco global en la línea 2</figcaption>
-</figure>
-</div>
-<p> </p>
 <div class="centered">
 <figure>
 <img data-src="images/marco-linea3.svg" class="plain" style="width:40.0%" alt="Marco global en la línea 3" /><figcaption aria-hidden="true">Marco global en la línea 3</figcaption>
@@ -1215,7 +1213,25 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.4.0.0.3">
+<section class="slide level5" data-number="4.4.0.0.4">
+
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/marco-linea4.svg" class="plain" style="width:40.0%" alt="Marco global en la línea 4" /><figcaption aria-hidden="true">Marco global en la línea 4</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/marco-linea5.svg" class="plain" style="width:40.0%" alt="Marco global en la línea 5" /><figcaption aria-hidden="true">Marco global en la línea 5</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="4.4.0.0.5">
 
 <ul>
 <li><p>Hemos visto que una ligadura es una asociación entre un identificador y un valor.</p></li>
@@ -1229,9 +1245,10 @@
 <section id="scripts" class="title-slide slide level2" data-number="4.5">
 <h2 data-number="4.5"><span class="header-section-number">4.5</span> <em>Scripts</em></h2>
 <ul>
-<li><p>Cuando tenemos varias definiciones o muy largas resulta tedioso tener que introducirlas una y otra vez en el intérprete interactivo.</p></li>
-<li><p>Lo más cómodo es teclearlas juntas dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
+<li><p>Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que introducirlas una y otra vez cada vez que abrimos una nueva sesión con el intérprete interactivo.</p></li>
+<li><p>Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
+<li><p>Al cargar el <em>script</em>, se ejecutarán sus instrucciones una tras otra casi de la misma forma que si las estuviéramos tecleando nosotros directamente en nuestra sesión con el intérprete.</p></li>
 <li><p>Llegado el momento, los <em>scripts</em> contendrán el código fuente de nuestros programas y los ejecutaremos desde el intérprete por lotes.</p></li>
 </ul>
 </section>
@@ -1239,90 +1256,168 @@
 
 <ul>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
-<li><p>Para cargar un <em>script</em> en nuestra sesión usamos la orden <code class="sourceCode python"><span class="im">from</span></code>. Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
+<li><p>Para cargar un <em>script</em> en nuestra sesión tenemos dos opciones:</p>
+<ol>
+<li><p>Usar la orden <code class="sourceCode python"><span class="im">from</span></code> dentro de la sesión actual.</p>
+<p>Por ejemplo, para cargar un <em>script</em> llamado <code>definiciones.py</code>, usaremos:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>Observar que en el <code class="sourceCode python"><span class="im">from</span></code> se pone el nombre del script pero <strong>sin la extensión <code>.py</code></strong>.</p></li>
-<li><p>Otra opción es iniciar una nueva sesión con el intérprete interactivo indicándole que cargue el <em>script</em> mediante la opción <code>-i</code> en la línea de órdenes del sistema operativo:</p>
+<li><p>Iniciar una nueva sesión con el intérprete interactivo indicándole que cargue el <em>script</em> mediante la opción <code>-i</code> en la línea de órdenes del sistema operativo:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -i definiciones.py</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
 <p>En este caso <strong>sí</strong> se pone el nombre completo del script, <strong>con la extensión <code>.py</code></strong>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.0.0.2">
+
+<ul>
+<li><p>A partir de ese momento, en el intérprete interactivo podremos usar las definiciones que se hayan cargado desde del <em>script</em>.</p></li>
+<li><p>Por ejemplo, si el <em>script</em> <code>definiciones.py</code> tiene el siguiente contenido:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
+<li><p>Al cargar el <em>script</em> (usando cualquiera de las dos opciones que hemos visto anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en consecuencia, se crearán en el marco global las ligaduras <code>x</code><span class="math inline">\longrightarrow</span><code>25</code> y <code>j</code><span class="math inline">\longrightarrow</span><code>14</code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span>          <span class="co"># aquí cargamos el script, y ahora</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># la x sí está ligada a un valor</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.0.0.3">
+
+<ul>
+<li><p>Una limitación importante que hay que tener en cuenta es que <strong>el <em>script</em> sólo puede usar definiciones que se hayan creado en el mismo <em>script</em></strong> (exceptuando las definiciones predefinidas del lenguaje).</p></li>
+<li><p>Por ejemplo, si tenemos el siguiente <em>script</em> llamado <code>prueba.py</code>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<p>donde se intenta ligar a <code>j</code> el valor ligado a <code>w</code> más uno, lo siguiente no funcionará:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> w <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> prueba <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;/home/ricardo/python/prueba.py&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;w&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<li><p>Aunque <code>w</code> esté ligado a un valor al cargar el <em>script</em>, éste no podrá acceder a esa ligadura y da error de «<em>nombre no definido</em>».</p></li>
+<li><p>Cuando estudiemos la programación modular entenderemos por qué.</p></li>
 </ul>
 <!-- ¡ATENCIÓN! PARA EL PRÓXIMO AÑO, QUITAR LOS ÁMBITOS DE AQUÍ
      PORQUE YA ESTÁN EXACTAMENTE IGUAL EN EL SIGUIENTE TEMA -->
-</section>
+<!--
 
-<section id="ámbitos" class="title-slide slide level2" data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span> Ámbitos</h2>
-<ul>
-<li><p>Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
-<li><p>Cuando eso ocurre, decimos que esa construcción sintáctica define un <strong>ámbito</strong>, y que ese ámbito viene definido por la porción de texto que ocupa esa construcción sintáctica dentro del programa, de forma que:</p>
-<ul>
-<li><p>Cuando la ejecución del programa <strong>entra</strong> en el ámbito, se <strong>crea</strong> un nuevo marco.</p></li>
-<li><p>Cuando la ejecución se <strong>sale</strong> del ámbito, se <strong>destruye</strong> su marco.</p></li>
-</ul></li>
-<li><p>Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su marco.</p></li>
-<li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros.</p></li>
-<li><p>En un momento dado, el <strong>ámbito actual</strong> es el ámbito más interno en el que se encuentra la instrucción que se está ejecutando actualmente.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.6.0.0.1">
+## Ámbitos
 
-<ul>
-<li><p>El concepto de <em>ámbito</em> es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para tener en cuenta más condicionantes.</p></li>
-<li><p>Por ahora sólo tenemos un ámbito llamado <strong>ámbito global</strong>:</p>
-<ul>
-<li><p>Si se está ejecutando un <em>script</em> en el intérprete por lotes (con <code>python script.py</code>), el <em>ámbito global</em> abarca todo el <em>script</em>, desde la primera instrucción hasta la última.</p></li>
-<li><p>Si estamos en el intérprete interactivo (con <code>python</code> o <code>ipython3</code>), el <em>ámbito global</em> abarca toda nuestra sesión con el intérprete, hasta que finalicemos la misma.</p></li>
-</ul></li>
-<li><p>En el momento en que se empieza a ejecutar un <em>script</em> o se arranca una nueva sesión con el intérprete interactivo, se entra en el <em>ámbito global</em>, lo que provoca la creación de un nuevo marco llamado <strong>marco global</strong>.</p></li>
-<li><p>Del ámbito global sólo se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.6.0.0.2">
+- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
+  la creación de nuevos marcos.
 
-<ul>
-<li>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se realizan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</li>
-</ul>
-<div class="centered">
-<p><img data-src="images/ambito-global.png" class="plain" style="width:50.0%" /></p>
-</div>
-</section>
-<section id="ámbito-de-una-ligadura" class="title-slide slide level3" data-number="4.6.1">
-<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> Ámbito de una ligadura</h3>
-<ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe dicha ligadura.</p></li>
-<li><p>Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el marco del ámbito donde se definen.</p></li>
-<li><p>Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el ámbito en el que se define.</p></li>
-<li><p>Esto es así porque una ligadura empieza a existir en el momento en el que se define (por ejemplo, cuando se ejecuta una sentencia de definición), y no antes.</p></li>
-<li><p>Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son sólo las que se han definido en ese ámbito <strong>hasta ese momento</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.6.1.0.1">
+- Cuando eso ocurre, decimos que esa construcción sintáctica define un
+  **ámbito**, y que ese ámbito viene definido por la porción de texto que ocupa
+  esa construcción sintáctica dentro del programa, de forma que:
 
-<ul>
-<li><p>En consecuencia, el ámbito de una ligadura:</p>
-<ul>
-<li><p>Empieza en el punto donde se define.</p></li>
-<li><p>Termina donde lo hace el ámbito en el que se definió la ligadura.</p></li>
-</ul></li>
-</ul>
-<div class="centered">
-<p><img data-src="images/ambitos-ligaduras.png" class="plain" style="width:80.0%" /></p>
-</div>
-<div class="caja centered">
-<p>Es importante no confundir «<strong>ámbito</strong>» con «<strong>ámbito de una ligadura</strong>».</p>
-</div>
-</section>
-<section class="slide level5" data-number="4.6.1.0.2">
+  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
+    nuevo marco.
 
-<ul>
-<li><p>La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea un nuevo marco.</p></li>
-<li><p>Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.</p></li>
-<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
-<li><p>Por eso también decimos que esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
-</ul>
-</section>
+  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
 
+- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
+  marco.
+
+- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
+  dentro de otros.
+
+- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
+  se encuentra la instrucción que se está ejecutando actualmente.
+
+---
+
+- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
+  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
+  tener en cuenta más condicionantes.
+
+- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
+
+  - Si se está ejecutando un _script_ en el intérprete por lotes (con
+    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
+    primera instrucción hasta la última.
+
+  - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
+    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
+    finalicemos la misma.
+
+- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
+  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
+  provoca la creación de un nuevo marco llamado **marco global**.
+
+- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
+  se cierra el intérprete interactivo.
+
+---
+
+- Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
+  ellas se realizan en el ámbito global, que es el único ámbito que existe en
+  el _script_:
+
+::: centered
+  ![](images/ambito-global.png){width=50% .plain width=80%}
+:::
+
+
+
+### Ámbito de una ligadura
+
+- El **ámbito de una ligadura** es la porción del código fuente en la que
+  existe dicha ligadura.
+
+- Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el
+  marco del ámbito donde se definen.
+
+- Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el
+  ámbito en el que se define.
+
+- Esto es así porque una ligadura empieza a existir en el momento en el que se
+  define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
+  antes.
+
+- Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de
+  un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son
+  sólo las que se han definido en ese ámbito **hasta ese momento**.
+
+---
+
+- En consecuencia, el ámbito de una ligadura:
+
+  - Empieza en el punto donde se define.
+
+  - Termina donde lo hace el ámbito en el que se definió la ligadura.
+
+::: centered
+  ![](images/ambitos-ligaduras.png){.plain width=80%}
+:::
+
+
+
+::: {.caja .centered}
+Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
+:::
+
+---
+
+- La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
+  un nuevo marco.
+
+- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.
+
+- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
+  lo que se almacenan en el marco global.
+
+- Por eso también decimos que esas ligaduras tienen ámbito global, o que
+  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
+  son **globales**.
+
+-->
+</section>
 </section>
 <section>
 <section id="documentación-interna" class="title-slide slide level1" data-number="5">
@@ -1334,16 +1429,16 @@
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el carácter de guión bajo (<code>_</code>) para separarlas y formar un único identificador:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1354,23 +1449,23 @@
 <li><p>Los comentarios pueden aparecer al comienzo de la línea o a continuación de un espacio en blanco o una porción de código.</p></li>
 <li><p>Los comentarios no pueden ir dentro de un literal de tipo cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un carácter más.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el «truco» de poner una cadena con triples comillas:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni ligarse a ningún identificador, simplementa la ignorará (como un comentario).</p></li>
 </ul>
 </section>

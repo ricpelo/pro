@@ -348,16 +348,16 @@ F -> G
 
 - El nombre del archivo es el nombre del módulo con extensión `.py`.
 
-- Eso quiere decir que un módulo se puede ejecutar de dos maneras:
+- Eso quiere decir que **un módulo se puede ejecutar de dos maneras**:
 
-  - Como un _script_ independiente, llamándolo desde la línea de órdenes del
-    sistema operativo:
+  - **Como un _script_ independiente**, llamándolo desde la línea de órdenes
+    del sistema operativo:
 
     ```console
     $ python modulo.py
     ```
 
-  - Importándolo dentro de otros módulos que quieran usar los servicios que
+  - **Importándolo dentro de otros módulos** que quieran usar los servicios que
     proporciona, usando la sentencia `import` (o `from ... import`):
 
     ```python
@@ -366,9 +366,9 @@ F -> G
 
 ---
 
-- Las sentencias que contiene un módulo se ejecutan sólo la primera vez que se
-  encuentra el nombre de ese módulo en una sentencia `import`, o bien cuando el
-  archivo se ejecuta como un *script*.
+- Las sentencias que contiene un módulo se ejecutan **sólo la primera vez** que
+  se encuentra el nombre de ese módulo en una sentencia `import`, o bien cuando
+  el archivo se ejecuta como un *script*.
 
 - Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
   almacenado en la variable global `__name__`.
@@ -376,29 +376,36 @@ F -> G
 - Cada módulo tiene su propio **ámbito local**, que es usado como el **ámbito
   global** de todas las instrucciones que componen el módulo.
 
-- Por tanto, el autor de un módulo puede crear variables globales o funciones
+- Por tanto, el autor de un módulo puede definir variables globales o funciones
   en el módulo sin preocuparse de posibles colisiones accidentales con las
   variables globales o funciones de otros módulos.
 
 - Esas variables y funciones serán los **atributos** del **objeto _módulo_**
-  que se creará posteriormente en caso necesario.
+  que se creará si se importa el módulo con la sentencia !PYTHON(import).
 
 ---
 
 - Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo
   ámbito que constituirá **el ámbito global del módulo**. Ese ámbito creará
-  un nuevo marco, que constituirá **el nuevo _marco global_ durante la
-  ejecución del módulo**.
+  un nuevo marco encima de la pila, que constituirá **el nuevo _marco global_
+  durante la ejecución del módulo**.
 
-- Los demás marcos que pudieran existir antes de ejecutar el módulo actual
-  seguirán más abajo en la pila, pero no serán accesibles desde el módulo
-  actual porque **un entorno siempre acaba en el marco global**.
+- Ese marco global del módulo se destruirá cuando se termine de ejecutar el
+  módulo, que es cuando la ejecución se sale de su ámbito.
 
-- Por tanto, los ámbitos que existieran antes de ejecutar el módulo (incluyendo
-  el que hasta entonces era el ámbito global del script que ha importado al
-  módulo) quedan fuera del entorno y se recuperarán al finalizar la ejecución
-  del módulo.
+- Los demás marcos que pudieran existir antes de ejecutar el módulo (por
+  ejemplo, el marco global del _script_ que ha importado el módulo) seguirán
+  más abajo en la pila, pero no serán accesibles desde el módulo actual porque
+  **un entorno siempre acaba en el marco global** y el módulo ya tiene su
+  propio marco global.
 
+- Esos marcos quedan fuera del entorno y se recuperarán al finalizar la
+  ejecución del módulo importado.
+
+- Igualmente, los ámbitos que existieran antes de importar un módulo
+  (incluyendo el ámbito global del _script_ que ha importado al módulo) quedan
+  temporalmente invalidados y se recuperarán al finalizar la ejecución del
+  módulo.
 
 ### Importación de módulos
 

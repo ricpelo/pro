@@ -54,19 +54,19 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #d33682; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #4070a0; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #dc322f; } /* Char */
     code span.cn { color: #880000; } /* Constant */
     code span.co { color: #93a1a1; font-style: italic; } /* Comment */
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #268bd2; } /* DataType */
+    code span.dt { color: #6c71c4; } /* DataType */
     code span.dv { color: #d33682; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
     code span.fl { color: #d33682; } /* Float */
-    code span.fu { color: #268bd2; } /* Function */
+    code span.fu { color: #4070a0; } /* Function */
     code span.im { font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
@@ -470,11 +470,11 @@
 <li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
 <li><p>Los módulos contienen instrucciones: definiciones y otras sentencias.</p></li>
 <li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
-<li><p>Eso quiere decir que un módulo se puede ejecutar de dos maneras:</p>
+<li><p>Eso quiere decir que <strong>un módulo se puede ejecutar de dos maneras</strong>:</p>
 <ul>
-<li><p>Como un <em>script</em> independiente, llamándolo desde la línea de órdenes del sistema operativo:</p>
+<li><p><strong>Como un <em>script</em> independiente</strong>, llamándolo desde la línea de órdenes del sistema operativo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python modulo.py</span></code></pre></div></li>
-<li><p>Importándolo dentro de otros módulos que quieran usar los servicios que proporciona, usando la sentencia <code>import</code> (o <code>from ... import</code>):</p>
+<li><p><strong>Importándolo dentro de otros módulos</strong> que quieran usar los servicios que proporciona, usando la sentencia <code>import</code> (o <code>from ... import</code>):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> modulo</span></code></pre></div></li>
 </ul></li>
 </ul>
@@ -482,19 +482,21 @@
 <section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
-<li><p>Las sentencias que contiene un módulo se ejecutan sólo la primera vez que se encuentra el nombre de ese módulo en una sentencia <code>import</code>, o bien cuando el archivo se ejecuta como un <em>script</em>.</p></li>
+<li><p>Las sentencias que contiene un módulo se ejecutan <strong>sólo la primera vez</strong> que se encuentra el nombre de ese módulo en una sentencia <code>import</code>, o bien cuando el archivo se ejecuta como un <em>script</em>.</p></li>
 <li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
 <li><p>Cada módulo tiene su propio <strong>ámbito local</strong>, que es usado como el <strong>ámbito global</strong> de todas las instrucciones que componen el módulo.</p></li>
-<li><p>Por tanto, el autor de un módulo puede crear variables globales o funciones en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales o funciones de otros módulos.</p></li>
-<li><p>Esas variables y funciones serán los <strong>atributos</strong> del <strong>objeto <em>módulo</em></strong> que se creará posteriormente en caso necesario.</p></li>
+<li><p>Por tanto, el autor de un módulo puede definir variables globales o funciones en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales o funciones de otros módulos.</p></li>
+<li><p>Esas variables y funciones serán los <strong>atributos</strong> del <strong>objeto <em>módulo</em></strong> que se creará si se importa el módulo con la sentencia <code class="sourceCode python"><span class="im">import</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.0.0.2">
 
 <ul>
-<li><p>Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo ámbito que constituirá <strong>el ámbito global del módulo</strong>. Ese ámbito creará un nuevo marco, que constituirá <strong>el nuevo <em>marco global</em> durante la ejecución del módulo</strong>.</p></li>
-<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo actual seguirán más abajo en la pila, pero no serán accesibles desde el módulo actual porque <strong>un entorno siempre acaba en el marco global</strong>.</p></li>
-<li><p>Por tanto, los ámbitos que existieran antes de ejecutar el módulo (incluyendo el que hasta entonces era el ámbito global del script que ha importado al módulo) quedan fuera del entorno y se recuperarán al finalizar la ejecución del módulo.</p></li>
+<li><p>Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo ámbito que constituirá <strong>el ámbito global del módulo</strong>. Ese ámbito creará un nuevo marco encima de la pila, que constituirá <strong>el nuevo <em>marco global</em> durante la ejecución del módulo</strong>.</p></li>
+<li><p>Ese marco global del módulo se destruirá cuando se termine de ejecutar el módulo, que es cuando la ejecución se sale de su ámbito.</p></li>
+<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo (por ejemplo, el marco global del <em>script</em> que ha importado el módulo) seguirán más abajo en la pila, pero no serán accesibles desde el módulo actual porque <strong>un entorno siempre acaba en el marco global</strong> y el módulo ya tiene su propio marco global.</p></li>
+<li><p>Esos marcos quedan fuera del entorno y se recuperarán al finalizar la ejecución del módulo importado.</p></li>
+<li><p>Igualmente, los ámbitos que existieran antes de importar un módulo (incluyendo el ámbito global del <em>script</em> que ha importado al módulo) quedan temporalmente invalidados y se recuperarán al finalizar la ejecución del módulo.</p></li>
 </ul>
 </section>
 <section id="importación-de-módulos" class="title-slide slide level3" data-number="2.3.1">
