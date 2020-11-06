@@ -1589,8 +1589,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <h3 data-number="5.3.1"><span class="header-section-number">5.3.1</span> Definición</h3>
 <ul>
 <li><p>Una <strong>función recursiva</strong> es aquella que se define en términos de sí misma.</p></li>
-<li><p>Eso quiere decir que, durante la ejecución de una llamada a la función, tenemos que ejecutar otra llamada a la misma función.</p></li>
-<li><p>En general, eso ocurre cuando la definición de la función contiene una o varias referencias a ella misma y, por tanto, la función se llama a sí misma dentro de su cuerpo.</p></li>
+<li><p>Eso quiere decir que, durante la ejecución de una llamada a la función, se ejecuta otra llamada a la misma función, es decir, que la función se llama a sí misma directa o indirectamente.</p></li>
+<li><p>La forma más sencilla y habitual de función recursiva es aquella en la que <strong>la propia definición de la función contiene una o varias llamadas a ella misma</strong>. En tal caso, decimos que la función se llama a sí misma <em>directamente</em> o que hay una <strong>recursividad directa</strong>.</p>
+<p>Ese es el tipo de recursividad que vamos a estudiar.</p></li>
 <li><p>Las definiciones recursivas son el mecanismo básico para ejecutar <strong>repeticiones de instrucciones</strong> en un lenguaje de programación funcional.</p></li>
 </ul>
 </section>
@@ -1741,11 +1742,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <h3 data-number="5.3.5"><span class="header-section-number">5.3.5</span> Recursividad lineal</h3>
 <ul>
 <li><p>Una función tiene <strong>recursividad lineal</strong> si cada llamada a la función recursiva genera, como mucho, otra llamada recursiva a la misma función.</p></li>
-<li><p>El factorial definido en el ejemplo anterior es un caso típico de recursividad lineal.</p></li>
+<li><p>El factorial definido en el ejemplo anterior es un caso típico de recursividad lineal ya que, cada vez que se llama al factorial se genera, como mucho, otra llamada al factorial.</p></li>
+<li><p>Eso se aprecia claramente observando que la definición del caso recursivo de la función <span class="math inline">fact</span> contiene una única llamada a la misma función <span class="math inline">fact</span>:</p></li>
 </ul>
+<p><span class="math display">fact(n) = n\cdot fact(n-1)\quad \text{si } n &gt; 0\quad \text{(caso recursivo)}</span></p>
 </section>
-<section id="procesos-lineales-recursivos" class="title-slide slide level4" data-number="5.3.5.1">
-<h4 data-number="5.3.5.1"><span class="header-section-number">5.3.5.1</span> Procesos lineales recursivos</h4>
+<section id="procesos-recursivos-lineales" class="title-slide slide level4" data-number="5.3.5.1">
+<h4 data-number="5.3.5.1"><span class="header-section-number">5.3.5.1</span> Procesos recursivos lineales</h4>
 <ul>
 <li><p>La forma más directa y sencilla de definir una función que calcule el factorial de un número a partir de su definición recursiva podría ser la siguiente:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
@@ -1777,14 +1780,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de proceso caracterizado por una secuencia de <strong>operaciones pendientes de completar</strong>.</p></li>
 <li><p>Para poder ejecutar este proceso, el intérprete necesita <strong>memorizar</strong>, en algún lugar, un registro de las multiplicaciones que se han dejado para más adelante.</p></li>
 <li><p>En el cálculo de <span class="math inline">n!</span>, la longitud de la secuencia de operaciones pendientes (y, por tanto, la información que necesita almacenar el intérprete), crece <em>linealmente</em> con <span class="math inline">n</span>, al igual que el número de pasos de reducción.</p>
-<ul>
-<li>A este tipo de procesos lo llamaremos <strong>proceso recursivo <em>lineal</em></strong>.</li>
-</ul></li>
+<p>A este tipo de procesos lo llamaremos <strong>proceso recursivo <em>lineal</em></strong>.</p></li>
 </ul>
 </section>
 
-<section id="procesos-lineales-iterativos" class="title-slide slide level4" data-number="5.3.5.2">
-<h4 data-number="5.3.5.2"><span class="header-section-number">5.3.5.2</span> Procesos lineales iterativos</h4>
+<section id="procesos-iterativos-lineales" class="title-slide slide level4" data-number="5.3.5.2">
+<h4 data-number="5.3.5.2"><span class="header-section-number">5.3.5.2</span> Procesos iterativos lineales</h4>
 <ul>
 <li><p>A continuación adoptaremos un enfoque diferente.</p></li>
 <li><p>Podemos mantener un producto acumulado y un contador desde <span class="math inline">n</span> hasta 1, de forma que el contador y el producto cambien de un paso al siguiente según la siguiente regla:</p>
@@ -1814,9 +1815,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Este proceso no tiene expansiones ni contracciones ya que, en cada instante, toda la información que se necesita almacenar es el valor actual de los parámetros <code class="sourceCode python">cont</code> y <code class="sourceCode python">acc</code>, por lo que el tamaño de la memoria necesaria es constante.</p></li>
 <li><p>A este tipo de procesos lo llamaremos <strong>proceso iterativo</strong>.</p></li>
 <li><p>El número de pasos necesarios para calcular <span class="math inline">n!</span> usando esta función crece <em>linealmente</em> con <span class="math inline">n</span>.</p>
-<ul>
-<li>A este tipo de procesos lo llamaremos <strong>proceso iterativo <em>lineal</em></strong>.</li>
-</ul></li>
+<p>A este tipo de procesos lo llamaremos <strong>proceso iterativo <em>lineal</em></strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.5.2.2">
@@ -1895,8 +1894,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <ul>
 <li><p>No debe confundirse un <strong>proceso recursivo</strong> con una <strong>función recursiva</strong>:</p>
 <ul>
-<li><p>Cuando hablamos de <em>función recursiva</em> nos referimos al hecho sintáctico de que la definción de la función hace referencia a sí misma (directa o indirectamente).</p></li>
-<li><p>Cuando hablamos de <em>proceso recursivo</em> nos referimos a la forma en como se desenvuelve la ejecución de la función.</p></li>
+<li><p>Cuando hablamos de <em>función recursiva</em> nos referimos al hecho de que la función se llama a sí misma (directa o indirectamente).</p></li>
+<li><p>Cuando hablamos de <em>proceso recursivo</em> nos referimos a la forma en como se desenvuelve la ejecución de la función (con una expansión más una contracción).</p></li>
 </ul></li>
 <li><p>Puede parecer extraño que digamos que una función recursiva (por ejemplo, <code class="sourceCode python">fact_iter</code>) genera un proceso iterativo.</p>
 <p>Sin embargo, el proceso es realmente iterativo porque su estado está definido completamente por dos parámetros, y para ejecutar el proceso sólo se necesita almacenar el valor de esos dos parámetros.</p></li>
@@ -1918,10 +1917,9 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 </section>
 
 
-<section id="recursividad-en-árbol" class="title-slide slide level3" data-number="5.3.6">
-<h3 data-number="5.3.6"><span class="header-section-number">5.3.6</span> Recursividad en árbol</h3>
+<section id="recursividad-múltiple" class="title-slide slide level3" data-number="5.3.6">
+<h3 data-number="5.3.6"><span class="header-section-number">5.3.6</span> Recursividad múltiple</h3>
 <ul>
-<li><p>La <strong>recursividad en árbol</strong> se produce cuando la función tiene <strong>recursividad múltiple</strong>.</p></li>
 <li><p>Una función tiene <strong>recursividad múltiple</strong> cuando la misma llamada a la función recursiva puede generar más de una llamada recursiva a la misma función.</p></li>
 <li><p>El ejemplo clásico es la función que calcula los términos de la <strong>sucesión de Fibonacci</strong>.</p></li>
 <li><p>La sucesión comienza con los números 0 y 1, y a partir de éstos, cada término es la suma de los dos anteriores:</p>
@@ -1965,7 +1963,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <li><p>Para calcular <code class="sourceCode python">fib(<span class="dv">4</span>)</code>, antes debemos calcular <code class="sourceCode python">fib(<span class="dv">3</span>)</code> y <code class="sourceCode python">fib(<span class="dv">2</span>)</code>.</p></li>
 <li><p>Así sucesivamente hasta poner todo en función de <code class="sourceCode python">fib(<span class="dv">0</span>)</code> y <code class="sourceCode python">fib(<span class="dv">1</span>)</code>, que se pueden calcular directamente (son los casos base).</p></li>
 </ul></li>
-<li><p>En general, el proceso resultante parece un árbol.</p></li>
+<li><p>En general, el proceso resultante tiene forma de árbol.</p></li>
+<li><p>Por eso decimos que las funciones con recursividad múltiple generan <strong>procesos recursivos en árbol</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.6.0.4">

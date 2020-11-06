@@ -2303,12 +2303,16 @@ E -> f [lhead = cluster0]
 
 - Una **función recursiva** es aquella que se define en términos de sí misma.
 
-- Eso quiere decir que, durante la ejecución de una llamada a la función,
-  tenemos que ejecutar otra llamada a la misma función.
+- Eso quiere decir que, durante la ejecución de una llamada a la función, se
+  ejecuta otra llamada a la misma función, es decir, que la función se llama a
+  sí misma directa o indirectamente.
 
-- En general, eso ocurre cuando la definición de la función contiene una o
-  varias referencias a ella misma y, por tanto, la función se llama a sí misma
-  dentro de su cuerpo.
+- La forma más sencilla y habitual de función recursiva es aquella en la que
+  **la propia definición de la función contiene una o varias llamadas a ella
+  misma**. En tal caso, decimos que la función se llama a sí misma
+  _directamente_ o que hay una **recursividad directa**.
+
+  Ese es el tipo de recursividad que vamos a estudiar.
 
 - Las definiciones recursivas son el mecanismo básico para ejecutar
   **repeticiones de instrucciones** en un lenguaje de programación funcional.
@@ -2511,9 +2515,15 @@ $$fact(n) = \begin{cases}
   recursiva genera, como mucho, otra llamada recursiva a la misma función.
 
 - El factorial definido en el ejemplo anterior es un caso típico de
-  recursividad lineal.
+  recursividad lineal ya que, cada vez que se llama al factorial se genera,
+  como mucho, otra llamada al factorial.
 
-#### Procesos lineales recursivos
+- Eso se aprecia claramente observando que la definición del caso recursivo de
+  la función $fact$ contiene una única llamada a la misma función $fact$:
+
+$$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$$
+
+#### Procesos recursivos lineales
 
 - La forma más directa y sencilla de definir una función que calcule el
   factorial de un número a partir de su definición recursiva podría ser la
@@ -2565,9 +2575,9 @@ $$fact(n) = \begin{cases}
   (y, por tanto, la información que necesita almacenar el intérprete), crece
   *linealmente* con $n$, al igual que el número de pasos de reducción.
 
-  - A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
+  A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
 
-#### Procesos lineales iterativos
+#### Procesos iterativos lineales
 
 - A continuación adoptaremos un enfoque diferente.
 
@@ -2616,7 +2626,7 @@ $$fact(n) = \begin{cases}
 - El número de pasos necesarios para calcular $n!$ usando esta función crece
   *linealmente* con $n$.
 
-  - A este tipo de procesos lo llamaremos **proceso iterativo _lineal_**.
+  A este tipo de procesos lo llamaremos **proceso iterativo _lineal_**.
 
 ---
 
@@ -2668,12 +2678,12 @@ Iterativo lineal          Linealmente \
 
 - No debe confundirse un **proceso recursivo** con una **función recursiva**:
 
-  - Cuando hablamos de *función recursiva* nos referimos al hecho sintáctico de
-    que la definción de la función hace referencia a sí misma (directa o
-    indirectamente).
+  - Cuando hablamos de *función recursiva* nos referimos al hecho de que la
+    función se llama a sí misma (directa o indirectamente).
 
   - Cuando hablamos de *proceso recursivo* nos referimos a la forma en como se
-    desenvuelve la ejecución de la función.
+    desenvuelve la ejecución de la función (con una expansión más una
+    contracción).
 
 - Puede parecer extraño que digamos que una función recursiva (por ejemplo,
   !PYTHON(fact_iter)) genera un proceso iterativo.
@@ -2709,10 +2719,7 @@ Iterativo lineal          Linealmente \
   exactamente los mismos valores), lo hacen de una forma muy diferente,
   generando incluso procesos de distinto tipo.
 
-### Recursividad en árbol
-
-- La **recursividad en árbol** se produce cuando la función tiene
-  **recursividad múltiple**.
+### Recursividad múltiple
 
 - Una función tiene **recursividad múltiple** cuando la misma llamada a la
   función recursiva puede generar más de una llamada recursiva a la misma
@@ -2776,7 +2783,10 @@ Iterativo lineal          Linealmente \
   - Así sucesivamente hasta poner todo en función de !PYTHON(fib(0)) y
     !PYTHON(fib(1)), que se pueden calcular directamente (son los casos base).
 
-- En general, el proceso resultante parece un árbol.
+- En general, el proceso resultante tiene forma de árbol.
+
+- Por eso decimos que las funciones con recursividad múltiple generan
+  **procesos recursivos en árbol**.
 
 ---
 
@@ -2931,12 +2941,21 @@ compound = true
 node [shape = record]
 pila [label = "<f3>Tres|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
 1 [shape = circle]
+l1 [shape = circle, label = "λ"]
+l2 [shape = circle, label = "λ"]
+l3 [shape = circle, label = "λ"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
     g [shape = plaintext, fillcolor = transparent, width = 0.1]
+    uno [shape = plaintext, fillcolor = transparent, width = 0.1]
+    dos [shape = plaintext, fillcolor = transparent, width = 0.1]
+    tres [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
+uno -> l1
+dos -> l2
+tres -> l3
 g -> 1
 3 [shape = circle]
 subgraph cluster1 {
@@ -2966,11 +2985,11 @@ subgraph cluster2 {
 }
 y -> 6
 z -> 4
-pila:f0 -> g [lhead = cluster0]
+pila:f0 -> dos [lhead = cluster0]
 pila:f1 -> x [lhead = cluster1]
 pila:f2 -> y [lhead = cluster2]
 pila:f3 -> w [lhead = cluster3]
-x -> g:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+x -> tres [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
 w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3013,12 +3032,18 @@ compound = true
 node [shape = record]
 pila [label = "<f3>Lambda interior|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
 1 [shape = circle]
+l1 [shape = circle, label = "λ"]
+l2 [shape = circle, label = "λ"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
     g [shape = plaintext, fillcolor = transparent, width = 0.1]
+    uno [shape = plaintext, fillcolor = transparent, width = 0.1]
+    dos [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
+uno -> l1
+dos -> l2
 g -> 1
 3 [shape = circle]
 subgraph cluster1 {
@@ -3045,11 +3070,11 @@ subgraph cluster2 {
     y [shape = plaintext, fillcolor = transparent, width = 0.1]
 }
 y -> 2
-pila:f0 -> g [lhead = cluster0]
+pila:f0 -> dos [lhead = cluster0]
 pila:f1 -> x [lhead = cluster1]
 pila:f2 -> y [lhead = cluster2]
 pila:f3 -> z [lhead = cluster3]
-x -> g:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+x -> uno [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
 z -> y [lhead = cluster2, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
