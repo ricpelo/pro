@@ -3575,23 +3575,26 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 - También se puede **devolver una función como resultado**.
 
-- Por ejemplo, la siguiente función recibe un número (!PYTHON(k)) y devuelve
-  otra función que calcula la suma de ese número con otro (!PYTHON(x)) que se
-  pasa como argumento a la función devuelta:
+- Por ejemplo, la siguiente función !PYTHON(suma_o_resta) recibe una cadena y
+  devuelve una función que suma si la cadena es !PYTHON('suma'); en caso
+  contrario, devuelve una función que resta:
 
   ```python
-  >>> suma_rara = lambda k: lambda x: x + k
-  >>> suma2 = suma_rara(2)
-  >>> suma2(3)
+  >>> suma_o_resta = lambda s: (lambda x, y: x + y) if s == 'suma' else \
+                               (lambda x, y: x - y)
+  >>> suma_o_resta('suma')
+  <function <lambda>.<locals>.<lambda> at 0x7f526ab4a790>
+  >>> suma = suma_o_resta('suma')
+  >>> suma(2, 3)
   5
-  >>> suma7 = suma_rara(7)
-  >>> suma7(8)
-  15
-  >>> suma_rara(4)(6)
+  >>> resta = suma_o_resta('resta')
+  >>> resta(4, 3)
+  1
+  >>> suma_o_resta('suma')(6, 4)
   10
   ```
 
-- Tanto !PYTHON(aplica5) como !PYTHON(suma_rara) son funciones de orden
+- Tanto !PYTHON(aplica5) como !PYTHON(suma_o_resta) son funciones de orden
   superior.
 
 ---
