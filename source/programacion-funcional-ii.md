@@ -2881,6 +2881,74 @@ fib1_5 -> u5
 - Esta función genera un proceso iterativo lineal, por lo que es mucho más
   eficiente.
 
+### Recursividad final y no final
+
+- Lo que diferencia al !PYTHON(fact_iter) que genera un proceso iterativo del
+  !PYTHON(factorial) que genera un proceso recursivo, es el hecho de que
+  !PYTHON(fact_iter) se llama a sí misma y devuelve directamente el valor que
+  le ha devuelto su llamada recursiva sin hacer luego nada más.
+
+  En cambio, !PYTHON(factorial) tiene que hacer una multiplicación después de
+  llamarse a sí misma y antes de terminar de ejecutarse:
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, acc * cont)
+  fact = lambda n: fact_iter(n, 1)
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+---
+
+- Es decir:
+
+  - !PYTHON(fact_iter(cont, acc)) simplemente llama a
+    !PYTHON(fact_iter(cont - 1, acc * cont)) y luego devuelve directamente el
+    valor que le entrega ésta llamada, sin hacer ninguna otra operación
+    posterior antes de terminar.
+
+  - En cambio, !PYTHON(factorial(n)) hace !PYTHON(n * factorial(n - 1)), o sea,
+    se llama a sí misma pero el resultado de la llamada recursiva tiene que
+    multiplicarlo luego por !PYTHON(n) antes de devolver el resultado final.
+
+- Por tanto, **lo último que hace !PYTHON(fact_iter) es llamarse a sí misma**.
+  En cambio, lo último que hace !PYTHON(factorial) no es llamarse a sí misma,
+  porque tiene que hacer más operaciones (en este caso, la multiplicación)
+  antes de devolver el resultado.
+
+---
+
+- Cuando lo último que hace una función recursiva es llamarse a sí misma y
+  devolver directamente el valor devuelto por esa llamada recursiva, decimos
+  que la función es **recursiva final** o que tiene **recursividad final**.
+
+- En caso contrario, decimos que la función es **recursiva no final** o que
+  tiene **recursividad no final**.
+
+- Las funciones recursivas finales generan procesos iterativos.
+
+- La función `fact_iter` es recursiva final, y por eso genera un proceso
+  iterativo.
+
+- En cambio, la función `factorial` es recursiva no final, y por eso genera un
+  proceso recursivo.
+
+---
+
+- En la práctica, para que un proceso iterativo consuma realmente una cantidad
+  constante de memoria, es necesario que el traductor **optimice la
+  recursividad final**.
+
+- Ese tipo de optimización se denomina **_tail-call optimization (TCO)_**.
+
+- No muchos traductores optimizan la recursividad final.
+
+- De hecho, ni el intérprete de Python ni la máquina virtual de Java optimizan
+  la recursividad final.
+
+- Por tanto, en estos dos lenguajes, las funciones recursivas finales consumen
+  tanta memoria como las no finales.
+
 ## La pila de control
 
 - La **pila de control** es una estructura de datos que utiliza el intérprete
@@ -3134,11 +3202,59 @@ fact -> lambda
 pila:f0 -> fact:s [lhead = cluster0, minlen = 2]
 pila:f1 -> n4 [lhead = cluster1, minlen = 2]
 pila:f2 -> n3 [lhead = cluster2, minlen = 2]
-pila:f3 -> n2 [lhead = cluster3, minlen = 2]
+pila:f3 -> n2:w [lhead = cluster3, minlen = 2]
 n4 -> fact [lhead = cluster0, ltail = cluster1, minlen = 2]
 n3 -> fact [lhead = cluster0, ltail = cluster2, minlen = 2]
 n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Los **traductores que optimizan la recursividad final** lo que hacen es
+  sustituir cada llamada recursiva por la siguiente llamada recursiva a la
+  misma función.
+
+- De esta forma, el marco que genera cada nueva llamada recursiva no se apila
+  sobre los marcos anteriores en la pila, sino que sustituye al marco de la
+  llamada que la ha llamado a ella.
+
+- Por ejemplo, en el siguiente caso:
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                              fact_iter(cont - 1, acc * cont)
+  fact = lambda n: fact_iter(n, 1)
+
+  fact(5)
+  = fact_iter(5, 1)
+  = fact_iter(4, 5)
+  = fact_iter(3, 20)
+  = fact_iter(2, 60)
+  = fact_iter(1, 120)
+  = fact_iter(0, 120)
+  = 120
+  ```
+
+---
+
+- !PYTHON(fact_iter(4, 5)) llama a !PYTHON(fact_iter(3, 20)) y devuelve
+  directamente el resultado de ésta.
+
+- Es decir: !PYTHON(fact_iter(4, 5) == fact_iter(3, 20)), así que hacer
+  !PYTHON(fact_iter(4, 5)) es lo mismo que hacer !PYTHON(fact_iter(3, 20)).
+
+- Por tanto, la llamada a !PYTHON(fact_iter(4, 5)) se puede sustituir por la
+  llamada a !PYTHON(fact_iter(3, 20)).
+
+- Un intérprete que optimiza la recursividad final no apilaría el marco de la
+  segunda llamada sobre el marco de la primera, sino que el marco de la segunda
+  sustituiría al marco de la primera dentro de la pila.
+
+- Así se haría también con las demás llamadas recursivas a
+  !PYTHON(fact_iter(2, 60)), !PYTHON(fact_iter(1, 120)) y
+  !PYTHON(fact_iter(0, 120)).
+
+- De este modo, la pila no crecería con cada nueva llamada recursiva.
 
 ## Un lenguaje Turing-completo
 
@@ -3171,6 +3287,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
     - El **resto** de la cadena (al que se accede mediante !PYTHON(c[1:])), que
       también es una cadena (*caso recursivo*).
+
+    En tal caso, se cumple que !PYTHON(c == c[0] + c[1:]).
 
 - Eso significa que podemos acceder al segundo carácter de la cadena
   (suponiendo que exista) mediante !PYTHON(c[1:][0]).
@@ -3242,6 +3360,9 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   ```python
   (1, 2, 3) + (4, 5, 6)  # devuelve (1, 2, 3, 4, 5, 6)
   ```
+
+- Eso significa que (al igual que pasa con las cadenas), si !PYTHON(t) es una
+  tupla no vacía, se cumple que !PYTHON(t == t[0] + t[1:]).
 
 ## Rangos
 
