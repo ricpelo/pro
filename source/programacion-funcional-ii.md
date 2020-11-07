@@ -1966,18 +1966,22 @@ E -> f [lhead = cluster0]
  
 ---
 
-- «_Abstraer_» es centrarse en lo esencial (lo importante) en un determinado
-  momento e ignorar lo que en ese momento no resulta importante.
+- «_Abstraer_» es centrarse en lo importante en un determinado momento e
+  ignorar lo que en ese momento no resulta importante.
 
-- Crear una abstracción es meter un mecanismo más o menos complejo dentro de
-  una caja negra y darle un nombre, de forma que podamos referirnos a todo el
-  conjunto simplemente usando su nombre y sin tener que conocer su composición
-  interna ni sus detalles internos de funcionamiento.
+- «_Crear una abstracción_» es meter un mecanismo más o menos complejo dentro
+  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
+  el conjunto simplemente usando su nombre y sin tener que conocer su
+  composición interna ni sus detalles internos de funcionamiento.
 
-- Para usar la abstracción nos bastará con conocer su nombre y lo que hace sin
-  necesidad de saber cómo lo hace ni de qué está formada internamente.
+- Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y _lo
+  que hace_, sin necesidad de saber _cómo lo hace_ ni de qué elementos está
+  formada _internamente_.
 
-- La abstracción es el principal mecanismo de control de la complejidad.
+- **La abstracción es el principal instrumento de control de la complejidad**,
+  ya que nos permite ocultar detrás de un nombre los detalles que componen una
+  parte del programa, haciendo que esa parte actúe (a ojos del programador que
+  la utilice) como si fuera un elemento _predefinido_ del lenguaje.
 
 ---
 
@@ -2055,14 +2059,17 @@ E -> f [lhead = cluster0]
 
 - Eso es una **abstracción**.
 
-- Crear casos generales a partir de patrones que se repiten en casos
+- **Crear casos generales a partir de patrones que se repiten** en casos
   particulares es una de las principales razones por las que creamos
   abstracciones.
 
-- Otra de las razones es simplemente cuando queremos reducir la complejidad
+- Otras veces creamos abstracciones cuando queremos **reducir la complejidad**,
   dándole un nombre a un mecanismo complejo para poder referirnos a todo el
   conjunto a través de su nombre sin tener que recordar continuamente qué
   piezas contiene el mecanismo.
+
+- Y otras veces simplemente cuando queremos que nuestro programa pueda
+  **expresar un concepto abstracto**, como el de «elevar al cubo».
 
 ---
 
@@ -2073,25 +2080,21 @@ E -> f [lhead = cluster0]
 - De ahí, creamos la abstracción que describe ese patrón general y le llamamos
   «_elevar al cubo_»:
 
-!DOT(de-particular-a-general.svg)()(width=40%)
+!DOT(de-particular-a-general.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 node [shape = plaintext, fillcolor = transparent]
 rankdir = BT
-c [label = "elevar al cubo (caso general)", fillcolor = white, shape = box]
-3 [label = "3 * 3 * 3"]
-y [label = "y * y * y"]
-radio [label = "radio * radio * radio"]
-subgraph cluster0 {
-    label = "(Casos particulares)"
-    bgcolor = white
-    3
-    y
-    radio
-}
-3 -> c
-y -> c
-radio -> c
+c [label = "«elevar al cubo»"]
+3 [label = "3 * 3 * 3", fontname = "monospace"]
+y [label = "y * y * y", fontname = "monospace"]
+radio [label = "radio * radio * radio", fontname = "monospace"]
+3 -> c [minlen = 2]
+y -> c [minlen = 2]
+radio -> c [minlen = 2]
+cp [label = "(casos particulares)"]
+cg [label = "(caso general)"]
+{ rank = same; cg; c }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---

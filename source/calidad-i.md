@@ -46,6 +46,8 @@ author: Ricardo Pérez López
 
 ### Reglas de estilo
 
+#### `pylint`
+
 ## Externa
 
 ### `pydoc`
