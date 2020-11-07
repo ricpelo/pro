@@ -1931,7 +1931,7 @@ E -> f [lhead = cluster0]
 
 - La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
   pero sólo necesita saber de ella qué resultados de salida devuelve a partir
-  de sus argumentos de entrada.
+  de sus argumentos de entrada (o sea, **_qué_** calcula).
 
 - Podemos escribir !PYTHON(area) sin preocuparnos de cómo calcular el cuadrado
   de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
@@ -1964,6 +1964,136 @@ E -> f [lhead = cluster0]
   sus detalles internos de funcionamiento**, ya que para usar la función no
   debe ser necesario conocer esos detalles.
  
+---
+
+- «_Abstraer_» es centrarse en lo esencial (lo importante) en un determinado
+  momento e ignorar lo que en ese momento no resulta importante.
+
+- Crear una abstracción es meter un mecanismo más o menos complejo dentro de
+  una caja negra y darle un nombre, de forma que podamos referirnos a todo el
+  conjunto simplemente usando su nombre y sin tener que conocer su composición
+  interna ni sus detalles internos de funcionamiento.
+
+- Para usar la abstracción nos bastará con conocer su nombre y lo que hace sin
+  necesidad de saber cómo lo hace ni de qué está formada internamente.
+
+- La abstracción es el principal mecanismo de control de la complejidad.
+
+---
+
+- **Las funciones son**, por tanto, **abstracciones** porque nos permiten
+  usarlas sin tener que conocer los detalles internos del procesamiento que
+  realizan.
+
+- Por ejemplo, si queremos usar la función !PYTHON(cubo) (que calcula el cubo
+  de un número), nos da igual que dicha función esté implementada de cualquiera
+  de las siguientes maneras:
+
+  ```python
+  cubo = lambda x: x * x * x
+  cubo = lambda x: x ** 3
+  cubo = lambda x: x * x ** 2
+  ```
+
+- Para **usar** la función, nos basta con saber que calcula el cubo de un
+  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
+  resultado.
+
+- Los detalles de implementación quedan ocultos y por eso también decimos que
+  !PYTHON(cubo) es una abstracción.
+
+---
+
+- Las funciones también son abstracciones porque describen operaciones
+  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
+  valores en concreto.
+
+- Por ejemplo, cuando definimos:
+
+  ```python
+  cubo = lambda x: x * x * x
+  ```
+
+  no estamos hablando del cubo de un número en particular, sino más bien de un
+  **método** para calcular el cubo de cualquier número.
+
+- Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
+  siempre expresiones explícitas (como !PYTHON(3*3*3), !PYTHON(y*y*y), etc.)
+  sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos
+  usando las operaciones primitivas de nuestro lenguaje (como `*`), en vez de
+  poder usar términos de más alto nivel.
+
+  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
+  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
+
+---
+
+- Una de las habilidades que deberíamos pedir a un lenguaje potente es la
+  posibilidad de **construir abstracciones** asignando nombres a los patrones
+  más comunes, y luego trabajar directamente usando dichas abstracciones.
+
+- Las funciones nos permiten esta habilidad, y esa es la razón de que todos los
+  lenguajes (salvo los más primitivos) incluyan mecanismos para definir
+  funciones.
+
+- Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo
+  por sí mismo tres veces) que se repite con frecuencia, y a partir de él
+  construimos una abstracción que asigna un nombre a ese patrón (*elevar al
+  cubo*).
+
+- Esa abstracción la definimos como una función que describe la *regla*
+  necesaria para elevar algo al cubo.
+
+---
+
+- Algunas veces, analizando ciertos casos particulares, observamos que se
+  repite el mismo patrón en todos ellos, y de ahí extraemos un caso general que
+  agrupa a todos los posibles casos particulares que cumplen el mismo patrón.
+
+- A ese caso general le damos un nombre y ocultamos sus detalles internos en
+  una «caja negra».
+
+- Eso es una **abstracción**.
+
+- Crear casos generales a partir de patrones que se repiten en casos
+  particulares es una de las principales razones por las que creamos
+  abstracciones.
+
+- Otra de las razones es simplemente cuando queremos reducir la complejidad
+  dándole un nombre a un mecanismo complejo para poder referirnos a todo el
+  conjunto a través de su nombre sin tener que recordar continuamente qué
+  piezas contiene el mecanismo.
+
+---
+
+- Por ejemplo, cuando vemos que en nuetros programas es frecuente tener que
+  multiplicar una cosa por sí misma tres veces, deducimos que ahí hay un patrón
+  común que se repite en todos los casos.
+
+- De ahí, creamos la abstracción que describe ese patrón general y le llamamos
+  «_elevar al cubo_»:
+
+!DOT(de-particular-a-general.svg)()(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+node [shape = plaintext, fillcolor = transparent]
+rankdir = BT
+c [label = "elevar al cubo (caso general)", fillcolor = white, shape = box]
+3 [label = "3 * 3 * 3"]
+y [label = "y * y * y"]
+radio [label = "radio * radio * radio"]
+subgraph cluster0 {
+    label = "(Casos particulares)"
+    bgcolor = white
+    3
+    y
+    radio
+}
+3 -> c
+y -> c
+radio -> c
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - La **especificación de una _función_** es la descripción de **qué** hace la
@@ -3278,7 +3408,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Las **cadenas** se pueden considerar **estructuras de datos recursivas**, ya
   que podemos decir que toda cadena !PYTHON(c):
 
-  - o bien es la cadena vacía !PYTHON('') (*caso base*),
+  - o bien es la cadena vacía !PYTHON{''} (_caso base_),
   
   - o bien está formada por dos partes:
 
@@ -3328,7 +3458,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Las tuplas también pueden verse como un **tipo de datos recursivo**, ya que
   toda tupla !PYTHON(t):
 
-  - o bien es la tupla vacía, representada mediante !PYTHON(()) (*caso base*),
+  - o bien es la tupla vacía, representada mediante !PYTHON{()} (_caso base_),
 
   - o bien está formada por dos partes:
 
@@ -3341,10 +3471,13 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Según el ejemplo anterior:
 
   ```python
-  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
-  tupla[0]       # devuelve 27
-  tupla[1:]      # devuelve ('hola', True, 73.4, ('a', 'b', 'c'), 99)
-  tupla[1:][0]   # devuelve 'hola'
+  >>> tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  >>> tupla[0]
+  27
+  >>> tupla[1:]
+  ('hola', True, 73.4, ('a', 'b', 'c'), 99)
+  >>> tupla[1:][0]
+  'hola'
   ```
 
 ---
@@ -3358,7 +3491,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Por ejemplo:
 
   ```python
-  (1, 2, 3) + (4, 5, 6)  # devuelve (1, 2, 3, 4, 5, 6)
+  >>> (1, 2, 3) + (4, 5, 6)
+  (1, 2, 3, 4, 5, 6)
   ```
 
 - Eso significa que (al igual que pasa con las cadenas), si !PYTHON(t) es una
@@ -3373,16 +3507,18 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `range(`[_start_`,`] _stop_ [`,` _step_]`)`
+  `range(`[_start_`: int,`] _stop_`: int` [`,` _step_`: int`]`) -> range`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- _start_, _stop_ y _step_ deben ser números enteros.
-
 - Cuando se omite _start_, se entiende que es !PYTHON(0).
+
+- Cuando se omite _step_, se entiende que es !PYTHON(1).
 
 - El valor de _stop_ no se alcanza nunca.
 
 - Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
+
+- _step_ debe ser siempre distinto de cero.
 
 - Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
   En caso contrario, también representaría el rango vacío.
@@ -3403,6 +3539,56 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ---
 
+- La **forma normal** de un rango es una expresión en la que se llama a la
+  función !PYTHON(range) con los argumentos necesarios para construir el rango:
+
+:::: columns
+
+::: column
+
+```python
+>>> range(2, 3)
+range(2, 3)
+>>> range(4)
+range(0, 4)
+```
+
+:::
+
+::: column
+
+```python
+>>> range(2, 5, 1)
+range(2, 5)
+>>> range(2, 5, 2)
+range(2, 5, 2)
+```
+
+:::
+
+::::
+
+- El **rango vacío** es un valor que no tiene expresión canónica, ya que
+  cualquiera de las siguientes expresiones representan al rango vacío tan bien
+  como cualquier otra:
+
+  - !PYTHON(range(0)).
+
+  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
+
+```python
+>>> range(3, 3) == range(4, 4)
+True
+>>> range(4, 3) == range(3, 4, -1)
+True
+```
+
+---
+
 - Los rangos también pueden verse como un **tipo de datos recursivo**, ya que
   todo rango !PYTHON(r):
 
@@ -3419,10 +3605,13 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 - Según el ejemplo anterior:
 
   ```python
-  rango = range(4, 7)
-  rango[0]       # devuelve 4
-  rango[1:]      # devuelve range(5, 7)
-  rango[1:][0]   # devuelve 5
+  >>> rango = range(4, 7)
+  >>> rango[0]
+  4
+  >>> rango[1:]
+  range(5, 7)
+  >>> rango[1:][0]
+  5
   ```
 
 ## Conversión a tupla
@@ -3470,76 +3659,14 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## Concepto
 
-- Hemos visto que **las funciones son**, en realidad, **abstracciones** en la
-  medida en que nos permiten usarlas sin tener que conocer los detalles
-  internos del procesamiento que realizan.
+- Sabemos que, en programación funcional, las funciones son un dato más, como
+  cualquier otro (es decir: tienen un tipo, se pueden ligar a identificadores,
+  etcétera).
 
-- Por ejemplo, si queremos usar la función !PYTHON(cubo), nos da igual que dicha
-  función esté implementada de cualquiera de las siguientes maneras:
+- Pero eso significa que también se pueden pasar como argumentos a otras
+  funciones o se pueden devolver como resultado de otras funciones.
 
-  ```python
-  cubo = lambda x: x * x * x
-  cubo = lambda x: x ** 3
-  cubo = lambda x: x * x ** 2
-  ```
-
-- Para **usar** la función, nos basta con saber que calcula el cubo de un
-  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
-  resultado. Los detalles de implementación quedan ocultos y por eso también
-  decimos que !PYTHON(cubo) es una abstracción.
-
----
-
-- Las funciones también son abstracciones porque describen operaciones
-  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
-  valores en concreto.
-
-- Por ejemplo, cuando definimos:
-
-  ```python
-  cubo = lambda x: x * x * x
-  ```
-
-  no estamos hablando del cubo de un número en particular, sino más bien de un
-  **método** para calcular el cubo de un número.
-
-- Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
-  siempre expresiones explícitas (como !PYTHON(3*3*3), !PYTHON(y*y*y), etc.)
-  sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos
-  usando las operaciones primitivas de nuestro lenguaje (como `*`), en vez de
-  poder usar términos de más alto nivel.
-
-  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
-  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
-
----
-
-- Una de las habilidades que deberíamos pedir a un lenguaje potente es la
-  posibilidad de **construir abstracciones** asignando un nombre a los patrones
-  más comunes, y luego trabajar directamente usando dichas abstracciones.
-
-- Las funciones nos permiten esta habilidad y esa es la razón de que todos los
-  lenguajes (salvo los más primitivos) incluyan mecanismos para definir
-  funciones.
-
-- Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo
-  por sí mismo tres veces) que se repite con frecuencia, y a partir de él
-  construimos una abstracción que asigna un nombre a ese patrón (*elevar al
-  cubo*). Esa abstracción la definimos como una función que describe la *regla*
-  necesaria para elevar algo al cubo.
-
----
-
-- Muchas veces observamos el mismo patrón en funciones muy diferentes.
-
-- Para poder abstraer, de nuevo, lo que tienen en común dichas funciones,
-  deberíamos ser capaces de manejar funciones que acepten a otras funciones
-  como argumentos o que devuelvan otra función como resultado.
-
-- A estas funciones que manejan otras funciones las llamaremos **funciones de
-  orden superior**.
-
-- Una función de orden superior es una función que recibe funciones como
+- Una **función de orden superior** es una función que recibe funciones como
   argumento o devuelve funciones como resultado.
 
 ---
@@ -3594,12 +3721,28 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   10
   ```
 
-- Tanto !PYTHON(aplica5) como !PYTHON(suma_o_resta) son funciones de orden
-  superior.
+- Tanto !PYTHON(aplica5) como !PYTHON(suma_o_resta) son **funciones de orden
+  superior**.
 
 ---
 
-- Ahora supongamos las dos funciones siguientes: 
+- Una función es una abstracción porque agrupa lo que tienen en común
+  determinados casos particulares que siguen el mismo patrón.
+
+- El mismo concepto se puede aplicar a casos particulares de funciones, y al
+  hacerlo damos un paso más en nuestro camino hacia un mayor grado de
+  abstracción.
+
+- Es decir: muchas veces observamos el mismo patrón en funciones diferentes.
+
+- Para poder abstraer, de nuevo, lo que tienen en común dichas funciones,
+  deberíamos ser capaces de manejar funciones que acepten a otras funciones
+  como argumentos o que devuelvan otra función como resultado (es decir,
+  funciones de orden superior).
+
+---
+
+- Supongamos las dos funciones siguientes: 
 
   ```python
   # Suma los enteros comprendidos entre a y b:
@@ -3646,7 +3789,7 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 ---
 
 - En programación funcional lo conseguimos creando funciones que conviertan los
-  «casilleros» en parámetros:
+  «casilleros» en parámetros que recibirían funciones:
 
   ```python
   suma = lambda term, a, b: 0 if a > b else term(a) + suma(term, a + 1, b)
@@ -3662,7 +3805,40 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   suma_cubos = lambda a, b: suma(cubo, a, b)
   ```
 
-- ¿Se podría generalizar aún más la función !PYTHON(suma)?
+- `suma` es una abstracción que captura el patrón común que comparten
+  `suma_enteros` y `suma_cubos`, las cuales también son abstracciones que
+  capturan sus respectivos patrones comunes.
+
+---
+
+!DOT(de-particular-a-funciones-de-orden-superior.svg)(El camino de subida hacia una abstracción cada vez mayor)(width=80%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+node [shape = plaintext, fillcolor = transparent]
+suma_cubos [fontname = "monospace", fontcolor = "blue"]
+suma_enteros [fontname = "monospace", fontcolor = "blue"]
+suma [fontname = "monospace", fontcolor = "blue"]
+rankdir = BT
+s1 [label = "1 + 2 + 3"]
+s2 [label = "7 + 8 + 9 + 10"]
+s3 [label = "9³ + 10³ + 11³ + 12³"]
+s4 [label = "22³ + 23³ + 24³"]
+s1 -> suma_enteros [minlen = 2]
+s2 -> suma_enteros [minlen = 2]
+s3 -> suma_cubos [minlen = 2]
+s4 -> suma_cubos [minlen = 2]
+suma_enteros -> suma [minlen = 2]
+suma_cubos -> suma [minlen = 2]
+m1 [label = "(menos abstracción)", fontcolor = teal]
+m2 [label = "(más abstracción)", fontcolor = teal]
+m3 [label = "(aún más abstracción)", fontcolor = teal]
+m1 -> m2 [arrowhead = open, color = teal, minlen = 2]
+m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIO
+
+@. ¿Se podría generalizar aún más la función !PYTHON(suma)?
 
 ## `map`
 
