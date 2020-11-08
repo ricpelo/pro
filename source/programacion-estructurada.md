@@ -730,7 +730,8 @@ while not salida:
 
 - Es posible escribir programas que gestionen excepciones concretas.
 
-- Para ello se utiliza una estructura de control llamada `try/except`.
+- Para ello se utiliza una estructura de control llamada
+  !PYTHON(try ... except).
 
 - La sintaxis es:
 
@@ -759,17 +760,17 @@ while not salida:
 
 - Su funcionamiento es el siguiente:
 
-  - Se intenta ejecutar el bloque de sentencias del `try`.
+  - Se intenta ejecutar el bloque de sentencias del !PYTHON(try).
 
   - Si durante su ejecución no se levanta ninguna excepción, se saltan los
-    `except` y se ejecutan las sentencias del `else` (si existe).
+    !PYTHON(except) y se ejecutan las sentencias del !PYTHON(else) (si existe).
 
   - Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún
-    `except` que cuadre con el tipo de excepción que se la lanzado y, si se
-    encuentra, se ejecutan sus sentencias asociadas.
+    !PYTHON(except) que cuadre con el tipo de excepción que se la lanzado y, si
+    se encuentra, se ejecutan sus sentencias asociadas.
 
   - Finalmente, y en cualquier caso (se haya levantado alguna excepción o no),
-    se ejecutan las sentencias del `finally` (si existe).
+    se ejecutan las sentencias del !PYTHON(finally) (si existe).
 
 ---
 
@@ -815,6 +816,121 @@ while not salida:
 ~~~~~~~~~~~~~~~~~~~~
 
 ### Gestores de contexto
+
+- A veces un programa necesita trabajar con recursos externos:
+
+  - Archivos locales.
+
+  - Conexiones a bases de datos.
+
+  - Conexiones de red.
+
+- Trabajar con esos recursos siempre implica los siguientes pasos:
+
+  #. Abrir el recurso (solicitar la apertura o la conexión al sistema
+     operativo).
+
+  #. Usar el recurso.
+
+  #. Cerrar el recurso (solicitar su cierre o su desconexión al sistema
+     operativo).
+
+---
+
+- Por ejemplo, al trabajar con archivos hay que:
+
+  #. Abrir el archivo con !PYTHON(f = open(...)).
+
+  #. Usar el archivo con !PYTHON(f.read(...)), !PYTHON(f.write(...)), etc.
+
+  #. Cerrar el archivo con !PYTHON(f.close()).
+
+- La **cantidad de recursos abiertos** al mismo tiempo está **limitada** por el
+  sistema operativo o el intérprete.
+
+  Por ejemplo, si intentamos abrir demasiados archivos a la vez, el intérprete
+  nos devolverá el error: !PYTHON(OSError: [Errno 24] Too many open files).
+
+- Además, cada recurso abierto consume, a su vez, recursos del sistema
+  operativo o del intérprete (memoria, descriptores internos, etcétera).
+
+- Por ello, es importante **acordarse de cerrar el recurso** una vez hayamos
+  terminado de trabajar con él, para que el sistema operativo o el intérprete
+  pueda liberar los recursos que está consumiendo y éstos se puedan reutilizar.
+
+---
+
+- Para ello, se puede usar un !PYTHON(try ... finally):
+
+  ```python
+  f = open('hola.txt', 'w')
+  try:
+      f.write('¡Hola, mundo!')
+  finally:
+      f.close()
+  ```
+
+  Esto garantiza que el archivo se cerrará aunque el !PYTHON(f.write(...))
+  levante una excepción.
+
+- Los gestores de contexto son un mecanismo más cómodo y elegante para trabajar
+  con recursos y asegurarse de que se cierran al final.
+
+- Para ello, se usa la sentencia !PYTHON(with ... as), cuya sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(gestor_contexto) ::=
+!T(with) !NT(expresión) [!T(as) !NT(identificador)]!T(:)
+      !NT(sentencia)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El siguiente código es equivalente al anterior:
+
+  ```python
+  with open('hola.txt', 'w') as f:
+      f.write('¡Hola, mundo!')
+  ```
+
+---
+
+- La sentencia !PYTHON(with ... as) es una estructura de control que hace lo
+  siguiente:
+
+  #. Evalúa la !NT(expresión), que deberá devolver un **gestor de recursos**.
+
+     Los gestores de recursos son objetos que responden a los métodos
+     !PYTHON(__enter__) y !PYTHON(__exit__).
+
+  #. Llama al método !PYTHON(__enter__) sobre el objeto, el cual debe abrir y
+     devolver el recurso.
+
+  #. Ese recurso se asigna a la variable del !PYTHON(identificador).
+
+  #. Ejecuta la !PYTHON(sentencia) que, por supuesto, puede ser simple o
+     compuesta.
+
+  #. Cuando termina de ejecutar la sentencia, llama al método !PYTHON(__exit__)
+     sobre el objeto inicial, el cual se encargará de cerrar el recurso.
+
+- Por tanto, al salir de la estructura de control !PYTHON(with ... as), se
+  garantiza que el recurso asignado a !PYTHON(f) está cerrado.
+
+---
+
+- Eso significa que, en el siguiente código, la última llamada al método
+  !PYTHON(write) fallará al no estar abierto el recurso:
+
+  ```python
+  >>> with open('hola.txt', 'w') as f:
+  ...    f.write('¡Hola, mundo!')
+  ...
+  13
+  >>> f.write('Esto fallará')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  ValueError: I/O operation on closed file.
+  ```
 
 # Metodología de la programación estructurada
 
