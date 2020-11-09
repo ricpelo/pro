@@ -1,6 +1,5 @@
 ---
 documentclass: scrartcl
-lang: es-ES
 header-includes:
 - |
   \usepackage{biolinum}

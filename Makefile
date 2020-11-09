@@ -16,11 +16,8 @@ ITHACA=beamertheme-ithaca
 ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
-
 EJER_SRCDIR=ejercicios
 EJER_BUILDDIR_PDF=ejercicios
-EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
-EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=.pdf))
 
 # Scripts y programas
 
@@ -64,6 +61,8 @@ SOURCES      := $(shell find $(SRCDIR) -type f -name *.md)
 OBJECTS_HTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR_HTML)/%,$(SOURCES:.md=.html))
 OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
+EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
+EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=.pdf))
 
 # Objetivos generales
 
@@ -187,8 +186,9 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-V mathspec \
 		-V fontsize=10pt -V lang=es-ES -o $@
 
-$(EJER_OBJECTS_PDF): $(EJER_SOURCES)
-	$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+$(EJER_BUILDDIR_PDF)/%.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
+	@echo "Generando $@..."
+	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
@@ -196,7 +196,7 @@ $(EJER_OBJECTS_PDF): $(EJER_SOURCES)
 		--syntax-definition=$(PYTHON_XML) \
 		--syntax-definition=$(COMMENTS_XML) \
 		--syntax-definition=$(SPDX_COMMENTS_XML) \
-		-o $@
+		-V lang=es-ES -o $@
 
 # Objetivos auxiliares
 
