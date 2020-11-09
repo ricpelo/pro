@@ -3435,7 +3435,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## Tuplas
 
-- Las **tuplas** son una generalización de las cadenas.
+- Las **tuplas** (datos de tipo !PYTHON(tuple)) son una generalización de las
+  cadenas.
 
 - Una tupla es una **secuencia de elementos** que no tienen por qué ser
   caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
@@ -3503,8 +3504,8 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ## Rangos
 
-- Un rango es un tipo de dato cuyos valores representan **sencuencias de
-  números enteros**.
+- Los rangos (datos de tipo !PYTHON(range)) son valores que representan
+  **sencuencias de números enteros**.
 
 - Los rangos se crean con la función !PYTHON(range), cuya signatura es:
 
