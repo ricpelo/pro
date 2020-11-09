@@ -54,19 +54,19 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #d33682; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #4070a0; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #dc322f; } /* Char */
     code span.cn { color: #880000; } /* Constant */
     code span.co { color: #93a1a1; font-style: italic; } /* Comment */
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #268bd2; } /* DataType */
+    code span.dt { color: #6c71c4; } /* DataType */
     code span.dv { color: #d33682; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
     code span.fl { color: #d33682; } /* Float */
-    code span.fu { color: #268bd2; } /* Function */
+    code span.fu { color: #4070a0; } /* Function */
     code span.im { font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
@@ -253,48 +253,85 @@
 <section id="máquina-de-estados" class="title-slide slide level2" data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Máquina de estados</h2>
 <ul>
-<li><p>La <strong>programación imperativa</strong> es un paradigma de programación basado en el concepto de <strong>sentencia</strong>.</p></li>
-<li><p>Un programa imperativo está formado por una sucesión de sentencias que se ejecutan <strong>en un orden determinado, una tras otra</strong>.</p></li>
-<li><p>Una sentencia es una instrucción del programa que lleva a cabo una de estas acciones:</p>
-<ul>
-<li><p><strong>Cambiar el estado interno</strong> del programa, normalmente mediante la llamada <strong>sentencia de asignación</strong>.</p></li>
-<li><p>Cambiar el <strong>flujo de control</strong> del programa, haciendo que la ejecución se bifurque (<em>salte</em>) a otra parte del mismo.</p></li>
-</ul></li>
-<li><p>El modelo de ejecución de un programa imperativo es el de una <strong>máquina de estados</strong>, es decir, una máquina que va pasando por diferentes estados a medida que el programa va ejecutándose.</p></li>
+<li><p>La <strong>programación imperativa</strong> es un paradigma de programación basado en los conceptos de «<strong><em>estado</em></strong>» y «<strong><em>sentencia</em></strong>».</p></li>
+<li><p>Un programa imperativo está formado por una <strong>secuencia de sentencias</strong></p></li>
+<li><p>El programa imperativo va pasando por diferentes <strong>estados</strong> a medida que se van ejecutando las sentencias que lo forman.</p></li>
+<li><p>Por tanto, una <strong>sentencia</strong> es una instrucción que cambia el estado del programa.</p></li>
+<li><p>El modelo de ejecución de un programa imperativo es el de una <strong>máquina de estados</strong>, es decir, un dispositivo abstracto que va pasando por diferentes estados a medida que el programa va ejecutándose.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
-<li><p>El concepto de <strong>tiempo</strong> cobra mucha importancia en programación imperativa, ya que el estado del programa va cambiando a lo largo del tiempo conforme se van ejecutando las sentencias que lo forman.</p></li>
+<li><p>El concepto de «<em><strong>tiempo</strong></em>» también es muy importante en programación imperativa, ya que el estado del programa va cambiando a lo largo del tiempo conforme se van ejecutando las sentencias que lo forman.</p></li>
 <li><p>A su vez, el comportamiento del programa depende del estado en el que se encuentre.</p>
-<p>Eso significa que, ante los mismos datos de entrada, una función puede devolver <strong>valores distintos en momentos distintos</strong>.</p></li>
-<li><p>En programación funcional, en cambio, el comportamiento de una función no depende del momento en el que se ejecute, ya que siempre devolverá los mismos resultados ante los mismos datos de entrada.</p></li>
-<li><p>Eso significa que, para modelar el comportamiento de un programa imperativo, ya <strong>no nos vale el modelo de sustitución</strong>.</p></li>
+<p>Eso significa que, ante los mismos datos de entrada, una función en programación imperativa puede devolver <strong>valores distintos en momentos distintos</strong>.</p></li>
+<li><p>En programación funcional, en cambio, el comportamiento de una función no depende del momento en el que se ejecute, ya que siempre devolverá los mismos resultados ante los mismos datos de entrada (<em>transparencia referencial</em>).</p></li>
+<li><p>Eso significa que, para modelar el comportamiento de un programa imperativo, ya <strong>no nos vale el modelo de sustitución</strong> que hemos estado usando hasta ahora en programación funcional.</p></li>
 </ul>
 </section>
 
-<section id="secuencia-de-instrucciones" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Secuencia de instrucciones</h2>
+<section id="sentencias" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Sentencias</h2>
 <ul>
-<li><p>Un programa imperativo es una <strong>secuencia de instrucciones</strong>, y ejecutar un programa es provocar los <strong>cambios de estado</strong> que dictan las instrucciones en el <strong>orden</strong> definido por el programa.</p></li>
-<li><p>Las instrucciones del programa van provocando <strong>transiciones</strong> entre estados, haciendo que la máquina pase de un estado al siguiente.</p></li>
-<li><p>Para modelar el comportamiento de un programa imperativo tendremos que saber en qué estado se encuentra el programa, para lo cual tendremos que seguirle la pista desde su estado inicial al estado actual.</p></li>
-<li><p>Eso básicamente se logra «ejecutando» mentalmente el programa instrucción por instrucción y llevando la cuenta de los valores ligados a sus identificadores.</p></li>
-</ul>
-</section>
-
-<section id="sentencias" class="title-slide slide level2" data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span> Sentencias</h2>
+<li><p>Las instrucciones que forman un programa imperativo son las <strong>sentencias</strong>.</p></li>
+<li><p>La ejecución de una sentencia <strong>cambia el estado interno del programa</strong> provocando uno de estos <strong>efectos</strong>:</p>
 <ul>
-<li><p>A las instrucciones de un programa imperativo también se las denomina <strong>sentencias</strong>.</p></li>
-<li><p>La principal diferencia entre una <em>sentencia</em> y una <em>expresión</em> es que las sentencias no denotan ningún valor, sino que son órdenes a ejecutar por el programa para cambiar el estado de éste.</p>
-<ul>
-<li><p>Las <em>expresiones</em> se <em>evalúan</em>.</p></li>
-<li><p>Las <em>sentencias</em> se <em>ejecutan</em>.</p></li>
+<li><p><strong>Cambiar las coordenadas</strong> del proceso asociado al programa, normalmente mediante la llamada <strong>sentencia de asignación</strong>.</p></li>
+<li><p>Cambiar el <strong>flujo de control</strong> del programa, haciendo que la ejecución se bifurque (<em>salte</em>) a otra parte del mismo.</p></li>
 </ul></li>
-<li><p>En muchos lenguajes imperativos (como ocurre con Python y Java) es posible colocar una expresión donde se espera una sentencia (aunque no al revés), si bien no suele resultar útil ya que, en ese caso, la ejecución de tal «sentencia» consistiría en evaluar la expresión, pero el resultado de dicha evaluación se perdería.</p></li>
-<li><p>Sólo resultaría útil en caso de que la evaluación de la expresión provocara <em>efectos laterales</em> (cosa que estudiaremos en breve).</p></li>
+<li><p>La principal diferencia entre una <em>sentencia</em> y una <em>expresión</em> es que las sentencias no denotan ningún valor, sino que son órdenes a ejecutar por el programa para producir un <em>efecto</em>.</p>
+<ul>
+<li><p>Las <em>expresiones</em> se <em>evalúan</em> y devuelven un <em>valor</em>.</p></li>
+<li><p>Las <em>sentencias</em> se <em>ejecutan</em> para producir un <em>efecto</em>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<ul>
+<li><p><strong>En un lenguaje funcional puro:</strong></p>
+<ul>
+<li><p>Un programa es una expresión.</p></li>
+<li><p>Ejecutar un programa consiste en evaluar dicha expresión usando las definiciones predefinidas del lenguaje y las definidas por el programador.</p></li>
+<li><p>Todo son expresiones, excepto las sentencias de definición, que producen el efecto de crear <em>ligaduras</em>.</p></li>
+<li><p>Evaluar una expresión no produce ningún otro efecto salvo el de calcular su valor.</p></li>
+<li><p>Las expresiones devuelven siempre el mismo valor (tienen <em>transparencia referencial</em>).</p></li>
+<li><p>El comportamiento de un programa se puede modelar usando el <em>modelo de sustitución</em>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.2">
+
+<ul>
+<li><p><strong>En cambio, en un lenguaje imperativo:</strong></p>
+<ul>
+<li><p>Los programas están formados por sentencias que, al ejecutarse, van cambiando el estado del programa.</p></li>
+<li><p>El valor de una expresión depende del estado de en el que se encuentre el programa en el momento de evaluar dicha expresión (no hay <em>transparencia referencial</em>).</p></li>
+<li><p>Evaluar una expresión puede provocar otros efectos (los llamados <em>efectos laterales</em>) más allá de calcular su valor.</p></li>
+<li><p>En muchos lenguajes imperativos es posible colocar una expresión donde debería ir una sentencia (aunque no al revés).</p>
+<p>Esto sólo resultaría útil en caso de que la evaluación de la expresión provocara <em>efectos laterales</em>. De lo contrario, el valor de la evaluación se perdería sin más y no habría servido de nada calcularlo.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="secuencia-de-sentencias" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Secuencia de sentencias</h2>
+<ul>
+<li><p>Un programa imperativo está formado por una <strong>secuencia de sentencias</strong>.</p></li>
+<li><p>Ejecutar un programa imperativo es provocar los <strong>cambios de estado</strong> que dictan las sentencias en el <strong>orden</strong> definido por el programa.</p></li>
+<li><p>Las sentencias del programa van provocando <strong>transiciones</strong> entre estados, haciendo que la máquina pase de un estado al siguiente.</p></li>
+<li><p>Para modelar el comportamiento de un programa imperativo tendremos que saber en qué estado se encuentra el programa, para lo cual tendremos que seguirle la pista desde su estado inicial al estado actual.</p></li>
+<li><p>Eso básicamente se logra «ejecutando» mentalmente el programa sentencia por sentencia y llevando la cuenta de los cambios que van produciendo conforme se van ejecutando.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.1">
+
+<ul>
+<li><p>Al decir que un programa imperativo está formado por una <em>secuencia</em> de sentencias, estamos diciendo que importa mucho el orden en el que están colocadas las sentencias dentro del programa.</p></li>
+<li><p>En general, un programa imperativo se comportará de forma diferente si se cambia el orden en el que se ejecutan sus sentencias.</p>
+<p>Por eso, si se ejecuta <em>A</em> antes que <em>B</em>, el programa seguramente no producirá el mismo efecto que si se ejecuta <em>B</em> antes que <em>A</em>.</p></li>
+<li><p>Por ejemplo, muchas veces el funcionamiento de una sentencia <em>B</em> depende del efecto producido por una sentencia <em>A</em> anterior. Por tanto, en ese caso, <em>A</em> debería ejecutarse antes que <em>B</em>.</p></li>
 </ul>
 </section>
 </section>

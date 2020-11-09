@@ -202,16 +202,16 @@ nocite: |
 
 ## Expresiones y sentencias
 
-- El código fuente de un programa está formado por elementos que pertenecen a
-  dos grandes grupos principales:
+- El código fuente de un programa está formado por **instrucciones** que
+  pertenecen a dos grandes grupos principales:
 
   - **Expresiones**: son secuencias de símbolos que *representan valores* y que
     están formados por *datos* y (posiblemente) *operaciones* a realizar sobre
     esos datos. El valor al que representa la expresión se obtiene *evaluando*
     dicha expresión.
 
-  - **Sentencias**: son *instrucciones* que sirven para pedirle al intérprete
-    que *ejecute* una determinada *acción*.
+  - **Sentencias**: son *órdenes* que sirven para pedirle al intérprete que
+    *ejecute* una determinada *acción*.
 
 - Las sentencias pueden contener expresiones.
 
@@ -220,8 +220,10 @@ nocite: |
 
 ---
 
-$$
-\text{En un programa hay}
+$$\begin{array}{c}
+  \text{En un programa hay dos} \\
+  \text{tipos de instrucciones}
+  \end{array}
   \begin{cases}
     \text{\textbf{Expresiones}} \begin{cases}
       \text{- Se evalúan} \\
@@ -233,7 +235,7 @@ $$
       \text{- Por sí solas también son sentencias}
     \end{cases} \\\\
     \text{\textbf{Sentencias}} \begin{cases}
-      \text{- Son instrucciones} \\
+      \text{- Son órdenes} \\
       \text{- Se ejecutan} \\
       \text{- Pueden contener expresiones}
     \end{cases}

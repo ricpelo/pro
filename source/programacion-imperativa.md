@@ -10,82 +10,138 @@ nocite: |
 
 ## Máquina de estados
 
-- La **programación imperativa** es un paradigma de programación basado en el
-  concepto de **sentencia**.
+- La **programación imperativa** es un paradigma de programación basado en los
+  conceptos de «**_estado_**» y «**_sentencia_**».
 
-- Un programa imperativo está formado por una sucesión de sentencias que se
-  ejecutan **en un orden determinado, una tras otra**.
+- Un programa imperativo está formado por una **secuencia de sentencias**
 
-- Una sentencia es una instrucción del programa que lleva a cabo una de estas
-  acciones:
+- El programa imperativo va pasando por diferentes **estados** a medida que se
+  van ejecutando las sentencias que lo forman.
 
-  - **Cambiar el estado interno** del programa, normalmente mediante la llamada
-    **sentencia de asignación**.
-
-  - Cambiar el **flujo de control** del programa, haciendo que la ejecución se
-    bifurque (*salte*) a otra parte del mismo.
+- Por tanto, una **sentencia** es una instrucción que cambia el estado del
+  programa.
 
 - El modelo de ejecución de un programa imperativo es el de una **máquina de
-  estados**, es decir, una máquina que va pasando por diferentes estados a
-  medida que el programa va ejecutándose.
+  estados**, es decir, un dispositivo abstracto que va pasando por diferentes
+  estados a medida que el programa va ejecutándose.
 
 ---
 
-- El concepto de **tiempo** cobra mucha importancia en programación imperativa,
-  ya que el estado del programa va cambiando a lo largo del tiempo conforme se
-  van ejecutando las sentencias que lo forman.
+- El concepto de «_**tiempo**_» también es muy importante en programación
+  imperativa, ya que el estado del programa va cambiando a lo largo del tiempo
+  conforme se van ejecutando las sentencias que lo forman.
   
 - A su vez, el comportamiento del programa depende del estado en el que se
   encuentre.
 
-  Eso significa que, ante los mismos datos de entrada, una función puede
-  devolver **valores distintos en momentos distintos**.
+  Eso significa que, ante los mismos datos de entrada, una función en
+  programación imperativa puede devolver **valores distintos en momentos
+  distintos**.
 
 - En programación funcional, en cambio, el comportamiento de una función no
   depende del momento en el que se ejecute, ya que siempre devolverá los mismos
-  resultados ante los mismos datos de entrada.
+  resultados ante los mismos datos de entrada (_transparencia referencial_).
 
 - Eso significa que, para modelar el comportamiento de un programa imperativo,
-  ya **no nos vale el modelo de sustitución**.
+  ya **no nos vale el modelo de sustitución** que hemos estado usando hasta
+  ahora en programación funcional.
 
-## Secuencia de instrucciones
+## Sentencias
 
-- Un programa imperativo es una **secuencia de instrucciones**, y ejecutar un
-  programa es provocar los **cambios de estado** que dictan las instrucciones
-  en el **orden** definido por el programa.
+- Las instrucciones que forman un programa imperativo son las **sentencias**.
 
-- Las instrucciones del programa van provocando **transiciones** entre estados,
+- La ejecución de una sentencia **cambia el estado interno del programa**
+  provocando uno de estos **efectos**:
+
+  - **Cambiar las coordenadas** del proceso asociado al programa, normalmente
+    mediante la llamada **sentencia de asignación**.
+
+  - Cambiar el **flujo de control** del programa, haciendo que la ejecución se
+    bifurque (*salte*) a otra parte del mismo.
+
+- La principal diferencia entre una _sentencia_ y una _expresión_ es que las
+  sentencias no denotan ningún valor, sino que son órdenes a ejecutar por el
+  programa para producir un _efecto_.
+
+  - Las _expresiones_ se _evalúan_ y devuelven un _valor_.
+
+  - Las _sentencias_ se _ejecutan_ para producir un _efecto_.
+
+---
+
+- **En un lenguaje funcional puro:**
+
+  - Un programa es una expresión.
+
+  - Ejecutar un programa consiste en evaluar dicha expresión usando las
+    definiciones predefinidas del lenguaje y las definidas por el programador.
+
+  - Todo son expresiones, excepto las sentencias de definición, que producen el
+    efecto de crear _ligaduras_.
+
+  - Evaluar una expresión no produce ningún otro efecto salvo el de calcular su
+    valor.
+
+  - Las expresiones devuelven siempre el mismo valor (tienen _transparencia
+    referencial_).
+
+  - El comportamiento de un programa se puede modelar usando el _modelo de
+    sustitución_.
+
+---
+
+- **En cambio, en un lenguaje imperativo:**
+
+  - Los programas están formados por sentencias que, al ejecutarse, van
+    cambiando el estado del programa.
+
+  - El valor de una expresión depende del estado de en el que se encuentre el
+    programa en el momento de evaluar dicha expresión (no hay _transparencia
+    referencial_).
+
+  - Evaluar una expresión puede provocar otros efectos (los llamados _efectos
+    laterales_) más allá de calcular su valor.
+
+  - En muchos lenguajes imperativos es posible colocar una expresión donde
+    debería ir una sentencia (aunque no al revés).
+
+    Esto sólo resultaría útil en caso de que la evaluación de la expresión
+    provocara *efectos laterales*. De lo contrario, el valor de la evaluación
+    se perdería sin más y no habría servido de nada calcularlo.
+
+## Secuencia de sentencias
+
+- Un programa imperativo está formado por una **secuencia de sentencias**.
+
+- Ejecutar un programa imperativo es provocar los **cambios de estado** que
+  dictan las sentencias en el **orden** definido por el programa.
+
+- Las sentencias del programa van provocando **transiciones** entre estados,
   haciendo que la máquina pase de un estado al siguiente.
 
 - Para modelar el comportamiento de un programa imperativo tendremos que saber
   en qué estado se encuentra el programa, para lo cual tendremos que seguirle
   la pista desde su estado inicial al estado actual.
 
-- Eso básicamente se logra «ejecutando» mentalmente el programa instrucción por
-  instrucción y llevando la cuenta de los valores ligados a sus
-  identificadores.
+- Eso básicamente se logra «ejecutando» mentalmente el programa sentencia por
+  sentencia y llevando la cuenta de los cambios que van produciendo conforme se
+  van ejecutando.
 
-## Sentencias
+---
 
-- A las instrucciones de un programa imperativo también se las denomina
-  **sentencias**.
+- Al decir que un programa imperativo está formado por una _secuencia_ de
+  sentencias, estamos diciendo que importa mucho el orden en el que están
+  colocadas las sentencias dentro del programa.
 
-- La principal diferencia entre una *sentencia* y una *expresión* es que las
-  sentencias no denotan ningún valor, sino que son órdenes a ejecutar por el
-  programa para cambiar el estado de éste.
+- En general, un programa imperativo se comportará de forma diferente si se
+  cambia el orden en el que se ejecutan sus sentencias.
 
-  - Las *expresiones* se *evalúan*.
+  Por eso, si se ejecuta _A_ antes que _B_, el programa seguramente no
+  producirá el mismo efecto que si se ejecuta _B_ antes que _A_.
 
-  - Las *sentencias* se *ejecutan*.
-
-- En muchos lenguajes imperativos (como ocurre con Python y Java) es posible
-  colocar una expresión donde se espera una sentencia (aunque no al revés), si
-  bien no suele resultar útil ya que, en ese caso, la ejecución de tal
-  «sentencia» consistiría en evaluar la expresión, pero el resultado de dicha
-  evaluación se perdería.
-
-- Sólo resultaría útil en caso de que la evaluación de la expresión provocara
-  *efectos laterales* (cosa que estudiaremos en breve).
+- Por ejemplo, muchas veces el funcionamiento de una sentencia _B_ depende del
+  efecto producido por una sentencia _A_ anterior. Por tanto, en ese caso, _A_
+  debería ejecutarse antes que _B_.
 
 # Asignación destructiva
 

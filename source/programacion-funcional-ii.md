@@ -2080,7 +2080,7 @@ E -> f [lhead = cluster0]
 - De ahí, creamos la abstracción que describe ese patrón general y le llamamos
   «_elevar al cubo_»:
 
-!DOT(de-particular-a-general.svg)()(width=70%)
+!DOT(de-particular-a-general.svg)()(width=80%)(width=90%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 node [shape = plaintext, fillcolor = transparent]
@@ -3753,7 +3753,7 @@ True
   suma_enteros = lambda a, b: 0 if a > b else a + suma_enteros(a + 1, b)
 
   # Suma los cubos de los enteros comprendidos entre a y b:
-  suma_cubos = lambda a, b: 0 if a > b else cubo(a) + suma_enteros(a + 1, b)
+  suma_cubos = lambda a, b: 0 if a > b else cubo(a) + suma_cubos(a + 1, b)
   ```
 
 - Estas dos funciones comparten claramente un patrón común. Se diferencian
@@ -3815,7 +3815,7 @@ True
 
 ---
 
-!DOT(de-particular-a-funciones-de-orden-superior.svg)(El camino de subida hacia una abstracción cada vez mayor)(width=80%)
+!DOT(de-particular-a-funciones-de-orden-superior.svg)(El camino de subida hacia una abstracción cada vez mayor)(width=90%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 node [shape = plaintext, fillcolor = transparent]
