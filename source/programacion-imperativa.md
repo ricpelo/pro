@@ -975,7 +975,7 @@ x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = tru
 lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
 99 [shape = circle, width = 0.6]
 24 [shape = circle, width = 0.6]
-32 [shape = circle, width = 0.6]
+32 [shape = circle, width = 0.6, style = dashed, color = grey, fontcolor = grey]
 15 [shape = circle, width = 0.6]
 81 [shape = circle, width = 0.6]
 lista:f0 -> 24

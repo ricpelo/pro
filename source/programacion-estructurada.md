@@ -11,19 +11,17 @@ nocite: |
 ## Programación estructurada
 
 - La **programación estructurada** es una técnica de programación cuyo
-  **objetivo** es, esencialmente, la **obtención de programas fiables y
-  fácilmente mantenibles**.
+  **objetivo** es **conseguir programas fiables y fácilmente mantenibles**.
 
 - Su estudio puede dividirse en dos partes bien diferenciadas:
 
   - Por una parte, el **estudio conceptual** se centra en ver qué se entiende
-    por programa estructurado para estudiar con detalle sus características
+    por «programa estructurado» para estudiar con detalle sus características
     fundamentales.
 
-  - Por otra parte, dentro del **enfoque práctico** se presentará la
-    metodología de refinamientos sucesivos que permite construir programas
-    estructurados paso a paso, detallando cada vez más sus acciones
-    componentes.
+  - Por otra parte, dentro del **enfoque práctico** se presentará una
+    metodología que permite construir programas estructurados paso a paso,
+    detallando cada vez más sus instrucciones componentes.
 
 - Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
   por **E. W. Dijkstra** en 1965, aunque el fundamento teórico está basado en
@@ -47,9 +45,8 @@ nocite: |
 
   !IMGP(confuso.png)()(width=50%)(width=70%)
 
-- Si un programa se escribe de cualquier manera, aun siendo correcto desde el
-  punto de vista de su funcionamiento, puede resultar engorroso, críptico,
-  ilegible y casi imposible de modificar.
+- Si un programa se escribe de cualquier manera, aun funcione correctamente,
+  puede resultar engorroso, críptico, ilegible y casi imposible de modificar.
 
 ---
 
@@ -64,26 +61,26 @@ nocite: |
 ## Programa restringido
 
 - Un **programa restringido** es aquel que se construye combinando únicamente
-  los tres siguientes bloques:
+  los tres siguientes bloques constructivos:
 
 :::: columns
 
 ::: column
 
-- **Acción**, que sirve para representar una instrucción (por ejemplo: de
+- **Sentencia**, que sirve para representar una instrucción (por ejemplo: de
   lectura, escritura, asignación...).
 
 - **Condición**, que sirve para bifurcar el flujo del programa dependiendo del
   valor (verdadero o falso) de una expresión lógica.
 
-- **Agrupamiento**, que sirve, como su nombre indica, para agrupar lı́neas de
-  flujo con distintas procedencias.
+- **Agrupamiento**, que sirve para agrupar lı́neas de flujo que procedan de
+  distintos lugares.
 
 :::
 
 ::: column
 
-!IMGP(accion.png)(Acción)(width=50%)(width=30%)
+!IMGP(sentencia.png)(Sentencia)(width=50%)(width=30%)
 
 !IMGP(condicion.png)(Condición)(width=50%)(width=30%)
 
@@ -105,9 +102,9 @@ nocite: |
 
   3. No existen bucles infinitos.
 
-- Estas condiciones restringen el concepto de programa de modo que sólo se
-  permite trabajar con aquéllos que están diseñados mediante el uso apropiado
-  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
+- Estas condiciones restringen aún más el concepto de _programa_, de modo que
+  sólo serán válidos aquéllos que estén diseñados mediante el uso apropiado del
+  agrupamiento y sin bloques superfluos o formando bucles sin salida.
 
 ---
 
@@ -131,15 +128,15 @@ nocite: |
 
 ---
 
-- Aquí aparece un programa que contiene bloques inaccesibles desde la entrada
-  del diagrama:
+- Aquí aparece un programa que tampoco es propio porque contiene bloques
+  inaccesibles desde la entrada del diagrama:
 
 !IMGP(diagrama-inaccesibles.png)()(width=80%)(width=50%)
 
 ## Estructura
 
-- Una **estructura** es una construcción sintáctica (o un bloque constructivo)
-  que se puede **anidar completamente** dentro de otra.
+- Una **estructura** es una construcción sintáctica (o bloque constructivo) que
+  se puede **anidar completamente** dentro de otra.
 
 - Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
   completamente dentro de la otra, o no se tocan en absoluto.
@@ -190,16 +187,16 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras (llamadas **estructuras de control**):
 
-  - La **secuencia** de dos acciones *A* y *B*.
+  - La **secuencia** de dos sentencias *A* y *B*.
 
-  - La **selección** entre dos acciones *A* y *B* dependiendo de un predicado
+  - La **selección** entre dos sentencias *A* y *B* dependiendo de un predicado
     *p*.
 
-  - La **iteración**, que repite una acción *A* dependiendo del valor de verdad
-    de un predicado de control *p*.
+  - La **iteración**, que repite una sentencia *A* dependiendo del valor lógico
+    de un predicado *p*.
 
-- A su vez, tanto *A* como *B* pueden ser, o bien acciones simples, o bien una
-  cualquiera de las estructuras anteriores, **recursivamente**.
+- Las estructuras de control son sentencias compuestas que contienen, a su vez,
+  otras sentencias.
 
 ---
 
@@ -251,25 +248,25 @@ $B$
 
 ---
 
-- Cada una de las acciones que aparecen en una estructura pueden ser, a su vez,
-  estructuras.
+- Cada una de las sentencias que aparecen en una estructura pueden ser, a su
+  vez, estructuras.
 
-  - Esto es así porque se considera que una estructura es, también, una acción
-    (*compuesta*, a diferencia de las acciones *simples*).
+  - Esto es así porque se considera que una estructura también es una sentencia
+    (una sentencia *compuesta*, en vez de una sentencia *simple*).
 
   - Por tanto, una estructura puede aparecer en cualquier parte donde se espere
-    una acción.
+    una sentencia.
 
-- Resumiendo, en un programa podemos tener **dos tipos de acciones**:
+- Resumiendo, en un programa podemos tener **dos tipos de sentencias**:
 
-  - **Acciones _simples_**
+  - **Sentencias _simples_**.
 
-  - **Estructuras de control**, que son acciones *compuestas* formadas a su vez
-    por otras acciones (que podrán ser, a su vez, simples o compuestas,
-    recursivamente).
+  - **Estructuras de control**, que son sentencias **_compuestas_** formadas a
+    su vez por otras sentencias (que podrán ser, a su vez, simples o
+    compuestas, recursivamente).
 
-- Por consiguiente, todo programa puede verse como una única acción, simple o
-  compuesta por otras.
+- Por consiguiente, todo programa puede verse como una única sentencia, simple
+  o compuesta por otras.
 
 ---
 
@@ -359,9 +356,9 @@ $B$
   una sentencia, se puede poner una secuencia de sentencias (que actuarían como
   una sola formando un bloque).
 
-- Esto es así porque, como vimos, toda acción puede ser simple o compuesta (una
-  estructura) y, por tanto, **toda estructura es también una sentencia** (actúa
-  como si fuera una única sentencia pero compuesta por otras de forma
+- Esto es así porque, como vimos, toda sentencia puede ser simple o compuesta
+  (una estructura) y, por tanto, **toda estructura es también una sentencia**
+  (actúa como si fuera una única sentencia pero compuesta por otras de forma
   recursiva).
 
 - Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede
@@ -400,11 +397,11 @@ $B$
 
 En Python, la **estructura** del programa viene definida por la **indentación**
 del código.
-~~~~~~~~~~~~~~~~~
 
-- Por tanto, las instrucciones que aparecen juntas en el mismo nivel de
-  indentación (es decir, las que empiezan en la misma columna) pertenecen a la
-  misma estructura.
+Por tanto, las instrucciones que aparecen juntas en el mismo nivel de
+indentación (es decir, las que empiezan en la misma columna) pertenecen a la
+misma estructura.
+~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -960,7 +957,7 @@ while not salida:
 ## Recursos abstractos
 
 - Descomponer un programa en términos de recursos abstractos consiste en
-  descomponer una determinada acción compleja en un número de acciones mas
+  descomponer una determinada sentencia compleja en un número de sentencias mas
   simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus
   instrucciones.
 
@@ -1017,10 +1014,10 @@ while not salida:
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  donde el programa se plantea como una secuencia de dos acciones: preguntar el
-  tamaño de la tabla deseada y construir la tabla propiamente dicha.
+  donde el programa se plantea como una secuencia de dos sentencias: preguntar
+  el tamaño de la tabla deseada y construir la tabla propiamente dicha.
 
-- La instrucción **leer $n$** ya está suficientemente refinada (se puede
+- La sentencia «**leer $n$**» ya está suficientemente refinada (se puede
   traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
   recurso abstracto).
 
@@ -1030,8 +1027,8 @@ while not salida:
   fila los múltiplos de 1, en la fila inferior los múltiplos de 2, y así
   sucesivamente hasta que lleguemos a los múltiplos de $n$.
 
-- Por tanto, el siguiente paso es refinar la instrucción abstracta **construir
-  la tabla de $n \times n$**, creando un nuevo nivel de refinamiento:
+- Por tanto, el siguiente paso es refinar la sentencia abstracta «**construir
+  la tabla de $n \times n$**», creando un nuevo nivel de refinamiento:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1045,13 +1042,13 @@ while not salida:
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  donde ahora aparece la acción **escribir la fila de $i$**, que escribe cada
-  una de las filas de la tabla, y que habrá que refinar porque no se puede
+  donde ahora aparece la sentencia «**escribir la fila de $i$**», que escribe
+  cada una de las filas de la tabla, y que habrá que refinar porque no se puede
   traducir directamente al lenguaje de programación.
 
 ---
 
-- En este (último) nivel refinamos la acción que nos falta, quedando:
+- En este (último) nivel refinamos la sentencia que nos falta, quedando:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1161,7 +1158,7 @@ while not salida:
 
 - La definición de una función imperativa es una **sentencia compuesta**, es
   decir, una **estructura** (como las estructuras de control `if`, `while`,
-  etc.).
+  etcétera).
 
 - Por tanto, puede aparecer en cualquier lugar del programa donde pueda haber
   una sentencia.
@@ -1170,7 +1167,7 @@ while not salida:
   en el **cuerpo** de la función) van **indentadas** (o *sangradas*) dentro de
   la definición de la función.
 
-- Por tanto (de nuevo como en cualquier otra estructura), el final de la
+- Por tanto (de nuevo, como en cualquier otra estructura), el final de la
   función se deduce al encontrarse una sentencia **menos indentada** que el
   cuerpo, o bien el final del *script*.
 
@@ -1204,8 +1201,9 @@ while not salida:
 
   2. Se pasan los argumentos de la llamada a los parámetros de la función.
   
-     Recordemos que en Python se sigue el orden aplicativo (primero se evalúan
-     los argumentos y después se pasan a los parámetros correspondientes).
+     Recordemos que en Python se sigue el orden aplicativo (o evaluación
+     estricta): primero se evalúan los argumentos y después se pasan a los
+     parámetros correspondientes.
 
   3. El flujo de control del programa se transfiere al bloque de sentencias que
      forman el cuerpo de la función y se ejecuta éste.
@@ -1374,12 +1372,13 @@ Una función puede llamar a otra.
   saluda(x)         # Saluda a Juan
   ```
 
-- En la línea 5 se asigna a `persona` el valor `Manolo` (como si se hiciera
-  `persona = Manolo`).
+- En la línea 5 se asigna a !PYTHON(persona) el valor !PYTHON('Manolo') (como
+  si se hiciera !PYTHON(persona = Manolo)).
 
-- En la línea 7 se asigna a `persona` el valor de `x`, como si se hiciera
-  `persona = x`, lo que sabemos que crea un *alias* (que no afectaría ya que el
-  valor pasado es una cadena y, por tanto, inmutable).
+- En la línea 7 se asigna a !PYTHON(persona) el valor de !PYTHON(x), como si se
+  hiciera !PYTHON(persona = x), lo que sabemos que crea un *alias* (aunque eso
+  no nos afectaría, ya que el valor pasado es una cadena y, por tanto,
+  inmutable).
 
 ---
 
@@ -1398,29 +1397,31 @@ Una función puede llamar a otra.
 - La función es capaz de **cambiar el estado interno de la lista que se ha
   pasado como argumento** porque:
   
-  - Al llamar a la función, el argumento `lista` se pasa a la función
-    **asignándola** al parámetro `l` como si hubiera hecho `l = lista`.
+  - Al llamar a la función, el argumento !PYTHON(lista) se pasa a la función
+    **asignándola** al parámetro !PYTHON(l) como si hubiera hecho
+    !PYTHON(l = lista).
   
   - Eso hace que ambas variables sean *alias* una de la otra (se refieren al
     mismo objeto).
   
   - Por tanto, la función está modificando la misma variable que se ha pasado
-    como argumento (`lista`).
+    como argumento (!PYTHON(lista)).
 
-## La sentencia `return`
+## La sentencia !PYTHON(return)
 
 - Para devolver el resultado de la función al código que la llamó, hay que usar
-  una sentencia `return`.
+  una sentencia !PYTHON(return).
 
-- Cuando el intérprete encuentra una sentencia `return` dentro de una función:
+- Cuando el intérprete encuentra una sentencia !PYTHON(return) dentro de una
+  función:
 
-  - se finaliza la ejecución de la función,
+  #. se finaliza la ejecución de la función,
   
-  - se devuelve el control al punto del  programa en el que se llamó a la
-    función y
+  #. se devuelve el control al punto del  programa en el que se llamó a la
+     función y
   
-  - la función devuelve como resultado el valor de retorno definido en la
-    sentencia `return`.
+  #. la función devuelve como resultado el valor de retorno definido en la
+     sentencia !PYTHON(return).
 
 ---
 
@@ -1440,14 +1441,15 @@ Una función puede llamar a otra.
   la función pero no ejecuta las sentencias de su cuerpo en ese momento (lo
   hará cuando se *llame* a la función).
 
-- En la línea 6 se llama a la función `suma` pasándole como argumentos los
-  valores de `a` y `b`, asignándoseles a `x` e `y`, respectivamente.
+- En la línea 6 se llama a la función !PYTHON(suma) pasándole como argumentos los
+  valores de !PYTHON(a) y !PYTHON(b), asignándoseles a !PYTHON(x) e !PYTHON(y),
+  respectivamente.
 
-- Dentro de la función, se calcula la suma `x + y` y la sentencia `return`
-  finaliza la ejecución de la función, devolviendo el control al punto en el
-  que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor
-  calculado en la suma anterior (el valor de la expresión que acompaña al
-  `return`).
+- Dentro de la función, se calcula la suma !PYTHON(x + y) y la sentencia
+  !PYTHON(return) finaliza la ejecución de la función, devolviendo el control
+  al punto en el que se la llamó (la línea 6) y haciendo que su valor de
+  retorno sea el valor calculado en la suma anterior (el valor de la expresión
+  que acompaña al !PYTHON(return)).
 
 ---
 
@@ -1458,9 +1460,10 @@ Una función puede llamar a otra.
 - Por tanto, una vez finalizada la ejecución de la función, la línea 6 se
   reescribe sustituyendo la llamada a la función por su valor.
 
-- Si, por ejemplo, suponemos que el usuario ha introducido los valores `5` y
-  `7` en las variables `a` y `b`, respectivamente, tras finalizar la ejecución
-  de la función tendríamos que la línea 6 quedaría:
+- Si, por ejemplo, suponemos que el usuario ha introducido los valores
+  !PYTHON(5) y !PYTHON(7) en las variables !PYTHON(a) y !PYTHON(b),
+  respectivamente, tras finalizar la ejecución de la función tendríamos que la
+  línea 6 quedaría:
 
   ```python
   resultado = 12
@@ -1470,14 +1473,15 @@ Una función puede llamar a otra.
 
 ---
 
-- También es posible usar la sentencia `return` sin devolver ningún valor.
+- También es posible usar la sentencia !PYTHON(return) sin devolver ningún
+  valor.
 
 - En ese caso, su utilidad es la de finalizar la ejecución de la función en
   algún punto intermedio de su código.
 
 - Pero en Python todas las funciones devuelven algún valor.
 
-- Lo que ocurre en este caso es que la función devuelve el valor `None`:
+- Lo que ocurre en este caso es que la función devuelve el valor !PYTHON(None):
 
 :::: columns
 
@@ -1530,8 +1534,8 @@ None
 ---
 
 - Cuando se alcanza el final del cuerpo de una función sin haberse ejecutado
-  antes ninguna sentencia `return`, es como si la última sentencia del cuerpo
-  de la función fuese un `return` sin valor de retorno.
+  antes ninguna sentencia !PYTHON(return), es como si la última sentencia del
+  cuerpo de la función fuese un !PYTHON(return) sin valor de retorno.
 
 - Por ejemplo:
 
@@ -1548,13 +1552,13 @@ None
       return
   ```
 
-- Esa última sentencia `return` nunca es necesario ponerla ya que la ejecución
-  de una función termina automáticamente (y retorna al punto donde se la llamó)
-  cuando ya no quedan más sentencias que ejecutar en su cuerpo.
+- Esa última sentencia !PYTHON(return) nunca es necesario ponerla, ya que la
+  ejecución de una función termina automáticamente (y retorna al punto donde se
+  la llamó) cuando ya no quedan más sentencias que ejecutar en su cuerpo.
 
 ## Ámbito de variables
 
-- La función `suma` se podría haber escrito así:
+- La función !PYTHON(suma) se podría haber escrito así:
 
   ```python
   def suma(x, y):
@@ -1564,8 +1568,9 @@ None
 
   y el efecto final habría sido el mismo.
 
-- La variable `res` que aparece en el cuerpo de la función es una **variable
-  local** y sólo existe dentro de la función. Por tanto, esto sería incorrecto:
+- La variable !PYTHON(res) que aparece en el cuerpo de la función es una
+  **variable local** y sólo existe dentro de la función. Por tanto, esto sería
+  incorrecto:
 
   ```{.python .number-lines}
   def suma(x, y):
@@ -1576,8 +1581,8 @@ None
   print(res)  # da error
   ```
 
-  Fuera de la función, la variable `res` no está definida en el entorno (que
-  está formado sólo por el marco global) y por eso da error en la línea 6.
+  Fuera de la función, la variable !PYTHON(res) no está definida en el entorno
+  (que está formado sólo por el marco global) y por eso da error en la línea 6.
 
 ---
 
@@ -1600,20 +1605,20 @@ None
 
 ::: {.column width=40%}
 
-!DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=70%)(width=25%)                                 
+!DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=80%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                       
 compound = true
+7 [shape = circle]
+lambda [shape = circle, label = "λ"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
     node [fontname = "monospace"]
-    suma [shape = plaintext, fillcolor = transparent]
-    resultado [shape = plaintext, fillcolor = transparent]
-    v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    v2 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    suma -> v1 -> función
-    resultado -> v2 -> 7
+    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>suma|<f1>⬤}"]
+    resultado [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>resultado|<f1>⬤}"]
 }
+suma:f1 -> lambda
+resultado:f1 -> 7
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> suma [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
@@ -1622,34 +1627,35 @@ E -> suma [lhead = cluster0]
 
 ::: {.column width=60%}
 
-!DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función `suma`)(width=100%)(width=55%)
+!DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función `suma`)(width=80%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
-graph [rankdir = LR, splines = ortho]
+graph [rankdir = LR]
 node [fontname = "monospace"]
 x [shape = plaintext, fillcolor = transparent]
-3 -> suma [lhead = cluster0, ltail = cluster1, minlen = 2]
+4 [shape = circle]
+3 [shape = circle]
+7 [shape = circle]
+lambda [shape = circle, label = "λ"]
 y [shape = plaintext, fillcolor = transparent]
 suma [shape = plaintext, fillcolor = transparent]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = "white"
-    v1 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    suma -> v1 -> función
+    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>suma|<f1>⬤}"]
 }
+suma:f1 -> lambda
 subgraph cluster1 {
-    label = <Marco de <u>suma</u>>
+    label = <Marco de <font face="monospace">suma</font>>
     bgcolor = white
-    4 [shape = circle, width = 0.3, fixedsize = shape]
-    3 [shape = circle, width = 0.3, fixedsize = shape]
-    v5 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    v4 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    v3 [label = "⬤", width = 0.3, height = 0.3, fixedsize = true]
-    res [shape = plaintext, fillcolor = transparent]
-    y -> v3 -> 3
-    x -> v4 -> 4
-    res -> v5
+    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>y|<f1>⬤}"]
+    res [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>res|<f1>⬤}"]
 }
+x:f1 -> 4
+y:f1 -> 3
+res:f1 -> 7
+x -> suma [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1672,8 +1678,8 @@ E -> x [lhead = cluster1]
 - Los **parámetros** se pueden usar libremente en cualquier parte del cuerpo de
   la función porque ya se les ha asignado un valor.
   
-- En cambio, se produce un error `UnboundLocalError` si se intenta usar una
-  **variable local** antes de asignarle un valor:
+- En cambio, se produce un error !PYTHON(UnboundLocalError) si se intenta usar
+  una **variable local** antes de asignarle un valor:
 
   ```python
   >>> def hola():
@@ -1726,7 +1732,7 @@ E -> x [lhead = cluster1]
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Si hay una **asignación** a una variable **dentro** de una función, esa
-  variable se considera **local**.
+  variable se considera **local** a la función.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1744,16 +1750,17 @@ E -> x [lhead = cluster1]
   prueba()
   ```
 
-- Como la función asigna un valor a `x`, Python considera que `x` es local.
+- Como la función !PYTHON(prueba) asigna un valor a !PYTHON(x), Python
+  considera que !PYTHON(x) es local a la función.
 
-- Pero en la expresión `x + 4`, la variable `x` aún no tiene ningún valor
-  asignado, por lo que genera un error «*variable local `x` referenciada antes
-  de ser asignada*».
+- Pero en la expresión !PYTHON(x + 4), la variable !PYTHON(x) aún no tiene
+  ningún valor asignado, por lo que genera un error «*variable local `x`
+  referenciada antes de ser asignada*».
 
-#### `global`
+#### !PYTHON(global)
 
 - Para informar al intérprete que una determinada variable es global, se usa la
-  sentencia `global`:
+  sentencia !PYTHON(global):
 
   ```python
   x = 4
@@ -1770,7 +1777,7 @@ E -> x [lhead = cluster1]
 
 - Si la variable global no existe en el momento de realizar la asignación, se
   crea. Por tanto, una función puede crear nuevas variables globales usando
-  `global`:
+  !PYTHON(global):
 
   ```python
   def prueba():
@@ -1783,64 +1790,104 @@ E -> x [lhead = cluster1]
 
 ---
 
-- Las reglas básicas de uso de la sentencia `global` en Python son:
+- Las reglas básicas de uso de la sentencia !PYTHON(global) en Python son:
 
-  #. Cuando se crea una variable dentro de una función (asignándole un valor),
-     por omisión es local.
+  - Cuando se crea una variable **dentro** de una función (asignándole un
+    valor), por omisión es **local**.
 
-  #. Cuando se crea una variable fuera de una función, por omisión es global
-     (no hace falta usar la sentencia `global`).
+  - Cuando se crea una variable **fuera** de una función, por omisión es
+    **global** (no hace falta usar la sentencia !PYTHON(global)).
 
-  #. Se usa la sentencia `global` para cambiar el valor de una variable global
-     dentro de una función (si la variable global no existía previamente, se
-     crea durante la asignación).
+  - Se usa la sentencia !PYTHON(global) para cambiar el valor de una variable
+    global _dentro_ de una función (si la variable global no existía
+    previamente, se crea durante la asignación).
 
-  #. El uso de la sentencia `global` fuera de una función no tiene ningún
-     efecto.
+  - El uso de la sentencia !PYTHON(global) _fuera_ de una función no tiene
+    ningún efecto.
 
-  #. La sentencia `global` debe aparecer *antes* de que se use la variable
-     global correspondiente.
+  - La sentencia !PYTHON(global) debe aparecer *antes* de que se use la
+    variable global correspondiente.
 
 #### Efectos laterales
 
 - Cambiar el estado de una variable global es uno de los ejemplos más claros y
   conocidos de los llamados **efectos laterales**.
 
-- Recordemos que una función tiene (o *provoca*) efectos laterales cuando
-  provoca cambios de estado observables desde el exterior de la función, más
-  allá de devolver su valor de retorno. Típicamente:
+- Recordemos que **una función tiene (o provoca) efectos laterales cuando
+  provoca cambios de estado observables desde el exterior de la función**, más
+  allá de calcular y devolver su valor de retorno.
 
-  - Cuando cambia el valor de una variable global
+- Por ejemplo:
 
-  - Cuando cambia un argumento mutable
+  - Cuando cambia el valor de una variable global.
 
-  - Cuando realiza una operación de entrada/salida
+  - Cuando cambia un argumento mutable.
 
-- Una función que provoca efectos laterales es una **función impura**, a
-  diferencia de las **funciones puras**, que no tienen efectos laterales.
+  - Cuando realiza una operación de entrada/salida.
 
-- Una función también puede ser **impura** si su valor de retorno depende de
-  algo más que de sus argumentos (p. ej., de una variable global).
+  - Cuando llama a otras funciones que provocan efectos laterales.
+
+- Los efectos laterales hacen que el comportamiento de un programa sea más
+  difícil de predecir.
 
 ---
 
-- Un ejemplo de **función impura** (con un efecto lateral provocado por una
-  operación de entrada/salida) podría ser:
+- La pureza o impureza de una función tienen mucho que ver con los efectos
+  laterales.
+
+- Una función es **pura** si lo único que hace es calcular su valor de retorno,
+  el cual sólo depende del valor de sus argumentos.
+
+- Por tanto, una función es **impura** si cumple al menos una de las siguientes
+  condiciones:
+
+  - **Provoca efectos laterales**, porque está haciendo algo más que calcular
+    su valor de retorno.
+
+  - Su valor de retorno depende de algo más que de sus argumentos (p. ej., de
+    una variable global).
+
+- En una expresión, no podemos sustituir libremente una llamada a una función
+  impura por su valor de retorno.
+
+- Por tanto, decimos que una función impura no cumple la **transparencia
+  referencial**.
+
+---
+
+- El siguiente es un ejemplo de **función impura**, ya que provoca el **efecto
+  lateral** de ejecutar una **operación de entrada/salida** (la función
+  !PYTHON(print)):
 
   ```python
   def suma(x, y):
       res = x + y
       print('La suma vale', res)
       return res
+  ```
 
+- Cualquiera que desee usar la función !PYTHON(suma), pero no sepa cómo está
+  construida internamente, podría pensar que lo único que hace es calcular la
+  suma de dos números, pero resulta que **también imprime un mensaje en la
+  salida**, por lo que el resultado que se obtiene al ejecutar el siguiente
+  programa no es el que cabría esperar:
+
+:::: columns
+
+::: column
+
+- Programa:
+
+  ```python
   resultado = suma(4, 3) + suma(8, 5)
   print(resultado)
   ```
 
-  Cualquiera que no sepa cómo está construida internamente la función `suma`,
-  se podría pensar que lo único que hace es calcular la suma de dos números,
-  pero resulta que también imprime un mensaje en la salida, por lo que el
-  resultado final que se obtiene no es el que se esperaba:
+:::
+
+::: column
+
+- Resultado:
 
   ```
   La suma vale 7
@@ -1848,10 +1895,14 @@ E -> x [lhead = cluster1]
   20
   ```
 
+:::
+
+::::
+
 ---
 
-- Las llamadas a la función `suma` no se pueden sustituir por su valor de
-  retorno correspondiente. Es decir, que no es lo mismo hacer:
+- Las llamadas a la función !PYTHON(suma) no se pueden sustituir por su valor
+  de retorno correspondiente. Es decir, que no es lo mismo hacer:
 
   ```python
   resultado = suma(4, 3) + suma(8, 5)
@@ -1865,21 +1916,23 @@ E -> x [lhead = cluster1]
 
   porque en el primer caso se imprimen cosas por pantalla y en el segundo no.
 
-- Por tanto, la función `suma` no cumple la **transparencia referencial**.
+- Por tanto, la función !PYTHON(suma) es **impura** porque **no cumple la
+  _transparencia referencial_**, y no la cumple porque provoca un **efecto
+  lateral**.
 
 ---
 
-- El que una función necesite **acceder al valor de una variable global**
-  supone otra forma de **perder transparencia referencial**, ya que la
-  convierte en **impura** porque su valor de retorno podría depender de algo
-  más que de sus argumentos (en este caso, de la variable global).
+- Si una función necesita **acceder al valor de una variable global**, también
+  **pierde la transparencia referencial**, ya que la convierte en **impura**
+  porque su valor de retorno puede depender de algo más que de sus argumentos
+  (en este caso, del valor de la variable global).
 
 - En consecuencia, la función podría producir **resultados distintos en
   momentos diferentes** ante los mismos argumentos:
 
   ```python
   def suma(x, y):
-      res = x + y + z  # impureza: depende del valor de una variable global
+      res = x + y + z  # impureza: depende del valor de una variable global (z)
       return res
 
   z = 5
@@ -1888,27 +1941,87 @@ E -> x [lhead = cluster1]
   print(suma(4, 3))  # imprime 9
   ```
 
+- En este caso, la función es **impura**, aunque no provoca efectos laterales
+  (pero sí podría verse afectada por efectos laterales provocados por otra
+  función que modifique el valor de la variable global !PYTHON(z)).
+
 ---
 
-- Igualmente, el **uso de la sentencia `global`** supone otra forma más de
-  **perder transparencia referencial**, puesto que, gracias a ella, una función
+- Igualmente, el **uso de la sentencia !PYTHON(global)** supone otra forma más
+  de **perder transparencia referencial** porque, gracias a ella, una función
   puede cambiar el valor de una variable global, lo que la convertiría en
-  **impura** porque podría provocar un **efecto lateral** (la modificación de
-  la variable global).
+  **impura** ya que provoca un **efecto lateral** (la modificación de la
+  variable global).
 
-- En consecuencia, la función podría producir **resultados distintos en
+- En consecuencia, esa misma función podría producir **resultados distintos en
   momentos diferentes** ante los mismos argumentos:
 
   ```python
   def suma(x, y):
       global z
       res = x + y + z  # impureza: depende del valor de una variable global
-      z = z + 1        # efecto lateral: cambia una variable global
+      z += 1           # efecto lateral: cambia una variable global
       return res
 
   z = 0
   print(suma(4, 3))  # imprime 7
   print(suma(4, 3))  # la misma llamada a función ahora imprime 8
+  ```
+
+---
+
+- O también podría afectar a otras funciones que dependan del valor de la
+  variable global.
+
+- En ese caso, **ambas funciones serían impuras: la que provoca el efecto
+  lateral y la que se ve afectada por ella**.
+
+- Por ejemplo, las siguientes dos funciones son **impuras**, cada una por un
+  motivo:
+
+  ```python
+  def cambia(x):
+      global z
+      z += x              # efecto lateral: cambia una variable global
+
+  def suma(x, y):
+      return x + y + z    # impureza: depende del valor de una variable global
+
+  z = 0
+  print(suma(4, 3))       # imprime 7
+  cambia(2)               # provoca un efecto lateral
+  print(suma(4, 3))       # ahora imprime 9
+  ```
+
+---
+
+- Aunque los efectos laterales resultan indeseables en general, a veces es
+  precisamente el efecto que deseamos.
+
+- Por ejemplo, podemos diseñar una función que modifique los elementos de una
+  lista en lugar de devolver una lista nueva:
+
+  ```python
+  def cambia(lista, indice, valor):
+      lista[indice] = valor         # modifica el argumento recibido
+
+  l = [1, 2, 3, 4]
+  cambia(l, 2, 99)                  # cambia l
+  print(l)                          # imprime [1, 2, 99, 4]
+  ```
+
+- Si la función no pudiera cambiar directamente el interior de la lista tendría
+  que crear una lista nueva, lo que resultaría menos eficiente porque
+  consumiría más memoria:
+
+  ```python
+  def cambia(lista, indice, valor):
+      nueva = lista[:]              # hace una copia de la lista
+      nueva[indice] = valor         # modifica la copia
+      return nueva                  # devuelve la copia
+
+  l = [1, 2, 3, 4]
+  print(cambia(l, 2, 99))           # imprime [1, 2, 99, 4]
   ```
 
 ## Funciones locales a funciones
@@ -1948,17 +2061,16 @@ E -> x [lhead = cluster1]
   print(fact_iter(5, 1))  
   ```
 
-- La función `fact_iter` es local a la función `fact`. No se puede usar desde
-  fuera de `fact`.
+- La función !PYTHON(fact_iter) es local a la función `fact`.
 
-- Tampoco se puede usar dentro de `fact` *antes* de haberse definido.
+- Por tanto, no se puede usar fuera de `fact`, ya que sólo existe en el ámbito
+  de la función `fact` (es decir, en el cuerpo de la función `fact`).
 
 ---
 
-- Lo siguiente daría un error porque intentamos usar `fact_iter` antes de haber
-  definido:
+- Tampoco se puede usar `fact_iter` dentro de `fact` *antes* de definirla:
 
-  ```python
+  ```{.python .number-lines}
   def fact(n):
       print(fact_iter(n, 1))  # error: se usa antes de definirse
       def fact_iter(n, acc):  # aquí es donde empieza su definición
@@ -1968,23 +2080,51 @@ E -> x [lhead = cluster1]
               return fact_iter(n - 1, acc * n)
   ```
 
+- Esto ocurre porque la sentencia `def` crea una ligadura entre `fact_iter`
+  y su valor (la función), pero esa ligadura sólo empieza a existir cuando se
+  ejecuta la sentencia `def`, y no antes.
+
+- Es importante recordar la diferencia entre el ámbito de una ligadura y el
+  ámbito de creación de la ligadura:
+
+  - El ámbito de creación de la ligadura entre `fact_iter` y su valor es el
+    cuerpo de la función `fact`.
+
+  - El ámbito de la ligadura empieza en la línea 3 y acaba al final del ámbito
+    de `fact` (no existe antes de la línea 3).
+
 ---
 
-- Las funciones locales definen un nuevo ámbito.
+- Como cualquier otra función, las funciones locales definen un nuevo ámbito.
 
-- Ese nuevo ámbito crea un nuevo marco en el entorno.
+- Ese nuevo ámbito está anidado dentro del ámbito de la función en la que se
+  define.
 
-- Y ese nuevo marco se conecta con el marco del ámbito que lo contiene, es
-  decir, el marco de la función que contiene a la local.
+  En el ejemplo anterior, el ámbito de `fact_iter` está contenido en el ámbito
+  de `fact`.
 
-### `nonlocal`
+- Como cualquier otro ámbito, ese nuevo ámbito crea un nuevo marco en el
+  entorno.
+
+- Y ese nuevo marco apunta al marco del ámbito que lo contiene, es decir, el
+  marco de la función que contiene a la local.
+
+  En el ejemplo anterior, el marco de `fact_iter` apunta al marco de `fact`, el
+  cual a su vez apunta al marco global.
+
+### !PYTHON(nonlocal)
 
 - Una función local puede **acceder** al valor de las variables locales a la
-  función que la contiene.
+  función que la contiene, ya que se encuentran dentro de su ámbito (aunque en
+  otro marco).
   
 - En cambio, cuando una función local quiere **modificar** el valor de una
   variable local a la función que la contiene, debe declararla previamente como
-  **no local** con la sentencia `nonlocal`.
+  **no local** con la sentencia !PYTHON(nonlocal).
+
+- De lo contrario, al intentar cambiar el valor de la variable, el intérprete
+  crearía una nueva variable local a la función actual, que haría sombra a la
+  variable que queremos modificar y que pertenece a otra función.
 
 - Es algo similar a lo que ocurre con las variables globales.
 
@@ -2005,15 +2145,17 @@ E -> x [lhead = cluster1]
   print(fact(5))
   ```
 
-- La función local `fact_iter` puede acceder a la variable `n`, que es local a
-  la función `fact` (para ello no es necesario declararla previamente como **no
-  local**).
+- La función local !PYTHON(fact_iter) puede acceder a la variable !PYTHON(n),
+  que es local a la función !PYTHON(fact) (para ello no es necesario declararla
+  previamente como **no local**).
 
-- Como la variable `n` está declarada **no local** en `fact_iter`, también
-  puede modificarla.
+- Como la variable !PYTHON(n) está declarada **no local** en
+  !PYTHON(fact_iter), también puede modificarla.
 
-- De esta forma, ya no es necesario pasar el valor de `n` como argumento a la
-  función `fact_iter` y puede modificarla directamente.
+- De esta forma, ya no es necesario pasar el valor de !PYTHON(n) como argumento
+  a la función !PYTHON(fact_iter) y puede modificarla directamente.
+
+<!--
 
 ## *Docstrings*
 
@@ -2064,6 +2206,8 @@ E -> x [lhead = cluster1]
       """Este es el docstring de la función saludar"""
       print("¡Hola! Te saludo desde la función saludar()")
   ```
+
+-->
 
 !SECCIONEJERCICIOS
 

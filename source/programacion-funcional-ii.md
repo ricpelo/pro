@@ -3933,7 +3933,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Podríamos definirla así:
 
   ```python
-  map = lambda f, l: () if l == () else (f(l[0]),) + map(f, l[1:])
+  map = lambda f, t: () if t == () else (f(t[0]),) + map(f, t[1:])
   ```
 
 ## `filter`
@@ -3979,7 +3979,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   haríamos:
 
   ```python
-  >>> suma = lambda l: 0 if l == () else l[0] + suma(l[1:])
+  >>> suma = lambda t: 0 if t == () else t[0] + suma(t[1:])
   >>> suma((1, 2, 3, 4))
   10
   ```
@@ -3987,7 +3987,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Y para calcular el producto:
 
   ```python
-  >>> producto = lambda l: 1 if l == () else l[0] * producto(l[1:])
+  >>> producto = lambda t: 1 if t == () else t[0] * producto(t[1:])
   >>> producto((1, 2, 3, 4))
   24
   ```

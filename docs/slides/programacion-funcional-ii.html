@@ -2590,7 +2590,7 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 
 <ul>
 <li><p>Podríamos definirla así:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, l: () <span class="cf">if</span> l <span class="op">==</span> () <span class="cf">else</span> (f(l[<span class="dv">0</span>]),) <span class="op">+</span> <span class="bu">map</span>(f, l[<span class="dv">1</span>:])</span></code></pre></div></li>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> (f(t[<span class="dv">0</span>]),) <span class="op">+</span> <span class="bu">map</span>(f, t[<span class="dv">1</span>:])</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2622,11 +2622,11 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 
 <ul>
 <li><p>Por ejemplo, para calcular la suma de todos los elementos de una tupla, haríamos:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">0</span> <span class="cf">if</span> l <span class="op">==</span> () <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">+</span> suma(l[<span class="dv">1</span>:])</span>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">0</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">+</span> suma(t[<span class="dv">1</span>:])</span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
 <li><p>Y para calcular el producto:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto <span class="op">=</span> <span class="kw">lambda</span> l: <span class="dv">1</span> <span class="cf">if</span> l <span class="op">==</span> () <span class="cf">else</span> l[<span class="dv">0</span>] <span class="op">*</span> producto(l[<span class="dv">1</span>:])</span>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">1</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">*</span> producto(t[<span class="dv">1</span>:])</span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div></li>
 <li><p>Como podemos observar, la estrategia de cálculo es esencialmente la misma (sólo se diferencian en la operación a realizar (<code>+</code> o <code>*</code>) y en el valor inicial o <em>elemento neutro</em> (<code class="sourceCode python"><span class="dv">0</span></code> o <code class="sourceCode python"><span class="dv">1</span></code>).</p></li>
