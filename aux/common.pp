@@ -154,6 +154,7 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !define(PYTHON)(`!1`{.python})
+!define(JAVA)(`!1`{.java})
 
 !define(QUIZ)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

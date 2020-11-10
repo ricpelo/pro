@@ -186,6 +186,8 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-V mathspec \
 		-V fontsize=10pt -V lang=es-ES -o $@
 
+# Ejercicios
+
 $(EJER_BUILDDIR_PDF)/%.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \

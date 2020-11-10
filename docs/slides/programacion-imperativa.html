@@ -443,11 +443,11 @@
 <li><p>La forma más básica de cambiar el estado de una variable es usando la <strong>sentencia de asignación</strong>.</p></li>
 <li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>      <span class="co"># se lee: «asignar el valor 4 a la variable x»</span></span></code></pre></div>
-<p>El efecto que produce es el de almacenar, en la variable ligada al identificador <code>x</code>, una referencia al valor <code>4</code> almacenado en el montículo.</p>
-<p>Normalmente se dice (mal dicho) que «la variable <code>x</code> pasa a valer <code>4</code>».</p></li>
+<p>El efecto que produce es el de almacenar, en la variable ligada al identificador <code class="sourceCode python">x</code>, una referencia al valor <code class="sourceCode python"><span class="dv">4</span></code> almacenado en el montículo.</p>
+<p>Normalmente se dice (mal dicho) que «la variable <code class="sourceCode python">x</code> pasa a valer <code class="sourceCode python"><span class="dv">4</span></code>».</p></li>
 <li><p>La asignación es <strong>destructiva</strong> porque al cambiarle el valor a una variable se destruye su valor anterior. Por ejemplo, si ahora hacemos:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span></code></pre></div>
-<p>El valor de la variable a la que está ligada el identificador <code>x</code> pasa ahora a ser <code>9</code>, perdiéndose el valor <code>4</code> anterior.</p></li>
+<p>El valor de la variable a la que está ligada el identificador <code class="sourceCode python">x</code> pasa ahora a ser <code>9</code>, perdiéndose el valor <code class="sourceCode python"><span class="dv">4</span></code> anterior.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.5.0.0.1">
@@ -455,15 +455,15 @@
 <ul>
 <li><p>Por abuso del lenguaje, se suele decir:</p>
 <div class="centered">
-<p><em>«se asigna el valor <code>9</code> a la variable <code>x</code>»</em></p>
+<p><em>«se asigna el valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable <code class="sourceCode python">x</code>»</em></p>
 </div>
 <p>o</p>
 <div class="centered">
-<p><em>«se asigna el valor <code>9</code> a la variable ligada al identificador <code>x</code>»</em></p>
+<p><em>«se asigna el valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable ligada al identificador <code class="sourceCode python">x</code>»</em></p>
 </div>
 <p>en lugar de la forma correcta:</p>
 <div class="centered">
-<p><em>«se asigna una referencia al valor <code>9</code> a la variable ligada al identificador <code>x</code>»</em>.</p>
+<p><em>«se asigna una referencia al valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable ligada al identificador <code class="sourceCode python">x</code>»</em>.</p>
 </div></li>
 <li><p>Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado, porque llegado el momento es posible tener:</p>
 <ul>
@@ -477,7 +477,7 @@
 
 <ul>
 <li><p>Cada nueva asignación provoca un cambio de estado en el programa.</p></li>
-<li><p>En el ejemplo anterior, el programa pasa de estar en un estado en el que la variable <code>x</code> vale 4 a otro en el que la variable vale <code>9</code>.</p></li>
+<li><p>En el ejemplo anterior, el programa pasa de estar en un estado en el que la variable <code class="sourceCode python">x</code> vale 4 a otro en el que la variable vale <code class="sourceCode python"><span class="dv">9</span></code>.</p></li>
 <li><p>Al final, un programa imperativo se puede reducir a una <strong>secuencia de asignaciones</strong> realizadas en el orden dictado por el programa.</p></li>
 <li><p>Este modelo de funcionamiento está estrechamente ligado a la arquitectura de un ordenador: hay una memoria formada por celdas que contienen datos que pueden cambiar a lo largo del tiempo según dicten las instrucciones del programa que controla al ordenador.</p></li>
 </ul>
@@ -489,9 +489,9 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2500</span></span></code></pre></div>
 <p>ocurre lo siguiente:</p>
 <ol type="1">
-<li><p>Se crea el valor <code>2500</code> en el montículo y el intérprete devuelve una referencia al mismo.</p>
+<li><p>Se crea el valor <code class="sourceCode python"><span class="dv">2500</span></code> en el montículo y el intérprete devuelve una referencia al mismo.</p>
 <p>En determinadas situaciones, no crea un nuevo valor si ya había otro exactamente igual en el montículo, pero éste no es el caso.</p></li>
-<li><p>El intérprete identifica a qué variable está ligado el identificador <code>x</code> consultando el marco global (si no existía dicha variable, la crea en ese momento y la liga a <code>x</code>).</p></li>
+<li><p>El intérprete identifica a qué variable está ligado el identificador <code class="sourceCode python">x</code> consultando el marco global (si no existía dicha variable, la crea en ese momento y la liga a <code class="sourceCode python">x</code>).</p></li>
 <li><p>Almacena en la variable la referencia creada en el paso 1.</p></li>
 </ol></li>
 </ul>
@@ -534,7 +534,7 @@
 <li><p>Python no hace ninguna comprobación ni muestra mensajes de error si se cambia el valor de una constante.</p></li>
 <li><p>En Python, por <strong>convenio</strong>, los identificadores ligados a una variable con valor constante se escriben con todas las letras en <strong>mayúscula</strong>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>PI <span class="op">=</span> <span class="fl">3.1415926</span></span></code></pre></div>
-<p>El nombre en mayúsculas nos recuerda que <code>PI</code> es una constante.</p></li>
+<p>El nombre en mayúsculas nos recuerda que <code class="sourceCode python">PI</code> es una constante.</p></li>
 <li><p>Aunque nada nos impide cambiar su valor (cosa que debemos evitar):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>PI <span class="op">=</span> <span class="dv">99</span></span></code></pre></div></li>
 </ul>
@@ -575,7 +575,7 @@
 <li><p>Estos lenguajes disponen de construcciones sintácticas que permiten declarar de qué tipo serán los datos que se pueden asignar a una variable.</p>
 <p>Por ejemplo, en Java podemos hacer:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x;</span></code></pre></div>
-<p>con lo que declaramos que a <code>x</code> sólo se le podrán asignar valores de tipo <code>String</code> (es decir, <em>cadenas</em>) desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
+<p>con lo que declaramos que a <code class="sourceCode java">x</code> sólo se le podrán asignar valores de tipo <code class="sourceCode java"><span class="bu">String</span></code> desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.8.0.0.3">
@@ -586,7 +586,7 @@
 <li><p>Otros lenguajes disponen de un mecanismo conocido como <strong>inferencia de tipos</strong>, que permite <em>deducir</em> automáticamente el tipo de una variable.</p></li>
 <li><p>Por ejemplo, en Java podemos hacer:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>var x = <span class="st">&quot;Hola&quot;</span>;</span></code></pre></div>
-<p>El compilador de Java deduce que la variable <code>x</code> debe ser de tipo <code>String</code> porque se le está asignando una cadena (el valor <code>"Hola"</code>).</p></li>
+<p>El compilador de Java deduce que la variable <code class="sourceCode java">x</code> debe ser de tipo <code class="sourceCode java"><span class="bu">String</span></code> porque se le está asignando una cadena (el valor <code class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.8.0.0.4">
@@ -610,93 +610,94 @@
 <ul>
 <li><p>Los operadores de <strong>asignación compuesta</strong> nos permiten realizar operaciones sobre una variable y luego asignar el resultado a la misma variable.</p></li>
 <li><p>Tienen la forma:</p>
-<div class="line-block"><span style="color:teal">⟨<em>asig_compuesta</em>⟩</span> ::= <strong><code>identificador</code></strong> <span style="color:teal">⟨<em>op</em>⟩</span><strong><code>=</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<div class="line-block"><span style="color:teal">⟨<em>asig_compuesta</em>⟩</span> ::= <strong><code>identificador</code></strong>  <span style="color:teal">⟨<em>op</em>⟩</span><strong><code>=</code></strong>  <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
 <span style="color:teal">⟨<em>op</em>⟩</span> ::= <strong><code>+</code></strong> | <strong><code>-</code></strong> | <strong><code>*</code></strong> | <strong><code>/</code></strong> | <strong><code>%</code></strong> | <strong><code>//</code></strong> | <strong><code>**</code></strong> | <strong><code>&amp;</code></strong> | <strong><code>|</code></strong> | <strong><code>^</code></strong> | <strong><code>&gt;&gt;</code></strong> | <strong><code>&lt;&lt;</code></strong></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.9.0.0.1">
 
-<table style="width:64%;">
+<table style="width:92%;">
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 22%" />
-<col style="width: 26%" />
+<col style="width: 25%" />
+<col style="width: 27%" />
+<col style="width: 38%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Operador</th>
-<th style="text-align: left;">Ejemplo</th>
-<th style="text-align: left;">Equivalente a</th>
+<th style="text-align: center;">Ejemplo</th>
+<th style="text-align: center;">Equivalente a</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><code>=</code></td>
-<td style="text-align: left;"><code>x = 5</code></td>
-<td style="text-align: left;"><code>x = 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>+=</code></td>
-<td style="text-align: left;"><code>x += 5</code></td>
-<td style="text-align: left;"><code>x = x + 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">+=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">+=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">+</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>-=</code></td>
-<td style="text-align: left;"><code>x -= 5</code></td>
-<td style="text-align: left;"><code>x = x - 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">-=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">-=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">-</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>*=</code></td>
-<td style="text-align: left;"><code>x *= 5</code></td>
-<td style="text-align: left;"><code>x = x * 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">*=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">*=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">*</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>/=</code></td>
-<td style="text-align: left;"><code>x /= 5</code></td>
-<td style="text-align: left;"><code>x = x / 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">/=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">/=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">/</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>%=</code></td>
-<td style="text-align: left;"><code>x %= 5</code></td>
-<td style="text-align: left;"><code>x = x % 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">%=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">%=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">%</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>//=</code></td>
-<td style="text-align: left;"><code>x //= 5</code></td>
-<td style="text-align: left;"><code>x = x // 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">//=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">//=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">//</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>**=</code></td>
-<td style="text-align: left;"><code>x **= 5</code></td>
-<td style="text-align: left;"><code>x = x ** 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">**=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">**=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">**</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>&amp;=</code></td>
-<td style="text-align: left;"><code>x &amp;= 5</code></td>
-<td style="text-align: left;"><code>x = x &amp; 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">&amp;=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">&amp;=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">&amp;</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>|=</code></td>
-<td style="text-align: left;"><code>x |= 5</code></td>
-<td style="text-align: left;"><code>x = x | 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">|=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">|=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">|</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>^=</code></td>
-<td style="text-align: left;"><code>x ^= 5</code></td>
-<td style="text-align: left;"><code>x = x ^ 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">^=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">^=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">^</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>&gt;&gt;=</code></td>
-<td style="text-align: left;"><code>x &gt;&gt;= 5</code></td>
-<td style="text-align: left;"><code>x = x &gt;&gt; 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">&gt;&gt;=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">&gt;&gt;=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">&gt;&gt;</span> <span class="dv">5</span></code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>&lt;&lt;=</code></td>
-<td style="text-align: left;"><code>x &lt;&lt;= 5</code></td>
-<td style="text-align: left;"><code>x = x &lt;&lt; 5</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="op">&lt;&lt;=</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">&lt;&lt;=</span> <span class="dv">5</span></code></td>
+<td style="text-align: center;"><code class="sourceCode python">x <span class="op">=</span> x <span class="op">&lt;&lt;</span> <span class="dv">5</span></code></td>
 </tr>
 </tbody>
 </table>
+<!-- -->
 </section>
 
 <section id="asignación-múltiple" class="title-slide slide level2" data-number="2.10">
@@ -710,7 +711,7 @@
 <p>con la condición de que tiene que haber tantos identificadores como expresiones.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">10</span>, <span class="dv">20</span></span></code></pre></div>
-<p>asigna el valor <code>10</code> a <code>x</code> y el valor <code>20</code> a <code>y</code>.</p></li>
+<p>asigna el valor <code class="sourceCode python"><span class="dv">10</span></code> a <code class="sourceCode python">x</code> y el valor <code class="sourceCode python"><span class="dv">20</span></code> a <code class="sourceCode python">y</code>.</p></li>
 </ul>
 </section>
 </section>
@@ -735,9 +736,9 @@
 <ul>
 <li><p>En Python existen tipos cuyos valores son <em>inmutables</em> y otros que son <em>mutables</em>.</p></li>
 <li><p>Un valor <strong>inmutable</strong> es aquel cuyo estado interno no puede cambiar durante la ejecución del programa.</p>
-<p>Los tipos inmutables en Python son los números (<code>int</code> y <code>float</code>), los booleanos (<code>bool</code>), las cadenas (<code>str</code>), las tuplas (<code>tuple</code>), los rangos (<code>range</code>) y los conjuntos congelados (<code>frozenset</code>).</p></li>
+<p>Los tipos inmutables en Python son los números (<code class="sourceCode python"><span class="bu">int</span></code> y <code class="sourceCode python"><span class="bu">float</span></code>), los booleanos (<code class="sourceCode python"><span class="bu">bool</span></code>), las cadenas (<code class="sourceCode python"><span class="bu">str</span></code>), las tuplas (<code class="sourceCode python"><span class="bu">tuple</span></code>), los rangos (<code class="sourceCode python"><span class="bu">range</span></code>) y los conjuntos congelados (<code class="sourceCode python"><span class="bu">frozenset</span></code>).</p></li>
 <li><p>Un valor <strong>mutable</strong> es aquel cuyo estado interno (normalmente, su <strong>contenido</strong>) puede cambiar durante la ejecución del programa.</p>
-<p>El principal tipo mutable en Python es la lista (<code>list</code>), pero también están los conjuntos (<code>set</code>) y los diccionarios (<code>dict</code>).</p></li>
+<p>El principal tipo mutable en Python es la lista (<code class="sourceCode python"><span class="bu">list</span></code>), pero también están los conjuntos (<code class="sourceCode python"><span class="bu">set</span></code>) y los diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>).</p></li>
 </ul>
 </section>
 <section id="inmutables" class="title-slide slide level3" data-number="3.2.1">
@@ -763,7 +764,7 @@
 </div>
 </div>
 <ul>
-<li>Lo que hace la asignación <code>x = 7</code> no es cambiar el contenido del valor <code>4</code>, sino hacer que la variable <code>x</code> contenga otro valor distinto (el valor <code>4</code> en sí mismo no se cambia internamente en ningún momento).</li>
+<li>Lo que hace la asignación <code class="sourceCode python">x <span class="op">=</span> <span class="dv">7</span></code> no es cambiar el contenido del valor <code class="sourceCode python"><span class="dv">4</span></code>, sino hacer que la variable <code class="sourceCode python">x</code> contenga otro valor distinto (el valor <code class="sourceCode python"><span class="dv">4</span></code> en sí mismo no se cambia internamente en ningún momento).</li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.1.0.1">
@@ -777,8 +778,8 @@
 </div>
 <p>y luego hacemos:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
-<p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code>x</code>.</p>
-<p>Es decir: la cadena <code>'hola'</code> original <strong>no se cambia</strong> (p. ej., no se le añade <code>' manolo'</code> al final), sino que <strong>se sustituye por una nueva</strong>.</p>
+<p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code class="sourceCode python">x</code>.</p>
+<p>Es decir: la cadena <code class="sourceCode python"><span class="st">&#39;hola&#39;</span></code> original <strong>no se cambia</strong> (p. ej., no se le añade <code class="sourceCode python"><span class="st">&#39; manolo&#39;</span></code> al final), sino que <strong>se sustituye por una nueva</strong>.</p>
 <div class="centered">
 <p><img data-src="images/inmutable4.svg" class="plain" style="width:35.0%" /></p>
 </div></li>
@@ -792,8 +793,8 @@
 </ul>
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 69%" />
+<col style="width: 33%" />
+<col style="width: 66%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -803,32 +804,32 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> está en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> está en <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>not</code> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> <strong>no</strong> está en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">not</span> <span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> <strong>no</strong> está en <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code></td>
-<td style="text-align: left;">(<em>Indexación</em>) El <span class="math inline">i</span>-ésimo elemento de <span class="math inline">s</span>, empezando por 0</td>
+<td style="text-align: left;">(<em>Indexación</em>) El <span class="math inline">\underline{i}</span>-ésimo elemento de <span class="math inline">\underline{s}</span>, empezando por 0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
-<td style="text-align: left;">(<em>Slicing</em>) Rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span></td>
+<td style="text-align: left;">(<em>Slicing</em>) Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
-<td style="text-align: left;">Rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span> con paso <span class="math inline">k</span></td>
+<td style="text-align: left;">Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span> con paso <span class="math inline">\underline{k}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.index(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Índice de la primera aparición de <span class="math inline">x</span> en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.index</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Índice de la primera aparición de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.count(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Número de veces que aparece <span class="math inline">x</span> en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.count</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Número de veces que aparece <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
@@ -906,13 +907,13 @@
 <div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/cambio-estado-lista-antes.svg" class="plain" style="width:75.0%" alt="La lista antes de cambiar x[1]" /><figcaption aria-hidden="true">La lista antes de cambiar <code>x[1]</code></figcaption>
+<img data-src="images/cambio-estado-lista-antes.svg" class="plain" style="width:75.0%" alt="La lista antes de cambiar x[1]" /><figcaption aria-hidden="true">La lista antes de cambiar <code>x[</code>1<code>]</code></figcaption>
 </figure>
 </div>
 </div><div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/cambio-estado-lista-despues.svg" class="plain" style="width:75.0%" alt="La lista después de cambiar x[1]" /><figcaption aria-hidden="true">La lista después de cambiar <code>x[1]</code></figcaption>
+<img data-src="images/cambio-estado-lista-despues.svg" class="plain" style="width:75.0%" alt="La lista después de cambiar x[1]" /><figcaption aria-hidden="true">La lista después de cambiar <code>x[</code>1<code>]</code></figcaption>
 </figure>
 </div>
 </div>
@@ -923,7 +924,7 @@
 <ul>
 <li><p>Las listas son secuencias mutables y, como tales, se pueden modificar usando ciertas operaciones:</p>
 <ul>
-<li><p>Los <em>operadores</em> de <strong>indexación</strong> y <strong>slicing</strong> combinados con <code>=</code> y <code>del</code>:</p>
+<li><p>Los <em>operadores</em> de <strong>indexación</strong> y <strong>slicing</strong> combinados con <code class="sourceCode python"><span class="op">=</span></code> y <code class="sourceCode python"><span class="kw">del</span></code>:</p>
 <pre><code>  +-----+-----+-----+-----+-----+-----+
 l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
   +-----+-----+-----+-----+-----+-----+
@@ -941,7 +942,7 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> l[<span class="dv">3</span>]</span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">53</span>]</span></code></pre></div></li>
-<li><p><em>Métodos</em> como <code>append</code>, <code>clear</code>, <code>insert</code>, <code>remove</code>, <code>reverse</code> o <code>sort</code>.</p></li>
+<li><p><em>Métodos</em> como <code class="sourceCode python">append</code>, <code class="sourceCode python">clear</code>, <code class="sourceCode python">insert</code>, <code class="sourceCode python">remove</code>, <code class="sourceCode python">reverse</code> o <code class="sourceCode python">sort</code>.</p></li>
 </ul></li>
 <li><p>Las siguientes tablas muestran todas las <strong>operaciones</strong> que nos permiten <strong>modificar secuencias mutables</strong>.</p></li>
 </ul>
@@ -951,8 +952,8 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <p>(<span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> son listas, y <span class="math inline">\underline{x}</span> es un valor cualquiera)</p>
 <table>
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 72%" />
+<col style="width: 32%" />
+<col style="width: 67%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -963,23 +964,23 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code> <code>=</code> <span class="math inline">x</span></td>
-<td style="text-align: left;">El elemento <span class="math inline">i</span>-ésimo de <span class="math inline">s</span> se sustituye por <span class="math inline">x</span></td>
+<td style="text-align: left;">El elemento <span class="math inline">i</span>-ésimo de <span class="math inline">\underline{s}</span> se sustituye por <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">La rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span> se sustituye por <span class="math inline">t</span></td>
+<td style="text-align: left;">La rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span> se sustituye por <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por <span class="math inline">t</span></td>
+<td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>del</code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
 <td style="text-align: left;">Elimina los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code><br />
 Equivale a hacer <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <code>[]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>del</code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 <td style="text-align: left;">Elimina los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 </tr>
 </tbody>
@@ -989,8 +990,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <table>
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 72%" />
+<col style="width: 29%" />
+<col style="width: 70%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1000,75 +1001,75 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.append(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Añade <span class="math inline">x</span> al final de <span class="math inline">s</span><br />
-Equivale a hacer <span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.append</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Añade <span class="math inline">\underline{x}</span> al final de <span class="math inline">\underline{s}</span><br />
+Equivale a hacer <span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.clear()</code></td>
-<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">s</span><br />
-Equivale a hacer <code>del</code> <span class="math inline">\ s</span><code>[:]</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{s}</span><br />
+Equivale a hacer <code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[:]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.extend(</code><span class="math inline">t</span><code>)</code> ó<br />
-<span class="math inline">s</span> <code>+=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">Amplía <span class="math inline">s</span> con el contenido de <span class="math inline">t</span><br />
-Equivale a hacer <span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.extend</code><code>(</code><span class="math inline">t</span><code>)</code> ó<br />
+<span class="math inline">s</span> <code class="sourceCode python"><span class="op">+=</span></code> <span class="math inline">t</span></td>
+<td style="text-align: left;">Amplía <span class="math inline">\underline{s}</span> con el contenido de <span class="math inline">\underline{t}</span><br />
+Equivale a hacer <span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.insert(</code><span class="math inline">i</span><code>,</code> <span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Inserta <span class="math inline">x</span> en <span class="math inline">s</span> en el índice <span class="math inline">i</span><br />
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.insert</code><code>(</code><span class="math inline">i</span><code>,</code> <span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Inserta <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> en el índice <span class="math inline">\underline{i}</span><br />
 Equivale a hacer <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.pop(</code>[<span class="math inline">i=-1</span>]<code>)</code></td>
-<td style="text-align: left;">Devuelve el elemento <span class="math inline">i</span>-ésimo y lo elimina de <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.pop</code><code>(</code>[<span class="math inline">i=-1</span>]<code>)</code></td>
+<td style="text-align: left;">Devuelve el elemento <span class="math inline">i</span>-ésimo y lo elimina de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.remove(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Elimina el primer elemento de <span class="math inline">s</span> que sea igual a <span class="math inline">x</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.remove</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Elimina el primer elemento de <span class="math inline">\underline{s}</span> que sea igual a <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.reverse()</code></td>
-<td style="text-align: left;">Invierte los elementos de <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.reverse()</code></td>
+<td style="text-align: left;">Invierte los elementos de <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section class="slide level5" data-number="3.2.2.0.5">
 
-<p>Partiendo de <code>x = [8, 10, 7, 9]</code>:</p>
-<table style="width:58%;">
+<p>Partiendo de <code class="sourceCode python">x <span class="op">=</span> [<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">9</span>]</code>:</p>
+<table style="width:79%;">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 33%" />
+<col style="width: 37%" />
+<col style="width: 41%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Ejemplo</th>
-<th style="text-align: left;">Valor de <code>x</code> después</th>
+<th>Valor de <code class="sourceCode python">x</code> después</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>x.append(14)</code></td>
-<td style="text-align: left;"><code>[8, 10, 7, 9, 14]</code></td>
+<td style="text-align: left;"><code class="sourceCode python">x.append(<span class="dv">14</span>)</code></td>
+<td><code class="sourceCode python">[<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">14</span>]</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>x.clear()</code></td>
-<td style="text-align: left;"><code>[]</code></td>
+<td style="text-align: left;"><code class="sourceCode python">x.clear()</code></td>
+<td><code class="sourceCode python">[]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>x.insert(3, 66)</code></td>
-<td style="text-align: left;"><code>[8, 10, 7, 66, 9]</code></td>
+<td style="text-align: left;"><code class="sourceCode python">x.insert(<span class="dv">3</span>, <span class="dv">66</span>)</code></td>
+<td><code class="sourceCode python">[<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">66</span>, <span class="dv">9</span>]</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>x.remove(7)</code></td>
-<td style="text-align: left;"><code>[8, 10, 9]</code></td>
+<td style="text-align: left;"><code class="sourceCode python">x.remove(<span class="dv">7</span>)</code></td>
+<td><code class="sourceCode python">[<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>x.reverse()</code></td>
-<td style="text-align: left;"><code>[9, 7, 10, 8]</code></td>
+<td style="text-align: left;"><code class="sourceCode python">x.reverse()</code></td>
+<td><code class="sourceCode python">[<span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">8</span>]</code></td>
 </tr>
 </tbody>
 </table>
@@ -1090,7 +1091,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div><div class="column">
 <ul>
-<li><p>Si el valor es <strong>mutable</strong> y cambiamos su <strong>contenido</strong> desde <code>x</code>, también cambiará <code>y</code> (y viceversa), pues ambas variables <strong>apuntan al mismo dato</strong>:</p>
+<li><p>Si el valor es <strong>mutable</strong> y cambiamos su <strong>contenido</strong> desde <code class="sourceCode python">x</code>, también cambiará <code class="sourceCode python">y</code>, pues ambas variables <strong>apuntan al mismo dato</strong>:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">40</span>, <span class="dv">99</span>]</span></code></pre></div></li>
@@ -1237,12 +1238,12 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="id" class="title-slide slide level3" data-number="3.3.2">
-<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> <code>id</code></h3>
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> <code class="sourceCode python"><span class="bu">id</span></code></h3>
 <ul>
-<li><p>Para saber si dos variables comparten <strong>el mismo dato</strong>, se puede usar la función <code>id</code>.</p></li>
-<li><p>La función <code>id</code> devuelve un <strong>identificador único</strong> para cada dato.</p></li>
-<li><p>Por tanto, si dos variables tienen el mismo <code>id</code>, significa que el valor que contienen es realmente el mismo valor.</p></li>
-<li><p>Normalmente, el <code>id</code> de un valor se corresponde con la dirección de memoria donde está almacenado dicho valor.</p></li>
+<li><p>Para saber si dos variables comparten <strong>el mismo dato</strong>, se puede usar la función <code class="sourceCode python"><span class="bu">id</span></code>.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">id</span></code> devuelve un <strong>identificador único</strong> para cada dato.</p></li>
+<li><p>Por tanto, si dos variables tienen el mismo <code class="sourceCode python"><span class="bu">id</span></code>, significa que el valor que contienen es realmente el mismo valor.</p></li>
+<li><p>Normalmente, el <code class="sourceCode python"><span class="bu">id</span></code> de un valor se corresponde con la dirección de memoria donde está almacenado dicho valor.</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1265,15 +1266,15 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="is" class="title-slide slide level3" data-number="3.3.3">
-<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> <code>is</code></h3>
+<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> <code class="sourceCode python"><span class="kw">is</span></code></h3>
 <ul>
-<li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code>is</code>, que comprueba la <strong>identidad</strong> de un dato:</p></li>
+<li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code class="sourceCode python"><span class="kw">is</span></code>, que comprueba la <strong>identidad</strong> de un dato:</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>is</em>⟩</span> ::= <span style="color:teal">⟨<em>valor1</em>⟩</span> <strong><code>is</code></strong> <span style="color:teal">⟨<em>valor2</em>⟩</span></div></li>
-<li><p>Es un operador relacional que devuelve <code>True</code> si <span style="color:teal">⟨<em>valor1</em>⟩</span> y <span style="color:teal">⟨<em>valor2</em>⟩</span> son <strong>el mismo dato en memoria</strong> (es decir, si se encuentran almacenados en la misma celda de la memoria y, por tanto, son <strong>idénticos</strong>) y <code>False</code> en caso contrario.</p></li>
-<li><p>Lo normal es usarlo con variables y, en tal caso, devuelve <code>True</code> si los datos que almacenan las variables son realmente el mismo dato.</p></li>
+<li><p>Es un operador relacional que devuelve <code class="sourceCode python"><span class="va">True</span></code> si <span style="color:teal">⟨<em>valor1</em>⟩</span> y <span style="color:teal">⟨<em>valor2</em>⟩</span> son <strong>el mismo dato en memoria</strong> (es decir, si se encuentran almacenados en la misma celda de la memoria y, por tanto, son <strong>idénticos</strong>) y <code class="sourceCode python"><span class="va">False</span></code> en caso contrario.</p></li>
+<li><p>Lo normal es usarlo con variables y, en tal caso, devuelve <code class="sourceCode python"><span class="va">True</span></code> si los datos que almacenan las variables son realmente el mismo dato.</p></li>
 <li><p>No tiene sentido usarlo con literales (y el intérprete lo advierte).</p></li>
-<li><p>En la práctica, equivale a hacer <code>id(</code><span style="color:teal">⟨<em>valor1</em>⟩</span><code>) == id(</code><span style="color:teal">⟨<em>valor2</em>⟩</span><code>)</code></p></li>
+<li><p>En la práctica, equivale a hacer <code class="sourceCode python"><span class="bu">id</span></code><code>(</code><span style="color:teal">⟨<em>valor1</em>⟩</span><code>)</code> <code>==</code> <code class="sourceCode python"><span class="bu">id</span></code><code>(</code><span style="color:teal">⟨<em>valor2</em>⟩</span><code>)</code>.</p></li>
 </ul>
 </section>
 
@@ -1385,15 +1386,13 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </ul>
 </section>
 <section id="print" class="title-slide slide level3" data-number="4.5.1">
-<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span> <code>print</code></h3>
+<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span> <code class="sourceCode python"><span class="bu">print</span></code></h3>
 <ul>
-<li><p>La función <code>print</code> imprime (<em>escribe</em>) por la salida (normalmente la pantalla) el valor de una o varias expresiones.</p></li>
-<li><p>Su signatura es:</p></li>
-</ul>
-<p><code>print(</code><span style="color:teal">⟨<em>expresión</em>⟩</span>(<code>,</code> <span style="color:teal">⟨<em>expresión</em>⟩</span>)* [<code>, sep=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>][<code>, end=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>]<code>)</code></p>
-<ul>
-<li><p>El <code>sep</code> es el <em>separador</em> y su valor por defecto es <code>' '</code> (un espacio).</p></li>
-<li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code>'\n'</code> (el carácter de nueva línea).</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">print</span></code> imprime (<em>escribe</em>) por la salida (normalmente la pantalla) el valor de una o varias expresiones.</p></li>
+<li><p>Su signatura es:</p>
+<div class="line-block"><code class="sourceCode python"><span class="bu">print</span></code><code>(</code><span style="color:teal">⟨<em>expresión</em>⟩</span>(<code>,</code> <span style="color:teal">⟨<em>expresión</em>⟩</span>)* [<code>, sep=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>][<code>, end=</code><span style="color:teal">⟨<em>expresión</em>⟩</span>]<code>)</code></div></li>
+<li><p>El <code>sep</code> es el <em>separador</em> y su valor por defecto es <code class="sourceCode python"><span class="st">&#39; &#39;</span></code> (un espacio).</p></li>
+<li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code class="sourceCode python"><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></code>.</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
@@ -1405,8 +1404,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>Normalmente, los argumentos se pasan a los parámetros posicionalmente (lo que se denomina <strong>paso de argumentos posicional</strong>).</p></li>
 <li><p>Según este método, los argumentos se asignan a los parámetros correspondientes según la posición que ocupan en la llamada a la función (el primer argumento se asigna al primer parámetro, el segundo al segundo parámetro y así sucesivamente).</p></li>
-<li><p>En Python también existe el <strong>paso de argumentos por palabra clave</strong>, donde cada argumento se asigna a su parámetro indicando en la llamada el nombre del parámetro y el valor de su argumento correspondiente separados por un <code>=</code>, como si fuera una asignación.</p></li>
-<li><p>Esta técnica se usa en la función <code>print</code> para indicar el separador o el terminador de la lista de expresiones a imprimir.</p></li>
+<li><p>En Python también existe el <strong>paso de argumentos por palabra clave</strong>, donde cada argumento se asigna a su parámetro indicando en la llamada el nombre del parámetro y el valor de su argumento correspondiente separados por un <code class="sourceCode python"><span class="op">=</span></code>, como si fuera una asignación.</p></li>
+<li><p>Esta técnica se usa en la función <code class="sourceCode python"><span class="bu">print</span></code> para indicar el separador o el terminador de la lista de expresiones a imprimir.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
@@ -1416,13 +1415,13 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="el-valor-none" class="title-slide slide level4" data-number="4.5.1.2">
-<h4 data-number="4.5.1.2"><span class="header-section-number">4.5.1.2</span> El valor <code>None</code></h4>
+<h4 data-number="4.5.1.2"><span class="header-section-number">4.5.1.2</span> El valor <code class="sourceCode python"><span class="va">None</span></code></h4>
 <ul>
-<li><p>Es importante resaltar que la función <code>print</code> <strong>no devuelve</strong> el valor de las expresiones, sino que las <strong>imprime</strong> (provoca el efecto lateral de cambiar la pantalla haciendo que aparezcan nuevos caracteres).</p></li>
-<li><p>La función <code>print</code> como tal no devuelve ningún valor, pero como en Python todas las funciones devuelven <em>algún</em> valor, en realidad lo que ocurre es que <strong>devuelve un valor <code>None</code></strong>.</p></li>
-<li><p><code>None</code> es un valor especial que significa «<strong>ningún valor</strong>» y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code>print</code>.</p></li>
-<li><p>Pertenece a un tipo de datos especial llamado <code>NoneType</code> cuyo único valor posible es <code>None</code>, y para comprobar si un valor es <code>None</code> se usa <span style="color:teal">⟨<em>valor</em>⟩</span> <code>is None</code>.</p></li>
-<li><p>Podemos comprobar que, efectivamente, <code>print</code> devuelve <code>None</code>:</p>
+<li><p>Es importante resaltar que la función <code class="sourceCode python"><span class="bu">print</span></code> <strong>no devuelve</strong> el valor de las expresiones, sino que las <strong>imprime</strong> (provoca el efecto lateral de cambiar la pantalla haciendo que aparezcan nuevos caracteres).</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">print</span></code> como tal no devuelve ningún valor, pero como en Python todas las funciones devuelven <em>algún</em> valor, en realidad lo que ocurre es que <strong>devuelve un valor <code class="sourceCode python"><span class="va">None</span></code></strong>.</p></li>
+<li><p><code class="sourceCode python"><span class="va">None</span></code> es un valor especial que significa «<strong>ningún valor</strong>» y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
+<li><p>Pertenece a un tipo de datos especial llamado <code class="sourceCode python">NoneType</code> cuyo único valor posible es <code class="sourceCode python"><span class="va">None</span></code>, y para comprobar si un valor es <code class="sourceCode python"><span class="va">None</span></code> se usa <span style="color:teal">⟨<em>valor</em>⟩</span> <code class="sourceCode python"><span class="kw">is</span> <span class="va">None</span></code>.</p></li>
+<li><p>Podemos comprobar que, efectivamente, <code class="sourceCode python"><span class="bu">print</span></code> devuelve <code class="sourceCode python"><span class="va">None</span></code>:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
@@ -1431,13 +1430,11 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 
 <section id="input" class="title-slide slide level3" data-number="4.5.2">
-<h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span> <code>input</code></h3>
+<h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span> <code class="sourceCode python"><span class="bu">input</span></code></h3>
 <ul>
-<li><p>La función <code>input</code> <em>lee</em> datos introducidos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido, que siempre es una <strong>cadena</strong> a la cual se le ha eliminado el posible salto de línea final.</p></li>
-<li><p>Su signatura es:</p></li>
-</ul>
-<p><code>input(</code>[<em>prompt</em><code>: str</code> ]<code>)-&gt;str</code></p>
-<ul>
+<li><p>La función <code class="sourceCode python"><span class="bu">input</span></code> <em>lee</em> datos introducidos desde la entrada (normalmente el teclado) y devuelve el valor del dato introducido, que siempre es una <strong>cadena</strong> a la cual se le ha eliminado el posible salto de línea final.</p></li>
+<li><p>Su signatura es:</p>
+<div class="line-block"><code class="sourceCode python"><span class="bu">input</span></code><code>(</code>[<em>prompt</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>) -&gt;</code>  <code class="sourceCode python"><span class="bu">str</span></code></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
@@ -1454,19 +1451,17 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este orden):</p>
 <ol>
-<li><p>Abrir el archivo en el modo adecuado con <code>open</code>.</p></li>
+<li><p>Abrir el archivo en el modo adecuado con <code class="sourceCode python"><span class="bu">open</span></code>.</p></li>
 <li><p>Realizar las operaciones deseadas sobre el archivo.</p></li>
-<li><p>Cerrar el archivo con <code>close</code>.</p></li>
+<li><p>Cerrar el archivo con <code class="sourceCode python">close</code>.</p></li>
 </ol></li>
 </ul>
 </section>
 <section id="open" class="title-slide slide level3" data-number="4.6.1">
-<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> <code>open</code></h3>
+<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span> <code class="sourceCode python"><span class="bu">open</span></code></h3>
 <ul>
-<li>La función <code>open</code> abre un archivo y devuelve un objeto que lo representa. Su signatura es:</li>
-</ul>
-<p><code>open(</code><em>nombre</em><code>: str</code> [<code>,</code> <em>modo</em><code>: str</code>]<code>)</code></p>
-<ul>
+<li><p>La función <code class="sourceCode python"><span class="bu">open</span></code> abre un archivo y devuelve un objeto que lo representa. Su signatura es:</p>
+<div class="line-block"><code class="sourceCode python"><span class="bu">open</span></code><code>(</code><em>nombre</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code> [<code>,</code> <em>modo</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>)</code></div></li>
 <li><p>El <em>nombre</em> es una cadena que contiene el nombre del archivo a abrir.</p></li>
 <li><p>El <em>modo</em> es otra cadena que contiene caracteres que describen de qué forma se va a usar el archivo.</p></li>
 <li><p>El valor devuelto es un objeto cuyo tipo depende del modo en el que se ha abierto el archivo.</p></li>
@@ -1478,8 +1473,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Los valores posibles de <em>modo</em> son:</p>
 <table>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 83%" />
+<col style="width: 20%" />
+<col style="width: 79%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1489,46 +1484,46 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><code>'r'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;r&#39;</span></code></td>
 <td style="text-align: left;">Abre el archivo para lectura (valor predeterminado)</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>'w'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;w&#39;</span></code></td>
 <td style="text-align: left;">Abre para escritura (si el archivo ya existe lo borrará)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>'x'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;x&#39;</span></code></td>
 <td style="text-align: left;">Abre para creación exclusiva (falla si el archivo ya existe)</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>'a'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;a&#39;</span></code></td>
 <td style="text-align: left;">Abre para escritura, añadiendo al final del archivo si ya existe</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>'b'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;b&#39;</span></code></td>
 <td style="text-align: left;">Modo binario</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>'t'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;t&#39;</span></code></td>
 <td style="text-align: left;">Modo texto (valor predeterminado)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>'+'</code></td>
+<td style="text-align: center;"><code class="sourceCode python"><span class="st">&#39;+&#39;</span></code></td>
 <td style="text-align: left;">Abre para lectura y escritura</td>
 </tr>
 </tbody>
 </table></li>
-<li><p>El modo predeterminado es <code>'r'</code> (abrir para lectura en modo texto, sinónimo de <code>'rt'</code>).</p></li>
-<li><p>Los modos <code>'w+'</code> y <code>'w+b'</code> abren el archivo y lo borra si ya existe.</p></li>
-<li><p>Los modos <code>'r+'</code> y <code>'r+b'</code> abren el archivo sin borrarlo.</p></li>
+<li><p>El modo predeterminado es <code class="sourceCode python"><span class="st">&#39;r&#39;</span></code>.</p></li>
+<li><p>Los modos <code class="sourceCode python"><span class="st">&#39;w+&#39;</span></code> y <code class="sourceCode python"><span class="st">&#39;w+b&#39;</span></code> abren el archivo y lo borra si ya existe.</p></li>
+<li><p>Los modos <code class="sourceCode python"><span class="st">&#39;r+&#39;</span></code> y <code class="sourceCode python"><span class="st">&#39;r+b&#39;</span></code> abren el archivo sin borrarlo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.1.0.2">
 
 <ul>
-<li><p>Normalmente, los archivos se abren en <strong>modo texto</strong>, lo que significa que se leen y se escriben cadenas (valores de tipo <code>str</code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
+<li><p>Normalmente, los archivos se abren en <strong>modo texto</strong>, lo que significa que se leen y se escriben cadenas (valores de tipo <code class="sourceCode python"><span class="bu">str</span></code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
 <p>Por ejemplo, los saltos de línea se escriben como <code>\n</code> en Unix o <code>\r\n</code> en Windows, y se leen siempre como <code>\n</code>.</p></li>
-<li><p>Al añadir una <code>'b'</code> en el modo se abre el archivo en <strong>modo binario</strong>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code>bytes</code>.</p>
+<li><p>Al añadir una <code>b</code> en el modo se abre el archivo en <strong>modo binario</strong>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code class="sourceCode python"><span class="bu">bytes</span></code>.</p>
 <p>El modo binario es el que debe usarse cuando se trabaje con archivos que no contengan texto (datos binarios <em>crudos</em>).</p></li>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
@@ -1537,29 +1532,27 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="4.6.1.0.3">
 
 <ul>
-<li><p>El tipo de dato que devuelve <code>open</code> depende de cómo se ha abierto el archivo:</p>
+<li><p>El tipo de dato que devuelve <code class="sourceCode python"><span class="bu">open</span></code> depende de cómo se ha abierto el archivo:</p>
 <ul>
-<li><p>Si se ha abierto en <strong>modo texto</strong>, devuelve un <code>TextIOWrapper</code>.</p></li>
+<li><p>Si se ha abierto en <strong>modo texto</strong>, devuelve un <code class="sourceCode python">TextIOWrapper</code>.</p></li>
 <li><p>Si se ha abierto en <strong>modo binario</strong>, entonces depende:</p>
 <ul>
-<li><p>En modo <strong>sólo lectura</strong>, devuelve un <code>BufferedReader</code>.</p></li>
-<li><p>En modo <strong>sólo escritura o añadiendo al final</strong>, devuelve un <code>BufferedWriter</code>.</p></li>
-<li><p>En modo <strong>lectura/escritura</strong>, devuelve un <code>BufferedRandom</code>.</p></li>
+<li><p>En modo <strong>sólo lectura</strong>, devuelve un <code class="sourceCode python">BufferedReader</code>.</p></li>
+<li><p>En modo <strong>sólo escritura o añadiendo al final</strong>, devuelve un <code class="sourceCode python">BufferedWriter</code>.</p></li>
+<li><p>En modo <strong>lectura/escritura</strong>, devuelve un <code class="sourceCode python">BufferedRandom</code>.</p></li>
 </ul></li>
 </ul></li>
 </ul>
 </section>
 
 <section id="read" class="title-slide slide level3" data-number="4.6.2">
-<h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span> <code>read</code></h3>
+<h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span> <code class="sourceCode python">read</code></h3>
 <ul>
-<li>Para leer de un archivo, se puede usar el método <code>read</code> sobre el objeto que devuelve la función <code>open</code>. Su signatura es:</li>
-</ul>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.read(</code>[<em>tamaño</em><code>: str</code>]<code>)</code></p>
-<ul>
-<li><p>El método devuelve una cadena (tipo <code>str</code>) si el archivo se abrió en modo texto, o un objeto de tipo <code>bytes</code> si se abrió en modo binario.</p></li>
-<li><p>El archivo contiene un <strong>puntero interno</strong> que indica hasta dónde se ha leído en el mismo. Cada vez que se llama al método <code>read</code>, se mueve ese puntero para que en posteriores llamadas se continúe leyendo desde ese punto.</p></li>
-<li><p>Si se alcanza el final del archivo, se devuelve la cadena vacía (<code>''</code>).</p></li>
+<li><p>Para leer de un archivo, se puede usar el método <code class="sourceCode python">read</code> sobre el objeto que devuelve la función <code class="sourceCode python"><span class="bu">open</span></code>. Su signatura es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.read</code><code>(</code>[<em>tamaño</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>)</code></div></li>
+<li><p>El método devuelve una cadena (tipo <code class="sourceCode python"><span class="bu">str</span></code>) si el archivo se abrió en modo texto, o un objeto de tipo <code class="sourceCode python"><span class="bu">bytes</span></code> si se abrió en modo binario.</p></li>
+<li><p>El archivo contiene un <strong>puntero interno</strong> que indica hasta dónde se ha leído en el mismo. Cada vez que se llama al método <code class="sourceCode python">read</code>, se mueve ese puntero para que en posteriores llamadas se continúe leyendo desde ese punto.</p></li>
+<li><p>Si se alcanza el final del archivo, se devuelve la cadena vacía (<code class="sourceCode python"><span class="st">&#39;&#39;</span></code>).</p></li>
 <li><p>El parámetro <em>tamaño</em> es opcional:</p>
 <ul>
 <li><p>Si se omite o es negativo, se devuelve todo lo que hay desde la posición actual del puntero hasta el final del archivo.</p></li>
@@ -1592,16 +1585,14 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="readline" class="title-slide slide level3" data-number="4.6.3">
-<h3 data-number="4.6.3"><span class="header-section-number">4.6.3</span> <code>readline</code></h3>
+<h3 data-number="4.6.3"><span class="header-section-number">4.6.3</span> <code class="sourceCode python">readline</code></h3>
 <ul>
-<li><p>El método <code>readline</code> también sirve para leer de un archivo y también se ejecuta sobre el objeto que devuelve <code>open</code> (y que representa al archivo abierto).</p></li>
-<li><p>Su signatura es:</p></li>
-</ul>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.readline(</code>[<em>tamaño</em><code>: str</code>]<code>)</code></p>
-<ul>
-<li><p><code>readline</code> devuelve una línea del archivo, dejando el carácter de salto de línea (<code>\n</code>) al final.</p></li>
+<li><p>El método <code class="sourceCode python">readline</code> también sirve para leer de un archivo y también se ejecuta sobre el objeto que devuelve <code class="sourceCode python"><span class="bu">open</span></code>.</p></li>
+<li><p>Su signatura es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.readline</code><code>(</code>[<em>tamaño</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>)</code></div></li>
+<li><p><code class="sourceCode python">readline</code> devuelve una línea del archivo, dejando el carácter de salto de línea (<code>\n</code>) al final.</p></li>
 <li><p>El salto de línea sólo se omite cuando es la última línea del archivo y éste no acaba en salto de línea.</p></li>
-<li><p>Si devuelve una cadena vacía (<code>''</code>), significa que se ha alcanzado el final del archivo.</p></li>
+<li><p>Si devuelve una cadena vacía (<code class="sourceCode python"><span class="st">&#39;&#39;</span></code>), significa que se ha alcanzado el final del archivo.</p></li>
 <li><p>Si se devuelve una cadena formada sólo por <code>\n</code>, significa que es una línea en blanco (una línea que sólo contiene un salto de línea).</p></li>
 </ul>
 </section>
@@ -1645,14 +1636,12 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="write" class="title-slide slide level3" data-number="4.6.4">
-<h3 data-number="4.6.4"><span class="header-section-number">4.6.4</span> <code>write</code></h3>
+<h3 data-number="4.6.4"><span class="header-section-number">4.6.4</span> <code class="sourceCode python">write</code></h3>
 <ul>
-<li><p>El método <code>write</code> sirve para escribir en un archivo y se ejecuta sobre el objeto que devuelve <code>open</code> (y que representa al archivo abierto).</p></li>
-<li><p>Su signatura es:</p></li>
-</ul>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.write(</code><em>contenido</em><code>)</code></p>
-<ul>
-<li><p>El método escribe el <em>contenido</em> en el <span style="color:teal">⟨<em>archivo</em>⟩</span>. Ese contenido debe ser una <em>cadena</em> si el archivo se abrió en <strong>modo texto</strong>, o un <em>valor de tipo</em> <code>bytes</code> si se abrió en <strong>modo binario</strong>.</p></li>
+<li><p>El método <code class="sourceCode python">write</code> sirve para escribir en un archivo y se ejecuta sobre el objeto que devuelve <code class="sourceCode python"><span class="bu">open</span></code>.</p></li>
+<li><p>Su signatura es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.write</code><code>(</code><em>contenido</em><code>)</code></div></li>
+<li><p>El método escribe el <em>contenido</em> en el <span style="color:teal">⟨<em>archivo</em>⟩</span>. Ese contenido debe ser una <em>cadena</em> si el archivo se abrió en <strong>modo texto</strong>, o un <em>valor de tipo</em> <code class="sourceCode python"><span class="bu">bytes</span></code> si se abrió en <strong>modo binario</strong>.</p></li>
 <li><p>Al escribir, modifica el puntero interno del archivo.</p></li>
 <li><p>Devuelve el número de caracteres o de bytes que se han escrito, dependiendo de si se abrió en modo texto o en modo binario.</p></li>
 </ul>
@@ -1660,31 +1649,30 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="4.6.4.0.1">
 
 <ul>
-<li><p>También se puede usar <code>print</code> para escribir en un archivo.</p></li>
-<li><p>En la práctica, no hay mucha diferencia entre usar <code>print</code> y usar <code>write</code>.</p></li>
+<li><p>También se puede usar <code class="sourceCode python"><span class="bu">print</span></code> para escribir en un archivo.</p></li>
+<li><p>En la práctica, no hay mucha diferencia entre usar <code class="sourceCode python"><span class="bu">print</span></code> y usar <code class="sourceCode python">write</code>.</p></li>
 <li><p>Hacer:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
 <p>equivale a hacer:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
-<li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code>print</code>.</p></li>
-<li><p><code>print</code> escribe en el archivo <code>sys.stdout</code> mientras no se diga lo contrario.</p></li>
+<li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">print</span></code> escribe en el archivo <code class="sourceCode python">sys.stdout</code> mientras no se diga lo contrario.</p></li>
 </ul>
 </section>
 
 <section id="seek-y-tell" class="title-slide slide level3" data-number="4.6.5">
-<h3 data-number="4.6.5"><span class="header-section-number">4.6.5</span> <code>seek</code> y <code>tell</code></h3>
+<h3 data-number="4.6.5"><span class="header-section-number">4.6.5</span> <code class="sourceCode python">seek</code> y <code class="sourceCode python">tell</code></h3>
 <ul>
-<li><p>El método <code>seek</code> situa el puntero interno del archivo en una determinada posición.</p></li>
-<li><p>El método <code>tell</code> devuelve la posición actual del puntero interno.</p></li>
-<li><p>Sus signaturas son:</p></li>
-</ul>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.seek(</code><em>offset</em><code>: int)-&gt;int</code></p>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.tell()-&gt;int</code></p>
-<ul>
+<li><p>El método <code class="sourceCode python">seek</code> situa el puntero interno del archivo en una determinada posición.</p></li>
+<li><p>El método <code class="sourceCode python">tell</code> devuelve la posición actual del puntero interno.</p></li>
+<li><p>Sus signaturas son:</p>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.seek</code><code>(</code><em>offset</em><code>:</code> <code class="sourceCode python"><span class="bu">int</span></code><code>) -&gt;</code>  <code class="sourceCode python"><span class="bu">int</span></code><br />
+<br />
+<span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.tell</code><code>() -&gt;</code>  <code class="sourceCode python"><span class="bu">int</span></code></div></li>
 <li><p>El <em>offset</em> es la posición a la que se desea mover el puntero, empezando por 0 desde el comienzo del archivo.</p></li>
-<li><p>Además de mover el puntero, el método <code>seek</code> devuelve la nueva posición del puntero.</p></li>
+<li><p>Además de mover el puntero, el método <code class="sourceCode python">seek</code> devuelve la nueva posición del puntero.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.5.0.1">
@@ -1716,13 +1704,11 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </section>
 
 <section id="close" class="title-slide slide level3" data-number="4.6.6">
-<h3 data-number="4.6.6"><span class="header-section-number">4.6.6</span> <code>close</code></h3>
+<h3 data-number="4.6.6"><span class="header-section-number">4.6.6</span> <code class="sourceCode python">close</code></h3>
 <ul>
-<li><p>El método <code>close</code> cierra un archivo previamente abierto por <code>open</code>, finalizando la sesión de trabajo con el mismo.</p></li>
-<li><p>Su signatura es:</p></li>
-</ul>
-<p><span style="color:teal">⟨<em>archivo</em>⟩</span><code>.close()</code></p>
-<ul>
+<li><p>El método <code class="sourceCode python">close</code> cierra un archivo previamente abierto por <code class="sourceCode python"><span class="bu">open</span></code>, finalizando la sesión de trabajo con el mismo.</p></li>
+<li><p>Su signatura es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.close()</code></div></li>
 <li><p>Siempre hay que cerrar un archivo previamente abierto, para así asegurarse de que los cambios realizados se vuelquen al archivo a través del sistema operativo y liberar inmediatamente los recursos del sistema que pudiera estar consumiendo.</p></li>
 <li><p>Una vez que se ha cerrado el archivo ya no se podrá seguir usando:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
@@ -1735,7 +1721,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="4.6.6.0.1">
 
 <ul>
-<li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su atributo <code>closed</code>:</p>
+<li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su atributo <code class="sourceCode python">closed</code>:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>

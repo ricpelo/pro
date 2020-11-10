@@ -329,9 +329,11 @@ y:f1 -> 5
   ```
 
   El efecto que produce es el de almacenar, en la variable ligada al
-  identificador `x`, una referencia al valor `4` almacenado en el montículo.
+  identificador !PYTHON(x), una referencia al valor !PYTHON(4) almacenado en el
+  montículo.
 
-  Normalmente se dice (mal dicho) que «la variable `x` pasa a valer `4`».
+  Normalmente se dice (mal dicho) que «la variable !PYTHON(x) pasa a valer
+  !PYTHON(4)».
 
 - La asignación es **destructiva** porque al cambiarle el valor a una variable
   se destruye su valor anterior. Por ejemplo, si ahora hacemos:
@@ -340,8 +342,8 @@ y:f1 -> 5
   x = 9
   ```
 
-  El valor de la variable a la que está ligada el identificador `x` pasa ahora
-  a ser `9`, perdiéndose el valor `4` anterior.
+  El valor de la variable a la que está ligada el identificador !PYTHON(x) pasa
+  ahora a ser `9`, perdiéndose el valor !PYTHON(4) anterior.
 
 ---
 
@@ -349,22 +351,23 @@ y:f1 -> 5
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna el valor `9` a la variable `x`»*
+  *«se asigna el valor !PYTHON(9) a la variable !PYTHON(x)»*
   ~~~~~~~~~~~~~~~~~~~~~~~
 
   o
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna el valor `9` a la variable ligada al identificador `x`»*
+  *«se asigna el valor !PYTHON(9) a la variable ligada al identificador
+  !PYTHON(x)»*
   ~~~~~~~~~~~~~~~~~~~~~~~
 
   en lugar de la forma correcta:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna una referencia al valor `9` a la variable ligada al identificador
-  `x`»*.
+  *«se asigna una referencia al valor !PYTHON(9) a la variable ligada al
+  identificador !PYTHON(x)»*.
   ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
@@ -383,7 +386,7 @@ y:f1 -> 5
 - Cada nueva asignación provoca un cambio de estado en el programa.
 
 - En el ejemplo anterior, el programa pasa de estar en un estado en el que la
-  variable `x` vale 4 a otro en el que la variable vale `9`.
+  variable !PYTHON(x) vale 4 a otro en el que la variable vale !PYTHON(9).
 
 - Al final, un programa imperativo se puede reducir a una **secuencia de
   asignaciones** realizadas en el orden dictado por el programa.
@@ -403,15 +406,15 @@ y:f1 -> 5
 
   ocurre lo siguiente:
 
-  1. Se crea el valor `2500` en el montículo y el intérprete devuelve una
-     referencia al mismo.
+  1. Se crea el valor !PYTHON(2500) en el montículo y el intérprete devuelve
+     una referencia al mismo.
 
      En determinadas situaciones, no crea un nuevo valor si ya había otro
      exactamente igual en el montículo, pero éste no es el caso.
 
-  2. El intérprete identifica a qué variable está ligado el identificador `x`
-     consultando el marco global (si no existía dicha variable, la crea en ese
-     momento y la liga a `x`).
+  2. El intérprete identifica a qué variable está ligado el identificador
+     !PYTHON(x) consultando el marco global (si no existía dicha variable, la
+     crea en ese momento y la liga a !PYTHON(x)).
 
   3. Almacena en la variable la referencia creada en el paso 1.
 
@@ -472,7 +475,7 @@ y:f1 -> 5
   PI = 3.1415926
   ```
 
-  El nombre en mayúsculas nos recuerda que `PI` es una constante.
+  El nombre en mayúsculas nos recuerda que !PYTHON(PI) es una constante.
 
 - Aunque nada nos impide cambiar su valor (cosa que debemos evitar):
 
@@ -542,9 +545,9 @@ y:f1 -> 5
   String x;
   ```
 
-  con lo que declaramos que a `x` sólo se le podrán asignar valores de tipo
-  `String` (es decir, *cadenas*) desde el primer momento y a lo largo de toda
-  la ejecución del programa.
+  con lo que declaramos que a !JAVA(x) sólo se le podrán asignar valores de
+  tipo !JAVA(String) (es decir, *cadenas*) desde el primer momento y a lo largo
+  de toda la ejecución del programa.
 
 ---
 
@@ -564,8 +567,9 @@ y:f1 -> 5
   var x = "Hola";
   ```
 
-  El compilador de Java deduce que la variable `x` debe ser de tipo `String`
-  porque se le está asignando una cadena (el valor `"Hola"`).
+  El compilador de Java deduce que la variable !JAVA(x) debe ser de tipo
+  !JAVA(String) porque se le está asignando una cadena (el valor
+  !JAVA("Hola")).
 
 ---
 
@@ -597,41 +601,43 @@ y:f1 -> 5
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(asig_compuesta) ::= !T(identificador) !NT(op)!T(=) !NT(expresión)
+  !NT(asig_compuesta) ::= !T(identificador)\  !NT(op)!T(=)\  !NT(expresión)
 !NT(op) ::= !T(+) | !T(-) | !T( * ) | !T(/) | !T(%) | !T(//) | !T( ** ) | !T(&) | !T(|) | !T(^) | !T(>>) | !T(<<)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
----------------------------------------------
- Operador  Ejemplo         Equivalente a
----------- --------------- ------------------
-`=`        `x = 5`         `x = 5`
+-----------------------------------------------------------------
+   Operador           Ejemplo              Equivalente a
+----------------- ------------------- ---------------------------
+!PYTHON(=)        !PYTHON(x = 5)         !PYTHON(x = 5)
                         
-`+=`       `x += 5`        `x = x + 5`
+!PYTHON(+=)       !PYTHON(x += 5)        !PYTHON(x = x + 5)
                         
-`-=`       `x -= 5`        `x = x - 5`
+!PYTHON(-=)       !PYTHON(x -= 5)        !PYTHON(x = x - 5)
                         
-`*=`       `x *= 5`        `x = x * 5`
+!PYTHON(*=)       !PYTHON(x *= 5)        !PYTHON(x = x * 5)
                         
-`/=`       `x /= 5`        `x = x / 5`
+!PYTHON(/=)       !PYTHON(x /= 5)        !PYTHON(x = x / 5)
                         
-`%=`       `x %= 5`        `x = x % 5`
+!PYTHON(%=)       !PYTHON(x %= 5)        !PYTHON(x = x % 5)
                         
-`//=`      `x //= 5`       `x = x // 5`
+!PYTHON(//=)      !PYTHON(x //= 5)       !PYTHON(x = x // 5)
                         
-`**=`      `x **= 5`       `x = x ** 5`
+!PYTHON(**=)      !PYTHON(x **= 5)       !PYTHON(x = x ** 5)
                         
-`&=`       `x &= 5`        `x = x & 5`
+!PYTHON(&=)       !PYTHON(x &= 5)        !PYTHON(x = x & 5)
                         
-`|=`       `x |= 5`        `x = x | 5`
+!PYTHON(|=)       !PYTHON(x |= 5)        !PYTHON(x = x | 5)
                         
-`^=`       `x ^= 5`        `x = x ^ 5`
+!PYTHON(^=)       !PYTHON(x ^= 5)        !PYTHON(x = x ^ 5)
                         
-`>>=`      `x >>= 5`       `x = x >> 5`
+!PYTHON(>>=)      !PYTHON(x >>= 5)       !PYTHON(x = x >> 5)
                         
-`<<=`      `x <<= 5`       `x = x << 5`
----------------------------------------------
+!PYTHON(<<=)      !PYTHON(x <<= 5)       !PYTHON(x = x << 5)
+-----------------------------------------------------------------
+
+<!-- -->
 
 ## Asignación múltiple
 
@@ -656,7 +662,7 @@ y:f1 -> 5
   x, y = 10, 20
   ```
 
-  asigna el valor `10` a `x` y el valor `20` a `y`.
+  asigna el valor !PYTHON(10) a !PYTHON(x) y el valor !PYTHON(20) a !PYTHON(y).
 
 # Mutabilidad
 
@@ -687,15 +693,16 @@ y:f1 -> 5
 - Un valor **inmutable** es aquel cuyo estado interno no puede cambiar durante
   la ejecución del programa.
 
-  Los tipos inmutables en Python son los números (`int` y `float`), los
-  booleanos (`bool`), las cadenas (`str`), las tuplas (`tuple`), los rangos
-  (`range`) y los conjuntos congelados (`frozenset`).
+  Los tipos inmutables en Python son los números (!PYTHON(int) y
+  !PYTHON(float)), los booleanos (!PYTHON(bool)), las cadenas (!PYTHON(str)),
+  las tuplas (!PYTHON(tuple)), los rangos (!PYTHON(range)) y los conjuntos
+  congelados (!PYTHON(frozenset)).
 
 - Un valor **mutable** es aquel cuyo estado interno (normalmente, su
   **contenido**) puede cambiar durante la ejecución del programa.
 
-  El principal tipo mutable en Python es la lista (`list`), pero también están
-  los conjuntos (`set`) y los diccionarios (`dict`).
+  El principal tipo mutable en Python es la lista (!PYTHON(list)), pero también
+  están los conjuntos (!PYTHON(set)) y los diccionarios (!PYTHON(dict)).
 
 ### Inmutables
 
@@ -753,9 +760,10 @@ y:f1 -> 5
 
 ::::::
 
-- Lo que hace la asignación `x = 7` no es cambiar el contenido del valor `4`,
-  sino hacer que la variable `x` contenga otro valor distinto (el valor `4` en
-  sí mismo no se cambia internamente en ningún momento).
+- Lo que hace la asignación !PYTHON(x = 7) no es cambiar el contenido del valor
+  !PYTHON(4), sino hacer que la variable !PYTHON(x) contenga otro valor
+  distinto (el valor !PYTHON(4) en sí mismo no se cambia internamente en ningún
+  momento).
 
 ---
 
@@ -781,10 +789,11 @@ y:f1 -> 5
   x = 'hola manolo'
   ```
 
-  **se crea una nueva cadena** y se la asignamos a la variable `x`.
+  **se crea una nueva cadena** y se la asignamos a la variable !PYTHON(x).
   
-  Es decir: la cadena `'hola'` original **no se cambia** (p. ej., no se le
-  añade `' manolo'` al final), sino que **se sustituye por una nueva**.
+  Es decir: la cadena !PYTHON('hola') original **no se cambia** (p. ej., no se
+  le añade !PYTHON(' manolo') al final), sino que **se sustituye por una
+  nueva**.
 
   !DOT(inmutable4.svg)()(width=35%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -806,24 +815,29 @@ y:f1 -> 5
 - Para ello podemos usar las operaciones comunes a toda secuencia de elementos
   (una cadena también es una **secuencia de caracteres**):
 
---------------------------------------------------------------------------------
-Operación                Resultado
------------------------- -------------------------------------------------------
-$x\ $ `in` $\ s$         `True` si $x$ está en $s$
-                     
-$x\ $ `not` `in` $\ s$   `True` si $x$ **no** está en $s$
-                     
-$s$`[`$i$`]`             (*Indexación*) El $i$-ésimo elemento de $s$, empezando
-                         por 0
-                      
-$s$`[`$i$`:`$j$`]`       (*Slicing*) Rodaja de $s$ desde $i$ hasta $j$
+--------------------------------------------------------------------------------------
+Operación                    Resultado
+---------------------------- ---------------------------------------------------------
+$x\ $ !PYTHON(in) $\ s$      !PYTHON(True) si $\underline{x}$ está en $\underline{s}$
 
-$s$`[`$i$`:`$j$`:`$k$`]` Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
+$x\ $ !PYTHON(not in) $\ s$  !PYTHON(True) si $\underline{x}$ **no** está en
+                             $\underline{s}$
 
-$s$`.index(`$x$`)`       Índice de la primera aparición de $x$ en $s$
-                       
-$s$`.count(`$x$`)`       Número de veces que aparece $x$ en $s$
---------------------------------------------------------------------------------
+$s$`[`$i$`]`                 (*Indexación*) El $\underline{i}$-ésimo elemento
+                             de $\underline{s}$, empezando por 0
+
+$s$`[`$i$`:`$j$`]`           (*Slicing*) Rodaja de $\underline{s}$ desde
+                             $\underline{i}$ hasta $\underline{j}$
+
+$s$`[`$i$`:`$j$`:`$k$`]`     Rodaja de $\underline{s}$ desde $\underline{i}$
+                             hasta $\underline{j}$ con paso $\underline{k}$
+
+$s$!PYTHON(.index)`(`$x$`)`  Índice de la primera aparición de $\underline{x}$
+                             en $\underline{s}$
+
+$s$!PYTHON(.count)`(`$x$`)`  Número de veces que aparece $\underline{x}$ en
+                             $\underline{s}$
+--------------------------------------------------------------------------------------
 
 ---
 
@@ -932,16 +946,18 @@ s | P | y | t | h | o | n |
 
 ::: column
 
-!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[1]`)(width=75%)(width=50%)
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[`1`]`)(width=75%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+99 [style= invis, width = 0.6]
 24 [shape = circle, width = 0.6]
 32 [shape = circle, width = 0.6]
 15 [shape = circle, width = 0.6]
 81 [shape = circle, width = 0.6]
 lista:f0 -> 24
+lista:f1 -> 99 [style = invis]
 lista:f1 -> 32
 lista:f2 -> 15
 lista:f3 -> 81
@@ -952,7 +968,7 @@ x:f1 -> lista
 
 ::: column
 
-!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[1]`)(width=75%)(width=50%)
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[`1`]`)(width=75%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -979,8 +995,8 @@ x:f1 -> lista
 - Las listas son secuencias mutables y, como tales, se pueden modificar usando
   ciertas operaciones:
 
-  - Los *operadores* de **indexación** y **slicing** combinados con `=` y
-    `del`:
+  - Los *operadores* de **indexación** y **slicing** combinados con !PYTHON(=)
+    y !PYTHON(del):
 
     ```
       +-----+-----+-----+-----+-----+-----+
@@ -1005,7 +1021,8 @@ x:f1 -> lista
     [40, 'a', 99, 53]
     ```
 
-  - *Métodos* como `append`, `clear`, `insert`, `remove`, `reverse` o `sort`.
+  - *Métodos* como !PYTHON(append), !PYTHON(clear), !PYTHON(insert),
+    !PYTHON(remove), !PYTHON(reverse) o !PYTHON(sort).
 
 - Las siguientes tablas muestran todas las **operaciones** que nos permiten
   **modificar secuencias mutables**.
@@ -1015,66 +1032,68 @@ x:f1 -> lista
 ($\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
 cualquiera)
 
-------------------------------------------------------------------------------------
-Operación              Resultado
----------------------  -------------------------------------------------------------
-$s$`[`$i$`]` `=` $x$   El elemento $i$-ésimo de $s$ se sustituye por $x$
+-------------------------------------------------------------------------------------------
+Operación                     Resultado
+----------------------------  -------------------------------------------------------------
+$s$`[`$i$`]` `=` $x$          El elemento $i$-ésimo de $\underline{s}$ se sustituye
+                              por $\underline{x}$
 
-$s$`[`$i$`:`$j$`]`     La rodaja de $s$ desde $i$ hasta $j$ se sustituye por $t$
-`=` $t$
+$s$`[`$i$`:`$j$`]`            La rodaja de $\underline{s}$ desde $\underline{i}$ hasta
+`=` $t$                       $\underline{j}$ se sustituye por $\underline{t}$
 
-$s$`[`$i$`:`$j$`:      Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen
-`$k$`]` `=` $t$        por $t$
+$s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen
+`$k$`]` `=` $t$               por $\underline{t}$
 
-`del` $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`]` \
-`$j$`]`                Equivale a hacer $s$`[`$i$`:`$j$`]` `=` `[]`
+!PYTHON(del) $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`]` \
+`$j$`]`                       Equivale a hacer $s$`[`$i$`:`$j$`]` `=` `[]`
 
-`del` $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
+!PYTHON(del) $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
 `$j$`:`$k$`]`
-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 ---
 
-------------------------------------------------------------------------------------
-Operación              Resultado
----------------------  -------------------------------------------------------------
-$s$`.append(`$x$`)`    Añade $x$ al final de $s$ \
-                       Equivale a hacer $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
+----------------------------------------------------------------------------------------------------------------
+Operación                        Resultado
+-------------------------------  -------------------------------------------------------------------------------
+$s$!PYTHON(.append)`(`$x$`)`     Añade $\underline{x}$ al final de $\underline{s}$ \
+                                 Equivale a hacer $s$!PYTHON([len)`(`$s$!PYTHON{):len(}$s$`)]` `=` `[`$x$`]`
 
-$s$`.clear()`          Elimina todos los elementos de $s$ \
-                       Equivale a hacer `del` $\ s$`[:]`
+$s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$ \
+                                 Equivale a hacer !PYTHON(del) $\ s$`[:]`
 
-$s$`.extend(`$t$`)`    Amplía $s$ con el contenido de $t$ \
-ó \                    Equivale a hacer $s$`[len(`$s$`):len(`$s$`)]` `=` $t$
-$s$ `+=` $t$
+$s$!PYTHON(.extend)`(`$t$`)`     Amplía $\underline{s}$ con el contenido de $\underline{t}$ \
+ó \                              Equivale a hacer $s$!PYTHON([len)`(`$s$!PYTHON{):len(}$s$`)]` `=` $t$
+$s$ !PYTHON(+=) $t$
 
-$s$`.insert(`$i$`,`    Inserta $x$ en $s$ en el índice $i$ \
-$x$`)`                 Equivale a hacer $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+$s$!PYTHON(.insert)`(`$i$`,`     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$ \
+$x$`)`                           Equivale a hacer $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
 
-$s$`.pop(`[$i=-1$]`)`  Devuelve el elemento $i$-ésimo y lo elimina de $s$
+$s$!PYTHON(.pop)`(`[$i=-1$]`)`   Devuelve el elemento $i$-ésimo y lo elimina de $\underline{s}$
 
-$s$`.remove(`$x$`)`    Elimina el primer elemento de $s$ que sea igual a $x$
+$s$!PYTHON(.remove)`(`$x$`)`     Elimina el primer elemento de $\underline{s}$ que sea igual a
+                                 $\underline{x}$
 
-$s$`.reverse()`        Invierte los elementos de $s$
-------------------------------------------------------------------------------------
+$s$!PYTHON{.reverse()}           Invierte los elementos de $\underline{s}$
+----------------------------------------------------------------------------------------------------------------
 
 ---
 
-Partiendo de `x = [8, 10, 7, 9]`:
+Partiendo de !PYTHON(x = [8, 10, 7, 9]):
 
------------------------------------------
-Ejemplo           Valor de `x` después 
------------------ -----------------------
-`x.append(14)`    `[8, 10, 7, 9, 14]`
+--------------------------------------------------------
+Ejemplo                    Valor de !PYTHON(x) después
+-------------------------- -----------------------------
+!PYTHON(x.append(14))      !PYTHON([8, 10, 7, 9, 14])
 
-`x.clear()`       `[]`
+!PYTHON(x.clear())         !PYTHON([])
 
-`x.insert(3, 66)` `[8, 10, 7, 66, 9]`
+!PYTHON(x.insert(3, 66))   !PYTHON([8, 10, 7, 66, 9])
 
-`x.remove(7)`     `[8, 10, 9]`
+!PYTHON(x.remove(7))       !PYTHON([8, 10, 9])
 
-`x.reverse()`     `[9, 7, 10, 8]`
------------------------------------------
+!PYTHON(x.reverse())       !PYTHON([9, 7, 10, 8])
+--------------------------------------------------------
 
 ## Alias de variables
 
@@ -1118,8 +1137,9 @@ y:f1 -> lista
 
 ::: column
 
-- Si el valor es **mutable** y cambiamos su **contenido** desde `x`, también
-  cambiará `y` (y viceversa), pues ambas variables **apuntan al mismo dato**:
+- Si el valor es **mutable** y cambiamos su **contenido** desde !PYTHON(x),
+  también cambiará !PYTHON(y) (y viceversa), pues ambas variables **apuntan al
+  mismo dato**:
 
   ```python
   >>> y[2] = 40
@@ -1427,18 +1447,18 @@ y:f1 -> lista2
   Desde este momento, la próxima vez que se active el recolector de basura se
   active, eliminará la lista.
 
-### `id`
+### !PYTHON(id)
 
 - Para saber si dos variables comparten **el mismo dato**, se puede usar la
-  función `id`.
+  función !PYTHON(id).
 
-- La función `id` devuelve un **identificador único** para cada dato.
+- La función !PYTHON(id) devuelve un **identificador único** para cada dato.
 
-- Por tanto, si dos variables tienen el mismo `id`, significa que el valor que
-  contienen es realmente el mismo valor.
+- Por tanto, si dos variables tienen el mismo !PYTHON(id), significa que el
+  valor que contienen es realmente el mismo valor.
   
-- Normalmente, el `id` de un valor se corresponde con la dirección de memoria
-  donde está almacenado dicho valor.
+- Normalmente, el !PYTHON(id) de un valor se corresponde con la dirección de
+  memoria donde está almacenado dicho valor.
 
 :::: columns
 
@@ -1471,10 +1491,10 @@ True
 
 ::::
 
-### `is`
+### !PYTHON(is)
 
 - Otra forma de comprobar si dos datos son realmente el mismo dato en memoria
-  (es decir, si son **idénticos**) es usar el operador `is`, que comprueba la
+  (es decir, si son **idénticos**) es usar el operador !PYTHON(is), que comprueba la
   **identidad** de un dato:
 
 - Su sintaxis es:
@@ -1484,17 +1504,18 @@ True
   !NT(is) ::= !NT(valor1) !T(is) !NT(valor2)
   ~~~~~~~~~~~~~~~~~~~~~~~
 
-- Es un operador relacional que devuelve `True` si !NT(valor1) y !NT(valor2)
+- Es un operador relacional que devuelve !PYTHON(True) si !NT(valor1) y !NT(valor2)
   son **el mismo dato en memoria** (es decir, si se encuentran almacenados en
-  la misma celda de la memoria y, por tanto, son **idénticos**) y `False` en
+  la misma celda de la memoria y, por tanto, son **idénticos**) y !PYTHON(False) en
   caso contrario.
 
-- Lo normal es usarlo con variables y, en tal caso, devuelve `True` si los
+- Lo normal es usarlo con variables y, en tal caso, devuelve !PYTHON(True) si los
   datos que almacenan las variables son realmente el mismo dato.
 
 - No tiene sentido usarlo con literales (y el intérprete lo advierte).
 
-- En la práctica, equivale a hacer `id(`!NT(valor1)`) == id(`!NT(valor2)`)`
+- En la práctica, equivale a hacer
+  !PYTHON(id)`(`!NT(valor1)`)` `==` !PYTHON(id)`(`!NT(valor2)`)`.
 
 # Cambios de estado ocultos
 
@@ -1642,19 +1663,23 @@ True
   función dependa de los datos leídos y, por tanto, no depender sólo de sus
   argumentos.
 
-### `print`
+### !PYTHON(print)
 
-- La función `print` imprime (*escribe*) por la salida (normalmente la
+- La función !PYTHON(print) imprime (*escribe*) por la salida (normalmente la
   pantalla) el valor de una o varias expresiones.
 
 - Su signatura es:
 
-`print(`!NT{expresión}(`,` !NT{expresión})\* [`, sep=`!NT(expresión)][`, end=`!NT(expresión)]`)`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON(print)`(`!NT{expresión}(`,` !NT{expresión})\* [`, sep=`!NT(expresión)][`, end=`!NT(expresión)]`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- El `sep` es el *separador* y su valor por defecto es `' '` (un espacio).
+- El `sep` es el *separador* y su valor por defecto es !PYTHON{' '} (un
+  espacio).
 
-- El `end` es el *terminador* y su valor por defecto es `'\n'` (el carácter de
-  nueva línea).
+- El `end` es el *terminador* y su valor por defecto es !PYTHON('\n') (el
+  carácter de nueva línea).
 
 - Las expresiones se convierten en cadenas antes de imprimirse.
 
@@ -1677,11 +1702,11 @@ True
 
 - En Python también existe el **paso de argumentos por palabra clave**, donde
   cada argumento se asigna a su parámetro indicando en la llamada el nombre del
-  parámetro y el valor de su argumento correspondiente separados por un `=`,
-  como si fuera una asignación.
+  parámetro y el valor de su argumento correspondiente separados por un
+  !PYTHON(=), como si fuera una asignación.
 
-- Esta técnica se usa en la función `print` para indicar el separador o el
-  terminador de la lista de expresiones a imprimir.
+- Esta técnica se usa en la función !PYTHON(print) para indicar el separador o
+  el terminador de la lista de expresiones a imprimir.
 
 - Por ejemplo:
 
@@ -1692,25 +1717,25 @@ True
   hola pepe 23-
   ```
 
-#### El valor `None`
+#### El valor !PYTHON(None)
 
-- Es importante resaltar que la función `print` **no devuelve** el valor de
-  las expresiones, sino que las **imprime** (provoca el efecto lateral de
+- Es importante resaltar que la función !PYTHON(print) **no devuelve** el valor
+  de las expresiones, sino que las **imprime** (provoca el efecto lateral de
   cambiar la pantalla haciendo que aparezcan nuevos caracteres).
 
-- La función `print` como tal no devuelve ningún valor, pero como en Python
-  todas las funciones devuelven *algún* valor, en realidad lo que ocurre es que
-  **devuelve un valor `None`**.
+- La función !PYTHON(print) como tal no devuelve ningún valor, pero como en
+  Python todas las funciones devuelven *algún* valor, en realidad lo que ocurre
+  es que **devuelve un valor !PYTHON(None)**.
 
-- `None` es un valor especial que significa «**ningún valor**» y se utiliza
-  principalmente para casos en los que no tiene sentido que una función
-  devuelva un valor determinado, como es el caso de `print`.
+- !PYTHON(None) es un valor especial que significa «**ningún valor**» y se
+  utiliza principalmente para casos en los que no tiene sentido que una función
+  devuelva un valor determinado, como es el caso de !PYTHON(print).
 
-- Pertenece a un tipo de datos especial llamado `NoneType` cuyo único valor
-  posible es `None`, y para comprobar si un valor es `None` se usa !NT(valor)
-  `is None`.
+- Pertenece a un tipo de datos especial llamado !PYTHON(NoneType) cuyo único
+  valor posible es !PYTHON(None), y para comprobar si un valor es !PYTHON(None)
+  se usa !NT(valor) !PYTHON(is None).
   
-- Podemos comprobar que, efectivamente, `print` devuelve `None`:
+- Podemos comprobar que, efectivamente, !PYTHON(print) devuelve !PYTHON(None):
 
   ```python
   >>> print('hola', 'pepe', 23) is None
@@ -1718,15 +1743,19 @@ True
   True          # ésto es el resultado de comprobar si el valor de print es None
   ```
 
-### `input`
+### !PYTHON(input)
 
-- La función `input` *lee* datos introducidos desde la entrada (normalmente el
-  teclado) y devuelve el valor del dato introducido, que siempre es una
-  **cadena** a la cual se le ha eliminado el posible salto de línea final.
+- La función !PYTHON(input) *lee* datos introducidos desde la entrada
+  (normalmente el teclado) y devuelve el valor del dato introducido, que
+  siempre es una **cadena** a la cual se le ha eliminado el posible salto de
+  línea final.
 
 - Su signatura es:
 
-`input(`[_prompt_`: str` ]`)->str`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON(input)`(`[_prompt_`:` !PYTHON(str)]`) -> `\  !PYTHON(str)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
 
@@ -1749,18 +1778,21 @@ True
 - Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este
   orden):
 
-  #. Abrir el archivo en el modo adecuado con `open`.
+  #. Abrir el archivo en el modo adecuado con !PYTHON(open).
 
   #. Realizar las operaciones deseadas sobre el archivo.
 
-  #. Cerrar el archivo con `close`.
+  #. Cerrar el archivo con !PYTHON(close).
 
-### `open`
+### !PYTHON(open)
 
-- La función `open` abre un archivo y devuelve un objeto que lo representa. Su
-  signatura es:
+- La función !PYTHON(open) abre un archivo y devuelve un objeto que lo
+  representa. Su signatura es:
 
-`open(`_nombre_`: str` [`, ` _modo_`: str`]`)`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON(open)`(`_nombre_`:` !PYTHON(str) [`, ` _modo_`:` !PYTHON(str)]`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El _nombre_ es una cadena que contiene el nombre del archivo a abrir.
 
@@ -1774,43 +1806,45 @@ True
 
 - Los valores posibles de _modo_ son:
 
-  ------------------------------------------------------------------------------
-    Carácter   Significado
-  ------------ -----------------------------------------------------------------
-  `'r'`        Abre el archivo para lectura (valor predeterminado)
+  ----------------------------------------------------------------------------------
+      Carácter     Significado
+  ---------------- -----------------------------------------------------------------
+    !PYTHON('r')   Abre el archivo para lectura (valor predeterminado)
 
-  `'w'`        Abre para escritura (si el archivo ya existe lo borrará)
+    !PYTHON('w')   Abre para escritura (si el archivo ya existe lo borrará)
 
-  `'x'`        Abre para creación exclusiva (falla si el archivo ya existe)
+    !PYTHON('x')   Abre para creación exclusiva (falla si el archivo ya existe)
 
-  `'a'`        Abre para escritura, añadiendo al final del archivo si ya existe
+    !PYTHON('a')   Abre para escritura, añadiendo al final del archivo si ya existe
 
-  `'b'`        Modo binario
+    !PYTHON('b')   Modo binario
 
-  `'t'`        Modo texto (valor predeterminado)
+    !PYTHON('t')   Modo texto (valor predeterminado)
 
-  `'+'`        Abre para lectura y escritura
-  ------------------------------------------------------------------------------
+    !PYTHON('+')   Abre para lectura y escritura
+  ----------------------------------------------------------------------------------
 
-- El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
-  de `'rt'`).
+- El modo predeterminado es !PYTHON('r') (abrir para lectura en modo texto,
+  sinónimo de !PYTHON('rt')).
 
-- Los modos `'w+'` y `'w+b'` abren el archivo y lo borra si ya existe.
+- Los modos !PYTHON('w+') y !PYTHON('w+b') abren el archivo y lo borra si ya
+  existe.
 
-- Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+- Los modos !PYTHON('r+') y !PYTHON('r+b') abren el archivo sin borrarlo.
 
 ---
 
 - Normalmente, los archivos se abren en **modo texto**, lo que significa que se
-  leen y se escriben cadenas (valores de tipo `str`) desde y hacia el archivo,
+  leen y se escriben cadenas (valores de tipo !PYTHON(str)) desde y hacia el archivo,
   las cuales se codifican según una codificación específica que depende de la
   plataforma.
 
   Por ejemplo, los saltos de línea se escriben como `\n` en Unix o `\r\n` en
   Windows, y se leen siempre como `\n`.
 
-- Al añadir una `'b'` en el modo se abre el archivo en **modo binario**. En tal
-  caso, los datos se leen y se escriben en forma de objetos de tipo `bytes`.
+- Al añadir una `b` en el modo se abre el archivo en **modo binario**. En tal
+  caso, los datos se leen y se escriben en forma de objetos de tipo
+  !PYTHON(bytes).
 
   El modo binario es el que debe usarse cuando se trabaje con archivos que no
   contengan texto (datos binarios _crudos_).
@@ -1823,34 +1857,39 @@ True
 
 ---
 
-- El tipo de dato que devuelve `open` depende de cómo se ha abierto el archivo:
+- El tipo de dato que devuelve !PYTHON(open) depende de cómo se ha abierto el
+  archivo:
 
-  - Si se ha abierto en **modo texto**, devuelve un `TextIOWrapper`.
+  - Si se ha abierto en **modo texto**, devuelve un !PYTHON(TextIOWrapper).
 
   - Si se ha abierto en **modo binario**, entonces depende:
 
-    - En modo **sólo lectura**, devuelve un `BufferedReader`.
+    - En modo **sólo lectura**, devuelve un !PYTHON(BufferedReader).
 
     - En modo **sólo escritura o añadiendo al final**, devuelve un
-      `BufferedWriter`.
+      !PYTHON(BufferedWriter).
 
-    - En modo **lectura/escritura**, devuelve un `BufferedRandom`.
+    - En modo **lectura/escritura**, devuelve un !PYTHON(BufferedRandom).
 
-### `read`
+### !PYTHON(read)
 
-- Para leer de un archivo, se puede usar el método `read` sobre el objeto que
-  devuelve la función `open`. Su signatura es:
+- Para leer de un archivo, se puede usar el método !PYTHON(read) sobre el
+  objeto que devuelve la función !PYTHON(open). Su signatura es:
 
-!NT(archivo)`.read(`[_tamaño_`: str`]`)`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.read)`(`[_tamaño_`:` !PYTHON(str)]`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- El método devuelve una cadena (tipo `str`) si el archivo se abrió en modo
-  texto, o un objeto de tipo `bytes` si se abrió en modo binario.
+- El método devuelve una cadena (tipo !PYTHON(str)) si el archivo se abrió en
+  modo texto, o un objeto de tipo !PYTHON(bytes) si se abrió en modo binario.
 
 - El archivo contiene un **puntero interno** que indica hasta dónde se ha leído
-  en el mismo. Cada vez que se llama al método `read`, se mueve ese puntero
-  para que en posteriores llamadas se continúe leyendo desde ese punto.
+  en el mismo. Cada vez que se llama al método !PYTHON(read), se mueve ese
+  puntero para que en posteriores llamadas se continúe leyendo desde ese punto.
 
-- Si se alcanza el final del archivo, se devuelve la cadena vacía (`''`).
+- Si se alcanza el final del archivo, se devuelve la cadena vacía
+  (!PYTHON('')).
 
 - El parámetro _tamaño_ es opcional:
 
@@ -1888,24 +1927,27 @@ True
   ''
   ```
 
-### `readline`
+### !PYTHON(readline)
 
-- El método `readline` también sirve para leer de un archivo y también se
-  ejecuta sobre el objeto que devuelve `open` (y que representa al archivo
+- El método !PYTHON(readline) también sirve para leer de un archivo y también se
+  ejecuta sobre el objeto que devuelve !PYTHON(open) (y que representa al archivo
   abierto).
 
 - Su signatura es:
 
-!NT(archivo)`.readline(`[_tamaño_`: str`]`)`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.readline)`(`[_tamaño_`:` !PYTHON(str)]`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `readline` devuelve una línea del archivo, dejando el carácter de salto de
-  línea (`\n`) al final.
+- !PYTHON(readline) devuelve una línea del archivo, dejando el carácter de
+  salto de línea (`\n`) al final.
 
 - El salto de línea sólo se omite cuando es la última línea del archivo y éste
   no acaba en salto de línea.
 
-- Si devuelve una cadena vacía (`''`), significa que se ha alcanzado el final
-  del archivo.
+- Si devuelve una cadena vacía (!PYTHON('')), significa que se ha alcanzado el
+  final del archivo.
 
 - Si se devuelve una cadena formada sólo por `\n`, significa que es una línea
   en blanco (una línea que sólo contiene un salto de línea).
@@ -1962,18 +2004,21 @@ True
 
 ::::
 
-### `write`
+### !PYTHON(write)
 
-- El método `write` sirve para escribir en un archivo y se ejecuta sobre el
-  objeto que devuelve `open` (y que representa al archivo abierto).
+- El método !PYTHON(write) sirve para escribir en un archivo y se ejecuta sobre
+  el objeto que devuelve !PYTHON(open) (y que representa al archivo abierto).
 
 - Su signatura es:
 
-!NT(archivo)`.write(`_contenido_`)`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.write)`(`_contenido_`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El método escribe el _contenido_ en el !NT(archivo). Ese contenido debe ser
   una _cadena_ si el archivo se abrió en **modo texto**, o un _valor de tipo_
-  `bytes` si se abrió en **modo binario**.
+  !PYTHON(bytes) si se abrió en **modo binario**.
 
 - Al escribir, modifica el puntero interno del archivo.
 
@@ -1982,9 +2027,10 @@ True
 
 ---
 
-- También se puede usar `print` para escribir en un archivo.
+- También se puede usar !PYTHON(print) para escribir en un archivo.
 
-- En la práctica, no hay mucha diferencia entre usar `print` y usar `write`.
+- En la práctica, no hay mucha diferencia entre usar !PYTHON(print) y usar
+  !PYTHON(write).
 
 - Hacer:
 
@@ -2001,28 +2047,32 @@ True
   ```
 
 - Hay que tener en cuenta los separadores y los saltos de línea que introduce
-  `print`.
+  !PYTHON(print).
 
-- `print` escribe en el archivo `sys.stdout` mientras no se diga lo contrario.
+- !PYTHON(print) escribe en el archivo !PYTHON(sys.stdout) mientras no se diga
+  lo contrario.
 
-### `seek` y `tell`
+### !PYTHON(seek) y !PYTHON(tell)
 
-- El método `seek` situa el puntero interno del archivo en una determinada
-  posición.
+- El método !PYTHON(seek) situa el puntero interno del archivo en una
+  determinada posición.
 
-- El método `tell` devuelve la posición actual del puntero interno.
+- El método !PYTHON(tell) devuelve la posición actual del puntero interno.
 
 - Sus signaturas son:
 
-!NT(archivo)`.seek(`_offset_`: int)->int`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.seek)`(`_offset_`:` !PYTHON(int)`) -> `\  !PYTHON(int)
 
-!NT(archivo)`.tell()->int`
+!NT(archivo)!PYTHON(.tell)`() -> `\  !PYTHON(int)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El _offset_ es la posición a la que se desea mover el puntero, empezando por
   0 desde el comienzo del archivo.
 
-- Además de mover el puntero, el método `seek` devuelve la nueva posición del
-  puntero.
+- Además de mover el puntero, el método !PYTHON(seek) devuelve la nueva
+  posición del puntero.
 
 ---
 
@@ -2052,14 +2102,17 @@ True
   'Cambiar la primera línea.\n'
   ```
 
-### `close`
+### !PYTHON(close)
 
-- El método `close` cierra un archivo previamente abierto por `open`,
-  finalizando la sesión de trabajo con el mismo.
+- El método !PYTHON(close) cierra un archivo previamente abierto por
+  !PYTHON(open), finalizando la sesión de trabajo con el mismo.
 
 - Su signatura es:
 
-!NT(archivo)`.close()`
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.close())
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Siempre hay que cerrar un archivo previamente abierto, para así asegurarse de
   que los cambios realizados se vuelquen al archivo a través del sistema
@@ -2079,7 +2132,7 @@ True
 ---
 
 - Podemos comprobar si un archivo ya se ha cerrado consultando su atributo
-  `closed`:
+  !PYTHON(closed):
 
   ```python
   >>> f = open('archivo.txt', 'r')
