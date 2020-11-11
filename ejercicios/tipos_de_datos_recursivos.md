@@ -35,12 +35,7 @@ date: Curso !CURSO
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   Escribir una función recursiva que satisfaga dicha especificación y que
-   genere un proceso:
-
-   #. recursivo.
-
-   #. iterativo.
+   Escribir una función recursiva que satisfaga dicha especificación.
 
 #. La función `cuantos` tiene la siguiente especificación:
 
@@ -104,3 +99,15 @@ date: Curso !CURSO
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `enesimo` tiene la siguiente especificación:
+
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(t \neq \texttt{()} \land 0 \leq n < \texttt{len(!VAR(t))})
+   !SIGNAT(\texttt{enesimo(!VAR(n\,): int, !VAR(t\,): tuple)})
+   !POST(\texttt{enesimo(!VAR(n), !VAR(t))} = \text{el \emph{n}-ésimo elemento de \emph{t}})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
