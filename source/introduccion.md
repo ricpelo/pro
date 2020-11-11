@@ -2111,12 +2111,11 @@ F -> Compilador -> O
   código máquina directamente, generan código ensamblador que sirve de entrada
   a un programa ensamblador que generará el código objeto final.
 
-!DOT(ensamblado.svg)
+!DOT(ensamblado.svg)()(width=100%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 E [label = "Código ensamblador\n(lenguaje ensamblador)", shape = note, fillcolor = aliceblue];
 O [label = "Objeto ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
-{rank = same; Compilador; E; Ensamblador}
 F -> Compilador -> E -> Ensamblador -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2125,12 +2124,21 @@ F -> Compilador -> E -> Ensamblador -> O
 - Un **intérprete** es un caso muy especial de traductor.
 
 - En lugar de generar código objeto, el intérprete **lee el código fuente y lo
-  ejecuta directamente**.
+  ejecuta directamente**, traduciendo y ejecutando sus instrucciones una por
+  una hasta que se acaba el programa.
+
+- Por tanto, el intérprete **repite continuamente el siguiente ciclo**:
+
+  1. **Lee** la siguiente instrucción del código fuente.
+
+  2. La **traduce** a una representación interna propia del intérprete.
+
+  3. La **ejecuta**, realizando las acciones propias de esa instrucción.
 
 - El intérprete funciona, por tanto, como un **simulador** de una máquina que
   hablara el lenguaje de alto nivel en el que está escrito el programa fuente.
 
-!DOT(interpretes.svg)
+!DOT(interpretes.svg)()(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 I [label = "Intérprete\n(ejecuta el programa directamente)"];
@@ -2139,19 +2147,54 @@ F -> I
 
 ---
 
-- El desarrollo de programas se ve **acelerado** con un intérprete ya que no es
-  necesario pasar por el proceso de compilación ni, por tanto, generar el
-  código objeto para poder ejecutar el programa.
+- Podría decirse, por tanto, que un intérprete está formado por un
+  **traductor** y un **ejecutor**:
+
+  - El **traductor** traduce el código fuente, instrucción por instrucción, a
+    una representación interna denominada **código intermedio**.
+
+  - Ese código intermedio no se vuelca directamente a la salida, sino que es
+    consumida directamente por el _ejecutor_.
+
+  - El **ejecutor** se encarga de decodificar el código intermedio de la
+    instrucción traducida y ejecutarla, llevando a cabo las acciones que
+    correspondan dependiendo de la instrucción que sea.
+
+!DOT(traductor-ejecutor.svg)()(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
+subgraph cluster0 {
+    label = "Intérprete"
+    I [label = "Código intermedio", shape = note, fillcolor = aliceblue];
+    Traductor -> I -> Ejecutor
+}
+F -> Traductor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- **Programar** con un intérprete es **más rápido** que con un compilador, ya
+  que, para poder ejecutar el programa, no hace falta compilar ni generar el
+  código objeto.
 
 - Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete
   no informará de ellos hasta el momento en el que intente ejecutar la
-  instrucción errónea, es decir, **los errores se muestran en tiempo de
-  ejecución, no en tiempo de compilación**.
+  instrucción errónea.
+
+  Es decir: **los errores sintácticos se muestran en tiempo de ejecución**, no
+  en tiempo de compilación.
+
+- Además, los programas interpretados suelen ser **varias veces más lentos**
+  que los compilados, ya que hay que traducir cada instrucción que se va
+  encontrando justo antes de ejecutarla, una tras otra.
+
+  En cambio, un compilador las traduce todas de una vez y al ejecutarlas ya
+  están todas traducidas al lenguaje objeto.
 
 - Hay lenguajes *compilados* y lenguajes *interpretados*, e incluso lenguajes
   que son ambas cosas (tienen compiladores e intérpretes).
 
-### Interactivos (*REPL*)
+### Interactivos (*REPL*!ifdef(HTML)(&nbsp;)())
 
 - A los intérpretes que hemos visto hasta ahora se les denomina **intérpretes
   por lotes**, ya que tratan al programa fuente como un lote de instrucciones
@@ -2174,7 +2217,23 @@ F -> I
 
 ---
 
-- Los intérpretes interactivos son ideales para:
+- **Los _compiladores_ son ideales para:**
+
+  - Desarrollar aplicaciones que demanden altas prestaciones y que necesiten
+    sacar el máximo rendimiento de la máquina.
+
+  - Acceder a los recursos de la máquina al más bajo nivel.
+
+- **Los _intérpretes por lotes_ son ideales para:**
+
+  - Desarrollo rápido de aplicaciones.
+
+  - Escribir programas que requieran _portabilidad_, es decir, que el programa
+    se pueda ejecutar en varias plataformas diferentes.
+
+  - Escribir programas sencillos y rápidos que resuelvan tareas concretas.
+
+- **Los _intérpretes interactivos_ son ideales para:**
 
   - Aprender conceptos de programación.
 
@@ -2362,8 +2421,16 @@ F -> I
 - Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
   optar por estudiar la eficiencia del mismo.
 
+- Un algoritmo es más eficiente que otro si consume menos recursos que el otro.
+
 - Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
   se debe optar por diseñar otro algoritmo más eficiente.
+
+- Los algoritmos ineficientes sólo resultan útiles cuando el tamaño del
+  problema es relativamente pequeño.
+
+- También hay que tener en cuenta que existen problemas para los que no se
+  conoce ningún algoritmo eficiente.
 
 ## Codificación
 
@@ -2400,7 +2467,7 @@ F -> I
 - Codificación en lenguaje Java:
 
   ```java
-  /**
+  /*
    * Calcula el máximo de dos números.
    */
   public static int maximo(int n1, int n2) {
@@ -2444,16 +2511,15 @@ F -> I
     directamente por medio del intérprete del lenguaje.
 
 - Si durante la compilación (o ejecución, en el caso de un lenguaje
-  interpretado) el traductor muestra **errores en el programa fuente**, es
-  preciso volver a editar el programa, corregir los errores e intentar de
-  nuevo.
+  interpretado) el traductor muestra **errores en el programa fuente**, hay que
+  volver a editar el programa, corregir los errores e intentar de nuevo.
 
 - Los errores que un traductor puede detectar son, principalmente:
 
-  - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis)
+  - Errores **sintácticos** (por ejemplo, falta o sobra un paréntesis).
 
   - Errores **de semántica estática** (por ejemplo, se intenta sumar una cadena
-    a un número, detectable mediante un **chequeo de tipos**)
+    a un número, detectable mediante un **chequeo de tipos**).
 
 !EJERCICIO
 
@@ -2468,12 +2534,12 @@ intérprete? Razona la respuesta.
   comporta como debe.
 
 - Esas baterías de prueba (o **casos de prueba**) consisten en una serie de
-  **datos de entrada** con los que se estimula al programa, emparejados junto a
-  una serie de **resultados esperables** que se comparan con los resultados
-  reales que el programa genera a partir de los datos de entrada.
+  **datos de entrada** con los que se estimula al programa, emparejados a una
+  serie de **resultados esperables** que se comparan con los resultados reales
+  que el programa genera a partir de los datos de entrada.
 
-- Si los generados coinciden con los esperables, se concluye que el programa
-  está funcionando **correctamente**.
+- Si los resultados obtenidos coinciden con los esperables, se concluye que el
+  programa está funcionando **correctamente**.
 
 - En caso contrario, decimos que el programa **falla** y debemos localizar el
   error (o errores) que provocan el mal funcionamiento.

@@ -1755,7 +1755,7 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <li><p>Muchas veces, los compiladores se construyen <em>en cadena</em>: en lugar de generar código máquina directamente, generan código ensamblador que sirve de entrada a un programa ensamblador que generará el código objeto final.</p></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/ensamblado.svg" class="plain" style="width:80.0%" /></p>
+<p><img data-src="images/ensamblado.svg" class="plain" style="width:100.0%" /></p>
 </div>
 </section>
 
@@ -1764,23 +1764,46 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <h2 data-number="4.3"><span class="header-section-number">4.3</span> Intérpretes</h2>
 <ul>
 <li><p>Un <strong>intérprete</strong> es un caso muy especial de traductor.</p></li>
-<li><p>En lugar de generar código objeto, el intérprete <strong>lee el código fuente y lo ejecuta directamente</strong>.</p></li>
+<li><p>En lugar de generar código objeto, el intérprete <strong>lee el código fuente y lo ejecuta directamente</strong>, traduciendo y ejecutando sus instrucciones una por una hasta que se acaba el programa.</p></li>
+<li><p>Por tanto, el intérprete <strong>repite continuamente el siguiente ciclo</strong>:</p>
+<ol type="1">
+<li><p><strong>Lee</strong> la siguiente instrucción del código fuente.</p></li>
+<li><p>La <strong>traduce</strong> a una representación interna propia del intérprete.</p></li>
+<li><p>La <strong>ejecuta</strong>, realizando las acciones propias de esa instrucción.</p></li>
+</ol></li>
 <li><p>El intérprete funciona, por tanto, como un <strong>simulador</strong> de una máquina que hablara el lenguaje de alto nivel en el que está escrito el programa fuente.</p></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/interpretes.svg" class="plain" style="width:80.0%" /></p>
+<p><img data-src="images/interpretes.svg" class="plain" style="width:60.0%" /></p>
 </div>
 </section>
 <section class="slide level5" data-number="4.3.0.0.1">
 
 <ul>
-<li><p>El desarrollo de programas se ve <strong>acelerado</strong> con un intérprete ya que no es necesario pasar por el proceso de compilación ni, por tanto, generar el código objeto para poder ejecutar el programa.</p></li>
-<li><p>Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete no informará de ellos hasta el momento en el que intente ejecutar la instrucción errónea, es decir, <strong>los errores se muestran en tiempo de ejecución, no en tiempo de compilación</strong>.</p></li>
+<li><p>Podría decirse, por tanto, que un intérprete está formado por un <strong>traductor</strong> y un <strong>ejecutor</strong>:</p>
+<ul>
+<li><p>El <strong>traductor</strong> traduce el código fuente, instrucción por instrucción, a una representación interna denominada <strong>código intermedio</strong>.</p></li>
+<li><p>Ese código intermedio no se vuelca directamente a la salida, sino que es consumida directamente por el <em>ejecutor</em>.</p></li>
+<li><p>El <strong>ejecutor</strong> se encarga de decodificar el código intermedio de la instrucción traducida y ejecutarla, llevando a cabo las acciones que correspondan dependiendo de la instrucción que sea.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/traductor-ejecutor.svg" class="plain" style="width:70.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="4.3.0.0.2">
+
+<ul>
+<li><p><strong>Programar</strong> con un intérprete es <strong>más rápido</strong> que con un compilador, ya que, para poder ejecutar el programa, no hace falta compilar ni generar el código objeto.</p></li>
+<li><p>Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete no informará de ellos hasta el momento en el que intente ejecutar la instrucción errónea.</p>
+<p>Es decir: <strong>los errores sintácticos se muestran en tiempo de ejecución</strong>, no en tiempo de compilación.</p></li>
+<li><p>Además, los programas interpretados suelen ser <strong>varias veces más lentos</strong> que los compilados, ya que hay que traducir cada instrucción que se va encontrando justo antes de ejecutarla, una tras otra.</p>
+<p>En cambio, un compilador las traduce todas de una vez y al ejecutarlas ya están todas traducidas al lenguaje objeto.</p></li>
 <li><p>Hay lenguajes <em>compilados</em> y lenguajes <em>interpretados</em>, e incluso lenguajes que son ambas cosas (tienen compiladores e intérpretes).</p></li>
 </ul>
 </section>
 <section id="interactivos-repl" class="title-slide slide level3" data-number="4.3.1">
-<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span> Interactivos (<em>REPL</em>)</h3>
+<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span> Interactivos (<em>REPL</em> )</h3>
 <ul>
 <li><p>A los intérpretes que hemos visto hasta ahora se les denomina <strong>intérpretes por lotes</strong>, ya que tratan al programa fuente como un lote de instrucciones conjuntas.</p></li>
 <li><p>A diferencia de los anteriores, los <strong>intérpretes interactivos</strong> son programas que solicitan al programador que introduzca por teclado, una a una, las instrucciones que se desean ejecutar, y el intérprete las va ejecutando a medida que el programador las va introduciendo.</p></li>
@@ -1796,7 +1819,18 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <section class="slide level5" data-number="4.3.1.0.1">
 
 <ul>
-<li><p>Los intérpretes interactivos son ideales para:</p>
+<li><p><strong>Los <em>compiladores</em> son ideales para:</strong></p>
+<ul>
+<li><p>Desarrollar aplicaciones que demanden altas prestaciones y que necesiten sacar el máximo rendimiento de la máquina.</p></li>
+<li><p>Acceder a los recursos de la máquina al más bajo nivel.</p></li>
+</ul></li>
+<li><p><strong>Los <em>intérpretes por lotes</em> son ideales para:</strong></p>
+<ul>
+<li><p>Desarrollo rápido de aplicaciones.</p></li>
+<li><p>Escribir programas que requieran <em>portabilidad</em>, es decir, que el programa se pueda ejecutar en varias plataformas diferentes.</p></li>
+<li><p>Escribir programas sencillos y rápidos que resuelvan tareas concretas.</p></li>
+</ul></li>
+<li><p><strong>Los <em>intérpretes interactivos</em> son ideales para:</strong></p>
 <ul>
 <li><p>Aprender conceptos de programación.</p></li>
 <li><p>Experimentar con el lenguaje.</p></li>
@@ -1952,7 +1986,10 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <h2 data-number="5.6"><span class="header-section-number">5.6</span> Estudio de la eficiencia</h2>
 <ul>
 <li><p>Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos optar por estudiar la eficiencia del mismo.</p></li>
+<li><p>Un algoritmo es más eficiente que otro si consume menos recursos que el otro.</p></li>
 <li><p>Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y se debe optar por diseñar otro algoritmo más eficiente.</p></li>
+<li><p>Los algoritmos ineficientes sólo resultan útiles cuando el tamaño del problema es relativamente pequeño.</p></li>
+<li><p>También hay que tener en cuenta que existen problemas para los que no se conoce ningún algoritmo eficiente.</p></li>
 </ul>
 </section>
 
@@ -1977,9 +2014,9 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n2</span></code></pre></div>
 <p><br></p></li>
 <li><p>Codificación en lenguaje Java:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Calcula el m<span class="co">á</span>ximo de dos n<span class="co">ú</span>meros<span class="co">.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Calcula el máximo de dos números.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">int</span> <span class="fu">maximo</span>(<span class="dt">int</span> n1, <span class="dt">int</span> n2) {</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> (n1 &gt; n2) {</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> n1;</span>
@@ -2013,11 +2050,11 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <li><p>Si el lenguaje es <strong>compilado</strong>: se compila, se genera el código objeto y se ejecuta éste.</p></li>
 <li><p>Si el lenguaje es <strong>interpretado</strong>: se ejecuta el código fuente directamente por medio del intérprete del lenguaje.</p></li>
 </ul></li>
-<li><p>Si durante la compilación (o ejecución, en el caso de un lenguaje interpretado) el traductor muestra <strong>errores en el programa fuente</strong>, es preciso volver a editar el programa, corregir los errores e intentar de nuevo.</p></li>
+<li><p>Si durante la compilación (o ejecución, en el caso de un lenguaje interpretado) el traductor muestra <strong>errores en el programa fuente</strong>, hay que volver a editar el programa, corregir los errores e intentar de nuevo.</p></li>
 <li><p>Los errores que un traductor puede detectar son, principalmente:</p>
 <ul>
-<li><p>Errores <strong>sintácticos</strong> (por ejemplo, falta o sobra un paréntesis)</p></li>
-<li><p>Errores <strong>de semántica estática</strong> (por ejemplo, se intenta sumar una cadena a un número, detectable mediante un <strong>chequeo de tipos</strong>)</p></li>
+<li><p>Errores <strong>sintácticos</strong> (por ejemplo, falta o sobra un paréntesis).</p></li>
+<li><p>Errores <strong>de semántica estática</strong> (por ejemplo, se intenta sumar una cadena a un número, detectable mediante un <strong>chequeo de tipos</strong>).</p></li>
 </ul></li>
 </ul>
 </section>
@@ -2032,8 +2069,8 @@ quiz = {"info":{"name":"","main":""},"questions":[{"q":"El paradigma funcional e
 <h2 data-number="5.9"><span class="header-section-number">5.9</span> Pruebas</h2>
 <ul>
 <li><p>Para determinar que el programa funciona correctamente, se determina una <strong>batería de pruebas</strong> que debe superar el mismo para concluir que se comporta como debe.</p></li>
-<li><p>Esas baterías de prueba (o <strong>casos de prueba</strong>) consisten en una serie de <strong>datos de entrada</strong> con los que se estimula al programa, emparejados junto a una serie de <strong>resultados esperables</strong> que se comparan con los resultados reales que el programa genera a partir de los datos de entrada.</p></li>
-<li><p>Si los generados coinciden con los esperables, se concluye que el programa está funcionando <strong>correctamente</strong>.</p></li>
+<li><p>Esas baterías de prueba (o <strong>casos de prueba</strong>) consisten en una serie de <strong>datos de entrada</strong> con los que se estimula al programa, emparejados a una serie de <strong>resultados esperables</strong> que se comparan con los resultados reales que el programa genera a partir de los datos de entrada.</p></li>
+<li><p>Si los resultados obtenidos coinciden con los esperables, se concluye que el programa está funcionando <strong>correctamente</strong>.</p></li>
 <li><p>En caso contrario, decimos que el programa <strong>falla</strong> y debemos localizar el error (o errores) que provocan el mal funcionamiento.</p></li>
 </ul>
 </section>
