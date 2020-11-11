@@ -2660,8 +2660,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <li><p>Por ejemplo, para calcular la suma y el producto de <code class="sourceCode python">(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</code>:</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, tupla, <span class="dv">0</span>)</span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, tupla, <span class="dv">1</span>)</span></code></pre></div></li>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, tupla, <span class="dv">0</span>)</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span><span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, tupla, <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>¿Cómo podríamos definir la función <code class="sourceCode python"><span class="bu">reduce</span></code> si recibiera una tupla y no cualquier iterable?</p></li>
 </ul>
 </section>
@@ -2676,8 +2676,7 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <ul>
 <li><p>Una forma (con valor inicial obligatorio) podría ser así:</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, tupla, ini: ini <span class="cf">if</span> tupla <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>                                 tupla[<span class="dv">0</span>] <span class="cf">if</span> tupla[<span class="dv">1</span>:] <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>                                 fun(tupla[<span class="dv">0</span>], <span class="bu">reduce</span>(fun, tupla[<span class="dv">1</span>:], ini))</span></code></pre></div></li>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="bu">reduce</span>(fun, tupla[<span class="dv">1</span>:], fun(ini, tupla[<span class="dv">0</span>]))</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2686,8 +2685,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <ul>
 <li><p>Dos operaciones que se realizan con frecuencia sobre una estructura iterable son:</p>
 <ul>
-<li><p>Realizar alguna operación sobre cada elemento (<code class="sourceCode python"><span class="bu">map</span></code>)</p></li>
-<li><p>Seleccionar un subconjunto de elementos que cumplan alguna condición (<code class="sourceCode python"><span class="bu">filter</span></code>)</p></li>
+<li><p>Realizar alguna operación sobre cada elemento (<code class="sourceCode python"><span class="bu">map</span></code>).</p></li>
+<li><p>Seleccionar un subconjunto de elementos que cumplan alguna condición (<code class="sourceCode python"><span class="bu">filter</span></code>).</p></li>
 </ul></li>
 <li><p>Las <strong>expresiones generadoras</strong> son una notación copiada del lenguaje Haskell que nos permite realizar ambas operaciones de una forma muy concisa.</p></li>
 <li><p>El resultado que devuelve es un iterador que (como ya sabemos) podemos convertir fácilmente en una tupla usando la función <code class="sourceCode python"><span class="bu">tuple</span></code>.</p></li>

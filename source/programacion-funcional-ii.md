@@ -4038,8 +4038,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   ```python
   from functools import reduce
   tupla = (1, 2, 3, 4)
-  suma_de_numeros = reduce(lambda x, y: x + y, tupla, 0)
-  producto_de_numeros = reduce(lambda x, y: x * y, tupla, 1)
+  suma_de_numeros = lambda tupla: reduce(lambda x, y: x + y, tupla, 0)
+  producto_de_numeros =lambda tupla: reduce(lambda x, y: x * y, tupla, 1)
   ```
 
 - ¿Cómo podríamos definir la función !PYTHON(reduce) si recibiera una tupla y
@@ -4055,8 +4055,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   ```python
   reduce = lambda fun, tupla, ini: ini if tupla == () else \
-                                   tupla[0] if tupla[1:] == () else \
-                                   fun(tupla[0], reduce(fun, tupla[1:], ini))
+                                   reduce(fun, tupla[1:], fun(ini, tupla[0]))
   ```
 
 ## Expresiones generadoras
@@ -4064,10 +4063,10 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Dos operaciones que se realizan con frecuencia sobre una estructura iterable
   son:
 
-  - Realizar alguna operación sobre cada elemento (!PYTHON(map))
+  - Realizar alguna operación sobre cada elemento (!PYTHON(map)).
 
   - Seleccionar un subconjunto de elementos que cumplan alguna condición
-    (!PYTHON(filter))
+    (!PYTHON(filter)).
 
 - Las **expresiones generadoras** son una notación copiada del lenguaje Haskell
   que nos permite realizar ambas operaciones de una forma muy concisa.
