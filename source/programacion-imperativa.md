@@ -77,8 +77,9 @@ nocite: |
   - Ejecutar un programa consiste en evaluar dicha expresión usando las
     definiciones predefinidas del lenguaje y las definidas por el programador.
 
-  - Todo son expresiones, excepto las sentencias de definición, que producen el
-    efecto de crear _ligaduras_.
+  - Todo son expresiones, excepto las sentencias que producen el efecto de
+    crear _ligaduras_ (como las sentencias de definición, o de importación de
+    módulos).
 
   - Evaluar una expresión no produce ningún otro efecto salvo el de calcular su
     valor.
@@ -261,7 +262,7 @@ variable -> valor [label = "estado"]
 
   - Las **ligaduras entre identificadores y variables**, y
 
-  - El **estado de cada variable**, es decir, las referencias que contiene cada
+  - El **estado de cada variable**, es decir, la referencia que contiene cada
     variable en un momento dado.
 
 !DOT(marcos-imperativa.svg)()(width=30%)(width=30%)
@@ -331,18 +332,23 @@ y:f1 -> 5
   identificador !PYTHON(x), una referencia al valor !PYTHON(4) almacenado en el
   montículo.
 
-  Normalmente se dice (mal dicho) que «la variable !PYTHON(x) pasa a valer
-  !PYTHON(4)».
+  Normalmente se dice (mal dicho) que «_la variable !PYTHON(x) pasa a valer
+  !PYTHON(4)_».
 
-- La asignación es **destructiva** porque al cambiarle el valor a una variable
-  se destruye su valor anterior. Por ejemplo, si ahora hacemos:
+---
+
+- Se dice que la asignación es **destructiva** porque, al cambiarle el valor a
+  una variable, **el nuevo valor sustituye a su valor anterior** en esa
+  variable.
+
+- Por ejemplo, si ahora hacemos:
 
   ```python
   x = 9
   ```
 
   El valor de la variable a la que está ligada el identificador !PYTHON(x) pasa
-  ahora a ser `9`, perdiéndose el valor !PYTHON(4) anterior.
+  ahora a ser !PYTHON(9), sustituyendo el valor !PYTHON(4) anterior.
 
 ---
 
@@ -385,7 +391,8 @@ y:f1 -> 5
 - Cada nueva asignación provoca un cambio de estado en el programa.
 
 - En el ejemplo anterior, el programa pasa de estar en un estado en el que la
-  variable !PYTHON(x) vale 4 a otro en el que la variable vale !PYTHON(9).
+  variable !PYTHON(x) vale !PYTHON(4) a otro en el que la variable vale
+  !PYTHON(9).
 
 - Al final, un programa imperativo se puede reducir a una **secuencia de
   asignaciones** realizadas en el orden dictado por el programa.
@@ -421,8 +428,8 @@ y:f1 -> 5
 
 - Al evaluar expresiones, las variables actúan de modo similar a las ligaduras
   de la programación funcional, pero ahora los valores de las variables pueden
-  cambiar a lo largo del tiempo, por lo que deberemos *seguirle la pista* a las
-  asignaciones que sufran dichas variables.
+  cambiar a lo largo del tiempo, por lo que deberemos *seguirle la pista* a los
+  cambios que sufran dichas variables.
 
 - Todo lo visto hasta ahora sobre marcos, ámbitos, sombreado, entornos, etc. se
   aplica igualmente a las variables.
@@ -432,10 +439,10 @@ y:f1 -> 5
   ```python
   >>> x = 4
   >>> y = 3
-  >>> x * y + 5
+  >>> x * y + 5    # esta expresión vale 17 porque 'x' vale 4 y 'y' vale 3
   17
   >>> x = 9
-  >>> x * y + 5
+  >>> x * y + 5    # la misma expresión ahora vale 32 porque 'x' vale 9
   32
   ```
 
@@ -450,8 +457,8 @@ y:f1 -> 5
 
   - El valor de esa constante es el valor al que está ligado el identificador.
 
-- En programación imperativa, los identificadores se ligan a variables, que son
-  las que realmente apuntan a los valores.
+- Pero en programación imperativa, los identificadores se ligan a variables,
+  que son las que realmente apuntan a los valores.
 
 - Una **constante** en programación imperativa sería el equivalente a una
   variable cuyo valor no puede cambiar durante la ejecución del programa.
@@ -474,13 +481,15 @@ y:f1 -> 5
   PI = 3.1415926
   ```
 
-  El nombre en mayúsculas nos recuerda que !PYTHON(PI) es una constante.
-
-- Aunque nada nos impide cambiar su valor (cosa que debemos evitar):
+  El nombre en mayúsculas nos recuerda que !PYTHON(PI) es una constante, aunque
+  nada nos impide cambiar su valor (cosa que debemos evitar):
 
   ```python
   PI = 99
   ```
+
+- Sólo es un convenio entre programadores, que no tiene por qué cumplirse
+  siempre.
 
 ## Tipado estático vs. dinámico
 
@@ -535,8 +544,8 @@ y:f1 -> 5
   durante la ejecución del programa.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Estos lenguajes disponen de construcciones sintácticas que permiten declarar
-  de qué tipo serán los datos que se pueden asignar a una variable.
+- Estos lenguajes disponen de instrucciones que permiten _declarar_ de qué tipo
+  serán los datos que se pueden asignar a una variable.
 
   Por ejemplo, en Java podemos hacer:
 
@@ -662,6 +671,61 @@ y:f1 -> 5
   ```
 
   asigna el valor !PYTHON(10) a !PYTHON(x) y el valor !PYTHON(20) a !PYTHON(y).
+
+---
+
+- Lo interesante de la asignación múltiple es que **todas las asignaciones se
+  llevan a cabo _a la vez, en paralelo_**, no una tras otra.
+
+- Por ejemplo, si quisiéramos intercambiar los valores de `x` e `y` sin
+  asignación múltiple, tendríamos que usar una variable auxiliar que almacenara
+  el valor de una de las variables para no perderlo:
+
+  ```python
+  aux = x
+  x = y
+  y = aux
+  ```
+
+- En cambio, si usamos la asignación múltiple, se puede hacer simplemente:
+
+  ```python
+  x, y = y, x
+  ```
+
+- Lo que ocurre es que la `x` toma el valor que tenía `y` **justo antes de
+  ejecutar la sentencia**, y la `y` toma el valor que tenía `x` **justo antes
+  de ejecutar la sentencia**.
+
+- Por tanto, las asignaciones que se realizan en una asignación múltiple **no
+  se afectan entre ellas**.
+
+---
+
+- A la asignación múltiple también se la denomina **desempaquetado de tuplas**,
+  ya que, técnicamente, es una asignación entre dos tuplas, como si se hubiera
+  escrito así:
+
+  ```python
+  (x, y) = (10, 20)
+  ```
+
+- Esto es así porque, en realidad, los paréntesis que rodean a una tupla casi
+  nunca son estrictamente necesarios y, por tanto:
+
+  ```python
+  2, 3
+  ```
+
+  es lo mismo que
+
+  ```python
+  (2, 3)
+  ```
+
+- En consecuencia, lo que ocurre es que _se desempaquetan_ las dos tuplas y se
+  asigna cada elemento de la tupla derecha a la variable correspondiente de la
+  tupla izquierda.
 
 # Mutabilidad
 
