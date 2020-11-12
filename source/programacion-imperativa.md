@@ -924,10 +924,58 @@ s | P | y | t | h | o | n |
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
   interno durante la ejecución del programa.
 
-- El tipo mutable más frecuente es la **lista**.
+- El tipo mutable más frecuente es la **lista** (!PYTHON(list)).
 
 - Una lista es como una tupla que puede cambiar sus elementos, aumentar o
-  disminuir de tamaño (puede cambiar su contenido y, por tanto, su estado).
+  disminuir de tamaño.
+
+- Eso significa que una lista puede cambiar su contenido y, por tanto, su
+  estado interno.
+
+- Los literales de tipo !PYTHON(list) se crean separando sus elementos con
+  comas y encerrándolos entre corchetes `[` y `]`:
+
+  ```python
+  >>> l = [124, 333, 'a', 3.2, 9, 53]
+  >>> l
+  [124, 333, 'a', 3.2, 9, 53]
+  ```
+
+---
+
+- Las listas son secuencias mutables y, como tales, se pueden modificar usando
+  ciertas operaciones:
+
+  - Los *operadores* de **indexación** y **slicing** combinados con !PYTHON(=)
+    y !PYTHON(del):
+
+    ```
+      +-----+-----+-----+-----+-----+-----+
+    l | 124 | 333 | 'a' | 3.2 |  9  |  53 |
+      +-----+-----+-----+-----+-----+-----+
+      0     1     2     3     4     5     6
+     -6    -5    -4    -3    -2    -1
+    ```
+
+    ```python
+    >>> l = [124, 333, 'a', 3.2, 9, 53]
+    >>> l[3]
+    3.2
+    >>> l[3] = 99
+    >>> l
+    [124, 333, 'a', 99, 9, 53]
+    >>> l[0:2] = [40]
+    >>> l
+    [40, 'a', 99, 9, 53]
+    >>> del l[3]
+    >>> l
+    [40, 'a', 99, 53]
+    ```
+
+  - *Métodos* como !PYTHON(append), !PYTHON(clear), !PYTHON(insert),
+    !PYTHON(remove), !PYTHON(reverse) o !PYTHON(sort).
+
+---
 
 - Al cambiar el estado interno de una lista no se crea una nueva lista, sino
   que **se modifica la ya existente**:
@@ -937,9 +985,7 @@ s | P | y | t | h | o | n |
   >>> x[1] = 99
   >>> x
   [24, 99, 15, 81]
-  ```
-
----
+```
 
 :::: columns
 
@@ -991,45 +1037,11 @@ x:f1 -> lista
 
 ---
 
-- Las listas son secuencias mutables y, como tales, se pueden modificar usando
-  ciertas operaciones:
-
-  - Los *operadores* de **indexación** y **slicing** combinados con !PYTHON(=)
-    y !PYTHON(del):
-
-    ```
-      +-----+-----+-----+-----+-----+-----+
-    l | 124 | 333 | 'a' | 3.2 |  9  |  53 |
-      +-----+-----+-----+-----+-----+-----+
-      0     1     2     3     4     5     6
-     -6    -5    -4    -3    -2    -1
-    ```
-
-    ```python
-    >>> l = [124, 333, 'a', 3.2, 9, 53]
-    >>> l[3]
-    3.2
-    >>> l[3] = 99
-    >>> l
-    [124, 333, 'a', 99, 9, 53]
-    >>> l[0:2] = [40]
-    >>> l
-    [40, 'a', 99, 9, 53]
-    >>> del l[3]
-    >>> l
-    [40, 'a', 99, 53]
-    ```
-
-  - *Métodos* como !PYTHON(append), !PYTHON(clear), !PYTHON(insert),
-    !PYTHON(remove), !PYTHON(reverse) o !PYTHON(sort).
-
 - Las siguientes tablas muestran todas las **operaciones** que nos permiten
   **modificar secuencias mutables**.
 
----
-
-($\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
-cualquiera)
+- En ellas, $\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
+cualquiera.
 
 -------------------------------------------------------------------------------------------
 Operación                     Resultado

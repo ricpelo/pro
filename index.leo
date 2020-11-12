@@ -6,33 +6,33 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="ricardo.20201109233456.1"><vh>@auto source/introduccion.md</vh></v>
-<v t="ricardo.20201109233456.2"><vh>@auto source/expresiones.md</vh></v>
-<v t="ricardo.20201109233456.3"><vh>@auto source/programacion-funcional-i.md</vh></v>
-<v t="ricardo.20201109233456.4"><vh>@auto source/programacion-funcional-ii.md</vh></v>
-<v t="ricardo.20201109233456.5"><vh>@auto source/programacion-imperativa.md</vh></v>
-<v t="ricardo.20201109233456.6"><vh>@auto source/programacion-estructurada.md</vh></v>
-<v t="ricardo.20201109233456.7"><vh>@auto source/tipos-de-datos-estructurados.md</vh></v>
-<v t="ricardo.20201109233456.8"><vh>@auto source/programacion-modular-i.md</vh></v>
-<v t="ricardo.20201109233456.9"><vh>@auto source/calidad-i.md</vh></v>
-<v t="ricardo.20201109233456.10"><vh>@auto source/abstraccion-de-datos.md</vh></v>
-<v t="ricardo.20201109233456.11"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
-<v t="ricardo.20201109233456.12"><vh>@auto source/relaciones-entre-clases.md</vh></v>
-<v t="ricardo.20201109233456.13"><vh>@auto source/introduccion-a-la-tecnologia-java.md</vh></v>
-<v t="ricardo.20201109233456.14"><vh>@auto source/elementos-basicos-del-lenguaje-java.md</vh></v>
-<v t="ricardo.20201109233456.15"><vh>@auto source/programacion-orientada-a-objetos-en-java.md</vh></v>
-<v t="ricardo.20201109233456.16"><vh>@auto source/relaciones-entre-clases-java.md</vh></v>
-<v t="ricardo.20201109233456.17"><vh>@auto source/clases-y-objetos-basicos-en-java.md</vh></v>
-<v t="ricardo.20201109233456.18"><vh>@auto source/programacion-modular-ii.md</vh></v>
-<v t="ricardo.20201109233456.19"><vh>@auto source/programacion-generica.md</vh></v>
-<v t="ricardo.20201109233456.20"><vh>@auto source/estructuras-de-datos-lineales.md</vh></v>
-<v t="ricardo.20201109233456.21"><vh>@auto source/ordenacion-y-busqueda.md</vh></v>
-<v t="ricardo.20201109233456.22"><vh>@auto source/estructuras-de-datos-no-lineales.md</vh></v>
-<v t="ricardo.20201109233456.23"><vh>@auto source/control-de-excepciones.md</vh></v>
-<v t="ricardo.20201109233456.24"><vh>@auto source/java-collections-framework.md</vh></v>
-<v t="ricardo.20201109233456.25"><vh>@auto source/calidad-ii.md</vh></v>
-<v t="ricardo.20201109233456.26"><vh>@auto source/gestion-de-bases-de-datos-relacionales.md</vh></v>
-<v t="ricardo.20201109233456.27"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
+<v t="ricardo.20201112112757.1"><vh>@auto source/introduccion.md</vh></v>
+<v t="ricardo.20201112112757.2"><vh>@auto source/expresiones.md</vh></v>
+<v t="ricardo.20201112112757.3"><vh>@auto source/programacion-funcional-i.md</vh></v>
+<v t="ricardo.20201112112757.4"><vh>@auto source/programacion-funcional-ii.md</vh></v>
+<v t="ricardo.20201112112757.5"><vh>@auto source/programacion-imperativa.md</vh></v>
+<v t="ricardo.20201112112757.6"><vh>@auto source/programacion-estructurada.md</vh></v>
+<v t="ricardo.20201112112757.7"><vh>@auto source/tipos-de-datos-estructurados.md</vh></v>
+<v t="ricardo.20201112112757.8"><vh>@auto source/programacion-modular-i.md</vh></v>
+<v t="ricardo.20201112112757.9"><vh>@auto source/calidad-i.md</vh></v>
+<v t="ricardo.20201112112757.10"><vh>@auto source/abstraccion-de-datos.md</vh></v>
+<v t="ricardo.20201112112757.11"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
+<v t="ricardo.20201112112757.12"><vh>@auto source/relaciones-entre-clases.md</vh></v>
+<v t="ricardo.20201112112757.13"><vh>@auto source/introduccion-a-la-tecnologia-java.md</vh></v>
+<v t="ricardo.20201112112757.14"><vh>@auto source/elementos-basicos-del-lenguaje-java.md</vh></v>
+<v t="ricardo.20201112112757.15"><vh>@auto source/programacion-orientada-a-objetos-en-java.md</vh></v>
+<v t="ricardo.20201112112757.16"><vh>@auto source/relaciones-entre-clases-java.md</vh></v>
+<v t="ricardo.20201112112757.17"><vh>@auto source/clases-y-objetos-basicos-en-java.md</vh></v>
+<v t="ricardo.20201112112757.18"><vh>@auto source/programacion-modular-ii.md</vh></v>
+<v t="ricardo.20201112112757.19"><vh>@auto source/programacion-generica.md</vh></v>
+<v t="ricardo.20201112112757.20"><vh>@auto source/estructuras-de-datos-lineales.md</vh></v>
+<v t="ricardo.20201112112757.21"><vh>@auto source/ordenacion-y-busqueda.md</vh></v>
+<v t="ricardo.20201112112757.22"><vh>@auto source/estructuras-de-datos-no-lineales.md</vh></v>
+<v t="ricardo.20201112112757.23"><vh>@auto source/control-de-excepciones.md</vh></v>
+<v t="ricardo.20201112112757.24"><vh>@auto source/java-collections-framework.md</vh></v>
+<v t="ricardo.20201112112757.25"><vh>@auto source/calidad-ii.md</vh></v>
+<v t="ricardo.20201112112757.26"><vh>@auto source/gestion-de-bases-de-datos-relacionales.md</vh></v>
+<v t="ricardo.20201112112757.27"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>

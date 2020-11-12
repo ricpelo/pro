@@ -3406,9 +3406,28 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 # Tipos de datos recursivos
 
+## Concepto
+
+- Un **tipo de dato recursivo** es aquel que puede definirse en términos de sí
+  mismo.
+
+- Un **dato recursivo** es un dato que pertenece a un tipo recursivo. Por
+  tanto, es un dato que se construye sobre otros datos del mismo tipo.
+
+- Como toda estructura recursiva, un tipo de dato recursivo tiene casos base y
+  casos recursivos:
+
+  - En los casos base, el tipo recursivo se define directamente, sin referirse
+    a sí mismo.
+
+  - En los casos recursivos, el tipo recursivo se define sobre sí mismo.
+
+- La forma más natural de manipular un dato recursivo es usando funciones
+  recursivas.
+
 ## Cadenas
 
-- Las **cadenas** se pueden considerar **estructuras de datos recursivas**, ya
+- Las **cadenas** se pueden considerar **tipos de datos recursivos**, ya
   que podemos decir que toda cadena !PYTHON(c):
 
   - o bien es la cadena vacía !PYTHON{''} (_caso base_),

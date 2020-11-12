@@ -54,19 +54,19 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #d33682; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #4070a0; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #dc322f; } /* Char */
     code span.cn { color: #880000; } /* Constant */
     code span.co { color: #93a1a1; font-style: italic; } /* Comment */
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #268bd2; } /* DataType */
+    code span.dt { color: #6c71c4; } /* DataType */
     code span.dv { color: #d33682; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
     code span.fl { color: #d33682; } /* Float */
-    code span.fu { color: #268bd2; } /* Function */
+    code span.fu { color: #4070a0; } /* Function */
     code span.im { font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
@@ -268,12 +268,12 @@
 <li><p>Un valor es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
 <ol>
 <li><p>Tiene asociado un valor <em>hash</em> que nunca cambia durante su vida.</p>
-<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code>hash</code> sobre el valor. En caso contrario, la llamada generará un error <code>TypeError</code>.</p></li>
+<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code class="sourceCode python"><span class="bu">hash</span></code> sobre el valor. En caso contrario, la llamada generará un error <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 <li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos usando el operador <code>==</code>.</p></li>
 </ol></li>
 <li><p>Si dos valores <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>:</p>
 <div class="caja">
-<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <code>hash(</code><span class="math inline">x</span><code>) == hash(</code><span class="math inline">y</span><code>)</code>.</p>
+<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> <code>==</code> <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">y</span><code>)</code>.</p>
 </div></li>
 </ul>
 </section>
@@ -281,7 +281,7 @@
 
 <ul>
 <li><p>La mayoría de los valores inmutables predefinidos en Python son <em>hashables</em>.</p></li>
-<li><p>Los <strong>contenedores inmutables</strong> (como las tuplas o los <code>frozenset</code>s) sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
+<li><p>Los <strong>contenedores inmutables</strong> (como las tuplas o los <code class="sourceCode python"><span class="bu">frozenset</span></code>s) sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
 <li><p>Los <strong>contenedores mutables</strong> (como las listas o los diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
 <li><p>El concepto de <em>hashable</em> es importante en Python ya que existen tipos de datos estructurados que sólo admiten elementos <em>hashables</em>.</p></li>
 <li><p>Por ejemplo, los elementos de un conjunto y las claves de un diccionario deben ser <em>hashables</em>.</p></li>
@@ -298,7 +298,7 @@
 <li><p>Estructuras no secuenciales: diccionarios y conjuntos</p></li>
 </ul></li>
 <li><p>No representa un tipo concreto, sino más bien una <em>familia</em> de tipos que comparten la misma propiedad.</p></li>
-<li><p>Muchas funciones, como <code>map</code> y <code>filter</code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
+<li><p>Muchas funciones, como <code class="sourceCode python"><span class="bu">map</span></code> y <code class="sourceCode python"><span class="bu">filter</span></code>, actúan sobre iterables en general, en lugar de hacerlo sobre un tipo concreto.</p></li>
 <li><p>La forma básica de recorrer un dato iterable es usando un <strong>iterador</strong>.</p></li>
 </ul>
 </section>
@@ -307,11 +307,11 @@
 <h2 data-number="1.4"><span class="header-section-number">1.4</span> Iteradores</h2>
 <ul>
 <li><p>Un <strong>iterador</strong> representa un flujo de datos <em>perezoso</em> (no se entregan todos de una vez, sino de uno en uno).</p></li>
-<li><p>Cuando se llama repetidamente a la función <code>next</code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
-<li><p>Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo <code>StopIteration</code>.</p>
-<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code>next</code> se seguirá levantando esa excepción.</p></li>
-<li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code>iter</code> al iterable.</p></li>
-<li><p>Si se le pasa un dato no iterable, levanta una excepción <code>TypeError</code>.</p></li>
+<li><p>Cuando se llama repetidamente a la función <code class="sourceCode python"><span class="bu">next</span></code> aplicada a un iterador, se van obteniendo los sucesivos elementos del flujo.</p></li>
+<li><p>Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo <code class="sourceCode python"><span class="pp">StopIteration</span></code>.</p>
+<p>Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a la función <code class="sourceCode python"><span class="bu">next</span></code> se seguirá levantando esa excepción.</p></li>
+<li><p>Se puede obtener un iterador a partir de cualquier dato iterable aplicando la función <code class="sourceCode python"><span class="bu">iter</span></code> al iterable.</p></li>
+<li><p>Si se le pasa un dato no iterable, levanta una excepción <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
@@ -348,9 +348,9 @@
 <section class="slide level5" data-number="1.4.0.0.3">
 
 <ul>
-<li><p>Funciones como <code>map</code> y <code>filter</code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
-<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code>map</code>?</p></li>
-<li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code>list</code> y <code>tuple</code>:</p>
+<li><p>Funciones como <code class="sourceCode python"><span class="bu">map</span></code> y <code class="sourceCode python"><span class="bu">filter</span></code> devuelven iteradores porque, al ser perezosos, son más eficiente en memoria que devolver toda una lista o tupla.</p>
+<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del resultado de un <code class="sourceCode python"><span class="bu">map</span></code>?</p></li>
+<li><p>Los iteradores se pueden convertir en listas o tuplas usando las funciones <code class="sourceCode python"><span class="bu">list</span></code> y <code class="sourceCode python"><span class="bu">tuple</span></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> iterador <span class="op">=</span> <span class="bu">iter</span>(l)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> <span class="bu">tuple</span>(iterador)</span>
@@ -362,7 +362,7 @@
 
 <ul>
 <li><p>Los iteradores también son iterables que actúan como sus propios iteradores.</p></li>
-<li><p>Por tanto, cuando llamamos a <code>iter</code> pasándole un iterador, se devuelve el mismo iterador:</p>
+<li><p>Por tanto, cuando llamamos a <code class="sourceCode python"><span class="bu">iter</span></code> pasándole un iterador, se devuelve el mismo iterador:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(lista)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it</span>
@@ -393,9 +393,9 @@
 </section>
 
 <section id="el-bucle-for" class="title-slide slide level3" data-number="1.4.2">
-<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> El bucle <code>for</code></h3>
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> El bucle <code class="sourceCode python"><span class="cf">for</span></code></h3>
 <ul>
-<li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante un bucle <code>for</code>.</p></li>
+<li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante un bucle <code class="sourceCode python"><span class="cf">for</span></code>.</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><strong><code>for</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>variable</em>⟩</span>)* <strong><code>in</code></strong> <span style="color:teal">⟨<em>iterable</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span></div>
@@ -438,28 +438,28 @@ fin = <strong><code>False</code></strong><br />
 </section>
 
 <section id="el-módulo-itertools" class="title-slide slide level3" data-number="1.4.3">
-<h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> El módulo <code>itertools</code></h3>
+<h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> El módulo <code class="sourceCode python">itertools</code></h3>
 <ul>
-<li><p>El módulo <code>itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
-<li><p><code>itertools.count(</code>[<span style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es 0) y el intervalo entre números (que por defecto es 1):</p>
+<li><p>El módulo <code class="sourceCode python">itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
+<li><p><code class="sourceCode python">itertools.count</code><code>(</code>[<span style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es <code class="sourceCode python"><span class="dv">0</span></code>) y el intervalo entre números (que por defecto es <code class="sourceCode python"><span class="dv">1</span></code>):</p>
 <ul>
-<li><p><code>itertools.count()</code> <span class="math inline">\Rightarrow</span> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, …</p></li>
-<li><p><code>itertools.count(10)</code> <span class="math inline">\Rightarrow</span> 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</p></li>
-<li><p><code>itertools.count(10, 5)</code> <span class="math inline">\Rightarrow</span> 10, 15, 20, 25, 30, 35, 40, 45, …</p></li>
+<li><p><code class="sourceCode python">itertools.count()</code> <span class="math inline">\Rightarrow</span> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, …</p></li>
+<li><p><code class="sourceCode python">itertools.count(<span class="dv">10</span>)</code> <span class="math inline">\Rightarrow</span> 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</p></li>
+<li><p><code class="sourceCode python">itertools.count(<span class="dv">10</span>, <span class="dv">5</span>)</code> <span class="math inline">\Rightarrow</span> 10, 15, 20, 25, 30, 35, 40, 45, …</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.3.0.1">
 
 <ul>
-<li><p><code>itertools.cycle(</code><span style="color:teal">⟨<em>iterador</em>⟩</span><code>)</code> devuelve un nuevo iterador que va generando sus elementos del primero al último, repitiéndolos indefinidamente:</p>
+<li><p><code class="sourceCode python">itertools.cycle</code><code>(</code><span style="color:teal">⟨<em>iterador</em>⟩</span><code>)</code> devuelve un nuevo iterador que va generando sus elementos del primero al último, repitiéndolos indefinidamente:</p>
 <ul>
-<li><code>itertools.cycle([1, 2, 3, 4])</code> <span class="math inline">\Rightarrow</span> 1, 2, 3, 4, 1, 2, 3, 4, …</li>
+<li><code class="sourceCode python">itertools.cycle([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code> <span class="math inline">\Rightarrow</span> 1, 2, 3, 4, 1, 2, 3, 4, …</li>
 </ul></li>
-<li><p><code>itertools.repeat(</code><span style="color:teal">⟨<em>elem</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>n</em>⟩</span>]<code>)</code> devuelve <span style="color:teal">⟨<em>n</em>⟩</span> veces el elemento <span style="color:teal">⟨<em>elem</em>⟩</span>, o lo devuelve indefinidamente si no se indica <span style="color:teal">⟨<em>n</em>⟩</span>:</p>
+<li><p><code class="sourceCode python">itertools.repeat</code><code>(</code><span style="color:teal">⟨<em>elem</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>n</em>⟩</span>]<code>)</code> devuelve <span style="color:teal">⟨<em>n</em>⟩</span> veces el elemento <span style="color:teal">⟨<em>elem</em>⟩</span>, o lo devuelve indefinidamente si no se indica <span style="color:teal">⟨<em>n</em>⟩</span>:</p>
 <ul>
-<li><p><code>itertools.repeat('abc')</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc, abc, abc, …</p></li>
-<li><p><code>itertools.repeat('abc', 5)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc</p></li>
+<li><p><code class="sourceCode python">itertools.repeat(<span class="st">&#39;abc&#39;</span>)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc, abc, abc, …</p></li>
+<li><p><code class="sourceCode python">itertools.repeat(<span class="st">&#39;abc&#39;</span>, <span class="dv">5</span>)</code> <span class="math inline">\Rightarrow</span> abc, abc, abc, abc, abc</p></li>
 </ul></li>
 </ul>
 </section>
@@ -475,13 +475,13 @@ fin = <strong><code>False</code></strong><br />
 <ul>
 <li><p>Una secuencia es una estructura de datos que:</p>
 <ul>
-<li><p>permite el acceso eficiente a sus elementos mediante indexación <code>[</code><span class="math inline">i</span><code>]</code> (siendo <span class="math inline">i</span> un entero), y</p></li>
-<li><p>se le puede calcular su longitud mediante la función <code>len</code>.</p></li>
+<li><p>permite el acceso eficiente a sus elementos mediante indexación <code>[</code><span class="math inline">i</span><code>]</code> (siendo <span class="math inline">\underline{i}</span> un entero), y</p></li>
+<li><p>se le puede calcular su longitud mediante la función <code class="sourceCode python"><span class="bu">len</span></code>.</p></li>
 </ul></li>
 <li><p>Las secuencias se dividen en:</p>
 <ul>
-<li><p><strong>Inmutables</strong>: cadenas (<code>str</code>), tuplas (<code>tuple</code>) y rangos (<code>range</code>).</p></li>
-<li><p><strong>Mutables</strong>: listas (<code>list</code>)</p></li>
+<li><p><strong>Inmutables</strong>: cadenas (<code class="sourceCode python"><span class="bu">str</span></code>), tuplas (<code class="sourceCode python"><span class="bu">tuple</span></code>) y rangos (<code class="sourceCode python"><span class="bu">range</span></code>).</p></li>
+<li><p><strong>Mutables</strong>: listas (<code class="sourceCode python"><span class="bu">list</span></code>)</p></li>
 </ul></li>
 </ul>
 </section>
@@ -502,8 +502,8 @@ fin = <strong><code>False</code></strong><br />
 
 <table>
 <colgroup>
-<col style="width: 35%" />
-<col style="width: 64%" />
+<col style="width: 34%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -513,53 +513,53 @@ fin = <strong><code>False</code></strong><br />
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>True</code> si algún elemento de <span class="math inline">s</span> es igual a <span class="math inline">x</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si algún elemento de <span class="math inline">\underline{s}</span> es igual a <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>not</code> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>False</code> si algún elemento de <span class="math inline">s</span> es igual a <span class="math inline">x</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">not</span> <span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">False</span></code> si algún elemento de <span class="math inline">\underline{s}</span> es igual a <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span> <code>+</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">La concatenación de <span class="math inline">s</span> y <span class="math inline">t</span></td>
+<td style="text-align: left;">La concatenación de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span> <code>*</code> <span class="math inline">n</span><br />
 <span class="math inline">n</span> <code>*</code> <span class="math inline">s</span></td>
-<td style="text-align: left;">Equivale a concatenar <span class="math inline">s</span> consigo misma <span class="math inline">n</span> veces</td>
+<td style="text-align: left;">Equivale a concatenar <span class="math inline">\underline{s}</span> consigo misma <span class="math inline">\underline{n}</span> veces</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code></td>
-<td style="text-align: left;">El <span class="math inline">i</span>-ésimo elemento de <span class="math inline">s</span>, empezando por 0</td>
+<td style="text-align: left;">El <span class="math inline">\underline{i}</span>-ésimo elemento de <span class="math inline">\underline{s}</span>, empezando por 0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
-<td style="text-align: left;">Rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span></td>
+<td style="text-align: left;">Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
-<td style="text-align: left;">Rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span> con paso <span class="math inline">k</span></td>
+<td style="text-align: left;">Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span> con paso <span class="math inline">\underline{k}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>len(</code><span class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;">Longitud de <span class="math inline">s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">Longitud de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>min(</code><span class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;">El elemento más pequeño de <span class="math inline">s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">min</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más pequeño de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>max(</code><span class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;">El elemento más grande de <span class="math inline">s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">max</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más grande de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.index(</code><span class="math inline">x</span> [<code>,</code> <span class="math inline">i</span> [<code>,</code> <span class="math inline">j</span> ] ]<code>)</code></td>
-<td style="text-align: left;">El índice de la primera aparición de <span class="math inline">x</span> en <span class="math inline">s</span> (desde el índice <span class="math inline">i</span> inclusive y antes del <span class="math inline">j</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.index</code><code>(</code><span class="math inline">x</span> [<code>,</code> <span class="math inline">i</span> [<code>,</code> <span class="math inline">j</span> ] ]<code>)</code></td>
+<td style="text-align: left;">El índice de la primera aparición de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> (desde el índice <span class="math inline">\underline{i}</span> inclusive y antes del <span class="math inline">\underline{j}</span>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.count(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Número total de apariciones de <span class="math inline">x</span> en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.count</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Número total de apariciones de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
@@ -570,18 +570,18 @@ fin = <strong><code>False</code></strong><br />
 
 </section>
 <section id="cadenas-str" class="title-slide slide level3" data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Cadenas (<code>str</code>)</h3>
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Cadenas (<code class="sourceCode python"><span class="bu">str</span></code>)</h3>
 <ul>
 <li><p>Las <strong>cadenas</strong> son secuencias inmutables y <em>hashables</em> de caracteres.</p></li>
 <li><p>No olvidemos que en Python no existe el tipo <em>carácter</em>. En Python, un carácter es una cadena de longitud 1.</p></li>
 <li><p>Las cadenas literales se pueden crear:</p>
 <ul>
-<li><p>Con comillas simples (<code>'</code>) o dobles (<code>"</code>):</p>
+<li><p>Con comillas simples (<code class="sourceCode python"><span class="st">&#39;</span></code>) o dobles (<code class="sourceCode python"><span class="st">&quot;</span></code>):</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola&#39;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
-<li><p>Con triples comillas (<code>'''</code> o <code>"""</code>):</p>
+<li><p>Con triples comillas (<code class="sourceCode python"><span class="st">&#39;&#39;&#39;</span></code> o <code class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>):</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;&quot;&quot;hola</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">... qué tal&quot;&quot;&quot;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola</span><span class="ch">\n</span><span class="st">qué tal&#39;</span></span></code></pre></div></li>
@@ -623,16 +623,15 @@ fin = <strong><code>False</code></strong><br />
 </ul></li>
 <li><p>Los campos de sustitución pueden contener saltos de línea pero no comentarios.</p></li>
 <li><p>Si se indica una conversión, el resultado de evaluar la expresión se convierte antes de aplicar el formateado.</p>
-<p>La conversión <code>!s</code> llama a la función <code>str</code> sobre el resultado, <code>!r</code> llama a <code>repr</code> y <code>!a</code> llama a <code>ascii</code>.</p></li>
-<li><p>A continuación, el resultado es formateado usando la función <code>format</code>.</p></li>
+<p>La conversión <code>!s</code> llama a la función <code class="sourceCode python"><span class="bu">str</span></code> sobre el resultado, <code>!r</code> llama a <code class="sourceCode python"><span class="bu">repr</span></code> y <code>!a</code> llama a <code class="sourceCode python"><span class="bu">ascii</span></code>.</p></li>
+<li><p>A continuación, el resultado es formateado usando la función <code class="sourceCode python"><span class="bu">format</span></code>.</p></li>
 <li><p>Finalmente, el resultado del formateado es incluido en el valor final de la cadena completa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.1.1.3">
 
 <ul>
-<li>La sintaxis general de un especificador de formato es:</li>
-</ul>
+<li><p>La sintaxis general de un especificador de formato es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>especif</em>⟩</span> ::= [[<span style="color:teal">⟨<em>relleno</em>⟩</span>]<span style="color:teal">⟨<em>alig</em>⟩</span>][<span style="color:teal">⟨<em>signo</em>⟩</span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span style="color:teal">⟨<em>ancho</em>⟩</span>][<span style="color:teal">⟨<em>grupos</em>⟩</span>][<strong><code>.</code></strong><span style="color:teal">⟨<em>precision</em>⟩</span>][<span style="color:teal">⟨<em>tipo</em>⟩</span>]<br />
 <span style="color:teal">⟨<em>relleno</em>⟩</span> ::= <span style="color:teal">⟨<em>cualquier carácter</em>⟩</span><br />
 <span style="color:teal">⟨<em>alig</em>⟩</span> ::= <strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong> | <strong><code>=</code></strong> | <strong><code>^</code></strong><br />
@@ -640,8 +639,7 @@ fin = <strong><code>False</code></strong><br />
 <span style="color:teal">⟨<em>ancho</em>⟩</span> ::= <span style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
 <span style="color:teal">⟨<em>grupos</em>⟩</span> ::= <strong><code>_</code></strong> | <strong><code>,</code></strong><br />
 <span style="color:teal">⟨<em>precision</em>⟩</span> ::= <span style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
-<span style="color:teal">⟨<em>tipo</em>⟩</span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div>
-<ul>
+<span style="color:teal">⟨<em>tipo</em>⟩</span> ::= <strong><code>b</code></strong> | <strong><code>c</code></strong> | <strong><code>d</code></strong> | <strong><code>e</code></strong> | <strong><code>E</code></strong> | <strong><code>f</code></strong> | <strong><code>F</code></strong> | <strong><code>g</code></strong> | <strong><code>G</code></strong> | <strong><code>n</code></strong> | <strong><code>o</code></strong> | <strong><code>s</code></strong> | <strong><code>x</code></strong> | <strong><code>X</code></strong> | <strong><code>%</code></strong></div></li>
 <li><p>Los especificadores de formato de nivel superior pueden incluir campos de sustitución anidados.</p></li>
 <li><p>Estos campos anidados pueden incluir, a su vez, sus propios campos de conversión y sus propios especificadores de formato, pero no pueden incluir más campos de sustitución anidados.</p></li>
 <li><p>Para más información, consultar <a href="https://docs.python.org/3.7/library/string.html#format-specification-mini-language">https://docs.python.org/3.7/library/string.html#format-specification-mini-language</a></p></li>
@@ -705,18 +703,18 @@ fin = <strong><code>False</code></strong><br />
 <section id="tuplas" class="title-slide slide level3" data-number="2.3.2">
 <h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Tuplas</h3>
 <ul>
-<li><p>Las tuplas son secuencias inmutables, usadas frecuentemente para almacenar colecciones de datos heterogéneos (de tipos distintos).</p></li>
+<li><p>Las <strong>tuplas</strong> (<code class="sourceCode python"><span class="bu">tuple</span></code>) son secuencias inmutables, usadas frecuentemente para almacenar colecciones de datos heterogéneos (de tipos distintos).</p></li>
 <li><p>También se usan en aquellos casos en los que se necesita una secuencia inmutable de datos homogéneos (por ejemplo, para almacenar datos en un conjunto o un diccionario).</p></li>
 <li><p>Las tuplas se pueden crear así:</p>
 <ul>
-<li><p>Si es una tupla vacía, con paréntesis vacíos: <code>()</code></p></li>
+<li><p>Si es una tupla vacía, con paréntesis vacíos: <code class="sourceCode python">()</code></p></li>
 <li><p>Si sólo tiene un elemento, se pone una coma detrás:</p>
-<p><code>a,</code></p>
-<p><code>(a,)</code></p></li>
+<p><code class="sourceCode python">a,</code></p>
+<p><code class="sourceCode python">(a,)</code></p></li>
 <li><p>Si tiene más de un elemento, se separan con comas:</p>
-<p><code>a, b, c</code></p>
-<p><code>(a, b, c)</code></p></li>
-<li><p>Usando la función <code>tuple</code>.</p></li>
+<p><code class="sourceCode python">a, b, c</code></p>
+<p><code class="sourceCode python">(a, b, c)</code></p></li>
+<li><p>Usando la función <code class="sourceCode python"><span class="bu">tuple</span></code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -726,9 +724,9 @@ fin = <strong><code>False</code></strong><br />
 <li><p>Observar que lo que construye la tupla es realmente la coma, no los paréntesis.</p></li>
 <li><p>Los paréntesis son opcionales, excepto en dos casos:</p>
 <ul>
-<li><p>La tupla vacía: <code>()</code></p></li>
+<li><p>La tupla vacía: <code class="sourceCode python">()</code></p></li>
 <li><p>Cuando son necesarios para evitar ambigüedad.</p>
-<p>Por ejemplo, <code>f(a, b, c)</code> es una llamada a una función con tres argumentos, mientras que <code>f((a, b, c))</code> es una llamada a una función con un único argumento que es una tupla de tres elementos.</p></li>
+<p>Por ejemplo, <code class="sourceCode python">f(a, b, c)</code> es una llamada a una función con tres argumentos, mientras que <code class="sourceCode python">f((a, b, c))</code> es una llamada a una función con un único argumento que es una tupla de tres elementos.</p></li>
 </ul></li>
 <li><p>Las tuplas implementan todas las operaciones comunes de las secuencias.</p></li>
 <li><p>En general, las tuplas se pueden considerar como la versión inmutable de las listas.</p></li>
@@ -739,36 +737,39 @@ fin = <strong><code>False</code></strong><br />
 <section id="rangos" class="title-slide slide level3" data-number="2.3.3">
 <h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Rangos</h3>
 <ul>
-<li><p>Los <strong>rangos</strong> representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
-<li><p>Los rangos se crean con la función <code>range</code>:</p>
-<div class="line-block"><span style="color:teal">⟨<em>rango</em>⟩</span> ::= <strong><code>range</code><code>(</code></strong>[<span style="color:teal">⟨<em>inicio</em>⟩</span><strong><code>,</code></strong>] <span style="color:teal">⟨<em>fin</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>paso</em>⟩</span>]<strong><code>)</code></strong></div></li>
-<li><p><span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> y <span style="color:teal">⟨<em>paso</em>⟩</span> deben ser números enteros.</p></li>
-<li><p>Cuando se omite <span style="color:teal">⟨<em>inicio</em>⟩</span>, se entiende que es <code>0</code>.</p></li>
-<li><p>El valor de <span style="color:teal">⟨<em>fin</em>⟩</span> no se alcanza nunca.</p></li>
-<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> y <span style="color:teal">⟨<em>fin</em>⟩</span> son iguales, representa el <strong>rango vacío</strong>.</p></li>
-<li><p>Cuando <span style="color:teal">⟨<em>inicio</em>⟩</span> es mayor que <span style="color:teal">⟨<em>fin</em>⟩</span>, el <span style="color:teal">⟨<em>paso</em>⟩</span> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
+<li><p>Los <strong>rangos</strong> (<code class="sourceCode python"><span class="bu">range</span></code>) representan secuencias inmutables y <em>hashables</em> de números enteros y se usan frecuentemente para hacer bucles que se repitan un determinado número de veces.</p></li>
+<li><p>Los rangos se crean con la función <code class="sourceCode python"><span class="bu">range</span></code>:</p>
+<div class="caja">
+<p><code>range(</code>[<em>start</em><code>: int,</code>] <em>stop</em><code>: int</code> [<code>,</code> <em>step</em><code>: int</code>]<code>) -&gt; range</code></p>
+</div></li>
+<li><p>Cuando se omite <em>start</em>, se entiende que es <code class="sourceCode python"><span class="dv">0</span></code>.</p></li>
+<li><p>Cuando se omite <em>step</em>, se entiende que es <code class="sourceCode python"><span class="dv">1</span></code>.</p></li>
+<li><p>El valor de <em>stop</em> no se alcanza nunca.</p></li>
+<li><p>Cuando <em>start</em> y <em>stop</em> son iguales, representa el <em>rango vacío</em>.</p></li>
+<li><p><em>step</em> debe ser siempre distinto de cero.</p></li>
+<li><p>Cuando <em>start</em> es mayor que <em>stop</em>, el valor de <em>step</em> debería ser negativo. En caso contrario, también representaría el rango vacío.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.3.0.1">
 
 <ul>
 <li><p>El <strong>contenido</strong> de un rango <span class="math inline">r</span> vendrá determinado por la fórmula: <span class="math display">r[i] =
-inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Además:</p>
+start + step \cdot i</span> donde <span class="math inline">i \geq 0</span>. Además:</p>
 <ul>
-<li><p>Si <span class="math inline">paso &gt; 0</span>, se impone también la restricción <span class="math inline">r[i] &lt; \text{\textit{fin}}</span>.</p></li>
-<li><p>Si <span class="math inline">paso &lt; 0</span>, se impone también la restricción <span class="math inline">r[i] &gt; \text{\textit{fin}}</span>.</p></li>
+<li><p>Si <span class="math inline">step &gt; 0</span>, se impone también la restricción <span class="math inline">r[i] &lt; \text{\textit{stop}}</span>.</p></li>
+<li><p>Si <span class="math inline">step &lt; 0</span>, se impone también la restricción <span class="math inline">r[i] &gt; \text{\textit{stop}}</span>.</p></li>
 </ul></li>
 <li><p>Un rango es <strong>vacío</strong> cuando <span class="math inline">r[0]</span> no satisface las restricciones anteriores.</p></li>
 <li><p>Los rangos admiten <strong>índices negativos</strong>, pero se interpretan como si se indexara desde el final de la secuencia usando índices positivos.</p></li>
 <li><p>Los rangos implementan <strong>todas las operaciones de las secuencias, <em>excepto</em> la concatenación y la repetición</strong>.</p>
 <p>Esto es debido a que los rangos sólo pueden representar secuencias que siguen un patrón muy estricto, y las repeticiones y las concatenaciones a menudo violan ese patrón.</p></li>
-<li><p><strong>Los rangos son perezosos</strong> y además ocupan mucha menos memoria que las listas o las tuplas (sólo hay que almacenar <em>inicio</em>, <em>fin</em> y <em>paso</em>).</p></li>
+<li><p><strong>Los rangos son perezosos</strong> y además ocupan mucha menos memoria que las listas o las tuplas (sólo hay que almacenar <em>start</em>, <em>stop</em> y <em>step</em>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.3.0.2">
 
 <ul>
-<li><p>La <strong>forma normal</strong> de un rango representa los valores <em>inicio</em>, <em>fin</em> y <em>paso</em>, que son los que realmente determinan al rango:</p>
+<li><p>La <strong>forma normal</strong> de un rango es una expresión en la que se llama a la función <code class="sourceCode python"><span class="bu">range</span></code> con los argumentos necesarios para construir el rango:</p>
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">10</span>)</span>
@@ -808,7 +809,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="2.3.3.0.3">
 
 <ul>
-<li><p>Dos rangos son considerados <strong>iguales</strong> si representan la misma secuencia de valores, sin importar si tienen distintos valores de <span style="color:teal">⟨<em>inicio</em>⟩</span>, <span style="color:teal">⟨<em>fin</em>⟩</span> o <span style="color:teal">⟨<em>paso</em>⟩</span>.</p></li>
+<li><p>Dos rangos son considerados <strong>iguales</strong> si representan la misma secuencia de valores, sin importar si tienen distintos valores de <em>inicio</em>, <em>fin</em> o <em>paso</em>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
@@ -819,6 +820,22 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
+</section>
+<section class="slide level5" data-number="2.3.3.0.4">
+
+<ul>
+<li><p>El <strong>rango vacío</strong> es un valor que no tiene expresión canónica, ya que cualquiera de las siguientes expresiones representan al rango vacío tan bien como cualquier otra:</p>
+<ul>
+<li><p><code class="sourceCode python"><span class="bu">range</span>(<span class="dv">0</span>)</code>.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">range</span></code><code>(</code><span class="math inline">a</span><code>,</code><span class="math inline">\;a</span><code>)</code>, donde <em>a</em> es cualquier entero.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">range</span></code><code>(</code><span class="math inline">a</span><code>,</code><span class="math inline">\;b</span><code>,</code><span class="math inline">\;c</span><code>)</code>, donde <span class="math inline">a \geq b</span> y <span class="math inline">c &gt; 0</span>.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">range</span></code><code>(</code><span class="math inline">a</span><code>,</code><span class="math inline">\;b</span><code>,</code><span class="math inline">\;c</span><code>)</code>, donde <span class="math inline">a \leq b</span> y <span class="math inline">c &lt; 0</span>.</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </section>
 
 
@@ -833,18 +850,18 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <li><p>Al ser mutables, las listas <strong>no</strong> son <em>hashables</em>.</p></li>
 <li><p>Se pueden construir de varias maneras:</p>
 <ul>
-<li><p>Usando corchetes vacíos para representar la lista vacía: <code>[]</code>.</p></li>
+<li><p>Usando corchetes vacíos para representar la lista vacía: <code class="sourceCode python">[]</code>.</p></li>
 <li><p>Usando corchetes y separando los elementos con comas:</p>
-<p><code>[a]</code></p>
-<p><code>[a, b, c]</code></p></li>
-<li><p>Usando la función <code>list</code> con las sintaxis <code>list()</code> o <code>list(</code><span style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
+<p><code class="sourceCode python">[a]</code></p>
+<p><code class="sourceCode python">[a, b, c]</code></p></li>
+<li><p>Usando la función <code class="sourceCode python"><span class="bu">list</span></code> con las sintaxis <code class="sourceCode python"><span class="bu">list</span>()</code> o <code class="sourceCode python"><span class="bu">list</span></code><code>(</code><span style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.1.0.1">
 
 <ul>
-<li><p>La función <code>list</code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal">⟨<em>iterable</em>⟩</span>.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">list</span></code> construye una lista cuyos elementos son los mismos (y están en el mismo orden) que los elementos de <span style="color:teal">⟨<em>iterable</em>⟩</span>.</p></li>
 <li><p><span style="color:teal">⟨<em>iterable</em>⟩</span> puede ser:</p>
 <ul>
 <li><p>una secuencia,</p></li>
@@ -853,18 +870,18 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </ul></li>
 <li><p>Si se llama sin argumentos, devuelve una lista vacía.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;abc&#39;</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;abc&#39;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section id="listas-por-comprensión" class="title-slide slide level4" data-number="2.4.1.1">
 <h4 data-number="2.4.1.1"><span class="header-section-number">2.4.1.1</span> Listas por comprensión</h4>
 <ul>
 <li><p>También se pueden crear <strong>listas por comprensión</strong> usando la misma sintaxis de las <strong>expresiones generadoras</strong> pero encerrando la expresión entre corchetes en lugar de entre paréntesis:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]</span></code></pre></div></li>
 <li><p>Como se ve, el resultado es directamente una lista, no un iterador.</p></li>
 </ul>
 </section>
@@ -878,8 +895,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <p><br></p>
 <table>
 <colgroup>
-<col style="width: 37%" />
-<col style="width: 62%" />
+<col style="width: 25%" />
+<col style="width: 74%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -890,22 +907,22 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code> <code>=</code> <span class="math inline">x</span></td>
-<td style="text-align: left;">El elemento <span class="math inline">i</span> de <span class="math inline">s</span> se sustituye por <span class="math inline">x</span></td>
+<td style="text-align: left;">El elemento <span class="math inline">\underline{i}</span> de <span class="math inline">\underline{s}</span> se sustituye por <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">La rodaja de <span class="math inline">s</span> desde <span class="math inline">i</span> hasta <span class="math inline">j</span> se sustituye por el contenido del iterable <span class="math inline">t</span></td>
+<td style="text-align: left;">La rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span> se sustituye por el contenido del iterable <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>del</code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
 <td style="text-align: left;">Igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <code>[]</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> <code>=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por los de <span class="math inline">t</span></td>
+<td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por los de <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>del</code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 <td style="text-align: left;">Elimina de la secuencia los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 </tr>
 </tbody>
@@ -916,7 +933,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <table>
 <colgroup>
 <col style="width: 25%" />
-<col style="width: 75%" />
+<col style="width: 74%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -926,48 +943,52 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.append(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.append</code><code>(</code><span class="math inline">x</span><code>)</code></td>
 <td style="text-align: left;">Añade <span class="math inline">x</span> al final de la secuencia; es igual que<br />
-<span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+<span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.clear()</code></td>
-<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">s</span>; es igual que<br />
-<code>del</code> <span class="math inline">\ s</span><code>[:]</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{s}</span>; es igual que<br />
+<code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code class="sourceCode python">[:]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.copy()</code></td>
-<td style="text-align: left;">Crea una copia <em>superficial</em> de <span class="math inline">s</span>; es igual que <span class="math inline">s</span><code>[:]</code></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.copy()</code></td>
+<td style="text-align: left;">Crea una copia <em>superficial</em> de <span class="math inline">\underline{s}</span>; es igual que <span class="math inline">s</span><code class="sourceCode python">[:]</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.extend(</code><span class="math inline">t</span><code>)</code><br />
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.extend</code><code>(</code><span class="math inline">t</span><code>)</code><br />
 <span class="math inline">s</span> <code>+=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">Extiende <span class="math inline">s</span> con el contenido de <span class="math inline">t</span>; es como hacer<br />
-<span class="math inline">s</span><code>[len(</code><span class="math inline">s</span><code>):len(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">Extiende <span class="math inline">\underline{s}</span> con el contenido de <span class="math inline">\underline{t}</span>; es como hacer<br />
+<span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span> <code>*=</code> <span class="math inline">n</span></td>
-<td style="text-align: left;">Modifica <span class="math inline">s</span> repitiendo su contenido <span class="math inline">n</span> veces</td>
+<td style="text-align: left;">Modifica <span class="math inline">\underline{s}</span> repitiendo su contenido <span class="math inline">\underline{n}</span> veces</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>max(</code><span class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;">El elemento más grande de <span class="math inline">s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">max</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más grande de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.insert(</code><span class="math inline">i</span><code>,</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Inserta <span class="math inline">x</span> en <span class="math inline">s</span> en el índice <span class="math inline">i</span>; es igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">min</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más pequeño de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.pop(</code>[ <span class="math inline">i</span> ]<code>)</code></td>
-<td style="text-align: left;">Extrae el elemento <span class="math inline">i</span> de <span class="math inline">s</span> y lo devuelve (por defecto, <span class="math inline">i</span> vale <span class="math inline">-1</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.insert</code><code>(</code><span class="math inline">i</span><code>,</code> <span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Inserta <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> en el índice <span class="math inline">\underline{i}</span>; es igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.remove(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Quita el primer elemento de <span class="math inline">s</span> que sea igual a <span class="math inline">x</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.pop</code><code>(</code>[ <span class="math inline">i</span> ]<code>)</code></td>
+<td style="text-align: left;">Extrae el elemento <span class="math inline">\underline{i}</span> de <span class="math inline">\underline{s}</span> y lo devuelve (por defecto, <span class="math inline">\underline{i}</span> vale <code class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.reverse()</code></td>
-<td style="text-align: left;">Invierte los elementos de <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.remove</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Quita el primer elemento de <span class="math inline">\underline{s}</span> que sea igual a <span class="math inline">\underline{x}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.reverse()</code></td>
+<td style="text-align: left;">Invierte los elementos de <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
@@ -975,14 +996,14 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="2.4.2.0.2">
 
 <ul>
-<li><p>Las listas, además, admiten el método <code>sort</code>, que permite ordenar sus elementos de forma ascendente o descendente:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
+<li><p>Las listas, además, admiten el método <code class="sourceCode python">sort</code>, que permite ordenar sus elementos de forma ascendente o descendente:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -993,15 +1014,15 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 </section>
 <section id="conjuntos-set-y-frozenset" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Conjuntos (<code>set</code> y <code>frozenset</code>)</h2>
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Conjuntos (<code class="sourceCode python"><span class="bu">set</span></code> y <code class="sourceCode python"><span class="bu">frozenset</span></code>)</h2>
 <ul>
 <li><p>Un conjunto es una colección <strong>no ordenada</strong> de elementos <em>hashables</em>.</p></li>
 <li><p>Se usan frecuentemente para comprobar si un elemento pertenece a un grupo, para eliminar duplicados en una secuencia y para realizar operaciones matemáticas como la <em>unión</em>, la <em>intersección</em> y la <em>diferencia simétrica</em>.</p></li>
 <li><p>Como cualquier otra colección, los conjuntos permiten el uso de:</p>
 <ul>
-<li><p><span class="math inline">x\ </span> <code>in</code> <span class="math inline">\ c</span></p></li>
-<li><p><code>len(</code><span class="math inline">c</span><code>)</code></p></li>
-<li><p><code>for</code> <span class="math inline">\ x\ </span> <code>in</code> <span class="math inline">\ c</span></p></li>
+<li><p><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ c</span></p></li>
+<li><p><code class="sourceCode python"><span class="bu">len</span></code><code>(</code><span class="math inline">c</span><code>)</code></p></li>
+<li><p><code class="sourceCode python"><span class="cf">for</span></code> <span class="math inline">\ x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ c</span></p></li>
 </ul></li>
 <li><p>Como son colecciones no ordenadas, los conjuntos <strong>no almacenan la posición</strong> de los elementos o el <strong>orden</strong> en el que se insertaron.</p></li>
 <li><p>Por tanto, tampoco admiten la indexación, las rodajas ni cualquier otro comportamiento propio de las secuencias.</p></li>
@@ -1012,7 +1033,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <ul>
 <li><p>Cuando decimos que <strong>un conjunto no está ordenado</strong>, queremos decir que los elementos que contiene no se encuentran situados en una posición concreta.</p>
 <ul>
-<li>A diferencia de lo que ocurre con las sencuencias, donde cada elemento se encuentra en una posición indicada por su <em>índice</em> y podemos acceder a él usando la indexación.</li>
+<li>Es lo contrario de lo que ocurre con las sencuencias, donde cada elemento se encuentra en una posición indicada por su <em>índice</em> y podemos acceder a él usando la indexación.</li>
 </ul></li>
 <li><p>Además, en un conjunto <strong>no puede haber elementos repetidos</strong> (un elemento concreto sólo puede estar <em>una vez</em> dentro de un conjunto, es decir, o está una vez o no está).</p></li>
 <li><p>En resumen:</p>
@@ -1026,62 +1047,62 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
-<li><p>Existen dos tipos predefinidos de conjuntos: <code>set</code> y <code>frozenset</code>.</p></li>
-<li><p>El tipo <code>set</code> es <strong>mutable</strong>, es decir, que su contenido puede cambiar usando métodos como <code>add</code> y <code>remove</code>.</p>
+<li><p>Existen dos tipos predefinidos de conjuntos: <code class="sourceCode python"><span class="bu">set</span></code> y <code class="sourceCode python"><span class="bu">frozenset</span></code>.</p></li>
+<li><p>El tipo <code class="sourceCode python"><span class="bu">set</span></code> es <strong>mutable</strong>, es decir, que su contenido puede cambiar usando métodos como <code class="sourceCode python">add</code> y <code class="sourceCode python">remove</code>.</p>
 <ul>
 <li>Como es mutable, <strong>no es <em>hashable</em></strong> y, por tanto, no puede usarse como clave de un diccionario o como elemento de otro conjunto.</li>
 </ul></li>
-<li><p>El tipo <code>frozenset</code> es <strong>inmutable</strong> y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
+<li><p>El tipo <code class="sourceCode python"><span class="bu">frozenset</span></code> es <strong>inmutable</strong> y <em>hashable</em>. Por tanto, su contenido no se puede cambiar una vez creado y puede usarse como clave de un diccionario o como elemento de otro conjunto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
-<li><p>Los dos tipos de conjuntos se crean con las funciones <code>set(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code> y <code>frozenset(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code>.</p>
+<li><p>Los dos tipos de conjuntos se crean con las funciones <code class="sourceCode python"><span class="bu">set</span></code><code>(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code> y <code class="sourceCode python"><span class="bu">frozenset</span></code><code>(</code>[<span style="color:teal">⟨<em>iterable</em>⟩</span>]<code>)</code>.</p>
 <ul>
 <li><p>Si se llaman <em>sin argumentos</em>, devuelven un conjunto <strong>vacío</strong>:</p>
 <ul>
-<li><p><code>set()</code> devuelve un conjunto vacío de tipo <code>set</code>.</p></li>
-<li><p><code>frozenset()</code> devuelve un conjunto vacío de tipo <code>frozenset</code>.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">set</span>()</code> devuelve un conjunto vacío de tipo <code class="sourceCode python"><span class="bu">set</span></code>.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">frozenset</span>()</code> devuelve un conjunto vacío de tipo <code class="sourceCode python"><span class="bu">frozenset</span></code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>()</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>()</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>()</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>()</span></code></pre></div>
-<p>Como se ve, esas son, precisamente, las <strong>formas normales</strong> de un conjunto vacío de tipo <code>set</code> y <code>frozenset</code>.</p></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>()</span></code></pre></div>
+<p>Como se ve, esas son, precisamente, las <strong>formas normales</strong> de un conjunto vacío de tipo <code class="sourceCode python"><span class="bu">set</span></code> y <code class="sourceCode python"><span class="bu">frozenset</span></code>.</p></li>
 <li><p>Si se les pasa un <em>iterable</em> (como por ejemplo, una lista), devuelve un conjunto formado por los elementos del iterable:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>([<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
-<li><p>Además, existe una <em>sintaxis especial</em> para escribir <strong>literales de conjuntos no vacíos de tipo <code>set</code></strong>, que consiste en encerrar sus elementos entre llaves y separados por comas: <code>{'pepe', 'juan'}</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> {<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}  <span class="co"># un literal de tipo set, como set([&#39;pepe&#39;, &#39;juan&#39;])</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(x)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;set&#39;</span><span class="op">&gt;</span></span></code></pre></div>
-<p>Esa es, precisamente, la <strong>forma normal</strong> de un conjunto no vacío y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print</code>.</p></li>
-<li><p>Por tanto, para crear conjuntos congelados usando <code>frozenset</code> podemos usar esa sintaxis en lugar de usar listas como hicimos antes:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
-<li><p>También podría usarse con la función <code>set</code>, pero sería innecesario y no tendría sentido, ya que devolvería el mismo conjunto:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})  <span class="co"># equivale a poner simplemente {4, 3, 2, 2, 4}</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span></code></pre></div></li>
+<li><p>Además, existe una <em>sintaxis especial</em> para escribir <strong>literales de conjuntos no vacíos de tipo <code class="sourceCode python"><span class="bu">set</span></code></strong>, que consiste en encerrar sus elementos entre llaves y separados por comas: <code class="sourceCode python">{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> {<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}  <span class="co"># un literal de tipo set, como set([&#39;pepe&#39;, &#39;juan&#39;])</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(x)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;set&#39;</span><span class="op">&gt;</span></span></code></pre></div>
+<p>Esa es, precisamente, la <strong>forma normal</strong> de un conjunto no vacío y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
+<li><p>Por tanto, para crear conjuntos congelados usando <code class="sourceCode python"><span class="bu">frozenset</span></code> podemos usar esa sintaxis en lugar de usar listas como hicimos antes:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>({<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>})</span></code></pre></div></li>
+<li><p>También podría usarse con la función <code class="sourceCode python"><span class="bu">set</span></code>, pero sería innecesario y no tendría sentido, ya que devolvería el mismo conjunto:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">set</span>({<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>})  <span class="co"># equivale a poner simplemente {4, 3, 2, 2, 4}</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span></code></pre></div></li>
 </ul>
 </section>
 <section id="conjuntos-por-comprensión" class="title-slide slide level4" data-number="3.1.0.1">
 <h4 data-number="3.1.0.1"><span class="header-section-number">3.1.0.1</span> Conjuntos por comprensión</h4>
 <ul>
 <li><p>También se pueden crear <strong>conjuntos por comprensión</strong> usando la misma sintaxis de las <strong>expresiones generadoras</strong> pero encerrando la expresión entre llaves en lugar de entre paréntesis:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>}</span></code></pre></div></li>
-<li><p>El resultado es directamente un valor de tipo <code>set</code>, no un iterador.</p></li>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>}</span></code></pre></div></li>
+<li><p>El resultado es directamente un valor de tipo <code class="sourceCode python"><span class="bu">set</span></code>, no un iterador.</p></li>
 </ul>
 </section>
 
@@ -1092,8 +1113,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </ul>
 <table>
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 72%" />
+<col style="width: 34%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1103,38 +1124,38 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>len(</code><span class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;">Número de elementos de <span class="math inline">s</span> (su cardinalidad)</td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">Número de elementos de <span class="math inline">\underline{s}</span> (su cardinalidad)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> pertenece a <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> pertenece a <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">x\ </span> <code>not</code> <code>in</code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">x</span> no pertenece a <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">not</span> <span class="kw">in</span></code> <span class="math inline">\ s</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> no pertenece a <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.isdisjoint(</code><span class="math inline">o</span><code>)</code></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> no tiene ningún elemento en común con <span class="math inline">o</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.isdisjoint</code><code>(</code><span class="math inline">o</span><code>)</code></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{s}</span> no tiene ningún elemento en común con <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.issubset(</code><span class="math inline">o</span><code>)</code><br />
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.issubset</code><code>(</code><span class="math inline">o</span><code>)</code><br />
 <span class="math inline">s</span> <code>&lt;=</code> <span class="math inline">o</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un subconjunto de <span class="math inline">o</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{s}</span> es un subconjunto de <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span> <code>&lt;</code> <span class="math inline">o</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un subconjunto propio de <span class="math inline">o</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{s}</span> es un subconjunto propio de <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.issuperset(</code><span class="math inline">o</span><code>)</code><br />
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.issuperset</code><code>(</code><span class="math inline">o</span><code>)</code><br />
 <span class="math inline">s</span> <code>&gt;=</code> <span class="math inline">o</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un superconjunto de <span class="math inline">o</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{s}</span> es un superconjunto de <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span> <code>&gt;</code> <span class="math inline">o</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">s</span> es un superconjunto propio de <span class="math inline">o</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{s}</span> es un superconjunto propio de <span class="math inline">\underline{o}</span></td>
 </tr>
 </tbody>
 </table>
@@ -1143,8 +1164,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 <table>
 <colgroup>
-<col style="width: 37%" />
-<col style="width: 62%" />
+<col style="width: 47%" />
+<col style="width: 52%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1154,28 +1175,28 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.union(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> | <span class="math inline">o</span></td>
-<td style="text-align: left;">Unión de <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \cup o</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.union</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>|</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Unión de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span> (<span class="math inline">s \cup o</span>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.intersection(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> &amp; <span class="math inline">o</span></td>
-<td style="text-align: left;">Intersección de <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \cap o</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.intersection</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>&amp;</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Intersección de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span> (<span class="math inline">s \cap o</span>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.difference(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> - <span class="math inline">o</span></td>
-<td style="text-align: left;">Diferencia entre <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \setminus o</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.difference</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>-</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Diferencia de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span> (<span class="math inline">s \setminus o</span>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.symmetric_difference(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> ^ <span class="math inline">o</span></td>
-<td style="text-align: left;">Diferencia simétrica entre <span class="math inline">s</span> y <span class="math inline">o</span> (<span class="math inline">s \vartriangle o</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.symmetric_difference</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>^</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Diferencia simétrica de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span> (<span class="math inline">s \vartriangle o</span>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.copy()</code></td>
-<td style="text-align: left;">Devuelve una copia superficial de <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.copy()</code></td>
+<td style="text-align: left;">Devuelve una copia superficial de <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
@@ -1183,7 +1204,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section class="slide level5" data-number="3.1.1.0.2">
 
 <ul>
-<li><p>Tanto <code>set</code> como <code>frozenset</code> admiten <strong>comparaciones entre conjuntos</strong>.</p></li>
+<li><p>Tanto <code class="sourceCode python"><span class="bu">set</span></code> como <code class="sourceCode python"><span class="bu">frozenset</span></code> admiten <strong>comparaciones entre conjuntos</strong>.</p></li>
 <li><p>Suponiendo que <code>a</code> y <code>b</code> son conjuntos:</p>
 <ul>
 <li><p><code>a == b</code> si y sólo si cada elemento de <code>a</code> pertenece también a <code>b</code>, y viceversa; es decir, si cada uno es un subconjunto del otro.</p></li>
@@ -1198,12 +1219,12 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <section id="operaciones-sobre-conjuntos-mutables" class="title-slide slide level3" data-number="3.1.2">
 <h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Operaciones sobre conjuntos mutables</h3>
 <ul>
-<li>Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo <code>set</code> y no al <code>frozenset</code>):</li>
+<li>Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo <code class="sourceCode python"><span class="bu">set</span></code> y no al <code class="sourceCode python"><span class="bu">frozenset</span></code>):</li>
 </ul>
 <table>
 <colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
+<col style="width: 59%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1213,24 +1234,24 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.update(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> |= <span class="math inline">o</span></td>
-<td style="text-align: left;">Actualiza <span class="math inline">s</span> añadiendo los elementos de <span class="math inline">o</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.update</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>|=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">\underline{s}</span> añadiendo los elementos de <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.intersection_update(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> &amp;= <span class="math inline">o</span></td>
-<td style="text-align: left;">Actualiza <span class="math inline">s</span> manteniendo sólo los elementos que están en <span class="math inline">s</span> y <span class="math inline">o</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.intersection_update</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>&amp;=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">\underline{s}</span> manteniendo sólo los elementos que están en <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.difference_update(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> -= <span class="math inline">o</span></td>
-<td style="text-align: left;">Actualiza <span class="math inline">s</span> eliminando los elementos que están en <span class="math inline">o</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.difference_update</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>-=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">\underline{s}</span> eliminando los elementos que están en <span class="math inline">\underline{o}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.symmetric_difference_update(</code><span class="math inline">o</span><code>)</code><br />
-<span class="math inline">s</span> ^= <span class="math inline">o</span></td>
-<td style="text-align: left;">Actualiza <span class="math inline">s</span> manteniendo sólo los elementos que están en <span class="math inline">s</span> y <span class="math inline">o</span> pero no en ambos</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.symmetric_difference_update</code><code>(</code><span class="math inline">o</span><code>)</code><br />
+<span class="math inline">s</span> <code>^=</code> <span class="math inline">o</span></td>
+<td style="text-align: left;">Actualiza <span class="math inline">\underline{s}</span> manteniendo sólo los elementos que están en <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{o}</span> pero no en ambos</td>
 </tr>
 </tbody>
 </table>
@@ -1250,24 +1271,24 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.add(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Añade <span class="math inline">x</span> a <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.add</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Añade <span class="math inline">\underline{x}</span> a <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.remove(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Elimina <span class="math inline">x</span> de <span class="math inline">s</span> (produce <code>KeyError</code> si <span class="math inline">x</span> no está en <span class="math inline">s</span>)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.remove</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Elimina <span class="math inline">\underline{x}</span> de <span class="math inline">\underline{s}</span> (produce <code class="sourceCode python"><span class="pp">KeyError</span></code> si <span class="math inline">\underline{x}</span> no está en <span class="math inline">\underline{s}</span>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.discard(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Elimina <span class="math inline">x</span> de <span class="math inline">s</span> si está en <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.discard</code><code>(</code><span class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Elimina <span class="math inline">\underline{x}</span> de <span class="math inline">\underline{s}</span> si está en <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code>.pop()</code></td>
-<td style="text-align: left;">Elimina y devuelve un valor cualquiera de <span class="math inline">s</span> (produce <code>KeyError</code> si <span class="math inline">s</span> está vacío)</td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.pop()</code></td>
+<td style="text-align: left;">Elimina y devuelve un valor cualquiera de <span class="math inline">\underline{s}</span> (produce <code class="sourceCode python"><span class="pp">KeyError</span></code> si <span class="math inline">\underline{s}</span> está vacío)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code>.clear()</code></td>
-<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">s</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>
@@ -1275,7 +1296,7 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 
 <section id="diccionarios-dict" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Diccionarios (<code>dict</code>)</h2>
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>)</h2>
 <ul>
 <li><p>Un <strong>diccionario</strong> es una colección que almacena <em>correspondencias</em> (o <em>asociaciones</em>) entre valores.</p></li>
 <li><p>Por tanto, <strong>los elementos de un diccionario son parejas de valores llamados <em>clave</em> y <em>valor</em></strong>, y lo que hace el diccionario es almacenar las <em>claves</em> y el <em>valor</em> que le corresponde a cada clave.</p></li>
@@ -1290,28 +1311,28 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <ul>
 <li><p>Los diccionarios se pueden crear:</p>
 <ul>
-<li><p>Encerrando entre llaves una lista de parejas <span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span style="color:teal">⟨<em>valor</em>⟩</span> separadas por comas: <code>{'juan': 4098, 'pepe': 4127}</code></p>
-<p>Esa es precisamente la <strong>forma normal</strong> de un diccionario y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code>print</code>.</p></li>
-<li><p>Usando la función <code>dict</code>.</p></li>
+<li><p>Encerrando entre llaves una lista de parejas <span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span style="color:teal">⟨<em>valor</em>⟩</span> separadas por comas: <code class="sourceCode python">{<span class="st">&#39;juan&#39;</span>: <span class="dv">4098</span>, <span class="st">&#39;pepe&#39;</span>: <span class="dv">4127</span>}</code></p>
+<p>Esa es precisamente la <strong>forma normal</strong> de un diccionario y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
+<li><p>Usando la función <code class="sourceCode python"><span class="bu">dict</span></code>.</p></li>
 </ul></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">dict</span>(uno<span class="op">=</span><span class="dv">1</span>, dos<span class="op">=</span><span class="dv">2</span>, tres<span class="op">=</span><span class="dv">3</span>)                   <span class="co"># argumentos con nombre</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)])  <span class="co"># lista de tuplas</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># innecesario</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># con dos iterables</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e          <span class="co"># todos son iguales</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">dict</span>(uno<span class="op">=</span><span class="dv">1</span>, dos<span class="op">=</span><span class="dv">2</span>, tres<span class="op">=</span><span class="dv">3</span>)                   <span class="co"># argumentos con nombre</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)])  <span class="co"># lista de tuplas</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># innecesario</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># con dos iterables</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e          <span class="co"># todos son iguales</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
 <li><p>Si se intenta crear un diccionario con claves repetidas, sólo se almacenará uno de los elementos que tengan la misma clave (los demás se ignoran):</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>, <span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>}</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span></code></pre></div>
-<p>Como se ve, la clave <code>'perro'</code> está repetida y, por tanto, sólo se almacena uno de los dos elementos con clave repetida, que siempre es el último que aparece en el diccionario. En este caso, se almacena el elemento <code>'perro': 'doggy'</code> y se ignora el <code>'perro': 'dog'</code>.</p></li>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>, <span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>}</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span></code></pre></div>
+<p>Como se ve, la clave <code class="sourceCode python"><span class="st">&#39;perro&#39;</span></code> está repetida y, por tanto, sólo se almacena uno de los dos elementos con clave repetida, que siempre es el último que aparece en el diccionario. En este caso, se almacena el elemento <code class="sourceCode python"><span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span></code> y se ignora el <code class="sourceCode python"><span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.3">
@@ -1333,10 +1354,10 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 <ul>
 <li><p>Las claves de un diccionario deben ser datos <em>hashables</em>.</p></li>
-<li><p>Por tanto, no se pueden usar como clave una lista, un diccionario, un conjunto <code>set</code> o cualquier otro tipo mutable.</p></li>
+<li><p>Por tanto, no se pueden usar como clave una lista, un diccionario, un conjunto <code class="sourceCode python"><span class="bu">set</span></code> o cualquier otro tipo mutable.</p></li>
 <li><p>Los tipos numéricos que se usen como claves obedecen las reglas normales de comparación numérica.</p>
 <ul>
-<li>Por tanto, si dos números son considerados iguales (como <code>1</code> y <code>1.0</code>) entonces se consideran la misma clave en el diccionario.</li>
+<li>Por tanto, si dos números son considerados iguales (como <code class="sourceCode python"><span class="dv">1</span></code> y <code class="sourceCode python"><span class="fl">1.0</span></code>) entonces se consideran la misma clave en el diccionario.</li>
 </ul></li>
 </ul>
 </section>
@@ -1344,14 +1365,14 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 <ul>
 <li><p>Para <strong>acceder a un elemento</strong> del diccionario se usa una sintaxis idéntica a la de la <strong>indexación</strong>, salvo que, en este caso, en lugar de usar el índice o posición del elemento, se usa la clave:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;perro&#39;</span>]</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;dog&#39;</span></span></code></pre></div></li>
-<li><p>Si se intenta acceder a un elemento usando una clave que no existe, se lanza una excepción de tipo <code>KeyError</code>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;caballo&#39;</span>]</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="pp">KeyError</span>: <span class="st">&#39;caballo&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;perro&#39;</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;dog&#39;</span></span></code></pre></div></li>
+<li><p>Si se intenta acceder a un elemento usando una clave que no existe, se lanza una excepción de tipo <code class="sourceCode python"><span class="pp">KeyError</span></code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;caballo&#39;</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="pp">KeyError</span>: <span class="st">&#39;caballo&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section id="operaciones-2" class="title-slide slide level3" data-number="3.2.1">
@@ -1361,8 +1382,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </ul>
 <table>
 <colgroup>
-<col style="width: 28%" />
-<col style="width: 71%" />
+<col style="width: 26%" />
+<col style="width: 73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1373,35 +1394,35 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">d</span><code>[</code><span class="math inline">c</span><code>]</code> <code>=</code> <span class="math inline">v</span></td>
-<td style="text-align: left;">Asigna a <span class="math inline">d</span><code>[</code><span class="math inline">c</span><code>]</code> el valor <span class="math inline">v</span></td>
+<td style="text-align: left;">Asigna a <span class="math inline">d</span><code>[</code><span class="math inline">c</span><code>]</code> el valor <span class="math inline">\underline{v}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>del</code> <span class="math inline">\ d</span><code>[</code><span class="math inline">c</span><code>]</code></td>
-<td style="text-align: left;">Elimina <span class="math inline">d</span><code>[</code><span class="math inline">c</span><code>]</code> de <span class="math inline">d</span> (produce <code>KeyError</code> si <span class="math inline">c</span> no está en <span class="math inline">d</span>)</td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ d</span><code>[</code><span class="math inline">c</span><code>]</code></td>
+<td style="text-align: left;">Elimina <span class="math inline">d</span><code>[</code><span class="math inline">c</span><code>]</code> de <span class="math inline">\underline{d}</span> (produce <code class="sourceCode python"><span class="pp">KeyError</span></code> si <span class="math inline">\underline{c}</span> no está en <span class="math inline">\underline{d}</span>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">c\ </span> <code>in</code> <span class="math inline">\ d</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">d</span> contiene una clave <span class="math inline">c</span></td>
+<td style="text-align: left;"><span class="math inline">c\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ d</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{d}</span> contiene una clave <span class="math inline">\underline{c}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">c\ </span> <code>not</code> <code>in</code> <span class="math inline">\ d</span></td>
-<td style="text-align: left;"><code>True</code> si <span class="math inline">d</span> no contiene una clave <span class="math inline">c</span></td>
+<td style="text-align: left;"><span class="math inline">c\ </span> <code class="sourceCode python"><span class="kw">not</span> <span class="kw">in</span></code> <span class="math inline">\ d</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{d}</span> no contiene una clave <span class="math inline">\underline{c}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">d</span><code>.clear()</code></td>
-<td style="text-align: left;">Elimina todos los elementos del diccionario</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{d}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">d</span><code>.copy()</code></td>
-<td style="text-align: left;">Devuelve una copia superficial del diccionario</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.copy()</code></td>
+<td style="text-align: left;">Devuelve una copia superficial de <span class="math inline">\underline{d}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">d</span><code>.get(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
-<td style="text-align: left;">Devuelve el valor de <span class="math inline">c</span> si <span class="math inline">c</span> está en <span class="math inline">d</span>; en caso contrario, devuelve <span class="math inline">def</span> (por defecto, <span class="math inline">def</span> vale <code>None</code>)</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.get</code><code>(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;">Devuelve el valor de <span class="math inline">\underline{c}</span> si <span class="math inline">\underline{c}</span> está en <span class="math inline">\underline{d}</span>; en caso contrario, devuelve <span class="math inline">\underline{def}</span> (por defecto, <span class="math inline">\underline{def}</span> vale <code class="sourceCode python"><span class="va">None</span></code>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">d</span><code>.pop(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
-<td style="text-align: left;">Elimina y devuelve el valor de <span class="math inline">c</span> si <span class="math inline">c</span> está en <span class="math inline">d</span>; en caso contrario, devuelve <span class="math inline">def</span> (si no se pasa <span class="math inline">def</span> y <span class="math inline">c</span> no está en <span class="math inline">d</span>, produce un <code>KeyError</code>)</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.pop</code><code>(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;">Elimina y devuelve el valor de <span class="math inline">\underline{c}</span> si <span class="math inline">\underline{c}</span> está en <span class="math inline">\underline{d}</span>; en caso contrario, devuelve <span class="math inline">\underline{def}</span> (si no se pasa <span class="math inline">\underline{def}</span> y <span class="math inline">\underline{c}</span> no está en <span class="math inline">\underline{d}</span>, produce un <code class="sourceCode python"><span class="pp">KeyError</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -1410,8 +1431,8 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 
 <table>
 <colgroup>
-<col style="width: 41%" />
-<col style="width: 58%" />
+<col style="width: 38%" />
+<col style="width: 61%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1421,16 +1442,16 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">d</span><code>.popitem()</code></td>
-<td style="text-align: left;">Elimina y devuelve una pareja (<span class="math inline">clave</span>, <span class="math inline">valor</span>) del diccionario siguiendo un orden LIFO (produce un <code>KeyError</code> si <span class="math inline">d</span> está vacío)</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.popitem()</code></td>
+<td style="text-align: left;">Elimina y devuelve una pareja (<span class="math inline">clave</span>, <span class="math inline">valor</span>) del diccionario siguiendo un orden LIFO (produce un <code class="sourceCode python"><span class="pp">KeyError</span></code> si <span class="math inline">\underline{d}</span> está vacío)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">d</span><code>.setdefault(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
-<td style="text-align: left;">Si <span class="math inline">c</span> está en <span class="math inline">d</span>, devuelve su valor; si no, inserta <span class="math inline">c</span> en <span class="math inline">d</span> con el valor <span class="math inline">def</span> y devuelve <span class="math inline">def</span> (por defecto, <span class="math inline">def</span> vale <code>None</code>)</td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.setdefault</code><code>(</code><span class="math inline">c</span>[<code>,</code> <span class="math inline">def</span>]<code>)</code></td>
+<td style="text-align: left;">Si <span class="math inline">\underline{c}</span> está en <span class="math inline">\underline{d}</span>, devuelve su valor; si no, inserta <span class="math inline">\underline{c}</span> en <span class="math inline">\underline{d}</span> con el valor <span class="math inline">\underline{def}</span> y devuelve <span class="math inline">\underline{def}</span> (por defecto, <span class="math inline">\underline{def}</span> vale <code class="sourceCode python"><span class="va">None</span></code>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">d</span><code>.update(</code><span class="math inline">o</span><code>)</code></td>
-<td style="text-align: left;">Actualiza <span class="math inline">d</span> con las parejas (<span class="math inline">clave</span>, <span class="math inline">valor</span>) de <span class="math inline">o</span>, sobreescribiendo las claves ya existentes, y devuelve <code>None</code></td>
+<td style="text-align: left;"><span class="math inline">d</span><code class="sourceCode python">.update</code><code>(</code><span class="math inline">o</span><code>)</code></td>
+<td style="text-align: left;">Actualiza <span class="math inline">\underline{d}</span> con las parejas (<span class="math inline">clave</span>, <span class="math inline">valor</span>) de <span class="math inline">\underline{o}</span>, sobreescribiendo las claves ya existentes, y devuelve <code class="sourceCode python"><span class="va">None</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1441,80 +1462,80 @@ inicio + paso \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ad
 <ul>
 <li><p>Como cualquier otro dato iterable, los diccionarios se pueden recorrer usando iteradores.</p></li>
 <li><p>Los iteradores creados sobre un diccionario, en realidad, recorren sus <strong>claves</strong>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(d)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;a&#39;</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;b&#39;</span></span></code></pre></div></li>
-<li><p>Lo mismo ocurre con un bucle <code>for</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(d)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;a&#39;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;b&#39;</span></span></code></pre></div></li>
+<li><p>Lo mismo ocurre con un bucle <code class="sourceCode python"><span class="cf">for</span></code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.2.0.1">
 
 <ul>
-<li><p>Si necesitamos acceder también a los valores de un diccionario mientras lo recorremos con un bucle <code>for</code>, tenemos dos opciones:</p>
+<li><p>Si necesitamos acceder también a los valores de un diccionario mientras lo recorremos con un bucle <code class="sourceCode python"><span class="cf">for</span></code>, tenemos dos opciones:</p>
 <ul>
 <li><p>Acceder al valor a partir de la clave usando <strong>indexación</strong>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, d[k])</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
-<li><p>Usar el método <code>items</code> sobre el diccionario, que devuelve una lista de tuplas <strong><code>(</code></strong><span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong> <span style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>, combinándolo con el <strong>desempaquetado de tuplas</strong>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, v)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, d[k])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
+<li><p>Usar el método <code class="sourceCode python">items</code> sobre el diccionario, que devuelve una lista de tuplas <strong><code>(</code></strong><span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong> <span style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>, combinándolo con el <strong>desempaquetado de tuplas</strong>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, v)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.2.0.2">
 
 <ul>
-<li>Otros métodos útiles para recorrer un diccionario son <code>keys</code> y <code>values</code>.</li>
+<li>Otros métodos útiles para recorrer un diccionario son <code class="sourceCode python">keys</code> y <code class="sourceCode python">values</code>.</li>
 </ul>
 <div class="columns">
 <div class="column">
 <ul>
-<li><p><code>keys</code> devuelve un <strong>iterador</strong> que recorre las <strong>claves</strong> del diccionario sobre el que se invoca:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.keys()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dict_keys([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>])</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d.keys():</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<li><p><code class="sourceCode python">keys</code> devuelve un <strong>iterador</strong> que recorre las <strong>claves</strong> del diccionario sobre el que se invoca:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.keys()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dict_keys([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>])</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d.keys():</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
-<li><p><code>values</code> devuelve un <strong>iterador</strong> que recorre los <strong>valores</strong> del diccionario sobre el que se invoca:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.values()</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dict_values([<span class="dv">1</span>, <span class="dv">2</span>])</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> v <span class="kw">in</span> d.values():</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(v)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<li><p><code class="sourceCode python">values</code> devuelve un <strong>iterador</strong> que recorre los <strong>valores</strong> del diccionario sobre el que se invoca:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.values()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>dict_values([<span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> v <span class="kw">in</span> d.values():</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(v)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 </ul>
 </div>
 </div>
 <ul>
-<li><p>En la práctica, no resulta muy útil usar <code>keys</code>, ya que se puede hacer lo mismo recorriendo directamente el propio diccionario, como ya sabemos:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<li><p>En la práctica, no resulta muy útil usar <code class="sourceCode python">keys</code>, ya que se puede hacer lo mismo recorriendo directamente el propio diccionario, como ya sabemos:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 </section>
 

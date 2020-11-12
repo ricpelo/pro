@@ -36,8 +36,8 @@ nocite: |
   #. Tiene asociado un valor *hash* que nunca cambia durante su vida.
 
      Si un valor es *hashable*, se podrá obtener su *hash* llamando a la
-     función `hash` sobre el valor. En caso contrario, la llamada generará un
-     error `TypeError`.
+     función !PYTHON(hash) sobre el valor. En caso contrario, la llamada
+     generará un error !PYTHON(TypeError).
 
   #. Puede compararse con otros valores para ver si es igual a alguno de ellos
      usando el operador `==`.
@@ -47,15 +47,15 @@ nocite: |
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `==` $y$, entonces `hash(`$x$`) == hash(`$y$`)`.
+  Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - La mayoría de los valores inmutables predefinidos en Python son *hashables*.
 
-- Los **contenedores inmutables** (como las tuplas o los `frozenset`s) sólo son
-  *hashables* si sus elementos también lo son.
+- Los **contenedores inmutables** (como las tuplas o los !PYTHON(frozenset)s)
+  sólo son *hashables* si sus elementos también lo son.
 
 - Los **contenedores mutables** (como las listas o los diccionarios) **NO** son
   *hashables*.
@@ -80,8 +80,8 @@ nocite: |
 - No representa un tipo concreto, sino más bien una *familia* de tipos que
   comparten la misma propiedad.
 
-- Muchas funciones, como `map` y `filter`, actúan sobre iterables en general,
-  en lugar de hacerlo sobre un tipo concreto.
+- Muchas funciones, como !PYTHON(map) y !PYTHON(filter), actúan sobre iterables
+  en general, en lugar de hacerlo sobre un tipo concreto.
 
 - La forma básica de recorrer un dato iterable es usando un **iterador**.
 
@@ -90,19 +90,19 @@ nocite: |
 - Un **iterador** representa un flujo de datos *perezoso* (no se entregan todos
   de una vez, sino de uno en uno).
 
-- Cuando se llama repetidamente a la función `next` aplicada a un iterador, se
-  van obteniendo los sucesivos elementos del flujo.
+- Cuando se llama repetidamente a la función !PYTHON(next) aplicada a un
+  iterador, se van obteniendo los sucesivos elementos del flujo.
 
 - Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo
-  `StopIteration`.
+  !PYTHON(StopIteration).
 
   Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a
-  la función `next` se seguirá levantando esa excepción.
+  la función !PYTHON(next) se seguirá levantando esa excepción.
 
 - Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
-  función `iter` al iterable.
+  función !PYTHON(iter) al iterable.
 
-- Si se le pasa un dato no iterable, levanta una excepción `TypeError`.
+- Si se le pasa un dato no iterable, levanta una excepción !PYTHON(TypeError).
 
 ---
 
@@ -141,14 +141,15 @@ nocite: |
 
 ---
 
-- Funciones como `map` y `filter` devuelven iteradores porque, al ser
-  perezosos, son más eficiente en memoria que devolver toda una lista o tupla.
+- Funciones como !PYTHON(map) y !PYTHON(filter) devuelven iteradores porque, al
+  ser perezosos, son más eficiente en memoria que devolver toda una lista o
+  tupla.
 
   Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
-  resultado de un `map`?
+  resultado de un !PYTHON(map)?
 
 - Los iteradores se pueden convertir en listas o tuplas usando las funciones
-  `list` y `tuple`:
+  !PYTHON(list) y !PYTHON(tuple):
 
   ```python
   >>> l = [1, 2, 3]
@@ -162,8 +163,8 @@ nocite: |
 
 - Los iteradores también son iterables que actúan como sus propios iteradores.
 
-- Por tanto, cuando llamamos a `iter` pasándole un iterador, se devuelve el
-  mismo iterador:
+- Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se devuelve
+  el mismo iterador:
 
   ```python
   >>> lista = [1, 2, 3, 4]
@@ -205,10 +206,10 @@ nocite: |
   9
   ```
 
-### El bucle `for`
+### El bucle !PYTHON(for)
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
-  iterador es mediante un bucle `for`.
+  iterador es mediante un bucle !PYTHON(for).
 
 - Su sintaxis es:
 
@@ -277,37 +278,39 @@ fin = !T{False}
 
 ::::
 
-### El módulo `itertools`
+### El módulo !PYTHON(itertools)
 
-- El módulo `itertools` contiene una variedad de iteradores de uso frecuente
-  así como funciones que combinan varios iteradores.
+- El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
+  frecuente así como funciones que combinan varios iteradores.
 
-- `itertools.count(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
+- !PYTHON{itertools.count}`(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
   infinito de valores separados uniformemente. Se puede indicar opcionalmente
-  un valor de comienzo (que por defecto es 0) y el intervalo entre números
-  (que por defecto es 1):
+  un valor de comienzo (que por defecto es !PYTHON(0)) y el intervalo entre
+  números (que por defecto es !PYTHON(1)):
 
-  - `itertools.count()` $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
+  - !PYTHON(itertools.count()) $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
 
-  - `itertools.count(10)` $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    ...
+  - !PYTHON(itertools.count(10)) $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17,
+    18, 19, ...
 
-  - `itertools.count(10, 5)` $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40, 45, ...
+  - !PYTHON(itertools.count(10, 5)) $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40,
+    45, ...
 
 ---
 
-- `itertools.cycle(`!NT(iterador)`)` devuelve un nuevo iterador que va
+- !PYTHON(itertools.cycle)`(`!NT(iterador)`)` devuelve un nuevo iterador que va
   generando sus elementos del primero al último, repitiéndolos indefinidamente:
 
-  - `itertools.cycle([1, 2, 3, 4])` $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4, ...
+  - !PYTHON(itertools.cycle([1, 2, 3, 4])) $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3,
+    4, ...
 
-- `itertools.repeat(`!NT(elem)[`,` !NT(n)]`)` devuelve !NT(n) veces el elemento
-  !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
+- !PYTHON(itertools.repeat)`(`!NT(elem)[`,` !NT(n)]`)` devuelve !NT(n) veces el
+  elemento !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
 
-  - `itertools.repeat('abc')` $\Rightarrow$ abc, abc, abc, abc, abc, abc, abc,
-    ...
+  - !PYTHON(itertools.repeat('abc')) $\Rightarrow$ abc, abc, abc, abc, abc,
+    abc, abc, ...
 
-  - `itertools.repeat('abc', 5)` $\Rightarrow$ abc, abc, abc, abc, abc
+  - !PYTHON(itertools.repeat('abc', 5)) $\Rightarrow$ abc, abc, abc, abc, abc
 
 # Secuencias
 
@@ -316,15 +319,16 @@ fin = !T{False}
 - Una secuencia es una estructura de datos que:
 
   - permite el acceso eficiente a sus elementos mediante indexación `[`$i$`]`
-    (siendo $i$ un entero), y
+    (siendo $\underline{i}$ un entero), y
 
-  - se le puede calcular su longitud mediante la función `len`.
+  - se le puede calcular su longitud mediante la función !PYTHON(len).
 
 - Las secuencias se dividen en:
 
-  - **Inmutables**: cadenas (`str`), tuplas (`tuple`) y rangos (`range`).
+  - **Inmutables**: cadenas (!PYTHON(str)), tuplas (!PYTHON(tuple)) y rangos
+    (!PYTHON(range)).
 
-  - **Mutables**: listas (`list`)
+  - **Mutables**: listas (!PYTHON(list))
 
 ## Operaciones comunes
 
@@ -348,39 +352,39 @@ fin = !T{False}
 
 ---
 
-------------------------------------------------------------------------
-Operación                 Resultado
-------------------------- ----------------------------------------------
-$x\ $ `in` $\ s$          `True` si algún elemento de $s$ es igual a $x$
+--------------------------------------------------------------------------------------------------------------------------
+Operación                                 Resultado
+----------------------------------------- --------------------------------------------------------------------------------
+$x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$x\ $ `not` `in` $\ s$    `False` si algún elemento de $s$ es igual a $x$
+$x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$s$ `+` $t$               La concatenación de $s$ y $t$
+$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$
+                                        
+$s$ `*` $n$ \                             Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
+$n$ `*` $s$                             
 
-$s$ `*` $n$ \             Equivale a concatenar $s$ consigo misma $n$ veces
-$n$ `*` $s$
-                         
-$s$`[`$i$`]`              El $i$-ésimo elemento de $s$, empezando por 0
-                         
-$s$`[`$i$`:`$j$`]`        Rodaja de $s$ desde $i$ hasta $j$
-                         
-$s$`[`$i$`:`$j$`:`$k$`]`  Rodaja de $s$ desde $i$ hasta $j$ con paso $k$
+$s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
 
-`len(`$s$`)`              Longitud de $s$
-                         
-`min(`$s$`)`              El elemento más pequeño de $s$
-                         
-`max(`$s$`)`              El elemento más grande de $s$
+$s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
 
-$s$`.index(`$x$ [`, `     El índice de la primera aparición de $x$ en $s$
-$i$ [`, ` $j$ ] ]`)`      (desde el índice $i$ inclusive y antes del $j$)
+$s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
 
-$s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
-------------------------------------------------------------------------
+!PYTHON(len)`(`$s$`)`                     Longitud de $\underline{s}$
+
+!PYTHON(min)`(`$s$`)`                     El elemento más pequeño de $\underline{s}$
+
+!PYTHON(max)`(`$s$`)`                     El elemento más grande de $\underline{s}$
+
+$s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de $\underline{x}$ en $\underline{s}$
+[`, ` $i$ [`, ` $j$ ] ]`)`                (desde el índice $\underline{i}$ inclusive y antes del $\underline{j}$)
+
+$s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
+--------------------------------------------------------------------------------------------------------------------------
 
 ## Inmutables
 
-### Cadenas (`str`)
+### Cadenas (!PYTHON(str))
 
 - Las **cadenas** son secuencias inmutables y *hashables* de caracteres.
 
@@ -389,7 +393,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Las cadenas literales se pueden crear:
 
-  - Con comillas simples (`'`) o dobles (`"`):
+  - Con comillas simples (!PYTHON(')) o dobles (!PYTHON(")):
 
     ```python
     >>> 'hola'
@@ -398,7 +402,7 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
     'hola'
     ```
 
-  - Con triples comillas (`'''` o `"""`):
+  - Con triples comillas (!PYTHON(''') o !PYTHON(""")):
 
     ```python
     >>> """hola
@@ -471,10 +475,10 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 - Si se indica una conversión, el resultado de evaluar la expresión se
   convierte antes de aplicar el formateado.
 
-  La conversión `!s` llama a la función `str` sobre el resultado, `!r` llama a
-  `repr` y `!a` llama a `ascii`.
+  La conversión `!s` llama a la función !PYTHON(str) sobre el resultado, `!r`
+  llama a !PYTHON(repr) y `!a` llama a !PYTHON(ascii).
 
-- A continuación, el resultado es formateado usando la función `format`.
+- A continuación, el resultado es formateado usando la función !PYTHON(format).
 
 - Finalmente, el resultado del formateado es incluido en el valor final de la
   cadena completa.
@@ -483,9 +487,9 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - La sintaxis general de un especificador de formato es:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
 !NT(relleno) ::= !NT(cualquier carácter)
 !NT(alig) ::= !T(<) | !T(>) | !T(=) | !T(^)
 !NT(signo) ::=  !T(+) | !T(-) | !NT(espacio)
@@ -575,8 +579,9 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ### Tuplas
 
-- Las tuplas son secuencias inmutables, usadas frecuentemente para almacenar
-  colecciones de datos heterogéneos (de tipos distintos).
+- Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas
+  frecuentemente para almacenar colecciones de datos heterogéneos (de tipos
+  distintos).
 
 - También se usan en aquellos casos en los que se necesita una secuencia
   inmutable de datos homogéneos (por ejemplo, para almacenar datos en un
@@ -584,21 +589,21 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Las tuplas se pueden crear así:
 
-  - Si es una tupla vacía, con paréntesis vacíos: `()`
+  - Si es una tupla vacía, con paréntesis vacíos: !PYTHON(())
 
   - Si sólo tiene un elemento, se pone una coma detrás:
     
-    `a,`
+    !PYTHON(a,)
 
-    `(a,)`
+    !PYTHON((a,))
 
   - Si tiene más de un elemento, se separan con comas:
 
-    `a, b, c`
+    !PYTHON(a, b, c)
 
-    `(a, b, c)`
+    !PYTHON((a, b, c))
 
-  - Usando la función `tuple`.
+  - Usando la función !PYTHON(tuple).
 
 ---
 
@@ -607,13 +612,13 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Los paréntesis son opcionales, excepto en dos casos:
 
-  - La tupla vacía: `()`
+  - La tupla vacía: !PYTHON(())
 
   - Cuando son necesarios para evitar ambigüedad.
 
-    Por ejemplo, `f(a, b, c)` es una llamada a una función con tres argumentos,
-    mientras que `f((a, b, c))` es una llamada a una función con un único
-    argumento que es una tupla de tres elementos.
+    Por ejemplo, !PYTHON(f(a, b, c)) es una llamada a una función con tres
+    argumentos, mientras que !PYTHON(f((a, b, c))) es una llamada a una función
+    con un único argumento que es una tupla de tres elementos.
 
 - Las tuplas implementan todas las operaciones comunes de las secuencias.
 
@@ -624,34 +629,40 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 ### Rangos
 
-- Los **rangos** representan secuencias inmutables y *hashables* de números
-  enteros y se usan frecuentemente para hacer bucles que se repitan un
-  determinado número de veces.
+- Los **rangos** (!PYTHON(range)) representan secuencias inmutables y
+  *hashables* de números enteros y se usan frecuentemente para hacer bucles que
+  se repitan un determinado número de veces.
 
-- Los rangos se crean con la función `range`:
+- Los rangos se crean con la función !PYTHON(range):
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(rango) ::= !T(range)!T{(}[!NT(inicio)!T(,)] !NT(fin)[!T(,) !NT(paso)]!T{)}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `range(`[_start_`: int,`] _stop_`: int` [`,` _step_`: int`]`) -> range`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !NT(inicio), !NT(fin) y !NT(paso) deben ser números enteros.
-- Cuando se omite !NT(inicio), se entiende que es `0`.
-- El valor de !NT(fin) no se alcanza nunca.
-- Cuando !NT(inicio) y !NT(fin) son iguales, representa el **rango vacío**.
-- Cuando !NT(inicio) es mayor que !NT(fin), el !NT(paso) debería ser negativo.
+- Cuando se omite _start_, se entiende que es !PYTHON(0).
+
+- Cuando se omite _step_, se entiende que es !PYTHON(1).
+
+- El valor de _stop_ no se alcanza nunca.
+
+- Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
+
+- _step_ debe ser siempre distinto de cero.
+
+- Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
   En caso contrario, también representaría el rango vacío.
 
 ---
 
 - El **contenido** de un rango $r$ vendrá determinado por la fórmula: $$r[i] =
-  inicio + paso \cdot i$$ donde $i \geq 0$. Además:
+  start + step \cdot i$$ donde $i \geq 0$. Además:
 
-  - Si $paso > 0$, se impone también la restricción $r[i] <
-    \text{\textit{fin}}$.
+  - Si $step > 0$, se impone también la restricción $r[i] <
+    \text{\textit{stop}}$.
 
-  - Si $paso < 0$, se impone también la restricción $r[i] >
-    \text{\textit{fin}}$.
+  - Si $step < 0$, se impone también la restricción $r[i] >
+    \text{\textit{stop}}$.
 
 - Un rango es **vacío** cuando $r[0]$ no satisface las restricciones anteriores.
 
@@ -666,12 +677,12 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   violan ese patrón.
 
 - **Los rangos son perezosos** y además ocupan mucha menos memoria que las
-  listas o las tuplas (sólo hay que almacenar *inicio*, *fin* y *paso*).
+  listas o las tuplas (sólo hay que almacenar *start*, *stop* y *step*).
 
 ---
 
-- La **forma normal** de un rango representa los valores *inicio*, *fin* y
-  *paso*, que son los que realmente determinan al rango:
+- La **forma normal** de un rango es una expresión en la que se llama a la
+  función !PYTHON(range) con los argumentos necesarios para construir el rango:
 
   :::: columns
 
@@ -729,8 +740,8 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 ---
 
 - Dos rangos son considerados **iguales** si representan la misma secuencia de
-  valores, sin importar si tienen distintos valores de !NT(inicio), !NT(fin) o
-  !NT(paso).
+  valores, sin importar si tienen distintos valores de _inicio_, _fin_ o
+  _paso_.
 
 - Por ejemplo:
 
@@ -745,6 +756,27 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
   True
   ```
 
+---
+
+- El **rango vacío** es un valor que no tiene expresión canónica, ya que
+  cualquiera de las siguientes expresiones representan al rango vacío tan bien
+  como cualquier otra:
+
+  - !PYTHON(range(0)).
+
+  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
+
+```python
+>>> range(3, 3) == range(4, 4)
+True
+>>> range(4, 3) == range(3, 4, -1)
+True
+```
+
 ## Mutables
 
 ### Listas
@@ -756,20 +788,20 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 - Se pueden construir de varias maneras:
 
-  - Usando corchetes vacíos para representar la lista vacía: `[]`.
+  - Usando corchetes vacíos para representar la lista vacía: !PYTHON([]).
 
   - Usando corchetes y separando los elementos con comas:
   
-    `[a]`
+    !PYTHON([a])
     
-    `[a, b, c]`
+    !PYTHON([a, b, c])
 
-  - Usando la función `list` con las sintaxis `list()` o
-    `list(`!NT{iterable}`)`.
+  - Usando la función !PYTHON(list) con las sintaxis !PYTHON(list()) o
+    !PYTHON(list)`(`!NT{iterable}`)`.
 
 ---
 
-- La función `list` construye una lista cuyos elementos son los mismos (y están
+- La función !PYTHON(list) construye una lista cuyos elementos son los mismos (y están
   en el mismo orden) que los elementos de !NT(iterable).
 
 - !NT(iterable) puede ser:
@@ -813,58 +845,59 @@ $s$`.count(`$x$`)`        Número total de apariciones de $x$ en $s$
 
 !SALTO
 
-------------------------------------------------------------------------
-Operación                   Resultado
---------------------------- ----------------------------------------------
-$s$`[`$i$`]` `=` $x$        El elemento $i$ de $s$ se sustituye por $x$
+---------------------------------------------------------------------------------------------------------------------------
+Operación                       Resultado
+------------------------------- -------------------------------------------------------------------------------------------
+$s$`[`$i$`]` `=` $x$            El elemento $\underline{i}$ de $\underline{s}$ se sustituye por $\underline{x}$
                         
-$s$`[`$i$`:`$j$`]`          La rodaja de $s$ desde $i$ hasta $j$ se sustituye por
-`=` $t$                     el contenido del iterable $t$
+$s$`[`$i$`:`$j$`]` `=` $t$      La rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ se
+                                sustituye por el contenido del iterable $\underline{t}$
 
-`del` $\ s$`[`$i$`:`$j$`]`  Igual que $s$`[`$i$`:`$j$`]` `=` `[]`
+!PYTHON(del)                    Igual que $s$`[`$i$`:`$j$`]` `=` `[]`
+$\ s$`[`$i$`:`$j$`]`
 
-$s$`[`$i$`:`$j$`:`$k$`]`    Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se
-`=` $t$                     sustituyen por los de $t$
+$s$`[`$i$`:`$j$`:`$k$`]`        Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por los de $\underline{t}$
+`=` $t$                         
 
-`del`                       Elimina de la secuencia los elementos de
-$\ s$`[`$i$`:`$j$`:`$k$`]`  $s$`[`$i$`:`$j$`:`$k$`]`
-                         
-------------------------------------------------------------------------
-
----
-
--------------------------------------------------------------------------------------------
-Operación              Resultado
----------------------- --------------------------------------------------------------------
-$s$`.append(`$x$`)`    Añade $x$ al final de la secuencia; es igual que \
-                       $s$`[len(`$s$`):len(`$s$`)]` `=` `[`$x$`]`
-                      
-$s$`.clear()`          Elimina todos los elementos de $s$; es igual que \
-                       `del` $\ s$`[:]`
-                      
-$s$`.copy()`           Crea una copia *superficial* de $s$; es igual que $s$`[:]`
-
-$s$`.extend(`$t$`)` \  Extiende $s$ con el contenido de $t$; es como hacer \
-$s$ `+=` $t$           $s$`[len(`$s$`):len(`$s$`)]` `=` $t$ 
-                      
-$s$ `*=` $n$           Modifica $s$ repitiendo su contenido $n$ veces
-                      
-`max(`$s$`)`           El elemento más grande de $s$
-
-$s$`.insert(`$i$`,     Inserta $x$ en $s$ en el índice $i$; es igual que
-`$x$`)`                $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
-
-$s$`.pop(`[ $i$ ]`)`   Extrae el elemento $i$ de $s$ y lo devuelve (por
-                       defecto, $i$ vale $-1$)
-
-$s$`.remove(`$x$`)`    Quita el primer elemento de $s$ que sea igual a $x$
-
-$s$`.reverse()`        Invierte los elementos de $s$
--------------------------------------------------------------------------------------------
+!PYTHON(del)                    Elimina de la secuencia los elementos de
+$\ s$`[`$i$`:`$j$`:`$k$`]`      $s$`[`$i$`:`$j$`:`$k$`]`
+---------------------------------------------------------------------------------------------------------------------------
 
 ---
 
-- Las listas, además, admiten el método `sort`, que permite ordenar sus
+-----------------------------------------------------------------------------------------------------------------------------------
+Operación                         Resultado
+--------------------------------- -------------------------------------------------------------------------------------------------
+$s$!PYTHON(.append)`(`$x$`)`      Añade $x$ al final de la secuencia; es igual que \
+                                  $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` `[`$x$`]`
+                                 
+$s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que \
+                                  !PYTHON(del) $\ s$!PYTHON([:])
+                                 
+$s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
+                                 
+$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es como hacer \
+$s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$ 
+                                 
+$s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
+                                 
+!PYTHON(max)`(`$s$`)`             El elemento más grande de $\underline{s}$
+                                 
+!PYTHON(min)`(`$s$`)`             El elemento más pequeño de $\underline{s}$
+                                 
+$s$!PYTHON(.insert)`(`$i$`, `     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$; es igual que
+$x$`)`                            $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+                                 
+$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve (por defecto, $\underline{i}$ vale !PYTHON(-1))
+                                 
+$s$!PYTHON(.remove)`(`$x$`)`      Quita el primer elemento de $\underline{s}$ que sea igual a $\underline{x}$
+                                 
+$s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
+-----------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Las listas, además, admiten el método !PYTHON(sort), que permite ordenar sus
   elementos de forma ascendente o descendente:
 
   ```python
@@ -879,7 +912,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 # Estructuras no secuenciales
 
-## Conjuntos (`set` y `frozenset`)
+## Conjuntos (!PYTHON(set) y !PYTHON(frozenset))
 
 - Un conjunto es una colección **no ordenada** de elementos *hashables*.
 
@@ -889,11 +922,11 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 - Como cualquier otra colección, los conjuntos permiten el uso de:
 
-  - $x\ $ `in` $\ c$
+  - $x\ $ !PYTHON(in) $\ c$
 
-  - `len(`$c$`)`
+  - !PYTHON(len)`(`$c$`)`
 
-  - `for` $\ x\ $ `in` $\ c$
+  - !PYTHON(for) $\ x\ $ !PYTHON(in) $\ c$
 
 - Como son colecciones no ordenadas, los conjuntos **no almacenan la posición**
   de los elementos o el **orden** en el que se insertaron.
@@ -906,9 +939,9 @@ $s$`.reverse()`        Invierte los elementos de $s$
 - Cuando decimos que **un conjunto no está ordenado**, queremos decir que los
   elementos que contiene no se encuentran situados en una posición concreta.
 
-  - A diferencia de lo que ocurre con las sencuencias, donde cada elemento se
-    encuentra en una posición indicada por su *índice* y podemos acceder a él
-    usando la indexación.
+  - Es lo contrario de lo que ocurre con las sencuencias, donde cada elemento
+    se encuentra en una posición indicada por su *índice* y podemos acceder a
+    él usando la indexación.
 
 - Además, en un conjunto **no puede haber elementos repetidos** (un elemento
   concreto sólo puede estar *una vez* dentro de un conjunto, es decir, o está
@@ -927,28 +960,29 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
 ---
 
-- Existen dos tipos predefinidos de conjuntos: `set` y `frozenset`.
+- Existen dos tipos predefinidos de conjuntos: !PYTHON(set) y !PYTHON(frozenset).
 
-- El tipo `set` es **mutable**, es decir, que su contenido puede cambiar usando
-  métodos como `add` y `remove`.
+- El tipo !PYTHON(set) es **mutable**, es decir, que su contenido puede cambiar
+  usando métodos como !PYTHON(add) y !PYTHON(remove).
 
   - Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
     clave de un diccionario o como elemento de otro conjunto.
 
-- El tipo `frozenset` es **inmutable** y *hashable*. Por tanto, su contenido no
-  se puede cambiar una vez creado y puede usarse como clave de un diccionario o
-  como elemento de otro conjunto.
+- El tipo !PYTHON(frozenset) es **inmutable** y *hashable*. Por tanto, su
+  contenido no se puede cambiar una vez creado y puede usarse como clave de un
+  diccionario o como elemento de otro conjunto.
 
 ---
 
 - Los dos tipos de conjuntos se crean con las funciones
-  `set(`[!NT(iterable)]`)` y `frozenset(`[!NT(iterable)]`)`.
+  !PYTHON(set)`(`[!NT(iterable)]`)` y !PYTHON(frozenset)`(`[!NT(iterable)]`)`.
 
   - Si se llaman *sin argumentos*, devuelven un conjunto **vacío**:
   
-    - `set()` devuelve un conjunto vacío de tipo `set`.
+    - !PYTHON(set()) devuelve un conjunto vacío de tipo !PYTHON(set).
 
-    - `frozenset()` devuelve un conjunto vacío de tipo `frozenset`.
+    - !PYTHON(frozenset()) devuelve un conjunto vacío de tipo
+      !PYTHON(frozenset).
 
     ```python
     >>> set()
@@ -958,7 +992,7 @@ $s$`.reverse()`        Invierte los elementos de $s$
     ```
 
     Como se ve, esas son, precisamente, las **formas normales** de un conjunto
-    vacío de tipo `set` y `frozenset`.
+    vacío de tipo !PYTHON(set) y !PYTHON(frozenset).
 
   - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
     conjunto formado por los elementos del iterable:
@@ -973,8 +1007,8 @@ $s$`.reverse()`        Invierte los elementos de $s$
 ---
 
 - Además, existe una *sintaxis especial* para escribir **literales de conjuntos
-  no vacíos de tipo `set`**, que consiste en encerrar sus elementos entre
-  llaves y separados por comas: `{'pepe', 'juan'}`.
+  no vacíos de tipo !PYTHON(set)**, que consiste en encerrar sus elementos
+  entre llaves y separados por comas: !PYTHON({'pepe', 'juan'}).
 
   ```python
   >>> x = {'pepe', 'juan'}  # un literal de tipo set, como set(['pepe', 'juan'])
@@ -986,18 +1020,18 @@ $s$`.reverse()`        Invierte los elementos de $s$
 
   Esa es, precisamente, la **forma normal** de un conjunto no vacío y, por
   tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con
-  `print`.
+  !PYTHON(print).
 
-- Por tanto, para crear conjuntos congelados usando `frozenset` podemos usar
-  esa sintaxis en lugar de usar listas como hicimos antes:
+- Por tanto, para crear conjuntos congelados usando !PYTHON(frozenset) podemos
+  usar esa sintaxis en lugar de usar listas como hicimos antes:
 
     ```python
     >>> frozenset({4, 3, 2, 2, 4})
     frozenset({2, 3, 4})
     ```
 
-- También podría usarse con la función `set`, pero sería innecesario y no
-  tendría sentido, ya que devolvería el mismo conjunto:
+- También podría usarse con la función !PYTHON(set), pero sería innecesario y
+  no tendría sentido, ya que devolvería el mismo conjunto:
 
   ```python
   >>> set({4, 3, 2, 2, 4})  # equivale a poner simplemente {4, 3, 2, 2, 4}
@@ -1015,58 +1049,58 @@ $s$`.reverse()`        Invierte los elementos de $s$
   {1, 4, 9}
   ```
 
-- El resultado es directamente un valor de tipo `set`, no un iterador.
+- El resultado es directamente un valor de tipo !PYTHON(set), no un iterador.
 
 ### Operaciones
 
 - $\underline{s}$ y $\underline{o}$ son conjuntos, y $\underline{x}$ es un
   valor cualquiera:
 
-----------------------------------------------------------------------------------------------
-Operación                 Resultado
-------------------------- --------------------------------------------------------------------
-`len(`$s$`)`              Número de elementos de $s$ (su cardinalidad)
-                       
-$x\ $ `in` $\ s$          `True` si $x$ pertenece a $s$
-                       
-$x\ $ `not` `in` $\ s$    `True` si $x$ no pertenece a $s$
+---------------------------------------------------------------------------------------------------------
+Operación                            Resultado
+------------------------------------ --------------------------------------------------------------------
+!PYTHON(len)`(`$s$`)`                Número de elementos de $\underline{s}$ (su cardinalidad)
 
-$s$`.isdisjoint(`$o$`)`   `True` si $s$ no tiene ningún elemento en común con $o$
+$x\ $ !PYTHON(in) $\ s$              !PYTHON(True) si $\underline{x}$ pertenece a $\underline{s}$
 
-$s$`.issubset(`$o$`)` \   `True` si $s$ es un subconjunto de $o$
+$x\ $ !PYTHON(not in) $\ s$          !PYTHON(True) si $\underline{x}$ no pertenece a $\underline{s}$
+
+$s$!PYTHON(.isdisjoint)`(`$o$`)`     !PYTHON(True) si $\underline{s}$ no tiene ningún elemento en común con $\underline{o}$
+
+$s$!PYTHON(.issubset)`(`$o$`)` \     !PYTHON(True) si $\underline{s}$ es un subconjunto de $\underline{o}$
 $s$ `<=` $o$
-                      
-$s$ `<` $o$               `True` si $s$ es un subconjunto propio de $o$
-                      
-$s$`.issuperset(`$o$`)` \ `True` si $s$ es un superconjunto de $o$
+
+$s$ `<` $o$                          !PYTHON(True) si $\underline{s}$ es un subconjunto propio de $\underline{o}$
+
+$s$!PYTHON(.issuperset)`(`$o$`)` \   !PYTHON(True) si $\underline{s}$ es un superconjunto de $\underline{o}$
 $s$ `>=` $o$
-                      
-$s$ `>` $o$               `True` si $s$ es un superconjunto propio de $o$
-----------------------------------------------------------------------------------------------
+
+$s$ `>` $o$                          !PYTHON(True) si $\underline{s}$ es un superconjunto propio de $\underline{o}$
+---------------------------------------------------------------------------------------------------------
 
 ---
 
-------------------------------------------------------------------------------------------------
-Operación                           Resultado
----------------------------         ------------------------------------------------------------
-$s$`.union(`$o$`)` \                Unión de $s$ y $o$ ($s \cup o$)
-$s$ | $o$                           
-                                    
-$s$`.intersection(`$o$`)` \         Intersección de $s$ y $o$ ($s \cap o$)
-$s$ & $o$                           
-                                    
-$s$`.difference(`$o$`)` \           Diferencia entre $s$ y $o$ ($s \setminus o$)
-$s$ - $o$
+-----------------------------------------------------------------------------------------------------------
+Operación                                          Resultado
+-------------------------------------------------- --------------------------------------------------------
+$s$!PYTHON(.union)`(`$o$`)` \                      Unión de $\underline{s}$ y $\underline{o}$ ($s \cup o$)
+$s$ `|` $o$
 
-$s$`.symmetric_difference(`$o$`)` \ Diferencia simétrica entre $s$ y $o$ ($s \vartriangle o$)
-$s$ ^ $o$
+$s$!PYTHON(.intersection)`(`$o$`)` \               Intersección de $\underline{s}$ y $\underline{o}$ ($s \cap o$)
+$s$ `&` $o$
 
-$s$`.copy()`                        Devuelve una copia superficial de $s$
-------------------------------------------------------------------------------------------------
+$s$!PYTHON(.difference)`(`$o$`)` \                 Diferencia de $\underline{s}$ y $\underline{o}$ ($s \setminus o$)
+$s$ `-` $o$
+
+$s$!PYTHON(.symmetric_difference)`(`$o$`)` \       Diferencia simétrica de $\underline{s}$ y $\underline{o}$ ($s \vartriangle o$)
+$s$ `^` $o$
+
+$s$!PYTHON(.copy())                                Devuelve una copia superficial de $\underline{s}$
+-----------------------------------------------------------------------------------------------------------
 
 ---
 
-- Tanto `set` como `frozenset` admiten **comparaciones entre conjuntos**.
+- Tanto !PYTHON(set) como !PYTHON(frozenset) admiten **comparaciones entre conjuntos**.
 
 - Suponiendo que `a` y `b` son conjuntos:
 
@@ -1087,43 +1121,43 @@ $s$`.copy()`                        Devuelve una copia superficial de $s$
 
 ### Operaciones sobre conjuntos mutables
 
-- Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo `set` y no
-  al `frozenset`):
+- Estas tablas sólo se aplica a conjuntos mutables (o sea, al tipo !PYTHON(set)
+  y no al !PYTHON(frozenset)):
 
---------------------------------------------------------------------------------------
-Operación                                  Resultado
------------------------------------------- -------------------------------------------
-$s$`.update(`$o$`)` \                      Actualiza $s$ añadiendo los elementos de $o$
-$s$ |= $o$                           
-                                    
-$s$`.intersection_update(`$o$`)` \         Actualiza $s$ manteniendo sólo los elementos que están en $s$ y $o$
-$s$ &= $o$                           
-                                    
-$s$`.difference_update(`$o$`)` \           Actualiza $s$ eliminando los elementos que están en $o$
-$s$ -= $o$
+-------------------------------------------------------------------------------------------------------------------------------------------
+Operación                                                                          Resultado
+---------------------------------------------------------------------------------- --------------------------------------------------------
+$s$!PYTHON(.update)`(`$o$`)` \                                                     Actualiza $\underline{s}$ añadiendo los elementos de
+$s$ `|=` $o$                                                                       $\underline{o}$
 
-$s$`.symmetric_difference_update(`$o$`)` \ Actualiza $s$ manteniendo sólo los elementos que están en $s$ y $o$
-$s$ ^= $o$                                 pero no en ambos
---------------------------------------------------------------------------------------
+$s$!PYTHON(.intersection_update)`(`$o$`)` \                                        Actualiza $\underline{s}$ manteniendo sólo los elementos
+$s$ `&=` $o$                                                                       que están en $\underline{s}$ y $\underline{o}$
+
+$s$!PYTHON(.difference_update)`(`$o$`)` \                                          Actualiza $\underline{s}$ eliminando los elementos que
+$s$ `-=` $o$                                                                       están en $\underline{o}$
+
+$s$!PYTHON(.symmetric_difference_update)`(`$o$`)` \                                Actualiza $\underline{s}$ manteniendo sólo los elementos
+$s$ `^=` $o$                                                                       que están en $\underline{s}$ y $\underline{o}$ pero no
+                                                                                   en ambos
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
-----------------------------------------------------------------------------------
-Operación             Resultado
---------------------- ------------------------------------------------------------
-$s$`.add(`$x$`)`      Añade $x$ a $s$
+-----------------------------------------------------------------------------------------------------------------------------
+Operación                        Resultado
+-------------------------------- --------------------------------------------------------------------------------------------
+$s$!PYTHON(.add)`(`$x$`)`        Añade $\underline{x}$ a $\underline{s}$
 
-$s$`.remove(`$x$`)`   Elimina $x$ de $s$ (produce `KeyError` si $x$ no está en $s$)
+$s$!PYTHON(.remove)`(`$x$`)`     Elimina $\underline{x}$ de $\underline{s}$ (produce !PYTHON(KeyError) si $\underline{x}$ no está en $\underline{s}$)
 
-$s$`.discard(`$x$`)`  Elimina $x$ de $s$ si está en $s$
+$s$!PYTHON(.discard)`(`$x$`)`    Elimina $\underline{x}$ de $\underline{s}$ si está en $\underline{s}$
 
-$s$`.pop()`           Elimina y devuelve un valor cualquiera de $s$ (produce
-                      `KeyError` si $s$ está vacío)
+$s$!PYTHON(.pop())               Elimina y devuelve un valor cualquiera de $\underline{s}$ (produce !PYTHON(KeyError) si $\underline{s}$ está vacío)
 
-$s$`.clear()`         Elimina todos los elementos de $s$
------------------------------------------------------------------------------------
+$s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
+-----------------------------------------------------------------------------------------------------------------------------
 
-## Diccionarios (`dict`)
+## Diccionarios (!PYTHON(dict))
 
 - Un **diccionario** es una colección que almacena *correspondencias* (o
   *asociaciones*) entre valores.
@@ -1149,13 +1183,13 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 - Los diccionarios se pueden crear:
 
   - Encerrando entre llaves una lista de parejas !NT(clave)!T(:)!NT(valor)
-    separadas por comas: `{'juan': 4098, 'pepe': 4127}`
+    separadas por comas: !PYTHON({'juan': 4098, 'pepe': 4127})
 
     Esa es precisamente la **forma normal** de un diccionario y, por tanto, la
     que se usa cuando se visualiza desde el intérprete o se imprime con
-    `print`.
+    !PYTHON(print).
 
-  - Usando la función `dict`.
+  - Usando la función !PYTHON(dict).
 
 - Por ejemplo:
 
@@ -1180,10 +1214,10 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   {'perro': 'doggy', 'gato': 'cat'}
   ```
 
-  Como se ve, la clave `'perro'` está repetida y, por tanto, sólo se almacena
-  uno de los dos elementos con clave repetida, que siempre es el último que
-  aparece en el diccionario. En este caso, se almacena el elemento `'perro':
-  'doggy'` y se ignora el `'perro': 'dog'`.
+  Como se ve, la clave !PYTHON('perro') está repetida y, por tanto, sólo se
+  almacena uno de los dos elementos con clave repetida, que siempre es el
+  último que aparece en el diccionario. En este caso, se almacena el elemento
+  !PYTHON('perro': 'doggy') y se ignora el !PYTHON('perro': 'dog').
 
 ---
 
@@ -1211,13 +1245,13 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 - Las claves de un diccionario deben ser datos *hashables*.
 
 - Por tanto, no se pueden usar como clave una lista, un diccionario, un
-  conjunto `set` o cualquier otro tipo mutable.
+  conjunto !PYTHON(set) o cualquier otro tipo mutable.
 
 - Los tipos numéricos que se usen como claves obedecen las reglas normales de
   comparación numérica.
 
-  - Por tanto, si dos números son considerados iguales (como `1` y `1.0`)
-    entonces se consideran la misma clave en el diccionario.
+  - Por tanto, si dos números son considerados iguales (como !PYTHON(1) y
+    !PYTHON(1.0)) entonces se consideran la misma clave en el diccionario.
 
 ---
 
@@ -1232,7 +1266,7 @@ $s$`.clear()`         Elimina todos los elementos de $s$
   ```
 
 - Si se intenta acceder a un elemento usando una clave que no existe, se lanza
-  una excepción de tipo `KeyError`:
+  una excepción de tipo !PYTHON(KeyError):
 
   ```python
   >>> a['caballo']
@@ -1246,43 +1280,45 @@ $s$`.clear()`         Elimina todos los elementos de $s$
 - $\underline{d}$ y $\underline{o}$ son diccionarios, $\underline{c}$ es una
   clave válida y $\underline{v}$ es un valor cualquiera:
 
-------------------------------------------------------------------------------------------------
-Operación                   Resultado
---------------------------- --------------------------------------------------------------------
-$d$`[`$c$`]` `=` $v$        Asigna a $d$`[`$c$`]` el valor $v$
+---------------------------------------------------------------------------------------------------------------------------------------------
+Operación                             Resultado                                                                                         
+------------------------------------- -------------------------------------------------------------------------------------------------------
+$d$`[`$c$`]` `=` $v$                  Asigna a $d$`[`$c$`]` el valor $\underline{v}$
 
-`del` $\ d$`[`$c$`]`        Elimina $d$`[`$c$`]` de $d$ (produce `KeyError` si $c$ no está en $d$)
+!PYTHON(del) $\ d$`[`$c$`]`           Elimina $d$`[`$c$`]` de $\underline{d}$ (produce !PYTHON(KeyError) si $\underline{c}$ no está en
+                                      $\underline{d}$)
 
-$c\ $ `in` $\ d$            `True` si $d$ contiene una clave $c$
+$c\ $ !PYTHON(in) $\ d$               !PYTHON(True) si $\underline{d}$ contiene una clave $\underline{c}$
 
-$c\ $ `not` `in` $\ d$      `True` si $d$ no contiene una clave $c$
+$c\ $ !PYTHON(not in) $\ d$           !PYTHON(True) si $\underline{d}$ no contiene una clave $\underline{c}$
 
-$d$`.clear()`               Elimina todos los elementos del diccionario
+$d$!PYTHON(.clear())                  Elimina todos los elementos de $\underline{d}$
 
-$d$`.copy()`                Devuelve una copia superficial del diccionario
+$d$!PYTHON(.copy())                   Devuelve una copia superficial de $\underline{d}$
 
-$d$`.get(`$c$[`,` $def$]`)` Devuelve el valor de $c$ si $c$ está en $d$; en caso contrario,
-                            devuelve $def$ (por defecto, $def$ vale `None`)
-                      
-$d$`.pop(`$c$[`,` $def$]`)` Elimina y devuelve el valor de $c$ si $c$ está en $d$; en
-                            caso contrario, devuelve $def$ (si no se pasa $def$ y $c$ no está en $d$,
-                            produce un `KeyError`)
----------------------------------------------------------------------------------------------
+$d$!PYTHON(.get)`(`$c$[`,` $def$]`)`  Devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en caso contrario,
+                                      devuelve $\underline{def}$ (por defecto, $\underline{def}$ vale !PYTHON(None))
+
+$d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`  Elimina y devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en
+                                      caso contrario, devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y $\underline{c}$
+                                      no está en $\underline{d}$, produce un !PYTHON(KeyError))
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
---------------------------------------------------------------------------------------
-Operación                           Resultado
------------------------------------ --------------------------------------------------
-$d$`.popitem()`                     Elimina y devuelve una pareja ($clave$, $valor$) del diccionario
-                                    siguiendo un orden LIFO (produce un `KeyError` si $d$ está vacío)
-
-$d$`.setdefault(`$c$[`,` $def$]`)`  Si $c$ está en $d$, devuelve su valor; si no, inserta $c$ en $d$ con
-                                    el valor $def$ y devuelve $def$ (por defecto, $def$ vale `None`)
-
-$d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $valor$) de $o$,
-                                    sobreescribiendo las claves ya existentes, y devuelve `None`
---------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+Operación                                          Resultado
+-------------------------------------------------- ---------------------------------------------------------------------------------
+$d$!PYTHON(.popitem())                             Elimina y devuelve una pareja ($clave$, $valor$) del diccionario
+                                                   siguiendo un orden LIFO (produce un !PYTHON(KeyError) si $\underline{d}$ está vacío)
+                                                  
+$d$!PYTHON(.setdefault)`(`$c$[`,` $def$]`)`        Si $\underline{c}$ está en $\underline{d}$, devuelve su valor; si no, inserta
+                                                   $\underline{c}$ en $\underline{d}$ con el valor $\underline{def}$ y devuelve
+                                                   $\underline{def}$ (por defecto, $\underline{def}$ vale !PYTHON(None))
+                                                  
+$d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con las parejas ($clave$, $valor$) de $\underline{o}$,
+                                                   sobreescribiendo las claves ya existentes, y devuelve !PYTHON(None)
+------------------------------------------------------------------------------------------------------------------------------------
 
 ### Recorrido de diccionarios
 
@@ -1302,7 +1338,7 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
   'b'
   ```
 
-- Lo mismo ocurre con un bucle `for`:
+- Lo mismo ocurre con un bucle !PYTHON(for):
 
   ```python
   >>> for k in d:
@@ -1315,7 +1351,7 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 ---
 
 - Si necesitamos acceder también a los valores de un diccionario mientras lo
-  recorremos con un bucle `for`, tenemos dos opciones:
+  recorremos con un bucle !PYTHON(for), tenemos dos opciones:
 
   - Acceder al valor a partir de la clave usando **indexación**:
 
@@ -1327,8 +1363,8 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
     b 2
     ```
 
-  - Usar el método `items` sobre el diccionario, que devuelve una lista de
-    tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinándolo con el
+  - Usar el método !PYTHON(items) sobre el diccionario, que devuelve una lista
+    de tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinándolo con el
     **desempaquetado de tuplas**:
 
     ```python
@@ -1343,15 +1379,17 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 
 ---
 
-- Otros métodos útiles para recorrer un diccionario son `keys` y `values`.
+- Otros métodos útiles para recorrer un diccionario son !PYTHON(keys) y
+  !PYTHON(values).
+
   !SALTOBEAMER
 
 :::: columns
 
 ::: column
 
-- `keys` devuelve un **iterador** que recorre las **claves** del diccionario
-  sobre el que se invoca:
+- !PYTHON(keys) devuelve un **iterador** que recorre las **claves** del
+  diccionario sobre el que se invoca:
 
 
   ```python
@@ -1370,8 +1408,8 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 
 !ifdef(LATEX)(\vspace{0.3em})
 
-- `values` devuelve un **iterador** que recorre los **valores** del diccionario
-  sobre el que se invoca:
+- !PYTHON(values) devuelve un **iterador** que recorre los **valores** del
+  diccionario sobre el que se invoca:
 
   ```python
   >>> d.values()
@@ -1390,8 +1428,8 @@ $d$`.update(`$o$`)`                 Actualiza $d$ con las parejas ($clave$, $val
 !SALTOBEAMER
 !ifdef(LATEX)(\vspace{0.3em})
 
-- En la práctica, no resulta muy útil usar `keys`, ya que se puede hacer lo
-  mismo recorriendo directamente el propio diccionario, como ya sabemos:
+- En la práctica, no resulta muy útil usar !PYTHON(keys), ya que se puede hacer
+  lo mismo recorriendo directamente el propio diccionario, como ya sabemos:
 
   ```python
   >>> for k in d:
