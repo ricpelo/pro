@@ -48,7 +48,8 @@ nocite: |
 
 ## Sentencias
 
-- Las instrucciones que forman un programa imperativo son las **sentencias**.
+- Las **sentencias** son las instrucciones principales que componen un programa
+  imperativo.
 
 - La ejecución de una sentencia **cambia el estado interno del programa**
   provocando uno de estos **efectos**:
@@ -156,12 +157,12 @@ nocite: |
   tenga el dato.
 
 - Esa dirección de comienzo de la zona que ocupa el dato dentro del montículo
-  se denomina **referencia** y sirve para identificar al dato y acceder al
-  mismo.
+  se denomina **referencia** y sirve para identificar al dato, localizarlo y
+  acceder al mismo.
 
-- En determinados casos, el intérprete no crea un nuevo dato sino que aprovecha
-  otro exactamente igual que ya haya en el montículo para así ahorrar memoria
-  (lo estudiaremos más adelante cuando hablemos de los *alias*).
+- Si en el montículo ya existe un dato exactamente igual al que se tiene que
+  crear, en la mayoría de los casos el intérprete aprovecha el que ya existe y
+  no crea uno nuevo, para así ahorrar memoria.
 
 ## Variables
 
@@ -189,8 +190,7 @@ nocite: |
 
 !DOT(identificador-variable-valor.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-identificador [shape = plaintext, fillcolor = transparent]
+identificador [shape = plaintext, fillcolor = transparent, fontname = "monospace"]
 valor [shape = circle, width = 0.8, fixedsize = true]
 identificador -> variable -> valor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -241,8 +241,7 @@ identificador -> variable -> valor
 
 !DOT(identificador-ligadura-variable-estado-valor.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-identificador [shape = plaintext, fillcolor = transparent]
+identificador [shape = plaintext, fillcolor = transparent, fontname = "monospace"]
 valor [shape = circle, width = 0.8, fixedsize = true]
 identificador -> variable [label = "ligadura"]
 variable -> valor [label = "estado"]
