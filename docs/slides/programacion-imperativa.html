@@ -739,7 +739,7 @@
 <ul>
 <li><p>A la asignación múltiple también se la denomina <strong>desempaquetado de tuplas</strong>, ya que, técnicamente, es una asignación entre dos tuplas, como si se hubiera escrito así:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(x, y) <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre></div></li>
-<li><p>Esto es así porque, en realidad, los paréntesis que rodean a una tupla casi nunca son estrictamente necesarios y, por tanto:</p>
+<li><p>Esto es así porque, en realidad, los paréntesis que rodean a una tupla casi nunca son estrictamente necesarios (salvo para la tupla vacía y para evitar ambigüedades) y, por tanto:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>, <span class="dv">3</span></span></code></pre></div>
 <p>es lo mismo que</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
@@ -757,8 +757,8 @@
 <ul>
 <li><p>Ya hemos visto que en programación imperativa es posible cambiar el estado de una variable asignándole un nuevo valor (un nuevo dato).</p></li>
 <li><p>Al hacerlo, no estamos cambiando el valor en sí, sino que estamos sustituyendo el valor de la variable por otro nuevo, mediante el uso de la asignación destructiva.</p></li>
-<li><p>Sin embargo, también existen valores que poseen su propio <strong>estado interno</strong> y es posible cambiar dicho estado, no asignando un nuevo valor a la variable que lo contiene, sino <strong>modificando el contenido de dicho valor</strong>.</p></li>
-<li><p>Es decir: no estaríamos <strong>cambiando</strong> el estado de la variable (haciendo que ahora contenga un nuevo valor) sino <strong>el estado interno</strong> del propio valor contenido dentro de la variable.</p></li>
+<li><p>Sin embargo, también existen valores que poseen su propio <strong>estado interno</strong> y es posible cambiar dicho estado, no asignando un nuevo valor a la variable que lo contiene, sino <strong>modificando el interior de dicho valor</strong>.</p></li>
+<li><p>Es decir: no estaríamos <strong>cambiando</strong> el estado de la variable (haciendo que ahora contenga un nuevo valor) sino <strong>el estado interno</strong> del propio valor al que hace referencia la variable.</p></li>
 <li><p>Los valores que permiten cambiar su estado interno se denominan <strong>mutables</strong>.</p></li>
 </ul>
 </section>
@@ -767,10 +767,11 @@
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> Tipos mutables e inmutables</h2>
 <ul>
 <li><p>En Python existen tipos cuyos valores son <em>inmutables</em> y otros que son <em>mutables</em>.</p></li>
-<li><p>Un valor <strong>inmutable</strong> es aquel cuyo estado interno no puede cambiar durante la ejecución del programa.</p>
-<p>Los tipos inmutables en Python son los números (<code class="sourceCode python"><span class="bu">int</span></code> y <code class="sourceCode python"><span class="bu">float</span></code>), los booleanos (<code class="sourceCode python"><span class="bu">bool</span></code>), las cadenas (<code class="sourceCode python"><span class="bu">str</span></code>), las tuplas (<code class="sourceCode python"><span class="bu">tuple</span></code>), los rangos (<code class="sourceCode python"><span class="bu">range</span></code>) y los conjuntos congelados (<code class="sourceCode python"><span class="bu">frozenset</span></code>).</p></li>
-<li><p>Un valor <strong>mutable</strong> es aquel cuyo estado interno (normalmente, su <strong>contenido</strong>) puede cambiar durante la ejecución del programa.</p>
-<p>El principal tipo mutable en Python es la lista (<code class="sourceCode python"><span class="bu">list</span></code>), pero también están los conjuntos (<code class="sourceCode python"><span class="bu">set</span></code>) y los diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>).</p></li>
+<li><p>Un valor <strong>inmutable</strong> es aquel cuyo estado interno no puede cambiar durante la ejecución del programa.</p></li>
+<li><p>Los tipos inmutables en Python son los números (<code class="sourceCode python"><span class="bu">int</span></code> y <code class="sourceCode python"><span class="bu">float</span></code>), los booleanos (<code class="sourceCode python"><span class="bu">bool</span></code>), las cadenas (<code class="sourceCode python"><span class="bu">str</span></code>), las tuplas (<code class="sourceCode python"><span class="bu">tuple</span></code>), los rangos (<code class="sourceCode python"><span class="bu">range</span></code>) y los conjuntos congelados (<code class="sourceCode python"><span class="bu">frozenset</span></code>).</p></li>
+<li><p>Un valor <strong>mutable</strong> es aquel cuyo estado interno puede cambiar durante la ejecución del programa.</p>
+<p>Muchos valores mutables son <strong>colecciones de elementos</strong> (datos <em>compuestos</em>) y cambiar su estado interno es cambiar su <strong>contenido</strong>, es decir, los elementos que contiene.</p></li>
+<li><p>Los principales tipos mutables predefinidos en Python son la lista (<code class="sourceCode python"><span class="bu">list</span></code>), los conjuntos (<code class="sourceCode python"><span class="bu">set</span></code>) y los diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>).</p></li>
 </ul>
 </section>
 <section id="inmutables" class="title-slide slide level3" data-number="3.2.1">
@@ -802,16 +803,15 @@
 <section class="slide level5" data-number="3.2.1.0.1">
 
 <ul>
-<li><p>Con las cadenas sería exactamente igual.</p></li>
-<li><p>Si tenemos:</p>
+<li><p>Con las cadenas sería exactamente igual. Si tenemos:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span></code></pre></div>
 <div class="centered">
-<p><img data-src="images/inmutable3.svg" class="plain" style="width:25.0%" /></p>
+<p><img data-src="images/inmutable3.svg" class="plain" style="width:23.0%" /></p>
 </div>
 <p>y luego hacemos:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
-<p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code class="sourceCode python">x</code>.</p>
-<p>Es decir: la cadena <code class="sourceCode python"><span class="st">&#39;hola&#39;</span></code> original <strong>no se cambia</strong> (p. ej., no se le añade <code class="sourceCode python"><span class="st">&#39; manolo&#39;</span></code> al final), sino que <strong>se sustituye por una nueva</strong>.</p>
+<p><strong>se crea una nueva cadena</strong> y se la asignamos a la variable <code class="sourceCode python">x</code>.</p></li>
+<li><p>Es decir: la cadena <code class="sourceCode python"><span class="st">&#39;hola&#39;</span></code> original <strong>no se cambia</strong> (no se le añade <code class="sourceCode python"><span class="st">&#39; manolo&#39;</span></code> detrás), sino que la nueva <strong>sustituye</strong> a la anterior en la variable.</p>
 <div class="centered">
 <p><img data-src="images/inmutable4.svg" class="plain" style="width:35.0%" /></p>
 </div></li>
@@ -886,7 +886,14 @@
 </div>
 </div>
 <ul>
-<li>El <strong>slicing</strong> (<em>hacer rodajas</em>) es una operación que consiste en obtener una subsecuencia a partir de una secuencia, indicando los índices de los elementos inicial y final de la misma:</li>
+<li><p>Los índices positivos (del <code class="sourceCode python"><span class="dv">0</span></code> en adelante) empiezan a contar desde el comienzo de la secuencia.</p></li>
+<li><p>Los índices negativos (del <code class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code> hacia atrás) empieza a contar desde el final de la secuencia.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.4">
+
+<ul>
+<li>El <strong>slicing</strong> (<em>hacer rodajas</em>) es una operación que consiste en obtener una subsecuencia a partir de una secuencia, indicando los <em>índices</em> de los elementos <em>inicial</em> y <em>final</em> de la misma, así como un posible <em>paso</em>:</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -918,6 +925,36 @@
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hty&#39;</span></span></code></pre></div>
 </div>
 </div>
+<ul>
+<li><p>Es más fácil trabajar con las rodajas si suponemos que los índices se encuentran <em>entre</em> los elementos.</p></li>
+<li><p>El elemento <em>final</em> nunca se alcanza.</p></li>
+<li><p>Si <span class="math inline">paso &lt; 0</span>, la rodaja se hará al revés (de derecha a izquierda).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.5">
+
+<ul>
+<li><p>En la rodaja <code>s[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code>, los tres valores <span class="math inline">i</span>, <span class="math inline">j</span> y <span class="math inline">k</span> son opcionales, así que se pueden omitir.</p></li>
+<li><p>Si se omite <span class="math inline">k</span>, se entiende que es <code class="sourceCode python"><span class="dv">1</span></code>.</p></li>
+<li><p>Si se omite <span class="math inline">i</span>, se entiende que queremos la rodaja desde el primer o el último elemento de la secuencia, dependiendo de si <span class="math inline">k</span> es positivo o negativo.</p></li>
+<li><p>Si se omite <span class="math inline">j</span>, se entiende que queremos la rodaja hasta el último o el primero elemento de la secuencia, dependiendo de si <span class="math inline">k</span> es positivo o negativo.</p></li>
+<li><p>Si <span class="math inline">i &gt; j</span>, <span class="math inline">k</span> debería ser positivo (de lo contrario, devolvería la secuencia vacía).</p></li>
+<li><p>Si <span class="math inline">i &lt; j</span>, <span class="math inline">k</span> debería ser negativo (de lo contrario, devolvería la secuencia vacía).</p></li>
+<li><p>Si <span class="math inline">i = j</span>, devuelve la secuencia vacía.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.6">
+
+<ul>
+<li><p>Casos particulares notables:</p>
+<ul>
+<li><p><code class="sourceCode python">s[:</code><span class="math inline">n</span><code>]</code> es la rodaja desde el primer elemento hasta la posición <span class="math inline">n</span>.</p></li>
+<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>:]</code> es la rodaja desde el elemento <span class="math inline">n</span> hasta el final.</p></li>
+<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>::-1]</code> es la rodaja invertida desde el elemento <span class="math inline">n</span> hasta el principio, con los elementos al revés.</p></li>
+<li><p><code class="sourceCode python">s[:]</code> devuelve una <em>copia</em> de <code class="sourceCode python">s</code>.</p></li>
+<li><p><code class="sourceCode python">s[::<span class="op">-</span><span class="dv">1</span>]</code> devuelve una copia invertida de <code class="sourceCode python">s</code>.</p></li>
+</ul></li>
+</ul>
 </section>
 
 <section id="mutables" class="title-slide slide level3" data-number="3.2.2">
@@ -938,7 +975,7 @@
 <ul>
 <li><p>Las listas son secuencias mutables y, como tales, se pueden modificar usando ciertas operaciones:</p>
 <ul>
-<li><p>Los <em>operadores</em> de <strong>indexación</strong> y <strong>slicing</strong> combinados con <code class="sourceCode python"><span class="op">=</span></code> y <code class="sourceCode python"><span class="kw">del</span></code>:</p>
+<li><p>Los <em>operadores</em> de <strong>indexación</strong> y <strong><em>slicing</em></strong> combinados con <code class="sourceCode python"><span class="op">=</span></code> y <code class="sourceCode python"><span class="kw">del</span></code>:</p>
 <pre><code>  +-----+-----+-----+-----+-----+-----+
 l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
   +-----+-----+-----+-----+-----+-----+

@@ -711,7 +711,8 @@ y:f1 -> 5
   ```
 
 - Esto es así porque, en realidad, los paréntesis que rodean a una tupla casi
-  nunca son estrictamente necesarios y, por tanto:
+  nunca son estrictamente necesarios (salvo para la tupla vacía y para evitar
+  ambigüedades) y, por tanto:
 
   ```python
   2, 3
@@ -740,11 +741,11 @@ y:f1 -> 5
 
 - Sin embargo, también existen valores que poseen su propio **estado interno**
   y es posible cambiar dicho estado, no asignando un nuevo valor a la variable
-  que lo contiene, sino **modificando el contenido de dicho valor**.
+  que lo contiene, sino **modificando el interior de dicho valor**.
 
 - Es decir: no estaríamos **cambiando** el estado de la variable (haciendo que
   ahora contenga un nuevo valor) sino **el estado interno** del propio valor
-  contenido dentro de la variable.
+  al que hace referencia la variable.
 
 - Los valores que permiten cambiar su estado interno se denominan **mutables**.
 
@@ -756,16 +757,21 @@ y:f1 -> 5
 - Un valor **inmutable** es aquel cuyo estado interno no puede cambiar durante
   la ejecución del programa.
 
-  Los tipos inmutables en Python son los números (!PYTHON(int) y
+- Los tipos inmutables en Python son los números (!PYTHON(int) y
   !PYTHON(float)), los booleanos (!PYTHON(bool)), las cadenas (!PYTHON(str)),
   las tuplas (!PYTHON(tuple)), los rangos (!PYTHON(range)) y los conjuntos
   congelados (!PYTHON(frozenset)).
 
-- Un valor **mutable** es aquel cuyo estado interno (normalmente, su
-  **contenido**) puede cambiar durante la ejecución del programa.
+- Un valor **mutable** es aquel cuyo estado interno puede cambiar durante la
+  ejecución del programa.
 
-  El principal tipo mutable en Python es la lista (!PYTHON(list)), pero también
-  están los conjuntos (!PYTHON(set)) y los diccionarios (!PYTHON(dict)).
+  Muchos valores mutables son **colecciones de elementos** (datos _compuestos_)
+  y cambiar su estado interno es cambiar su **contenido**, es decir, los
+  elementos que contiene.
+
+- Los principales tipos mutables predefinidos en Python son la lista
+  (!PYTHON(list)), los conjuntos (!PYTHON(set)) y los diccionarios
+  (!PYTHON(dict)).
 
 ### Inmutables
 
@@ -830,15 +836,13 @@ y:f1 -> 5
 
 ---
 
-- Con las cadenas sería exactamente igual.
-
-- Si tenemos:
+- Con las cadenas sería exactamente igual. Si tenemos:
 
   ```python
   x = 'hola'
   ```
 
-  !DOT(inmutable3.svg)()(width=25%)(width=30%)
+  !DOT(inmutable3.svg)()(width=23%)(width=30%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -854,9 +858,9 @@ y:f1 -> 5
 
   **se crea una nueva cadena** y se la asignamos a la variable !PYTHON(x).
   
-  Es decir: la cadena !PYTHON('hola') original **no se cambia** (p. ej., no se
-  le añade !PYTHON(' manolo') al final), sino que **se sustituye por una
-  nueva**.
+- Es decir: la cadena !PYTHON('hola') original **no se cambia** (no se le añade
+  !PYTHON(' manolo') detrás), sino que la nueva **sustituye** a la anterior en
+  la variable.
 
   !DOT(inmutable4.svg)()(width=35%)(width=40%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -934,11 +938,17 @@ s | P | y | t | h | o | n |
 
 ::::
 
-!SALTOBEAMER
+- Los índices positivos (del !PYTHON(0) en adelante) empiezan a contar desde el
+  comienzo de la secuencia.
+
+- Los índices negativos (del !PYTHON(-1) hacia atrás) empieza a contar desde el
+  final de la secuencia.
+
+---
 
 - El **slicing** (*hacer rodajas*) es una operación que consiste en obtener una
-  subsecuencia a partir de una secuencia, indicando los índices de los
-  elementos inicial y final de la misma:
+  subsecuencia a partir de una secuencia, indicando los _índices_ de los
+  elementos _inicial_ y _final_ de la misma, así como un posible _paso_:
 
 :::: columns
 
@@ -983,6 +993,53 @@ s | P | y | t | h | o | n |
 
 ::::
 
+- Es más fácil trabajar con las rodajas si suponemos que los índices se
+  encuentran _entre_ los elementos.
+
+- El elemento _final_ nunca se alcanza.
+
+- Si $paso < 0$, la rodaja se hará al revés (de derecha a
+  izquierda).
+
+---
+
+- En la rodaja `s[`$i$`:`$j$`:`$k$`]`, los tres valores $i$, $j$ y $k$ son
+  opcionales, así que se pueden omitir.
+
+- Si se omite $k$, se entiende que es !PYTHON(1).
+
+- Si se omite $i$, se entiende que queremos la rodaja desde el primer o el
+  último elemento de la secuencia, dependiendo de si $k$ es positivo o
+  negativo.
+
+- Si se omite $j$, se entiende que queremos la rodaja hasta el último o el
+  primero elemento de la secuencia, dependiendo de si $k$ es positivo o
+  negativo.
+
+- Si $i > j$, $k$ debería ser positivo (de lo contrario, devolvería la
+  secuencia vacía).
+
+- Si $i < j$, $k$ debería ser negativo (de lo contrario, devolvería la
+  secuencia vacía).
+
+- Si $i = j$, devuelve la secuencia vacía.
+
+---
+
+- Casos particulares notables:
+
+  - !PYTHON(s[:)$n$`]` es la rodaja desde el primer elemento hasta la posición
+    $n$.
+  
+  - !PYTHON(s[)$n$`:]` es la rodaja desde el elemento $n$ hasta el final.
+
+  - !PYTHON(s[)$n$`::-1]` es la rodaja invertida desde el elemento $n$ hasta el
+    principio, con los elementos al revés.
+
+  - !PYTHON(s[:]) devuelve una _copia_ de !PYTHON(s).
+
+  - !PYTHON(s[::-1]) devuelve una copia invertida de !PYTHON(s).
+
 ### Mutables
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
@@ -1010,8 +1067,8 @@ s | P | y | t | h | o | n |
 - Las listas son secuencias mutables y, como tales, se pueden modificar usando
   ciertas operaciones:
 
-  - Los *operadores* de **indexación** y **slicing** combinados con !PYTHON(=)
-    y !PYTHON(del):
+  - Los *operadores* de **indexación** y **_slicing_** combinados con
+    !PYTHON(=) y !PYTHON(del):
 
     ```
       +-----+-----+-----+-----+-----+-----+
