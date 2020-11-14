@@ -876,16 +876,15 @@
 <li><p>Pero también son <strong>datos compuestos</strong> de otros datos (sus <em>elementos</em> o <em>componentes</em>) a los que podemos acceder individualmente y con los que podemos operar, aunque no podamos cambiarlos, ya que están contenidos en datos compuestos inmutables.</p></li>
 <li><p>De hecho, las cadenas, las tuplas y los rangos pertenecen a la familia de las <strong>secuencias</strong>, que son colecciones de elementos ordenados según la posición que ocupan dentro de la secuencia.</p></li>
 <li><p>Por tanto, con las cadenas, las tuplas y los rangos podemos usar las <strong>operaciones comunes a cualquier secuencia</strong> de elementos.</p></li>
+<li><p>La siguiente tabla recoge las operaciones comunes sobre secuencias, ordenadas por prioridad ascendente. <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> son secuencias del mismo tipo, <span class="math inline">\underline{n}</span>, <span class="math inline">\underline{i}</span>, <span class="math inline">\underline{j}</span> y <span class="math inline">\underline{k}</span> son enteros y <span class="math inline">\underline{x}</span> es un dato cualquiera que cumple con las restricciones que impone <span class="math inline">\underline{s}</span>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.1.0.4">
 
-<ul>
-<li><p>Las operaciones que se pueden realizar con cualquier secuencia son:</p>
 <table>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 66%" />
+<col style="width: 34%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -896,35 +895,55 @@
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">in</span></code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> está en <span class="math inline">\underline{s}</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si algún elemento de <span class="math inline">\underline{s}</span> es igual a <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">x\ </span> <code class="sourceCode python"><span class="kw">not</span> <span class="kw">in</span></code> <span class="math inline">\ s</span></td>
-<td style="text-align: left;"><code class="sourceCode python"><span class="va">True</span></code> si <span class="math inline">\underline{x}</span> <strong>no</strong> está en <span class="math inline">\underline{s}</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="va">False</span></code> si algún elemento de <span class="math inline">\underline{s}</span> es igual a <span class="math inline">\underline{x}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span> <code>+</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">La concatenación de <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> (no va con rangos)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span> <code>*</code> <span class="math inline">n</span><br />
+<span class="math inline">n</span> <code>*</code> <span class="math inline">s</span></td>
+<td style="text-align: left;">Equivale a concatenar <span class="math inline">\underline{s}</span> consigo misma <span class="math inline">\underline{n}</span> veces (no va con rangos)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>]</code></td>
-<td style="text-align: left;">(<em>Indexación</em>) El <span class="math inline">\underline{i}</span>-ésimo elemento de <span class="math inline">\underline{s}</span>, empezando por 0</td>
+<td style="text-align: left;">El <span class="math inline">\underline{i}</span>-ésimo elemento de <span class="math inline">\underline{s}</span>, empezando por 0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
-<td style="text-align: left;">(<em>Slicing</em>) Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span></td>
+<td style="text-align: left;">Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 <td style="text-align: left;">Rodaja de <span class="math inline">\underline{s}</span> desde <span class="math inline">\underline{i}</span> hasta <span class="math inline">\underline{j}</span> con paso <span class="math inline">\underline{k}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.index</code><code>(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Índice de la primera aparición de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">Longitud de <span class="math inline">\underline{s}</span></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">min</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más pequeño de <span class="math inline">\underline{s}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode python"><span class="bu">max</span></code><code>(</code><span class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más grande de <span class="math inline">\underline{s}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.index</code><code>(</code><span class="math inline">x</span> [<code>,</code> <span class="math inline">i</span> [<code>,</code> <span class="math inline">j</span> ] ]<code>)</code></td>
+<td style="text-align: left;">El índice de la primera aparición de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> (desde el índice <span class="math inline">\underline{i}</span> inclusive y antes del <span class="math inline">\underline{j}</span>)</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.count</code><code>(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Número de veces que aparece <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
+<td style="text-align: left;">Número total de apariciones de <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section class="slide level5" data-number="3.2.1.0.5">
 
@@ -1085,7 +1104,7 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
 <section class="slide level5" data-number="3.2.2.0.3">
 
 <ul>
-<li><p>Las siguientes tablas muestran todas las <strong>operaciones</strong> que nos permiten <strong>modificar secuencias mutables</strong>.</p></li>
+<li><p>Las siguientes tablas muestran todas las <strong>operaciones</strong> que nos permiten <strong>modificar listas</strong>.</p></li>
 <li><p>En ellas, <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span> son listas, y <span class="math inline">\underline{x}</span> es un valor cualquiera.</p></li>
 </ul>
 <table>

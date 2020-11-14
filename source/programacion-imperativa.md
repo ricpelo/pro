@@ -996,33 +996,43 @@ z:f1 -> t4
 - Por tanto, con las cadenas, las tuplas y los rangos podemos usar las
   **operaciones comunes a cualquier secuencia** de elementos.
 
+- La siguiente tabla recoge las operaciones comunes sobre secuencias,
+  ordenadas por prioridad ascendente. $\underline{s}$ y $\underline{t}$ son
+  secuencias del mismo tipo, $\underline{n}$, $\underline{i}$, $\underline{j}$
+  y $\underline{k}$ son enteros y $\underline{x}$ es un dato cualquiera que
+  cumple con las restricciones que impone $\underline{s}$.
+
 ---
 
-- Las operaciones que se pueden realizar con cualquier secuencia son:
+--------------------------------------------------------------------------------------------------------------------------
+Operación                                 Resultado
+----------------------------------------- --------------------------------------------------------------------------------
+$x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-  --------------------------------------------------------------------------------------
-  Operación                    Resultado
-  ---------------------------- ---------------------------------------------------------
-  $x\ $ !PYTHON(in) $\ s$      !PYTHON(True) si $\underline{x}$ está en $\underline{s}$
+$x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-  $x\ $ !PYTHON(not in) $\ s$  !PYTHON(True) si $\underline{x}$ **no** está en
-                               $\underline{s}$
+$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
+                                        
+$s$ `*` $n$ \                             Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
+$n$ `*` $s$                               (no va con rangos)
 
-  $s$`[`$i$`]`                 (*Indexación*) El $\underline{i}$-ésimo elemento
-                               de $\underline{s}$, empezando por 0
+$s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
 
-  $s$`[`$i$`:`$j$`]`           (*Slicing*) Rodaja de $\underline{s}$ desde
-                               $\underline{i}$ hasta $\underline{j}$
+$s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
 
-  $s$`[`$i$`:`$j$`:`$k$`]`     Rodaja de $\underline{s}$ desde $\underline{i}$
-                               hasta $\underline{j}$ con paso $\underline{k}$
+$s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
 
-  $s$!PYTHON(.index)`(`$x$`)`  Índice de la primera aparición de $\underline{x}$
-                               en $\underline{s}$
+!PYTHON(len)`(`$s$`)`                     Longitud de $\underline{s}$
 
-  $s$!PYTHON(.count)`(`$x$`)`  Número de veces que aparece $\underline{x}$ en
-                               $\underline{s}$
-  --------------------------------------------------------------------------------------
+!PYTHON(min)`(`$s$`)`                     El elemento más pequeño de $\underline{s}$
+
+!PYTHON(max)`(`$s$`)`                     El elemento más grande de $\underline{s}$
+
+$s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de $\underline{x}$ en $\underline{s}$
+[`, ` $i$ [`, ` $j$ ] ]`)`                (desde el índice $\underline{i}$ inclusive y antes del $\underline{j}$)
+
+$s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
+--------------------------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -1277,7 +1287,7 @@ x:f1 -> lista
 ---
 
 - Las siguientes tablas muestran todas las **operaciones** que nos permiten
-  **modificar secuencias mutables**.
+  **modificar listas**.
 
 - En ellas, $\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
 cualquiera.

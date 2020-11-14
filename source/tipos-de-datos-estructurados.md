@@ -29,6 +29,12 @@ nocite: |
   - Usaremos **estructura de datos** cuando nos interesen esos detalles
     internos.
 
+## Clasificación
+
+- Los datos estructurados se pueden clasificar en:
+
+  - Secuenciales: 
+
 ## *Hashables*
 
 - Un valor es *hashable* si cumple las siguientes dos condiciones:
@@ -316,12 +322,18 @@ fin = !T{False}
 
 ## Concepto de secuencia
 
-- Una secuencia es una estructura de datos que:
+- Una **secuencia** $\underline{s}$ es un dato estructurado que cumple lo
+  siguiente:
 
-  - permite el acceso eficiente a sus elementos mediante indexación `[`$i$`]`
-    (siendo $\underline{i}$ un entero), y
+  - Cada elemento que contiene lleva asociado un número entero llamado
+    **índice**, comprendido entre !PYTHON(0) y !PYTHON(len)`(`$s$`)`
+    !PYTHON(- 1).
 
-  - se le puede calcular su longitud mediante la función !PYTHON(len).
+  - Permite el acceso eficiente a cada uno de sus elementos mediante indexación
+    $s$`[`$i$`]`, siendo $i$ el índice del elemento.
+
+  - Se le puede calcular su longitud (la cantidad de elementos que contiene)
+    mediante la función !PYTHON(len).
 
 - Las secuencias se dividen en:
 
@@ -333,21 +345,49 @@ fin = !T{False}
 ## Operaciones comunes
 
 - Todas las secuencias (ya sean cadenas, listas, tuplas o rangos) comparten un
-  conjunto de operaciones comunes.
+  conjunto de **operaciones comunes**.
 
 - Además de estas operaciones, las secuencias del mismo tipo admiten
-  comparaciones.
+  **comparaciones**.
 
-  - Eso significa que dos secuencias son iguales si cada elemento es igual y
-    las dos secuencias son del mismo tipo y tienen la misma longitud.
+  - Dos secuencias son iguales si:
 
-  - Las tuplas, así como las listas, se comparan lexicográficamente elemento a
-    elemento.
+    - Son del mismo tipo.
 
-- La siguiente tabla enumera las operaciones sobre secuencias, ordenadas por
-  prioridad ascendente. $\underline{s}$ y $\underline{t}$ son secuencias del
-  mismo tipo, $\underline{n}$, $\underline{i}$, $\underline{j}$ y
-  $\underline{k}$ son enteros y $\underline{x}$ es un dato cualquiera que
+    - Tienen la misma longitud.
+
+    - Contienen los mismos elementos en el mismo orden.
+
+  - Se pueden comparar dos secuencias (siempre que no sean rangos) para
+    comprobar si una es menor o mayor que la otra.
+
+    En tal caso, las dos secuencias deben ser del mismo tipo y la comparación
+    se hace lexicográficamente elemento a elemento.
+
+---
+
+- Ejemplos:
+
+  ```python
+  >>> s = (1, 2, 3)
+  >>> t = (1, 2, 3)
+  >>> s == t
+  True
+  >>> u = (3, 2, 1)
+  >>> s == u
+  False
+  >>> s < u
+  True
+  >>> range(0, 3) < range(3, 6)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: '<' not supported between instances of 'range' and 'range'
+  ```
+
+- La siguiente tabla recoge las operaciones comunes sobre secuencias,
+  ordenadas por prioridad ascendente. $\underline{s}$ y $\underline{t}$ son
+  secuencias del mismo tipo, $\underline{n}$, $\underline{i}$, $\underline{j}$
+  y $\underline{k}$ son enteros y $\underline{x}$ es un dato cualquiera que
   cumple con las restricciones que impone $\underline{s}$.
 
 ---
@@ -359,10 +399,10 @@ $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\
 
 $x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$
+$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
                                         
 $s$ `*` $n$ \                             Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
-$n$ `*` $s$                             
+$n$ `*` $s$                               (no va con rangos)
 
 $s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
 
@@ -836,7 +876,7 @@ True
 
 - Como se ve, el resultado es directamente una lista, no un iterador.
 
-### Operaciones
+### Operaciones mutadoras
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
   secuencia mutable (como, por ejemplo, una lista), $\underline{t}$ es
@@ -845,23 +885,24 @@ True
 
 !SALTO
 
----------------------------------------------------------------------------------------------------------------------------
-Operación                       Resultado
-------------------------------- -------------------------------------------------------------------------------------------
-$s$`[`$i$`]` `=` $x$            El elemento $\underline{i}$ de $\underline{s}$ se sustituye por $\underline{x}$
-                        
-$s$`[`$i$`:`$j$`]` `=` $t$      La rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ se
-                                sustituye por el contenido del iterable $\underline{t}$
+-------------------------------------------------------------------------------------------
+Operación                     Resultado
+----------------------------  -------------------------------------------------------------
+$s$`[`$i$`]` `=` $x$          El elemento $i$-ésimo de $\underline{s}$ se sustituye
+                              por $\underline{x}$
 
-!PYTHON(del)                    Igual que $s$`[`$i$`:`$j$`]` `=` `[]`
-$\ s$`[`$i$`:`$j$`]`
+$s$`[`$i$`:`$j$`]`            La rodaja de $\underline{s}$ desde $\underline{i}$ hasta
+`=` $t$                       $\underline{j}$ se sustituye por $\underline{t}$
 
-$s$`[`$i$`:`$j$`:`$k$`]`        Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen por los de $\underline{t}$
-`=` $t$                         
+$s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen
+`$k$`]` `=` $t$               por $\underline{t}$
 
-!PYTHON(del)                    Elimina de la secuencia los elementos de
-$\ s$`[`$i$`:`$j$`:`$k$`]`      $s$`[`$i$`:`$j$`:`$k$`]`
----------------------------------------------------------------------------------------------------------------------------
+!PYTHON(del) $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`]` \
+`$j$`]`                       Equivale a hacer $s$`[`$i$`:`$j$`]` `=` `[]`
+
+!PYTHON(del) $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`:`$k$`]`
+`$j$`:`$k$`]`
+-------------------------------------------------------------------------------------------
 
 ---
 
@@ -881,10 +922,6 @@ $s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]`
                                  
 $s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
                                  
-!PYTHON(max)`(`$s$`)`             El elemento más grande de $\underline{s}$
-                                 
-!PYTHON(min)`(`$s$`)`             El elemento más pequeño de $\underline{s}$
-                                 
 $s$!PYTHON(.insert)`(`$i$`, `     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$; es igual que
 $x$`)`                            $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
                                  
@@ -893,12 +930,14 @@ $s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underl
 $s$!PYTHON(.remove)`(`$x$`)`      Quita el primer elemento de $\underline{s}$ que sea igual a $\underline{x}$
                                  
 $s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
+
+$s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$ de forma ascendente o descendente.
 -----------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
-- Las listas, además, admiten el método !PYTHON(sort), que permite ordenar sus
-  elementos de forma ascendente o descendente:
+- El método !PYTHON(sort) permite ordenar los elementos de la secuencia de
+  forma ascendente o descendente:
 
   ```python
   >>> x = [3, 6, 2, 9, 1, 4]
