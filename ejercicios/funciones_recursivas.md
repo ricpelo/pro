@@ -153,6 +153,8 @@ date: Curso !CURSO
    #.  ¿Cómo se podría implementar una función `impar` a partir de la
        función `par`?
  
+\newpage
+
 # Soluciones
 
 #. $f(3) \\

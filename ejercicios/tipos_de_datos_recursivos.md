@@ -111,3 +111,87 @@ date: Curso !CURSO
 
    Escribir una función recursiva que satisfaga dicha especificación.
 
+\newpage
+
+# Soluciones
+
+#. 
+
+    ```python
+    elem = lambda e, t: False if t == () else \
+                        True if t[0] == e else \
+                        elem(e, t[1:])
+    ```
+
+#.  
+    Definimos:
+
+    ```python
+    aux = lambda a, b: 1 if a == b else 0
+    ```
+
+    #.
+       ```python
+       cuantos = lambda e, t: 0 if t == () else \
+                              aux(e, t[0]) + cuantos(e, t[1:])
+       ```
+
+    #.
+       ```python
+       cuantos = lambda e, t: cuantos_it(e, t, 0)
+       cuantos_it = lambda e, t, acc: acc if t == () else \
+                                      cuantos_it(e, t[1:], acc + aux(e, t[0]))
+       ```
+
+#.  
+    Definimos:
+
+    ```python
+    aux = lambda a, b: () if a == b else (b,)
+    ```
+
+    #.
+       ```python
+       quita = lambda e, t: () if t == () else \
+                            aux(e, t[0]) + quita(e, t[1:])
+       ```
+
+    #.
+       ```python
+       quita = lambda e, t: quita_it(e, t, ())
+       quita_it = lambda e, t, acc: acc if t == () else \
+                                    quita_it(e, t[1:], acc + aux(e, t[0]))
+       ``` 
+
+#.  
+    Definimos:
+
+    ```python
+    aux = lambda a, b, t: (b,) if a == t else (t,)
+    ```
+
+    #.
+       ```python
+       sustituye = lambda a, b, t: () if t == () else \
+                                   aux(a, b, t[0]) + sustituye(a, b, t[1:])
+       ```
+
+    #.
+       ```python
+       sustituye = lambda a, b, t: sustituye_it(a, b, t, ())
+       sustituye_it = lambda a, b, t, acc: \
+           acc if t == () else \
+           sustituye_it(a, b, t[1:], acc + aux(a, b, t[0]))
+       ``` 
+
+#. 
+
+    ```python
+    ultimo = lambda t: t[0] if t[1:] == () else ultimo(t[1:])
+    ```
+
+#. 
+
+    ```python
+    enesimo = lambda n, t: t[0] if n == 0 else enesimo(n - 1, t[1:])
+    ```
