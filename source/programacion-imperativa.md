@@ -199,7 +199,7 @@ nocite: |
 
   - La variable **hace referencia** al valor.
 
-!DOT(identificador-variable-valor.svg)
+!DOT(identificador-variable-valor.svg)()(width=70%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 identificador [shape = plaintext, fillcolor = transparent, fontname = "monospace"]
 valor [shape = circle, width = 0.8, fixedsize = true]
@@ -304,7 +304,7 @@ subgraph cluster1 {
   _ligadura_), y la variable apuntando a su valor en el montículo
   (representando el _estado_).
 
-!DOT(marcos-imperativa-simplificado.svg)()(width=20%)(width=20%)
+!DOT(marcos-imperativa-simplificado.svg)()(width=20%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 5 [shape = circle, width = 0.3, fixedsize = shape]
@@ -788,20 +788,20 @@ y:f1 -> 5
 
 ### Inmutables
 
-- Un valor de un tipo inmutable no puede cambiar su estado interno.
+- Un valor de un tipo inmutable no puede cambiar su estado interno durante la ejecución del programa.
 
-:::::: columns
+:::: columns
 
-:::: column
+::: column
 
-Por ejemplo, si tenemos:
+Si tenemos:
 
 ```python
 x = 4
 y = 5
 ```
 
-!DOT(inmutable1.svg)()(width=40%)(width=30%)
+!DOT(inmutable1.svg)()(width=35%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
@@ -812,9 +812,9 @@ x:f1 -> 4
 y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::::
+:::
 
-:::: column
+::: column
 
 y hacemos:
 
@@ -824,23 +824,23 @@ x = 7
 
 quedaría:
 
-!DOT(inmutable2.svg)()(width=40%)(width=30%)
+!DOT(inmutable2.svg)()(width=34%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 splines = polyline
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
 x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 5 [shape = circle, width = 0.3]
-7 [shape = circle, width = 0.3]
 4 [shape = circle, width = 0.3]
+7 [shape = circle, width = 0.3]
 x:f1 -> 7
 x:f1 -> 4 [style = dashed, color = grey]
 y:f1 -> 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::::
+:::
 
-::::::
+::::
 
 - Lo que hace la asignación !PYTHON(x = 7) no es cambiar el contenido del valor
   !PYTHON(4), sino hacer que la variable !PYTHON(x) contenga otro valor
@@ -849,13 +849,16 @@ y:f1 -> 5
 
 ---
 
-- Con las cadenas sería exactamente igual. Si tenemos:
+- Las **cadenas** también son _datos inmutables_ y, por tanto, con ellas ocurre
+  exactamente igual.
+
+- Si tenemos:
 
   ```python
   x = 'hola'
   ```
 
-  !DOT(inmutable3.svg)()(width=23%)(width=30%)
+  !DOT(inmutable3.svg)()(width=20%)(width=20%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -870,54 +873,156 @@ y:f1 -> 5
   ```
 
   **se crea una nueva cadena** y se la asignamos a la variable !PYTHON(x).
-  
+ 
+:::: columns
+
+::: column
+
 - Es decir: la cadena !PYTHON('hola') original **no se cambia** (no se le añade
   !PYTHON(' manolo') detrás), sino que la nueva **sustituye** a la anterior en
-  la variable.
+  la variable:
 
-  !DOT(inmutable4.svg)()(width=35%)(width=40%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  splines = polyline
-  node [fixedsize = shape, fontname = "monospace"]
-  x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-  holamanolo [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
-  hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
-  x:f1 -> holamanolo
-  x:f1 -> hola [style = dashed, color = grey]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:::
+
+::: column
+
+!DOT(inmutable4.svg)()(width=65%)(width=30%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+splines = polyline
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+hola [shape = ellipse, width = 0.8, label = "'hola'", fixedsize = true]
+holamanolo [shape = ellipse, width = 1.8, label = "'hola manolo'", fixedsize = true] 
+x:f1 -> hola [style = dashed, color = grey]
+x:f1 -> holamanolo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ---
 
-- Aunque las cadenas son datos inmutables, también son datos compuestos y
-  podemos acceder individualmente a sus elementos componentes y operar con
-  ellos, aunque no podamos cambiarlos.
+- Las **tuplas** también son _datos inmutables_, por lo que, una vez creadas,
+  no se puede cambiar su contenido.
 
-- Para ello podemos usar las operaciones comunes a toda secuencia de elementos
-  (una cadena también es una **secuencia de caracteres**):
+- Por ejemplo, si tenemos una tupla !PYTHON((1, 2, 3)) y le concatenamos otra
+  tupla !PYTHON((4, 5, 6)), el resultado es una nueva tupla creada a partir de
+  las otras dos (que permanecen inalteradas):
 
---------------------------------------------------------------------------------------
-Operación                    Resultado
----------------------------- ---------------------------------------------------------
-$x\ $ !PYTHON(in) $\ s$      !PYTHON(True) si $\underline{x}$ está en $\underline{s}$
+:::: columns
 
-$x\ $ !PYTHON(not in) $\ s$  !PYTHON(True) si $\underline{x}$ **no** está en
-                             $\underline{s}$
+::: column
 
-$s$`[`$i$`]`                 (*Indexación*) El $\underline{i}$-ésimo elemento
-                             de $\underline{s}$, empezando por 0
+```python
+>>> x = (1, 2, 3)
+>>> y = (4, 5, 6)
+>>> z = x + y
+>>> z
+(1, 2, 3, 4, 5, 6)
+>>> x
+(1, 2, 3)
+>>> y
+(4, 5, 6)
+```
 
-$s$`[`$i$`:`$j$`]`           (*Slicing*) Rodaja de $\underline{s}$ desde
-                             $\underline{i}$ hasta $\underline{j}$
+:::
 
-$s$`[`$i$`:`$j$`:`$k$`]`     Rodaja de $\underline{s}$ desde $\underline{i}$
-                             hasta $\underline{j}$ con paso $\underline{k}$
+::: column
 
-$s$!PYTHON(.index)`(`$x$`)`  Índice de la primera aparición de $\underline{x}$
-                             en $\underline{s}$
+!DOT(inmutable5.svg)()(width=65%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+splines = polyline
+node [fixedsize = shape, fontname = "monospace"]
+z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
+y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+t1 [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>1|<f1>2|<f2>3}"]
+t2 [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>4|<f1>5|<f2>6}"]
+t3 [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>1|<f1>2|<f2>3|<f3>4|<f4>5|<f5>6}"]
+x:f1 -> t1
+y:f1 -> t2
+z:f1 -> t3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$s$!PYTHON(.count)`(`$x$`)`  Número de veces que aparece $\underline{x}$ en
-                             $\underline{s}$
---------------------------------------------------------------------------------------
+:::
+
+::::
+
+- Si ahora le asignamos otra tupla a !PYTHON(z), ésta pasa a apuntar a la nueva
+  tupla, sin modificar a la anterior:
+
+:::: columns
+
+::: column
+
+```python
+z = (7, 8, 9)
+```
+
+:::
+
+::: column
+
+!DOT(inmutable6.svg)()(width=65%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+splines = polyline
+node [fixedsize = shape, fontname = "monospace"]
+z [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>z|<f1>⬤}"]
+t3 [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>1|<f1>2|<f2>3|<f3>4|<f4>5|<f5>6}"]
+t4 [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>7|<f1>8|<f2>9}"]
+z:f1 -> t3:w [style = dashed, color = grey]
+z:f1 -> t4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- Las **cadenas**, las **tuplas** y los **rangos** son _datos inmutables_, así
+  que no podemos modificarlos.
+
+- Pero también son **datos compuestos** de otros datos (sus _elementos_ o
+  _componentes_) a los que podemos acceder individualmente y con los que
+  podemos operar, aunque no podamos cambiarlos, ya que están contenidos en
+  datos compuestos inmutables.
+
+- De hecho, las cadenas, las tuplas y los rangos pertenecen a la familia de las
+  **secuencias**, que son colecciones de elementos ordenados según la posición
+  que ocupan dentro de la secuencia.
+
+- Por tanto, con las cadenas, las tuplas y los rangos podemos usar las
+  **operaciones comunes a cualquier secuencia** de elementos.
+
+---
+
+- Las operaciones que se pueden realizar con cualquier secuencia son:
+
+  --------------------------------------------------------------------------------------
+  Operación                    Resultado
+  ---------------------------- ---------------------------------------------------------
+  $x\ $ !PYTHON(in) $\ s$      !PYTHON(True) si $\underline{x}$ está en $\underline{s}$
+
+  $x\ $ !PYTHON(not in) $\ s$  !PYTHON(True) si $\underline{x}$ **no** está en
+                               $\underline{s}$
+
+  $s$`[`$i$`]`                 (*Indexación*) El $\underline{i}$-ésimo elemento
+                               de $\underline{s}$, empezando por 0
+
+  $s$`[`$i$`:`$j$`]`           (*Slicing*) Rodaja de $\underline{s}$ desde
+                               $\underline{i}$ hasta $\underline{j}$
+
+  $s$`[`$i$`:`$j$`:`$k$`]`     Rodaja de $\underline{s}$ desde $\underline{i}$
+                               hasta $\underline{j}$ con paso $\underline{k}$
+
+  $s$!PYTHON(.index)`(`$x$`)`  Índice de la primera aparición de $\underline{x}$
+                               en $\underline{s}$
+
+  $s$!PYTHON(.count)`(`$x$`)`  Número de veces que aparece $\underline{x}$ en
+                               $\underline{s}$
+  --------------------------------------------------------------------------------------
 
 ---
 
@@ -1125,7 +1230,7 @@ s | P | y | t | h | o | n |
 
 ::: column
 
-!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[`1`]`)(width=75%)(width=50%)
+!DOT(cambio-estado-lista-antes.svg)(La lista antes de cambiar `x[`1`]`)(width=75%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1147,7 +1252,7 @@ x:f1 -> lista
 
 ::: column
 
-!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[`1`]`)(width=75%)(width=50%)
+!DOT(cambio-estado-lista-despues.svg)(La lista después de cambiar `x[`1`]`)(width=75%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1209,7 +1314,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$ 
 
 $s$!PYTHON(.extend)`(`$t$`)`     Amplía $\underline{s}$ con el contenido de $\underline{t}$ \
 ó \                              Equivale a hacer $s$!PYTHON([len)`(`$s$!PYTHON{):len(}$s$`)]` `=` $t$
-$s$ !PYTHON(+=) $t$
+$s$ `+=` $t$
 
 $s$!PYTHON(.insert)`(`$i$`,`     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$ \
 $x$`)`                           Equivale a hacer $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
@@ -1258,7 +1363,7 @@ Ejemplo                    Valor de !PYTHON(x) después
 
 ::: column
 
-!DOT(alias1.svg)()(width=60%)
+!DOT(alias1.svg)()(width=60%)(width=40%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1394,7 +1499,7 @@ x = 5 # está entre -5 y 256
 y = 5
 ```
 
-!DOT(inmutable5a.svg)(Se comparte el valor)(width=35%)(width=30%)
+!DOT(inmutable7.svg)(Se comparte el valor)(width=35%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 splines = polyline
 node [fixedsize = shape, fontname = "monospace"]
@@ -1414,7 +1519,7 @@ x = 480 # no está entre -5 y 256
 y = 480
 ```
 
-!DOT(inmutable5b.svg)(No se comparte el valor)(width=35%)(width=30%)
+!DOT(inmutable8.svg)(No se comparte el valor)(width=35%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1447,7 +1552,7 @@ x = 'hola'
 y = 'pepe'
 ```
 
-!DOT(inmutable6.svg)()(width=45%)(width=30%)
+!DOT(inmutable9.svg)()(width=45%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
@@ -1470,7 +1575,7 @@ x = 'pepe'
 
 quedaría:
 
-!DOT(inmutable7.svg)()(width=45%)(width=30%)
+!DOT(inmutable10.svg)()(width=45%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 splines = polyline
 node [fixedsize = shape, fontname = "monospace"]
@@ -1506,7 +1611,7 @@ y:f1 -> pepe
 
   se compartiría la lista `x`, por lo que nos quedaría:
 
-!DOT(alias3.svg)()(width=50%)(width=25%)
+!DOT(alias3.svg)()(width=50%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
@@ -1546,7 +1651,7 @@ Y si ahora hacemos:
 
 nos quedaría:
 
-!DOT(alias4.svg)()(width=90%)(width=25%)
+!DOT(alias4.svg)()(width=90%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
