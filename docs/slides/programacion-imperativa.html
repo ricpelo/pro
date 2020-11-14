@@ -340,22 +340,29 @@
 <h1 data-number="2"><span class="header-section-number">2</span> Asignación destructiva</h1>
 
 </section>
-<section id="referencias-al-montículo" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Referencias al montículo</h2>
+<section id="identidad" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Identidad</h2>
 <ul>
 <li><p>Todos los valores se almacenan en una zona de la memoria conocida como el <strong>montículo</strong>.</p></li>
 <li><p>Cada vez que aparece un nuevo dato en el programa, el intérprete lo crea dentro del montículo a partir de una determinada dirección de la memoria y ocupando el espacio de memoria que se necesite en función del tamaño que tenga el dato.</p></li>
-<li><p>Esa dirección de comienzo de la zona que ocupa el dato dentro del montículo se denomina <strong>referencia</strong> y sirve para identificar al dato, localizarlo y acceder al mismo.</p></li>
-<li><p>Si en el montículo ya existe un dato exactamente igual al que se tiene que crear, en la mayoría de los casos el intérprete aprovecha el que ya existe y no crea uno nuevo, para así ahorrar memoria.</p></li>
+<li><p>Se denomina <strong>identidad del dato</strong> a un valor abstracto y único que va asociado siempre al dato, que no cambia nunca durante toda la vida del dato, y que sirve para identificar, localizar y acceder al dato dentro del montículo.</p></li>
+<li><p>Generalmente, la identidad de un dato coincide con la <strong>dirección de comienzo</strong> de la zona que ocupa el dato dentro del montículo, aunque ese es un detalle de funcionamiento interno del intérprete.</p></li>
 </ul>
+<!--
+
+- Si en el montículo ya existe un dato exactamente igual al que se tiene que
+  crear, en la mayoría de los casos el intérprete aprovecha el que ya existe y
+  no crea uno nuevo, para así ahorrar memoria.
+
+-->
 </section>
 
-<section id="variables" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Variables</h2>
+<section id="variables-y-referencias" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Variables y referencias</h2>
 <ul>
-<li><p>Una <strong>variable</strong> es un lugar en la <strong>memoria</strong> donde se puede <strong>almacenar una referencia</strong> a un valor almacenado en el montículo.</p></li>
-<li><p>Cuando una variable contiene una referencia a un valor, decimos que la variable <strong>hace referencia al valor</strong> o que <strong>apunta al valor</strong>.</p></li>
-<li><p>Por abuso del lenguaje, también se suele decir que la variable <strong>almacena o contiene el valor</strong>, aunque eso no es estrictamente cierto.</p></li>
+<li><p>Una <strong>variable</strong> es un lugar en la <strong>memoria</strong> donde se puede <strong>almacenar la identidad</strong> de un dato almacenado en el montículo.</p></li>
+<li><p>En tal caso, decimos que la variable <strong>es una referencia al dato</strong>, o que <strong>contiene una referencia al dato</strong>, o que <strong>hace referencia al dato</strong> o que <strong>apunta al dato</strong>.</p></li>
+<li><p>Por abuso del lenguaje, también se suele decir que la variable <strong>almacena o contiene el dato</strong>, aunque eso no es estrictamente cierto.</p></li>
 <li><p>El valor de una variable (o mejor dicho, la referencia que contiene) <strong>puede cambiar</strong> durante la ejecución del programa, haciendo que la variable pueda <em>apuntar</em> a distintos valores durante la ejecución del programa.</p></li>
 </ul>
 </section>
@@ -400,7 +407,7 @@
 <p>Por tanto, el estado es la asociación que se establece entre una variable y un valor (es decir, la referencia que contiene).</p></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/identificador-ligadura-variable-estado-valor.svg" class="plain" style="width:80.0%" /></p>
+<p><img data-src="images/identificador-ligadura-variable-estado-valor.svg" class="plain" style="width:60.0%" /></p>
 </div>
 <ul>
 <li><p>Tanto las ligaduras como los estados pueden cambiar durante la ejecución de un programa imperativo.</p></li>
@@ -442,8 +449,9 @@
 <ul>
 <li><p>La forma más básica de cambiar el estado de una variable es usando la <strong>sentencia de asignación</strong>.</p></li>
 <li><p>Es la misma instrucción que hemos estado usando hasta ahora para ligar valores a identificadores, pero ahora, en el paradigma imperativo, tiene otro significado:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>      <span class="co"># se lee: «asignar el valor 4 a la variable x»</span></span></code></pre></div>
-<p>El efecto que produce es el de almacenar, en la variable ligada al identificador <code class="sourceCode python">x</code>, una referencia al valor <code class="sourceCode python"><span class="dv">4</span></code> almacenado en el montículo.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>      <span class="co"># se lee: «asigna el valor 4 a la variable x»</span></span></code></pre></div>
+<p>El efecto que produce es el de almacenar, en la variable ligada al identificador <code class="sourceCode python">x</code>, la <em>identidad</em> del valor <code class="sourceCode python"><span class="dv">4</span></code> almacenado en el montículo.</p></li>
+<li><p>A partir de este momento, <code class="sourceCode python">x</code> pasa a ser una referencia al valor <code class="sourceCode python"><span class="dv">4</span></code>.</p>
 <p>Normalmente se dice (mal dicho) que «<em>la variable <code class="sourceCode python">x</code> pasa a valer <code class="sourceCode python"><span class="dv">4</span></code></em>».</p></li>
 </ul>
 </section>
@@ -463,13 +471,13 @@
 <div class="centered">
 <p><em>«se asigna el valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable <code class="sourceCode python">x</code>»</em></p>
 </div>
-<p>o</p>
+<p>o:</p>
 <div class="centered">
 <p><em>«se asigna el valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable ligada al identificador <code class="sourceCode python">x</code>»</em></p>
 </div>
 <p>en lugar de la forma correcta:</p>
 <div class="centered">
-<p><em>«se asigna una referencia al valor <code class="sourceCode python"><span class="dv">9</span></code> a la variable ligada al identificador <code class="sourceCode python">x</code>»</em>.</p>
+<p><em>«se asigna una referencia al valor <code class="sourceCode python"><span class="dv">9</span></code> en la variable ligada al identificador <code class="sourceCode python">x</code>»</em>.</p>
 </div></li>
 <li><p>Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado, porque llegado el momento es posible tener:</p>
 <ul>
@@ -491,14 +499,14 @@
 <section id="un-ejemplo-completo" class="title-slide slide level4" data-number="2.5.0.1">
 <h4 data-number="2.5.0.1"><span class="header-section-number">2.5.0.1</span> Un ejemplo completo</h4>
 <ul>
-<li><p>Cuando se ejecuta la siguiente instrucción en el ámbito global:</p>
+<li><p>Cuando se ejecuta la siguiente instrucción:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2500</span></span></code></pre></div>
 <p>ocurre lo siguiente:</p>
 <ol type="1">
-<li><p>Se crea el valor <code class="sourceCode python"><span class="dv">2500</span></code> en el montículo y el intérprete devuelve una referencia al mismo.</p>
+<li><p>Se crea el valor <code class="sourceCode python"><span class="dv">2500</span></code> en el montículo.</p>
 <p>En determinadas situaciones, no crea un nuevo valor si ya había otro exactamente igual en el montículo, pero éste no es el caso.</p></li>
-<li><p>El intérprete identifica a qué variable está ligado el identificador <code class="sourceCode python">x</code> consultando el marco global (si no existía dicha variable, la crea en ese momento y la liga a <code class="sourceCode python">x</code>).</p></li>
-<li><p>Almacena en la variable la referencia creada en el paso 1.</p></li>
+<li><p>El intérprete identifica a qué variable está ligado el identificador <code class="sourceCode python">x</code> consultando el entorno (si no existía dicha variable, la crea en ese momento y la liga a <code class="sourceCode python">x</code> en el marco actual).</p></li>
+<li><p>Almacena en la variable una referencia al valor (es decir, la identidad del valor).</p></li>
 </ol></li>
 </ul>
 </section>
@@ -820,7 +828,7 @@
 <section class="slide level5" data-number="3.2.1.0.2">
 
 <ul>
-<li><p>Aunque las cadenas son datos inmutables, también son datos compuestos y podemos acceder individualmente a sus elementos componentes y operar con ellos aunque no podamos cambiarlos.</p></li>
+<li><p>Aunque las cadenas son datos inmutables, también son datos compuestos y podemos acceder individualmente a sus elementos componentes y operar con ellos, aunque no podamos cambiarlos.</p></li>
 <li><p>Para ello podemos usar las operaciones comunes a toda secuencia de elementos (una cadena también es una <strong>secuencia de caracteres</strong>):</p></li>
 </ul>
 <table>
@@ -893,7 +901,7 @@
 <section class="slide level5" data-number="3.2.1.0.4">
 
 <ul>
-<li>El <strong>slicing</strong> (<em>hacer rodajas</em>) es una operación que consiste en obtener una subsecuencia a partir de una secuencia, indicando los <em>índices</em> de los elementos <em>inicial</em> y <em>final</em> de la misma, así como un posible <em>paso</em>:</li>
+<li>El <strong><em>slicing</em></strong> (<em>hacer rodajas</em>) es una operación que consiste en obtener una subsecuencia a partir de una secuencia, indicando los <em>índices</em> de los elementos <em>inicial</em> y <em>final</em> de la misma, así como un posible <em>paso</em>:</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -950,7 +958,7 @@
 <ul>
 <li><p><code class="sourceCode python">s[:</code><span class="math inline">n</span><code>]</code> es la rodaja desde el primer elemento hasta la posición <span class="math inline">n</span>.</p></li>
 <li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>:]</code> es la rodaja desde el elemento <span class="math inline">n</span> hasta el final.</p></li>
-<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>::-1]</code> es la rodaja invertida desde el elemento <span class="math inline">n</span> hasta el principio, con los elementos al revés.</p></li>
+<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code class="sourceCode python">::<span class="op">-</span><span class="dv">1</span>]</code> es la rodaja invertida desde el elemento <span class="math inline">n</span> hasta el principio, con los elementos al revés.</p></li>
 <li><p><code class="sourceCode python">s[:]</code> devuelve una <em>copia</em> de <code class="sourceCode python">s</code>.</p></li>
 <li><p><code class="sourceCode python">s[::<span class="op">-</span><span class="dv">1</span>]</code> devuelve una copia invertida de <code class="sourceCode python">s</code>.</p></li>
 </ul></li>
@@ -962,8 +970,8 @@
 <ul>
 <li><p>Los valores de tipos <strong>mutables</strong>, en cambio, pueden cambiar su estado interno durante la ejecución del programa.</p></li>
 <li><p>El tipo mutable más frecuente es la <strong>lista</strong> (<code class="sourceCode python"><span class="bu">list</span></code>).</p></li>
-<li><p>Una lista es como una tupla que puede cambiar sus elementos, aumentar o disminuir de tamaño.</p></li>
-<li><p>Eso significa que una lista puede cambiar su contenido y, por tanto, su estado interno.</p></li>
+<li><p>Una lista es como una tupla pero que puede cambiar sus elementos, aumentar o disminuir de tamaño.</p></li>
+<li><p>Eso significa que <strong>una lista puede cambiar su <em>contenido</em> y, por tanto, su <em>estado interno</em></strong>.</p></li>
 <li><p>Los literales de tipo <code class="sourceCode python"><span class="bu">list</span></code> se crean separando sus elementos con comas y encerrándolos entre corchetes <code>[</code> y <code>]</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
@@ -1160,7 +1168,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Cuando una variable que tiene un valor se asigna a otra, ambas variables pasan a tener <strong>el mismo valor (lo <em>comparten</em>)</strong>, produciéndose un fenómeno conocido como <strong>alias de variables</strong>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y; ahora y tiene el mismo valor que x</span></span></code></pre></div></li>
-<li><p>Esto se debe a que las variables almacenan <strong>referencias</strong> a los valores, no los valores en sí mismos.</p></li>
+<li><p>Esto se debe a que las variables almacenan <strong>referencias</strong> a los valores, no los valores en sí mismos (éstos se almacenan en el montículo).</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1215,9 +1223,9 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="3.3.0.0.3">
 
 <ul>
-<li><p>El intérprete puede crear alias de variables <strong>implícitamente</strong> para ahorrar memoria y sin que seamos conscientes de ello.</p></li>
-<li><p>No tiene mucha importancia práctica, aunque es interesante saberlo en ciertos casos.</p></li>
-<li><p>Por ejemplo, el intérprete de Python crea internamente todos los números enteros comprendidos entre <span class="math inline">-5</span> y <span class="math inline">256</span>, por lo que todas las variables de nuestro programa que contengan el mismo valor dentro de ese intervalo compartirán el mismo valor (serán <em>alias</em>):</p></li>
+<li><p>Cuando los valores son inmutables, no importa si se comparten o no, ya que no se pueden modificar.</p></li>
+<li><p>De hecho, el intérprete a veces crea valores nuevos y a veces comparte los ya existentes.</p></li>
+<li><p>Por ejemplo, el intérprete de Python crea internamente todos los números enteros comprendidos entre <span class="math inline">-5</span> y <span class="math inline">256</span>, por lo que todas las variables de nuestro programa que contengan el mismo número dentro de ese intervalo compartirán el mismo valor (serán <em>alias</em>):</p></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1262,43 +1270,48 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </div>
 </div>
 <ul>
-<li>El intérprete aprovecharía el dato ya creado y no crearía uno nuevo, para ahorrar memoria.</li>
+<li>El intérprete aprovecharía la cadena ya creada y no crearía una nueva, para ahorrar memoria.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.5">
 
 <ul>
-<li><p>También se comparten valores si se usa el mismo dato varias veces.</p></li>
-<li><p>Por ejemplo, si hacemos:</p></li>
-</ul>
+<li><p>También se comparten valores si se usa el mismo dato varias veces, aunque sea un dato mutable.</p></li>
+<li><p>Por ejemplo, si hacemos:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [x, x]</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div>
-<p>nos quedaría:</p>
+<p>se compartiría la lista <code>x</code>, por lo que nos quedaría:</p></li>
+</ul>
 <div class="centered">
 <p><img data-src="images/alias3.svg" class="plain" style="width:50.0%" /></p>
 </div>
 </section>
 <section class="slide level5" data-number="3.3.0.0.6">
 
-<ul>
-<li>Y si ahora hacemos:</li>
-</ul>
+<div class="columns">
+<div class="column">
+<p>Y si ahora hacemos:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">77</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>], [<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>]]</span></code></pre></div>
+</div><div class="column">
 <p>nos quedaría:</p>
 <div class="centered">
-<p><img data-src="images/alias4.svg" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/alias4.svg" class="plain" style="width:90.0%" /></p>
+</div>
+</div>
 </div>
 </section>
 <section id="recolección-de-basura" class="title-slide slide level3" data-number="3.3.1">
 <h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Recolección de basura</h3>
 <ul>
-<li><p>En el momento en que un valor se vuelva inaccesible (cosa que ocurrirá cuando no haya ninguna variable en el entorno que contenga una referencia a dicho valor), el intérprete lo marcará como <em>candidato para ser eliminado</em>.</p></li>
-<li><p>Cada cierto tiempo, el intérprete activará el <strong>recolector de basura</strong>, que es un componente que se encarga de liberar de la memoria a los valores que están marcados como candidatos para ser eliminados.</p></li>
+<li><p>Un valor se vuelve <strong>inaccesible</strong> cuando no hay ninguna referencia que apunte a él.</p></li>
+<li><p>Eso ocurre cuando no queda ninguna variable que contenga una referencia a ese dato.</p></li>
+<li><p>En tal caso, el intérprete lo marca como <em>candidato para ser eliminado</em>.</p></li>
+<li><p>Cada cierto tiempo, el intérprete activa el <strong>recolector de basura</strong>, que es un componente que se encarga de liberar de la memoria a los valores que están marcados como candidatos para ser eliminados.</p></li>
 <li><p>Por tanto, el programador Python no tiene que preocuparse de gestionar manualmente la memoria ocupada por los datos que componen su programa.</p></li>
 </ul>
 </section>
@@ -1308,10 +1321,10 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lista1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># crea la lista y guarda una referencia a ella en lista1</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>lista2 <span class="op">=</span> lista1     <span class="co"># almacena en lista2 la referencia que hay en lista1</span></span></code></pre></div>
-<p>A partir de ahora, ambas variables apuntan al mismo dato.</p>
+<p>A partir de ahora, ambas variables apuntan al mismo dato y, por tanto, decimos que el dato tiene dos referencias o que hay dos referencias apuntándole.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista1          <span class="co"># elimina una referencia pero el dato aún tiene otra</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista2          <span class="co"># elimina la otra referencia y ahora el dato es inaccesible</span></span></code></pre></div>
-<p>Desde este momento, la próxima vez que se active el recolector de basura se active, eliminará la lista.</p></li>
+<p>Como ya no hay ninguna referencia apuntándole, se marca como <em>candidato a ser eliminado</em> y, por tanto, la próxima vez que se active el recolector de basura, se eliminará la lista del montículo.</p></li>
 </ul>
 </section>
 
@@ -1319,9 +1332,9 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> <code class="sourceCode python"><span class="bu">id</span></code></h3>
 <ul>
 <li><p>Para saber si dos variables comparten <strong>el mismo dato</strong>, se puede usar la función <code class="sourceCode python"><span class="bu">id</span></code>.</p></li>
-<li><p>La función <code class="sourceCode python"><span class="bu">id</span></code> devuelve un <strong>identificador único</strong> para cada dato.</p></li>
-<li><p>Por tanto, si dos variables tienen el mismo <code class="sourceCode python"><span class="bu">id</span></code>, significa que el valor que contienen es realmente el mismo valor.</p></li>
-<li><p>Normalmente, el <code class="sourceCode python"><span class="bu">id</span></code> de un valor se corresponde con la dirección de memoria donde está almacenado dicho valor.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">id</span></code> aplicada a un dato devuelve la <strong>identidad</strong> del dato, es decir, el <strong>identificador único</strong> que se utiliza para localizar al dato dentro del montículo.</p></li>
+<li><p>Si dos datos tienen el mismo <code class="sourceCode python"><span class="bu">id</span></code>, decimos que son <strong>idénticos</strong>, porque en realidad son <em>el mismo dato</em>.</p></li>
+<li><p>En consecuencia, si dos variables tienen el mismo <code class="sourceCode python"><span class="bu">id</span></code>, significa que ambas apuntan al mismo dato en la memoria y, por tanto, son <strong>referencias al mismo dato</strong>.</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1346,14 +1359,31 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section id="is" class="title-slide slide level3" data-number="3.3.3">
 <h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> <code class="sourceCode python"><span class="kw">is</span></code></h3>
 <ul>
-<li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code class="sourceCode python"><span class="kw">is</span></code>, que comprueba la <strong>identidad</strong> de un dato:</p></li>
+<li><p>Otra forma de comprobar si dos datos son realmente el mismo dato en memoria (es decir, si son <strong>idénticos</strong>) es usar el operador <code class="sourceCode python"><span class="kw">is</span></code>, que comprueba si los dos datos tienen la misma <strong>identidad</strong>:</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>is</em>⟩</span> ::= <span style="color:teal">⟨<em>valor1</em>⟩</span> <strong><code>is</code></strong> <span style="color:teal">⟨<em>valor2</em>⟩</span></div></li>
-<li><p>Es un operador relacional que devuelve <code class="sourceCode python"><span class="va">True</span></code> si <span style="color:teal">⟨<em>valor1</em>⟩</span> y <span style="color:teal">⟨<em>valor2</em>⟩</span> son <strong>el mismo dato en memoria</strong> (es decir, si se encuentran almacenados en la misma celda de la memoria y, por tanto, son <strong>idénticos</strong>) y <code class="sourceCode python"><span class="va">False</span></code> en caso contrario.</p></li>
+<li><p>Es un operador relacional que devuelve <code class="sourceCode python"><span class="va">True</span></code> si <span style="color:teal">⟨<em>valor1</em>⟩</span> y <span style="color:teal">⟨<em>valor2</em>⟩</span> tienen la misma <strong>identidad</strong> (es decir, si son <strong>el mismo dato en memoria</strong> y, por tanto, son <strong>idénticos</strong>) y <code class="sourceCode python"><span class="va">False</span></code> en caso contrario.</p></li>
 <li><p>Lo normal es usarlo con variables y, en tal caso, devuelve <code class="sourceCode python"><span class="va">True</span></code> si los datos que almacenan las variables son realmente el mismo dato.</p></li>
 <li><p>No tiene sentido usarlo con literales (y el intérprete lo advierte).</p></li>
 <li><p>En la práctica, equivale a hacer <code class="sourceCode python"><span class="bu">id</span></code><code>(</code><span style="color:teal">⟨<em>valor1</em>⟩</span><code>)</code> <code>==</code> <code class="sourceCode python"><span class="bu">id</span></code><code>(</code><span style="color:teal">⟨<em>valor2</em>⟩</span><code>)</code>.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="3.3.3.0.1">
+
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">500</span> <span class="kw">is</span> <span class="dv">500</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>stdin<span class="op">&gt;</span>:<span class="dv">1</span>: <span class="pp">SyntaxWarning</span>: <span class="st">&quot;is&quot;</span> <span class="cf">with</span> a literal. Did you mean <span class="st">&quot;==&quot;</span>?</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </section>
 
 </section>
@@ -1409,13 +1439,13 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h2 data-number="4.4"><span class="header-section-number">4.4</span> Transparencia referencial</h2>
 <ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia referencial</strong>, ya que ahora el valor de una función puede depender no sólo de los valores de sus argumentos, sino también además de los valores de las variables libres que ahora pueden cambiar durante la ejecución del programa:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span></code></pre></div></li>
 <li><p>Por tanto, cambiar el valor de una variable global (en cualquier parte del programa) es considerado un <strong>efecto lateral</strong>, ya que puede alterar el comportamiento de otras partes del programa de formas a menudo impredecibles o poco evidentes.</p></li>
 </ul>
 </section>
@@ -1425,14 +1455,14 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Cuando el efecto lateral lo produce la propia función también estamos perdiendo transparencia referencial, pues en tal caso no podemos sustituir libremente la llamada a la función por su valor de retorno, ya que ahora <strong>la función hace <em>algo más</em> que calcular dicho valor</strong>, y ese <em>algo</em> es observable fuera de la función.</p></li>
 <li><p>Por ejemplo, una función que imprime por la pantalla o escribe en un archivo del disco está provocando un efecto observable fuera de la función, por lo que tampoco es una función pura y, por tanto, en ella no se cumple la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento mutable. Por ejemplo:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
@@ -1473,8 +1503,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por defecto es <code class="sourceCode python"><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></code>.</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
 </ul>
 </section>
 <section id="paso-de-argumentos-por-palabras-clave" class="title-slide slide level4" data-number="4.5.1.1">
@@ -1485,10 +1515,10 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>En Python también existe el <strong>paso de argumentos por palabra clave</strong>, donde cada argumento se asigna a su parámetro indicando en la llamada el nombre del parámetro y el valor de su argumento correspondiente separados por un <code class="sourceCode python"><span class="op">=</span></code>, como si fuera una asignación.</p></li>
 <li><p>Esta técnica se usa en la función <code class="sourceCode python"><span class="bu">print</span></code> para indicar el separador o el terminador de la lista de expresiones a imprimir.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, end<span class="op">=</span><span class="st">&#39;-&#39;</span>)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, end<span class="op">=</span><span class="st">&#39;-&#39;</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1500,9 +1530,9 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p><code class="sourceCode python"><span class="va">None</span></code> es un valor especial que significa «<strong>ningún valor</strong>» y se utiliza principalmente para casos en los que no tiene sentido que una función devuelva un valor determinado, como es el caso de <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
 <li><p>Pertenece a un tipo de datos especial llamado <code class="sourceCode python">NoneType</code> cuyo único valor posible es <code class="sourceCode python"><span class="va">None</span></code>, y para comprobar si un valor es <code class="sourceCode python"><span class="va">None</span></code> se usa <span style="color:teal">⟨<em>valor</em>⟩</span> <code class="sourceCode python"><span class="kw">is</span> <span class="va">None</span></code>.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code class="sourceCode python"><span class="bu">print</span></code> devuelve <code class="sourceCode python"><span class="va">None</span></code>:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1514,10 +1544,10 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Su signatura es:</p>
 <div class="line-block"><code class="sourceCode python"><span class="bu">input</span></code><code>(</code>[<em>prompt</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>) -&gt;</code>  <code class="sourceCode python"><span class="bu">str</span></code></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
 <li><p>Provoca el <em>efecto lateral</em> de alterar el estado de la consola imprimiendo el <em>prompt</em> y esperando a que desde el exterior se introduzca el dato solicitado (que en cada ejecución podrá tener un valor distinto).</p></li>
 <li><p>Eso hace que sea <em>impura</em> por partida doble: provoca un efecto lateral y puede devolver un resultado distinto cada vez que se la llama.</p></li>
 </ul>
@@ -1604,7 +1634,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Al añadir una <code>b</code> en el modo se abre el archivo en <strong>modo binario</strong>. En tal caso, los datos se leen y se escriben en forma de objetos de tipo <code class="sourceCode python"><span class="bu">bytes</span></code>.</p>
 <p>El modo binario es el que debe usarse cuando se trabaje con archivos que no contengan texto (datos binarios <em>crudos</em>).</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.1.0.3">
@@ -1642,23 +1672,23 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Ejemplos de lectura de todo el archivo:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
-<li><p>Ejemplos de lectura del archivo en varios trozos:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<li><p>Ejemplos de lectura del archivo en varios trozos:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1686,29 +1716,29 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
-</div><div class="column">
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1730,11 +1760,11 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>También se puede usar <code class="sourceCode python"><span class="bu">print</span></code> para escribir en un archivo.</p></li>
 <li><p>En la práctica, no hay mucha diferencia entre usar <code class="sourceCode python"><span class="bu">print</span></code> y usar <code class="sourceCode python">write</code>.</p></li>
 <li><p>Hacer:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
-<p>equivale a hacer:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<p>equivale a hacer:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
 <li><p><code class="sourceCode python"><span class="bu">print</span></code> escribe en el archivo <code class="sourceCode python">sys.stdout</code> mientras no se diga lo contrario.</p></li>
 </ul>
@@ -1757,27 +1787,27 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)       <span class="co"># abre en modo lectura/escritura</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)</span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
-<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)       <span class="co"># abre en modo lectura/escritura</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1789,23 +1819,23 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.close()</code></div></li>
 <li><p>Siempre hay que cerrar un archivo previamente abierto, para así asegurarse de que los cambios realizados se vuelquen al archivo a través del sistema operativo y liberar inmediatamente los recursos del sistema que pudiera estar consumiendo.</p></li>
 <li><p>Una vez que se ha cerrado el archivo ya no se podrá seguir usando:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.6.0.1">
 
 <ul>
 <li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su atributo <code class="sourceCode python">closed</code>:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 <li><p>Observa que no es un método (no lleva paréntesis), sino un atributo que contiene directamente un valor lógico que el propio objeto modifica al cambiar su estado de abierto a cerrado o viceversa.</p></li>
 </ul>
 </section>
@@ -1830,8 +1860,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
 </ul>
 <p><br></p>
 <div class="columns">
@@ -1846,17 +1876,17 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li>Un ejemplo de uso:</li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="st">goto .fin</span></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="st">goto .fin</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1873,25 +1903,25 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="st">primero = 2</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="st">ultimo = 25</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="st">i = primero</span></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="st">label .inicio</span></span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="st">i += 1</span></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="st">goto .inicio</span></span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="st">primero = 2</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="st">ultimo = 25</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="st">i = primero</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="st">label .inicio</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="st">if i == ultimo: goto .fin</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="st">i += 1</span></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="st">goto .inicio</span></span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
 </ul>
 </section>
 </section>

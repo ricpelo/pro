@@ -147,7 +147,7 @@ nocite: |
 
 # Asignación destructiva
 
-## Referencias al montículo
+## Identidad
 
 - Todos los valores se almacenan en una zona de la memoria conocida como el
   **montículo**.
@@ -157,24 +157,34 @@ nocite: |
   ocupando el espacio de memoria que se necesite en función del tamaño que
   tenga el dato.
 
-- Esa dirección de comienzo de la zona que ocupa el dato dentro del montículo
-  se denomina **referencia** y sirve para identificar al dato, localizarlo y
-  acceder al mismo.
+- Se denomina **identidad del dato** a un valor abstracto y único que va
+  asociado siempre al dato, que no cambia nunca durante toda la vida del dato,
+  y que sirve para identificar, localizar y acceder al dato dentro del
+  montículo.
+
+- Generalmente, la identidad de un dato coincide con la **dirección de
+  comienzo** de la zona que ocupa el dato dentro del montículo, aunque ese es
+  un detalle de funcionamiento interno del intérprete.
+
+<!--
 
 - Si en el montículo ya existe un dato exactamente igual al que se tiene que
   crear, en la mayoría de los casos el intérprete aprovecha el que ya existe y
   no crea uno nuevo, para así ahorrar memoria.
 
-## Variables
+-->
 
-- Una **variable** es un lugar en la **memoria** donde se puede **almacenar una
-  referencia** a un valor almacenado en el montículo.
+## Variables y referencias
 
-- Cuando una variable contiene una referencia a un valor, decimos que la
-  variable **hace referencia al valor** o que **apunta al valor**.
+- Una **variable** es un lugar en la **memoria** donde se puede **almacenar la
+  identidad** de un dato almacenado en el montículo.
+
+- En tal caso, decimos que la variable **es una referencia al dato**, o que
+  **contiene una referencia al dato**, o que **hace referencia al dato** o que
+  **apunta al dato**.
 
 - Por abuso del lenguaje, también se suele decir que la variable **almacena o
-  contiene el valor**, aunque eso no es estrictamente cierto.
+  contiene el dato**, aunque eso no es estrictamente cierto.
 
 - El valor de una variable (o mejor dicho, la referencia que contiene) **puede
   cambiar** durante la ejecución del programa, haciendo que la variable pueda
@@ -240,7 +250,7 @@ identificador -> variable -> valor
   Por tanto, el estado es la asociación que se establece entre una variable y
   un valor (es decir, la referencia que contiene).
 
-!DOT(identificador-ligadura-variable-estado-valor.svg)
+!DOT(identificador-ligadura-variable-estado-valor.svg)()(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 identificador [shape = plaintext, fillcolor = transparent, fontname = "monospace"]
 valor [shape = circle, width = 0.8, fixedsize = true]
@@ -325,12 +335,15 @@ y:f1 -> 5
   significado:
 
   ```python
-  x = 4      # se lee: «asignar el valor 4 a la variable x»
+  x = 4      # se lee: «asigna el valor 4 a la variable x»
   ```
 
   El efecto que produce es el de almacenar, en la variable ligada al
-  identificador !PYTHON(x), una referencia al valor !PYTHON(4) almacenado en el
-  montículo.
+  identificador !PYTHON(x), la _identidad_ del valor !PYTHON(4) almacenado en
+  el montículo.
+
+- A partir de este momento, !PYTHON(x) pasa a ser una referencia al valor
+  !PYTHON(4).
 
   Normalmente se dice (mal dicho) que «_la variable !PYTHON(x) pasa a valer
   !PYTHON(4)_».
@@ -359,7 +372,7 @@ y:f1 -> 5
   *«se asigna el valor !PYTHON(9) a la variable !PYTHON(x)»*
   ~~~~~~~~~~~~~~~~~~~~~~~
 
-  o
+  o:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
@@ -371,7 +384,7 @@ y:f1 -> 5
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna una referencia al valor !PYTHON(9) a la variable ligada al
+  *«se asigna una referencia al valor !PYTHON(9) en la variable ligada al
   identificador !PYTHON(x)»*.
   ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -404,7 +417,7 @@ y:f1 -> 5
 
 #### Un ejemplo completo
 
-- Cuando se ejecuta la siguiente instrucción en el ámbito global:
+- Cuando se ejecuta la siguiente instrucción:
 
   ```python
   x = 2500
@@ -412,17 +425,17 @@ y:f1 -> 5
 
   ocurre lo siguiente:
 
-  1. Se crea el valor !PYTHON(2500) en el montículo y el intérprete devuelve
-     una referencia al mismo.
+  1. Se crea el valor !PYTHON(2500) en el montículo.
 
      En determinadas situaciones, no crea un nuevo valor si ya había otro
      exactamente igual en el montículo, pero éste no es el caso.
 
   2. El intérprete identifica a qué variable está ligado el identificador
-     !PYTHON(x) consultando el marco global (si no existía dicha variable, la
-     crea en ese momento y la liga a !PYTHON(x)).
+     !PYTHON(x) consultando el entorno (si no existía dicha variable, la
+     crea en ese momento y la liga a !PYTHON(x) en el marco actual).
 
-  3. Almacena en la variable la referencia creada en el paso 1.
+  3. Almacena en la variable una referencia al valor (es decir, la identidad
+     del valor).
 
 ## Evaluación de expresiones con variables
 
@@ -877,7 +890,7 @@ y:f1 -> 5
 
 - Aunque las cadenas son datos inmutables, también son datos compuestos y
   podemos acceder individualmente a sus elementos componentes y operar con
-  ellos aunque no podamos cambiarlos.
+  ellos, aunque no podamos cambiarlos.
 
 - Para ello podemos usar las operaciones comunes a toda secuencia de elementos
   (una cadena también es una **secuencia de caracteres**):
@@ -946,8 +959,8 @@ s | P | y | t | h | o | n |
 
 ---
 
-- El **slicing** (*hacer rodajas*) es una operación que consiste en obtener una
-  subsecuencia a partir de una secuencia, indicando los _índices_ de los
+- El **_slicing_** (*hacer rodajas*) es una operación que consiste en obtener
+  una subsecuencia a partir de una secuencia, indicando los _índices_ de los
   elementos _inicial_ y _final_ de la misma, así como un posible _paso_:
 
 :::: columns
@@ -1033,8 +1046,8 @@ s | P | y | t | h | o | n |
   
   - !PYTHON(s[)$n$`:]` es la rodaja desde el elemento $n$ hasta el final.
 
-  - !PYTHON(s[)$n$`::-1]` es la rodaja invertida desde el elemento $n$ hasta el
-    principio, con los elementos al revés.
+  - !PYTHON(s[)$n$!PYTHON(::-1]) es la rodaja invertida desde el elemento $n$
+    hasta el principio, con los elementos al revés.
 
   - !PYTHON(s[:]) devuelve una _copia_ de !PYTHON(s).
 
@@ -1047,11 +1060,11 @@ s | P | y | t | h | o | n |
 
 - El tipo mutable más frecuente es la **lista** (!PYTHON(list)).
 
-- Una lista es como una tupla que puede cambiar sus elementos, aumentar o
+- Una lista es como una tupla pero que puede cambiar sus elementos, aumentar o
   disminuir de tamaño.
 
-- Eso significa que una lista puede cambiar su contenido y, por tanto, su
-  estado interno.
+- Eso significa que **una lista puede cambiar su _contenido_ y, por tanto, su
+  _estado interno_**.
 
 - Los literales de tipo !PYTHON(list) se crean separando sus elementos con
   comas y encerrándolos entre corchetes `[` y `]`:
@@ -1239,7 +1252,7 @@ Ejemplo                    Valor de !PYTHON(x) después
   ```
 
 - Esto se debe a que las variables almacenan **referencias** a los valores, no
-  los valores en sí mismos.
+  los valores en sí mismos (éstos se almacenan en el montículo).
 
 :::: columns
 
@@ -1361,15 +1374,15 @@ y:f1 -> lista2
 
 ---
 
-- El intérprete puede crear alias de variables **implícitamente** para ahorrar
-  memoria y sin que seamos conscientes de ello.
+- Cuando los valores son inmutables, no importa si se comparten o no, ya que no
+  se pueden modificar.
 
-- No tiene mucha importancia práctica, aunque es interesante saberlo en ciertos
-  casos.
+- De hecho, el intérprete a veces crea valores nuevos y a veces comparte los ya
+  existentes.
 
 - Por ejemplo, el intérprete de Python crea internamente todos los números
   enteros comprendidos entre $-5$ y $256$, por lo que todas las variables de
-  nuestro programa que contengan el mismo valor dentro de ese intervalo
+  nuestro programa que contengan el mismo número dentro de ese intervalo
   compartirán el mismo valor (serán *alias*):
 
 :::: columns
@@ -1474,23 +1487,24 @@ y:f1 -> pepe
 
 ::::::
 
-- El intérprete aprovecharía el dato ya creado y no crearía uno nuevo, para
+- El intérprete aprovecharía la cadena ya creada y no crearía una nueva, para
   ahorrar memoria.
 
 ---
 
-- También se comparten valores si se usa el mismo dato varias veces.
+- También se comparten valores si se usa el mismo dato varias veces, aunque sea
+  un dato mutable.
 
 - Por ejemplo, si hacemos:
 
-```python
->>> x = [1, 2, 3]
->>> y = [x, x]
->>> y
-[[1, 2, 3], [1, 2, 3]]
-```
+  ```python
+  >>> x = [1, 2, 3]
+  >>> y = [x, x]
+  >>> y
+  [[1, 2, 3], [1, 2, 3]]
+  ```
 
-nos quedaría:
+  se compartiría la lista `x`, por lo que nos quedaría:
 
 !DOT(alias3.svg)()(width=50%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1513,7 +1527,11 @@ y:f1 -> lista2
 
 ---
 
-- Y si ahora hacemos:
+:::: columns
+
+::: column
+
+Y si ahora hacemos:
 
 ```python
 >>> y[0][0] = 99
@@ -1522,9 +1540,13 @@ y:f1 -> lista2
 [[99, 77, 3], [99, 77, 3]]
 ```
 
+:::
+
+::: column
+
 nos quedaría:
 
-!DOT(alias4.svg)()(width=50%)(width=25%)
+!DOT(alias4.svg)()(width=90%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
@@ -1547,15 +1569,23 @@ x:f1 -> lista1
 y:f1 -> lista2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+:::
+
+::::
+
 ### Recolección de basura
 
-- En el momento en que un valor se vuelva inaccesible (cosa que ocurrirá
-  cuando no haya ninguna variable en el entorno que contenga una referencia a
-  dicho valor), el intérprete lo marcará como *candidato para ser eliminado*.
+- Un valor se vuelve **inaccesible** cuando no hay ninguna referencia que
+  apunte a él.
 
-- Cada cierto tiempo, el intérprete activará el **recolector de basura**, que
-  es un componente que se encarga de liberar de la memoria a los valores que
-  están marcados como candidatos para ser eliminados.
+- Eso ocurre cuando no queda ninguna variable que contenga una referencia a ese
+  dato.
+
+- En tal caso, el intérprete lo marca como *candidato para ser eliminado*.
+
+- Cada cierto tiempo, el intérprete activa el **recolector de basura**, que es
+  un componente que se encarga de liberar de la memoria a los valores que están
+  marcados como candidatos para ser eliminados.
 
 - Por tanto, el programador Python no tiene que preocuparse de gestionar
   manualmente la memoria ocupada por los datos que componen su programa.
@@ -1569,28 +1599,35 @@ y:f1 -> lista2
   lista2 = lista1     # almacena en lista2 la referencia que hay en lista1
   ```
 
-  A partir de ahora, ambas variables apuntan al mismo dato.
+  A partir de ahora, ambas variables apuntan al mismo dato y, por tanto,
+  decimos que el dato tiene dos referencias o que hay dos referencias
+  apuntándole.
+
 
   ```python
   del lista1          # elimina una referencia pero el dato aún tiene otra
   del lista2          # elimina la otra referencia y ahora el dato es inaccesible
   ```
 
-  Desde este momento, la próxima vez que se active el recolector de basura se
-  active, eliminará la lista.
+  Como ya no hay ninguna referencia apuntándole, se marca como _candidato a ser
+  eliminado_ y, por tanto, la próxima vez que se active el recolector de
+  basura, se eliminará la lista del montículo.
 
 ### !PYTHON(id)
 
 - Para saber si dos variables comparten **el mismo dato**, se puede usar la
   función !PYTHON(id).
 
-- La función !PYTHON(id) devuelve un **identificador único** para cada dato.
+- La función !PYTHON(id) aplicada a un dato devuelve la **identidad** del dato,
+  es decir, el **identificador único** que se utiliza para localizar al dato
+  dentro del montículo.
 
-- Por tanto, si dos variables tienen el mismo !PYTHON(id), significa que el
-  valor que contienen es realmente el mismo valor.
-  
-- Normalmente, el !PYTHON(id) de un valor se corresponde con la dirección de
-  memoria donde está almacenado dicho valor.
+- Si dos datos tienen el mismo !PYTHON(id), decimos que son **idénticos**,
+  porque en realidad son _el mismo dato_.
+
+- En consecuencia, si dos variables tienen el mismo !PYTHON(id), significa que
+  ambas apuntan al mismo dato en la memoria y, por tanto, son **referencias al
+  mismo dato**.
 
 :::: columns
 
@@ -1626,8 +1663,8 @@ True
 ### !PYTHON(is)
 
 - Otra forma de comprobar si dos datos son realmente el mismo dato en memoria
-  (es decir, si son **idénticos**) es usar el operador !PYTHON(is), que comprueba la
-  **identidad** de un dato:
+  (es decir, si son **idénticos**) es usar el operador !PYTHON(is), que
+  comprueba si los dos datos tienen la misma **identidad**:
 
 - Su sintaxis es:
 
@@ -1636,10 +1673,10 @@ True
   !NT(is) ::= !NT(valor1) !T(is) !NT(valor2)
   ~~~~~~~~~~~~~~~~~~~~~~~
 
-- Es un operador relacional que devuelve !PYTHON(True) si !NT(valor1) y !NT(valor2)
-  son **el mismo dato en memoria** (es decir, si se encuentran almacenados en
-  la misma celda de la memoria y, por tanto, son **idénticos**) y !PYTHON(False) en
-  caso contrario.
+- Es un operador relacional que devuelve !PYTHON(True) si !NT(valor1) y
+  !NT(valor2) tienen la misma **identidad** (es decir, si son **el mismo dato
+  en memoria** y, por tanto, son **idénticos**) y !PYTHON(False) en caso
+  contrario.
 
 - Lo normal es usarlo con variables y, en tal caso, devuelve !PYTHON(True) si los
   datos que almacenan las variables son realmente el mismo dato.
@@ -1648,6 +1685,25 @@ True
 
 - En la práctica, equivale a hacer
   !PYTHON(id)`(`!NT(valor1)`)` `==` !PYTHON(id)`(`!NT(valor2)`)`.
+
+---
+
+```python
+>>> x = 500
+>>> y = 500
+>>> x is y
+False
+>>> y = x
+>>> x is y
+True
+>>> 500 is 500
+<stdin>:1: SyntaxWarning: "is" with a literal. Did you mean "=="?
+True
+>>> x = 'hola'
+>>> y = 'hola'
+>>> x is y
+True
+```
 
 # Cambios de estado ocultos
 
