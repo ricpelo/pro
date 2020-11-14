@@ -1157,12 +1157,16 @@ s | P | y | t | h | o | n |
 - Casos particulares notables:
 
   - !PYTHON(s[:)$n$`]` es la rodaja desde el primer elemento hasta la posición
-    $n$.
+    $\underline{n}$.
   
-  - !PYTHON(s[)$n$`:]` es la rodaja desde el elemento $n$ hasta el final.
+  - !PYTHON(s[)$n$`:]` es la rodaja desde el elemento $\underline{n}$ hasta el
+    final.
 
-  - !PYTHON(s[)$n$!PYTHON(::-1]) es la rodaja invertida desde el elemento $n$
-    hasta el principio, con los elementos al revés.
+    Siempre se cumple que !PYTHON(s) `==` !PYTHON(s[:)$n$`]` `+`
+    !PYTHON(s[)$n$`:]`.
+
+  - !PYTHON(s[)$n$!PYTHON(::-1]) es la rodaja invertida desde el elemento
+    $\underline{n}$ hasta el principio, con los elementos al revés.
 
   - !PYTHON(s[:]) devuelve una _copia_ de !PYTHON(s).
 
@@ -1289,8 +1293,8 @@ x:f1 -> lista
 - Las siguientes tablas muestran todas las **operaciones** que nos permiten
   **modificar listas**.
 
-- En ellas, $\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es un valor
-cualquiera.
+- En ellas, $\underline{s}$ y $\underline{t}$ son listas, y $\underline{x}$ es
+  un valor cualquiera.
 
 -------------------------------------------------------------------------------------------
 Operación                     Resultado
@@ -1313,29 +1317,34 @@ $s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se susti
 
 ---
 
-----------------------------------------------------------------------------------------------------------------
-Operación                        Resultado
--------------------------------  -------------------------------------------------------------------------------
-$s$!PYTHON(.append)`(`$x$`)`     Añade $\underline{x}$ al final de $\underline{s}$ \
-                                 Equivale a hacer $s$!PYTHON([len)`(`$s$!PYTHON{):len(}$s$`)]` `=` `[`$x$`]`
+-----------------------------------------------------------------------------------------------------------------------------------
+Operación                         Resultado
+--------------------------------- -------------------------------------------------------------------------------------------------
+$s$!PYTHON(.append)`(`$x$`)`      Añade $\underline{x}$ al final de $\underline{s}$; es igual que \
+                                  $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` `[`$x$`]`
 
-$s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$ \
-                                 Equivale a hacer !PYTHON(del) $\ s$`[:]`
+$s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que \
+                                  !PYTHON(del) $\ s$!PYTHON([:])
 
-$s$!PYTHON(.extend)`(`$t$`)`     Amplía $\underline{s}$ con el contenido de $\underline{t}$ \
-ó \                              Equivale a hacer $s$!PYTHON([len)`(`$s$!PYTHON{):len(}$s$`)]` `=` $t$
-$s$ `+=` $t$
+$s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
 
-$s$!PYTHON(.insert)`(`$i$`,`     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$ \
-$x$`)`                           Equivale a hacer $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
+$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que \
+$s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$ 
 
-$s$!PYTHON(.pop)`(`[$i=-1$]`)`   Devuelve el elemento $i$-ésimo y lo elimina de $\underline{s}$
+$s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
 
-$s$!PYTHON(.remove)`(`$x$`)`     Elimina el primer elemento de $\underline{s}$ que sea igual a
-                                 $\underline{x}$
+$s$!PYTHON(.insert)`(`$i$`, `     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$; es igual que
+$x$`)`                            $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
 
-$s$!PYTHON{.reverse()}           Invierte los elementos de $\underline{s}$
-----------------------------------------------------------------------------------------------------------------
+$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve\
+                                  (por defecto, $i$ vale !PYTHON(-1))
+
+$s$!PYTHON(.remove)`(`$x$`)`      Quita el primer elemento de $\underline{s}$ que sea igual a $\underline{x}$
+
+$s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
+
+$s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
+-----------------------------------------------------------------------------------------------------------------------------------
 
 ---
 

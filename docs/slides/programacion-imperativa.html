@@ -1027,9 +1027,10 @@
 <ul>
 <li><p>Casos particulares notables:</p>
 <ul>
-<li><p><code class="sourceCode python">s[:</code><span class="math inline">n</span><code>]</code> es la rodaja desde el primer elemento hasta la posición <span class="math inline">n</span>.</p></li>
-<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>:]</code> es la rodaja desde el elemento <span class="math inline">n</span> hasta el final.</p></li>
-<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code class="sourceCode python">::<span class="op">-</span><span class="dv">1</span>]</code> es la rodaja invertida desde el elemento <span class="math inline">n</span> hasta el principio, con los elementos al revés.</p></li>
+<li><p><code class="sourceCode python">s[:</code><span class="math inline">n</span><code>]</code> es la rodaja desde el primer elemento hasta la posición <span class="math inline">\underline{n}</span>.</p></li>
+<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code>:]</code> es la rodaja desde el elemento <span class="math inline">\underline{n}</span> hasta el final.</p>
+<p>Siempre se cumple que <code class="sourceCode python">s</code> <code>==</code> <code class="sourceCode python">s[:</code><span class="math inline">n</span><code>]</code> <code>+</code> <code class="sourceCode python">s[</code><span class="math inline">n</span><code>:]</code>.</p></li>
+<li><p><code class="sourceCode python">s[</code><span class="math inline">n</span><code class="sourceCode python">::<span class="op">-</span><span class="dv">1</span>]</code> es la rodaja invertida desde el elemento <span class="math inline">\underline{n}</span> hasta el principio, con los elementos al revés.</p></li>
 <li><p><code class="sourceCode python">s[:]</code> devuelve una <em>copia</em> de <code class="sourceCode python">s</code>.</p></li>
 <li><p><code class="sourceCode python">s[::<span class="op">-</span><span class="dv">1</span>]</code> devuelve una copia invertida de <code class="sourceCode python">s</code>.</p></li>
 </ul></li>
@@ -1147,8 +1148,8 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 
 <table>
 <colgroup>
-<col style="width: 29%" />
-<col style="width: 70%" />
+<col style="width: 25%" />
+<col style="width: 74%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1159,36 +1160,48 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.append</code><code>(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Añade <span class="math inline">\underline{x}</span> al final de <span class="math inline">\underline{s}</span><br />
-Equivale a hacer <span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+<td style="text-align: left;">Añade <span class="math inline">\underline{x}</span> al final de <span class="math inline">\underline{s}</span>; es igual que<br />
+<span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.clear()</code></td>
-<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{s}</span><br />
-Equivale a hacer <code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[:]</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span class="math inline">\underline{s}</span>; es igual que<br />
+<code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code class="sourceCode python">[:]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.extend</code><code>(</code><span class="math inline">t</span><code>)</code> ó<br />
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.copy()</code></td>
+<td style="text-align: left;">Crea una copia <em>superficial</em> de <span class="math inline">\underline{s}</span>; es igual que <span class="math inline">s</span><code class="sourceCode python">[:]</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.extend</code><code>(</code><span class="math inline">t</span><code>)</code><br />
 <span class="math inline">s</span> <code>+=</code> <span class="math inline">t</span></td>
-<td style="text-align: left;">Amplía <span class="math inline">\underline{s}</span> con el contenido de <span class="math inline">\underline{t}</span><br />
-Equivale a hacer <span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">Extiende <span class="math inline">\underline{s}</span> con el contenido de <span class="math inline">\underline{t}</span>; es igual que<br />
+<span class="math inline">s</span><code class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span class="math inline">s</span><code>)]</code> <code>=</code> <span class="math inline">t</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">s</span> <code>*=</code> <span class="math inline">n</span></td>
+<td style="text-align: left;">Modifica <span class="math inline">\underline{s}</span> repitiendo su contenido <span class="math inline">\underline{n}</span> veces</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.insert</code><code>(</code><span class="math inline">i</span><code>,</code> <span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Inserta <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> en el índice <span class="math inline">\underline{i}</span><br />
-Equivale a hacer <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
+<td style="text-align: left;">Inserta <span class="math inline">\underline{x}</span> en <span class="math inline">\underline{s}</span> en el índice <span class="math inline">\underline{i}</span>; es igual que <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">i</span><code>]</code> <code>=</code> <code>[</code><span class="math inline">x</span><code>]</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.pop</code><code>(</code>[<span class="math inline">i=-1</span>]<code>)</code></td>
-<td style="text-align: left;">Devuelve el elemento <span class="math inline">i</span>-ésimo y lo elimina de <span class="math inline">\underline{s}</span></td>
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.pop</code><code>(</code>[ <span class="math inline">i</span> ]<code>)</code></td>
+<td style="text-align: left;">Extrae el elemento <span class="math inline">\underline{i}</span> de <span class="math inline">\underline{s}</span> y lo devuelve<br />
+(por defecto, <span class="math inline">i</span> vale <code class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code>)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.remove</code><code>(</code><span class="math inline">x</span><code>)</code></td>
-<td style="text-align: left;">Elimina el primer elemento de <span class="math inline">\underline{s}</span> que sea igual a <span class="math inline">\underline{x}</span></td>
+<td style="text-align: left;">Quita el primer elemento de <span class="math inline">\underline{s}</span> que sea igual a <span class="math inline">\underline{x}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.reverse()</code></td>
 <td style="text-align: left;">Invierte los elementos de <span class="math inline">\underline{s}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">s</span><code class="sourceCode python">.sort()</code></td>
+<td style="text-align: left;">Ordena los elementos de <span class="math inline">\underline{s}</span></td>
 </tr>
 </tbody>
 </table>

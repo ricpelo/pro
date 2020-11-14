@@ -31,9 +31,46 @@ nocite: |
 
 ## Clasificación
 
-- Los datos estructurados se pueden clasificar en:
+- Los **datos estructurados** se pueden clasificar en:
 
-  - Secuenciales: 
+  - **Secuenciales:** los elementos se identifican según la posición que ocupan
+    dentro de la secuencia.
+
+  - **No secuenciales:** los elementos no se encuentran en una posición
+    concreta dentro de la secuencia.
+
+  - **Inmutables:** el dato estructurado no cambia nunca su estado interno a lo
+    largo de su vida.
+
+  - **Mutables:** el dato estructurado cambia su estado interno a lo largo de
+    su vida.
+
+---
+
+$$\text{Tipos estructurados} \begin{cases}
+    \text{Secuencias} \begin{cases}
+        \text{Inmutables} \begin{cases}
+            \text{Cadenas (\texttt{str})} \\
+            \text{Tuplas (\texttt{tuple})} \\
+            \text{Rangos (\texttt{range})}
+        \end{cases} \\
+        \\
+        \text{Mutables} \begin{cases}
+            \text{Listas (\texttt{list})}
+        \end{cases}
+    \end{cases} \\
+    \\
+    \text{No secuencias} \begin{cases}
+        \text{Inmutables} \begin{cases}
+            \text{Conjuntos (\texttt{frozenset})}
+        \end{cases} \\
+        \\
+        \text{Mutables} \begin{cases}
+            \text{Conjuntos (\texttt{set})} \\
+            \text{Diccionarios (\texttt{dict})}
+        \end {cases}
+    \end{cases}
+\end{cases}$$
 
 ## *Hashables*
 
@@ -879,9 +916,9 @@ True
 ### Operaciones mutadoras
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
-  secuencia mutable (como, por ejemplo, una lista), $\underline{t}$ es
-  cualquier dato iterable y $\underline{x}$ es un dato cualquiera que cumple
-  con las restricciones que impone $\underline{s}$:
+  secuencia mutable (por ejemplo, una lista), $\underline{t}$ es cualquier dato
+  iterable y $\underline{x}$ es un dato cualquiera que cumple con las
+  restricciones que impone $\underline{s}$:
 
 !SALTO
 
@@ -909,29 +946,30 @@ $s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se susti
 -----------------------------------------------------------------------------------------------------------------------------------
 Operación                         Resultado
 --------------------------------- -------------------------------------------------------------------------------------------------
-$s$!PYTHON(.append)`(`$x$`)`      Añade $x$ al final de la secuencia; es igual que \
+$s$!PYTHON(.append)`(`$x$`)`      Añade $\underline{x}$ al final de $\underline{s}$; es igual que \
                                   $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` `[`$x$`]`
-                                 
+
 $s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que \
                                   !PYTHON(del) $\ s$!PYTHON([:])
-                                 
+
 $s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
-                                 
-$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es como hacer \
+
+$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que \
 $s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$ 
-                                 
+
 $s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
-                                 
+
 $s$!PYTHON(.insert)`(`$i$`, `     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$; es igual que
 $x$`)`                            $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
-                                 
-$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve (por defecto, $\underline{i}$ vale !PYTHON(-1))
-                                 
+
+$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve\
+                                  (por defecto, $i$ vale !PYTHON(-1))
+
 $s$!PYTHON(.remove)`(`$x$`)`      Quita el primer elemento de $\underline{s}$ que sea igual a $\underline{x}$
-                                 
+
 $s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
 
-$s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$ de forma ascendente o descendente.
+$s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 -----------------------------------------------------------------------------------------------------------------------------------
 
 ---
