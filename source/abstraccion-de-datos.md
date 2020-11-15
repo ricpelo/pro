@@ -958,7 +958,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   utiliza una función de un nivel más bajo.
 
 - Por ejemplo, una función que calcula el cuadrado de un número racional se
-  implementa mejor en términos de `mult`, que no necesita supone nada sobre
+  implementa mejor en términos de `mult`, que no necesita suponer nada sobre
   cómo se implementa un número racional:
 
   ```python
@@ -1054,9 +1054,10 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 ---
 
 - **Los detalles de implementación** debajo de una barrera de abstracción
-  **pueden cambiar**, pero si no cambia su comportamiento, entonces la
-  abstracción de datos sigue siendo válida y cualquier programa escrito
-  utilizando esta abstracción de datos seguirá siendo correcto.
+  **pueden cambiar**, pero si no cambia su comportamiento observable desde un
+  lugar situado por encima de la barrera, entonces la abstracción de datos
+  sigue siendo válida y cualquier programa escrito utilizando esta abstracción
+  de datos seguirá siendo correcto.
 
 - Este punto de vista tambíen se puede aplicar, por ejemplo, a las listas que
   hemos usado para implementar números racionales.
@@ -1237,13 +1238,15 @@ E -> i [lhead = cluster1]
   necesita seguir accediendo a valores (las variables `x` e `y`) cuyas
   ligaduras se almacenan en el marco de `pareja` y no en el suyo (el de `get`).
 
-- Es decir: el intérprete conserva todo el entorno que la función `get`
-  necesita para poder funcionar, incluyendo sus variables no locales, como es
-  el caso aquí de de los parámetros `x` e `y` de la función `pareja`.
+- Es decir: el intérprete conserva el entorno que la función `get` necesita
+  para poder funcionar, empezando por el marco del ámbito donde se definió la
+  función e incluyendo sus variables no locales, como es el caso aquí de de los
+  parámetros `x` e `y` de la función `pareja`.
 
-- La combinación de una función más el entorno necesario para su ejecución se
-  denomina **clausura**, y se representa gráficamente como una flecha que va
-  desde la función hasta el primer marco del entorno de la función.
+- La combinación de una función más la parte del entorno que es necesario
+  conservar para su ejecución se denomina **clausura**, y se representa
+  gráficamente como una flecha que va desde la función hasta el marco del
+  ámbito donde se definió la función.
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1253,13 +1256,14 @@ Clausura = función + entorno
 ---
 
 - Aquí la clausura es la función que está guardada en `p`, más el entorno que
-  empieza en el marco de `pareja`:
+  empieza en el marco de `pareja` (ya que `p` se definió en el ámbito de
+  `pareja`):
 
 :::: columns
 
 ::: {.column width=60%}
 
-!DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=90%)(width=65%)
+!DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=95%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1281,13 +1285,13 @@ pareja:f1 -> f1
 select:f1 -> f2
 p:f1 -> f3
 subgraph cluster0 {
-    label = <Marco de <b>pareja</b>>
+    label = <Marco de <font face="monospace">pareja(20, 14)</font>>
     bgcolor = "white"
     color = grey
     fontcolor = grey
-    x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
-    y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
-    get [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get|<f1>⬤}"]
+    x [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    get [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get|<f1>⬤}"]
 }
 x:f1 -> 20 [color = grey]
 y:f1 -> 14 [color = grey]
@@ -1314,6 +1318,88 @@ f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 :::
 
 ::::
+
+---
+
+- Por tanto, la clausura almacenada en `p` contiene la función y la parte del
+  entorno que es necesario conservar para poder ejecutar la función.
+
+- En este caso, la clausura apunta al marco de `pareja`, ya que es local a
+  `pareja` y necesita acceder a los datos definidos en el ámbito de `pareja`.
+
+- Cuando se llame a la función `p` se creará su marco, el cual apuntará al
+  marco de `pareja` ya que es el marco a donde apunta el entorno de la
+  clausura.
+
+- El marco de `pareja`, a su vez, apuntará al global.
+
+- Por tanto, durante la ejecución de `p`, el entorno estaría formado por el
+  marco de `p`, seguido del marco de `pareja`, seguido del marco global.
+
+- Naturalmente, además se creará su registro de activación correspondiente en
+  la pila, que permanecerá allí mientras esté activa la llamada a `p`.
+
+---
+
+- Por ejemplo, si hacemos:
+
+  ```python
+  p = pareja(20, 14)
+  x = p(0)
+  ```
+
+  durante la ejecución de !PYTHON(p(0)) tendremos lo siguiente:
+
+!DOT(pila-pareja-p0.svg)(Pila de control durante `x = p(`0`)`)(width=70%)(width=65%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace", shape = record]
+pila [label = "<f1>p(0)|<f0>Global", xlabel = "Pila de\ncontrol"]
+14 [shape = circle, color = grey, fontcolor = grey]
+20 [shape = circle, color = grey, fontcolor = grey]
+f1 [shape = circle, label = "λ"]
+f2 [shape = circle, label = "λ"]
+f3 [shape = circle, label = "λ", color = red]
+subgraph cluster2 {
+    label = <Marco global>
+    bgcolor = white
+    pareja [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>pareja|<f1>⬤}"]
+    select [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>select|<f1>⬤}"]
+    p [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>p|<f1>⬤}"]
+}
+pareja:f1 -> f1
+select:f1 -> f2
+p:f1:e -> f3
+subgraph cluster1 {
+    label = <Marco de <font face="monospace">p(0)</font>>
+    bgcolor = white
+    color = red
+    fontcolor = red
+    indice [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>indice|<f1>⬤}"]
+}
+indice:f1 -> 0
+0 [shape = circle]
+subgraph cluster0 {
+    label = <Marco de <font face="monospace">pareja(20, 14)</font>>
+    bgcolor = "white"
+    color = grey
+    fontcolor = grey
+    x [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+    y [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+    get [shape = record, fontcolor = grey, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>get|<f1>⬤}"]
+}
+x:f1 -> 20 [color = grey]
+y:f1 -> 14 [color = grey]
+get:f1 -> f3 [color = grey]
+get -> pareja [lhead = cluster2, ltail = cluster0, minlen = 2, color = grey]
+indice:f0:s -> x [lhead = cluster0, ltail = cluster1, color = blue]
+pila:f0 -> select [lhead = cluster2, minlen = 3]
+pila:f1 -> indice:f0:n [lhead = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> indice [lhead = cluster1]
+f3 -> y [lhead = cluster0, minlen = 3, color = blue]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 

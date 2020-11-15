@@ -54,19 +54,19 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #d33682; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #4070a0; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #dc322f; } /* Char */
     code span.cn { color: #880000; } /* Constant */
     code span.co { color: #93a1a1; font-style: italic; } /* Comment */
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #268bd2; } /* DataType */
+    code span.dt { color: #6c71c4; } /* DataType */
     code span.dv { color: #d33682; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
     code span.fl { color: #d33682; } /* Float */
-    code span.fu { color: #268bd2; } /* Function */
+    code span.fu { color: #4070a0; } /* Function */
     code span.im { font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
@@ -1004,7 +1004,7 @@
 
 <ul>
 <li><p>Se produce una <strong><em>violación</em> de una barrera de abstracción</strong> cada vez que una parte del programa que puede utilizar una función de un determinado nivel, utiliza una función de un nivel más bajo.</p></li>
-<li><p>Por ejemplo, una función que calcula el cuadrado de un número racional se implementa mejor en términos de <code>mult</code>, que no necesita supone nada sobre cómo se implementa un número racional:</p>
+<li><p>Por ejemplo, una función que calcula el cuadrado de un número racional se implementa mejor en términos de <code>mult</code>, que no necesita suponer nada sobre cómo se implementa un número racional:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado(x): </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mult(x,x)      </span></code></pre></div></li>
 </ul>
@@ -1059,7 +1059,7 @@
 <section class="slide level5" data-number="4.3.0.0.2">
 
 <ul>
-<li><p><strong>Los detalles de implementación</strong> debajo de una barrera de abstracción <strong>pueden cambiar</strong>, pero si no cambia su comportamiento, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
+<li><p><strong>Los detalles de implementación</strong> debajo de una barrera de abstracción <strong>pueden cambiar</strong>, pero si no cambia su comportamiento observable desde un lugar situado por encima de la barrera, entonces la abstracción de datos sigue siendo válida y cualquier programa escrito utilizando esta abstracción de datos seguirá siendo correcto.</p></li>
 <li><p>Este punto de vista tambíen se puede aplicar, por ejemplo, a las listas que hemos usado para implementar números racionales.</p></li>
 <li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier representación que agrupe una pareja de valores juntos y que nos permita acceder a cada valor de una pareja por separado. Es decir, la propiedad que tienen que cumplir las parejas es que:</p>
 <div class="caja">
@@ -1155,8 +1155,8 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 
 <ul>
 <li><p>Lo interesante es que <strong>el marco de la función <code>pareja</code> no se elimina de la memoria al salir de la función</strong> con <code>return get</code>, ya que la función <code>get</code> necesita seguir accediendo a valores (las variables <code>x</code> e <code>y</code>) cuyas ligaduras se almacenan en el marco de <code>pareja</code> y no en el suyo (el de <code>get</code>).</p></li>
-<li><p>Es decir: el intérprete conserva todo el entorno que la función <code>get</code> necesita para poder funcionar, incluyendo sus variables no locales, como es el caso aquí de de los parámetros <code>x</code> e <code>y</code> de la función <code>pareja</code>.</p></li>
-<li><p>La combinación de una función más el entorno necesario para su ejecución se denomina <strong>clausura</strong>, y se representa gráficamente como una flecha que va desde la función hasta el primer marco del entorno de la función.</p></li>
+<li><p>Es decir: el intérprete conserva el entorno que la función <code>get</code> necesita para poder funcionar, empezando por el marco del ámbito donde se definió la función e incluyendo sus variables no locales, como es el caso aquí de de los parámetros <code>x</code> e <code>y</code> de la función <code>pareja</code>.</p></li>
+<li><p>La combinación de una función más la parte del entorno que es necesario conservar para su ejecución se denomina <strong>clausura</strong>, y se representa gráficamente como una flecha que va desde la función hasta el marco del ámbito donde se definió la función.</p></li>
 </ul>
 <div class="caja centered">
 <p>Clausura = función + entorno</p>
@@ -1165,13 +1165,13 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <section class="slide level5" data-number="5.1.0.0.5">
 
 <ul>
-<li>Aquí la clausura es la función que está guardada en <code>p</code>, más el entorno que empieza en el marco de <code>pareja</code>:</li>
+<li>Aquí la clausura es la función que está guardada en <code>p</code>, más el entorno que empieza en el marco de <code>pareja</code> (ya que <code>p</code> se definió en el ámbito de <code>pareja</code>):</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="centered">
 <figure>
-<img data-src="images/pila-pareja-get.svg" class="plain" style="width:90.0%" alt="Pila de control después de hacer p = pareja(20, 14)" /><figcaption aria-hidden="true">Pila de control después de hacer <code>p = pareja(20, 14)</code></figcaption>
+<img data-src="images/pila-pareja-get.svg" class="plain" style="width:95.0%" alt="Pila de control después de hacer p = pareja(20, 14)" /><figcaption aria-hidden="true">Pila de control después de hacer <code>p = pareja(20, 14)</code></figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
@@ -1186,6 +1186,31 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <section class="slide level5" data-number="5.1.0.0.6">
 
 <ul>
+<li><p>Por tanto, la clausura almacenada en <code>p</code> contiene la función y la parte del entorno que es necesario conservar para poder ejecutar la función.</p></li>
+<li><p>En este caso, la clausura apunta al marco de <code>pareja</code>, ya que es local a <code>pareja</code> y necesita acceder a los datos definidos en el ámbito de <code>pareja</code>.</p></li>
+<li><p>Cuando se llame a la función <code>p</code> se creará su marco, el cual apuntará al marco de <code>pareja</code> ya que es el marco a donde apunta el entorno de la clausura.</p></li>
+<li><p>El marco de <code>pareja</code>, a su vez, apuntará al global.</p></li>
+<li><p>Por tanto, durante la ejecución de <code>p</code>, el entorno estaría formado por el marco de <code>p</code>, seguido del marco de <code>pareja</code>, seguido del marco global.</p></li>
+<li><p>Naturalmente, además se creará su registro de activación correspondiente en la pila, que permanecerá allí mientras esté activa la llamada a <code>p</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.7">
+
+<ul>
+<li><p>Por ejemplo, si hacemos:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> p(<span class="dv">0</span>)</span></code></pre></div>
+<p>durante la ejecución de <code class="sourceCode python">p(<span class="dv">0</span>)</code> tendremos lo siguiente:</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/pila-pareja-p0.svg" class="plain" style="width:70.0%" alt="Pila de control durante x = p(0)" /><figcaption aria-hidden="true">Pila de control durante <code>x = p(</code>0<code>)</code></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.0.0.8">
+
+<ul>
 <li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
 <li><p>La función <code>get</code>, que devuelve <code>pareja</code> y que recibe <code>select</code>, <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
 <li><p>A esto se le denomina <strong>representación funcional</strong>.</p></li>
@@ -1193,7 +1218,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Esto no quiere decir que Python realmente implemente las listas mediante funciones. En realidad las implementa de otra forma por razones de eficiencia, pero podría implementarlas con funciones sin ningún problema.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.7">
+<section class="slide level5" data-number="5.1.0.0.9">
 
 <ul>
 <li><p>La práctica de la abstracción de datos nos permite cambiar fácilmente unas representaciones por otras, y una de esas representaciones puede ser mediante funciones.</p></li>
@@ -1240,14 +1265,14 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Por ejemplo, definamos una función que simule el proceso de retirar dinero de una cuenta bancaria.</p></li>
 <li><p>Crearemos una función llamada <code>retirar</code>, que tome como argumento una cantidad a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada, <code>retirar</code> devolverá el saldo restante después de la retirada. De lo contrario, <code>retirar</code> producirá el error <code>'Fondos insuficientes'</code>.</p></li>
 <li><p>Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría obtener la siguiente secuencia de valores de retorno al ir llamando a <code>retirar</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">60</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">15</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">60</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">15</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.4">
@@ -1264,18 +1289,18 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <ul>
 <li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
 <li><p>La función <code>deposito</code> es una función de orden superior que recibe como argumento un saldo inicial y devuelve la propia función <code>retirar</code>, pero de forma que esa función <strong>recuerda</strong> el saldo inicial.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>La implementación de <code>deposito</code> requiere un <strong>acceso no local</strong> al valor de los fondos iniciales y una <strong>función local</strong> que actualiza y devuelve dicho valor:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que reduce los fondos en cada llamada.&quot;&quot;&quot;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> deposito_local(cantidad):</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad  <span class="co"># Asignación a variable no local</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que reduce los fondos en cada llamada.&quot;&quot;&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> deposito_local(cantidad):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad  <span class="co"># Asignación a variable no local</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1290,33 +1315,33 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </section>
 <section class="slide level5" data-number="5.3.0.0.1">
 
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> retirar</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ingresar</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> saldo</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.3.0.0.2">
 
@@ -1334,26 +1359,26 @@ def saldo(dep):
 -->
 <ul>
 <li><p>Ahora, un depósito se representa internamente como una función que recibe mensajes y los despacha a la función correspondiente:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
-<li><p>También podemos hacer:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> dep(<span class="st">&#39;retirar&#39;</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar <span class="op">=</span> dep(<span class="st">&#39;ingresar&#39;</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo <span class="op">=</span> dep(<span class="st">&#39;saldo&#39;</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar(<span class="dv">200</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
+<li><p>También podemos hacer:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> dep(<span class="st">&#39;retirar&#39;</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar <span class="op">=</span> dep(<span class="st">&#39;ingresar&#39;</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo <span class="op">=</span> dep(<span class="st">&#39;saldo&#39;</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar(<span class="dv">200</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.3">
@@ -1361,31 +1386,31 @@ def saldo(dep):
 <ul>
 <li>Una variante de esta técnica es la de usar un diccionario para asociar a cada mensaje con cada operación:</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> dic:</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> dic[mensaje]</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> dic:</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> dic[mensaje]</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.3.0.0.4">
 
