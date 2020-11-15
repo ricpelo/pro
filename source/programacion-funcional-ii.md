@@ -3518,8 +3518,11 @@ n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
   (1, 2, 3, 4, 5, 6)
   ```
 
-- Eso significa que (al igual que pasa con las cadenas), si !PYTHON(t) es una
-  tupla no vacía, se cumple que !PYTHON(t == t[0] + t[1:]).
+- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que
+  !PYTHON(t == (t[0],) + t[1:]).
+
+  Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
+  las cadenas no vacías.
 
 ## Rangos
 
