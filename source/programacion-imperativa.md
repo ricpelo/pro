@@ -1172,6 +1172,29 @@ s | P | y | t | h | o | n |
 
   - !PYTHON(s[::-1]) devuelve una copia invertida de !PYTHON(s).
 
+!EJERCICIO
+
+@. Dada la siguiente lista:
+
+    ```python
+    a = [0, 11, 22, 33, 44, 55, 66, 77, 88, 99]
+    ```
+
+    ¿Qué valor devuelven las siguientes expresiones?
+
+    a. !PYTHON(a[0:7:1])
+    b. !PYTHON(a[0:7:2])
+    c. !PYTHON(a[0:7])
+    d. !PYTHON(a[2:7:1])
+    e. !PYTHON(a[7:2:1])
+    f. !PYTHON(a[7:2:-1])
+    g. !PYTHON(a[:7:1])
+    h. !PYTHON(a[5::1])
+    i. !PYTHON(a[:-5:-1])
+    j. !PYTHON(a[-5::-1])
+    k. !PYTHON(a[5:-1:1])
+    l. !PYTHON(a[-1:5:-1])
+
 ### Mutables
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
