@@ -3127,6 +3127,10 @@ fib1_5 -> u5
 
 !EJEMPLOS
 
+:::: columns
+
+::: column
+
 ```python
 g = 1
 uno = lambda x: 1 + dos(2 * x, 4)
@@ -3135,65 +3139,70 @@ tres = lambda w: "W vale " + str(w)
 uno(3)
 ```
 
-!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=60%)(width=60%)
+:::
+
+::: column
+
+!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=40%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
-node [shape = record]
-pila [label = "<f3>Tres|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
+newrank = true
+node [shape = record, fontname = "monospace"]
 1 [shape = circle]
+3 [shape = circle]
+11 [shape = circle]
+6 [shape = circle]
+4 [shape = circle]
 l1 [shape = circle, label = "λ"]
 l2 [shape = circle, label = "λ"]
 l3 [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    g [shape = plaintext, fillcolor = transparent, width = 0.1]
-    uno [shape = plaintext, fillcolor = transparent, width = 0.1]
-    dos [shape = plaintext, fillcolor = transparent, width = 0.1]
-    tres [shape = plaintext, fillcolor = transparent, width = 0.1]
+subgraph cluster9 {
+    label = "Pila de control"
+    bgcolor = grey95
+    subgraph cluster3 {
+        label = <Marco de <font face="monospace">tres</font>>
+        bgcolor = "white"
+        w [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster2 {
+        rank = min
+        label = <Marco de <font face="monospace">dos</font>>
+        bgcolor = "white"
+        y [shape = plaintext, fillcolor = transparent, width = 0.1]
+        z [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster1 {
+        label = <Marco de <font face="monospace">uno</font>>
+        bgcolor = "white"
+        x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster0 {
+        label = "Marco global"
+        bgcolor = "white"
+        g [shape = plaintext, fillcolor = transparent, width = 0.1]
+        uno [shape = plaintext, fillcolor = transparent, width = 0.1]
+        dos [shape = plaintext, fillcolor = transparent, width = 0.1]
+        tres [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    {rank = same; x; y; z; w; g; uno; dos; tres}
 }
 uno -> l1
 dos -> l2
 tres -> l3
 g -> 1
-3 [shape = circle]
-subgraph cluster1 {
-    label = "Marco de uno"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 x -> 3
-11 [shape = circle]
-subgraph cluster3 {
-    label = "Marco de tres"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    w [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 w -> 11
-6 [shape = circle]
-4 [shape = circle]
-subgraph cluster2 {
-    rank = min
-    label = "Marco de dos"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    y [shape = plaintext, fillcolor = transparent, width = 0.1]
-    z [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 y -> 6
 z -> 4
-pila:f0 -> dos [lhead = cluster0]
-pila:f1 -> x [lhead = cluster1]
-pila:f2 -> y [lhead = cluster2]
-pila:f3 -> w [lhead = cluster3]
-x -> tres [lhead = cluster0, ltail = cluster1, minlen = 2]
+x -> dos [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
-w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
+w -> uno [lhead = cluster0, ltail = cluster3, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
 
 ---
 
@@ -3226,58 +3235,62 @@ w -> g [lhead = cluster0, ltail = cluster3, minlen = 2]
   uno(3)
   ```
 
-!DOT(pila-control-ambitos-anidados.svg)(Pila de control con ámbitos anidados y la función `dos` activada)(width=90%)(width=60%)
+---
+
+!DOT(pila-control-ambitos-anidados.svg)(Pila de control con ámbitos anidados y la función `dos` activada)(width=30%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
+newrank = true
 node [shape = record]
-pila [label = "<f3>Lambda interior|<f2>Dos|<f1>Uno|<f0>Global", xlabel = "Pila de\ncontrol"]
+subgraph cluster9 {
+    label = "Pila de control"
+    bgcolor = grey95
+    subgraph cluster3 {
+        label = "Marco del lambda interior"
+        bgcolor = "white"
+        node [fontname = "monospace"]
+        z [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster2 {
+        rank = min
+        label = "Marco de dos"
+        bgcolor = "white"
+        node [fontname = "monospace"]
+        y [shape = plaintext, fillcolor = transparent, width = 0.1]
+        dummy [style = invis, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster1 {
+        label = "Marco de uno"
+        bgcolor = "white"
+        node [fontname = "monospace"]
+        x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster0 {
+        label = "Marco global"
+        bgcolor = "white"
+        node [fontname = "monospace"]
+        g [shape = plaintext, fillcolor = transparent, width = 0.1]
+        uno [shape = plaintext, fillcolor = transparent, width = 0.1]
+        dos [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    {rank = same; x; uno; dos; g; z; y}
+}
+3 [shape = circle]
+8 [shape = circle]
 1 [shape = circle]
+2 [shape = circle]
 l1 [shape = circle, label = "λ"]
 l2 [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    g [shape = plaintext, fillcolor = transparent, width = 0.1]
-    uno [shape = plaintext, fillcolor = transparent, width = 0.1]
-    dos [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 uno -> l1
 dos -> l2
 g -> 1
-3 [shape = circle]
-subgraph cluster1 {
-    label = "Marco de uno"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 x -> 3
-8 [shape = circle]
-subgraph cluster3 {
-    label = "Marco del lambda interior"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    z [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 z -> 8
-2 [shape = circle]
-subgraph cluster2 {
-    rank = min
-    label = "Marco de dos"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    y [shape = plaintext, fillcolor = transparent, width = 0.1]
-}
 y -> 2
-pila:f0 -> dos [lhead = cluster0]
-pila:f1 -> x [lhead = cluster1]
-pila:f2 -> y [lhead = cluster2]
-pila:f3 -> z [lhead = cluster3]
 x -> uno [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
-z -> y [lhead = cluster2, ltail = cluster3, minlen = 2]
+z -> dummy [lhead = cluster2, ltail = cluster3, minlen = 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3294,58 +3307,58 @@ fact = lambda n: 1 if n == 0 else n * fact(n - 1)
 fact(4)
 ```
 
-!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=60%)(width=60%)
+---
+
+!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=30%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
-node [shape = record]
-pila [label = "<f3>fact(2)|<f2>fact(3)|<f1>fact(4)|<f0>Global", xlabel = "Pila de\ncontrol"]
+newrank = true
+node [shape = record, fontname = "monospace"]
+subgraph cluster9 {
+    label = "Pila de control"
+    bgcolor = grey95
+    subgraph cluster1 {
+        label = <Marco de <font face="monospace">fact(4)</font>>
+        bgcolor = "white"
+        n4 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
+    }
+    subgraph cluster2 {
+        label = <Marco de <font face="monospace">fact(3)</font>>
+        bgcolor = "white"
+        n3 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
+    }
+    subgraph cluster3 {
+        label = <Marco de <font face="monospace">fact(2)</font>>
+        bgcolor = "white"
+        n2 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
+    }
+    subgraph cluster0 {
+        label = "Marco global"
+        bgcolor = "white"
+        fact [shape = plaintext, fillcolor = transparent]
+        dummy [style = invis]
+    }
+    {rank = same; n4; n3; n2; fact; dummy}
+}
 4 [shape = circle]
-subgraph cluster1 {
-    label = "Marco de fact(4)"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    n4 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
-}
-n4 -> 4
 3 [shape = circle]
-subgraph cluster2 {
-    label = "Marco de fact(3)"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    n3 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
-}
-n3 -> 3
 2 [shape = circle]
-subgraph cluster3 {
-    label = "Marco de fact(2)"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    n2 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
-}
-n2 -> 2
 lambda [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    fact [shape = plaintext, fillcolor = transparent]
-}
+n4 -> 4
+n3 -> 3
+n2 -> 2
 fact -> lambda
-pila:f0 -> fact:s [lhead = cluster0, minlen = 2]
-pila:f1 -> n4 [lhead = cluster1, minlen = 2]
-pila:f2 -> n3 [lhead = cluster2, minlen = 2]
-pila:f3 -> n2:w [lhead = cluster3, minlen = 2]
-n4 -> fact [lhead = cluster0, ltail = cluster1, minlen = 2]
-n3 -> fact [lhead = cluster0, ltail = cluster2, minlen = 2]
-n2 -> fact [lhead = cluster0, ltail = cluster3, minlen = 2]
+n4 -> fact [lhead = cluster0, ltail = cluster1]
+n3 -> dummy [lhead = cluster0, ltail = cluster2]
+n2 -> dummy [lhead = cluster0, ltail = cluster3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - Los **traductores que optimizan la recursividad final** lo que hacen es
-  sustituir cada llamada recursiva por la siguiente llamada recursiva a la
-  misma función.
+  sustituir cada llamada recursiva por la nueva llamada recursiva a la misma
+  función.
 
 - De esta forma, el marco que genera cada nueva llamada recursiva no se apila
   sobre los marcos anteriores en la pila, sino que sustituye al marco de la

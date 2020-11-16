@@ -56,8 +56,8 @@ nocite: |
 
 - Recordemos que la **evaluación de una expresión**, en esencia, es el proceso
   de **sustituir**, dentro de ella, unas *sub-expresiones* por otras que, de
-  alguna manera, estén *más cerca* del valor a calcular, y así hasta calcular
-  el valor de la expresión al completo.
+  alguna manera bien definida, estén *más cerca* del valor a calcular, y así
+  hasta calcular el valor de la expresión al completo.
 
 - Por ello, la ejecución de un programa funcional se puede modelar como un
   **sistema de reescritura** al que llamaremos **modelo de sustitución**.

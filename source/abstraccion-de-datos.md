@@ -1118,8 +1118,8 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
       return select(r, 1)
   ```
 
-- A su vez, para implementar las parejas, nos valdría cualquier implementación
-  que satisfaga la propiedad que deben cumplir las parejas.
+- Igualmente, para implementar las parejas, nos valdría cualquier
+  implementación que satisfaga la propiedad que deben cumplir las parejas.
 
 - Por ejemplo, cualquier estructura de datos o tipo compuesto que permita
   almacenar dos elementos juntos y seleccionar cada elemento por separado, como
@@ -1136,8 +1136,10 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 ---
 
 - Pero, de hecho, ni siquiera necesitamos estructuras de datos para representar
-  parejas de números. Podemos implementar dos funciones `pareja` y `select` que
-  cumplan con la propiedad anterior tan bien como una lista de dos elementos:
+  parejas de números.
+
+- Podemos implementar dos funciones `pareja` y `select` que cumplan con la
+  propiedad anterior tan bien como una lista de dos elementos:
 
   ```python
   def pareja(x, y):
@@ -1155,40 +1157,89 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
       return p(i)
   ```
 
+---
+
 - Con esta implementación, podemos crear y manipular parejas:
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: {.column width=40%}
 
   ```python
   >>> p = pareja(20, 14)
+  >>> q = pareja(5, 6)
   >>> select(p, 0)
   20
+  >>> select(q, 0)
+  5
   >>> select(p, 1)
   14
+  >>> select(q, 1)
+  6
   ```
 
-:::
+  :::
 
-::: column
+  ::: {.column width=10%}
 
-[Ver en Pythontutor](http://pythontutor.com/visualize.html#code=def%20pareja%28x,%20y%29%3A%0A%20%20%20%20%22%22%22Devuelve%20una%20funci%C3%B3n%20que%20representa%20una%20pareja.%22%22%22%0A%20%20%20%20def%20get%28indice%29%3A%0A%20%20%20%20%20%20%20%20if%20indice%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20x%0A%20%20%20%20%20%20%20%20elif%20indice%20%3D%3D%201%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20y%0A%20%20%20%20return%20get%0A%0Adef%20select%28p,%20i%29%3A%0A%20%20%20%20%22%22%22Devuelve%20el%20elemento%20situado%20en%20el%20%C3%ADndice%20i%20de%20la%20pareja%20p.%22%22%22%0A%20%20%20%20return%20p%28i%29%0A%0Ap%20%3D%20pareja%2820,%2014%29%0Aprint%28select%28p,%200%29%29%0Aprint%28select%28p,%201%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+  :::
 
-:::
+  ::: {.column width=40%}
 
-::::
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Ver en Pythontutor](http://pythontutor.com/visualize.html#code=def%20pareja%28x,%20y%29%3A%0A%20%20%20%20%22%22%22Devuelve%20una%20funci%C3%B3n%20que%20representa%20una%20pareja.%22%22%22%0A%20%20%20%20def%20get%28indice%29%3A%0A%20%20%20%20%20%20%20%20if%20indice%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20x%0A%20%20%20%20%20%20%20%20elif%20indice%20%3D%3D%201%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20y%0A%20%20%20%20return%20get%0A%0Adef%20select%28p,%20i%29%3A%0A%20%20%20%20%22%22%22Devuelve%20el%20elemento%20situado%20en%20el%20%C3%ADndice%20i%20de%20la%20pareja%20p.%22%22%22%0A%20%20%20%20return%20p%28i%29%0A%0Ap%20%3D%20pareja%2820,%2014%29%0Aq%20%3D%20pareja%285,%206%29%0Aprint%28select%28p,%200%29%29%0Aprint%28select%28q,%200%29%29%0Aprint%28select%28p,%201%29%29%0Aprint%28select%28q,%201%29%29&cumulative=false&heapPrimitives=nevernest&mode=edit&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  :::
+
+  ::::
 
 ---
 
-- Las variables `x` e `y` son los parámetros de la función `pareja`, es decir,
-  que son locales a ella. Por tanto, las ligaduras entre sus identificadores y
-  las variables que contienen su valores se almacenan en el marco de `pareja`.
+- Cuando se llama a la función `pareja`, ésta devuelve otra función llamada
+  `get` (por tanto, `pareja` es una función de orden superior).
 
-- La función `get` puede acceder a `x` e `y` ya que se encuentran en su
-  entorno.
+- Además, `get` es una función local a la función `pareja`, ya que está
+  definida en el ámbito de `pareja`.
 
-!DOT(entorno-pareja-get.svg)(Entorno dentro de la función `get` al llamar a `select(p, 0)`)(width=70%)(width=75%)
+- Las variables `x` e `y` son los parámetros de la función `pareja`, así que
+  son locales a ella y, por tanto, sus ligaduras y referencias se almacenan en
+  su marco.
+
+- Pero la función `get` puede que necesite acceder al valor de esas variables,
+  ya que se encuentran en el entorno de `get` (son locales a `pareja` y no
+  locales a `get`).
+
+- El ámbito de `get` está contenido en el ámbito de `pareja`, por lo que el
+  marco de `get` apunta al de `pareja`.
+
+- En consecuencia, la función `get` puede acceder a `x` e `y` ya que se
+  encuentran en su entorno.
+
+---
+
+- Al llamar a `select(p, i)` se llama luego a `p(i)`, que en realidad
+  representa a la función `get`, así que es lo mismo que hacer `get(i)`.
+
+- Lo mismo pasa al llamar a `select(q, i)`: se llama a `q(i)` que, en realidad,
+  es lo mismo que hacer `get(i)`.
+
+- Lo interesante es que `p` y `q` son referencias a la misma función `get`,
+  pero cada una de ellas recuerda el valor que tenían las variables no locales
+  cuando se crearon.
+
+- Es decir: `p` y `q` son funciones que recuerdan el contexto en el que fueron
+  creadas.
+
+- Por tanto, `p` es la función `get` pero con `x` valiendo !PYTHON(20), y `q`
+  también es `get` pero con `x` valiendo !PYTHON(5).
+
+- Así que `p` y `q` no son exactamente la misma cosa.
+
+---
+
+!DOT(entorno-pareja-get.svg)(Entorno dentro de la función `get` al llamar a `select(p, 0)`)(width=80%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1233,31 +1284,63 @@ E -> i [lhead = cluster1]
 
 ---
 
-- Lo interesante es que **el marco de la función `pareja` no se elimina de la
-  memoria al salir de la función** con `return get`, ya que la función `get`
-  necesita seguir accediendo a valores (las variables `x` e `y`) cuyas
-  ligaduras se almacenan en el marco de `pareja` y no en el suyo (el de `get`).
+- Para que `p` y `q` puedan seguir accediendo a las variables `x` e `y` (que
+  son locales a `pareja`), es necesario que el marco de `pareja` no se elimine
+  de la memoria cuando finalice su ejecución.
 
-- Es decir: el intérprete conserva el entorno que la función `get` necesita
-  para poder funcionar, empezando por el marco del ámbito donde se definió la
-  función e incluyendo sus variables no locales, como es el caso aquí de de los
-  parámetros `x` e `y` de la función `pareja`.
+- El entorno restringido de una función está formado por todos los marcos del
+  entorno de la función excepto el marco de la propia función y el marco
+  global.
 
-- La combinación de una función más la parte del entorno que es necesario
-  conservar para su ejecución se denomina **clausura**, y se representa
-  gráficamente como una flecha que va desde la función hasta el marco del
-  ámbito donde se definió la función.
+<!--
 
-!CAJACENTRADA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Clausura = función + entorno
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Es decir: el intérprete debe conservar el entorno que la función `get`
+  necesita para poder funcionar.
+
+-->
+
+- Por tanto, los entornos restringidos de `p` y `q` empiezan por el marco de `pareja`, ya
+  que `p` y `q` son locales a `pareja`.
+
+- La combinación de una función más su entorno restringido se denomina **clausura**.
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Clausura = función + entorno
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Las clausuras las representaremos gráficamente como una función de la que
+  sale una flecha que va hasta el marco del ámbito donde se definió la función.
 
 ---
 
-- Aquí la clausura es la función que está guardada en `p`, más el entorno que
-  empieza en el marco de `pareja` (ya que `p` se definió en el ámbito de
-  `pareja`):
+- Después de hacer:
+
+  ```python
+  p = pareja(20, 14)
+  ```
+
+  tenemos que `p` contiene una clausura.
+
+- Esa clausura es la función que hay en `p`, más el entorno que empieza en el
+  marco de `pareja` (ya que la función que hay en `p` se definió en el ámbito
+  de la función `pareja`), el cual recuerda los valores que tenían las
+  variables `x` e `y` cuando se creó la clausura.
+
+- Ahora mismo, el marco de la función `pareja` no puede estar en la pila de
+  control, ya que esa función no tiene ninguna llamada activa en este momento.
+
+- Pero la clausura `p` necesita ese marco para poder funcionar.
+
+- Por tanto, para no perder ese marco, el intérprete lo saca de la pila y lo
+  guarda en el montículo como si fuera un dato más.
+
+- Ahora la clausura hace referencia al marco dentro del montículo.
+
+- El marco seguirá existiendo en el montículo mientras haya una referencia que
+  apunte a él, como cualquier otro dato.
+
+---
 
 :::: columns
 
@@ -1306,9 +1389,6 @@ f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 :::
 
 ::: {.column width=40%}
-
-- En la pila de control no está el registro de activación de la función
-  `pareja`, ya que no está activa en este momento.
 
 - El !COLOR(red)(círculo rojo) representa la clausura.
 

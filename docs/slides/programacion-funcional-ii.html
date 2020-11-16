@@ -2132,15 +2132,20 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
+<div class="columns">
+<div class="column">
 <div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>uno <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">1</span> <span class="op">+</span> dos(<span class="dv">2</span> <span class="op">*</span> x, <span class="dv">4</span>)</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>dos <span class="op">=</span> <span class="kw">lambda</span> y, z: tres(y <span class="op">+</span> z <span class="op">+</span> g)</span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>tres <span class="op">=</span> <span class="kw">lambda</span> w: <span class="st">&quot;W vale &quot;</span> <span class="op">+</span> <span class="bu">str</span>(w)</span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>uno(<span class="dv">3</span>)</span></code></pre></div>
+</div><div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/pila-control.svg" class="plain" style="width:60.0%" alt="Pila de control con la llamada a la función tres activada" /><figcaption aria-hidden="true">Pila de control con la llamada a la función <code>tres</code> activada</figcaption>
+<img data-src="images/pila-control.svg" class="plain" style="width:40.0%" alt="Pila de control con la llamada a la función tres activada" /><figcaption aria-hidden="true">Pila de control con la llamada a la función <code>tres</code> activada</figcaption>
 </figure>
+</div>
+</div>
 </div>
 </section>
 <section class="slide level5" data-number="5.4.0.0.2">
@@ -2164,13 +2169,16 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>dos <span class="op">=</span> <span class="kw">lambda</span> y: <span class="dv">1</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">*</span> <span class="dv">2</span>)(y <span class="op">**</span> <span class="dv">3</span>)</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>uno(<span class="dv">3</span>)</span></code></pre></div></li>
 </ul>
+</section>
+<section class="slide level5" data-number="5.4.0.0.4">
+
 <div class="centered">
 <figure>
-<img data-src="images/pila-control-ambitos-anidados.svg" class="plain" style="width:90.0%" alt="Pila de control con ámbitos anidados y la función dos activada" /><figcaption aria-hidden="true">Pila de control con ámbitos anidados y la función <code>dos</code> activada</figcaption>
+<img data-src="images/pila-control-ambitos-anidados.svg" class="plain" style="width:30.0%" alt="Pila de control con ámbitos anidados y la función dos activada" /><figcaption aria-hidden="true">Pila de control con ámbitos anidados y la función <code>dos</code> activada</figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.4.0.0.4">
+<section class="slide level5" data-number="5.4.0.0.5">
 
 <ul>
 <li><p>Hemos dicho que habrá un registro de activación por cada nueva llamada que se realice a una función, y que ese registro se mantendrá en la pila hasta que la llamada finalice.</p></li>
@@ -2178,16 +2186,19 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 </ul>
 <div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> fact(n <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>fact(<span class="dv">4</span>)</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="5.4.0.0.6">
+
 <div class="centered">
 <figure>
-<img data-src="images/pila-control-factorial.svg" class="plain" style="width:60.0%" alt="Pila de control tras tres activaciones desde fact(4)" /><figcaption aria-hidden="true">Pila de control tras tres activaciones desde <code>fact(4)</code></figcaption>
+<img data-src="images/pila-control-factorial.svg" class="plain" style="width:30.0%" alt="Pila de control tras tres activaciones desde fact(4)" /><figcaption aria-hidden="true">Pila de control tras tres activaciones desde <code>fact(4)</code></figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.4.0.0.5">
+<section class="slide level5" data-number="5.4.0.0.7">
 
 <ul>
-<li><p>Los <strong>traductores que optimizan la recursividad final</strong> lo que hacen es sustituir cada llamada recursiva por la siguiente llamada recursiva a la misma función.</p></li>
+<li><p>Los <strong>traductores que optimizan la recursividad final</strong> lo que hacen es sustituir cada llamada recursiva por la nueva llamada recursiva a la misma función.</p></li>
 <li><p>De esta forma, el marco que genera cada nueva llamada recursiva no se apila sobre los marcos anteriores en la pila, sino que sustituye al marco de la llamada que la ha llamado a ella.</p></li>
 <li><p>Por ejemplo, en el siguiente caso:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
@@ -2204,7 +2215,7 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">120</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.6">
+<section class="slide level5" data-number="5.4.0.0.8">
 
 <ul>
 <li><p><code class="sourceCode python">fact_iter(<span class="dv">4</span>, <span class="dv">5</span>)</code> llama a <code class="sourceCode python">fact_iter(<span class="dv">3</span>, <span class="dv">20</span>)</code> y devuelve directamente el resultado de ésta.</p></li>
