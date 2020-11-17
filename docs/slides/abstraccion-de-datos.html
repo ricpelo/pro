@@ -1075,8 +1075,8 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <h1 data-number="5"><span class="header-section-number">5</span> Las funciones como datos</h1>
 
 </section>
-<section id="representación-funcional" class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span> Representación funcional</h2>
+<section id="clausuras" class="title-slide slide level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Clausuras</h2>
 <ul>
 <li><p>Anteriormente, hemos dicho que los datos se caracterizan por las <strong>operaciones</strong> (constructoras y selectoras) con las que se manipulan y por las <strong>propiedades</strong> que cumplen dichas operaciones, de manera que <strong>podemos cambiar los detalles de implementación</strong> bajo una barrera de abstracción siempre y cuando no cambiemos su comportamiento.</p></li>
 <li><p>Por tanto, bajo esa barrera de abstracción podemos usar cualquier implementación siempre y cuando logren que las operaciones que definen dicha barrera satisfagan las propiedades que deben cumplir.</p></li>
@@ -1126,24 +1126,14 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> select(p, i):</span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="5.1.0.0.3">
-
-<ul>
 <li><p>Con esta implementación, podemos crear y manipular parejas:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> q <span class="op">=</span> pareja(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(q, <span class="dv">0</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(q, <span class="dv">1</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span></span></code></pre></div>
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:40%;">
@@ -1154,7 +1144,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.4">
+<section class="slide level5" data-number="5.1.0.0.3">
 
 <ul>
 <li><p>Cuando se llama a la función <code>pareja</code>, ésta devuelve otra función llamada <code>get</code> (por tanto, <code>pareja</code> es una función de orden superior).</p></li>
@@ -1166,63 +1156,57 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>En consecuencia, la función <code>get</code> puede acceder a <code>x</code> e <code>y</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.5">
-
-<ul>
-<li><p>Al llamar a <code>select(p, i)</code> se llama luego a <code>p(i)</code>, pero como <code>p</code> representa a la función <code>get</code>, realmente se llama a <code>get(i)</code>.</p></li>
-<li><p>Lo mismo pasa al llamar a <code>select(q, i)</code>: se llama a <code>q(i)</code> pero, como <code>q</code> también representa a <code>get</code>, realmente se llama a <code>get(i)</code>.</p></li>
-<li><p>Lo interesante es que <code>p</code> y <code>q</code> son referencias a la misma función <code>get</code>, pero cada una de ellas recuerda el valor que tenían las variables no locales (la <code>x</code> y la <code>y</code> de <code>pareja</code>) cuando se crearon <code>p</code> y <code>q</code>.</p></li>
-<li><p>Es decir: <code>p</code> y <code>q</code> son funciones que recuerdan el contexto en el que fueron creadas.</p></li>
-<li><p>Por tanto:</p>
-<ul>
-<li><p><code>p</code> es la función <code>get</code> pero, para ella, <code>x</code> vale <code class="sourceCode python"><span class="dv">20</span></code> e <code>y</code> vale <code class="sourceCode python"><span class="dv">14</span></code>.</p></li>
-<li><p><code>q</code> es la función <code>get</code> pero, para ella, <code>x</code> vale <code class="sourceCode python"><span class="dv">5</span></code> e <code>y</code> vale <code class="sourceCode python"><span class="dv">6</span></code>.</p></li>
-</ul></li>
-<li><p>Así que <code>p</code> y <code>q</code> no son exactamente la misma cosa.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="5.1.0.0.6">
+<section class="slide level5" data-number="5.1.0.0.4">
 
 <div class="centered">
 <figure>
 <img data-src="images/entorno-pareja-get.svg" class="plain" style="width:80.0%" alt="Entorno dentro de la función get al llamar a select(p, 0)" /><figcaption aria-hidden="true">Entorno dentro de la función <code>get</code> al llamar a <code>select(p, 0)</code></figcaption>
 </figure>
 </div>
+<ul>
+<li><p>El problema es que, cuando se va a ejecutar <code>get</code> a través de la llamada a <code class="sourceCode python">select(p, <span class="dv">0</span>)</code>, el marco de <code>pareja</code> no estaría en la pila, ya que no hay ninguna llamada activa a la función <code>pareja</code>.</p></li>
+<li><p>Y para que <code>get</code> pueda seguir accediendo a las variables <code>x</code> e <code>y</code> (que son locales a <code>pareja</code>), es necesario que el marco de <code>pareja</code> no se elimine de la memoria cuando finalice la ejecución de <code>pareja</code>.</p></li>
+<li><p>Necesitamos un nuevo mecanismo que permita resolver este problema.</p></li>
+</ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.7">
+<section class="slide level5" data-number="5.1.0.0.5">
 
 <ul>
-<li><p>Para que <code>p</code> y <code>q</code> puedan seguir accediendo a las variables <code>x</code> e <code>y</code> (que son locales a <code>pareja</code>), es necesario que el marco de <code>pareja</code> no se elimine de la memoria cuando finalice la ejecución de <code>pareja</code>.</p></li>
 <li><p>El <strong>entorno restringido</strong> de una función está formado por todos los marcos del entorno que afecta durante la ejecución de la función, <strong><em>excepto</em> el marco de la propia función y el marco global</strong>.</p></li>
-<li><p>Por tanto, los entornos restringidos de <code>p</code> y <code>q</code> empiezan en el marco de <code>pareja</code>, ya que <code>p</code> y <code>q</code> son locales a <code>pareja</code>.</p></li>
-<li><p>El entorno restringido es el entorno que las funciones <code>p</code> y <code>q</code> necesitan recordar para poder funcionar.</p></li>
+<li><p>Por tanto, el entorno restringido de <code>get</code> empieza en el marco de <code>pareja</code>, ya que <code>get</code> es local a <code>pareja</code>.</p></li>
+<li><p>El entorno restringido de <code>get</code> es el entorno que la función <code>get</code> necesita recordar para poder funcionar.</p></li>
 <li><p>La combinación de una función más su entorno restringido se denomina <strong>clausura</strong>.</p>
 <div class="caja centered">
 <p>Clausura = función + entorno restringido</p>
 </div></li>
-<li><p>Una clausura, por tanto, agrupa una función con la información que se necesita conservar para que la función funcione.</p></li>
+<li><p>Una clausura, por tanto, agrupa una función con la información que se necesita recordar para que la función funcione.</p></li>
+<li><p>El motivo de no incluir el propio marco y el marco global, es que el propio marco se crea cuando se llama a la función, y el marco global está siempre disponible, así que no es necesario recordarlos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.8">
+<section class="slide level5" data-number="5.1.0.0.6">
 
 <ul>
 <li><p>Después de hacer:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span></code></pre></div>
 <p>tenemos que <code>p</code> contiene una clausura.</p></li>
-<li><p>Esa clausura es la función que hay en <code>p</code>, más el entorno restringido que empieza en el marco de <code>pareja</code> (ya que la función que hay en <code>p</code> se definió en el ámbito de la función <code>pareja</code>), el cual recuerda los valores que tenían las variables <code>x</code> e <code>y</code> de <code>pareja</code> cuando se creó la clausura.</p></li>
+<li><p>Esa clausura esta formada por:</p>
+<ul>
+<li><p>La <strong>función</strong> que hay en <code>p</code>, que es la función <code>get</code>.</p></li>
+<li><p>El <strong>entorno restringido</strong> de <code>p</code>, que empieza en el marco de <code>pareja</code> (ya que la función <code>get</code> se definió en el ámbito de la función <code>pareja</code>), el cual recuerda los valores que tenían las variables locales de <code>pareja</code> cuando se creó la clausura.</p></li>
+</ul></li>
 <li><p>Pero ahora, el marco de <code>pareja</code> no puede estar en la pila de control, ya que esa función no tiene ninguna llamada activa en este momento.</p></li>
 <li><p>El problema es que la clausura <code>p</code> necesita ese marco para poder funcionar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.9">
+<section class="slide level5" data-number="5.1.0.0.7">
 
 <ul>
-<li><p>Lo que hace el intérprete para no perder el marco de <code>pareja</code> es que, cuando <code>pareja</code> termina su ejecución, saca su marco de la pila pero no lo destruye, sino que lo guarda en el montículo como si fuera un dato más.</p></li>
+<li><p>Para no perder el marco de la función <code>pareja</code> cuando termina de ejecutarse ésta, el intérprete saca su marco de la pila pero no lo destruye, sino que <strong>lo guarda en el montículo</strong> como si fuera un dato más.</p></li>
 <li><p>Ahora la clausura hace referencia al marco dentro del montículo, es decir, que la clausura guarda una referencia al marco, que ahora es un dato más dentro del montículo.</p></li>
 <li><p>El marco seguirá existiendo en el montículo mientras haya una referencia que apunte a él, como cualquier otro dato.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.10">
+<section class="slide level5" data-number="5.1.0.0.8">
 
 <ul>
 <li>Las clausuras las representaremos gráficamente como una función de la que sale una flecha que va hasta el marco del ámbito donde se definió la función (el primer marco de su entorno restringido).</li>
@@ -1237,10 +1221,10 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>El marco de <code>pareja</code> apunta a su vez al marco global (aunque éste no forme parte del entorno restringido) para así marcar que <code>pareja</code> es el último marco del entorno restringido.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.11">
+<section class="slide level5" data-number="5.1.0.0.9">
 
 <ul>
-<li><p>Por tanto, la clausura almacenada en <code>p</code> contiene la función y la parte del entorno que es necesario conservar para poder ejecutar la función.</p></li>
+<li><p>Por tanto, la clausura almacenada en <code>p</code> contiene la función y la parte del entorno que es necesario recordar para poder ejecutar la función.</p></li>
 <li><p>Aquí, la clausura apunta al marco de <code>pareja</code>, ya que es local a <code>pareja</code> y necesita acceder a los datos definidos en el ámbito de <code>pareja</code>.</p></li>
 <li><p>Cuando se llame a la función <code>p</code> se creará su marco en la pila, el cual apuntará al marco de <code>pareja</code> ya que es el marco a donde apunta el entorno restringido de la clausura.</p></li>
 <li><p>El marco de <code>pareja</code>, a su vez, apuntará al global.</p></li>
@@ -1248,7 +1232,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Naturalmente, el marco de <code>p</code> permanecerá en la pila mientras esté activa la llamada a <code>p</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.12">
+<section class="slide level5" data-number="5.1.0.0.10">
 
 <ul>
 <li><p>Por ejemplo, si hacemos:</p>
@@ -1262,10 +1246,10 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.13">
+<section class="slide level5" data-number="5.1.0.0.11">
 
 <ul>
-<li><p>Y si tenemos dos clausuras <code>p</code> y <code>q</code> creadas de la siguiente manera:</p>
+<li><p>Si tenemos dos clausuras <code>p</code> y <code>q</code> creadas de la siguiente manera:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> pareja(<span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
 <p>en memoria tendremos lo siguiente:</p></li>
@@ -1276,8 +1260,24 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.14">
+<section class="slide level5" data-number="5.1.0.0.12">
 
+<ul>
+<li><p>Al llamar a <code>select(p, i)</code> se llama luego a <code>p(i)</code>, pero como <code>p</code> representa a la función <code>get</code>, realmente se llama a <code>get(i)</code>.</p></li>
+<li><p>Lo mismo pasa al llamar a <code>select(q, i)</code>: se llama a <code>q(i)</code> pero, como <code>q</code> también representa a <code>get</code>, realmente se llama a <code>get(i)</code>.</p></li>
+<li><p>Lo interesante es que <code>p</code> y <code>q</code> son referencias a la misma función <code>get</code>, pero cada una de ellas recuerda el valor que tenían las variables no locales (la <code>x</code> y la <code>y</code> de <code>pareja</code>) cuando se crearon <code>p</code> y <code>q</code>.</p></li>
+<li><p>Es decir: <code>p</code> y <code>q</code> son funciones que recuerdan el contexto en el que fueron creadas.</p></li>
+<li><p>Por tanto:</p>
+<ul>
+<li><p><code>p</code> es la función <code>get</code> pero, para ella, <code>x</code> vale <code class="sourceCode python"><span class="dv">20</span></code> e <code>y</code> vale <code class="sourceCode python"><span class="dv">14</span></code>.</p></li>
+<li><p><code>q</code> es la función <code>get</code> pero, para ella, <code>x</code> vale <code class="sourceCode python"><span class="dv">5</span></code> e <code>y</code> vale <code class="sourceCode python"><span class="dv">6</span></code>.</p></li>
+</ul></li>
+<li><p>Así que <code>p</code> y <code>q</code> no son exactamente la misma cosa.</p></li>
+</ul>
+</section>
+
+<section id="representación-funcional" class="title-slide slide level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Representación funcional</h2>
 <ul>
 <li><p>Las funciones <code>pareja</code> y <code>select</code>, así definidas, son <strong>funciones de orden superior</strong>: la primera porque devuelve una función y la segunda porque recibe una función como argumento.</p></li>
 <li><p>La función <code>get</code> (la función que devuelve <code>pareja</code> y que recibe <code>select</code>) <strong>representa una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
@@ -1288,7 +1288,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <p>En nuestro caso, estas funciones son suficientes para representar parejas en nuestros programas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.15">
+<section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
 <li><p>Esto no quiere decir que Python realmente implemente las listas mediante funciones. En realidad las implementa de otra forma por razones de eficiencia, pero podría implementarlas con funciones sin ningún problema.</p></li>
@@ -1298,8 +1298,8 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </ul>
 </section>
 
-<section id="estado-interno" class="title-slide slide level2" data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span> Estado interno</h2>
+<section id="estado-interno" class="title-slide slide level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> Estado interno</h2>
 <ul>
 <li><p>Ciertos datos pueden tener un <strong>estado interno</strong> consistente en información que el dato almacena (o <em>recuerda</em>) y que puede cambiar durante la ejecución del programa.</p></li>
 <li><p>Por ejemplo:</p>
@@ -1311,7 +1311,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Por tanto, la palabra «estado» implica un proceso evolutivo en el tiempo, durante el cual ese estado puede ir cambiando.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.1">
+<section class="slide level5" data-number="5.3.0.0.1">
 
 <ul>
 <li><p>Al introducir el concepto de «estado interno» en nuestros datos, estamos introduciendo también la capacidad de cambiar dicho estado, es decir, que <strong>los datos ahora son mutables</strong>, y la <em>mutabilidad</em> es un concepto propio de la <strong>programación imperativa</strong>.</p></li>
@@ -1319,7 +1319,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Y, por supuesto, nos va a <strong>impedir usar el modelo de sustitución</strong> para razonar sobre nuestros datos, por lo que tendremos que usar el modelo de <strong>máquina de estados</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.2">
+<section class="slide level5" data-number="5.3.0.0.2">
 
 <ul>
 <li><p>A cambio, ganaremos dos cosas:</p>
@@ -1330,7 +1330,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Para ello, aprovecharemos una característica aún no explorada hasta ahora: <strong>las funciones también pueden tener estado interno</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.3">
+<section class="slide level5" data-number="5.3.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, definamos una función que simule el proceso de retirar dinero de una cuenta bancaria.</p></li>
@@ -1346,7 +1346,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.4">
+<section class="slide level5" data-number="5.3.0.0.4">
 
 <ul>
 <li><p>La expresión <code>retirar(25)</code>, evaluada dos veces, produce valores diferentes.</p></li>
@@ -1355,7 +1355,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Este efecto lateral es el resultado de retirar dinero de los fondos disponibles <strong>provocando un cambio en el estado de una variable</strong> que almacena dichos fondos y que se encuentra <strong>fuera del marco actual</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.5">
+<section class="slide level5" data-number="5.3.0.0.5">
 
 <ul>
 <li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
@@ -1375,8 +1375,8 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 </ul>
 </section>
 
-<section id="paso-de-mensajes" class="title-slide slide level2" data-number="5.3">
-<h2 data-number="5.3"><span class="header-section-number">5.3</span> Paso de mensajes</h2>
+<section id="paso-de-mensajes" class="title-slide slide level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> Paso de mensajes</h2>
 <ul>
 <li><p>Al poder asignar valores a una variable no local, hemos podido conservar un estado que es interno para una función pero que evoluciona y cambia con el tiempo a través de llamadas sucesivas a esa función.</p></li>
 <li><p>Supongamos que queremos ampliar la idea anterior definiendo más operaciones sobre los fondos de la cuenta corriente.</p></li>
@@ -1384,7 +1384,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>En ese caso, podemos usar una técnica que consiste en usar una función que <strong>despacha</strong> las operaciones en función del <em>mensaje</em> recibido.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.3.0.0.1">
+<section class="slide level5" data-number="5.4.0.0.1">
 
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
@@ -1414,7 +1414,7 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="5.3.0.0.2">
+<section class="slide level5" data-number="5.4.0.0.2">
 
 <!--
 ```python
@@ -1452,7 +1452,7 @@ def saldo(dep):
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.3.0.0.3">
+<section class="slide level5" data-number="5.4.0.0.3">
 
 <ul>
 <li>Una variante de esta técnica es la de usar un diccionario para asociar a cada mensaje con cada operación:</li>
@@ -1483,7 +1483,7 @@ def saldo(dep):
 <span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="5.3.0.0.4">
+<section class="slide level5" data-number="5.4.0.0.4">
 
 <ul>
 <li><p>Se denomina <strong>paso de mensajes</strong> a este estilo de programación que consiste en agrupar, dentro de una función que responde a diferentes mensajes, las operaciones que actúan sobre un dato.</p></li>
@@ -1495,15 +1495,15 @@ def saldo(dep):
 </ul>
 </section>
 
-<section id="especificación-de-datos-abstractos-con-estado-interno" class="title-slide slide level2" data-number="5.4">
-<h2 data-number="5.4"><span class="header-section-number">5.4</span> Especificación de datos abstractos con estado interno</h2>
+<section id="especificación-de-datos-abstractos-con-estado-interno" class="title-slide slide level2" data-number="5.5">
+<h2 data-number="5.5"><span class="header-section-number">5.5</span> Especificación de datos abstractos con estado interno</h2>
 <ul>
 <li><p>Ya hemos dicho que las especificaciones algebraicas no nos sirven para especificar un tipo abstracto que contenga estado interno y mutabilidad, porque las operaciones ya no conservan la transparencia referencial y sus propiedades ya no siempre se pueden describir con ecuaciones.</p></li>
 <li><p>Lo que sí se puede hacer es usar el lenguaje natural para describir dichas propiedades.</p></li>
 <li><p>El resultado es mucho menos elegante y formal, además de que favorece la aparición de ambigüedades en la interpretación, pero es lo mejor que podemos hacer, en general.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.1">
+<section class="slide level5" data-number="5.5.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, la especificación del tipo <strong>Depósito</strong> podría expresarse así si no hubiera mutabilidad ni estado interno:</p>
@@ -1523,7 +1523,7 @@ def saldo(dep):
 <li><p><code>saldo</code> es una operación selectora.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.2">
+<section class="slide level5" data-number="5.5.0.0.2">
 
 <ul>
 <li><p>Si el dato abstracto es mutable y recuerda su estado interno, las operaciones modificadoras ya no producen un nuevo dato <strong>Depósito</strong> a partir de otro, sino que cambian el estado interno del dato existente.</p></li>
@@ -1545,7 +1545,7 @@ def saldo(dep):
           <code>saldo</code>(<span class="math inline">d</span>) <span class="math inline">&lt;</span> <span class="math inline">c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>) <span class="math inline">\doteq</span> <span class="math inline">error</span><br />
           <code>ingresar</code>(<span class="math inline">d</span>, <span class="math inline">c</span>)   { Aumenta en <span class="math inline">c</span> unidades los fondos del depósito <span class="math inline">d</span> }</div>
 </section>
-<section class="slide level5" data-number="5.4.0.0.3">
+<section class="slide level5" data-number="5.5.0.0.3">
 
 <ul>
 <li><p>Los <em>efectos</em> que produce una operación se indican entre llaves { } al lado de la operación correspondiente.</p>
@@ -1555,7 +1555,7 @@ def saldo(dep):
 <li><p>Por tanto, una vez ejecutada cualquiera de esas operaciones, se habrá cambiado el estado interno del dato abstracto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.4">
+<section class="slide level5" data-number="5.5.0.0.4">
 
 <ul>
 <li><p>Otra opción es que las operaciones modificadoras devolvieran un valor además de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que queda en el depósito tras ingresar o retirar efectivo).</p></li>

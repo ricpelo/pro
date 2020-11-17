@@ -2109,25 +2109,29 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <section id="la-pila-de-control" class="title-slide slide level2" data-number="5.4">
 <h2 data-number="5.4"><span class="header-section-number">5.4</span> La pila de control</h2>
 <ul>
-<li><p>La <strong>pila de control</strong> es una estructura de datos que utiliza el intérprete para llevar la cuenta de las <strong>llamadas <em>activas</em></strong> en un determinado momento, incluyendo el valor de sus parámetros y el punto de retorno al que debe devolverse el control cuando finalice la ejecución de la función.</p>
+<li><p>La <strong>pila de control</strong> es una estructura de datos que utiliza el intérprete para llevar la cuenta de las <strong>llamadas <em>activas</em></strong> en un determinado momento.</p>
 <ul>
 <li>Las <strong>llamadas activas</strong> son aquellas llamadas a funciones que aún no han terminado de ejecutarse.</li>
 </ul></li>
 <li><p>La pila de control es, básicamente, un <strong>almacén de marcos</strong>.</p></li>
 <li><p>Cada vez que se hace una nueva llamada a una función, <strong>su marco</strong> correspondiente <strong>se almacena en la cima de la pila</strong> sobre los demás marcos que pudiera haber.</p></li>
-<li><p>Ese marco es el primero de la secuencia de marcos que forman el entorno de la función, que estarán almacenados más abajo en la pila.</p></li>
+<li><p>Ese marco es el primero de la secuencia de marcos que forman el entorno de la función, que también estarán almacenados en la pila, más abajo.</p></li>
 <li><p>Los marcos se enlazan entre sí para representar los entornos que actúan en las distintas llamadas activas.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.4.0.0.1">
 
 <ul>
-<li><p>El intérprete puede, además, almacenar ahí cualquier otra información que necesite para gestionar las llamadas a funciones.</p></li>
-<li><p>El marco de la función, junto con toda esa información adicional, se denomina <strong>registro de activación</strong>.</p></li>
-<li><p>Por tanto, <strong>la pila de control almacena registros de activación</strong>.</p></li>
-<li><p>Cada llamada activa está representada por su correspondiente registro de activación en la pila, y cada registro de activación va asociado a un marco.</p></li>
-<li><p>En cuanto la llamada finaliza, su registro de activación se saca de la pila y se transfiere el control a la llamada que está inmediatamente debajo (si es que hay alguna).</p></li>
-<li><p>Cuando desaparece un registro de activación, también se elimina de la memoria su marco asociado (hay una excepción a esto, que veremos en posteriores temas cuando hablemos de las <em>clausuras</em>).</p></li>
+<li><p>El intérprete almacena en el marco cualquier información que necesite para gestionar las llamadas a funciones, incluyendo:</p>
+<ul>
+<li><p>El valor de sus parámetros (por supuesto).</p></li>
+<li><p>El valor de retorno de la función.</p></li>
+<li><p>Cuál es el siguiente marco que le sigue en el entorno.</p></li>
+<li><p>El punto de retorno al que debe devolverse el control cuando finalice la ejecución de la función.</p></li>
+</ul></li>
+<li><p>Un marco almacenado en la pila también se denomina <strong>registro de activación</strong>. Por tanto, también podemos decir que la pila de control almacena registros de activación.</p></li>
+<li><p>Cada llamada activa está representada por su correspondiente marco en la pila.</p></li>
+<li><p>En cuanto la llamada finaliza, su marco se saca de la pila y se transfiere el control a la llamada que está inmediatamente debajo (si es que hay alguna).</p></li>
 </ul>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
@@ -2181,8 +2185,8 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 <section class="slide level5" data-number="5.4.0.0.5">
 
 <ul>
-<li><p>Hemos dicho que habrá un registro de activación por cada nueva llamada que se realice a una función, y que ese registro se mantendrá en la pila hasta que la llamada finalice.</p></li>
-<li><p>Por tanto, en el caso de una función recursiva, tendremos un registro de activación por cada llamada recursiva.</p></li>
+<li><p>Hemos dicho que habrá un marco por cada nueva llamada que se realice a una función, y que ese marco se mantendrá en la pila hasta que la llamada finalice.</p></li>
+<li><p>Por tanto, en el caso de una función recursiva, tendremos un marco por cada llamada recursiva.</p></li>
 </ul>
 <div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> fact(n <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>fact(<span class="dv">4</span>)</span></code></pre></div>

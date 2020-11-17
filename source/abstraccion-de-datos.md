@@ -1078,7 +1078,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 # Las funciones como datos
 
-## Representación funcional
+## Clausuras
 
 - Anteriormente, hemos dicho que los datos se caracterizan por las
   **operaciones** (constructoras y selectoras) con las que se manipulan y por
@@ -1157,8 +1157,6 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
       return p(i)
   ```
 
----
-
 - Con esta implementación, podemos crear y manipular parejas:
 
   :::: columns
@@ -1167,15 +1165,10 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
   ```python
   >>> p = pareja(20, 14)
-  >>> q = pareja(5, 6)
   >>> select(p, 0)
   20
-  >>> select(q, 0)
-  5
   >>> select(p, 1)
   14
-  >>> select(q, 1)
-  6
   ```
 
   :::
@@ -1215,29 +1208,6 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   al de `pareja` en el entorno.
 
 - En consecuencia, la función `get` puede acceder a `x` e `y`.
-
----
-
-- Al llamar a `select(p, i)` se llama luego a `p(i)`, pero como `p`
-  representa a la función `get`, realmente se llama a `get(i)`.
-
-- Lo mismo pasa al llamar a `select(q, i)`: se llama a `q(i)` pero, como `q`
-  también representa a `get`, realmente se llama a `get(i)`.
-
-- Lo interesante es que `p` y `q` son referencias a la misma función `get`,
-  pero cada una de ellas recuerda el valor que tenían las variables no locales
-  (la `x` y la `y` de `pareja`) cuando se crearon `p` y `q`.
-
-- Es decir: `p` y `q` son funciones que recuerdan el contexto en el que fueron
-  creadas.
-
-- Por tanto:
-
-  - `p` es la función `get` pero, para ella, `x` vale !PYTHON(20) e `y` vale !PYTHON(14).
-
-  - `q` es la función `get` pero, para ella, `x` vale !PYTHON(5) e `y` vale !PYTHON(6).
-
-- Así que `p` y `q` no son exactamente la misma cosa.
 
 ---
 
@@ -1284,20 +1254,26 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> i [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
+- El problema es que, cuando se va a ejecutar `get` a través de la llamada a
+  !PYTHON(select(p, 0)), el marco de `pareja` no estaría en la pila, ya que no
+  hay ninguna llamada activa a la función `pareja`.
 
-- Para que `p` y `q` puedan seguir accediendo a las variables `x` e `y` (que
-  son locales a `pareja`), es necesario que el marco de `pareja` no se elimine
-  de la memoria cuando finalice la ejecución de `pareja`.
+- Y para que `get` pueda seguir accediendo a las variables `x` e `y` (que son
+  locales a `pareja`), es necesario que el marco de `pareja` no se elimine de
+  la memoria cuando finalice la ejecución de `pareja`.
+
+- Necesitamos un nuevo mecanismo que permita resolver este problema.
+
+---
 
 - El **entorno restringido** de una función está formado por todos los marcos
   del entorno que afecta durante la ejecución de la función, **_excepto_ el
   marco de la propia función y el marco global**.
 
-- Por tanto, los entornos restringidos de `p` y `q` empiezan en el marco de
-  `pareja`, ya que `p` y `q` son locales a `pareja`.
+- Por tanto, el entorno restringido de `get` empieza en el marco de `pareja`,
+  ya que `get` es local a `pareja`.
 
-- El entorno restringido es el entorno que las funciones `p` y `q` necesitan
+- El entorno restringido de `get` es el entorno que la función `get` necesita
   recordar para poder funcionar.
 
 - La combinación de una función más su entorno restringido se denomina
@@ -1309,7 +1285,11 @@ E -> i [lhead = cluster1]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Una clausura, por tanto, agrupa una función con la información que se
-  necesita conservar para que la función funcione.
+  necesita recordar para que la función funcione.
+
+- El motivo de no incluir el propio marco y el marco global, es que el propio
+  marco se crea cuando se llama a la función, y el marco global está siempre
+  disponible, así que no es necesario recordarlos.
 
 ---
 
@@ -1321,10 +1301,14 @@ E -> i [lhead = cluster1]
 
   tenemos que `p` contiene una clausura.
 
-- Esa clausura es la función que hay en `p`, más el entorno restringido que
-  empieza en el marco de `pareja` (ya que la función que hay en `p` se definió
-  en el ámbito de la función `pareja`), el cual recuerda los valores que tenían
-  las variables `x` e `y` de `pareja` cuando se creó la clausura.
+- Esa clausura esta formada por:
+
+  - La **función** que hay en `p`, que es la función `get`.
+
+  - El **entorno restringido** de `p`, que empieza en el marco de `pareja` (ya
+    que la función `get` se definió en el ámbito de la función `pareja`), el
+    cual recuerda los valores que tenían las variables locales de `pareja`
+    cuando se creó la clausura.
 
 - Pero ahora, el marco de `pareja` no puede estar en la pila de control, ya que
   esa función no tiene ninguna llamada activa en este momento.
@@ -1333,9 +1317,9 @@ E -> i [lhead = cluster1]
 
 ---
 
-- Lo que hace el intérprete para no perder el marco de `pareja` es que, cuando
-  `pareja` termina su ejecución, saca su marco de la pila pero no lo destruye,
-  sino que lo guarda en el montículo como si fuera un dato más.
+- Para no perder el marco de la función `pareja` cuando termina de ejecutarse
+  ésta, el intérprete saca su marco de la pila pero no lo destruye, sino que
+  **lo guarda en el montículo** como si fuera un dato más.
 
 - Ahora la clausura hace referencia al marco dentro del montículo, es decir,
   que la clausura guarda una referencia al marco, que ahora es un dato más
@@ -1407,7 +1391,7 @@ f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 ---
 
 - Por tanto, la clausura almacenada en `p` contiene la función y la parte del
-  entorno que es necesario conservar para poder ejecutar la función.
+  entorno que es necesario recordar para poder ejecutar la función.
 
 - Aquí, la clausura apunta al marco de `pareja`, ya que es local a `pareja` y
   necesita acceder a los datos definidos en el ámbito de `pareja`.
@@ -1497,7 +1481,7 @@ E -> indice [lhead = cluster1]
 
 ---
 
-- Y si tenemos dos clausuras `p` y `q` creadas de la siguiente manera:
+- Si tenemos dos clausuras `p` y `q` creadas de la siguiente manera:
 
   ```python
   p = pareja(20, 14)
@@ -1549,13 +1533,17 @@ subgraph cluster8 {
     f1 [shape = circle, label = "λ1"]
     f2 [shape = circle, label = "λ2"]
     f3 [shape = circle, label = "λ3", color = red]
+    f3p [shape = circle, label = "λ3", color = red]
     f4 [shape = circle, label = "λ3"]
+    {rank = same; f3; f3p}
 }
 f3:e -> get:w [lhead = cluster0, color = blue]
+f3p:e -> get1:w [lhead = cluster1, color = blue]
 {rank = same; pareja; select; p; q}
 {rank = same; get; x; y}
 {rank = same; get1; x1; y1}
 p:f1:e -> f3
+q:f1:e -> f3p
 pareja:f1 -> f1
 select:f1 -> f2
 x:f1 -> 20
@@ -1564,13 +1552,38 @@ x1:f1 -> 5
 y1:f1 -> 6
 get:f1 -> f4
 get1:f1 -> f4
-y:s -> pareja:s [lhead = cluster2, ltail = cluster0, minlen = 1]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> p [lhead = cluster2]
-p:f0:n -> x1:f0:w [lhead = cluster1, ltail = cluster2, dir = back]
+p:f0:n -> x:f0:w [lhead = cluster0, ltail = cluster2, dir = back, minlen = 2]
+q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
+
+- Al llamar a `select(p, i)` se llama luego a `p(i)`, pero como `p`
+  representa a la función `get`, realmente se llama a `get(i)`.
+
+- Lo mismo pasa al llamar a `select(q, i)`: se llama a `q(i)` pero, como `q`
+  también representa a `get`, realmente se llama a `get(i)`.
+
+- Lo interesante es que `p` y `q` son referencias a la misma función `get`,
+  pero cada una de ellas recuerda el valor que tenían las variables no locales
+  (la `x` y la `y` de `pareja`) cuando se crearon `p` y `q`.
+
+- Es decir: `p` y `q` son funciones que recuerdan el contexto en el que fueron
+  creadas.
+
+- Por tanto:
+
+  - `p` es la función `get` pero, para ella, `x` vale !PYTHON(20) e `y` vale
+    !PYTHON(14).
+
+  - `q` es la función `get` pero, para ella, `x` vale !PYTHON(5) e `y` vale
+    !PYTHON(6).
+
+- Así que `p` y `q` no son exactamente la misma cosa.
+
+## Representación funcional
 
 - Las funciones `pareja` y `select`, así definidas, son **funciones de orden
   superior**: la primera porque devuelve una función y la segunda porque recibe

@@ -3086,8 +3086,7 @@ fib1_5 -> u5
 
 - La **pila de control** es una estructura de datos que utiliza el intérprete
   para llevar la cuenta de las **llamadas _activas_** en un determinado
-  momento, incluyendo el valor de sus parámetros y el punto de retorno al que
-  debe devolverse el control cuando finalice la ejecución de la función.
+  momento.
 
   - Las **llamadas activas** son aquellas llamadas a funciones que aún no han
     terminado de ejecutarse.
@@ -3099,31 +3098,34 @@ fib1_5 -> u5
   que pudiera haber.
 
 - Ese marco es el primero de la secuencia de marcos que forman el entorno de la
-  función, que estarán almacenados más abajo en la pila.
+  función, que también estarán almacenados en la pila, más abajo.
 
 - Los marcos se enlazan entre sí para representar los entornos que actúan en
   las distintas llamadas activas.
 
 ---
 
-- El intérprete puede, además, almacenar ahí cualquier otra información que
-  necesite para gestionar las llamadas a funciones.
+- El intérprete almacena en el marco cualquier información que necesite para
+  gestionar las llamadas a funciones, incluyendo:
 
-- El marco de la función, junto con toda esa información adicional, se denomina
-  **registro de activación**.
+  - El valor de sus parámetros (por supuesto).
 
-- Por tanto, **la pila de control almacena registros de activación**.
+  - El valor de retorno de la función.
 
-- Cada llamada activa está representada por su correspondiente registro de
-  activación en la pila, y cada registro de activación va asociado a un marco.
+  - Cuál es el siguiente marco que le sigue en el entorno.
 
-- En cuanto la llamada finaliza, su registro de activación se saca de la pila y
-  se transfiere el control a la llamada que está inmediatamente debajo (si es
-  que hay alguna).
+  - El punto de retorno al que debe devolverse el control cuando finalice la
+    ejecución de la función.
 
-- Cuando desaparece un registro de activación, también se elimina de la memoria
-  su marco asociado (hay una excepción a esto, que veremos en posteriores
-  temas cuando hablemos de las *clausuras*).
+- Un marco almacenado en la pila también se denomina **registro de
+  activación**. Por tanto, también podemos decir que la pila de control
+  almacena registros de activación.
+
+- Cada llamada activa está representada por su correspondiente marco en la
+  pila.
+
+- En cuanto la llamada finaliza, su marco se saca de la pila y se transfiere el
+  control a la llamada que está inmediatamente debajo (si es que hay alguna).
 
 !EJEMPLOS
 
@@ -3295,12 +3297,12 @@ z -> dummy [lhead = cluster2, ltail = cluster3, minlen = 3]
 
 ---
 
-- Hemos dicho que habrá un registro de activación por cada nueva llamada que se
-  realice a una función, y que ese registro se mantendrá en la pila hasta que
-  la llamada finalice.
+- Hemos dicho que habrá un marco por cada nueva llamada que se realice a una
+  función, y que ese marco se mantendrá en la pila hasta que la llamada
+  finalice.
 
-- Por tanto, en el caso de una función recursiva, tendremos un registro de
-  activación por cada llamada recursiva.
+- Por tanto, en el caso de una función recursiva, tendremos un marco por cada
+  llamada recursiva.
 
 ```python
 fact = lambda n: 1 if n == 0 else n * fact(n - 1)
