@@ -238,7 +238,7 @@
 <section id="TOC">
 <ul>
 <li><a href="#/aspectos-teóricos-de-la-programación-estructurada"><span class="toc-section-number">1</span> Aspectos teóricos de la programación estructurada</a></li>
-<li><a href="#/estructuras-básicas-de-control"><span class="toc-section-number">2</span> Estructuras básicas de control</a></li>
+<li><a href="#/estructuras-básicas-de-control-en-python"><span class="toc-section-number">2</span> Estructuras básicas de control en Python</a></li>
 <li><a href="#/metodología-de-la-programación-estructurada"><span class="toc-section-number">3</span> Metodología de la programación estructurada</a></li>
 <li><a href="#/funciones-imperativas"><span class="toc-section-number">4</span> Funciones imperativas</a></li>
 </ul>
@@ -278,7 +278,7 @@
 <div class="centered">
 <p><img data-src="images/confuso.png" class="plain" style="width:50.0%" /></p>
 </div></li>
-<li><p>Si un programa se escribe de cualquier manera, aun funcione correctamente, puede resultar engorroso, críptico, ilegible y casi imposible de modificar.</p></li>
+<li><p>Si un programa se escribe de cualquier manera, aunque funcione correctamente, puede resultar engorroso, críptico, ilegible y casi imposible de modificar.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.3">
@@ -298,8 +298,8 @@
 <div class="column">
 <ul>
 <li><p><strong>Sentencia</strong>, que sirve para representar una instrucción (por ejemplo: de lectura, escritura, asignación…).</p></li>
-<li><p><strong>Condición</strong>, que sirve para bifurcar el flujo del programa dependiendo del valor (verdadero o falso) de una expresión lógica.</p></li>
-<li><p><strong>Agrupamiento</strong>, que sirve para agrupar lı́neas de flujo que procedan de distintos lugares.</p></li>
+<li><p><strong>Condición</strong>, que sirve para bifurcar el flujo del programa hacia un camino u otro dependiendo del valor de una expresión lógica.</p></li>
+<li><p><strong>Agrupamiento</strong>, que sirve para agrupar lı́neas de flujo que procedan de distintos caminos.</p></li>
 </ul>
 </div><div class="column">
 <div class="centered">
@@ -326,10 +326,11 @@
 <ul>
 <li><p>Se dice que un programa restringido es un <strong>programa propio</strong> (o <strong><em>limpio</em></strong>) si reúne las tres condiciones siguientes:</p>
 <ol type="1">
-<li><p>Todo bloque posee un único punto de entrada y otro único punto de salida.</p></li>
-<li><p>Para cualquier bloque, existe al menos un camino desde la entrada hasta él y otro camino desde él hasta la salida.</p></li>
+<li><p>Posee un único punto de entrada y otro único punto de salida.</p></li>
+<li><p>Para cualquiera de sus bloques, existe al menos un camino desde la entrada hasta él y otro camino desde él hasta la salida.</p></li>
 <li><p>No existen bucles infinitos.</p></li>
 </ol></li>
+<li><p>Cuando varios programas propios se combinan para formar uno solo, el resultado es también un programa propio.</p></li>
 <li><p>Estas condiciones restringen aún más el concepto de <em>programa</em>, de modo que sólo serán válidos aquéllos que estén diseñados mediante el uso apropiado del agrupamiento y sin bloques superfluos o formando bucles sin salida.</p></li>
 </ul>
 </section>
@@ -393,11 +394,11 @@
 <h2 data-number="1.5"><span class="header-section-number">1.5</span> Programa estructurado</h2>
 <ul>
 <li><p>Un <strong>programa estructurado</strong> es un programa construido combinando las siguientes estructuras (llamadas <strong>estructuras de control</strong>):</p>
-<ul>
-<li><p>La <strong>secuencia</strong> de dos sentencias <em>A</em> y <em>B</em>.</p></li>
-<li><p>La <strong>selección</strong> entre dos sentencias <em>A</em> y <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
-<li><p>La <strong>iteración</strong>, que repite una sentencia <em>A</em> dependiendo del valor lógico de un predicado <em>p</em>.</p></li>
-</ul></li>
+<ol>
+<li><p>La <strong>estructura secuencial</strong> o <strong><em>secuencia</em></strong> de dos sentencias <em>A</em> y <em>B</em>.</p></li>
+<li><p>La <strong>estructura alternativa</strong> o <strong><em>selección</em></strong> entre dos sentencias <em>A</em> y <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
+<li><p>La <strong>estructura repetitiva</strong> o <strong><em>iteración</em></strong>, que repite una sentencia <em>A</em> dependiendo del valor lógico de un predicado <em>p</em>.</p></li>
+</ol></li>
 <li><p>Las estructuras de control son sentencias compuestas que contienen, a su vez, otras sentencias.</p></li>
 </ul>
 </section>
@@ -443,17 +444,17 @@
 <section class="slide level5" data-number="1.5.0.0.2">
 
 <ul>
-<li><p>Cada una de las sentencias que aparecen en una estructura pueden ser, a su vez, estructuras.</p>
+<li><p>Cada una de las sentencias que aparecen en una estructura (las indicadas anteriormente como <em>A</em> y <em>B</em>) pueden ser, a su vez, estructuras.</p>
 <ul>
-<li><p>Esto es así porque se considera que una estructura también es una sentencia (una sentencia <em>compuesta</em>, en vez de una sentencia <em>simple</em>).</p></li>
-<li><p>Por tanto, una estructura puede aparecer en cualquier parte donde se espere una sentencia.</p></li>
+<li><p>Esto es así porque una estructura también es una sentencia (que en este caso sería una sentencia <em>compuesta</em> en lugar de una sentencia <em>simple</em>).</p></li>
+<li><p>Por tanto, una estructura puede aparecer en cualquier lugar donde se espere una sentencia.</p></li>
 </ul></li>
 <li><p>Resumiendo, en un programa podemos tener <strong>dos tipos de sentencias</strong>:</p>
 <ul>
 <li><p><strong>Sentencias <em>simples</em></strong>.</p></li>
 <li><p><strong>Estructuras de control</strong>, que son sentencias <strong><em>compuestas</em></strong> formadas a su vez por otras sentencias (que podrán ser, a su vez, simples o compuestas, recursivamente).</p></li>
 </ul></li>
-<li><p>Por consiguiente, todo programa puede verse como una única sentencia, simple o compuesta por otras.</p></li>
+<li><p>Por consiguiente, <strong>todo programa puede verse como una única sentencia</strong>, simple o compuesta por otras.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.0.0.3">
@@ -472,9 +473,9 @@
 <strong>leer</strong> <span class="math inline">b</span><br />
 <strong>mientras</strong> <span class="math inline">a \mathrel{\char`≠} b</span> <strong>hacer</strong><br />
       <strong>si</strong> <span class="math inline">a &lt; b</span> <strong>entonces</strong><br />
-            <span class="math inline">b \leftarrow b - a</span><br />
+            <span class="math inline">b \longleftarrow b - a</span><br />
       <strong>sino</strong><br />
-            <span class="math inline">a \leftarrow a - b</span><br />
+            <span class="math inline">a \longleftarrow a - b</span><br />
 <strong>escribir</strong> <span class="math inline">a</span><br />
 <strong>fin</strong></div>
 </div>
@@ -485,7 +486,7 @@
 <ul>
 <li><p>Las principales <strong>ventajas de los programas estructurados</strong> frente a los no estructurados son:</p>
 <ul>
-<li><p>Son más fáciles de entender, ya que básicamente se pueden leer de arriba abajo de estructura en estructura como cualquier otro texto sin tener que estar continuamente saltando de un punto a otro del programa.</p></li>
+<li><p>Son más fáciles de entender, ya que básicamente <strong>se pueden leer de arriba abajo</strong> de estructura en estructura como cualquier otro texto sin tener que estar continuamente saltando de un punto a otro del programa.</p></li>
 <li><p>Es más fácil demostrar que son correctos, ya que las estructuras anidadas pueden verse como cajas negras, lo que facilita trabajar a diferentes niveles de abstracción.</p></li>
 <li><p>Se reducen los costes de mantenimiento.</p></li>
 <li><p>Aumenta la productividad del programador.</p></li>
@@ -511,18 +512,18 @@
 </section>
 </section>
 <section>
-<section id="estructuras-básicas-de-control" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Estructuras básicas de control</h1>
+<section id="estructuras-básicas-de-control-en-python" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Estructuras básicas de control en Python</h1>
 
 </section>
 <section id="secuencia" class="title-slide slide level2" data-number="2.1">
 <h2 data-number="2.1"><span class="header-section-number">2.1</span> Secuencia</h2>
 <ul>
-<li><p>La estructura secuencial en Python consiste sencillamente en poner cada sentencia una tras otra al mismo nivel de indentación.</p></li>
+<li><p>La <strong>secuencia</strong> (o <em>estructura secuencial</em>) en Python consiste sencillamente en poner cada sentencia una tras otra <strong>al mismo nivel de indentación</strong>.</p></li>
 <li><p>No requiere de ninguna otra sintaxis particular ni palabras clave.</p></li>
-<li><p>Una secuencia de sentencias actúa sintácticamente como si fuera una sola sentencia; por lo tanto, en cualquier lugar del programa donde se pueda poner una sentencia, se puede poner una secuencia de sentencias (que actuarían como una sola formando un bloque).</p></li>
+<li><p><strong>Una secuencia de sentencias actúa sintácticamente como si fuera una sola sentencia</strong>; por lo tanto, en cualquier lugar del programa donde se pueda poner una sentencia, se puede poner una secuencia de sentencias (que actuarían como una sola formando un <strong>bloque</strong>).</p></li>
 <li><p>Esto es así porque, como vimos, toda sentencia puede ser simple o compuesta (una estructura) y, por tanto, <strong>toda estructura es también una sentencia</strong> (actúa como si fuera una única sentencia pero compuesta por otras de forma recursiva).</p></li>
-<li><p>Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede poner una estructura.</p></li>
+<li><p>Por tanto, en cualquier lugar donde se pueda poner una sentencia, se puede poner una estructura.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.1">
@@ -537,14 +538,16 @@
 </ul>
 </div><div class="column">
 <ul>
-<li>Las sentencias deben empezar todas en el mismo nivel de indentación (misma posición horizontal o <em>columna</em>).</li>
+<li><p>Las sentencias deben empezar todas en el mismo nivel de indentación (misma posición horizontal o <em>columna</em>).</p></li>
+<li><p>Puede haber líneas en blanco entre las sentencias del mismo bloque.</p></li>
 </ul>
 </div>
 </div>
 <div class="caja">
 <p><strong>Concepto fundamental:</strong></p>
 <p>En Python, la <strong>estructura</strong> del programa viene definida por la <strong>indentación</strong> del código.</p>
-<p>Por tanto, las instrucciones que aparecen juntas en el mismo nivel de indentación (es decir, las que empiezan en la misma columna) pertenecen a la misma estructura.</p>
+<p>Por tanto, las instrucciones que aparecen consecutivamente una tras otra en el mismo nivel de indentación (es decir, las que empiezan en la misma columna) pertenecen a la misma estructura.</p>
+<p>En el momento en que aparece una instrucción en otro nivel de indentación, esa instrucción ya pertenece a otra estructura.</p>
 </div>
 </section>
 <section class="slide level5" data-number="2.1.0.0.2">
@@ -555,8 +558,8 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> f(x <span class="op">+</span> y)</span></code></pre></div>
-<p>Estas cuatro sentencias, al estar todas juntas y en el mismo nivel de indentación, actúan como una sola sentencia en bloque (forman una estructura <em>secuencial</em>) y se ejecutan en orden de arriba abajo.</p></li>
-<li><p>A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o una sentencia compuesta (una estructura):</p>
+<p>Estas cuatro sentencias, al estar todas consecutivas en el mismo nivel de indentación, actúan como una sola sentencia en bloque (forman una estructura <em>secuencial</em>) y se ejecutan en orden de arriba abajo.</p></li>
+<li><p>A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o una sentencia compuesta (una estructura), y esa sentencia compuesta puede ser una secuencia:</p>
 <div class="line-block"><span style="color:teal">⟨<em>sentencia</em>⟩</span> ::= <span style="color:teal">⟨<em>sentencia_simple</em>⟩</span> | <span style="color:teal">⟨<em>estructura</em>⟩</span><br />
 <span style="color:teal">⟨<em>estructura</em>⟩</span> ::= <span style="color:teal">⟨<em>secuencia</em>⟩</span><br />
 <span style="color:teal">⟨<em>secuencia</em>⟩</span> ::=<br />
@@ -570,7 +573,7 @@
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
-<li><p>La selección (o estructura alternativa) en Python tiene la siguiente sintaxis:</p>
+<li><p>La <strong>selección</strong> (o <em>estructura alternativa</em>) en Python tiene la siguiente sintaxis:</p>
 <div class="line-block"><span style="color:teal">⟨<em>selección</em>⟩</span> ::=<br />
 <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span><br />
@@ -578,6 +581,7 @@
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>]*<br />
 [<strong><code>else</code><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>]</div></li>
+<li><p>También se la llama «<strong>sentencia <code class="sourceCode python"><span class="cf">if</span></code></strong>».</p></li>
 </ul>
 </div><div class="column" style="width:60%;">
 <ul>
@@ -607,6 +611,17 @@
 <section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
+<li><p>La estructura alternativa está formada por una sucesión de cláusulas que asocian una condición con una sentencia.</p></li>
+<li><p>Las cláusulas van marcadas con <code class="sourceCode python"><span class="cf">if</span>:</code>, <code class="sourceCode python"><span class="cf">elif</span>:</code> o <code class="sourceCode python"><span class="cf">else</span>:</code>.</p></li>
+<li><p>Las condiciones se van comprobando de arriba abajo, en el orden en que aparecen, de forma que primero se comprueba la condición del <code class="sourceCode python"><span class="cf">if</span>:</code> y después las diferentes <code class="sourceCode python"><span class="cf">elif</span>:</code>, si las hay.</p></li>
+<li><p>En el momento en que se cumple una de las condiciones, se ejecuta su sentencia correspondiente y se sale de la estructura alternativa (no se sigue comprobando más).</p></li>
+<li><p>Si no se cumple ninguna condición y hay una cláusula <code class="sourceCode python"><span class="cf">else</span>:</code>, se ejecutará la sentencia de ésta.</p></li>
+<li><p>Si no se cumple ninguna condición y no hay cláusula <code class="sourceCode python"><span class="cf">else</span>:</code>, no se ejecuta ninguna sentencia.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.2">
+
+<ul>
 <li><p>En el siguiente código:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>b <span class="op">=</span> <span class="dv">3</span></span>
@@ -617,25 +632,26 @@
 <span id="cb5-7"><a href="#cb5-7"></a>    <span class="bu">print</span>(<span class="st">&#39;Son iguales&#39;</span>)</span></code></pre></div>
 <p>tenemos las siguientes estructuras, anidadas una dentro de la otra:</p>
 <ol>
-<li><p>Una secuencia formada por un bloque de tres sentencias: las asignaciones <code class="sourceCode python">a <span class="op">=</span> <span class="dv">4</span></code> y <code class="sourceCode python">b <span class="op">=</span> <span class="dv">3</span></code> y la sentencia <code class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code> que va desde la línea 3 hasta la 8.</p></li>
-<li><p>La selección <code class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code>.</p></li>
-<li><p>Una secuencia formada por las sentencias de las líneas 4–5.</p></li>
+<li><p>Una <em>secuencia</em> formada por un bloque de tres sentencias: las asignaciones <code class="sourceCode python">a <span class="op">=</span> <span class="dv">4</span></code> y <code class="sourceCode python">b <span class="op">=</span> <span class="dv">3</span></code> y la sentencia <code class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code> que va desde la línea 3 hasta la 8.</p></li>
+<li><p>La <em>selección</em> <code class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code>.</p></li>
+<li><p>Una <em>secuencia</em> formada por las sentencias de las líneas 4–5.</p></li>
 </ol></li>
-<li><p>Cada estructura es una sentencia en sí misma, y contiene a otras sentencias (que pueden ser simples u otras estructuras).</p></li>
+<li><p>Recordemos: cada estructura es una sentencia en sí misma, y contiene a otras sentencias (que pueden ser simples u otras estructuras).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="2.2.0.0.3">
 
 <ul>
-<li>Aquí se ven representadas visualmente las estructuras que forman el código fuente del programa:</li>
-</ul>
+<li><p>Aquí se ven representadas visualmente las estructuras que forman el código fuente del programa:</p>
 <div class="centered">
 <figure>
 <img data-src="images/estructuras-de-control-if.svg" class="plain" style="width:50.0%" alt="Representación de las distintas estructuras que forman el código" /><figcaption aria-hidden="true">Representación de las distintas estructuras que forman el código</figcaption>
 </figure>
-</div>
+</div></li>
+<li><p>Se aprecia claramente que hay tres estructuras (dos secuenciales y una alternativa) y cinco sentencias simples (las asignaciones y los <code class="sourceCode python"><span class="bu">print</span></code>), por lo que hay ocho sentencias en total.</p></li>
+</ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="2.2.0.0.4">
 
 <ul>
 <li><p>Ahora nuestra gramática se amplía:</p>
@@ -654,13 +670,24 @@
 <section id="iteración" class="title-slide slide level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Iteración</h2>
 <ul>
-<li><p>La iteración (estructura <em>iterativa</em> o <em>repetitiva</em>) en Python tiene la siguiente sintaxis:</p>
+<li><p>La <strong>iteración</strong> (o <em>estructura iterativa</em> o <em>repetitiva</em>) en Python tiene la siguiente sintaxis:</p>
 <div class="line-block"><span style="color:teal">⟨<em>iteración</em>⟩</span> ::=<br />
 <strong><code>while</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
-<li><p>A esta estructura se la llama <strong>bucle <em>while</em></strong> o, simplemente, <strong>bucle</strong>.</p></li>
-<li><p>La <span style="color:teal">⟨<em>sentencia</em>⟩</span> es el <strong>cuerpo</strong> del bucle.</p></li>
-<li><p>Cada ejecución del cuerpo del bucle se denomina <strong>iteración</strong>.</p></li>
+<li><p>A esta estructura también se la llama «<strong>sentencia <code class="sourceCode python"><span class="cf">while</span></code></strong>», «<strong>bucle <code class="sourceCode python"><span class="cf">while</span></code></strong>» o, simplemente, «<strong>bucle</strong>».</p></li>
+<li><p>También se dice que la <span style="color:teal">⟨<em>sentencia</em>⟩</span> es el «<strong>cuerpo</strong>» del bucle.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>La estructura repetitiva asocia una condición a una sentencia, de forma que lo primero que se hace nada más entrar en la estructura es comprobar la condición:</p>
+<ul>
+<li><p>Si la condición no se cumple, se salta la sentencia y se sale de la estructura.</p></li>
+<li><p>Si la condición se cumple, se ejecuta la sentencia y se vuelve otra vez al principio de la estructura, donde se volverá a comprobar si la condición se cumple, repitiendo el mismo ciclo de «<em>comprobación y ejecución</em>» una y otra vez hasta que la condición deje de cumplirse.</p></li>
+<li><p>Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una <strong>iteración</strong> del bucle.</p></li>
+</ul></li>
+<li><p>Es importante observar que la comprobación de la condición se hace justo al principio de cada iteración, es decir, justo antes de ejecutar la sentencia en la iteración actual.</p></li>
 </ul>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
@@ -691,7 +718,7 @@ Fin</code></pre></li>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.0.0.1">
+<section class="slide level5" data-number="2.3.0.0.2">
 
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>salida <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> salida:</span>
@@ -705,7 +732,7 @@ Fin</code></pre></li>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.0.0.2">
+<section class="slide level5" data-number="2.3.0.0.3">
 
 <ul>
 <li><p>Ahora ampliamos de nuevo nuestra gramática:</p>

@@ -45,7 +45,7 @@ nocite: |
 
   !IMGP(confuso.png)()(width=50%)(width=70%)
 
-- Si un programa se escribe de cualquier manera, aun funcione correctamente,
+- Si un programa se escribe de cualquier manera, aunque funcione correctamente,
   puede resultar engorroso, críptico, ilegible y casi imposible de modificar.
 
 ---
@@ -70,11 +70,11 @@ nocite: |
 - **Sentencia**, que sirve para representar una instrucción (por ejemplo: de
   lectura, escritura, asignación...).
 
-- **Condición**, que sirve para bifurcar el flujo del programa dependiendo del
-  valor (verdadero o falso) de una expresión lógica.
+- **Condición**, que sirve para bifurcar el flujo del programa hacia un camino
+  u otro dependiendo del valor de una expresión lógica.
 
 - **Agrupamiento**, que sirve para agrupar lı́neas de flujo que procedan de
-  distintos lugares.
+  distintos caminos.
 
 :::
 
@@ -95,12 +95,15 @@ nocite: |
 - Se dice que un programa restringido es un **programa propio** (o
   **_limpio_**) si reúne las tres condiciones siguientes:
 
-  1. Todo bloque posee un único punto de entrada y otro único punto de salida.
+  1. Posee un único punto de entrada y otro único punto de salida.
 
-  2. Para cualquier bloque, existe al menos un camino desde la entrada hasta él
-     y otro camino desde él hasta la salida.
+  2. Para cualquiera de sus bloques, existe al menos un camino desde la entrada
+     hasta él y otro camino desde él hasta la salida.
 
   3. No existen bucles infinitos.
+
+- Cuando varios programas propios se combinan para formar uno solo, el
+  resultado es también un programa propio.
 
 - Estas condiciones restringen aún más el concepto de _programa_, de modo que
   sólo serán válidos aquéllos que estén diseñados mediante el uso apropiado del
@@ -187,13 +190,14 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras (llamadas **estructuras de control**):
 
-  - La **secuencia** de dos sentencias *A* y *B*.
+  #. La **estructura secuencial** o **_secuencia_** de dos sentencias *A* y
+     *B*.
 
-  - La **selección** entre dos sentencias *A* y *B* dependiendo de un predicado
-    *p*.
+  #. La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
+     *B* dependiendo de un predicado *p*.
 
-  - La **iteración**, que repite una sentencia *A* dependiendo del valor lógico
-    de un predicado *p*.
+  #. La **estructura repetitiva** o **_iteración_**, que repite una sentencia
+     *A* dependiendo del valor lógico de un predicado *p*.
 
 - Las estructuras de control son sentencias compuestas que contienen, a su vez,
   otras sentencias.
@@ -248,13 +252,13 @@ $B$
 
 ---
 
-- Cada una de las sentencias que aparecen en una estructura pueden ser, a su
-  vez, estructuras.
+- Cada una de las sentencias que aparecen en una estructura (las indicadas
+  anteriormente como _A_ y _B_) pueden ser, a su vez, estructuras.
 
-  - Esto es así porque se considera que una estructura también es una sentencia
-    (una sentencia *compuesta*, en vez de una sentencia *simple*).
+  - Esto es así porque una estructura también es una sentencia (que en este
+    caso sería una sentencia *compuesta* en lugar de una sentencia *simple*).
 
-  - Por tanto, una estructura puede aparecer en cualquier parte donde se espere
+  - Por tanto, una estructura puede aparecer en cualquier lugar donde se espere
     una sentencia.
 
 - Resumiendo, en un programa podemos tener **dos tipos de sentencias**:
@@ -265,8 +269,8 @@ $B$
     su vez por otras sentencias (que podrán ser, a su vez, simples o
     compuestas, recursivamente).
 
-- Por consiguiente, todo programa puede verse como una única sentencia, simple
-  o compuesta por otras.
+- Por consiguiente, **todo programa puede verse como una única sentencia**,
+  simple o compuesta por otras.
 
 ---
 
@@ -290,9 +294,9 @@ $B$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
       **si** $a < b$ **entonces**
-            $b \leftarrow b - a$
+            $b \longleftarrow b - a$
       **sino**
-            $a \leftarrow a - b$
+            $a \longleftarrow a - b$
 **escribir** $a$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -306,8 +310,8 @@ $B$
 - Las principales **ventajas de los programas estructurados** frente a los no
   estructurados son:
 
-  - Son más fáciles de entender, ya que básicamente se pueden leer de arriba
-    abajo de estructura en estructura como cualquier otro texto sin tener que
+  - Son más fáciles de entender, ya que básicamente **se pueden leer de arriba
+    abajo** de estructura en estructura como cualquier otro texto sin tener que
     estar continuamente saltando de un punto a otro del programa.
 
   - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
@@ -342,26 +346,26 @@ $B$
 
 - En consecuencia, no hay excusa para no estructurar nuestros programas.
 
-# Estructuras básicas de control
+# Estructuras básicas de control en Python
 
 ## Secuencia
 
-- La estructura secuencial en Python consiste sencillamente en poner cada
-  sentencia una tras otra al mismo nivel de indentación.
+- La **secuencia** (o _estructura secuencial_) en Python consiste sencillamente
+  en poner cada sentencia una tras otra **al mismo nivel de indentación**.
 
 - No requiere de ninguna otra sintaxis particular ni palabras clave.
 
-- Una secuencia de sentencias actúa sintácticamente como si fuera una sola
-  sentencia; por lo tanto, en cualquier lugar del programa donde se pueda poner
-  una sentencia, se puede poner una secuencia de sentencias (que actuarían como
-  una sola formando un bloque).
+- **Una secuencia de sentencias actúa sintácticamente como si fuera una sola
+  sentencia**; por lo tanto, en cualquier lugar del programa donde se pueda
+  poner una sentencia, se puede poner una secuencia de sentencias (que
+  actuarían como una sola formando un **bloque**).
 
 - Esto es así porque, como vimos, toda sentencia puede ser simple o compuesta
   (una estructura) y, por tanto, **toda estructura es también una sentencia**
   (actúa como si fuera una única sentencia pero compuesta por otras de forma
   recursiva).
 
-- Por tanto, en cualquier parte donde se pueda poner una sentencia, se puede
+- Por tanto, en cualquier lugar donde se pueda poner una sentencia, se puede
   poner una estructura.
 
 ---
@@ -386,6 +390,8 @@ $B$
 - Las sentencias deben empezar todas en el mismo nivel de indentación (misma
   posición horizontal o _columna_).
 
+- Puede haber líneas en blanco entre las sentencias del mismo bloque.
+
 :::
 
 ::::
@@ -398,9 +404,12 @@ $B$
 En Python, la **estructura** del programa viene definida por la **indentación**
 del código.
 
-Por tanto, las instrucciones que aparecen juntas en el mismo nivel de
-indentación (es decir, las que empiezan en la misma columna) pertenecen a la
-misma estructura.
+Por tanto, las instrucciones que aparecen consecutivamente una tras otra en el
+mismo nivel de indentación (es decir, las que empiezan en la misma columna)
+pertenecen a la misma estructura.
+
+En el momento en que aparece una instrucción en otro nivel de indentación, esa
+instrucción ya pertenece a otra estructura.
 ~~~~~~~~~~~~~~~~~
 
 ---
@@ -414,12 +423,13 @@ misma estructura.
   z = f(x + y)
   ```
 
-  Estas cuatro sentencias, al estar todas juntas y en el mismo nivel de
+  Estas cuatro sentencias, al estar todas consecutivas en el mismo nivel de
   indentación, actúan como una sola sentencia en bloque (forman una estructura
   _secuencial_) y se ejecutan en orden de arriba abajo.
 
 - A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o
-  una sentencia compuesta (una estructura):
+  una sentencia compuesta (una estructura), y esa sentencia compuesta puede ser
+  una secuencia:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
@@ -436,7 +446,7 @@ misma estructura.
 
 ::: {.column width=40%}
 
-- La selección (o estructura alternativa) en Python tiene la siguiente
+- La **selección** (o _estructura alternativa_) en Python tiene la siguiente
   sintaxis:
 
   !ALGO
@@ -449,6 +459,8 @@ misma estructura.
 [!T(else)!T(:)
       !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
+
+- También se la llama «**sentencia !PYTHON(if)**».
 
 :::
 
@@ -489,6 +501,27 @@ misma estructura.
 
 ---
 
+- La estructura alternativa está formada por una sucesión de cláusulas que
+  asocian una condición con una sentencia.
+
+- Las cláusulas van marcadas con !PYTHON(if:), !PYTHON(elif:) o !PYTHON(else:).
+
+- Las condiciones se van comprobando de arriba abajo, en el orden en que
+  aparecen, de forma que primero se comprueba la condición del !PYTHON(if:) y
+  después las diferentes !PYTHON(elif:), si las hay.
+
+- En el momento en que se cumple una de las condiciones, se ejecuta su
+  sentencia correspondiente y se sale de la estructura alternativa (no se sigue
+  comprobando más).
+
+- Si no se cumple ninguna condición y hay una cláusula !PYTHON(else:), se
+  ejecutará la sentencia de ésta.
+
+- Si no se cumple ninguna condición y no hay cláusula !PYTHON(else:), no se
+  ejecuta ninguna sentencia.
+
+---
+
 - En el siguiente código:
 
   ```{.python .number-lines}
@@ -503,23 +536,27 @@ misma estructura.
 
   tenemos las siguientes estructuras, anidadas una dentro de la otra:
 
-  #. Una secuencia formada por un bloque de tres sentencias: las asignaciones
+  #. Una _secuencia_ formada por un bloque de tres sentencias: las asignaciones
      !PYTHON(a = 4) y !PYTHON(b = 3) y la sentencia !PYTHON(if ... else) que va
      desde la línea 3 hasta la 8.
 
-  #. La selección !PYTHON(if ... else).
+  #. La _selección_ !PYTHON(if ... else).
 
-  #. Una secuencia formada por las sentencias de las líneas 4--5.
+  #. Una _secuencia_ formada por las sentencias de las líneas 4--5.
 
-- Cada estructura es una sentencia en sí misma, y contiene a otras sentencias
-  (que pueden ser simples u otras estructuras).
+- Recordemos: cada estructura es una sentencia en sí misma, y contiene a otras
+  sentencias (que pueden ser simples u otras estructuras).
 
 ---
 
 - Aquí se ven representadas visualmente las estructuras que forman el código
   fuente del programa:
 
-!IMGP(estructuras-de-control-if.svg)(Representación de las distintas estructuras que forman el código)(width=50%)(width=40%)
+  !IMGP(estructuras-de-control-if.svg)(Representación de las distintas estructuras que forman el código)(width=50%)(width=40%)
+
+- Se aprecia claramente que hay tres estructuras (dos secuenciales y una
+  alternativa) y cinco sentencias simples (las asignaciones y los
+  !PYTHON(print)), por lo que hay ocho sentencias en total.
 
 ---
 
@@ -540,7 +577,7 @@ misma estructura.
 
 ## Iteración
 
-- La iteración (estructura *iterativa* o *repetitiva*) en Python tiene la
+- La **iteración** (o _estructura iterativa_ o _repetitiva_) en Python tiene la
   siguiente sintaxis:
 
   !ALGO
@@ -550,11 +587,31 @@ misma estructura.
       !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
-- A esta estructura se la llama **bucle _while_** o, simplemente, **bucle**.
+- A esta estructura también se la llama «**sentencia !PYTHON(while)**»,
+  «**bucle !PYTHON(while)**» o, simplemente, «**bucle**».
 
-- La !NT(sentencia) es el **cuerpo** del bucle.
+- También se dice que la !NT(sentencia) es el «**cuerpo**» del bucle.
 
-- Cada ejecución del cuerpo del bucle se denomina **iteración**.
+---
+
+- La estructura repetitiva asocia una condición a una sentencia, de forma que
+  lo primero que se hace nada más entrar en la estructura es comprobar la
+  condición:
+
+  - Si la condición no se cumple, se salta la sentencia y se sale de la
+    estructura.
+
+  - Si la condición se cumple, se ejecuta la sentencia y se vuelve otra vez al
+    principio de la estructura, donde se volverá a comprobar si la condición se
+    cumple, repitiendo el mismo ciclo de «_comprobación y ejecución_» una y
+    otra vez hasta que la condición deje de cumplirse.
+
+  - Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una
+    **iteración** del bucle.
+
+- Es importante observar que la comprobación de la condición se hace justo al
+  principio de cada iteración, es decir, justo antes de ejecutar la sentencia
+  en la iteración actual.
 
 !EJEMPLOS
 
