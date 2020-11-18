@@ -2486,22 +2486,67 @@ True
 
 ## Incondicionales
 
-- Un **salto incondicional** es una ruptura abrupta del flujo de control del
-  programa hacia otro punto del mismo.
+- Un **salto incondicional** es una sentencia que provoca una ruptura abrupta
+  del flujo de control del programa hacia otro punto del mismo.
+
+- Se le llama _salto_ porque el programa «salta» a otra línea del código,
+  normalmente marcada mediante un _número de línea_ o una _etiqueta_.
 
 - Se llama *incondicional* porque no depende de ninguna condición, es decir, se
-  lleva a cabo **siempre** que se alcanza el punto del salto.
+  lleva a cabo **siempre** que se alcanza la sentencia de salto.
 
-- Históricamente, a esa instrucción que realiza saltos incondicionales se la ha
-  llamado **instrucción _GOTO_**.
+- Históricamente, a esta instrucción se la ha llamado **instrucción _GOTO_**.
 
 - El uso de instrucciones _GOTO_ es considerado, en general, una mala práctica
   de programación ya que favorece la creación del llamado **código
-  _espagueti_**: programas con una estructura de control tan complicada que
-  resultan casi imposibles de mantener.
+  _espagueti_**: programas con una lógica tan complicada de seguir que resultan
+  casi imposibles de leer y de mantener.
 
-- En cambio, usados controladamente y de manera local, puede ayudar a escribir
+- En cambio, usadas controladamente y de manera local, puede ayudar a escribir
   soluciones sencillas y claras.
+
+---
+
+:::: columns
+
+::: column
+
+- Algoritmo imperativo que usa saltos incondicionales con etiquetas:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **inicio**
+**escribir** \"Esto se hace\"
+**saltar** a la etiqueta _fin_
+**escribir** \"Esto no se hace\"
+**etiqueta** _fin_
+**escribir** \"Aquí se acaba\"
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El mismo algoritmo con números de línea:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  1. **inicio**
+2. **escribir** \"Esto se hace\"
+3. **saltar** a la línea 5
+4. **escribir** \"Esto no se hace\"
+5. **escribir** \"Aquí se acaba\"
+6. **fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Representado como diagrama de flujo:
+
+!IMGP(salto-incondicional.!ifdef(HTML)(svg)(pdf))()(width=60%)(width=30%)
+
+:::
+
+::::
 
 ---
 
@@ -2557,6 +2602,17 @@ exec(with_goto(compile(CODIGO, '', 'exec')))
 - Un **salto condicional** es un salto que se lleva a cabo sólo si se cumple
   una determinada condición.
 
+- En el caso de que la condición no se cumpla, no se produce el salto y, por
+  tanto, el flujo de control del programa continúa en la siguiente sentencia
+  que aparece en el código fuente.
+
+- En pseudocódigo se puede escribir de la siguiente forma:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **si** !NT(condición) **saltar a** (!NT(etiqueta)|!NT(número_línea))
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 - En Python, usando el módulo `with_goto`, podríamos implementarlo de la
   siguiente forma:
 
@@ -2567,7 +2623,38 @@ exec(with_goto(compile(CODIGO, '', 'exec')))
 
 ---
 
-- Ejemplo de uso:
+:::: columns
+
+::: column
+
+- Ejemplo que combina saltos condicionales e incondicionales:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $primero \longleftarrow 2$
+$ultimo \longleftarrow 25$
+$i \longleftarrow primero$
+**etiqueta** _inicio_
+**si** $i = ultimo$ **saltar** a la etiqueta _fin_
+**escribir** $i$
+$i \longleftarrow i + 1$
+**saltar** a la etiqueta _inicio_
+**etiqueta** _fin_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!IMGP(salto-condicional.!ifdef(HTML)(svg)(pdf))()(width=50%)(width=30%)
+
+:::
+
+::::
+
+---
+
+- Traducción a Python usando el módulo `with_goto`:
 
   ```python
   from goto import with_goto

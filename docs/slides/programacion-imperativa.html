@@ -1955,14 +1955,46 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section id="incondicionales" class="title-slide slide level2" data-number="5.1">
 <h2 data-number="5.1"><span class="header-section-number">5.1</span> Incondicionales</h2>
 <ul>
-<li><p>Un <strong>salto incondicional</strong> es una ruptura abrupta del flujo de control del programa hacia otro punto del mismo.</p></li>
-<li><p>Se llama <em>incondicional</em> porque no depende de ninguna condición, es decir, se lleva a cabo <strong>siempre</strong> que se alcanza el punto del salto.</p></li>
-<li><p>Históricamente, a esa instrucción que realiza saltos incondicionales se la ha llamado <strong>instrucción <em>GOTO</em></strong>.</p></li>
-<li><p>El uso de instrucciones <em>GOTO</em> es considerado, en general, una mala práctica de programación ya que favorece la creación del llamado <strong>código <em>espagueti</em></strong>: programas con una estructura de control tan complicada que resultan casi imposibles de mantener.</p></li>
-<li><p>En cambio, usados controladamente y de manera local, puede ayudar a escribir soluciones sencillas y claras.</p></li>
+<li><p>Un <strong>salto incondicional</strong> es una sentencia que provoca una ruptura abrupta del flujo de control del programa hacia otro punto del mismo.</p></li>
+<li><p>Se le llama <em>salto</em> porque el programa «salta» a otra línea del código, normalmente marcada mediante un <em>número de línea</em> o una <em>etiqueta</em>.</p></li>
+<li><p>Se llama <em>incondicional</em> porque no depende de ninguna condición, es decir, se lleva a cabo <strong>siempre</strong> que se alcanza la sentencia de salto.</p></li>
+<li><p>Históricamente, a esta instrucción se la ha llamado <strong>instrucción <em>GOTO</em></strong>.</p></li>
+<li><p>El uso de instrucciones <em>GOTO</em> es considerado, en general, una mala práctica de programación ya que favorece la creación del llamado <strong>código <em>espagueti</em></strong>: programas con una lógica tan complicada de seguir que resultan casi imposibles de leer y de mantener.</p></li>
+<li><p>En cambio, usadas controladamente y de manera local, puede ayudar a escribir soluciones sencillas y claras.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.0.0.1">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Algoritmo imperativo que usa saltos incondicionales con etiquetas:</p>
+<div class="line-block"><strong>inicio</strong><br />
+<strong>escribir</strong> "Esto se hace"<br />
+<strong>saltar</strong> a la etiqueta <em>fin</em><br />
+<strong>escribir</strong> "Esto no se hace"<br />
+<strong>etiqueta</strong> <em>fin</em><br />
+<strong>escribir</strong> "Aquí se acaba"<br />
+<strong>fin</strong></div></li>
+<li><p>El mismo algoritmo con números de línea:</p>
+<div class="line-block">1. <strong>inicio</strong><br />
+2. <strong>escribir</strong> "Esto se hace"<br />
+3. <strong>saltar</strong> a la línea 5<br />
+4. <strong>escribir</strong> "Esto no se hace"<br />
+5. <strong>escribir</strong> "Aquí se acaba"<br />
+6. <strong>fin</strong></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li>Representado como diagrama de flujo:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/salto-incondicional.svg" class="plain" style="width:60.0%" /></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="5.1.0.0.2">
 
 <ul>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede simular usando el módulo <code>with_goto</code> del paquete llamado <code>goto-statement</code>:</p>
@@ -2001,14 +2033,40 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h2 data-number="5.2"><span class="header-section-number">5.2</span> Condicionales</h2>
 <ul>
 <li><p>Un <strong>salto condicional</strong> es un salto que se lleva a cabo sólo si se cumple una determinada condición.</p></li>
+<li><p>En el caso de que la condición no se cumpla, no se produce el salto y, por tanto, el flujo de control del programa continúa en la siguiente sentencia que aparece en el código fuente.</p></li>
+<li><p>En pseudocódigo se puede escribir de la siguiente forma:</p>
+<div class="line-block"><strong>si</strong> <span style="color:teal">⟨<em>condición</em>⟩</span> <strong>saltar a</strong> (<span style="color:teal">⟨<em>etiqueta</em>⟩</span>|<span style="color:teal">⟨<em>número_línea</em>⟩</span>)</div></li>
 <li><p>En Python, usando el módulo <code>with_goto</code>, podríamos implementarlo de la siguiente forma:</p>
 <div class="line-block"><span style="color:teal">⟨<em>salto_condicional</em>⟩</span> ::= <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>:</code></strong> <strong><code>goto</code></strong> <span style="color:teal">⟨<em>etiqueta</em>⟩</span></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
+<div class="columns">
+<div class="column">
 <ul>
-<li><p>Ejemplo de uso:</p>
+<li><p>Ejemplo que combina saltos condicionales e incondicionales:</p>
+<div class="line-block"><span class="math inline">primero \longleftarrow 2</span><br />
+<span class="math inline">ultimo \longleftarrow 25</span><br />
+<span class="math inline">i \longleftarrow primero</span><br />
+<strong>etiqueta</strong> <em>inicio</em><br />
+<strong>si</strong> <span class="math inline">i = ultimo</span> <strong>saltar</strong> a la etiqueta <em>fin</em><br />
+<strong>escribir</strong> <span class="math inline">i</span><br />
+<span class="math inline">i \longleftarrow i + 1</span><br />
+<strong>saltar</strong> a la etiqueta <em>inicio</em><br />
+<strong>etiqueta</strong> <em>fin</em></div></li>
+</ul>
+</div><div class="column">
+<div class="centered">
+<p><img data-src="images/salto-condicional.svg" class="plain" style="width:50.0%" /></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="5.2.0.0.2">
+
+<ul>
+<li><p>Traducción a Python usando el módulo <code>with_goto</code>:</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
