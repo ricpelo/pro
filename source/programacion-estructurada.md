@@ -298,6 +298,26 @@ $B$
 
 ---
 
+- Esto tiene una consecuencia más profunda: si un programa es una sentencia,
+  también puede decirse que cada sentencia es como un programa en sí mismo.
+
+- Como las estructuras de control también son sentencias, **cada estructura de
+  control es como un _miniprograma_ dentro del programa**.
+
+- Ese miniprograma debe cumplir las propiedades de los programas propios (los
+  programas que no son propios no nos interesan).
+
+- Por eso, las estructuras:
+
+  #. Siempre tienen un único punto de entrada y un único punto de salida.
+
+  #. Tienen un camino desde la entrada a cada sentencia de la estructura, y un
+     camino desde cada una de ellas hasta la salida.
+
+  #. No debe tener bucles infinitos.
+
+---
+
 - Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
   claro, sería:
 
@@ -313,7 +333,6 @@ $B$
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-**inicio**
 **leer** $a$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
@@ -322,7 +341,6 @@ $B$
       **sino**
             $a \longleftarrow a - b$
 **escribir** $a$
-**fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
