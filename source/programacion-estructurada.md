@@ -562,6 +562,8 @@ instrucción ya pertenece a otra estructura.
 - Si no se cumple ninguna condición y no hay cláusula !PYTHON(else:), no se
   ejecuta ninguna sentencia.
 
+- Puede haber cláusulas !PYTHON(elif:) y no haber !PYTHON(else:).
+
 ---
 
 - En el siguiente código:
@@ -701,7 +703,7 @@ instrucción ya pertenece a otra estructura.
 salida = False
 while not salida:
     x = input('Introduce un número: ')
-    if x == 2:
+    if x == '2':
         salida = True
     print(x)
 ```
@@ -750,22 +752,22 @@ while not salida:
 
 ## Otras sentencias de control
 
-### `break`
+### !PYTHON(break)
 
-- La sentencia `break` finaliza el bucle que la contiene.
+- La sentencia !PYTHON(break) finaliza el bucle que la contiene.
 
 - El flujo de control del programa pasa a la sentencia inmediatamente posterior
   al cuerpo del bucle.
 
-- Si la sentencia `break` se encuentra dentro de un bucle anidado (un bucle
-  dentro de otro bucle), finalizará el bucle más interno.
+- Si la sentencia !PYTHON(break) se encuentra dentro de un bucle anidado (un
+  bucle dentro de otro bucle), finalizará el bucle más interno.
 
   ```python
-  i = 0
+  j = 0
   s = "string"
-  while i < len(s):
-      val = s[i]
-      i += 1
+  while j < len(s):
+      val = s[j]
+      j += 1
       if val == "i":
           break
       print(val)
@@ -781,19 +783,19 @@ while not salida:
   Fin
   ```
 
-### `continue`
+### !PYTHON(continue)
 
-- La sentencia `continue` se usa para saltarse el resto del código dentro de un
-  bucle en la iteración actual.
+- La sentencia !PYTHON(continue) se usa para saltarse el resto del código
+  dentro de un bucle en la iteración actual.
 
 - El bucle no finaliza sino que continúa con la siguiente iteración.
 
   ```python
-  i = 0
+  j = 0
   s = "string"
-  while i < len(s):
-      val = s[i]
-      i += 1
+  while j < len(s):
+      val = s[j]
+      j += 1
       if val == "i":
           continue
       print(val)
@@ -846,8 +848,8 @@ while not salida:
 - La última línea del mensaje de error indica qué ha ocurrido.
 
 - Hay distintos tipos de excepciones y ese tipo se muestra como parte del
-  mensaje: los tipos del ejemplo anterior son `ZeroDivisionError`, `NameError`
-  y `TypeError`.
+  mensaje: los tipos del ejemplo anterior son !PYTHON(ZeroDivisionError),
+  !PYTHON(NameError) y !PYTHON(TypeError).
 
 - El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo
   causó.
@@ -1286,8 +1288,8 @@ while not salida:
 ---
 
 - La definición de una función imperativa es una **sentencia compuesta**, es
-  decir, una **estructura** (como las estructuras de control `if`, `while`,
-  etcétera).
+  decir, una **estructura** (como las estructuras de control !PYTHON(if),
+  !PYTHON(while), etcétera).
 
 - Por tanto, puede aparecer en cualquier lugar del programa donde pueda haber
   una sentencia.
@@ -1444,8 +1446,8 @@ Una función puede llamar a otra.
 
 - La función debe estar definida antes de poder llamarla.
 
-- Eso significa que el intérprete de Python debe ejecutar el `def` de una
-  función antes de que el programa pueda llamar a esa función.
+- Eso significa que el intérprete de Python debe ejecutar el !PYTHON(def) de
+  una función antes de que el programa pueda llamar a esa función.
 
 - Por ejemplo, el siguiente programa lanzaría el error «*NameError: name 'hola'
   is not defined*» en la línea 1:

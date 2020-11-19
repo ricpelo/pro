@@ -640,6 +640,7 @@
 <li><p>En el momento en que se cumple una de las condiciones, se ejecuta su sentencia correspondiente y se sale de la estructura alternativa (no se sigue comprobando más).</p></li>
 <li><p>Si no se cumple ninguna condición y hay una cláusula <code class="sourceCode python"><span class="cf">else</span>:</code>, se ejecutará la sentencia de ésta.</p></li>
 <li><p>Si no se cumple ninguna condición y no hay cláusula <code class="sourceCode python"><span class="cf">else</span>:</code>, no se ejecuta ninguna sentencia.</p></li>
+<li><p>Puede haber cláusulas <code class="sourceCode python"><span class="cf">elif</span>:</code> y no haber <code class="sourceCode python"><span class="cf">else</span>:</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.2">
@@ -747,7 +748,7 @@ Fin</code></pre></li>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>salida <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> salida:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce un número: &#39;</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="st">&#39;2&#39;</span>:</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        salida <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span></code></pre></div>
 <div class="centered">
@@ -788,16 +789,16 @@ Fin</code></pre></li>
 
 </section>
 <section id="break" class="title-slide slide level3" data-number="2.4.1">
-<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> <code>break</code></h3>
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> <code class="sourceCode python"><span class="cf">break</span></code></h3>
 <ul>
-<li><p>La sentencia <code>break</code> finaliza el bucle que la contiene.</p></li>
+<li><p>La sentencia <code class="sourceCode python"><span class="cf">break</span></code> finaliza el bucle que la contiene.</p></li>
 <li><p>El flujo de control del programa pasa a la sentencia inmediatamente posterior al cuerpo del bucle.</p></li>
-<li><p>Si la sentencia <code>break</code> se encuentra dentro de un bucle anidado (un bucle dentro de otro bucle), finalizará el bucle más interno.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<li><p>Si la sentencia <code class="sourceCode python"><span class="cf">break</span></code> se encuentra dentro de un bucle anidado (un bucle dentro de otro bucle), finalizará el bucle más interno.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[i]</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> j <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[j]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    j <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val)</span>
@@ -811,15 +812,15 @@ Fin</code></pre></li>
 </section>
 
 <section id="continue" class="title-slide slide level3" data-number="2.4.2">
-<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> <code>continue</code></h3>
+<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> <code class="sourceCode python"><span class="cf">continue</span></code></h3>
 <ul>
-<li><p>La sentencia <code>continue</code> se usa para saltarse el resto del código dentro de un bucle en la iteración actual.</p></li>
+<li><p>La sentencia <code class="sourceCode python"><span class="cf">continue</span></code> se usa para saltarse el resto del código dentro de un bucle en la iteración actual.</p></li>
 <li><p>El bucle no finaliza sino que continúa con la siguiente iteración.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;string&quot;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[i]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> j <span class="op">&lt;</span> <span class="bu">len</span>(s):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> s[j]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    j <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> <span class="st">&quot;i&quot;</span>:</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val)</span>
@@ -859,7 +860,7 @@ Fin</code></pre></li>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t convert &#39;</span><span class="bu">int</span><span class="st">&#39; object to str implicitly</span></span></code></pre></div></li>
 <li><p>La última línea del mensaje de error indica qué ha ocurrido.</p></li>
-<li><p>Hay distintos tipos de excepciones y ese tipo se muestra como parte del mensaje: los tipos del ejemplo anterior son <code>ZeroDivisionError</code>, <code>NameError</code> y <code>TypeError</code>.</p></li>
+<li><p>Hay distintos tipos de excepciones y ese tipo se muestra como parte del mensaje: los tipos del ejemplo anterior son <code class="sourceCode python"><span class="pp">ZeroDivisionError</span></code>, <code class="sourceCode python"><span class="pp">NameError</span></code> y <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 <li><p>El resto de la línea proporciona detalles sobre el tipo de excepción y qué lo causó.</p></li>
 </ul>
 </section>
@@ -1187,7 +1188,7 @@ Fin</code></pre></li>
 <section class="slide level5" data-number="4.1.0.0.2">
 
 <ul>
-<li><p>La definición de una función imperativa es una <strong>sentencia compuesta</strong>, es decir, una <strong>estructura</strong> (como las estructuras de control <code>if</code>, <code>while</code>, etcétera).</p></li>
+<li><p>La definición de una función imperativa es una <strong>sentencia compuesta</strong>, es decir, una <strong>estructura</strong> (como las estructuras de control <code class="sourceCode python"><span class="cf">if</span></code>, <code class="sourceCode python"><span class="cf">while</span></code>, etcétera).</p></li>
 <li><p>Por tanto, puede aparecer en cualquier lugar del programa donde pueda haber una sentencia.</p></li>
 <li><p>Como en cualquier otra estructura, las sentencias que contiene (las que van en el <strong>cuerpo</strong> de la función) van <strong>indentadas</strong> (o <em>sangradas</em>) dentro de la definición de la función.</p></li>
 <li><p>Por tanto (de nuevo, como en cualquier otra estructura), el final de la función se deduce al encontrarse una sentencia <strong>menos indentada</strong> que el cuerpo, o bien el final del <em>script</em>.</p></li>
@@ -1306,7 +1307,7 @@ Sayonara, baby</code></pre></li>
 
 <ul>
 <li><p>La función debe estar definida antes de poder llamarla.</p></li>
-<li><p>Eso significa que el intérprete de Python debe ejecutar el <code>def</code> de una función antes de que el programa pueda llamar a esa función.</p></li>
+<li><p>Eso significa que el intérprete de Python debe ejecutar el <code class="sourceCode python"><span class="kw">def</span></code> de una función antes de que el programa pueda llamar a esa función.</p></li>
 <li><p>Por ejemplo, el siguiente programa lanzaría el error «<em>NameError: name ‘hola’ is not defined</em>» en la línea 1:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>hola()</span>
 <span id="cb27-2"><a href="#cb27-2"></a></span>
