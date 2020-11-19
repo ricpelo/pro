@@ -598,16 +598,19 @@ instrucción ya pertenece a otra estructura.
   lo primero que se hace nada más entrar en la estructura es comprobar la
   condición:
 
-  - Si la condición no se cumple, se salta la sentencia y se sale de la
-    estructura.
+  - **Si la condición no se cumple**, se salta la sentencia y se sale de la
+    estructura, pasando a la siguiente sentencia que haya tras el bucle.
 
-  - Si la condición se cumple, se ejecuta la sentencia y se vuelve otra vez al
-    principio de la estructura, donde se volverá a comprobar si la condición se
-    cumple, repitiendo el mismo ciclo de «_comprobación y ejecución_» una y
-    otra vez hasta que la condición deje de cumplirse.
+  - **Si la condición se cumple**, se ejecuta la sentencia y se vuelve otra vez
+    al principio de la estructura, donde se volverá a comprobar si la condición
+    se cumple.
 
-  - Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una
-    **iteración** del bucle.
+    Este ciclo ciclo de «_comprobación y ejecución_» se repite una y otra vez
+    hasta que se compruebe que la condición ya no se cumple, momento en el que
+    se saldrá del bucle.
+
+- Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una
+  **iteración** del bucle.
 
 - Es importante observar que la comprobación de la condición se hace justo al
   principio de cada iteración, es decir, justo antes de ejecutar la sentencia
@@ -665,7 +668,34 @@ while not salida:
 
 ---
 
-- Ahora ampliamos de nuevo nuestra gramática:
+- Si la condición se cumple siempre y nunca evalúa a !PYTHON(False), la
+  ejecución nunca saldrá del bucle y tendremos lo que se denomina un **bucle
+  infinito**.
+
+- Generalmente, los bucles infinitos indican un fallo en el programa y, por
+  tanto, hay que evitarlos en la medida de lo posible.
+
+  Sólo en casos muy particulares resulta lógico y conveniente tener un bucle
+  infinito.
+
+- Por ejemplo, los siguientes bucles serían infinitos:
+
+  ```python
+  while True:
+      print("Hola")
+  ```
+
+  ```python
+  i = 0
+  while i >= 0:
+      print("Hola")
+      i += 1
+  ```
+
+---
+
+- Ahora ampliamos de nuevo nuestra gramática, esta vez con la estructura de
+  iteración (o sentencia !PYTHON(while)):
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
