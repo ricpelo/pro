@@ -33,29 +33,53 @@ nocite: |
   aparecen cuando se programa sin una disciplina y unos límites que marquen la
   creación de programas claros y correctos.
 
-- Un programador disciplinado crearía programas fáciles de leer. Por ejemplo,
-  el siguiente programa que calcula el producto de dos números:
+- Un programador _disciplinado_ crearía programas fáciles de leer.
+
+- Por ejemplo, el siguiente programa que calcula el producto de dos números:
 
   !IMGP(producto.png)()(width=90%)(width=100%)
 
 ---
 
-- En cambio, un programador indisciplinado crearía programas más difíciles de
-  leer:
+- En cambio, un programador _indisciplinado_ crearía programas más difíciles de
+  leer.
 
-  !IMGP(confuso.png)()(width=50%)(width=70%)
+:::: columns
+
+::: {.column width=45%}
+
+- Este programa resuelve el mismo problema que el anterior, pero mediante
+  saltos contínuos y líneas que se cruzan, lo que resulta en un programa más
+  complicado de seguir.
+
+:::
+
+::: {.column width=55%}
+
+!IMGP(confuso.png)()(width=100%)(width=70%)
+
+:::
+
+::::
+
+---
+
+- Esos dos programas son **equivalentes**, lo que significa que producen el
+  mismo resultado y los mismos efectos ante los mismos datos de entrada, pero
+  lo hacen de distinta forma.
+
+- Pero el primer programa es **mucho más fácil de leer y modificar** que el
+  segundo, aunque los dos resuelvan el mismo problema.
 
 - Si un programa se escribe de cualquier manera, aunque funcione correctamente,
   puede resultar engorroso, críptico, ilegible y casi imposible de modificar.
 
----
+- Por tanto, lo que hay que hacer es **impedir que el programador pueda
+  escribir programas de cualquier manera**, y para ello hay que **restringir
+  sus opciones** a la hora de construir programas, de forma que el programa
+  resultante sea fácil de leer, entender y mantener.
 
-- Lo que hay que hacer, en primer lugar, es impedir que el programador pueda
-  escribir programas de cualquier manera, y para ello hay que restringir sus
-  opciones a la hora de construir programas de forma que el diagrama resultante
-  sea fácil de leer, entender y mantener.
-
-- Ese diagrama, una vez terminado, debe estar construido combinando sólo unos
+- Ese programa, una vez terminado, debe estar construido combinando sólo unos
   pocos tipos de bloques y cumpliendo una serie de restricciones. 
 
 ## Programa restringido
@@ -105,34 +129,34 @@ nocite: |
 - Cuando varios programas propios se combinan para formar uno solo, el
   resultado es también un programa propio.
 
-- Estas condiciones restringen aún más el concepto de _programa_, de modo que
-  sólo serán válidos aquéllos que estén diseñados mediante el uso apropiado del
-  agrupamiento y sin bloques superfluos o formando bucles sin salida.
+- Estas condiciones **restringen aún más el concepto de _programa_**, de modo
+  que sólo serán válidos aquellos que estén diseñados mediante el uso apropiado
+  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
 
 ---
 
-- Este es un ejemplo de un programa que no es propio por no tener una única
-  salida:
+- Este es un ejemplo de un programa que no es propio porque **no tiene una
+  única salida**:
 
   !IMGP(condicion-no-propio.png)()(width=50%)(width=40%)
 
-- Agrupando las salidas se obtiene un programa propio:
+- **Agrupando** las salidas se obtiene un programa propio:
 
   !IMGP(seleccion.png)()(width=50%)(width=50%)
 
 ---
 
-- Aquí se observa otro programa que no es propio, ya que existen bloques (los
-  *A*, *C* y *q*) que no tienen un camino hasta la salida; si el programa
-  llegara hasta esos bloques se bloquearía, pues no es posible terminar la
-  ejecución:
+- Aquí se observa otro programa que no es propio, ya que **existen bloques (los
+  *A*, *C* y *q*) que no tienen un camino hasta la salida**; si el programa
+  llegara hasta esos bloques se quedaría bloqueado en un ciclo sin fin, pues no
+  es posible terminar la ejecución:
 
 !IMGP(diagrama-no-propio.png)()(width=90%)(width=70%)
 
 ---
 
-- Aquí aparece un programa que tampoco es propio porque contiene bloques
-  inaccesibles desde la entrada del diagrama:
+- Aquí aparece un programa que tampoco es propio porque contiene **bloques
+  inaccesibles** desde la entrada del diagrama:
 
 !IMGP(diagrama-inaccesibles.png)()(width=80%)(width=50%)
 
@@ -190,8 +214,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras (llamadas **estructuras de control**):
 
-  #. La **estructura secuencial** o **_secuencia_** de dos sentencias *A* y
-     *B*.
+  #. La **estructura secuencial** o **_secuencia_** de dos o más sentencias
+     *A*, *B*, *C*, etcétera.
 
   #. La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
      *B* dependiendo de un predicado *p*.
