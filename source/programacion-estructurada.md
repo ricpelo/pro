@@ -894,7 +894,7 @@ while not salida:
     !PYTHON(except) y se ejecutan las sentencias del !PYTHON(else) (si existe).
 
   - Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún
-    !PYTHON(except) que cuadre con el tipo de excepción que se la lanzado y, si
+    !PYTHON(except) que cuadre con el tipo de excepción que se ha lanzado y, si
     se encuentra, se ejecutan sus sentencias asociadas.
 
   - Finalmente, y en cualquier caso (se haya levantado alguna excepción o no),
@@ -1088,8 +1088,8 @@ while not salida:
 ## Recursos abstractos
 
 - Descomponer un programa en términos de recursos abstractos consiste en
-  descomponer una determinada sentencia compleja en un número de sentencias mas
-  simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus
+  descomponer una determinada sentencia compleja en sentencias mas simples,
+  capaces de ser ejecutadas por un ordenador, y que constituirán sus
   instrucciones.
 
 - Es el complemento perfecto para el diseño descendente y el que nos
@@ -1152,6 +1152,10 @@ while not salida:
   traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
   recurso abstracto).
 
+- Podríamos traducir ya la sentencia «**leer $n$**» al lenguaje de
+  programación, o podríamos esperar a tener todas las sentencias refinadas y
+  traducirlas todas a la vez. En este caso, lo haremos de la primera forma.
+
 ---
 
 - La construcción de la tabla se puede realizar fácilmente escribiendo en una
@@ -1165,11 +1169,11 @@ while not salida:
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **inicio**
   **leer $n$**
-  # construir la tabla de $n \times n$:
-  $i \leftarrow 1$
-  **mientras** $i \leq n$:
+  _{ construir la tabla de $n \times n$: }_
+  $i \longleftarrow 1$
+  **mientras** $i \leq n$ **hacer**
         **escribir la fila de $i$**
-        $i \leftarrow i + 1$
+        $i \longleftarrow i + 1$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1186,15 +1190,15 @@ while not salida:
   **inicio**
   **leer $n$**
   _{ construir la tabla de $n \times n$: }_
-  $i \leftarrow 1$
-  **mientras** $i \leq n$:
+  $i \longleftarrow 1$
+  **mientras** $i \leq n$ **hacer**
         _{ escribir la fila de $i$: }_
-        $j \leftarrow 1$
-        **mientras** $j \leq n$:
+        $j \longleftarrow 1$
+        **mientras** $j \leq n$ **hacer**
               **escribir** $i \times j$
-              $j \leftarrow j + 1$
+              $j \longleftarrow j + 1$
         **escribir** un salto de línea
-        $i \leftarrow i + 1$
+        $i \longleftarrow i + 1$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

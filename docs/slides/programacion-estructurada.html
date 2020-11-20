@@ -891,7 +891,7 @@ Fin</code></pre></li>
 <ul>
 <li><p>Se intenta ejecutar el bloque de sentencias del <code class="sourceCode python"><span class="cf">try</span></code>.</p></li>
 <li><p>Si durante su ejecución no se levanta ninguna excepción, se saltan los <code class="sourceCode python"><span class="cf">except</span></code> y se ejecutan las sentencias del <code class="sourceCode python"><span class="cf">else</span></code>.</p></li>
-<li><p>Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún <code class="sourceCode python"><span class="cf">except</span></code> que cuadre con el tipo de excepción que se la lanzado y, si se encuentra, se ejecutan sus sentencias asociadas.</p></li>
+<li><p>Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún <code class="sourceCode python"><span class="cf">except</span></code> que cuadre con el tipo de excepción que se ha lanzado y, si se encuentra, se ejecutan sus sentencias asociadas.</p></li>
 <li><p>Finalmente, y en cualquier caso (se haya levantado alguna excepción o no), se ejecutan las sentencias del <code class="sourceCode python"><span class="cf">finally</span></code>.</p></li>
 </ul></li>
 </ul>
@@ -1043,7 +1043,7 @@ Fin</code></pre></li>
 <section id="recursos-abstractos" class="title-slide slide level2" data-number="3.2">
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> Recursos abstractos</h2>
 <ul>
-<li><p>Descomponer un programa en términos de recursos abstractos consiste en descomponer una determinada sentencia compleja en un número de sentencias mas simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus instrucciones.</p></li>
+<li><p>Descomponer un programa en términos de recursos abstractos consiste en descomponer una determinada sentencia compleja en sentencias mas simples, capaces de ser ejecutadas por un ordenador, y que constituirán sus instrucciones.</p></li>
 <li><p>Es el complemento perfecto para el diseño descendente y el que nos proporciona el método a seguir para obtener un nuevo nivel de refinamiento a partir del anterior.</p></li>
 </ul>
 </section>
@@ -1081,6 +1081,7 @@ Fin</code></pre></li>
 <strong>fin</strong></div>
 <p>donde el programa se plantea como una secuencia de dos sentencias: preguntar el tamaño de la tabla deseada y construir la tabla propiamente dicha.</p></li>
 <li><p>La sentencia «<strong>leer <span class="math inline">n</span></strong>» ya está suficientemente refinada (se puede traducir a un lenguaje de programación) pero la segunda no (por tanto, es un recurso abstracto).</p></li>
+<li><p>Podríamos traducir ya la sentencia «<strong>leer <span class="math inline">n</span></strong>» al lenguaje de programación, o podríamos esperar a tener todas las sentencias refinadas y traducirlas todas a la vez. En este caso, lo haremos de la primera forma.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
@@ -1090,11 +1091,11 @@ Fin</code></pre></li>
 <li><p>Por tanto, el siguiente paso es refinar la sentencia abstracta «<strong>construir la tabla de <span class="math inline">n \times n</span></strong>», creando un nuevo nivel de refinamiento:</p>
 <div class="line-block"><strong>inicio</strong><br />
   <strong>leer <span class="math inline">n</span></strong><br />
-  # construir la tabla de <span class="math inline">n \times n</span>:<br />
-  <span class="math inline">i \leftarrow 1</span><br />
-  <strong>mientras</strong> <span class="math inline">i \leq n</span>:<br />
+  <em>{ construir la tabla de <span class="math inline">n \times n</span>: }</em><br />
+  <span class="math inline">i \longleftarrow 1</span><br />
+  <strong>mientras</strong> <span class="math inline">i \leq n</span> <strong>hacer</strong><br />
         <strong>escribir la fila de <span class="math inline">i</span></strong><br />
-        <span class="math inline">i \leftarrow i + 1</span><br />
+        <span class="math inline">i \longleftarrow i + 1</span><br />
 <strong>fin</strong></div>
 <p>donde ahora aparece la sentencia «<strong>escribir la fila de <span class="math inline">i</span></strong>», que escribe cada una de las filas de la tabla, y que habrá que refinar porque no se puede traducir directamente al lenguaje de programación.</p></li>
 </ul>
@@ -1106,15 +1107,15 @@ Fin</code></pre></li>
 <div class="line-block"><strong>inicio</strong><br />
   <strong>leer <span class="math inline">n</span></strong><br />
   <em>{ construir la tabla de <span class="math inline">n \times n</span>: }</em><br />
-  <span class="math inline">i \leftarrow 1</span><br />
-  <strong>mientras</strong> <span class="math inline">i \leq n</span>:<br />
+  <span class="math inline">i \longleftarrow 1</span><br />
+  <strong>mientras</strong> <span class="math inline">i \leq n</span> <strong>hacer</strong><br />
         <em>{ escribir la fila de <span class="math inline">i</span>: }</em><br />
-        <span class="math inline">j \leftarrow 1</span><br />
-        <strong>mientras</strong> <span class="math inline">j \leq n</span>:<br />
+        <span class="math inline">j \longleftarrow 1</span><br />
+        <strong>mientras</strong> <span class="math inline">j \leq n</span> <strong>hacer</strong><br />
               <strong>escribir</strong> <span class="math inline">i \times j</span><br />
-              <span class="math inline">j \leftarrow j + 1</span><br />
+              <span class="math inline">j \longleftarrow j + 1</span><br />
         <strong>escribir</strong> un salto de línea<br />
-        <span class="math inline">i \leftarrow i + 1</span><br />
+        <span class="math inline">i \longleftarrow i + 1</span><br />
 <strong>fin</strong></div></li>
 </ul>
 </section>
