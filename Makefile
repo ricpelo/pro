@@ -44,6 +44,8 @@ LATEX_TEMPLATE=$(AUX)/latex.template
 PREAMBULO_BEAMER=$(AUX)/preambulo-beamer.tex
 PREAMBULO_LATEX=$(AUX)/preambulo-latex.tex
 HEADER_INCLUDES=$(AUX)/header-includes.html
+HEADER_INCLUDES_EJERCICIOS=$(AUX)/header-includes-ejercicios.tex
+INCLUDE_BEFORE_EJERCICIOS=$(AUX)/include-before-ejercicios.tex
 INCLUDE_BEFORE_HTML=$(AUX)/include-before.html
 INCLUDE_BEFORE_TEX=$(AUX)/include-before.tex
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
@@ -188,17 +190,23 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 
 # Ejercicios
 
-$(EJER_BUILDDIR_PDF)/%.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
+$(EJER_BUILDDIR_PDF)/%.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
+		-H $(HEADER_INCLUDES_EJERCICIOS) \
+		-B $(INCLUDE_BEFORE_EJERCICIOS) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \
 		--syntax-definition=$(COMMENTS_XML) \
 		--syntax-definition=$(SPDX_COMMENTS_XML) \
-		-V lang=es-ES -o $@
+		-V documentclass=scrartcl \
+		-V date="Curso $(CURSO)" \
+		-V subtitle="Programación --- DAW" \
+		-V fontfamily=libertinus \
+		-V fontsize=12pt -V lang=es-ES -o $@
 
 # Objetivos auxiliares
 
