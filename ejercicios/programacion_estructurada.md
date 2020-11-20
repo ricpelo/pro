@@ -4,6 +4,11 @@ author:
 - |
   Ricardo Pérez López\
   IES Doñana
+include-before:
+- |
+  \ifdefined\Highlighting
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+  \fi
 ---
 
 #. Encontrar el valor de la variable `valor` después de la ejecución de las
@@ -29,6 +34,15 @@ author:
       ```
 
 #. ¿Cuál es la diferencia entre `[1, 2, 3]` y `[[1, 2, 3]]`?
+
+#. Explicar la diferencia entre el operador ternario:
+
+   !NT(valor) !T(if) !NT(condición) !T(else) !NT(valor)
+
+   y la estructura de control:
+
+   | !T(if) !NT(condición):
+   |      !NT(sentencia)
 
 #. Escribir un programa que pida al usuario su edad y que imprima el mensaje
    «`¡Qué joven!`» si es menor de 25 años.
