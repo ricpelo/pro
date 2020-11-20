@@ -654,7 +654,7 @@ instrucción ya pertenece a otra estructura.
     se saldrá del bucle.
 
 - Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una
-  **iteración** del bucle.
+  **iteración** o **paso** del bucle.
 
 - Es importante observar que la comprobación de la condición se hace justo al
   principio de cada iteración, es decir, justo antes de ejecutar la sentencia

@@ -788,7 +788,8 @@ y:f1 -> 5
 
 ### Inmutables
 
-- Un valor de un tipo inmutable no puede cambiar su estado interno durante la ejecución del programa.
+- Un valor de un tipo inmutable no puede cambiar su estado interno durante la
+  ejecución del programa.
 
 :::: columns
 
@@ -1215,6 +1216,37 @@ s | P | y | t | h | o | n |
   >>> l = [124, 333, 'a', 3.2, 9, 53]
   >>> l
   [124, 333, 'a', 3.2, 9, 53]
+  ```
+
+---
+
+- También se pueden crear listas a partir de otros datos estructurados
+  (cadenas, tuplas, rangos, etcétera) usando la función !PYTHON(list):
+
+  ```python
+  >>> list((1, 2, 3))
+  [1, 2, 3]
+  >>> list('hola')
+  ['h', 'o', 'l', 'a']
+  >>> list(range(0, 6))
+  [0, 1, 2, 3, 4, 5]
+  ```
+
+- No se puede crear una lista con !PYTHON(list) a partir de un dato no
+  estructurado:
+
+  ```python
+  >>> list(1)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: 'int' object is not iterable
+  ```
+
+- Para ello, lo mejor sería encerrar directamente el valor entre corchetes:
+
+  ```python
+  >>> [1]
+  [1]
   ```
 
 ---
