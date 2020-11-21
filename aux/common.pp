@@ -262,9 +262,10 @@ LAS SIGUIENTES MACROS SON AUXILIARES, NO PARA USO GENERAL
   !1:::
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\Begin{center}
+\begingroup
+  \centering
   !1
-  \End{center}
+  \endgroup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

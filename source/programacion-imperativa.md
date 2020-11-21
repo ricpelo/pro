@@ -2140,6 +2140,67 @@ True
 - Eso hace que sea *impura* por partida doble: provoca un efecto lateral y
   puede devolver un resultado distinto cada vez que se la llama.
 
+## Ejecución de _scripts_!ifdef(HTML)(&nbsp;)() por lotes
+
+- A partir de ahora, ya podemos escribir programas que se comuniquen
+  directamente con el usuario mediante la entrada y salida por consola.
+
+- Por tanto, ya no necesitamos ejecutar las sentencias dentro de una sesión en
+  el intérprete interactivo y podemos pasarle nuestros programas a los usuarios
+  para que lo ejecuten.
+
+- En Python, los programas se almacenan en archivos llamados _scripts_.
+
+- Los usuarios ejecutan los programas directamente desde el sistema operativo,
+  llamando al intérprete por lotes y pasándole el nombre del _script_ que desea
+  ejecutar.
+
+- Por ejemplo, para ejecutar el _script_ `programa.py`, el usuario escribiría
+  lo siguiente en un terminal del sistema operativo:
+
+  ```console
+  $ python programa.py
+  ```
+
+- Observar que no se usa ninguna opción en la orden; solamente el nombre del
+  archivo.
+
+---
+
+- Nosotros, los programadores, durante el desarrollo del programa podemos
+  ejecutarlo directamente dentro del entorno integrado de desarrollo (IDE).
+
+- Por ejemplo, desde Visual Studio Code podemos ejecutar el _script_ actual sin
+  salirnos del editor usando una de las siguientes opciones:
+
+  - Pulsando en el icono del triángulo verde situado en la esquina superior
+    derecha de la ventana del editor:
+
+    !ifdef(HTML)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(icono-ejecutar-vscode.png)()(width=8%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    !ifdef(BEAMER)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Begin{center}\hspace{-3.2em}![](!IMAGES/icono-ejecutar-vscode.png){width=8%}\End{center}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    !ifdef(LATEX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Begin{center}\hspace{-2.2em}![](!IMAGES/icono-ejecutar-vscode.png){width=8%}\End{center}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - Pulsando la tecla `F1` y escribiendo:
+
+    `>Python: Run Python File in Terminal`
+
+    en el panel de comandos que aparece.
+
+- En cualquiera de los dos casos, Visual Studio Code abre un terminal integrado
+  y ejecuta ahí dentro el comando `python programa.py` como si lo hubiéramos
+  escrito nosotros desde el sistema operativo.
+
 ## Entrada y salida por archivos
 
 - Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este
