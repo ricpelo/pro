@@ -1145,10 +1145,10 @@ s | P | y | t | h | o | n |
   primero elemento de la secuencia, dependiendo de si $k$ es positivo o
   negativo.
 
-- Si $i > j$, $k$ debería ser positivo (de lo contrario, devolvería la
+- Si $i < j$, $k$ debería ser positivo (de lo contrario, devolvería la
   secuencia vacía).
 
-- Si $i < j$, $k$ debería ser negativo (de lo contrario, devolvería la
+- Si $i > j$, $k$ debería ser negativo (de lo contrario, devolvería la
   secuencia vacía).
 
 - Si $i = j$, devuelve la secuencia vacía.
