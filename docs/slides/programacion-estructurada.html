@@ -649,7 +649,7 @@
 <li><p>En el siguiente código:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>b <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="cf">if</span> a <span class="op">==</span> b:</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="cf">if</span> a <span class="op">!=</span> b:</span>
 <span id="cb5-4"><a href="#cb5-4"></a>    <span class="bu">print</span>(<span class="st">&#39;Son distintos&#39;</span>)</span>
 <span id="cb5-5"><a href="#cb5-5"></a>    x <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a><span class="cf">else</span>:</span>
@@ -1199,12 +1199,20 @@ Fin</code></pre></li>
 
 <ul>
 <li><p>La definición de una función es una sentencia ejecutable que, como cualquier otra definición, <strong>crea una ligadura</strong> entre un identificador (el nombre de la función) y <strong>una variable que almacenará una referencia a la función</strong> dentro del montículo.</p></li>
+<li><p>La definición de una función <strong>no ejecuta el cuerpo de la función</strong>. El cuerpo se ejecutará únicamente cuando se llame a la función, al igual que ocurría con las expresiones lambda.</p></li>
 <li><p>Esa definición se ejecuta en un determinado ámbito (normalmente, el ámbito global) y, por tanto, su ligadura y su variable <strong>se almacenarán en el marco del ámbito donde se ha definido la función</strong> (normalmente, el marco global).</p></li>
 <li><p>Asimismo, <strong>el cuerpo de una función imperativa define un ámbito</strong>, al igual que ocurría con las expresiones lambda.</p></li>
-<li><p>La definición de una función <strong>no ejecuta el cuerpo de la función</strong>. El cuerpo se ejecutará únicamente cuando se llame a la función, al igual que ocurría con las expresiones lambda.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.4">
+
+<div class="centered">
+<figure>
+<img data-src="images/ambitos-funciones-imperativas.svg" class="plain" style="width:100.0%" alt="El cuerpo de una función define un ámbito" /><figcaption aria-hidden="true">El cuerpo de una función define un ámbito</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="4.1.0.0.5">
 
 <ul>
 <li><p>Nuestra gramática se vuelve a ampliar para incluir las definiciones de funciones imperativas como un caso más de sentencia compuesta:</p>
@@ -1691,7 +1699,7 @@ La suma vale 13
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
-<li><p>En este caso, la función es <strong>impura</strong>, aunque no provoca efectos laterales (pero sí podría verse afectada por efectos laterales provocados por otra función que modifique el valor de la variable global <code class="sourceCode python">z</code>).</p></li>
+<li><p>En este caso, la función es <strong>impura</strong> porque, aunque no provoca efectos laterales, sí puede verse afectada por los efectos laterales que provocan otras partes del programa cuando modifican el valor de la variable global <code class="sourceCode python">z</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.2.5">

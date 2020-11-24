@@ -571,7 +571,7 @@ instrucción ya pertenece a otra estructura.
   ```{.python .number-lines}
   a = 4
   b = 3
-  if a == b:
+  if a != b:
       print('Son distintos')
       x = 5
   else:
@@ -596,7 +596,7 @@ instrucción ya pertenece a otra estructura.
 - Aquí se ven representadas visualmente las estructuras que forman el código
   fuente del programa:
 
-  !IMGP(estructuras-de-control-if.svg)(Representación de las distintas estructuras que forman el código)(width=50%)(width=40%)
+  !IMGP(estructuras-de-control-if.!EXT)(Representación de las distintas estructuras que forman el código)(width=50%)(width=40%)
 
 - Se aprecia claramente que hay tres estructuras (dos secuenciales y una
   alternativa) y cinco sentencias simples (las asignaciones y los
@@ -691,13 +691,15 @@ instrucción ya pertenece a otra estructura.
 
 ::: column
 
-!IMGP(estructuras-de-control-while1.svg)(Estructuras en el código)(width=60%)(width=40%)
+!IMGP(estructuras-de-control-while1.!EXT)(Estructuras en el código)(width=60%)(width=20%)
 
 :::
 
 ::::
 
 ---
+
+!ifdef(LATEX)(\newpage)
 
 ```python
 salida = False
@@ -708,7 +710,7 @@ while not salida:
     print(x)
 ```
 
-!IMGP(estructuras-de-control-while2.svg)(Estructuras en el código)(width=60%)(width=40%)
+!IMGP(estructuras-de-control-while2.!EXT)(Estructuras en el código)(width=60%)(width=50%)
 
 ---
 
@@ -749,6 +751,8 @@ while not salida:
 !T(while) !NT(condición)!T(:)
       !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~
+
+!ifdef(LATEX)(\newpage)
 
 ## Otras sentencias de control
 
@@ -1313,6 +1317,10 @@ while not salida:
   la función) y **una variable que almacenará una referencia a la función**
   dentro del montículo.
 
+- La definición de una función **no ejecuta el cuerpo de la función**. El
+  cuerpo se ejecutará únicamente cuando se llame a la función, al igual que
+  ocurría con las expresiones lambda.
+
 - Esa definición se ejecuta en un determinado ámbito (normalmente, el ámbito
   global) y, por tanto, su ligadura y su variable **se almacenarán en el marco
   del ámbito donde se ha definido la función** (normalmente, el marco global).
@@ -1320,9 +1328,9 @@ while not salida:
 - Asimismo, **el cuerpo de una función imperativa define un ámbito**, al igual
   que ocurría con las expresiones lambda.
 
-- La definición de una función **no ejecuta el cuerpo de la función**. El
-  cuerpo se ejecutará únicamente cuando se llame a la función, al igual que
-  ocurría con las expresiones lambda.
+---
+
+!IMGP(ambitos-funciones-imperativas.!EXT)(El cuerpo de una función define un ámbito)(width=100%)(width=50%)
 
 ---
 
@@ -2093,9 +2101,10 @@ E -> suma [lhead = cluster0]
   print(suma(4, 3))  # imprime 9
   ```
 
-- En este caso, la función es **impura**, aunque no provoca efectos laterales
-  (pero sí podría verse afectada por efectos laterales provocados por otra
-  función que modifique el valor de la variable global !PYTHON(z)).
+- En este caso, la función es **impura** porque, aunque no provoca efectos
+  laterales, sí puede verse afectada por los efectos laterales que provocan
+  otras partes del programa cuando modifican el valor de la variable global
+  !PYTHON(z).
 
 ---
 

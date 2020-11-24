@@ -2635,7 +2635,7 @@ True
 
 - Representado como diagrama de flujo:
 
-!IMGP(salto-incondicional.!ifdef(HTML)(svg)(pdf))()(width=60%)(width=30%)
+!IMGP(salto-incondicional.!EXT)()(width=60%)(width=30%)
 
 :::
 
@@ -2739,7 +2739,7 @@ $i \longleftarrow i + 1$
 
 ::: column
 
-!IMGP(salto-condicional.!ifdef(HTML)(svg)(pdf))()(width=50%)(width=30%)
+!IMGP(salto-condicional.!EXT)()(width=50%)(width=30%)
 
 :::
 

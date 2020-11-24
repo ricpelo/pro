@@ -196,6 +196,11 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 !IMG(!1)(!2)(!3 .plain)(!4)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+!define(EXT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!ifdef(HTML)(svg)(pdf)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !UML(archivo)[(texto)][(estilo Beamer)][(estilo Latex)](definición)
