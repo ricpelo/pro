@@ -1308,21 +1308,39 @@ while not salida:
 
 ---
 
-- En consecuencia, nuestra gramática se vuelve a ampliar:
+- La definición de una función es una sentencia ejecutable que, como cualquier
+  otra definición, **crea una ligadura** entre un identificador (el nombre de
+  la función) y **una variable que almacenará una referencia a la función**
+  dentro del montículo.
+
+- Esa definición se ejecuta en un determinado ámbito (normalmente, el ámbito
+  global) y, por tanto, su ligadura y su variable **se almacenarán en el marco
+  del ámbito donde se ha definido la función** (normalmente, el marco global).
+
+- Asimismo, **el cuerpo de una función imperativa define un ámbito**, al igual
+  que ocurría con las expresiones lambda.
+
+- La definición de una función **no ejecuta el cuerpo de la función**. El
+  cuerpo se ejecutará únicamente cuando se llame a la función, al igual que
+  ocurría con las expresiones lambda.
+
+---
+
+- Nuestra gramática se vuelve a ampliar para incluir las definiciones de
+  funciones imperativas como un caso más de sentencia compuesta:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
 !NT(estructura) ::= !NT(secuencia)
-                        | !NT(selección)
-                        | !NT(iteración)
-                        | !NT(gestión_excepciones)
-                        | !NT(definición_función)
+                             | !NT(selección)
+                             | !NT(iteración)
+                             | !NT(gestión_excepciones)
+                             | !NT(definición_función)
 !NT(definición_función) ::=
 !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
       !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~
-
 
 ## Llamadas a funciones imperativas 
 
@@ -1330,9 +1348,8 @@ while not salida:
   orden):
 
   1. Como siempre que se llama a una función, se crea un nuevo marco en el
-     entorno (que contiene los parámetros así como las ligaduras y variables
-     locales a su ámbito) y se almacena en la pila de control su registro de
-     activación.
+     entorno (que contiene las ligaduras y variables locales a su ámbito,
+     incluyendo sus parámetros) y se almacena en la pila de control.
 
   2. Se pasan los argumentos de la llamada a los parámetros de la función.
   
@@ -1350,12 +1367,12 @@ while not salida:
 
   1. Se genera su valor de retorno (en breve veremos cómo).
 
-  2. Se saca su registro de activación de la pila.
+  2. Se saca su marco de la pila.
   
-  3. Se devuelve el control de la ejecución a la línea de código que llamó a la
+  3. Se devuelve el control de la ejecución a la sentencia que llamó a la
      función.
 
-  4. Se sustituye, en dicha línea, la llamada a la función por su valor de
+  4. Se sustituye, en dicha sentencia, la llamada a la función por su valor de
      retorno.
 
   5. Se continúa la ejecución del programa desde ese punto.
@@ -1391,7 +1408,7 @@ while not salida:
   Sayonara, baby
   ```
 
-[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
+[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"}
 
 ---
 
@@ -1444,7 +1461,7 @@ Una función puede llamar a otra.
 
 ::::
 
-[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28'Me%20llamo%20Ricardo'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}
+[Ver ejecución paso a paso en Pythontutor](http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28'Hola',%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28'Encantado%20de%20saludarte'%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28'Hasta%20luego,%20Lucas'%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28'Me%20llamo%20Ricardo'%29%0A%0Asaluda%28'Pepe'%29%0Aprint%28'El%20gusto%20es%20m%C3%ADo'%29%0Asaluda%28'Juan'%29%0Adespide%28%29%0Aprint%28'Sayonara,%20baby'%29&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}
 
 ---
 
@@ -1477,8 +1494,8 @@ Una función puede llamar a otra.
 - En el marco de la función llamada se almacenan, entre otras cosas, los
   parámetros de la función.
 
-- Al principio, los parámetros contendrán los valores de los argumentos que se
-  hayan pasado a la función al llamar a la misma.
+- Al entrar en la función, los parámetros contendrán los valores de los
+  argumentos que se hayan pasado a la función al llamar a la misma.
 
 - Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje
   de programación utilizado. 
@@ -1487,11 +1504,11 @@ Una función puede llamar a otra.
   **paso de argumentos _por referencia_**.
 
 - En Python existe un único mecanismo de paso de argumentos llamado **paso de
-  argumentos _por asignación_**, que en la práctica resulta bastante sencillo.
+  argumentos _por asignación_**, que en la práctica resulta bastante sencillo:
 
-- Consiste en suponer que **el argumento _se asigna_ al parámetro**
-  correspondiente, teniendo en cuenta todo lo relacionado con los *alias* de
-  variables, inmutabilidad, mutabilidad, etcétera.
+  Lo que hace el intérprete es **_asignar_ el argumento al parámetro**, como si
+  hiciera internamente !NT(parámetro) `=` !NT(argumento), por lo que se aplica
+  todo lo relacionado con los _alias_ de variables, mutabilidad, etc.
 
 ---
 
@@ -1511,9 +1528,9 @@ Una función puede llamar a otra.
   si se hiciera !PYTHON(persona = Manolo)).
 
 - En la línea 7 se asigna a !PYTHON(persona) el valor de !PYTHON(x), como si se
-  hiciera !PYTHON(persona = x), lo que sabemos que crea un *alias* (aunque eso
-  no nos afectaría, ya que el valor pasado es una cadena y, por tanto,
-  inmutable).
+  hiciera !PYTHON(persona) `=` !PYTHON(x), lo que sabemos que crea un *alias*
+  (aunque eso no nos afectaría, ya que el valor pasado es una cadena y, por
+  tanto, inmutable).
 
 ---
 
@@ -1534,13 +1551,13 @@ Una función puede llamar a otra.
   
   - Al llamar a la función, el argumento !PYTHON(lista) se pasa a la función
     **asignándola** al parámetro !PYTHON(l) como si hubiera hecho
-    !PYTHON(l = lista).
+    !PYTHON(l) `=` !PYTHON(lista).
   
   - Eso hace que ambas variables sean *alias* una de la otra (se refieren al
-    mismo objeto).
+    mismo objeto lista).
   
-  - Por tanto, la función está modificando la misma variable que se ha pasado
-    como argumento (!PYTHON(lista)).
+  - Por tanto, la función está modificando el valor de la variable
+    !PYTHON(lista) que se ha pasado como argumento.
 
 ## La sentencia !PYTHON(return)
 
@@ -1548,14 +1565,14 @@ Una función puede llamar a otra.
   una sentencia !PYTHON(return).
 
 - Cuando el intérprete encuentra una sentencia !PYTHON(return) dentro de una
-  función:
+  función, ocurre lo siguiente (en este orden):
 
-  #. se finaliza la ejecución de la función,
+  #. Se finaliza la ejecución de la función.
   
-  #. se devuelve el control al punto del  programa en el que se llamó a la
-     función y
+  #. Se devuelve el control al punto del programa en el que se llamó a la
+     función.
   
-  #. la función devuelve como resultado el valor de retorno definido en la
+  #. La función devuelve como resultado el valor de retorno indicado en la
      sentencia !PYTHON(return).
 
 ---
@@ -1580,11 +1597,11 @@ Una función puede llamar a otra.
   valores de !PYTHON(a) y !PYTHON(b), asignándoseles a !PYTHON(x) e !PYTHON(y),
   respectivamente.
 
-- Dentro de la función, se calcula la suma !PYTHON(x + y) y la sentencia
-  !PYTHON(return) finaliza la ejecución de la función, devolviendo el control
-  al punto en el que se la llamó (la línea 6) y haciendo que su valor de
-  retorno sea el valor calculado en la suma anterior (el valor de la expresión
-  que acompaña al !PYTHON(return)).
+- Dentro de la función, se calcula la suma !PYTHON(x) `+` !PYTHON(y) y la
+  sentencia !PYTHON(return) finaliza la ejecución de la función, devolviendo el
+  control al punto en el que se la llamó (la línea 6) y haciendo que su valor
+  de retorno sea el valor calculado en la suma anterior (el valor de la
+  expresión que acompaña al !PYTHON(return)).
 
 ---
 
@@ -1738,28 +1755,6 @@ None
 
 :::: columns
 
-::: {.column width=40%}
-
-!DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=80%)(width=35%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                       
-compound = true
-7 [shape = circle]
-lambda [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fontname = "monospace"]
-    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>suma|<f1>⬤}"]
-    resultado [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>resultado|<f1>⬤}"]
-}
-suma:f1 -> lambda
-resultado:f1 -> 7
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> suma [lhead = cluster0]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
-
-:::
-
 ::: {.column width=60%}
 
 !DOT(funcion-entorno-dentro.svg)(Entorno dentro de la función `suma`)(width=80%)(width=55%)
@@ -1794,6 +1789,28 @@ x -> suma [lhead = cluster0, ltail = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> x [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: {.column width=40%}
+
+!DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=80%)(width=35%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                       
+compound = true
+7 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    node [fontname = "monospace"]
+    suma [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>suma|<f1>⬤}"]
+    resultado [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>resultado|<f1>⬤}"]
+}
+suma:f1 -> lambda
+resultado:f1 -> 7
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> suma [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
 
 :::
 
@@ -1833,12 +1850,12 @@ E -> x [lhead = cluster1]
 - Se puede **acceder** al valor de una variable global directamente:
 
   ```python
-  x = 4
+  x = 4          # esta variable es global
   
   def prueba():
-      print(x)
+      print(x)   # accede a la variable 'x' global, que vale 4
 
-  prueba()  # imprime 4
+  prueba()       # imprime 4
   ```
 
 ---
@@ -1850,13 +1867,13 @@ E -> x [lhead = cluster1]
   una variable local que tiene el mismo nombre que la global:
 
   ```python
-  x = 4
+  x = 4          # esta variable es global
 
   def prueba():
-      x = 5  # esta variable es local
+      x = 5      # crea una variable local
 
   prueba()
-  print(x)  # imprime 4
+  print(x)       # imprime 4
   ```
 
 - Como en Python no existen las *declaraciones* de variables, el intérprete
@@ -1866,8 +1883,8 @@ E -> x [lhead = cluster1]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si hay una **asignación** a una variable **dentro** de una función, esa
-  variable se considera **local** a la función.
+  Si hay una **asignación** a una variable en cualquier lugar **dentro** de una
+  función, esa variable se considera **local** a la función.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---

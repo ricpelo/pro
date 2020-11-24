@@ -1198,13 +1198,22 @@ Fin</code></pre></li>
 <section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
-<li><p>En consecuencia, nuestra gramática se vuelve a ampliar:</p>
+<li><p>La definición de una función es una sentencia ejecutable que, como cualquier otra definición, <strong>crea una ligadura</strong> entre un identificador (el nombre de la función) y <strong>una variable que almacenará una referencia a la función</strong> dentro del montículo.</p></li>
+<li><p>Esa definición se ejecuta en un determinado ámbito (normalmente, el ámbito global) y, por tanto, su ligadura y su variable <strong>se almacenarán en el marco del ámbito donde se ha definido la función</strong> (normalmente, el marco global).</p></li>
+<li><p>Asimismo, <strong>el cuerpo de una función imperativa define un ámbito</strong>, al igual que ocurría con las expresiones lambda.</p></li>
+<li><p>La definición de una función <strong>no ejecuta el cuerpo de la función</strong>. El cuerpo se ejecutará únicamente cuando se llame a la función, al igual que ocurría con las expresiones lambda.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.4">
+
+<ul>
+<li><p>Nuestra gramática se vuelve a ampliar para incluir las definiciones de funciones imperativas como un caso más de sentencia compuesta:</p>
 <div class="line-block"><span style="color:teal">⟨<em>sentencia</em>⟩</span> ::= <span style="color:teal">⟨<em>sentencia_simple</em>⟩</span> | <span style="color:teal">⟨<em>estructura</em>⟩</span><br />
 <span style="color:teal">⟨<em>estructura</em>⟩</span> ::= <span style="color:teal">⟨<em>secuencia</em>⟩</span><br />
-                        | <span style="color:teal">⟨<em>selección</em>⟩</span><br />
-                        | <span style="color:teal">⟨<em>iteración</em>⟩</span><br />
-                        | <span style="color:teal">⟨<em>gestión_excepciones</em>⟩</span><br />
-                        | <span style="color:teal">⟨<em>definición_función</em>⟩</span><br />
+                             | <span style="color:teal">⟨<em>selección</em>⟩</span><br />
+                             | <span style="color:teal">⟨<em>iteración</em>⟩</span><br />
+                             | <span style="color:teal">⟨<em>gestión_excepciones</em>⟩</span><br />
+                             | <span style="color:teal">⟨<em>definición_función</em>⟩</span><br />
 <span style="color:teal">⟨<em>definición_función</em>⟩</span> ::=<br />
 <strong><code>def</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>(</code></strong>[<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>)</code><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
@@ -1216,7 +1225,7 @@ Fin</code></pre></li>
 <ul>
 <li><p>Cuando se llama a una función imperativa, ocurre lo siguiente (en este orden):</p>
 <ol type="1">
-<li><p>Como siempre que se llama a una función, se crea un nuevo marco en el entorno (que contiene los parámetros así como las ligaduras y variables locales a su ámbito) y se almacena en la pila de control su registro de activación.</p></li>
+<li><p>Como siempre que se llama a una función, se crea un nuevo marco en el entorno (que contiene las ligaduras y variables locales a su ámbito, incluyendo sus parámetros) y se almacena en la pila de control.</p></li>
 <li><p>Se pasan los argumentos de la llamada a los parámetros de la función.</p>
 <p>Recordemos que en Python se sigue el orden aplicativo (o evaluación estricta): primero se evalúan los argumentos y después se pasan a los parámetros correspondientes.</p></li>
 <li><p>El flujo de control del programa se transfiere al bloque de sentencias que forman el cuerpo de la función y se ejecuta éste.</p></li>
@@ -1229,9 +1238,9 @@ Fin</code></pre></li>
 <li><p>Cuando se finaliza la ejecución de las sentencias que forman el cuerpo de la función:</p>
 <ol type="1">
 <li><p>Se genera su valor de retorno (en breve veremos cómo).</p></li>
-<li><p>Se saca su registro de activación de la pila.</p></li>
-<li><p>Se devuelve el control de la ejecución a la línea de código que llamó a la función.</p></li>
-<li><p>Se sustituye, en dicha línea, la llamada a la función por su valor de retorno.</p></li>
+<li><p>Se saca su marco de la pila.</p></li>
+<li><p>Se devuelve el control de la ejecución a la sentencia que llamó a la función.</p></li>
+<li><p>Se sustituye, en dicha sentencia, la llamada a la función por su valor de retorno.</p></li>
 <li><p>Se continúa la ejecución del programa desde ese punto.</p></li>
 </ol></li>
 </ul>
@@ -1261,7 +1270,7 @@ Encantado de saludarte
 Hasta luego, Lucas
 Sayonara, baby</code></pre></li>
 </ul>
-<p><a href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
+<p><a href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
 </section>
 <section class="slide level5" data-number="4.2.0.0.3">
 
@@ -1302,7 +1311,7 @@ Sayonara, baby</code></pre></li>
 </ul>
 </div>
 </div>
-<p><a href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28&#39;Me%20llamo%20Ricardo&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
+<p><a href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28&#39;Me%20llamo%20Ricardo&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
 </section>
 <section class="slide level5" data-number="4.2.0.0.4">
 
@@ -1326,11 +1335,11 @@ Sayonara, baby</code></pre></li>
 <h2 data-number="4.3"><span class="header-section-number">4.3</span> Paso de argumentos</h2>
 <ul>
 <li><p>En el marco de la función llamada se almacenan, entre otras cosas, los parámetros de la función.</p></li>
-<li><p>Al principio, los parámetros contendrán los valores de los argumentos que se hayan pasado a la función al llamar a la misma.</p></li>
+<li><p>Al entrar en la función, los parámetros contendrán los valores de los argumentos que se hayan pasado a la función al llamar a la misma.</p></li>
 <li><p>Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje de programación utilizado.</p></li>
 <li><p>Los más conocidos son los llamados <strong>paso de argumentos <em>por valor</em></strong> y <strong>paso de argumentos <em>por referencia</em></strong>.</p></li>
-<li><p>En Python existe un único mecanismo de paso de argumentos llamado <strong>paso de argumentos <em>por asignación</em></strong>, que en la práctica resulta bastante sencillo.</p></li>
-<li><p>Consiste en suponer que <strong>el argumento <em>se asigna</em> al parámetro</strong> correspondiente, teniendo en cuenta todo lo relacionado con los <em>alias</em> de variables, inmutabilidad, mutabilidad, etcétera.</p></li>
+<li><p>En Python existe un único mecanismo de paso de argumentos llamado <strong>paso de argumentos <em>por asignación</em></strong>, que en la práctica resulta bastante sencillo:</p>
+<p>Lo que hace el intérprete es <strong><em>asignar</em> el argumento al parámetro</strong>, como si hiciera internamente <span style="color:teal">⟨<em>parámetro</em>⟩</span> <code>=</code> <span style="color:teal">⟨<em>argumento</em>⟩</span>, por lo que se aplica todo lo relacionado con los <em>alias</em> de variables, mutabilidad, etc.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.1">
@@ -1345,7 +1354,7 @@ Sayonara, baby</code></pre></li>
 <span id="cb29-6"><a href="#cb29-6"></a>x <span class="op">=</span> <span class="st">&#39;Juan&#39;</span></span>
 <span id="cb29-7"><a href="#cb29-7"></a>saluda(x)         <span class="co"># Saluda a Juan</span></span></code></pre></div></li>
 <li><p>En la línea 5 se asigna a <code class="sourceCode python">persona</code> el valor <code class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code>.</p></li>
-<li><p>En la línea 7 se asigna a <code class="sourceCode python">persona</code> el valor de <code class="sourceCode python">x</code>, como si se hiciera <code class="sourceCode python">persona <span class="op">=</span> x</code>, lo que sabemos que crea un <em>alias</em> (aunque eso no nos afectaría, ya que el valor pasado es una cadena y, por tanto, inmutable).</p></li>
+<li><p>En la línea 7 se asigna a <code class="sourceCode python">persona</code> el valor de <code class="sourceCode python">x</code>, como si se hiciera <code class="sourceCode python">persona</code> <code>=</code> <code class="sourceCode python">x</code>, lo que sabemos que crea un <em>alias</em> (aunque eso no nos afectaría, ya que el valor pasado es una cadena y, por tanto, inmutable).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.2">
@@ -1361,9 +1370,9 @@ Sayonara, baby</code></pre></li>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></span></code></pre></div></li>
 <li><p>La función es capaz de <strong>cambiar el estado interno de la lista que se ha pasado como argumento</strong> porque:</p>
 <ul>
-<li><p>Al llamar a la función, el argumento <code class="sourceCode python">lista</code> se pasa a la función <strong>asignándola</strong> al parámetro <code class="sourceCode python">l</code> como si hubiera hecho <code class="sourceCode python">l <span class="op">=</span> lista</code>.</p></li>
-<li><p>Eso hace que ambas variables sean <em>alias</em> una de la otra (se refieren al mismo objeto).</p></li>
-<li><p>Por tanto, la función está modificando la misma variable que se ha pasado como argumento (<code class="sourceCode python">lista</code>).</p></li>
+<li><p>Al llamar a la función, el argumento <code class="sourceCode python">lista</code> se pasa a la función <strong>asignándola</strong> al parámetro <code class="sourceCode python">l</code> como si hubiera hecho <code class="sourceCode python">l</code> <code>=</code> <code class="sourceCode python">lista</code>.</p></li>
+<li><p>Eso hace que ambas variables sean <em>alias</em> una de la otra (se refieren al mismo objeto lista).</p></li>
+<li><p>Por tanto, la función está modificando el valor de la variable <code class="sourceCode python">lista</code> que se ha pasado como argumento.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1372,11 +1381,11 @@ Sayonara, baby</code></pre></li>
 <h2 data-number="4.4"><span class="header-section-number">4.4</span> La sentencia <code class="sourceCode python"><span class="cf">return</span></code></h2>
 <ul>
 <li><p>Para devolver el resultado de la función al código que la llamó, hay que usar una sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
-<li><p>Cuando el intérprete encuentra una sentencia <code class="sourceCode python"><span class="cf">return</span></code> dentro de una función:</p>
+<li><p>Cuando el intérprete encuentra una sentencia <code class="sourceCode python"><span class="cf">return</span></code> dentro de una función, ocurre lo siguiente (en este orden):</p>
 <ol>
-<li><p>se finaliza la ejecución de la función,</p></li>
-<li><p>se devuelve el control al punto del programa en el que se llamó a la función y</p></li>
-<li><p>la función devuelve como resultado el valor de retorno definido en la sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
+<li><p>Se finaliza la ejecución de la función.</p></li>
+<li><p>Se devuelve el control al punto del programa en el que se llamó a la función.</p></li>
+<li><p>La función devuelve como resultado el valor de retorno indicado en la sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
 </ol></li>
 </ul>
 </section>
@@ -1393,7 +1402,7 @@ Sayonara, baby</code></pre></li>
 <span id="cb31-7"><a href="#cb31-7"></a><span class="bu">print</span>(<span class="st">&#39;El resultado es:&#39;</span>, resultado)</span></code></pre></div></li>
 <li><p>La función se define en las líneas 1–2. El intérprete lee la definición de la función pero no ejecuta las sentencias de su cuerpo en ese momento (lo hará cuando se <em>llame</em> a la función).</p></li>
 <li><p>En la línea 6 se llama a la función <code class="sourceCode python">suma</code> pasándole como argumentos los valores de <code class="sourceCode python">a</code> y <code class="sourceCode python">b</code>, asignándoseles a <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>, respectivamente.</p></li>
-<li><p>Dentro de la función, se calcula la suma <code class="sourceCode python">x <span class="op">+</span> y</code> y la sentencia <code class="sourceCode python"><span class="cf">return</span></code> finaliza la ejecución de la función, devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor calculado en la suma anterior (el valor de la expresión que acompaña al <code class="sourceCode python"><span class="cf">return</span></code>).</p></li>
+<li><p>Dentro de la función, se calcula la suma <code class="sourceCode python">x</code> <code>+</code> <code class="sourceCode python">y</code> y la sentencia <code class="sourceCode python"><span class="cf">return</span></code> finaliza la ejecución de la función, devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor calculado en la suma anterior (el valor de la expresión que acompaña al <code class="sourceCode python"><span class="cf">return</span></code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
@@ -1483,16 +1492,16 @@ None</code></pre>
 <span id="cb41-6"><a href="#cb41-6"></a><span class="bu">print</span>(resultado)</span></code></pre></div></li>
 </ul>
 <div class="columns">
-<div class="column" style="width:40%;">
-<div class="centered">
-<figure>
-<img data-src="images/funcion-entorno-fuera.svg" class="plain" style="width:80.0%" alt="Entorno en la línea 6" /><figcaption aria-hidden="true">Entorno en la línea 6</figcaption>
-</figure>
-</div>
-</div><div class="column" style="width:60%;">
+<div class="column" style="width:60%;">
 <div class="centered">
 <figure>
 <img data-src="images/funcion-entorno-dentro.svg" class="plain" style="width:80.0%" alt="Entorno dentro de la función suma" /><figcaption aria-hidden="true">Entorno dentro de la función <code>suma</code></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="centered">
+<figure>
+<img data-src="images/funcion-entorno-fuera.svg" class="plain" style="width:80.0%" alt="Entorno en la línea 6" /><figcaption aria-hidden="true">Entorno en la línea 6</figcaption>
 </figure>
 </div>
 </div>
@@ -1520,12 +1529,12 @@ None</code></pre>
 <ul>
 <li><p>Desde dentro de una función es posible usar variables globales, ya que se encuentran en el <strong>entorno</strong> de la función.</p></li>
 <li><p>Se puede <strong>acceder</strong> al valor de una variable global directamente:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>          <span class="co"># esta variable es global</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)   <span class="co"># accede a la variable &#39;x&#39; global, que vale 4</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>prueba()  <span class="co"># imprime 4</span></span></code></pre></div></li>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>prueba()       <span class="co"># imprime 4</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.1">
@@ -1533,17 +1542,17 @@ None</code></pre>
 <ul>
 <li><p>Pero para poder <strong>modificar</strong> una variable global es necesario que la función la declare previamente como <em>global</em>.</p></li>
 <li><p>De no hacerlo así, el intérprete supondría que el programador quiere crear una variable local que tiene el mismo nombre que la global:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>          <span class="co"># esta variable es global</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>  <span class="co"># esta variable es local</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>      <span class="co"># crea una variable local</span></span>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>prueba()</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)  <span class="co"># imprime 4</span></span></code></pre></div></li>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)       <span class="co"># imprime 4</span></span></code></pre></div></li>
 <li><p>Como en Python no existen las <em>declaraciones</em> de variables, el intérprete tiene que <strong><em>averiguar</em> por sí mismo qué ámbito tiene una variable</strong>.</p></li>
 <li><p>Lo hace con una regla muy sencilla:</p>
 <div class="caja">
-<p>Si hay una <strong>asignación</strong> a una variable <strong>dentro</strong> de una función, esa variable se considera <strong>local</strong> a la función.</p>
+<p>Si hay una <strong>asignación</strong> a una variable en cualquier lugar <strong>dentro</strong> de una función, esa variable se considera <strong>local</strong> a la función.</p>
 </div></li>
 </ul>
 </section>
