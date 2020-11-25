@@ -1266,30 +1266,26 @@ E -> i [lhead = cluster1]
 
 ---
 
-- El **entorno restringido** de una función está formado por todos los marcos
-  del entorno que afecta durante la ejecución de la función, **_excepto_ el
-  marco de la propia función y el marco global**.
+- El **entorno de definición** de una función está formado por los marcos
+  que hay en el entorno cuando se define una función.
 
-- Por tanto, el entorno restringido de `get` empieza en el marco de `pareja`,
-  ya que `get` es local a `pareja`.
+- Por ejemplo, el entorno de definición de `get` contiene, en este orden, el
+  marco de `pareja` (ya que `get` es local a `pareja`) y el marco global.
 
-- El entorno restringido de `get` es el entorno que la función `get` necesita
-  recordar para poder funcionar.
+- El entorno de definición de una función representa el contexto en el que se
+  definió la función y que se necesita recordar para que la función tenga toda
+  la información que necesita para funcionar.
 
-- La combinación de una función más su entorno restringido se denomina
+- La combinación de una función más su entorno de definición se denomina
   **clausura**.
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Clausura = función + entorno restringido
+  Clausura = función + entorno de definición
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Una clausura, por tanto, agrupa una función con la información que se
   necesita recordar para que la función funcione.
-
-- El motivo de no incluir el propio marco y el marco global, es que el propio
-  marco se crea cuando se llama a la función, y el marco global está siempre
-  disponible, así que no es necesario recordarlos.
 
 ---
 
@@ -1305,15 +1301,19 @@ E -> i [lhead = cluster1]
 
   - La **función** que hay en `p`, que es la función `get`.
 
-  - El **entorno restringido** de `p`, que empieza en el marco de `pareja` (ya
-    que la función `get` se definió en el ámbito de la función `pareja`), el
-    cual recuerda los valores que tenían las variables locales de `pareja`
-    cuando se creó la clausura.
+  - El **entorno de definición** de `p`, que contiene dos marcos:
 
-- Pero ahora, el marco de `pareja` no puede estar en la pila de control, ya que
-  esa función no tiene ninguna llamada activa en este momento.
+    - El marco de `pareja` (ya que la función `get` es local a `pareja`), el
+      cual recuerda los valores que tenían las variables locales de `pareja`
+      cuando se creó la clausura.
 
-- El problema es que la clausura `p` necesita ese marco para poder funcionar.
+    - El marco global.
+
+- El marco global sigue en la pila, pero el marco de `pareja` no, ya que esa
+  función no tiene ninguna llamada activa en este momento.
+
+- El problema es que la clausura `p` necesita ese marco para poder acceder a
+  las variables que contiene.
 
 ---
 
@@ -1325,14 +1325,21 @@ E -> i [lhead = cluster1]
   que la clausura guarda una referencia al marco, que ahora es un dato más
   dentro del montículo. 
 
-- El marco seguirá existiendo en el montículo mientras haya una referencia que
+- Ese marco seguirá existiendo en el montículo mientras haya una referencia que
   apunte a él, como cualquier otro dato.
+
+- Además, ese marco seguirá apuntando al marco global (que sigue almacenado en
+  la pila) que también forma parte del entorno.
+
+- En resumen: el intérprete guardará en el montículo aquellos marcos que sean
+  necesarios para el funcionamiento de alguna clausura, y los enlazará con
+  otros marcos formando entornos de definición.
 
 ---
 
 - Las clausuras las representaremos gráficamente como una función de la que
   sale una flecha que va hasta el marco del ámbito donde se definió la función
-  (el primer marco de su entorno restringido).
+  (el primer marco de su entorno de definición).
 
 !DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=70%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1380,31 +1387,27 @@ E -> select [lhead = cluster2, minlen = 1]
 f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- El !COLOR(red)(círculo rojo) representa la clausura, y la !COLOR(blue)(flecha
-  azul) apunta al entorno restringido de la clausura, que aquí contiene sólo al
-  marco de `pareja`.
+!SALTO
 
-- El marco de `pareja` apunta a su vez al marco global (aunque éste no forme
-  parte del entorno restringido) para así marcar que `pareja` es el último
-  marco del entorno restringido.
+- El !COLOR(red)(círculo rojo) representa la clausura, y la !COLOR(blue)(flecha
+  azul) apunta al entorno de definición de la clausura, que aquí está formado
+  por el marco de `pareja` y el marco global (en ese orden).
 
 ---
 
-- Por tanto, la clausura almacenada en `p` contiene la función y la parte del
-  entorno que es necesario recordar para poder ejecutar la función.
+- Por tanto, la clausura almacenada en `p` contiene la función y el entorno que
+  es necesario recordar para poder ejecutar la función.
 
 - Aquí, la clausura apunta al marco de `pareja`, ya que es local a `pareja` y
   necesita acceder a los datos definidos en el ámbito de `pareja`.
 
-- Cuando se llame a la función `p` se creará su marco en la pila, el cual
-  apuntará al marco de `pareja` ya que es el marco a donde apunta el entorno
-  restringido de la clausura.
-
-- El marco de `pareja`, a su vez, apuntará al global.
+- Cuando se llame a la función de la clausura `p`, se creará su marco en la
+  pila, el cual apuntará al entorno de definición de `p`.
 
 - Por tanto, durante la ejecución de `p`, el entorno estaría formado por el
-  marco de `p`, seguido del marco de `pareja` (almacenado en el montículo),
-  seguido del marco global.
+  marco de `p` (almacenado en la pila), seguido del marco de `pareja`
+  (almacenado en el montículo), seguido del marco global (almacenado en la
+  pila).
 
 - Naturalmente, el marco de `p` permanecerá en la pila mientras esté activa la
   llamada a `p`.
@@ -1567,8 +1570,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   también representa a `get`, realmente se llama a `get(i)`.
 
 - Lo interesante es que `p` y `q` son referencias a la misma función `get`,
-  pero cada una de ellas recuerda el valor que tenían las variables no locales
-  (la `x` y la `y` de `pareja`) cuando se crearon `p` y `q`.
+  pero cada una de ellas recuerda el valor que tenían las variables _no
+  locales_ (la `x` y la `y` de `pareja`) cuando se crearon `p` y `q`.
 
 - Es decir: `p` y `q` son funciones que recuerdan el contexto en el que fueron
   creadas.
@@ -1582,6 +1585,58 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
     !PYTHON(6).
 
 - Así que `p` y `q` no son exactamente la misma cosa.
+
+---
+
+- Si la clausura se define en un módulo y éste se importa en otro módulo,
+  entonces el entorno de definición de la clausura acabará en el marco global
+  del módulo donde se ha definido la clausura y no contendrá el marco global
+  del módulo importador.
+
+- Recordemos que el ámbito del _script_ donde se almacena un módulo constituye
+  el ámbito global de ese módulo, y que, al importar un módulo, su marco global
+  debe permanecer en la memoria para que los miembros del módulo puedan acceder
+  a otros elementos del mismo.
+
+- Por ejemplo:
+
+:::: columns
+
+::: column
+
+  ```python
+  # a.py:
+  x = 1
+  def uno(a):
+      def dos(b):
+          global x
+          x += 1
+          return a + b + x
+      return dos
+  ```
+
+:::
+
+::: column
+
+  ```python
+  >>> from a import uno
+  >>> f = uno(2)
+  >>> f(3)
+  7
+  >>> f(3)
+  8
+  >>> f(4)
+  10
+  ```
+
+:::
+
+::::
+
+- El entorno de definición de la clausura `f` lo forma el marco de `uno`
+  seguido del marco de `a` (que juega el papel de marco global para los
+  elementos definidos en `a`).
 
 ## Representación funcional
 

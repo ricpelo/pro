@@ -474,7 +474,7 @@
 <ul>
 <li><p><strong>Como un <em>script</em> independiente</strong>, llamándolo desde la línea de órdenes del sistema operativo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python modulo.py</span></code></pre></div></li>
-<li><p><strong>Importándolo dentro de otros módulos</strong> que quieran usar los servicios que proporciona, usando la sentencia <code>import</code> (o <code>from ... import</code>):</p>
+<li><p><strong>Importándolo dentro de otros módulos</strong> que quieran usar los servicios que proporciona, usando la sentencia <code class="sourceCode python"><span class="im">import</span></code> (o <code class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span></code>):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> modulo</span></code></pre></div></li>
 </ul></li>
 </ul>
@@ -482,8 +482,8 @@
 <section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
-<li><p>Las sentencias que contiene un módulo se ejecutan <strong>sólo la primera vez</strong> que se encuentra el nombre de ese módulo en una sentencia <code>import</code>, o bien cuando el archivo se ejecuta como un <em>script</em>.</p></li>
-<li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code>__name__</code>.</p></li>
+<li><p>Las sentencias que contiene un módulo se ejecutan <strong>sólo la primera vez</strong> que se encuentra el nombre de ese módulo en una sentencia <code class="sourceCode python"><span class="im">import</span></code>, o bien cuando el archivo se ejecuta como un <em>script</em>.</p></li>
+<li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code class="sourceCode python"><span class="va">__name__</span></code>.</p></li>
 <li><p>Cada módulo tiene su propio <strong>ámbito local</strong>, que es usado como el <strong>ámbito global</strong> de todas las instrucciones que componen el módulo.</p></li>
 <li><p>Por tanto, el autor de un módulo puede definir variables globales o funciones en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales o funciones de otros módulos.</p></li>
 <li><p>Esas variables y funciones serán los <strong>atributos</strong> del <strong>objeto <em>módulo</em></strong> que se creará si se importa el módulo con la sentencia <code class="sourceCode python"><span class="im">import</span></code>.</p></li>
@@ -493,18 +493,17 @@
 
 <ul>
 <li><p>Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo ámbito que constituirá <strong>el ámbito global del módulo</strong>. Ese ámbito creará un nuevo marco encima de la pila, que constituirá <strong>el nuevo <em>marco global</em> durante la ejecución del módulo</strong>.</p></li>
-<li><p>Ese marco global del módulo se destruirá cuando se termine de ejecutar el módulo, que es cuando la ejecución se sale de su ámbito.</p></li>
-<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo (por ejemplo, el marco global del <em>script</em> que ha importado el módulo) seguirán más abajo en la pila, pero no serán accesibles desde el módulo actual porque <strong>un entorno siempre acaba en el marco global</strong> y el módulo ya tiene su propio marco global.</p></li>
+<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo (por ejemplo, el marco global del <em>script</em> que ha importado el módulo) seguirán más abajo en la pila, pero no serán accesibles desde el módulo actual porque <strong>un entorno siempre acaba en el marco global</strong>, y el módulo importado ya tiene su propio marco global.</p></li>
 <li><p>Esos marcos quedan fuera del entorno y se recuperarán al finalizar la ejecución del módulo importado.</p></li>
-<li><p>Igualmente, los ámbitos que existieran antes de importar un módulo (incluyendo el ámbito global del <em>script</em> que ha importado al módulo) quedan temporalmente invalidados y se recuperarán al finalizar la ejecución del módulo.</p></li>
+<li><p>Igualmente, los ámbitos que existieran antes de importar un módulo (incluyendo el ámbito global del <em>script</em> que ha importado al módulo) quedan temporalmente fuera del entorno y se recuperarán al finalizar la ejecución del módulo.</p></li>
 </ul>
 </section>
 <section id="importación-de-módulos" class="title-slide slide level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Importación de módulos</h3>
 <ul>
-<li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code>import</code>. Por ejemplo, la siguiente sentencia importa el módulo <code>math</code> dentro del ámbito actual:</p>
+<li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code class="sourceCode python"><span class="im">import</span></code>. Por ejemplo, la siguiente sentencia importa el módulo <code class="sourceCode python">math</code> dentro del ámbito actual:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div></li>
-<li><p>Al importar un módulo de esta forma, se incorpora al marco actual (es decir, al marco del ámbito donde se ejecuta el <code>import</code>) la ligadura entre el nombre del módulo importado y el propio módulo, que <strong>es un objeto de tipo <code>module</code></strong>.</p></li>
+<li><p>Al importar un módulo de esta forma, se incorpora al marco actual (es decir, al marco del ámbito donde se ejecuta el <code class="sourceCode python"><span class="im">import</span></code>) la ligadura entre el nombre del módulo importado y el propio módulo, que <strong>es un objeto de tipo <code class="sourceCode python">module</code></strong>.</p></li>
 <li><p>De esta forma, lo que se importa dentro del marco actual es una <strong>referencia</strong> al objeto módulo.</p></li>
 </ul>
 </section>
@@ -542,7 +541,7 @@
 <section class="slide level5" data-number="2.3.1.0.2">
 
 <ul>
-<li>Al ejecutar <code>import dos</code> en la línea 5 de <code>uno.py</code>, pasaremos a ejecutar el <em>script</em> <code>dos.py</code> y el marco global del entorno será ahora el marco global de <code>dos</code>. Los marcos creados hasta ahora durante la ejecución de <code>uno</code> (incluyendo el marco global de <code>uno</code>) no estarán en el entorno:</li>
+<li>Al ejecutar <code class="sourceCode python"><span class="im">import</span> dos</code> en la línea 5 de <code>uno.py</code>, pasaremos a ejecutar el <em>script</em> <code>dos.py</code> y el marco global del entorno será ahora el marco global de <code>dos</code>. Los marcos creados hasta ahora durante la ejecución de <code>uno</code> (incluyendo el marco global de <code>uno</code>) no estarán en el entorno:</li>
 </ul>
 <div class="centered">
 <figure>
@@ -553,7 +552,7 @@
 <section class="slide level5" data-number="2.3.1.0.3">
 
 <ul>
-<li>Al finalizar la ejecución del <em>script</em> <code>dos.py</code>, se sale de su ámbito, el marco global de <code>dos</code> se convierte en un objeto de tipo <code>module</code> y sus ligaduras se convierten en atributos del objeto. Ese objeto se ligará al identificador <code>dos</code> en el marco global de <code>uno</code>, que volverá a estar en el entorno y pasará a ser de nuevo el marco global del mismo:</li>
+<li>Al finalizar la ejecución del <em>script</em> <code>dos.py</code>, se sale de su ámbito, el marco global de <code>dos</code> se convierte en un objeto de tipo <code class="sourceCode python">module</code> y sus ligaduras se convierten en atributos del objeto. Ese objeto se ligará al identificador <code>dos</code> en el marco global de <code>uno</code>, que volverá a estar en el entorno y pasará a ser de nuevo el marco global del mismo:</li>
 </ul>
 <div class="centered">
 <figure>
@@ -586,7 +585,7 @@
 <section class="slide level5" data-number="2.3.1.0.6">
 
 <ul>
-<li><p>Por ejemplo, para acceder a la función <code>gcd</code> definida en el módulo <code>math</code>, haremos:</p>
+<li><p>Por ejemplo, para acceder a la función <code class="sourceCode python">gcd</code> definida en el módulo <code class="sourceCode python">math</code>, haremos:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
@@ -598,13 +597,13 @@
 </div>
 <p><br></p>
 <ul>
-<li>Se recomienda (aunque no es obligatorio) colocar todas las sentencias <code>import</code> al principio del módulo importador.</li>
+<li>Se recomienda por regla de estilo (aunque no es obligatorio) colocar todas las sentencias <code class="sourceCode python"><span class="im">import</span></code> al principio del módulo importador.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.1.0.7">
 
 <ul>
-<li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code>import</code> con <code>as</code>.</p></li>
+<li><p>Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del marco actual, usando la sentencia <code class="sourceCode python"><span class="im">import</span></code> con <code class="sourceCode python"><span class="im">as</span></code>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
 <p>La sentencia anterior importa el módulo <code>math</code> dentro del módulo actual pero con el nombre <code>mates</code> en lugar del <code>math</code> original. Por tanto, para usar la función <code>gcd</code> como en el ejemplo anterior usaremos:</p>
@@ -619,7 +618,7 @@
 <section class="slide level5" data-number="2.3.1.0.8">
 
 <ul>
-<li><p>Existe una variante de la sentencia <code>import</code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code>from</code>.</p></li>
+<li><p>Existe una variante de la sentencia <code class="sourceCode python"><span class="im">import</span></code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code class="sourceCode python"><span class="im">from</span></code>.</p></li>
 <li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del módulo <code>math</code>, y no el módulo en sí, haremos:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
 <li><p>Por lo que ahora podemos usar la función <code>gcd</code> directamente dentro del módulo importador, sin necesidad de indicar el nombre del módulo importado:</p>
@@ -644,7 +643,7 @@
 <section class="slide level5" data-number="2.3.1.0.10">
 
 <ul>
-<li><p>También podemos usar la palabra clave <code>as</code> con la orden <code>from</code>:</p>
+<li><p>También podemos usar la palabra clave <code class="sourceCode python"><span class="im">as</span></code> con la orden <code class="sourceCode python"><span class="im">from</span></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
 <p>De esta forma, se importa en el módulo actual la función <code>gcd</code> del módulo <code>math</code> pero llamándola <code>mcd</code>.</p></li>
 <li><p>Por tanto, para usarla la invocaremos con su nuevo nombre:</p>
@@ -669,7 +668,7 @@
 <section class="slide level5" data-number="2.3.1.0.12">
 
 <ul>
-<li><p>Para saber qué definiciones contiene un módulo, se puede usar la funcion <code>dir</code>:</p>
+<li><p>Para saber qué definiciones contiene un módulo, se puede usar la funcion <code class="sourceCode python"><span class="bu">dir</span></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">dir</span>(math)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;__doc__&#39;</span>, <span class="st">&#39;__loader__&#39;</span>, <span class="st">&#39;__name__&#39;</span>, <span class="st">&#39;__package__&#39;</span>, <span class="st">&#39;__spec__&#39;</span>, <span class="st">&#39;acos&#39;</span>,</span>
@@ -679,7 +678,7 @@
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
-<li><p>La función <code>dir</code> puede usarse con cualquier objeto al que podamos acceder mediante una referencia.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">dir</span></code> puede usarse con cualquier objeto al que podamos acceder mediante una referencia.</p></li>
 </ul>
 </section>
 
@@ -688,7 +687,7 @@
 <ul>
 <li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes como:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
-<p>se ejecutará el módulo como un <em>script</em>, igual que si se hubiera importado con un <code>import</code> dentro de otro módulo, pero con la diferencia de que la variable global <code>__name__</code> contendrá el valor <code>"__main__"</code>.</p></li>
+<p>se ejecutará el módulo como un <em>script</em>, igual que si se hubiera importado con un <code class="sourceCode python"><span class="im">import</span></code> dentro de otro módulo, pero con la diferencia de que la variable global <code class="sourceCode python"><span class="va">__name__</span></code> contendrá el valor <code class="sourceCode python"><span class="st">&quot;__main__&quot;</span></code>.</p></li>
 <li><p>Eso significa que si se añade este código al final del módulo:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
@@ -713,7 +712,7 @@
 <li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea de órdenes del sistema operativo:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fac.py 4</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
-<li><p>Y si importamos el módulo dentro de otro, la condición del último <code>if</code> no se cumplirá, por lo que su único efecto será el de incorporar la definición de la función <code>fac</code> dentro del módulo importador.</p></li>
+<li><p>Y si importamos el módulo dentro de otro, la condición del último <code class="sourceCode python"><span class="cf">if</span></code> no se cumplirá, por lo que su único efecto será el de incorporar la definición de la función <code>fac</code> dentro del módulo importador.</p></li>
 </ul>
 <!--
 ### Paquetes
