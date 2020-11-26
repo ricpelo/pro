@@ -1359,18 +1359,20 @@ while not salida:
      entorno (que contiene las ligaduras y variables locales a su ámbito,
      incluyendo sus parámetros) y se almacena en la pila de control.
 
-  2. Se pasan los argumentos de la llamada a los parámetros de la función.
+  2. Se pasan los argumentos de la llamada a los parámetros de la función, de
+     forma que los parámetros toman los valores de los argumentos
+     correspondientes.
   
      Recordemos que en Python se sigue el orden aplicativo (o evaluación
      estricta): primero se evalúan los argumentos y después se pasan a los
      parámetros correspondientes.
 
   3. El flujo de control del programa se transfiere al bloque de sentencias que
-     forman el cuerpo de la función y se ejecuta éste.
+     forman el cuerpo de la función y se empieza a ejecutar éste.
 
 ---
 
-- Cuando se finaliza la ejecución de las sentencias que forman el cuerpo de la
+- Cuando se terminan de ejecutar las sentencias que forman el cuerpo de la
   función:
 
   1. Se genera su valor de retorno (en breve veremos cómo).
@@ -1532,13 +1534,15 @@ Una función puede llamar a otra.
   saluda(x)         # Saluda a Juan
   ```
 
-- En la línea 5 se asigna a !PYTHON(persona) el valor !PYTHON('Manolo') (como
-  si se hiciera !PYTHON(persona = Manolo)).
+- En la línea 5 se llama a `saluda` asignándole al parámetro !PYTHON(persona)
+  el valor !PYTHON('Manolo') (como si se hiciera !PYTHON(persona = Manolo)).
 
-- En la línea 7 se asigna a !PYTHON(persona) el valor de !PYTHON(x), como si se
-  hiciera !PYTHON(persona) `=` !PYTHON(x), lo que sabemos que crea un *alias*
-  (aunque eso no nos afectaría, ya que el valor pasado es una cadena y, por
-  tanto, inmutable).
+- En la línea 7 se llama a `saluda` asignándole al parámetro !PYTHON(persona)
+  el valor de !PYTHON(x), como si se hiciera !PYTHON(persona) `=` !PYTHON(x),
+  lo que sabemos que crea un *alias*.
+
+  En este caso, la creación del alias no nos afectaría, ya que el valor pasado
+  como argumento es una cadena y, por tanto, inmutable.
 
 ---
 
@@ -1575,13 +1579,17 @@ Una función puede llamar a otra.
 - Cuando el intérprete encuentra una sentencia !PYTHON(return) dentro de una
   función, ocurre lo siguiente (en este orden):
 
-  #. Se finaliza la ejecución de la función.
+  #. Se genera el valor de retorno de la función, que será el valor de la
+     expresión que aparece en la sentencia !PYTHON(return).
+
+  #. Se finaliza la ejecución de la función, sacando su marco de la pila.
   
-  #. Se devuelve el control al punto del programa en el que se llamó a la
-     función.
+  #. Se devuelve el control a la sentencia que llamó a la función.
   
-  #. La función devuelve como resultado el valor de retorno indicado en la
-     sentencia !PYTHON(return).
+  #. En esa sentencia, se sustituye la llamada a la función por su valor de
+     retorno (el calculado en el paso 1 anterior).
+
+  #. Se continúa la ejecución del programa desde ese punto.
 
 ---
 
@@ -1602,14 +1610,14 @@ Una función puede llamar a otra.
   hará cuando se *llame* a la función).
 
 - En la línea 6 se llama a la función !PYTHON(suma) pasándole como argumentos los
-  valores de !PYTHON(a) y !PYTHON(b), asignándoseles a !PYTHON(x) e !PYTHON(y),
+  valores de !PYTHON(a) y !PYTHON(b), asignándolos a !PYTHON(x) e !PYTHON(y),
   respectivamente.
 
-- Dentro de la función, se calcula la suma !PYTHON(x) `+` !PYTHON(y) y la
-  sentencia !PYTHON(return) finaliza la ejecución de la función, devolviendo el
-  control al punto en el que se la llamó (la línea 6) y haciendo que su valor
-  de retorno sea el valor calculado en la suma anterior (el valor de la
-  expresión que acompaña al !PYTHON(return)).
+- Dentro de la función, en la sentencia !PYTHON(return) se calcula la suma
+  !PYTHON(x) `+` !PYTHON(y) y se finaliza la ejecución de la función,
+  devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo
+  que su valor de retorno sea el valor calculado en la suma anterior (el valor
+  de la expresión que acompaña al !PYTHON(return)).
 
 ---
 
@@ -1629,7 +1637,8 @@ Una función puede llamar a otra.
   resultado = 12
   ```
 
-  y la ejecución del programa continuaría por ahí.
+  y la ejecución del programa continuaría ejecutando la sentencia tal y como
+  está ahora.
 
 ---
 
@@ -1641,7 +1650,10 @@ Una función puede llamar a otra.
 
 - Pero en Python todas las funciones devuelven algún valor.
 
-- Lo que ocurre en este caso es que la función devuelve el valor !PYTHON(None):
+- Lo que ocurre en este caso es que la función devuelve el valor !PYTHON(None).
+
+- Por tanto, la sentencia !PYTHON(return) sin valor de retorno equivale a hacer
+  !PYTHON(return None).
 
 :::: columns
 
@@ -1784,7 +1796,7 @@ subgraph cluster0 {
 }
 suma:f1 -> lambda
 subgraph cluster1 {
-    label = <Marco de <font face="monospace">suma</font>>
+    label = <Marco de <font face="monospace">suma(4, 3)</font>>
     bgcolor = white
     x [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>x|<f1>⬤}"]
     y [shape = record, fillcolor = white, width = 0.5, height = 0.3, label = "{<f0>y|<f1>⬤}"]
@@ -2017,7 +2029,7 @@ E -> suma [lhead = cluster0]
 
 - El siguiente es un ejemplo de **función impura**, ya que provoca el **efecto
   lateral** de ejecutar una **operación de entrada/salida** (la función
-  !PYTHON(print)):
+  !PYTHON(print)) además de calcular su valor de retorno:
 
   ```python
   def suma(x, y):
@@ -2026,7 +2038,7 @@ E -> suma [lhead = cluster0]
       return res
   ```
 
-- Cualquiera que desee usar la función !PYTHON(suma), pero no sepa cómo está
+- Cualquiera que desee usar la función !PYTHON(suma) pero no sepa cómo está
   construida internamente, podría pensar que lo único que hace es calcular la
   suma de dos números, pero resulta que **también imprime un mensaje en la
   salida**, por lo que el resultado que se obtiene al ejecutar el siguiente
@@ -2061,8 +2073,10 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- Las llamadas a la función !PYTHON(suma) no se pueden sustituir por su valor
-  de retorno correspondiente. Es decir, que no es lo mismo hacer:
+- No podemos sustituir libremente en una expresión las llamadas a la función
+  !PYTHON(suma) por sus valores de retorno correspondientes.
+
+- Es decir, no es lo mismo hacer:
 
   ```python
   resultado = suma(4, 3) + suma(8, 5)
@@ -2171,9 +2185,9 @@ E -> suma [lhead = cluster0]
   print(l)                          # imprime [1, 2, 99, 4]
   ```
 
-- Si la función no pudiera cambiar directamente el interior de la lista tendría
-  que crear una lista nueva, lo que resultaría menos eficiente porque
-  consumiría más memoria:
+- Si la función no pudiera cambiar el interior de la lista que recibe como
+  argumento, tendría que crear una lista nueva, lo que resultaría menos
+  eficiente en tiempo y espacio:
 
   ```python
   def cambia(lista, indice, valor):
@@ -2198,7 +2212,7 @@ E -> suma [lhead = cluster0]
 - Su **ámbito** es el cuerpo de la función donde se ha definido (la función que
   la contiene), pero al igual que pasa con las variables locales, sólo se
   pueden usar (llamar) después de haberse definido, es decir, después de
-  haberse ejecutado el `def` de la función interna.
+  haberse ejecutado el !PYTHON(def) de la función interna.
 
 - Evita la superpoblación de funciones en el ámbito más externo cuando sólo
   tiene sentido su uso en un ámbito más interno.
@@ -2241,9 +2255,9 @@ E -> suma [lhead = cluster0]
               return fact_iter(n - 1, acc * n)
   ```
 
-- Esto ocurre porque la sentencia `def` crea una ligadura entre `fact_iter`
-  y su valor (la función), pero esa ligadura sólo empieza a existir cuando se
-  ejecuta la sentencia `def`, y no antes.
+- Esto ocurre porque la sentencia !PYTHON(def) crea una ligadura entre
+  `fact_iter` y su valor (la función), pero esa ligadura sólo empieza a existir
+  cuando se ejecuta la sentencia !PYTHON(def), y no antes.
 
 - Es importante recordar la diferencia entre el ámbito de una ligadura y el
   ámbito de creación de la ligadura:

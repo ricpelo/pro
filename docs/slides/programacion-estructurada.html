@@ -1234,16 +1234,16 @@ Fin</code></pre></li>
 <li><p>Cuando se llama a una función imperativa, ocurre lo siguiente (en este orden):</p>
 <ol type="1">
 <li><p>Como siempre que se llama a una función, se crea un nuevo marco en el entorno (que contiene las ligaduras y variables locales a su ámbito, incluyendo sus parámetros) y se almacena en la pila de control.</p></li>
-<li><p>Se pasan los argumentos de la llamada a los parámetros de la función.</p>
+<li><p>Se pasan los argumentos de la llamada a los parámetros de la función, de forma que los parámetros toman los valores de los argumentos correspondientes.</p>
 <p>Recordemos que en Python se sigue el orden aplicativo (o evaluación estricta): primero se evalúan los argumentos y después se pasan a los parámetros correspondientes.</p></li>
-<li><p>El flujo de control del programa se transfiere al bloque de sentencias que forman el cuerpo de la función y se ejecuta éste.</p></li>
+<li><p>El flujo de control del programa se transfiere al bloque de sentencias que forman el cuerpo de la función y se empieza a ejecutar éste.</p></li>
 </ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
-<li><p>Cuando se finaliza la ejecución de las sentencias que forman el cuerpo de la función:</p>
+<li><p>Cuando se terminan de ejecutar las sentencias que forman el cuerpo de la función:</p>
 <ol type="1">
 <li><p>Se genera su valor de retorno (en breve veremos cómo).</p></li>
 <li><p>Se saca su marco de la pila.</p></li>
@@ -1361,8 +1361,9 @@ Sayonara, baby</code></pre></li>
 <span id="cb29-5"><a href="#cb29-5"></a>saluda(<span class="st">&#39;Manolo&#39;</span>)  <span class="co"># Saluda a Manolo</span></span>
 <span id="cb29-6"><a href="#cb29-6"></a>x <span class="op">=</span> <span class="st">&#39;Juan&#39;</span></span>
 <span id="cb29-7"><a href="#cb29-7"></a>saluda(x)         <span class="co"># Saluda a Juan</span></span></code></pre></div></li>
-<li><p>En la línea 5 se asigna a <code class="sourceCode python">persona</code> el valor <code class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code>.</p></li>
-<li><p>En la línea 7 se asigna a <code class="sourceCode python">persona</code> el valor de <code class="sourceCode python">x</code>, como si se hiciera <code class="sourceCode python">persona</code> <code>=</code> <code class="sourceCode python">x</code>, lo que sabemos que crea un <em>alias</em> (aunque eso no nos afectaría, ya que el valor pasado es una cadena y, por tanto, inmutable).</p></li>
+<li><p>En la línea 5 se llama a <code>saluda</code> asignándole al parámetro <code class="sourceCode python">persona</code> el valor <code class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code>.</p></li>
+<li><p>En la línea 7 se llama a <code>saluda</code> asignándole al parámetro <code class="sourceCode python">persona</code> el valor de <code class="sourceCode python">x</code>, como si se hiciera <code class="sourceCode python">persona</code> <code>=</code> <code class="sourceCode python">x</code>, lo que sabemos que crea un <em>alias</em>.</p>
+<p>En este caso, la creación del alias no nos afectaría, ya que el valor pasado como argumento es una cadena y, por tanto, inmutable.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.2">
@@ -1391,9 +1392,11 @@ Sayonara, baby</code></pre></li>
 <li><p>Para devolver el resultado de la función al código que la llamó, hay que usar una sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
 <li><p>Cuando el intérprete encuentra una sentencia <code class="sourceCode python"><span class="cf">return</span></code> dentro de una función, ocurre lo siguiente (en este orden):</p>
 <ol>
-<li><p>Se finaliza la ejecución de la función.</p></li>
-<li><p>Se devuelve el control al punto del programa en el que se llamó a la función.</p></li>
-<li><p>La función devuelve como resultado el valor de retorno indicado en la sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
+<li><p>Se genera el valor de retorno de la función, que será el valor de la expresión que aparece en la sentencia <code class="sourceCode python"><span class="cf">return</span></code>.</p></li>
+<li><p>Se finaliza la ejecución de la función, sacando su marco de la pila.</p></li>
+<li><p>Se devuelve el control a la sentencia que llamó a la función.</p></li>
+<li><p>En esa sentencia, se sustituye la llamada a la función por su valor de retorno (el calculado en el paso 1 anterior).</p></li>
+<li><p>Se continúa la ejecución del programa desde ese punto.</p></li>
 </ol></li>
 </ul>
 </section>
@@ -1409,8 +1412,8 @@ Sayonara, baby</code></pre></li>
 <span id="cb31-6"><a href="#cb31-6"></a>resultado <span class="op">=</span> suma(a, b)</span>
 <span id="cb31-7"><a href="#cb31-7"></a><span class="bu">print</span>(<span class="st">&#39;El resultado es:&#39;</span>, resultado)</span></code></pre></div></li>
 <li><p>La función se define en las líneas 1–2. El intérprete lee la definición de la función pero no ejecuta las sentencias de su cuerpo en ese momento (lo hará cuando se <em>llame</em> a la función).</p></li>
-<li><p>En la línea 6 se llama a la función <code class="sourceCode python">suma</code> pasándole como argumentos los valores de <code class="sourceCode python">a</code> y <code class="sourceCode python">b</code>, asignándoseles a <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>, respectivamente.</p></li>
-<li><p>Dentro de la función, se calcula la suma <code class="sourceCode python">x</code> <code>+</code> <code class="sourceCode python">y</code> y la sentencia <code class="sourceCode python"><span class="cf">return</span></code> finaliza la ejecución de la función, devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor calculado en la suma anterior (el valor de la expresión que acompaña al <code class="sourceCode python"><span class="cf">return</span></code>).</p></li>
+<li><p>En la línea 6 se llama a la función <code class="sourceCode python">suma</code> pasándole como argumentos los valores de <code class="sourceCode python">a</code> y <code class="sourceCode python">b</code>, asignándolos a <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>, respectivamente.</p></li>
+<li><p>Dentro de la función, en la sentencia <code class="sourceCode python"><span class="cf">return</span></code> se calcula la suma <code class="sourceCode python">x</code> <code>+</code> <code class="sourceCode python">y</code> y se finaliza la ejecución de la función, devolviendo el control al punto en el que se la llamó (la línea 6) y haciendo que su valor de retorno sea el valor calculado en la suma anterior (el valor de la expresión que acompaña al <code class="sourceCode python"><span class="cf">return</span></code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
@@ -1420,7 +1423,7 @@ Sayonara, baby</code></pre></li>
 <li><p>Por tanto, una vez finalizada la ejecución de la función, la línea 6 se reescribe sustituyendo la llamada a la función por su valor.</p></li>
 <li><p>Si, por ejemplo, suponemos que el usuario ha introducido los valores <code class="sourceCode python"><span class="dv">5</span></code> y <code class="sourceCode python"><span class="dv">7</span></code> en las variables <code class="sourceCode python">a</code> y <code class="sourceCode python">b</code>, respectivamente, tras finalizar la ejecución de la función tendríamos que la línea 6 quedaría:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">12</span></span></code></pre></div>
-<p>y la ejecución del programa continuaría por ahí.</p></li>
+<p>y la ejecución del programa continuaría ejecutando la sentencia tal y como está ahora.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.3">
@@ -1429,7 +1432,8 @@ Sayonara, baby</code></pre></li>
 <li><p>También es posible usar la sentencia <code class="sourceCode python"><span class="cf">return</span></code> sin devolver ningún valor.</p></li>
 <li><p>En ese caso, su utilidad es la de finalizar la ejecución de la función en algún punto intermedio de su código.</p></li>
 <li><p>Pero en Python todas las funciones devuelven algún valor.</p></li>
-<li><p>Lo que ocurre en este caso es que la función devuelve el valor <code class="sourceCode python"><span class="va">None</span></code>:</p></li>
+<li><p>Lo que ocurre en este caso es que la función devuelve el valor <code class="sourceCode python"><span class="va">None</span></code>.</p></li>
+<li><p>Por tanto, la sentencia <code class="sourceCode python"><span class="cf">return</span></code> sin valor de retorno equivale a hacer <code class="sourceCode python"><span class="cf">return</span> <span class="va">None</span></code>.</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1651,12 +1655,12 @@ None</code></pre>
 <section class="slide level5" data-number="4.5.2.2.2">
 
 <ul>
-<li><p>El siguiente es un ejemplo de <strong>función impura</strong>, ya que provoca el <strong>efecto lateral</strong> de ejecutar una <strong>operación de entrada/salida</strong> (la función <code class="sourceCode python"><span class="bu">print</span></code>):</p>
+<li><p>El siguiente es un ejemplo de <strong>función impura</strong>, ya que provoca el <strong>efecto lateral</strong> de ejecutar una <strong>operación de entrada/salida</strong> (la función <code class="sourceCode python"><span class="bu">print</span></code>) además de calcular su valor de retorno:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div></li>
-<li><p>Cualquiera que desee usar la función <code class="sourceCode python">suma</code>, pero no sepa cómo está construida internamente, podría pensar que lo único que hace es calcular la suma de dos números, pero resulta que <strong>también imprime un mensaje en la salida</strong>, por lo que el resultado que se obtiene al ejecutar el siguiente programa no es el que cabría esperar:</p></li>
+<li><p>Cualquiera que desee usar la función <code class="sourceCode python">suma</code> pero no sepa cómo está construida internamente, podría pensar que lo único que hace es calcular la suma de dos números, pero resulta que <strong>también imprime un mensaje en la salida</strong>, por lo que el resultado que se obtiene al ejecutar el siguiente programa no es el que cabría esperar:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1678,7 +1682,8 @@ La suma vale 13
 <section class="slide level5" data-number="4.5.2.2.3">
 
 <ul>
-<li><p>Las llamadas a la función <code class="sourceCode python">suma</code> no se pueden sustituir por su valor de retorno correspondiente. Es decir, que no es lo mismo hacer:</p>
+<li><p>No podemos sustituir libremente en una expresión las llamadas a la función <code class="sourceCode python">suma</code> por sus valores de retorno correspondientes.</p></li>
+<li><p>Es decir, no es lo mismo hacer:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
 <p>que hacer:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
@@ -1748,7 +1753,7 @@ La suma vale 13
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>cambia(l, <span class="dv">2</span>, <span class="dv">99</span>)                  <span class="co"># cambia l</span></span>
 <span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l)                          <span class="co"># imprime [1, 2, 99, 4]</span></span></code></pre></div></li>
-<li><p>Si la función no pudiera cambiar directamente el interior de la lista tendría que crear una lista nueva, lo que resultaría menos eficiente porque consumiría más memoria:</p>
+<li><p>Si la función no pudiera cambiar el interior de la lista que recibe como argumento, tendría que crear una lista nueva, lo que resultaría menos eficiente en tiempo y espacio:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(lista, indice, valor):</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    nueva <span class="op">=</span> lista[:]              <span class="co"># hace una copia de la lista</span></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    nueva[indice] <span class="op">=</span> valor         <span class="co"># modifica la copia</span></span>
@@ -1767,7 +1772,7 @@ La suma vale 13
 <li><p>En Python es posible definir <strong>funciones locales</strong> a una función.</p></li>
 <li><p>Las funciones locales también se denominan <strong>funciones internas</strong> o <strong>funciones anidadas</strong>.</p></li>
 <li><p>Una función local se define <strong>dentro</strong> de otra función y, por tanto, sólo existe dentro de la función en la que se ha definido.</p></li>
-<li><p>Su <strong>ámbito</strong> es el cuerpo de la función donde se ha definido (la función que la contiene), pero al igual que pasa con las variables locales, sólo se pueden usar (llamar) después de haberse definido, es decir, después de haberse ejecutado el <code>def</code> de la función interna.</p></li>
+<li><p>Su <strong>ámbito</strong> es el cuerpo de la función donde se ha definido (la función que la contiene), pero al igual que pasa con las variables locales, sólo se pueden usar (llamar) después de haberse definido, es decir, después de haberse ejecutado el <code class="sourceCode python"><span class="kw">def</span></code> de la función interna.</p></li>
 <li><p>Evita la superpoblación de funciones en el ámbito más externo cuando sólo tiene sentido su uso en un ámbito más interno.</p></li>
 </ul>
 </section>
@@ -1802,7 +1807,7 @@ La suma vale 13
 <span id="cb59-5"><a href="#cb59-5"></a>            <span class="cf">return</span> acc</span>
 <span id="cb59-6"><a href="#cb59-6"></a>        <span class="cf">else</span>:</span>
 <span id="cb59-7"><a href="#cb59-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
-<li><p>Esto ocurre porque la sentencia <code>def</code> crea una ligadura entre <code>fact_iter</code> y su valor (la función), pero esa ligadura sólo empieza a existir cuando se ejecuta la sentencia <code>def</code>, y no antes.</p></li>
+<li><p>Esto ocurre porque la sentencia <code class="sourceCode python"><span class="kw">def</span></code> crea una ligadura entre <code>fact_iter</code> y su valor (la función), pero esa ligadura sólo empieza a existir cuando se ejecuta la sentencia <code class="sourceCode python"><span class="kw">def</span></code>, y no antes.</p></li>
 <li><p>Es importante recordar la diferencia entre el ámbito de una ligadura y el ámbito de creación de la ligadura:</p>
 <ul>
 <li><p>El ámbito de creación de la ligadura entre <code>fact_iter</code> y su valor es el cuerpo de la función <code>fact</code>.</p></li>
