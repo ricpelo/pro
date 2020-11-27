@@ -2007,8 +2007,9 @@ E -> suma [lhead = cluster0]
 - La pureza o impureza de una función tienen mucho que ver con los efectos
   laterales.
 
-- Una función es **pura** si lo único que hace es calcular su valor de retorno,
-  el cual sólo depende del valor de sus argumentos.
+- Una función es **pura** si, desde el punto de vista de un observador externo,
+  el único efecto que produce es calcular su valor de retorno, el cual sólo
+  depende del valor de sus argumentos.
 
 - Por tanto, una función es **impura** si cumple al menos una de las siguientes
   condiciones:
@@ -2027,9 +2028,9 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- El siguiente es un ejemplo de **función impura**, ya que provoca el **efecto
-  lateral** de ejecutar una **operación de entrada/salida** (la función
-  !PYTHON(print)) además de calcular su valor de retorno:
+- El siguiente es un ejemplo de **función impura**, ya que, además de calcular
+  su valor de retorno, provoca el **efecto lateral** de ejecutar una
+  **operación de entrada/salida** (la función !PYTHON(print)):
 
   ```python
   def suma(x, y):
@@ -2038,7 +2039,7 @@ E -> suma [lhead = cluster0]
       return res
   ```
 
-- Cualquiera que desee usar la función !PYTHON(suma) pero no sepa cómo está
+- Cualquiera que desee usar la función !PYTHON(suma), pero no sepa cómo está
   construida internamente, podría pensar que lo único que hace es calcular la
   suma de dos números, pero resulta que **también imprime un mensaje en la
   salida**, por lo que el resultado que se obtiene al ejecutar el siguiente
@@ -2168,6 +2169,8 @@ E -> suma [lhead = cluster0]
   print(suma(4, 3))       # ahora imprime 9
   ```
 
+  `cambia` provoca un efecto lateral y `suma` depende de una variable global.
+
 ---
 
 - Aunque los efectos laterales resultan indeseables en general, a veces es
@@ -2209,10 +2212,12 @@ E -> suma [lhead = cluster0]
 - Una función local se define **dentro** de otra función y, por tanto, sólo
   existe dentro de la función en la que se ha definido.
 
-- Su **ámbito** es el cuerpo de la función donde se ha definido (la función que
-  la contiene), pero al igual que pasa con las variables locales, sólo se
-  pueden usar (llamar) después de haberse definido, es decir, después de
-  haberse ejecutado el !PYTHON(def) de la función interna.
+- Su **ámbito de definición** es el cuerpo de la función donde se ha definido,
+  es decir, la función que la contiene.
+
+- Pero al igual que pasa con las variables locales, la función sólo se pueden
+  usar (llamar) después de haberse definido, es decir, después de haberse
+  ejecutado el !PYTHON(def) de la función interna.
 
 - Evita la superpoblación de funciones en el ámbito más externo cuando sólo
   tiene sentido su uso en un ámbito más interno.
@@ -2259,18 +2264,19 @@ E -> suma [lhead = cluster0]
   `fact_iter` y su valor (la función), pero esa ligadura sólo empieza a existir
   cuando se ejecuta la sentencia !PYTHON(def), y no antes.
 
-- Es importante recordar la diferencia entre el ámbito de una ligadura y el
-  ámbito de creación de la ligadura:
+- Es importante recordar la diferencia entre el _ámbito de una ligadura_ y el
+  _ámbito de creación de la ligadura_:
 
-  - El ámbito de creación de la ligadura entre `fact_iter` y su valor es el
+  - El **ámbito de creación de la ligadura** entre `fact_iter` y su valor es el
     cuerpo de la función `fact`.
 
-  - El ámbito de la ligadura empieza en la línea 3 y acaba al final del ámbito
-    de `fact` (no existe antes de la línea 3).
+  - El **ámbito de la ligadura** empieza en la línea 3 y acaba al final del
+    ámbito de `fact` (no existe antes de la línea 3).
 
 ---
 
-- Como cualquier otra función, las funciones locales definen un nuevo ámbito.
+- Como cualquier otra función, las funciones locales también definen un nuevo
+  ámbito.
 
 - Ese nuevo ámbito está anidado dentro del ámbito de la función en la que se
   define.
@@ -2301,11 +2307,12 @@ E -> suma [lhead = cluster0]
   crearía una nueva variable local a la función actual, que haría sombra a la
   variable que queremos modificar y que pertenece a otra función.
 
-- Es algo similar a lo que ocurre con las variables globales.
+- Es algo similar a lo que ocurre con las variables globales, pero en otro
+  ámbito.
 
 ---
 
-  ```python
+  ```{.python .number-lines}
   def fact(n):
       def fact_iter(acc):
           nonlocal n
@@ -2320,15 +2327,16 @@ E -> suma [lhead = cluster0]
   print(fact(5))
   ```
 
-- La función local !PYTHON(fact_iter) puede acceder a la variable !PYTHON(n),
-  que es local a la función !PYTHON(fact) (para ello no es necesario declararla
-  previamente como **no local**).
+- La función local `fact_iter` puede acceder a la variable `n`, ya que es una
+  variable local a la función `fact` y, por tanto, está en el entorno de
+  `fact_iter` (para eso no hace falta declararla como **no local**).
 
-- Como la variable !PYTHON(n) está declarada **no local** en
-  !PYTHON(fact_iter), también puede modificarla.
+- Como, además, la variable `n` está declarada **no local** en `fact_iter` (con
+  la instrucción !PYTHON(nonlocal) de la línea 3), la función `fact_iter`
+  también puede modificar esa variable.
 
-- De esta forma, ya no es necesario pasar el valor de !PYTHON(n) como argumento
-  a la función !PYTHON(fact_iter) y puede modificarla directamente.
+- De esta forma, ya no es necesario pasar el valor de `n` como argumento a
+  `fact_iter` y ésta puede modificarla directamente.
 
 <!--
 
