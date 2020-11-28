@@ -2201,6 +2201,79 @@ True
   y ejecuta ahí dentro el comando `python programa.py` como si lo hubiéramos
   escrito nosotros desde el sistema operativo.
 
+### Argumentos de la línea de órdenes
+
+- El usuario del programa puede pasarle argumentos directamente desde la línea
+  de órdenes del sistema operativo al arrancar el programa con el intérprete
+  por lotes.
+
+- Para acceder a esos argumentos desde el programa, puede usarse el atributo
+  !PYTHON(argv) del módulo !PYTHON(sys).
+
+- !PYTHON(sys.argv) es una lista que el intérprete rellena automáticamente con
+  los argumentos usados por el usuario del _script_ al ejecutarlo desde la
+  línea de órdenes.
+
+- El primer elemento de la lista (es decir, !PYTHON(sys.argv[0])) siempre
+  contiene el nombre del _script_.
+
+- Los restantes elementos (!PYTHON(sys.argv[1]), !PYTHON(sys.argv[2]),
+  etcétera) contendrán los argumentos pasados al _script_, en el orden en el
+  que aparecen en la línea de órdenes.
+
+---
+
+- Por ejemplo, un programa puede saludar al usuario dirigiéndose a él por su
+  nombre, el cual tendrá que pasarlo mediante la línea de órdenes de la
+  siguiente forma:
+
+  ```console
+  $ python saluda.py Ricardo
+  ```
+
+- Al ejecutar el _script_ `saluda.py`, el nombre del _script_ aparecerá en
+  !PYTHON(sys.argv[0]) y el primer argumento enviado al mismo (en este caso, el
+  nombre del usuario `Ricardo`) aparecerá en !PYTHON(sys.argv[1]):
+
+  ```python
+  import sys
+  print('¡Hola,', sys.argv[1])
+  ```
+
+- Si el usuario no le pasa ningún argumento en la línea de órdenes,
+  !PYTHON(sys.argv[1]) no existirá y se producirá un error !PYTHON(IndexError)
+  al intentar acceder a él:
+
+  ```haskell
+  $ python saluda.py
+  Traceback (most recent call last):
+    File "saluda.py", line 2, in <module>
+      print('¡Hola,', sys.argv[1])
+  IndexError: list index out of range
+  ```
+
+---
+
+- El siguiente programa suma dos números indicados por el usuario mediante la
+  línea de órdenes.
+
+- En este caso, hay que tener en cuenta que los argumentos siempre se pasan
+  como cadenas, así que habría que convertirlos previamente a números:
+
+  ```python
+  import sys
+  x = float(sys.argv[1])
+  y = float(sys.argv[2])
+  print('La suma de', x, '+', y, 'es', x + y)
+  ```
+
+- Un ejemplo de ejecución de este programa sería:
+
+  ```console
+  $ python suma.py 4 3
+  La suma de 4.0 + 3.0 es 7.0
+  ```
+
 ## Entrada y salida por archivos
 
 - Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este
