@@ -10,8 +10,24 @@ nocite: |
 
 ## Programación estructurada
 
-- La **programación estructurada** es una técnica de programación cuyo
-  **objetivo** es **conseguir programas fiables y fácilmente mantenibles**.
+- La **programación estructurada** es un paradigma de programación
+  **imperativa** que se apoya en tres pilares fundamentales:
+
+  - **Estructuras básicas:** los programas se escriben usando sólo unos pocos
+    elementos constructivos básicos.
+
+  - **Recursos abstractos:** los programas se escriben sin tener en cuenta
+    inicialmente el ordenador que lo va a ejecutar ni las instrucciones de las
+    que dispone el lenguaje de programación que se va a utilizar.
+
+  - **Diseño descendente por refinamiento sucesivo:** los programas se escriben
+    de arriba abajo a través de una serie de niveles de abstracción de menor a
+    mayor complejidad, pudiéndose verificar la corrección del programa en cada
+    nivel.
+
+- Su **objetivo** es **conseguir programas fiables y fácilmente mantenibles**.
+
+---
 
 - Su estudio puede dividirse en dos partes bien diferenciadas:
 
@@ -162,8 +178,8 @@ nocite: |
 
 ## Estructura
 
-- Una **estructura** es una construcción sintáctica (o bloque constructivo) que
-  se puede **anidar completamente** dentro de otra.
+- Las **estructuras** son construcciones sintácticas que pueden **anidarse
+completamente** unas dentro de otras.
 
 - Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
   completamente dentro de la otra, o no se tocan en absoluto.
@@ -209,6 +225,21 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ::::
 
+---
+
+- Las estructuras forman los elementos constructivos básicos de cualquier
+  programa estructurado.
+
+- Por tanto, un programa estructurado se crea combinando entre sí varias
+  estructuras.
+
+- Sintácticamente, una estructura es una unidad compuesta por varias sentencias
+  que actúan como una sola.
+
+- Toda estructura, por tanto, representa una **sentencia compuesta** que actúa
+  como un miniprograma propio y, por tanto, con un único punto de entrada y un
+  único punto de salida.
+
 ## Programa estructurado
 
 - Un **programa estructurado** es un programa construido combinando las
@@ -216,6 +247,11 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
   #. La **estructura secuencial** o **_secuencia_** de dos o más sentencias
      *A*, *B*, *C*, etcétera.
+
+     A la estructura secuencial o secuencia también se le denomina **bloque**.
+     Los lenguajes que permiten la creación de bloques, incluyendo bloques
+     dentro de otros bloques, se denominan **lenguajes estructurados en
+     bloques**.
 
   #. La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
      *B* dependiendo de un predicado *p*.
@@ -325,7 +361,7 @@ $B$
 
 ::: {.column width=70%}
 
-!IMGP(claro.png)()(width=70%)(width=60%)
+!IMGP(claro.!EXT)()(width=70%)(width=60%)
 
 :::
 
@@ -1945,6 +1981,11 @@ E -> suma [lhead = cluster0]
   print(x)  # imprime 5
   ```
 
+- La sentencia !PYTHON(global x) es una **declaración** que informa al
+  intérprete de que la variable `x` debe buscarla únicamente en el marco
+  global y que, por tanto, debe saltarse los demás marcos que haya en el
+  entorno.
+
 ---
 
 - Si la variable global no existe en el momento de realizar la asignación, se
@@ -2307,8 +2348,12 @@ E -> suma [lhead = cluster0]
   crearía una nueva variable local a la función actual, que haría sombra a la
   variable que queremos modificar y que pertenece a otra función.
 
-- Es algo similar a lo que ocurre con las variables globales, pero en otro
-  ámbito.
+- Es algo similar a lo que ocurre con la sentencia !PYTHON(global) y las
+  variables globales, pero en ámbitos intermedios.
+
+- La sentencia !PYTHON(nonlocal n) es una **declaración** que informa al
+  intérprete de que la variable `n` debe buscarla en el entorno saltándose el
+  marco de la función actual y el marco global.
 
 ---
 
@@ -2331,12 +2376,13 @@ E -> suma [lhead = cluster0]
   variable local a la función `fact` y, por tanto, está en el entorno de
   `fact_iter` (para eso no hace falta declararla como **no local**).
 
-- Como, además, la variable `n` está declarada **no local** en `fact_iter` (con
-  la instrucción !PYTHON(nonlocal) de la línea 3), la función `fact_iter`
-  también puede modificar esa variable.
+- Como, además, `n` está declarada **no local** en `fact_iter` (con
+  la instrucción !PYTHON(nonlocal n) de la línea 3), la función `fact_iter`
+  también puede modificar esa variable y no hace falta recibirla como argumento.
 
-- De esta forma, ya no es necesario pasar el valor de `n` como argumento a
-  `fact_iter` y ésta puede modificarla directamente.
+- Esa instrucción le indica al intérprete que, a la hora de buscar `n` en el
+  entorno de `fact_iter`, debe saltarse el marco de `fact_iter` y el marco
+  global y, por tanto, debe empezar a buscar en el marco de `fact`. 
 
 <!--
 
