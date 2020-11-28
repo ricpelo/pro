@@ -254,7 +254,7 @@
 <ul>
 <li><p>La <strong>programación estructurada</strong> es un paradigma de programación <strong>imperativa</strong> que se apoya en tres pilares fundamentales:</p>
 <ul>
-<li><p><strong>Estructuras básicas:</strong> los programas se escriben usando sólo unos pocos elementos constructivos básicos.</p></li>
+<li><p><strong>Estructuras básicas:</strong> los programas se escriben usando sólo unos pocos componentes constructivos básicos.</p></li>
 <li><p><strong>Recursos abstractos:</strong> los programas se escriben sin tener en cuenta inicialmente el ordenador que lo va a ejecutar ni las instrucciones de las que dispone el lenguaje de programación que se va a utilizar.</p></li>
 <li><p><strong>Diseño descendente por refinamiento sucesivo:</strong> los programas se escriben de arriba abajo a través de una serie de niveles de abstracción de menor a mayor complejidad, pudiéndose verificar la corrección del programa en cada nivel.</p></li>
 </ul></li>
@@ -307,14 +307,14 @@
 <li><p>Pero el primer programa es <strong>mucho más fácil de leer y modificar</strong> que el segundo, aunque los dos resuelvan el mismo problema.</p></li>
 <li><p>Si un programa se escribe de cualquier manera, aunque funcione correctamente, puede resultar engorroso, críptico, ilegible y casi imposible de modificar.</p></li>
 <li><p>Por tanto, lo que hay que hacer es <strong>impedir que el programador pueda escribir programas de cualquier manera</strong>, y para ello hay que <strong>restringir sus opciones</strong> a la hora de construir programas, de forma que el programa resultante sea fácil de leer, entender y mantener.</p></li>
-<li><p>Ese programa, una vez terminado, debe estar construido combinando sólo unos pocos tipos de bloques y cumpliendo una serie de restricciones.</p></li>
+<li><p>Ese programa, una vez terminado, debe estar construido combinando sólo unos pocos tipos de componentes y cumpliendo una serie de restricciones.</p></li>
 </ul>
 </section>
 
 <section id="programa-restringido" class="title-slide slide level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> Programa restringido</h2>
 <ul>
-<li>Un <strong>programa restringido</strong> es aquel que se construye combinando únicamente los tres siguientes bloques constructivos:</li>
+<li>Un <strong>programa restringido</strong> es aquel que se construye combinando únicamente los tres siguientes componentes constructivos:</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -346,14 +346,15 @@
 <section id="programa-propio" class="title-slide slide level2" data-number="1.3">
 <h2 data-number="1.3"><span class="header-section-number">1.3</span> Programa propio</h2>
 <ul>
-<li><p>Se dice que un programa restringido es un <strong>programa propio</strong> (o <strong><em>limpio</em></strong>) si reúne las tres condiciones siguientes:</p>
+<li><p>Se dice que un programa restringido es un <strong>programa propio</strong> si reúne las tres <strong>condiciones</strong> siguientes:</p>
 <ol type="1">
-<li><p>Posee un único punto de entrada y otro único punto de salida.</p></li>
-<li><p>Para cualquiera de sus bloques, existe al menos un camino desde la entrada hasta él y otro camino desde él hasta la salida.</p></li>
+<li><p>Posee un único punto de entrada y un único punto de salida.</p></li>
+<li><p>Para cualquiera de sus componentes, existe al menos un camino desde la entrada hasta él y otro camino desde él hasta la salida.</p></li>
 <li><p>No existen bucles infinitos.</p></li>
 </ol></li>
+<li><p>Esto permite que <strong>un programa propio pueda formar parte de otro programa mayor</strong>, apareciendo allí donde pueda haber una sentencia.</p></li>
 <li><p>Cuando varios programas propios se combinan para formar uno solo, el resultado es también un programa propio.</p></li>
-<li><p>Estas condiciones <strong>restringen aún más el concepto de <em>programa</em></strong>, de modo que sólo serán válidos aquellos que estén diseñados mediante el uso apropiado del agrupamiento y sin bloques superfluos o formando bucles sin salida.</p></li>
+<li><p>Estas condiciones <strong>restringen aún más el concepto de <em>programa</em></strong>, de modo que sólo serán válidos aquellos que estén diseñados mediante el uso apropiado del agrupamiento (con una sola entrada y una sola salida) y sin componentes superfluos o formando bucles sin salida.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.1">
@@ -361,27 +362,36 @@
 <ul>
 <li><p>Este es un ejemplo de un programa que no es propio porque <strong>no tiene una única salida</strong>:</p>
 <div class="centered">
-<p><img data-src="images/condicion-no-propio.png" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/condicion-no-propio.svg" class="plain" style="width:45.0%" /></p>
 </div></li>
 <li><p><strong>Agrupando</strong> las salidas se obtiene un programa propio:</p>
 <div class="centered">
-<p><img data-src="images/seleccion.png" class="plain" style="width:50.0%" /></p>
+<p><img data-src="images/seleccion.svg" class="plain" style="width:50.0%" /></p>
 </div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
-<li>Aquí se observa otro programa que no es propio, ya que <strong>existen bloques (los <em>A</em>, <em>C</em> y <em>q</em>) que no tienen un camino hasta la salida</strong>; si el programa llegara hasta esos bloques se quedaría bloqueado en un ciclo sin fin, pues no es posible terminar la ejecución:</li>
+<li>Ese programa propio ahora puede formar parte de otro programa mayor, ya que, al tener una sola entrada y una sola salida, puede actuar como una sentencia y aparecer allí donde pueda haber una sentencia:</li>
 </ul>
 <div class="centered">
-<p><img data-src="images/diagrama-no-propio.png" class="plain" style="width:90.0%" /></p>
+<p><img data-src="images/programa-propio-dentro-de-otro.svg" class="plain" style="width:90.0%" /></p>
 </div>
 </section>
 <section class="slide level5" data-number="1.3.0.0.3">
 
 <ul>
-<li>Aquí aparece un programa que tampoco es propio porque contiene <strong>bloques inaccesibles</strong> desde la entrada del diagrama:</li>
+<li>Aquí se observa otro programa que no es propio, ya que <strong>existen componentes (los <em>A</em>, <em>C</em> y <em>q</em>) que no tienen un camino hasta la salida</strong>; si el programa llegara hasta esos componentes se quedaría bloqueado en un ciclo sin fin, pues no es posible terminar la ejecución:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/diagrama-no-propio.png" class="plain" style="width:90.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="1.3.0.0.4">
+
+<ul>
+<li>Aquí aparece un programa que tampoco es propio porque contiene <strong>componentes inaccesibles</strong> desde la entrada del diagrama:</li>
 </ul>
 <div class="centered">
 <p><img data-src="images/diagrama-inaccesibles.png" class="plain" style="width:80.0%" /></p>
@@ -426,12 +436,12 @@
 <ul>
 <li><p>Un <strong>programa estructurado</strong> es un programa construido combinando las siguientes estructuras (llamadas <strong>estructuras de control</strong>):</p>
 <ol>
-<li><p>La <strong>estructura secuencial</strong> o <strong><em>secuencia</em></strong> de dos o más sentencias <em>A</em>, <em>B</em>, <em>C</em>, etcétera.</p>
-<p>A la estructura secuencial o secuencia también se le denomina <strong>bloque</strong>. Los lenguajes que permiten la creación de bloques, incluyendo bloques dentro de otros bloques, se denominan <strong>lenguajes estructurados en bloques</strong>.</p></li>
+<li><p>La <strong>estructura secuencial</strong>, <strong><em>secuencia</em></strong> o <strong>bloque</strong> de dos o más sentencias <em>A</em>, <em>B</em>, <em>C</em>, etcétera.</p>
+<p>Los lenguajes que permiten la creación de bloques, incluyendo bloques dentro de otros bloques, se denominan <strong>lenguajes estructurados en bloques</strong>.</p></li>
 <li><p>La <strong>estructura alternativa</strong> o <strong><em>selección</em></strong> entre dos sentencias <em>A</em> y <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
 <li><p>La <strong>estructura repetitiva</strong> o <strong><em>iteración</em></strong>, que repite una sentencia <em>A</em> dependiendo del valor lógico de un predicado <em>p</em>.</p></li>
 </ol></li>
-<li><p>Las estructuras de control son sentencias compuestas que contienen, a su vez, otras sentencias.</p></li>
+<li><p>Las estructuras de control son <strong>sentencias compuestas</strong> que contienen, a su vez, otras sentencias.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.0.0.1">
@@ -524,6 +534,29 @@
 <strong>escribir</strong> <span class="math inline">a</span></div>
 </div>
 </div>
+</section>
+<section class="slide level5" data-number="1.5.0.0.5">
+
+<ul>
+<li><p>A un bloque de sentencias que realizan una tarea específica se le puede dar un <strong>nombre</strong>.</p></li>
+<li><p>De esta forma se crearía una única <strong>unidad de código empaquetado que actuaría bajo ese nombre como una caja negra</strong>, de manera que, para poder usarla, bastaría con <strong><em>invocar</em> su nombre</strong> sin tener que conocer sus detalles internos de funcionamiento.</p></li>
+<li><p>A este tipo de bloques con nombre se les denomina <strong>subrutinas</strong> (o también <em>subprogramas</em> o <em>procedimientos</em>).</p></li>
+<li><p>Las subrutinas nos ayudan a:</p>
+<ul>
+<li><p>Ocultar la complejidad de partes concretas de un programa bajo capas de abstracción con diferentes niveles de detalle.</p></li>
+<li><p>Desarrollar el programa mediante sucesivos refinamientos de cada nivel de abstracción.</p></li>
+</ul></li>
+<li><p>En definitiva, las subrutinas son <strong>abstracciones</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.6">
+
+<ul>
+<li><p>La <strong><em>llamada</em></strong> o <strong><em>invocación</em></strong> a una subrutina es una sentencia simple pero que provoca la ejecución de un bloque de sentencias.</p></li>
+<li><p>Por tanto, podría considerarse que <strong>una subrutina es una sentencia compuesta que actúa como una sentencia simple</strong>.</p></li>
+<li><p>Cada lenguaje de programación establece sus propios mecanismos de creación de subrutinas.</p></li>
+<li><p>Por ejemplo, en Python las subrutinas son las <strong>funciones</strong> y los <strong>métodos</strong> que el programador puede crear en su programa.</p></li>
+</ul>
 </section>
 <section id="ventajas-de-los-programas-estructurados" class="title-slide slide level3" data-number="1.5.1">
 <h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span> Ventajas de los programas estructurados</h3>

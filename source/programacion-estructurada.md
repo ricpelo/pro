@@ -14,7 +14,7 @@ nocite: |
   **imperativa** que se apoya en tres pilares fundamentales:
 
   - **Estructuras básicas:** los programas se escriben usando sólo unos pocos
-    elementos constructivos básicos.
+    componentes constructivos básicos.
 
   - **Recursos abstractos:** los programas se escriben sin tener en cuenta
     inicialmente el ordenador que lo va a ejecutar ni las instrucciones de las
@@ -96,12 +96,12 @@ nocite: |
   resultante sea fácil de leer, entender y mantener.
 
 - Ese programa, una vez terminado, debe estar construido combinando sólo unos
-  pocos tipos de bloques y cumpliendo una serie de restricciones. 
+  pocos tipos de componentes y cumpliendo una serie de restricciones.
 
 ## Programa restringido
 
 - Un **programa restringido** es aquel que se construye combinando únicamente
-  los tres siguientes bloques constructivos:
+  los tres siguientes componentes constructivos:
 
 :::: columns
 
@@ -132,46 +132,58 @@ nocite: |
 
 ## Programa propio
 
-- Se dice que un programa restringido es un **programa propio** (o
-  **_limpio_**) si reúne las tres condiciones siguientes:
+- Se dice que un programa restringido es un **programa propio** si reúne las
+  tres **condiciones** siguientes:
 
-  1. Posee un único punto de entrada y otro único punto de salida.
+  1. Posee un único punto de entrada y un único punto de salida.
 
-  2. Para cualquiera de sus bloques, existe al menos un camino desde la entrada
-     hasta él y otro camino desde él hasta la salida.
+  2. Para cualquiera de sus componentes, existe al menos un camino desde la
+     entrada hasta él y otro camino desde él hasta la salida.
 
   3. No existen bucles infinitos.
+
+- Esto permite que **un programa propio pueda formar parte de otro programa
+  mayor**, apareciendo allí donde pueda haber una sentencia.
 
 - Cuando varios programas propios se combinan para formar uno solo, el
   resultado es también un programa propio.
 
 - Estas condiciones **restringen aún más el concepto de _programa_**, de modo
   que sólo serán válidos aquellos que estén diseñados mediante el uso apropiado
-  del agrupamiento y sin bloques superfluos o formando bucles sin salida.
+  del agrupamiento (con una sola entrada y una sola salida) y sin componentes
+  superfluos o formando bucles sin salida.
 
 ---
 
 - Este es un ejemplo de un programa que no es propio porque **no tiene una
   única salida**:
 
-  !IMGP(condicion-no-propio.png)()(width=50%)(width=40%)
+  !IMGP(condicion-no-propio.!EXT)()(width=45%)(width=40%)
 
 - **Agrupando** las salidas se obtiene un programa propio:
 
-  !IMGP(seleccion.png)()(width=50%)(width=50%)
+  !IMGP(seleccion.!EXT)()(width=50%)(width=40%)
 
 ---
 
-- Aquí se observa otro programa que no es propio, ya que **existen bloques (los
-  *A*, *C* y *q*) que no tienen un camino hasta la salida**; si el programa
-  llegara hasta esos bloques se quedaría bloqueado en un ciclo sin fin, pues no
-  es posible terminar la ejecución:
+- Ese programa propio ahora puede formar parte de otro programa mayor, ya que,
+  al tener una sola entrada y una sola salida, puede actuar como una sentencia
+  y aparecer allí donde pueda haber una sentencia:
+
+!IMGP(programa-propio-dentro-de-otro.!EXT)()(width=90%)(width=70%)
+
+---
+
+- Aquí se observa otro programa que no es propio, ya que **existen componentes
+  (los *A*, *C* y *q*) que no tienen un camino hasta la salida**; si el
+  programa llegara hasta esos componentes se quedaría bloqueado en un ciclo sin
+  fin, pues no es posible terminar la ejecución:
 
 !IMGP(diagrama-no-propio.png)()(width=90%)(width=70%)
 
 ---
 
-- Aquí aparece un programa que tampoco es propio porque contiene **bloques
+- Aquí aparece un programa que tampoco es propio porque contiene **componentes
   inaccesibles** desde la entrada del diagrama:
 
 !IMGP(diagrama-inaccesibles.png)()(width=80%)(width=50%)
@@ -245,10 +257,9 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras (llamadas **estructuras de control**):
 
-  #. La **estructura secuencial** o **_secuencia_** de dos o más sentencias
-     *A*, *B*, *C*, etcétera.
+  #. La **estructura secuencial**, **_secuencia_** o **bloque** de dos o más
+     sentencias *A*, *B*, *C*, etcétera.
 
-     A la estructura secuencial o secuencia también se le denomina **bloque**.
      Los lenguajes que permiten la creación de bloques, incluyendo bloques
      dentro de otros bloques, se denominan **lenguajes estructurados en
      bloques**.
@@ -259,8 +270,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
   #. La **estructura repetitiva** o **_iteración_**, que repite una sentencia
      *A* dependiendo del valor lógico de un predicado *p*.
 
-- Las estructuras de control son sentencias compuestas que contienen, a su vez,
-  otras sentencias.
+- Las estructuras de control son **sentencias compuestas** que contienen, a su
+  vez, otras sentencias.
 
 ---
 
@@ -382,6 +393,43 @@ $B$
 :::
 
 ::::
+
+---
+
+- A un bloque de sentencias que realizan una tarea específica se le puede dar
+  un **nombre**.
+
+- De esta forma se crearía una única **unidad de código empaquetado que
+  actuaría bajo ese nombre como una caja negra**, de manera que, para poder
+  usarla, bastaría con **_invocar_ su nombre** sin tener que conocer sus
+  detalles internos de funcionamiento.
+
+- A este tipo de bloques con nombre se les denomina **subrutinas** (o también
+  _subprogramas_ o _procedimientos_).
+
+- Las subrutinas nos ayudan a:
+
+  - Ocultar la complejidad de partes concretas de un programa bajo capas de
+    abstracción con diferentes niveles de detalle.
+
+  - Desarrollar el programa mediante sucesivos refinamientos de cada nivel de
+    abstracción.
+
+- En definitiva, las subrutinas son **abstracciones**.
+
+---
+
+- La **_llamada_** o **_invocación_** a una subrutina es una sentencia simple
+  pero que provoca la ejecución de un bloque de sentencias.
+
+- Por tanto, podría considerarse que **una subrutina es una sentencia compuesta
+  que actúa como una sentencia simple**.
+
+- Cada lenguaje de programación establece sus propios mecanismos de creación de
+  subrutinas.
+
+- Por ejemplo, en Python las subrutinas son las **funciones** y los **métodos**
+  que el programador puede crear en su programa.
 
 ### Ventajas de los programas estructurados
 
