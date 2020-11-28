@@ -21,9 +21,13 @@ nocite: |
 - Por tanto, una **sentencia** es una instrucción que cambia el estado del
   programa.
 
-- El modelo de ejecución de un programa imperativo es el de una **máquina de
-  estados**, es decir, un dispositivo abstracto que va pasando por diferentes
-  estados a medida que el programa va ejecutándose.
+- El **fundamento teórico** de la programación imperativa son las **máquinas de
+  Turing** y de **Von Neumann**, que son modelos abstractos de cómo funciona un
+  ordenador.
+
+- El **modelo de ejecución** de un programa imperativo es el de una **máquina
+  de estados**, es decir, un dispositivo abstracto que va pasando por
+  diferentes estados a medida que el programa va ejecutándose.
 
 ---
 
@@ -362,6 +366,17 @@ y:f1 -> 5
 
   El valor de la variable a la que está ligada el identificador !PYTHON(x) pasa
   ahora a ser !PYTHON(9), sustituyendo el valor !PYTHON(4) anterior.
+
+- Por tanto, eso significa que la variable ligada al identificador `x` puede
+  hacer referencia a distintos valores dependiendo del momento en el que se
+  compruebe su valor.
+
+- De hecho, la asignación anterior crea un instante que divide el flujo
+  temporal de ejecución en dos momentos:
+
+  - **Antes** de ejecutar la asignación, `x` vale !PYTHON(4).
+
+  - **Después** de ejecutar la asignación, `x` vale !PYTHON(9).
 
 ---
 

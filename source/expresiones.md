@@ -16,8 +16,8 @@ nocite: |
 
 - Python fue creado a finales de los ochenta por **Guido van Rossum** en el
   Centro para las Matemáticas y la Informática (CWI, Centrum Wiskunde &
-  Informatica),
-  en los Países Bajos, como un sucesor del lenguaje de programación ABC.
+  Informatica), en los Países Bajos, como un sucesor del lenguaje de
+  programación ABC.
 
 - El nombre del lenguaje proviene de la afición de su creador por los
   humoristas británicos **Monty Python**.
@@ -100,11 +100,12 @@ nocite: |
 
 - El intérprete de Python tiene dos **modos de funcionamiento**:
 
-  1. **Modo interactivo (_REPL_):** se abre una **sesión interactiva** con el intérprete
-     donde éste nos solicita que introduzcamos una instrucción (sentencia o
-     expresión) y, a continuación, la ejecuta inmediatamente, para luego volver
-     a solicitar una nueva instrucción, repitiendo este ciclo indefinidamente
-     en un **diálogo continuo entre el programador y el intérprete**.
+  1. **Modo interactivo (_REPL_):** se abre una **sesión interactiva** con el
+     intérprete donde éste nos solicita que introduzcamos una instrucción
+     (sentencia o expresión) y, a continuación, la ejecuta inmediatamente, para
+     luego volver a solicitar una nueva instrucción, repitiendo este ciclo
+     indefinidamente en un **diálogo continuo entre el programador y el
+     intérprete**.
 
      Es el modo más apropiado para aprender el lenguaje o hacer pruebas
      rápidas, y el que empezaremos a usar nosotros.

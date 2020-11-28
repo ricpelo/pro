@@ -1220,8 +1220,8 @@ $$\text{Paradigmas} \begin{cases}
   control**.
 
 - Se apoya a nivel teórico en los resultados del conocido **teorema de Böhm y
-  Jacopini**, que establece que cualquier programa se puede escribir usando
-  solamente tres estructuras básicas:
+  Jacopini**, que establece que cualquier programa útil se puede escribir
+  usando solamente tres estructuras básicas:
 
   - Secuencia
   - Selección
@@ -1276,15 +1276,16 @@ $$\text{Paradigmas} \begin{cases}
 ### Funcional
 
 - La **programación funcional** es un paradigma de programación declarativa
-  basado en el uso de **funciones matemáticas**.
+  basado en el uso de **definiciones**, **expresiones** y **funciones
+  matemáticas**.
 
 - Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
-  lenguajes funcionales se pueden considerar azúcar sintáctico del cálculo
+  lenguajes funcionales se pueden considerar _azúcar sintáctico_ del cálculo
   lambda).
 
-- Una función (en programación funcional) define de un cálculo a realizar a
-  partir de unos datos de entrada, con la propiedad de que el resultado de la
-  función sólo puede depender de dichos datos de entrada (lo que se denomina
+- Una función en programación funcional define un cálculo a realizar a partir
+  de unos datos de entrada, con la propiedad de que el resultado de la función
+  sólo puede depender de dichos datos de entrada (lo que se denomina
   **transparencia referencial**).
 
 - Eso significa que una función no puede tener estado interno ni su resultado
@@ -1297,7 +1298,7 @@ $$\text{Paradigmas} \begin{cases}
 ### Lógico
 
 - La **programación lógica** es un paradigma de programación declarativa
-  basado en el uso de la **lógica de predicados de primer orden**.
+  que usa la **lógica matemática** como lenguaje de programación.
 
 - Básicamente, un programa lógico es una colección de definiciones que forman
   un conjunto de **axiomas** en un sistema de **deducción lógica**.
@@ -1325,8 +1326,10 @@ $$\text{Paradigmas} \begin{cases}
 
 - SQL es, básicamente, una implementación del **álgebra relacional**.
 
-- Con SQL, el usuario indica *qué* desea obtener y el SGBDR determina
-  automáticamente el mejor camino para alcanzar dicho objetivo.
+- Los lenguajes de consulta se consideran lenguajes declarativos porque con
+  ellos el usuario indica *qué* desea obtener (qué propiedades debe cumplir la
+  solución) y el SGBDR determina automáticamente el mejor camino para alcanzar
+  dicho objetivo.
 
 ---
 

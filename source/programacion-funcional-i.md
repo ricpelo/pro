@@ -6,9 +6,91 @@ nocite: |
   @blanco_calculo_2009, @abelson_structure_1996, @van-roy_concepts_2004
 ---
 
-# Modelo de ejecución
+# Introducción
 
 ## Concepto
+
+- La **programación funcional** es un paradigma de programación declarativa
+  basado en el uso de **definiciones**, **expresiones** y **funciones
+  matemáticas**.
+
+- Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
+  lenguajes funcionales se pueden considerar _azúcar sintáctico_ del cálculo
+  lambda).
+
+- Una función en programación funcional define un cálculo a realizar a partir
+  de unos datos de entrada, con la propiedad de que el resultado de la función
+  sólo puede depender de dichos datos de entrada (lo que se denomina
+  **transparencia referencial**).
+
+- Eso significa que una función no puede tener estado interno ni su resultado
+  puede depender del estado interno del programa. Por tanto, no existen los
+  **efectos laterales**.
+
+---
+
+- En programación funcional, las funciones también son valores, por lo que se
+  consideran a éstas como **ciudadanas de primera clase**.
+
+- Un programa funcional está formado únicamente por definiciones de valores y
+  por expresiones que hacen uso de los valores definidos.
+
+- Por tanto, en programación funcional, ejecutar un programa equivale a evaluar
+  una expresión.
+
+- Para describir el proceso llevado a cabo por el programa no es necesario
+  bajar al nivel de la máquina, sino que basta con interpretarlo como un
+  **sistema de evaluación de expresiones**.
+
+- Esa evaluación de expresiones se lleva a cabo mediante **reescrituras** que
+  usan las definiciones para tratar de alcanzar la forma normal de la
+  expresión.
+
+## Transparencia referencial
+
+- En programación funcional, el valor de una expresión depende, exclusivamente,
+  de los valores de sus sub-expresiones constituyentes.
+
+- Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras
+  que tengan el mismo valor.
+
+- A esta propiedad se la denomina **transparencia referencial**.
+
+- En la práctica, eso significa que la evaluación de una expresión no puede
+  provocar **efectos laterales**.
+
+- Formalmente, se puede definir así:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Transparencia referencial:**
+
+  Si $p = q$, entonces $f(p) = f(q)$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Los **efectos laterales** son aquellos que provocan un cambio de estado
+  irremediable en el sistema, y que pueden provocar que el resultado de una
+  expresión no dependa únicamente de los valores que aparecen en esa expresión.
+
+- Por ejemplo, las **instrucciones de E/S** (entrada y salida) provocan efectos
+  laterales, ya que:
+
+  - Al **leer un dato** de la entrada (ya sea el teclado, un archivo del disco,
+    una base de datos...) estamos afectando al estado del dispositivo de
+    entrada, y además no se sabe de antemano qué valor se va a recibir, ya que
+    éste proviene del exterior y no lo controlamos.
+
+  - Al **escribir un dato** en la salida (ya sea la pantalla, un archivo, una
+    base de datos...) estamos realizando un cambio que afecta irremediablemente
+    al estado del dispositivo de salida.
+
+- En posteriores temas veremos que existe un paradigma (el **paradigma
+  imperativo**) que se basa principalmente en provocar efectos laterales, sobre
+  todo mediante la llamada _asignación destructiva_.
+
+## Modelo de ejecución
 
 - Cuando escribimos programas (y algoritmos) nos interesa abstraernos del
   funcionamiento detallado de la máquina que va a ejecutar esos programas.
@@ -47,7 +129,7 @@ nocite: |
 
   - Los aspectos que queramos estudiar de nuestro programa.
 
-## Modelo de sustitución
+### Modelo de sustitución
 
 - En programación funcional, **un programa es una expresión** y lo que hacemos
   al ejecutarlo es **evaluar dicha expresión**, usando para ello las
@@ -73,6 +155,12 @@ nocite: |
 - Todo resulta mucho más fácil que eso, ya que **todo se reduce a evaluar
   expresiones**.
 
+- Y la evaluación de expresiones no requiere pensar que hay un ordenador que
+  lleva a cabo el proceso de evaluación.
+
+- Esto se debe a que la programación funcional se basa en el **cálculo
+  lambda**, que es un modelo teórico matemático.
+
 ---
 
 - Ya estudiamos que evaluar una expresión consiste en encontrar su forma normal.
@@ -88,50 +176,6 @@ nocite: |
   - El significado de una expresión es su valor, y no puede ocurrir ningún
     otro efecto, ya sea oculto o no, en ninguna operación que se utilice para
     calcularlo.
-
-## Transparencia referencial
-
-- En programación funcional, el valor de una expresión depende, exclusivamente,
-  de los valores de sus sub-expresiones constituyentes.
-
-- Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras
-  que tengan el mismo valor.
-
-- A esta propiedad se la denomina **transparencia referencial**.
-
-- En la práctica, eso significa que la evaluación de una expresión no puede
-  provocar **efectos laterales**.
-
-- Formalmente, se puede definir así:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-  **Transparencia referencial:**
-
-  Si $p = q$, entonces $f(p) = f(q)$.
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Los **efectos laterales** son aquellos que provocan un cambio de estado
-  irremediable en el sistema, y que provocan (o pueden provocar) que el
-  resultado de una expresión no dependa únicamente de los valores que aparecen
-  en esa expresión.
-
-- Por ejemplo, las **instrucciones de E/S** (entrada y salida) provocan efectos
-  laterales, ya que:
-
-  - Al **leer un dato** de la entrada (ya sea el teclado, un archivo del disco
-    o una base de datos), no se sabe de antemano qué valor se va a recibir, ya
-    que éste proviene del exterior y no lo controlamos.
-
-  - Al **escribir un dato** en la salida (ya sea la pantalla, un archivo o una
-    base de datos), no sólo estamos calculando el resultado de la expresión,
-    sino que además estamos cambiando irremediablemente algo del exterior.
-
-- En posteriores temas veremos que existe un paradigma (el **paradigma
-  imperativo**) que se basa principalmente en provocar efectos laterales, sobre
-  todo mediante la llamada _asignación destructiva_.
 
 # Tipos de datos
 
