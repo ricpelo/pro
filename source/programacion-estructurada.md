@@ -53,16 +53,16 @@ nocite: |
 
 - Por ejemplo, el siguiente programa que calcula el producto de dos números:
 
-  !IMGP(producto.png)()(width=90%)(width=100%)
+!IMGP(producto.!EXT)()(width=95%)(width=100%)
 
 ---
-
-- En cambio, un programador _indisciplinado_ crearía programas más difíciles de
-  leer.
 
 :::: columns
 
 ::: {.column width=45%}
+
+- En cambio, un programador _indisciplinado_ crearía programas más difíciles de
+  leer.
 
 - Este programa resuelve el mismo problema que el anterior, pero mediante
   saltos contínuos y líneas que se cruzan, lo que resulta en un programa más
@@ -72,7 +72,7 @@ nocite: |
 
 ::: {.column width=55%}
 
-!IMGP(confuso.png)()(width=100%)(width=70%)
+!IMGP(confuso.!EXT)()(width=100%)(width=70%)
 
 :::
 
@@ -103,10 +103,6 @@ nocite: |
 - Un **programa restringido** es aquel que se construye combinando únicamente
   los tres siguientes componentes constructivos:
 
-:::: columns
-
-::: column
-
 - **Sentencia**, que sirve para representar una instrucción (por ejemplo: de
   lectura, escritura, asignación...).
 
@@ -116,15 +112,23 @@ nocite: |
 - **Agrupamiento**, que sirve para agrupar lı́neas de flujo que procedan de
   distintos caminos.
 
+:::: columns
+
+::: {.column width=33%}
+
+!IMGP(sentencia.!EXT)(Sentencia)(width=80%)(width=30%)
+
 :::
 
-::: column
+::: {.column width=33%}
 
-!IMGP(sentencia.png)(Sentencia)(width=50%)(width=30%)
+!IMGP(condicion.!EXT)(Condición)(width=80%)(width=30%)
 
-!IMGP(condicion.png)(Condición)(width=50%)(width=30%)
+:::
 
-!IMGP(agrupamiento.png)(Agrupamiento)(width=40%)(width=20%)
+::: {.column width=33%}
+
+!IMGP(agrupamiento.!EXT)(Agrupamiento)(width=70%)(width=20%)
 
 :::
 
@@ -179,14 +183,14 @@ nocite: |
   programa llegara hasta esos componentes se quedaría bloqueado en un ciclo sin
   fin, pues no es posible terminar la ejecución:
 
-!IMGP(diagrama-no-propio.png)()(width=90%)(width=70%)
+!IMGP(diagrama-no-propio.!EXT)()(width=90%)(width=70%)
 
 ---
 
 - Aquí aparece un programa que tampoco es propio porque contiene **componentes
   inaccesibles** desde la entrada del diagrama:
 
-!IMGP(diagrama-inaccesibles.png)()(width=80%)(width=50%)
+!IMGP(diagrama-inaccesibles.!EXT)()(width=50%)(width=40%)
 
 ## Estructura
 
@@ -226,7 +230,7 @@ F
 
 ::: column
 
-!DOT(estructura-no.png)(Estas no son estructuras)(width=20%)
+!DOT(estructura-no.svg)(Estas no son estructuras)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 graph [layout = neato]
 A [pos="-0.5,0.0!", fillcolor = transparent]
@@ -279,11 +283,15 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ::: column
 
-!IMGP(secuencia.png)(Secuencia)(width=100%)(width=50%)
+!IMGP(secuencia.!EXT)(Secuencia)(width=100%)(width=50%)
 
-!IMGP(seleccion.png)(Selección)(width=100%)(width=50%)
+!SALTO
 
-!IMGP(iteracion.png)(Iteración)(width=80%)(width=50%)
+!IMGP(seleccion.!EXT)(Selección)(width=100%)(width=50%)
+
+!SALTO
+
+!IMGP(iteracion.!EXT)(Iteración)(width=100%)(width=50%)
 
 :::
 
@@ -299,6 +307,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 $B$
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+    !SALTO
+
   - Selección:
 
     !ALGO
@@ -308,6 +318,8 @@ $B$
 **sino**
       $B$
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+    !SALTO
 
   - Iteración:
 
