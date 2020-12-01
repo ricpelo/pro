@@ -346,8 +346,9 @@
 <ul>
 <li><p>Todos los valores se almacenan en una zona de la memoria conocida como el <strong>montículo</strong>.</p></li>
 <li><p>Cada vez que aparece un nuevo dato en el programa, el intérprete lo crea dentro del montículo a partir de una determinada dirección de la memoria y ocupando el espacio de memoria que se necesite en función del tamaño que tenga el dato.</p></li>
-<li><p>Se denomina <strong>identidad del dato</strong> a un valor abstracto y único que va asociado siempre al dato, que no cambia nunca durante toda la vida del dato, y que sirve para identificar, localizar y acceder al dato dentro del montículo.</p></li>
+<li><p>Se denomina <strong>identidad del dato</strong> a un número entero que va asociado siempre al dato, que es único y constante durante toda la vida del dato, y que sirve para identificar, localizar y acceder al dato dentro del montículo.</p></li>
 <li><p>Generalmente, la identidad de un dato coincide con la <strong>dirección de comienzo</strong> de la zona que ocupa el dato dentro del montículo, aunque ese es un detalle de funcionamiento interno del intérprete.</p></li>
+<li><p>Si dos datos existen a la vez, no pueden tener la misma identidad; en caso contrario, sí que pueden.</p></li>
 </ul>
 <!--
 
@@ -782,11 +783,11 @@
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> Tipos mutables e inmutables</h2>
 <ul>
 <li><p>En Python existen tipos cuyos valores son <em>inmutables</em> y otros que son <em>mutables</em>.</p></li>
-<li><p>Un valor <strong>inmutable</strong> es aquel cuyo estado interno no puede cambiar durante la ejecución del programa.</p></li>
+<li><p>Un valor <strong>inmutable</strong> es aquel cuyo <strong>estado interno NO puede cambiar</strong> durante la ejecución del programa.</p></li>
 <li><p>Los tipos inmutables en Python son los números (<code class="sourceCode python"><span class="bu">int</span></code> y <code class="sourceCode python"><span class="bu">float</span></code>), los booleanos (<code class="sourceCode python"><span class="bu">bool</span></code>), las cadenas (<code class="sourceCode python"><span class="bu">str</span></code>), las tuplas (<code class="sourceCode python"><span class="bu">tuple</span></code>), los rangos (<code class="sourceCode python"><span class="bu">range</span></code>) y los conjuntos congelados (<code class="sourceCode python"><span class="bu">frozenset</span></code>).</p></li>
-<li><p>Un valor <strong>mutable</strong> es aquel cuyo estado interno puede cambiar durante la ejecución del programa.</p>
-<p>Muchos valores mutables son <strong>colecciones de elementos</strong> (datos <em>compuestos</em>) y cambiar su estado interno es cambiar su <strong>contenido</strong>, es decir, los elementos que contiene.</p></li>
-<li><p>Los principales tipos mutables predefinidos en Python son la lista (<code class="sourceCode python"><span class="bu">list</span></code>), los conjuntos (<code class="sourceCode python"><span class="bu">set</span></code>) y los diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>).</p></li>
+<li><p>Un valor <strong>mutable</strong> es aquel cuyo <strong>estado interno puede cambiar</strong> durante la ejecución del programa <strong>sin cambiar su identidad</strong>.</p>
+<p>Muchos valores mutables son <strong>colecciones de elementos</strong> (datos <em>compuestos</em> o <strong>contenedores</strong>) y cambiar su estado interno es cambiar su <strong>contenido</strong>, es decir, los elementos que contiene.</p></li>
+<li><p>Los principales tipos mutables predefinidos en Python son las listas (<code class="sourceCode python"><span class="bu">list</span></code>), los conjuntos (<code class="sourceCode python"><span class="bu">set</span></code>) y los diccionarios (<code class="sourceCode python"><span class="bu">dict</span></code>).</p></li>
 </ul>
 </section>
 <section id="inmutables" class="title-slide slide level3" data-number="3.2.1">
@@ -1069,7 +1070,7 @@
 <section id="mutables" class="title-slide slide level3" data-number="3.2.2">
 <h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Mutables</h3>
 <ul>
-<li><p>Los valores de tipos <strong>mutables</strong>, en cambio, pueden cambiar su estado interno durante la ejecución del programa.</p></li>
+<li><p>Los valores de tipos <strong>mutables</strong>, en cambio, pueden cambiar su estado interno durante la ejecución del programa sin cambiar su identidad.</p></li>
 <li><p>El tipo mutable más frecuente es la <strong>lista</strong> (<code class="sourceCode python"><span class="bu">list</span></code>).</p></li>
 <li><p>Una lista es como una tupla pero que puede cambiar sus elementos, aumentar o disminuir de tamaño.</p></li>
 <li><p>Eso significa que <strong>una lista puede cambiar su <em>contenido</em> y, por tanto, su <em>estado interno</em></strong>.</p></li>

@@ -161,14 +161,16 @@ nocite: |
   ocupando el espacio de memoria que se necesite en función del tamaño que
   tenga el dato.
 
-- Se denomina **identidad del dato** a un valor abstracto y único que va
-  asociado siempre al dato, que no cambia nunca durante toda la vida del dato,
-  y que sirve para identificar, localizar y acceder al dato dentro del
-  montículo.
+- Se denomina **identidad del dato** a un número entero que va asociado siempre
+  al dato, que es único y constante durante toda la vida del dato, y que sirve
+  para identificar, localizar y acceder al dato dentro del montículo.
 
 - Generalmente, la identidad de un dato coincide con la **dirección de
   comienzo** de la zona que ocupa el dato dentro del montículo, aunque ese es
   un detalle de funcionamiento interno del intérprete.
+
+- Si dos datos existen a la vez, no pueden tener la misma identidad; en caso
+  contrario, sí que pueden.
 
 <!--
 
@@ -782,22 +784,22 @@ y:f1 -> 5
 - En Python existen tipos cuyos valores son *inmutables* y otros que son
   *mutables*.
 
-- Un valor **inmutable** es aquel cuyo estado interno no puede cambiar durante
-  la ejecución del programa.
+- Un valor **inmutable** es aquel cuyo **estado interno NO puede cambiar**
+  durante la ejecución del programa.
 
 - Los tipos inmutables en Python son los números (!PYTHON(int) y
   !PYTHON(float)), los booleanos (!PYTHON(bool)), las cadenas (!PYTHON(str)),
   las tuplas (!PYTHON(tuple)), los rangos (!PYTHON(range)) y los conjuntos
   congelados (!PYTHON(frozenset)).
 
-- Un valor **mutable** es aquel cuyo estado interno puede cambiar durante la
-  ejecución del programa.
+- Un valor **mutable** es aquel cuyo **estado interno puede cambiar** durante
+  la ejecución del programa **sin cambiar su identidad**.
 
-  Muchos valores mutables son **colecciones de elementos** (datos _compuestos_)
-  y cambiar su estado interno es cambiar su **contenido**, es decir, los
-  elementos que contiene.
+  Muchos valores mutables son **colecciones de elementos** (datos _compuestos_
+  o **contenedores**) y cambiar su estado interno es cambiar su **contenido**,
+  es decir, los elementos que contiene.
 
-- Los principales tipos mutables predefinidos en Python son la lista
+- Los principales tipos mutables predefinidos en Python son las listas
   (!PYTHON(list)), los conjuntos (!PYTHON(set)) y los diccionarios
   (!PYTHON(dict)).
 
@@ -1214,7 +1216,7 @@ s | P | y | t | h | o | n |
 ### Mutables
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
-  interno durante la ejecución del programa.
+  interno durante la ejecución del programa sin cambiar su identidad.
 
 - El tipo mutable más frecuente es la **lista** (!PYTHON(list)).
 
