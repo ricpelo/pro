@@ -10,8 +10,9 @@ nocite: |
 
 ## Introducción
 
-- Un **dato estructurado** o **dato compuesto** es un dato formado, a su vez,
-  por otros datos llamados **componentes** o **elementos**.
+- Un **dato estructurado** (también llamado **dato compuesto**, **colección** o
+  **contenedor**) es un dato formado, a su vez, por otros datos llamados
+  **componentes** o **elementos**.
 
 - Un **tipo de dato estructurado**, también llamado **tipo compuesto**, es
   aquel cuyos valores son datos estructurados.
@@ -76,7 +77,8 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - Un valor es *hashable* si cumple las siguientes dos condiciones:
 
-  #. Tiene asociado un valor *hash* que nunca cambia durante su vida.
+  #. Tiene asociado un valor numérico llamado **hash** que nunca cambia durante
+     su vida.
 
      Si un valor es *hashable*, se podrá obtener su *hash* llamando a la
      función !PYTHON(hash) sobre el valor. En caso contrario, la llamada
@@ -88,9 +90,10 @@ $$\text{Tipos estructurados} \begin{cases}
 - Si dos valores *hashables* son iguales, entonces deben tener el mismo valor
   de *hash*:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`.
+  Si $x$ `==` $y$, entonces debe cumplirse que !PYTHON(hash)`(`$x$`)` `==`
+  !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -108,6 +111,23 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - Por ejemplo, los elementos de un conjunto y las claves de un diccionario
   deben ser *hashables*.
+
+---
+
+- Ejemplos:
+
+  ```python
+  >>> hash('hola')
+  1466824599200729805
+  >>> hash(5)
+  5
+  >>> hash((1, 2, 3))
+  529344067295497451
+  >>> hash([1, 2, 3])
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'list'
+  ```
 
 ## Iterables
 
@@ -252,7 +272,8 @@ $$\text{Tipos estructurados} \begin{cases}
 ### El bucle !PYTHON(for)
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
-  iterador es mediante un bucle !PYTHON(for).
+  iterador es mediante una **estructura de control** llamada **bucle
+  !PYTHON(for)**.
 
 - Su sintaxis es:
 
@@ -384,42 +405,8 @@ fin = !T{False}
 - Todas las secuencias (ya sean cadenas, listas, tuplas o rangos) comparten un
   conjunto de **operaciones comunes**.
 
-- Además de estas operaciones, las secuencias del mismo tipo admiten
-  **comparaciones**.
-
-  - Dos secuencias son iguales si:
-
-    - Son del mismo tipo.
-
-    - Tienen la misma longitud.
-
-    - Contienen los mismos elementos en el mismo orden.
-
-  - Se pueden comparar dos secuencias (siempre que no sean rangos) para
-    comprobar si una es menor o mayor que la otra.
-
-    En tal caso, las dos secuencias deben ser del mismo tipo y la comparación
-    se hace lexicográficamente elemento a elemento.
-
----
-
-- Ejemplos:
-
-  ```python
-  >>> s = (1, 2, 3)
-  >>> t = (1, 2, 3)
-  >>> s == t
-  True
-  >>> u = (3, 2, 1)
-  >>> s == u
-  False
-  >>> s < u
-  True
-  >>> range(0, 3) < range(3, 6)
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  TypeError: '<' not supported between instances of 'range' and 'range'
-  ```
+- Los rangos son una excepción, ya que sus elementos se crean a partir de una
+  fórmula y, por eso, no admiten ni la concatenación ni la repetición.
 
 - La siguiente tabla recoge las operaciones comunes sobre secuencias,
   ordenadas por prioridad ascendente. $\underline{s}$ y $\underline{t}$ son
@@ -438,7 +425,7 @@ $x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $
 
 $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
                                         
-$s$ `*` $n$ \                             Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
+$s$ `*` $n$ \                             (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
 $n$ `*` $s$                               (no va con rangos)
 
 $s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
@@ -458,6 +445,88 @@ $s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de
 
 $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
 --------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Además de estas operaciones, las secuencias admiten **comparaciones** con los
+  operadores `==`, `!=`, `<`, `<=`, `>` y `>=`.
+
+- Dos secuencias $\underline{s}$ y $\underline{t}$ son iguales ($\underline{s}$
+  `==` $\underline{t}$) si:
+
+  - Son del mismo tipo (!PYTHON(type)`(`$s$`)` `==` !PYTHON(type)`(`$t$`)`).
+
+  - Tienen la misma longitud (!PYTHON(len)`(`$s$`)` `==`
+    !PYTHON(len)`(`$t$`)`).
+
+  - Contienen los mismos elementos en el mismo orden \
+    ($s$!PYTHON([0]) `==` $t$!PYTHON([0]), $s$!PYTHON([1]) `==`
+    $t$!PYTHON([1]), etcétera).
+
+- Por supuesto, las dos secuencias son distintas ($\underline{s}$ `!=`
+  $\underline{t}$) si no son iguales.
+
+- Se pueden comparar dos secuencias con los operadores `<`, `<=`, `>` y `>=`
+  para comprobar si una es menor (o igual) o mayor (o igual) que la otra si:
+
+  - Son del mismo tipo (si no son del mismo tipo, lanza una excepción).
+
+  - No son rangos.
+
+---
+
+- Las comparaciones `<`, `<=`, `>` y `>=` se hacen lexicográficamente elemento
+  a elemento, como en un diccionario.
+
+- Por ejemplo, !PYTHON('adios' < 'hola') porque `adios` aparece antes que
+  `hola` en el diccionario.
+
+- Con el resto de las secuencias se actúa igual que con las cadenas.
+
+  Dadas dos secuencias $\underline{s}$ y $\underline{t}$, para ver si
+  $\underline{s}$ `<` $\underline{t}$ se procede así:
+
+  - Se empieza comparando el primer elemento de $\underline{s}$ con el primero
+    de $\underline{t}$.
+
+  - Si son iguales, se pasa al siguiente hasta encontrar
+    algún elemento de $\underline{s}$ que sea distinto a su correspondiente de
+    $\underline{t}$.
+
+  - Si llegamos al final de $\underline{s}$ sin haber encontrado ningún
+    elemento distinto a su correspondiente en $\underline{t}$, es porque
+    $\underline{s}$ `==` $\underline{t}$.
+
+  - En cuanto se encuentre un elemento de $\underline{s}$ que no es igual a su
+    correspondiente de $\underline{s}$, se comparan esos elementos y se
+    devuelve el resultado de esa comparación.
+
+- Los rangos no se pueden comparar con `<`, `<=`, `>` o `>=`.
+
+---
+
+- Ejemplos:
+
+  ```python
+  >>> (1, 2, 3) == (1, 2, 3)
+  True
+  >>> (1, 2, 3) != (1, 2, 3)
+  False
+  >>> (1, 2, 3) == (3, 2, 1)
+  False
+  >>> (1, 2, 3) < (3, 2, 1)
+  True
+  >>> (1, 2, 3) < (1, 2, 4)
+  True
+  >>> (1, 2, 3) < (1, 2, 4, 5)
+  True
+  >>> 'hola' < 'adios'
+  False
+  >>> range(0, 3) < range(3, 6)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: '<' not supported between instances of 'range' and 'range'
+  ```
 
 ## Inmutables
 
@@ -912,6 +981,36 @@ True
   ```
 
 - Como se ve, el resultado es directamente una lista, no un iterador.
+
+- Por tanto, a diferencia de lo que pasa con las expresiones generadoras, **el
+  resultado de una lista por comprensión no es perezoso**, cosa que habrá que
+  tener en cuenta para evitar consumir más memoria de la necesaria o generar
+  elementos que al final no sean necesarios.
+
+---
+
+- Por ejemplo, la siguiente expresión generadora:
+
+  ```python
+  res_gen = (x ** 2 for x in range(0, 10000000000000))
+  ```
+
+  es mucho más eficiente en tiempo y espacio que la lista por comprensión:
+
+  ```python
+  res_list = [x ** 2 for x in range(0, 10000000000000)]
+  ```
+
+  ya que la expresión generadora devuelve un **iterador** que irá generando los
+  valores de uno en uno a medida que los vayamos recorriendo con
+  !PYTHON(next(res_gen)).
+
+  En cambio, la lista por comprensión genera todos los valores de la lista a la
+  vez y los almacena todos juntos en la memoria.
+
+- A cambio, la ventaja de tener una lista frente a tener un iterador es que
+  podemos acceder directamente a cualquier elemento de la lista mediante la
+  indexación.
 
 ### Operaciones mutadoras
 
