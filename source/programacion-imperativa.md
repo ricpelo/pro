@@ -180,6 +180,31 @@ nocite: |
 
 -->
 
+### `id`
+
+- La identidad de un dato se puede consultar usando la función !PYTHON(id):
+
+  ```python
+  >>> id('hola')
+  140294723570672
+  >>> id('hola')
+  140294723570672
+  >>> id(5)
+  9784992
+  ```
+
+- La identidad del dato (es decir, el número entero que devuelve la función
+  !PYTHON(id) aplicado al dato) no cambia durante la ejecución de un programa
+  ni durante una sesión con el intérprete interactivo.
+
+- Pero en dos ejecuciones distintas del mismo programa, o en dos sesiones
+  distintas con el intérprete interactivo, su valor sí puede cambiar (y lo
+  normal es que cambie).
+
+- En realidad, la identidad del dato, como tal, no tiene ningún significado
+  especial en sí mismo. Da igual qué número sea. Lo importante es que sea único
+  y constante para cada dato.
+
 ## Variables y referencias
 
 - Una **variable** es un lugar en la **memoria** donde se puede **almacenar la
@@ -454,6 +479,32 @@ y:f1 -> 5
   3. Almacena en la variable una referencia al valor (es decir, la identidad
      del valor).
 
+## !PYTHON(del)
+
+- En Python existe la sentencia contraria a la asignación, es decir, **una
+  sentencia que _elimina variables_**.
+
+- Para ello, se usa la palabra clave !PYTHON(del) seguido de una expresión que
+  identifique a la variable (que normalmente será un identificador):
+
+  ```python
+  >>> x = 25
+  >>> x
+  25
+  >>> del x
+  >>> x
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'x' is not defined
+  ```
+
+- Al hacer !PYTHON(del x), se elimina la variable ligada al identificador `x`
+  en el marco donde está almacenada la variable.
+
+- Tras eliminar la variable, se elimina también, en ese mismo marco, el
+  identificador `x` y la ligadura que existía entre este y la variable, puesto
+  que ya no tiene sentido que sigan existiendo al no existir la variable.
+
 ## Evaluación de expresiones con variables
 
 - Al evaluar expresiones, las variables actúan de modo similar a las ligaduras
@@ -645,35 +696,35 @@ y:f1 -> 5
 
 ---
 
------------------------------------------------------------------
-   Operador           Ejemplo              Equivalente a
------------------ ------------------- ---------------------------
-!PYTHON(=)        !PYTHON(x = 5)         !PYTHON(x = 5)
-                        
-!PYTHON(+=)       !PYTHON(x += 5)        !PYTHON(x = x + 5)
-                        
-!PYTHON(-=)       !PYTHON(x -= 5)        !PYTHON(x = x - 5)
-                        
-!PYTHON(*=)       !PYTHON(x *= 5)        !PYTHON(x = x * 5)
-                        
-!PYTHON(/=)       !PYTHON(x /= 5)        !PYTHON(x = x / 5)
-                        
-!PYTHON(%=)       !PYTHON(x %= 5)        !PYTHON(x = x % 5)
-                        
-!PYTHON(//=)      !PYTHON(x //= 5)       !PYTHON(x = x // 5)
-                        
-!PYTHON(**=)      !PYTHON(x **= 5)       !PYTHON(x = x ** 5)
-                        
-!PYTHON(&=)       !PYTHON(x &= 5)        !PYTHON(x = x & 5)
-                        
-!PYTHON(|=)       !PYTHON(x |= 5)        !PYTHON(x = x | 5)
-                        
-!PYTHON(^=)       !PYTHON(x ^= 5)        !PYTHON(x = x ^ 5)
-                        
-!PYTHON(>>=)      !PYTHON(x >>= 5)       !PYTHON(x = x >> 5)
-                        
-!PYTHON(<<=)      !PYTHON(x <<= 5)       !PYTHON(x = x << 5)
------------------------------------------------------------------
+-----------------------------------------------------------
+Operador         Ejemplo             Equivalente a
+---------------- ------------------- ----------------------
+!PYTHON(=)       !PYTHON(x = 5)      !PYTHON(x = 5)
+                       
+!PYTHON(+=)      !PYTHON(x += 5)     !PYTHON(x = x + 5)
+                       
+!PYTHON(-=)      !PYTHON(x -= 5)     !PYTHON(x = x - 5)
+                       
+!PYTHON(*=)      !PYTHON(x *= 5)     !PYTHON(x = x * 5)
+                       
+!PYTHON(/=)      !PYTHON(x /= 5)     !PYTHON(x = x / 5)
+                       
+!PYTHON(%=)      !PYTHON(x %= 5)     !PYTHON(x = x % 5)
+                       
+!PYTHON(//=)     !PYTHON(x //= 5)    !PYTHON(x = x // 5)
+                       
+!PYTHON(**=)     !PYTHON(x **= 5)    !PYTHON(x = x ** 5)
+                       
+!PYTHON(&=)      !PYTHON(x &= 5)     !PYTHON(x = x & 5)
+                       
+!PYTHON(|=)      !PYTHON(x |= 5)     !PYTHON(x = x | 5)
+                       
+!PYTHON(^=)      !PYTHON(x ^= 5)     !PYTHON(x = x ^ 5)
+                       
+!PYTHON(>>=)     !PYTHON(x >>= 5)    !PYTHON(x = x >> 5)
+                       
+!PYTHON(<<=)     !PYTHON(x <<= 5)    !PYTHON(x = x << 5)
+-----------------------------------------------------------
 
 <!-- -->
 
@@ -1796,7 +1847,7 @@ y:f1 -> lista2
   ```
 
   A partir de ahora, ambas variables apuntan al mismo dato y, por tanto,
-  decimos que el dato tiene dos referencias o que hay dos referencias
+  decimos que el dato tiene dos referencias, o que hay dos referencias
   apuntándole.
 
 
@@ -1809,21 +1860,21 @@ y:f1 -> lista2
   eliminado_ y, por tanto, la próxima vez que se active el recolector de
   basura, se eliminará la lista del montículo.
 
-### !PYTHON(id)
+### !PYTHON(is)
 
 - Para saber si dos variables comparten **el mismo dato**, se puede usar la
   función !PYTHON(id).
 
-- La función !PYTHON(id) aplicada a un dato devuelve la **identidad** del dato,
-  es decir, el **identificador único** que se utiliza para localizar al dato
-  dentro del montículo.
-
-- Si dos datos tienen el mismo !PYTHON(id), decimos que son **idénticos**,
-  porque en realidad son _el mismo dato_.
+- Sabemos que la función !PYTHON(id) aplicada a un dato devuelve la
+  **identidad** del dato, es decir, el **identificador único** que se utiliza
+  para localizar al dato dentro del montículo.
 
 - En consecuencia, si dos variables tienen el mismo !PYTHON(id), significa que
   ambas apuntan al mismo dato en la memoria y, por tanto, son **referencias al
   mismo dato**.
+
+- Si dos datos tienen el mismo !PYTHON(id), decimos que son **idénticos**,
+  porque en realidad son _el mismo dato_.
 
 :::: columns
 
@@ -1856,11 +1907,11 @@ True
 
 ::::
 
-### !PYTHON(is)
+---
 
-- Otra forma de comprobar si dos datos son realmente el mismo dato en memoria
-  (es decir, si son **idénticos**) es usar el operador !PYTHON(is), que
-  comprueba si los dos datos tienen la misma **identidad**:
+- Otra forma más directa de comprobar si dos datos son realmente el mismo dato
+  en memoria (es decir, si son **idénticos**) es usar el operador !PYTHON(is),
+  que comprueba si los dos datos tienen la misma **identidad**:
 
 - Su sintaxis es:
 
