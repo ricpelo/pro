@@ -34,17 +34,18 @@ nocite: |
 
 - Los **datos estructurados** se pueden clasificar en:
 
-  - **Secuenciales:** los elementos se identifican según la posición que ocupan
-    dentro de la secuencia.
+  - **Secuenciales:** los elementos se pueden acceder directamente según la
+    posición que ocupan dentro de la secuencia.
 
-  - **No secuenciales:** los elementos no se encuentran en una posición
-    concreta dentro de la secuencia.
+  - **No secuenciales:** los elementos no se pueden acceder directamente según
+    la posición que ocupan, normalmente porque esos los elementos no se
+    encuentran en una posición concreta dentro de la secuencia.
 
-  - **Inmutables:** el dato estructurado no cambia nunca su estado interno a lo
-    largo de su vida.
+  - **Inmutables:** el dato estructurado no puede cambiar nunca su estado
+    interno a lo largo de su vida.
 
-  - **Mutables:** el dato estructurado cambia su estado interno a lo largo de
-    su vida.
+  - **Mutables:** el dato estructurado puede cambiar su estado interno a lo
+    largo de su vida sin cambiar su identidad.
 
 ---
 
@@ -75,19 +76,18 @@ $$\text{Tipos estructurados} \begin{cases}
 
 ## *Hashables*
 
-- Un valor es *hashable* si cumple las siguientes dos condiciones:
+- Un dato es *hashable* si cumple las siguientes dos condiciones:
 
   #. Tiene asociado un valor numérico llamado **hash** que nunca cambia durante
      su vida.
 
-     Si un valor es *hashable*, se podrá obtener su *hash* llamando a la
-     función !PYTHON(hash) sobre el valor. En caso contrario, la llamada
-     generará un error !PYTHON(TypeError).
+     Si un dato es *hashable*, se podrá obtener su *hash* llamando a la función
+     !PYTHON(hash) sobre el valor. En caso contrario, la llamada generará un
+     error !PYTHON(TypeError).
 
-  #. Puede compararse con otros valores para ver si es igual a alguno de ellos
-     usando el operador `==`.
+  #. Puede compararse con otros datos usando el operador `==`.
 
-- Si dos valores *hashables* son iguales, entonces deben tener el mismo valor
+- Si dos datos *hashables* son iguales, entonces deben tener el mismo valor
   de *hash*:
 
   !CAJACENTRADA
@@ -98,7 +98,7 @@ $$\text{Tipos estructurados} \begin{cases}
 
 ---
 
-- La mayoría de los valores inmutables predefinidos en Python son *hashables*.
+- La mayoría de los datos inmutables predefinidos en Python son *hashables*.
 
 - Los **contenedores inmutables** (como las tuplas o los !PYTHON(frozenset)s)
   sólo son *hashables* si sus elementos también lo son.
@@ -113,6 +113,15 @@ $$\text{Tipos estructurados} \begin{cases}
   deben ser *hashables*.
 
 ---
+
+- El valor _hash_ de un dato se calcula internamente a partir del contenido del
+  dato usando una fórmula que no nos debe preocupar.
+
+- Ese valor se utiliza para localizar el dato dentro de una colección, y por
+  eso es un valor que no puede cambiar nunca.
+
+- Esa es la razón por la que los contenedores mutables no son _hashables_: al
+  ser mutables, su contenido cambia y, por tanto, su valor _hash_ también.
 
 - Ejemplos:
 
@@ -478,8 +487,8 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 - Las comparaciones `<`, `<=`, `>` y `>=` se hacen lexicográficamente elemento
   a elemento, como en un diccionario.
 
-- Por ejemplo, !PYTHON('adios' < 'hola') porque `adios` aparece antes que
-  `hola` en el diccionario.
+- Por ejemplo, !PYTHON('adios') `<` !PYTHON('hola') porque `adios` aparece
+  antes que `hola` en el diccionario.
 
 - Con el resto de las secuencias se actúa igual que con las cadenas.
 
@@ -726,7 +735,7 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 ### Tuplas
 
 - Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas
-  frecuentemente para almacenar colecciones de datos heterogéneos (de tipos
+  frecuentemente para representar colecciones de datos heterogéneos (de tipos
   distintos).
 
 - También se usan en aquellos casos en los que se necesita una secuencia
@@ -928,7 +937,7 @@ True
 ### Listas
 
 - Las **listas** son secuencias *mutables*, usadas frecuentemente para
-  almacenar colecciones de elementos heterogéneos.
+  representar colecciones de elementos heterogéneos.
 
 - Al ser mutables, las listas **no** son *hashables*.
 
@@ -947,8 +956,8 @@ True
 
 ---
 
-- La función !PYTHON(list) construye una lista cuyos elementos son los mismos (y están
-  en el mismo orden) que los elementos de !NT(iterable).
+- La función !PYTHON(list) construye una lista cuyos elementos son los mismos
+  (y están en el mismo orden) que los elementos de !NT(iterable).
 
 - !NT(iterable) puede ser:
 
@@ -1032,6 +1041,8 @@ $s$`[`$i$`:`$j$`]`            La rodaja de $\underline{s}$ desde $\underline{i}$
 
 $s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se sustituyen
 `$k$`]` `=` $t$               por $\underline{t}$
+
+!PYTHON(del) $\ s$`[`$i$`]`   Elimina el elemento $i$-ésimo de $\underline{s}$
 
 !PYTHON(del) $\ s$`[`$i$`:    Elimina los elementos de $s$`[`$i$`:`$j$`]` \
 `$j$`]`                       Equivale a hacer $s$`[`$i$`:`$j$`]` `=` `[]`

@@ -267,10 +267,10 @@
 <ul>
 <li><p>Los <strong>datos estructurados</strong> se pueden clasificar en:</p>
 <ul>
-<li><p><strong>Secuenciales:</strong> los elementos se identifican según la posición que ocupan dentro de la secuencia.</p></li>
-<li><p><strong>No secuenciales:</strong> los elementos no se encuentran en una posición concreta dentro de la secuencia.</p></li>
-<li><p><strong>Inmutables:</strong> el dato estructurado no cambia nunca su estado interno a lo largo de su vida.</p></li>
-<li><p><strong>Mutables:</strong> el dato estructurado cambia su estado interno a lo largo de su vida.</p></li>
+<li><p><strong>Secuenciales:</strong> los elementos se pueden acceder directamente según la posición que ocupan dentro de la secuencia.</p></li>
+<li><p><strong>No secuenciales:</strong> los elementos no se pueden acceder directamente según la posición que ocupan, normalmente porque esos los elementos no se encuentran en una posición concreta dentro de la secuencia.</p></li>
+<li><p><strong>Inmutables:</strong> el dato estructurado no puede cambiar nunca su estado interno a lo largo de su vida.</p></li>
+<li><p><strong>Mutables:</strong> el dato estructurado puede cambiar su estado interno a lo largo de su vida sin cambiar su identidad.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -305,13 +305,13 @@
 <section id="hashables" class="title-slide slide level2" data-number="1.3">
 <h2 data-number="1.3"><span class="header-section-number">1.3</span> <em>Hashables</em></h2>
 <ul>
-<li><p>Un valor es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
+<li><p>Un dato es <em>hashable</em> si cumple las siguientes dos condiciones:</p>
 <ol>
 <li><p>Tiene asociado un valor numérico llamado <strong>hash</strong> que nunca cambia durante su vida.</p>
-<p>Si un valor es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code class="sourceCode python"><span class="bu">hash</span></code> sobre el valor. En caso contrario, la llamada generará un error <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
-<li><p>Puede compararse con otros valores para ver si es igual a alguno de ellos usando el operador <code>==</code>.</p></li>
+<p>Si un dato es <em>hashable</em>, se podrá obtener su <em>hash</em> llamando a la función <code class="sourceCode python"><span class="bu">hash</span></code> sobre el valor. En caso contrario, la llamada generará un error <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
+<li><p>Puede compararse con otros datos usando el operador <code>==</code>.</p></li>
 </ol></li>
-<li><p>Si dos valores <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>:</p>
+<li><p>Si dos datos <em>hashables</em> son iguales, entonces deben tener el mismo valor de <em>hash</em>:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces debe cumplirse que <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> <code>==</code> <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">y</span><code>)</code>.</p>
 </div></li>
@@ -320,7 +320,7 @@
 <section class="slide level5" data-number="1.3.0.0.1">
 
 <ul>
-<li><p>La mayoría de los valores inmutables predefinidos en Python son <em>hashables</em>.</p></li>
+<li><p>La mayoría de los datos inmutables predefinidos en Python son <em>hashables</em>.</p></li>
 <li><p>Los <strong>contenedores inmutables</strong> (como las tuplas o los <code class="sourceCode python"><span class="bu">frozenset</span></code>s) sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
 <li><p>Los <strong>contenedores mutables</strong> (como las listas o los diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
 <li><p>El concepto de <em>hashable</em> es importante en Python ya que existen tipos de datos estructurados que sólo admiten elementos <em>hashables</em>.</p></li>
@@ -330,6 +330,9 @@
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
+<li><p>El valor <em>hash</em> de un dato se calcula internamente a partir del contenido del dato usando una fórmula que no nos debe preocupar.</p></li>
+<li><p>Ese valor se utiliza para localizar el dato dentro de una colección, y por eso es un valor que no puede cambiar nunca.</p></li>
+<li><p>Esa es la razón por la que los contenedores mutables no son <em>hashables</em>: al ser mutables, su contenido cambia y, por tanto, su valor <em>hash</em> también.</p></li>
 <li><p>Ejemplos:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1466824599200729805</span></span>
@@ -640,7 +643,7 @@ fin = <strong><code>False</code></strong><br />
 
 <ul>
 <li><p>Las comparaciones <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> y <code>&gt;=</code> se hacen lexicográficamente elemento a elemento, como en un diccionario.</p></li>
-<li><p>Por ejemplo, <code class="sourceCode python"><span class="st">&#39;adios&#39;</span> <span class="op">&lt;</span> <span class="st">&#39;hola&#39;</span></code> porque <code>adios</code> aparece antes que <code>hola</code> en el diccionario.</p></li>
+<li><p>Por ejemplo, <code class="sourceCode python"><span class="st">&#39;adios&#39;</span></code> <code>&lt;</code> <code class="sourceCode python"><span class="st">&#39;hola&#39;</span></code> porque <code>adios</code> aparece antes que <code>hola</code> en el diccionario.</p></li>
 <li><p>Con el resto de las secuencias se actúa igual que con las cadenas.</p>
 <p>Dadas dos secuencias <span class="math inline">\underline{s}</span> y <span class="math inline">\underline{t}</span>, para ver si <span class="math inline">\underline{s}</span> <code>&lt;</code> <span class="math inline">\underline{t}</span> se procede así:</p>
 <ul>
@@ -815,7 +818,7 @@ fin = <strong><code>False</code></strong><br />
 <section id="tuplas" class="title-slide slide level3" data-number="2.3.2">
 <h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Tuplas</h3>
 <ul>
-<li><p>Las <strong>tuplas</strong> (<code class="sourceCode python"><span class="bu">tuple</span></code>) son secuencias inmutables, usadas frecuentemente para almacenar colecciones de datos heterogéneos (de tipos distintos).</p></li>
+<li><p>Las <strong>tuplas</strong> (<code class="sourceCode python"><span class="bu">tuple</span></code>) son secuencias inmutables, usadas frecuentemente para representar colecciones de datos heterogéneos (de tipos distintos).</p></li>
 <li><p>También se usan en aquellos casos en los que se necesita una secuencia inmutable de datos homogéneos (por ejemplo, para almacenar datos en un conjunto o un diccionario).</p></li>
 <li><p>Las tuplas se pueden crear así:</p>
 <ul>
@@ -958,7 +961,7 @@ start + step \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ade
 <section id="listas" class="title-slide slide level3" data-number="2.4.1">
 <h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Listas</h3>
 <ul>
-<li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para almacenar colecciones de elementos heterogéneos.</p></li>
+<li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>, usadas frecuentemente para representar colecciones de elementos heterogéneos.</p></li>
 <li><p>Al ser mutables, las listas <strong>no</strong> son <em>hashables</em>.</p></li>
 <li><p>Se pueden construir de varias maneras:</p>
 <ul>
@@ -1043,11 +1046,15 @@ start + step \cdot i</span> donde <span class="math inline">i \geq 0</span>. Ade
 <td style="text-align: left;">Los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code> se sustituyen por <span class="math inline">\underline{t}</span></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>]</code></td>
+<td style="text-align: left;">Elimina el elemento <span class="math inline">i</span>-ésimo de <span class="math inline">\underline{s}</span></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code></td>
 <td style="text-align: left;">Elimina los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code><br />
 Equivale a hacer <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>]</code> <code>=</code> <code>[]</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code class="sourceCode python"><span class="kw">del</span></code> <span class="math inline">\ s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 <td style="text-align: left;">Elimina los elementos de <span class="math inline">s</span><code>[</code><span class="math inline">i</span><code>:</code><span class="math inline">j</span><code>:</code><span class="math inline">k</span><code>]</code></td>
 </tr>
