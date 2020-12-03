@@ -331,7 +331,7 @@
 
 <ul>
 <li><p>El valor <em>hash</em> de un dato se calcula internamente a partir del contenido del dato usando una fórmula que no nos debe preocupar.</p></li>
-<li><p>Ese valor se utiliza para localizar el dato dentro de una colección, y por eso es un valor que no puede cambiar nunca.</p></li>
+<li><p>Ese valor se utiliza para acceder directamente al dato dentro de una colección, y por eso es un valor que no puede cambiar nunca.</p></li>
 <li><p>Esa es la razón por la que los contenedores mutables no son <em>hashables</em>: al ser mutables, su contenido cambia y, por tanto, su valor <em>hash</em> también.</p></li>
 <li><p>Ejemplos:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
@@ -344,6 +344,74 @@
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.3">
+
+<p>No se debe confundir el <code class="sourceCode python"><span class="bu">id</span></code> de un dato con el <code class="sourceCode python"><span class="bu">hash</span></code> de un dato:</p>
+<table>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><code>id</code></th>
+<th style="text-align: center;"><code>hash</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><ul>
+<li>El <code>id</code> devuelve la identidad de un dato.</li>
+</ul></td>
+<td style="text-align: center;"><ul>
+<li>El <code>hash</code> devuelve el <em>hash</em> de un dato, si es <em>hashable</em>.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><ul>
+<li>Todos los datos tienen identidad.</li>
+</ul></td>
+<td style="text-align: center;"><ul>
+<li>No todos los datos son <em>hashables</em>.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><ul>
+<li>Puede haber datos iguales pero no idénticos.</li>
+</ul></td>
+<td style="text-align: center;"><ul>
+<li>Si dos datos son iguales, sus <em>hash</em> también deben serlo.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><ul>
+<li>Su valor es independiente de la información concreta que contenga el dato.</li>
+</ul></td>
+<td style="text-align: center;"><ul>
+<li>Su valor se obtiene a partir de la información que contiene el dato, usando una fórmula matemática.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><ul>
+<li>Por tanto, no cambia si se modifica el dato.</li>
+</ul></td>
+<td style="text-align: center;"><ul>
+<li>Por tanto, un dato mutable no puede ser <em>hashable</em>.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="1.3.0.0.4">
+
+<ul>
+<li><p>El <em>hash</em> de un dato es un número que representa al dato y a todo su contenido de una manera bien definida según una fórmula.</p></li>
+<li><p>En cierto modo, ese número <em>resume</em> el contenido del dato en un simple número entero.</p></li>
+<li><p>Gracias a ello, el intérprete puede utilizar técnicas que permiten localizar directamente a un dato dentro de una colección, de forma casi inmediata y sin importar el tamaño de la colección.</p></li>
+<li><p>De lo contrario, el intérprete tendría que buscar secuencialmente el dato dentro de la colección desde el principio hasta el final, lo que resultaría mucho más lento y consumiría un tiempo proporcional al tamaño de la colección (cuanto más grande sea la colección, más tardará).</p></li>
+<li><p>En definitiva, los <em>hash</em> permiten el acceso directo a un dato dentro de una colección.</p></li>
 </ul>
 </section>
 

@@ -117,8 +117,8 @@ $$\text{Tipos estructurados} \begin{cases}
 - El valor _hash_ de un dato se calcula internamente a partir del contenido del
   dato usando una fórmula que no nos debe preocupar.
 
-- Ese valor se utiliza para localizar el dato dentro de una colección, y por
-  eso es un valor que no puede cambiar nunca.
+- Ese valor se utiliza para acceder directamente al dato dentro de una
+  colección, y por eso es un valor que no puede cambiar nunca.
 
 - Esa es la razón por la que los contenedores mutables no son _hashables_: al
   ser mutables, su contenido cambia y, por tanto, su valor _hash_ también.
@@ -137,6 +137,45 @@ $$\text{Tipos estructurados} \begin{cases}
     File "<stdin>", line 1, in <module>
   TypeError: unhashable type: 'list'
   ```
+
+---
+
+No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
+
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+| `id`                                                                  | `hash`                                                                     |
++:=====================================================================:+:==========================================================================:+
+| - El `id` devuelve la identidad de un dato.                           | - El `hash` devuelve el _hash_ de un dato, si es _hashable_.               |
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+| - Todos los datos tienen identidad.                                   | - No todos los datos son _hashables_.                                      |
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+| - Puede haber datos iguales pero no idénticos.                        | - Si dos datos son iguales, sus _hash_ también deben serlo.                |
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+| - Su valor es independiente de la información                         | - Su valor se obtiene a partir de la información que contiene el           |
+|   concreta que contenga el dato.                                      |   dato, usando una fórmula matemática.                                     |
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+| - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_.                      |
++-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+
+---
+
+- El _hash_ de un dato es un número que representa al dato y a todo su
+  contenido de una manera bien definida según una fórmula.
+
+- En cierto modo, ese número _resume_ el contenido del dato en un simple número
+  entero.
+
+- Gracias a ello, el intérprete puede utilizar técnicas que permiten localizar
+  directamente a un dato dentro de una colección, de forma casi inmediata y sin
+  importar el tamaño de la colección.
+
+- De lo contrario, el intérprete tendría que buscar secuencialmente el dato
+  dentro de la colección desde el principio hasta el final, lo que resultaría
+  mucho más lento y consumiría un tiempo proporcional al tamaño de la
+  colección (cuanto más grande sea la colección, más tardará).
+
+- En definitiva, los _hash_ permiten el acceso directo a un dato dentro de una
+  colección.
 
 ## Iterables
 
