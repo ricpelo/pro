@@ -331,7 +331,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
       !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  que equivale a:
+  que no es más que azúcar sintáctico para el siguiente código equivalente:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
