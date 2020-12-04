@@ -390,6 +390,33 @@ fin = !T{False}
 
 ::::
 
+---
+
+- Al recorrer la lista, la variable va almacenando en cada paso el valor del
+  elemento que en ese momento se está visitando.
+
+- Si necesitáramos recuperar también el índice del elemento, podemos usar la
+  función !PYTHON(enumerate).
+
+- Esta función devuelve un iterador que va generando tuplas que contienen,
+  además del elemento, un valor numérico que representa un contador.
+
+- Las tuplas que devuelve el iterador llevan el contador en la primera posición
+  y el elemento de la lista en la segunda posición.
+
+- Ese contador, por defecto, empieza desde !PYTHON(0) y se va incrementando de
+  uno en uno, por lo que coincide con el índice del elemento en la lista:
+
+  ```python
+  >>> for i, e in enumerate(['a', 'b', 'c']):
+  ...     print('El elemento en la posición ' + str(i) + ' es ' + str(e))
+  ...
+  El elemento en la posición 0 es a
+  El elemento en la posición 1 es b
+  El elemento en la posición 2 es c
+
+  ```
+
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
