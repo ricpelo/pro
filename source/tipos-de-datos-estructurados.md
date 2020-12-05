@@ -458,15 +458,15 @@ fin = !T{False}
 - Una **secuencia** $\underline{s}$ es un dato estructurado que cumple lo
   siguiente:
 
+  - Se le puede calcular su longitud (la cantidad de elementos que contiene)
+    mediante la función !PYTHON(len).
+
   - Cada elemento que contiene lleva asociado un número entero llamado
     **índice**, comprendido entre !PYTHON(0) y !PYTHON(len)`(`$s$`)`
     !PYTHON(- 1).
 
   - Permite el acceso eficiente a cada uno de sus elementos mediante indexación
     $s$`[`$i$`]`, siendo $i$ el índice del elemento.
-
-  - Se le puede calcular su longitud (la cantidad de elementos que contiene)
-    mediante la función !PYTHON(len).
 
 - Las secuencias se dividen en:
 
