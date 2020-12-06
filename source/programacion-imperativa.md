@@ -1480,12 +1480,49 @@ Ejemplo                    Valor de !PYTHON(x) después
 
 !PYTHON(x.clear())         !PYTHON([])
 
+!PYTHON(x += [4, 5])       !PYTHON([8, 10, 7, 9, 4, 5])
+
+!PYTHON(x *= 2)            !PYTHON([8, 10, 7, 9, 8, 10, 7, 9])
+
 !PYTHON(x.insert(3, 66))   !PYTHON([8, 10, 7, 66, 9])
+
+!PYTHON(x.pop())           !PYTHON([8, 10, 7])
 
 !PYTHON(x.remove(7))       !PYTHON([8, 10, 9])
 
 !PYTHON(x.reverse())       !PYTHON([9, 7, 10, 8])
+
+!PYTHON(x.sort())          !PYTHON([7, 8, 9, 10])
 --------------------------------------------------------
+
+<!-- \* -->
+
+---
+
+- Es importante tener en cuenta que, si $\underline{s}$ es una lista (o
+  cualquier otro objeto mutable) no es lo mismo hacer:
+
+  ```python
+  s += t
+  ```
+
+  que hacer:
+
+  ```python
+  s = s + t
+  ```
+
+- En el primer caso, estamos _extendiendo_ la lista $\underline{s}$ y, por
+  tanto, la estamos _mutando_. Es decir, estamos cambiando internamente la
+  lista sin cambiar su identidad ni crear una lista nueva.
+
+- En el segundo caso, no estamos mutando la lista $\underline{s}$, sino que
+  estamos creando una lista nueva a partir de la concatenación de las dos
+  listas originales, y luego hacemos que $\underline{s}$ apunte a la nueva
+  lista, perdiéndose la referencia a la lista $\underline{s}$ original. Por
+  tanto, la identidad del objeto almacenado en $\underline{s}$ sí ha cambiado.
+
+- Lo mismo se puede decir de `s *= n` con respecto a `s = s * n`.
 
 ## Alias de variables
 
