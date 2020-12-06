@@ -14,18 +14,33 @@ nocite: |
   basado en el uso de **definiciones**, **expresiones** y **funciones
   matemáticas**.
 
-- Tiene su origen teórico en el **cálculo lambda** de Alonzo Church (los
-  lenguajes funcionales se pueden considerar _azúcar sintáctico_ del cálculo
-  lambda).
+- Tiene su origen teórico en el **cálculo lambda**, un sistema matemático
+  creado en 1930 por Alonzo Church.
 
-- Una función en programación funcional define un cálculo a realizar a partir
+- Los lenguajes funcionales se pueden considerar _azúcar sintáctico_ (es decir,
+  una forma equivalente pero sintácticamente más sencilla) del cálculo lambda.
+
+- En programación funcional, una función define un cálculo a realizar a partir
   de unos datos de entrada, con la propiedad de que el resultado de la función
-  sólo puede depender de dichos datos de entrada (lo que se denomina
-  **transparencia referencial**).
+  sólo puede depender de esos datos de entrada.
 
 - Eso significa que una función no puede tener estado interno ni su resultado
-  puede depender del estado interno del programa. Por tanto, no existen los
-  **efectos laterales**.
+  puede depender del estado del programa.
+
+---
+
+- Además, una función no puede producir ningún efecto observable fuera de ella
+  (los llamados **efectos laterales**), salvo calcular y devolver su resultado.
+
+- Esto quiere decir que en programación funcional no existen los efectos
+  laterales, o se dan de forma muy localizada en partes muy concretas e
+  imprescindibles del programa.
+
+- Por todo lo expuesto anteriormente, se dice que las funciones en programación
+  funcional son **funciones puras**.
+
+- En consecuencia, es posible sustituir cualquier expresión por su valor,
+  propiedad que se denomina **transparencia referencial**.
 
 ---
 
@@ -56,9 +71,6 @@ nocite: |
 
 - A esta propiedad se la denomina **transparencia referencial**.
 
-- En la práctica, eso significa que la evaluación de una expresión no puede
-  provocar **efectos laterales**.
-
 - Formalmente, se puede definir así:
 
   !CAJA
@@ -68,11 +80,15 @@ nocite: |
   Si $p = q$, entonces $f(p) = f(q)$.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
+- En la práctica, eso significa que la evaluación de una expresión no puede
+  provocar **efectos laterales**.
+
 ---
 
 - Los **efectos laterales** son aquellos que provocan un cambio de estado
-  irremediable en el sistema, y que pueden provocar que el resultado de una
-  expresión no dependa únicamente de los valores que aparecen en esa expresión.
+  irremediable en el sistema, que además son observables fuera del contexto
+  donde se producen y que puede dar lugar a que una misma expresión tenga dos
+  valores según el momento en el que se evalúe.
 
 - Por ejemplo, las **instrucciones de E/S** (entrada y salida) provocan efectos
   laterales, ya que:
@@ -87,8 +103,8 @@ nocite: |
     al estado del dispositivo de salida.
 
 - En posteriores temas veremos que existe un paradigma (el **paradigma
-  imperativo**) que se basa principalmente en provocar efectos laterales, sobre
-  todo mediante la llamada _asignación destructiva_.
+  imperativo**) que se basa principalmente en provocar efectos laterales,
+  principalmente mediante una instrucción llamada _asignación destructiva_.
 
 ## Modelo de ejecución
 

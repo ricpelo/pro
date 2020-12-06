@@ -254,12 +254,22 @@
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Concepto</h2>
 <ul>
 <li><p>La <strong>programación funcional</strong> es un paradigma de programación declarativa basado en el uso de <strong>definiciones</strong>, <strong>expresiones</strong> y <strong>funciones matemáticas</strong>.</p></li>
-<li><p>Tiene su origen teórico en el <strong>cálculo lambda</strong> de Alonzo Church (los lenguajes funcionales se pueden considerar <em>azúcar sintáctico</em> del cálculo lambda).</p></li>
-<li><p>Una función en programación funcional define un cálculo a realizar a partir de unos datos de entrada, con la propiedad de que el resultado de la función sólo puede depender de dichos datos de entrada (lo que se denomina <strong>transparencia referencial</strong>).</p></li>
-<li><p>Eso significa que una función no puede tener estado interno ni su resultado puede depender del estado interno del programa. Por tanto, no existen los <strong>efectos laterales</strong>.</p></li>
+<li><p>Tiene su origen teórico en el <strong>cálculo lambda</strong>, un sistema matemático creado en 1930 por Alonzo Church.</p></li>
+<li><p>Los lenguajes funcionales se pueden considerar <em>azúcar sintáctico</em> (es decir, una forma equivalente pero sintácticamente más sencilla) del cálculo lambda.</p></li>
+<li><p>En programación funcional, una función define un cálculo a realizar a partir de unos datos de entrada, con la propiedad de que el resultado de la función sólo puede depender de esos datos de entrada.</p></li>
+<li><p>Eso significa que una función no puede tener estado interno ni su resultado puede depender del estado del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Además, una función no puede producir ningún efecto observable fuera de ella (los llamados <strong>efectos laterales</strong>), salvo calcular y devolver su resultado.</p></li>
+<li><p>Esto quiere decir que en programación funcional no existen los efectos laterales, o se dan de forma muy localizada en partes muy concretas e imprescindibles del programa.</p></li>
+<li><p>Por todo lo expuesto anteriormente, se dice que las funciones en programación funcional son <strong>funciones puras</strong>.</p></li>
+<li><p>En consecuencia, es posible sustituir cualquier expresión por su valor, propiedad que se denomina <strong>transparencia referencial</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
 
 <ul>
 <li><p>En programación funcional, las funciones también son valores, por lo que se consideran a éstas como <strong>ciudadanas de primera clase</strong>.</p></li>
@@ -276,24 +286,24 @@
 <li><p>En programación funcional, el valor de una expresión depende, exclusivamente, de los valores de sus sub-expresiones constituyentes.</p></li>
 <li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras que tengan el mismo valor.</p></li>
 <li><p>A esta propiedad se la denomina <strong>transparencia referencial</strong>.</p></li>
-<li><p>En la práctica, eso significa que la evaluación de una expresión no puede provocar <strong>efectos laterales</strong>.</p></li>
 <li><p>Formalmente, se puede definir así:</p>
 <div class="caja">
 <p><strong>Transparencia referencial:</strong></p>
 <p>Si <span class="math inline">p = q</span>, entonces <span class="math inline">f(p) = f(q)</span>.</p>
 </div></li>
+<li><p>En la práctica, eso significa que la evaluación de una expresión no puede provocar <strong>efectos laterales</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.1">
 
 <ul>
-<li><p>Los <strong>efectos laterales</strong> son aquellos que provocan un cambio de estado irremediable en el sistema, y que pueden provocar que el resultado de una expresión no dependa únicamente de los valores que aparecen en esa expresión.</p></li>
+<li><p>Los <strong>efectos laterales</strong> son aquellos que provocan un cambio de estado irremediable en el sistema, que además son observables fuera del contexto donde se producen y que puede dar lugar a que una misma expresión tenga dos valores según el momento en el que se evalúe.</p></li>
 <li><p>Por ejemplo, las <strong>instrucciones de E/S</strong> (entrada y salida) provocan efectos laterales, ya que:</p>
 <ul>
 <li><p>Al <strong>leer un dato</strong> de la entrada (ya sea el teclado, un archivo del disco, una base de datos…) estamos afectando al estado del dispositivo de entrada, y además no se sabe de antemano qué valor se va a recibir, ya que éste proviene del exterior y no lo controlamos.</p></li>
 <li><p>Al <strong>escribir un dato</strong> en la salida (ya sea la pantalla, un archivo, una base de datos…) estamos realizando un cambio que afecta irremediablemente al estado del dispositivo de salida.</p></li>
 </ul></li>
-<li><p>En posteriores temas veremos que existe un paradigma (el <strong>paradigma imperativo</strong>) que se basa principalmente en provocar efectos laterales, sobre todo mediante la llamada <em>asignación destructiva</em>.</p></li>
+<li><p>En posteriores temas veremos que existe un paradigma (el <strong>paradigma imperativo</strong>) que se basa principalmente en provocar efectos laterales, principalmente mediante una instrucción llamada <em>asignación destructiva</em>.</p></li>
 </ul>
 </section>
 
