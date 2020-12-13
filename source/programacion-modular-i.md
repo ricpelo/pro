@@ -11,12 +11,12 @@ nocite: |
 ## Modularidad
 
 - La **programación modular** es una técnica de programación que consiste en
-  descomponer y programar nuestro programa en partes llamadas **módulos**.
+  descomponer y escribir nuestro programa en partes llamadas **módulos**.
 
   - El concepto de *módulo* hay que entenderlo en sentido amplio: cualquier
-    parte de un programa se puede considerar «módulo».
+    parte de un programa se podría considerar «módulo».
 
-- Equivale a la técnica clásica de resolución de problemas basada en 1)
+- Equivale a la técnica clásica de resolución de problemas basada en: 1)
   descomponer un problema en subproblemas; 2) resolver cada subproblema por
   separado; y 3) combinar las soluciones para así obtener la solución al
   problema original.
@@ -31,7 +31,7 @@ nocite: |
 
 - **A nivel metodológico**, la modularidad nos proporciona una herramienta más
   para controlar la complejidad (como la *abstracción*, que de hecho puede
-  servir como técnica de modularización).
+  servir como técnica que guíe la modularización).
 
 - Todos los mecanismos de control de la complejidad actúan de la misma forma:
   la mente humana es incapaz de mantener la atención en muchas cosas a la vez,
@@ -63,6 +63,14 @@ nocite: |
   colección de archivos fuente que se puedan trabajar por separado, lo que se
   denomina **descomposición física**.
 
+- Esto, además, nos va a permitir que un programa pueda ser desarrollado
+  conjuntamente por varias personas al mismo tiempo, cada una de ellas
+  responsabilizándose de escribir uno o varios módulos del mismo programa.
+
+- Esos módulos se podrán escribir de forma más o menos independiente aunque,
+  por supuesto, estarán relacionados entre sí, ya que unos consumirán los
+  servicios que proporcionan otros.
+
 ---
 
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
@@ -80,8 +88,9 @@ nocite: |
   interrelacionado.
 
 - Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
-  sino que también puede contener datos (almacenados en variables y constantes)
-  manipulables desde dentro del módulo y posiblemente también desde fuera.
+  sino que también puede tener su propio estado interno en forma de datos
+  almacenados en variables y constantes, manipulables desde dentro del módulo y
+  posiblemente también desde fuera.
 
 ---
 
@@ -129,7 +138,7 @@ nocite: |
   - Los módulos nos permiten descomponer el programa en **partes más o menos
     independientes y manejables por separado**.
 
-  - Una **función** cumple con la definición de módulo pero, en general, **en
+  - Una **función** cumple con la definición de «módulo» pero, en general, **en
     la práctica no es una buena candidata** para ser considerada un módulo por
     sí sola.
 
@@ -179,21 +188,21 @@ nocite: |
 
 # Diseño modular
 
-## Partes de un módulo
+## Creadores y usuarios
 
-- Desde la perspectiva de la programación modular, un programa está formado por
-  una colección de módulos que interactúan entre sí.
+- Desde la perspectiva de la programación modular, **un programa está formado
+  por una colección de módulos que interactúan entre sí**.
 
-- Puede decirse que un módulo proporciona una serie de *servicios* que son
-  *usados* o *consumidos* por otros módulos del programa.
+- Puede decirse que un módulo proporciona una serie de **_servicios_** que son
+  *usados* o **_consumidos_** por otros módulos del programa.
 
 - Así que podemos estudiar el diseño de un módulo desde **dos puntos de vista
   complementarios**:
 
   - El **creador** o **implementador** del módulo es la persona encargada de la
     programación del mismo y, por tanto, debe conocer todos los detalles
-    internos al módulo, necesarios para que éste funcione (es decir, su
-    **implementación**).
+    internos al módulo, necesarios para que éste funcione. Esos detalles
+    internos constituyen la **implementación** del módulo.
 
   - Los **usuarios** del módulo son los programadores que desean usar ese
     módulo en sus programas. También se les llama así a los módulos de un
@@ -204,26 +213,54 @@ nocite: |
 
 ---
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~
-Los **usuarios** están interesados en usar al módulo como una **entidad
-abstracta** sin necesidad de conocer los *detalles internos* del mismo, sino
-sólo lo necesario para poder consumir los servicios que proporciona (su
-**interfaz**).
-~~~~~~~~~~~~~~~~~~~~
+- Los módulos **exportan** su interfaz al resto de los módulos.
+
+- Los módulos usuarios deben **importar** un módulo para poder usarlo. Al
+  hacerlo, tienen acceso a los elementos exportados por el módulo a través de
+  su interfaz, lo que le permite al _módulo usuario_ consumir los servicios que
+  proporciona el _módulo importado_.
+
+- En terminología de programación modular, hablamos entonces de la existencia
+  de dos tipos de módulos:
+
+  - El que usa a otro módulo es el módulo «_usuario_», «_cliente_»,
+    «_consumidor_» o «_importador_».
+
+  - El que es usado por otro módulo es el módulo «_usado_», «_servidor_»,
+    «_consumido_» o «_importado_».
 
 ---
 
+- Los **usuarios** de un módulo están interesados en usar dicho módulo como una
+  **entidad abstracta**, sin necesidad de conocer los *detalles internos* del
+  mismo, sino conociendo sólo lo necesario para poder consumir los servicios
+  que proporciona (su _interfaz_).
+
+- Esos usuarios consumirán los servicios del módulo a través de su interfaz, la
+  cual oculta a los usuarios los detalles internos de funcionamiento que no son
+  necesarios para usar el módulo.
+
+- Esos detalles internos sólo son interesantes para (y sólo deben ser conocidos
+  por) el **creador** del módulo.
+
+- Por supuesto, un módulo puede usar a otros módulos y, al mismo tiempo, ser
+  usado por otros módulos. Por tanto, el mismo módulo puede ser importador e
+  importado simultáneamente.
+
+## Partes de un módulo
+
 - Concretando, un módulo tendrá:
 
-  - Un **nombre** (que generalmente coincidirá con el nombre del archivo en el
-    que reside).
+  - Una **interfaz**, formada por:
 
-  - Una **interfaz**, formada por un conjunto de **especificaciones de
-    funciones** que permiten al usuario consumir sus servicios, así como
-    manipular y acceder al estado interno desde fuera del módulo.
+    - El **nombre** del módulo, que generalmente coincidirá con el nombre del
+      archivo en el que reside el módulo.
 
-    Es posible que la interfaz también incluya **constantes**.
+    - Las **especificaciones de las funciones _exportadas_** o **_públicas_**
+      que permiten a los usuarios consumir sus servicios, así como manipular y
+      acceder al estado interno del módulo desde fuera del mismo.
+
+    - Es posible que la interfaz también incluya **constantes**.
 
   - Una **implementación**, formada por:
 
@@ -232,9 +269,9 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
     - La **implementación (el cuerpo) de las funciones** que aparecen en la
       interfaz.
 
-    - Un conjunto de **funciones auxiliares** que no aparecen en la interfaz
-      porque están pensadas para ser usadas exclusivamente por el propio módulo
-      de manera interna, pero no por otras partes del programa.
+    - **Funciones _internas_** o **_privadas_** que no aparecen en la interfaz
+      porque están pensadas para ser usadas únicamente por el propio módulo de
+      manera interna, pero no por otras partes del programa.
 
 ### Interfaz
 
@@ -245,30 +282,65 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
 
 - También se la denomina su **API** (*Application Program Interface*).
 
-- Debería estar perfectamente **documentada** para que cualquier potencial
-  usuario tenga toda la información necesaria para poder usar el módulo sin
-  tener que conocer o acceder a partes internas del mismo.
+- La interfaz es la parte del módulo que éste **exporta** a los demás módulos
+  del programa, que son sus posibles usuarios.
+
+- Debe estar perfectamente **documentada** para que cualquier potencial usuario
+  tenga toda la información necesaria para poder usar el módulo sin tener que
+  conocer o acceder a partes internas del mismo.
 
 - En general **debería estar formada únicamente por funciones** (y, tal vez,
   **constantes**) que el usuario del módulo pueda llamar para consumir los
   servicios que ofrece el módulo.
 
-- Esas funciones deben usarse como *abstracciones funcionales*, de forma que el
-  usuario sólo necesite conocer las **especificaciones** de las funciones y no
-  sus *implementaciones* concretas (el *cuerpo* o código de las funciones).
+- No todas las funciones definidas en un módulo tienen por qué formar parte de
+  la interfaz del mismo. Las que sí lo hacen son las denominadas **funciones
+  públicas** o **exportadas**.
+
+---
+
+- Desde el punto de vista de los usuarios del módulo, esas funciones son
+  **abstracciones funcionales**, de forma que, para poder usarlas, sólo se
+  necesita conocer las **especificaciones** de esas funciones y no sus
+  *implementaciones* concretas (el *cuerpo* de las funciones).
+
+- Recordemos que la **especificación de una función** está formada por tres
+  partes:
+
+  - **Precondición**: la condición que se debe cumplir al llamar a la función.
+
+  - **Signatura**: los aspectos meramente sintácticos como el nombre de la
+    función, el nombre y tipo de sus parámetros y el tipo de su valor de
+    retorno.
+
+  - **Postcondición**: la condición que se cumplirá al finalizar su ejecución.
+
+- Por tanto, la interfaz del módulo contendrá las especificaciones de las
+  funciones públicas, pero no sus implementaciones.
 
 ---
 
 - Acabamos de decir que la interfaz de un módulo debería estar formada
   únicamente por **funciones** (y, tal vez, *constantes*).
 
-- En teoría, la interfaz podría estar formada también por (algunas o todas las)
-  **variables locales al módulo**, pero en la práctica eso no resulta
-  apropiado, ya que cualquier cambio posterior en la representación interna de
-  los datos almacenados en esas variables afectaría al resto de los módulos que
-  acceden a dichas variables.
+- En teoría, la interfaz podría incluir también algunas o todas las **variables
+  locales al módulo**, de forma que el módulo usuario podría acceder y
+  modificar directamente una variable del módulo usado.
 
-  Más adelante estudiaremos este aspecto en profundidad cuando hablemos del
+- Sin embargo, en la práctica eso no resulta apropiado, ya que:
+
+  - Cambiar el valor de una variable local a un módulo equivale a modificar una
+    variable global (ya que existen en el ámbito global del módulo) y, por
+    tanto, se considera un efecto lateral.
+
+  - Cualquier cambio posterior en la representación interna de los datos
+    almacenados en esas variables afectaría al resto de los módulos que acceden
+    a dichas variables.
+
+- Las constantes sí se admiten ya que nunca cambian su valor y, por tanto,
+  están exentas de posibles efectos laterales.
+
+- Más adelante estudiaremos este aspecto en profundidad cuando hablemos del
   **principio de ocultación de información**.
   
 ### Implementación
@@ -276,7 +348,7 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
 - La **implementación** es la parte del módulo que queda **oculta a los
   usuarios** del mismo.
 
-- Es decir: es la parte que los usuarios del módulo no necesitan (ni deben)
+- Por tanto, es la parte que los usuarios del módulo no necesitan (ni deben)
   conocer para poder usarlo adecuadamente.
 
 - Está formada por:
@@ -286,8 +358,8 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
   - La **implementación (el _cuerpo_) de las funciones** que forman la
     interfaz.
 
-  - Las funciones que utiliza el propio módulo para gestionarse a sí mismo y
-    que no forman parte de su interfaz (**funciones _auxiliares_**).
+  - Las funciones que utiliza el propio módulo internamente y que no forman
+    parte de su interfaz (**funciones _internas_** o **_privadas_**).
 
 - La implementación debe poder cambiarse tantas veces como sea necesario sin
   que por ello se tenga que cambiar el resto del programa.
@@ -295,14 +367,15 @@ sólo lo necesario para poder consumir los servicios que proporciona (su
 #### Resumen
 
 $$\text{Interfaz del módulo}\begin{cases}
-\text{Especificación de funciones}\\
+\text{Nombre del módulo}\\
+\text{Especificación de funciones públicas}\\
 \text{Posibles constantes}
 \end{cases}$$
 
 $$\text{Implementación del módulo}\begin{cases}
-\text{Implementación de funciones}\\
+\text{Implementación de funciones públicas}\\
 \text{Variables locales}\\
-\text{Funciones auxiliares}
+\text{Funciones privadas}
 \end{cases}$$
 
 ## Diagramas de estructura
@@ -339,7 +412,9 @@ F -> G
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-## Programación modular en Python
+# Programación modular en Python
+
+## *Scripts*!ifdef(HTML)(&nbsp;)() como módulos
 
 - En Python, un módulo es otra forma de llamar a un *script*. Es decir:
   «módulo» y «*script*» son sinónimos en Python.
@@ -405,7 +480,7 @@ F -> G
   temporalmente fuera del entorno y se recuperarán al finalizar la ejecución
   del módulo.
 
-### Importación de módulos
+## Importación de módulos
 
 - Para que un módulo pueda usar a otros módulos tiene que **importarlos**
   usando la orden !PYTHON(import). Por ejemplo, la siguiente sentencia importa
@@ -851,7 +926,7 @@ E -> mcd [lhead = cluster1]
 - La función !PYTHON(dir) puede usarse con cualquier objeto al que podamos
   acceder mediante una referencia.
 
-### Módulos como *scripts*
+## Módulos como *scripts*
 
 - Cuando se ejecuta un módulo Python desde la línea de órdenes como:
 
@@ -905,10 +980,41 @@ E -> mcd [lhead = cluster1]
   no se cumplirá, por lo que su único efecto será el de incorporar la
   definición de la función `fac` dentro del módulo importador.
 
-<!--
-### Paquetes
+## La librería estándar
 
-### Documentación interna
+- La **librería estándar de Python** contiene módulos predefinidos que
+  proporcionan:
+
+  - Acceso a funcionalidades del sistema, como operaciones de E/S sobre
+    archivos.
+
+  - Soluciones estandarizadas a muchos de los problemas que los programadores
+    pueden encontrarse en su día a día.
+
+- Algunos módulos están diseñados explícitamente para promover y mejorar la
+  portabilidad de los programas Python abstrayendo los aspectos específicos de
+  cada plataforma a través de un API independiente de la plataforma.
+
+---
+
+- La documentación contiene la información más completa sobre el contenido de
+  la librería estándar, a la que podemos acceder a través de la siguiente
+  dirección:
+
+[https://docs.python.org/3/library/index.html](https://docs.python.org/3/library/index.html)
+
+- En esa dirección, además, se incluye información sobre:
+
+  - Funciones, constantes, excepciones y tipos predefinidos, que también forman
+    parte de la librería estándar.
+
+  - Componentes opcionales que habitualmente podemos encontrar en cualquier
+    instalación de Python.
+
+<!--
+## Paquetes
+
+## Documentación interna
 -->
 
 # Criterios de descomposición modular
