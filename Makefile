@@ -17,7 +17,7 @@ ITHACA_SRC=$(AUX)/$(ITHACA)
 ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
 EJER_SRCDIR=ejercicios
-EJER_BUILDDIR_PDF=ejercicios
+EJER_BUILDDIR_PDF=$(BUILDDIR)/ejercicios
 
 # Scripts y programas
 
@@ -64,7 +64,7 @@ OBJECTS_HTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR_HTML)/%,$(SOURCES:.md=.html))
 OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
 EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
-EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=.pdf))
+EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=-ejercicios.pdf))
 
 # Objetivos generales
 
@@ -190,7 +190,7 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 
 # Ejercicios
 
-$(EJER_BUILDDIR_PDF)/%.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
+$(EJER_BUILDDIR_PDF)/%-ejercicios.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \

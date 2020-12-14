@@ -1,12 +1,38 @@
 <script>
+    var timeparts = [
+        {name: 'año', div: 31536000000, mod: 10000},
+        {name: 'día', div: 86400000, mod: 365},
+        {name: 'hora', div: 3600000, mod: 24},
+        {name: 'minuto', div: 60000, mod: 60},
+        {name: 'segundo', div: 1000, mod: 60}
+    ];
+
+    function timeAgoNaive(comparisonDate) {
+        var
+            i = 0,
+            l = timeparts.length,
+            calc,
+            values = [],
+            interval = new Date().getTime() - comparisonDate.getTime();
+        while (i < l) {
+            calc = Math.floor(interval / timeparts[i].div) % timeparts[i].mod;
+            if (calc) {
+                values.push(calc + ' ' + timeparts[i].name + (calc != 1 ? 's' : ''));
+            }
+            i += 1;
+        }
+        if (values.length === 0) { values.push('0 segundos'); }
+        return 'hace ' + values.join(', ');
+    }
+
     document.getElementsByTagName('hy-push-state')[0].addEventListener('hy-push-state-load', function() {
         var smalls = document.querySelectorAll('.fecha');
         smalls.forEach(function (small) {
             var fecha = new Date(small.outerText);
             var ahora = new Date();
             var dias = Math.round((ahora - fecha) / 1000 / 86400);
-            var hace = `hace ${dias} día` + (dias == 1 ? '' : 's');
-            small.innerHTML = `(${small.outerText}, ${hace})`;
+            var hace = timeAgoNaive(fecha);
+            small.innerHTML = `(${hace})`;
             if (dias < 7) {
                 small.style = 'color: red';
             }
