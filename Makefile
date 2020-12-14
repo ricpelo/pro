@@ -236,7 +236,7 @@ serve:
 	cd $(BUILDDIR) ; bundle install --path vendor/bundle && bundle exec jekyll serve --incremental
 
 touch:
-	touch $(OBJECTS_HTML) $(OBJECTS_PDF) $(APUNTES_PDF) $(PROG_PDF) $(DIAPOS)
+	touch $(OBJECTS_HTML) $(OBJECTS_PDF) $(APUNTES_PDF) $(PROG_PDF) $(DIAPOS) $(EJER_OBJECTS_PDF)
 
 markdown:
 	scripts/opml.php -u programacion/esquema.opml -emarkdown >/dev/null

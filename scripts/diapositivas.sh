@@ -31,11 +31,16 @@ for f in $FILES; do
     PDF="pdf/${f%.md}.pdf"
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
-    echo -n "| <strong>$TITLE</strong><br><small class=\"fecha\">$FECHA</small> | [HTML]($HTML){:target=\"_blank\"} | [PDF]($PDF){:target=\"_blank\"} | [Apuntes]($APUNTES){:target=\"_blank\"}"
+    ULTACT="Última actualización"
+    echo -n  "| <strong>$TITLE</strong><br><small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
+    echo -n " | [HTML]($HTML){:target=\"_blank\"}"
+    echo -n " | [PDF]($PDF){:target=\"_blank\"}"
+    echo -n " | [Apuntes]($APUNTES){:target=\"_blank\"}"
     if [ -f "$EJERCICIOS/$f" ]; then
         EJER="ejercicios/${f%.md}-ejercicios.pdf"
         FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $EJERCICIOS/$f))
-        echo "| [Ejercicios]($EJER){:target=\"_blank\"}<br><small class=\"fecha\">$FECHA</small>"
+        echo -n " | [Ejercicios]($EJER){:target=\"_blank\"}<br>"
+        echo       "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     else
         echo
     fi
