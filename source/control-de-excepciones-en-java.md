@@ -1,5 +1,5 @@
 ---
-title: Control de excepciones
+title: Control de excepciones en Java
 author: Ricardo Pérez López
 !DATE
 ---

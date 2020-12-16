@@ -12,9 +12,9 @@ author: Ricardo Pérez López
 
 ## Listas ordenadas
 
-## Diccionarios
-
 ## Conjuntos
+
+## Diccionarios
 
 # Listas
 

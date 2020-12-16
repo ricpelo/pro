@@ -28,43 +28,75 @@ author: Ricardo Pérez López
 
 ### Recolección de basura
 
-# Encapsulación
+# Clases y objetos básicos en Java
 
-## Visibilidad
+## Clases *wrapper*
 
-### Pública
+### *Boxing* y *Unboxing*
 
-### Privada
+## Cadenas
 
-### Por defecto
+### Inmutables
 
-# Miembros no estáticos
+#### `String`
 
-## Atributos
+### Mutables
 
-### Acceso y modificación
+#### `StringBuffer`
 
-### Atributos finales
+#### `StringBuilder`
 
-## Métodos
+#### `StringTokenizer`
 
-### Referencia `this`
+### Conversión a `String`
 
-### Constructores y destructores
+### Concatenación de cadenas
 
-### Accesores y mutadores
+### Comparación de cadenas
 
-### Sobrecarga
+### Diferencias entre literales cadena y objetos `String`
 
-### Ámbito de un identificador
+## *Arrays*
 
-### Resolución de identificadores
+### De tipos primitivos
 
-# Miembros estáticos
+#### Declaración
 
-## Métodos estáticos
+#### Creación
 
-## Atributos estáticos
+#### Inicialización
 
-## Atributos estáticos finales
+### `.length`
+
+### De objetos
+
+#### Declaración
+
+#### Creación
+
+#### Inicialización
+
+### `java.util.Arrays`
+
+### Copia y redimensionado de arrays
+
+#### `Arrays.copyOf()`
+
+#### `System.arraycopy()`)
+
+#### `.clone()`
+
+### Comparación de *arrays*
+
+#### `Arrays.equals()`
+
+### Arrays multidimensionales
+
+#### Declaración
+
+#### Creación
+
+#### Inicialización
+
+#### `Arrays.deepEquals()`
 

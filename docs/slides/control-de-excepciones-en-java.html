@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Diseño de clases</title>
+  <title>Control de excepciones en Java</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -134,113 +134,84 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Diseño de clases</h1>
+  <h1 class="title">Control de excepciones en Java</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2020/2021</p>
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/encapsulación"><span class="toc-section-number">1</span> Encapsulación</a></li>
-<li><a href="#/propiedades"><span class="toc-section-number">2</span> Propiedades</a></li>
-<li><a href="#/métodos"><span class="toc-section-number">3</span> Métodos</a></li>
-<li><a href="#/constantes"><span class="toc-section-number">4</span> Constantes</a></li>
-<li><a href="#/miembros-estáticos"><span class="toc-section-number">5</span> Miembros estáticos</a></li>
-<li><a href="#/el-primer-programa-java"><span class="toc-section-number">6</span> El primer programa Java</a></li>
+<li><a href="#/errores-y-excepciones"><span class="toc-section-number">1</span> Errores y excepciones</a></li>
+<li><a href="#/el-requisito-captura-o-especifica"><span class="toc-section-number">2</span> El requisito «<em>captura o especifica</em>»</a></li>
+<li><a href="#/captura-y-manejo-de-excepciones"><span class="toc-section-number">3</span> Captura y manejo de excepciones</a></li>
+<li><a href="#/excepciones-y-signaturas"><span class="toc-section-number">4</span> Excepciones y signaturas</a></li>
+<li><a href="#/lanzamiento-de-excepciones"><span class="toc-section-number">5</span> Lanzamiento de excepciones</a></li>
+<li><a href="#/excepciones-no-chequeadas"><span class="toc-section-number">6</span> Excepciones no chequeadas</a></li>
+<li><a href="#/ventajas-de-las-excepciones"><span class="toc-section-number">7</span> Ventajas de las excepciones</a></li>
 </ul>
 </section>
 
-<section id="encapsulación" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Encapsulación</h1>
+<section id="errores-y-excepciones" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Errores y excepciones</h1>
 
 </section>
 
 <section>
-<section id="propiedades" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Propiedades</h1>
+<section id="el-requisito-captura-o-especifica" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> El requisito «<em>captura o especifica</em>»</h1>
 
 </section>
-<section id="visibilidad" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Visibilidad</h2>
+<section id="tipos-de-excepciones" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Tipos de excepciones</h2>
 
 </section>
-<section id="pública" class="title-slide slide level3" data-number="2.1.1">
-<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> Pública</h3>
-
-</section>
-
-<section id="privada" class="title-slide slide level3" data-number="2.1.2">
-<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Privada</h3>
-
-</section>
-
 </section>
 <section>
-<section id="métodos" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Métodos</h1>
+<section id="captura-y-manejo-de-excepciones" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Captura y manejo de excepciones</h1>
 
 </section>
-<section id="visibilidad-1" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Visibilidad</h2>
-
-</section>
-<section id="pública-1" class="title-slide slide level3" data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Pública</h3>
+<section id="bloque-try" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Bloque <code>try</code></h2>
 
 </section>
 
-<section id="privada-1" class="title-slide slide level3" data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Privada</h3>
+<section id="bloques-catch" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Bloques <code>catch</code></h2>
 
 </section>
 
-
-<section id="referencia-this" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Referencia <code>this</code></h2>
-
-</section>
-
-<section id="sobrecarga" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Sobrecarga</h2>
-
-</section>
-
-<section id="constructores-y-destructores" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span> Constructores y destructores</h2>
-
-</section>
-
-<section id="accesores-y-mutadores" class="title-slide slide level2" data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span> Accesores y mutadores</h2>
+<section id="bloque-finally" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Bloque <code>finally</code></h2>
 
 </section>
 </section>
-<section id="constantes" class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Constantes</h1>
+<section id="excepciones-y-signaturas" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Excepciones y signaturas</h1>
 
 </section>
 
 <section>
-<section id="miembros-estáticos" class="title-slide slide level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Miembros estáticos</h1>
+<section id="lanzamiento-de-excepciones" class="title-slide slide level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Lanzamiento de excepciones</h1>
 
 </section>
-<section id="constantes-1" class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span> Constantes</h2>
-
-</section>
-
-<section id="métodos-estáticos" class="title-slide slide level2" data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span> Métodos estáticos</h2>
+<section id="excepciones-encadenadas" class="title-slide slide level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Excepciones encadenadas</h2>
 
 </section>
 
-<section id="propiedades-estáticas" class="title-slide slide level2" data-number="5.3">
-<h2 data-number="5.3"><span class="header-section-number">5.3</span> Propiedades estáticas</h2>
+<section id="creación-de-clases-de-excepción" class="title-slide slide level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Creación de clases de excepción</h2>
 
 </section>
 </section>
-<section id="el-primer-programa-java" class="title-slide slide level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> El primer programa Java</h1>
+<section id="excepciones-no-chequeadas" class="title-slide slide level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Excepciones no chequeadas</h1>
+
+</section>
+
+<section id="ventajas-de-las-excepciones" class="title-slide slide level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Ventajas de las excepciones</h1>
 
 </section>
     </div>

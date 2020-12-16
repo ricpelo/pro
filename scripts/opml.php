@@ -321,8 +321,8 @@ class Leo extends Resumen
     {
         $text = mb_strtolower($text);
         $text = str_replace(
-            ['á', 'é', 'í', 'ó', 'ú', 'ñ', ' ', '*', ','],
-            ['a', 'e', 'i', 'o', 'u', 'n', '-', '', ''],
+            ['á', 'é', 'í', 'ó', 'ú', 'ñ', ' ', '*', ',', '(', ')'],
+            ['a', 'e', 'i', 'o', 'u', 'n', '-', '', '', '', ''],
             $text
         );
         return $text . '.md';
