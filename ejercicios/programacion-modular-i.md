@@ -25,7 +25,7 @@ author:
     #. Usando !PYTHON(from math import *)
 
     ¿Cuál es la diferencia entre las tres opciones? ¿Cuál es más conveniente?
-    ¿Qué inconveniente presenta la última opción?
+    ¿Qué inconvenientes presenta la última opción?
 
 @. Usa el módulo `random` para escribir programas que necesiten mostrar un
    comportamiento aleatorio:

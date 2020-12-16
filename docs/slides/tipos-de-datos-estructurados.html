@@ -253,7 +253,7 @@
 <ul>
 <li><p>Un <strong>dato estructurado</strong> (también llamado <strong>dato compuesto</strong>, <strong>colección</strong> o <strong>contenedor</strong>) es un dato formado, a su vez, por otros datos llamados <strong>componentes</strong> o <strong>elementos</strong>.</p></li>
 <li><p>Un <strong>tipo de dato estructurado</strong>, también llamado <strong>tipo compuesto</strong>, es aquel cuyos valores son datos estructurados.</p></li>
-<li><p>Frecuentemente se puede acceder de manera individual a los elementos que componen un dato estructurado y a veces, también, se pueden modificar de manera individual.</p></li>
+<li><p>Normalmente, se puede <strong>acceder</strong> de manera individual a los elementos que componen un dato estructurado y, a veces, también se pueden <strong>modificar</strong> de manera individual.</p></li>
 <li><p>El término <strong>estructura de datos</strong> se suele usar como sinónimo de <strong>tipo de dato estructurado</strong>, aunque nosotros haremos una distinción:</p>
 <ul>
 <li><p>Usaremos <strong>tipo de dato estructurado</strong> cuando usemos un dato sin conocer sus detalles internos de implementación.</p></li>
@@ -1525,18 +1525,23 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>Los diccionarios se pueden crear:</p>
 <ul>
+<li><p>Con una pareja de llaves <code class="sourceCode python">{}</code>, que representan el <strong>diccionario vacío</strong>.</p></li>
 <li><p>Encerrando entre llaves una lista de parejas <span style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span style="color:teal">⟨<em>valor</em>⟩</span> separadas por comas: <code class="sourceCode python">{<span class="st">&#39;juan&#39;</span>: <span class="dv">4098</span>, <span class="st">&#39;pepe&#39;</span>: <span class="dv">4127</span>}</code></p>
 <p>Esa es precisamente la <strong>forma normal</strong> de un diccionario y, por tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
 <li><p>Usando la función <code class="sourceCode python"><span class="bu">dict</span></code>.</p></li>
 </ul></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">dict</span>(uno<span class="op">=</span><span class="dv">1</span>, dos<span class="op">=</span><span class="dv">2</span>, tres<span class="op">=</span><span class="dv">3</span>)                   <span class="co"># argumentos con nombre</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)])  <span class="co"># lista de tuplas</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># innecesario</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># con dos iterables</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e          <span class="co"># todos son iguales</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v1 <span class="op">=</span> {}                                          <span class="co"># diccionario vacío</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v2 <span class="op">=</span> <span class="bu">dict</span>()                                      <span class="co"># también diccionario vacío</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v1 <span class="op">=</span> v2</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">dict</span>(uno<span class="op">=</span><span class="dv">1</span>, dos<span class="op">=</span><span class="dv">2</span>, tres<span class="op">=</span><span class="dv">3</span>)                   <span class="co"># argumentos con nombre</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)])  <span class="co"># lista de tuplas</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># innecesario</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># con dos iterables</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e          <span class="co"># todos son iguales</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">
@@ -1552,21 +1557,6 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <section class="slide level5" data-number="3.2.0.0.3">
 
 <ul>
-<li><p>En cuanto al <strong>orden</strong> en el que aparecen los elementos dentro de un diccionario:</p>
-<ul>
-<li><p>Antes de la versión 3.7 de Python, el orden de los elementos no estaba determinado, por lo que podrían aparecer en cualquier orden.</p></li>
-<li><p>A partir de la versión 3.7, se decidió que los elementos se almacenarían en el orden de inserción.</p></li>
-</ul></li>
-<li><p>Por tanto:</p>
-<div class="caja">
-<p><strong>Importante:</strong></p>
-<p>A partir de Python 3.7, <strong>los elementos de un diccionario se almacenan en el orden en el que se van insertando</strong>.</p>
-</div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.2.0.0.4">
-
-<ul>
 <li><p>Las claves de un diccionario deben ser datos <em>hashables</em>.</p></li>
 <li><p>Por tanto, no se pueden usar como clave una lista, un diccionario, un conjunto <code class="sourceCode python"><span class="bu">set</span></code> o cualquier otro tipo mutable.</p></li>
 <li><p>Los tipos numéricos que se usen como claves obedecen las reglas normales de comparación numérica.</p>
@@ -1575,7 +1565,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.5">
+<section class="slide level5" data-number="3.2.0.0.4">
 
 <ul>
 <li><p>Para <strong>acceder a un elemento</strong> del diccionario se usa una sintaxis idéntica a la de la <strong>indexación</strong>, salvo que, en este caso, en lugar de usar el índice o posición del elemento, se usa la clave:</p>
@@ -1750,6 +1740,20 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>...</span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>a</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.2.0.3">
+
+<ul>
+<li><p>¿En qué orden se almacenan los elementos de un diccionario? Y, lo más importante: ¿en qué orden se van visitando los elementos de un diccionario cuando se recorre con un iterador?</p>
+<ul>
+<li><p>Antes de la versión 3.7 de Python, no estaba determinado en qué orden se almacenaban los elementos en un diccionario. Por tanto, al recorrer un diccionario con un iterador, no se sabía de antemano en qué orden se iban a visitar sus elementos.</p></li>
+<li><p>A partir de la versión 3.7, se decidió que los elementos se almacenarían en el orden en el que se van insertando dentro del diccionario.</p></li>
+</ul></li>
+<li><p>Por tanto:</p>
+<div class="caja">
+<p>A partir de Python 3.7, al recorrer un diccionario, un iterador devolverá siempre sus elementos <strong>en el orden en el que se han ido insertando</strong> dentro del diccionario.</p>
+</div></li>
 </ul>
 </section>
 

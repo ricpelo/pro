@@ -17,8 +17,8 @@ nocite: |
 - Un **tipo de dato estructurado**, también llamado **tipo compuesto**, es
   aquel cuyos valores son datos estructurados.
 
-- Frecuentemente se puede acceder de manera individual a los elementos que
-  componen un dato estructurado y a veces, también, se pueden modificar de
+- Normalmente, se puede **acceder** de manera individual a los elementos que
+  componen un dato estructurado y, a veces, también se pueden **modificar** de
   manera individual.
 
 - El término **estructura de datos** se suele usar como sinónimo de **tipo de
@@ -1435,6 +1435,9 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 - Los diccionarios se pueden crear:
 
+  - Con una pareja de llaves !PYTHON({}), que representan el **diccionario
+    vacío**.
+
   - Encerrando entre llaves una lista de parejas !NT(clave)!T(:)!NT(valor)
     separadas por comas: !PYTHON({'juan': 4098, 'pepe': 4127})
 
@@ -1447,6 +1450,10 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 - Por ejemplo:
 
   ```python
+  >>> v1 = {}                                          # diccionario vacío
+  >>> v2 = dict()                                      # también diccionario vacío
+  >>> v1 = v2
+  True
   >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
   >>> b = dict(uno=1, dos=2, tres=3)                   # argumentos con nombre
   >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
@@ -1471,27 +1478,6 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   almacena uno de los dos elementos con clave repetida, que siempre es el
   último que aparece en el diccionario. En este caso, se almacena el elemento
   !PYTHON('perro': 'doggy') y se ignora el !PYTHON('perro': 'dog').
-
----
-
-- En cuanto al **orden** en el que aparecen los elementos dentro de un
-  diccionario:
-
-  - Antes de la versión 3.7 de Python, el orden de los elementos no estaba
-    determinado, por lo que podrían aparecer en cualquier orden.
-
-  - A partir de la versión 3.7, se decidió que los elementos se almacenarían en
-    el orden de inserción.
-
-- Por tanto:
-
-  !CAJA
-  ~~~~~~~~~~~~~
-  **Importante:**
-
-  A partir de Python 3.7, **los elementos de un diccionario se almacenan en el
-  orden en el que se van insertando**.
-  ~~~~~~~~~~~~~
 
 ---
 
@@ -1691,5 +1677,28 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   a
   b
   ```
+
+---
+
+- ¿En qué orden se almacenan los elementos de un diccionario? Y, lo más
+  importante: ¿en qué orden se van visitando los elementos de un diccionario
+  cuando se recorre con un iterador?
+
+  - Antes de la versión 3.7 de Python, no estaba determinado en qué orden se
+    almacenaban los elementos en un diccionario. Por tanto, al recorrer un
+    diccionario con un iterador, no se sabía de antemano en qué orden se iban a
+    visitar sus elementos.
+
+  - A partir de la versión 3.7, se decidió que los elementos se almacenarían en
+    el orden en el que se van insertando dentro del diccionario.
+
+- Por tanto:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  A partir de Python 3.7, al recorrer un diccionario, un iterador devolverá
+  siempre sus elementos **en el orden en el que se han ido insertando** dentro
+  del diccionario.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !BIBLIOGRAFIA
