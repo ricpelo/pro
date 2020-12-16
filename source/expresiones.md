@@ -250,7 +250,7 @@ Las **expresiones** se *evalúan*.
 Las **sentencias** se *ejecutan*.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Conceptos básicos
+## Sintaxis y semántica de las expresiones
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -275,10 +275,13 @@ que denominamos el **valor** de la expresión.
 
 ---
 
-- Las expresiones correctamente formadas deben satisfacer la gramática del
-  lenguaje en el que están escritas.
+- La **sintaxis** de las expresiones correctamente formadas deben satisfacer la
+  gramática del lenguaje en el que están escritas.
 
-- En un lenguaje de programación existen muchos tipos de expresiones
+- Si una expresión es sintácticamente correcta, su **semántica** (es decir, su
+  _significado_) es el valor al que representa.
+
+- En un lenguaje de programación existen muchos tipos de expresiones,
   dependiendo del tipo de los datos y de las operaciones involucradas en dicha
   expresión.
 
@@ -365,12 +368,12 @@ que denominamos el **valor** de la expresión.
 
   - !PYTHON((abs(-3) + (max(8, 5) / 2)))
 
-
 # Valores
 
 ## Introducción
 
-- Los **valores** son los datos que manipulan y procesan los programas.
+- Los **valores** son los datos que manipulan y procesan los programas (en
+  Programación hablamos de «_datos_» y de «_valores_» indistintamente).
 
 - Pueden ser:
 
@@ -378,9 +381,12 @@ que denominamos el **valor** de la expresión.
 
   - Datos internos que usa el programa para su correcto funcionamiento.
 
-- Los datos tienen un **tipo**, que determina el conjunto de _valores_ que
-  puede tomar un dato de ese tipo, así como el conjunto de _operaciones_ que se
-  pueden realizar con él.
+- Los datos se agrupan en **tipos**, que son conjuntos de valores que
+  comparten características comunes.
+
+- Por tanto, podemos decir que **los datos tienen un _tipo_**, el cual
+  determina el conjunto de _valores_ que puede tomar un dato de ese tipo, así
+  como el conjunto de _operaciones_ que se pueden realizar con él.
 
 - **Un valor, por tanto, pertenece a un determinado tipo**.
 
@@ -389,15 +395,21 @@ que denominamos el **valor** de la expresión.
 
 ---
 
-- En Python, los tipos de datos básicos se llaman de la siguiente forma:
+- En Python, los tipos de datos básicos son los siguientes (entre paréntesis va
+  el nombre que tienen cada uno de esos tipos en Python):
 
-  - Números enteros: `int`
+  - **Números enteros (!PYTHON(int))**: los números que sólo tienen parte
+    entera, como el `4` o el `-3`.
 
-  - Números reales: `float`
+  - **Números reales (!PYTHON(float))**: los números que tienen parte entera y
+    parte fraccionaria, como el `7.4` o el `-8.17`.
 
-  - Cadenas: `str`
+  - **Cadenas de caracteres (!PYTHON(str))**: secuencias de caracteres (letras,
+    dígitos, símbolos, etc.), como nombres de personas, direcciones, o
+    cualquier texto en general.
 
-  - Lógicos: `bool`
+  - **Lógicos (!PYTHON(bool))**: valores que representan dos posibilidades,
+    como _verdadero_ o _falso_, _sí_ o _no_, _encendido_ o _apagado_, etcétera.
 
 - Por tanto, cuando un dato es un número entero, decimos que pertenece al tipo
   `int`; cuando es una cadena, decimos que pertenece al tipo `str`; etcétera.
@@ -1012,12 +1024,13 @@ $$
 
 ### Tipos de operandos
 
-- Es importante respetar el tipo de los operandos que espera recibir un
-  operador. Si los intentamos aplicar sobre operandos de tipos incorrectos,
-  obtendremos resultados inesperados (o, directamente, un error).
+- Los operadores esperan que cada uno de sus operandos pertenezcan a un
+  determinado tipo. Si intentamos aplicar un operador sobre operandos de tipos
+  incorrectos, obtendremos resultados inesperados (o, directamente, un error).
 
 - Por ejemplo, los operadores aritméticos esperan operandos de tipo *numérico*.
-  Así, si intentamos dividir dos cadenas usando el operador `/`:
+  Así, si intentamos dividir dos cadenas usando el operador `/`, nos dará un
+  error de tipos (!PYTHON(TypeError)):
 
   ```python
   >>> "hola" / "pepe"
@@ -1160,8 +1173,12 @@ $$
   ```
 
 - Al igual que pasa con los operadores, es importante respetar la signatura de
-  una función. Si la aplicamos a un argumento de un tipo incorrecto (por
-  ejemplo, una cadena en lugar de un número), obtendremos un error:
+  una función. Eso significa, entre otras cosas, que sus argumentos deben
+  pertenecer al tipo correcto.
+
+- Por ejemplo, si aplicamos la función !PYTHON(abs) a un argumento de un tipo
+  incorrecto (digamos, una cadena en lugar de un número), obtendremos un error
+  !PYTHON(TypeError):
 
 
   ```python

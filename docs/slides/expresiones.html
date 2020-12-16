@@ -433,8 +433,8 @@
 </div>
 </section>
 
-<section id="conceptos-básicos" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Conceptos básicos</h2>
+<section id="sintaxis-y-semántica-de-las-expresiones" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Sintaxis y semántica de las expresiones</h2>
 <div class="caja">
 <p><strong>Definición:</strong></p>
 <p>Una <strong>expresión</strong> es una frase (secuencia de símbolos) sintáctica y semánticamente correcta según las reglas del lenguaje que estamos utilizando, cuya finalidad es la de <em>representar</em> o <strong>denotar</strong> un determinado objeto, al que denominamos el <strong>valor</strong> de la expresión.</p>
@@ -451,8 +451,9 @@
 <section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
-<li><p>Las expresiones correctamente formadas deben satisfacer la gramática del lenguaje en el que están escritas.</p></li>
-<li><p>En un lenguaje de programación existen muchos tipos de expresiones dependiendo del tipo de los datos y de las operaciones involucradas en dicha expresión.</p></li>
+<li><p>La <strong>sintaxis</strong> de las expresiones correctamente formadas deben satisfacer la gramática del lenguaje en el que están escritas.</p></li>
+<li><p>Si una expresión es sintácticamente correcta, su <strong>semántica</strong> (es decir, su <em>significado</em>) es el valor al que representa.</p></li>
+<li><p>En un lenguaje de programación existen muchos tipos de expresiones, dependiendo del tipo de los datos y de las operaciones involucradas en dicha expresión.</p></li>
 <li><p>Empezaremos trabajando con las expresiones aritméticas más sencillas para ir incorporando cada vez más elementos nuevos que nos permitan crear expresiones más complejas.</p></li>
 </ul>
 </section>
@@ -527,13 +528,14 @@
 <section id="introducción" class="title-slide slide level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> Introducción</h2>
 <ul>
-<li><p>Los <strong>valores</strong> son los datos que manipulan y procesan los programas.</p></li>
+<li><p>Los <strong>valores</strong> son los datos que manipulan y procesan los programas (en Programación hablamos de «<em>datos</em>» y de «<em>valores</em>» indistintamente).</p></li>
 <li><p>Pueden ser:</p>
 <ul>
 <li><p>Datos que representan información de interés para el usuario del programa.</p></li>
 <li><p>Datos internos que usa el programa para su correcto funcionamiento.</p></li>
 </ul></li>
-<li><p>Los datos tienen un <strong>tipo</strong>, que determina el conjunto de <em>valores</em> que puede tomar un dato de ese tipo, así como el conjunto de <em>operaciones</em> que se pueden realizar con él.</p></li>
+<li><p>Los datos se agrupan en <strong>tipos</strong>, que son conjuntos de valores que comparten características comunes.</p></li>
+<li><p>Por tanto, podemos decir que <strong>los datos tienen un <em>tipo</em></strong>, el cual determina el conjunto de <em>valores</em> que puede tomar un dato de ese tipo, así como el conjunto de <em>operaciones</em> que se pueden realizar con él.</p></li>
 <li><p><strong>Un valor, por tanto, pertenece a un determinado tipo</strong>.</p></li>
 <li><p>Los tipos más básicos en Programación son los <strong>números</strong> (<em>enteros</em> y <em>reales</em>), las <strong>cadenas</strong> y los <strong>lógicos</strong>.</p></li>
 </ul>
@@ -541,12 +543,12 @@
 <section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
-<li><p>En Python, los tipos de datos básicos se llaman de la siguiente forma:</p>
+<li><p>En Python, los tipos de datos básicos son los siguientes (entre paréntesis va el nombre que tienen cada uno de esos tipos en Python):</p>
 <ul>
-<li><p>Números enteros: <code>int</code></p></li>
-<li><p>Números reales: <code>float</code></p></li>
-<li><p>Cadenas: <code>str</code></p></li>
-<li><p>Lógicos: <code>bool</code></p></li>
+<li><p><strong>Números enteros (<code class="sourceCode python"><span class="bu">int</span></code>)</strong>: los números que sólo tienen parte entera, como el <code>4</code> o el <code>-3</code>.</p></li>
+<li><p><strong>Números reales (<code class="sourceCode python"><span class="bu">float</span></code>)</strong>: los números que tienen parte entera y parte fraccionaria, como el <code>7.4</code> o el <code>-8.17</code>.</p></li>
+<li><p><strong>Cadenas de caracteres (<code class="sourceCode python"><span class="bu">str</span></code>)</strong>: secuencias de caracteres (letras, dígitos, símbolos, etc.), como nombres de personas, direcciones, o cualquier texto en general.</p></li>
+<li><p><strong>Lógicos (<code class="sourceCode python"><span class="bu">bool</span></code>)</strong>: valores que representan dos posibilidades, como <em>verdadero</em> o <em>falso</em>, <em>sí</em> o <em>no</em>, <em>encendido</em> o <em>apagado</em>, etcétera.</p></li>
 </ul></li>
 <li><p>Por tanto, cuando un dato es un número entero, decimos que pertenece al tipo <code>int</code>; cuando es una cadena, decimos que pertenece al tipo <code>str</code>; etcétera.</p></li>
 </ul>
@@ -1013,8 +1015,8 @@
 <section id="tipos-de-operandos" class="title-slide slide level3" data-number="4.2.6">
 <h3 data-number="4.2.6"><span class="header-section-number">4.2.6</span> Tipos de operandos</h3>
 <ul>
-<li><p>Es importante respetar el tipo de los operandos que espera recibir un operador. Si los intentamos aplicar sobre operandos de tipos incorrectos, obtendremos resultados inesperados (o, directamente, un error).</p></li>
-<li><p>Por ejemplo, los operadores aritméticos esperan operandos de tipo <em>numérico</em>. Así, si intentamos dividir dos cadenas usando el operador <code>/</code>:</p>
+<li><p>Los operadores esperan que cada uno de sus operandos pertenezcan a un determinado tipo. Si intentamos aplicar un operador sobre operandos de tipos incorrectos, obtendremos resultados inesperados (o, directamente, un error).</p></li>
+<li><p>Por ejemplo, los operadores aritméticos esperan operandos de tipo <em>numérico</em>. Así, si intentamos dividir dos cadenas usando el operador <code>/</code>, nos dará un error de tipos (<code class="sourceCode python"><span class="pp">TypeError</span></code>):</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">/</span> <span class="st">&quot;pepe&quot;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
@@ -1109,7 +1111,8 @@
 <li><p>Como la función <code class="sourceCode python"><span class="bu">abs</span></code> está <strong>predefinida</strong> en Python, se puede usar directamente. Por ejemplo:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">abs</span>(<span class="op">-</span><span class="dv">3</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div></li>
-<li><p>Al igual que pasa con los operadores, es importante respetar la signatura de una función. Si la aplicamos a un argumento de un tipo incorrecto (por ejemplo, una cadena en lugar de un número), obtendremos un error:</p>
+<li><p>Al igual que pasa con los operadores, es importante respetar la signatura de una función. Eso significa, entre otras cosas, que sus argumentos deben pertenecer al tipo correcto.</p></li>
+<li><p>Por ejemplo, si aplicamos la función <code class="sourceCode python"><span class="bu">abs</span></code> a un argumento de un tipo incorrecto (digamos, una cadena en lugar de un número), obtendremos un error <code class="sourceCode python"><span class="pp">TypeError</span></code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">abs</span>(<span class="st">&quot;hola&quot;</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
