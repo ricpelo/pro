@@ -1,5 +1,8 @@
 ---
-title: Programación funcional (II)
+title:
+- |
+  Ejercicios de\
+  Programación funcional (II)
 author:
 - |
   Ricardo Pérez López\

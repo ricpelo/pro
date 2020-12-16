@@ -1,5 +1,8 @@
 ---
-title: Ejercicios de programación imperativa y estructurada
+title:
+- |
+  Ejercicios de\
+  Programación imperativa y estructurada
 author:
 - |
   Ricardo Pérez López\
