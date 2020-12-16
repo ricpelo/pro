@@ -372,44 +372,45 @@ que denominamos el **valor** de la expresión.
 
 ## Introducción
 
-- Los **valores** son los datos que manipulan y procesan los programas (en
-  Programación hablamos de «_datos_» y de «_valores_» indistintamente).
+- Los **valores** son los **datos** que manipulan y procesan los programas
+  (decimos que «**_un dato tiene un valor_**»).
 
-- Pueden ser:
+- Esos datos pueden ser:
 
-  - Datos que representan información de interés para el usuario del programa.
+  - Datos de entrada o salida, que representan información de interés para el
+    usuario del programa.
 
   - Datos internos que usa el programa para su correcto funcionamiento.
 
-- Los datos se agrupan en **tipos**, que son conjuntos de valores que
-  comparten características comunes.
+- Los valores se agrupan en **tipos**: un tipo es un conjunto de valores que
+  comparten características comunes. Por tanto, **un determinado valor
+  pertenece a un tipo (puede que a más)**.
 
-- Por tanto, podemos decir que **los datos tienen un _tipo_**, el cual
-  determina el conjunto de _valores_ que puede tomar un dato de ese tipo, así
-  como el conjunto de _operaciones_ que se pueden realizar con él.
+- Igualmente, decimos que **los datos tienen un _tipo_**, que es el tipo del
+  valor que tiene el dato.
 
-- **Un valor, por tanto, pertenece a un determinado tipo**.
-
-- Los tipos más básicos en Programación son los **números** (_enteros_ y
-  _reales_), las **cadenas** y los **lógicos**.
+- Un **tipo de dato** determina el conjunto de **_valores_** que puede tomar un
+  dato de ese tipo, así como las **_operaciones_** que se pueden realizar con
+  él.
 
 ---
 
 - En Python, los tipos de datos básicos son los siguientes (entre paréntesis va
   el nombre que tienen cada uno de esos tipos en Python):
 
-  - **Números enteros (!PYTHON(int))**: los números que sólo tienen parte
-    entera, como el `4` o el `-3`.
+  - **Números enteros (!PYTHON(int))**: los números (positivos o negativos) que
+    sólo tienen parte entera, como el `4` o el `-3`.
 
-  - **Números reales (!PYTHON(float))**: los números que tienen parte entera y
-    parte fraccionaria, como el `7.4` o el `-8.17`.
+  - **Números reales (!PYTHON(float))**: los números (positivos o negativos)
+    que tienen parte entera y parte fraccionaria, como el `7.4` o el `-8.17`.
 
   - **Cadenas de caracteres (!PYTHON(str))**: secuencias de caracteres (letras,
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o
     cualquier texto en general.
 
-  - **Lógicos (!PYTHON(bool))**: valores que representan dos posibilidades,
-    como _verdadero_ o _falso_, _sí_ o _no_, _encendido_ o _apagado_, etcétera.
+  - **Lógicos (!PYTHON(bool))**: sólo contiene dos valores que representan dos
+    posibilidades, como _verdadero_ o _falso_, _sí_ o _no_, _encendido_ o
+    _apagado_, etc.
 
 - Por tanto, cuando un dato es un número entero, decimos que pertenece al tipo
   `int`; cuando es una cadena, decimos que pertenece al tipo `str`; etcétera.
@@ -441,7 +442,7 @@ que denominamos el **valor** de la expresión.
 
   !PYTHON((5 - 2))
 
-  denotan todas el mismo valor (el número abstracto **tres**).
+  denotan todas el mismo valor (el número entero abstracto **tres**).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -507,14 +508,14 @@ Se dice:
 
 ---
 
-- Hay valores que no tienen expresión canónica:
+- Hay **valores que no tienen expresión canónica**:
 
   - Las funciones (los valores de tipo *función*).
 
   - El número $\pi$ no tiene representación decimal finita, por lo que tampoco
     tiene expresión canónica.
 
-- Y hay expresiones que no tienen forma normal:
+- Y hay **expresiones que no tienen forma normal**:
 
   - Si definimos $inf = inf + 1$, la expresión $inf$ (que es un número) no
     tiene forma normal.
@@ -642,7 +643,7 @@ endwhile (no)
   programa (como números, cadenas, identificadores, etc.).
 
 - Gracias a esas reglas, el intérprete puede identificar qué literales son, qué
-  valor representan y de qué **tipo** son.
+  **valor** representan y de qué **tipo** son.
 
 ---
 
@@ -686,8 +687,8 @@ endwhile (no)
 - Por tanto, el literal !PYTHON(3.5) es la forma más reducida de representar el
   valor **tres y medio**.
 
-- Es decir: si le pedimos al intérprete que calcule el resultado de !PYTHON(7 /
-  2), nos devolverá la expresión !PYTHON(3.5).
+- Es decir: si le pedimos al intérprete que calcule el resultado de
+  !PYTHON(7 / 2), nos devolverá la expresión !PYTHON(3.5).
 
 - Sin embargo, el !PYTHON(3.5) no es el único literal que denota el valor
   numérico **tres y medio**. Por ejemplo, los literales !PYTHON(3.50),
