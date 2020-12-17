@@ -1,5 +1,5 @@
 ---
-title: Relaciones entre clases Java
+title: Relaciones entre clases en Java
 author: Ricardo Pérez López
 !DATE
 ---
