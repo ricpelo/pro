@@ -17,8 +17,9 @@ nocite: |
     únicamente mediante las **operaciones** que manipulan esos datos y con
     **independencia de su implementación**.
 
-  - Las funciones pueden tener **estado interno** usando funciones de orden
-    superior y variables no locales.
+  - Las funciones pueden tener **estado interno** usando clausuras, que se
+    crean a partir de funciones locales, funciones de orden superior y
+    variables no locales.
     
   - Una función puede representar un dato.
   
@@ -39,9 +40,9 @@ nocite: |
 
 - En conclusión:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~
-  Una función, por tanto, puede implementar un tipo abstracto de datos.
+  Una **función** puede implementar todo un **tipo abstracto de datos**.
   ~~~~~~~~~~~~~~~~~
 
 ## La metáfora del objeto
@@ -240,29 +241,30 @@ def deposito(fondos):
 - Más tarde estudiaremos los detalles técnicos que diferencian ambas
   implementaciones, pero ya apreciamos que por cada operación sigue habiendo
   una función (aquí llamada **método**), que desaparece la función `despacho` y
-  que aparece una extraña función `__init__`.
+  que aparece una extraña función !PYTHON(__init__).
 
 ---
 
 - La definición de una clase es una estructura sintáctica que define su propio
-  **ámbito** y que está formada por una secuencia de sentencias que se
-  ejecutarán cuando la ejecución del programa alcance esa definición:
+  **ámbito** y que está formada por un bloque de sentencias que se ejecutarán
+  en el momento en que el intérprete ejecute esa definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(class) !NT(nombre)!T(:)
-      !NT(sentencia)+
+      !NT(sentencia)!MAS
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- La ejecución de esta sentencia crea un **objeto** que almacenará en forma de
-  **atributos** todas las definiciones que se hagan dentro de la clase.
+- La ejecución de esta definición crea un **objeto** que almacenará en forma de
+  **atributos** todas los elementos (variables, métodos, etc.) que se definan
+  dentro de la clase al ejecutar el bloque de sentencias.
 
-- Al definir su propio ámbito, todos los elementos definidos dentro de la clase
-  son **locales** a la clase.
+- Como la clase define su propio ámbito, esos elementos serán **locales** a la
+  clase.
 
 ---
 
-- Por ejemplo, las funciones `__init__`, `retirar`, `ingresar` y `saldo`
+- Por ejemplo, las funciones !PYTHON(__init__), `retirar`, `ingresar` y `saldo`
   pertenecen a la clase `Deposito` y sólo existen dentro de ella.
 
 - Las funciones definidas dentro de una clase se denominan **métodos**.
@@ -489,24 +491,25 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 
 - Lo que ocurre al ejecutar este código es lo siguiente:
 
-  1. Se crea en el montículo una instancia de la clase `Deposito`, representada
-     por una estructura con forma de diccionario.
+  1. Se crea en el montículo un objeto, instancia de la clase `Deposito`,
+     representado por una estructura con forma de diccionario.
 
   2. Se invoca al método `__init__` sobre el objeto recién creado (ya
      hablaremos de ésto más adelante).
 
   3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
      que representa, a grandes rasgos, la posición de memoria donde se
-     encuentra almacenado el objeto.
+     encuentra almacenado el objeto (su **_identidad_**).
 
-  4. Esa referencia es la que se almacena en la variable `dep`. Es decir: **en
-     la variable no se almacena el objeto como tal, sino una _referencia_ al
+  4. Esa referencia es la que se almacena en la variable `dep`. O sea: **en
+     la variable no se almacena el objeto en sí, sino una _referencia_ al
      objeto**.
 
 ---
 
 - En este ejemplo, `0x7fba5a16d978` es la dirección de memoria donde está
-  almacenado el objeto al que hace referencia la variable `dep`:
+  almacenado el objeto al que hace referencia la variable `dep` (es decir, su
+  **identidad**):
 
   ```python
   >>> dep
@@ -580,8 +583,16 @@ dep = Deposito(100)
   tendremos dos variables que contienen la misma referencia y, por tanto, **_se
   refieren_ (o _apuntan_) al mismo objeto**.
   
-- Es exactamente el concepto de **alias de variables** que estudiamos en
-  programación imperativa.
+- En ese caso, decimos que `dep1` y `dep2` son **idénticas**, porque las
+  identidades de los objetos a los que apuntan son iguales, cosa que podemos
+  comprobar usando `id` o `is`:
+
+  ```python
+  >>> id(dep1) == id(dep2)
+  True
+  >>> dep1 is dep2
+  True
+  ```
 
 - No olvidemos que las variables no contienen al objeto en sí mismo, sino una
   referencia a éste.
@@ -594,16 +605,31 @@ dep = Deposito(100)
 
 ---
 
-- Para saber la clase a la que pertenece el objeto, se usa la función `type`
-  (recordemos que en Python todos los tipos son clases):
+- Recordemos que en Python todos los tipos son clases.
+
+- Para saber la clase a la que pertenece el objeto, se usa la función
+  !PYTHON(type):
 
   ```python
   >>> type(dep)
   <class '__main__.Deposito'>
   ```
 
-  Se nos muestra que la clase del objeto `dep` es `__main__.Deposito`, que
-  representa la clase `Deposito` definida en el módulo `__main__`.
+  Se nos muestra que la clase del objeto `dep` es !PYTHON(__main__.Deposito),
+  que representa la clase `Deposito` definida en el módulo !PYTHON(__main__).
+
+- Otra forma de comprobar si un objeto es instancia de una clase determinada es
+  usar la función !PYTHON(isinstance).
+
+- La función !PYTHON{isinstance}`(`$obj$`,` $cls$`)` devuelve !PYTHON(True) si
+  el objeto $obj$ es instancia de la clase $cls$:
+
+  ```python
+  >>> isinstance(4, int)
+  True
+  >>> isinstance('hola', float)
+  False
+  ```
 
 ## Estado
 
@@ -613,13 +639,13 @@ dep = Deposito(100)
 
 - Eso significa que **los objetos son datos mutables**.
 
-- Dos objetos distintos podrán tener estados internos distintos.
+- Dos objetos no idénticos podrán tener estados internos distintos.
 
 ### Atributos
 
-- Las variables de estado que almacenan el estado interno del objeto se
-  denominan, en terminología orientada a objetos, **atributos**, **campos**,
-  **propiedades** o **variables de instancia** del objeto.
+- En terminología orientada a objetos, las variables de estado que almacenan el
+  estado interno del objeto se denominan **atributos**, **variables de
+  instancia**, **campos** o **propiedades** del objeto.
 
 - Los atributos se implementan como *variables locales* al objeto.
 
@@ -673,8 +699,7 @@ subgraph cluster2 {
   100
   ```
 
-- Y podemos cambiar el valor del atributo mediante asignación (cosa que, en
-  general, no resultaría aconsejable):
+- Y podemos cambiar el valor del atributo mediante asignación:
 
   ```python
   >>> dep.fondos = 400
@@ -685,7 +710,7 @@ subgraph cluster2 {
 ---
 
 - Por supuesto, dos objetos distintos pueden tener valores distintos en sus
-  atributos:
+  atributos (cada atributo pertenece a un objeto):
 
   ```python
   >>> dep1 = Deposito(100)
@@ -702,8 +727,8 @@ subgraph cluster2 {
 
 - En Python es posible acceder directamente al estado interno de un objeto (o,
   lo que es lo mismo, al valor de sus atributos), cosa que, en principio,
-  podría considerarse una violación del principio de ocultación de información
-  y del concepto mismo de abstracción de datos.
+  podría considerarse una _violación_ del **principio de ocultación de
+  información** y del concepto mismo de **abstracción de datos**.
 
 - Incluso es posible cambiar directamente el valor de un atributo desde fuera
   del objeto, o crear atributos nuevos dinámicamente.
@@ -727,11 +752,11 @@ subgraph cluster2 {
   'hola
   ```
 
-- Por tanto, en Python los atributos de un objeto se crean en tiempo de
-  ejecución mediante una simple asignación.
+- Por tanto, **en Python, los atributos de un objeto se crean en tiempo de
+  ejecución mediante una simple asignación**.
 
-- Este comportamiento contrasta con el de otros lenguajes de programación, como
-  por ejemplo en Java, donde los atributos de un objeto vienen determinados de
+- Este comportamiento contrasta con el de otros lenguajes de programación (como
+  Java, por ejemplo), donde los atributos de un objeto vienen determinados de
   antemano por la clase a la que pertenece y siempre son los mismos.
 
   Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos
@@ -841,8 +866,8 @@ dep2.otro = 'adiós'
   - Los objetos ocultan sus datos detrás de abstracciones y exponen las
     funciones que operan con esos datos.
 
-  - Las estructuras de datos exponen sus datos y no contienen funciones
-    significativas.
+  - Las estructuras de datos exponen sus datos y no contienen funciones (o, al
+    menos, no las exponen).
 
 - Son definiciones virtualmente opuestas y complementarias.
 
@@ -851,7 +876,7 @@ dep2.otro = 'adiós'
 ## Introducción
 
 - Como las clases implementan las operaciones como métodos, el paso de mensajes
-  se realiza ahora invocando sobre el objeto el método correspondiente al
+  se realiza ahora invocando, sobre un objeto, el método correspondiente al
   mensaje que se enviaría al objeto.
 
 - Por ejemplo, si tenemos el objeto `dep` (una instancia de la clase
@@ -892,6 +917,8 @@ dep2.otro = 'adiós'
   pasa el objeto *o* como primer argumento (el resto de los argumentos
   originales irían a continuación). 
 
+- Esto demuestra que los métodos no son más que una forma especial de función.
+
 - No olvidemos que quien almacena los métodos es la clase, no el objeto.
 
 ---
@@ -925,17 +952,17 @@ dep2.otro = 'adiós'
   extra que representa el objeto sobre el que se invoca el método (o, dicho de
   otra forma, el objeto que recibe el mensaje).
 
-- Ese parámetro extra (por regla de estilo) se llama siempre `self`, si bien
-  ese nombre no es ninguna palabra clave y se podría usar cualquier otro.
+- Ese parámetro extra (por regla de estilo) se llama siempre !PYTHON(self), si
+  bien ese nombre no es ninguna palabra clave y se podría usar cualquier otro.
 
 - Por tanto, siempre que definamos un método, lo haremos como una función que
   tendrá siempre un parámetro extra que será siempre el primero de sus
-  parámetros y que se llamará `self`.
+  parámetros y que se llamará !PYTHON(self).
 
 ---
 
 - Por ejemplo, en la clase `Deposito`, obsérvese que todos los métodos tienen
-  `self` como primer parámetro:
+  !PYTHON(self) como primer parámetro:
 
 ```python
 class Deposito:
@@ -958,8 +985,9 @@ class Deposito:
 
 ---
 
-- El método `saldo` de la clase `Deposito` recibe un argumento `self` que,
-  durante la llamada al método, contendrá el objeto sobre el que se ha invocado
+- El método `saldo` de la clase `Deposito` recibe un argumento !PYTHON(self)
+  que, durante la llamada al método, contendrá el objeto sobre el que se ha
+  invocado
   dicho método:
 
   ```python
@@ -971,19 +999,19 @@ class Deposito:
   posee.
   
 - Por tanto, dentro de `saldo`, accedemos a los fondos del objeto usando la
-  expresión `self.fondos`, y ese es el valor que retorna el método.
+  expresión !PYTHON(self.fondos), y ese es el valor que retorna el método.
 
 - Dentro del programa, la expresión `dep.saldo()` se traducirá como
   `Deposito.saldo(dep)`.
 
-- Es importante recordar que **el parámetro `self` se pasa automáticamente**
-  durante la llamada al método y, por tanto, **no debemos pasarlo nosotros** o
-  se producirá un error por intentar pasar más parámetros de los requeridos por
-  el método.
+- Es importante recordar que **el parámetro !PYTHON(self) se pasa
+  automáticamente** durante la llamada al método y, por tanto, **no debemos
+  pasarlo nosotros** o se producirá un error por intentar pasar más parámetros
+  de los requeridos por el método.
 
 ---
 
-- El método `ingresar` tiene otro argumento además del `self`, que es la
+- El método `ingresar` tiene otro argumento además del !PYTHON(self), que es la
   cantidad a ingresar:
 
   ```python
@@ -992,26 +1020,26 @@ class Deposito:
       return self.fondos
   ```
 
-- En este caso, `self` contendrá el objeto en el que se desea ingresar la
-  cantidad deseada.
+- En este caso, !PYTHON(self) contendrá el objeto en el que se desea ingresar
+  la cantidad deseada.
 
-- Dentro del método `ingresar`, la expresión `self.fondos` representa el valor
-  del atributo `fondos` del objeto `self`.
+- Dentro del método `ingresar`, la expresión !PYTHON(self.fondos) representa el
+  valor del atributo `fondos` del objeto !PYTHON(self).
 
 - Por tanto, lo que hace el método es incrementar el valor de dicho atributo en
-  el objeto `self`, sumándole la cantidad indicada en el parámetro. 
+  el objeto !PYTHON(self), sumándole la cantidad indicada en el parámetro. 
 
-- Por ejemplo, la expresión `dep.ingresar(35)` se traducirá como
-  `Deposito.ingresar(dep, 35)`. Por tanto, en la llamada al método, `self`
-  valdrá `dep` y `cantidad` valdrá `35`.
+- Por ejemplo, la expresión !PYTHON(dep.ingresar(35)) se traducirá como
+  !PYTHON(Deposito.ingresar(dep, 35)). Por tanto, en la llamada al método,
+  !PYTHON(self) valdrá `dep` y `cantidad` valdrá !PYTHON(35).
 
 ## Métodos *mágicos* !ifdef(HTML)(&nbsp;)()y constructores
 
 - En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
   **métodos mágicos** y tienen un comportamiento especial.
 
-- En concreto, el método `__init__` se invoca automáticamente cada vez que se
-  instancia un nuevo objeto a partir de una clase.
+- En concreto, el método !PYTHON(__init__) se invoca automáticamente cada vez
+  que se instancia un nuevo objeto a partir de una clase.
 
 - Coloquialmente, se le suele llamar el **constructor** de la clase, y es el
   responsable de *inicializar* el objeto de forma que tenga un estado inicial
@@ -1020,7 +1048,7 @@ class Deposito:
 - Entre otras cosas, el constructor se encarga de asignarle los valores
   iniciales adecuados a los atributos del objeto.
 
-- Ese método recibe como argumentos (además del `self`) los argumentos
+- Ese método recibe como argumentos (además del !PYTHON(self)) los argumentos
   indicados en la llamada a la clase que se usó para instanciar el objeto.
 
 ---
@@ -1034,20 +1062,20 @@ class Deposito:
       # ...
   ```
 
-- Ese método `__init__` se encarga de crear el atributo `fondos` del objeto que
-  se acaba de crear (y que recibe a través del parámetro `self`), asignándole
-  el valor del parámetro `fondos`.
+- Ese método !PYTHON(__init__) se encarga de crear el atributo `fondos` del
+  objeto que se acaba de crear (y que recibe a través del parámetro `self`),
+  asignándole el valor del parámetro `fondos`.
 
-  Cuidado: no confudir la expresión `self.fondos` con `fondos`. La primera se
-  refiere al atributo `fondos` del objeto `self`, mientras que la segunda se
-  refiere al parámetro `fondos`.
+  ¡Cuidado!: no confudir la expresión !PYTHON(self.fondos) con `fondos`. La
+  primera se refiere al atributo `fondos` del objeto !PYTHON(self), mientras
+  que la segunda se refiere al parámetro `fondos`.
 
 ---
 
 - Cuando se crea un nuevo objeto de la clase `Deposito`, llamando a la clase
   como si fuera una función, se debe indicar entre paréntesis (como argumento)
-  el valor del parámetro que luego va a recibir el método `__init__` (en este
-  caso, los fondos iniciales):
+  el valor del parámetro que luego va a recibir el método !PYTHON{__init__} (en
+  este caso, los fondos iniciales):
 
   ```python
   dep = Deposito(100)
@@ -1057,16 +1085,16 @@ class Deposito:
 
   1. Se crea en memoria una instancia de la clase `Deposito`.
 
-  2. Se invoca el método `__init__` sobre el objeto recién creado, de forma que
-     el parámetro `self` recibe una referencia a dicho objeto y el parámetro
-     `fondos` toma el valor `100`, que es el valor del argumento en la llamada
-     a `Deposito(100)`.
+  2. Se invoca el método !PYTHON(__init__) sobre el objeto recién creado, de
+     forma que el parámetro !PYTHON(self) recibe una referencia a dicho objeto
+     y el parámetro `fondos` toma el valor !PYTHON(100), que es el valor del
+     argumento en la llamada a !PYTHON(Deposito(100)).
 
-     En la práctica, esto equivale a decir que la expresión `Deposito(100)` se
-     traduce a *r*.`__init__(100)`, donde *r* es una referencia al objeto
-     recién creado.
+     En la práctica, esto equivale a decir que la expresión
+     !PYTHON(Deposito(100)) se traduce a *r*!PYTHON(.__init__(100)), donde
+     $\underline{r}$ es una referencia al objeto recién creado.
 
-  3. La expresión `Deposito(100)` devuelve la referencia al objeto.
+  3. La expresión !PYTHON(Deposito(100)) devuelve la referencia al objeto.
 
   4. Esa referencia es la que se almacena en la variable `dep`.
 
@@ -1081,19 +1109,19 @@ class Deposito:
   acciones:
 
   1. Crea en memoria una instancia de la clase *C* y guarda en una variable
-     temporal (llamémosla *r*, por ejemplo) una referencia al objeto recién
+     temporal (llamémosla *ref*, por ejemplo) una referencia al objeto recién
      creado.
 
-  2. Invoca a *r*`.__init__(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
+  2. Invoca a *ref*`.__init__(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
 
-  3. Devuelve *r*.
+  3. Devuelve *ref*.
 
 ---
 
 - En consecuencia, los argumentos que se indican al instanciar una clase se
-  enviarán al método `__init__` de la clase, lo que significa que tendremos que
-  indicar tantos argumentos (y del tipo apropiado) como espere el método
-  `__init__`.
+  enviarán al método !PYTHON(__init__) de la clase, lo que significa que
+  tendremos que indicar tantos argumentos (y del tipo apropiado) como espere el
+  método !PYTHON(__init__).
 
   En caso contrario, tendremos un error:
 
@@ -1108,9 +1136,9 @@ class Deposito:
   TypeError: __init__() takes 2 positional arguments but 3 were given
   ```
 
-- Es importante tener en cuenta, además, que **el constructor `__init__` no
-  debe devolver ningún valor** (o, lo que es lo mismo, debe devolver `None`), o
-  de lo contrario provocará un error de ejecución.
+- Es importante tener en cuenta, además, que **el constructor !PYTHON(__init__)
+  no debe devolver ningún valor** (o, lo que es lo mismo, debe devolver
+  `None`), o de lo contrario provocará un error de ejecución.
 
 # Identidad e igualdad
 

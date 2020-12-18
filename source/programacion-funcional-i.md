@@ -118,7 +118,8 @@ nocite: |
   pretenden construir, los programadores podemos usar modelos que *simulan* en
   esencia el comportamiento de nuestros programas.
 
-- Esos modelos se denominan **modelos de ejecución**.
+- Esos modelos se denominan **modelos computacionales** o **modelos de
+  ejecución**.
 
 - Los modelos de ejecución nos permiten **razonar** sobre los programas sin
   tener que ejecutarlos.
