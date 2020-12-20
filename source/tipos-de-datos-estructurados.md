@@ -801,8 +801,8 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 ### Tuplas
 
 - Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas
-  frecuentemente para representar colecciones de datos heterogéneos (de tipos
-  distintos).
+  frecuentemente para representar colecciones de datos heterogéneos (es decir,
+  de tipos distintos).
 
 - También se usan en aquellos casos en los que se necesita una secuencia
   inmutable de datos homogéneos (por ejemplo, para almacenar datos en un
@@ -814,17 +814,41 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
   - Si sólo tiene un elemento, se pone una coma detrás:
     
-    !PYTHON(a,)
+    :::: columns
 
-    !PYTHON((a,))
+    ::: column
+
+    $a$`,`
+
+    :::
+
+    ::: column
+
+    `(`$a$`,)`
+
+    :::
+
+    ::::
 
   - Si tiene más de un elemento, se separan con comas:
 
-    !PYTHON(a, b, c)
+    :::: columns
 
-    !PYTHON((a, b, c))
+    ::: column
 
-  - Usando la función !PYTHON(tuple).
+    $a$`,` $b$`,` $c$
+
+    :::
+
+    ::: column
+
+    `(`$a$`,` $b$`,` $c$`)`
+
+    :::
+
+    ::::
+
+  - Usando la función !PYTHON(tuple)`(`!NT{iterable}`)`.
 
 ---
 
@@ -837,9 +861,9 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
   - Cuando son necesarios para evitar ambigüedad.
 
-    Por ejemplo, !PYTHON(f(a, b, c)) es una llamada a una función con tres
-    argumentos, mientras que !PYTHON(f((a, b, c))) es una llamada a una función
-    con un único argumento que es una tupla de tres elementos.
+    Por ejemplo, `f(`$a$`,` $b$`,` $c$`)` es una llamada a una función con tres
+    argumentos, mientras que `f((`$a$`,` $b$`,` $c$`))` es una llamada a una
+    función con un único argumento que es una tupla de tres elementos.
 
 - Las tuplas implementan todas las operaciones comunes de las secuencias.
 
@@ -961,8 +985,8 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 ---
 
 - Dos rangos son considerados **iguales** si representan la misma secuencia de
-  valores, sin importar si tienen distintos valores de _inicio_, _fin_ o
-  _paso_.
+  valores, sin importar si tienen distintos valores de _start_, _stop_ o
+  _step_.
 
 - Por ejemplo:
 
@@ -1013,9 +1037,9 @@ True
 
   - Usando corchetes y separando los elementos con comas:
   
-    !PYTHON([a])
+    `[`$a$`]`
     
-    !PYTHON([a, b, c])
+    `[`$a$`,` $b$`,` $c$`]`
 
   - Usando la función !PYTHON(list) con las sintaxis !PYTHON(list()) o
     !PYTHON(list)`(`!NT{iterable}`)`.
@@ -1038,8 +1062,8 @@ True
 - Por ejemplo:
 
   ```python
-  >>> list('abc')
-  ['a', 'b', 'c']
+  >>> list('hola')
+  ['h', 'o', 'l', 'a']
   >>> list((1, 2, 3))
   [1, 2, 3]
   ```
@@ -1147,6 +1171,36 @@ $s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
 
 $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 -----------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- La **copia superficial** (a diferencia de la **_copia profunda_**) significa
+  que sólo se copia el objeto sobre el que se aplica la copia, **no sus
+  elementos**.
+
+- Por tanto, al crear la copia superficial, se crea sólo un nuevo objeto, donde
+  se copiarán las referencias de los elementos del objeto original.
+
+- Esto influye, sobre todo, cuando los elementos de una colección mutable
+  también son objetos mutables.
+
+- Por ejemplo, si tenemos listas dentro de otra lista, y copiamos ésta última
+  con !PYTHON(.copy()), la nueva lista compartirá elementos con la lista
+  original:
+
+  ```python
+  >>> x = [[1, 2], [3, 4]]   # los elementos de «x» también son listas
+  >>> y = x.copy()           # «y» es una copia de «x»
+  >>> x is y
+  False                      # no son la misma lista
+  >>> x[0] is y[0]
+  True                       # sus elementos no se han copiado,
+  >>> x[0].append(9)         # sino que están compartidos por «x» e «y»
+  >>> x
+  [[1, 2, 99], [3, 4]]
+  >>> y
+  [[1, 2, 99], [3, 4]]
+  ```
 
 ---
 
