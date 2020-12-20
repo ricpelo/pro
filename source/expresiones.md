@@ -395,31 +395,35 @@ que denominamos el **valor** de la expresión.
 
 ---
 
-- En Python, los tipos de datos básicos son los siguientes (entre paréntesis va
-  el nombre que tienen cada uno de esos tipos en Python):
+- En Python, los **tipos de datos básicos** son los siguientes (entre
+  paréntesis va el nombre que tienen cada uno de esos tipos en Python):
 
   - **Números enteros (!PYTHON(int))**: los números (positivos o negativos) que
-    sólo tienen parte entera, como el `4` o el `-3`.
+    sólo tienen parte entera, como el **cuatro** o el **menos tres**.
 
   - **Números reales (!PYTHON(float))**: los números (positivos o negativos)
-    que tienen parte entera y parte fraccionaria, como el `7.4` o el `-8.17`.
+    que tienen parte entera y parte fraccionaria, como el **siete con cuatro**
+    o el **menos ocho con diecisiete**.
 
   - **Cadenas de caracteres (!PYTHON(str))**: secuencias de caracteres (letras,
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o
     cualquier texto en general.
 
   - **Lógicos (!PYTHON(bool))**: sólo contiene dos valores que representan dos
-    posibilidades, como _verdadero_ o _falso_, _sí_ o _no_, _encendido_ o
-    _apagado_, etc.
+    posibilidades contrarias, como **verdadero** o **falso**, **sí** o **no**,
+    **encendido** o **apagado**, etc.
 
-- Por tanto, cuando un dato es un número entero, decimos que pertenece al tipo
-  `int`; cuando es una cadena, decimos que pertenece al tipo `str`; etcétera.
+- Por tanto, cuando un dato es un número entero, en Python decimos que
+  pertenece al tipo `int`; cuando es una cadena, decimos que pertenece al tipo
+  `str`; etcétera.
 
 ## Evaluación de expresiones
 
-- **_Evaluar_ una expresión** consiste en determinar el **valor** de la
-  expresión. Es decir, una expresión *representa* o **denota** el valor que se
-  obtiene al evaluarla.
+- **_Evaluar_ una expresión** consiste en determinar el **_valor_ de la
+  expresión**. Es decir, una expresión *representa* o **denota** el valor que
+  se obtiene al evaluarla.
+
+- El **tipo de la expresión** es el tipo del valor de esa expresión.
 
 - Una **subexpresión** es una expresión contenida dentro de otra.
 
@@ -430,7 +434,7 @@ que denominamos el **valor** de la expresión.
 
 - Además de las expresiones existen las *sentencias*, que no poseen ningún
   valor y que, por tanto, no se evalúan sino que se *ejecutan*. Las sentencias
-  son básicas en ciertos paradigmas como el *imperativo*.
+  son básicas en los paradigmas *imperativos*.
 
 ---
 
@@ -442,7 +446,8 @@ que denominamos el **valor** de la expresión.
 
   !PYTHON((5 - 2))
 
-  denotan todas el mismo valor (el número entero abstracto **tres**).
+  denotan todas el mismo valor (el número abstracto **tres**, cuyo _tipo_ es el
+  conjunto de los _números enteros_).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -586,6 +591,14 @@ endwhile (no)
     = 5
     ```
 
+- Por tanto, la expresión !PYTHON(5) es la _forma normal_ de la expresión
+  !PYTHON((2 + 3)), y ambas representan al valor **cinco**, que es un valor de
+  **tipo _entero_**.
+
+- Asimismo, decimos que !PYTHON(5) es la _expresión canónica_ del valor
+  **cinco**, de **tipo _entero_** (es la expresión que mejor representa a ese
+  valor).
+
 ---
 
 - Evaluar la expresión !PYTHON((2 * (3 + 5))):
@@ -607,6 +620,11 @@ endwhile (no)
     = (2 + 15)          # se evalúa (2 + 15) (que devuelve 17)
     = 17
     ```
+
+- Por tanto, la expresión !PYTHON(17) es la _forma normal_ de la expresión
+  !PYTHON((2 + (3 * 5))). Ambas representan al valor **diecisiete**, que es
+  un valor de **tipo _entero_**, pero !PYTHON(17) es la _expresión canónica_ de
+  ese valor.
 
 ---
 
@@ -630,13 +648,32 @@ endwhile (no)
     = 21
     ```
 
+- Por tanto, la expresión !PYTHON(21) es la _forma normal_ de la expresión
+  !PYTHON(((2 + 5) * 3)). Ambas representan al valor **veintiuno**, que es un
+  valor de **tipo _entero_**, pero !PYTHON(21) es la _expresión canónica_ de
+  ese valor.
+
+---
+
+- De ahora en adelante, para simplificar las explicaciones, **a menudo usaremos
+  la expresión canónica de un valor como si fuera el valor mismo**, cuando ya
+  sabemos que, en realidad, no son lo mismo.
+
+- Por ejemplo: diremos «_el valor !PYTHON(21)_» cuando, en realidad,
+  !PYTHON(21) no es el propio valor **veintiuno**, sino una expresión que
+  _representa_ al valor **veintiuno**.
+
+- Esto lo haremos en contextos donde no haya confusión, y siempre entendiendo
+  que cuando decimos «_el valor !PYTHON(21)_» nos referimos al valor que
+  representa la expresión !PYTHON(21).
+
 ## Literales
 
 - Los literales constituyen **las expresiones más sencillas** del lenguaje.
 
 - Un literal es una expresión simple que denota **un valor concreto, constante
-  y fijo**, codificado directamente en la expresión y ya totalmente reducido (o
-  casi).
+  y fijo**, escrito directamente en la expresión y ya totalmente reducido (o
+  casi) a su expresión canónica.
 
 - Los literales tienen que satisfacer las **reglas léxicas** del lenguaje, que
   son las que determinan qué forma pueden tener los componentes léxicos del
@@ -655,7 +692,7 @@ endwhile (no)
   ---------------------- ----------------------  ----------------------
       !PYTHON(-2)            !PYTHON(3.5)           !PYTHON("hola")
 
-      !PYTHON(-1)            !PYTHON(-2.7)          !PYTHON("pepe")
+      !PYTHON(-1)            !PYTHON(-2.7)          !PYTHON('pepe')
 
       !PYTHON(0)                                    !PYTHON("25")
 
@@ -718,37 +755,41 @@ endwhile (no)
   sigue siendo simplemente !PYTHON(4000000).
 
 - Finalmente, las cadenas se pueden escribir con comillas simples (`'`) o
-  dobles (`"`), pero la forma normal de una cadena siempre usa las simples.
+  dobles (`"`), pero la forma normal de una cadena siempre usa las simples
+  (salvo que la propia cadena incluya una comilla simple como un carácter más,
+  en cuyo caso se usarán las comillas dobles en su forma normal).
 
 ## Identificadores
 
-- Los **identificadores** son nombres que representan valores u operaciones.
+- Los **identificadores** son nombres que representan elementos dentro de un
+  programa.
 
 - Por ejemplo, el nombre de una función es un identificador porque representa a
   la función.
 
-- Los identificadores deben cumplir unas reglas sintácticas que dependen del
-  lenguaje de programación, pero que generalmente se resumen en que:
+- Los identificadores **deben cumplir unas _reglas sintácticas_** que dependen
+  del lenguaje de programación, pero generalmente se resumen en que:
 
-  - Pueden estar formados por combinaciones de letras, dígitos y algunos
-    caracteres especiales como `_` (por ejemplo, `salida_principal23`).
+  - Pueden estar formados por combinaciones de **letras**, **dígitos** y
+    algunos **caracteres especiales** como `_` (por ejemplo,
+    `salida_principal23`).
 
-  - No pueden empezar con un dígito, ya que eso los confundiría con un número
-    (por ejemplo, `9abc`).
+  - **No pueden empezar con un dígito**, ya que eso los confundiría con un
+    número (por ejemplo, `9abc`).
 
-  - La mayoría de los lenguajes distinguen las mayúsculas de las minúsculas,
-    por lo que `cantidad`, `Cantidad` y `CANTIDAD` son normalmente
-    identificadores distintos (así ocurre en Python y Java).
+  - La mayoría de los lenguajes **distinguen las mayúsculas de las
+    minúsculas**, por lo que `cantidad`, `Cantidad` y `CANTIDAD` son
+    normalmente identificadores distintos (así ocurre en Python y Java).
 
 # Operaciones
 
 ## Clasificación
 
-- En una expresión puede haber:
+- Ya hemos visto que en una expresión puede haber:
 
-  - **Datos**
+  - **Datos**.
 
-  - **Operaciones** a realizar sobre esos datos
+  - **Operaciones** a realizar sobre esos datos.
 
 - A su vez, las operaciones pueden aparecer en forma de:
 
@@ -785,7 +826,7 @@ $$
 
     - Los operandos son !PYTHON(3) y !PYTHON(4).
 
-    - El operador es !PYTHON(+) y representa la operación «_suma de números_».
+    - El operador es `+` y representa la operación «_suma de números_».
 
   - En la expresión !PYTHON((9 * 8)):
 
@@ -802,17 +843,38 @@ $$
 
   - **Unarios**: operan sobre un único operando.
 
-    Ejemplo: el operador `-` que cambia el signo de su operando:
-
-    !PYTHON((-(5 + 3)))
+    Por ejemplo, el operador `-` de cambio de signo: !PYTHON((-(5 + 3))).
 
   - **Binarios**: operan sobre dos operandos.
 
-    Ejemplo: la mayoría de operadores aritméticos.
+    Por ejemplo, la mayoría de los operadores aritméticos.
 
   - **Ternarios**: operan sobre tres operandos.
 
     Veremos un ejemplo más adelante.
+
+### Notación de los operadores
+
+- La **notación** de un operador indica en qué posición se escribe dicho
+  operador con respecto a sus operandos en una expresión.
+
+- Los operadores se pueden escribir:
+
+  - Con **notación prefija**: cuando el operador se escribe _antes_ que los
+    operandos.
+
+    Es el que se usa habitualmente para los operadores **unarios**, como el
+    operador `-` de cambio de signo.
+
+  - Con **notación infija**: cuando el operador se escribe _entre_ los
+    operandos.
+
+    Es el que se usa habitualmente para los operadores **binarios**.
+
+  - Con **notación postfija**: cuando el operador se escribe _después_ que los
+    operandos.
+
+    Se usa poco en la práctica, salvo casos especiales.
 
 ### Paréntesis
 
@@ -833,7 +895,7 @@ $$
   colocados según dicta la gramática del lenguaje.
 
 - Una expresión está **totalmente parentizada** si agrupa con paréntesis a
-  todas las operaciones con sus operandos.
+  **todas** las operaciones con sus operandos.
 
 ---
 
@@ -853,7 +915,8 @@ $$
   nuestra gramática acudiendo a un esquema de **prioridades** y
   **asociatividades** de operadores.
 
-- Así ya no exigiremos que las expresiones estén totalmente parentizadas.
+- Haciendo eso, ya no hará falta exigir que las expresiones estén totalmente
+  parentizadas.
 
 ### Prioridad de operadores
 
@@ -868,13 +931,13 @@ $$
   El !PYTHON(4) está afectado a izquierda y derecha por los operadores `+` y
   `*`, que tienen distinta prioridad, por lo que se aplican las reglas de la
   prioridad. El `*` tiene *más prioridad* que el `+`, así que agrupa primero el
-  `*`. Equivale a hacer:
+  `*`. Equivale a:
 
   ```python
   8 + (4 * 2)
   ```
 
-  Si hiciéramos
+  Si hiciéramos:
   
   ```python
   (8 + 4) * 2
@@ -904,7 +967,7 @@ $$
   (8 / 4) / 2
   ```
 
-  Si hiciéramos
+  Si hiciéramos:
   
   ```python
   8 / (4 / 2)
@@ -939,7 +1002,8 @@ $$
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Ahora, cualquier expresión puede llevar paréntesis si es necesario.
+- Ahora, cualquier expresión puede llevar paréntesis si es necesario, pero si
+  no son necesarios se pueden omitir.
 
 ### Paréntesis y orden de evaluación 
 
@@ -1041,6 +1105,10 @@ $$
   >>> 
   ```
 
+- Durante la evaluación de una expresión, se deberá ir calculando tanto el
+  valor como el tipo de cada subexpresión, y se debería ir comprobando si los
+  tipos de los operandos son los adecuados para cada operación.
+
 - El concepto de **tipo de dato** es uno de los más importantes en Programación
   y lo estudiaremos en profundidad más adelante.
 
@@ -1076,21 +1144,21 @@ $$
   llamado **valor de retorno**) que depende de la operación a realizar y de los
   datos recibidos como argumentos.
 
-- Por tanto, los argumentos para las funciones son como los operandos de los
+- Por tanto, los argumentos para las funciones son como los operandos para los
   operadores.
 
 - Las funciones reciben los argumentos a través de sus **parámetros**.
 
+---
+
 - Para usar una función hay que conocer su **signatura**, la cual informa de:
 
-  - El _nombre_ de la función, que es un _identificador_ que hace referencia a
-    la función.
+  - El **_nombre_** de la función, que es un _identificador_ que hace
+    referencia a la función.
 
-  - El número, tipo y posición de sus _parámetros_.
+  - El **número, tipo y posición** de sus **_parámetros_**.
 
-  - El tipo del _resultado_ que devuelve.
-
----
+  - El **tipo** del **_resultado_** que devuelve.
 
 - Por ejemplo, la función !PYTHON(abs) está predefinida en Python y tiene la
   siguiente signatura:
@@ -1102,16 +1170,18 @@ $$
   - La función se llama !PYTHON(abs).
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
-    valor numérico (es lo que representa el tipo especial !PYTHON(Number)).
+    valor _numérico_ (es lo que representa el tipo especial !PYTHON(Number) en
+    Python).
 
-  - Devuelve un resultado numérico.
+  - Devuelve un resultado _numérico_.
 
-- Para usar la función, lo que hacemos es **llamarla**.
+---
+
+- Para usar la función, lo que hacemos es **llamar** o **invocar** a la
+  función.
 
 - Y _llamar_ a una función es **aplicar dicha función a unos argumentos** que
   serán los datos sobre los que queremos que actúe la función.
-
----
 
 - La **aplicación de una función a unos argumentos** es una expresión mediante
   la cual solicitamos que se realice una operación (que tiene forma de función)
@@ -1120,6 +1190,8 @@ $$
 
 - A la aplicación de una función también se la llama **invocación** de la
   función o **llamada** a la función.
+
+---
 
 - En la llamada a la función, **los argumentos _sustituyen_ a los parámetros**
   según el orden en el que aparecen en la llamada, haciendo corresponder el
@@ -1174,8 +1246,8 @@ $$
   ```
 
 - Al igual que pasa con los operadores, es importante respetar la signatura de
-  una función. Eso significa, entre otras cosas, que sus argumentos deben
-  pertenecer al tipo correcto.
+  una función. Eso significa, entre otras cosas, que **sus argumentos deben
+  pertenecer al _tipo_ correcto**.
 
 - Por ejemplo, si aplicamos la función !PYTHON(abs) a un argumento de un tipo
   incorrecto (digamos, una cadena en lugar de un número), obtendremos un error
@@ -1192,6 +1264,32 @@ $$
 
 ---
 
+- Igualmente, el **número de argumentos** que se pasan a la función durante la
+  llamada a la misma debe ser el correcto.
+
+- Es decir: el número de argumentos en la llamada a la función **debe coincidir
+  con el número de parámetros** de la función.
+
+- Si pasamos a la función más o menos argumentos de los indicados en su lista
+  de parámetros, obtendremos un error !PYTHON(TypeError):
+
+  ```python
+  >>> abs()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: abs() takes exactly one argument (0 given)
+  >>> abs(4, 2)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: abs() takes exactly one argument (2 given)
+  ```
+
+- Siempre hay que respetar el número y tipo de los datos sobre los que actúa
+  una operación, tenga ésta la forma que tenga. Por ejemplo, con los operadores
+  también hay que hacerlo.
+
+---
+
 - Otro ejemplo es la función !PYTHON(len), que devuelve la longitud de una
   cadena (el número de caracteres que contiene). Su signatura sería:
 
@@ -1204,8 +1302,8 @@ $$
   4
   ```
 
-- Siempre hay que cumplir la signatura de la función. Por tanto, debemos
-  pasarle un único argumento de tipo cadena. Si le pasamos más argumentos o
+- Sabemos que hay que cumplir la signatura de la función. Por tanto, debemos
+  pasarle un único argumento de tipo cadena. Si le pasamos más argumentos, o
   bien le pasamos un argumento de otro tipo, dará error:
 
   ```python
@@ -1219,9 +1317,6 @@ $$
   TypeError: len() takes exactly one argument (2 given)
   ```
 
-- Esto es común a cualquier tipo de operación, tenga la forma que tenga. Por
-  ejemplo, con los operadores también hay que cumplirlo.
-
 ---
 
 - Otro ejemplo es la función !PYTHON(pow), que realiza la operación de elevar
@@ -1229,7 +1324,7 @@ $$
 
   `pow(`$base$`: Number,` ` `$exp$`: Number) -> Number`
 
-  Curiosamente, la misma operación existe en Python de dos formas diferentes:
+- Curiosamente, la misma operación existe en Python de dos formas diferentes:
 
   - Como operador (`**`):
 
@@ -1250,10 +1345,10 @@ $$
 ---
 
 - Al llamar a la función !PYTHON(pow) hay que tener en cuenta que tiene dos
-  parámetros.
+  parámetros, por lo que hay que pasarle dos argumentos.
 
-- Por tanto, hay que recordar que importa el orden al pasar los argumentos en
-  la llamada a la función.
+- Además, hay que recordar que importa el orden al pasar los argumentos en la
+  llamada a la función.
 
 - El primer argumento se pasaría al primer parámetro ($base$) y el segundo se
   pasaría al segundo ($exp$).
