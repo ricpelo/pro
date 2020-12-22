@@ -195,6 +195,7 @@ $(EJER_BUILDDIR_PDF)/%-ejercicios.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIG
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
+		-N \
 		-H $(HEADER_INCLUDES_EJERCICIOS) \
 		-B $(INCLUDE_BEFORE_EJERCICIOS) \
 		--syntax-definition=$(PHP_XML) \
