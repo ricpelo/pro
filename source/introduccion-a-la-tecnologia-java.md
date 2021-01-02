@@ -478,7 +478,7 @@ F -> javac -> O -> JIT
   siempre desde una clase concreta, llamada **clase _principal_**. 
 
 - Para ejecutar un programa Java, debemos pasarle al intérprete `java` el
-  nombre de la clase desde la cual queremos iniciar la ejecución del programa.
+  nombre de la clase principal.
 
 - No es necesario disponer de los archivos fuente `.java` para ejecutar un
   programa Java; sólo el código objeto almacenado en los `.class`.
@@ -577,8 +577,6 @@ F -> javac -> O -> JIT
 ```java
 /*
  * ¡Hola, mundo!
- *
- * Primer programa de ejemplo escrito en Java.
  */
 public class Principal {
     public static void main(String[] args) {
@@ -587,26 +585,190 @@ public class Principal {
 }
 ```
 
+- Suponiendo que ese código se escribe en un archivo llamado `Principal.java`,
+  para compilarlo desde un terminal del sistema operativo podemos hacer:
+
+  ```console
+  $ javac Principal.java
+  ```
+
+  lo que creará (o actualizará, si ya existía) un archivo `Principal.class` con
+  el código objeto de la clase `Principal` definida en el código fuente.
+
+- Ahora ya podemos ejecutar el programa haciendo:
+
+  ```console
+  $ java Principal
+  Hola
+  ```
+
+---
+
+- El código se escribe en archivos con extensión `.java`.
+
 - Los comentarios que ocupan varias líneas se encierran entre `/*` y `*/`.
-
-- Los comentarios que empiezan por `/**` son comentarios de documentación.
-
-- Las sentencias ejecutables deben pertenecer a una clase.
-
-- Cada clase debe ir en un archivo `.java` separado, cuyo nombre debe coincidir con el nombre de la clase (mayúsculas y minúsculas incluidas).
 
 - En Java no existen funciones: todos son métodos.
 
-- La estructura del programa se define por bloques delimitados por las llaves
-  `{` y `}`.
+- Las sentencias simples en Java deben acabar siempre en `;`.
 
-## El método `main()`
+- Las sentencias deben pertenecer a un método.
+  Fuera de un método sólo puede haber declaraciones y directivas para el
+  compilador.
+
+- Por tanto, en cada programa debe existir, al menos, una clase.
+
+- La estructura del programa se define mediante bloques delimitados por las
+  llaves `{` y `}`, que son sentencias compuestas y no acaban en `;`.
+
+- Para acceder a un miembro de un objeto o clase, se usa el operador punto
+  (`.`).
+
+## El método `main`
+
+- Todo programa Java comienza su ejecución por un método (llamado **método
+  principal**) que debe tener la siguiente signatura:
+
+  ```java
+  public static void main(String[] args)
+  ```
+
+- Por tanto, ese método:
+
+  - Debe llamarse `main`.
+
+  - Debe declararse como estático (usando la palabra clave !JAVA(static)).
+
+  - Debe tener un único parámetro llamado `args` de tipo !JAVA(String[]).
+
+  - No debe devolver ningún valor (su tipo de retorno es !JAVA(void)).
+
+  - Debe definirse en la **clase principal** del programa.
+
+- En Java hay que declarar el tipo de todos los elementos que se van a usar en
+  el programa, y esos tipos se indican _antes_ del identificador, no después.
 
 ## La clase `System`
 
+- La clase !JAVA(System) contiene varios atributos útiles y que se utilizan con
+  frecuencia en muchos programas Java.
+
+- Todos sus miembros (tanto variables como métodos) son **estáticos**.
+
+- No se puede instanciar.
+
+- Entre las facilidades que ofrece la clase !JAVA(System) se encuentran:
+
+  - Los flujos de entrada estándar (`in`), salida estándar (`out`) y salida
+    estándar de errores (`err`).
+
+  - Acceso a propiedades definidas externamente y variables de entorno.
+
+  - Un medio para cargar archivos y bibliotecas.
+
+  - Un método para copiar rápidamente una parte de un _array_.
+
+## El paquete `java.lang`
+
+- Java agrupa las clases (y otros elementos que también veremos, como las
+  _interfaces_) en unidades llamadas **paquetes**.
+
+- Los paquetes de Java actúan de forma similar a los módulos de Python y, por
+  tanto, ayudan a la modularización del código.
+
+- Cuando una clase está definida dentro de un paquete, decimos que «_pertenece
+  al paquete_» o que está «_contenida en el paquete_».
+
+- En tal caso, el **nombre totalmente cualificado de la clase** está formado
+  por el nombre del paquete al que pertenece y el nombre de la propia clase,
+  separados por un punto (`.`), de la siguiente forma:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(paquete)!T(.)!NT(clase)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A veces se denomina **nombre corto** al nombre de la clase sin la parte
+  correspondiente al paquete al que pertenece (si pertenece a alguno).
+
+---
+
+- Una clase _A_ puede usar a otra clase _B_ en cualquier momento mediante el
+  nombre totalmente cualificado de _B_, aunque _A_ y _B_ pertenezcan a paquetes
+  diferentes.
+
+- Si una clase _A_ desea usar a otra clase _B_ y ambas pertenecen al mismo
+  paquete, podrá hacerlo sin tener que especificar
+  el nombre totalmente cualificado de _B_, simplemente usando su nombre corto.
+
+- En cambio, si _A_ y _B_ pertenecen a paquetes distintos, hay dos opciones:
+
+  - _A_ debe indicar el nombre totalmente cualificado de _B_, o bien
+
+  - _A_ debe **importar** a _B_ dentro del paquete de _A_ usando la sentencia:
+
+    !ALGO
+    ~~~~~~~~~~~~~~~~~~~~~~
+    !T(import) !NT(paquete)!T(.)!NT(clase)!T(;)
+    ~~~~~~~~~~~~~~~~~~~~~~
+
+- Los paquetes de Java no se importan como tales, sino sólo sus miembros, de
+  forma similar a lo que ocurre en Python cuando usamos la sentencia
+  !PYTHON(from ... import).
+
+---
+
+- La clase !JAVA(System) pertenece a un paquete llamado `java.lang`.
+
+- Por tanto, el nombre totalmente cualificado de la clase `System` es
+  `java.lang.System`.
+
+- El paquete `java.lang` es especial por dos motivos:
+
+  - Proporciona **clases que son fundamentales** en el lenguaje Java, como por
+    ejemplo:
+
+    - !JAVA(Object): es la raíz de la jerarquía de clases.
+
+    - !JAVA(Class): representa a las clases en tiempo de ejecución.
+
+    - !JAVA(Math): proporciona funcionalidades matemáticas comunes.
+    
+    - !JAVA(String): representa las cadenas de caracteres.
+
+  - No es necesario importar explícitamente ninguno de sus miembros, ya que
+    **todos sus miembros son importados automáticamente**.
+
 ## El objeto `out`
+
+- El objeto `out` representa el flujo de salida estándar del programa.
+
+- Ese flujo ya está abierto y listo para aceptar datos de salida.
+
+- Normalmente, ese flujo está conectado a la pantalla.
+
+- `out` es una instancia de la clase !JAVA(PrintStream), la cual define qué
+  métodos se pueden invocar sobre ese objeto.
+
+- `out` es un miembro **estático** de la clase !JAVA(System).
+
+- Por tanto, para acceder a él tenemos que usar el operador punto (`.`) a
+  partir del nombre de la clase:
+
+  ```java
+  System.out
+  ```
 
 ## El método `println()`
 
-## Compilación y ejecución en consola y en el IDE
+- El método `println` está definido en la clase !JAVA(PrintStream) y, por
+  tanto, se puede invocar sobre el objeto `out`.
 
+- Ese método sirve para imprimir un valor por la salida, seguido de un salto de
+  línea:
+
+  ```java
+  System.out.println("Hola\n");
+  ```
+
+- Equivale aproximadamente a la función !PYTHON(print) de Python.

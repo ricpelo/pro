@@ -14,6 +14,10 @@ author: Ricardo Pérez López
 
 ### Booleanos
 
+### Subtipado
+
+#### Subtipado entre tipos primitivos
+
 ### Conversiones entre datos primitivos
 
 #### *Casting*

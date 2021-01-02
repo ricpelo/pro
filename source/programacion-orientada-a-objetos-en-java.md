@@ -30,7 +30,7 @@ author: Ricardo Pérez López
 
 # Clases y objetos básicos en Java
 
-## Clases *wrapper*
+## Clases envolventes (*wrapper*)
 
 ### *Boxing* y *Unboxing*
 
@@ -75,6 +75,8 @@ author: Ricardo Pérez López
 #### Creación
 
 #### Inicialización
+
+### Subtipado entre _arrays_
 
 ### `java.util.Arrays`
 

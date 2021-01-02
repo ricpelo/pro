@@ -12,7 +12,7 @@ author: Ricardo Pérez López
 
 # Herencia
 
-## Subtipado
+## Subtipado entre tipos referencia
 
 ## La clase `Object`
 
