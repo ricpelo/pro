@@ -204,8 +204,7 @@
 <ul>
 <li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/la-tecnología-java"><span class="toc-section-number">2</span> La tecnología Java</a></li>
-<li><a href="#/tipado-estático-vs.-dinámico"><span class="toc-section-number">3</span> Tipado estático vs. dinámico</a></li>
-<li><a href="#/el-primer-programa-java"><span class="toc-section-number">4</span> El primer programa Java</a></li>
+<li><a href="#/el-primer-programa-java"><span class="toc-section-number">3</span> El primer programa Java</a></li>
 </ul>
 </section>
 
@@ -553,7 +552,18 @@
 
 <section id="el-intérprete-interactivo-jshell" class="title-slide slide level3" data-number="2.4.2">
 <h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span> El intérprete interactivo <code>jshell</code></h3>
-
+<ul>
+<li><p>Desde la versión Java 9, el JDK incorpora un intérprete interactivo llamado <code>jshell</code> que funciona de forma similar al intérprete interactivo de Python.</p></li>
+<li><p>Al igual que el de Python, ese intérprete actúa siguiendo el esquema <em>REPL</em> (<em>Read, Print, Eval, Loop</em>).</p></li>
+<li><p>Nos permite hacer experimentos en tiempo real, comprobar el resultado de evaluar expresiones o de ejecutar sentencias.</p></li>
+<li><p>Se arranca con la orden <code>jshell</code> y se sale de él con <code>Ctrl+D</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>jshell</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>|  Welcome to JShell -- Version 14.0.2</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>|  For an introduction type: /help intro</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>jshell&gt; 2 + 3</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>$1 ==&gt; 5</span></code></pre></div></li>
+</ul>
 </section>
 
 
@@ -581,7 +591,7 @@
 <li>Desde hace ya tiempo, el JRE lleva a cabo un proceso previo de <strong>compilación <em>Just In Time</em> (JIT)</strong>, que convierte el <em>bytecode</em> a código nativo de la arquitectura donde se está ejecutando el JRE. Esto permite una ejecución mucho más rápida a costa de perder algo de tiempo al arrancar el programa.</li>
 </ul>
 <div class="centered">
-<p><img data-src="images/jit.svg" class="plain" style="width:80.0%" /></p>
+<p><img data-src="images/jit.svg" class="plain" style="width:90.0%" /></p>
 </div>
 </section>
 <section id="el-intérprete-java" class="title-slide slide level3" data-number="2.5.1">
@@ -599,12 +609,12 @@
 
 <ul>
 <li><p>Por ejemplo, si tenemos una clase <code>Principal</code> compilada en el archivo <code>Principal.class</code>, podemos indicar que queremos empezar desde ahí la ejecución de nuestro programa:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span></code></pre></div>
 <p>El intérprete <code>java</code> arrancaría la JVM, cargaría el archivo <code>.class</code> en memoria y comenzaría su ejecución.</p></li>
 <li><p>Es importante no confundir el nombre de la clase con el nombre del archivo que contiene el código compilado de la clase. En este caso, el nombre de la clase es <code>Principal</code>, no <code>Principal.class</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal.class</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Error: no se ha encontrado o cargado la clase principal Principal.class</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Causado por: java.lang.ClassNotFoundException: Principal.class</span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal.class</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Error: no se ha encontrado o cargado la clase principal Principal.class</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Causado por: java.lang.ClassNotFoundException: Principal.class</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.5.1.0.2">
@@ -639,45 +649,40 @@
 <li><p>Para indicar al intérprete qué <em>classpath</em> se desea usar, se pueden usar dos técnicas:</p>
 <ul>
 <li><p>Usar la opción <code>-cp</code> del programa <code>java</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java -cp /usr/lib/java:/usr/java:/tmp Principal</span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java -cp /usr/lib/java:/usr/java:/tmp Principal</span></code></pre></div></li>
 <li><p>Crear y exportar la variable de entorno <code>CLASSPATH</code> del sistema operativo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>export CLASSPATH=/usr/lib/java:/usr/java:/tmp</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>export CLASSPATH=/usr/lib/java:/usr/java:/tmp</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 
 </section>
-<section id="tipado-estático-vs.-dinámico" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Tipado estático vs. dinámico</h1>
-
-</section>
-
 <section>
-<section id="el-primer-programa-java" class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> El primer programa Java</h1>
+<section id="el-primer-programa-java" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> El primer programa Java</h1>
 
 </section>
-<section id="el-primer-programa-java-1" class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> El primer programa Java</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * ¡Hola, mundo!</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> {</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<section id="el-primer-programa-java-1" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> El primer programa Java</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * ¡Hola, mundo!</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <ul>
 <li><p>Suponiendo que ese código se escribe en un archivo llamado <code>Principal.java</code>, para compilarlo desde un terminal del sistema operativo podemos hacer:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>javac Principal.java</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>javac Principal.java</span></code></pre></div>
 <p>lo que creará (o actualizará, si ya existía) un archivo <code>Principal.class</code> con el código objeto de la clase <code>Principal</code> definida en el código fuente.</p></li>
 <li><p>Ahora ya podemos ejecutar el programa haciendo:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Hola</span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Hola</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><p>El código se escribe en archivos con extensión <code>.java</code>.</p></li>
@@ -691,25 +696,39 @@
 </ul>
 </section>
 
-<section id="el-método-main" class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span> El método <code>main</code></h2>
+<section id="tipado-estático-vs.-dinámico" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Tipado estático vs. dinámico</h2>
+<ul>
+<li><p>Java es un lenguaje de <strong>tipado estático</strong>, a diferencia de Python donde el tipado es <strong>dinámico</strong>.</p></li>
+<li><p>Por tanto, en Java <strong>hay que declarar el tipo de todos los valores</strong> que se van a usar en el programa:</p>
+<ul>
+<li><p><strong>Variables</strong> (incluyendo los campos de las clases).</p></li>
+<li><p><strong>Parámetros</strong> de los métodos.</p></li>
+<li><p><strong>Valores de retorno</strong> de los métodos.</p></li>
+</ul></li>
+<li><p>En Python, las variables empiezan a existir en cuanto se les asigna un valor, pero en Java hay que declararlas antes de poder usarlas, por lo que <strong>empiezan a existir desde su declaración</strong>, aunque no se les haya asignado ningún valor.</p></li>
+<li><p>En las declaraciones de variables, parámetros o valores de retorno, <strong>los tipos se indican <em>antes</em> del identificador correspondiente</strong>, no después.</p></li>
+</ul>
+</section>
+
+<section id="el-método-main" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> El método <code>main</code></h2>
 <ul>
 <li><p>Todo programa Java comienza su ejecución por un método (llamado <strong>método principal</strong>) que debe tener la siguiente signatura:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args)</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args)</span></code></pre></div></li>
 <li><p>Por tanto, ese método:</p>
 <ul>
 <li><p>Debe llamarse <code>main</code>.</p></li>
 <li><p>Debe declararse como estático (usando la palabra clave <code class="sourceCode java"><span class="dt">static</span></code>).</p></li>
-<li><p>Debe tener un único parámetro llamado <code>args</code> de tipo <code class="sourceCode java"><span class="bu">String</span>[]</code>.</p></li>
+<li><p>Debe tener un único parámetro llamado <code>args</code> de tipo <code class="sourceCode java"><span class="bu">String</span>[]</code> (que significa «<em>array</em> de cadenas»).</p></li>
 <li><p>No debe devolver ningún valor (su tipo de retorno es <code class="sourceCode java"><span class="dt">void</span></code>).</p></li>
 <li><p>Debe definirse en la <strong>clase principal</strong> del programa.</p></li>
 </ul></li>
-<li><p>En Java hay que declarar el tipo de todos los elementos que se van a usar en el programa, y esos tipos se indican <em>antes</em> del identificador, no después.</p></li>
 </ul>
 </section>
 
-<section id="la-clase-system" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> La clase <code>System</code></h2>
+<section id="la-clase-system" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> La clase <code>System</code></h2>
 <ul>
 <li><p>La clase <code class="sourceCode java"><span class="bu">System</span></code> contiene varios atributos útiles y que se utilizan con frecuencia en muchos programas Java.</p></li>
 <li><p>Todos sus miembros (tanto variables como métodos) son <strong>estáticos</strong>.</p></li>
@@ -724,8 +743,8 @@
 </ul>
 </section>
 
-<section id="el-paquete-java.lang" class="title-slide slide level2" data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span> El paquete <code>java.lang</code></h2>
+<section id="el-paquete-java.lang" class="title-slide slide level2" data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span> El paquete <code>java.lang</code></h2>
 <ul>
 <li><p>Java agrupa las clases (y otros elementos que también veremos, como las <em>interfaces</em>) en unidades llamadas <strong>paquetes</strong>.</p></li>
 <li><p>Los paquetes de Java actúan de forma similar a los módulos de Python y, por tanto, ayudan a la modularización del código.</p></li>
@@ -735,7 +754,7 @@
 <li><p>A veces se denomina <strong>nombre corto</strong> al nombre de la clase sin la parte correspondiente al paquete al que pertenece (si pertenece a alguno).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.1">
+<section class="slide level5" data-number="3.5.0.0.1">
 
 <ul>
 <li><p>Una clase <em>A</em> puede usar a otra clase <em>B</em> en cualquier momento mediante el nombre totalmente cualificado de <em>B</em>, aunque <em>A</em> y <em>B</em> pertenezcan a paquetes diferentes.</p></li>
@@ -749,7 +768,7 @@
 <li><p>Los paquetes de Java no se importan como tales, sino sólo sus miembros, de forma similar a lo que ocurre en Python cuando usamos la sentencia <code class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="3.5.0.0.2">
 
 <ul>
 <li><p>La clase <code class="sourceCode java"><span class="bu">System</span></code> pertenece a un paquete llamado <code>java.lang</code>.</p></li>
@@ -768,8 +787,8 @@
 </ul>
 </section>
 
-<section id="el-objeto-out" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> El objeto <code>out</code></h2>
+<section id="el-objeto-out" class="title-slide slide level2" data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span> El objeto <code>out</code></h2>
 <ul>
 <li><p>El objeto <code>out</code> representa el flujo de salida estándar del programa.</p></li>
 <li><p>Ese flujo ya está abierto y listo para aceptar datos de salida.</p></li>
@@ -777,16 +796,16 @@
 <li><p><code>out</code> es una instancia de la clase <code class="sourceCode java"><span class="bu">PrintStream</span></code>, la cual define qué métodos se pueden invocar sobre ese objeto.</p></li>
 <li><p><code>out</code> es un miembro <strong>estático</strong> de la clase <code class="sourceCode java"><span class="bu">System</span></code>.</p></li>
 <li><p>Por tanto, para acceder a él tenemos que usar el operador punto (<code>.</code>) a partir del nombre de la clase:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span></span></code></pre></div></li>
 </ul>
 </section>
 
-<section id="el-método-println" class="title-slide slide level2" data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span> El método <code>println()</code></h2>
+<section id="el-método-println" class="title-slide slide level2" data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span> El método <code>println()</code></h2>
 <ul>
 <li><p>El método <code>println</code> está definido en la clase <code class="sourceCode java"><span class="bu">PrintStream</span></code> y, por tanto, se puede invocar sobre el objeto <code>out</code>.</p></li>
 <li><p>Ese método sirve para imprimir un valor por la salida, seguido de un salto de línea:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span></code></pre></div></li>
 <li><p>Equivale aproximadamente a la función <code class="sourceCode python"><span class="bu">print</span></code> de Python.</p></li>
 </ul>
 </section>

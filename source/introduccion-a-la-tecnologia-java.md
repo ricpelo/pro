@@ -409,6 +409,26 @@ F -> javac -> O
 
 ### El intérprete interactivo `jshell`
 
+- Desde la versión Java 9, el JDK incorpora un intérprete interactivo llamado
+  `jshell` que funciona de forma similar al intérprete interactivo de Python.
+
+- Al igual que el de Python, ese intérprete actúa siguiendo el esquema _REPL_
+  (_Read, Print, Eval, Loop_).
+
+- Nos permite hacer experimentos en tiempo real, comprobar el resultado de
+  evaluar expresiones o de ejecutar sentencias.
+
+- Se arranca con la orden `jshell` y se sale de él con `Ctrl+D`:
+
+  ```console
+  $ jshell
+  |  Welcome to JShell -- Version 14.0.2
+  |  For an introduction type: /help intro
+
+  jshell> 2 + 3
+  $1 ==> 5
+  ```
+
 ## El entorno de ejecución de Java (JRE)
 
 - El **entorno de ejecución de Java** (del inglés **_Java Runtime
@@ -449,7 +469,7 @@ F -> javac -> O -> JRE
   arquitectura donde se está ejecutando el JRE. Esto permite una ejecución
   mucho más rápida a costa de perder algo de tiempo al arrancar el programa.
 
-!DOT(jit.svg)
+!DOT(jit.svg)()(width=90%)(width=100%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
 O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
@@ -568,8 +588,6 @@ F -> javac -> O -> JIT
     $ java Principal
     ```
 
-# Tipado estático vs. dinámico
-
 # El primer programa Java
 
 ## El primer programa Java
@@ -624,6 +642,28 @@ public class Principal {
 - Para acceder a un miembro de un objeto o clase, se usa el operador punto
   (`.`).
 
+## Tipado estático vs. dinámico
+
+- Java es un lenguaje de **tipado estático**, a diferencia de Python donde el
+  tipado es **dinámico**.
+
+- Por tanto, en Java **hay que declarar el tipo de todos los valores** que se
+  van a usar en el programa:
+
+  - **Variables** (incluyendo los campos de las clases).
+
+  - **Parámetros** de los métodos.
+
+  - **Valores de retorno** de los métodos.
+
+- En Python, las variables empiezan a existir en cuanto se les asigna un valor,
+  pero en Java hay que declararlas antes de poder usarlas, por lo que
+  **empiezan a existir desde su declaración**, aunque no se les haya asignado
+  ningún valor.
+
+- En las declaraciones de variables, parámetros o valores de retorno, **los
+  tipos se indican _antes_ del identificador correspondiente**, no después.
+
 ## El método `main`
 
 - Todo programa Java comienza su ejecución por un método (llamado **método
@@ -639,14 +679,12 @@ public class Principal {
 
   - Debe declararse como estático (usando la palabra clave !JAVA(static)).
 
-  - Debe tener un único parámetro llamado `args` de tipo !JAVA(String[]).
+  - Debe tener un único parámetro llamado `args` de tipo !JAVA{String[]} (que
+    significa «_array_ de cadenas»).
 
   - No debe devolver ningún valor (su tipo de retorno es !JAVA(void)).
 
   - Debe definirse en la **clase principal** del programa.
-
-- En Java hay que declarar el tipo de todos los elementos que se van a usar en
-  el programa, y esos tipos se indican _antes_ del identificador, no después.
 
 ## La clase `System`
 
