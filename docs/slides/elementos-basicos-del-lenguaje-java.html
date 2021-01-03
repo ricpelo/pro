@@ -17,6 +17,68 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -152,63 +214,349 @@
 <h1 data-number="1"><span class="header-section-number">1</span> Tipos y valores en Java</h1>
 
 </section>
-<section id="tipos-primitivos" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Tipos primitivos</h2>
+<section id="introducción" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Introducción</h2>
+<ul>
+<li><p>El lenguaje de programación Java es un <strong>lenguaje de tipado estático</strong>, lo que significa que cada variable y cada expresión tiene un tipo que se conoce en el momento de la compilación.</p></li>
+<li><p>El lenguaje de programación Java también es un <strong>lenguaje fuertemente tipado</strong>, porque los tipos limitan los valores que una variable puede contener o que una expresión puede producir, limitan las operaciones admitidas en esos valores y determinan el significado de las operaciones.</p></li>
+<li><p>El tipado estático fuerte ayuda a <strong>detectar errores en tiempo de compilación</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Los <strong>tipos</strong> del lenguaje de programación Java se dividen en <strong>dos categorías</strong>:</p>
+<ul>
+<li><p>Tipos <strong>primitivos</strong>.</p></li>
+<li><p>Tipos <strong>referencia</strong>.</p></li>
+</ul></li>
+<li><p>Consecuentemente, en Java hay dos categorías de <strong>valores</strong>:</p>
+<ul>
+<li><p>Valores primitivos.</p></li>
+<li><p>Valores referencia.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
+<li><p>Los <strong>tipos primitivos</strong> son:</p>
+<ul>
+<li><p>El tipo <strong>booleano</strong> (<code class="sourceCode java"><span class="dt">boolean</span></code>).</p></li>
+<li><p>Los tipos <strong>numéricos</strong>, los cuales a su vez son:</p>
+<ul>
+<li><p>Los tipos <strong>integrales</strong>: <code class="sourceCode java"><span class="dt">byte</span></code>, <code class="sourceCode java"><span class="dt">short</span></code>, <code class="sourceCode java"><span class="dt">int</span></code>, <code class="sourceCode java"><span class="dt">long</span></code> y <code class="sourceCode java"><span class="dt">char</span></code>.</p></li>
+<li><p>Los tipos <strong>de coma flotante</strong>: <code class="sourceCode java"><span class="dt">float</span></code> y <code class="sourceCode java"><span class="dt">double</span></code>.</p></li>
+</ul></li>
+</ul></li>
+<li><p>Los <strong>tipos referencia</strong> son:</p>
+<ul>
+<li><p>Tipos de <strong>clase</strong>.</p></li>
+<li><p>Tipos de <strong>interfaz</strong>.</p></li>
+<li><p>Tipos de <strong><em>array</em></strong>.</p></li>
+</ul></li>
+<li><p>Además, hay un tipo especial que representa el <strong>nulo</strong> (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.3">
+
+<ul>
+<li><p>En Java, un objeto es una de estas dos cosas:</p>
+<ul>
+<li><p>O bien es una instancia creada dinámicamente de un tipo de clase.</p></li>
+<li><p>O bien es un <em>array</em> creado dinámicamente.</p></li>
+</ul></li>
+<li><p>Los valores de un tipo referencia son referencias a objetos.</p></li>
+<li><p>Todos los objetos, incluidos los <em>arrays</em>, admiten los métodos de la clase <code>Object</code>.</p></li>
+<li><p>Las cadenas literales están representadas por objetos de la clase <code>String</code>.</p></li>
+</ul>
+</section>
+
+<section id="tipos-primitivos" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Tipos primitivos</h2>
+<ul>
+<li><p>Los <strong>tipos primitivos</strong> están predefinidos en Java y se identifican mediante su nombre, el cual es una palabra clave reservada en el lenguaje.</p></li>
+<li><p>Un valor primitivo es un valor de un tipo primitivo.</p></li>
+<li><p>Los valores primitivos <strong>no son objetos</strong> y no comparten estado con otros valores primitivos.</p></li>
+<li><p>En consecuencia, los valores primitivos no se almacenan en el montículo y, por tanto, las variables que contienen valores primitivos no guardan una referencia al valor, sino que almacenan el valor mismo.</p></li>
+<li><p>Los tipos primitivos son los <strong>integrales</strong>, los tipos de <strong>coma flotante</strong> y los <strong>booleanos</strong>.</p></li>
+</ul>
+</section>
+<section id="integrales" class="title-slide slide level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Integrales</h3>
+<ul>
+<li><p>Los <strong>tipos integrales</strong> son:</p>
+<ul>
+<li><p><strong>Enteros</strong> (<code class="sourceCode java"><span class="dt">byte</span></code>, <code class="sourceCode java"><span class="dt">short</span></code>, <code class="sourceCode java"><span class="dt">int</span></code> y <code class="sourceCode java"><span class="dt">long</span></code>): sus valores son <strong>números enteros con signo</strong> en complemento a dos.</p></li>
+<li><p><strong>Caracteres</strong> (<code class="sourceCode java"><span class="dt">char</span></code>): sus valores son <strong>enteros sin signo</strong> que representan caracteres Unicode almacenados en forma de <em>code units</em> de UTF-16.</p></li>
+</ul></li>
+<li><p>Sus tamaños y rangos de valores son:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Tamaño</th>
+<th style="text-align: left;">Rango</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">byte</span></code></td>
+<td style="text-align: left;">8 bits</td>
+<td style="text-align: left;"><code class="sourceCode java">-<span class="dv">128</span></code> a <code class="sourceCode java"><span class="dv">127</span></code> inclusive</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">short</span></code></td>
+<td style="text-align: left;">16 bits</td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dv">32768</span></code> a <code class="sourceCode java"><span class="dv">32767</span></code> inclusive</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">int</span></code></td>
+<td style="text-align: left;">32 bits</td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dv">2147483648</span></code> a <code class="sourceCode java"><span class="dv">2147483647</span></code> inclusive</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">long</span></code></td>
+<td style="text-align: left;">64 bits</td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dv">9223372036854775808</span></code> a <code class="sourceCode java"><span class="dv">9223372036854775807</span></code> inclusive</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">char</span></code></td>
+<td style="text-align: left;">16 bits</td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="ch">&#39;\u0000&#39;</span></code> a <code class="sourceCode java"><span class="ch">&#39;\uffff&#39;</span></code> inclusive, es decir, de <code class="sourceCode java"><span class="dv">0</span></code> a <code class="sourceCode java"><span class="dv">65535</span></code></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.1.0.1">
+
+<ul>
+<li><p>Los literales que representan números enteros pueden ser de tipo <code class="sourceCode java"><span class="dt">int</span></code> o de tipo <code class="sourceCode java"><span class="dt">long</span></code>.</p></li>
+<li><p>Un literal entero será de tipo <code class="sourceCode java"><span class="dt">long</span></code> si lleva un sufijo <code>l</code> o <code>L</code>; en caso contrario, será de tipo <code class="sourceCode java"><span class="dt">int</span></code>.</p></li>
+<li><p>Se pueden usar caracteres de subrayado (<code>_</code>) como separadores entre los dígitos del número entero.</p></li>
+<li><p>Los literales de tipos enteros se pueden expresar en:</p>
+<ul>
+<li><p><strong>Decimal:</strong> no puede empezar por <code class="sourceCode java"><span class="dv">0</span></code>, salvo que sea el propio número <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
+<li><p><strong>Hexadecimal:</strong> debe empezar por <code class="sourceCode java"><span class="dv">0</span>x</code> o <code class="sourceCode java"><span class="dv">0</span>X</code>.</p></li>
+<li><p><strong>Octal:</strong> debe empezar por <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
+<li><p><strong>Binario:</strong> debe empezar por <code class="sourceCode java"><span class="dv">0</span>b</code> o <code class="sourceCode java"><span class="dv">0</span>B</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.1.0.2">
+
+<ul>
+<li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">int</span></code>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="dv">0</span></code></p>
+<p><code class="sourceCode java"><span class="dv">2</span></code></p>
+<p><code class="sourceCode java"><span class="bn">0372</span></code></p>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="bn">0xDada_Cafe</span></code></p>
+<p><code class="sourceCode java"><span class="dv">1996</span></code></p>
+<p><code class="sourceCode java"><span class="bn">0x00_FF__00_FF</span></code></p>
+</div>
+</div></li>
+<li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">long</span></code>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="dv">0l</span></code></p>
+<p><code class="sourceCode java"><span class="bn">0777L</span></code></p>
+<p><code class="sourceCode java"><span class="bn">0x100000000L</span></code></p>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="dv">2_147_483_648L</span></code></p>
+<p><code class="sourceCode java"><span class="bn">0xC0B0L</span></code></p>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.1.0.3">
+
+<ul>
+<li><p>Un literal de tipo <code>char</code> representa un carácter o secuencia de escape.</p></li>
+<li><p>Se escriben encerrados entre comillas simples (también llamadas <em>apóstrofes</em>).</p></li>
+<li><p>Los literales de tipo <code>char</code> sólo pueden representar <em>code units</em> de Unicode y, por tanto, sus valores deben estar comprendidos entre <code class="sourceCode java"><span class="ch">&#39;\u0000&#39;</span></code> y <code class="sourceCode java"><span class="ch">&#39;\uffff&#39;</span></code>.</p></li>
+<li><p>Ejemplos de literales de tipo <code>char</code>:</p>
+<div class="columns">
+<div class="column">
+<p><code class="sourceCode java"><span class="ch">&#39;a&#39;</span></code></p>
+<p><code class="sourceCode java"><span class="ch">&#39;%&#39;</span></code></p>
+<p><code class="sourceCode java"><span class="ch">&#39;\t&#39;</span></code></p>
+<p><code class="sourceCode java"><span class="ch">&#39;\\&#39;</span></code></p>
+<p><code class="sourceCode java"><span class="ch">&#39;\&#39;&#39;</span></code></p>
+</div><div class="column">
+<p><code class="sourceCode java"><span class="ch">&#39;\u03a9&#39;</span></code></p>
+<p><code class="sourceCode java"><span class="ch">&#39;\uFFFF&#39;</span></code></p>
+<p><code class="sourceCode java">&#39;\<span class="dv">177</span>&#39;</code></p>
+<p><code class="sourceCode java">&#39;™&#39;</code></p>
+</div>
+</div></li>
+</ul>
+<div class="caja centered">
+<p>En Java, los <strong>caracteres</strong> y las <strong>cadenas</strong> son <strong>tipos distintos</strong>.</p>
+</div>
+</section>
+
+<section id="de-coma-flotante" class="title-slide slide level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> De coma flotante</h3>
+<ul>
+<li><p>Los <strong>tipos de coma flotante</strong> son valores que representan <strong>números reales</strong> almacenados en el formato de coma flotante <strong>IEEE-754</strong>.</p></li>
+<li><p>Existen dos tipos de coma flotante:</p>
+<ul>
+<li><p><strong><code class="sourceCode java"><span class="dt">float</span></code>:</strong> sus valores son números de coma flotante de 32 bits (simple precisión).</p></li>
+<li><p><strong><code class="sourceCode java"><span class="dt">double</span></code>:</strong> sus valores son números de coma flotante de 64 bits (doble precisión).</p></li>
+</ul></li>
+<li><p>Un literal de coma flotante tiene las siguientes partes en este orden (que algunas son opcionales según el caso):</p>
+<ol>
+<li><p>Una parte entera.</p></li>
+<li><p>Un punto (<code>.</code>).</p></li>
+<li><p>Una parte fraccionaria.</p></li>
+<li><p>Un exponente.</p></li>
+<li><p>Un sufijo de tipo.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.1">
+
+<ul>
+<li><p>Los literales de coma flotante se pueden expresar en decimal o hexadecimal (usando el prefijo <code class="sourceCode java"><span class="dv">0</span>x</code> o <code class="sourceCode java"><span class="dv">0</span>X</code>).</p></li>
+<li><p>Todas las partes numéricas del literal (la entera, la fraccionaria y el exponente) deben ser decimales o hexadecimales, sin mezclar algunas de un tipo y otras de otro.</p></li>
+<li><p>Se permiten caracteres de subrayado (<code>_</code>) para separar los dígitos de la parte entera, la parte fraccionaria o el exponente.</p></li>
+<li><p>El exponente, si aparece, se indica mediante el carácter <code>e</code> o <code>E</code> (si el número es decimal) o el carácter <code>p</code> o <code>P</code> (si es hexadecimal), seguido por un número entero con signo.</p></li>
+<li><p>Un literal de coma flotante será de tipo <code class="sourceCode java"><span class="dt">float</span></code> si lleva un sufijo <code>f</code> o <code>F</code>; si no lleva ningún sufijo (o si lleva opcionalmente el sufijo <code>d</code> o <code>D</code>), será de tipo <code class="sourceCode java"><span class="dt">double</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.2">
+
+<ul>
+<li><p>El literal positivo finito de tipo <code>float</code> más grande es <code>3.4028235e38f</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code>float</code> más pequeño distinto de cero es <code>1.40e-45f</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code>double</code> más grande es <code>1.7976931348623157e308</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code>double</code> más pequeño distinto de cero es <code>4.9e-324</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.3">
+
+<ul>
+<li><p>Ejemplos de literales de tipo <code>float</code>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="fl">1e1f</span></code></p>
+<p><code class="sourceCode java"><span class="fl">2.f</span></code></p>
+<p><code class="sourceCode java"><span class="fl">.3f</span></code></p>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="fl">0f</span></code></p>
+<p><code class="sourceCode java"><span class="fl">3.14f</span></code></p>
+<p><code class="sourceCode java"><span class="fl">6.022137e+23f</span></code></p>
+</div>
+</div></li>
+<li><p>Ejemplos de literales de tipo <code>double</code>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="fl">1e1</span></code></p>
+<p><code class="sourceCode java"><span class="fl">2.</span></code></p>
+<p><code class="sourceCode java"><span class="fl">.3</span></code></p>
+<p><code class="sourceCode java"><span class="fl">0.0</span></code></p>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:40%;">
+<p><code class="sourceCode java"><span class="fl">3.14</span></code></p>
+<p><code class="sourceCode java"><span class="fl">1e-9d</span></code></p>
+<p><code class="sourceCode java"><span class="fl">1e137</span></code></p>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.4">
+
+<ul>
+<li><p>El estándar IEEE-754 incluye números positivos y negativos formados por un signo y una magnitud.</p></li>
+<li><p>También incluye:</p>
+<ul>
+<li><p>Ceros positivo y negativos:</p>
+<p><code class="sourceCode java">+<span class="dv">0</span></code></p>
+<p><code class="sourceCode java">-<span class="dv">0</span></code></p></li>
+<li><p>Infinitos positivos y negativos:</p>
+<div class="columns">
+<div class="column">
+<p><code class="sourceCode java"><span class="bu">Float</span>.<span class="fu">POSITIVE_INFINITY</span></code></p>
+<p><code class="sourceCode java"><span class="bu">Float</span>.<span class="fu">NEGATIVE_INFINITY</span></code></p>
+</div><div class="column">
+<p><code class="sourceCode java"><span class="bu">Double</span>.<span class="fu">POSITIVE_INFINITY</span></code></p>
+<p><code class="sourceCode java"><span class="bu">Double</span>.<span class="fu">NEGATIVE_INFINITY</span></code></p>
+</div>
+</div></li>
+<li><p>Valores especiales <em>Not-a-Number</em> (o <em>NaN</em>), usados para representar ciertas operaciones no válidas como dividir entre cero:</p>
+<div class="columns">
+<div class="column">
+<p><code class="sourceCode java"><span class="bu">Float</span>.<span class="fu">NaN</span></code></p>
+</div><div class="column">
+<p><code class="sourceCode java"><span class="bu">Double</span>.<span class="fu">NaN</span></code></p>
+</div>
+</div></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="booleanos" class="title-slide slide level3" data-number="1.2.3">
+<h3 data-number="1.2.3"><span class="header-section-number">1.2.3</span> Booleanos</h3>
+<ul>
+<li><p>El tipo booleano (<code class="sourceCode java"><span class="dt">boolean</span></code>) contiene dos valores, representados por los literales booleanos <code class="sourceCode java"><span class="kw">true</span></code> (verdadero) y <code class="sourceCode java"><span class="kw">false</span></code> (falso).</p></li>
+<li><p>Un literal booleano siempre es de tipo <code class="sourceCode java"><span class="dt">boolean</span></code>.</p></li>
+</ul>
+</section>
+
+<section id="subtipado" class="title-slide slide level3" data-number="1.2.4">
+<h3 data-number="1.2.4"><span class="header-section-number">1.2.4</span> Subtipado</h3>
 
 </section>
-<section id="integrales" class="title-slide slide level3" data-number="1.1.1">
-<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span> Integrales</h3>
-
-</section>
-
-<section id="de-coma-flotante" class="title-slide slide level3" data-number="1.1.2">
-<h3 data-number="1.1.2"><span class="header-section-number">1.1.2</span> De coma flotante</h3>
-
-</section>
-
-<section id="booleanos" class="title-slide slide level3" data-number="1.1.3">
-<h3 data-number="1.1.3"><span class="header-section-number">1.1.3</span> Booleanos</h3>
-
-</section>
-
-<section id="subtipado" class="title-slide slide level3" data-number="1.1.4">
-<h3 data-number="1.1.4"><span class="header-section-number">1.1.4</span> Subtipado</h3>
-
-</section>
-<section id="subtipado-entre-tipos-primitivos" class="title-slide slide level4" data-number="1.1.4.1">
-<h4 data-number="1.1.4.1"><span class="header-section-number">1.1.4.1</span> Subtipado entre tipos primitivos</h4>
+<section id="subtipado-entre-tipos-primitivos" class="title-slide slide level4" data-number="1.2.4.1">
+<h4 data-number="1.2.4.1"><span class="header-section-number">1.2.4.1</span> Subtipado entre tipos primitivos</h4>
 
 </section>
 
 
-<section id="conversiones-entre-datos-primitivos" class="title-slide slide level3" data-number="1.1.5">
-<h3 data-number="1.1.5"><span class="header-section-number">1.1.5</span> Conversiones entre datos primitivos</h3>
+<section id="conversiones-entre-datos-primitivos" class="title-slide slide level3" data-number="1.2.5">
+<h3 data-number="1.2.5"><span class="header-section-number">1.2.5</span> Conversiones entre datos primitivos</h3>
 
 </section>
-<section id="casting" class="title-slide slide level4" data-number="1.1.5.1">
-<h4 data-number="1.1.5.1"><span class="header-section-number">1.1.5.1</span> <em>Casting</em></h4>
-
-</section>
-
-<section id="de-ampliación-widening" class="title-slide slide level4" data-number="1.1.5.2">
-<h4 data-number="1.1.5.2"><span class="header-section-number">1.1.5.2</span> De ampliación (<em>widening</em>)</h4>
+<section id="casting" class="title-slide slide level4" data-number="1.2.5.1">
+<h4 data-number="1.2.5.1"><span class="header-section-number">1.2.5.1</span> <em>Casting</em></h4>
 
 </section>
 
-<section id="de-restricción-narrowing" class="title-slide slide level4" data-number="1.1.5.3">
-<h4 data-number="1.1.5.3"><span class="header-section-number">1.1.5.3</span> De restricción (<em>narrowing</em>)</h4>
+<section id="de-ampliación-widening" class="title-slide slide level4" data-number="1.2.5.2">
+<h4 data-number="1.2.5.2"><span class="header-section-number">1.2.5.2</span> De ampliación (<em>widening</em>)</h4>
 
 </section>
 
-
-<section id="promociones-numéricas" class="title-slide slide level3" data-number="1.1.6">
-<h3 data-number="1.1.6"><span class="header-section-number">1.1.6</span> Promociones numéricas</h3>
+<section id="de-restricción-narrowing" class="title-slide slide level4" data-number="1.2.5.3">
+<h4 data-number="1.2.5.3"><span class="header-section-number">1.2.5.3</span> De restricción (<em>narrowing</em>)</h4>
 
 </section>
 
 
-<section id="tipos-por-referencia" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Tipos por referencia</h2>
+<section id="promociones-numéricas" class="title-slide slide level3" data-number="1.2.6">
+<h3 data-number="1.2.6"><span class="header-section-number">1.2.6</span> Promociones numéricas</h3>
+
+</section>
+
+
+<section id="tipos-por-referencia" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Tipos por referencia</h2>
 
 </section>
 </section>
