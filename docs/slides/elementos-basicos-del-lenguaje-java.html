@@ -82,6 +82,22 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -319,13 +335,19 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="kw">false</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">false</span> == <span class="kw">false</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="kw">true</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="kw">true</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">true</span> ^ <span class="kw">false</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="kw">true</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">true</span> ^ <span class="kw">false</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="kw">true</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; !<span class="kw">true</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; <span class="kw">false</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; !<span class="kw">true</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; <span class="kw">false</span></span></code></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">true</span> ? <span class="dv">1</span> : <span class="dv">2</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> ==&gt; <span class="dv">1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">false</span> ? <span class="dv">1</span> : <span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">6</span> ==&gt; <span class="dv">2</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -517,10 +539,6 @@
 <td style="text-align: left;"><em>And</em>, <em>or</em> y <em>xor</em> a nivel de bits:</td>
 <td style="text-align: left;"><code class="sourceCode java">&amp;</code>, <code class="sourceCode java">|</code>, <code class="sourceCode java">^</code></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Ternario condicional:</td>
-<td style="text-align: left;"><code class="sourceCode java">? :</code></td>
-</tr>
 </tbody>
 </table></li>
 </ul>
@@ -532,11 +550,28 @@
 <p>Si el otro operando no es <code class="sourceCode java"><span class="dt">long</span></code>, se convertirá primero a <code class="sourceCode java"><span class="dt">long</span></code>.</p></li>
 <li><p>En caso contrario, la operación se llevará a cabo usando precisión de 32 bits, y el resultado de la operación numérica será de tipo <code class="sourceCode java"><span class="dt">int</span></code>.</p>
 <p>Si alguno de los operandos no es <code class="sourceCode java"><span class="dt">int</span></code> (por ejemplo, <code class="sourceCode java"><span class="dt">short</span></code> o <code class="sourceCode java"><span class="dt">byte</span></code>), se convertirá primero a <code class="sourceCode java"><span class="dt">int</span></code>.</p></li>
+<li><p>Ciertas operaciones pueden lanzar excepciones. Por ejemplo, el operador de división entera (<code class="sourceCode java">/</code>) y el resto de la división entera (<code class="sourceCode java">%</code>) The integer lanzan una excepción <code class="sourceCode java"><span class="bu">ArithmeticException</span></code> si el operando derecho es cero.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.2.1.3">
 
-<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">2</span> + <span class="dv">3</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="dv">5</span>             <span class="co">// Devuelve un int</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">2</span> + <span class="dv">3L</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="dv">5</span>             <span class="co">// Devuelve un long</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">8</span> &gt;&gt; <span class="dv">1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="dv">4</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>jshell&gt; -<span class="dv">8</span> &gt;&gt; <span class="dv">1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; -<span class="dv">4</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>jshell&gt; -<span class="dv">8</span> &gt;&gt;&gt; <span class="dv">1</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> ==&gt; <span class="dv">2147483644</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">2</span> == <span class="dv">3</span> ? <span class="dv">5</span> : <span class="dv">6L</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>$<span class="dv">6</span> ==&gt; <span class="dv">6</span></span></code></pre></div>
 </section>
 
 
@@ -642,29 +677,187 @@
 </ul></li>
 </ul>
 </section>
+<section id="operadores-de-coma-flotante" class="title-slide slide level4" data-number="1.2.3.1">
+<h4 data-number="1.2.3.1"><span class="header-section-number">1.2.3.1</span> Operadores de coma flotante</h4>
+<ul>
+<li><p>Los operadores que actúan sobre valores de coma flotante son los siguientes:</p></li>
+<li><p>Los <strong>operadores de comparación</strong> dan como resultado un valor de tipo <code class="sourceCode java"><span class="dt">boolean</span></code>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Comparación numérica:</td>
+<td style="text-align: left;"><code class="sourceCode java">&lt;</code>, <code class="sourceCode java">&lt;=</code>, <code class="sourceCode java">&gt;</code>, <code class="sourceCode java">&gt;=</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Igualdad numérica:</td>
+<td style="text-align: left;"><code class="sourceCode java">==</code>, <code class="sourceCode java">!=</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="fl">2.0</span> &lt;= <span class="fl">3.0</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="kw">true</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="fl">4.0</span> != <span class="fl">4.0</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="kw">false</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.3.1.1">
+
+<ul>
+<li><p>Los <strong>operadores numéricos</strong> dan como resultado un valor de tipo <code class="sourceCode java"><span class="dt">float</span></code> o <code class="sourceCode java"><span class="dt">double</span></code>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Signo más y menos (unarios):</td>
+<td style="text-align: left;"><code class="sourceCode java">+</code>, <code class="sourceCode java">-</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Multiplicativos:</td>
+<td style="text-align: left;"><code class="sourceCode java">*</code>, <code class="sourceCode java">/</code>,  <code class="sourceCode java">%</code> <!-- \* --></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Suma y resta:</td>
+<td style="text-align: left;"><code class="sourceCode java">+</code>, <code class="sourceCode java">-</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Preincremento y postincremento:</td>
+<td style="text-align: left;"><code class="sourceCode java">++</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Predecremento y postdecremento:</td>
+<td style="text-align: left;"><code class="sourceCode java">--</code></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.3.1.2">
+
+<ul>
+<li><p>Si al menos uno de los operandos de un operador binario es de un número de coma flotante, la operación se realizará en coma flotante, aunque el otro operando sea un integral.</p></li>
+<li><p>Si al menos uno de los operandos de un operador numérico es de tipo <code class="sourceCode java"><span class="dt">double</span></code>, la operación se llevará a cabo en aritmética de coma flotante de 64 bits y el resultado de la operación numérica será de tipo <code class="sourceCode java"><span class="dt">double</span></code>.</p>
+<p>Si el otro operando no es <code class="sourceCode java"><span class="dt">double</span></code>, se convertirá primero a <code class="sourceCode java"><span class="dt">double</span></code>.</p></li>
+<li><p>En caso contrario, la operación se llevará a cabo usando aritmética de coma flotante 32 bits, y el resultado de la operación numérica será de tipo <code class="sourceCode java"><span class="dt">float</span></code>.</p>
+<p>Si el otro operando no es <code class="sourceCode java"><span class="dt">float</span></code>, se convertirá primero a <code class="sourceCode java"><span class="dt">float</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.3.1.3">
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">4</span> / <span class="dv">3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">4</span> / <span class="fl">3.0</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="fl">1.3333333333333333</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">4</span> / <span class="fl">3.0f</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="fl">1.3333334</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">4</span> / <span class="fl">0.0</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; Infinity</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="fl">4.0</span> * <span class="bu">Double</span>.<span class="fu">NaN</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> ==&gt; NaN</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="1.2.3.1.4">
+
+<ul>
+<li><p>Una operación de coma flotante que produce <em>overflow</em> devuelve un infinito con signo.</p></li>
+<li><p>Una operación de coma flotante que produce <em>underflow</em> devuelve un valor desnormalizado o un cero con signo.</p></li>
+<li><p>Una operación de coma flotante que no tiene un resultado matemáticamente definido devuelve <code class="sourceCode java">NaN</code>.</p></li>
+<li><p>Cualquier operación numérica que tenga un <code class="sourceCode java">NaN</code> como operando devuelve <code class="sourceCode java">NaN</code> como resultado.</p></li>
+</ul>
+</section>
+
 
 <section id="subtipado" class="title-slide slide level3" data-number="1.2.4">
 <h3 data-number="1.2.4"><span class="header-section-number">1.2.4</span> Subtipado</h3>
+<ul>
+<li><p>Se dice que un tipo <span class="math inline">S</span> es <strong>supertipo directo</strong> de un tipo <span class="math inline">T</span> cuando esos dos tipos están relacionados según unas reglas que veremos luego. En tal caso, se escribe: <span class="math display">S &gt;_1 T</span> <!-- \_ --></p></li>
+<li><p>Se dice que un tipo <span class="math inline">S</span> es <strong>supertipo</strong> de un tipo <span class="math inline">T</span> cuando <span class="math inline">S</span> se puede obtener de <span class="math inline">T</span> mediante clausura reflexiva y transitiva sobre la relación de <em>supertipo directo</em>. En tal caso, se escribe: <span class="math display">S\ \texttt{:&gt;}\ T</span></p></li>
+<li><p><span class="math inline">S</span> es un <strong>supertipo propio</strong> de <span class="math inline">T</span> si <span class="math inline">S</span> <code>:&gt;</code> <span class="math inline">T</span> y <span class="math inline">S \mathrel{\char`≠} T</span>. En tal caso, se escribe: <span class="math display">S\ \texttt{&gt;}\ T</span></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.4.0.1">
 
+<ul>
+<li><p>Los <strong>subtipos</strong> de un tipo <span class="math inline">T</span> son todos aquellos tipos <span class="math inline">U</span> tales que <span class="math inline">T</span> es un supertipo de <span class="math inline">U</span>, más el tipo nulo. Cuando <span class="math inline">S</span> es un subtipo de <span class="math inline">T</span> se escribe: <span class="math display">S\ \texttt{&lt;:}\ T</span></p></li>
+<li><p><span class="math inline">S</span> es un <strong>subtipo propio</strong> de <span class="math inline">T</span> si <span class="math inline">S</span> <code>&lt;:</code> <span class="math inline">T</span> y <span class="math inline">S \mathrel{\char`≠} T</span>. En tal caso, se escribe: <span class="math display">S\ \texttt{&lt;}\ T</span></p></li>
+<li><p><span class="math inline">S</span> es un <strong>subtipo directo</strong> de <span class="math inline">T</span> si <span class="math inline">T &gt;_1 S</span>. En tal caso, se escribe: <span class="math display">S &lt;_1 T</span></p></li>
+<li><p>Las relaciones de <strong>subtipo</strong> y <strong>supertipo</strong> son muy importantes porque un valor de un tipo se puede convertir en un valor de un supertipo suyo sin perder información (es lo que se denomina <strong>ampliación</strong> o <em>widening</em>).</p></li>
+</ul>
 </section>
 <section id="subtipado-entre-tipos-primitivos" class="title-slide slide level4" data-number="1.2.4.1">
 <h4 data-number="1.2.4.1"><span class="header-section-number">1.2.4.1</span> Subtipado entre tipos primitivos</h4>
-
+<ul>
+<li><p>Las siguientes reglas definen la relación de <strong>subtipo directo</strong> entre los tipos primitivos de Java:</p>
+<ul>
+<li><p><code>float</code> <span class="math inline">&lt;_1</span> <code>double</code></p></li>
+<li><p><code>long</code> <span class="math inline">&lt;_1</span> <code>float</code></p></li>
+<li><p><code>int</code> <span class="math inline">&lt;_1</span> <code>long</code></p></li>
+<li><p><code>char</code> <span class="math inline">&lt;_1</span> <code>int</code></p></li>
+<li><p><code>short</code> <span class="math inline">&lt;_1</span> <code>int</code></p></li>
+<li><p><code>byte</code> <span class="math inline">&lt;_1</span> <code>short</code></p></li>
+</ul></li>
+</ul>
 </section>
 
 
 <section id="conversiones-entre-datos-primitivos" class="title-slide slide level3" data-number="1.2.5">
 <h3 data-number="1.2.5"><span class="header-section-number">1.2.5</span> Conversiones entre datos primitivos</h3>
-
+<ul>
+<li><p>Es posible convertir valores de un tipo a otro, siempre y cuando se cumplan ciertas condiciones y teniendo en cuenta que, en determinadas ocasiones, puede haber pérdida de información.</p></li>
+<li><p>Por ejemplo, no es posible convertir directamente valores numéricos en booleanos o viceversa.</p></li>
+<li><p>Pero sí es posible convertir valores numéricos a otro tipo numérico, aunque es posible que se pueda perder información, según sea el caso.</p></li>
+<li><p>Por ejemplo, convertir un número de coma flotante en un entero supondrá siempre la pérdida de la parte fraccionaria del número.</p></li>
+<li><p>Igualmente, es posible que haya pérdida de información al convertir un número de más bits en otro de menos bits.</p></li>
+</ul>
 </section>
 <section id="casting" class="title-slide slide level4" data-number="1.2.5.1">
 <h4 data-number="1.2.5.1"><span class="header-section-number">1.2.5.1</span> <em>Casting</em></h4>
-
+<ul>
+<li><p>El <strong><em>casting</em></strong> o <em>moldeado</em> de tipos es una operación de conversión entre tipos.</p></li>
+<li><p>En el caso de tipos primitivos, el <em>casting</em> se usa para:</p>
+<ul>
+<li><p>Convertir, en tiempo de ejecución, un valor de un tipo numérico a un valor similar de otro tipo numérico.</p></li>
+<li><p>Garantizar, en tiempo de compilación, que el tipo de una expresión es <code class="sourceCode java"><span class="dt">boolean</span></code>.</p></li>
+</ul></li>
+<li><p>El <em>casting</em> se escribe anteponiendo a una expresión, y entre paréntesis, el nombre del tipo al que se quiere convertir el valor de esa expresión.</p></li>
+<li><p>Por ejemplo, si queremos convertir a <code class="sourceCode java"><span class="dt">short</span></code> el valor de la expresión <code class="sourceCode java"><span class="dv">4</span> + <span class="dv">3</span></code>, hacemos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="dt">short</span>) (<span class="dv">4</span> + <span class="dv">3</span>)</span></code></pre></div></li>
+<li><p>Los paréntesis alrededor de la expresión <code class="sourceCode java"><span class="dv">4</span> + <span class="dv">3</span></code> son necesarios para asegurarnos de que el <em>casting</em> afecta a toda la expresión y no sólo al <code class="sourceCode java"><span class="dv">4</span></code>.</p></li>
+</ul>
 </section>
 
 <section id="de-ampliación-widening" class="title-slide slide level4" data-number="1.2.5.2">
 <h4 data-number="1.2.5.2"><span class="header-section-number">1.2.5.2</span> De ampliación (<em>widening</em>)</h4>
+<ul>
+<li><p>Existen 19 conversiones de ampliación o <em>widening</em> sobre tipos primitivos:</p>
+<ul>
+<li><p>De <code>byte</code> a <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code> o <code>double</code>.</p></li>
+<li><p>De <code>short</code> a <code>int</code>, <code>long</code>, <code>float</code> o <code>double</code>.</p></li>
+<li><p>De <code>char</code> a <code>int</code>, <code>long</code>, <code>float</code> o <code>double</code>.</p></li>
+<li><p>De <code>int</code> a <code>long</code>, <code>float</code> o <code>double</code>.</p></li>
+<li><p>De <code>long</code> a <code>float</code> o <code>double</code>.</p></li>
+<li><p>De <code>float</code> a <code>double</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.5.2.1">
 
+<ul>
+<li><p>Una conversión primitiva de ampliación nunca pierde información sobre la magnitud general de un valor numérico.</p></li>
+<li><p>Una conversión primitiva de ampliación de un tipo integral a otro tipo integral no pierde ninguna información en absoluto; el valor numérico se conserva exactamente.</p></li>
+<li><p>En determinados casos, una conversión primitiva de ampliación de <code>float</code> a <code>double</code> puede perder información sobre la magnitud general del valor convertido.</p></li>
+<li><p>Una conversión de ampliación de un valor <code>int</code> o <code>long</code> a <code>float</code>, o de un valor <code>long</code> a <code>double</code>, puede producir pérdida de precisión; es decir, el resultado puede perder algunos de los bits menos significativos del valor. En este caso, el valor de coma flotante resultante será una versión correctamente redondeada del valor entero.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.5.2.2">
+
+<ul>
+<li><p>Una conversión de ampliación de un valor entero con signo a un tipo integral simplemente extiende el signo de la representación del complemento a dos del valor entero para llenar el formato más amplio.</p></li>
+<li><p>Una conversión de ampliación de <code>char</code> a un tipo integral rellena con ceros la representación del valor <code>char</code> para llenar el formato más amplio.</p></li>
+<li><p>A pesar de que puede producirse una pérdida de precisión, una conversión primitiva de ampliación nunca da como resultado una excepción en tiempo de ejecución.</p></li>
+</ul>
 </section>
 
 <section id="de-restricción-narrowing" class="title-slide slide level4" data-number="1.2.5.3">

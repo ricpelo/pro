@@ -598,7 +598,7 @@ F -> javac -> O -> JIT
  */
 public class Principal {
     public static void main(String[] args) {
-        System.out.println("Hola\n");
+        System.out.println("Hola\n");        // Imprime "Hola"
     }
 }
 ```
@@ -622,7 +622,8 @@ public class Principal {
 
 ---
 
-- El código se escribe en archivos con extensión `.java`.
+- Los comentarios que ocupan una sola línea van desde `//` hasta el final de la
+  línea.
 
 - Los comentarios que ocupan varias líneas se encierran entre `/*` y `*/`.
 
@@ -763,19 +764,19 @@ public class Principal {
 
 - El paquete `java.lang` es especial por dos motivos:
 
-  - Proporciona **clases que son fundamentales** en el lenguaje Java, como por
-    ejemplo:
+  #. Proporciona **clases que son fundamentales** en el lenguaje Java, como por
+     ejemplo:
 
-    - !JAVA(Object): es la raíz de la jerarquía de clases.
+     - !JAVA(Object): es la raíz de la jerarquía de clases.
 
-    - !JAVA(Class): representa a las clases en tiempo de ejecución.
+     - !JAVA(Class): representa a las clases en tiempo de ejecución.
 
-    - !JAVA(Math): proporciona funcionalidades matemáticas comunes.
-    
-    - !JAVA(String): representa las cadenas de caracteres.
+     - !JAVA(Math): proporciona funcionalidades matemáticas comunes.
+     
+     - !JAVA(String): representa las cadenas de caracteres.
 
-  - No es necesario importar explícitamente ninguno de sus miembros, ya que
-    **todos sus miembros son importados automáticamente**.
+  #. No es necesario importar explícitamente ninguno de sus miembros, ya que
+     **todos sus miembros son importados automáticamente**.
 
 ## El objeto `out`
 

@@ -117,6 +117,9 @@ $1 ==> false
 
 jshell> false == false
 $2 ==> true
+
+jshell> true ^ false
+$3 ==> true
 ```
 
 :::
@@ -124,11 +127,14 @@ $2 ==> true
 ::: column
 
 ```java
-jshell> true ^ false
-$3 ==> true
-
 jshell> !true
 $4 ==> false
+
+jshell> true ? 1 : 2
+$5 ==> 1
+
+jshell> false ? 1 : 2
+$6 ==> 2
 ```
 
 :::
@@ -313,7 +319,8 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
 
 ---
 
-- Los **operadores numéricos** dan como resultado un valor de tipo !JAVA(int) o !JAVA(long):
+- Los **operadores numéricos** dan como resultado un valor de tipo !JAVA(int) o
+  !JAVA(long):
 
   ------------------------------------ -----------------------------------------------------
   Signo más y menos (unarios):         !JAVA(+), !JAVA(-)
@@ -324,7 +331,6 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   Desplazamiento con y sin signo:      !JAVA(<<), !JAVA(>>), !JAVA(>>>)
   Complemento a nivel de bits:         !JAVA(~)
   _And_, _or_ y _xor_ a nivel de bits: !JAVA(&), !JAVA(|), !JAVA(^)
-  Ternario condicional:                !JAVA(? :)
   ------------------------------------ -----------------------------------------------------
 
 ---
@@ -341,9 +347,31 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   Si alguno de los operandos no es !JAVA{int} (por ejemplo, !JAVA(short) o
   !JAVA(byte)), se convertirá primero a !JAVA(int).
 
+- Ciertas operaciones pueden lanzar excepciones. Por ejemplo, el operador de
+  división entera (!JAVA(`/`)) y el resto de la división entera (!JAVA(%)) The
+  integer lanzan una excepción !JAVA(ArithmeticException) si el operando
+  derecho es cero.
+
 ---
 
 ```java
+jshell> 2 + 3
+$1 ==> 5             // Devuelve un int
+
+jshell> 2 + 3L
+$2 ==> 5             // Devuelve un long
+
+jshell> 8 >> 1
+$3 ==> 4
+
+jshell> -8 >> 1
+$4 ==> -4
+
+jshell> -8 >>> 1
+$5 ==> 2147483644
+
+jshell> 2 == 3 ? 5 : 6L
+$6 ==> 6
 ```
 
 ### De coma flotante
@@ -523,15 +551,230 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
 
     ::::
 
+#### Operadores de coma flotante
+
+- Los operadores que actúan sobre valores de coma flotante son los siguientes:
+
+- Los **operadores de comparación** dan como resultado un valor de tipo
+  !JAVA(boolean):
+
+  --------------------------- -----------------------------------------------------
+  Comparación numérica:       !JAVA(<), !JAVA(<=), !JAVA(>), !JAVA(>=)            
+  Igualdad numérica:          !JAVA(==), !JAVA(!=)                                
+  --------------------------- -----------------------------------------------------
+
+  ```java
+  jshell> 2.0 <= 3.0
+  $1 ==> true
+
+  jshell> 4.0 != 4.0
+  $2 ==> false
+  ```
+
+---
+
+- Los **operadores numéricos** dan como resultado un valor de tipo !JAVA(float)
+  o !JAVA(double):
+
+  ------------------------------------ -----------------------------------------------------
+  Signo más y menos (unarios):         !JAVA(+), !JAVA(-)
+  Multiplicativos:                     !JAVA(*), !JAVA(/), \ !JAVA(%) <!-- \* -->
+  Suma y resta:                        !JAVA(+), !JAVA(-)
+  Preincremento y postincremento:      !JAVA(++)
+  Predecremento y postdecremento:      !JAVA(--)
+  ------------------------------------ -----------------------------------------------------
+
+---
+
+- Si al menos uno de los operandos de un operador binario es de un número de
+  coma flotante, la operación se realizará en coma flotante, aunque el otro
+  operando sea un integral.
+
+- Si al menos uno de los operandos de un operador numérico es de tipo
+  !JAVA(double), la operación se llevará a cabo en aritmética de coma flotante
+  de 64 bits y el resultado de la operación numérica será de tipo
+  !JAVA(double).
+
+  Si el otro operando no es !JAVA(double), se convertirá primero a
+  !JAVA(double).
+
+- En caso contrario, la operación se llevará a cabo usando aritmética de coma
+  flotante 32 bits, y el resultado de la operación numérica será de tipo
+  !JAVA(float).
+
+  Si el otro operando no es !JAVA(float), se convertirá primero a !JAVA(float).
+
+---
+
+```java
+jshell> 4 / 3
+$1 ==> 1
+
+jshell> 4 / 3.0
+$2 ==> 1.3333333333333333
+
+jshell> 4 / 3.0f
+$3 ==> 1.3333334
+
+jshell> 4 / 0.0
+$4 ==> Infinity
+
+jshell> 4.0 * Double.NaN
+$5 ==> NaN
+```
+
+---
+
+- Una operación de coma flotante que produce _overflow_ devuelve un infinito
+  con signo.
+
+- Una operación de coma flotante que produce _underflow_ devuelve un valor
+  desnormalizado o un cero con signo.
+
+- Una operación de coma flotante que no tiene un resultado matemáticamente
+  definido devuelve !JAVA(NaN).
+
+- Cualquier operación numérica que tenga un !JAVA(NaN) como operando devuelve
+  !JAVA(NaN) como resultado.
+
 ### Subtipado
+
+- Se dice que un tipo $S$ es **supertipo directo** de un tipo $T$ cuando esos
+  dos tipos están relacionados según unas reglas que veremos luego. En tal
+  caso, se escribe: $$S >_1 T$$ <!-- \_ -->
+
+- Se dice que un tipo $S$ es **supertipo** de un tipo $T$ cuando $S$ se puede
+  obtener de $T$ mediante clausura reflexiva y transitiva sobre la relación de
+  _supertipo directo_. En tal caso, se escribe: $$S\ \texttt{:>}\ T$$
+
+- $S$ es un **supertipo propio** de $T$ si $S$ `:>` $T$ y $S !NEQ T$. En tal
+  caso, se escribe: $$S\ \texttt{>}\ T$$
+
+---
+
+- Los **subtipos** de un tipo $T$ son todos aquellos tipos $U$ tales que $T$ es
+  un supertipo de $U$, más el tipo nulo. Cuando $S$ es un subtipo de $T$ se
+  escribe: $$S\ \texttt{<:}\ T$$
+
+- $S$ es un **subtipo propio** de $T$ si $S$ `<:` $T$ y $S !NEQ T$. En tal
+  caso, se escribe: $$S\ \texttt{<}\ T$$
+
+- $S$ es un **subtipo directo** de $T$ si $T >_1 S$. En tal caso, se escribe:
+  $$S <_1 T$$
+
+- Las relaciones de **subtipo** y **supertipo** son muy importantes porque un
+  valor de un tipo se puede convertir en un valor de un supertipo suyo sin
+  perder información (es lo que se denomina **ampliación** o _widening_).
 
 #### Subtipado entre tipos primitivos
 
+- Las siguientes reglas definen la relación de **subtipo directo** entre los
+  tipos primitivos de Java:
+
+  - `float` $<_1$ `double`
+
+  - `long` $<_1$ `float`
+
+  - `int` $<_1$ `long`
+
+  - `char` $<_1$ `int`
+
+  - `short` $<_1$ `int`
+
+  - `byte` $<_1$ `short`
+
 ### Conversiones entre datos primitivos
+
+- Es posible convertir valores de un tipo a otro, siempre y cuando se cumplan
+  ciertas condiciones y teniendo en cuenta que, en determinadas ocasiones,
+  puede haber pérdida de información.
+
+- Por ejemplo, no es posible convertir directamente valores numéricos en
+  booleanos o viceversa.
+
+- Pero sí es posible convertir valores numéricos a otro tipo numérico, aunque
+  es posible que se pueda perder información, según sea el caso.
+
+- Por ejemplo, convertir un número de coma flotante en un entero supondrá
+  siempre la pérdida de la parte fraccionaria del número.
+
+- Igualmente, es posible que haya pérdida de información al convertir un número
+  de más bits en otro de menos bits.
 
 #### *Casting*
 
+- El **_casting_** o _moldeado_ de tipos es una operación de conversión entre
+  tipos.
+
+- En el caso de tipos primitivos, el _casting_ se usa para:
+
+  - Convertir, en tiempo de ejecución, un valor de un tipo numérico a un valor
+    similar de otro tipo numérico.
+
+  - Garantizar, en tiempo de compilación, que el tipo de una expresión es
+    !JAVA(boolean).
+
+- El _casting_ se escribe anteponiendo a una expresión, y entre paréntesis, el
+  nombre del tipo al que se quiere convertir el valor de esa expresión.
+
+- Por ejemplo, si queremos convertir a !JAVA(short) el valor de la expresión
+  !JAVA(4 + 3), hacemos:
+
+  ```java
+  (short) (4 + 3)
+  ```
+
+- Los paréntesis alrededor de la expresión !JAVA(4 + 3) son necesarios para
+  asegurarnos de que el _casting_ afecta a toda la expresión y no sólo al
+  !JAVA(4).
+
 #### De ampliación (*widening*)
+
+- Existen 19 conversiones de ampliación o _widening_ sobre tipos primitivos:
+
+  - De `byte` a `short`, `int`, `long`, `float` o `double`.
+
+  - De `short` a `int`, `long`, `float` o `double`.
+
+  - De `char` a `int`, `long`, `float` o `double`.
+
+  - De `int` a `long`, `float` o `double`.
+
+  - De `long` a `float` o `double`.
+
+  - De `float` a `double`.
+
+---
+
+- Una conversión primitiva de ampliación nunca pierde información sobre la
+  magnitud general de un valor numérico.
+
+- Una conversión primitiva de ampliación de un tipo integral a otro tipo
+  integral no pierde ninguna información en absoluto; el valor numérico se
+  conserva exactamente.
+
+- En determinados casos, una conversión primitiva de ampliación de `float` a
+  `double` puede perder información sobre la magnitud general del valor
+  convertido.
+
+- Una conversión de ampliación de un valor `int` o `long` a `float`, o de un
+  valor `long` a `double`, puede producir pérdida de precisión; es decir, el
+  resultado puede perder algunos de los bits menos significativos del valor. En
+  este caso, el valor de coma flotante resultante será una versión
+  correctamente redondeada del valor entero.
+
+---
+
+- Una conversión de ampliación de un valor entero con signo a un tipo integral
+  simplemente extiende el signo de la representación del complemento a dos del
+  valor entero para llenar el formato más amplio.
+
+- Una conversión de ampliación de `char` a un tipo integral rellena con ceros
+  la representación del valor `char` para llenar el formato más amplio.
+
+- A pesar de que puede producirse una pérdida de precisión, una conversión
+  primitiva de ampliación nunca da como resultado una excepción en tiempo de
+  ejecución.
 
 #### De restricción (*narrowing*)
 
