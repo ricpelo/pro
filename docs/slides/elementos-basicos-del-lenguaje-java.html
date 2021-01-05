@@ -255,7 +255,7 @@
 <li><p>Tipos de <strong>interfaz</strong>.</p></li>
 <li><p>Tipos de <strong><em>array</em></strong>.</p></li>
 </ul></li>
-<li><p>Además, hay un tipo especial que representa el <strong>nulo</strong> (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
+<li><p>Además, hay un tipo especial que representa el valor <strong>nulo</strong> (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.3">
@@ -268,7 +268,7 @@
 </ul></li>
 <li><p>Los valores de un tipo referencia son referencias a objetos.</p></li>
 <li><p>Todos los objetos, incluidos los <em>arrays</em>, admiten los métodos de la clase <code>Object</code>.</p></li>
-<li><p>Las cadenas literales están representadas por objetos de la clase <code>String</code>.</p></li>
+<li><p>Las cadenas literales representan objetos de la clase <code>String</code>.</p></li>
 </ul>
 </section>
 
@@ -279,11 +279,59 @@
 <li><p>Un valor primitivo es un valor de un tipo primitivo.</p></li>
 <li><p>Los valores primitivos <strong>no son objetos</strong> y no comparten estado con otros valores primitivos.</p></li>
 <li><p>En consecuencia, los valores primitivos no se almacenan en el montículo y, por tanto, las variables que contienen valores primitivos no guardan una referencia al valor, sino que almacenan el valor mismo.</p></li>
-<li><p>Los tipos primitivos son los <strong>integrales</strong>, los tipos de <strong>coma flotante</strong> y los <strong>booleanos</strong>.</p></li>
+<li><p>Los tipos primitivos son los <strong>booleanos</strong>, los <strong>integrales</strong> y los tipos de <strong>coma flotante</strong>.</p></li>
 </ul>
 </section>
-<section id="integrales" class="title-slide slide level3" data-number="1.2.1">
-<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Integrales</h3>
+<section id="booleanos" class="title-slide slide level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Booleanos</h3>
+<ul>
+<li><p>El tipo booleano (<code class="sourceCode java"><span class="dt">boolean</span></code>) contiene dos valores, representados por los literales booleanos <code class="sourceCode java"><span class="kw">true</span></code> (verdadero) y <code class="sourceCode java"><span class="kw">false</span></code> (falso).</p></li>
+<li><p>Un literal booleano siempre es de tipo <code class="sourceCode java"><span class="dt">boolean</span></code>.</p></li>
+<li><p>Sus operaciones son:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Igualdad:</td>
+<td style="text-align: left;"><code class="sourceCode java">==</code>, <code class="sourceCode java">!=</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Complemento lógico (<em>not</em>):</td>
+<td style="text-align: left;"><code class="sourceCode java">!</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>And</em>, <em>or</em> y <em>xor</em> estrictos:</td>
+<td style="text-align: left;"><code class="sourceCode java">&amp;</code>, <code class="sourceCode java">|</code>, <code class="sourceCode java">^</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>And</em> y <em>or</em> perezosos:</td>
+<td style="text-align: left;"><code class="sourceCode java">&amp;&amp;</code>, <code class="sourceCode java">||</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Condicional ternario:</td>
+<td style="text-align: left;"><code class="sourceCode java">? :</code></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">true</span> &amp;&amp; <span class="kw">false</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="kw">false</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">false</span> == <span class="kw">false</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="kw">true</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="kw">true</span> ^ <span class="kw">false</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="kw">true</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; !<span class="kw">true</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; <span class="kw">false</span></span></code></pre></div>
+</div>
+</div>
+</section>
+
+<section id="integrales" class="title-slide slide level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Integrales</h3>
 <ul>
 <li><p>Los <strong>tipos integrales</strong> son:</p>
 <ul>
@@ -334,7 +382,7 @@
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.1">
+<section class="slide level5" data-number="1.2.2.0.1">
 
 <ul>
 <li><p>Los literales que representan números enteros pueden ser de tipo <code class="sourceCode java"><span class="dt">int</span></code> o de tipo <code class="sourceCode java"><span class="dt">long</span></code>.</p></li>
@@ -349,7 +397,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.2">
+<section class="slide level5" data-number="1.2.2.0.2">
 
 <ul>
 <li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">int</span></code>:</p>
@@ -381,7 +429,7 @@
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.3">
+<section class="slide level5" data-number="1.2.2.0.3">
 
 <ul>
 <li><p>Un literal de tipo <code>char</code> representa un carácter o secuencia de escape.</p></li>
@@ -407,9 +455,93 @@
 <p>En Java, los <strong>caracteres</strong> y las <strong>cadenas</strong> son <strong>tipos distintos</strong>.</p>
 </div>
 </section>
+<section id="operadores-integrales" class="title-slide slide level4" data-number="1.2.2.1">
+<h4 data-number="1.2.2.1"><span class="header-section-number">1.2.2.1</span> Operadores integrales</h4>
+<ul>
+<li><p>Java proporciona una serie de operadores que actúan sobre valores integrales.</p></li>
+<li><p>Los <strong>operadores de comparación</strong> dan como resultado un valor de tipo <code class="sourceCode java"><span class="dt">boolean</span></code>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Comparación numérica:</td>
+<td style="text-align: left;"><code class="sourceCode java">&lt;</code>, <code class="sourceCode java">&lt;=</code>, <code class="sourceCode java">&gt;</code>, <code class="sourceCode java">&gt;=</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Igualdad numérica:</td>
+<td style="text-align: left;"><code class="sourceCode java">==</code>, <code class="sourceCode java">!=</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">2</span> &lt;= <span class="dv">3</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="kw">true</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="dv">4</span> != <span class="dv">4</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="kw">false</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.1.1">
 
-<section id="de-coma-flotante" class="title-slide slide level3" data-number="1.2.2">
-<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> De coma flotante</h3>
+<ul>
+<li><p>Los <strong>operadores numéricos</strong> dan como resultado un valor de tipo <code class="sourceCode java"><span class="dt">int</span></code> o <code class="sourceCode java"><span class="dt">long</span></code>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Signo más y menos (unarios):</td>
+<td style="text-align: left;"><code class="sourceCode java">+</code>, <code class="sourceCode java">-</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Multiplicativos:</td>
+<td style="text-align: left;"><code class="sourceCode java">*</code>, <code class="sourceCode java">/</code>,  <code class="sourceCode java">%</code> <!-- \* --></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Suma y resta:</td>
+<td style="text-align: left;"><code class="sourceCode java">+</code>, <code class="sourceCode java">-</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Preincremento y postincremento:</td>
+<td style="text-align: left;"><code class="sourceCode java">++</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Predecremento y postdecremento:</td>
+<td style="text-align: left;"><code class="sourceCode java">--</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Desplazamiento con y sin signo:</td>
+<td style="text-align: left;"><code class="sourceCode java">&lt;&lt;</code>, <code class="sourceCode java">&gt;&gt;</code>, <code class="sourceCode java">&gt;&gt;&gt;</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Complemento a nivel de bits:</td>
+<td style="text-align: left;"><code class="sourceCode java">~</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>And</em>, <em>or</em> y <em>xor</em> a nivel de bits:</td>
+<td style="text-align: left;"><code class="sourceCode java">&amp;</code>, <code class="sourceCode java">|</code>, <code class="sourceCode java">^</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ternario condicional:</td>
+<td style="text-align: left;"><code class="sourceCode java">? :</code></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.1.2">
+
+<ul>
+<li><p>Si un operador integral (que no sea el desplazamiento) tiene al menos un operando de tipo <code class="sourceCode java"><span class="dt">long</span></code>, la operación se llevará a cabo en precisión de 64 bits y el resultado de la operación numérica será de tipo <code class="sourceCode java"><span class="dt">long</span></code>.</p>
+<p>Si el otro operando no es <code class="sourceCode java"><span class="dt">long</span></code>, se convertirá primero a <code class="sourceCode java"><span class="dt">long</span></code>.</p></li>
+<li><p>En caso contrario, la operación se llevará a cabo usando precisión de 32 bits, y el resultado de la operación numérica será de tipo <code class="sourceCode java"><span class="dt">int</span></code>.</p>
+<p>Si alguno de los operandos no es <code class="sourceCode java"><span class="dt">int</span></code> (por ejemplo, <code class="sourceCode java"><span class="dt">short</span></code> o <code class="sourceCode java"><span class="dt">byte</span></code>), se convertirá primero a <code class="sourceCode java"><span class="dt">int</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.1.3">
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"></code></pre></div>
+</section>
+
+
+<section id="de-coma-flotante" class="title-slide slide level3" data-number="1.2.3">
+<h3 data-number="1.2.3"><span class="header-section-number">1.2.3</span> De coma flotante</h3>
 <ul>
 <li><p>Los <strong>tipos de coma flotante</strong> son valores que representan <strong>números reales</strong> almacenados en el formato de coma flotante <strong>IEEE-754</strong>.</p></li>
 <li><p>Existen dos tipos de coma flotante:</p>
@@ -427,7 +559,7 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.2.0.1">
+<section class="slide level5" data-number="1.2.3.0.1">
 
 <ul>
 <li><p>Los literales de coma flotante se pueden expresar en decimal o hexadecimal (usando el prefijo <code class="sourceCode java"><span class="dv">0</span>x</code> o <code class="sourceCode java"><span class="dv">0</span>X</code>).</p></li>
@@ -437,7 +569,7 @@
 <li><p>Un literal de coma flotante será de tipo <code class="sourceCode java"><span class="dt">float</span></code> si lleva un sufijo <code>f</code> o <code>F</code>; si no lleva ningún sufijo (o si lleva opcionalmente el sufijo <code>d</code> o <code>D</code>), será de tipo <code class="sourceCode java"><span class="dt">double</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.2.0.2">
+<section class="slide level5" data-number="1.2.3.0.2">
 
 <ul>
 <li><p>El literal positivo finito de tipo <code>float</code> más grande es <code>3.4028235e38f</code>.</p></li>
@@ -446,7 +578,7 @@
 <li><p>El literal positivo finito de tipo <code>double</code> más pequeño distinto de cero es <code>4.9e-324</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.2.0.3">
+<section class="slide level5" data-number="1.2.3.0.3">
 
 <ul>
 <li><p>Ejemplos de literales de tipo <code>float</code>:</p>
@@ -480,7 +612,7 @@
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.2.0.4">
+<section class="slide level5" data-number="1.2.3.0.4">
 
 <ul>
 <li><p>El estándar IEEE-754 incluye números positivos y negativos formados por un signo y una magnitud.</p></li>
@@ -508,14 +640,6 @@
 </div>
 </div></li>
 </ul></li>
-</ul>
-</section>
-
-<section id="booleanos" class="title-slide slide level3" data-number="1.2.3">
-<h3 data-number="1.2.3"><span class="header-section-number">1.2.3</span> Booleanos</h3>
-<ul>
-<li><p>El tipo booleano (<code class="sourceCode java"><span class="dt">boolean</span></code>) contiene dos valores, representados por los literales booleanos <code class="sourceCode java"><span class="kw">true</span></code> (verdadero) y <code class="sourceCode java"><span class="kw">false</span></code> (falso).</p></li>
-<li><p>Un literal booleano siempre es de tipo <code class="sourceCode java"><span class="dt">boolean</span></code>.</p></li>
 </ul>
 </section>
 
@@ -559,6 +683,18 @@
 <h2 data-number="1.3"><span class="header-section-number">1.3</span> Tipos por referencia</h2>
 
 </section>
+<section id="nulo" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Nulo</h3>
+<ul>
+<li><p>Existe un tipo especial llamado <strong>tipo <em>nulo</em></strong>.</p></li>
+<li><p>El tipo nulo es el tipo de la expresión <code class="sourceCode java"><span class="kw">null</span></code>, la cual representa la <strong>referencia nula</strong>.</p></li>
+<li><p>La referencia nula es el único valor posible de una expresión de tipo nulo.</p></li>
+<li><p>El tipo nulo no tiene nombre y, por tanto, no se puede declarar una variable de tipo nulo o convertir un valor al tipo nulo.</p></li>
+<li><p>La referencia nula siempre puede asignarse o convertirse a cualquier tipo referencia.</p></li>
+<li><p>En la práctica, el programador puede ignorar el tipo nulo y suponer que <code class="sourceCode java"><span class="kw">null</span></code> es simplemente un literal especial que pertenece a cualquier tipo referencia.</p></li>
+</ul>
+</section>
+
 </section>
 <section>
 <section id="variables-en-java" class="title-slide slide level1" data-number="2">

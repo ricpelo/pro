@@ -56,7 +56,7 @@ author: Ricardo Pérez López
 
    - Tipos de **_array_**.
 
-- Además, hay un tipo especial que representa el **nulo** (!JAVA(null)).
+- Además, hay un tipo especial que representa el valor **nulo** (!JAVA(null)).
 
 ---
 
@@ -71,7 +71,7 @@ author: Ricardo Pérez López
 - Todos los objetos, incluidos los _arrays_, admiten los métodos de la clase
   `Object`.
 
-- Las cadenas literales están representadas por objetos de la clase `String`.
+- Las cadenas literales representan objetos de la clase `String`.
 
 ## Tipos primitivos
 
@@ -87,8 +87,53 @@ author: Ricardo Pérez López
   por tanto, las variables que contienen valores primitivos no guardan una
   referencia al valor, sino que almacenan el valor mismo.
 
-- Los tipos primitivos son los **integrales**, los tipos de **coma flotante** y
-  los **booleanos**.
+- Los tipos primitivos son los **booleanos**, los **integrales** y los tipos de
+  **coma flotante**.
+
+### Booleanos
+
+- El tipo booleano (!JAVA(boolean)) contiene dos valores, representados por los
+  literales booleanos !JAVA{true} (verdadero) y !JAVA{false} (falso).
+
+- Un literal booleano siempre es de tipo !JAVA(boolean).
+
+- Sus operaciones son:
+
+  -------------------------------- ------------------------------
+  Igualdad:                        !JAVA(==), !JAVA(!=)
+  Complemento lógico (_not_):      !JAVA(!)
+  _And_, _or_ y _xor_ estrictos:   !JAVA(&), !JAVA(|), !JAVA(^)
+  _And_ y _or_ perezosos:          !JAVA(&&), !JAVA(||)
+  Condicional ternario:            !JAVA(? :)
+  -------------------------------- ------------------------------
+
+:::: columns
+
+::: column
+
+```java
+jshell> true && false
+$1 ==> false
+
+jshell> false == false
+$2 ==> true
+```
+
+:::
+
+::: column
+
+```java
+jshell> true ^ false
+$3 ==> true
+
+jshell> !true
+$4 ==> false
+```
+
+:::
+
+::::
 
 ### Integrales
 
@@ -245,6 +290,61 @@ author: Ricardo Pérez López
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Operadores integrales
+
+- Java proporciona una serie de operadores que actúan sobre valores integrales.
+
+- Los **operadores de comparación** dan como resultado un valor de tipo
+  !JAVA(boolean):
+
+  --------------------------- -----------------------------------------------------
+  Comparación numérica:       !JAVA(<), !JAVA(<=), !JAVA(>), !JAVA(>=)            
+  Igualdad numérica:          !JAVA(==), !JAVA(!=)                                
+  --------------------------- -----------------------------------------------------
+
+  ```java
+  jshell> 2 <= 3
+  $1 ==> true
+
+  jshell> 4 != 4
+  $2 ==> false
+  ```
+
+---
+
+- Los **operadores numéricos** dan como resultado un valor de tipo !JAVA(int) o !JAVA(long):
+
+  ------------------------------------ -----------------------------------------------------
+  Signo más y menos (unarios):         !JAVA(+), !JAVA(-)
+  Multiplicativos:                     !JAVA(*), !JAVA(/), \ !JAVA(%) <!-- \* -->
+  Suma y resta:                        !JAVA(+), !JAVA(-)
+  Preincremento y postincremento:      !JAVA(++)
+  Predecremento y postdecremento:      !JAVA(--)
+  Desplazamiento con y sin signo:      !JAVA(<<), !JAVA(>>), !JAVA(>>>)
+  Complemento a nivel de bits:         !JAVA(~)
+  _And_, _or_ y _xor_ a nivel de bits: !JAVA(&), !JAVA(|), !JAVA(^)
+  Ternario condicional:                !JAVA(? :)
+  ------------------------------------ -----------------------------------------------------
+
+---
+
+- Si un operador integral (que no sea el desplazamiento) tiene al menos un
+  operando de tipo !JAVA(long), la operación se llevará a cabo en precisión de
+  64 bits y el resultado de la operación numérica será de tipo !JAVA(long).
+
+  Si el otro operando no es !JAVA(long), se convertirá primero a !JAVA(long).
+
+- En caso contrario, la operación se llevará a cabo usando precisión de 32
+  bits, y el resultado de la operación numérica será de tipo !JAVA(int).
+
+  Si alguno de los operandos no es !JAVA{int} (por ejemplo, !JAVA(short) o
+  !JAVA(byte)), se convertirá primero a !JAVA(int).
+
+---
+
+```java
+```
 
 ### De coma flotante
 
@@ -423,13 +523,6 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
 
     ::::
 
-### Booleanos
-
-- El tipo booleano (!JAVA(boolean)) contiene dos valores, representados por los
-  literales booleanos !JAVA{true} (verdadero) y !JAVA{false} (falso).
-
-- Un literal booleano siempre es de tipo !JAVA(boolean).
-
 ### Subtipado
 
 #### Subtipado entre tipos primitivos
@@ -445,6 +538,25 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
 ### Promociones numéricas
 
 ## Tipos por referencia
+
+### Nulo
+
+- Existe un tipo especial llamado **tipo _nulo_**.
+
+- El tipo nulo es el tipo de la expresión !JAVA(null), la cual representa la
+  **referencia nula**.
+
+- La referencia nula es el único valor posible de una expresión de tipo nulo.
+
+- El tipo nulo no tiene nombre y, por tanto, no se puede declarar una variable
+  de tipo nulo o convertir un valor al tipo nulo.
+
+- La referencia nula siempre puede asignarse o convertirse a cualquier tipo
+  referencia.
+
+- En la práctica, el programador puede ignorar el tipo nulo y suponer que
+  !JAVA(null) es simplemente un literal especial que pertenece a cualquier tipo
+  referencia.
 
 # Variables en Java
 
