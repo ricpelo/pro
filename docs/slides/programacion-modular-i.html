@@ -252,11 +252,16 @@
 <section id="modularidad" class="title-slide slide level2" data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Modularidad</h2>
 <ul>
-<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer y escribir nuestro programa en partes llamadas <strong>módulos</strong>.</p>
+<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer nuestro programa en partes llamadas <strong>módulos</strong> y escribir cada módulo por separado.</p>
 <ul>
 <li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio: cualquier parte de un programa se podría considerar «módulo».</li>
 </ul></li>
-<li><p>Equivale a la técnica clásica de resolución de problemas basada en: 1) descomponer un problema en subproblemas; 2) resolver cada subproblema por separado; y 3) combinar las soluciones para así obtener la solución al problema original.</p></li>
+<li><p>Equivale a la técnica clásica de resolución de problemas basada en:</p>
+<ol type="1">
+<li>Descomponer un problema en subproblemas.</li>
+<li>Resolver cada subproblema por separado.</li>
+<li>Combinar las soluciones para así obtener la solución al problema original.</li>
+</ol></li>
 <li><p>La <strong>modularidad</strong> es la propiedad que tienen los programas escritos siguiendo los principios de la programación modular.</p></li>
 <li><p>El concepto de modularidad se puede estudiar a nivel <em>metodológico</em> y a nivel <em>práctico</em>.</p></li>
 </ul>
@@ -408,9 +413,9 @@
 </ul></li>
 <li><p>Una <strong>implementación</strong>, formada por:</p>
 <ul>
-<li><p>Su posible estado interno en forma de <strong>variables</strong> locales al módulo.</p></li>
-<li><p>La <strong>implementación (el cuerpo) de las funciones</strong> que aparecen en la interfaz.</p></li>
-<li><p><strong>Funciones <em>internas</em></strong> o <strong><em>privadas</em></strong> que no aparecen en la interfaz porque están pensadas para ser usadas únicamente por el propio módulo de manera interna, pero no por otras partes del programa.</p></li>
+<li><p>La <strong>implementación</strong> (el <em>cuerpo</em>) de las <strong>funciones públicas</strong>.</p></li>
+<li><p>Posibles <strong>variables</strong> locales al módulo (el <em>estado interno</em> de éste).</p></li>
+<li><p>Posibles <strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>, que no aparecen en la interfaz porque están pensadas para ser usadas sólo por el propio módulo internamente, no por otras partes del programa.</p></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -462,12 +467,14 @@
 <li><p>Por tanto, es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
 <li><p>Está formada por:</p>
 <ul>
-<li><p>Todas las <strong>variables locales al módulo</strong> que almacenan su estado interno.</p></li>
 <li><p>La <strong>implementación (el <em>cuerpo</em>) de las funciones</strong> que forman la interfaz.</p></li>
-<li><p>Las funciones que utiliza el propio módulo internamente y que no forman parte de su interfaz (<strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>).</p></li>
+<li><p>Todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, si las hay.</p></li>
+<li><p>Las funciones que utiliza el propio módulo internamente y que no forman parte de su interfaz (<strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>), si las hay.</p></li>
 </ul></li>
-<li><p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p></li>
 </ul>
+<div class="caja">
+<p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p>
+</div>
 </section>
 <section id="resumen" class="title-slide slide level4" data-number="2.2.2.1">
 <h4 data-number="2.2.2.1"><span class="header-section-number">2.2.2.1</span> Resumen</h4>
@@ -478,8 +485,8 @@
 \end{cases}</span></p>
 <p><span class="math display">\text{Implementación del módulo}\begin{cases}
 \text{Implementación de funciones públicas}\\
-\text{Variables locales}\\
-\text{Funciones privadas}
+\text{Posibles variables locales}\\
+\text{Posibles funciones privadas}
 \end{cases}</span></p>
 </section>
 
@@ -490,7 +497,7 @@
 <ul>
 <li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>
 <li><p>En el diagrama de estructura, cada módulo se representa mediante un rectángulo y las relaciones entre cada par de módulos se dibujan como una línea con punta de flecha entre los dos módulos.</p></li>
-<li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em> representa que el módulo <em>A</em> <em>utiliza</em> o <em>llama</em> o <em>depende</em> del módulo <em>B</em>.</p></li>
+<li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em> representa que el módulo <em>A</em> <em>utiliza</em> (o <em>llama</em> o <em>consume</em>) al módulo <em>B</em>, o también se puede decir que el módulo <em>A</em> <em>depende</em> del módulo <em>B</em>.</p></li>
 </ul>
 <div class="centered">
 <figure>
@@ -727,7 +734,7 @@
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
-<li><p>La función <code class="sourceCode python"><span class="bu">dir</span></code> puede usarse con cualquier objeto al que podamos acceder mediante una referencia.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">dir</span></code> puede usarse con cualquier objeto al que podamos acceder a través de una referencia.</p></li>
 </ul>
 </section>
 
@@ -842,8 +849,8 @@
 
 <ul>
 <li><p>Las curvas de la figura anterior constituyen una guía útil al considerar la modularidad.</p></li>
-<li><p>Debemos evitar hacer pocos o muchos módulos para así permanecer en la cercanía de M.</p></li>
-<li><p>Pero, ¿cómo saber cuál es la cercanía de M? ¿Cómo de modular debe hacerse el programa?</p></li>
+<li><p>Debemos evitar hacer pocos o muchos módulos para así permanecer en la cercanía de <span class="math inline">M</span>.</p></li>
+<li><p>Pero, ¿cómo saber cuál es la cercanía de <span class="math inline">M</span>? ¿Cómo de modular debe hacerse el programa?</p></li>
 <li><p>Debe hacerse un diseño con módulos, de manera que el desarrollo pueda planearse con más facilidad, que los cambios se realicen con más facilidad, que las pruebas y la depuración se efectúen con mayor eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de importancia.</p></li>
 <li><p>Para ello nos basaremos en los siguientes <strong>criterios</strong>.</p></li>
 </ul>
@@ -853,7 +860,7 @@
 <h2 data-number="4.3"><span class="header-section-number">4.3</span> Abstracción</h2>
 <ul>
 <li><p>La <strong>abstracción</strong> es un proceso mental que se basa en estudiar un aspecto del problema a un determinado nivel centrándose en lo esencial e ignorando momentáneamente los detalles que no son importantes en este nivel.</p></li>
-<li><p>Igualmente, nos permite comprender la esencia de un subsistema sin tener que conocer detalles innecesarios del mismo.</p></li>
+<li><p>Ese proceso nos permite comprender la esencia de un subsistema sin tener que conocer detalles innecesarios del mismo.</p></li>
 <li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
 <li><p>La abstracción se usa principalmente como una técnica de <strong>manejo y control de la complejidad</strong>.</p></li>
 </ul>
@@ -873,7 +880,7 @@
 <section class="slide level5" data-number="4.3.0.0.2">
 
 <ul>
-<li><p>La barrera de separación entre un nivel de abstracción y su inmediatamente inferior es la diferencia entre el <em>qué</em> y el <em>cómo</em>:</p>
+<li><p>La <strong>barrera de separación</strong> entre un nivel de abstracción y su inmediatamente inferior es la diferencia entre el <em>qué</em> y el <em>cómo</em>:</p>
 <ul>
 <li><p>Cuando estudiamos un concepto a un determinado nivel de abstracción, estudiamos <em>qué</em> hace.</p></li>
 <li><p>Cuando bajamos al nivel inmediatamente inferior, pasamos a estudiar <em>cómo</em> lo hace.</p></li>

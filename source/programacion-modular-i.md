@@ -11,15 +11,17 @@ nocite: |
 ## Modularidad
 
 - La **programación modular** es una técnica de programación que consiste en
-  descomponer y escribir nuestro programa en partes llamadas **módulos**.
+  descomponer nuestro programa en partes llamadas **módulos** y escribir cada
+  módulo por separado.
 
   - El concepto de *módulo* hay que entenderlo en sentido amplio: cualquier
     parte de un programa se podría considerar «módulo».
 
-- Equivale a la técnica clásica de resolución de problemas basada en: 1)
-  descomponer un problema en subproblemas; 2) resolver cada subproblema por
-  separado; y 3) combinar las soluciones para así obtener la solución al
-  problema original.
+- Equivale a la técnica clásica de resolución de problemas basada en:
+
+  1) Descomponer un problema en subproblemas.
+  2) Resolver cada subproblema por separado.
+  3) Combinar las soluciones para así obtener la solución al problema original.
 
 - La **modularidad** es la propiedad que tienen los programas escritos
   siguiendo los principios de la programación modular.
@@ -264,14 +266,13 @@ nocite: |
 
   - Una **implementación**, formada por:
 
-    - Su posible estado interno en forma de **variables** locales al módulo.
+    - La **implementación** (el _cuerpo_) de las **funciones públicas**.
 
-    - La **implementación (el cuerpo) de las funciones** que aparecen en la
-      interfaz.
+    - Posibles **variables** locales al módulo (el _estado interno_ de éste).
 
-    - **Funciones _internas_** o **_privadas_** que no aparecen en la interfaz
-      porque están pensadas para ser usadas únicamente por el propio módulo de
-      manera interna, pero no por otras partes del programa.
+    - Posibles **funciones _internas_** o **_privadas_**, que no aparecen en la
+      interfaz porque están pensadas para ser usadas sólo por el propio módulo
+      internamente, no por otras partes del programa.
 
 ### Interfaz
 
@@ -353,16 +354,21 @@ nocite: |
 
 - Está formada por:
 
-  - Todas las **variables locales al módulo** que almacenan su estado interno.
-
   - La **implementación (el _cuerpo_) de las funciones** que forman la
     interfaz.
 
-  - Las funciones que utiliza el propio módulo internamente y que no forman
-    parte de su interfaz (**funciones _internas_** o **_privadas_**).
+  - Todas las **variables locales al módulo** que almacenan su estado interno,
+    si las hay.
 
-- La implementación debe poder cambiarse tantas veces como sea necesario sin
-  que por ello se tenga que cambiar el resto del programa.
+  - Las funciones que utiliza el propio módulo internamente y que no forman
+    parte de su interfaz (**funciones _internas_** o **_privadas_**), si las
+    hay.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La implementación debe poder cambiarse tantas veces como sea necesario sin que
+por ello se tenga que cambiar el resto del programa.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Resumen
 
@@ -374,8 +380,8 @@ $$\text{Interfaz del módulo}\begin{cases}
 
 $$\text{Implementación del módulo}\begin{cases}
 \text{Implementación de funciones públicas}\\
-\text{Variables locales}\\
-\text{Funciones privadas}
+\text{Posibles variables locales}\\
+\text{Posibles funciones privadas}
 \end{cases}$$
 
 ## Diagramas de estructura
@@ -389,7 +395,8 @@ $$\text{Implementación del módulo}\begin{cases}
   línea con punta de flecha entre los dos módulos.
 
 - Una flecha dirigida del módulo *A* al módulo *B* representa que el módulo *A*
-  *utiliza* o *llama* o *depende* del módulo *B*.
+  *utiliza* (o *llama* o *consume*) al módulo *B*, o también se puede decir que
+  el módulo *A* *depende* del módulo *B*.
 
 !DOT(modulos-dependientes.svg)(*A* depende de *B*)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -924,7 +931,7 @@ E -> mcd [lhead = cluster1]
   ```
 
 - La función !PYTHON(dir) puede usarse con cualquier objeto al que podamos
-  acceder mediante una referencia.
+  acceder a través de una referencia.
 
 ## Módulos como *scripts*
 
@@ -1074,10 +1081,10 @@ E -> mcd [lhead = cluster1]
   modularidad.
 
 - Debemos evitar hacer pocos o muchos módulos para así permanecer en la
-  cercanía de M.
+  cercanía de $M$.
 
-- Pero, ¿cómo saber cuál es la cercanía de M? ¿Cómo de modular debe hacerse el
-  programa?
+- Pero, ¿cómo saber cuál es la cercanía de $M$? ¿Cómo de modular debe hacerse
+  el programa?
 
 - Debe hacerse un diseño con módulos, de manera que el desarrollo pueda
   planearse con más facilidad, que los cambios se realicen con más facilidad,
@@ -1093,7 +1100,7 @@ E -> mcd [lhead = cluster1]
   del problema a un determinado nivel centrándose en lo esencial e ignorando
   momentáneamente los detalles que no son importantes en este nivel.
 
-- Igualmente, nos permite comprender la esencia de un subsistema sin tener que
+- Ese proceso nos permite comprender la esencia de un subsistema sin tener que
   conocer detalles innecesarios del mismo.
 
 - La utilización de la abstracción también permite trabajar con conceptos y
@@ -1122,8 +1129,8 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- La barrera de separación entre un nivel de abstracción y su inmediatamente
-  inferior es la diferencia entre el *qué* y el *cómo*:
+- La **barrera de separación** entre un nivel de abstracción y su
+  inmediatamente inferior es la diferencia entre el *qué* y el *cómo*:
 
   - Cuando estudiamos un concepto a un determinado nivel de abstracción,
     estudiamos *qué* hace.
