@@ -70,7 +70,7 @@ EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SO
 
 all: $(DIAPOS) html pdf apuntes prog ejercicios limpiar
 
-$(DIAPOS): $(SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
+$(DIAPOS): $(SOURCES) $(EJER_SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
 	$(DIAPOSITIVAS_SH) > $(DIAPOS)
 
 html: $(OBJECTS_HTML)
