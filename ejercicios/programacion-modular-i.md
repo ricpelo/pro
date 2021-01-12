@@ -39,7 +39,7 @@ author:
     que luego las imprima en un orden aleatorio.
 
 @. Escribe un módulo llamado `fibonacci.py` que contenga las siguientes
-funciones:
+   funciones:
 
     - Una función `fib` que calcule el $n$-ésimo término de la sucesión de
       Fibonacci de forma recursiva.
@@ -48,27 +48,36 @@ funciones:
       llamando a otra función `_fib_aux` (ojo, que empieza por `_), que es la
       que realmente lleva a cabo el proceso iterativo.
 
-    El módulo debe probarse a sí mismo al ejecutarse desde la línea de órdenes
-    del sistema operativo (\underline{y sólo entonces}):
+    #. Usar el módulo en otro llamado `principal.py` importándolo mediante:
 
-    #. Si se ejecuta sin argumentos en la línea de órdenes, deberá comprobar
-    que `fib(8)` y `fib_iter(8)` se calculan correctamente, mostrando un
-    mensaje que indique si el cálculo ha sido correcto o no. Por ejemplo:
-
-       ```console
-       $ python fibonacci.py
-       fib(8) vale 21 (correcto)
-       fib_iter(8) vale 37 (incorrecto)
+       ```python
+       from fibonacci import *
        ```
 
-    #. Si se ejecuta con un argumento en la línea de órdenes, deberá usarse
-    como el argumento de la función `fib` y mostrar por pantalla el resultado
-    de la función. Por ejemplo:
+       ¿Cuáles son las funciones que se acaban importando de esta manera? ¿Por
+       qué?
 
-       ```console
-       $ pythono fibonaccy.py 7
-       13
-       ```
+    #. El módulo debe probarse a sí mismo al ejecutarse desde la línea de
+       órdenes del sistema operativo (\underline{y sólo entonces}):
+
+       #. Si se ejecuta sin argumentos en la línea de órdenes, deberá comprobar
+          que `fib(8)` y `fib_iter(8)` se calculan correctamente, mostrando un
+          mensaje que indique si el cálculo ha sido correcto o no. Por ejemplo:
+
+          ```console
+          $ python fibonacci.py
+          fib(8) vale 21 (correcto)
+          fib_iter(8) vale 37 (incorrecto)
+          ```
+
+       #. Si se ejecuta con un argumento en la línea de órdenes, deberá usarse
+          como el argumento de la función `fib` y mostrar por pantalla el
+          resultado de la función. Por ejemplo:
+
+          ```console
+          $ pythono fibonaccy.py 7
+          13
+          ```
 
     #. ¿Cuál es la **interfaz** del módulo?
 
