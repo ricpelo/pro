@@ -26,8 +26,42 @@ nocite: |
 - La **modularidad** es la propiedad que tienen los programas escritos
   siguiendo los principios de la programación modular.
 
-- El concepto de modularidad se puede estudiar a nivel *metodológico* y a nivel
-  *práctico*.
+---
+
+- Las técnicas de modularidad y descomposición de problemas se aplican en la
+  mayoría de las disciplinas científicas e industriales.
+
+- Por ejemplo, el diseño y fabricación de un coche resulta complicado si vemos
+  a éste como un todo (un conglomerado de piezas todas juntas).
+
+- Además, desde ese punto de vista sería difícil poder reparar una avería, ya
+  que la sustitución de cualquier pieza podría afectar a cualquier otra parte
+  del coche, a menudo de formas poco evidentes.
+
+- En cambio, el coche resulta mucho más fácil de entender si lo descomponemos
+  en partes, estudiamos cada parte por separado y definimos claramente cómo
+  interactúa cada parte con las demás.
+
+---
+
+- Esas partes (que aquí llamamos módulos) son componentes más o menos
+  independientes que interactúan con otros componentes de una manera bien
+  definida. Por ejemplo:
+
+  - Frenos
+  - Luces
+  - Climatización
+  - Dirección
+  - Motor
+  - Carrocería
+
+- El objetivo es convertir la programación es una tarea que consista en ir
+  fabricando y ensamblando bloques constructivos que tengan sentido por sí
+  mismos, que lleven a cabo una función concreta y que, al combinarlos
+  adecuadamente, nos dé como resultado el programa que queremos desarrollar.
+
+- Para alcanzar ese objetivo, el concepto de modularidad se puede estudiar a
+  nivel *metodológico* y a nivel *práctico*.
 
 ---
 
