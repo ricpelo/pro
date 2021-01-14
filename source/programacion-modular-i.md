@@ -1480,9 +1480,10 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
   - Sin acoplamiento
 
-- No hace falta determinar con precisión qué cohesión tenemos. Lo importante es
-  intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión
-  para modificar el diseño y conseguir una mayor independencia funcional.
+- No hace falta determinar con precisión qué acoplamiento tenemos. Lo
+  importante es intentar conseguir un acoplamiento bajo y reconocer cuándo hay
+  mucho acoplamiento para modificar el diseño y conseguir una mayor
+  independencia funcional.
 
 ---
 
