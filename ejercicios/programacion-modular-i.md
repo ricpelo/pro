@@ -30,7 +30,7 @@ author:
 @. Usa el módulo `random` para escribir programas que necesiten mostrar un
    comportamiento aleatorio:
 
-    #. La función `random.randint(`_a_`, `_b_`))` devuelve un número entero
+    #. La función `random.randint(`_a_`, `_b_`)` devuelve un número entero
        aleatorio entre _a_ y _b_. Úsala para escribir un programa que juegue a
        que el usuario tenga que adivinar un número entre 1 y 100.
 
@@ -45,7 +45,7 @@ author:
       Fibonacci de forma recursiva.
 
     - Una función `fib_iter` que calcule lo mismo pero de forma iterativa
-      llamando a otra función `_fib_aux` (ojo, que empieza por `_), que es la
+      llamando a otra función `_fib_aux` (ojo, que empieza por `_`), que es la
       que realmente lleva a cabo el proceso iterativo.
 
     #. Usar el módulo en otro llamado `principal.py` importándolo mediante:
@@ -75,7 +75,7 @@ author:
           resultado de la función. Por ejemplo:
 
           ```console
-          $ pythono fibonaccy.py 7
+          $ python fibonacci.py 7
           13
           ```
 
