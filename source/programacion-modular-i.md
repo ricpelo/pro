@@ -237,7 +237,7 @@ nocite: |
 
   - El **creador** o **implementador** del módulo es la persona encargada de la
     programación del mismo y, por tanto, debe conocer todos los detalles
-    internos al módulo, necesarios para que éste funcione. Esos detalles
+    internos del módulo, necesarios para que éste funcione. Esos detalles
     internos constituyen la **implementación** del módulo.
 
   - Los **usuarios** del módulo son los programadores que desean usar ese
@@ -300,7 +300,7 @@ nocite: |
 
   - Una **implementación**, formada por:
 
-    - La **implementación** (el _cuerpo_) de las **funciones públicas**.
+    - La **implementación** de las **funciones públicas**.
 
     - Posibles **variables** locales al módulo (el _estado interno_ de éste).
 
@@ -337,7 +337,7 @@ nocite: |
 - Desde el punto de vista de los usuarios del módulo, esas funciones son
   **abstracciones funcionales**, de forma que, para poder usarlas, sólo se
   necesita conocer las **especificaciones** de esas funciones y no sus
-  *implementaciones* concretas (el *cuerpo* de las funciones).
+  *implementaciones* concretas (sus definiciones completas).
 
 - Recordemos que la **especificación de una función** está formada por tres
   partes:
@@ -388,8 +388,7 @@ nocite: |
 
 - Está formada por:
 
-  - La **implementación (el _cuerpo_) de las funciones** que forman la
-    interfaz.
+  - La **implementación de las funciones** que forman la interfaz.
 
   - Todas las **variables locales al módulo** que almacenan su estado interno,
     si las hay.
@@ -408,12 +407,12 @@ por ello se tenga que cambiar el resto del programa.
 
 $$\text{Interfaz del módulo}\begin{cases}
 \text{Nombre del módulo}\\
-\text{Especificación de funciones públicas}\\
+\text{Especificación de las funciones públicas}\\
 \text{Posibles constantes}
 \end{cases}$$
 
 $$\text{Implementación del módulo}\begin{cases}
-\text{Implementación de funciones públicas}\\
+\text{Implementación de las funciones públicas}\\
 \text{Posibles variables locales}\\
 \text{Posibles funciones privadas}
 \end{cases}$$
