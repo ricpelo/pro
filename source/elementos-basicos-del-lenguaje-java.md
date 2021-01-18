@@ -9,16 +9,16 @@ author: Ricardo Pérez López
 ## Introducción
 
 - El lenguaje de programación Java es un **lenguaje de tipado estático**, lo
-  que significa que cada variable y cada expresión tiene un tipo que se conoce
-  en el momento de la compilación.
+  que significa que cada variable y cada expresión tienen un tipo que se conoce
+  en tiempo de compilación.
 
 - El lenguaje de programación Java también es un **lenguaje fuertemente
-  tipado**, porque los tipos limitan los valores que una variable puede
-  contener o que una expresión puede producir, limitan las operaciones
-  admitidas en esos valores y determinan el significado de las operaciones.
+  tipado**, porque los tipos limitan las operaciones que se pueden realizar
+  sobre unos valores dependiendo de sus tipos y determinan el significado de
+  dichas operaciones.
 
 - El tipado estático fuerte ayuda a **detectar errores en tiempo de
-  compilación**.
+  compilación**, es decir, antes incluso de ejecutar el programa.
 
 ---
 
@@ -50,21 +50,21 @@ author: Ricardo Pérez López
 
  - Los **tipos referencia** son:
 
-   - Tipos de **clase**.
+   - Tipos **clase**.
 
-   - Tipos de **interfaz**.
+   - Tipos **interfaz**.
 
-   - Tipos de **_array_**.
+   - Tipos **_array_**.
 
 - Además, hay un tipo especial que representa el valor **nulo** (!JAVA(null)).
 
 ---
 
-- En Java, un objeto es una de estas dos cosas:
+- En Java, un objeto sólo puede ser una de estas dos cosas:
 
-  - O bien es una instancia creada dinámicamente de un tipo de clase.
+  - Una instancia creada en tiempo de ejecución a partir de una clase.
 
-  - O bien es un _array_ creado dinámicamente.
+  - Un _array_ creado en tiempo de ejecución.
 
 - Los valores de un tipo referencia son referencias a objetos.
 
@@ -84,8 +84,8 @@ author: Ricardo Pérez López
   valores primitivos.
 
 - En consecuencia, los valores primitivos no se almacenan en el montículo y,
-  por tanto, las variables que contienen valores primitivos no guardan una
-  referencia al valor, sino que almacenan el valor mismo.
+  por tanto, **las variables que contienen valores primitivos** no guardan una
+  referencia al valor, sino que **almacenan el valor mismo**.
 
 - Los tipos primitivos son los **booleanos**, los **integrales** y los tipos de
   **coma flotante**.
@@ -118,8 +118,8 @@ $1 ==> false
 jshell> false == false
 $2 ==> true
 
-jshell> true ^ false
-$3 ==> true
+jshell> true ^ true
+$3 ==> false
 ```
 
 :::
@@ -342,15 +342,15 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   Si el otro operando no es !JAVA(long), se convertirá primero a !JAVA(long).
 
 - En caso contrario, la operación se llevará a cabo usando precisión de 32
-  bits, y el resultado de la operación numérica será de tipo !JAVA(int).
+  bits y el resultado de la operación numérica será de tipo !JAVA(int).
 
   Si alguno de los operandos no es !JAVA{int} (por ejemplo, !JAVA(short) o
   !JAVA(byte)), se convertirá primero a !JAVA(int).
 
 - Ciertas operaciones pueden lanzar excepciones. Por ejemplo, el operador de
-  división entera (!JAVA(`/`)) y el resto de la división entera (!JAVA(%)) The
-  integer lanzan una excepción !JAVA(ArithmeticException) si el operando
-  derecho es cero.
+  división entera (!JAVA(`/`)) y el resto de la división entera (!JAVA(%))
+  lanzan una excepción !JAVA(ArithmeticException) si el operando derecho es
+  cero.
 
 ---
 
@@ -599,7 +599,7 @@ $6 ==> 6
   !JAVA(double).
 
 - En caso contrario, la operación se llevará a cabo usando aritmética de coma
-  flotante 32 bits, y el resultado de la operación numérica será de tipo
+  flotante 32 bits y el resultado de la operación numérica será de tipo
   !JAVA(float).
 
   Si el otro operando no es !JAVA(float), se convertirá primero a !JAVA(float).
@@ -652,8 +652,8 @@ $5 ==> NaN
 
 ---
 
-- Los **subtipos** de un tipo $T$ son todos aquellos tipos $U$ tales que $T$ es
-  un supertipo de $U$, más el tipo nulo. Cuando $S$ es un subtipo de $T$ se
+- Los **subtipos** de un tipo $T$ son todos aquellos tipos $S$ tales que $T$ es
+  un supertipo de $S$, **más el tipo nulo**. Cuando $S$ es un subtipo de $T$ se
   escribe: $$S\ \texttt{<:}\ T$$
 
 - $S$ es un **subtipo propio** de $T$ si $S$ `<:` $T$ y $S !NEQ T$. En tal
@@ -662,9 +662,13 @@ $5 ==> NaN
 - $S$ es un **subtipo directo** de $T$ si $T >_1 S$. En tal caso, se escribe:
   $$S <_1 T$$
 
-- Las relaciones de **subtipo** y **supertipo** son muy importantes porque un
-  valor de un tipo se puede convertir en un valor de un supertipo suyo sin
-  perder información (es lo que se denomina **ampliación** o _widening_).
+- Las relaciones de **subtipo** y **supertipo** son muy importantes porque:
+
+  - Un valor de un tipo se puede convertir en un valor de un supertipo suyo sin
+    perder información (es lo que se denomina **ampliación** o _widening_).
+
+  - En cualquier expresión donde se necesite un valor de un cierto tipo, se
+    puede usar un valor de un subtipo suyo.
 
 #### Subtipado entre tipos primitivos
 
@@ -728,7 +732,7 @@ $5 ==> NaN
   asegurarnos de que el _casting_ afecta a toda la expresión y no sólo al
   !JAVA(4).
 
-#### De ampliación (*widening*)
+#### De ampliación (*widening*!ifdef(HTML)(&nbsp;)())
 
 - Existen 19 conversiones de ampliación o _widening_ sobre tipos primitivos:
 
@@ -776,11 +780,157 @@ $5 ==> NaN
   primitiva de ampliación nunca da como resultado una excepción en tiempo de
   ejecución.
 
-#### De restricción (*narrowing*)
+#### De restricción (*narrowing*!ifdef(HTML)(&nbsp;)())
+
+- Existen 22 conversiones de restricción o _narrowing_ sobre tipos primitivos:
+
+  - De `short` a `byte` o `char`
+
+  - De `char` a `byte` o `short`
+
+  - De `int` a `byte`, `short` o `char`
+
+  - De `long` a `byte`, `short`, `char` o `int`
+
+  - De `float` a `byte`, `short`, `char`, `int` o `long`
+
+  - De `double` a `byte`, `short`, `char`, `int`, `long` o `float`
+
+---
+
+- Una conversión primitiva de restricción puede perder información sobre la
+  magnitud general de un valor numérico y además también puede perder precisión
+  y rango.
+
+- Las conversiones primitivas de restricción de `double` a `float` se llevan a
+  cabo mediante las reglas de redondeo del IEEE-754. Esta conversión puede
+  perder precisión y también rango, por lo que puede resultar un `float` cero a
+  partir de un `double` que no es cero, y un `float` infinito a partir de un
+  `double` finito. Los !JAVA(NaN) se convierten en !JAVA(NaN) y los infinitos
+  en infinitos.
+
+- Una conversión de restricción de un entero con signo a un integral $T$
+  simplemente descarta todos los bits excepto los $n$ menos significativos,
+  siendo $n$ el número de bits usados para representar un valor de tipo $T$.
+  Por tanto, además de poder perder información sobre la magnitud del valor
+  numérico, también puede cambiar el signo del valor original.
+
+- Una conversión de restricción de un `char` a un integral $T$ se comporta
+  igual que en el caso anterior.
+
+---
+
+- Las conversiones de restricción de un número en coma flotante a un integral
+  $T$ se realizan en dos pasos:
+
+  1. El número en coma flotante se convierte a `long` (si $T$ es `long`) o a
+     `int` (si $T$ es `byte`, `short`, `char` o `int`). Para ello:
+
+     - Si el número flotante es !JAVA(NaN), el resultado del primer paso de la
+       conversión es !JAVA(0).
+
+     - Si el número flotante no es infinito, el valor se redondea a entero
+       truncando a cero la parte fraccionaria.
+
+       - Si $T$ es `long` y ese entero cabe en un `long`, el resultado es
+         `long`.
+
+       - Si cabe en un `int`, el resultado es `int`.
+
+       - Si es demasiado pequeño (o grande), el resultado es el valor
+         más pequeño (o grande) que se pueda representar con `int` o
+         `long`.
+
+  2. Si $T$ es `int` o `long`, el resultado final será el del primer paso.
+
+     Si $T$ es `byte`, `char` o `short`, el resultado final será el resultado
+     de convertir al tipo $T$ el valor del primer paso.
+
+---
+
+- Al convertir un valor de `byte` a `char`, se produce una doble conversión:
+
+  1. Primero, una conversión de ampliación de `byte` a `int`.
+
+  2. Después, una conversión de restricción de `int` a `char`.
 
 ### Promociones numéricas
 
-## Tipos por referencia
+- Es posible que se apliquen **promociones numéricas unarias** o **binarias** a los operandos de un operador aritmético.
+
+- **Promociones numéricas unarias:**
+
+  - Se llevan a cabo sobre expresiones en las siguientes situaciones:
+
+    - El índice de un _array_.
+
+    - El operando de un `+` o `-` unario.
+
+    - El operando de un operador de complemento de bits `~`.
+
+    - Cada operando, por separado, de los operadores `>>`, `>>>` y `<<`.
+
+  - En tales casos, se lleva a cabo una promoción numérica que consiste en lo siguiente:
+
+    - Si tipo del operando es `byte`, `short`, o `char`, su valor se promociona a `int` mediante una conversión primitiva de ampliación.
+
+---
+
+- **Promociones numéricas binarias:**
+
+  - Se llevan a cabo sobre los operandos de ciertos operadores:
+
+    - Los operadores `*`, `/` y `%`.
+
+    - Los operadores de suma y resta de tipos numéricos `+` y `-`.
+
+    - Los operadores de comparación numérica `<`, `<=`, `>` y `>=`.
+
+    - Los operadores de igualdad numérica `==` y `!=`.
+
+    - Los operadores enteros a nivel de bits `&`, `^` y `|`.
+
+    - En determinadas situaciones, el operador condicional `? :`.
+
+  - En tales casos, se lleva a cabo una promoción numérica que consiste en lo
+    siguiente, en función del tipo de los operandos del operador:
+
+    1. Si algún operando es `double`, el otro se convierte a `double`.
+
+    2. Si no, si alguno es `float`, el otro se convierte a `float`.
+
+    3. Si no, si alguno es `long`, el otro se convierte a `long`.
+
+    4. Si no, ambos operandos se convierten a `int`.
+
+## Tipos referencia
+
+ - Los **tipos referencia** son:
+
+   - Tipos **clase**.
+
+   - Tipos **interfaz**.
+
+   - Tipos **_array_**.
+
+- Un tipo clase o interfaz consiste en un identificador (o una secuencia de
+  identificadores separados por `.`)
+
+- Cada identificador de un tipo clase o interfaz puede ser el nombre de un
+  paquete o el nombre de un tipo.
+
+- Opcionalmente puede llevar _argumentos de tipo_. Si un argumento de tipo
+  aparece en alguna parte de un tipo clase o interfaz, se denomina _tipo
+  parametrizado_.
+
+---
+
+- Un objeto es una instancia de una clase o un _array_.
+
+- Las referencias son punteros a esos objetos.
+
+- Existe una referencia especial llamada _referencia nula_ (o `null`) que no
+  apunta a ningún objeto.
 
 ### Nulo
 
