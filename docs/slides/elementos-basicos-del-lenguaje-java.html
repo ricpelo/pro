@@ -1005,20 +1005,168 @@
 <h1 data-number="2"><span class="header-section-number">2</span> Variables en Java</h1>
 
 </section>
-<section id="variables-de-tipos-primitivos" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Variables de tipos primitivos</h2>
-
+<section id="introducción-1" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Introducción</h2>
+<ul>
+<li><p>Una <strong>variable</strong> es un lugar donde se almacena un valor.</p></li>
+<li><p>Cada variable tiene un <strong>tipo</strong> asociado, denominado <strong>tipo en <em>tiempo de compilación</em></strong> o <strong>tipo estático</strong>.</p></li>
+<li><p>Ese tipo puede ser un <strong>tipo primitivo</strong> o un <strong>tipo referencia</strong>.</p></li>
+<li><p>Las variables se deben <strong>declarar</strong> antes de usarlas, y en la declaración se indica su tipo.</p></li>
+<li><p>El valor de una variable se puede cambiar mediante <strong>asignación</strong> o usando los operadores de pre y post incremento (<code>++</code>) o decremento (<code>--</code>).</p></li>
+<li><p>El diseño del lenguaje Java garantiza que el valor de una variable es compatible con el tipo de la variable.</p></li>
+</ul>
 </section>
 
-<section id="variables-de-tipos-por-referencia" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Variables de tipos por referencia</h2>
-
+<section id="variables-de-tipos-primitivos" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Variables de tipos primitivos</h2>
+<ul>
+<li><p>Una variable de un tipo primitivo siempre contiene un valor primitivo de exactamente ese tipo primitivo.</p></li>
+<li><p>Las variables de tipos primitivos contienen al valor primitivo, es decir, que almacenan ellas mismas el valor primitivo.</p></li>
+<li><p>Por tanto, los valores primitivos no se almacenan en el montículo, sino directamente en la propia variable.</p></li>
+</ul>
 </section>
 
-<section id="declaraciones-de-variables" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Declaraciones de variables</h2>
-
+<section id="variables-de-tipos-referencia" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Variables de tipos referencia</h2>
+<ul>
+<li><p>Una variable de un tipo referencia <span class="math inline">T</span> puede contener:</p>
+<ul>
+<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>Una referencia a una instancia de <span class="math inline">S</span>, siendo <span class="math inline">S</span> un subtipo de <span class="math inline">T</span>.</p></li>
+</ul></li>
+<li><p>Una variable de un tipo «<em>array</em> de <span class="math inline">T</span>», puede contener:</p>
+<ul>
+<li><p>Si <span class="math inline">T</span> es un tipo primitivo:</p>
+<ul>
+<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>Una referencia a un <em>array</em> de tipo «<em>array</em> de <span class="math inline">T</span>».</p></li>
+</ul></li>
+<li><p>Si <span class="math inline">T</span> es un tipo referencia:</p>
+<ul>
+<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>Una referencia a un <em>array</em> de tipo «<em>array</em> de <span class="math inline">S</span>», siendo <span class="math inline">S</span> un subtipo de <span class="math inline">T</span>.</p></li>
+</ul></li>
+</ul></li>
+</ul>
 </section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>En Java, <code>Object</code> es supertipo de cualquier tipo referencia.</p></li>
+<li><p>Por tanto, una variable de tipo <code>Object</code> puede contener una referencia a cualquier valor referencia de cualquier tipo referencia.</p></li>
+</ul>
+</section>
+
+<section id="declaración-de-variables" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Declaración de variables</h2>
+<ul>
+<li><p>La forma más común de declarar variables es mediante la <strong>sentencia de declaración de variables</strong>.</p></li>
+<li><p>La <strong>sentencia de declaración de variables</strong> es una sentencia mediante la cual anunciamos al compilador la existencia de unas determinadas variables e indicamos el tipo que van a tener esas variables.</p></li>
+<li><p>La sintaxis de la declaración de variables es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>decl_vars</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <strong><code>identificador</code></strong>(<strong><code>,</code></strong> <strong><code>identificador</code></strong>)* <strong><code>;</code></strong></div></li>
+<li><p>Todas las variables que aparecen en la declaración tendrán el mismo tipo (el tipo indicado en la declaración).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x, y;  <span class="co">// Declara las variables «x» e «y» de tipo «int»</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> z;   <span class="co">// Declara la variable «z» de tipo «float»</span></span></code></pre></div></li>
+<li><p>En Java, los identificadores son sensibles a mayúsculas y minúsuculas. Por tanto, la variable <code>x</code> no es la misma que <code>X</code>.</p></li>
+<li><p>La declaración de una variable siempre debe aparecer antes de su uso.</p></li>
+<li><p>La variable empieza a existir en el momento en el que se declara.</p></li>
+<li><p>Se almacena en el marco del ámbito actual, donde también se crea la ligadura entre el identificador y la propia variable.</p></li>
+<li><p>El ámbito de la variable es el bloque (porción de código encerrado entre <code>{</code> y <code>}</code>) dentro del cual se ha declarado la variable, ya que cada bloque introduce un nuevo ámbito.</p></li>
+<li><p>Como los bloques se pueden anidar unos dentro de otros, sus ámbitos correspondientes también estarán anidados.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.2">
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x;</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque externo&quot;</span>);</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque interno&quot;</span>);</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ul>
+<li><p>El ámbito de <code>x</code> es el bloque más externo (el que define el cuerpo del método <code>main</code>).</p></li>
+<li><p>El ámbito de <code>y</code> es el bloque más interno.</p></li>
+<li><p>Por tanto, <code>x</code> se puede usar dentro del bloque más interno, pero <code>y</code> no se puede usar fuera del bloque más interno.</p></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {  <span class="co">// Empieza el cuerpo del método</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque externo&quot;</span>);</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    {                <span class="co">// Empieza el bloque más interno</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque interno&quot;</span>);</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    }                <span class="co">// Termina el bloque más interno</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>}                                         <span class="co">// Termina el cuerpo del método</span></span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.4.0.0.3">
+
+<ul>
+<li><p>Las variables declaradas dentro de un método son <strong>locales al método</strong>, independientemente del nivel de anidamiento del bloque donde se haya declarado la variable.</p>
+<p>Por tanto, tanto <code>x</code> como <code>y</code> son <strong>variables locales al método <code>main</code></strong>.</p></li>
+<li><p>Los <strong>parámetros</strong> de un método también se consideran variables locales al método.</p></li>
+<li><p>Una vez recién creadas, las variables locales a un método no tienen un valor inicial.</p></li>
+<li><p>Por tanto, cuando se declara una variable local, ésta permanece sin ningún valor hasta que se le asigna uno.</p></li>
+<li><p>Una variable sin valor se denomina <strong>variable <em>no inicializada</em></strong>.</p></li>
+<li><p>Si se intenta usar una variable local no inicializada, provoca un error:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x;    <span class="co">// La variable «x» es local al método «main»</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(x);  <span class="co">// Da error porque «x» no está inicializada</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ul>
+</section>
+<section id="inicialización-y-asignación-de-variables" class="title-slide slide level3" data-number="2.4.1">
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Inicialización y asignación de variables</h3>
+<ul>
+<li><p>Para darle un valor a una variable, podemos:</p>
+<ul>
+<li><p><strong>Inicializar la variable</strong> en el momento de la declaración, de la siguiente forma:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x = <span class="dv">25</span>;  <span class="co">// Declara la variable entera «x» y la inicializa con 25</span></span></code></pre></div></li>
+<li><p>Asignarle un valor después de haberla declarado, usando la <strong>sentencia de asignación</strong>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x;       <span class="co">// Declara la variable entera «x»</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x = <span class="dv">25</span>;      <span class="co">// Le asigna el valor 25 a la variable «x»</span></span></code></pre></div></li>
+</ul></li>
+<li><p>La asignación puede ser <strong>simple</strong> o <strong>compuesta</strong>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x;        <span class="co">// Declaración de la variable</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x = <span class="dv">25</span>;       <span class="co">// Asignación simple</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x = x + <span class="dv">5</span>;    <span class="co">// Asignación simple</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>x += <span class="dv">5</span>;       <span class="co">// Asignación compuesta, equivalente a la anterior</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.1.0.1">
+
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x = <span class="dv">25</span>;</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque externo&quot;</span>);</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(x);</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y = <span class="dv">14</span>;</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Bloque interno&quot;</span>);</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(x);</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(y);</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        x += <span class="dv">1</span>;</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(x);</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.1.0.2">
+
+<ul>
+<li><p>También se dispone de los operadores de pre y post incremento y decremento:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x = <span class="dv">5</span>, y = <span class="dv">4</span>;</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y = x++;</span></code></pre></div></li>
+</ul>
+</section>
+
 </section>
 <section>
 <section id="estructuras-de-control" class="title-slide slide level1" data-number="3">

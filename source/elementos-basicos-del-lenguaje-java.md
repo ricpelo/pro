@@ -953,11 +953,226 @@ $5 ==> NaN
 
 # Variables en Java
 
+## Introducción
+
+- Una **variable** es un lugar donde se almacena un valor.
+
+- Cada variable tiene un **tipo** asociado, denominado **tipo en _tiempo de
+  compilación_** o **tipo estático**.
+
+- Ese tipo puede ser un **tipo primitivo** o un **tipo referencia**.
+
+- Las variables se deben **declarar** antes de usarlas, y en la declaración se
+  indica su tipo.
+
+- El valor de una variable se puede cambiar mediante **asignación** o usando
+  los operadores de pre y post incremento (`++`) o decremento (`--`).
+
+- El diseño del lenguaje Java garantiza que el valor de una variable es
+  compatible con el tipo de la variable.
+
 ## Variables de tipos primitivos
 
-## Variables de tipos por referencia
+- Una variable de un tipo primitivo siempre contiene un valor primitivo de
+  exactamente ese tipo primitivo.
 
-## Declaraciones de variables
+- Las variables de tipos primitivos contienen al valor primitivo, es decir, que
+  almacenan ellas mismas el valor primitivo.
+
+- Por tanto, los valores primitivos no se almacenan en el montículo, sino
+  directamente en la propia variable.
+
+## Variables de tipos referencia
+
+- Una variable de un tipo referencia $T$ puede contener:
+
+  - La referencia nula (`null`).
+
+  - Una referencia a una instancia de $S$, siendo $S$ un subtipo de $T$.
+
+- Una variable de un tipo «_array_ de $T$», puede contener:
+
+  - Si $T$ es un tipo primitivo:
+
+    - La referencia nula (`null`).
+
+    - Una referencia a un _array_ de tipo «_array_ de $T$».
+
+  - Si $T$ es un tipo referencia:
+
+    - La referencia nula (`null`).
+
+    - Una referencia a un _array_ de tipo «_array_ de $S$», siendo $S$ un
+      subtipo de $T$.
+
+---
+
+- En Java, `Object` es supertipo de cualquier tipo referencia.
+
+- Por tanto, una variable de tipo `Object` puede contener una referencia a
+  cualquier valor referencia de cualquier tipo referencia.
+
+## Declaración de variables
+
+- La forma más común de declarar variables es mediante la **sentencia de
+  declaración de variables**.
+
+- La **sentencia de declaración de variables** es una sentencia mediante la
+  cual anunciamos al compilador la existencia de unas determinadas variables e
+  indicamos el tipo que van a tener esas variables.
+
+- La sintaxis de la declaración de variables es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(decl_vars) ::= !NT(tipo) !T{identificador}(!T(,) !T{identificador})\* !T(;)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Todas las variables que aparecen en la declaración tendrán el mismo tipo (el
+  tipo indicado en la declaración).
+
+---
+
+- Por ejemplo:
+
+  ```java
+  int x, y;  // Declara las variables «x» e «y» de tipo «int»
+  float z;   // Declara la variable «z» de tipo «float»
+  ```
+
+- En Java, los identificadores son sensibles a mayúsculas y minúsuculas. Por
+  tanto, la variable `x` no es la misma que `X`.
+
+- La declaración de una variable siempre debe aparecer antes de su uso.
+
+- La variable empieza a existir en el momento en el que se declara.
+
+- Se almacena en el marco del ámbito actual, donde también se crea la ligadura
+  entre el identificador y la propia variable.
+
+- El ámbito de la variable es el bloque (porción de código encerrado entre `{`
+  y `}`) dentro del cual se ha declarado la variable, ya que cada bloque
+  introduce un nuevo ámbito.
+
+- Como los bloques se pueden anidar unos dentro de otros, sus ámbitos
+  correspondientes también estarán anidados.
+
+---
+
+```java
+public static void main(String[] args) {
+    int x;
+    System.out.println("Bloque externo");
+    {
+        int y;
+        System.out.println("Bloque interno");
+    }
+}
+```
+
+- El ámbito de `x` es el bloque más externo (el que define el cuerpo del método
+  `main`).
+
+- El ámbito de `y` es el bloque más interno.
+
+- Por tanto, `x` se puede usar dentro del bloque más interno, pero `y` no se
+  puede usar fuera del bloque más interno.
+
+```java
+public static void main(String[] args) {  // Empieza el cuerpo del método
+    int x;
+    System.out.println("Bloque externo");
+    {                // Empieza el bloque más interno
+        int y;
+        System.out.println("Bloque interno");
+    }                // Termina el bloque más interno
+}                                         // Termina el cuerpo del método
+
+```
+---
+
+- Las variables declaradas dentro de un método son **locales al método**,
+  independientemente del nivel de anidamiento del bloque donde se haya
+  declarado la variable.
+
+  Por tanto, tanto `x` como `y` son **variables locales al método `main`**.
+
+- Los **parámetros** de un método también se consideran variables locales al
+  método.
+
+- Una vez recién creadas, las variables locales a un método no tienen un valor
+  inicial.
+
+- Por tanto, cuando se declara una variable local, ésta permanece sin ningún
+  valor hasta que se le asigna uno.
+
+- Una variable sin valor se denomina **variable _no inicializada_**.
+
+- Si se intenta usar una variable local no inicializada, provoca un error:
+
+  ```java
+  public static void main(String[] args) {
+      int x;    // La variable «x» es local al método «main»
+      System.out.println(x);  // Da error porque «x» no está inicializada
+  }
+  ```
+
+### Inicialización y asignación de variables
+
+- Para darle un valor a una variable, podemos:
+
+  - **Inicializar la variable** en el momento de la declaración, de la
+    siguiente forma:
+
+    ```java
+    int x = 25;  // Declara la variable entera «x» y la inicializa con 25
+    ```
+
+  - Asignarle un valor después de haberla declarado, usando la **sentencia de
+    asignación**:
+
+    ```java
+    int x;       // Declara la variable entera «x»
+    x = 25;      // Le asigna el valor 25 a la variable «x»
+    ```
+
+- La asignación puede ser **simple** o **compuesta**:
+
+  ```java
+  int x;        // Declaración de la variable
+  x = 25;       // Asignación simple
+  x = x + 5;    // Asignación simple
+  x += 5;       // Asignación compuesta, equivalente a la anterior
+  ```
+
+---
+
+- Ejemplo:
+
+  ```java
+  public static void main(String[] args) {
+      int x = 25;
+      System.out.println("Bloque externo");
+      System.out.println(x);
+      {
+          int y = 14;
+          System.out.println("Bloque interno");
+          System.out.println(x);
+          System.out.println(y);
+          x += 1;
+          System.out.println(x);
+      }
+  }
+  ```
+
+---
+
+- También se dispone de los operadores de pre y post incremento y decremento:
+
+  ```java
+  int x = 5, y = 4;
+  y = x++;
+  ```
 
 # Estructuras de control
 
