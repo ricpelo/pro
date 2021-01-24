@@ -874,9 +874,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- Hacer que la representación dependa sólo de unas cuantas funciones de la
-  interfaz nos ayuda a diseñar programas, así como a modificarlos, porque nos
-  permite cambiar la implementación por otras distintas cuando sea necesario.
+- Hacer que la representación dependa sólo de unas cuantas funciones nos ayuda
+  a diseñar programas, así como a modificarlos, porque nos permite cambiar la
+  implementación con facilidad cuando sea necesario.
 
 - Por ejemplo: si estamos diseñando un módulo de números racionales y aún no
   hemos decidido si calcular el m.c.d. en el constructor o en los selectores,
@@ -2093,11 +2093,11 @@ def deposito(fondos):
   abstracto de datos es un **candidato a módulo** que cumple los siguientes
   requisitos:
 
-  - La **interfaz** del tipo abstracto con sus usuarios es un ejemplo de
-    pocas y simples conexiones con el resto del programa: los usuarios
-    simplemente invocan sus operaciones permitidas. Otras conexiones más
-    peligrosas, como compartir variables entre módulos o compartir el
-    conocimiento acerca de la estructura interna, son imposibles.
+  - La **especificación** del tipo abstracto es un ejemplo de pocas y simples
+    conexiones con el resto del programa: los usuarios simplemente invocan sus
+    operaciones permitidas. Otras conexiones más peligrosas, como compartir
+    variables entre módulos o conocer la representración interna, son
+    imposibles.
 
   - La **implementación** puede cambiarse libremente sin afectar al
     funcionamiento de los módulos usuarios. Es de esperar, por tanto, que
