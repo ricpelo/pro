@@ -311,13 +311,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 !T(espec) !NT(tipo)
       [!T(parámetros)
-            !NT(parámetro)+]
+            !NT(parámetro)!MAS]
       !T(operaciones)
-            \(!NT{operación} !T{:} !NT{signatura}\)+
-      [!T(var)
+            \(!NT{operación} !T{:} !NT{signatura}\)!MAS
+      \[!T(var)
             !NT(decl_var) \(!T(;) !NT(decl_var)\)*]
       !T(ecuaciones)
-            !NT(ecuación)+
+            !NT(ecuación)!MAS
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
