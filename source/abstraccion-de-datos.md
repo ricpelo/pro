@@ -1770,9 +1770,36 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   disponibles **provocando un cambio en el estado de una variable** que
   almacena dichos fondos y que se encuentra **fuera del marco actual**.
 
+- A las operaciones modificadoras que no devuelven un valor nuevo de un
+  determinado tipo abstracto, sino que modifica directamente el propio dato,
+  las llamaremos **mutadoras**.
+
 ---
 
-- Para que todo funcione, debe empezarse con un saldo inicial.
+- Por tanto, a partir de ahora, un tipo abtracto de datos podrá tener las
+  siguientes operaciones:
+
+  - **Constructoras**: operaciones que devuelven un valor de tipo $T$.
+
+    A su vez, las constructoras se dividen en:
+
+    - **Generadoras**: son aquellas operaciones constructoras que tienen la
+      propiedad de que sólo con ellas es suficiente para generar cualquier
+      valor del tipo, y excluyendo cualquiera de ellas hay valores que no
+      pueden ser generados.
+
+    - **Modificadoras**: son las operaciones constructoras que no forman parte
+      del conjunto de las generadoras.
+
+  - **Selectoras**: operaciones que toman como argumento uno o más valores de
+    tipo $T$ y que no devuelven un valor de tipo $T$.
+
+  - **Mutadoras**: operaciones que modifican directamente el estado interno de
+    un valor de tipo $T$.
+
+---
+
+- Para que `retirar` funcione, debe empezarse con un saldo inicial.
 
 - La función `deposito` es una función de orden superior que recibe como
   argumento un saldo inicial y devuelve la propia función `retirar`, pero de

@@ -1389,12 +1389,29 @@ y <code>select(</code><span class="math inline">p</span><code>, 1)</code> <code>
 <li><p>Por lo tanto, la función <code>retirar</code> <strong>no es pura</strong>.</p></li>
 <li><p>Llamar a la función no sólo devuelve un valor, sino que también tiene el <strong>efecto lateral</strong> de cambiar la función de alguna manera, de modo que la siguiente llamada con el mismo argumento devolverá un resultado diferente.</p></li>
 <li><p>Este efecto lateral es el resultado de retirar dinero de los fondos disponibles <strong>provocando un cambio en el estado de una variable</strong> que almacena dichos fondos y que se encuentra <strong>fuera del marco actual</strong>.</p></li>
+<li><p>A las operaciones modificadoras que no devuelven un valor nuevo de un determinado tipo abstracto, sino que modifica directamente el propio dato, las llamaremos <strong>mutadoras</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.5">
 
 <ul>
-<li><p>Para que todo funcione, debe empezarse con un saldo inicial.</p></li>
+<li><p>Por tanto, a partir de ahora, un tipo abtracto de datos podrá tener las siguientes operaciones:</p>
+<ul>
+<li><p><strong>Constructoras</strong>: operaciones que devuelven un valor de tipo <span class="math inline">T</span>.</p>
+<p>A su vez, las constructoras se dividen en:</p>
+<ul>
+<li><p><strong>Generadoras</strong>: son aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
+<li><p><strong>Modificadoras</strong>: son las operaciones constructoras que no forman parte del conjunto de las generadoras.</p></li>
+</ul></li>
+<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> y que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
+<li><p><strong>Mutadoras</strong>: operaciones que modifican directamente el estado interno de un valor de tipo <span class="math inline">T</span>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.3.0.0.6">
+
+<ul>
+<li><p>Para que <code>retirar</code> funcione, debe empezarse con un saldo inicial.</p></li>
 <li><p>La función <code>deposito</code> es una función de orden superior que recibe como argumento un saldo inicial y devuelve la propia función <code>retirar</code>, pero de forma que esa función <strong>recuerda</strong> el saldo inicial.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>La implementación de <code>deposito</code> requiere un <strong>acceso no local</strong> al valor de los fondos iniciales y una <strong>función local</strong> que actualiza y devuelve dicho valor:</p>
