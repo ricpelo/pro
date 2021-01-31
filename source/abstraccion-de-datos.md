@@ -1999,7 +1999,7 @@ def deposito(fondos):
             `saldo`(`depósito`($f$)) $\doteq$ $f$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `deposito` es la operación generadora.
+- `depósito` es la operación generadora.
 
 - `retirar` e `ingresar` son operaciones modificadoras.
 
@@ -2011,8 +2011,9 @@ def deposito(fondos):
   modificadoras ya no producen un nuevo dato **Depósito** a partir de otro,
   sino que cambian el estado interno del dato existente.
 
-- En tal caso, la especificación debe describir el **efecto** que producen las
-  operaciones modificadoras sobre el dato abstracto.
+- En tal caso, esas operaciones se denominan **mutadoras** y la especificación
+  debe describir, entre otras cosas, el **efecto** que producen las operaciones
+  mutadoras sobre el dato abstracto.
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2051,11 +2052,13 @@ def deposito(fondos):
 - Por tanto, una vez ejecutada cualquiera de esas operaciones, se habrá
   cambiado el estado interno del dato abstracto.
 
+- Es por eso que llamamos **mutadoras** a ese tipo de operaciones.
+
 ---
 
-- Otra opción es que las operaciones modificadoras devolvieran un valor además
-  de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que
-  queda en el depósito tras ingresar o retirar efectivo).
+- Otra opción es que las operaciones mutadoras devolvieran un valor además de
+  cambiar el estado interno del dato abstracto (por ejemplo, el saldo que queda
+  en el depósito tras ingresar o retirar efectivo).
 
 - En tal caso, podría quedar algo así:
 

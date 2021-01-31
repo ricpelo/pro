@@ -1571,7 +1571,7 @@ def saldo(dep):
             <span class="math inline">f \geq c</span> <span class="math inline">\Rightarrow</span> <code>retirar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <code>depósito</code>(<span class="math inline">f - c</span>)<br />
             <code>ingresar</code>(<code>depósito</code>(<span class="math inline">f</span>), <span class="math inline">c</span>) <span class="math inline">\doteq</span> <code>depósito</code>(<span class="math inline">f + c</span>)<br />
             <code>saldo</code>(<code>depósito</code>(<span class="math inline">f</span>)) <span class="math inline">\doteq</span> <span class="math inline">f</span></div></li>
-<li><p><code>deposito</code> es la operación generadora.</p></li>
+<li><p><code>depósito</code> es la operación generadora.</p></li>
 <li><p><code>retirar</code> e <code>ingresar</code> son operaciones modificadoras.</p></li>
 <li><p><code>saldo</code> es una operación selectora.</p></li>
 </ul>
@@ -1580,7 +1580,7 @@ def saldo(dep):
 
 <ul>
 <li><p>Si el dato abstracto es mutable y recuerda su estado interno, las operaciones modificadoras ya no producen un nuevo dato <strong>Depósito</strong> a partir de otro, sino que cambian el estado interno del dato existente.</p></li>
-<li><p>En tal caso, la especificación debe describir el <strong>efecto</strong> que producen las operaciones modificadoras sobre el dato abstracto.</p></li>
+<li><p>En tal caso, esas operaciones se denominan <strong>mutadoras</strong> y la especificación debe describir, entre otras cosas, el <strong>efecto</strong> que producen las operaciones mutadoras sobre el dato abstracto.</p></li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
     <strong>operaciones</strong><br />
@@ -1606,12 +1606,13 @@ def saldo(dep):
 <li><p>La signatura de las operaciones <code>retirar</code> e <code>ingresar</code> indican mediante «<span class="math inline">\rightarrow \empty</span>» que son operaciones que no devuelven ningún valor, ya que su cometido es el de provocar un efecto lateral (en este caso, modificar el estado interno del <strong>Depósito</strong>).</p></li>
 <li><p>En concreto, los efectos que producen dichas operaciones son los de cambiar los fondos del depósito, restándole o sumándole una cantidad.</p></li>
 <li><p>Por tanto, una vez ejecutada cualquiera de esas operaciones, se habrá cambiado el estado interno del dato abstracto.</p></li>
+<li><p>Es por eso que llamamos <strong>mutadoras</strong> a ese tipo de operaciones.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.5.0.0.4">
 
 <ul>
-<li><p>Otra opción es que las operaciones modificadoras devolvieran un valor además de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que queda en el depósito tras ingresar o retirar efectivo).</p></li>
+<li><p>Otra opción es que las operaciones mutadoras devolvieran un valor además de cambiar el estado interno del dato abstracto (por ejemplo, el saldo que queda en el depósito tras ingresar o retirar efectivo).</p></li>
 <li><p>En tal caso, podría quedar algo así:</p></li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
