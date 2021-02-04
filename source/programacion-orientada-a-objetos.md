@@ -13,7 +13,7 @@ nocite: |
 - Recordemos lo que hemos aprendido hasta ahora:
 
   - La **abstracción de datos** nos permite definir tipos de datos complejos
-    llamados **tipos abstractos de datos** (*TAD*), que se representan
+    llamados **tipos abstractos de datos** (*TAD*), que se describen
     únicamente mediante las **operaciones** que manipulan esos datos y con
     **independencia de su implementación**.
 
@@ -35,7 +35,7 @@ nocite: |
     otras funciones dependiendo del mensaje recibido. 
 
   - La función que representa al dato **encapsula su estado interno junto con
-    las operaciones** que lo manipulan en *una sola unidad sintáctica* que
+    las operaciones** que lo manipulan en *una única unidad sintáctica* que
     oculta sus detalles de implementación.
 
 - En conclusión:
