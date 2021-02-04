@@ -932,7 +932,7 @@ dep2.otro = 'adiós'
   equivale a hacer:
 
   ```python
-  >>> Despacho.retirar(dep, 25)
+  >>> Deposito.retirar(dep, 25)
   ```
 
   De hecho, el intérprete traduce el primer código al segundo automáticamente.
@@ -940,7 +940,7 @@ dep2.otro = 'adiós'
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
 
-- Para la clase `Despacho`, `retirar` es una función, mientras que para el
+- Para la clase `Deposito`, `retirar` es una función, mientras que para el
   objeto `dep` es un método.
 
 - Aunque son la misma cosa, el intérprete los trata de forma distinta según el
