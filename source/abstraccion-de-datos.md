@@ -2120,8 +2120,8 @@ def deposito(fondos):
 ---
 
 - La parte del código fuente de un programa dedicada a la definición de un tipo
-  abstracto de datos es un **candidato a módulo** que cumple los siguientes
-  requisitos:
+  abstracto de datos es un **candidato a módulo** que cumple las siguientes
+  propiedades:
 
   - La **especificación** del tipo abstracto es un ejemplo de pocas y simples
     conexiones con el resto del programa: los usuarios simplemente invocan sus

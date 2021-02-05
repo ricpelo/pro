@@ -425,6 +425,7 @@
       <span style="color:teal">⟨<em>sentencia</em>⟩</span><span class="math inline">^+</span></div></li>
 <li><p>La ejecución de esta definición crea un <strong>objeto</strong> que almacenará en forma de <strong>atributos</strong> todas los elementos (variables, métodos, etc.) que se definan dentro de la clase al ejecutar el bloque de sentencias.</p></li>
 <li><p>Como la clase define su propio ámbito, esos elementos serán <strong>locales</strong> a la clase.</p></li>
+<li><p>Los elementos de una clase también se denominan <strong>miembros</strong> de la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.4">
@@ -529,14 +530,14 @@
 <li><p>Python es considerado un lenguaje orientado a objetos <strong>puro</strong>, ya que en Python todos los datos son objetos.</p></li>
 <li><p>Por ejemplo, en Python:</p>
 <ul>
-<li><p>El tipo <code>int</code> es una clase.</p></li>
-<li><p>El entero <code>5</code> es un objeto, instancia de la clase <code>int</code>.</p></li>
+<li><p>El tipo <code class="sourceCode python"><span class="bu">int</span></code> es una clase.</p></li>
+<li><p>El entero <code class="sourceCode python"><span class="dv">5</span></code> es un objeto, instancia de la clase <code class="sourceCode python"><span class="bu">int</span></code>.</p></li>
 </ul></li>
 <li><p>Java es un lenguaje orientado a objetos <strong>impuro</strong>, ya que un programa Java manipula objetos pero también manipula otros datos llamados <em>primitivos</em>, que no son instancias de ninguna clase sino que pertenecen a un <em>tipo primitivo</em> del lenguaje.</p></li>
 <li><p>Por ejemplo, en Java:</p>
 <ul>
-<li><p>El tipo <code>String</code> es una clase, por lo que la cadena <code>"Hola"</code> es un objeto, instancia de la clase <code>String</code>.</p></li>
-<li><p>El tipo <code>int</code> es un tipo primitivo del lenguaje, por lo que el número <code>5</code> no es ningún objeto, sino un dato primitivo.</p></li>
+<li><p>El tipo <code class="sourceCode java"><span class="bu">String</span></code> es una clase, por lo que la cadena <code class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code> es un objeto, instancia de la clase <code class="sourceCode java"><span class="bu">String</span></code>.</p></li>
+<li><p>El tipo <code class="sourceCode python"><span class="bu">int</span></code> es un tipo primitivo del lenguaje, por lo que el número <code class="sourceCode python"><span class="dv">5</span></code> no es ningún objeto, sino un dato primitivo.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -554,8 +555,8 @@
 <li><p>Lo que ocurre al ejecutar este código es lo siguiente:</p>
 <ol type="1">
 <li><p>Se crea en el montículo un objeto, instancia de la clase <code>Deposito</code>, representado por una estructura con forma de diccionario.</p></li>
-<li><p>Se invoca al método <code>__init__</code> sobre el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
-<li><p>La expresión <code>Deposito(100)</code> devuelve una <strong>referencia</strong> al nuevo objeto, que representa, a grandes rasgos, la posición de memoria donde se encuentra almacenado el objeto (su <strong><em>identidad</em></strong>).</p></li>
+<li><p>Se invoca al método <code class="sourceCode python"><span class="fu">__init__</span></code> sobre el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
+<li><p>La expresión <code class="sourceCode python">Deposito(<span class="dv">100</span>)</code> devuelve una <strong>referencia</strong> al nuevo objeto, que representa, a grandes rasgos, la posición de memoria donde se encuentra almacenado el objeto (su <strong><em>identidad</em></strong>).</p></li>
 <li><p>Esa referencia es la que se almacena en la variable <code>dep</code>. O sea: <strong>en la variable no se almacena el objeto en sí, sino una <em>referencia</em> al objeto</strong>.</p></li>
 </ol></li>
 </ul>
@@ -614,7 +615,7 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dep2 <span class="op">=</span> dep1</span></code></pre></div>
 <p>tendremos dos variables que contienen la misma referencia y, por tanto, <strong><em>se refieren</em> (o <em>apuntan</em>) al mismo objeto</strong>.</p></li>
-<li><p>En ese caso, decimos que <code>dep1</code> y <code>dep2</code> son <strong>idénticas</strong>, porque las identidades de los objetos a los que apuntan son iguales, cosa que podemos comprobar usando <code>id</code> o <code>is</code>:</p>
+<li><p>En ese caso, decimos que <code>dep1</code> y <code>dep2</code> son <strong>idénticas</strong>, porque las identidades de los objetos a los que apuntan son iguales, cosa que podemos comprobar usando <code class="sourceCode python"><span class="bu">id</span></code> o <code class="sourceCode python"><span class="kw">is</span></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(dep1) <span class="op">==</span> <span class="bu">id</span>(dep2)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="kw">is</span> dep2</span>
@@ -966,7 +967,7 @@
 <ol type="1">
 <li><p>Se crea en memoria una instancia de la clase <code>Deposito</code>.</p></li>
 <li><p>Se invoca el método <code class="sourceCode python"><span class="fu">__init__</span></code> sobre el objeto recién creado, de forma que el parámetro <code class="sourceCode python"><span class="va">self</span></code> recibe una referencia a dicho objeto y el parámetro <code>fondos</code> toma el valor <code class="sourceCode python"><span class="dv">100</span></code>, que es el valor del argumento en la llamada a <code class="sourceCode python">Deposito(<span class="dv">100</span>)</code>.</p>
-<p>En la práctica, esto equivale a decir que la expresión <code class="sourceCode python">Deposito(<span class="dv">100</span>)</code> se traduce a <em>r</em><code class="sourceCode python">.<span class="fu">__init__</span>(<span class="dv">100</span>)</code>, donde <span class="math inline">\underline{r}</span> es una referencia al objeto recién creado.</p></li>
+<p>En la práctica, esto equivale a decir que la expresión <code class="sourceCode python">Deposito(<span class="dv">100</span>)</code> se traduce a <em>ref</em><code class="sourceCode python">.<span class="fu">__init__</span>(<span class="dv">100</span>)</code>, donde <em>ref</em> es una referencia al objeto recién creado.</p></li>
 <li><p>La expresión <code class="sourceCode python">Deposito(<span class="dv">100</span>)</code> devuelve la referencia al objeto.</p></li>
 <li><p>Esa referencia es la que se almacena en la variable <code>dep</code>.</p></li>
 </ol></li>
@@ -1002,7 +1003,7 @@
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="fu">__init__</span>() takes <span class="dv">2</span> positional arguments but <span class="dv">3</span> were given</span></code></pre></div></li>
-<li><p>Es importante tener en cuenta, además, que <strong>el constructor <code class="sourceCode python"><span class="fu">__init__</span></code> no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe devolver <code>None</code>), o de lo contrario provocará un error de ejecución.</p></li>
+<li><p>Es importante tener en cuenta, además, que <strong>el constructor <code class="sourceCode python"><span class="fu">__init__</span></code> no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe devolver <code class="sourceCode python"><span class="va">None</span></code>), o de lo contrario provocará un error de ejecución.</p></li>
 </ul>
 </section>
 </section>
@@ -1039,7 +1040,7 @@
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
 <li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa?</p>
 <ul>
-<li><p>Es razonable decir que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan siempre de la misma forma (las dos son funciones que restan 25 a su argumento).</p></li>
+<li><p>Es razonable decir que sí, ya que tanto <code>res1</code> como <code>res2</code> se comportan siempre de la misma forma (las dos son funciones que restan <code class="sourceCode python"><span class="dv">25</span></code> a su argumento).</p></li>
 <li><p>De hecho, <code>res1</code> puede sustituirse por <code>res2</code> (y viceversa) en cualquier lugar del programa sin que afecte a su funcionamiento.</p></li>
 </ul></li>
 </ul>
@@ -1059,7 +1060,7 @@
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">80</span></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.saldo()  <span class="co"># El mismo mensaje, da un resultado distinto en dep2</span></span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span></code></pre></div></li>
-<li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code>Deposito(100)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> (o viceversa) en cualquier parte del programa sin afectar a su funcionamiento.</p></li>
+<li><p>Incluso aunque podamos pensar que <code>dep1</code> y <code>dep2</code> son «iguales» en el sentido de que ambos han sido creados evaluando la misma expresión (<code class="sourceCode python">Deposito(<span class="dv">100</span>)</code>), no es verdad que podamos sustituir <code>dep1</code> por <code>dep2</code> (o viceversa) en cualquier parte del programa sin afectar a su funcionamiento.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1273,11 +1274,11 @@
 <section id="eq__" class="title-slide slide level3" data-number="4.2.1">
 <h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span> <code>__eq__</code></h3>
 <ul>
-<li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code>__eq__</code>.</p></li>
+<li><p>Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos definir en ella el método mágico <code class="sourceCode python"><span class="fu">__eq__</span></code>.</p></li>
 <li><p>Este método se invoca automáticamente cuando se hace una comparación con el operador <code>==</code> y el operando izquierdo es una instancia de nuestra clase. El operando derecho se envía como argumento en la llamada al método.</p></li>
 <li><p>Dicho de otra forma:</p>
 <ul>
-<li><p>Si la clase de <code>cola1</code> tiene definido el método <code>__eq__</code>, entonces <code>cola1 == cola2</code> equivale a <code>cola1.__eq__(cola2)</code>.</p></li>
+<li><p>Si la clase de <code>cola1</code> tiene definido el método <code>__eq__</code>, entonces <code>cola1 == cola2</code> equivale a <code class="sourceCode python">cola1.<span class="fu">__eq__</span>(cola2)</code>.</p></li>
 <li><p>En caso contrario, <code>cola1 == cola2</code> seguirá valiendo lo mismo que <code>cola1 is cola2</code>, como acabamos de ver.</p></li>
 </ul></li>
 <li><p>No es necesario definir el operador <code>!=</code>, ya que Python 3 lo define automáticamente a partir del <code>==</code>.</p></li>
@@ -1286,12 +1287,12 @@
 <section class="slide level5" data-number="4.2.1.0.1">
 
 <ul>
-<li><p>Para crear una posible implementación del método <code>__eq__</code>, podemos aprovecharnos del hecho de que dos listas son iguales cuando tienen exactamente los mismos elementos en el mismo orden (justo lo que necesitamos para nuestras colas):</p>
+<li><p>Para crear una posible implementación del método <code class="sourceCode python"><span class="fu">__eq__</span></code>, podemos aprovecharnos del hecho de que dos listas son iguales cuando tienen exactamente los mismos elementos en el mismo orden (justo lo que necesitamos para nuestras colas):</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span>   <span class="co"># no tiene sentido comparar objetos de distinto tipo</span></span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.items <span class="op">==</span> otro.items  <span class="co"># son iguales si tienen los mismos elementos</span></span></code></pre></div>
-<p>Se devuelve el valor especial <code>NotImplemented</code> cuando no tiene sentido comparar un objeto de la clase <code>Cola</code> con un objeto de otro tipo.</p></li>
+<p>Se devuelve el valor especial <code class="sourceCode python"><span class="va">NotImplemented</span></code> cuando no tiene sentido comparar un objeto de la clase <code>Cola</code> con un objeto de otro tipo.</p></li>
 <li><p>Si introducimos este método dentro de la definición de la clase <code>Cola</code>, tendremos el resultado deseado:</p></li>
 </ul>
 <div class="columns">
@@ -1321,23 +1322,23 @@
 <li><p>Existen datos <em>hashables</em> y datos <em>no hashables</em>.</p></li>
 <li><p>Los datos <em>hashables</em> son aquellos que pueden usarse como claves de un diccionario.</p></li>
 <li><p>Los datos mutables no pueden ser <em>hashables</em>.</p></li>
-<li><p>Si <span class="math inline">x</span> es <em>hashable</em>, <code>hash(</code><span class="math inline">x</span><code>)</code> debe devolver un número que nunca cambie durante la vida de <span class="math inline">x</span>.</p></li>
-<li><p>Si <span class="math inline">x</span> no es <em>hashable</em>, <code>hash(</code><span class="math inline">x</span><code>)</code> lanza una excepción <code>TypeError</code>.</p></li>
+<li><p>Si <span class="math inline">x</span> es <em>hashable</em>, <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> debe devolver un número que nunca cambie durante la vida de <span class="math inline">x</span>.</p></li>
+<li><p>Si <span class="math inline">x</span> no es <em>hashable</em>, <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> lanza una excepción <code class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 </ul></li>
-<li><p>Lo que hace la función <code>hash</code> es llamar al método <code>__hash__</code> de su argumento.</p></li>
-<li><p>Por tanto, la llamada a <code>hash(</code><span class="math inline">x</span><code>)</code> es equivalente a hacer <span class="math inline">x</span><code>.__hash__()</code>.</p></li>
+<li><p>Lo que hace la función <code class="sourceCode python"><span class="bu">hash</span></code> es llamar al método <code class="sourceCode python"><span class="fu">__hash__</span></code> de su argumento.</p></li>
+<li><p>Por tanto, la llamada a <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> es equivalente a hacer <span class="math inline">x</span><code class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.2.0.1">
 
 <ul>
-<li><p>Los métodos <code>__eq__</code> y <code>__hash__</code> están relacionados entre sí, porque siempre se tiene que cumplir la siguiente condición:</p>
+<li><p>Los métodos <code class="sourceCode python"><span class="fu">__eq__</span></code> y <code class="sourceCode python"><span class="fu">__hash__</span></code> están relacionados entre sí, porque siempre se tiene que cumplir la siguiente condición:</p>
 <div class="caja centered">
-<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <code>hash(</code><span class="math inline">x</span><code>)</code> debe ser igual que <code>hash(</code><span class="math inline">y</span><code>)</code>.</p>
+<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">x</span><code>)</code> debe ser igual que <code class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>Por tanto, siempre se tiene que cumplir que:</p>
 <div class="caja centered">
-<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <span class="math inline">x</span><code>.__hash__()</code> <code>==</code> <span class="math inline">y</span><code>.__hash__()</code>.</p>
+<p>Si <span class="math inline">x</span> <code>==</code> <span class="math inline">y</span>, entonces <span class="math inline">x</span><code class="sourceCode python">.<span class="fu">__hash__</span>()</code> <code>==</code> <span class="math inline">y</span><code class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p>
 </div></li>
 <li><p>Para ello, debemos tener en cuenta varias consideraciones a la hora de crear nuestras clases:</p></li>
 </ul>
@@ -1345,8 +1346,8 @@
 <section class="slide level5" data-number="4.2.2.0.2">
 
 <ol type="1">
-<li><p>Si una clase no define su propio método <code>__eq__</code>, tampoco debe definir su propio método <code>__hash__</code>.</p></li>
-<li><p>Si una clase define <code>__hash__</code>, debe definir también un <code>__eq__</code> que vaya a juego con el <code>__hash__</code>.</p></li>
+<li><p>Si una clase no define su propio método <code class="sourceCode python"><span class="fu">__eq__</span></code>, tampoco debe definir su propio método <code class="sourceCode python"><span class="fu">__hash__</span></code>.</p></li>
+<li><p>Si una clase define <code class="sourceCode python"><span class="fu">__hash__</span></code>, debe definir también un <code class="sourceCode python"><span class="fu">__eq__</span></code> que vaya a juego con el <code class="sourceCode python"><span class="fu">__hash__</span></code>.</p></li>
 <li><p>Las clases definidas por el programador, de entrada ya traen una implementación predefinida de <code>__eq__</code> y <code>__hash__</code> (mientras el programador no las cambie por otras) que cumplen que:</p>
 <ul>
 <li><p><span class="math inline">x</span> <code>==</code> <span class="math inline">y</span> sólo si <span class="math inline">x</span> <code>is</code> <span class="math inline">y</span>, como ya vimos.</p></li>
@@ -1680,7 +1681,7 @@
 <li><p>Agrupan datos y operaciones en una sola unidad.</p></li>
 <li><p>Son ciudadanos de primera clase.</p></li>
 <li><p>Es posible manipularlos por completo usando simplemente una referencia.</p></li>
-<li><p>La referencia representa al objeto a todos los niveles.</p></li>
+<li><p>La referencia representa al objeto.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1698,7 +1699,7 @@
 <li><p>Según esto, podemos imaginar que:</p>
 <ul>
 <li><p>Los atributos que almacenan el estado interno del objeto están <em>encapsulados</em> dentro del mismo.</p></li>
-<li><p>Las operaciones con las que se puede manipular el objeto <em>rodean</em> a los atributos formando una <em>cápsula</em>, de forma que, para poder acceder al interior, hay que hacerlo necesariamente a través de esas operaciones.</p></li>
+<li><p>Las operaciones con las que se puede manipular el objeto <em>rodean</em> a esos atributos formando una <em>cápsula</em>, de forma que, para poder acceder al interior, hay que hacerlo necesariamente a través de esas operaciones.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
@@ -1710,7 +1711,7 @@
 <section class="slide level5" data-number="5.1.2.0.2">
 
 <ul>
-<li>Esas operaciones forman, efectivamente, la <strong>interfaz</strong> del dato abstracto y, por tanto, definen de qué manera podemos manipular al objeto desde el exterior del mismo.</li>
+<li>Esas operaciones son las que aparecen en la <strong>especificación</strong> de su tipo abstracto y, por tanto, definen de qué manera podemos manipular al objeto desde el exterior del mismo.</li>
 </ul>
 <div class="centered">
 <figure>
@@ -1721,8 +1722,8 @@
 <section id="visibilidad" class="title-slide slide level4" data-number="5.1.2.1">
 <h4 data-number="5.1.2.1"><span class="header-section-number">5.1.2.1</span> Visibilidad</h4>
 <ul>
-<li><p>Para garantizar esta restricción de acceso, los lenguajes de programación a menudo facilitan un mecanismo por el cual el programador puede definir la <strong>visibilidad</strong> de cada miembro (atributo o método) de una clase.</p></li>
-<li><p>De esta forma, el programador puede «marcar» que determinados atributos o métodos sólo sean accesibles desde el interior de esa clase o que, por el contrario, sí se pueda acceder a ellos desde el exterior de la misma.</p></li>
+<li><p>Para garantizar esta restricción de acceso, los lenguajes de programación a menudo facilitan un mecanismo por el cual el programador puede definir la <strong>visibilidad</strong> de cada miembro de una clase.</p></li>
+<li><p>De esta forma, el programador puede «marcar» que determinadas variables de instancia o métodos sólo sean accesibles desde el interior de esa clase o que, por el contrario, sí se pueda acceder a ellos desde el exterior de la misma.</p></li>
 </ul>
 <p><span class="math display">\text{Visibilidad} \begin{cases}
 \text{No se puede acceder desde el exterior, o} \\
@@ -1739,9 +1740,6 @@
 <li><p>Por tanto, <strong>desde el exterior de un objeto sólo podremos acceder a los miembros marcados como <em>públicos</em> en la clase de ese objeto</strong>.</p></li>
 </ul></li>
 </ul>
-<div class="caja">
-<p>El conjunto de los miembros públicos de una clase forman la <strong><em>interfaz</em> de la clase</strong>, de forma similar a lo que ocurre con las interfaces de los tipos abstractos de datos.</p>
-</div>
 </section>
 <section class="slide level5" data-number="5.1.2.1.2">
 
@@ -1754,10 +1752,10 @@
 <section class="slide level5" data-number="5.1.2.1.3">
 
 <ul>
-<li><p>Cada lenguaje de programación tiene su propia manera de implementar el mecanismo de la visibilidad.</p></li>
+<li><p>Cada lenguaje de programación tiene su propia manera de implementar mecanismos de visibilidad.</p></li>
 <li><p>En Python, el mecanismo es muy sencillo:</p>
 <div class="caja">
-<p>Si el nombre de un miembro de una clase (atributo o método) empieza (pero no acaba) por <code>__</code>, entonces es <em>privado</em>. En caso contrario, es <em>público</em>.</p>
+<p>Si el nombre de un miembro de una clase empieza (pero no acaba) por <code>__</code>, entonces es <em>privado</em>. En caso contrario, es <em>público</em>.</p>
 </div></li>
 <li><p>Los <em>métodos mágicos</em> (como <code>__init__</code>, <code>__eq__</code>, etc.) tienen nombres que empiezan <strong>y acaban</strong> por <code>__</code>, así que no cumplen la condición anterior y, por tanto, son <em>públicos</em>.</p></li>
 </ul>
@@ -2008,14 +2006,14 @@
 <section id="interfaz-y-especificación-de-una-clase" class="title-slide slide level4" data-number="5.1.2.4">
 <h4 data-number="5.1.2.4"><span class="header-section-number">5.1.2.4</span> Interfaz y especificación de una clase</h4>
 <ul>
-<li><p>Recordemos que la <strong>interfaz de una clase</strong> (o de un objeto de esa clase) está formada por todo lo que es público y visible desde fuera de la clase.</p></li>
+<li><p>La <strong>interfaz de una clase</strong> (o de un objeto de esa clase) está formada por todo lo que es público y visible desde fuera de la clase.</p></li>
 <li><p>En concreto, la interfaz de una clase indica:</p>
 <ul>
 <li><p>El <strong>nombre de la clase</strong>.</p></li>
 <li><p>El nombre y tipo de los <strong>atributos públicos</strong>.</p></li>
 <li><p>La <strong>signatura</strong> de los <strong>métodos públicos</strong>.</p></li>
 </ul></li>
-<li><p>Es un concepto puramente sintáctico, porque describe <strong>qué</strong> contiene la clase pero no qué propiedades debe cumplir (para qué sirve la clase).</p></li>
+<li><p>Es un concepto puramente sintáctico, porque describe <strong>qué</strong> proporciona la clase pero no qué propiedades debe cumplir (para qué sirve la clase).</p></li>
 <li><p>Por tanto, podemos decir que el usuario de la clase no tiene suficiente con conocer la interfaz de la clase.</p></li>
 <li><p>También necesita saber qué hace, y eso no se indica en la interfaz.</p></li>
 </ul>
@@ -2029,7 +2027,7 @@
 <li><p>Está formado por:</p>
 <ul>
 <li><p>La <strong>interfaz</strong> de la clase.</p></li>
-<li><p>El <strong>invariante</strong> de la clase.</p></li>
+<li><p>Los <strong>invariantes</strong> de la clase.</p></li>
 <li><p>La <strong>especificación funcional</strong> (precondición, postcondición y signatura) de todos los <strong>métodos públicos</strong> de la clase.</p></li>
 <li><p><strong>Documentación adicional</strong> que explique la función de la clase y sus operaciones, así como posible información extra que pueda resultar de interés para el usuario de la clase.</p></li>
 </ul></li>
@@ -2276,10 +2274,9 @@
 <ul>
 <li><p>Supogamos que el banco que guarda los depósitos paga intereses a sus clientes en un porcentaje fijo sobre el saldo de sus depósitos.</p></li>
 <li><p>Ese porcentaje puede cambiar con el tiempo, pero es el mismo para todos los depósitos.</p></li>
-<li><p>Ese valor se guardará en un atributo, pero ese atributo se almacena en la propia clase y está ligado a ella, no a una instancia concreta de dicha clase, ya que es un valor compartido por todos los objetos de la misma clase.</p></li>
-<li><p>Los atributos que pertenecen y están ligados a la propia clase (en lugar de a instancias concretas) se denominan <strong>atributos de clase</strong>, <strong>variables de clase</strong> o <strong>variables estáticas</strong>.</p></li>
+<li><p>Como es un valor compartido por todos los objetos de la misma clase, se guardará en una variable local a la clase y, por tanto, se almacenará como un atributo de la propia clase, no en una instancia concreta de la clase.</p></li>
+<li><p>Esos atributos que pertenecen a la propia clase (en lugar de a instancias concretas) se denominan <strong>atributos de clase</strong>, <strong>variables de clase</strong> o <strong>variables estáticas</strong>.</p></li>
 <li><p>Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a las instancias) se denominan <strong>atributos de instancia</strong> o <strong>variables de instancia</strong>.</p></li>
-<li><p>Las variables de clase pertenecen a la clase, no a un objeto de la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.1.0.0.1">
@@ -2287,7 +2284,7 @@
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>Los atributos de clase se crean mediante <strong>sentencias de asignación</strong> en el <em>cuerpo</em> de la clase, fuera de cualquier definición de método:</li>
+<li>Los atributos de clase se pueden crear mediante <strong>sentencias de asignación</strong> en el <em>cuerpo</em> de la clase, fuera de cualquier definición de método:</li>
 </ul>
 <div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
@@ -2309,7 +2306,7 @@
 <span id="cb83-18"><a href="#cb83-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </div><div class="column" style="width:40%;">
 <ul>
-<li>Este atributo se puede manipular directamente a través de la clase, es decir, pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la sintaxis:</li>
+<li>Este atributo se puede manipular directamente a través de una referencia a la clase (su nombre) usando la sintaxis:</li>
 </ul>
 <p><em>clase</em><code>.</code><em>atributo</em></p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
@@ -2323,16 +2320,13 @@
 <section class="slide level5" data-number="6.1.0.0.2">
 
 <ul>
-<li>Para cambiar el valor de una variable de clase, se le asigna un valor usando la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</li>
-</ul>
+<li><p>Para crear (o cambiar el valor de) una variable de clase, se le puede asignar un valor usando la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.02</span></span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes <span class="op">=</span> <span class="fl">0.08</span></span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes</span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fl">0.08</span></span></code></pre></div>
-<ul>
-<li>Las variables de clase se pueden acceder como cualquier variable de instancia, a partir de una instancia de la clase:</li>
-</ul>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fl">0.08</span></span></code></pre></div></li>
+<li><p>Las variables de clase también se pueden acceder como cualquier variable de instancia, a partir de una instancia de la clase:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.interes          <span class="co"># Accede al interés de la clase Deposito</span></span>
@@ -2348,8 +2342,7 @@
 <span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a><span class="fl">0.08</span></span>
 <span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d2.interes                <span class="co"># Cambia para todas las instancias</span></span>
 <span id="cb86-15"><a href="#cb86-15" aria-hidden="true" tabindex="-1"></a><span class="fl">0.08</span></span></code></pre></div>
-<ul>
-<li>Pero esta segunda forma no es conveniente, como ahora veremos.</li>
+<p>Pero esta segunda forma no es conveniente, como ahora veremos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.1.0.0.3">
@@ -2375,7 +2368,7 @@
 <section class="slide level5" data-number="6.1.0.0.4">
 
 <ul>
-<li>Si necesitamos acceder al valor de una variable de clase dentro de la misma clase, usaremos la misma sintaxis:</li>
+<li>Si necesitamos acceder al valor de una variable de clase dentro de la misma clase, usaremos la misma sintaxis <em>clase</em><code>.</code><em>atributo</em>:</li>
 </ul>
 <div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    interes <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Un atributo de clase</span></span>
@@ -2413,9 +2406,9 @@
 <ul>
 <li><p>Los <strong>métodos estáticos</strong> son métodos definidos dentro de una clase pero que <strong>no se ejecutan sobre ninguna instancia</strong>.</p></li>
 <li><p>Al no haber instancia, <strong>los métodos estáticos no reciben ninguna instancia como argumento</strong> a través del primer parámetro <code>self</code>.</p></li>
-<li><p>En realidad, un método estático es básicamente <strong>una función normal definida dentro de una clase</strong> y que se ejecuta como cualquier otra función.</p></li>
+<li><p>En realidad, un método estático es básicamente <strong>una función normal definida dentro de una clase</strong> y que está pensada para ser ejecutada como cualquier otra función.</p></li>
 <li><p>Por contraste, los métodos que se ejecutan sobre un objeto se denominan <strong>métodos de instancia</strong>, para distinguirlos de los estáticos.</p></li>
-<li><p>Al estar dentro de la clase, para acceder a un método estático hay que usar el operador punto (<code>.</code>) usando una referencia a la clase como operando izquierdo.</p></li>
+<li><p>Al estar dentro de la clase, para acceder a un método estático hay que usar el operador punto (<code>.</code>) desde una referencia a la clase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.1">
@@ -2451,8 +2444,8 @@
 <ul>
 <li><p>Para crear un método estático dentro de una clase:</p>
 <ul>
-<li><p>Se añade el <strong>decorador</strong> <code>@staticmethod</code> justo encima de la definición del método.</p></li>
-<li><p>El método no debe recibir el parámetro <code>self</code>.</p></li>
+<li><p>Se añade el <strong>decorador</strong> <code class="sourceCode python"><span class="at">@staticmethod</span></code> justo encima de la definición del método.</p></li>
+<li><p>El método no debe recibir el parámetro <code class="sourceCode python"><span class="va">self</span></code>.</p></li>
 </ul></li>
 <li><p>Sabiendo eso, podemos crear una clase <code>Calculadora</code> que ni siquiera haría falta instanciar y que contendría las operaciones a realizar con los números.</p></li>
 <li><p>Esas operaciones serían métodos estáticos.</p></li>
@@ -2482,7 +2475,7 @@
 <section class="slide level5" data-number="6.2.0.0.4">
 
 <ul>
-<li>Lo que hace básicamente el decorador <code>@staticmethod</code> es decirle al intérprete que se salte el mecanismo interno habitual de pasar automáticamente una referencia del objeto como primer parámetro del método (el que normalmente se llama <code>self</code>).</li>
+<li>Lo que hace básicamente el decorador <code class="sourceCode python"><span class="at">@staticmethod</span></code> es decirle al intérprete que se salte el mecanismo interno habitual de pasar automáticamente una referencia del objeto como primer parámetro del método (el que normalmente se llama <code class="sourceCode python"><span class="va">self</span></code>).</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -2510,7 +2503,7 @@
 
 <ul>
 <li><p>Podemos combinar métodos estáticos y no estáticos en la misma clase.</p></li>
-<li><p>En tal caso, debemos recordar que los métodos estáticos de una clase no pueden acceder a los miembros no estáticos de esa clase, ya que no disponen de la referencia al objeto (<code>self</code>).</p></li>
+<li><p>En tal caso, debemos recordar que los métodos estáticos de una clase no pueden acceder a los miembros no estáticos de esa clase, ya que no disponen de la referencia al objeto (<code class="sourceCode python"><span class="va">self</span></code>).</p></li>
 <li><p>En cambio, un método estático sí puede acceder a variables de clase o a otros métodos estáticos (de la misma clase o de cualquier otra clase) usando el operador punto (<code>.</code>).</p></li>
 </ul>
 </section>

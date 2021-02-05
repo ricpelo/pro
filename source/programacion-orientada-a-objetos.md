@@ -262,6 +262,8 @@ def deposito(fondos):
 - Como la clase define su propio ámbito, esos elementos serán **locales** a la
   clase.
 
+- Los elementos de una clase también se denominan **miembros** de la clase.
+
 ---
 
 - Por ejemplo, las funciones !PYTHON(__init__), `retirar`, `ingresar` y `saldo`
@@ -454,9 +456,9 @@ E -> self [lhead = cluster1]
 
 - Por ejemplo, en Python:
 
-  - El tipo `int` es una clase.
+  - El tipo !PYTHON(int) es una clase.
   
-  - El entero `5` es un objeto, instancia de la clase `int`.
+  - El entero !PYTHON(5) es un objeto, instancia de la clase !PYTHON(int).
 
 - Java es un lenguaje orientado a objetos **impuro**, ya que un programa Java
   manipula objetos pero también manipula otros datos llamados *primitivos*, que
@@ -465,11 +467,11 @@ E -> self [lhead = cluster1]
 
 - Por ejemplo, en Java:
 
-  - El tipo `String` es una clase, por lo que la cadena `"Hola"` es un objeto,
-    instancia de la clase `String`.
+  - El tipo !JAVA(String) es una clase, por lo que la cadena !JAVA("Hola") es
+    un objeto, instancia de la clase !JAVA(String).
 
-  - El tipo `int` es un tipo primitivo del lenguaje, por lo que el número `5`
-    no es ningún objeto, sino un dato primitivo.
+  - El tipo !PYTHON(int) es un tipo primitivo del lenguaje, por lo que el
+    número !PYTHON(5) no es ningún objeto, sino un dato primitivo.
 
 ---
 
@@ -494,11 +496,11 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
   1. Se crea en el montículo un objeto, instancia de la clase `Deposito`,
      representado por una estructura con forma de diccionario.
 
-  2. Se invoca al método `__init__` sobre el objeto recién creado (ya
+  2. Se invoca al método !PYTHON(__init__) sobre el objeto recién creado (ya
      hablaremos de ésto más adelante).
 
-  3. La expresión `Deposito(100)` devuelve una **referencia** al nuevo objeto,
-     que representa, a grandes rasgos, la posición de memoria donde se
+  3. La expresión !PYTHON(Deposito(100)) devuelve una **referencia** al nuevo
+     objeto, que representa, a grandes rasgos, la posición de memoria donde se
      encuentra almacenado el objeto (su **_identidad_**).
 
   4. Esa referencia es la que se almacena en la variable `dep`. O sea: **en
@@ -585,7 +587,7 @@ dep = Deposito(100)
   
 - En ese caso, decimos que `dep1` y `dep2` son **idénticas**, porque las
   identidades de los objetos a los que apuntan son iguales, cosa que podemos
-  comprobar usando `id` o `is`:
+  comprobar usando !PYTHON(id) o !PYTHON(is):
 
   ```python
   >>> id(dep1) == id(dep2)
@@ -1091,8 +1093,8 @@ class Deposito:
      argumento en la llamada a !PYTHON(Deposito(100)).
 
      En la práctica, esto equivale a decir que la expresión
-     !PYTHON(Deposito(100)) se traduce a *r*!PYTHON(.__init__(100)), donde
-     $\underline{r}$ es una referencia al objeto recién creado.
+     !PYTHON(Deposito(100)) se traduce a *ref*!PYTHON(.__init__(100)), donde
+     *ref* es una referencia al objeto recién creado.
 
   3. La expresión !PYTHON(Deposito(100)) devuelve la referencia al objeto.
 
@@ -1138,7 +1140,7 @@ class Deposito:
 
 - Es importante tener en cuenta, además, que **el constructor !PYTHON(__init__)
   no debe devolver ningún valor** (o, lo que es lo mismo, debe devolver
-  `None`), o de lo contrario provocará un error de ejecución.
+  !PYTHON(None)), o de lo contrario provocará un error de ejecución.
 
 # Identidad e igualdad
 
@@ -1185,8 +1187,8 @@ class Deposito:
 - ¿Son `res1` y `res2` la misma cosa?
 
   - Es razonable decir que sí, ya que tanto `res1` como `res2` se comportan
-    siempre de la misma forma (las dos son funciones que restan 25 a su
-    argumento).
+    siempre de la misma forma (las dos son funciones que restan !PYTHON(25) a
+    su argumento).
 
   - De hecho, `res1` puede sustituirse por `res2` (y viceversa) en cualquier
     lugar del programa sin que afecte a su funcionamiento.
@@ -1216,8 +1218,9 @@ class Deposito:
 
   - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el
     sentido de que ambos han sido creados evaluando la misma expresión
-    (`Deposito(100)`), no es verdad que podamos sustituir `dep1` por `dep2` (o
-    viceversa) en cualquier parte del programa sin afectar a su funcionamiento.
+    (!PYTHON(Deposito(100))), no es verdad que podamos sustituir `dep1` por
+    `dep2` (o viceversa) en cualquier parte del programa sin afectar a su
+    funcionamiento.
 
 ---
 
@@ -1526,7 +1529,7 @@ class Deposito:
 ### `__eq__`
 
 - Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos
-  definir en ella el método mágico `__eq__`.
+  definir en ella el método mágico !PYTHON(__eq__).
 
 - Este método se invoca automáticamente cuando se hace una comparación con el
   operador `==` y el operando izquierdo es una instancia de nuestra clase. El
@@ -1535,7 +1538,7 @@ class Deposito:
 - Dicho de otra forma:
 
   - Si la clase de `cola1` tiene definido el método `__eq__`, entonces
-    `cola1 == cola2` equivale a `cola1.__eq__(cola2)`.
+    `cola1 == cola2` equivale a !PYTHON(cola1.__eq__(cola2)).
   
   - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
     `cola1 is cola2`, como acabamos de ver.
@@ -1545,7 +1548,7 @@ class Deposito:
 
 ---
 
-- Para crear una posible implementación del método `__eq__`, podemos
+- Para crear una posible implementación del método !PYTHON(__eq__), podemos
   aprovecharnos del hecho de que dos listas son iguales cuando tienen
   exactamente los mismos elementos en el mismo orden (justo lo que necesitamos
   para nuestras colas):
@@ -1557,7 +1560,7 @@ class Deposito:
       return self.items == otro.items  # son iguales si tienen los mismos elementos
   ```
 
-  Se devuelve el valor especial `NotImplemented` cuando no tiene sentido
+  Se devuelve el valor especial !PYTHON(NotImplemented) cuando no tiene sentido
   comparar un objeto de la clase `Cola` con un objeto de otro tipo.
 
 - Si introducimos este método dentro de la definición de la clase `Cola`,
@@ -1604,31 +1607,35 @@ True
 
   - Los datos mutables no pueden ser _hashables_.
 
-  - Si $x$ es _hashable_, `hash(`$x$`)` debe devolver un número que nunca
-    cambie durante la vida de $x$.
+  - Si $x$ es _hashable_, !PYTHON(hash)`(`$x$`)` debe devolver un número que
+    nunca cambie durante la vida de $x$.
 
-  - Si $x$ no es _hashable_, `hash(`$x$`)` lanza una excepción `TypeError`.
+  - Si $x$ no es _hashable_, !PYTHON(hash)`(`$x$`)` lanza una excepción
+    !PYTHON(TypeError).
 
-- Lo que hace la función `hash` es llamar al método `__hash__` de su argumento.
+- Lo que hace la función !PYTHON(hash) es llamar al método !PYTHON(__hash__) de
+  su argumento.
 
-- Por tanto, la llamada a `hash(`$x$`)` es equivalente a hacer
-  $x$`.__hash__()`.
+- Por tanto, la llamada a !PYTHON(hash)`(`$x$`)` es equivalente a hacer
+  $x$!PYTHON(.__hash__()).
 
 ---
 
-- Los métodos `__eq__` y `__hash__` están relacionados entre sí, porque siempre
-  se tiene que cumplir la siguiente condición:
+- Los métodos !PYTHON(__eq__) y !PYTHON(__hash__) están relacionados entre sí,
+  porque siempre se tiene que cumplir la siguiente condición:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `==` $y$, entonces `hash(`$x$`)` debe ser igual que `hash(`$y$`)`.
+  Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` debe ser igual que
+  !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, siempre se tiene que cumplir que:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `==` $y$, entonces $x$`.__hash__()` `==` $y$`.__hash__()`.
+  Si $x$ `==` $y$, entonces $x$!PYTHON(.__hash__()) `==`
+  $y$!PYTHON(.__hash__()).
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Para ello, debemos tener en cuenta varias consideraciones a la hora de crear
@@ -1636,11 +1643,11 @@ True
 
 ---
 
-1. Si una clase no define su propio método `__eq__`, tampoco debe definir su
-   propio método `__hash__`.
+1. Si una clase no define su propio método !PYTHON(__eq__), tampoco debe
+   definir su propio método !PYTHON(__hash__).
 
-2. Si una clase define `__hash__`, debe definir también un `__eq__` que vaya a
-   juego con el `__hash__`.
+2. Si una clase define !PYTHON(__hash__), debe definir también un
+   !PYTHON(__eq__) que vaya a juego con el !PYTHON(__hash__).
 
 3. Las clases definidas por el programador, de entrada ya traen una
    implementación predefinida de `__eq__` y `__hash__` (mientras el programador
@@ -2143,7 +2150,7 @@ True
 
   - Es posible manipularlos por completo usando simplemente una referencia.
 
-  - La referencia representa al objeto a todos los niveles.
+  - La referencia representa al objeto.
 
 ### La encapsulación como mecanismo de protección de datos
 
@@ -2161,7 +2168,7 @@ True
   - Los atributos que almacenan el estado interno del objeto están
     _encapsulados_ dentro del mismo.
 
-  - Las operaciones con las que se puede manipular el objeto _rodean_ a los
+  - Las operaciones con las que se puede manipular el objeto _rodean_ a esos
     atributos formando una _cápsula_, de forma que, para poder acceder al
     interior, hay que hacerlo necesariamente a través de esas operaciones.
 
@@ -2169,9 +2176,9 @@ True
 
 ---
 
-- Esas operaciones forman, efectivamente, la **interfaz** del dato abstracto y,
-  por tanto, definen de qué manera podemos manipular al objeto desde el
-  exterior del mismo.
+- Esas operaciones son las que aparecen en la **especificación** de su tipo
+  abstracto y, por tanto, definen de qué manera podemos manipular al objeto
+  desde el exterior del mismo.
 
 !IMG(operaciones-capsula.jpg)(Las operaciones forman una _cápsula_)(width=50%)(width=40%)
 
@@ -2179,11 +2186,12 @@ True
 
 - Para garantizar esta restricción de acceso, los lenguajes de programación
   a menudo facilitan un mecanismo por el cual el programador puede definir
-  la **visibilidad** de cada miembro (atributo o método) de una clase.
+  la **visibilidad** de cada miembro de una clase.
 
-- De esta forma, el programador puede «marcar» que determinados atributos o
-  métodos sólo sean accesibles desde el interior de esa clase o que, por el
-  contrario, sí se pueda acceder a ellos desde el exterior de la misma.
+- De esta forma, el programador puede «marcar» que determinadas variables de
+  instancia o métodos sólo sean accesibles desde el interior de esa clase o
+  que, por el contrario, sí se pueda acceder a ellos desde el exterior de la
+  misma.
 
 $$\text{Visibilidad} \begin{cases}
 \text{No se puede acceder desde el exterior, o} \\
@@ -2206,28 +2214,21 @@ $$\text{Visibilidad} \begin{cases}
   - Por tanto, **desde el exterior de un objeto sólo podremos acceder a los
     miembros marcados como _públicos_ en la clase de ese objeto**.
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El conjunto de los miembros públicos de una clase forman la **_interfaz_ de la
-clase**, de forma similar a lo que ocurre con las interfaces de los tipos
-abstractos de datos.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ---
 
 !IMGP(encapsulacion.png)(Miembros _públicos_ y _privados_)(width=60%)(width=50%)
 
 ---
 
-- Cada lenguaje de programación tiene su propia manera de implementar el
-  mecanismo de la visibilidad.
+- Cada lenguaje de programación tiene su propia manera de implementar
+  mecanismos de visibilidad.
 
 - En Python, el mecanismo es muy sencillo:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si el nombre de un miembro de una clase (atributo o método) empieza (pero no
-  acaba) por `__`, entonces es _privado_. En caso contrario, es _público_.
+  Si el nombre de un miembro de una clase empieza (pero no acaba) por `__`,
+  entonces es _privado_. En caso contrario, es _público_.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los _métodos mágicos_ (como `__init__`, `__eq__`, etc.) tienen nombres que
@@ -2543,8 +2544,8 @@ propiedades se traducen en invariantes** de la clase.
 
 #### Interfaz y especificación de una clase
 
-- Recordemos que la **interfaz de una clase** (o de un objeto de esa clase)
-  está formada por todo lo que es público y visible desde fuera de la clase.
+- La **interfaz de una clase** (o de un objeto de esa clase) está formada por
+  todo lo que es público y visible desde fuera de la clase.
 
 - En concreto, la interfaz de una clase indica:
 
@@ -2554,8 +2555,8 @@ propiedades se traducen en invariantes** de la clase.
 
   - La **signatura** de los **métodos públicos**.
 
-- Es un concepto puramente sintáctico, porque describe **qué** contiene la clase
-  pero no qué propiedades debe cumplir (para qué sirve la clase).
+- Es un concepto puramente sintáctico, porque describe **qué** proporciona la
+  clase pero no qué propiedades debe cumplir (para qué sirve la clase).
 
 - Por tanto, podemos decir que el usuario de la clase no tiene suficiente con
   conocer la interfaz de la clase.
@@ -2575,7 +2576,7 @@ propiedades se traducen en invariantes** de la clase.
 
   - La **interfaz** de la clase.
 
-  - El **invariante** de la clase.
+  - Los **invariantes** de la clase.
 
   - La **especificación funcional** (precondición, postcondición y signatura)
     de todos los **métodos públicos** de la clase.
@@ -2898,19 +2899,17 @@ class Pila:
 - Ese porcentaje puede cambiar con el tiempo, pero es el mismo para todos los
   depósitos.
 
-- Ese valor se guardará en un atributo, pero ese atributo se almacena en la
-  propia clase y está ligado a ella, no a una instancia concreta de dicha
-  clase, ya que es un valor compartido por todos los objetos de la misma clase.
+- Como es un valor compartido por todos los objetos de la misma clase, se
+  guardará en una variable local a la clase y, por tanto, se almacenará como un
+  atributo de la propia clase, no en una instancia concreta de la clase.
 
-- Los atributos que pertenecen y están ligados a la propia clase (en lugar de a
-  instancias concretas) se denominan **atributos de clase**, **variables de
-  clase** o **variables estáticas**.
+- Esos atributos que pertenecen a la propia clase (en lugar de a instancias
+  concretas) se denominan **atributos de clase**, **variables de clase** o
+  **variables estáticas**.
 
 - Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
   las instancias) se denominan **atributos de instancia** o **variables de
   instancia**.
-
-- Las variables de clase pertenecen a la clase, no a un objeto de la clase.
 
 ---
 
@@ -2918,8 +2917,8 @@ class Pila:
 
 ::: {.column width=60%}
 
-- Los atributos de clase se crean mediante **sentencias de asignación** en el
-  _cuerpo_ de la clase, fuera de cualquier definición de método:
+- Los atributos de clase se pueden crear mediante **sentencias de asignación**
+  en el _cuerpo_ de la clase, fuera de cualquier definición de método:
 
 ```python
 class Deposito:
@@ -2946,9 +2945,8 @@ class Deposito:
 
 ::: {.column width=40%}
 
-- Este atributo se puede manipular directamente a través de la clase, es decir,
-  pidiéndoselo a la propia clase como si ésta fuese un objeto, usando la
-  sintaxis:
+- Este atributo se puede manipular directamente a través de una referencia a la
+  clase (su nombre) usando la sintaxis:
 
 _clase_`.`_atributo_
 
@@ -2966,39 +2964,39 @@ _clase_`.`_atributo_
 
 ---
 
-- Para cambiar el valor de una variable de clase, se le asigna un valor usando
-  la misma sintaxis _clase_`.`_atributo_:
+- Para crear (o cambiar el valor de) una variable de clase, se le puede asignar
+  un valor usando la misma sintaxis _clase_`.`_atributo_:
 
-```python
->>> Deposito.interes
-0.02
->>> Deposito.interes = 0.08
->>> Deposito.interes
-0.08
-```
+  ```python
+  >>> Deposito.interes
+  0.02
+  >>> Deposito.interes = 0.08
+  >>> Deposito.interes
+  0.08
+  ```
 
-- Las variables de clase se pueden acceder como cualquier variable de
+- Las variables de clase también se pueden acceder como cualquier variable de
   instancia, a partir de una instancia de la clase:
 
-```python
->>> d1 = Deposito(100)
->>> d2 = Deposito(400)
->>> Deposito.interes          # Accede al interés de la clase Deposito
-0.02
->>> d1.interes                # También
-0.02
->>> d2.interes                # También
-0.02
->>> Deposito.interes = 0.08   # Cambia la variable de clase
->>> Deposito.interes
-0.08                          # Se comprueba que ha cambiado
->>> d1.interes                # Cambia también para la instancia
-0.08
->>> d2.interes                # Cambia para todas las instancias
-0.08
-```
+  ```python
+  >>> d1 = Deposito(100)
+  >>> d2 = Deposito(400)
+  >>> Deposito.interes          # Accede al interés de la clase Deposito
+  0.02
+  >>> d1.interes                # También
+  0.02
+  >>> d2.interes                # También
+  0.02
+  >>> Deposito.interes = 0.08   # Cambia la variable de clase
+  >>> Deposito.interes
+  0.08                          # Se comprueba que ha cambiado
+  >>> d1.interes                # Cambia también para la instancia
+  0.08
+  >>> d2.interes                # Cambia para todas las instancias
+  0.08
+  ```
 
-- Pero esta segunda forma no es conveniente, como ahora veremos.
+  Pero esta segunda forma no es conveniente, como ahora veremos.
 
 ---
 
@@ -3029,7 +3027,7 @@ _clase_`.`_atributo_
 ---
 
 - Si necesitamos acceder al valor de una variable de clase dentro de la misma
-  clase, usaremos la misma sintaxis:
+  clase, usaremos la misma sintaxis _clase_`.`_atributo_:
 
 ```python
 class Deposito:
@@ -3073,14 +3071,14 @@ class Deposito:
   como argumento** a través del primer parámetro `self`.
 
 - En realidad, un método estático es básicamente **una función normal definida
-  dentro de una clase** y que se ejecuta como cualquier otra función.
+  dentro de una clase** y que está pensada para ser ejecutada como cualquier
+  otra función.
 
 - Por contraste, los métodos que se ejecutan sobre un objeto se denominan
   **métodos de instancia**, para distinguirlos de los estáticos.
 
 - Al estar dentro de la clase, para acceder a un método estático hay que usar
-  el operador punto (`.`) usando una referencia a la clase como operando
-  izquierdo.
+  el operador punto (`.`) desde una referencia a la clase.
 
 ---
 
@@ -3118,10 +3116,10 @@ class Deposito:
 
 - Para crear un método estático dentro de una clase:
 
-  - Se añade el **decorador** `@staticmethod` justo encima de la definición del
-    método.
+  - Se añade el **decorador** !PYTHON(@staticmethod) justo encima de la
+    definición del método.
 
-  - El método no debe recibir el parámetro `self`.
+  - El método no debe recibir el parámetro !PYTHON(self).
 
 - Sabiendo eso, podemos crear una clase `Calculadora` que ni siquiera haría
   falta instanciar y que contendría las operaciones a realizar con los números.
@@ -3155,10 +3153,10 @@ class Deposito:
 
 ---
 
-- Lo que hace básicamente el decorador `@staticmethod` es decirle al intérprete
-  que se salte el mecanismo interno habitual de pasar automáticamente una
-  referencia del objeto como primer parámetro del método (el que normalmente se
-  llama `self`).
+- Lo que hace básicamente el decorador !PYTHON(@staticmethod) es decirle al
+  intérprete que se salte el mecanismo interno habitual de pasar
+  automáticamente una referencia del objeto como primer parámetro del método
+  (el que normalmente se llama !PYTHON(self)).
 
 :::: columns
 
@@ -3213,7 +3211,7 @@ class Deposito:
 
 - En tal caso, debemos recordar que los métodos estáticos de una clase no
   pueden acceder a los miembros no estáticos de esa clase, ya que no disponen
-  de la referencia al objeto (`self`).
+  de la referencia al objeto (!PYTHON(self)).
 
 - En cambio, un método estático sí puede acceder a variables de clase o a otros
   métodos estáticos (de la misma clase o de cualquier otra clase) usando el
