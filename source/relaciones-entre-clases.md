@@ -2,6 +2,8 @@
 title: Relaciones entre clases
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @python_software_foundation_sitio_nodate, @denero_composing_nodate
 ---
 
 # Relaciones básicas
@@ -2017,3 +2019,42 @@ class Rectangulo:
 
 # Herencia vs. composición
 
+## Herencia vs. composición
+
+- Ventajas de la herencia:
+
+  - Es atractiva porque permite reutilizar código de una manera rápida,
+    sencilla y evidente.
+
+  - Es poderosa porque me permite jugar con el polimorfismo con facilidad.
+
+  - Me permite sobrescribir métodos, así que si algo no es exactamente como
+    espero siempre puedo cambiarlo si fuera necesario, por lo que es versátil.
+
+- Inconvenientes de la herencia:
+
+  - La herencia tiene cabida donde existe una relación «es un(a)», pero esa
+    relación es más fuerte de lo que creemos, porque ha de ser de por vida.
+
+  - En un sistema, prácticamente nada dura eternamente.
+
+---
+
+- Ventajas de la composición:
+
+  - La composición consiste en delegar tareas a otros objetos a través de
+    relaciones «tiene».
+
+  - Eso implica que la composición también es reutilización de código, pero
+    mucho más flexible, ya que los componentes de un objeto pueden cambiar
+    siempre que sea necesario.
+
+  - Permite cambiar el comportamiento en tiempo de ejecución, simplemente
+    cambiando algún componente.
+
+- Inconvenientes de la composición:
+
+  - La composición no es polimórfica, pero se puede arreglar mediante
+    _interfaces_ y _duck typing_.
+
+!BIBLIOGRAFIA
