@@ -1650,40 +1650,43 @@ True
    !PYTHON(__eq__) que vaya a juego con el !PYTHON(__hash__).
 
 3. Las clases definidas por el programador, de entrada ya traen una
-   implementación predefinida de `__eq__` y `__hash__` (mientras el programador
-   no las cambie por otras) que cumplen que:
+   implementación predefinida de !PYTHON(__eq__) y !PYTHON(__hash__) (mientras
+   el programador no las cambie por otras) que cumplen que:
 
-   - $x$ `==` $y$ sólo si $x$ `is` $y$, como ya vimos.
+   - $x$ `==` $y$ sólo si $x$ !PYTHON(is) $y$, como ya vimos.
 
-   - $x$`.__hash__()` devuelve un valor que garantiza que:
+   - $x$!PYTHON(.__hash__()) devuelve un valor que garantiza que:
 
-     si $x$ `==` $y$, entonces $x$ `is` $y$ y `hash(`$x$`)` `==` `hash(`$y$`)`.
+     si $x$ `==` $y$, entonces $x$ !PYTHON(is) $y$, y !PYTHON(hash)`(`$x$`)`
+     `==` !PYTHON(hash)`(`$y$`)`.
 
-   (Esto se debe a que la clase _hereda_ los métodos `__eq__` y `__hash__` de
-   la clase `object`, como veremos en la siguiente unidad.)
+   (Esto se debe a que la clase _hereda_ los métodos !PYTHON(__eq__) y
+   !PYTHON(__hash__) de la clase !PYTHON(object), como veremos en la siguiente
+   unidad.)
 
 ---
 
-4. Si una clase no define `__eq__` pero no se desea que sus instancias sean
-   _hashables_, debe definir su método `__hash__` como `None` incluyendo la
-   sentencia `__hash__ = None` en la definición de la clase.
+4. Si una clase no define !PYTHON(__eq__) pero no se desea que sus instancias
+   sean _hashables_, debe definir su método !PYTHON(__hash__) como
+   !PYTHON(None) incluyendo la sentencia !PYTHON(__hash__) `=` !PYTHON(None) en
+   la definición de la clase.
 
-5. Si una clase define `__eq__` pero no define `__hash__`, es como si
-   implícitamente hubiera definido `__hash__ = None` (lo hace el intérprete
-   internamente).
+5. Si una clase define !PYTHON(__eq__) pero no define !PYTHON(__hash__), es
+   como si implícitamente hubiera definido !PYTHON(__hash__) `=` !PYTHON(None)
+   (lo hace el intérprete internamente).
 
-   Por tanto, si una clase define `__eq__` pero no define `__hash__`, sus
-   instancias no serán _hashables_.
+   Por tanto, si una clase define !PYTHON(__eq__) pero no define
+   !PYTHON(__hash__), sus instancias no serán _hashables_.
 
-6. Si las instancias de la clase son mutables y ésta define `__eq__`, no
-   debe definir `__hash__`, ya que los objetos mutables no deben ser
+6. Si las instancias de la clase son mutables y ésta define !PYTHON(__eq__), no
+   debe definir !PYTHON(__hash__), ya que los objetos mutables no deben ser
    _hashables_.
 
 ---
 
-- Una forma sencilla de crear el `__hash__` de una clase sería usar el `hash`
-  de una tupla que contenga las variables de estado de la clase (siempre
-  que estas sean _hashables_ también):
+- Una forma sencilla de crear el !PYTHON(__hash__) de una clase sería usar el
+  !PYTHON(hash) de una tupla que contenga las variables de estado de la clase
+  (siempre que estas sean _hashables_ también):
 
   ```python
   def __hash__(self):
@@ -1691,17 +1694,18 @@ True
   ```
 
 - Las colas son mutables y, por tanto, no pueden ser _hashables_, así que no
-  definiremos ningún método `__hash__` en la clase `Cola`. Así, como sí hemos
-  definido un método `__eq__`, el intérprete automáticamente hará
-  `__hash__ = None` y convertirá a las colas en _no hashables_.
+  definiremos ningún método !PYTHON(__hash__) en la clase `Cola`. Así, como sí
+  hemos definido un método !PYTHON(__eq__), el intérprete automáticamente hará
+  !PYTHON(__hash__) `=` !PYTHON(None) y convertirá a las colas en _no
+  hashables_.
 
 ## Otros métodos mágicos
 
 ### `__repr__`
 
-- Existe una función llamada `repr` que devuelve la **forma normal** de una
-  expresión, es decir, la cadena de símbolos que mejor **representa** al valor
-  de la expresión.
+- Existe una función llamada !PYTHON(repr) que devuelve la **forma normal** de
+  una expresión, es decir, la cadena de símbolos que mejor **representa** al
+  valor de la expresión.
 
 :::: columns
 
@@ -1735,8 +1739,8 @@ True
 - Además, esa expresión debe contener toda la información necesaria para
   **reconstruir el valor**.
 
-- El intérprete interactivo de Python usa `repr` cuando le pedimos que evalúe
-  una expresión:
+- El intérprete interactivo de Python usa !PYTHON(repr) cuando le pedimos que
+  evalúe una expresión:
 
   ```python
   >>> 2 + 3  # devuelve lo mismo que repr(2 + 3) pero sin comillas
@@ -1752,8 +1756,8 @@ True
   '<built-in function max>'
   ```
 
-  En este caso, lo que nos devuelve `repr` no tiene la información suficiente
-  como para construir la función `max`.
+  En este caso, lo que nos devuelve !PYTHON(repr) no tiene la información
+  suficiente como para construir la función !PYTHON(max).
 
   De hecho, ni siquiera es una expresión válida en el lenguaje:
 
@@ -1767,10 +1771,10 @@ True
 
 ---
 
-- Al aplicar la función `repr` sobre una instancia de una clase definida por el
-  programador, obtenemos una representación que, en general, no es correcta ni
-  contiene la información suficiente como para representar al objeto o
-  reconstruirlo.
+- Al aplicar la función !PYTHON(repr) sobre una instancia de una clase definida
+  por el programador, obtenemos una representación que, en general, no es
+  correcta ni contiene la información suficiente como para representar al
+  objeto o reconstruirlo.
 
 - Por ejemplo:
 
@@ -1783,9 +1787,11 @@ True
 
   Nos devuelve una cadena que que simplemente nos informa de:
 
-  - La clase a la que pertenece el objeto, que se obtiene mediante `type(dep)`.
+  - La clase a la que pertenece el objeto, que se obtiene mediante
+    !PYTHON(type(dep)).
 
-  - El `id` del objeto en hexadecimal, que se obtiene mediante `hex(id(dep))`.
+  - El !PYTHON(id) del objeto en hexadecimal, que se obtiene mediante
+    !PYTHON(hex(id(dep))).
 
   Pero esa cadena no contiene ninguna expresión válida en Python y tampoco nos
   dice cuántos fondos contiene el depósito, por ejemplo.
@@ -1794,9 +1800,9 @@ True
 
 ---
 
-- En este caso, lo ideal sería que `repr(dep)` devolviera una expresión **no
-  ambigua** con la que pudiéramos **reconstruir** el objeto `dep` con toda la
-  información que contiene (su estado interno).
+- En este caso, lo ideal sería que !PYTHON(repr(dep)) devolviera una expresión
+  **no ambigua** con la que pudiéramos **reconstruir** el objeto `dep` con toda
+  la información que contiene (su estado interno).
 
 - Es decir, buscamos algo así:
 
@@ -1808,20 +1814,20 @@ True
   ```
 
 - En este último caso, la cadena resultante contiene la expresión
-  `Deposito(70)`, que sí representa adecuadamente al objeto `dep`:
+  !PYTHON(Deposito(70)), que sí representa adecuadamente al objeto `dep`:
 
   ```python
   >>> dep == Deposito(70)
   True
   ```
 
-- Es importante no confundir la cadena `'Deposito(70)'` que devuelve `repr` con
-  la expresión `Deposito(70)` que lleva dentro.
+- Es importante no confundir la cadena !PYTHON('Deposito(70)') que devuelve
+  !PYTHON(repr) con la expresión !PYTHON(Deposito(70)) que lleva dentro.
 
 ---
 
-- La función `eval` en Python evalúa la expresión contenida en una cadena y
-  devuelve el valor resultante:
+- La función !PYTHON(eval) en Python evalúa la expresión contenida en una
+  cadena y devuelve el valor resultante:
 
   ```python
   >>> 2 + 3 * 5
@@ -1853,8 +1859,8 @@ True
 
 ---
 
-- Las funciones `eval` y `repr` están relacionadas de forma que **siempre
-  _debería_ cumplirse lo siguiente**:
+- Las funciones !PYTHON(eval) y !PYTHON(repr) están relacionadas de forma que
+  **siempre _debería_ cumplirse lo siguiente**:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1882,8 +1888,8 @@ True
 
 ---
 
-- Lo que hace realmente la expresión `repr(v)` es llamar al método `__repr__`
-  del objeto `v`.
+- Lo que hace realmente la expresión !PYTHON(repr(v)) es llamar al método
+  !PYTHON(__repr__) del objeto `v`.
 
 - Por tanto, la siguiente expresión:
 
@@ -1906,8 +1912,8 @@ True
   '25'
   ```
 
-- Lo que tenemos que hacer es definir adecuadamente un método `__repr__` en
-  nuestra clase.
+- Lo que tenemos que hacer es definir adecuadamente un método !PYTHON(__repr__)
+  en nuestra clase.
 
 !EJERCICIO
 @. Inténtalo primero.
@@ -1935,10 +1941,29 @@ True
   True
   ```
 
+---
+
+- Es importante señalar que **no siempre se puede definir un !PYTHON(__repr__)
+  adecuado para un objeto**.
+
+- Esto es así porque no siempre es posible representar con una expresión todo
+  el estado interno del objeto.
+
+- De hecho, un objeto puede tener estado interno que no siquiera sea visible ni
+  conocido en el exterior.
+
+- Por ejemplo, si cada objeto de la clase `Deposito` guardara un historial de
+  las operaciones que se han ido realizando con ese depósito, ese historial
+  formaría parte del estado interno del objeto pero no aparecería como
+  parámetro en el constructor.
+
+  Por tanto, no podríamos expresar con una expresión !PYTHON{Deposito(...)} (ni
+  con ninguna otra) todo el estado interno del objeto.
+
 ### `__str__`
 
-- El método `__str__` se invoca automáticamente cuando se necesita convertir un
-  valor al tipo `str` (o sea, a cadena).
+- El método !PYTHON(__str__) se invoca automáticamente cuando se necesita
+  convertir un valor al tipo !PYTHON(str) (o sea, a cadena).
 
 - Por tanto, la siguiente expresión:
 
@@ -1962,46 +1987,46 @@ True
   ```
 
 - Existen muchos casos donde es necesario convertir un valor a cadena,
-  explícita o implícitamente. Por ejemplo, la función `print` convierte a
-  cadena su argumento antes de imprimirlo.
+  explícita o implícitamente. Por ejemplo, la función !PYTHON(print) convierte
+  a cadena su argumento antes de imprimirlo.
 
 ---
 
-- Si la clase del objeto `v` no tiene definido el método `__str__`, por defecto
-  se entiende que `__str__ = __repr__`. Por tanto, en tal caso se llama en su
-  lugar al método `__repr__`.
+- Si la clase del objeto `v` no tiene definido el método !PYTHON(__str__), por
+  defecto se entiende que se tiene !PYTHON(__str__) = !PYTHON(__repr__). Por
+  tanto, en tal caso se llama en su lugar al método !PYTHON(__repr__).
 
-- ¿Cuál es la diferencia entre `__repr__` y `__str__`?
+- ¿Cuál es la diferencia entre !PYTHON(__repr__) y !PYTHON(__str__)?
 
-  - La finalidad de `__repr__` es ser **no ambiguo** y deberíamos implementarlo
-    siempre en todas nuestras clases.
+  - La finalidad de !PYTHON(__repr__) es ser **no ambiguo** y deberíamos
+    implementarlo siempre en todas nuestras clases (cuando sea posible).
 
-  - La finalidad de `__str__` es ser **legible para el usuario** y no es
+  - La finalidad de !PYTHON(__str__) es ser **legible para el usuario** y no es
     estrictamente necesario implementarlo.
 
 ---
 
-- Por ejemplo, en el módulo `datetime` tenemos clases que sirven para manipular
-  fechas y horas.
+- Por ejemplo, en el módulo !PYTHON(datetime) tenemos clases que sirven para
+  manipular fechas y horas.
 
-- La clase `date` del módulo `datetime` nos permite crear objetos que
-  representan fechas:
+- La clase !PYTHON(date) del módulo !PYTHON(datetime) nos permite crear objetos
+  que representan fechas:
 
   ```python
   >>> import datetime
   >>> d = datetime.date(2020, 4, 30)
   ```
 
-- Al llamar a `repr` sobre `d` obtenemos una representación que nos permite
-  reconstruir el objeto:
+- Al llamar a !PYTHON(repr) sobre `d` obtenemos una representación que nos
+  permite reconstruir el objeto:
 
   ```python
   >>> repr(d)
   'datetime.date(2020, 4, 30)'
   ```
 
-- Y al llamar a `str` sobre `d` obtenemos una versión más fácil de entender
-  para un ser humano:
+- Y al llamar a !PYTHON(str) sobre `d` obtenemos una versión más fácil de
+  entender para un ser humano:
 
   ```python
   >>> str(d)
@@ -2010,23 +2035,24 @@ True
 
 ---
 
-- Se puede observar aquí que el intérprete usa `repr` para mostrar la forma
-  normal del objeto:
+- Se puede observar aquí que el intérprete usa !PYTHON(repr) para mostrar la
+  forma normal del objeto:
 
   ```python
   >>> d
   'datetime.date(2020, 4, 30)'
   ```
 
-- Y que `print` usa `str` para imprimir el objeto de una forma legible:
+- Y que !PYTHON(print) usa !PYTHON(str) para imprimir el objeto de una forma
+  legible:
 
   ```python
   >>> print(d)
   2020-04-30
   ```
 
-- Recordemos que `print` imprime una cadena por la salida (sin comillas) y
-  devuelve `None`.
+- Recordemos que !PYTHON(print) imprime una cadena por la salida (sin comillas)
+  y devuelve !PYTHON(None).
 
 # Encapsulación
 
@@ -2231,9 +2257,9 @@ $$\text{Visibilidad} \begin{cases}
   entonces es _privado_. En caso contrario, es _público_.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Los _métodos mágicos_ (como `__init__`, `__eq__`, etc.) tienen nombres que
-  empiezan **y acaban** por `__`, así que no cumplen la condición anterior y,
-  por tanto, son _públicos_.
+- Los _métodos mágicos_ (como !PYTHON(__init__), !PYTHON(__eq__), etc.) tienen
+  nombres que empiezan **y acaban** por `__`, así que no cumplen la condición
+  anterior y, por tanto, son _públicos_.
 
 ---
 
@@ -2391,7 +2417,8 @@ $$\text{Visibilidad} \begin{cases}
   lista desde el exterior sin necesidad de usar los _setters_.
 
 - Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
-  que `c.__cantidad` vale 2 y `len(c.__items)` vale 1 (no coinciden).
+  que `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
+  coinciden).
 
 ---
 
@@ -2593,17 +2620,17 @@ propiedades se traducen en invariantes** de la clase.
   consumen tiempo de CPU.
 
 - Una técnica alternativa a la comprobación con sentencias condicionales
-  (`if`s) es el uso de **asertos**.
+  (!PYTHON(if)s) es el uso de **asertos**.
 
 - Un aserto es una **condición que se debe cumplir en un determinado punto del
   programa**, de forma que el programa abortará en ese punto si no se cumple.
 
 - Para insertar un aserto en un punto del programa, se usa la sentencia
-  `assert`.
+  !PYTHON(assert).
 
 ---
 
-- El código anterior quedaría así usando `assert`:
+- El código anterior quedaría así usando !PYTHON(assert):
 
   ```python
   """
@@ -2626,13 +2653,13 @@ propiedades se traducen en invariantes** de la clase.
   ```
 
 - El intérprete comprobará el aserto cuando el flujo de control llegue a la
-  sentencia `assert` y, en caso de que no se cumpla, lanzará una excepción de
-  tipo `AssertionError`. 
+  sentencia !PYTHON(assert) y, en caso de que no se cumpla, lanzará una
+  excepción de tipo !PYTHON(AssertionError). 
 
 ---
 
 - Lo interesante de los asertos es que podemos pedirle al intérprete que ignore
-  todas las sentencias `assert` cuando ejecute el código.
+  todas las sentencias !PYTHON(assert) cuando ejecute el código.
 
 - Para ello, usamos la opción `-O` al llamar al intérprete de Python desde la
   línea de comandos del sistema operativo:
@@ -2662,8 +2689,8 @@ Después
 ---
 
 - Aún así, no siempre es conveniente poder saltarse los asertos. De hecho, a
-  veces lo mejor sigue siendo comprobar condiciones con un `if` y lanzar un
-  error adecuado si la condición no se cumple.
+  veces lo mejor sigue siendo comprobar condiciones con un !PYTHON(if) y lanzar
+  un error adecuado si la condición no se cumple.
 
 - Por ejemplo, si intentamos retirar fondos de un depósito pero no hay saldo
   suficiente, eso se debería comprobar siempre:
@@ -2704,7 +2731,7 @@ class Deposito:
     del programa.
 
   - Para **implementar invariantes de clase, precondiciones o postcondiciones
-    de métodos** se pueden usar asertos y sentencias `assert` en puntos
+    de métodos** se pueden usar asertos y sentencias !PYTHON(assert) en puntos
     adecuados del código fuente de la clase.
 
 #### Un ejemplo completo
@@ -3060,7 +3087,7 @@ class Deposito:
 !EJERCICIO
 
 @. ¿Qué problema puede haber si en el método `total` del código anterior usamos
-`self.interes` en lugar de `Deposito.interes`?
+   !PYTHON(self.interes) en lugar de `Deposito.interes`?
 
 ## Métodos estáticos
 
@@ -3068,7 +3095,7 @@ class Deposito:
   **no se ejecutan sobre ninguna instancia**.
 
 - Al no haber instancia, **los métodos estáticos no reciben ninguna instancia
-  como argumento** a través del primer parámetro `self`.
+  como argumento** a través del primer parámetro !PYTHON(self).
 
 - En realidad, un método estático es básicamente **una función normal definida
   dentro de una clase** y que está pensada para ser ejecutada como cualquier
