@@ -12,7 +12,7 @@ author:
 \renewcommand{\arraystretch}{0}
 
 @. Traducir a clases y objetos todo el código que tenemos actualmente en \
-   [`https://github.com/iesdonana/vampiro.git`](https://github.com/ricpelo/vampiro.git),
+   [`https://github.com/iesdonana/vampiro.git`](https://github.com/iesdonana/vampiro.git),
    teniendo en cuenta que:
 
     #. Las localidades deben ser objetos de la clase `Localidad`.
