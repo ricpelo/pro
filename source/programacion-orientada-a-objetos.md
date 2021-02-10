@@ -1960,6 +1960,27 @@ True
   Por tanto, no podríamos expresar con una expresión !PYTHON{Deposito(...)} (ni
   con ninguna otra) todo el estado interno del objeto.
 
+---
+
+- Una forma de solucionar este problema sería hacer que el constructor de la
+  clase pudiera recibir un parámetro adicional _opcional_ que contenga ese
+  historial:
+
+  ```python
+  class Deposito:
+     def __init__(self, fondos, historial=[]):
+         self.fondos = fondos
+         self.historial = historial
+
+     def __repr__(self):
+          return f"Deposito({self.fondos}, {self.historial})"
+
+      # ... resto del código
+  ```
+
+- Ese parámetro sólo se usaría en ese caso, es decir, que no estaría pensado
+  para ser usado de forma habitual al crear objetos `Deposito`.
+
 ### `__str__`
 
 - El método !PYTHON(__str__) se invoca automáticamente cuando se necesita
