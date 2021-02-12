@@ -1175,32 +1175,155 @@
 </section>
 <section id="bloques" class="title-slide slide level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> Bloques</h2>
-
+<ul>
+<li><p>Un <strong>bloque</strong> es una secuencia de una o más sentencias encerradas entre llaves <code>{</code> y <code>}</code>.</p></li>
+<li><p>Java es un lenguaje <strong>estructurado en bloques</strong>, lo que significa que los bloques pueden anidarse unos dentro de otros y cada bloque define un ámbito, que iría anidado dentro del ámbito del bloque que lo contiene.</p></li>
+<li><p>Los bloques también puede incluir declaraciones, que serán locales al bloque.</p></li>
+<li><p>En cualquier parte del programa donde se pueda poner una sentencia, se podrá poner un bloque, que actuará como una sentencia compuesta.</p></li>
+<li><p>El cuerpo de un método siempre es un bloque.</p></li>
+<li><p>Todas las sentencias simples deben acabar en punto y coma (<code>;</code>) pero los bloques no.</p></li>
+</ul>
 </section>
 
 <section id="if" class="title-slide slide level2" data-number="3.2">
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> <code>if</code></h2>
-
+<ul>
+<li><p>La palabra clave <code class="sourceCode java"><span class="kw">if</span></code> introduce una sentencia condicional o estructura alternativa (simple o doble).</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>sentencia_if</em>⟩</span> ::= <strong><code>if</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code></strong>  <span style="color:teal">⟨<em>sentencia_si_verdadero</em>⟩</span> [<strong><code>else</code></strong> <span style="color:teal">⟨<em>sentencia_si_falso</em>⟩</span>]</div></li>
+<li><p>La ejecución de la <span style="color:teal">⟨<em>sentencia_if</em>⟩</span> implica evaluar la <span style="color:teal">⟨<em>condición</em>⟩</span>. Si evalúa a <code class="sourceCode java"><span class="kw">true</span></code>, se ejecutará la <span style="color:teal">⟨<em>sentencia_si_verdadero</em>⟩</span>. En caso contrario, se ejecutará la <span style="color:teal">⟨<em>sentencia_si_falso</em>⟩</span>, si es que existe.</p></li>
+<li><p>Aunque las <span style="color:teal">⟨<em>sentencia_si_verdadero</em>⟩</span> y <span style="color:teal">⟨<em>sentencia_si_falso</em>⟩</span> pueden ser sentencias simples, se aconseja (por regla de estilo) usar siempre bloques.</p></li>
+<li><p>Recordar que los bloques no hay que acabarlos en <code>;</code>.</p></li>
+</ul>
 </section>
 
 <section id="switch" class="title-slide slide level2" data-number="3.3">
 <h2 data-number="3.3"><span class="header-section-number">3.3</span> <code>switch</code></h2>
+<ul>
+<li><p>La palabra clave <code class="sourceCode java"><span class="kw">switch</span></code> introduce una estructura alternativa múltiple.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>sentencia_switch</em>⟩</span> ::=<br />
+        <strong><code>switch</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
+                (<strong><code>case</code></strong> <span style="color:teal">⟨<em>expresión_case</em>⟩</span><strong><code>:</code></strong><br />
+                        <span style="color:teal">⟨<em>sentencia_case</em>⟩</span>*)<span class="math inline">^+</span><br />
+                [<strong><code>default</code><code>:</code></strong><br />
+                        <span style="color:teal">⟨<em>sentencia_default</em>⟩</span>]<br />
+        <strong><code>}</code></strong></div></li>
+<li><p>Se evalúa la <span style="color:teal">⟨<em>expresión</em>⟩</span> y se compara con las distintas <span style="color:teal">⟨<em>expresión_case</em>⟩</span>, de una en una y de arriba abajo.</p></li>
+<li><p>Cuando se encuentra una que sea igual, se ejecuta su <span style="color:teal">⟨<em>sentencia_case</em>⟩</span> correspondiente y se sigue comparando con las siguientes <span style="color:teal">⟨<em>expresión_case</em>⟩</span> (salvo que haya un <code class="sourceCode java"><span class="kw">break</span></code>).</p></li>
+<li><p>Si no hay ninguna <span style="color:teal">⟨<em>expresión_case</em>⟩</span> que coincida, y existe la cláusula <strong><code>default</code></strong>, se ejecuta la <span style="color:teal">⟨<em>sentencia_default</em>⟩</span>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.1">
 
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">switch</span> (k) {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> <span class="dv">1</span>: <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;uno&quot;</span>);</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">break</span>;  <span class="co">// sale del switch</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> <span class="dv">2</span>: <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;dos&quot;</span>);</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">break</span>;  <span class="co">// sale del switch</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> <span class="dv">3</span>: <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;muchos&quot;</span>);</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">break</span>;  <span class="co">// no hace falta, pero es conveniente</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="while" class="title-slide slide level2" data-number="3.4">
 <h2 data-number="3.4"><span class="header-section-number">3.4</span> <code>while</code></h2>
+<ul>
+<li><p>La palabra clave <code class="sourceCode java"><span class="kw">while</span></code> introduce una sentencia o estructura repetitiva.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>sentencia_while</em>⟩</span> ::= <strong><code>while</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code></strong>  <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
+<li><p>Se evalúa la <span style="color:teal">⟨<em>condición</em>⟩</span> y, si evalúa a <code class="sourceCode java"><span class="kw">true</span></code>, se ejecuta la <span style="color:teal">⟨<em>sentencia</em>⟩</span> y se vuelve de nuevo a evaluar la <span style="color:teal">⟨<em>condición</em>⟩</span> hasta que evalúa a <code class="sourceCode java"><span class="kw">false</span></code>.</p></li>
+<li><p>Si la <span style="color:teal">⟨<em>condición</em>⟩</span> evalúa a <code class="sourceCode java"><span class="kw">false</span></code> desde el principio, la <span style="color:teal">⟨<em>sentencia</em>⟩</span> no se ejecuta ninguna vez.</p></li>
+<li><p>La sentencia <code class="sourceCode java"><span class="kw">while</span></code> implementa un <strong>bucle</strong>, y cada ejecución de la <span style="color:teal">⟨<em>sentencia</em>⟩</span> representa una <strong>iteración</strong> del bucle.</p></li>
+<li><p>Aunque la <span style="color:teal">⟨<em>sentencia</em>⟩</span> puede ser simple, se aconseja (por regla de estilo) usar siempre un bloque.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.1">
 
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i = <span class="dv">0</span>;</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> (i &lt; <span class="dv">5</span>) {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(i);</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    i++;</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Imprime:</p>
+<pre><code>0
+1
+2
+3
+4
+</code></pre></li>
+</ul>
 </section>
 
 <section id="for" class="title-slide slide level2" data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span> <code>for</code></h2>
+<ul>
+<li><p>La palabra clave <code class="sourceCode java"><span class="kw">for</span></code> introduce un variante del bucle <code class="sourceCode java"><span class="kw">while</span></code> donde los elementos de control del bucle aparecen todos en la misma línea al principio de la estructura.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>sentencia_for</em>⟩</span> ::= <strong><code>for</code></strong>  <strong><code>(</code></strong>[<span style="color:teal">⟨<em>inicialización</em>⟩</span>]<strong><code>;</code></strong> [<span style="color:teal">⟨<em>condición</em>⟩</span>]<strong><code>;</code></strong> [<span style="color:teal">⟨<em>actualización</em>⟩</span>]<strong><code>)</code></strong>  <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
+<li><p>Equivale a hacer:</p>
+<div class="line-block"><span style="color:teal">⟨<em>inicialización</em>⟩</span><br />
+  <strong><code>while</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
+          <span style="color:teal">⟨<em>sentencia</em>⟩</span><br />
+          <span style="color:teal">⟨<em>actualización</em>⟩</span><br />
+  <strong><code>}</code></strong></div></li>
+<li><p>La <span style="color:teal">⟨<em>inicialización</em>⟩</span> es una sentencia que puede ser también una declaración. En tal caso, esa declaración tendrá un ámbito local a la sentencia <code class="sourceCode java"><span class="kw">for</span></code> y no existirá fuera de ella.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.1">
 
+<ul>
+<li><p>La <span style="color:teal">⟨<em>inicialización</em>⟩</span>, la <span style="color:teal">⟨<em>condición</em>⟩</span> y la <span style="color:teal">⟨<em>actualización</em>⟩</span> son todas opcionales.</p></li>
+<li><p>Aunque la <span style="color:teal">⟨<em>sentencia</em>⟩</span> puede ser simple, se aconseja (por regla de estilo) usar siempre un bloque.</p></li>
+<li><p>Ejemplo:</p>
+<p>El siguiente bucle <code class="sourceCode java"><span class="kw">while</span></code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i = <span class="dv">0</span>;</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> (i &lt; <span class="dv">5</span>) {</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(i);</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    i++;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>se puede escribir como un bucle <code class="sourceCode java"><span class="kw">for</span></code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">5</span>; i++) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(i);</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="do-...-while" class="title-slide slide level2" data-number="3.6">
 <h2 data-number="3.6"><span class="header-section-number">3.6</span> <code>do ... while</code></h2>
+<ul>
+<li><p>La palabra clave <code class="sourceCode java"><span class="kw">do</span></code> introduce un tipo especial de bucle donde la condición de continuación se comprueba al final, y no al principio como es habitual.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>sentencia_do_while</em>⟩</span> ::= <strong><code>do</code></strong>  <span style="color:teal">⟨<em>sentencia</em>⟩</span>  <strong><code>while</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code><code>;</code></strong></div></li>
+<li><p>Se ejecuta la <span style="color:teal">⟨<em>sentencia</em>⟩</span> y, a continuación, se comprueba la <span style="color:teal">⟨<em>condición</em>⟩</span>. Si evalúa a <code class="sourceCode java"><span class="kw">true</span></code>, se vuelve a ejecutar la <span style="color:teal">⟨<em>sentencia</em>⟩</span> y a evaluar la <span style="color:teal">⟨<em>condición</em>⟩</span>, y así sucesivamente hasta que la <span style="color:teal">⟨<em>condición</em>⟩</span> evalúa a <code class="sourceCode java"><span class="kw">false</span></code>.</p></li>
+<li><p>Se garantiza que la <span style="color:teal">⟨<em>sentencia</em>⟩</span> se ejecutará, al menos, una vez.</p></li>
+<li><p>Aunque la <span style="color:teal">⟨<em>sentencia</em>⟩</span> puede ser simple, se aconseja (por regla de estilo) usar siempre un bloque.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.1">
 
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">do</span> {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(i);</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    i++;</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>} <span class="kw">while</span> (i &lt; <span class="dv">5</span>);</span></code></pre></div>
+<p>Independientemente de lo que valga <code>i</code> al empezar a ejecutar el <code class="sourceCode java"><span class="kw">do</span></code>, el <code class="sourceCode java">println</code> se va a ejecutar, al menos, una vez.</p></li>
+</ul>
+</section>
+
+<section id="break-y-continue" class="title-slide slide level2" data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span> <code>break</code> y <code>continue</code></h2>
+<ul>
+<li><p>Por tanto, la sentencia <code class="sourceCode java"><span class="kw">break</span></code> sólo puede aparecer dentro de un <code class="sourceCode java"><span class="kw">switch</span></code>, <code class="sourceCode java"><span class="kw">while</span></code>, <code class="sourceCode java"><span class="kw">do</span></code> o <code class="sourceCode java"><span class="kw">for</span></code>.</p></li>
+<li><p>La sentencia <code class="sourceCode java"><span class="kw">break</span></code> produce un salto incondicional que hace que el control salga de la sentencia <code class="sourceCode java"><span class="kw">switch</span></code>, <code class="sourceCode java"><span class="kw">while</span></code>, <code class="sourceCode java"><span class="kw">do</span></code> o <code class="sourceCode java"><span class="kw">for</span></code> más interna en la que se encuentra el <code class="sourceCode java"><span class="kw">break</span></code>.</p></li>
+<li><p>La sentencia <code class="sourceCode java"><span class="kw">continue</span></code> transfiere el control a la siguiente iteración del bucle actual más interno. Por tanto, sólo puede aparecer dentro de un <code class="sourceCode java"><span class="kw">while</span></code>, <code class="sourceCode java"><span class="kw">for</span></code> o <code class="sourceCode java"><span class="kw">do</span></code>.</p></li>
+</ul>
 </section>
 </section>
 <section>

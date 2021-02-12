@@ -1178,15 +1178,237 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ## Bloques
 
+- Un **bloque** es una secuencia de una o más sentencias encerradas entre
+  llaves `{` y `}`.
+
+- Java es un lenguaje **estructurado en bloques**, lo que significa que los
+  bloques pueden anidarse unos dentro de otros y cada bloque define un ámbito,
+  que iría anidado dentro del ámbito del bloque que lo contiene.
+
+- Los bloques también puede incluir declaraciones, que serán locales al bloque.
+
+- En cualquier parte del programa donde se pueda poner una sentencia, se podrá
+  poner un bloque, que actuará como una sentencia compuesta.
+
+- El cuerpo de un método siempre es un bloque.
+
+- Todas las sentencias simples deben acabar en punto y coma (`;`) pero los
+  bloques no.
+
 ## `if`
+
+- La palabra clave !JAVA(if) introduce una sentencia condicional o estructura
+  alternativa (simple o doble).
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia_if) ::= !T(if)\  !T{(}!NT(condición)!T{)}\  !NT(sentencia_si_verdadero) [!T(else) !NT(sentencia_si_falso)]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- La ejecución de la !NT(sentencia_if) implica evaluar la !NT(condición). Si
+  evalúa a !JAVA(true), se ejecutará la !NT(sentencia_si_verdadero). En caso
+  contrario, se ejecutará la !NT(sentencia_si_falso), si es que existe.
+
+- Aunque las !NT(sentencia_si_verdadero) y !NT(sentencia_si_falso) pueden ser
+  sentencias simples, se aconseja (por regla de estilo) usar siempre bloques.
+
+- Recordar que los bloques no hay que acabarlos en `;`.
 
 ## `switch`
 
+- La palabra clave !JAVA(switch) introduce una estructura alternativa múltiple.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia_switch) ::=
+        !T(switch)\  !T{(}!NT(expresión)!T{)}\  !T[{]
+                (!T(case) !NT(expresión_case)!T(:)
+                        !NT{sentencia_case}*)!MAS
+                \[!T(default)!T(:)
+                        !NT{sentencia_default}\]
+        !T(})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Se evalúa la !NT(expresión) y se compara con las distintas
+  !NT(expresión_case), de una en una y de arriba abajo.
+
+- Cuando se encuentra una que sea igual, se ejecuta su !NT(sentencia_case)
+  correspondiente y se sigue comparando con las siguientes !NT{expresión_case}
+  (salvo que haya un !JAVA(break)).
+
+- Si no hay ninguna !NT(expresión_case) que coincida, y existe la cláusula
+  !T(default), se ejecuta la !NT(sentencia_default).
+
+---
+
+- Ejemplo:
+
+  ```java
+  switch (k) {
+      case 1: System.out.println("uno");
+              break;  // sale del switch
+      case 2: System.out.println("dos");
+              break;  // sale del switch
+      case 3: System.out.println("muchos");
+              break;  // no hace falta, pero es conveniente
+  }
+  ```
+
 ## `while`
+
+- La palabra clave !JAVA(while) introduce una sentencia o estructura
+  repetitiva.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia_while) ::= !T(while)\  !T{(}!NT(condición)!T{)}\  !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Se evalúa la !NT(condición) y, si evalúa a !JAVA(true), se ejecuta la
+  !NT(sentencia) y se vuelve de nuevo a evaluar la !NT(condición) hasta que
+  evalúa a !JAVA(false).
+
+- Si la !NT(condición) evalúa a !JAVA(false) desde el principio, la
+  !NT(sentencia) no se ejecuta ninguna vez.
+
+- La sentencia !JAVA(while) implementa un **bucle**, y cada ejecución de la
+  !NT(sentencia) representa una **iteración** del bucle.
+
+- Aunque la !NT(sentencia) puede ser simple, se aconseja (por regla de estilo)
+  usar siempre un bloque.
+
+---
+
+- Ejemplo:
+
+  ```java
+  int i = 0;
+  while (i < 5) {
+      System.out.println(i);
+      i++;
+  }
+  ```
+
+  Imprime:
+
+  ```
+  0
+  1
+  2
+  3
+  4
+
+  ```
 
 ## `for`
 
+- La palabra clave !JAVA(for) introduce un variante del bucle !JAVA(while) donde los elementos de control del bucle aparecen todos en la misma línea al principio de la estructura.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia_for) ::= !T(for)\  !T{(}[!NT(inicialización)]!T(;) [!NT(condición)]!T(;) [!NT(actualización)]!T{)}\  !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Equivale a hacer:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(inicialización)
+  !T(while)\  !T{(}!NT(condición)!T{)}\  !T({)
+          !NT(sentencia)
+          !NT(actualización)
+  !T(})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- La !NT(inicialización) es una sentencia que puede ser también una
+  declaración. En tal caso, esa declaración tendrá un ámbito local a la
+  sentencia !JAVA(for) y no existirá fuera de ella.
+
+---
+
+- La !NT(inicialización), la !NT(condición) y la !NT(actualización) son todas
+  opcionales.
+
+- Aunque la !NT(sentencia) puede ser simple, se aconseja (por regla de estilo)
+  usar siempre un bloque.
+
+- Ejemplo:
+
+  El siguiente bucle !JAVA(while):
+
+  ```java
+  int i = 0;
+  while (i < 5) {
+      System.out.println(i);
+      i++;
+  }
+  ```
+
+  se puede escribir como un bucle !JAVA(for):
+
+  ```java
+  for (int i = 0; i < 5; i++) {
+      System.out.println(i);
+  }
+  ```
+
 ## `do ... while`
+
+- La palabra clave !JAVA(do) introduce un tipo especial de bucle donde la
+  condición de continuación se comprueba al final, y no al principio como es
+  habitual.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sentencia_do_while) ::= !T(do)\  !NT(sentencia)\  !T(while)\  !T{(}!NT(condición)!T{)}!T(;)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Se ejecuta la !NT(sentencia) y, a continuación, se comprueba la
+  !NT(condición). Si evalúa a !JAVA(true), se vuelve a ejecutar la
+  !NT(sentencia) y a evaluar la !NT(condición), y así sucesivamente hasta que
+  la !NT(condición) evalúa a !JAVA(false).
+
+- Se garantiza que la !NT(sentencia) se ejecutará, al menos, una vez.
+
+- Aunque la !NT(sentencia) puede ser simple, se aconseja (por regla de estilo)
+  usar siempre un bloque.
+
+---
+
+- Ejemplo:
+
+  ```java
+  do {
+      System.out.println(i);
+      i++;
+  } while (i < 5);
+  ```
+
+  Independientemente de lo que valga `i` al empezar a ejecutar el !JAVA(do), el
+  !JAVA(println) se va a ejecutar, al menos, una vez.
+
+## `break` y `continue`
+
+- Por tanto, la sentencia !JAVA(break) sólo puede aparecer dentro de un
+  !JAVA(switch), !JAVA(while), !JAVA(do) o !JAVA(for).
+
+- La sentencia !JAVA(break) produce un salto incondicional que hace que el
+  control salga de la sentencia !JAVA(switch), !JAVA(while), !JAVA(do) o
+  !JAVA(for) más interna en la que se encuentra el !JAVA(break).
+
+- La sentencia !JAVA(continue) transfiere el control a la siguiente iteración
+  del bucle actual más interno. Por tanto, sólo puede aparecer dentro de un
+  !JAVA(while), !JAVA(for) o !JAVA(do).
 
 # Entrada/salida
 
