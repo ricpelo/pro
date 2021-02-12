@@ -2,6 +2,8 @@
 title: Introducción a la tecnología Java
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @gosling_java_2014
 ---
 
 # Introducción
@@ -811,3 +813,5 @@ public class Principal {
   ```
 
 - Equivale aproximadamente a la función !PYTHON(print) de Python.
+
+!BIBLIOGRAFIA

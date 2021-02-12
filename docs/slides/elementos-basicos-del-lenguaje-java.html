@@ -79,6 +79,25 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -1333,13 +1352,152 @@
 </section>
 <section id="flujos-system.in-system.out-y-system.err" class="title-slide slide level2" data-number="4.1">
 <h2 data-number="4.1"><span class="header-section-number">4.1</span> Flujos <code>System.in</code>, <code>System.out</code> y <code>System.err</code></h2>
+<ul>
+<li><p>Java tiene 3 flujos denominados <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">in</span></code>, <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">out</span></code> y <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">err</span></code> que se utilizan normalmente para proporcionar entrada y salida a las aplicaciones Java.</p></li>
+<li><p>El más utilizado es probablemente <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">out</span></code>, que sirve para escribir en la consola desde programas de consola (aplicaciones de línea de órdenes).</p></li>
+<li><p>Estos flujos son inicializados por la máquina virtual de Java, por lo que no es necesario crearlos uno mismo.</p></li>
+<li><p>Todos son objetos de la clase <code class="sourceCode java">java.<span class="fu">lang</span>.<span class="fu">System</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.1">
 
+<ul>
+<li><p>La JVM y el sistema operativo conectan:</p>
+<ul>
+<li><p><code class="sourceCode java"><span class="bu">System</span>.<span class="fu">in</span></code> con el flujo 0 (que normalmente es el teclado), también llamado <em>entrada estándar</em>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">System</span>.<span class="fu">out</span></code> con el flujo 1 (que normalmente es la pantalla), también llamado <em>salida estándar</em>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">System</span>.<span class="fu">err</span></code> con el flujo 2 (que normalmente también es la pantalla), también llamado <em>salida estándar de errores</em>.</p></li>
+</ul></li>
+<li><p>Eso se puede cambiar al llamar al programa desde la línea de órdenes del sistema operativo usando <em>redirecciones</em>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">System</span>.<span class="fu">in</span></code> es un objeto de la clase <code class="sourceCode java">java.<span class="fu">io</span>.<span class="fu">InputStream</span></code>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">System</span>.<span class="fu">out</span></code> y <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">err</span></code> son objetos de la clase <code class="sourceCode java">java.<span class="fu">io</span>.<span class="fu">PrintStream</span></code>.</p>
+<p>Esta clase dispone de métodos <code class="sourceCode java">print</code> y <code class="sourceCode java">println</code> muy usados para imprimir datos por la salida.</p></li>
+</ul>
 </section>
 
 <section id="java.util.scanner" class="title-slide slide level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> <code>java.util.Scanner</code></h2>
-
+<ul>
+<li><p>La clase <code class="sourceCode java">java.<span class="fu">util</span>.<span class="fu">Scanner</span></code> se usa para recoger la entrada del usuario, normalmente a través del flujo <code class="sourceCode java"><span class="bu">System</span>.<span class="fu">in</span></code>.</p></li>
+<li><p>Un objeto de la clase <code class="sourceCode java"><span class="bu">Scanner</span></code> rompe su entrada en <em>tokens</em> usando un determinado patrón delimitador que, por defecto, simplemente troceará las palabras separadas con espacios en blanco.</p></li>
+<li><p>Los <em>tokens</em> resultantes pueden convertirse en valores de distintos tipos usando alguno de los métodos <code class="sourceCode java">next</code>.</p></li>
+<li><p>Cada vez que se llama a uno de esos métodos, se consume el siguiente dato (de un determinado tipo) que se encuentre en el flujo de entrada.</p></li>
+</ul>
 </section>
+<section id="ejemplos" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplos</h5>
+<ul>
+<li><p>El siguiente código lee un número de la entrada estándar:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i = sc.<span class="fu">nextInt</span>();</span></code></pre></div></li>
+<li><p>Este código va recogiendo valores de tipo <code class="sourceCode java"><span class="dt">long</span></code> a partir de un archivo llamado <code>mis_numeros</code>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="kw">new</span> <span class="bu">File</span>(<span class="st">&quot;mis_numeros&quot;</span>));</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> (sc.<span class="fu">hasNextLong</span>()) {</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> unLong = sc.<span class="fu">nextLong</span>();</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p>Lee una línea de la entrada del usuario y la imprime:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span><span class="im"> java.util.Scanner;</span>  <span class="co">// Importa la clase Scanner</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyClass {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Scanner</span> myObj = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);  <span class="co">// Crea un objeto Scanner</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Introduzca nombre de usuario:&quot;</span>);</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> userName = myObj.<span class="fu">nextLine</span>();  <span class="co">// Lee entrada del usuario</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;El nombre es: &quot;</span> + userName);  <span class="co">// Imprime la entrada</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.1">
+
+<ul>
+<li>Los métodos que permiten leer el siguiente dato de la entrada según su tipo son:</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Método</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java">nextBoolean</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">boolean</span></code> de la entrada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java">nextByte</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">byte</span></code> de la entrada</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java">nextDouble</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">double</span></code> de la entrada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java">nextFloat</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">float</span></code> de la entrada</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java">nextInt</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">int</span></code> de la entrada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java">nextLine</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="bu">String</span></code> de la entrada</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java">nextLong</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">long</span></code> de la entrada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java">nextShort</code></td>
+<td style="text-align: left;">Devuelve un valor <code class="sourceCode java"><span class="dt">short</span></code> de la entrada</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="4.2.0.0.2">
+
+<ul>
+<li><p>Los métodos <code class="sourceCode java">next</code> and <code class="sourceCode java">hasNext</code> y sus correspondientes acompañantes (como <code class="sourceCode java">nextInt</code> and <code class="sourceCode java">hasNextInt</code>) primero saltarán cualquier entrada que encaje con el patrón delimitador y luego intentarán devolver el siguiente <em>token</em>.</p></li>
+<li><p>Una operación realizada sobre el <code class="sourceCode java"><span class="bu">Scanner</span></code> puede detener el programa a la espera de una entrada.</p></li>
+<li><p>Tanto <code class="sourceCode java">hasNext</code> como <code class="sourceCode java">next</code> pueden detener el programa a la espera de una entrada.</p></li>
+<li><p>El que un <code class="sourceCode java">hasNext</code> detenga o no el programa, no tiene nada que ver con que su <code class="sourceCode java">next</code> asociado pueda o no detener el programa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.3">
+
+<ul>
+<li><p>Con el método <code class="sourceCode java">useDelimiter</code> podemos indicar otro patrón delimitador que no sean espacios en blanco.</p></li>
+<li><p>Por ejemplo, el siguiente código:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> input = <span class="st">&quot;1 fish 2 fish red fish blue fish&quot;</span>;</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> s = <span class="kw">new</span> <span class="bu">Scanner</span>(input).<span class="fu">useDelimiter</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*fish</span><span class="sc">\\</span><span class="st">s*&quot;</span>);</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(s.<span class="fu">nextInt</span>());</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(s.<span class="fu">nextInt</span>());</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(s.<span class="fu">next</span>());</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(s.<span class="fu">next</span>());</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>s.<span class="fu">close</span>();</span></code></pre></div>
+<p>produce la siguiente salida:</p>
+<pre><code>1
+2
+red
+blue</code></pre></li>
+<li><p>El argumento de <code class="sourceCode java">useDelimiter</code> es una expresión regular.</p></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
+Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
+</div>
+</div>
 </section>
     </div>
   </div>

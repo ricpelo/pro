@@ -2,6 +2,8 @@
 title: Elementos básicos del lenguaje Java
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @gosling_java_2014
 ---
 
 # Tipos y valores en Java
@@ -1414,5 +1416,159 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ## Flujos `System.in`, `System.out` y `System.err`
 
+- Java tiene 3 flujos denominados !JAVA(System.in), !JAVA(System.out) y
+  !JAVA(System.err) que se utilizan normalmente para proporcionar entrada y
+  salida a las aplicaciones Java.
+
+- El más utilizado es probablemente !JAVA(System.out), que sirve para escribir
+  en la consola desde programas de consola (aplicaciones de línea de órdenes).
+
+- Estos flujos son inicializados por la máquina virtual de Java, por lo que no
+  es necesario crearlos uno mismo.
+
+- Todos son objetos de la clase !JAVA(java.lang.System).
+
+---
+
+- La JVM y el sistema operativo conectan:
+
+  - !JAVA(System.in) con el flujo 0 (que normalmente es el teclado), también
+    llamado _entrada estándar_.
+
+  - !JAVA(System.out) con el flujo 1 (que normalmente es la pantalla), también
+    llamado _salida estándar_.
+
+  - !JAVA(System.err) con el flujo 2 (que normalmente también es la pantalla),
+    también llamado _salida estándar de errores_.
+
+- Eso se puede cambiar al llamar al programa desde la línea de órdenes del
+  sistema operativo usando _redirecciones_.
+
+- !JAVA(System.in) es un objeto de la clase !JAVA(java.io.InputStream).
+
+- !JAVA(System.out) y !JAVA(System.err) son objetos de la clase
+  !JAVA(java.io.PrintStream).
+
+  Esta clase dispone de métodos !JAVA(print) y !JAVA(println) muy usados para
+  imprimir datos por la salida.
+
 ## `java.util.Scanner`
 
+- La clase !JAVA(java.util.Scanner) se usa para recoger la entrada del usuario,
+  normalmente a través del flujo !JAVA(System.in).
+
+- Un objeto de la clase !JAVA(Scanner) rompe su entrada en _tokens_ usando un
+  determinado patrón delimitador que, por defecto, simplemente troceará las
+  palabras separadas con espacios en blanco.
+
+- Los _tokens_ resultantes pueden convertirse en valores de distintos tipos
+  usando alguno de los métodos !JAVA(next).
+
+- Cada vez que se llama a uno de esos métodos, se consume el siguiente dato (de
+  un determinado tipo) que se encuentre en el flujo de entrada.
+
+!EJEMPLOS
+
+- El siguiente código lee un número de la entrada estándar:
+
+  ```java
+  Scanner sc = new Scanner(System.in);
+  int i = sc.nextInt();
+  ```
+
+- Este código va recogiendo valores de tipo !JAVA(long) a partir de un archivo
+  llamado `mis_numeros`:
+
+  ```java
+  Scanner sc = new Scanner(new File("mis_numeros"));
+  while (sc.hasNextLong()) {
+      long unLong = sc.nextLong();
+  }
+  ```
+
+- Lee una línea de la entrada del usuario y la imprime:
+
+  ```java
+  import java.util.Scanner;  // Importa la clase Scanner
+
+  class MyClass {
+      public static void main(String[] args) {
+          Scanner myObj = new Scanner(System.in);  // Crea un objeto Scanner
+          System.out.println("Introduzca nombre de usuario:");
+
+          String userName = myObj.nextLine();  // Lee entrada del usuario
+          System.out.println("El nombre es: " + userName);  // Imprime la entrada
+      }
+  }
+  ```
+
+---
+
+- Los métodos que permiten leer el siguiente dato de la entrada según su tipo
+  son:
+
+-------------------------------------------------------------------------
+Método                 Descripción
+---------------------- --------------------------------------------------
+!JAVA(nextBoolean)     Devuelve un valor !JAVA(boolean) de la entrada
+
+!JAVA(nextByte)        Devuelve un valor !JAVA(byte) de la entrada
+
+!JAVA(nextDouble)      Devuelve un valor !JAVA(double) de la entrada
+
+!JAVA(nextFloat)       Devuelve un valor !JAVA(float) de la entrada
+
+!JAVA(nextInt)         Devuelve un valor !JAVA(int) de la entrada
+
+!JAVA(nextLine)        Devuelve un valor !JAVA(String) de la entrada
+
+!JAVA(nextLong)        Devuelve un valor !JAVA(long) de la entrada
+
+!JAVA(nextShort)       Devuelve un valor !JAVA(short) de la entrada
+-------------------------------------------------------------------------
+
+---
+
+- Los métodos !JAVA(next) and !JAVA(hasNext) y sus correspondientes
+  acompañantes (como !JAVA(nextInt) and !JAVA(hasNextInt)) primero saltarán
+  cualquier entrada que encaje con el patrón delimitador y luego intentarán
+  devolver el siguiente _token_.
+
+- Una operación realizada sobre el !JAVA(Scanner) puede detener el programa a
+  la espera de una entrada.
+
+- Tanto !JAVA(hasNext) como !JAVA(next) pueden detener el programa a la espera
+  de una entrada.
+
+- El que un !JAVA(hasNext) detenga o no el programa, no tiene nada que ver con
+  que su !JAVA(next) asociado pueda o no detener el programa.
+
+---
+
+- Con el método !JAVA(useDelimiter) podemos indicar otro patrón delimitador que
+  no sean espacios en blanco.
+
+- Por ejemplo, el siguiente código:
+
+  ```java
+  String input = "1 fish 2 fish red fish blue fish";
+  Scanner s = new Scanner(input).useDelimiter("\\s*fish\\s*");
+  System.out.println(s.nextInt());
+  System.out.println(s.nextInt());
+  System.out.println(s.next());
+  System.out.println(s.next());
+  s.close();
+  ```
+
+  produce la siguiente salida:
+
+  ```
+  1
+  2
+  red
+  blue
+  ```
+
+- El argumento de !JAVA(useDelimiter) es una expresión regular.
+
+!BIBLIOGRAFIA
