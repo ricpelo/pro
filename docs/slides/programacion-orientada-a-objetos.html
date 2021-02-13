@@ -1553,14 +1553,17 @@
 <ul>
 <li><p>Una forma de solucionar este problema sería hacer que el constructor de la clase pudiera recibir un parámetro adicional <em>opcional</em> que contenga ese historial:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos, historial<span class="op">=</span>[]):</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos, historial<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>       <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>       <span class="va">self</span>.historial <span class="op">=</span> historial</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&quot;Deposito(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>fondos<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>historial<span class="sc">}</span><span class="ss">)&quot;</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span> historial <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>           <span class="va">self</span>.historial <span class="op">=</span> []</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>       <span class="cf">else</span>:</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>           <span class="va">self</span>.historial <span class="op">=</span> historial</span>
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto del código</span></span></code></pre></div></li>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&quot;Deposito(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>fondos<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>historial<span class="sc">}</span><span class="ss">)&quot;</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto del código</span></span></code></pre></div></li>
 <li><p>Ese parámetro sólo se usaría en ese caso, es decir, que no estaría pensado para ser usado de forma habitual al crear objetos <code>Deposito</code>.</p></li>
 </ul>
 </section>

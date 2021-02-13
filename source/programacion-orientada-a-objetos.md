@@ -1968,9 +1968,12 @@ True
 
   ```python
   class Deposito:
-     def __init__(self, fondos, historial=[]):
+     def __init__(self, fondos, historial=None):
          self.fondos = fondos
-         self.historial = historial
+         if historial is None:
+             self.historial = []
+         else:
+             self.historial = historial
 
      def __repr__(self):
           return f"Deposito({self.fondos}, {self.historial})"
