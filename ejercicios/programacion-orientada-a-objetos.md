@@ -11,6 +11,124 @@ author:
 
 \renewcommand{\arraystretch}{0}
 
+@. Diseñar y codificar un modelo orientado a objetos de un banco donde hay
+   cuentas corrientes que tienen un titular y unos movimientos. Los titulares
+   son clientes del banco. Los clientes del banco pueden ser titulares de
+   varias cuentas al mismo tiempo. Los movimientos pertenecen a una sola
+   cuenta. Para ello:
+
+    #. Crear la clase `Cliente` con los atributos `__dni`, `__nombre` y
+       `__apellidos`.
+
+    #. Crear la clase `Movimiento` con los atributos `__concepto` y
+       `__cantidad`. Los movimientos son inmutables.
+
+    #. Crear la clase `Cuenta` con los atributos `__numero`, `__titular`,
+       `__movimientos` y `__saldo`.
+
+       #. No se puede cambiar el número de una cuenta.
+
+       #. Se puede añadir un movimiento a una cuenta, pero no cambiar ni
+          eliminar movimientos.
+
+       #. Tampoco se puede modificar directamente el saldo, sino que se debe
+          actualizar directamente a partir de los movimientos que se realicen
+          en la cuenta.
+
+    #. Crear un módulo `principal.py` que use las clases anteriores para
+       representar un modelo dinámico de objetos donde el cliente Antonio
+       Martínez tiene dos cuentas corrientes, cada una de ellas con tres
+       movimientos. Imprimir por pantalla el saldo actual de cada cuenta.
+
+    #. ¿Cómo se podría implementar la generación automática e incremental del
+       número de cuenta cuando se crea una cuenta nueva? Codificarlo.
+       (_Indicación_: Usar atributos estáticos.)
+
+    #. ¿Cómo se podría implementar la colección de cuentas del banco de forma
+       que se pueda acceder de forma eficiente a una cuenta concreta a partir
+       de su número? Codificarlo.
+
+@. Diseñar y codificar un modelo orientado a objetos de una tienda online donde
+   hay clientes, artículos y facturas. Para ello:
+
+    #. Crear la clase `Cliente` con los atributos `__dni`, `__nombre` y
+       `__apellidos`.
+
+    #. Crear la clase `Articulo` con los atributos `__codigo`, `__denominacion`
+       y `__precio`.
+
+    #. Crear la clase `Factura` con los atributos `__numero`, `__cliente` y
+       `__lineas`.
+
+       #. Cada línea de factura debe almacenar un artículo y una cantidad.
+
+       #. El total de la factura no se debe almacenar, sino que se debe
+          calcular automáticamente sumando el precio de cada artículo
+          multiplicado por la cantidad.
+
+       #. Las líneas de una factura pertenecen a esa factura.
+
+       #. Las líneas de una factura se pueden añadir o eliminar de una factura,
+          pero no modificar.
+
+    #. Crear un módulo `principal.py` que use las clases anteriores para
+       representar un modelo dinámico de objetos donde existe una factura del
+       cliente Rosa González que ha comprado dos televisores de 399 € cada uno
+       y una tarjeta gráfica de 239 €. Imprimir por pantalla todos los datos de
+       la factura como si fuera una factura real, incluyendo el importe total
+       de la misma.
+
+@. Diseñar y codificar un modelo orientado a objetos de una biblioteca donde
+   hay socios que pueden llevarse libros prestados durante quince días como
+   máximo. Para ello:
+
+    #. Crear la clase `Lector` con los atributos `__numero`, `__nombre`,
+       `__apellidos` y `__moroso` (éste último es un _booleano_ que por defecto
+       estará a `False`).
+
+    #. Crear la clase `Libro` con los atributos `__codigo`, `__titulo`,
+       `__autor` y `__editorial`.
+
+    #. Crear la clase `Prestamo` con los atributos `__lector`, `__libro`,
+       `__fecha_prestamo` y `__fecha_devolucion`.
+
+       #. Los préstamos se crean con `__fecha_devolucion` vacía (es decir, a
+          `None`).
+
+       #. Las fechas se pueden almacenar como objetos de la clase `datetime`
+          del módulo `datetime`.
+
+       #. Cuando un lector devuelve un libro, se introduce la fecha de
+          devolución en el atributo `__fecha_devolucion` del préstamo
+          correspondiente.
+
+       #. El resto de los atributos de un préstamo no se pueden modificar.
+
+       #. Si se devuelve un libro pasados más de quince días desde su préstamo,
+          se debe marcar al lector como moroso.
+
+       #. Se debe impedir que un libro ya prestado se pueda volver a prestar.
+          Para ello hay dos técnicas:
+
+          #. Crear y usar un atributo _booleano_ `__prestado` en la clase
+             `Libro`, de forma que se ponga a `True` cuando se preste y a
+             `False` cuando se devuelva.
+
+          #. Comprobar en los objetos `Prestamo` si ese libro está prestado y
+             aún no se ha devuelto.
+
+    #. Crear un módulo `principal.py` que use las clases anteriores para
+       representar un modelo dinámico de objetos donde haya dos lectores (Ana
+       García y Roberto Sánchez) y tres libros («_El camino_» de Miguel
+       Delibes, «_Cien años de soledad_» de Gabriel García Márquez y
+       «_Rayuela_» de Julio Cortázar).
+
+    #. Prestar dos libros a un lector y el otro al otro lector.
+
+    #. Intentar prestar un libro que ya está prestado.
+
+    #. Intentar devolver un libro prestado con más de quince días de préstamo.
+
 @. Traducir a clases y objetos todo el código que tenemos actualmente en \
    [`https://github.com/iesdonana/vampiro.git`](https://github.com/iesdonana/vampiro.git),
    teniendo en cuenta que:
