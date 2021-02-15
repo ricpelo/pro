@@ -1694,10 +1694,58 @@ True
   ```
 
 - Las colas son mutables y, por tanto, no pueden ser _hashables_, así que no
-  definiremos ningún método !PYTHON(__hash__) en la clase `Cola`. Así, como sí
-  hemos definido un método !PYTHON(__eq__), el intérprete automáticamente hará
-  !PYTHON(__hash__) `=` !PYTHON(None) y convertirá a las colas en _no
-  hashables_.
+  definiremos ningún método !PYTHON(__hash__) en la clase `Cola`. De esta
+  forma, como sí hemos definido un método !PYTHON(__eq__) en la clase, el
+  intérprete automáticamente hará !PYTHON(__hash__) `=` !PYTHON(None) y
+  convertirá a las colas en _no hashables_.
+
+---
+
+- Es importante no romper el contrato entre !PYTHON(__eq__) y
+  !PYTHON(__hash__).
+
+- Es decir, hay que garantizar que si dos objetos son iguales, sus _hash_
+  también deben ser iguales.
+
+- De lo contrario, se pueden dar situaciones extrañas:
+
+  ```python
+  >>> import random
+  >>> class Rara:
+  ...     def __hash__(self):
+  ...         return random.randint(0, 30)
+  ...
+  >>> x = Rara()
+  >>> s = set()
+  >>> s.add(x)
+  >>> x in s
+  True
+  >>> x in s
+  False
+  ```
+
+---
+
+- Aunque los objetos mutables no deberían ser _hashables_, a veces es posible
+  hacer que el valor de _hash_ de un objeto dependa de un subconjunto de
+  atributos inmutables del objeto. En ese caso, el objeto sería mutable pero
+  podría ser _hashable_ al mismo tiempo.
+
+- Por ejemplo, si el DNI de una persona nunca cambia, podríamos usarlo para
+  calcular su _hash_:
+
+  ```python
+  class Persona:
+      def __init__(self, dni, nombre):
+          self.__dni = dni
+          self.__nombre = nombre
+
+      def __hash__(self):
+          return hash(self.__dni)
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+  ```
 
 ## Otros métodos mágicos
 
