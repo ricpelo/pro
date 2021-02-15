@@ -236,25 +236,25 @@ nocite: |
 
 - Existe una clase _wrapper_ para cada tipo primitivo:
 
-  -------------------------------------------
-  Clase _wrapper_     Tipo primitivo
-  ------------------- -----------------------
-  !JAVA(Boolean)      !JAVA(bool)
+  -----------------------------------------------------
+  Clase _wrapper_               Tipo primitivo
+  ----------------------------- -----------------------
+  !JAVA(java.lang.Boolean)      !JAVA(bool)
 
-  !JAVA(Byte)         !JAVA(byte)
+  !JAVA(java.lang.Byte)         !JAVA(byte)
 
-  !JAVA(Short)        !JAVA(short)
+  !JAVA(java.lang.Short)        !JAVA(short)
 
-  !JAVA(Character)    !JAVA(char)
+  !JAVA(java.lang.Character)    !JAVA(char)
 
-  !JAVA(Integer)      !JAVA(int)
+  !JAVA(java.lang.Integer)      !JAVA(int)
 
-  !JAVA(Long)         !JAVA(long)
+  !JAVA(java.lang.Long)         !JAVA(long)
 
-  !JAVA(Float)        !JAVA(float)
+  !JAVA(java.lang.Float)        !JAVA(float)
 
-  !JAVA(Double)       !JAVA(double)
-  -------------------------------------------
+  !JAVA(java.lang.Double)       !JAVA(double)
+  -----------------------------------------------------
 
 - Los objetos de estas clases disponen de métodos para acceder a los valores
   envueltos dentro del objeto.
@@ -281,7 +281,82 @@ nocite: |
   |  ^----------^
   ```
 
-### *Boxing* y *Unboxing*
+---
+
+- A partir de JDK 9, los constructores _wrapper_ de tipo han quedado obsoletos.
+
+- Actualmente, se recomienda que usar uno de los métodos !JAVA(valueOf) para
+  obtener un objeto _wrapper_.
+
+- El método es un miembro estático de todas las clases _wrappers_ y todas las
+  clases numéricas admiten formas que convierten un valor numérico o una cadena
+  en un objeto.
+
+- Por ejemplo:
+
+  ```java
+  jshell> Integer i = Integer.valueOf(100);
+  i ==> 100
+  ```
+
+### *Boxing*!if(HTML)(&nbsp;)() y *unboxing*
+
+- El **_boxing_** es el proceso de _envolver_ un valor primitivo en una
+  referencia a una instancia de su correspondiente clase _wrapper_. Por
+  ejemplo:
+
+  ```java
+  jshell> Integer x = new Integer(4);
+  x ==> 4
+
+  jshell> x.getClass()
+  $2 ==> class java.lang.Integer
+  ```
+
+- El **_unboxing_** es el proceso de extraer un valor primitivo a partir de una
+  instancia de su correspondiente clase _wrapper_. Por ejemplo:
+
+  ```java
+  jshell> Integer i = Integer.valueOf(100);
+  i ==> 100
+
+  jshell> int j = i.intValue();
+  j ==> 100
+  ```
+
+- A partir de JDK 5, este proceso se puede llevar a cabo automáticamente
+  mediante el **_autoboxing_** y el **_autounboxing_**.
+
+### *Autoboxing*!if(HTML)(&nbsp;)() y *autounboxing*
+
+- El **_autoboxing_** es el mecanismo que convierte automáticamente un valor
+  primitivo en una referencia a una instancia de su correspondiente clase
+  _wrapper_. Por ejemplo:
+
+  ```java
+  jshell> Integer x = 4;
+  x ==> 4
+
+  jshell> x.getClass()
+  $2 ==> class java.lang.Integer
+  ```
+
+- El **_autounboxing_** es el mecanismo que convierte automáticamente una
+  instancia de una clase _wrapper_ en su valor primitivo equivalente. Por
+  ejemplo:
+
+  ```java
+  public class Prueba {
+      public static void main(String[] args) {
+          Integer i = new Integer(4);
+          int res = cuadrado(i);       // Se envía un Integer
+          System.out.println(res);
+      }
+      public static cuadrado(int x) {  // Se recibe un int
+          return x ** x;
+      }
+  }
+  ```
 
 ## Cadenas
 
@@ -333,7 +408,7 @@ nocite: |
 
 #### `Arrays.copyOf()`
 
-#### `System.arraycopy()`)
+#### `System.arraycopy()`
 
 #### `.clone()`
 
