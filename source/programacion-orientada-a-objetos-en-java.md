@@ -100,25 +100,33 @@ nocite: |
 
 ## Comparación de objetos
 
-- El operador `==` aplicado a dos objetos (valores de tipo referencia) devuelve !JAVA(true) si ambos son **el mismo objeto**.
+- El operador `==` aplicado a dos objetos (valores de tipo referencia) devuelve
+  !JAVA(true) si ambos son **el mismo objeto**.
 
-- Es decir: el operador `==` compara la **identidad** de los objetos para preguntarse si son **idénticos**.
+- Es decir: el operador `==` compara la **identidad** de los objetos para
+  preguntarse si son **idénticos**.
 
-- Para usar un mecanismo más sofisticado, hay que usar el método !JAVA(equals).
+- Equivale al operador !PYTHON(is) de Python.
+
+- Para usar un mecanismo más sofisticado que realmente pregunte si dos objetos
+  son **iguales**, hay que usar el método !JAVA(equals).
 
 ### `equals`
 
-- El método !JAVA(equals) compara dos objetos para preguntar si son iguales.
+- El método !JAVA(equals) compara dos objetos para comprobar si son iguales.
 
 - Debería usarse siempre en sustitución del operador `==`, que sólo comprueba
   si son idénticos.
 
-  ```java
-  jshell> String s = new String("hola");
-  s ==> "hola"
+- Equivale al !PYTHON(__eq__) de Python, pero en Java hay que llamarlo
+  explícitamente (no se llama implícitamente al usar `==`).
 
-  jshell> String w = new String("hola");
-  w ==> "hola"
+  ```java
+  jshell> String s = new String("Hola");
+  s ==> "Hola"
+
+  jshell> String w = new String("Hola");
+  w ==> "Hola"
 
   jshell> s == w
   $3 ==> false
@@ -126,6 +134,24 @@ nocite: |
   jshell> s.equals(w)
   $4 ==> true
   ```
+
+---
+
+- La implementación predeterminada del método !JAVA(equals) se hereda de la
+  clase !JAVA{Object} (que ya sabemos que es la clase raíz de la jerarquía de
+  clases en Java, por lo que toda clase acaba siendo subclase, directa o
+  indirecta, de !JAVA{Object}).
+
+- En dicha implementación predeterminada, !JAVA(equals) equivale a `==`:
+
+  ```java
+  public boolean equals(Object otro) {
+      return this == otro;
+  }
+  ```
+
+- Por ello, es importante sobreescribir dicho método al crear nuevas clases, ya
+  que, de lo contrario, se comportaría igual que `==`.
 
 ### `compareTo`
 
@@ -140,13 +166,120 @@ nocite: |
 
 ### `hashCode`
 
-## Destrucción de objetos
+- El método !JAVA(hashCode) equivale al !PYTHON(__hash__) de Python.
 
-### Recolección de basura
+- Como en Python, devuelve un número entero (en este caso, de 32 bits) asociado
+  a cada objeto, de forma que si dos objetos son iguales, deben tener el mismo
+  valor de !JAVA(hashCode).
+
+- Por eso (al igual que ocurre en Python), el método !JAVA(hashCode) debe
+  coordinarse con el método !JAVA(equals).
+
+- A diferencia de lo que ocurre en Python, en Java **todos los objetos son
+  _hashables_**. De hecho, no existe el concepto de _hashable_ en Java, ya que
+  no tiene sentido.
+
+- Este método se usa para acelerar la velocidad de almacenamiento y
+  recuperación de objetos en determinadas colecciones como !JAVA(HashMap),
+  !JAVA(HashSet) o !JAVA(Hashtable).
+
+---
+
+- La implementación predeterminada de !JAVA(hashCode) se hereda de la clase
+  !JAVA(Object), y devuelve un valor que depende de la posición de memoria
+  donde está almacenado el objeto.
+
+- Al crear nuevas clases, es importante sobreescribir dicho método para que
+  esté en consonancia con el método !JAVA(equals) y garantizar que siempre se
+  cumple que:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$`.equals(`$y$`)`, entonces $x$`.hashCode()` `==` $y$`.hashCode()`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  ```java
+  jshell> "Hola".hashCode()
+  $1 ==> 2255068
+  ```
+
+## Destrucción de objetos y recolección de basura
+
+- Los objetos en Java no se destruyen explícitamente, sino que se marcan para
+  ser eliminados cuando no hay ninguna referencia apuntándole:
+
+  ```java
+  jshell> String s = "Hola";  // Se crea el objeto y una referencia se guarda en «s»
+  s ==> "Hola"
+
+  jshell> s = null;           // Ya no hay más referencias al objeto, así que se marca
+  s ==> null
+  ```
+
+- La próxima vez que se active el recolector de basura, el objeto se eliminará
+  de la memoria.
 
 # Clases y objetos básicos en Java
 
-## Clases envolventes (*wrapper*)
+## Clases envolventes (*wrapper*!if(HTML)(&nbsp;)())
+
+- Las **clases envolventes** (también llamadas **clases _wrapper_**) son clases
+  cuyas instancias representan valores primitivos almacenados dentro de valores
+  referencia.
+
+- Esos valores referencia _envuelven_ al valor primitivo dentro de un objeto.
+
+- Se utilizan en contextos en los que se necesita manipular un dato primitivo
+  como si fuera un objeto, de una forma sencilla y transparente.
+
+---
+
+- Existe una clase _wrapper_ para cada tipo primitivo:
+
+  -------------------------------------------
+  Clase _wrapper_     Tipo primitivo
+  ------------------- -----------------------
+  !JAVA(Boolean)      !JAVA(bool)
+
+  !JAVA(Byte)         !JAVA(byte)
+
+  !JAVA(Short)        !JAVA(short)
+
+  !JAVA(Character)    !JAVA(char)
+
+  !JAVA(Integer)      !JAVA(int)
+
+  !JAVA(Long)         !JAVA(long)
+
+  !JAVA(Float)        !JAVA(float)
+
+  !JAVA(Double)       !JAVA(double)
+  -------------------------------------------
+
+- Los objetos de estas clases disponen de métodos para acceder a los valores
+  envueltos dentro del objeto.
+
+---
+
+- Por ejemplo:
+
+  ```java
+  jshell> Integer x = new Integer(4);
+  x ==> 4
+
+  jshell> x.floatValue()
+  $2 ==> 4.0
+
+  jshell> Boolean y = new Boolean(true);
+  y ==> true
+
+  jshell> y.shortValue()
+  |  Error:
+  |  cannot find symbol
+  |    symbol:   method shortValue()
+  |  y.shortValue()
+  |  ^----------^
+  ```
 
 ### *Boxing* y *Unboxing*
 

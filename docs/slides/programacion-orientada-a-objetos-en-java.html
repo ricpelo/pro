@@ -101,6 +101,22 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -307,25 +323,38 @@
 <ul>
 <li><p>El operador <code>==</code> aplicado a dos objetos (valores de tipo referencia) devuelve <code class="sourceCode java"><span class="kw">true</span></code> si ambos son <strong>el mismo objeto</strong>.</p></li>
 <li><p>Es decir: el operador <code>==</code> compara la <strong>identidad</strong> de los objetos para preguntarse si son <strong>idénticos</strong>.</p></li>
-<li><p>Para usar un mecanismo más sofisticado, hay que usar el método <code class="sourceCode java">equals</code>.</p></li>
+<li><p>Equivale al operador <code class="sourceCode python"><span class="kw">is</span></code> de Python.</p></li>
+<li><p>Para usar un mecanismo más sofisticado que realmente pregunte si dos objetos son <strong>iguales</strong>, hay que usar el método <code class="sourceCode java">equals</code>.</p></li>
 </ul>
 </section>
 <section id="equals" class="title-slide slide level3" data-number="1.3.1">
 <h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> <code>equals</code></h3>
 <ul>
-<li><p>El método <code class="sourceCode java">equals</code> compara dos objetos para preguntar si son iguales.</p></li>
-<li><p>Debería usarse siempre en sustitución del operador <code>==</code>, que sólo comprueba si son idénticos.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">String</span> s = <span class="kw">new</span> <span class="bu">String</span>(<span class="st">&quot;hola&quot;</span>);</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s ==&gt; <span class="st">&quot;hola&quot;</span></span>
+<li><p>El método <code class="sourceCode java">equals</code> compara dos objetos para comprobar si son iguales.</p></li>
+<li><p>Debería usarse siempre en sustitución del operador <code>==</code>, que sólo comprueba si son idénticos.</p></li>
+<li><p>Equivale al <code class="sourceCode python"><span class="fu">__eq__</span></code> de Python, pero en Java hay que llamarlo explícitamente (no se llama implícitamente al usar <code>==</code>).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">String</span> s = <span class="kw">new</span> <span class="bu">String</span>(<span class="st">&quot;Hola&quot;</span>);</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s ==&gt; <span class="st">&quot;Hola&quot;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">String</span> w = <span class="kw">new</span> <span class="bu">String</span>(<span class="st">&quot;hola&quot;</span>);</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>w ==&gt; <span class="st">&quot;hola&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">String</span> w = <span class="kw">new</span> <span class="bu">String</span>(<span class="st">&quot;Hola&quot;</span>);</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>w ==&gt; <span class="st">&quot;Hola&quot;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; s == w</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> ==&gt; <span class="kw">false</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>jshell&gt; s.<span class="fu">equals</span>(w)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> ==&gt; <span class="kw">true</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.1.0.1">
+
+<ul>
+<li><p>La implementación predeterminada del método <code class="sourceCode java">equals</code> se hereda de la clase <code class="sourceCode java"><span class="bu">Object</span></code> (que ya sabemos que es la clase raíz de la jerarquía de clases en Java, por lo que toda clase acaba siendo subclase, directa o indirecta, de <code class="sourceCode java"><span class="bu">Object</span></code>).</p></li>
+<li><p>En dicha implementación predeterminada, <code class="sourceCode java">equals</code> equivale a <code>==</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">equals</span>(<span class="bu">Object</span> otro) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="kw">this</span> == otro;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p>Por ello, es importante sobreescribir dicho método al crear nuevas clases, ya que, de lo contrario, se comportaría igual que <code>==</code>.</p></li>
 </ul>
 </section>
 
@@ -343,19 +372,40 @@
 
 <section id="hashcode" class="title-slide slide level3" data-number="1.3.3">
 <h3 data-number="1.3.3"><span class="header-section-number">1.3.3</span> <code>hashCode</code></h3>
+<ul>
+<li><p>El método <code class="sourceCode java">hashCode</code> equivale al <code class="sourceCode python"><span class="fu">__hash__</span></code> de Python.</p></li>
+<li><p>Como en Python, devuelve un número entero (en este caso, de 32 bits) asociado a cada objeto, de forma que si dos objetos son iguales, deben tener el mismo valor de <code class="sourceCode java">hashCode</code>.</p></li>
+<li><p>Por eso (al igual que ocurre en Python), el método <code class="sourceCode java">hashCode</code> debe coordinarse con el método <code class="sourceCode java">equals</code>.</p></li>
+<li><p>A diferencia de lo que ocurre en Python, en Java <strong>todos los objetos son <em>hashables</em></strong>. De hecho, no existe el concepto de <em>hashable</em> en Java, ya que no tiene sentido.</p></li>
+<li><p>Este método se usa para acelerar la velocidad de almacenamiento y recuperación de objetos en determinadas colecciones como <code class="sourceCode java"><span class="bu">HashMap</span></code>, <code class="sourceCode java"><span class="bu">HashSet</span></code> o <code class="sourceCode java"><span class="bu">Hashtable</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.3.0.1">
 
+<ul>
+<li><p>La implementación predeterminada de <code class="sourceCode java">hashCode</code> se hereda de la clase <code class="sourceCode java"><span class="bu">Object</span></code>, y devuelve un valor que depende de la posición de memoria donde está almacenado el objeto.</p></li>
+<li><p>Al crear nuevas clases, es importante sobreescribir dicho método para que esté en consonancia con el método <code class="sourceCode java">equals</code> y garantizar que siempre se cumple que:</p>
+<div class="caja centered">
+<p>Si <span class="math inline">x</span><code>.equals(</code><span class="math inline">y</span><code>)</code>, entonces <span class="math inline">x</span><code>.hashCode()</code> <code>==</code> <span class="math inline">y</span><code>.hashCode()</code>.</p>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="st">&quot;Hola&quot;</span>.<span class="fu">hashCode</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> ==&gt; <span class="dv">2255068</span></span></code></pre></div></li>
+</ul>
 </section>
 
 
-<section id="destrucción-de-objetos" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span> Destrucción de objetos</h2>
-
+<section id="destrucción-de-objetos-y-recolección-de-basura" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Destrucción de objetos y recolección de basura</h2>
+<ul>
+<li><p>Los objetos en Java no se destruyen explícitamente, sino que se marcan para ser eliminados cuando no hay ninguna referencia apuntándole:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">String</span> s = <span class="st">&quot;Hola&quot;</span>;  <span class="co">// Se crea el objeto y una referencia se guarda en «s»</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s ==&gt; <span class="st">&quot;Hola&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; s = <span class="kw">null</span>;           <span class="co">// Ya no hay más referencias al objeto, así que se marca</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>s ==&gt; <span class="kw">null</span></span></code></pre></div></li>
+<li><p>La próxima vez que se active el recolector de basura, el objeto se eliminará de la memoria.</p></li>
+</ul>
 </section>
-<section id="recolección-de-basura" class="title-slide slide level3" data-number="1.4.1">
-<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Recolección de basura</h3>
-
-</section>
-
 </section>
 <section>
 <section id="clases-y-objetos-básicos-en-java" class="title-slide slide level1" data-number="2">
@@ -363,8 +413,86 @@
 
 </section>
 <section id="clases-envolventes-wrapper" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Clases envolventes (<em>wrapper</em>)</h2>
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Clases envolventes (<em>wrapper</em> )</h2>
+<ul>
+<li><p>Las <strong>clases envolventes</strong> (también llamadas <strong>clases <em>wrapper</em></strong>) son clases cuyas instancias representan valores primitivos almacenados dentro de valores referencia.</p></li>
+<li><p>Esos valores referencia <em>envuelven</em> al valor primitivo dentro de un objeto.</p></li>
+<li><p>Se utilizan en contextos en los que se necesita manipular un dato primitivo como si fuera un objeto, de una forma sencilla y transparente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.1">
 
+<ul>
+<li><p>Existe una clase <em>wrapper</em> para cada tipo primitivo:</p>
+<table style="width:61%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase <em>wrapper</em></th>
+<th style="text-align: left;">Tipo primitivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Boolean</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java">bool</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Byte</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">byte</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Short</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">short</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Character</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">char</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Integer</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">int</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Long</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">long</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Float</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">float</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="bu">Double</span></code></td>
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">double</span></code></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Los objetos de estas clases disponen de métodos para acceder a los valores envueltos dentro del objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.2">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">Integer</span> x = <span class="kw">new</span> <span class="bu">Integer</span>(<span class="dv">4</span>);</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>x ==&gt; <span class="dv">4</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>jshell&gt; x.<span class="fu">floatValue</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> ==&gt; <span class="fl">4.0</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>jshell&gt; <span class="bu">Boolean</span> y = <span class="kw">new</span> <span class="bu">Boolean</span>(<span class="kw">true</span>);</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>y ==&gt; <span class="kw">true</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>jshell&gt; y.<span class="fu">shortValue</span>()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>|  <span class="bu">Error</span>:</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>|  cannot find symbol</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>|    symbol:   method <span class="fu">shortValue</span>()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>|  y.<span class="fu">shortValue</span>()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>|  ^----------^</span></code></pre></div></li>
+</ul>
 </section>
 <section id="boxing-y-unboxing" class="title-slide slide level3" data-number="2.1.1">
 <h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> <em>Boxing</em> y <em>Unboxing</em></h3>
