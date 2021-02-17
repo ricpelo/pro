@@ -723,7 +723,7 @@ class Docente(Trabajador):
 >>> d = Docente()
 >>> d.set_nrp(273849)
 >>> d.get_nrp()
-273948
+273849
 ```
 
 :::
@@ -770,7 +770,7 @@ class Docente(Trabajador):
 >>> d = Docente()
 >>> d.set_nrp(273849)
 >>> d.get_nrp()
-273948
+273849
 >>> d.set_nombre("Juan")
 >>> d.get_nombre()
 'Juan'
@@ -1554,10 +1554,10 @@ class Rectangulo:
 - Esos trabajadores responderán de una forma distinta cuando se invoque sobre
   ellos al método `despedir`.
 
-- Para ello, redifinimos el método `despedir` en la clase `Directivo`:
+- Para ello, redefinimos el método `despedir` en la clase `Directivo`:
 
   ```python
-  class Directivo:
+  class Directivo(Trabajador):
      def despedir(self):
          print("De aquí no me voy")
 
