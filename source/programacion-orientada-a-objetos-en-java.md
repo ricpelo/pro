@@ -360,15 +360,167 @@ nocite: |
 
 ## Cadenas
 
-### Inmutables
+- En Java, las cadenas son objetos.
 
-#### `String`
+- Por tanto, son valores referencia, instancias de una determinada clase.
+
+- Existen dos tipos de cadenas:
+
+  - Inmutables: instancias de la clase !JAVA(String).
+
+  - Mutables: instancias de las clases !JAVA(StringBuffer) o
+    !JAVA(StringBuilder).
+
+### Inmutables (`String`)
+
+- Los objetos de la clase !JAVA(String) son cadenas inmutables.
+
+- Las cadenas literales (secuencias de caracteres encerradas entre dobles
+  comillas !JAVA(")) son instancias de la clase !JAVA(String):
+
+  ```java
+  jshell> String s = "Hola";
+  ```
+
+- Otra forma de crear un objeto de la clase !JAVA(String) es instanciando dicha
+  clase y pasándole otra cadena al constructor. De esta forma, se creará un
+  nuevo objeto cadena con los mismos caracteres que la otra cadena:
+
+  ```java
+  jshell> String s = new String("Hola");
+  ```
+
+---
+
+- Si se usa varias veces el mismo literal cadena, el JRE intenta aprovechar el
+  objeto ya creado y no crea uno nuevo:
+
+  ```java
+  jshell> String s = "Hola";
+  s ==> "Hola"
+
+  jshell> String w = "Hola";
+  w ==> "Hola"
+
+  jshell> s == w
+  $3 ==> true
+  ```
+
+- Las cadenas creadas mediante instanciación, siempre son objetos distintos:
+
+  ```java
+  jshell> String s = new String("Hola");
+  s ==> "Hola"
+
+  jshell> String w = new String("Hola");
+  w ==> "Hola"
+
+  jshell> s == w
+  $3 ==> false
+  ```
+
+- Pregunta: ¿cuántos objetos cadena se crean en cada caso?
+
+---
+
+- Los objetos de la clase !JAVA(String) disponen de métodos que permiten
+  realizar operaciones con cadenas.
+
+- Muchos de ellos devuelven una nueva cadena a partir de la original tras una
+  determinada transformación.
+
+- Algunos métodos interesantes son:
+
+  :::: columns
+
+  ::: column
+
+  - !JAVA(length)
+
+  - !JAVA(indexOf)
+
+  - !JAVA(lastIndexOf)
+
+  - !JAVA(charAt)
+
+  - !JAVA(repeat)
+
+  - !JAVA(replace)
+
+  :::
+
+  ::: column
+
+  - !JAVA(startsWith)
+
+  - !JAVA(endsWith)
+
+  - !JAVA(substring)
+
+  - !JAVA(toUpperCase)
+
+  - !JAVA(toLowerCase)
+
+  :::
+
+  ::::
+
+---
+
+- La clase !JAVA(String) también dispone de **métodos estáticos**.
+
+- El más interesante es !JAVA(valueOf), que devuelve la representación en forma
+  de cadena de su argumento:
+
+  ```java
+  jshell> String.valueOf(4)
+  $1 ==> "4"
+
+  jshell> String.valueOf(2.3)
+  $2 ==> "2.3"
+
+  jshell> String.valueOf('a')
+  $3 ==> "a"
+  ```
+
+- No olvidemos que, en Java, los caracteres y las cadenas son tipos distintos:
+
+  - Un carácter es un valor primitivo de tipo !JAVA(char) y sus literales se
+    representan entre comillas simples (!JAVA('a')).
+
+  - Una cadena es un valor referencia de tipo !JAVA(String) y sus literales se
+    representan entre comillas dobles (!JAVA("a")).
 
 ### Mutables
 
-#### `StringBuffer`
+- Un objeto de la clase !JAVA(String) no puede modificarse una vez creado.
 
-#### `StringBuilder`
+- Es exactamente lo que ocurre con las cadenas en Python.
+
+- En Java existen **cadenas mutables** que sí permiten su modificación después
+  de haberse creado.
+
+- Para ello, proporciona dos clases llamadas !JAVA(StringBuffer) y
+  !JAVA(StringBuilder), cuyas instancias son cadenas mutables.
+
+- Las dos funcionan prácticamente de la misma forma, con la única diferencia de
+  que los objetos !JAVA(StringBuffer) permiten sincronización entre hilos
+  mientras que los !JAVA(StringBuilder) no.
+
+- Cuando se está ejecutando un único hilo, es preferible usar objetos
+  !JAVA(StringBuilder) ya que son más eficientes.
+
+---
+
+- Se puede crear un objeto !JAVA(StringBuilder) vacío o a partir de una cadena:
+
+  ```java
+  jshell> StringBuilder sb = new StringBuilder();       // Crea uno vacío
+  sb ==>
+
+  jshell> StringBuilder sb = new StringBuilder("Hola"); // O a partir de una cadena
+  sb ==> "Hola"
+  ```
 
 #### `StringTokenizer`
 
