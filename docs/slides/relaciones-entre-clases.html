@@ -1401,10 +1401,10 @@
 <section id="super" class="title-slide slide level2" data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span> <code>super</code></h2>
 <ul>
-<li><p>La función <code>super</code> nos permite acceder a los métodos heredados que se han visto <strong>sombreados</strong> por métodos redefinidos con su mismo nombre.</p></li>
+<li><p>La función <code class="sourceCode python"><span class="bu">super</span></code> nos permite acceder a los métodos heredados que se han visto <strong>sombreados</strong> por métodos redefinidos con su mismo nombre.</p></li>
 <li><p>Al llamar a la función, ésta devuelve un <em>objeto intermediario</em> («<em>proxy</em>») que <strong>delega</strong> las llamadas a métodos a una superclase de la clase actual.</p></li>
-<li><p>En caso de estar usando herencia simple, la expresión <code>super()</code> devuelve directamente un objeto intermediario de la superclase directa de la clase actual.</p></li>
-<li><p>En el caso de estar usando herencia múltiple, <code>super()</code> devolverá un objeto intermediario que será instancia de la clase que sigue a la clase actual en el MRO.</p></li>
+<li><p>En caso de estar usando herencia simple, la expresión <code class="sourceCode python"><span class="bu">super</span>()</code> devuelve directamente un objeto intermediario de la superclase directa de la clase actual.</p></li>
+<li><p>En el caso de estar usando herencia múltiple, <code class="sourceCode python"><span class="bu">super</span>()</code> devolverá un objeto intermediario que será instancia de la clase que sigue a la clase actual en el MRO.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.1">
@@ -1435,7 +1435,7 @@
 <section id="sobreescritura-de-constructores" class="title-slide slide level2" data-number="3.6">
 <h2 data-number="3.6"><span class="header-section-number">3.6</span> Sobreescritura de constructores</h2>
 <ul>
-<li><p>Los constructores (métodos <code>__init__</code>) se pueden sobreescribir como cualquier otro método.</p></li>
+<li><p>Los constructores (métodos <code class="sourceCode python"><span class="fu">__init__</span></code>) se pueden sobreescribir como cualquier otro método.</p></li>
 <li><p>En tal caso, lo normal y lógico es que el constructor de la subclase llame al constructor de la superclase para que ésta pueda inicializar los atributos que le corresponden (es decir, los que la subclase hereda de la superclase).</p></li>
 <li><p>Se trata de que cada clase se responsabilice de inicializar sus propios atributos, para garantizar que se cumplen sus invariantes.</p></li>
 </ul>
@@ -1611,7 +1611,7 @@
 <ul>
 <li><p>En realidad, el cálculo del área lo deberíamos dejar en manos de cada figura concreta (triángulo, rectángulo, etc.).</p></li>
 <li><p>Definiremos el método <code>area</code> en la clase <code>Figura</code> como un método abstracto, y las subclases <code>Triangulo</code> y <code>Rectangulo</code> están obligadas a darle un cuerpo si quieren que se puedan crear instancias suyas.</p></li>
-<li><p>Para definir un método como abstracto en Python, se usa el decorador <code>@abstractmethod</code> del módulo <code>abc</code> y se marca el cuerpo con tres puntos suspensivos (<code>...</code>).</p></li>
+<li><p>Para definir un método como abstracto en Python, se usa el decorador <code class="sourceCode python"><span class="at">@abstractmethod</span></code> del módulo <code>abc</code> y se marca el cuerpo con tres puntos suspensivos (<code class="sourceCode python">...</code>).</p></li>
 <li><p>Además de lo anterior, tendremos que declarar la clase <code>Figura</code> como abstracta, cosa que en Python se consigue haciendo que sea subclase (directa o indirecta) de una clase especial llamada <code>ABC</code> (de <em>Abstract Base Class</em>) del módulo <code>abc</code>.</p></li>
 </ul>
 </section>
@@ -1687,6 +1687,15 @@
 <span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
 <span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.8">
+
+<ul>
+<li><p>El propósito principal de una clase abstracta es el es servir de clase base a partir de la cual derivar otras subclases con estructura y comportamiento comunes.</p></li>
+<li><p>Esos elementos comunes a todas las subclases formarían parte en la clase abstracta.</p></li>
+<li><p>Pero además, una clase abstracta expresa el hecho de que las subclases deben indicar su propia versión de ciertos métodos (los métodos abstractos) que se deberán concretar en cada subclase de forma específica.</p></li>
+<li><p>Esos métodos abstractos no tienen implementación en la clase abstracta porque no tiene sentido que tengan una definición genérica.</p></li>
 </ul>
 </section>
 </section>

@@ -1639,19 +1639,19 @@ class Rectangulo:
 
 ## `super`
 
-- La función `super` nos permite acceder a los métodos heredados que se han
-  visto **sombreados** por métodos redefinidos con su mismo nombre.
+- La función !PYTHON(super) nos permite acceder a los métodos heredados que se
+  han visto **sombreados** por métodos redefinidos con su mismo nombre.
 
 - Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
   que **delega** las llamadas a métodos a una superclase de la clase actual.
 
-- En caso de estar usando herencia simple, la expresión `super()` devuelve
-  directamente un objeto intermediario de la superclase directa de la clase
-  actual.
+- En caso de estar usando herencia simple, la expresión !PYTHON(super())
+  devuelve directamente un objeto intermediario de la superclase directa de la
+  clase actual.
 
-- En el caso de estar usando herencia múltiple, `super()` devolverá un objeto
-  intermediario que será instancia de la clase que sigue a la clase actual en
-  el MRO.
+- En el caso de estar usando herencia múltiple, !PYTHON(super()) devolverá un
+  objeto intermediario que será instancia de la clase que sigue a la clase
+  actual en el MRO.
 
 ---
 
@@ -1683,8 +1683,8 @@ class Rectangulo:
 
 ## Sobreescritura de constructores
 
-- Los constructores (métodos `__init__`) se pueden sobreescribir como cualquier
-  otro método.
+- Los constructores (métodos !PYTHON(__init__)) se pueden sobreescribir como
+  cualquier otro método.
 
 - En tal caso, lo normal y lógico es que el constructor de la subclase llame al
   constructor de la superclase para que ésta pueda inicializar los atributos
@@ -1920,8 +1920,8 @@ class Rectangulo:
   quieren que se puedan crear instancias suyas.
 
 - Para definir un método como abstracto en Python, se usa el decorador
-  `@abstractmethod` del módulo `abc` y se marca el cuerpo con tres puntos
-  suspensivos (`...`).
+  !PYTHON(@abstractmethod) del módulo `abc` y se marca el cuerpo con tres
+  puntos suspensivos (!PYTHON(...)).
 
 - Además de lo anterior, tendremos que declarar la clase `Figura` como
   abstracta, cosa que en Python se consigue haciendo que sea subclase (directa
@@ -2016,6 +2016,22 @@ class Rectangulo:
 
       # resto de código
   ```
+
+---
+
+- El propósito principal de una clase abstracta es el es servir de clase base a
+  partir de la cual derivar otras subclases con estructura y comportamiento
+  comunes.
+
+- Esos elementos comunes a todas las subclases formarían parte en la clase
+  abstracta.
+
+- Pero además, una clase abstracta expresa el hecho de que las subclases deben
+  indicar su propia versión de ciertos métodos (los métodos abstractos) que se
+  deberán concretar en cada subclase de forma específica. 
+
+- Esos métodos abstractos no tienen implementación en la clase abstracta porque
+  no tiene sentido que tengan una definición genérica.
 
 # Herencia vs. composición
 
