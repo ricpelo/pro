@@ -668,23 +668,74 @@
 </section>
 <section id="stringtokenizer" class="title-slide slide level4" data-number="2.2.2.1">
 <h4 data-number="2.2.2.1"><span class="header-section-number">2.2.2.1</span> <code>StringTokenizer</code></h4>
+<ul>
+<li><p>La clase <code class="sourceCode java"><span class="bu">StringTokenizer</span></code> permite romper una cadena en <em>tokens</em>.</p></li>
+<li><p>El método de <em>tokenización</em> consiste en buscar los elementos separados por delimitadores, que son los caracteres que separan los <em>tokens</em>.</p></li>
+<li><p>Esos delimitadores pueden especificarse en el momento de crear el <em>tokenizador</em> o bien <em>token</em> a <em>token</em>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">StringTokenizer</span> st <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringTokenizer</span><span class="op">(</span><span class="st">&quot;esto es una prueba&quot;</span><span class="op">);</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>st<span class="op">.</span><span class="fu">hasMoreTokens</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>st<span class="op">.</span><span class="fu">nextToken</span><span class="op">());</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>produce la siguiente salida:</p>
+<pre><code>esto
+es
+una
+prueba</code></pre></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.2.1.1">
 
+<ul>
+<li><p>La clase <code class="sourceCode java"><span class="bu">StringTokenizer</span></code> se mantiene por compatibilidad pero su uso no se recomienda en código nuevo.</p></li>
+<li><p>En su lugar, se recomienda usar el método <code class="sourceCode java">split</code> de la clase <code class="sourceCode java"><span class="bu">String</span></code> o el paquete <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">regex</span></code>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">[]</span> result <span class="op">=</span> <span class="st">&quot;esto es una prueba&quot;</span><span class="op">.</span><span class="fu">split</span><span class="op">(</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span><span class="op">);</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> x <span class="op">&lt;</span> result<span class="op">.</span><span class="fu">length</span><span class="op">;</span> x<span class="op">++)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>result<span class="op">[</span>x<span class="op">]);</span></span></code></pre></div></li>
+</ul>
 </section>
 
 
 <section id="conversión-a-string" class="title-slide slide level3" data-number="2.2.3">
 <h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span> Conversión a <code>String</code></h3>
-
+<ul>
+<li><p>La conversión de un objeto a <code class="sourceCode java"><span class="bu">String</span></code> se realiza llamando al método <code class="sourceCode java">toString</code> del objeto.</p></li>
+<li><p>Todo objeto, sea de la clase que sea, tiene un método <code class="sourceCode java">toString</code> heredado de la clase <code class="sourceCode java"><span class="bu">Object</span></code> y posiblemente sobreescribiéndo éste.</p></li>
+<li><p>Si es un valor primitivo, primero se convierte a instancia de su clase <em>wrapper</em> correspondiente.</p></li>
+</ul>
 </section>
 
 <section id="concatenación-de-cadenas" class="title-slide slide level3" data-number="2.2.4">
 <h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Concatenación de cadenas</h3>
-
+<ul>
+<li><p>La operación de concatenación de cadenas se realiza con el operador <code>+</code>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="st">&quot;hola &quot;</span> <span class="op">+</span> <span class="st">&quot;mundo&quot;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> <span class="op">==&gt;</span> <span class="st">&quot;hola mundo&quot;</span></span></code></pre></div></li>
+<li><p>También existe el método <code class="sourceCode java">concat</code>, que hace lo mismo:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="st">&quot;hola &quot;</span><span class="op">.</span><span class="fu">concat</span><span class="op">(</span><span class="st">&quot;mundo&quot;</span><span class="op">)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> <span class="op">==&gt;</span> <span class="st">&quot;hola mundo&quot;</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="comparación-de-cadenas" class="title-slide slide level3" data-number="2.2.5">
 <h3 data-number="2.2.5"><span class="header-section-number">2.2.5</span> Comparación de cadenas</h3>
-
+<ul>
+<li><p>En las cadenas, las comparaciones se pueden realizar:</p>
+<ul>
+<li><p>Con el operador <code>==</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">==</span> <span class="st">&quot;hola&quot;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>No es conveniente, ya que comprueba si los dos objetos son el mismo.</p></li>
+<li><p>Con el método <code class="sourceCode java">equals</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="st">&quot;hola&quot;</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="st">&quot;hola&quot;</span><span class="op">)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Comprueba si las dos cadenas tienen los mismos caracteres.</p></li>
+<li><p>Con el método <code class="sourceCode java">compareTo</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="st">&quot;hola&quot;</span><span class="op">.</span><span class="fu">compareTo</span><span class="op">(</span><span class="st">&quot;adiós&quot;</span><span class="op">)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span></code></pre></div></li>
+</ul></li>
+</ul>
 </section>
 
 <section id="diferencias-entre-literales-cadena-y-objetos-string" class="title-slide slide level3" data-number="2.2.6">

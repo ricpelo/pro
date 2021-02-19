@@ -524,11 +524,103 @@ nocite: |
 
 #### `StringTokenizer`
 
+- La clase !JAVA(StringTokenizer) permite romper una cadena en _tokens_.
+
+- El método de _tokenización_ consiste en buscar los elementos separados por
+  delimitadores, que son los caracteres que separan los _tokens_.
+
+- Esos delimitadores pueden especificarse en el momento de crear el
+  _tokenizador_ o bien _token_ a _token_.
+
+- Por ejemplo:
+
+  ```java
+  StringTokenizer st = new StringTokenizer("esto es una prueba");
+  while (st.hasMoreTokens()) {
+      System.out.println(st.nextToken());
+  }
+  ```
+
+  produce la siguiente salida:
+
+  ```
+  esto
+  es
+  una
+  prueba
+  ```
+
+---
+
+- La clase !JAVA(StringTokenizer) se mantiene por compatibilidad pero su uso no
+  se recomienda en código nuevo.
+
+- En su lugar, se recomienda usar el método !JAVA(split) de la clase
+  !JAVA(String) o el paquete !JAVA(java.util.regex).
+
+- Por ejemplo:
+
+  ```java
+  String[] result = "esto es una prueba".split("\\s");
+  for (int x = 0; x < result.length; x++)
+      System.out.println(result[x]);
+  ```
+
 ### Conversión a `String`
+
+- La conversión de un objeto a !JAVA(String) se realiza llamando al método
+  !JAVA(toString) del objeto.
+
+- Todo objeto, sea de la clase que sea, tiene un método !JAVA(toString)
+  heredado de la clase !JAVA(Object) y posiblemente sobreescribiéndo éste.
+
+- Si es un valor primitivo, primero se convierte a instancia de su clase
+  _wrapper_ correspondiente.
 
 ### Concatenación de cadenas
 
+- La operación de concatenación de cadenas se realiza con el operador `+`:
+
+  ```java
+  jshell> "hola " + "mundo"
+  $1 ==> "hola mundo"
+  ```
+
+- También existe el método !JAVA(concat), que hace lo mismo:
+
+  ```java
+  jshell> "hola ".concat("mundo")
+  $1 ==> "hola mundo"
+  ```
+
 ### Comparación de cadenas
+
+- En las cadenas, las comparaciones se pueden realizar:
+
+  - Con el operador `==`:
+
+    ```java
+    jshell> "hola" == "hola"
+    true
+    ```
+
+    No es conveniente, ya que comprueba si los dos objetos son el mismo.
+
+  - Con el método !JAVA(equals):
+
+    ```java
+    jshell> "hola".equals("hola")
+    true
+    ```
+
+    Comprueba si las dos cadenas tienen los mismos caracteres.
+
+  - Con el método !JAVA(compareTo):
+
+    ```java
+    jshell> "hola".compareTo("adiós")
+    7
+    ```
 
 ### Diferencias entre literales cadena y objetos `String`
 
