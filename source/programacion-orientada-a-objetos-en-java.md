@@ -624,6 +624,29 @@ nocite: |
 
 ### Diferencias entre literales cadena y objetos `String`
 
+- Los literales cadena se almacenan en un _pool_ de cadenas y se reutilizan
+  siempre que se puede.
+
+- Los objetos !JAVA(String) van asociados a un literal cadena almacenado en el
+  _pool_.
+
+- Se puede acceder a ese literal del objeto cadena usando el método
+  !JAVA(intern):
+
+  ```java
+  jshell> String s = new String("hola");
+  s ==> "hola"
+
+  jshell> String w = new String("hola");
+  w ==> "hola"
+
+  jshell> s == w
+  $3 ==> false
+
+  jshell> s.intern() == w.intern()
+  $4 ==> true
+  ```
+
 ## *Arrays*
 
 ### De tipos primitivos
