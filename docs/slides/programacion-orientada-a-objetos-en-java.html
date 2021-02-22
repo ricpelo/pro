@@ -240,6 +240,7 @@
 <ul>
 <li><a href="#/uso-básico-de-objetos"><span class="toc-section-number">1</span> Uso básico de objetos</a></li>
 <li><a href="#/clases-y-objetos-básicos-en-java"><span class="toc-section-number">2</span> Clases y objetos básicos en Java</a></li>
+<li><a href="#/arrays"><span class="toc-section-number">3</span> <em>Arrays</em></a></li>
 </ul>
 </section>
 
@@ -758,125 +759,255 @@ prueba</code></pre></li>
 </ul>
 </section>
 
-
-<section id="arrays" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> <em>Arrays</em></h2>
+</section>
+<section>
+<section id="arrays" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <em>Arrays</em></h1>
 
 </section>
-<section id="de-tipos-primitivos" class="title-slide slide level3" data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> De tipos primitivos</h3>
+<section id="definición" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Definición</h2>
+<ul>
+<li><p>En Java, un <strong><em>array</em></strong> es un dato mutable compuesto por elementos (también llamados <strong>componentes</strong>) a los que se accede mediante <strong><em>indexación</em></strong>, es decir, indicando la posición donde se encuentra almacenado el elemento deseado dentro del <em>array</em>.</p></li>
+<li><p>Se parece a las <strong>listas</strong> de Python, con las siguientes diferencias:</p>
+<ul>
+<li><p>Cada <em>array</em> tiene una <strong>longitud fija</strong> (no puede crecer o encogerse de tamaño dinámicamente).</p></li>
+<li><p>Todos los elementos de un <em>array</em> deben ser del <strong>mismo tipo</strong>, el cual debe indicarse en la declaración del <em>array</em>.</p></li>
+</ul></li>
+<li><p>Los <em>arrays</em> en Java pueden contener valores primitivos o referencias a objetos.</p></li>
+<li><p>Los <em>arrays</em> de Java son <strong>objetos</strong> y, por tanto, son valores referencia.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Los <em>arrays</em> se declaran indicando el tipo del elemento que contienen, seguido de <code>[]</code>.</p></li>
+<li><p>Por ejemplo, para declarar un <em>array</em> de enteros, se puede hacer:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span></code></pre></div>
+<p>Ahora mismo, <code>x</code> es una referencia a un objeto <em>array</em> que puede contener elementos de tipo <code>int</code>. Como la variable <code>x</code> aún no ha sido inicializada, el valor que contiene es la referencia nula (<code>null</code>):</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="kw">null</span></span></code></pre></div></li>
+<li><p>Por tanto, <code>x</code> puede hacer referencia a un <em>array</em> de enteros, pero actualmente no hace referencia a ninguno.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>A esa variable le podemos asignar una referencia a un objeto <em>array</em> del tipo adecuado.</p></li>
+<li><p>Para ello, se puede crear un objeto <em>array</em> usando el operador <code class="sourceCode java"><span class="kw">new</span></code> e indicando el tipo de los elementos y la longitud del <em>array</em> (entre corchetes):</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span></span></code></pre></div>
+<p>A partir de este momento, la variable <code>x</code> contiene una referencia a un objeto <em>array</em> de cinco elementos de tipo <code class="sourceCode java"><span class="dt">int</span></code> que, ahora mismo, tienen todos el valor <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
+<li><p>Como se puede observar, los elementos de un <em>array</em> siempre se inicializan a un <strong>valor por defecto</strong> cuando se crea el <em>array</em> (<code class="sourceCode java"><span class="dv">0</span></code> en enteros, <code class="sourceCode java"><span class="fl">0.0</span></code> en reales, <code class="sourceCode java"><span class="kw">false</span></code> en <em>booleanos</em>, <code class="sourceCode java"><span class="ch">&#39;\000&#39;</span></code> en caracteres y <code class="sourceCode java"><span class="kw">null</span></code> en valores referencia).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<ul>
+<li><p>También se pueden inicializar los elementos de un <em>array</em> en el momento en que se crea con <code class="sourceCode java"><span class="kw">new</span></code>.</p></li>
+<li><p>En ese caso:</p>
+<ul>
+<li><p>Se indican los valores de los elementos del <em>array</em> entre llaves.</p></li>
+<li><p>No se indica la longitud del array, ya que se deduce a partir de la lista de valores iniciales.</p></li>
+</ul></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.4">
+
+<ul>
+<li><p>Para <strong>acceder</strong> a un elemento del <em>array</em> se usa el operador de <em>indexación</em> (los corchetes):</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">3</span><span class="op">]</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="dv">81</span></span></code></pre></div></li>
+<li><p>Los elementos se indexan de 0 a <span class="math inline">n - 1</span>, siendo <span class="math inline">n</span> la longitud del <em>array</em>.</p></li>
+<li><p>Si se intenta acceder a un elemento fuera de esos límites, se levanta una excepción <code class="sourceCode java">java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ArrayIndexOutOfBoundsException</span></code>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">4</span><span class="op">]</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Exception</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ArrayIndexOutOfBoundsException</span><span class="op">:</span> Index <span class="dv">4</span> out of bounds <span class="cf">for</span> length <span class="dv">4</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="fu">at</span> <span class="op">(</span>#<span class="dv">3</span><span class="op">:</span><span class="dv">1</span><span class="op">)</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.5">
+
+<ul>
+<li><p>Para conocer la longitud de un <em>array</em>, se puede consultar el atributo <code class="sourceCode java">length</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<li><p>Ese valor es constante y no se puede cambiar:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">44</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  cannot assign a value to <span class="dt">final</span> variable length</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">43</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="op">^------^</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.6">
+
+<ul>
+<li><p>Para cambiar un elemento del <em>array</em> por otro, se puede usar la <em>indexación</em> combinada con la <em>asignación</em>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> <span class="op">==&gt;</span> <span class="dv">99</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>El compilador comprueba que el valor a asignar es del tipo correcto, e impide la operación si se ve obligado a hacer un <em>narrowing</em> para hacer que el tipo del valor sea compatible con el tipo del elemento:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>shell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  incompatible types<span class="op">:</span> possible lossy conversion from <span class="dt">double</span> to <span class="dt">int</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>         <span class="op">^--^</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.7">
+
+<ul>
+<li><p>Los elementos de un <em>array</em> también pueden ser valores referencia.</p></li>
+<li><p>En ese caso, sus elementos serán objetos de una determinada clase.</p></li>
+<li><p>Por el principio de sustitución, esos objetos también podrán ser instancias de una de sus subclases.</p></li>
+<li><p>Inicialmente, los elementos referencia de un <em>array</em> toman el valor <code class="sourceCode java"><span class="kw">null</span></code>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> Trabajador<span class="op">[]</span> t <span class="op">=</span> <span class="kw">new</span> Trabajador<span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">==&gt;</span> Trabajador<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>En cada elemento de <code>t</code> podremos meter una instancia de la clase <code>Trabajador</code> o de cualquier subclase suya:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> t<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">Docente</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">8</span> <span class="op">==&gt;</span> Docente<span class="at">@</span><span class="dv">1</span>b701da1</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> t</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>t <span class="op">==&gt;</span> Trabajador<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> Docente<span class="at">@</span><span class="dv">1</span>b701da1<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.8">
+
+<ul>
+<li><p>Si declaramos un <em>array</em> de tipo <code class="sourceCode java"><span class="bu">Object</span><span class="op">[]</span></code>, estamos diciendo que sus elementos pueden ser de cualquier tipo referencia, lo que tiene ventajas e inconvenientes:</p>
+<ul>
+<li><p>Ventaja: los elementos del <em>array</em> podrán ser de cualquier tipo, incluyendo tipos primitivos (recordemos el <em>boxing</em>/<em>unboxing</em>).</p></li>
+<li><p>Inconveniente: no podremos aprovechar el comprobador de tipos del compilador para determinar si los tipos son los adecuados, por lo que tendremos que hacerlo a mano en tiempo de ejecución.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="de-tipos-primitivos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> De tipos primitivos</h2>
 
 </section>
-<section id="declaración" class="title-slide slide level4" data-number="2.3.1.1">
-<h4 data-number="2.3.1.1"><span class="header-section-number">2.3.1.1</span> Declaración</h4>
+<section id="declaración" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Declaración</h3>
 
 </section>
 
-<section id="creación" class="title-slide slide level4" data-number="2.3.1.2">
-<h4 data-number="2.3.1.2"><span class="header-section-number">2.3.1.2</span> Creación</h4>
+<section id="creación" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Creación</h3>
 
 </section>
 
-<section id="inicialización" class="title-slide slide level4" data-number="2.3.1.3">
-<h4 data-number="2.3.1.3"><span class="header-section-number">2.3.1.3</span> Inicialización</h4>
-
-</section>
-
-
-<section id="length" class="title-slide slide level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> <code>.length</code></h3>
-
-</section>
-
-<section id="de-objetos" class="title-slide slide level3" data-number="2.3.3">
-<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> De objetos</h3>
-
-</section>
-<section id="declaración-1" class="title-slide slide level4" data-number="2.3.3.1">
-<h4 data-number="2.3.3.1"><span class="header-section-number">2.3.3.1</span> Declaración</h4>
-
-</section>
-
-<section id="creación-1" class="title-slide slide level4" data-number="2.3.3.2">
-<h4 data-number="2.3.3.2"><span class="header-section-number">2.3.3.2</span> Creación</h4>
-
-</section>
-
-<section id="inicialización-1" class="title-slide slide level4" data-number="2.3.3.3">
-<h4 data-number="2.3.3.3"><span class="header-section-number">2.3.3.3</span> Inicialización</h4>
+<section id="inicialización" class="title-slide slide level3" data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Inicialización</h3>
 
 </section>
 
 
-<section id="subtipado-entre-arrays" class="title-slide slide level3" data-number="2.3.4">
-<h3 data-number="2.3.4"><span class="header-section-number">2.3.4</span> Subtipado entre <em>arrays</em></h3>
+<section id="length" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> <code>.length</code></h2>
 
 </section>
 
-<section id="java.util.arrays" class="title-slide slide level3" data-number="2.3.5">
-<h3 data-number="2.3.5"><span class="header-section-number">2.3.5</span> <code>java.util.Arrays</code></h3>
+<section id="de-objetos" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> De objetos</h2>
+
+</section>
+<section id="declaración-1" class="title-slide slide level3" data-number="3.4.1">
+<h3 data-number="3.4.1"><span class="header-section-number">3.4.1</span> Declaración</h3>
 
 </section>
 
-<section id="copia-y-redimensionado-de-arrays" class="title-slide slide level3" data-number="2.3.6">
-<h3 data-number="2.3.6"><span class="header-section-number">2.3.6</span> Copia y redimensionado de arrays</h3>
-
-</section>
-<section id="arrays.copyof" class="title-slide slide level4" data-number="2.3.6.1">
-<h4 data-number="2.3.6.1"><span class="header-section-number">2.3.6.1</span> <code>Arrays.copyOf()</code></h4>
+<section id="creación-1" class="title-slide slide level3" data-number="3.4.2">
+<h3 data-number="3.4.2"><span class="header-section-number">3.4.2</span> Creación</h3>
 
 </section>
 
-<section id="system.arraycopy" class="title-slide slide level4" data-number="2.3.6.2">
-<h4 data-number="2.3.6.2"><span class="header-section-number">2.3.6.2</span> <code>System.arraycopy()</code></h4>
-
-</section>
-
-<section id="clone" class="title-slide slide level4" data-number="2.3.6.3">
-<h4 data-number="2.3.6.3"><span class="header-section-number">2.3.6.3</span> <code>.clone()</code></h4>
+<section id="inicialización-1" class="title-slide slide level3" data-number="3.4.3">
+<h3 data-number="3.4.3"><span class="header-section-number">3.4.3</span> Inicialización</h3>
 
 </section>
 
 
-<section id="comparación-de-arrays" class="title-slide slide level3" data-number="2.3.7">
-<h3 data-number="2.3.7"><span class="header-section-number">2.3.7</span> Comparación de <em>arrays</em></h3>
-
-</section>
-<section id="arrays.equals" class="title-slide slide level4" data-number="2.3.7.1">
-<h4 data-number="2.3.7.1"><span class="header-section-number">2.3.7.1</span> <code>Arrays.equals()</code></h4>
+<section id="subtipado-entre-arrays" class="title-slide slide level2" data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span> Subtipado entre <em>arrays</em></h2>
 
 </section>
 
-
-<section id="arrays-multidimensionales" class="title-slide slide level3" data-number="2.3.8">
-<h3 data-number="2.3.8"><span class="header-section-number">2.3.8</span> Arrays multidimensionales</h3>
-
-</section>
-<section id="declaración-2" class="title-slide slide level4" data-number="2.3.8.1">
-<h4 data-number="2.3.8.1"><span class="header-section-number">2.3.8.1</span> Declaración</h4>
+<section id="java.util.arrays" class="title-slide slide level2" data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span> <code>java.util.Arrays</code></h2>
 
 </section>
 
-<section id="creación-2" class="title-slide slide level4" data-number="2.3.8.2">
-<h4 data-number="2.3.8.2"><span class="header-section-number">2.3.8.2</span> Creación</h4>
+<section id="copia-y-redimensionado-de-arrays" class="title-slide slide level2" data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span> Copia y redimensionado de arrays</h2>
+
+</section>
+<section id="arrays.copyof" class="title-slide slide level3" data-number="3.7.1">
+<h3 data-number="3.7.1"><span class="header-section-number">3.7.1</span> <code>Arrays.copyOf()</code></h3>
 
 </section>
 
-<section id="inicialización-2" class="title-slide slide level4" data-number="2.3.8.3">
-<h4 data-number="2.3.8.3"><span class="header-section-number">2.3.8.3</span> Inicialización</h4>
+<section id="system.arraycopy" class="title-slide slide level3" data-number="3.7.2">
+<h3 data-number="3.7.2"><span class="header-section-number">3.7.2</span> <code>System.arraycopy()</code></h3>
 
 </section>
 
-<section id="arrays.deepequals" class="title-slide slide level4 unnumbered">
-<h4 class="unnumbered"><code>Arrays.deepEquals()</code></h4>
+<section id="clone" class="title-slide slide level3" data-number="3.7.3">
+<h3 data-number="3.7.3"><span class="header-section-number">3.7.3</span> <code>.clone()</code></h3>
+
+</section>
+
+
+<section id="comparación-de-arrays" class="title-slide slide level2" data-number="3.8">
+<h2 data-number="3.8"><span class="header-section-number">3.8</span> Comparación de <em>arrays</em></h2>
+
+</section>
+<section id="arrays.equals" class="title-slide slide level3" data-number="3.8.1">
+<h3 data-number="3.8.1"><span class="header-section-number">3.8.1</span> <code>Arrays.equals()</code></h3>
+
+</section>
+
+
+<section id="arrays-multidimensionales" class="title-slide slide level2" data-number="3.9">
+<h2 data-number="3.9"><span class="header-section-number">3.9</span> Arrays multidimensionales</h2>
+
+</section>
+<section id="declaración-2" class="title-slide slide level3" data-number="3.9.1">
+<h3 data-number="3.9.1"><span class="header-section-number">3.9.1</span> Declaración</h3>
+
+</section>
+
+<section id="creación-2" class="title-slide slide level3" data-number="3.9.2">
+<h3 data-number="3.9.2"><span class="header-section-number">3.9.2</span> Creación</h3>
+
+</section>
+
+<section id="inicialización-2" class="title-slide slide level3" data-number="3.9.3">
+<h3 data-number="3.9.3"><span class="header-section-number">3.9.3</span> Inicialización</h3>
+
+</section>
+
+<section id="arrays.deepequals" class="title-slide slide level3" data-number="3.9.4">
+<h3 data-number="3.9.4"><span class="header-section-number">3.9.4</span> <code>Arrays.deepEquals()</code></h3>
+
+</section>
+
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
 Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
 </div>
 </div>
-</section>
-
-
 </section>
     </div>
   </div>

@@ -1091,6 +1091,7 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 }                                         // Termina el cuerpo del método
 
 ```
+
 ---
 
 - Las variables declaradas dentro de un método son **locales al método**,
@@ -1169,11 +1170,99 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ---
 
-- También se dispone de los operadores de pre y post incremento y decremento:
+- También se dispone de los operadores de pre y post incremento y decremento.
+
+- Por ejemplo, supongamos que tenemos:
 
   ```java
   int x = 5, y = 4;
+  ```
+
+:::: columns
+
+::: column
+
+- La sentencia:
+
+  ```java
   y = x++;
+  ```
+
+  equivale a:
+
+  ```java
+  y = x;
+  x += 1;
+  ```
+
+:::
+
+::: column
+
+- La sentencia:
+
+  ```java
+  y = ++x;
+  ```
+
+  equivale a:
+
+  ```java
+  x += 1;
+  y = x;
+  ```
+
+:::
+
+::::
+
+### Inferencia de tipos
+
+- La **inferencia de tipos** es la capacidad que tiene el compilador de Java de
+  poder determinar el tipo de una declaración a partir del tipo de la expresión
+  usada en la inicialización.
+
+- Esto nos permite ahorrarnos el indicar el tipo del elemento declarado, ya que
+  se puede deducir automáticamente en la inicialización.
+
+- Por ejemplo, en la siguiente declaración e inicialización, está claro que `x`
+  debe ser de tipo !JAVA(int), ya que su valor inicial es de ese tipo:
+
+  ```java
+  int x = 5;
+  ```
+
+- En ese caso, en lugar de usar el tipo !JAVA(int), podríamos haber usado la
+  palabra clave !JAVA(var), que sirve para declarar la variable sin indicar el
+  tipo, forzando al compilador a deducirlo por él mismo:
+
+  ```java
+  var x = 5;
+  ```
+
+### Constantes
+
+- Las **constantes** en Java se denominan **variables _finales_** y se declaran
+  usando el modificador !JAVA(final):
+
+  ```java
+  final int x = 4;
+  ```
+
+- Una variable final no puede cambiar su valor.
+
+  ```java
+  final int x = 4;
+  x = 9;                   // Da error
+  ```
+
+- Es posible declarar una variable final sin inicializarla, pero debemos
+  asignarle un valor antes de poder usarla:
+
+  ```java
+  final int x;
+  x = 5;                   // No da error porque antes no tenía valor
+  System.out.println(x);
   ```
 
 # Estructuras de control

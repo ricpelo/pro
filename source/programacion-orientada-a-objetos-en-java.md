@@ -647,49 +647,247 @@ nocite: |
   $4 ==> true
   ```
 
-## *Arrays*
+# *Arrays*
 
-### De tipos primitivos
+## Definición
 
-#### Declaración
+- En Java, un **_array_** es un dato mutable compuesto por elementos (también
+  llamados **componentes**) a los que se accede mediante **_indexación_**, es
+  decir, indicando la posición donde se encuentra almacenado el elemento
+  deseado dentro del _array_.
 
-#### Creación
+- Se parece a las **listas** de Python, con las siguientes diferencias:
 
-#### Inicialización
+  - Cada _array_ tiene una **longitud fija** (no puede crecer o encogerse de
+    tamaño dinámicamente).
 
-### `.length`
+  - Todos los elementos de un _array_ deben ser del **mismo tipo**, el cual
+    debe indicarse en la declaración del _array_.
 
-### De objetos
+- Los _arrays_ en Java pueden contener valores primitivos o referencias a
+  objetos.
 
-#### Declaración
+- Los _arrays_ de Java son **objetos** y, por tanto, son valores referencia.
 
-#### Creación
+---
 
-#### Inicialización
+- Los _arrays_ se declaran indicando el tipo del elemento que contienen,
+  seguido de `[]`.
 
-### Subtipado entre _arrays_
+- Por ejemplo, para declarar un _array_ de enteros, se puede hacer:
 
-### `java.util.Arrays`
+  ```java
+  int[] x;
+  ```
 
-### Copia y redimensionado de arrays
+  Ahora mismo, `x` es una referencia a un objeto _array_ que puede contener
+  elementos de tipo `int`. Como la variable `x` aún no ha sido inicializada, el
+  valor que contiene es la referencia nula (`null`):
 
-#### `Arrays.copyOf()`
+  ```java
+  jshell> int[] x;
+  x ==> null
+  ```
 
-#### `System.arraycopy()`
+- Por tanto, `x` puede hacer referencia a un _array_ de enteros, pero
+  actualmente no hace referencia a ninguno.
 
-#### `.clone()`
+---
 
-### Comparación de *arrays*
+- A esa variable le podemos asignar una referencia a un objeto _array_ del tipo
+  adecuado.
 
-#### `Arrays.equals()`
+- Para ello, se puede crear un objeto _array_ usando el operador !JAVA(new) e
+  indicando el tipo de los elementos y la longitud del _array_ (entre
+  corchetes):
 
-### Arrays multidimensionales
+  ```java
+  jshell> x = new int[5];
+  x ==> int[5] { 0, 0, 0, 0, 0 }
+  ```
 
-#### Declaración
+  A partir de este momento, la variable `x` contiene una referencia a un objeto
+  _array_ de cinco elementos de tipo !JAVA(int) que, ahora mismo, tienen todos
+  el valor !JAVA(0).
 
-#### Creación
+- Como se puede observar, los elementos de un _array_ siempre se inicializan a
+  un **valor por defecto** cuando se crea el _array_ (!JAVA(0) en enteros,
+  !JAVA(0.0) en reales, !JAVA(false) en _booleanos_, !JAVA('\000') en
+  caracteres y !JAVA(null) en valores referencia).
 
-#### Inicialización
+---
 
-#### `Arrays.deepEquals()`
+- También se pueden inicializar los elementos de un _array_ en el momento en
+  que se crea con !JAVA(new).
 
+- En ese caso:
+
+  - Se indican los valores de los elementos del _array_ entre llaves.
+
+  - No se indica la longitud del array, ya que se deduce a partir de la lista
+    de valores iniciales.
+
+- Por ejemplo:
+
+  ```java
+  jshell> int[] x = new int[] {6, 5, 27, 81};
+  x ==> int[4] { 6, 5, 27, 81 }
+  ```
+
+---
+
+- Para **acceder** a un elemento del _array_ se usa el operador de _indexación_
+  (los corchetes):
+
+  ```java
+  jshell> int[] x = new int[] {6, 5, 27, 81};
+  x ==> int[4] { 6, 5, 27, 81 }
+
+  jshell> x[3]
+  $2 ==> 81
+  ```
+
+- Los elementos se indexan de 0 a $n - 1$, siendo $n$ la longitud del _array_.
+
+- Si se intenta acceder a un elemento fuera de esos límites, se levanta una
+  excepción !JAVA(java.lang.ArrayIndexOutOfBoundsException):
+
+  ```java
+  jshell> x[4]
+  |  Exception java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+  |        at (#3:1)
+  ```
+
+---
+
+- Para conocer la longitud de un _array_, se puede consultar el atributo
+  !JAVA(length):
+
+  ```java
+  jshell> x.length
+  4
+  ```
+
+- Ese valor es constante y no se puede cambiar:
+
+  ```java
+  jshell> x.length = 44
+  |  Error:
+  |  cannot assign a value to final variable length
+  |  x.length = 43
+  |  ^------^
+  ```
+
+---
+
+- Para cambiar un elemento del _array_ por otro, se puede usar la _indexación_
+  combinada con la _asignación_:
+
+  ```java
+  jshell> x[2] = 99;
+  $5 ==> 99
+
+  jshell> x
+  x ==> int[4] { 6, 5, 99, 81 }
+  ```
+
+- El compilador comprueba que el valor a asignar es del tipo correcto, e impide
+  la operación si se ve obligado a hacer un _narrowing_ para hacer que el tipo
+  del valor sea compatible con el tipo del elemento:
+
+  ```java
+  shell> x[2] = 99.9;
+  |  Error:
+  |  incompatible types: possible lossy conversion from double to int
+  |  x[2] = 99.9;
+  |         ^--^
+  ```
+
+---
+
+- Los elementos de un _array_ también pueden ser valores referencia.
+
+- En ese caso, sus elementos serán objetos de una determinada clase.
+
+- Por el principio de sustitución, esos objetos también podrán ser instancias
+  de una de sus subclases.
+
+- Inicialmente, los elementos referencia de un _array_ toman el valor
+  !JAVA(null).
+
+- Por ejemplo:
+
+  ```java
+  jshell> Trabajador[] t = new Trabajador[5];
+  t ==> Trabajador[5] { null, null, null, null, null }
+  ```
+
+- En cada elemento de `t` podremos meter una instancia de la clase `Trabajador`
+  o de cualquier subclase suya:
+
+  ```java
+  jshell> t[2] = new Docente(...)
+  $8 ==> Docente@1b701da1
+
+  jshell> t
+  t ==> Trabajador[5] { null, null, Docente@1b701da1, null, null }
+  ```
+
+---
+
+- Si declaramos un _array_ de tipo !JAVA(Object[]), estamos diciendo que sus
+  elementos pueden ser de cualquier tipo referencia, lo que tiene ventajas e
+  inconvenientes:
+
+  - Ventaja: los elementos del _array_ podrán ser de cualquier tipo, incluyendo
+    tipos primitivos (recordemos el _boxing_/_unboxing_).
+
+  - Inconveniente: no podremos aprovechar el comprobador de tipos del
+    compilador para determinar si los tipos son los adecuados, por lo que
+    tendremos que hacerlo a mano en tiempo de ejecución.
+
+## De tipos primitivos
+
+### Declaración
+
+### Creación
+
+### Inicialización
+
+## `.length`
+
+## De objetos
+
+### Declaración
+
+### Creación
+
+### Inicialización
+
+## Subtipado entre _arrays_
+
+## `java.util.Arrays`
+
+## Copia y redimensionado de arrays
+
+### `Arrays.copyOf()`
+
+### `System.arraycopy()`
+
+### `.clone()`
+
+## Comparación de *arrays*
+
+### `Arrays.equals()`
+
+## Arrays multidimensionales
+
+### Declaración
+
+### Creación
+
+### Inicialización
+
+### `Arrays.deepEquals()`
+
+!BIBLIOGRAFIA
