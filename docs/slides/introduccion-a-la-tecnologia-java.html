@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -536,7 +537,7 @@
 <li><p>Un programa Java está formado por uno o varios archivos fuente <code>.java</code> que contienen, cada uno de ellos, una o varias definiciones de clases (salvo excepciones).</p></li>
 <li><p>En Java, prácticamente todas las instrucciones que forman un programa están contenidas en clases.</p></li>
 <li><p>Por tanto, la ejecución de un programa Java empezará siempre desde una clase concreta, llamada <strong>clase <em>principal</em></strong>.</p>
-<p>Más adelante veremos que la clase principal no puede ser cualquier clase. Tiene que ser una que tenga definido un método con un nombre determinado.</p></li>
+<p>Más adelante veremos que la clase principal no puede ser cualquier clase. Tiene que ser una que tenga definido un método, llamado <strong>método <em>principal</em></strong>, que debe tener una determinada signatura.</p></li>
 <li><p>La compilación de un archivo fuente puede provocar la compilación <em>en cascada</em> de otros archivos fuente si el primero hace uso de definiciones almacenadas en los otros.</p></li>
 </ul>
 </section>
@@ -564,8 +565,8 @@
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>ls</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Principal.class  Principal.java</span></code></pre></div></li>
 <li><p>Si el archivo fuente <code>Principal.java</code> contiene varias definiciones de clases, se generará un <code>.class</code> por cada una de ellas.</p></li>
-<li><p>No es necesario que el nombre del archivo <code>.java</code> coincida con el de ninguna de las clases que se definan en él, pero suele hacerse.</p></li>
-<li><p>De hecho, lo más habitual es que cada definición de clase vaya en un archivo fuente separado, con el mismo nombre que el de la clase.</p></li>
+<li><p>Lo más habitual es que cada definición de clase vaya en un archivo fuente separado, con el mismo nombre que el de la clase.</p></li>
+<li><p>Esta norma se convierte en obligatoria si alguna clase está marcada como <code class="sourceCode java"><span class="kw">public</span></code>, como veremos luego.</p></li>
 </ul>
 </section>
 
@@ -687,15 +688,15 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * ¡Hola, mundo!</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> {</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);        <span class="co">// Imprime &quot;Hola&quot;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Hola&quot;</span><span class="op">);</span>          <span class="co">// Imprime &quot;Hola&quot;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <ul>
 <li><p>Suponiendo que ese código se escribe en un archivo llamado <code>Principal.java</code>, para compilarlo desde un terminal del sistema operativo podemos hacer:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>javac Principal.java</span></code></pre></div>
-<p>lo que creará (o actualizará, si ya existía) un archivo <code>Principal.class</code> con el código objeto de la clase <code>Principal</code> definida en el código fuente.</p></li>
+<p>lo que creará (o actualizará, si ya existía) un archivo <code>Principal.class</code> con el <em>bytecode</em> de la clase <code>Principal</code>.</p></li>
 <li><p>Ahora ya podemos ejecutar el programa haciendo:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>java Principal</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Hola</span></code></pre></div></li>
@@ -734,20 +735,36 @@
 <h2 data-number="3.3"><span class="header-section-number">3.3</span> El método <code>main</code></h2>
 <ul>
 <li><p>Todo programa Java comienza su ejecución por un método (llamado <strong>método principal</strong>) que debe tener la siguiente signatura:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args)</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span></span></code></pre></div></li>
 <li><p>Por tanto, ese método:</p>
 <ul>
 <li><p>Debe llamarse <code>main</code>.</p></li>
 <li><p>Debe declararse como estático (usando la palabra clave <code class="sourceCode java"><span class="dt">static</span></code>).</p></li>
-<li><p>Debe tener un único parámetro llamado <code>args</code> de tipo <code class="sourceCode java"><span class="bu">String</span>[]</code> (que significa «<em>array</em> de cadenas»).</p></li>
+<li><p>Debe tener un único parámetro llamado <code>args</code> de tipo <code class="sourceCode java"><span class="bu">String</span><span class="op">[]</span></code> (que significa «<em>array</em> de cadenas»).</p></li>
 <li><p>No debe devolver ningún valor (su tipo de retorno es <code class="sourceCode java"><span class="dt">void</span></code>).</p></li>
 <li><p>Debe definirse en la <strong>clase principal</strong> del programa.</p></li>
+<li><p>Su visibilidad debe ser <strong>pública</strong>.</p></li>
 </ul></li>
 </ul>
 </section>
 
-<section id="la-clase-system" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span> La clase <code>System</code></h2>
+<section id="la-clase-principal" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> La clase principal</h2>
+<ul>
+<li><p>La <strong>clase principal</strong> del programa es aquella que contiene el método principal.</p></li>
+<li><p>Las clases se definen con la palabra clave <code class="sourceCode java"><span class="kw">class</span></code>, seguida de su nombre y su definición (entre llaves <code>{</code> y <code>}</code>).</p></li>
+<li><p>Además, y aunque aquí no resulta estrictamente necesario, se recomienda marcar la clase principal como <strong>pública</strong> usando el modificador <code class="sourceCode java"><span class="kw">public</span></code> (en su momento veremos qué significa eso).</p></li>
+<li><p>En este caso, se debe cumplir que:</p>
+<ul>
+<li><p>Esa clase sea la única clase pública que haya en el archivo fuente.</p></li>
+<li><p>El nombre del archivo fuente debe coincidir exactamente con el de la clase (con la extensión <code>.java</code>).</p></li>
+</ul></li>
+<li><p>Siempre se recomienda que haya una única clase por cada archivo fuente y que el nombre de la clase y el de su archivo coincidan.</p></li>
+</ul>
+</section>
+
+<section id="la-clase-system" class="title-slide slide level2" data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span> La clase <code>System</code></h2>
 <ul>
 <li><p>La clase <code class="sourceCode java"><span class="bu">System</span></code> contiene varios atributos útiles y que se utilizan con frecuencia en muchos programas Java.</p></li>
 <li><p>Todos sus miembros (tanto variables como métodos) son <strong>estáticos</strong>.</p></li>
@@ -762,8 +779,8 @@
 </ul>
 </section>
 
-<section id="el-paquete-java.lang" class="title-slide slide level2" data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span> El paquete <code>java.lang</code></h2>
+<section id="el-paquete-java.lang" class="title-slide slide level2" data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span> El paquete <code>java.lang</code></h2>
 <ul>
 <li><p>Java agrupa las clases (y otros elementos que también veremos, como las <em>interfaces</em>) en unidades llamadas <strong>paquetes</strong>.</p></li>
 <li><p>Los paquetes de Java actúan de forma similar a los módulos de Python y, por tanto, ayudan a la modularización del código.</p></li>
@@ -773,7 +790,7 @@
 <li><p>A veces se denomina <strong>nombre corto</strong> al nombre de la clase sin la parte correspondiente al paquete al que pertenece (si pertenece a alguno).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.1">
+<section class="slide level5" data-number="3.6.0.0.1">
 
 <ul>
 <li><p>Una clase <em>A</em> puede usar a otra clase <em>B</em> en cualquier momento mediante el nombre totalmente cualificado de <em>B</em>, aunque <em>A</em> y <em>B</em> pertenezcan a paquetes diferentes.</p></li>
@@ -787,11 +804,11 @@
 <li><p>Los paquetes de Java no se importan como tales, sino sólo sus miembros, de forma similar a lo que ocurre en Python cuando usamos la sentencia <code class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.2">
+<section class="slide level5" data-number="3.6.0.0.2">
 
 <ul>
 <li><p>La clase <code class="sourceCode java"><span class="bu">System</span></code> pertenece a un paquete llamado <code>java.lang</code>.</p></li>
-<li><p>Por tanto, el nombre totalmente cualificado de la clase <code>System</code> es <code>java.lang.System</code>.</p></li>
+<li><p>Por tanto, el nombre totalmente cualificado de la clase <code class="sourceCode java"><span class="bu">System</span></code> es <code class="sourceCode java">java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">System</span></code>.</p></li>
 <li><p>El paquete <code>java.lang</code> es especial por dos motivos:</p>
 <ol>
 <li><p>Proporciona <strong>clases que son fundamentales</strong> en el lenguaje Java, como por ejemplo:</p>
@@ -806,8 +823,8 @@
 </ul>
 </section>
 
-<section id="el-objeto-out" class="title-slide slide level2" data-number="3.6">
-<h2 data-number="3.6"><span class="header-section-number">3.6</span> El objeto <code>out</code></h2>
+<section id="el-objeto-out" class="title-slide slide level2" data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span> El objeto <code>out</code></h2>
 <ul>
 <li><p>El objeto <code>out</code> representa el flujo de salida estándar del programa.</p></li>
 <li><p>Ese flujo ya está abierto y listo para aceptar datos de salida.</p></li>
@@ -815,16 +832,16 @@
 <li><p><code>out</code> es una instancia de la clase <code class="sourceCode java"><span class="bu">PrintStream</span></code>, la cual define qué métodos se pueden invocar sobre ese objeto.</p></li>
 <li><p><code>out</code> es un miembro <strong>estático</strong> de la clase <code class="sourceCode java"><span class="bu">System</span></code>.</p></li>
 <li><p>Por tanto, para acceder a él tenemos que usar el operador punto (<code>.</code>) a partir del nombre de la clase:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span></span></code></pre></div></li>
 </ul>
 </section>
 
-<section id="el-método-println" class="title-slide slide level2" data-number="3.7">
-<h2 data-number="3.7"><span class="header-section-number">3.7</span> El método <code>println()</code></h2>
+<section id="el-método-println" class="title-slide slide level2" data-number="3.8">
+<h2 data-number="3.8"><span class="header-section-number">3.8</span> El método <code>println</code></h2>
 <ul>
 <li><p>El método <code>println</code> está definido en la clase <code class="sourceCode java"><span class="bu">PrintStream</span></code> y, por tanto, se puede invocar sobre el objeto <code>out</code>.</p></li>
 <li><p>Ese método sirve para imprimir un valor por la salida, seguido de un salto de línea:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hola</span><span class="sc">\n</span><span class="st">&quot;</span>);</span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Hola&quot;</span><span class="op">);</span></span></code></pre></div></li>
 <li><p>Equivale aproximadamente a la función <code class="sourceCode python"><span class="bu">print</span></code> de Python.</p></li>
 </ul>
 </section>

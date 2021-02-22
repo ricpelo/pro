@@ -337,8 +337,8 @@ F -> "Compilador Java" -> O
 
 !DOT(javac.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
-O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">fuente.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">clase1.class<br/>clase2.class<br/>...</font>>, shape = note, fillcolor = aliceblue];
 javac [fontname = "monospace"]
 F -> javac -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -356,7 +356,8 @@ F -> javac -> O
   concreta, llamada **clase _principal_**.
 
   Más adelante veremos que la clase principal no puede ser cualquier clase.
-  Tiene que ser una que tenga definido un método con un nombre determinado.
+  Tiene que ser una que tenga definido un método, llamado **método
+  _principal_**, que debe tener una determinada signatura.
 
 - La compilación de un archivo fuente puede provocar la compilación _en
   cascada_ de otros archivos fuente si el primero hace uso de definiciones
@@ -403,11 +404,11 @@ F -> javac -> O
 - Si el archivo fuente `Principal.java` contiene varias definiciones de clases,
   se generará un `.class` por cada una de ellas.
 
-- No es necesario que el nombre del archivo `.java` coincida con el de ninguna
-  de las clases que se definan en él, pero suele hacerse.
-
-- De hecho, lo más habitual es que cada definición de clase vaya en un archivo
+- Lo más habitual es que cada definición de clase vaya en un archivo
   fuente separado, con el mismo nombre que el de la clase.
+
+- Esta norma se convierte en obligatoria si alguna clase está marcada como
+  !JAVA(public), como veremos luego.
 
 ### El intérprete interactivo `jshell`
 
@@ -460,8 +461,8 @@ JRE = JVM + API
 
 !DOT(jre.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
-O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">fuente.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">clase1.class<br/>clase2.class<br/>...</font>>, shape = note, fillcolor = aliceblue];
 javac [fontname = "monospace"]
 F -> javac -> O -> JRE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -473,8 +474,8 @@ F -> javac -> O -> JRE
 
 !DOT(jit.svg)()(width=90%)(width=100%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
-O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">fuente.java</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">clase1.class<br/>clase2.class<br/>...</font>>, shape = note, fillcolor = aliceblue];
 N [label = <Código objeto<br/>(lenguaje máquina nativo)>, shape = note, fillcolor = aliceblue];
 subgraph cluster0 {
     bgcolor = grey95
@@ -600,7 +601,7 @@ F -> javac -> O -> JIT
  */
 public class Principal {
     public static void main(String[] args) {
-        System.out.println("Hola\n");        // Imprime "Hola"
+        System.out.println("Hola");          // Imprime "Hola"
     }
 }
 ```
@@ -613,7 +614,7 @@ public class Principal {
   ```
 
   lo que creará (o actualizará, si ya existía) un archivo `Principal.class` con
-  el código objeto de la clase `Principal` definida en el código fuente.
+  el _bytecode_ de la clase `Principal`.
 
 - Ahora ya podemos ejecutar el programa haciendo:
 
@@ -689,6 +690,30 @@ public class Principal {
 
   - Debe definirse en la **clase principal** del programa.
 
+  - Su visibilidad debe ser **pública**.
+
+## La clase principal
+
+- La **clase principal** del programa es aquella que contiene el método
+  principal.
+
+- Las clases se definen con la palabra clave !JAVA(class), seguida de su nombre
+  y su definición (entre llaves `{` y `}`).
+
+- Además, y aunque aquí no resulta estrictamente necesario, se recomienda
+  marcar la clase principal como **pública** usando el modificador
+  !JAVA{public} (en su momento veremos qué significa eso).
+
+- En este caso, se debe cumplir que:
+
+  - Esa clase sea la única clase pública que haya en el archivo fuente.
+
+  - El nombre del archivo fuente debe coincidir exactamente con el de la clase
+    (con la extensión `.java`).
+
+- Siempre se recomienda que haya una única clase por cada archivo fuente y que
+  el nombre de la clase y el de su archivo coincidan.
+
 ## La clase `System`
 
 - La clase !JAVA(System) contiene varios atributos útiles y que se utilizan con
@@ -761,8 +786,8 @@ public class Principal {
 
 - La clase !JAVA(System) pertenece a un paquete llamado `java.lang`.
 
-- Por tanto, el nombre totalmente cualificado de la clase `System` es
-  `java.lang.System`.
+- Por tanto, el nombre totalmente cualificado de la clase !JAVA(System) es
+  !JAVA(java.lang.System).
 
 - El paquete `java.lang` es especial por dos motivos:
 
@@ -800,7 +825,7 @@ public class Principal {
   System.out
   ```
 
-## El método `println()`
+## El método `println`
 
 - El método `println` está definido en la clase !JAVA(PrintStream) y, por
   tanto, se puede invocar sobre el objeto `out`.
@@ -809,7 +834,7 @@ public class Principal {
   línea:
 
   ```java
-  System.out.println("Hola\n");
+  System.out.println("Hola");
   ```
 
 - Equivale aproximadamente a la función !PYTHON(print) de Python.
