@@ -303,8 +303,8 @@
 <li><p>Un <em>array</em> creado en tiempo de ejecución.</p></li>
 </ul></li>
 <li><p>Los valores de un tipo referencia son referencias a objetos.</p></li>
-<li><p>Todos los objetos, incluidos los <em>arrays</em>, admiten los métodos de la clase <code>Object</code>.</p></li>
-<li><p>Las cadenas literales representan objetos de la clase <code>String</code>.</p></li>
+<li><p>Todos los objetos, incluidos los <em>arrays</em>, admiten los métodos de la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+<li><p>Las cadenas literales representan objetos de la clase <code class="sourceCode java"><span class="bu">String</span></code>.</p></li>
 </ul>
 </section>
 
@@ -474,10 +474,10 @@
 <section class="slide level5" data-number="1.2.2.0.3">
 
 <ul>
-<li><p>Un literal de tipo <code>char</code> representa un carácter o secuencia de escape.</p></li>
+<li><p>Un literal de tipo <code class="sourceCode java"><span class="dt">char</span></code> representa un carácter o secuencia de escape.</p></li>
 <li><p>Se escriben encerrados entre comillas simples (también llamadas <em>apóstrofes</em>).</p></li>
-<li><p>Los literales de tipo <code>char</code> sólo pueden representar <em>code units</em> de Unicode y, por tanto, sus valores deben estar comprendidos entre <code class="sourceCode java"><span class="ch">&#39;\u0000&#39;</span></code> y <code class="sourceCode java"><span class="ch">&#39;\uffff&#39;</span></code>.</p></li>
-<li><p>Ejemplos de literales de tipo <code>char</code>:</p>
+<li><p>Los literales de tipo <code class="sourceCode java"><span class="dt">char</span></code> sólo pueden representar <em>code units</em> de Unicode y, por tanto, sus valores deben estar comprendidos entre <code class="sourceCode java"><span class="ch">&#39;\u0000&#39;</span></code> y <code class="sourceCode java"><span class="ch">&#39;\uffff&#39;</span></code>.</p></li>
+<li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">char</span></code>:</p>
 <div class="columns">
 <div class="column">
 <p><code class="sourceCode java"><span class="ch">&#39;a&#39;</span></code></p>
@@ -627,16 +627,16 @@
 <section class="slide level5" data-number="1.2.3.0.2">
 
 <ul>
-<li><p>El literal positivo finito de tipo <code>float</code> más grande es <code>3.4028235e38f</code>.</p></li>
-<li><p>El literal positivo finito de tipo <code>float</code> más pequeño distinto de cero es <code>1.40e-45f</code>.</p></li>
-<li><p>El literal positivo finito de tipo <code>double</code> más grande es <code>1.7976931348623157e308</code>.</p></li>
-<li><p>El literal positivo finito de tipo <code>double</code> más pequeño distinto de cero es <code>4.9e-324</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code class="sourceCode java"><span class="dt">float</span></code> más grande es <code>3.4028235e38f</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code class="sourceCode java"><span class="dt">float</span></code> más pequeño distinto de cero es <code>1.40e-45f</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code class="sourceCode java"><span class="dt">double</span></code> más grande es <code>1.7976931348623157e308</code>.</p></li>
+<li><p>El literal positivo finito de tipo <code class="sourceCode java"><span class="dt">double</span></code> más pequeño distinto de cero es <code>4.9e-324</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.3.0.3">
 
 <ul>
-<li><p>Ejemplos de literales de tipo <code>float</code>:</p>
+<li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">float</span></code>:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><code class="sourceCode java"><span class="fl">1e1f</span></code></p>
@@ -650,7 +650,7 @@
 <p><code class="sourceCode java"><span class="fl">6.022137e+23f</span></code></p>
 </div>
 </div></li>
-<li><p>Ejemplos de literales de tipo <code>double</code>:</p>
+<li><p>Ejemplos de literales de tipo <code class="sourceCode java"><span class="dt">double</span></code>:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><code class="sourceCode java"><span class="fl">1e1</span></code></p>
@@ -1019,6 +1019,73 @@
 </ul>
 </section>
 
+<section id="acceso-a-miembros" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Acceso a miembros</h3>
+<ul>
+<li><p>Si tenemos una referencia a un objeto, podemos acceder a cualquiera de sus miembros (campos o métodos) usando el operador punto (<code>.</code>), como es habitual.</p>
+<p>Por ejemplo, para saber la longitud de una cadena, podemos invocar al método <code>length</code> sobre el objeto cadena:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span> s <span class="op">=</span> <span class="st">&quot;hola&quot;</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">==&gt;</span> <span class="st">&quot;hola&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> s<span class="op">.</span><span class="fu">length</span><span class="op">()</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="dv">4</span></span></code></pre></div></li>
+<li><p>Lo mismo sirve para acceder a los miembros estáticos de una clase:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">.</span><span class="fu">valueOf</span><span class="op">(</span><span class="dv">25</span><span class="op">)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">1</span> <span class="op">==&gt;</span> <span class="st">&quot;25&quot;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section id="llamadas-a-métodos-sobrecargados" class="title-slide slide level4" data-number="1.3.2.1">
+<h4 data-number="1.3.2.1"><span class="header-section-number">1.3.2.1</span> Llamadas a métodos sobrecargados</h4>
+<ul>
+<li><p>En Java los métodos pueden estar <em>sobrecargados</em>.</p></li>
+<li><p>Un <strong>método sobrecargado</strong> es aquel que tiene varias implementaciones.</p></li>
+<li><p>Todas esas implementaciones tienen el mismo nombre pero se diferencian en la cantidad y tipo de sus parámetros.</p></li>
+<li><p>Al llamar a un método sobrecargado, la implementación seleccionada dependerá de los argumentos indicados en la llamada.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.2.1.1">
+
+<ul>
+<li><p>Por ejemplo, el método estático <code class="sourceCode java">valueOf</code> de la clase <code class="sourceCode java"><span class="bu">String</span></code> está sobrecargado porque dispone de varias implementaciones dependiendo de los argumentos que recibe:</p>
+<table style="width:94%;">
+<colgroup>
+<col style="width: 94%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">boolean</span> b<span class="op">)</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">char</span> c<span class="op">)</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">char</span><span class="op">[]</span> data<span class="op">)</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">char</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">double</span> d<span class="op">)</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">float</span> f<span class="op">)</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">int</span> i<span class="op">)</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="dt">long</span> l<span class="op">)</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">static</span> <span class="bu">String</span> <span class="fu">valueOf</span><span class="op">(</span><span class="bu">Object</span> obj<span class="op">)</span></code></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Más información en la <a href="https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html#valueOf(boolean)">API de Java</a>.</p></li>
+</ul>
+</section>
+
+
 </section>
 <section>
 <section id="variables-en-java" class="title-slide slide level1" data-number="2">
@@ -1051,19 +1118,19 @@
 <ul>
 <li><p>Una variable de un tipo referencia <span class="math inline">T</span> puede contener:</p>
 <ul>
-<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>La referencia nula (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
 <li><p>Una referencia a una instancia de <span class="math inline">S</span>, siendo <span class="math inline">S</span> un subtipo de <span class="math inline">T</span>.</p></li>
 </ul></li>
 <li><p>Una variable de un tipo «<em>array</em> de <span class="math inline">T</span>», puede contener:</p>
 <ul>
 <li><p>Si <span class="math inline">T</span> es un tipo primitivo:</p>
 <ul>
-<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>La referencia nula (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
 <li><p>Una referencia a un <em>array</em> de tipo «<em>array</em> de <span class="math inline">T</span>».</p></li>
 </ul></li>
 <li><p>Si <span class="math inline">T</span> es un tipo referencia:</p>
 <ul>
-<li><p>La referencia nula (<code>null</code>).</p></li>
+<li><p>La referencia nula (<code class="sourceCode java"><span class="kw">null</span></code>).</p></li>
 <li><p>Una referencia a un <em>array</em> de tipo «<em>array</em> de <span class="math inline">S</span>», siendo <span class="math inline">S</span> un subtipo de <span class="math inline">T</span>.</p></li>
 </ul></li>
 </ul></li>
@@ -1072,8 +1139,8 @@
 <section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
-<li><p>En Java, <code>Object</code> es supertipo de cualquier tipo referencia.</p></li>
-<li><p>Por tanto, una variable de tipo <code>Object</code> puede contener una referencia a cualquier valor referencia de cualquier tipo referencia.</p></li>
+<li><p>En Java, <code class="sourceCode java"><span class="bu">Object</span></code> es supertipo de cualquier tipo referencia.</p></li>
+<li><p>Por tanto, una variable de tipo <code class="sourceCode java"><span class="bu">Object</span></code> puede contener una referencia a cualquier valor referencia de cualquier tipo referencia.</p></li>
 </ul>
 </section>
 
@@ -1091,8 +1158,8 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">,</span> y<span class="op">;</span>  <span class="co">// Declara las variables «x» e «y» de tipo «int»</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> z<span class="op">;</span>   <span class="co">// Declara la variable «z» de tipo «float»</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">,</span> y<span class="op">;</span>  <span class="co">// Declara las variables «x» e «y» de tipo «int»</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> z<span class="op">;</span>   <span class="co">// Declara la variable «z» de tipo «float»</span></span></code></pre></div></li>
 <li><p>En Java, los identificadores son sensibles a mayúsculas y minúsuculas. Por tanto, la variable <code>x</code> no es la misma que <code>X</code>.</p></li>
 <li><p>La declaración de una variable siempre debe aparecer antes de su uso.</p></li>
 <li><p>La variable empieza a existir en el momento en el que se declara.</p></li>
@@ -1103,27 +1170,27 @@
 </section>
 <section class="slide level5" data-number="2.4.0.0.2">
 
-<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <ul>
 <li><p>El ámbito de <code>x</code> es el bloque más externo (el que define el cuerpo del método <code>main</code>).</p></li>
 <li><p>El ámbito de <code>y</code> es el bloque más interno.</p></li>
 <li><p>Por tanto, <code>x</code> se puede usar dentro del bloque más interno, pero <code>y</code> no se puede usar fuera del bloque más interno.</p></li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span>  <span class="co">// Empieza el cuerpo del método</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>                <span class="co">// Empieza el bloque más interno</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>                <span class="co">// Termina el bloque más interno</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>                                         <span class="co">// Termina el cuerpo del método</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span>  <span class="co">// Empieza el cuerpo del método</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>                <span class="co">// Empieza el bloque más interno</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>                <span class="co">// Termina el bloque más interno</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>                                         <span class="co">// Termina el cuerpo del método</span></span></code></pre></div>
 </section>
 <section class="slide level5" data-number="2.4.0.0.3">
 
@@ -1135,10 +1202,10 @@
 <li><p>Por tanto, cuando se declara una variable local, ésta permanece sin ningún valor hasta que se le asigna uno.</p></li>
 <li><p>Una variable sin valor se denomina <strong>variable <em>no inicializada</em></strong>.</p></li>
 <li><p>Si se intenta usar una variable local no inicializada, provoca un error:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span>    <span class="co">// La variable «x» es local al método «main»</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span>  <span class="co">// Da error porque «x» no está inicializada</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x<span class="op">;</span>    <span class="co">// La variable «x» es local al método «main»</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span>  <span class="co">// Da error porque «x» no está inicializada</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section id="inicialización-y-asignación-de-variables" class="title-slide slide level3" data-number="2.4.1">
@@ -1147,35 +1214,35 @@
 <li><p>Para darle un valor a una variable, podemos:</p>
 <ul>
 <li><p><strong>Inicializar la variable</strong> en el momento de la declaración, de la siguiente forma:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>  <span class="co">// Declara la variable entera «x» y la inicializa con 25</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>  <span class="co">// Declara la variable entera «x» y la inicializa con 25</span></span></code></pre></div></li>
 <li><p>Asignarle un valor después de haberla declarado, usando la <strong>sentencia de asignación</strong>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">;</span>       <span class="co">// Declara la variable entera «x»</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>      <span class="co">// Le asigna el valor 25 a la variable «x»</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">;</span>       <span class="co">// Declara la variable entera «x»</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>      <span class="co">// Le asigna el valor 25 a la variable «x»</span></span></code></pre></div></li>
 </ul></li>
 <li><p>La asignación puede ser <strong>simple</strong> o <strong>compuesta</strong>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">;</span>        <span class="co">// Declaración de la variable</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>       <span class="co">// Asignación simple</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">5</span><span class="op">;</span>    <span class="co">// Asignación simple</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">5</span><span class="op">;</span>       <span class="co">// Asignación compuesta, equivalente a la anterior</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x<span class="op">;</span>        <span class="co">// Declaración de la variable</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>       <span class="co">// Asignación simple</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">5</span><span class="op">;</span>    <span class="co">// Asignación simple</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">5</span><span class="op">;</span>       <span class="co">// Asignación compuesta, equivalente a la anterior</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.1.0.1">
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y <span class="op">=</span> <span class="dv">14</span><span class="op">;</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>y<span class="op">);</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque externo&quot;</span><span class="op">);</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y <span class="op">=</span> <span class="dv">14</span><span class="op">;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Bloque interno&quot;</span><span class="op">);</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>y<span class="op">);</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.1.0.2">
@@ -1183,24 +1250,24 @@
 <ul>
 <li><p>También se dispone de los operadores de pre y post incremento y decremento.</p></li>
 <li><p>Por ejemplo, supongamos que tenemos:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">,</span> y <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">,</span> y <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span></code></pre></div></li>
 </ul>
 <div class="columns">
 <div class="column">
 <ul>
 <li><p>La sentencia:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">++;</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">++;</span></span></code></pre></div>
 <p>equivale a:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
 <li><p>La sentencia:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="op">++</span>x<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="op">++</span>x<span class="op">;</span></span></code></pre></div>
 <p>equivale a:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">;</span></span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1212,9 +1279,9 @@
 <li><p>La <strong>inferencia de tipos</strong> es la capacidad que tiene el compilador de Java de poder determinar el tipo de una declaración a partir del tipo de la expresión usada en la inicialización.</p></li>
 <li><p>Esto nos permite ahorrarnos el indicar el tipo del elemento declarado, ya que se puede deducir automáticamente en la inicialización.</p></li>
 <li><p>Por ejemplo, en la siguiente declaración e inicialización, está claro que <code>x</code> debe ser de tipo <code class="sourceCode java"><span class="dt">int</span></code>, ya que su valor inicial es de ese tipo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div></li>
 <li><p>En ese caso, en lugar de usar el tipo <code class="sourceCode java"><span class="dt">int</span></code>, podríamos haber usado la palabra clave <code class="sourceCode java">var</code>, que sirve para declarar la variable sin indicar el tipo, forzando al compilador a deducirlo por él mismo:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>var x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb24"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>var x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1222,14 +1289,14 @@
 <h3 data-number="2.4.3"><span class="header-section-number">2.4.3</span> Constantes</h3>
 <ul>
 <li><p>Las <strong>constantes</strong> en Java se denominan <strong>variables <em>finales</em></strong> y se declaran usando el modificador <code class="sourceCode java"><span class="dt">final</span></code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span></code></pre></div></li>
 <li><p>Una variable final no puede cambiar su valor.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span><span class="op">;</span>                   <span class="co">// Da error</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb26"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span><span class="op">;</span>                   <span class="co">// Da error</span></span></code></pre></div></li>
 <li><p>Es posible declarar una variable final sin inicializarla, pero debemos asignarle un valor antes de poder usarla:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x<span class="op">;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>                   <span class="co">// No da error porque antes no tenía valor</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">int</span> x<span class="op">;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>                   <span class="co">// No da error porque antes no tenía valor</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1284,14 +1351,14 @@
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(</span>k<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;uno&quot;</span><span class="op">);</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// sale del switch</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;dos&quot;</span><span class="op">);</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// sale del switch</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;muchos&quot;</span><span class="op">);</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// no hace falta, pero es conveniente</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> <span class="op">(</span>k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;uno&quot;</span><span class="op">);</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// sale del switch</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;dos&quot;</span><span class="op">);</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// sale del switch</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;muchos&quot;</span><span class="op">);</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span>  <span class="co">// no hace falta, pero es conveniente</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1311,11 +1378,11 @@
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Imprime:</p>
 <pre><code>0
 1
@@ -1348,15 +1415,15 @@
 <li><p>Aunque la <span style="color:teal">⟨<em>sentencia</em>⟩</span> puede ser simple, se aconseja (por regla de estilo) usar siempre un bloque.</p></li>
 <li><p>Ejemplo:</p>
 <p>El siguiente bucle <code class="sourceCode java"><span class="cf">while</span></code>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>se puede escribir como un bucle <code class="sourceCode java"><span class="cf">for</span></code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1375,10 +1442,10 @@
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">);</span></span></code></pre></div>
 <p>Independientemente de lo que valga <code>i</code> al empezar a ejecutar el <code class="sourceCode java"><span class="cf">do</span></code>, el <code class="sourceCode java">println</code> se va a ejecutar, al menos, una vez.</p></li>
 </ul>
 </section>
@@ -1435,25 +1502,25 @@
 <h5 class="unnumbered unlisted">Ejemplos</h5>
 <ul>
 <li><p>El siguiente código lee un número de la entrada estándar:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">in</span><span class="op">);</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> sc<span class="op">.</span><span class="fu">nextInt</span><span class="op">();</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">in</span><span class="op">);</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> sc<span class="op">.</span><span class="fu">nextInt</span><span class="op">();</span></span></code></pre></div></li>
 <li><p>Este código va recogiendo valores de tipo <code class="sourceCode java"><span class="dt">long</span></code> a partir de un archivo llamado <code>mis_numeros</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="kw">new</span> <span class="bu">File</span><span class="op">(</span><span class="st">&quot;mis_numeros&quot;</span><span class="op">));</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>sc<span class="op">.</span><span class="fu">hasNextLong</span><span class="op">())</span> <span class="op">{</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> unLong <span class="op">=</span> sc<span class="op">.</span><span class="fu">nextLong</span><span class="op">();</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> sc <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="kw">new</span> <span class="bu">File</span><span class="op">(</span><span class="st">&quot;mis_numeros&quot;</span><span class="op">));</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>sc<span class="op">.</span><span class="fu">hasNextLong</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> unLong <span class="op">=</span> sc<span class="op">.</span><span class="fu">nextLong</span><span class="op">();</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Lee una línea de la entrada del usuario y la imprime:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.</span><span class="im">Scanner</span><span class="op">;</span>  <span class="co">// Importa la clase Scanner</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyClass <span class="op">{</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Scanner</span> myObj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">in</span><span class="op">);</span>  <span class="co">// Crea un objeto Scanner</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Introduzca nombre de usuario:&quot;</span><span class="op">);</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> userName <span class="op">=</span> myObj<span class="op">.</span><span class="fu">nextLine</span><span class="op">();</span>  <span class="co">// Lee entrada del usuario</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;El nombre es: &quot;</span> <span class="op">+</span> userName<span class="op">);</span>  <span class="co">// Imprime la entrada</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.</span><span class="im">Scanner</span><span class="op">;</span>  <span class="co">// Importa la clase Scanner</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyClass <span class="op">{</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Scanner</span> myObj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">in</span><span class="op">);</span>  <span class="co">// Crea un objeto Scanner</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Introduzca nombre de usuario:&quot;</span><span class="op">);</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> userName <span class="op">=</span> myObj<span class="op">.</span><span class="fu">nextLine</span><span class="op">();</span>  <span class="co">// Lee entrada del usuario</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;El nombre es: &quot;</span> <span class="op">+</span> userName<span class="op">);</span>  <span class="co">// Imprime la entrada</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
@@ -1522,13 +1589,13 @@
 <ul>
 <li><p>Con el método <code class="sourceCode java">useDelimiter</code> podemos indicar otro patrón delimitador que no sean espacios en blanco.</p></li>
 <li><p>Por ejemplo, el siguiente código:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> input <span class="op">=</span> <span class="st">&quot;1 fish 2 fish red fish blue fish&quot;</span><span class="op">;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span>input<span class="op">).</span><span class="fu">useDelimiter</span><span class="op">(</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*fish</span><span class="sc">\\</span><span class="st">s*&quot;</span><span class="op">);</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">nextInt</span><span class="op">());</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">nextInt</span><span class="op">());</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">next</span><span class="op">());</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">next</span><span class="op">());</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>s<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> input <span class="op">=</span> <span class="st">&quot;1 fish 2 fish red fish blue fish&quot;</span><span class="op">;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Scanner</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">Scanner</span><span class="op">(</span>input<span class="op">).</span><span class="fu">useDelimiter</span><span class="op">(</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*fish</span><span class="sc">\\</span><span class="st">s*&quot;</span><span class="op">);</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">nextInt</span><span class="op">());</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">nextInt</span><span class="op">());</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">next</span><span class="op">());</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>s<span class="op">.</span><span class="fu">next</span><span class="op">());</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>s<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span></code></pre></div>
 <p>produce la siguiente salida:</p>
 <pre><code>1
 2

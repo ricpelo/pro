@@ -71,9 +71,9 @@ nocite: |
 - Los valores de un tipo referencia son referencias a objetos.
 
 - Todos los objetos, incluidos los _arrays_, admiten los métodos de la clase
-  `Object`.
+  !JAVA(Object).
 
-- Las cadenas literales representan objetos de la clase `String`.
+- Las cadenas literales representan objetos de la clase !JAVA(String).
 
 ## Tipos primitivos
 
@@ -254,15 +254,15 @@ $6 ==> 2
 
 ---
 
-- Un literal de tipo `char` representa un carácter o secuencia de escape.
+- Un literal de tipo !JAVA(char) representa un carácter o secuencia de escape.
 
 - Se escriben encerrados entre comillas simples (también llamadas _apóstrofes_).
 
-- Los literales de tipo `char` sólo pueden representar _code units_ de Unicode
-  y, por tanto, sus valores deben estar comprendidos entre !JAVA('\u0000') y
-  !JAVA('\uffff').
+- Los literales de tipo !JAVA(char) sólo pueden representar _code units_ de
+  Unicode y, por tanto, sus valores deben estar comprendidos entre
+  !JAVA('\u0000') y !JAVA('\uffff').
 
-- Ejemplos de literales de tipo `char`:
+- Ejemplos de literales de tipo !JAVA(char):
 
   :::: columns
 
@@ -424,20 +424,21 @@ $6 ==> 6
 
 ---
 
-- El literal positivo finito de tipo `float` más grande es `3.4028235e38f`.
+- El literal positivo finito de tipo !JAVA(float) más grande es
+  `3.4028235e38f`.
 
-- El literal positivo finito de tipo `float` más pequeño distinto de cero es
-  `1.40e-45f`.
+- El literal positivo finito de tipo !JAVA(float) más pequeño distinto de cero
+  es `1.40e-45f`.
 
-- El literal positivo finito de tipo `double` más grande es
+- El literal positivo finito de tipo !JAVA(double) más grande es
   `1.7976931348623157e308`.
 
-- El literal positivo finito de tipo `double` más pequeño distinto de cero es
-  `4.9e-324`.
+- El literal positivo finito de tipo !JAVA(double) más pequeño distinto de
+  cero es `4.9e-324`.
 
 ---
 
-- Ejemplos de literales de tipo `float`:
+- Ejemplos de literales de tipo !JAVA(float):
 
   :::: columns
 
@@ -467,7 +468,7 @@ $6 ==> 6
 
   ::::
 
-- Ejemplos de literales de tipo `double`:
+- Ejemplos de literales de tipo !JAVA(double):
 
   :::: columns
 
@@ -858,7 +859,8 @@ $5 ==> NaN
 
 ### Promociones numéricas
 
-- Es posible que se apliquen **promociones numéricas unarias** o **binarias** a los operandos de un operador aritmético.
+- Es posible que se apliquen **promociones numéricas unarias** o **binarias** a
+  los operandos de un operador aritmético.
 
 - **Promociones numéricas unarias:**
 
@@ -872,9 +874,11 @@ $5 ==> NaN
 
     - Cada operando, por separado, de los operadores `>>`, `>>>` y `<<`.
 
-  - En tales casos, se lleva a cabo una promoción numérica que consiste en lo siguiente:
+  - En tales casos, se lleva a cabo una promoción numérica que consiste en lo
+    siguiente:
 
-    - Si tipo del operando es `byte`, `short`, o `char`, su valor se promociona a `int` mediante una conversión primitiva de ampliación.
+    - Si tipo del operando es `byte`, `short`, o `char`, su valor se promociona
+      a `int` mediante una conversión primitiva de ampliación.
 
 ---
 
@@ -953,6 +957,66 @@ $5 ==> NaN
   !JAVA(null) es simplemente un literal especial que pertenece a cualquier tipo
   referencia.
 
+### Acceso a miembros
+
+- Si tenemos una referencia a un objeto, podemos acceder a cualquiera de sus
+  miembros (campos o métodos) usando el operador punto (`.`), como es habitual.
+
+  Por ejemplo, para saber la longitud de una cadena, podemos invocar al método
+  `length` sobre el objeto cadena:
+
+  ```java
+  jshell> String s = "hola";
+  s ==> "hola"
+
+  jshell> s.length()
+  $2 ==> 4
+  ```
+
+- Lo mismo sirve para acceder a los miembros estáticos de una clase:
+
+  ```java
+  jshell> String.valueOf(25)
+  $1 ==> "25"
+  ```
+
+#### Llamadas a métodos sobrecargados
+
+- En Java los métodos pueden estar _sobrecargados_.
+
+- Un **método sobrecargado** es aquel que tiene varias implementaciones.
+
+- Todas esas implementaciones tienen el mismo nombre pero se diferencian en la cantidad y tipo de sus parámetros.
+
+- Al llamar a un método sobrecargado, la implementación seleccionada dependerá de los argumentos indicados en la llamada.
+
+---
+
+- Por ejemplo, el método estático !JAVA(valueOf) de la clase !JAVA(String) está sobrecargado porque dispone de varias implementaciones dependiendo de los argumentos que recibe:
+
+  -------------------------------------------------------------------
+  !JAVA(static String valueOf(boolean b))
+
+  !JAVA(static String valueOf(char c))
+
+  !JAVA(static String valueOf(char[] data))
+
+  !JAVA(static String valueOf(char[] data, int offset, int count))
+
+  !JAVA(static String valueOf(double d))
+
+  !JAVA(static String valueOf(float f))
+
+  !JAVA(static String valueOf(int i))
+
+  !JAVA(static String valueOf(long l))
+
+  !JAVA(static String valueOf(Object obj))
+  -------------------------------------------------------------------
+
+- Más información en la [API de
+  Java](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html#valueOf(boolean)).
+
 # Variables en Java
 
 ## Introducción
@@ -988,7 +1052,7 @@ $5 ==> NaN
 
 - Una variable de un tipo referencia $T$ puede contener:
 
-  - La referencia nula (`null`).
+  - La referencia nula (!JAVA(null)).
 
   - Una referencia a una instancia de $S$, siendo $S$ un subtipo de $T$.
 
@@ -996,22 +1060,22 @@ $5 ==> NaN
 
   - Si $T$ es un tipo primitivo:
 
-    - La referencia nula (`null`).
+    - La referencia nula (!JAVA(null)).
 
     - Una referencia a un _array_ de tipo «_array_ de $T$».
 
   - Si $T$ es un tipo referencia:
 
-    - La referencia nula (`null`).
+    - La referencia nula (!JAVA(null)).
 
     - Una referencia a un _array_ de tipo «_array_ de $S$», siendo $S$ un
       subtipo de $T$.
 
 ---
 
-- En Java, `Object` es supertipo de cualquier tipo referencia.
+- En Java, !JAVA(Object) es supertipo de cualquier tipo referencia.
 
-- Por tanto, una variable de tipo `Object` puede contener una referencia a
+- Por tanto, una variable de tipo !JAVA(Object) puede contener una referencia a
   cualquier valor referencia de cualquier tipo referencia.
 
 ## Declaración de variables

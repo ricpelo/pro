@@ -14,8 +14,23 @@ nocite: |
 
 - La operación !JAVA(new) permite instanciar un objeto a partir de una clase.
 
+- Hay que indicar el nombre de la clase y pasarle al constructor los argumentos
+  que necesite, entre paréntesis y separados por comas. Los paréntesis son
+  obligatorios aunque no haya argumentos.
 
-### `getClass()`
+- Por ejemplo, si tenemos una clase Triángulo cuyo constructor espera dos
+  argumentos (ancho y alto), podemos crear una instancia de esa clase de la
+  siguiente forma:
+
+  ```java
+  jshell> new Triangulo(20, 30);
+  $1 ==> Triangulo@ee7d9f1
+
+  jshell> Triangulo t = new Triangulo(4, 2);
+  t ==> Triangulo@726f3b58
+  ```
+
+### `getClass`
 
 - El método !JAVA(getClass()) devuelve la clase de la que es instancia el
   objeto sobre el que se ejecuta.
@@ -97,6 +112,20 @@ nocite: |
 
 - La referencia nula sirve para indicar que la variable no apunta a ningún
   objeto.
+
+---
+
+- Al intentar invocar a un método desde una referencia nula, se lanza una
+  excepción !JAVA(NullPointerException):
+
+  ```java
+  jshell> String s;
+  s ==> null
+
+  jshell> s.concat("hola")
+  |  Exception java.lang.NullPointerException
+  |        at (#2:1)
+  ```
 
 ## Comparación de objetos
 
@@ -221,143 +250,6 @@ nocite: |
 
 # Clases y objetos básicos en Java
 
-## Clases envolventes (*wrapper*!if(HTML)(&nbsp;)())
-
-- Las **clases envolventes** (también llamadas **clases _wrapper_**) son clases
-  cuyas instancias representan valores primitivos almacenados dentro de valores
-  referencia.
-
-- Esos valores referencia _envuelven_ al valor primitivo dentro de un objeto.
-
-- Se utilizan en contextos en los que se necesita manipular un dato primitivo
-  como si fuera un objeto, de una forma sencilla y transparente.
-
----
-
-- Existe una clase _wrapper_ para cada tipo primitivo:
-
-  -----------------------------------------------------
-  Clase _wrapper_               Tipo primitivo
-  ----------------------------- -----------------------
-  !JAVA(java.lang.Boolean)      !JAVA(bool)
-
-  !JAVA(java.lang.Byte)         !JAVA(byte)
-
-  !JAVA(java.lang.Short)        !JAVA(short)
-
-  !JAVA(java.lang.Character)    !JAVA(char)
-
-  !JAVA(java.lang.Integer)      !JAVA(int)
-
-  !JAVA(java.lang.Long)         !JAVA(long)
-
-  !JAVA(java.lang.Float)        !JAVA(float)
-
-  !JAVA(java.lang.Double)       !JAVA(double)
-  -----------------------------------------------------
-
-- Los objetos de estas clases disponen de métodos para acceder a los valores
-  envueltos dentro del objeto.
-
----
-
-- Por ejemplo:
-
-  ```java
-  jshell> Integer x = new Integer(4);
-  x ==> 4
-
-  jshell> x.floatValue()
-  $2 ==> 4.0
-
-  jshell> Boolean y = new Boolean(true);
-  y ==> true
-
-  jshell> y.shortValue()
-  |  Error:
-  |  cannot find symbol
-  |    symbol:   method shortValue()
-  |  y.shortValue()
-  |  ^----------^
-  ```
-
----
-
-- A partir de JDK 9, los constructores _wrapper_ de tipo han quedado obsoletos.
-
-- Actualmente, se recomienda que usar uno de los métodos !JAVA(valueOf) para
-  obtener un objeto _wrapper_.
-
-- El método es un miembro estático de todas las clases _wrappers_ y todas las
-  clases numéricas admiten formas que convierten un valor numérico o una cadena
-  en un objeto.
-
-- Por ejemplo:
-
-  ```java
-  jshell> Integer i = Integer.valueOf(100);
-  i ==> 100
-  ```
-
-### *Boxing*!if(HTML)(&nbsp;)() y *unboxing*
-
-- El **_boxing_** es el proceso de _envolver_ un valor primitivo en una
-  referencia a una instancia de su correspondiente clase _wrapper_. Por
-  ejemplo:
-
-  ```java
-  jshell> Integer x = new Integer(4);
-  x ==> 4
-
-  jshell> x.getClass()
-  $2 ==> class java.lang.Integer
-  ```
-
-- El **_unboxing_** es el proceso de extraer un valor primitivo a partir de una
-  instancia de su correspondiente clase _wrapper_. Por ejemplo:
-
-  ```java
-  jshell> Integer i = Integer.valueOf(100);
-  i ==> 100
-
-  jshell> int j = i.intValue();
-  j ==> 100
-  ```
-
-- A partir de JDK 5, este proceso se puede llevar a cabo automáticamente
-  mediante el **_autoboxing_** y el **_autounboxing_**.
-
-### *Autoboxing*!if(HTML)(&nbsp;)() y *autounboxing*
-
-- El **_autoboxing_** es el mecanismo que convierte automáticamente un valor
-  primitivo en una referencia a una instancia de su correspondiente clase
-  _wrapper_. Por ejemplo:
-
-  ```java
-  jshell> Integer x = 4;
-  x ==> 4
-
-  jshell> x.getClass()
-  $2 ==> class java.lang.Integer
-  ```
-
-- El **_autounboxing_** es el mecanismo que convierte automáticamente una
-  instancia de una clase _wrapper_ en su valor primitivo equivalente. Por
-  ejemplo:
-
-  ```java
-  public class Prueba {
-      public static void main(String[] args) {
-          Integer i = new Integer(4);
-          int res = cuadrado(i);       // Se envía un Integer
-          System.out.println(res);
-      }
-      public static cuadrado(int x) {  // Se recibe un int
-          return x ** x;
-      }
-  }
-  ```
-
 ## Cadenas
 
 - En Java, las cadenas son objetos.
@@ -371,9 +263,9 @@ nocite: |
   - Mutables: instancias de las clases !JAVA(StringBuffer) o
     !JAVA(StringBuilder).
 
-### Inmutables (`String`)
+### Inmutables
 
-- Los objetos de la clase !JAVA(String) son cadenas inmutables.
+- Las cadenas inmutables son objetos de la clase !JAVA(String).
 
 - Las cadenas literales (secuencias de caracteres encerradas entre dobles
   comillas !JAVA(")) son instancias de la clase !JAVA(String):
@@ -566,6 +458,11 @@ nocite: |
       System.out.println(result[x]);
   ```
 
+- Los métodos definidos en la clase `String` se pueden consultar en la API de
+  Java:
+
+[https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html)
+
 ### Conversión a `String`
 
 - La conversión de un objeto a !JAVA(String) se realiza llamando al método
@@ -647,6 +544,143 @@ nocite: |
   $4 ==> true
   ```
 
+## Clases envolventes (*wrapper*!if(HTML)(&nbsp;)())
+
+- Las **clases envolventes** (también llamadas **clases _wrapper_**) son clases
+  cuyas instancias representan valores primitivos almacenados dentro de valores
+  referencia.
+
+- Esos valores referencia _envuelven_ al valor primitivo dentro de un objeto.
+
+- Se utilizan en contextos en los que se necesita manipular un dato primitivo
+  como si fuera un objeto, de una forma sencilla y transparente.
+
+---
+
+- Existe una clase _wrapper_ para cada tipo primitivo:
+
+  -----------------------------------------------------
+  Clase _wrapper_               Tipo primitivo
+  ----------------------------- -----------------------
+  !JAVA(java.lang.Boolean)      !JAVA(bool)
+
+  !JAVA(java.lang.Byte)         !JAVA(byte)
+
+  !JAVA(java.lang.Short)        !JAVA(short)
+
+  !JAVA(java.lang.Character)    !JAVA(char)
+
+  !JAVA(java.lang.Integer)      !JAVA(int)
+
+  !JAVA(java.lang.Long)         !JAVA(long)
+
+  !JAVA(java.lang.Float)        !JAVA(float)
+
+  !JAVA(java.lang.Double)       !JAVA(double)
+  -----------------------------------------------------
+
+- Los objetos de estas clases disponen de métodos para acceder a los valores
+  envueltos dentro del objeto.
+
+---
+
+- Por ejemplo:
+
+  ```java
+  jshell> Integer x = new Integer(4);
+  x ==> 4
+
+  jshell> x.floatValue()
+  $2 ==> 4.0
+
+  jshell> Boolean y = new Boolean(true);
+  y ==> true
+
+  jshell> y.shortValue()
+  |  Error:
+  |  cannot find symbol
+  |    symbol:   method shortValue()
+  |  y.shortValue()
+  |  ^----------^
+  ```
+
+---
+
+- A partir de JDK 9, los constructores _wrapper_ de tipo han quedado obsoletos.
+
+- Actualmente, se recomienda que usar uno de los métodos estáticos
+  !JAVA(valueOf) para obtener un objeto _wrapper_.
+
+- El método es un miembro estático de todas las clases _wrappers_ y todas las
+  clases numéricas admiten formas que convierten un valor numérico o una cadena
+  en un objeto.
+
+- Por ejemplo:
+
+  ```java
+  jshell> Integer i = Integer.valueOf(100);
+  i ==> 100
+  ```
+
+### *Boxing*!if(HTML)(&nbsp;)() y *unboxing*
+
+- El **_boxing_** es el proceso de _envolver_ un valor primitivo en una
+  referencia a una instancia de su correspondiente clase _wrapper_. Por
+  ejemplo:
+
+  ```java
+  jshell> Integer x = new Integer(4);
+  x ==> 4
+
+  jshell> x.getClass()
+  $2 ==> class java.lang.Integer
+  ```
+
+- El **_unboxing_** es el proceso de extraer un valor primitivo a partir de una
+  instancia de su correspondiente clase _wrapper_. Por ejemplo:
+
+  ```java
+  jshell> Integer i = Integer.valueOf(100);
+  i ==> 100
+
+  jshell> int j = i.intValue();
+  j ==> 100
+  ```
+
+- A partir de JDK 5, este proceso se puede llevar a cabo automáticamente
+  mediante el **_autoboxing_** y el **_autounboxing_**.
+
+### *Autoboxing*!if(HTML)(&nbsp;)() y *autounboxing*
+
+- El **_autoboxing_** es el mecanismo que convierte automáticamente un valor
+  primitivo en una referencia a una instancia de su correspondiente clase
+  _wrapper_. Por ejemplo:
+
+  ```java
+  jshell> Integer x = 4;
+  x ==> 4
+
+  jshell> x.getClass()
+  $2 ==> class java.lang.Integer
+  ```
+
+- El **_autounboxing_** es el mecanismo que convierte automáticamente una
+  instancia de una clase _wrapper_ en su valor primitivo equivalente. Por
+  ejemplo:
+
+  ```java
+  public class Prueba {
+      public static void main(String[] args) {
+          Integer i = new Integer(4);
+          int res = cuadrado(i);       // Se envía un Integer
+          System.out.println(res);
+      }
+      public static cuadrado(int x) {  // Se recibe un int
+          return x ** x;
+      }
+  }
+  ```
+
 # *Arrays*
 
 ## Definición
@@ -669,7 +703,7 @@ nocite: |
 
 - Los _arrays_ de Java son **objetos** y, por tanto, son valores referencia.
 
----
+## Declaración
 
 - Los _arrays_ se declaran indicando el tipo del elemento que contienen,
   seguido de `[]`.
@@ -692,7 +726,7 @@ nocite: |
 - Por tanto, `x` puede hacer referencia a un _array_ de enteros, pero
   actualmente no hace referencia a ninguno.
 
----
+## Creación
 
 - A esa variable le podemos asignar una referencia a un objeto _array_ del tipo
   adecuado.
@@ -715,7 +749,7 @@ nocite: |
   !JAVA(0.0) en reales, !JAVA(false) en _booleanos_, !JAVA('\000') en
   caracteres y !JAVA(null) en valores referencia).
 
----
+## Inicialización
 
 - También se pueden inicializar los elementos de un _array_ en el momento en
   que se crea con !JAVA(new).
@@ -734,7 +768,7 @@ nocite: |
   x ==> int[4] { 6, 5, 27, 81 }
   ```
 
----
+## Acceso a elementos
 
 - Para **acceder** a un elemento del _array_ se usa el operador de _indexación_
   (los corchetes):
@@ -758,7 +792,7 @@ nocite: |
   |        at (#3:1)
   ```
 
----
+## Longitud de un _array_
 
 - Para conocer la longitud de un _array_, se puede consultar el atributo
   !JAVA(length):
@@ -778,7 +812,7 @@ nocite: |
   |  ^------^
   ```
 
----
+## Modificación de elementos
 
 - Para cambiar un elemento del _array_ por otro, se puede usar la _indexación_
   combinada con la _asignación_:
@@ -803,34 +837,74 @@ nocite: |
   |         ^--^
   ```
 
----
+## _Arrays_!if(HTML)(&nbsp;)() de tipos referencia
 
 - Los elementos de un _array_ también pueden ser valores referencia.
 
 - En ese caso, sus elementos serán objetos de una determinada clase.
 
-- Por el principio de sustitución, esos objetos también podrán ser instancias
-  de una de sus subclases.
-
-- Inicialmente, los elementos referencia de un _array_ toman el valor
+- Inicialmente, los elementos referencia del _array_ toman el valor
   !JAVA(null).
 
 - Por ejemplo:
 
   ```java
-  jshell> Trabajador[] t = new Trabajador[5];
-  t ==> Trabajador[5] { null, null, null, null, null }
+  jshell> String[] cadenas = new String[5];
+  cadenas ==> String[5] { null, null, null, null, null }
   ```
 
-- En cada elemento de `t` podremos meter una instancia de la clase `Trabajador`
-  o de cualquier subclase suya:
+- En cada elemento de `cadenas` podremos meter una instancia de la clase
+  !JAVA(String):
 
   ```java
-  jshell> t[2] = new Docente(...)
-  $8 ==> Docente@1b701da1
+  jshell> cadenas[2] = "hola";
+  $2 ==> "hola"
 
-  jshell> t
-  t ==> Trabajador[5] { null, null, Docente@1b701da1, null, null }
+  jshell> cadenas
+  cadenas ==> String[5] { null, null, "hola", null, null }
+  ```
+
+---
+
+- También podemos inicializar el _array_ con objetos:
+
+  ```python
+  jshell> String[] cadenas = new String[] { "hola", "adiós", "prueba" };
+  cadenas ==> String[3] { "hola", "adiós", "prueba" }
+
+  jshell> cadenas[1]
+  $2 ==> "adiós"
+
+  jshell> cadenas.length
+  $3 ==> 3
+  ```
+
+---
+
+- Hemos dicho que los elementos de un _array_ de tipos referencia deben ser
+  objetos de una determinada clase, que es la clase indicada al declarar el
+  _array_.
+
+- Pero por el principio de sustitución, esos elementos también pueden ser
+  instancias de una subclase de esa clase.
+
+- Por ejemplo, si tenemos la clase `Figura` y una subclase suya llamada
+  `Triangulo`:
+
+  ```java
+  jshell> Figura[] figuras = new Figura[5];
+  figuras ==> Figura[5] { null, null, null, null, null }
+  ```
+
+- En cada elemento de `figuras` podremos meter una instancia de la clase
+  `Figura` o de cualquier subclase suya:
+
+  ```java
+  jshell> figuras[2] = new Triangulo(20, 30);  // alto y ancho
+  $8 ==> Triangulo@1b701da1
+
+  jshell> figuras
+  figuras ==> Figura[5] { null, null, Triangulo@1b701da1, null, null }
   ```
 
 ---
@@ -846,30 +920,39 @@ nocite: |
     compilador para determinar si los tipos son los adecuados, por lo que
     tendremos que hacerlo a mano en tiempo de ejecución.
 
-## De tipos primitivos
-
-### Declaración
-
-### Creación
-
-### Inicialización
-
-## `.length`
-
-## De objetos
-
-### Declaración
-
-### Creación
-
-### Inicialización
-
 ## Subtipado entre _arrays_
+
+- Entre los tipos de _arrays_ se define una relación de subtipado «$<_1$»
+  similar a la que hemos visto hasta ahora.
+
+- Resumiendo, las reglas que definen esa relación son las siguientes:
+
+  - Si $S$ y $T$ son tipos referencia, entonces $S$`[]` $<_1$ $T$`[]` si y sólo
+    si $S <_1 T$.
+
+  - `Object[]` $<_1$ `Object`.
+
+  - Si $P$ es un tipo primitivo, entonces $P$`[]` $<_1$ `Object`.
 
 ## `java.util.Arrays`
 
+- La clase !JAVA(java.util.Arrays) contiene varios métodos estáticos para
+  manipular _arrays_, incluyendo ordenación y búsqueda.
+
+- También contiene una fábrica estática que permite ver a los _arrays_ como
+  listas, lo que será de interés cuando veamos las listas en Java.
+
+- Los métodos de esta clase lanzan todos una excepción
+  !JAVA(NullPointerException) cuando el _array_ especificado es una referencia
+  nula.
+
+- Su documentación se encuentra en el API de Java:
+
+[https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Arrays.html](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Arrays.html)
+
 ## Copia y redimensionado de arrays
 
+- Para hacer una copia de un _array_
 ### `Arrays.copyOf()`
 
 ### `System.arraycopy()`
