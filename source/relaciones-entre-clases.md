@@ -1382,6 +1382,29 @@ Acuatico <|-- Anfibio
 
 - Por eso se dice que `t1` y `t2` son objetos polimórficos.
 
+---
+
+- Cuando se manda un mensaje a un objeto, el método que realmente se invoca
+  dependerá del objeto que haya recibido el mensaje o, más concretamente, de la
+  clase que se haya instanciado para crear el objeto.
+
+- Por ejemplo, cuando hacemos !PYTHON(t1.get_salario()), se le está pidiendo a
+  un objeto (el referenciado por `t1`) que nos devuelva su salario.
+
+- Pero el cómo lo haga (es decir, el método concreto que ejecutará el objeto
+  cuando reciba el mensaje) dependerá de qué tipo de objeto sea, es decir, de
+  la clase a la que pertenezca el objeto.
+
+- Puede que un trabajador devuelva simplemente el valor de un atributo privado,
+  y puede que un docente tenga que hacer un cálculo más complicado dependiendo
+  de la especialidad a la que pertenece.
+
+- Una de las principales ventajas del polimorfismo es que nosotros no nos
+  tenemos que preocupar del detalle interno de qué método concreto se
+  ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá
+  ejecutando el método que corresponda dependiendo de a qué clase pertenece ese
+  objeto.
+
 ## _Duck typing_
 
 - En un lenguaje de tipado dinámico como Python, el principio de sustitución y
