@@ -780,6 +780,68 @@ prueba</code></pre></li>
 </ul>
 </section>
 
+<section id="la-clase-number" class="title-slide slide level3" data-number="2.2.3">
+<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span> La clase <code>Number</code></h3>
+<ul>
+<li><p>La clase <code class="sourceCode java">java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">Number</span></code> en Java es una clase abstracta que representa la clase base (o superclase) de todas las clases que representan valores numéricos convertibles a valores primitivos de tipo <code class="sourceCode java"><span class="dt">byte</span></code>, <code class="sourceCode java"><span class="dt">double</span></code>, <code class="sourceCode java"><span class="dt">float</span></code>, <code class="sourceCode java"><span class="dt">int</span></code>, <code class="sourceCode java"><span class="dt">long</span></code> y <code class="sourceCode java"><span class="dt">short</span></code>.</p></li>
+<li><p>Esta clase es la superclase de todas las clases <em>wrapper</em> que representan valores numéricos: <code class="sourceCode java"><span class="bu">Byte</span></code>, <code class="sourceCode java"><span class="bu">Double</span></code>, <code class="sourceCode java"><span class="bu">Float</span></code>, <code class="sourceCode java"><span class="bu">Integer</span></code>, <code class="sourceCode java"><span class="bu">Long</span></code> y <code class="sourceCode java"><span class="bu">Short</span></code>.</p></li>
+<li><p>También es la superclase de las clases <code class="sourceCode java">java<span class="op">.</span><span class="fu">math</span><span class="op">.</span><span class="fu">BigInteger</span></code> y <code class="sourceCode java">java<span class="op">.</span><span class="fu">math</span><span class="op">.</span><span class="fu">BigDecimal</span></code> cuyas instancias representan, respectivamente, números enteros y reales de precisión arbitraria.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.3.0.1">
+
+<ul>
+<li><p>La clase abstracta <code>Number</code> declara (o define) los siguientes métodos:</p>
+<table style="width:65%;">
+<colgroup>
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">byte</span> <span class="fu">byteValue</span><span class="op">()</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="kw">abstract</span> <span class="dt">double</span> <span class="fu">doubleValue</span><span class="op">()</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="kw">abstract</span> <span class="dt">float</span> <span class="fu">floatValue</span><span class="op">()</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="kw">abstract</span> <span class="dt">int</span> <span class="fu">intValue</span><span class="op">()</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code class="sourceCode java"><span class="kw">abstract</span> <span class="dt">long</span> <span class="fu">longValue</span><span class="op">()</span></code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code class="sourceCode java"><span class="dt">short</span> <span class="fu">shortValue</span><span class="op">()</span></code></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Los métodos <code class="sourceCode java">byteValue</code> y <code class="sourceCode java">shortValue</code> son concretos porque devuelven el valor de <code class="sourceCode java"><span class="fu">intValue</span><span class="op">()</span></code> convertido, respectivamente, a <code class="sourceCode java"><span class="dt">byte</span></code> o a <code class="sourceCode java"><span class="dt">short</span></code> a través de un <em>casting</em> <code class="sourceCode java"><span class="op">(</span><span class="dt">byte</span><span class="op">)</span></code> o <code class="sourceCode java"><span class="op">(</span><span class="dt">short</span><span class="op">)</span></code>.</p></li>
+<li><p>Los métodos abstractos se implementan luego en sus subclases.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.3.0.2">
+
+<ul>
+<li><p>Ejemplo de uso:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Number</span> n <span class="op">=</span> <span class="kw">new</span> <span class="bu">Integer</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">==&gt;</span> <span class="dv">4</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> n<span class="op">.</span><span class="fu">intValue</span><span class="op">()</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="dv">4</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> n<span class="op">.</span><span class="fu">longValue</span><span class="op">()</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="dv">4</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Number</span> bi <span class="op">=</span> <span class="kw">new</span> <span class="bu">BigInteger</span><span class="op">(</span><span class="st">&quot;2318972398472987492874982234742&quot;</span><span class="op">);</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>bi <span class="op">==&gt;</span> <span class="dv">2318972398472987492874982234742</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> bi<span class="op">.</span><span class="fu">intValue</span><span class="op">()</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> <span class="op">==&gt;</span> <span class="dv">1756076662</span>          <span class="co">// No cabe en un int, así que se trunca</span></span></code></pre></div></li>
+</ul>
+</section>
+
 </section>
 <section>
 <section id="arrays" class="title-slide slide level1" data-number="3">
@@ -805,10 +867,10 @@ prueba</code></pre></li>
 <ul>
 <li><p>Los <em>arrays</em> se declaran indicando el tipo del elemento que contienen, seguido de <code>[]</code>.</p></li>
 <li><p>Por ejemplo, para declarar un <em>array</em> de enteros, se puede hacer:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span></code></pre></div>
 <p>Ahora mismo, <code>x</code> es una referencia a un objeto <em>array</em> que puede contener elementos de tipo <code>int</code>. Como la variable <code>x</code> aún no ha sido inicializada, el valor que contiene es la referencia nula (<code>null</code>):</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="kw">null</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x<span class="op">;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="kw">null</span></span></code></pre></div></li>
 <li><p>Por tanto, <code>x</code> puede hacer referencia a un <em>array</em> de enteros, pero actualmente no hace referencia a ninguno.</p></li>
 </ul>
 </section>
@@ -818,8 +880,8 @@ prueba</code></pre></li>
 <ul>
 <li><p>A esa variable le podemos asignar una referencia a un objeto <em>array</em> del tipo adecuado.</p></li>
 <li><p>Para ello, se puede crear un objeto <em>array</em> usando el operador <code class="sourceCode java"><span class="kw">new</span></code> e indicando el tipo de los elementos y la longitud del <em>array</em> (entre corchetes):</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span></span></code></pre></div>
 <p>A partir de este momento, la variable <code>x</code> contiene una referencia a un objeto <em>array</em> de cinco elementos de tipo <code class="sourceCode java"><span class="dt">int</span></code> que, ahora mismo, tienen todos el valor <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
 <li><p>Como se puede observar, los elementos de un <em>array</em> siempre se inicializan a un <strong>valor por defecto</strong> cuando se crea el <em>array</em> (<code class="sourceCode java"><span class="dv">0</span></code> en enteros, <code class="sourceCode java"><span class="fl">0.0</span></code> en reales, <code class="sourceCode java"><span class="kw">false</span></code> en <em>booleanos</em>, <code class="sourceCode java"><span class="ch">&#39;\000&#39;</span></code> en caracteres y <code class="sourceCode java"><span class="kw">null</span></code> en valores referencia).</p></li>
 </ul>
@@ -835,8 +897,8 @@ prueba</code></pre></li>
 <li><p>No se indica la longitud del array, ya que se deduce a partir de la lista de valores iniciales.</p></li>
 </ul></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -844,16 +906,16 @@ prueba</code></pre></li>
 <h2 data-number="3.5"><span class="header-section-number">3.5</span> Acceso a elementos</h2>
 <ul>
 <li><p>Para <strong>acceder</strong> a un elemento del <em>array</em> se usa el operador de <em>indexación</em> (los corchetes):</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">3</span><span class="op">]</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="dv">81</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> x <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span><span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span><span class="op">};</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">3</span><span class="op">]</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="dv">81</span></span></code></pre></div></li>
 <li><p>Los elementos se indexan de 0 a <span class="math inline">n - 1</span>, siendo <span class="math inline">n</span> la longitud del <em>array</em>.</p></li>
 <li><p>Si se intenta acceder a un elemento fuera de esos límites, se levanta una excepción <code class="sourceCode java">java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ArrayIndexOutOfBoundsException</span></code>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">4</span><span class="op">]</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Exception</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ArrayIndexOutOfBoundsException</span><span class="op">:</span> Index <span class="dv">4</span> out of bounds <span class="cf">for</span> length <span class="dv">4</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="fu">at</span> <span class="op">(</span>#<span class="dv">3</span><span class="op">:</span><span class="dv">1</span><span class="op">)</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">4</span><span class="op">]</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Exception</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">ArrayIndexOutOfBoundsException</span><span class="op">:</span> Index <span class="dv">4</span> out of bounds <span class="cf">for</span> length <span class="dv">4</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="fu">at</span> <span class="op">(</span>#<span class="dv">3</span><span class="op">:</span><span class="dv">1</span><span class="op">)</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -861,14 +923,14 @@ prueba</code></pre></li>
 <h2 data-number="3.6"><span class="header-section-number">3.6</span> Longitud de un <em>array</em></h2>
 <ul>
 <li><p>Para conocer la longitud de un <em>array</em>, se puede consultar el atributo <code class="sourceCode java">length</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 <li><p>Ese valor es constante y no se puede cambiar:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">44</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  cannot assign a value to <span class="dt">final</span> variable length</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">43</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="op">^------^</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">44</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  cannot assign a value to <span class="dt">final</span> variable length</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">.</span><span class="fu">length</span> <span class="op">=</span> <span class="dv">43</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="op">^------^</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -876,17 +938,17 @@ prueba</code></pre></li>
 <h2 data-number="3.7"><span class="header-section-number">3.7</span> Modificación de elementos</h2>
 <ul>
 <li><p>Para cambiar un elemento del <em>array</em> por otro, se puede usar la <em>indexación</em> combinada con la <em>asignación</em>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> <span class="op">==&gt;</span> <span class="dv">99</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">5</span> <span class="op">==&gt;</span> <span class="dv">99</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> x</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">81</span> <span class="op">}</span></span></code></pre></div></li>
 <li><p>El compilador comprueba que el valor a asignar es del tipo correcto, e impide la operación si se ve obligado a hacer un <em>narrowing</em> para hacer que el tipo del valor sea compatible con el tipo del elemento:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>shell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  incompatible types<span class="op">:</span> possible lossy conversion from <span class="dt">double</span> to <span class="dt">int</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>         <span class="op">^--^</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>shell<span class="op">&gt;</span> x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  incompatible types<span class="op">:</span> possible lossy conversion from <span class="dt">double</span> to <span class="dt">int</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  x<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">99.9</span><span class="op">;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>         <span class="op">^--^</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -897,28 +959,28 @@ prueba</code></pre></li>
 <li><p>En ese caso, sus elementos serán objetos de una determinada clase.</p></li>
 <li><p>Inicialmente, los elementos referencia del <em>array</em> toman el valor <code class="sourceCode java"><span class="kw">null</span></code>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> cadenas <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> cadenas <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
 <li><p>En cada elemento de <code>cadenas</code> podremos meter una instancia de la clase <code class="sourceCode java"><span class="bu">String</span></code>:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="st">&quot;hola&quot;</span><span class="op">;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="st">&quot;hola&quot;</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="st">&quot;hola&quot;</span><span class="op">;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="st">&quot;hola&quot;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.8.0.0.1">
 
 <ul>
 <li><p>También podemos inicializar el <em>array</em> con objetos:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> String[] cadenas <span class="op">=</span> new String[] { <span class="st">&quot;hola&quot;</span>, <span class="st">&quot;adiós&quot;</span>, <span class="st">&quot;prueba&quot;</span> }<span class="op">;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> String[<span class="dv">3</span>] { <span class="st">&quot;hola&quot;</span>, <span class="st">&quot;adiós&quot;</span>, <span class="st">&quot;prueba&quot;</span> }</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas[<span class="dv">1</span>]</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="st">&quot;adiós&quot;</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas.length</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="dv">3</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> String[] cadenas <span class="op">=</span> new String[] { <span class="st">&quot;hola&quot;</span>, <span class="st">&quot;adiós&quot;</span>, <span class="st">&quot;prueba&quot;</span> }<span class="op">;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>cadenas <span class="op">==&gt;</span> String[<span class="dv">3</span>] { <span class="st">&quot;hola&quot;</span>, <span class="st">&quot;adiós&quot;</span>, <span class="st">&quot;prueba&quot;</span> }</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas[<span class="dv">1</span>]</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="st">&quot;adiós&quot;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> cadenas.length</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="dv">3</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.8.0.0.2">
@@ -927,14 +989,14 @@ prueba</code></pre></li>
 <li><p>Hemos dicho que los elementos de un <em>array</em> de tipos referencia deben ser objetos de una determinada clase, que es la clase indicada al declarar el <em>array</em>.</p></li>
 <li><p>Pero por el principio de sustitución, esos elementos también pueden ser instancias de una subclase de esa clase.</p></li>
 <li><p>Por ejemplo, si tenemos la clase <code>Figura</code> y una subclase suya llamada <code>Triangulo</code>:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> Figura<span class="op">[]</span> figuras <span class="op">=</span> <span class="kw">new</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>figuras <span class="op">==&gt;</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> Figura<span class="op">[]</span> figuras <span class="op">=</span> <span class="kw">new</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>figuras <span class="op">==&gt;</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
 <li><p>En cada elemento de <code>figuras</code> podremos meter una instancia de la clase <code>Figura</code> o de cualquier subclase suya:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> figuras<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">Triangulo</span><span class="op">(</span><span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">);</span>  <span class="co">// alto y ancho</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">8</span> <span class="op">==&gt;</span> Triangulo<span class="at">@</span><span class="dv">1</span>b701da1</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> figuras</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>figuras <span class="op">==&gt;</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> Triangulo<span class="at">@</span><span class="dv">1</span>b701da1<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> figuras<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">Triangulo</span><span class="op">(</span><span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">);</span>  <span class="co">// alto y ancho</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> Triangulo<span class="at">@</span><span class="dv">1</span>b701da1</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> figuras</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>figuras <span class="op">==&gt;</span> Figura<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> Triangulo<span class="at">@</span><span class="dv">1</span>b701da1<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.8.0.0.3">
@@ -975,27 +1037,165 @@ prueba</code></pre></li>
 <section id="copia-y-redimensionado-de-arrays" class="title-slide slide level2" data-number="3.11">
 <h2 data-number="3.11"><span class="header-section-number">3.11</span> Copia y redimensionado de arrays</h2>
 <ul>
-<li>Para hacer una copia de un <em>array</em> ### <code>Arrays.copyOf()</code></li>
+<li><p>Para hacer una copia de un <em>array</em>, se pueden usar varios métodos:</p>
+<ul>
+<li><p><code class="sourceCode java"><span class="bu">Object</span><span class="op">.</span><span class="fu">clone</span></code>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">System</span><span class="op">.</span><span class="fu">arraycopy</span></code>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">Arrays</span><span class="op">.</span><span class="fu">copyOf</span></code>.</p></li>
+<li><p><code class="sourceCode java"><span class="bu">Arrays</span><span class="op">.</span><span class="fu">copyOfRange</span></code>.</p></li>
+</ul></li>
+<li><p>Todos los métodos hacen <strong>copias superficiales</strong> (<em>shallow copys</em>) del <em>array</em>.</p></li>
+<li><p>Para hacer una <strong>copia profunda</strong> (<em>deep copy</em>) es necesario escribir un trozo de código que lo haga.</p></li>
 </ul>
 </section>
-<section id="system.arraycopy" class="title-slide slide level3" data-number="3.11.1">
-<h3 data-number="3.11.1"><span class="header-section-number">3.11.1</span> <code>System.arraycopy()</code></h3>
-
+<section id="object.clone" class="title-slide slide level3" data-number="3.11.1">
+<h3 data-number="3.11.1"><span class="header-section-number">3.11.1</span> <code>Object.clone</code></h3>
+<ul>
+<li><p>La clase <code class="sourceCode java"><span class="bu">Object</span></code> proporciona el método <code class="sourceCode java">clone</code>.</p></li>
+<li><p>Como los <em>arrays</em> en Java también son objetos de la clase <code class="sourceCode java"><span class="bu">Object</span></code>, se puede usar este método para copiar un <em>array</em>.</p></li>
+<li><p>Este método copia todos los elementos del <em>array</em>, así que no sirve si lo que se quiere es hacer una copia parcial del <em>array</em>, es decir, si se quieren copiar sólo algunos elementos (un <em>subarray</em>).</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">};</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">}</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> w <span class="op">=</span> s<span class="op">.</span><span class="fu">clone</span><span class="op">();</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>w <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">}</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> s <span class="op">==</span> w</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="kw">false</span></span></code></pre></div></li>
+</ul>
 </section>
 
-<section id="clone" class="title-slide slide level3" data-number="3.11.2">
-<h3 data-number="3.11.2"><span class="header-section-number">3.11.2</span> <code>.clone()</code></h3>
+<section id="system.arraycopy" class="title-slide slide level3" data-number="3.11.2">
+<h3 data-number="3.11.2"><span class="header-section-number">3.11.2</span> <code>System.arraycopy</code></h3>
+<ul>
+<li><p>El método <code class="sourceCode java">arraycopy</code> de la clase <code class="sourceCode java">java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">System</span></code> es la mejor forma de hacer una <strong>copia parcial</strong> del <em>array</em>.</p></li>
+<li><p>Ofrece una forma sencilla de especificar el número total de elementos a copiar así como los índices de origen y destino.</p></li>
+<li><p>Su signatura es:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> <span class="fu">arraycopy</span><span class="op">(</span><span class="bu">Object</span> src<span class="op">,</span> <span class="dt">int</span> srcPos<span class="op">,</span> <span class="bu">Object</span> dest<span class="op">,</span> <span class="dt">int</span> destPos<span class="op">,</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                      <span class="dt">int</span> length<span class="op">)</span></span></code></pre></div></li>
+<li><p>Por ejemplo, el siguiente código:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">arraycopy</span><span class="op">(</span>origen<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> destino<span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">);</span></span></code></pre></div>
+<p>copiará 5 elementos del <em>array</em> <code>origen</code> en el <em>array</em> <code>destino</code>, empezando por el índice 3 de <code>origen</code> y desde el índice 2 de <code>destino</code>.</p></li>
+</ul>
+</section>
 
+<section id="arrays.copyof" class="title-slide slide level3" data-number="3.11.3">
+<h3 data-number="3.11.3"><span class="header-section-number">3.11.3</span> <code>Arrays.copyOf</code></h3>
+<ul>
+<li><p>Se puede usar el método <code class="sourceCode java">copyOf</code> de la clase <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span></code> cuando se desean copiar los primeros elementos del <em>array</em>.</p></li>
+<li><p>También se puede usar cuando se desea extender el <em>array</em> creando un nuevo <em>array</em> con los mismos elementos del <em>array</em> original pero con más elementos al final, los cuales se rellenarán con los valores iniciales por defecto del tipo de los elementos del <em>array</em>.</p></li>
+<li><p>El método <code class="sourceCode java">copyOf</code> está sobrecargado para poder copiar <em>arrays</em> de cualquier tipo primitivo.</p></li>
+<li><p>Además, es un método genérico (ya veremos en su momento lo que eso significa), lo que le permite copiar <em>arrays</em> de cualquier tipo referencia.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.11.3.0.1">
+
+<ul>
+<li><p>La signatura de los métodos <code class="sourceCode java">copyOf</code> sigue el siguiente esquema:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> T<span class="op">[]</span> <span class="fu">copyOf</span><span class="op">(</span>T<span class="op">[]</span> original<span class="op">,</span> <span class="dt">int</span> newLength<span class="op">)</span></span></code></pre></div>
+<p>donde <code>T</code> es el tipo de los elementos del <em>array</em> <code>original</code>.</p></li>
+<li><p>El método devuelve un nuevo <em>array</em> a partir del original, con tantos elementos como se haya indicado en <code>newLength</code>.</p>
+<ul>
+<li><p>Cuando <code class="sourceCode java">newLength</code> &lt; <code class="sourceCode java">original<span class="op">.</span><span class="fu">length</span></code>, el <em>array</em> nuevo tendrá sólo los primeros <code>newLength</code> elementos del original.</p></li>
+<li><p>Cuando <code class="sourceCode java">newLength</code> &gt; <code class="sourceCode java">original<span class="op">.</span><span class="fu">length</span></code>, el <em>array</em> nuevo tendrá todos los elementos del original, y se rellenará por el final con tantos valores como sea necesario para que el nuevo <em>array</em> tenga <code>newLength</code> elementos.</p>
+<p>Esos valores serán los valores iniciales por defecto del tipo <code>T</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.11.3.0.2">
+
+<ul>
+<li><p>Por ejemplo, si tenemos:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span><span class="op">,</span> <span class="st">&quot;maría&quot;</span><span class="op">,</span> <span class="st">&quot;antonio&quot;</span> <span class="op">}</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span><span class="op">,</span> <span class="st">&quot;maría&quot;</span><span class="op">,</span> <span class="st">&quot;antonio&quot;</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>Creamos un nuevo <em>array</em> con menos elementos:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">copyOf</span><span class="op">(</span>s<span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">2</span> <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>Creamos otro <em>array</em> con más elementos:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">copyOf</span><span class="op">(</span>s<span class="op">,</span> <span class="dv">7</span><span class="op">)</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">7</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span><span class="op">,</span> <span class="st">&quot;maría&quot;</span><span class="op">,</span> <span class="st">&quot;antonio&quot;</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="op">}</span></span></code></pre></div>
+<p>Los nuevos elementos toman el valor <code class="sourceCode java"><span class="kw">null</span></code>, que es el valor por defecto para los tipos referencia.</p></li>
+</ul>
 </section>
 
 
 <section id="comparación-de-arrays" class="title-slide slide level2" data-number="3.12">
 <h2 data-number="3.12"><span class="header-section-number">3.12</span> Comparación de <em>arrays</em></h2>
-
+<ul>
+<li><p>Para comprobar si dos <em>arrays</em> <code>a1</code> y <code>a2</code> son iguales, podríamos usar:</p>
+<ul>
+<li><p><code>a1 == a2</code>, pero no resulta muy adecuado porque ya sabemos que lo que comprueba es si son <strong>idénticos</strong>.</p></li>
+<li><p><code class="sourceCode java">a1<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>a2<span class="op">)</span></code>, pero tampoco resulta adecuado porque la implementación del método <code class="sourceCode java">equals</code> en los <em>arrays</em> es la que se hereda de la clase <code class="sourceCode java"><span class="bu">Object</span></code>, la cual es idéntica a <code>a1 == a2</code>.</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">};</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">}</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> w <span class="op">=</span> s<span class="op">.</span><span class="fu">clone</span><span class="op">();</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>w <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">}</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> s <span class="op">==</span> w</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="kw">false</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> s<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>w<span class="op">)</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> <span class="op">==&gt;</span> <span class="kw">false</span></span></code></pre></div>
 </section>
 <section id="arrays.equals" class="title-slide slide level3" data-number="3.12.1">
-<h3 data-number="3.12.1"><span class="header-section-number">3.12.1</span> <code>Arrays.equals()</code></h3>
+<h3 data-number="3.12.1"><span class="header-section-number">3.12.1</span> <code>Arrays.equals</code></h3>
+<ul>
+<li><p>La mejor opción para comparar dos <em>arrays</em> es usar el método <code class="sourceCode java">equals</code> de la clase <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span></code>.</p></li>
+<li><p>El método <code class="sourceCode java"><span class="bu">Arrays</span><span class="op">.</span><span class="fu">equals</span></code> está sobrecargado para poder comparar <em>arrays</em> de cualquier tipo primitivo.</p></li>
+<li><p>Además, es un método genérico (ya veremos en su momento lo que eso significa), lo que le permite comparar <em>arrays</em> de cualquier tipo referencia.</p></li>
+<li><p>Las signaturas de los métodos <code class="sourceCode java">equals</code> siguen el siguiente esquema:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">boolean</span> <span class="fu">equals</span><span class="op">(</span>T<span class="op">[]</span> a<span class="op">,</span> T<span class="op">[]</span> a2<span class="op">)</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">boolean</span> <span class="fu">equals</span><span class="op">(</span>T<span class="op">[]</span> a<span class="op">,</span> <span class="dt">int</span> aFromIndex<span class="op">,</span> <span class="dt">int</span> aToIndex<span class="op">,</span> T<span class="op">[]</span> b<span class="op">,</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                      <span class="dt">int</span> bFromIndex<span class="op">,</span> <span class="dt">int</span> bToIndex<span class="op">)</span></span></code></pre></div>
+<p>donde <code>T</code> es el tipo de los elementos del <em>array</em> <code>original</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.12.1.0.1">
 
+<ul>
+<li><p>Ejemplo de uso:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> a <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">};</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">}</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="dt">int</span><span class="op">[]</span> b <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[]</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">};</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">==&gt;</span> <span class="dt">int</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">}</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> a<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>b<span class="op">)</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>$<span class="dv">3</span> <span class="op">==&gt;</span> <span class="kw">false</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span>a<span class="op">,</span> b<span class="op">)</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>$<span class="dv">4</span> <span class="op">==&gt;</span> <span class="kw">true</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.12.1.0.2">
+
+<div class="sourceCode" id="cb59"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">String</span><span class="op">[]</span> s <span class="op">=</span> <span class="kw">new</span> <span class="bu">String</span><span class="op">[]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">};</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">==&gt;</span> <span class="bu">String</span><span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">{</span> <span class="st">&quot;hola&quot;</span><span class="op">,</span> <span class="st">&quot;pepe&quot;</span><span class="op">,</span> <span class="st">&quot;juan&quot;</span> <span class="op">}</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>jshell<span class="op">&gt;</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span>s<span class="op">,</span> a<span class="op">)</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Error</span><span class="op">:</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  no suitable method found <span class="cf">for</span> <span class="fu">equals</span><span class="op">(</span>java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">String</span><span class="op">[],</span><span class="dt">int</span><span class="op">[])</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>      method java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="dt">long</span><span class="op">[],</span><span class="dt">long</span><span class="op">[])</span> is not applicable</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="op">(</span>argument mismatch<span class="op">;</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">String</span><span class="op">[]</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>          cannot be converted to <span class="dt">long</span><span class="op">[])</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>      method java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="dt">int</span><span class="op">[],</span><span class="dt">int</span><span class="op">[])</span> is not applicable</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="op">(</span>argument mismatch<span class="op">;</span> java<span class="op">.</span><span class="fu">lang</span><span class="op">.</span><span class="fu">String</span><span class="op">[]</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>          cannot be converted to <span class="dt">int</span><span class="op">[])</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>       <span class="op">[</span><span class="kw">...</span><span class="op">]</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>      method java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span><span class="op">.&lt;</span>T<span class="op">&gt;</span><span class="fu">equals</span><span class="op">(</span>T<span class="op">[],</span>T<span class="op">[],</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>              java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Comparator</span><span class="op">&lt;?</span> <span class="kw">super</span> T<span class="op">&gt;)</span> is not applicable</span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="op">(</span>cannot infer type<span class="op">-</span><span class="fu">variable</span><span class="op">(</span>s<span class="op">)</span> T</span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>          <span class="op">(</span>actual and formal argument lists differ in length<span class="op">))</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>      method java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Arrays</span><span class="op">.&lt;</span>T<span class="op">&gt;</span><span class="fu">equals</span><span class="op">(</span>T<span class="op">[],</span><span class="dt">int</span><span class="op">,</span><span class="dt">int</span><span class="op">,</span>T<span class="op">[],</span><span class="dt">int</span><span class="op">,</span><span class="dt">int</span><span class="op">,</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>              java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Comparator</span><span class="op">&lt;?</span> <span class="kw">super</span> T<span class="op">&gt;)</span> is not applicable</span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>        <span class="op">(</span>cannot infer type<span class="op">-</span><span class="fu">variable</span><span class="op">(</span>s<span class="op">)</span> T</span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>          <span class="op">(</span>actual and formal argument lists differ in length<span class="op">))</span></span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="bu">Arrays</span><span class="op">.</span><span class="fu">equals</span><span class="op">(</span>s<span class="op">,</span> a<span class="op">)</span></span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>  <span class="op">^-----------^</span></span></code></pre></div>
 </section>
 
 

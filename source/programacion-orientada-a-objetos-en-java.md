@@ -681,6 +681,67 @@ nocite: |
   }
   ```
 
+### La clase `Number`
+
+- La clase !JAVA(java.lang.Number) en Java es una clase abstracta que
+  representa la clase base (o superclase) de todas las clases que representan
+  valores numéricos convertibles a valores primitivos de tipo !JAVA(byte),
+  !JAVA(double), !JAVA(float), !JAVA(int), !JAVA(long) y !JAVA(short).
+
+- Esta clase es la superclase de todas las clases _wrapper_ que representan
+  valores numéricos: !JAVA(Byte), !JAVA(Double), !JAVA(Float), !JAVA(Integer),
+  !JAVA(Long) y !JAVA(Short).
+
+- También es la superclase de las clases !JAVA(java.math.BigInteger) y
+  !JAVA(java.math.BigDecimal) cuyas instancias representan, respectivamente,
+  números enteros y reales de precisión arbitraria.
+
+---
+
+- La clase abstracta `Number` declara (o define) los siguientes métodos:
+
+  ----------------------------------------------
+  !JAVA(byte byteValue())
+
+  !JAVA(abstract double doubleValue())
+
+  !JAVA(abstract float floatValue())
+
+  !JAVA(abstract int intValue())
+
+  !JAVA(abstract long longValue())
+
+  !JAVA(short shortValue())
+  ----------------------------------------------
+
+- Los métodos !JAVA(byteValue) y !JAVA(shortValue) son concretos porque
+  devuelven el valor de !JAVA(intValue()) convertido, respectivamente, a
+  !JAVA(byte) o a !JAVA(short) a través de un _casting_ !JAVA((byte)) o
+  !JAVA((short)).
+
+- Los métodos abstractos se implementan luego en sus subclases.
+
+---
+
+- Ejemplo de uso:
+
+  ```java
+  jshell> Number n = new Integer(4);
+  n ==> 4
+
+  jshell> n.intValue()
+  $2 ==> 4
+
+  jshell> n.longValue()
+  $3 ==> 4
+
+  jshell> Number bi = new BigInteger("2318972398472987492874982234742");
+  bi ==> 2318972398472987492874982234742
+
+  jshell> bi.intValue()
+  $5 ==> 1756076662          // No cabe en un int, así que se trunca
+  ```
+
 # *Arrays*
 
 ## Definición
@@ -901,7 +962,7 @@ nocite: |
 
   ```java
   jshell> figuras[2] = new Triangulo(20, 30);  // alto y ancho
-  $8 ==> Triangulo@1b701da1
+  $2 ==> Triangulo@1b701da1
 
   jshell> figuras
   figuras ==> Figura[5] { null, null, Triangulo@1b701da1, null, null }
@@ -952,16 +1013,226 @@ nocite: |
 
 ## Copia y redimensionado de arrays
 
-- Para hacer una copia de un _array_
-### `Arrays.copyOf()`
+- Para hacer una copia de un _array_, se pueden usar varios métodos:
 
-### `System.arraycopy()`
+  - !JAVA(Object.clone).
 
-### `.clone()`
+  - !JAVA(System.arraycopy).
+
+  - !JAVA(Arrays.copyOf).
+
+  - !JAVA(Arrays.copyOfRange).
+
+- Todos los métodos hacen **copias superficiales** (_shallow copys_) del
+  _array_.
+
+- Para hacer una **copia profunda** (_deep copy_) es necesario escribir un
+  trozo de código que lo haga.
+
+### `Object.clone`
+
+- La clase !JAVA(Object) proporciona el método !JAVA(clone).
+
+- Como los _arrays_ en Java también son objetos de la clase !JAVA(Object), se
+  puede usar este método para copiar un _array_.
+
+- Este método copia todos los elementos del _array_, así que no sirve si lo que
+  se quiere es hacer una copia parcial del _array_, es decir, si se quieren
+  copiar sólo algunos elementos (un _subarray_).
+
+- Por ejemplo:
+
+  ```java
+  jshell> String[] s = new String[] { "hola", "pepe", "juan" };
+  s ==> String[3] { "hola", "pepe", "juan" }
+
+  jshell> String[] w = s.clone();
+  w ==> String[3] { "hola", "pepe", "juan" }
+
+  jshell> s == w
+  $3 ==> false
+  ```
+
+### `System.arraycopy`
+
+- El método !JAVA(arraycopy) de la clase !JAVA(java.lang.System) es la mejor
+  forma de hacer una **copia parcial** del _array_.
+
+- Ofrece una forma sencilla de especificar el número total de elementos a
+  copiar así como los índices de origen y destino.
+
+- Su signatura es:
+
+  ```java
+  static void arraycopy(Object src, int srcPos, Object dest, int destPos,
+                        int length)
+  ```
+
+- Por ejemplo, el siguiente código:
+
+  ```java
+  System.arraycopy(origen, 3, destino, 2, 5);
+  ```
+
+  copiará 5 elementos del _array_ `origen` en el _array_ `destino`, empezando
+  por el índice 3 de `origen` y desde el índice 2 de `destino`.
+
+### `Arrays.copyOf`
+
+- Se puede usar el método !JAVA(copyOf) de la clase !JAVA(java.util.Arrays)
+  cuando se desean copiar los primeros elementos del _array_.
+
+- También se puede usar cuando se desea extender el _array_ creando un nuevo
+  _array_ con los mismos elementos del _array_ original pero con más elementos
+  al final, los cuales se rellenarán con los valores iniciales por defecto del
+  tipo de los elementos del _array_.
+
+- El método !JAVA(copyOf) está sobrecargado para poder copiar _arrays_ de
+  cualquier tipo primitivo.
+
+- Además, es un método genérico (ya veremos en su momento lo que eso
+  significa), lo que le permite copiar _arrays_ de cualquier tipo referencia.
+
+---
+
+- La signatura de los métodos !JAVA(copyOf) sigue el siguiente esquema:
+
+  ```java
+  static T[] copyOf(T[] original, int newLength)
+  ```
+
+  donde `T` es el tipo de los elementos del _array_ `original`.
+
+- El método devuelve un nuevo _array_ a partir del original, con tantos
+  elementos como se haya indicado en `newLength`.
+
+  - Cuando !JAVA(newLength) < !JAVA(original.length), el _array_ nuevo tendrá
+    sólo los primeros `newLength` elementos del original.
+
+  - Cuando !JAVA(newLength) > !JAVA(original.length), el _array_ nuevo tendrá
+    todos los elementos del original, y se rellenará por el final con tantos
+    valores como sea necesario para que el nuevo _array_ tenga `newLength`
+    elementos.
+
+    Esos valores serán los valores iniciales por defecto del tipo `T`.
+
+---
+
+- Por ejemplo, si tenemos:
+
+  ```java
+  jshell> String s = new String[] { "hola", "pepe", "juan", "maría", "antonio" }
+  s ==> String[5] { "hola", "pepe", "juan", "maría", "antonio" }
+  ```
+
+- Creamos un nuevo _array_ con menos elementos:
+
+  ```java
+  jshell> Arrays.copyOf(s, 2)
+  $2 ==> String[2] { "hola", "pepe" }
+  ```
+
+- Creamos otro _array_ con más elementos:
+
+  ```java
+  jshell> Arrays.copyOf(s, 7)
+  $3 ==> String[7] { "hola", "pepe", "juan", "maría", "antonio", null, null }
+  ```
+
+  Los nuevos elementos toman el valor !JAVA(null), que es el valor por defecto
+  para los tipos referencia.
 
 ## Comparación de *arrays*
 
-### `Arrays.equals()`
+- Para comprobar si dos _arrays_ `a1` y `a2` son iguales, podríamos usar:
+
+  - `a1 == a2`, pero no resulta muy adecuado porque ya sabemos que lo que
+    comprueba es si son **idénticos**.
+
+  - !JAVA(a1.equals(a2)), pero tampoco resulta adecuado porque la
+    implementación del método !JAVA(equals) en los _arrays_ es la que se hereda
+    de la clase !JAVA(Object), la cual es idéntica a `a1 == a2`.
+
+```java
+jshell> String[] s = new String[] { "hola", "pepe", "juan" };
+s ==> String[3] { "hola", "pepe", "juan" }
+
+jshell> String[] w = s.clone();
+w ==> String[3] { "hola", "pepe", "juan" }
+
+jshell> s == w
+$3 ==> false
+
+jshell> s.equals(w)
+$4 ==> false
+```
+
+### `Arrays.equals`
+
+- La mejor opción para comparar dos _arrays_ es usar el método !JAVA(equals) de
+  la clase !JAVA(java.util.Arrays).
+
+- El método !JAVA(Arrays.equals) está sobrecargado para poder comparar _arrays_
+  de cualquier tipo primitivo.
+
+- Además, es un método genérico (ya veremos en su momento lo que eso
+  significa), lo que le permite comparar _arrays_ de cualquier tipo referencia.
+
+- Las signaturas de los métodos !JAVA(equals) siguen el siguiente esquema:
+
+  ```java
+  static boolean equals(T[] a, T[] a2)
+  static boolean equals(T[] a, int aFromIndex, int aToIndex, T[] b,
+                        int bFromIndex, int bToIndex)
+  ```
+
+  donde `T` es el tipo de los elementos del _array_ `original`.
+
+---
+
+- Ejemplo de uso:
+
+  ```java
+  jshell> int[] a = new int[] { 4, 2, 6 };
+  a ==> int[3] { 4, 2, 6 }
+
+  jshell> int[] b = new int[] { 4, 2, 6 };
+  b ==> int[3] { 4, 2, 6 }
+
+  jshell> a.equals(b)
+  $3 ==> false
+
+  jshell> Arrays.equals(a, b)
+  $4 ==> true
+  ```
+
+---
+
+```java
+jshell> String[] s = new String[] { "hola", "pepe", "juan" };
+s ==> String[3] { "hola", "pepe", "juan" }
+
+jshell> Arrays.equals(s, a)
+|  Error:
+|  no suitable method found for equals(java.lang.String[],int[])
+|      method java.util.Arrays.equals(long[],long[]) is not applicable
+|        (argument mismatch; java.lang.String[]
+          cannot be converted to long[])
+|      method java.util.Arrays.equals(int[],int[]) is not applicable
+|        (argument mismatch; java.lang.String[]
+          cannot be converted to int[])
+       [...]
+|      method java.util.Arrays.<T>equals(T[],T[],
+              java.util.Comparator<? super T>) is not applicable
+|        (cannot infer type-variable(s) T
+|          (actual and formal argument lists differ in length))
+|      method java.util.Arrays.<T>equals(T[],int,int,T[],int,int,
+              java.util.Comparator<? super T>) is not applicable
+|        (cannot infer type-variable(s) T
+|          (actual and formal argument lists differ in length))
+|  Arrays.equals(s, a)
+|  ^-----------^
+```
 
 ## Arrays multidimensionales
 
