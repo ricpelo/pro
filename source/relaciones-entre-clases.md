@@ -1402,8 +1402,29 @@ Acuatico <|-- Anfibio
 - Una de las principales ventajas del polimorfismo es que nosotros no nos
   tenemos que preocupar del detalle interno de qué método concreto se
   ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá
-  ejecutando el método que corresponda dependiendo de a qué clase pertenece ese
-  objeto.
+  ejecutando el método que corresponda dependiendo de la clase a la que
+  pertenece ese objeto.
+
+---
+
+- Lo interesante del polimorfismo es que «algo» se puede comportar de distintas
+  formas dependiendo del contexto.
+
+- Es decir: el polimorfismo, más que referirse a que algo puede tener «varias
+  formas», se refiere a que algo puede tener «varios comportamientos».
+
+- Cada comportamiento está codificado en una operación, normalmente un método.
+
+- Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u
+  otra (ejecutará un método u otro) según el objeto que sea, es decir, según la
+  clase que se haya instanciado para crear el objeto.
+
+- Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque
+  sabe que en todo momento se seleccionará el método más adecuado (en este
+  caso, dependiendo del objeto que reciba el mensaje).
+
+- En el caso del `t1.get_salario()`, sabemos que se ejecutará el método
+  `get_salario` más apropiado según sea el objeto `t1`.
 
 ## _Duck typing_
 
