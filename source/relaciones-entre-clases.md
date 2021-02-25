@@ -1350,7 +1350,7 @@ Acuatico <|-- Anfibio
 - La gran ventaja es que la función `diferencia_salarios` es capaz de calcular
   la diferencia de salarios de cualquier tipo de trabajador, ya sea un
   trabajador genérico o un docente, o un investigador... o incluso otro tipo
-  que aún no existe siquiera.
+  que aún no existe siquiera pero que pudiera existir en el futuro.
 
 - Eso es así porque sabemos que todos los trabajadores (sean del tipo que sean)
   responden al mensaje `get_salario`.
@@ -1381,50 +1381,6 @@ Acuatico <|-- Anfibio
     - Etcétera.
 
 - Por eso se dice que `t1` y `t2` son objetos polimórficos.
-
----
-
-- Cuando se manda un mensaje a un objeto, el método que realmente se invoca
-  dependerá del objeto que haya recibido el mensaje o, más concretamente, de la
-  clase que se haya instanciado para crear el objeto.
-
-- Por ejemplo, cuando hacemos !PYTHON(t1.get_salario()), se le está pidiendo a
-  un objeto (el referenciado por `t1`) que nos devuelva su salario.
-
-- Pero el cómo lo haga (es decir, el método concreto que ejecutará el objeto
-  cuando reciba el mensaje) dependerá de qué tipo de objeto sea, es decir, de
-  la clase a la que pertenezca el objeto.
-
-- Puede que un trabajador devuelva simplemente el valor de un atributo privado,
-  y puede que un docente tenga que hacer un cálculo más complicado dependiendo
-  de la especialidad a la que pertenece.
-
-- Una de las principales ventajas del polimorfismo es que nosotros no nos
-  tenemos que preocupar del detalle interno de qué método concreto se
-  ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá
-  ejecutando el método que corresponda dependiendo de la clase a la que
-  pertenece ese objeto.
-
----
-
-- Lo interesante del polimorfismo es que «algo» se puede comportar de distintas
-  formas dependiendo del contexto.
-
-- Es decir: el polimorfismo, más que referirse a que algo puede tener «varias
-  formas», se refiere a que algo puede tener «varios comportamientos».
-
-- Cada comportamiento está codificado en una operación, normalmente un método.
-
-- Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u
-  otra (ejecutará un método u otro) según el objeto que sea, es decir, según la
-  clase que se haya instanciado para crear el objeto.
-
-- Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque
-  sabe que en todo momento se seleccionará el método más adecuado (en este
-  caso, dependiendo del objeto que reciba el mensaje).
-
-- En el caso del `t1.get_salario()`, sabemos que se ejecutará el método
-  `get_salario` más apropiado según sea el objeto `t1`.
 
 ## _Duck typing_
 
@@ -1561,8 +1517,8 @@ class Rectangulo:
 - Como el nuevo método tiene el mismo nombre que el método heredado, **le hará
   sombra** a éste cuando se intente invocar desde una instancia de la subclase.
 
-- Se puede decir que el mismo método tiene **varias implementaciones
-  distintas** en clases diferentes.
+- Otra forma de expresarlo es decir que el mismo método tiene **varias
+  implementaciones distintas** en clases diferentes.
 
 ---
 
@@ -1598,7 +1554,7 @@ class Rectangulo:
 - Esos trabajadores responderán de una forma distinta cuando se invoque sobre
   ellos al método `despedir`.
 
-- Para ello, redefinimos el método `despedir` en la clase `Directivo`:
+- Para ello, **redefinimos el método** `despedir` en la clase `Directivo`:
 
   ```python
   class Directivo(Trabajador):
@@ -1635,6 +1591,10 @@ class Rectangulo:
 - Así, se encuentra primero el método `despedir` de la clase `Directivo` antes
   del método del mismo nombre que se hereda de la clase `Trabajador`. Por
   tanto, se usa el primero que encuentra y no sigue buscando.
+
+- Se dice que la implementación del método `despedir` que hay en la clase
+  `Directivo` **sobreescribe** o **redefine** la implementación del método con
+  el mismo nombre que ha heredado de la clase `Trabajador`.
 
 ---
 
@@ -1680,6 +1640,52 @@ class Rectangulo:
   >>> jefe.despedir()
   Despedido tú
   ```
+
+### Polimorfismo y métodos redefinidos
+
+- Cuando se manda un mensaje a un objeto, el método que realmente se invoca
+  dependerá del objeto que haya recibido el mensaje o, más concretamente, de la
+  clase que se haya instanciado para crear el objeto.
+
+- Por ejemplo, cuando llamamos al método `despedir` sobre un objeto trabajador,
+  se le está diciendo a ese objeto que lo estamos despidiendo.
+
+- Pero el comportamiento que tendrá el objeto ante la recepción de ese mensaje
+  (o sea, el método concreto que ejecutará el objeto cuando reciba el mensaje)
+  dependerá de qué tipo de objeto sea, es decir, de la clase a la que
+  pertenezca el objeto.
+
+  Un trabajador básico simplemente dirá «Adiós», mientras que un directivo dirá
+  que nanay y un jefe te despedirá a ti.
+
+- Una de las principales ventajas del polimorfismo es que nosotros no nos
+  tenemos que preocupar del detalle interno de qué método concreto se
+  ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá
+  ejecutando el método que corresponda dependiendo de la clase a la que
+  pertenece ese objeto.
+
+---
+
+- Lo interesante del polimorfismo es que «algo» se puede comportar de distintas
+  formas dependiendo del contexto.
+
+- Es decir: el polimorfismo, más que referirse a que algo puede tener «varias
+  formas», se refiere a que **algo puede tener «varios comportamientos»**. Esa
+  es la esencia del polimorfismo.
+
+- A su vez, cada comportamiento está codificado en una operación, normalmente
+  un método.
+
+- Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u
+  otra (ejecutará un método u otro) según el objeto que sea, es decir, según la
+  clase que se haya instanciado para crear el objeto.
+
+- Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque
+  sabe que en todo momento se seleccionará automáticamente el método más
+  adecuado (en este caso, dependiendo del objeto que reciba el mensaje).
+
+- Así, en la expresión !PYTHON(t.despedir()), sabemos que se ejecutará el
+  método `despedir` más apropiado según el tipo de trabajador que sea `t`.
 
 ## `super`
 

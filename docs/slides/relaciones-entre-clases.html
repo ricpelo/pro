@@ -1210,7 +1210,7 @@
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3000</span></span></code></pre></div></li>
 <li><p>Funciona porque <code>diferencia_salarios</code> llama al método <code>get_salario</code> de los objetos que recibe, los cuales ahora son instancias de <code>Docente</code>, pero <code>Docente</code> hereda los métodos de <code>Trabajador</code> incluyendo <code>get_salario</code>.</p></li>
 <li><p>Comprobamos que se cumple perfectamente el principio de sustitución.</p></li>
-<li><p>La gran ventaja es que la función <code>diferencia_salarios</code> es capaz de calcular la diferencia de salarios de cualquier tipo de trabajador, ya sea un trabajador genérico o un docente, o un investigador… o incluso otro tipo que aún no existe siquiera.</p></li>
+<li><p>La gran ventaja es que la función <code>diferencia_salarios</code> es capaz de calcular la diferencia de salarios de cualquier tipo de trabajador, ya sea un trabajador genérico o un docente, o un investigador… o incluso otro tipo que aún no existe siquiera pero que pudiera existir en el futuro.</p></li>
 <li><p>Eso es así porque sabemos que todos los trabajadores (sean del tipo que sean) responden al mensaje <code>get_salario</code>.</p></li>
 </ul>
 </section>
@@ -1232,27 +1232,6 @@
 </ul></li>
 </ul></li>
 <li><p>Por eso se dice que <code>t1</code> y <code>t2</code> son objetos polimórficos.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.2.0.0.5">
-
-<ul>
-<li><p>Cuando se manda un mensaje a un objeto, el método que realmente se invoca dependerá del objeto que haya recibido el mensaje o, más concretamente, de la clase que se haya instanciado para crear el objeto.</p></li>
-<li><p>Por ejemplo, cuando hacemos <code class="sourceCode python">t1.get_salario()</code>, se le está pidiendo a un objeto (el referenciado por <code>t1</code>) que nos devuelva su salario.</p></li>
-<li><p>Pero el cómo lo haga (es decir, el método concreto que ejecutará el objeto cuando reciba el mensaje) dependerá de qué tipo de objeto sea, es decir, de la clase a la que pertenezca el objeto.</p></li>
-<li><p>Puede que un trabajador devuelva simplemente el valor de un atributo privado, y puede que un docente tenga que hacer un cálculo más complicado dependiendo de la especialidad a la que pertenece.</p></li>
-<li><p>Una de las principales ventajas del polimorfismo es que nosotros no nos tenemos que preocupar del detalle interno de qué método concreto se ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá ejecutando el método que corresponda dependiendo de la clase a la que pertenece ese objeto.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.2.0.0.6">
-
-<ul>
-<li><p>Lo interesante del polimorfismo es que «algo» se puede comportar de distintas formas dependiendo del contexto.</p></li>
-<li><p>Es decir: el polimorfismo, más que referirse a que algo puede tener «varias formas», se refiere a que algo puede tener «varios comportamientos».</p></li>
-<li><p>Cada comportamiento está codificado en una operación, normalmente un método.</p></li>
-<li><p>Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u otra (ejecutará un método u otro) según el objeto que sea, es decir, según la clase que se haya instanciado para crear el objeto.</p></li>
-<li><p>Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque sabe que en todo momento se seleccionará el método más adecuado (en este caso, dependiendo del objeto que reciba el mensaje).</p></li>
-<li><p>En el caso del <code>t1.get_salario()</code>, sabemos que se ejecutará el método <code>get_salario</code> más apropiado según sea el objeto <code>t1</code>.</p></li>
 </ul>
 </section>
 
@@ -1339,7 +1318,7 @@
 <li><p>Una subclase puede definir un método que tenga el mismo nombre que otro heredado desde una de sus superclases.</p></li>
 <li><p>En tal caso, decimos que la subclase está <strong>sobreescribiendo</strong> o <strong>redefiniendo</strong> el método.</p></li>
 <li><p>Como el nuevo método tiene el mismo nombre que el método heredado, <strong>le hará sombra</strong> a éste cuando se intente invocar desde una instancia de la subclase.</p></li>
-<li><p>Se puede decir que el mismo método tiene <strong>varias implementaciones distintas</strong> en clases diferentes.</p></li>
+<li><p>Otra forma de expresarlo es decir que el mismo método tiene <strong>varias implementaciones distintas</strong> en clases diferentes.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.1">
@@ -1366,7 +1345,7 @@
 <ul>
 <li><p>Ahora supongamos que creamos la clase <code>Directivo</code>, cuyas instancias son trabajadores que no se pueden despedir.</p></li>
 <li><p>Esos trabajadores responderán de una forma distinta cuando se invoque sobre ellos al método <code>despedir</code>.</p></li>
-<li><p>Para ello, redefinimos el método <code>despedir</code> en la clase <code>Directivo</code>:</p>
+<li><p>Para ello, <strong>redefinimos el método</strong> <code>despedir</code> en la clase <code>Directivo</code>:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Directivo(Trabajador):</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>       <span class="bu">print</span>(<span class="st">&quot;De aquí no me voy&quot;</span>)</span>
@@ -1387,6 +1366,7 @@
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Directivo.mro()</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
 <li><p>Así, se encuentra primero el método <code>despedir</code> de la clase <code>Directivo</code> antes del método del mismo nombre que se hereda de la clase <code>Trabajador</code>. Por tanto, se usa el primero que encuentra y no sigue buscando.</p></li>
+<li><p>Se dice que la implementación del método <code>despedir</code> que hay en la clase <code>Directivo</code> <strong>sobreescribe</strong> o <strong>redefine</strong> la implementación del método con el mismo nombre que ha heredado de la clase <code>Trabajador</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.4">
@@ -1418,6 +1398,28 @@
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>Despedido tú</span></code></pre></div></li>
 </ul>
 </section>
+<section id="polimorfismo-y-métodos-redefinidos" class="title-slide slide level3" data-number="3.4.1">
+<h3 data-number="3.4.1"><span class="header-section-number">3.4.1</span> Polimorfismo y métodos redefinidos</h3>
+<ul>
+<li><p>Cuando se manda un mensaje a un objeto, el método que realmente se invoca dependerá del objeto que haya recibido el mensaje o, más concretamente, de la clase que se haya instanciado para crear el objeto.</p></li>
+<li><p>Por ejemplo, cuando llamamos al método <code>despedir</code> sobre un objeto trabajador, se le está diciendo a ese objeto que lo estamos despidiendo.</p></li>
+<li><p>Pero el comportamiento que tendrá el objeto ante la recepción de ese mensaje (o sea, el método concreto que ejecutará el objeto cuando reciba el mensaje) dependerá de qué tipo de objeto sea, es decir, de la clase a la que pertenezca el objeto.</p>
+<p>Un trabajador básico simplemente dirá «Adiós», mientras que un directivo dirá que nanay y un jefe te despedirá a ti.</p></li>
+<li><p>Una de las principales ventajas del polimorfismo es que nosotros no nos tenemos que preocupar del detalle interno de qué método concreto se ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá ejecutando el método que corresponda dependiendo de la clase a la que pertenece ese objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.1.0.1">
+
+<ul>
+<li><p>Lo interesante del polimorfismo es que «algo» se puede comportar de distintas formas dependiendo del contexto.</p></li>
+<li><p>Es decir: el polimorfismo, más que referirse a que algo puede tener «varias formas», se refiere a que <strong>algo puede tener «varios comportamientos»</strong>. Esa es la esencia del polimorfismo.</p></li>
+<li><p>A su vez, cada comportamiento está codificado en una operación, normalmente un método.</p></li>
+<li><p>Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u otra (ejecutará un método u otro) según el objeto que sea, es decir, según la clase que se haya instanciado para crear el objeto.</p></li>
+<li><p>Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque sabe que en todo momento se seleccionará automáticamente el método más adecuado (en este caso, dependiendo del objeto que reciba el mensaje).</p></li>
+<li><p>Así, en la expresión <code class="sourceCode python">t.despedir()</code>, sabemos que se ejecutará el método <code>despedir</code> más apropiado según el tipo de trabajador que sea <code>t</code>.</p></li>
+</ul>
+</section>
+
 
 <section id="super" class="title-slide slide level2" data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span> <code>super</code></h2>
