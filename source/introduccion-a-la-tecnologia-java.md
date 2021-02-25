@@ -19,8 +19,8 @@ nocite: |
 
 - La versión 1.0 se publicó en enero de 1996.
 
-- Desde 2002, la evolución del lenguaje ha sido regulada por el JCP (Java
-  Community Process).
+- Desde 2002, la evolución del lenguaje ha sido regulada por el JCP (_Java
+  Community Process_).
 
 :::
 
@@ -102,12 +102,12 @@ Java SE 15   15-sep-2020
 - Una **máquina abstracta** es una máquina diseñada independientemente de una
   determinada tecnología de fabricación.
 
-- Su finalidad no es la de ser construida, sino servir como **modelo de
+  Su finalidad no es la de ser construida, sino servir como **modelo de
   computación teórica**.
 
 - Una **máquina virtual** es una máquina emulada mediante hardware o software.
 
-- Las máquinas virtuales pueden ser emulaciones de máquinas reales o
+  Las máquinas virtuales pueden ser emulaciones de máquinas reales o
   abstractas.
 
 ## Código objeto (*bytecode*!ifdef(HTML)(&nbsp;)())
@@ -126,7 +126,7 @@ Java SE 15   15-sep-2020
 !DOT(compilacion-java.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = <Código fuente<br/>(lenguaje Java)<br/><br/><font face="monospace" point-size="11">archivo.java</font>>, shape = note, fillcolor = aliceblue];
-O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">archivo.class</font>>, shape = note, fillcolor = aliceblue];
+O [label = <Código objeto<br/>(<i>bytecode</i>)<br/><br/><font face="monospace" point-size="11">clase1.class<br/>clase2.class<br/>...</font>>, shape = note, fillcolor = aliceblue];
 F -> "Compilador Java" -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -135,16 +135,18 @@ F -> "Compilador Java" -> O
 - La **plataforma Java** es el nombre de una plataforma de desarrollo y
   ejecución de programas que se compone de un amplio abanico de tecnologías:
 
-  - El **lenguaje de programación** Java.
+  - La **especificación** de:
 
-  - La **biblioteca estándar** de Java.
+    - El **lenguaje de programación** Java.
+    - La **biblioteca estándar** de Java.
+    - La **máquina virtual** de Java (**_Java Virtual Machine_ (JVM)**).
 
-  - La **máquina virtual** de Java (**_Java Virtual Machine_ (JVM)**).
+  - La **implementación**, que se reparte en:
 
-  - La **implementación** de la JVM y de la biblioteca estándar (**_Java
-    Runtime Environment_ (JRE)**).
-
-  - Las **herramientas de desarrollo** (**_Java Development Kit_ (JDK)**).
+    - El **_Java Runtime Environment_ (JRE)**: implementa la JVM y la
+      biblioteca estándar.
+    - El **_Java Development Kit_ (JDK)**: implementa las **herramientas de
+      desarrollo** y el lenguaje Java.
 
 - Para poder desarrollar y ejecutar programas Java, necesitamos una
   implementación de la plataforma Java que funcione en nuestro sistema
@@ -152,7 +154,7 @@ F -> "Compilador Java" -> O
 
 ---
 
-- Existen cuatro _ediciones distintas_ de la plataforma Java (cuatro
+- Existen **cuatro _ediciones_ distintas** de la plataforma Java (cuatro
   «plataformas Java»), centradas en diferentes entornos de aplicaciones y
   segmentando mucha de sus API.
 
@@ -215,12 +217,12 @@ F -> "Compilador Java" -> O
 - Una **API (_Application Programming Interface_)** define un conjunto de
   funcionalidades recogidas en funciones y/o métodos que ofrece una determinada
   biblioteca para ser utilizado como una capa de abstracción por otro software
-  o por el programador de un lenguaje de programación.
+  o por el programador de un lenguaje.
 
 - Los sistemas operativos ofrecen servicios para simplificar la tarea de
   programación.
 
-- Esos servicios se ofrecen en forma de un conjunto de bibliotecas dinámicas
+  Esos servicios se ofrecen en forma de un conjunto de _bibliotecas dinámicas_
   que las aplicaciones pueden llamar cuando lo necesiten.
 
 - Como la plataforma Java está pensada para ser independiente del sistema
@@ -242,7 +244,7 @@ F -> "Compilador Java" -> O
 - La documentación del API de la versión 14 de la plataforma _Java Standard
   Edition_ (Java SE) se encuentra bajo la siguiente dirección:
 
-[https://docs.oracle.com/en/java/javase/14/docs/api/index.html](https://docs.oracle.com/en/java/javase/14/docs/api/index.html)
+[https://docs.oracle.com/en/java/javase/14/docs/api/index.html](https://docs.oracle.com/en/java/javase/14/docs/api/index.html){target="\_blank"}
 
 - Allí podemos comprobar que el API de Java SE está dividido en _módulos_, que
   a su vez se dividen en _paquetes_, que a su vez se dividen en _clases_ e
@@ -357,11 +359,11 @@ F -> javac -> O
 
   Más adelante veremos que la clase principal no puede ser cualquier clase.
   Tiene que ser una que tenga definido un método, llamado **método
-  _principal_**, que debe tener una determinada signatura.
+  _principal_**, que debe tener una determinada signatura que ya veremos.
 
-- La compilación de un archivo fuente puede provocar la compilación _en
-  cascada_ de otros archivos fuente si el primero hace uso de definiciones
-  almacenadas en los otros.
+- La compilación de un archivo fuente puede provocar la **compilación _en
+  cascada_** de otros archivos fuente si el primero hace uso de elementos
+  definidos en los otros.
 
 ---
 
@@ -498,7 +500,8 @@ F -> javac -> O -> JIT
 
 - En Java, las instrucciones que forman un programa están prácticamente todas
   contenidas en clases. Por tanto, la ejecución de un programa Java empezará
-  siempre desde una clase concreta, llamada **clase _principal_**. 
+  siempre desde una clase concreta, llamada **clase _principal_**, el cual debe
+  contener el **método _principal_**.
 
 - Para ejecutar un programa Java, debemos pasarle al intérprete `java` el
   nombre de la clase principal.
@@ -517,7 +520,9 @@ F -> javac -> O -> JIT
   ```
 
   El intérprete `java` arrancaría la JVM, cargaría el archivo `.class` en
-  memoria y comenzaría su ejecución.
+  memoria y comenzaría su ejecución desde el método principal.
+
+  Si no encuentra al método principal en esa clase, dará un error.
 
 - Es importante no confundir el nombre de la clase con el nombre del archivo
   que contiene el código compilado de la clase. En este caso, el nombre de la
@@ -532,7 +537,7 @@ F -> javac -> O -> JIT
 ---
 
 - El programa empezaría a ejecutarse a partir de dicha clase, suponiendo que es
-  válida como clase principal.
+  válida como clase principal (es decir, que contiene al método principal).
 
 - Ya sabemos que «ejecutar un programa Java» consiste en hacer que el
   intérprete `java` vaya ejecutando las instrucciones que forman el programa,
