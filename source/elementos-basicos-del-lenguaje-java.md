@@ -690,6 +690,24 @@ $5 ==> NaN
 
   - `byte` $<_1$ `short`
 
+#### Subtipado entre tipos referencia
+
+- El subtipado entre tipos referencia resulta bastante más complicado que el de
+  los tipos primitivos, pero básicamente se fundamenta en el _principio de
+  sustitución de Liskov_.
+
+- Hay muchas reglas de subtipado entre tipos referencia, pero la más importante
+  y básica es la siguiente:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Dado un tipo referencia $C$, el **supertipo directo** de $C$ es la superclase
+  directa de $C$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Esta regla se ampliará en su momento cuando estudiemos las interfaces y la
+  programación genérica.
+
 ### Conversiones entre datos primitivos
 
 - Es posible convertir valores de un tipo a otro, siempre y cuando se cumplan
@@ -919,8 +937,8 @@ $5 ==> NaN
 
    - Tipos **_array_**.
 
-- Un tipo clase o interfaz consiste en un identificador (o una secuencia de
-  identificadores separados por `.`)
+- Un tipo clase o interfaz consiste en un identificador, o una secuencia de
+  identificadores separados por puntos (`.`).
 
 - Cada identificador de un tipo clase o interfaz puede ser el nombre de un
   paquete o el nombre de un tipo.
@@ -928,6 +946,9 @@ $5 ==> NaN
 - Opcionalmente puede llevar _argumentos de tipo_. Si un argumento de tipo
   aparece en alguna parte de un tipo clase o interfaz, se denomina _tipo
   parametrizado_.
+
+- Los tipos parametrizados se verán con detalle cuando estudiemos la
+  **programación genérica**.
 
 ---
 
@@ -966,11 +987,8 @@ $5 ==> NaN
   `length` sobre el objeto cadena:
 
   ```java
-  jshell> String s = "hola";
-  s ==> "hola"
-
-  jshell> s.length()
-  $2 ==> 4
+  jshell> "hola".length()
+  $1 ==> 4
   ```
 
 - Lo mismo sirve para acceder a los miembros estáticos de una clase:
@@ -986,13 +1004,17 @@ $5 ==> NaN
 
 - Un **método sobrecargado** es aquel que tiene varias implementaciones.
 
-- Todas esas implementaciones tienen el mismo nombre pero se diferencian en la cantidad y tipo de sus parámetros.
+- Todas esas implementaciones tienen el mismo nombre pero se diferencian en la
+  cantidad y tipo de sus parámetros.
 
-- Al llamar a un método sobrecargado, la implementación seleccionada dependerá de los argumentos indicados en la llamada.
+- Al llamar a un método sobrecargado, la implementación seleccionada dependerá
+  de los argumentos indicados en la llamada.
 
 ---
 
-- Por ejemplo, el método estático !JAVA(valueOf) de la clase !JAVA(String) está sobrecargado porque dispone de varias implementaciones dependiendo de los argumentos que recibe:
+- Por ejemplo, el método estático !JAVA(valueOf) de la clase !JAVA(String) está
+  sobrecargado porque dispone de varias implementaciones dependiendo de los
+  argumentos que recibe:
 
   -------------------------------------------------------------------
   !JAVA(static String valueOf(boolean b))
@@ -1071,12 +1093,28 @@ $5 ==> NaN
     - Una referencia a un _array_ de tipo «_array_ de $S$», siendo $S$ un
       subtipo de $T$.
 
----
+### Tipo estático y tipo dinámico
 
-- En Java, !JAVA(Object) es supertipo de cualquier tipo referencia.
+- Eso significa que el tipo referencia que se usó al declarar una variable
+  puede no coincidir exactamente con el tipo del objeto al que apunta.
 
-- Por tanto, una variable de tipo !JAVA(Object) puede contener una referencia a
-  cualquier valor referencia de cualquier tipo referencia.
+- Por eso, en Java distinguimos dos tipos:
+
+  - **Tipo estático:** el tipo que se usó para declarar la variable; nunca
+    cambia durante la ejecución del programa.
+
+  - **Tipo dinámico:** el tipo del valor al que actualmente hace referencia la
+    variable; puede cambiar durante la ejecución del programa según la
+    referencia que contenga la variable en un momento dado.
+
+  En los tipos primitivos no ocurre eso, ya que una variable de un tipo
+  primitivo siempre contendrá un valor de ese tipo exactamente.
+
+- Por ejemplo, en Java, !JAVA(Object) es supertipo de cualquier tipo
+  referencia.
+
+- Por tanto, una variable declarada de tipo !JAVA(Object) puede contener una
+  referencia a cualquier valor referencia de cualquier tipo referencia.
 
 ## Declaración de variables
 
@@ -1091,7 +1129,7 @@ $5 ==> NaN
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(decl_vars) ::= !NT(tipo) !T{identificador}(!T(,) !T{identificador})\* !T(;)
+  !NT(decl_vars) ::= !NT(tipo) !T{identificador} (!T(,) !T{identificador})\* !T(;)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Todas las variables que aparecen en la declaración tendrán el mismo tipo (el
@@ -1328,6 +1366,50 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   x = 5;                   // No da error porque antes no tenía valor
   System.out.println(x);
   ```
+
+### Declaración de variables de tipo referencia
+
+- Las variables que contienen referencias a objetos se declaran de la misma
+  forma.
+
+- Por ejemplo, en Java las cadenas son instancias de la clase !JAVA(String),
+  por lo que podemos declarar una variable de tipo !JAVA(String) que podrá
+  contener una cadena:
+
+  ```java
+  String s;
+  ```
+
+- Si no se inicializa en el momento de la declaración, la variable contendrá
+  una referencia nula (!JAVA(null)).
+
+- En caso contrario, la variable contendrá una referencia al objeto que es su
+  valor inicial:
+
+  ```java
+  String s = "hola";
+  ```
+
+- Aquí, el tipo estático y el tipo dinámico de `s` coinciden y ambos son
+  !JAVA(String).
+
+---
+
+- Recordemos que, por el _principio de sustitución_, una variable puede
+  contener un valor referencia cuyo tipo sea un subtipo del tipo de la
+  variable.
+
+- Por tanto, si declaramos una variable de tipo !JAVA(Object), podremos guardar
+  en ella una referencia a cualquier objeto de cualquier clase:
+
+  ```java
+  Object o = "hola";
+  ```
+
+- En este caso, el tipo estático de `o` es !JAVA(Object) mientras que el tipo
+  dinámico de `o` es !JAVA(String).
+
+- Esto es así porque !JAVA(Object) es supertipo de cualquier tipo referencia.
 
 # Estructuras de control
 
