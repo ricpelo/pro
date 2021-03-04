@@ -102,11 +102,11 @@ nocite: |
 - Sus operaciones son:
 
   -------------------------------- ------------------------------
-  Igualdad:                        !JAVA(==), !JAVA(!=)
-  Complemento lógico (_not_):      !JAVA(!)
-  _And_, _or_ y _xor_ estrictos:   !JAVA(&), !JAVA(|), !JAVA(^)
-  _And_ y _or_ perezosos:          !JAVA(&&), !JAVA(||)
-  Condicional ternario:            !JAVA(? :)
+  Igualdad:                        `==`, `!=`
+  Complemento lógico (_not_):      `!`
+  _And_, _or_ y _xor_ estrictos:   `&`, `|`, `^`
+  _And_ y _or_ perezosos:          `&&`, `||`
+  Condicional ternario:            `? :`
   -------------------------------- ------------------------------
 
 :::: columns
@@ -161,11 +161,11 @@ $6 ==> 2
   --------------   -------- ---------------------------------------------------------
   !JAVA(byte)      8 bits   !JAVA(-128) a !JAVA(127) inclusive
                   
-  !JAVA(short)     16 bits  !JAVA(32768) a !JAVA(32767) inclusive
+  !JAVA(short)     16 bits  !JAVA(-32768) a !JAVA(32767) inclusive
                   
-  !JAVA(int)       32 bits  !JAVA(2147483648) a !JAVA(2147483647) inclusive
+  !JAVA(int)       32 bits  !JAVA(-2147483648) a !JAVA(2147483647) inclusive
                   
-  !JAVA(long)      64 bits  !JAVA(9223372036854775808) a !JAVA(9223372036854775807) inclusive
+  !JAVA(long)      64 bits  !JAVA(-9223372036854775808) a !JAVA(9223372036854775807) inclusive
                   
   !JAVA(char)      16 bits  !JAVA('\u0000') a !JAVA('\uffff') inclusive, es decir, de !JAVA(0) a !JAVA(65535)
   -----------------------------------------------------------------------------------
@@ -256,7 +256,8 @@ $6 ==> 2
 
 - Un literal de tipo !JAVA(char) representa un carácter o secuencia de escape.
 
-- Se escriben encerrados entre comillas simples (también llamadas _apóstrofes_).
+- Se escriben encerrados entre comillas simples, también llamadas _apóstrofes_
+  (`'`).
 
 - Los literales de tipo !JAVA(char) sólo pueden representar _code units_ de
   Unicode y, por tanto, sus valores deben estar comprendidos entre
@@ -276,17 +277,15 @@ $6 ==> 2
 
   !JAVA('\\')
 
-  !JAVA('\'')
-
   :::
 
   ::: column
 
+  !JAVA('\'')
+
   !JAVA('\u03a9')
 
   !JAVA('\uFFFF')
-
-  !JAVA('\177')
 
   !JAVA('™')
 
@@ -307,8 +306,8 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   !JAVA(boolean):
 
   --------------------------- -----------------------------------------------------
-  Comparación numérica:       !JAVA(<), !JAVA(<=), !JAVA(>), !JAVA(>=)            
-  Igualdad numérica:          !JAVA(==), !JAVA(!=)                                
+  Comparación numérica:       `<`, `<=`, `>`, `>=`            
+  Igualdad numérica:          `==`, `!=`                                
   --------------------------- -----------------------------------------------------
 
   ```java
@@ -325,14 +324,14 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   !JAVA(long):
 
   ------------------------------------ -----------------------------------------------------
-  Signo más y menos (unarios):         !JAVA(+), !JAVA(-)
-  Multiplicativos:                     !JAVA(*), !JAVA(/), \ !JAVA(%) <!-- \* -->
-  Suma y resta:                        !JAVA(+), !JAVA(-)
-  Preincremento y postincremento:      !JAVA(++)
-  Predecremento y postdecremento:      !JAVA(--)
-  Desplazamiento con y sin signo:      !JAVA(<<), !JAVA(>>), !JAVA(>>>)
-  Complemento a nivel de bits:         !JAVA(~)
-  _And_, _or_ y _xor_ a nivel de bits: !JAVA(&), !JAVA(|), !JAVA(^)
+  Signo más y menos (unarios):         `+`, `-`
+  Multiplicativos:                     `*`, `/`, \ `%`
+  Suma y resta:                        `+`, `-`
+  Preincremento y postincremento:      `++`
+  Predecremento y postdecremento:      `--`
+  Desplazamiento con y sin signo:      `<<`, `>>`, `>>>`
+  Complemento a nivel de bits:         `~`
+  _And_, _or_ y _xor_ a nivel de bits: `&`, `|`, `^`
   ------------------------------------ -----------------------------------------------------
 
 ---
@@ -350,9 +349,8 @@ En Java, los **caracteres** y las **cadenas** son **tipos distintos**.
   !JAVA(byte)), se convertirá primero a !JAVA(int).
 
 - Ciertas operaciones pueden lanzar excepciones. Por ejemplo, el operador de
-  división entera (!JAVA(`/`)) y el resto de la división entera (!JAVA(%))
-  lanzan una excepción !JAVA(ArithmeticException) si el operando derecho es
-  cero.
+  división entera (`/`) y el resto de la división entera (`%`) lanzan una
+  excepción !JAVA(ArithmeticException) si el operando derecho es cero.
 
 ---
 
@@ -425,16 +423,16 @@ $6 ==> 6
 ---
 
 - El literal positivo finito de tipo !JAVA(float) más grande es
-  `3.4028235e38f`.
+  !JAVA(3.4028235e38f).
 
 - El literal positivo finito de tipo !JAVA(float) más pequeño distinto de cero
-  es `1.40e-45f`.
+  es !JAVA(1.40e-45f).
 
 - El literal positivo finito de tipo !JAVA(double) más grande es
-  `1.7976931348623157e308`.
+  !JAVA(1.7976931348623157e308).
 
 - El literal positivo finito de tipo !JAVA(double) más pequeño distinto de
-  cero es `4.9e-324`.
+  cero es !JAVA(4.9e-324).
 
 ---
 
@@ -562,8 +560,8 @@ $6 ==> 6
   !JAVA(boolean):
 
   --------------------------- -----------------------------------------------------
-  Comparación numérica:       !JAVA(<), !JAVA(<=), !JAVA(>), !JAVA(>=)            
-  Igualdad numérica:          !JAVA(==), !JAVA(!=)                                
+  Comparación numérica:       `<`, `<=`, `>`, `>=`            
+  Igualdad numérica:          `==`, `!=`                                
   --------------------------- -----------------------------------------------------
 
   ```java
@@ -580,11 +578,11 @@ $6 ==> 6
   o !JAVA(double):
 
   ------------------------------------ -----------------------------------------------------
-  Signo más y menos (unarios):         !JAVA(+), !JAVA(-)
-  Multiplicativos:                     !JAVA(*), !JAVA(/), \ !JAVA(%) <!-- \* -->
-  Suma y resta:                        !JAVA(+), !JAVA(-)
-  Preincremento y postincremento:      !JAVA(++)
-  Predecremento y postdecremento:      !JAVA(--)
+  Signo más y menos (unarios):         `+`, `-`
+  Multiplicativos:                     `*`, `/`, \ `%`
+  Suma y resta:                        `+`, `-`
+  Preincremento y postincremento:      `++`
+  Predecremento y postdecremento:      `--`
   ------------------------------------ -----------------------------------------------------
 
 ---
@@ -678,17 +676,17 @@ $5 ==> NaN
 - Las siguientes reglas definen la relación de **subtipo directo** entre los
   tipos primitivos de Java:
 
-  - `float` $<_1$ `double`
+  - !JAVA(float) $<_1$ !JAVA(double)
 
-  - `long` $<_1$ `float`
+  - !JAVA(long) $<_1$ !JAVA(float)
 
-  - `int` $<_1$ `long`
+  - !JAVA(int) $<_1$ !JAVA(long)
 
-  - `char` $<_1$ `int`
+  - !JAVA(char) $<_1$ !JAVA(int)
 
-  - `short` $<_1$ `int`
+  - !JAVA(short) $<_1$ !JAVA(int)
 
-  - `byte` $<_1$ `short`
+  - !JAVA(byte) $<_1$ !JAVA(short)
 
 #### Subtipado entre tipos referencia
 
@@ -757,17 +755,18 @@ $5 ==> NaN
 
 - Existen 19 conversiones de ampliación o _widening_ sobre tipos primitivos:
 
-  - De `byte` a `short`, `int`, `long`, `float` o `double`.
+  - De !JAVA(byte) a !JAVA(short), !JAVA(int), !JAVA(long), !JAVA(float) o
+    !JAVA(double).
 
-  - De `short` a `int`, `long`, `float` o `double`.
+  - De !JAVA(short) a !JAVA(int), !JAVA(long), !JAVA(float) o !JAVA(double).
 
-  - De `char` a `int`, `long`, `float` o `double`.
+  - De !JAVA(char) a !JAVA(int), !JAVA(long), !JAVA(float) o !JAVA(double).
 
-  - De `int` a `long`, `float` o `double`.
+  - De !JAVA(int) a !JAVA(long), !JAVA(float) o !JAVA(double).
 
-  - De `long` a `float` o `double`.
+  - De !JAVA(long) a !JAVA(float) o !JAVA(double).
 
-  - De `float` a `double`.
+  - De !JAVA(float) a !JAVA(double).
 
 ---
 
@@ -778,15 +777,15 @@ $5 ==> NaN
   integral no pierde ninguna información en absoluto; el valor numérico se
   conserva exactamente.
 
-- En determinados casos, una conversión primitiva de ampliación de `float` a
-  `double` puede perder información sobre la magnitud general del valor
+- En determinados casos, una conversión primitiva de ampliación de !JAVA(float)
+  a !JAVA(double) puede perder información sobre la magnitud general del valor
   convertido.
 
-- Una conversión de ampliación de un valor `int` o `long` a `float`, o de un
-  valor `long` a `double`, puede producir pérdida de precisión; es decir, el
-  resultado puede perder algunos de los bits menos significativos del valor. En
-  este caso, el valor de coma flotante resultante será una versión
-  correctamente redondeada del valor entero.
+- Una conversión de ampliación de un valor !JAVA(int) o !JAVA(long) a
+  !JAVA(float), o de un valor !JAVA(long) a !JAVA(double), puede producir
+  pérdida de precisión; es decir, el resultado puede perder algunos de los bits
+  menos significativos del valor. En este caso, el valor de coma flotante
+  resultante será una versión correctamente redondeada del valor entero.
 
 ---
 
@@ -794,8 +793,9 @@ $5 ==> NaN
   simplemente extiende el signo de la representación del complemento a dos del
   valor entero para llenar el formato más amplio.
 
-- Una conversión de ampliación de `char` a un tipo integral rellena con ceros
-  la representación del valor `char` para llenar el formato más amplio.
+- Una conversión de ampliación de !JAVA(char) a un tipo integral rellena con
+  ceros la representación del valor !JAVA(char) para llenar el formato más
+  amplio.
 
 - A pesar de que puede producirse una pérdida de precisión, una conversión
   primitiva de ampliación nunca da como resultado una excepción en tiempo de
@@ -805,17 +805,19 @@ $5 ==> NaN
 
 - Existen 22 conversiones de restricción o _narrowing_ sobre tipos primitivos:
 
-  - De `short` a `byte` o `char`
+  - De !JAVA(short) a !JAVA(byte) o !JAVA(char).
 
-  - De `char` a `byte` o `short`
+  - De !JAVA(char) a !JAVA(byte) o !JAVA(short).
 
-  - De `int` a `byte`, `short` o `char`
+  - De !JAVA(int) a !JAVA(byte), !JAVA(short) o !JAVA(char).
 
-  - De `long` a `byte`, `short`, `char` o `int`
+  - De !JAVA(long) a !JAVA(byte), !JAVA(short), !JAVA(char) o !JAVA(int).
 
-  - De `float` a `byte`, `short`, `char`, `int` o `long`
+  - De !JAVA(float) a !JAVA(byte), !JAVA(short), !JAVA(char), !JAVA(int) o
+    !JAVA(long).
 
-  - De `double` a `byte`, `short`, `char`, `int`, `long` o `float`
+  - De !JAVA(double) a !JAVA(byte), !JAVA(short), !JAVA(char), !JAVA(int),
+    !JAVA(long) o !JAVA(float).
 
 ---
 
@@ -823,12 +825,12 @@ $5 ==> NaN
   magnitud general de un valor numérico y además también puede perder precisión
   y rango.
 
-- Las conversiones primitivas de restricción de `double` a `float` se llevan a
-  cabo mediante las reglas de redondeo del IEEE-754. Esta conversión puede
-  perder precisión y también rango, por lo que puede resultar un `float` cero a
-  partir de un `double` que no es cero, y un `float` infinito a partir de un
-  `double` finito. Los !JAVA(NaN) se convierten en !JAVA(NaN) y los infinitos
-  en infinitos.
+- Las conversiones primitivas de restricción de !JAVA(double) a !JAVA(float) se
+  llevan a cabo mediante las reglas de redondeo del IEEE-754. Esta conversión
+  puede perder precisión y también rango, por lo que puede resultar un
+  !JAVA(float) cero a partir de un !JAVA(double) que no es cero, y un
+  !JAVA(float) infinito a partir de un !JAVA(double) finito. Los !JAVA(NaN) se
+  convierten en !JAVA(NaN) y los infinitos en infinitos.
 
 - Una conversión de restricción de un entero con signo a un integral $T$
   simplemente descarta todos los bits excepto los $n$ menos significativos,
@@ -836,7 +838,7 @@ $5 ==> NaN
   Por tanto, además de poder perder información sobre la magnitud del valor
   numérico, también puede cambiar el signo del valor original.
 
-- Una conversión de restricción de un `char` a un integral $T$ se comporta
+- Una conversión de restricción de un !JAVA(char) a un integral $T$ se comporta
   igual que en el caso anterior.
 
 ---
@@ -844,8 +846,9 @@ $5 ==> NaN
 - Las conversiones de restricción de un número en coma flotante a un integral
   $T$ se realizan en dos pasos:
 
-  1. El número en coma flotante se convierte a `long` (si $T$ es `long`) o a
-     `int` (si $T$ es `byte`, `short`, `char` o `int`). Para ello:
+  1. El número en coma flotante se convierte a !JAVA(long) (si $T$ es
+     !JAVA(long)) o a !JAVA(int) (si $T$ es !JAVA(byte), !JAVA(short),
+     !JAVA(char) o !JAVA(int)). Para ello:
 
      - Si el número flotante es !JAVA(NaN), el resultado del primer paso de la
        conversión es !JAVA(0).
@@ -853,27 +856,29 @@ $5 ==> NaN
      - Si el número flotante no es infinito, el valor se redondea a entero
        truncando a cero la parte fraccionaria.
 
-       - Si $T$ es `long` y ese entero cabe en un `long`, el resultado es
-         `long`.
+       - Si $T$ es !JAVA(long) y ese entero cabe en un !JAVA(long), el
+         resultado es !JAVA(long).
 
-       - Si cabe en un `int`, el resultado es `int`.
+       - Si cabe en un !JAVA(int), el resultado es !JAVA(int).
 
        - Si es demasiado pequeño (o grande), el resultado es el valor
-         más pequeño (o grande) que se pueda representar con `int` o
-         `long`.
+         más pequeño (o grande) que se pueda representar con !JAVA(int) o
+         !JAVA(long).
 
-  2. Si $T$ es `int` o `long`, el resultado final será el del primer paso.
+  2. Si $T$ es !JAVA(int) o !JAVA(long), el resultado final será el del primer
+     paso.
 
-     Si $T$ es `byte`, `char` o `short`, el resultado final será el resultado
-     de convertir al tipo $T$ el valor del primer paso.
+     Si $T$ es !JAVA(byte), !JAVA(char) o !JAVA(short), el resultado final será
+     el resultado de convertir al tipo $T$ el valor del primer paso.
 
 ---
 
-- Al convertir un valor de `byte` a `char`, se produce una doble conversión:
+- Al convertir un valor de !JAVA(byte) a !JAVA(char), se produce una doble
+  conversión:
 
-  1. Primero, una conversión de ampliación de `byte` a `int`.
+  1. Primero, una conversión de ampliación de !JAVA(byte) a !JAVA(int).
 
-  2. Después, una conversión de restricción de `int` a `char`.
+  2. Después, una conversión de restricción de !JAVA(int) a !JAVA(char).
 
 ### Promociones numéricas
 
@@ -895,8 +900,9 @@ $5 ==> NaN
   - En tales casos, se lleva a cabo una promoción numérica que consiste en lo
     siguiente:
 
-    - Si tipo del operando es `byte`, `short`, o `char`, su valor se promociona
-      a `int` mediante una conversión primitiva de ampliación.
+    - Si tipo del operando es !JAVA(byte), !JAVA(short), o !JAVA(char), su
+      valor se promociona a !JAVA(int) mediante una conversión primitiva de
+      ampliación.
 
 ---
 
@@ -919,13 +925,14 @@ $5 ==> NaN
   - En tales casos, se lleva a cabo una promoción numérica que consiste en lo
     siguiente, en función del tipo de los operandos del operador:
 
-    1. Si algún operando es `double`, el otro se convierte a `double`.
+    1. Si algún operando es !JAVA(double), el otro se convierte a
+       !JAVA(double).
 
-    2. Si no, si alguno es `float`, el otro se convierte a `float`.
+    2. Si no, si alguno es !JAVA(float), el otro se convierte a !JAVA(float).
 
-    3. Si no, si alguno es `long`, el otro se convierte a `long`.
+    3. Si no, si alguno es !JAVA(long), el otro se convierte a !JAVA(long).
 
-    4. Si no, ambos operandos se convierten a `int`.
+    4. Si no, ambos operandos se convierten a !JAVA(int).
 
 ## Tipos referencia
 
@@ -956,8 +963,8 @@ $5 ==> NaN
 
 - Las referencias son punteros a esos objetos.
 
-- Existe una referencia especial llamada _referencia nula_ (o `null`) que no
-  apunta a ningún objeto.
+- Existe una referencia especial llamada _referencia nula_ (o !JAVA(null)) que
+  no apunta a ningún objeto.
 
 ### Nulo
 
