@@ -192,3 +192,76 @@ author:
        _tokens_ del verbo y el nombre encontrados, o un _token_ especial
        (llamado _token nulo_) que represente que no se ha encontrado el verbo o
        el nombre.
+
+@. Crear la clase `Persona` con un método `compara_edad` que compare la edad de
+   una persona con la de otra.
+
+    Ejemplos:
+
+    ```python
+    >>> p1 = Person('Samuel', 24)
+    >>> p2 = Person('Jael', 36)
+    >>> p3 = Person('Liliana', 24)
+    >>> p1.compara_edad(p2)
+    'Jael es más viejo que yo.'
+    >>> p2.compara_edad(p1)
+    'Samuel es más joven que yo.'
+    >>> p1.compara_edad(p3)
+    'Liliana tiene la misma edad que yo.'
+    ```
+
+    Fuente:
+
+    [`https://edabit.com/challenge/JFLADuABfkeoz8mqN`](https://edabit.com/challenge/JFLADuABfkeoz8mqN)
+
+@. Crear la clase `Empleado` con atributos `nombre` y `apellidos`. A partir de
+   ellos, crear los atributos `nombre_completo` y `email` de la siguiente
+   forma:
+
+    - El `nombre_completo` será simplemente el nombre y los apellidos unidos
+      con un espacio en blanco.
+
+    - El `email` se forma con el nombre y los apellidos (todo en minúsculas)
+      unidos con un `.` intermedio y seguido de `@company.com`.
+
+    Ejemplos:
+
+    ```python
+    >>> emp1 = Empleado('Juan', 'Pérez')
+    >>> emp2 = Empleado('María',  'García')
+    >>> emp3 = Empleado('Antonio', 'González')
+    >>> emp1.nombre_completo
+    'Juan Pérez'
+    >>> emp2.email
+    'maría.garcía@company.com'
+    >>> emp3.nombre
+    'Antonio'
+    ```
+
+    Fuente:
+
+    [`https://edabit.com/challenge/gB7nt6WzZy8TymCah`](https://edabit.com/challenge/gB7nt6WzZy8TymCah)
+
+@. Las instancias de la clase `Empleado` tienen los atributos `nombre`,
+   `apellidos` y `salario`. Crear, además, el método estático `desde_cadena`
+   que analiza una cadena que contiene esos tres valores separados por un guion
+   y los asigna a sus atributos correspondientes.
+
+    Ejemplos:
+
+    ```python
+    >>> emp1 = Empleados('María', 'García', 60000)
+    >>> emp2 = Empleados.desde_cadena('Juan-Pérez-55000')
+    >>> emp1.nombre
+    'María'
+    >>> emp1.salario
+    60000
+    >>> emp2.nombre
+    'Juan'
+    >>> emp2.salario
+    55000
+    ```
+
+    Fuente:
+
+    [`https://edabit.com/challenge/j2HauiSdDadkjxjsQ`](https://edabit.com/challenge/j2HauiSdDadkjxjsQ)
