@@ -1225,6 +1225,34 @@
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
+<section class="slide level5" data-number="2.4.0.0.4">
+
+<ul>
+<li><p>En los lenguajes interpretados normalmente ocurre que, al entrar en un nuevo ámbito, se crea un nuevo marco en la pila que contendrá las ligaduras y variables definidas en ese ámbito.</p></li>
+<li><p>En cambio, en los lenguajes compilados de tipado estático (como Java), no siempre se cumple eso de que cada ámbito lleva asociado un marco.</p></li>
+<li><p>En Java ocurre lo siguiente:</p>
+<ul>
+<li><p>En tiempo de ejecución, el hecho de entrar en un nuevo ámbito no provoca la creación de un nuevo marco en la pila. Sólo se crean (y se apilan) marcos nuevos al llamar a métodos, un marco por llamada.</p></li>
+<li><p>Los ámbitos se usan en tiempo de compilación para comprobar si una variable es visible en un determinado punto del programa.</p></li>
+<li><p>Las variables locales a un método siempre se almacenan en el marco del método donde se declaran.</p></li>
+</ul></li>
+<li><p>Por eso, el concepto de «ámbito» tiene más que ver con el de «visibilidad» (dónde es visible una variable) que con el de «almacenamiento» (dónde se almacena la variable).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.5">
+
+<ul>
+<li><p>Recordemos que los <em>ámbitos</em> son un concepto <em>estático</em> (existen en el texto del programa aunque no se ejecute) mientras que los <em>marcos</em> son un concepto <em>dinámico</em> (se crean y se destruyen durante la ejecución del programa como consecuencia de entrar y salir de ciertos ámbitos).</p></li>
+<li><p>Por otra parte, <strong>en Java no existen las <em>variables globales</em></strong>.</p></li>
+<li><p>Por tanto, las variables en Java sólo pueden ser:</p>
+<ul>
+<li><p><strong>Locales a un método:</strong> se almacenan en el marco del método (en la pila) durante la llamada al mismo y su ámbito es el propio método.</p></li>
+<li><p><strong>De instancia:</strong> se almacenan dentro de su objeto en el montículo.</p></li>
+<li><p><strong>Estáticas:</strong> se almacenan en una zona especial del montículo llamada <em>PermGen</em> (hasta Java 7) o <em>Metaspace</em> (desde Java 8).</p></li>
+</ul>
+<p>Como veremos en posteriores temas, el ámbito de un variable de instancia o o de una variable estática es la clase donde se declaró y, posiblemente, también sus subclases, dependiendo de la visibilidad con la que fue declarada (pública, privada o protegida).</p></li>
+</ul>
+</section>
 <section id="inicialización-y-asignación-de-variables" class="title-slide slide level3" data-number="2.4.1">
 <h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Inicialización y asignación de variables</h3>
 <ul>
@@ -1376,12 +1404,12 @@
 <li><p>La palabra clave <code class="sourceCode java"><span class="cf">switch</span></code> introduce una estructura alternativa múltiple.</p></li>
 <li><p>Su sintaxis es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>sentencia_switch</em>⟩</span> ::=<br />
-        <strong><code>switch</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
-                (<strong><code>case</code></strong> <span style="color:teal">⟨<em>expresión_case</em>⟩</span><strong><code>:</code></strong><br />
-                        <span style="color:teal">⟨<em>sentencia_case</em>⟩</span>*)<span class="math inline">^+</span><br />
-                [<strong><code>default</code><code>:</code></strong><br />
-                        <span style="color:teal">⟨<em>sentencia_default</em>⟩</span>]<br />
-        <strong><code>}</code></strong></div></li>
+      <strong><code>switch</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
+              (<strong><code>case</code></strong> <span style="color:teal">⟨<em>expresión_case</em>⟩</span><strong><code>:</code></strong><br />
+                      <span style="color:teal">⟨<em>sentencia_case</em>⟩</span>*)<span class="math inline">^+</span><br />
+              [<strong><code>default</code><code>:</code></strong><br />
+                      <span style="color:teal">⟨<em>sentencia_default</em>⟩</span>]<br />
+      <strong><code>}</code></strong></div></li>
 <li><p>Se evalúa la <span style="color:teal">⟨<em>expresión</em>⟩</span> y se compara con las distintas <span style="color:teal">⟨<em>expresión_case</em>⟩</span>, de una en una y de arriba abajo.</p></li>
 <li><p>Cuando se encuentra una que sea igual, se ejecuta su <span style="color:teal">⟨<em>sentencia_case</em>⟩</span> correspondiente y se sigue comparando con las siguientes <span style="color:teal">⟨<em>expresión_case</em>⟩</span> (salvo que haya un <code class="sourceCode java"><span class="cf">break</span></code>).</p></li>
 <li><p>Si no hay ninguna <span style="color:teal">⟨<em>expresión_case</em>⟩</span> que coincida, y existe la cláusula <strong><code>default</code></strong>, se ejecuta la <span style="color:teal">⟨<em>sentencia_default</em>⟩</span>.</p></li>
@@ -1441,10 +1469,10 @@
 <div class="line-block"><span style="color:teal">⟨<em>sentencia_for</em>⟩</span> ::= <strong><code>for</code></strong>  <strong><code>(</code></strong>[<span style="color:teal">⟨<em>inicialización</em>⟩</span>]<strong><code>;</code></strong> [<span style="color:teal">⟨<em>condición</em>⟩</span>]<strong><code>;</code></strong> [<span style="color:teal">⟨<em>actualización</em>⟩</span>]<strong><code>)</code></strong>  <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 <li><p>Equivale a hacer:</p>
 <div class="line-block"><span style="color:teal">⟨<em>inicialización</em>⟩</span><br />
-  <strong><code>while</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
-          <span style="color:teal">⟨<em>sentencia</em>⟩</span><br />
-          <span style="color:teal">⟨<em>actualización</em>⟩</span><br />
-  <strong><code>}</code></strong></div></li>
+<strong><code>while</code></strong>  <strong><code>(</code></strong><span style="color:teal">⟨<em>condición</em>⟩</span><strong><code>)</code></strong>  <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>sentencia</em>⟩</span><br />
+        <span style="color:teal">⟨<em>actualización</em>⟩</span><br />
+<strong><code>}</code></strong></div></li>
 <li><p>La <span style="color:teal">⟨<em>inicialización</em>⟩</span> es una sentencia que puede ser también una declaración. En tal caso, esa declaración tendrá un ámbito local a la sentencia <code class="sourceCode java"><span class="cf">for</span></code> y no existirá fuera de ella.</p></li>
 </ul>
 </section>

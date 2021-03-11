@@ -1229,6 +1229,55 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   }
   ```
 
+---
+
+- En los lenguajes interpretados normalmente ocurre que, al entrar en un nuevo
+  ámbito, se crea un nuevo marco en la pila que contendrá las ligaduras y
+  variables definidas en ese ámbito.
+
+- En cambio, en los lenguajes compilados de tipado estático (como Java), no
+  siempre se cumple eso de que cada ámbito lleva asociado un marco.
+
+- En Java ocurre lo siguiente:
+
+  - En tiempo de ejecución, el hecho de entrar en un nuevo ámbito no provoca la
+    creación de un nuevo marco en la pila. Sólo se crean (y se apilan) marcos
+    nuevos al llamar a métodos, un marco por llamada.
+
+  - Los ámbitos se usan en tiempo de compilación para comprobar si una variable
+    es visible en un determinado punto del programa.
+
+  - Las variables locales a un método siempre se almacenan en el marco del
+    método donde se declaran.
+
+- Por eso, el concepto de «ámbito» tiene más que ver con el de «visibilidad»
+  (dónde es visible una variable) que con el de «almacenamiento» (dónde se
+  almacena la variable).
+
+---
+
+- Recordemos que los _ámbitos_ son un concepto _estático_ (existen en el texto
+  del programa aunque no se ejecute) mientras que los _marcos_ son un concepto
+  _dinámico_ (se crean y se destruyen durante la ejecución del programa como
+  consecuencia de entrar y salir de ciertos ámbitos).
+
+- Por otra parte, **en Java no existen las _variables globales_**.
+
+- Por tanto, las variables en Java sólo pueden ser:
+
+  - **Locales a un método:** se almacenan en el marco del método (en la pila)
+    durante la llamada al mismo y su ámbito es el propio método.
+
+  - **De instancia:** se almacenan dentro de su objeto en el montículo.
+
+  - **Estáticas:** se almacenan en una zona especial del montículo llamada
+    _PermGen_ (hasta Java 7) o _Metaspace_ (desde Java 8).
+
+  Como veremos en posteriores temas, el ámbito de un variable de instancia o o
+  de una variable estática es la clase donde se declaró y, posiblemente,
+  también sus subclases, dependiendo de la visibilidad con la que fue declarada
+  (pública, privada o protegida).
+
 ### Inicialización y asignación de variables
 
 - Para darle un valor a una variable, podemos:
@@ -1469,13 +1518,13 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia_switch) ::=
-        !T(switch)\  !T{(}!NT(expresión)!T{)}\  !T[{]
-                (!T(case) !NT(expresión_case)!T(:)
-                        !NT{sentencia_case}*)!MAS
-                \[!T(default)!T(:)
-                        !NT{sentencia_default}\]
-        !T(})
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      !T(switch)\  !T{(}!NT(expresión)!T{)}\  !T[{]
+              (!T(case) !NT(expresión_case)!T(:)
+                      !NT{sentencia_case}*)!MAS
+              \[!T(default)!T(:)
+                      !NT{sentencia_default}\]
+      !T(})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Se evalúa la !NT(expresión) y se compara con las distintas
   !NT(expresión_case), de una en una y de arriba abajo.
@@ -1552,7 +1601,9 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ## `for`
 
-- La palabra clave !JAVA(for) introduce un variante del bucle !JAVA(while) donde los elementos de control del bucle aparecen todos en la misma línea al principio de la estructura.
+- La palabra clave !JAVA(for) introduce un variante del bucle !JAVA(while)
+  donde los elementos de control del bucle aparecen todos en la misma línea al
+  principio de la estructura.
 
 - Su sintaxis es:
 
@@ -1566,11 +1617,11 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(inicialización)
-  !T(while)\  !T{(}!NT(condición)!T{)}\  !T({)
-          !NT(sentencia)
-          !NT(actualización)
-  !T(})
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!T(while)\  !T{(}!NT(condición)!T{)}\  !T({)
+        !NT(sentencia)
+        !NT(actualización)
+!T(})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - La !NT(inicialización) es una sentencia que puede ser también una
   declaración. En tal caso, esa declaración tendrá un ámbito local a la
