@@ -1043,9 +1043,9 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   sino que nos sirve cualquier implementación que satisfaga la propiedad
   anterior.
 
-- En general, podemos decir que **los datos abstractos se definen mediante una
-  colección de constructores y selectores junto con algunas _propiedades_ que
-  los datos abstractos deben cumplir**.
+- En general, podemos decir que **los tipos de datos abstractos se definen
+  mediante una colección de constructores y selectores junto con algunas
+  _propiedades_ que los datos abstractos deben cumplir**.
 
 - Mientras se cumplan dichas propiedades (como la anterior de la división), los
   constructores y selectores constituyen una representación válida de un tipo
