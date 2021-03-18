@@ -1113,8 +1113,8 @@
 <section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
-<li><p>Esto debido a que la generalización establece una relación «es un» entre la subclase y la superclase.</p></li>
-<li><p>Por ejemplo, <code>Docente</code> es subclase de <code>Trabajador</code>, por lo que una instancia de la clase <code>Docente</code> también se considera una instancia (indirecta) de la clase <code>Trabajador</code> (los docentes «son» trabajadores).</p></li>
+<li><p>Esto último se debe a que la generalización establece una relación «es un» entre la subclase y la superclase.</p></li>
+<li><p>Por ejemplo, <code>Docente</code> es subclase de <code>Trabajador</code>, por lo que una instancia de la clase <code>Docente</code> también se considera una instancia (indirecta) de la clase <code>Trabajador</code> (los docentes también «son» trabajadores).</p></li>
 <li><p>Eso significa que <strong>un objeto puede pertenecer a varias clases al mismo tiempo</strong>, de forma que puede ser instancia directa de una clase y, al mismo tiempo, ser instancia indirecta de otras clases.</p></li>
 <li><p>En Python existen las funciones <code>isinstance</code> y <code>issubclass</code> que nos ayudan a entender las relaciones de generalización entre clases y cuándo un objeto es instancia (directa o indirecta) de una clase.</p></li>
 <li><p>En todo caso, se suelen usar muy poco, ya que el gran poder del polimorfismo es precisamente <strong>escribir código que no dependa de la clase concreta a la que pertenezca un objeto</strong>.</p></li>
@@ -1231,7 +1231,20 @@
 <li><p>Etcétera.</p></li>
 </ul></li>
 </ul></li>
-<li><p>Por eso se dice que <code>t1</code> y <code>t2</code> son objetos polimórficos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.5">
+
+<ul>
+<li><p>Por eso se dice que <code>t1</code> y <code>t2</code> son referencias a <strong>objetos polimórficos</strong>, ya que:</p>
+<ul>
+<li><p>Los objetos a los que apuntan pueden pertenecer a varias clases al mismo tiempo (directa o indirectamente).</p></li>
+<li><p>Esas referencias pueden apuntar a objetos que son instancias directas de varias clases posibles.</p></li>
+</ul></li>
+<li><p>Recordemos que, en POO, las clases son <em>tipos</em>.</p></li>
+<li><p>Pues bien: se dice que las clases son <strong>tipos polimórficos</strong> porque pueden representar a varios tipos al mismo tiempo.</p>
+<p>Por ejemplo, la clase <code>Trabajador</code> representa tanto a ella misma como a todas sus subclases.</p></li>
+<li><p>También se dice que <code>diferencia_salarios</code> es una <strong>función polimórfica</strong> porque actúa sobre argumentos de tipos polimórficos y, por tanto, se puede aprovechar la misma función para procesar valores de muchos tipos distintos.</p></li>
 </ul>
 </section>
 
@@ -1403,19 +1416,17 @@
 <ul>
 <li><p>Cuando se manda un mensaje a un objeto, el método que realmente se invoca dependerá del objeto que haya recibido el mensaje o, más concretamente, de la clase que se haya instanciado para crear el objeto.</p></li>
 <li><p>Por ejemplo, cuando llamamos al método <code>despedir</code> sobre un objeto trabajador, se le está diciendo a ese objeto que lo estamos despidiendo.</p></li>
-<li><p>Pero el comportamiento que tendrá el objeto ante la recepción de ese mensaje (o sea, el método concreto que ejecutará el objeto cuando reciba el mensaje) dependerá de qué tipo de objeto sea, es decir, de la clase a la que pertenezca el objeto.</p>
-<p>Un trabajador básico simplemente dirá «Adiós», mientras que un directivo dirá que nanay y un jefe te despedirá a ti.</p></li>
+<li><p>Pero el comportamiento que tendrá el objeto ante la recepción de ese mensaje (o sea, el método concreto que ejecutará el objeto cuando reciba el mensaje) dependerá de qué tipo de objeto sea (es decir, de la clase a la que pertenezca el objeto). Por ejemplo, un trabajador básico simplemente dirá «Adiós», mientras que un directivo dirá que nanay y un jefe te despedirá a ti.</p></li>
 <li><p>Una de las principales ventajas del polimorfismo es que nosotros no nos tenemos que preocupar del detalle interno de qué método concreto se ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá ejecutando el método que corresponda dependiendo de la clase a la que pertenece ese objeto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.1.0.1">
 
 <ul>
-<li><p>Lo interesante del polimorfismo es que «algo» se puede comportar de distintas formas dependiendo del contexto.</p></li>
-<li><p>Es decir: el polimorfismo, más que referirse a que algo puede tener «varias formas», se refiere a que <strong>algo puede tener «varios comportamientos»</strong>. Esa es la esencia del polimorfismo.</p></li>
-<li><p>A su vez, cada comportamiento está codificado en una operación, normalmente un método.</p></li>
+<li><p>Por tanto, el polimorfismo, más que referirse a que <strong>algo puede <em>tener varias formas</em></strong>, se refiere a que <strong>algo <em>se puede comportar de varias formas</em></strong>.</p></li>
+<li><p>A su vez, cada comportamiento está codificado en una operación (normalmente, un método).</p></li>
 <li><p>Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u otra (ejecutará un método u otro) según el objeto que sea, es decir, según la clase que se haya instanciado para crear el objeto.</p></li>
-<li><p>Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque sabe que en todo momento se seleccionará automáticamente el método más adecuado (en este caso, dependiendo del objeto que reciba el mensaje).</p></li>
+<li><p>Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque sabe que en todo momento se seleccionará automáticamente el método más adecuado dependiendo, en este caso, del objeto que reciba el mensaje.</p></li>
 <li><p>Así, en la expresión <code class="sourceCode python">t.despedir()</code>, sabemos que se ejecutará el método <code>despedir</code> más apropiado según el tipo de trabajador que sea <code>t</code>.</p></li>
 </ul>
 </section>
