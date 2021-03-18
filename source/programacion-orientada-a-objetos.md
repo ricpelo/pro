@@ -1541,7 +1541,7 @@ class Deposito:
     `cola1 == cola2` equivale a !PYTHON(cola1.__eq__(cola2)).
   
   - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
-    `cola1 is cola2`, como acabamos de ver.
+    !PYTHON(cola1 is cola2), como acabamos de ver.
 
 - No es necesario definir el operador `!=`, ya que Python 3 lo define
   automáticamente a partir del `==`.
@@ -2785,6 +2785,27 @@ class Deposito:
     def saldo(self):
         return self.fondos
 ```
+
+---
+
+- ¿Cuándo usar asertos y cuándo usar excepciones?
+
+  - Las **excepciones** se deben usan para detectar errores de programación de
+    los **usuarios** del método o clase.
+
+  - Los **asertos** se deben usar para detectar errores de funcionamiento del
+    **interior** del método o clase, es decir, errores que haya cometido el
+    **implementador** o **creador** del método o clase.
+
+    Eso significa que los asertos deberían limitarse únicamente a los métodos
+    privados de una clase.
+
+  - Además, los asertos están pensados para detectar errores muy anormales que
+    no se espera que se puedan capturar ni gestionar.
+
+  - Por eso, el objetivo principal de los asertos es servir al creador de una
+    clase como mecanismo de comprobación de que su clase funciona
+    correctamente.
 
 ---
 
