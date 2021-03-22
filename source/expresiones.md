@@ -370,28 +370,103 @@ que denominamos el **valor** de la expresión.
 
 # Valores
 
-## Introducción
+## Datos, tipos y valores
 
-- Los **valores** son los **datos** que manipulan y procesan los programas
-  (decimos que «**_un dato tiene un valor_**»).
+- La Informática es la ciencia que estudia los sistemas de procesamiento
+  automático de la información.
+
+- Esos sistemas (los sistemas informáticos) procesan la información de forma
+  automática siguiendo las instrucciones de un programa.
+
+- Las instrucciones que forman el programa son las que dictan qué operaciones
+  hay que realizar con la información.
+
+- Esa información se manipula y codifica en forma de **datos**.
+
+- Los datos, por tanto, son información codificada y almacenada en un formato y
+  en un soporte adecuados para ser manipulados por un sistema informático.
+
+---
 
 - Esos datos pueden ser:
 
-  - Datos de entrada o salida, que representan información de interés para el
-    usuario del programa.
+  - **Datos de entrada o salida**, que representan información de interés para
+    el usuario del programa y que, o bien se reciben del usuario o bien se
+    envían al usuario, respectivamente.
 
-  - Datos internos que usa el programa para su correcto funcionamiento.
+  - **Datos internos** que usa el programa para su correcto funcionamiento.
 
-- Los valores se agrupan en **tipos**: un tipo es un conjunto de valores que
+- La información concreta que un dato almacena en un momento dado se denomina
+  el **valor** del dato. Se dice que un dato _posee_ (o _tiene_ o _contiene_)
+  un **valor**, o que _vale_ ese valor.
+
+  - Si el valor de un dato nunca cambia, decimos que ese dato es **constante**.
+
+  - En cambio, si el valor de un dato puede cambiar durante el funcionamiento
+    del programa, decimos que es un dato **variable**.
+
+---
+
+- Los valores se agrupan en **tipos**, que son conjuntos de valores que
   comparten características comunes. Por tanto, **un determinado valor
-  pertenece a un tipo (puede que a más)**.
+  pertenece a un tipo (y, a veces, a más de uno)**.
 
-- Igualmente, decimos que **los datos tienen un _tipo_**, que es el tipo del
-  valor que tiene el dato.
+- Igualmente, también decimos que **los datos tienen un _tipo_**, que es el
+  tipo de los valores que puede tener el dato. Por eso, a los tipos también se
+  les llama **tipos de datos**.
 
-- Un **tipo de dato** determina el conjunto de **_valores_** que puede tomar un
-  dato de ese tipo, así como las **_operaciones_** que se pueden realizar con
-  él.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El **tipo de un dato** determina el conjunto de **_valores_** que puede tomar
+  un dato de ese tipo, así como las **_operaciones_** que se pueden realizar
+  con él.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los datos se pueden manipular dentro de un programa haciendo que formen parte
+  de **expresiones** y evaluando dichas expresiones.
+
+- El **_valor_ de una expresión** se obtiene a través del valor de los datos
+  que contiene, y podemos manipular esos datos a través de las **operaciones**
+  que actúan sobre ellos dentro de la expresión.
+
+!EJEMPLO
+
+- Supongamos que queremos representar en un sistema informático la edad de
+  una persona.
+
+- Esa información la codificamos en un **dato** al que llamaremos _edad_.
+
+- Ese dato _edad_ será un dato **variable**, ya que la edad de una persona
+  cambia con el tiempo y, por tanto, el valor que contenga el dato podrá
+  cambiar.
+
+- Por otra parte, la edad de una persona se puede representar mediante un
+  número entero no negativo (mayor o igual que cero), así que el dato _edad_
+  debería contener un valor que sea un número entero sin signo.
+
+- Por tanto, el **tipo** del dato _edad_ es el conjunto de los números
+  enteros sin signo y, en consecuencia, el **valor** del dato _edad_ podría
+  ser cualquiera de los números que están dentro de ese conjunto.
+
+---
+
+- Si, por ejemplo, una determinada persona tiene una edad de 12 años, decimos
+  que el **valor** del **dato** _edad_ para esa persona es 12, o que **su edad
+  _vale_ 12** (actualmente).
+
+- Dentro de un año, el valor de ese dato pasará a ser 13.
+
+- Por eso decimos que la edad es un dato _variable_.
+
+- En cambio, su fecha de nacimiento es un valor _constante_, ya que nunca
+  cambia.
+
+- Recordemos que el tipo de un dato también determina las **operaciones** que
+  podemos realizar con él.
+
+- Como el dato _edad_ es un número entero, podemos realizar operaciones
+  aritméticas sobre él. Por ejemplo, podemos restar la edad al año actual para
+  averiguar el año de nacimiento de esa persona.
 
 ---
 
