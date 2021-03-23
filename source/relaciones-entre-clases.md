@@ -884,7 +884,56 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   b.saluda()  # Imprime "Hola"
   ```
 
-### La clase `object`
+### Visibilidad de miembros y herencia
+
+- La visibilidad de los miembros de una clase afecta al modo en como se heredan
+  dichos miembros:
+
+  - Los miembros públicos de una clase son heredados por sus subclases, ya que
+    esos miembros son visibles dentro y fuera de la clase en la que se han
+    definido.
+
+  - En cambio, los miembros privados de una clase no son heredados por sus
+    subclases, ya que esos miembros sólo son visibles dentro de la clase en la
+    que se han definido.
+
+    Recordemos que, en Python, el convenio es marcar a los miembros privados
+    haciendo que su nombre empiece (pero no acabe) por `__`.
+
+- El hecho de que los miembros privados de una clase no sean heredados por sus
+  subclases da lugar a posibles problemas.
+
+---
+
+- Por ejemplo, la clase `Docente` no puede acceder directamente al nombre del
+  trabajador (el atributo `__nombre`) ya que es un miembro privado definido en
+  la clase `Trabajador`):
+
+  ```python
+  class Trabajador:
+      """Trabajador es la superclase"""
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+
+      def get_nombre(self):
+          return self.__nombre
+
+  class Docente(Trabajador):
+      """Docente es subclase de Trabajador"""
+      def set_nrp(self, nrp):
+          self.__nrp = nrp
+
+      def get_nrp(self, nrp):
+          return self.__nrp
+
+      def imprimir_nombre(self):
+          print(self.__nombre)   # Intenta acceder a un atributo privado de Trabajador
+
+  d = Docente('Manolo')
+  d.imprimir_nombre()            # Da error
+  ```
+
+## La clase `object`
 
 - En Python, todas las clases heredan, directa o indirectamente, de una clase
   predefinida especial llamada `object`.

@@ -893,21 +893,62 @@
 </ul>
 </section>
 
-<section id="la-clase-object" class="title-slide slide level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> La clase <code>object</code></h3>
+<section id="visibilidad-de-miembros-y-herencia" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Visibilidad de miembros y herencia</h3>
+<ul>
+<li><p>La visibilidad de los miembros de una clase afecta al modo en como se heredan dichos miembros:</p>
+<ul>
+<li><p>Los miembros públicos de una clase son heredados por sus subclases, ya que esos miembros son visibles dentro y fuera de la clase en la que se han definido.</p></li>
+<li><p>En cambio, los miembros privados de una clase no son heredados por sus subclases, ya que esos miembros sólo son visibles dentro de la clase en la que se han definido.</p>
+<p>Recordemos que, en Python, el convenio es marcar a los miembros privados haciendo que su nombre empiece (pero no acabe) por <code>__</code>.</p></li>
+</ul></li>
+<li><p>El hecho de que los miembros privados de una clase no sean heredados por sus subclases da lugar a posibles problemas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.2.0.1">
+
+<ul>
+<li><p>Por ejemplo, la clase <code>Docente</code> no puede acceder directamente al nombre del trabajador (el atributo <code>__nombre</code>) ya que es un miembro privado definido en la clase <code>Trabajador</code>):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Trabajador es la superclase&quot;&quot;&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Docente es subclase de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nrp(<span class="va">self</span>, nrp):</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nrp</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> imprimir_nombre(<span class="va">self</span>):</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="va">self</span>.__nombre)   <span class="co"># Intenta acceder a un atributo privado de Trabajador</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> Docente(<span class="st">&#39;Manolo&#39;</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>d.imprimir_nombre()            <span class="co"># Da error</span></span></code></pre></div></li>
+</ul>
+</section>
+
+
+<section id="la-clase-object" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> La clase <code>object</code></h2>
 <ul>
 <li><p>En Python, todas las clases heredan, directa o indirectamente, de una clase predefinida especial llamada <code>object</code>.</p></li>
 <li><p>Eso es así incluso aunque no aparezca explícitamente la clase <code>object</code> como superclase en la definición de la clase.</p></li>
 <li><p>Por tanto, la siguiente clase es subclase de <code>object</code> aunque no sea evidente según el código:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba:</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
-<li><p>Así que lo anterior es equivalente a:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba(<span class="bu">object</span>):</span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
+<li><p>Así que lo anterior es equivalente a:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba(<span class="bu">object</span>):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
 <li><p>Eso significa que <code>object</code> es la raíz de la jerarquía de clases en todo programa Python.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.2.0.1">
+<section class="slide level5" data-number="2.4.0.0.1">
 
 <ul>
 <li>En el ejemplo anterior de los trabajadores, docentes e investigadores, en realidad tendríamos la siguiente jerarquía de clases:</li>
@@ -921,9 +962,8 @@
 <li><p>También hay operaciones utilizadas internamente por el intérprete durante la ejecución del programa para ayudar a su funcionamiento.</p></li>
 </ul>
 </section>
-
-<section id="herencia-múltiple" class="title-slide slide level3" data-number="2.3.3">
-<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Herencia múltiple</h3>
+<section id="herencia-múltiple" class="title-slide slide level3" data-number="2.4.1">
+<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span> Herencia múltiple</h3>
 <ul>
 <li><p>En la <strong>herencia múltiple</strong>, una subclase puede tener <strong>varias superclases</strong>.</p></li>
 <li><p>La herencia múltiple amplía enormemente las posibilidades del lenguaje de programación, ya que permite el modelado de situaciones que se pueden dar con frecuencia y que se pueden expresar de forma natural generalizando una clase a partir de varias superclases simultáneamente.</p></li>
@@ -932,7 +972,7 @@
 <li><p>Los lenguajes orientados a objetos que no soportan herencia múltiple (que son la mayoría) incorporan mecanismos que ayudan a mitigar esa carencia.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.1">
+<section class="slide level5" data-number="2.4.1.0.1">
 
 <ul>
 <li><p>Por ejemplo, si queremos modelar el mundo animal, tenemos que hay animales terrestres, acuáticos y anfibios, de manera que estos últimos tienen características de los dos primeros.</p></li>
@@ -944,26 +984,26 @@
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.3.0.2">
+<section class="slide level5" data-number="2.4.1.0.2">
 
 <ul>
 <li><p>Y en Python se escribiría así:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Animal</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Terrestre(Animal):</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Acuatico(Animal):</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Animal</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Terrestre(Animal):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Acuatico(Animal):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div></li>
 <li><p>Es decir: en la definición de la subclase indicamos todas las superclases que tenga, entre paréntesis y separadas por comas.</p></li>
 <li><p>El orden en el que se escriban las superclases tiene importancia, como veremos luego.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.3">
+<section class="slide level5" data-number="2.4.1.0.3">
 
 <ul>
 <li><p>Como <code>Anfibio</code> es subclase de <code>Terrestre</code> y de <code>Acuatico</code> al mismo tiempo, heredará los métodos de ambas clases simultáneamente.</p></li>
@@ -974,7 +1014,7 @@
 <li><p>Este es el llamado problema del <strong>orden de resolución de métodos</strong> (<em>Method Resolution Order</em> o <strong><em>MRO</em></strong>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.4">
+<section class="slide level5" data-number="2.4.1.0.4">
 
 <ul>
 <li><p>Por si fuera poco, aún tenemos otro problema que con la herencia simple no teníamos, y que es aún más complicado.</p></li>
@@ -983,7 +1023,7 @@
 <li><p>Son métodos que tienen la misma signatura pero que se comportan de distinta forma.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.5">
+<section class="slide level5" data-number="2.4.1.0.5">
 
 <div class="columns">
 <div class="column">
@@ -1010,7 +1050,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.3.3.0.6">
+<section class="slide level5" data-number="2.4.1.0.6">
 
 <ul>
 <li><p>Python implementa un mecanismo basado en un algoritmo llamado <strong>linealización C3</strong>, que establece un orden de prioridad entre todas las clases a la hora de seleccionar un método de la cadena de herencia.</p></li>
@@ -1019,44 +1059,25 @@
 <li><p>Así, Python resuelve los dos problemas (el del MRO y el del diamante) al mismo tiempo con un solo algoritmo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.7">
+<section class="slide level5" data-number="2.4.1.0.7">
 
 <ul>
 <li><p>Para ver en detalle cómo funciona la linealización C3, se recomienda consultar su página en Wikipedia:</p>
 <p><a href="https://en.wikipedia.org/wiki/C3_linearization">https://en.wikipedia.org/wiki/C3_linearization</a></p></li>
 <li><p>A nosotros, lo que nos interesa principalmente es que el programador puede influir en el orden de resolución de métodos según el orden en el que escriba las superclases a la hora de definir la subclase.</p></li>
 <li><p>Por tanto, no es lo mismo hacer:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ...</span></span></code></pre></div>
 <p>Que hacer:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ...</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ...</span></span></code></pre></div></li>
 <li><p>Si aplicamos el algoritmo en ambos casos, obtenemos resultados distintos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.8">
+<section class="slide level5" data-number="2.4.1.0.8">
 
 <ul>
 <li><p>En concreto, si aplicamos el algoritmo al siguiente código:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Animal</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Terrestre(Animal):</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Acuatico(Animal):</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div>
-<p>obtenemos que el orden de resolución de métodos para la clase <code>Anfibio</code> sería la lista:</p>
-<p><code>[Anfibio, Terrestre, Acuatico, Animal, object]</code></p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.3.3.0.9">
-
-<ul>
-<li><p>En cambio, si lo aplicamos al siguiente código:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Animal</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1066,13 +1087,32 @@
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Acuatico(Animal):</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div>
+<p>obtenemos que el orden de resolución de métodos para la clase <code>Anfibio</code> sería la lista:</p>
+<p><code>[Anfibio, Terrestre, Acuatico, Animal, object]</code></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.1.0.9">
+
+<ul>
+<li><p>En cambio, si lo aplicamos al siguiente código:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Animal</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Terrestre(Animal):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Terrestre</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Acuatico(Animal):</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Acuatico</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Acuatico, Terrestre):</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div>
 <p>el orden de resolución de métodos para la clase <code>Anfibio</code> sería:</p>
 <p><code>[Anfibio, Acuatico, Terrestre, Animal, object]</code></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.3.0.10">
+<section class="slide level5" data-number="2.4.1.0.10">
 
 <ul>
 <li><p>La lista de clases que devuelve el algoritmo es la que el intérprete iría siguiendo desde el principio hasta encontrar el método solicitado.</p></li>
@@ -1124,22 +1164,22 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> A:</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">pass</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(A, <span class="bu">object</span>)     <span class="co"># &#39;A&#39; es subclase de &#39;object&#39;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(<span class="bu">object</span>, A)     <span class="co"># &#39;object&#39; NO es subclase de &#39;A&#39;</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(A, A)          <span class="co"># &#39;A&#39; es subclase de sí misma</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> A()                   <span class="co"># Creamos &#39;a&#39; instanciando &#39;A&#39;</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, A)          <span class="co"># &#39;a&#39; es instancia (directa) de &#39;A&#39;</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, <span class="bu">object</span>)     <span class="co"># &#39;a&#39; es instancia (indirecta) de &#39;object&#39;</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, <span class="bu">int</span>)        <span class="co"># &#39;a&#39; NO es instancia de &#39;int&#39;</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> A:</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">pass</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(A, <span class="bu">object</span>)     <span class="co"># &#39;A&#39; es subclase de &#39;object&#39;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(<span class="bu">object</span>, A)     <span class="co"># &#39;object&#39; NO es subclase de &#39;A&#39;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">issubclass</span>(A, A)          <span class="co"># &#39;A&#39; es subclase de sí misma</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> A()                   <span class="co"># Creamos &#39;a&#39; instanciando &#39;A&#39;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, A)          <span class="co"># &#39;a&#39; es instancia (directa) de &#39;A&#39;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, <span class="bu">object</span>)     <span class="co"># &#39;a&#39; es instancia (indirecta) de &#39;object&#39;</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(a, <span class="bu">int</span>)        <span class="co"># &#39;a&#39; NO es instancia de &#39;int&#39;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1160,43 +1200,43 @@
 <ul>
 <li><p>Por ejemplo, supongamos que tenemos una función (o un método) que recibe dos objetos de la clase <code>Trabajador</code> y calcula la diferencia entre sus salarios.</p></li>
 <li><p>En Python, podría tener este aspecto:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario):</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_salario(salario)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario):</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__salario <span class="op">=</span> salario</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_salario(<span class="va">self</span>):</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__salario</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_salario(salario)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario):</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__salario <span class="op">=</span> salario</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_salario(<span class="va">self</span>):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__salario</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
 <li><p>La función <code>diferencia_salarios</code> supone que sus dos argumentos son instancias de la clase <code>Trabajador</code>, por lo que asume que puede invocar el método <code>get_salario</code> sobre cada uno de ellos. De esta forma, obtiene su salario y puede calcular su diferencia:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Trabajador(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">12500</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan <span class="op">=</span> Trabajador(<span class="st">&quot;Juan&quot;</span>, <span class="dv">8300</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> diferencia_salarios(pepe, juan)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4200</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Trabajador(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">12500</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan <span class="op">=</span> Trabajador(<span class="st">&quot;Juan&quot;</span>, <span class="dv">8300</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> diferencia_salarios(pepe, juan)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4200</span></span></code></pre></div></li>
 <li><p>Recordemos que un docente también es un trabajador (es una subclase suya):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_especialidad(<span class="va">self</span>):</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__especialidad</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_especialidad(<span class="va">self</span>, especialidad):</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__especialidad <span class="op">=</span> especialidad</span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_especialidad(<span class="va">self</span>):</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__especialidad</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_especialidad(<span class="va">self</span>, especialidad):</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__especialidad <span class="op">=</span> especialidad</span></code></pre></div></li>
 <li><p>Por tanto, <code>Docente</code> hereda los métodos de <code>Trabajador</code>, incluyendo <code>get_salario</code>.</p></li>
 </ul>
 </section>
@@ -1204,10 +1244,10 @@
 
 <ul>
 <li><p>Así, por el principio de sustitución, podemos enviarle como argumentos a <code>diferencia_salarios</code> instancias de la clase <code>Docente</code> en lugar de instancias de la clase <code>Trabajador</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maria <span class="op">=</span> Docente(<span class="st">&quot;María&quot;</span>, <span class="dv">18000</span>)      <span class="co"># Se llama al __init__ heredado de Trabajador</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> antonio <span class="op">=</span> Docente(<span class="st">&quot;Antonio&quot;</span>, <span class="dv">15000</span>)  <span class="co"># Igual</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> diferencia_salarios(maria, antonio)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3000</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maria <span class="op">=</span> Docente(<span class="st">&quot;María&quot;</span>, <span class="dv">18000</span>)      <span class="co"># Se llama al __init__ heredado de Trabajador</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> antonio <span class="op">=</span> Docente(<span class="st">&quot;Antonio&quot;</span>, <span class="dv">15000</span>)  <span class="co"># Igual</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> diferencia_salarios(maria, antonio)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3000</span></span></code></pre></div></li>
 <li><p>Funciona porque <code>diferencia_salarios</code> llama al método <code>get_salario</code> de los objetos que recibe, los cuales ahora son instancias de <code>Docente</code>, pero <code>Docente</code> hereda los métodos de <code>Trabajador</code> incluyendo <code>get_salario</code>.</p></li>
 <li><p>Comprobamos que se cumple perfectamente el principio de sustitución.</p></li>
 <li><p>La gran ventaja es que la función <code>diferencia_salarios</code> es capaz de calcular la diferencia de salarios de cualquier tipo de trabajador, ya sea un trabajador genérico o un docente, o un investigador… o incluso otro tipo que aún no existe siquiera pero que pudiera existir en el futuro.</p></li>
@@ -1218,9 +1258,9 @@
 
 <ul>
 <li><p>En el código de la función <code>diferencia_salarios</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div>
 <p>los argumentos <code>t1</code> y <code>t2</code> son referencias a objetos que pueden adoptar varias formas:</p>
 <ul>
 <li><p>Pueden ser trabajadores o pueden ser cualquier tipo específico de trabajador (docente, investigador o cualquier otro que ni siquiera exista aún).</p></li>
@@ -1253,9 +1293,9 @@
 <ul>
 <li><p>En un lenguaje de tipado dinámico como Python, el principio de sustitución y el polimorfismo adoptan un enfoque aún más extremo.</p></li>
 <li><p>Si volvemos al código de la función <code>diferencia_salarios</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diferencia_salarios(t1, t2):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;t1 y t2 son instancias de Trabajador&quot;&quot;&quot;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t1.get_salario() <span class="op">-</span> t2.get_salario()</span></code></pre></div>
 <p>observamos que en ningún momento se exige que <code>t1</code> y <code>t2</code> sean instancias (directas o indirectas) de la clase <code>Trabajador</code>.</p></li>
 <li><p>En realidad, lo único que necesita la función es que tanto <code>t1</code> como <code>t2</code> respondan al mensaje <code>get_salario</code> sin recibir ningún argumento y devolviendo un número (para que luego se puedan restar).</p></li>
 <li><p>Por tanto, cualquier objeto de cualquier clase nos valdría siempre que cumpliera la condición anterior; no hace falta que sean trabajadores.</p></li>
@@ -1280,23 +1320,14 @@
 
 <ul>
 <li><p>Por ejemplo, supongamos que queremos calcular el área de una superficie rectangular dados su ancho y su alto, y suponemos que todos los rectángulos disponen de los métodos <code>get_ancho</code> y <code>get_alto</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(rect):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rect.get_ancho() <span class="op">*</span> rect.get_alto()</span></code></pre></div></li>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(rect):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rect.get_ancho() <span class="op">*</span> rect.get_alto()</span></code></pre></div></li>
 <li><p>Cualquier objeto que responda correctamente a esos dos métodos nos valdría como argumento <code>rect</code> de la función <code>area</code>.</p></li>
 <li><p>Por ejemplo, una ventana o una figura rectangular tienen ancho y alto, y las clases <code>Ventana</code> y <code>Rectangulo</code> pueden ser clases totalmente independientes, sin relación entre sí:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Ventana:</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de la clase</span></span></code></pre></div>
-</div><div class="column">
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Ventana:</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1304,6 +1335,15 @@
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de la clase</span></span></code></pre></div>
+</div><div class="column">
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ...</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de la clase</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1311,12 +1351,12 @@
 
 <ul>
 <li><p>Y la misma función nos valdría para calcular el área de ventanas, rectángulos y cualquier otra cosa que tenga ancho y alto:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v <span class="op">=</span> Ventana(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> area(v)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r <span class="op">=</span> Rectangulo(<span class="dv">8</span>, <span class="dv">5</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> area(r)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v <span class="op">=</span> Ventana(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> area(v)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r <span class="op">=</span> Rectangulo(<span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> area(r)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span></span></code></pre></div></li>
 <li><p>La función <code>area</code> se aprovecha del hecho de que los objetos a los que se les puede calcular el área responden todos a los mismos mensajes.</p></li>
 <li><p>Dicho de otra forma: todos esos objetos <strong>comparten la misma <em>interfaz</em></strong>.</p></li>
 <li><p>Por tanto, cualquier objeto que tenga la interfaz necesaria, nos servirá como argumento del método <code>area</code>.</p></li>
@@ -1339,18 +1379,18 @@
 <ul>
 <li><p>Por ejemplo, supongamos que la clase <code>Trabajador</code> define el método <code>despedir</code>.</p></li>
 <li><p>Todas las subclases de <code>Trabajador</code> heredarán el método:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Adiós&quot;</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Adiós&quot;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div></li>
 <li><p>Al despedir a un docente, éste dice adiós:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.despedir()</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>Adiós</span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.despedir()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Adiós</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.2">
@@ -1359,25 +1399,25 @@
 <li><p>Ahora supongamos que creamos la clase <code>Directivo</code>, cuyas instancias son trabajadores que no se pueden despedir.</p></li>
 <li><p>Esos trabajadores responderán de una forma distinta cuando se invoque sobre ellos al método <code>despedir</code>.</p></li>
 <li><p>Para ello, <strong>redefinimos el método</strong> <code>despedir</code> en la clase <code>Directivo</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Directivo(Trabajador):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>       <span class="bu">print</span>(<span class="st">&quot;De aquí no me voy&quot;</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Directivo(Trabajador):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>       <span class="bu">print</span>(<span class="st">&quot;De aquí no me voy&quot;</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... resto de código</span></span></code></pre></div></li>
 <li><p>Y entonces, cuando llamamos a <code>despedir</code> sobre un objeto <code>Directivo</code>, el método que se ejecuta es el que está definido en la clase <code>Directivo</code>, no el que se ha heredado de <code>Trabajador</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan <span class="op">=</span> Directivo(<span class="st">&quot;Juan&quot;</span>, <span class="dv">250000</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan.despedir()</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>De aquí no me voy</span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan <span class="op">=</span> Directivo(<span class="st">&quot;Juan&quot;</span>, <span class="dv">250000</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> juan.despedir()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>De aquí no me voy</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.3">
 
 <ul>
 <li><p>Esto ocurre así porque, según el orden de resolución de métodos, para encontrar un método desde una instancia de una clase, se busca primero en la misma clase y, si no se encuentra allí, se sigue buscando hacia arriba, como ya sabemos:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Trabajador.mro()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Directivo.mro()</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Trabajador.mro()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Directivo.mro()</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
 <li><p>Así, se encuentra primero el método <code>despedir</code> de la clase <code>Directivo</code> antes del método del mismo nombre que se hereda de la clase <code>Trabajador</code>. Por tanto, se usa el primero que encuentra y no sigue buscando.</p></li>
 <li><p>Se dice que la implementación del método <code>despedir</code> que hay en la clase <code>Directivo</code> <strong>sobreescribe</strong> o <strong>redefine</strong> la implementación del método con el mismo nombre que ha heredado de la clase <code>Trabajador</code>.</p></li>
 </ul>
@@ -1386,29 +1426,29 @@
 
 <ul>
 <li><p>Si ahora creamos una subclase de <code>Directivo</code> (por ejemplo, <code>Jefe</code>), y llamamos al método <code>despedir</code> sobre una instancia de esa subclase, ¿a qué método concreto llamará? ¿Al definido en <code>Directivo</code> o al de <code>Trabajador</code>?</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Jefe(Directivo):</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>De aquí no me voy</span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Jefe(Directivo):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>De aquí no me voy</span></code></pre></div></li>
 <li><p>Por la misma regla anterior, al buscar la implementación del método <code>despedir</code> se encuentra antes la definida en la clase <code>Directivo</code>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Jefe.mro()</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Jefe&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>,</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Jefe.mro()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Jefe&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Directivo&#39;</span><span class="op">&gt;</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Trabajador&#39;</span><span class="op">&gt;</span>, <span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;object&#39;</span><span class="op">&gt;</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.5">
 
 <ul>
 <li><p>En cambio, si el jefe define su propia implementación del método <code>despedir</code>, entonces ejecutaría esa:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Jefe(Directivo):</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Despedido tú&quot;</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>Despedido tú</span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Jefe(Directivo):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despedir(<span class="va">self</span>):</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Despedido tú&quot;</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe <span class="op">=</span> Jefe(<span class="st">&quot;Bill Gates&quot;</span>, <span class="dv">2384921</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> jefe.despedir()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Despedido tú</span></code></pre></div></li>
 </ul>
 </section>
 <section id="polimorfismo-y-métodos-redefinidos" class="title-slide slide level3" data-number="3.4.1">
@@ -1445,24 +1485,24 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&quot;Soy </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">&quot;</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">super</span>().descripcion() <span class="op">+</span> <span class="ss">f&quot; y mi especialidad es </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>especialidad<span class="sc">}</span><span class="ss">&quot;</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> manolo <span class="op">=</span> Trabajador(<span class="st">&quot;Manolo&quot;</span>, <span class="dv">3500</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> manolo.descripcion()</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Soy Manolo&#39;</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.set_especialidad(<span class="st">&quot;Informática&quot;</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.descripcion()</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Soy Pepe y mi especialidad es Informática&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&quot;Soy </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> descripcion(<span class="va">self</span>):</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">super</span>().descripcion() <span class="op">+</span> <span class="ss">f&quot; y mi especialidad es </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>especialidad<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> manolo <span class="op">=</span> Trabajador(<span class="st">&quot;Manolo&quot;</span>, <span class="dv">3500</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> manolo.descripcion()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Soy Manolo&#39;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe <span class="op">=</span> Docente(<span class="st">&quot;Pepe&quot;</span>, <span class="dv">18500</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.set_especialidad(<span class="st">&quot;Informática&quot;</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pepe.descripcion()</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Soy Pepe y mi especialidad es Informática&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1478,31 +1518,31 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario):</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_salario(salario)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario):</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> salario <span class="op">&gt;=</span> <span class="dv">0</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.salario <span class="op">=</span> salario</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario, especialidad):</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Llama al constructor de la superclase</span></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># para que inicialice el nombre y el salario:</span></span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(nombre, salario)</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_especialidad(especialidad)</span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_especialidad(<span class="va">self</span>, especialidad):</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.especialidad <span class="op">=</span> especialidad</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_salario(salario)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario):</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> salario <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.salario <span class="op">=</span> salario</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, salario, especialidad):</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Llama al constructor de la superclase</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># para que inicialice el nombre y el salario:</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(nombre, salario)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_especialidad(especialidad)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_especialidad(<span class="va">self</span>, especialidad):</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.especialidad <span class="op">=</span> especialidad</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1539,29 +1579,7 @@
 <li><p>Por ejemplo, supongamos que tenemos figuras geométricas, las cuales tienen todas un ancho y un alto:</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo:</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
-</div><div class="column" style="width:5%;">
-
-</div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo:</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1575,11 +1593,33 @@
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
 <span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
 <span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
 <span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
 </div>
 </div></li>
 </ul>
@@ -1590,40 +1630,40 @@
 <li><p>Los métodos <code>set_ancho</code>, <code>set_alto</code>, <code>get_ancho</code> y <code>get_alto</code> son comunes a ambas clases, así que podríamos una superclase <code>Figura</code> que almacenara esos elementos comunes que luego las subclases recibirían mediante herencia:</p>
 <div class="columns">
 <div class="column" style="width:47%;">
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span></code></pre></div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:47%;">
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
 </div>
 </div></li>
 </ul>
@@ -1635,9 +1675,9 @@
 <li><p>Para ello, podemos definir un método <code>area</code> en la clase <code>Figura</code>, lo que garantizará que todas las figuras tendrán un área, independientemente de si son triángulos, rectángulos o de cualquier otro tipo.</p></li>
 <li><p>Pero, ¿cómo se calcula el área de una figura genérica? No es posible.</p></li>
 <li><p>Es decir: tenemos claro que las figuras deben responder al mensaje <code>area</code> pero no podemos implementar un cuerpo para ese método en la clase <code>Figura</code> porque el cálculo del área dependerá de la figura concreta que sea en cada caso:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.7.0.0.4">
@@ -1653,74 +1693,74 @@
 
 <ul>
 <li><p>En Python se haría así:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod    <span class="co"># importamos del módulo abc</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura(ABC):                     <span class="co"># Figura es subclase de ABC</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span>                    <span class="co"># declaramos el método como abstracto</span></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>        ...                            <span class="co"># representa que no tiene cuerpo</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod    <span class="co"># importamos del módulo abc</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura(ABC):                     <span class="co"># Figura es subclase de ABC</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho, alto):</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho):</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ancho <span class="op">=</span> ancho</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto):</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alto <span class="op">=</span> alto</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>):</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ancho</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>):</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.alto</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span>                    <span class="co"># declaramos el método como abstracto</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>        ...                            <span class="co"># representa que no tiene cuerpo</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.7.0.0.6">
 
 <ul>
 <li><p>Si intentamos instanciar la clase <code>Figura</code>, obtenemos un mensaje de error:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura()</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura()</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
 <li><p>El mensaje de error dice que no se puede instanciar la clase abstracta <code>Figura</code> al contener el método abstracto <code>area</code>.</p></li>
 <li><p>Si ahora definimos las clases <code>Triangulo</code> y <code>Rectangulo</code> como subclases de <code>Figura</code>, esas clases heredarán el método abstracto <code>area</code> y, por tanto, no se podrán instanciar a menos que le proporcionen un cuerpo.</p></li>
 <li><p>Eso significa que también serán clases abstractas:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo()</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo()</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.7.0.0.7">
 
 <ul>
 <li><p>Para que las clases <code>Triangulo</code> y <code>Rectangulo</code> se puedan instanciar, basta con que sobreescriban el método abstracto <code>area</code> con un cuerpo adecuado para cada una:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto() <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto()</span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto() <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto()</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>):</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.7.0.0.8">
