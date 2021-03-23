@@ -901,17 +901,20 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
     haciendo que su nombre empiece (pero no acabe) por `__`.
 
 - El hecho de que los miembros privados de una clase no sean heredados por sus
-  subclases da lugar a posibles problemas.
+  subclases puede dar lugar a ciertos problemas.
 
 ---
 
 - Por ejemplo, la clase `Docente` no puede acceder directamente al nombre del
-  trabajador (el atributo `__nombre`) ya que es un miembro privado definido en
-  la clase `Trabajador`):
+  trabajador (el atributo `__nombre`), ya que es un miembro privado definido en
+  la clase `Trabajador`:
 
   ```python
   class Trabajador:
       """Trabajador es la superclase"""
+      def __init__(self, nombre):
+          self.set_nombre(nombre)
+
       def set_nombre(self, nombre):
           self.__nombre = nombre
 
@@ -933,7 +936,164 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   d.imprimir_nombre()            # Da error
   ```
 
-## La clase `object`
+---
+
+- El mensaje de error que se obtiene es el siguiente, el cual nos da una pista
+  de lo que ocurre:
+
+  ```python
+  AttributeError: 'Docente' object has no attribute '_Docente__nombre'
+  ```
+
+- Lo que hace el intérprete de Python es cambiar el nombre de los miembros
+  privados (aquellos que empiezan, pero no acaban, por `__`), de forma que les
+  concatena por delante un `_` y el nombre de la clase a la que pertenecen.
+
+  En nuestro caso, el miembro `__nombre` queda sustituido por
+  `_Docente__nombre`.
+
+- A este proceso se le denomina **_name mangling_**.
+
+- Eso significa que, dentro de la clase `Trabajador`, las dos expresiones
+  siguientes son equivalentes:
+
+  ```python
+  self.__nombre
+  ```
+
+  ```python
+  self._Trabajador__nombre
+  ```
+
+---
+
+- El _name mangling_ es un mecanismo sencillo que cumple dos objetivos:
+
+  #. Emular la visibilidad privada de miembros en lenguajes que (como Python)
+     no dispone de mecanismos de control de acceso a miembros.
+
+     En nuestro caso, no podemos acceder al miembro `__nombre` desde fuera de
+     la clase porque, en realidad, el intérprete lo renombra a
+     `_Docente__nombre`:
+
+     ```python
+     >>> t = Trabajador('Manolo')
+     >>> t.__nombre
+     AttributeError: 'Trabajador' object has no attribute '__nombre'
+     ```
+
+     Pero, curiosamente, sí que podremos acceder a él usando su nuevo nombre:
+
+     ```python
+     >>> t = Trabajador('Manolo')
+     >>> t._Trabajador__nombre
+     Manolo
+     ```
+
+  #. Permitir que una subclase tenga miembros privados con el mismo nombre que
+     otros miembros privados de alguna de sus superclases.
+
+---
+
+- Gracias al _name mangling_, la clase `Docente` puede tener un miembro
+  privado con el mismo nombre que otro miembro privado de su superclase
+  `Trabajador` sin que entren en conflicto entre ellos.
+
+- Por ejemplo, podemos hacer que ambas clases posean un método privado llamado
+  `__auxiliar`.
+
+- En realidad, ese método se llamará `_Trabajador__auxiliar` en la clase
+  `Trabajador` y `_Docente__auxiliar` en la clase `Docente`.
+
+- Por tanto, cuando la clase `Docente` herede el método `__auxiliar` de su
+  superclase `Trabajador`, en realidad lo heredará como
+  `_Trabajador__auxiliar`, y no entrará en conflicto con su método `__auxiliar`
+  (que realmente se llamará `_Docente__auxiliar`). Ambos métodos tendrán
+  nombres distintos.
+
+#### Visibilidad protegida
+
+- A veces nos interesaría tener un miembro al que no se pueda acceder desde el
+  exterior de su clase pero que sí pudiera accederse desde una de sus
+  subclases.
+
+- En nuestro ejemplo, podría ser interesante tener un atributo privado llamado
+  `nombre` definido en la clase `Trabajador` pero que se pudiera acceder a él
+  directamente desde la subclase `Docente`.
+
+- Para ello, podríamos decir que necesitaríamos una visibilidad intermedia
+  entre _privada_ y _pública_:
+
+  - Pública para las subclases de la clase en la que se ha definido.
+
+  - Privada para el resto de las clases del programa.
+
+- A esa visibilidad se le denomina **visibilidad _protegida_**.
+
+---
+
+- En Python, como ya sabemos, no existe un mecanismo de control de acceso a los
+  campos de una clase y, por tanto, no hay forma de definir que un campo tiene
+  visibilidad _protegida_.
+
+- Lo que se hace en Python es establecer que, **por convenio**, todo atributo
+  cuyo nombre comienza por un único `_` (no dos) se considera un atributo
+  protegido.
+
+- Por ejemplo:
+
+  ```python
+  self.nombre     # atributo público
+  ```
+
+  ```python
+  self._nombre    # atributo protegido
+  ```
+
+  ```python
+  self.__nombre   # atributo privado
+  ```
+
+- Debemos tener claro que no es más que un convenio, ya que **el intérprete de
+  Python no hace ningún tipo de comprobación** para garantizar que se cumplen
+  las restricciones de acceso al campo.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Trabajador:
+      """Trabajador es la superclase"""
+      def __init__(self, nombre):
+          self.set_nombre(nombre)
+
+      def set_nombre(self, nombre):
+          self._nombre = nombre    # _nombre es un atributo protegido
+
+      def get_nombre(self):
+          return self._nombre
+
+  class Docente(Trabajador):
+      """Docente es subclase de Trabajador"""
+      def set_nrp(self, nrp):
+          self.__nrp = nrp
+
+      def get_nrp(self, nrp):
+          return self.__nrp
+
+      def imprimir_nombre(self):
+          print(self._nombre)      # acceso a un atributo protegido heredado
+  ```
+
+- Así, esto funcionaría perfectamente:
+
+  ```python
+  t = Trabajador('Manolo')
+  t._nombre = 'Juan'
+  ```
+
+### La clase `object`
 
 - En Python, todas las clases heredan, directa o indirectamente, de una clase
   predefinida especial llamada `object`.
