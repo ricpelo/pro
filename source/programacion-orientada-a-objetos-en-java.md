@@ -18,8 +18,8 @@ nocite: |
   que necesite, entre paréntesis y separados por comas. Los paréntesis son
   obligatorios aunque no haya argumentos.
 
-- Por ejemplo, si tenemos una clase Triángulo cuyo constructor espera dos
-  argumentos (ancho y alto), podemos crear una instancia de esa clase de la
+- Por ejemplo, si tenemos una clase `Triángulo` cuyo constructor espera dos
+  argumentos (_ancho_ y _alto_), podemos crear una instancia de esa clase de la
   siguiente forma:
 
   ```java
@@ -35,7 +35,7 @@ nocite: |
 - El método !JAVA(getClass()) devuelve la clase de la que es instancia el
   objeto sobre el que se ejecuta.
 
-- Lo que devuelve es una instancia de la clase !JAVA(java.class.Class).
+- Lo que devuelve es una instancia de la clase !JAVA(java.lang.Class).
 
 - Para obtener una cadena con el nombre de la clase, se puede usar el método
   !JAVA(getSimpleName()) definido en la clase !JAVA(Class):
