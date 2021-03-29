@@ -187,11 +187,11 @@ nocite: |
 - Un método parecido es !JAVA(compareTo), que compara dos objetos de forma que
   la expresión !JAVA(a.compareTo(b)) devuelve un entero:
 
-  - !JAVA(-1) si !JAVA(a < b).
+  - Menor que cero si !JAVA(a < b).
 
   - !JAVA(0) si !JAVA(a == b).
 
-  - !JAVA(1) si !JAVA(a > b).
+  - Mayor que cero si !JAVA(a > b).
 
 ### `hashCode`
 
