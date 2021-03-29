@@ -8,26 +8,43 @@ author: Ricardo Pérez López
 
 ## Visibilidad
 
-- La visibilidad de los miembros de una clase se puede establecer usando los
-  llamados **modificadores de acceso**.
-
-- Los miembros de una clase pueden tener uno de estos cuatro tipos de
+- Cada miembro de una clase puede tener uno de estos cuatro tipos de
   visibilidades:
+
+  - **Visibilidad _privada_**: el miembro sólo es accesible desde el interior
+    de la clase en la que se ha definido.
 
   - **Visibilidad _predeterminada_** (**_por defecto_** o **_default_**): el
     miembro es accesible desde el interior de la clase en la que se ha definido
     y también desde otras clases que pertenezcan al mismo _paquete_.
 
-  - **Visibilidad _pública_**: el miembro es accesible desde el interior de la
-    clase en la que se ha definido y también desde fuera de la misma (siempre
-    que la clase en sí también sea accesible).
-
-  - **Visibilidad _privada_**: el miembro sólo es accesible desde el interior
-    de la clase en la que se ha definido.
-
   - **Visibilidad _protegida_**: el miembro es accesible desde el interior de
-    la clase en la que se ha definido y también desde sus subclases (aunque se
-    hayan definido en paquetes distintos).
+    la clase en la que se ha definido, también desde otras clases que
+    pertenezcan al mismo paquete y también desde sus subclases (aunque se hayan
+    definido en paquetes distintos).
+
+  - **Visibilidad _pública_**: el miembro es accesible desde el interior de la
+    clase en la que se ha definido y también desde cualquier otra clase
+    (siempre que la clase en sí también sea accesible).
+
+---
+
+- El siguiente cuadro resume las cuatro visibilidades y desde dónde se puede
+  acceder a un miembro definido con una determinada visibilidad en una
+  determinada clase:
+
+  -------------------------------------------------------------------------------------
+  Visibilidad          La propia     Otras clases del  Subclases de  Otras clases de 
+                       clase         mismo paquete     la clase      cualquier paquete
+  -------------------- ------------- ----------------- ------------- ------------------
+  **Privada**               Sí            No              No                 No
+
+  **Predeterminada**        Sí            Sí              No                 No
+
+  **Protegida**             Sí            Sí              Sí                 No
+
+  **Pública**               Sí            Sí              Sí                 Sí
+  -------------------------------------------------------------------------------------
 
 ---
 
