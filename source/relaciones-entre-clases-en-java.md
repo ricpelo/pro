@@ -30,6 +30,8 @@ author: Ricardo Pérez López
 
 ## Sobreescritura de métodos
 
+### Sobreescritura y visibilidad
+
 ### `super`
 
 ### Covarianza en el tipo de retorno
