@@ -203,19 +203,84 @@
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/encapsulación"><span class="toc-section-number">1</span> Encapsulación</a></li>
-<li><a href="#/miembros-no-estáticos"><span class="toc-section-number">2</span> Miembros no estáticos</a></li>
+<li><a href="#/definición-de-clases"><span class="toc-section-number">1</span> Definición de clases</a></li>
+<li><a href="#/miembros-de-instancia"><span class="toc-section-number">2</span> Miembros de instancia</a></li>
 <li><a href="#/miembros-estáticos"><span class="toc-section-number">3</span> Miembros estáticos</a></li>
 </ul>
 </section>
 
 <section>
-<section id="encapsulación" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Encapsulación</h1>
+<section id="definición-de-clases" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Definición de clases</h1>
 
 </section>
-<section id="visibilidad" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Visibilidad</h2>
+<section id="sintaxis-básica" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Sintaxis básica</h2>
+<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> <strong><code>{</code></strong><br />
+    <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
+<strong><code>}</code></strong><br />
+<br />
+<span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span><br />
+<span style="color:teal">⟨<em>variable</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_variable</em>⟩</span><br />
+<span style="color:teal">⟨<em>método</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span> ::= <strong><code>public</code></strong><br />
+<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span> ::= <strong><code>public</code></strong> | <strong><code>private</code></strong> | <strong><code>protected</code></strong></div>
+<ul>
+<li><p>La definición de una clase es una construcción sintática que define su propio ámbito y que está formada por un bloque de <strong>declaraciones de miembros</strong>, cuada una de las cuales puede declarar una <strong>variable</strong> (también llamada <strong>campo</strong>) o un <strong>método</strong>.</p></li>
+<li><p>A su vez, cada miembro puede ser <strong>de instancia</strong> o puede ser <strong>estático</strong>.</p></li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Hola <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setNombre</span><span class="op">(</span><span class="bu">String</span> nom<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        nombre <span class="op">=</span> nom<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+
+<section id="visibilidad-de-una-clase" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Visibilidad de una clase</h2>
+<ul>
+<li><p>Una clase siempre pertenece siempre a un paquete, que es el paquete en el que se ha definido.</p></li>
+<li><p>El uso y definición de paquetes en Java lo estudiaremos con más profundidad posteriormente.</p></li>
+<li><p>En relación a los paquetes en las que se definen, las clases pueden tener dos tipos de visibilidades:</p>
+<ul>
+<li><p><strong>Visibilidad <em>predeterminada</em></strong> (<strong><em>por defecto</em></strong> o <strong><em>default</em></strong>): la clase sólo es accesible desde el interior del paquete en el que se ha definido.</p></li>
+<li><p><strong>Visibilidad <em>pública</em></strong>: la clase es accesible desde cualquier paquete.</p></li>
+</ul></li>
+<li><p>Para indicar la visibilidad que debe tener una clase, se puede usar un <strong>modificador de acceso</strong>.</p></li>
+</ul>
+</section>
+<section id="visibilidad-predeterminada" class="title-slide slide level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Visibilidad predeterminada</h3>
+<ul>
+<li><p>Cuando no se utiliza ningún <em>modificador de acceso</em> al definir la clase, ésta se define con visibilidad predeterminada.</p></li>
+<li><p>En un archivo fuente pueden definirse tantas clases con visibilidad predeterminada como se desee.</p></li>
+<li><p>Además, en ese caso el archivo fuente puede tener cualquier nombre (por supuesto, siempre con extensión <code>.java</code>).</p></li>
+</ul>
+</section>
+
+<section id="visibilidad-pública" class="title-slide slide level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Visibilidad pública</h3>
+<ul>
+<li><p>Para definir una clase con visibilidad pública, se usa el <em>modificador de acceso</em> <code class="sourceCode java"><span class="kw">public</span></code> en la definición de la clase.</p></li>
+<li><p>En un archivo fuente pueden definirse muchas clases, pero sólo una de ellas puede ser pública.</p></li>
+<li><p>Además, el archivo fuente debe llamarse igual que la (única) clase pública que contiene.</p></li>
+</ul>
+</section>
+
+
+<section id="visibilidad-de-un-miembro-de-una-clase" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Visibilidad de un miembro de una clase</h2>
 <ul>
 <li><p>Cada miembro de una clase puede tener uno de estos cuatro tipos de visibilidades:</p>
 <ul>
@@ -226,9 +291,10 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.1">
+<section class="slide level5" data-number="1.3.0.0.1">
 
 <ul>
+<li><p>La visibilidad es un mecanismo de <strong>encapsulación</strong> que impide que ciertos miembros puedan ser accedidos (o incluso conocidos) fuera de la clase en la que se han definido, o fuera del paquete que contiene la clase en la que se ha definido.</p></li>
 <li><p>El siguiente cuadro resume las cuatro visibilidades y desde dónde se puede acceder a un miembro definido con una determinada visibilidad en una determinada clase:</p>
 <table>
 <colgroup>
@@ -280,7 +346,7 @@
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.2">
+<section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
 <li><p>La visibilidad que queremos que tenga un determinado miembro se indica mediante los llamados <strong>modificadores de acceso</strong>.</p></li>
@@ -319,7 +385,7 @@
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.3">
+<section class="slide level5" data-number="1.3.0.0.3">
 
 <div class="centered">
 <figure>
@@ -327,29 +393,29 @@
 </figure>
 </div>
 </section>
-<section id="pública" class="title-slide slide level3" data-number="1.1.1">
-<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span> Pública</h3>
+<section id="pública" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Pública</h3>
 
 </section>
 
-<section id="privada" class="title-slide slide level3" data-number="1.1.2">
-<h3 data-number="1.1.2"><span class="header-section-number">1.1.2</span> Privada</h3>
+<section id="privada" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Privada</h3>
 
 </section>
 
-<section id="por-defecto" class="title-slide slide level3" data-number="1.1.3">
-<h3 data-number="1.1.3"><span class="header-section-number">1.1.3</span> Por defecto</h3>
+<section id="predeterminada" class="title-slide slide level3" data-number="1.3.3">
+<h3 data-number="1.3.3"><span class="header-section-number">1.3.3</span> Predeterminada</h3>
 
 </section>
 
 </section>
 <section>
-<section id="miembros-no-estáticos" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Miembros no estáticos</h1>
+<section id="miembros-de-instancia" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Miembros de instancia</h1>
 
 </section>
-<section id="atributos" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Atributos</h2>
+<section id="campos" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Campos</h2>
 
 </section>
 <section id="acceso-y-modificación" class="title-slide slide level3" data-number="2.1.1">
@@ -357,8 +423,8 @@
 
 </section>
 
-<section id="atributos-finales" class="title-slide slide level3" data-number="2.1.2">
-<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Atributos finales</h3>
+<section id="campos-finales" class="title-slide slide level3" data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Campos finales</h3>
 
 </section>
 
@@ -408,13 +474,13 @@
 
 </section>
 
-<section id="atributos-estáticos" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Atributos estáticos</h2>
+<section id="campos-estáticos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Campos estáticos</h2>
 
 </section>
 
-<section id="atributos-estáticos-finales" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Atributos estáticos finales</h2>
+<section id="campos-estáticos-finales" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Campos estáticos finales</h2>
 
 </section>
 </section>
