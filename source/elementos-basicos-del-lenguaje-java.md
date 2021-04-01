@@ -1273,11 +1273,6 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   - **Estáticas:** se almacenan en una zona especial del montículo llamada
     _PermGen_ (hasta Java 7) o _Metaspace_ (desde Java 8).
 
-  Como veremos en posteriores temas, el ámbito de un variable de instancia o o
-  de una variable estática es la clase donde se declaró y, posiblemente,
-  también sus subclases, dependiendo de la visibilidad con la que fue declarada
-  (pública, privada o protegida).
-
 ### Inicialización y asignación de variables
 
 - Para darle un valor a una variable, podemos:
