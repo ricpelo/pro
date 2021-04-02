@@ -1234,9 +1234,80 @@ jshell> Arrays.equals(s, a)
 |  ^-----------^
 ```
 
-## Arrays multidimensionales
+## *Arrays* multidimensionales
+
+- Se denomina **dimensión** de un _array_ al número de índices que se necesitan
+  para acceder a un elemento del _array_.
+
+- Los _arrays_ que hemos visto hasta ahora necesitan un único índice para
+  acceder a cada uno de sus elementos, por lo que su dimensión es 1.
+
+  A los _arrays_ de dimensión 1 también se les denominan **_arrays_
+  unidimensionales**.
+
+- Los _arrays_ de dimensión mayor que 1 se denominan, genéricamente, **_arrays_
+  multidimensionales**.
+
+  Esos _arrays_ necesitan más de un índice para acceder a sus elementos
+  individuales.
+
+- Los _arrays_ multidimensionales más habituales son los de dimensión 2
+  (también llamados **_arrays_ bidimensionales**) y de dimensión 3 (**_arrays_
+  tridimensionales**).
 
 ### Declaración
+
+- En Java, los _arrays_ multidimensionales se forman internamente haciendo que
+  los elementos de un _array_ sean, a su vez, otros _arrays_.
+
+- Es decir: en Java, los _arrays_ multidimensionales son _arrays_ de _arrays_.
+
+- Por tanto, al declarar un _array_ tenemos que usar una sintaxis equivalente a
+  la que hemos usado hasta ahora, pero usando tantas parejas de corchetes como
+  sean necesarios.
+
+- Por ejemplo, la siguiente sentencia declara una variable `x` como una
+  variable que puede contener un _array_ bidimensional donde sus elementos son
+  enteros:
+
+  ```java
+  int[][] x;
+  ```
+
+  Cuando la variable apunte a un _array_ de ese tipo, se podrá acceder a cada
+  uno de sus elementos indicando dos índices, cada uno entre un par de
+  corchetes:
+
+  ```java
+  System.out.println(x[4][3]);
+  ```
+
+---
+
+- En este caso, tenemos un _array_ bidimensional.
+
+- Los _arrays_ bidimensionales se pueden representar como una **matriz** de
+  elementos organizados en filas y columnas.
+
+- Esos elementos se pueden almacenar por filas:
+
+  $$\begin{array}{c|ccccc}
+    & 0 & 1 & 2 & 3 & \cdots \\ \hline{}
+  0 & \texttt{x[0][0]} & \texttt{x[0][1]} & \texttt{x[0][2]} & \cdots \\
+  1 & \texttt{x[1][0]} & \texttt{x[1][1]} & \texttt{x[1][2]} & \cdots \\
+  2 & \texttt{x[2][0]} & \texttt{x[2][1]} & \texttt{x[2][2]} & \cdots \\
+  \vdots & \vdots & \vdots & \ddots & \vdots
+  \end{array}$$
+
+- O por columnas:
+
+  $$\begin{array}{c|ccccc}
+    & 0 & 1 & 2 & 3 & \cdots \\ \hline{}
+  0 & \texttt{x[0][0]} & \texttt{x[1][0]} & \texttt{x[2][0]} & \cdots \\
+  1 & \texttt{x[0][1]} & \texttt{x[1][1]} & \texttt{x[2][1]} & \cdots \\
+  2 & \texttt{x[0][2]} & \texttt{x[1][2]} & \texttt{x[2][2]} & \cdots \\
+  \vdots & \vdots & \vdots & \ddots & \vdots
+  \end{array}$$
 
 ### Creación
 
