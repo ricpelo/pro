@@ -562,7 +562,7 @@ nocite: |
   -----------------------------------------------------
   Clase _wrapper_               Tipo primitivo
   ----------------------------- -----------------------
-  !JAVA(java.lang.Boolean)      !JAVA(bool)
+  !JAVA(java.lang.Boolean)      !JAVA(boolean)
 
   !JAVA(java.lang.Byte)         !JAVA(byte)
 
@@ -606,10 +606,11 @@ nocite: |
 
 ---
 
-- A partir de JDK 9, los constructores _wrapper_ de tipo han quedado obsoletos.
+- A partir de JDK 9, los constructores de las clases _wrapper_ han quedado
+  obsoletos.
 
-- Actualmente, se recomienda que usar uno de los métodos estáticos
-  !JAVA(valueOf) para obtener un objeto _wrapper_.
+- Actualmente, se recomienda usar uno de los métodos estáticos !JAVA(valueOf)
+  para obtener un objeto _wrapper_.
 
 - El método es un miembro estático de todas las clases _wrappers_ y todas las
   clases numéricas admiten formas que convierten un valor numérico o una cadena
@@ -671,12 +672,9 @@ nocite: |
   ```java
   public class Prueba {
       public static void main(String[] args) {
-          Integer i = new Integer(4);
-          int res = cuadrado(i);       // Se envía un Integer
+          Integer i = Integer.valueOf(4);
+          int res = 2 * i;              // El Integer se convierte en int
           System.out.println(res);
-      }
-      public static cuadrado(int x) {  // Se recibe un int
-          return x ** x;
       }
   }
   ```
@@ -726,7 +724,7 @@ nocite: |
 - Ejemplo de uso:
 
   ```java
-  jshell> Number n = new Integer(4);
+  jshell> Number n = Integer.valueOf(4);
   n ==> 4
 
   jshell> n.intValue()
@@ -776,8 +774,8 @@ nocite: |
   ```
 
   Ahora mismo, `x` es una referencia a un objeto _array_ que puede contener
-  elementos de tipo `int`. Como la variable `x` aún no ha sido inicializada, el
-  valor que contiene es la referencia nula (`null`):
+  elementos de tipo !JAVA(int). Como la variable `x` aún no ha sido
+  inicializada, el valor que contiene es la referencia nula (!JAVA(null)):
 
   ```java
   jshell> int[] x;
@@ -984,24 +982,24 @@ nocite: |
 ## Subtipado entre _arrays_
 
 - Entre los tipos de _arrays_ se define una relación de subtipado «$<_1$»
-  similar a la que hemos visto hasta ahora.
+  <!-- _1 --> similar a la que hemos visto hasta ahora.
 
 - Resumiendo, las reglas que definen esa relación son las siguientes:
 
   - Si $S$ y $T$ son tipos referencia, entonces $S$`[]` $<_1$ $T$`[]` si y sólo
     si $S <_1 T$.
 
-  - `Object[]` $<_1$ `Object`.
+  - `Object[]` $<_1$ `Object`. <!-- _1 -->
 
-  - Si $P$ es un tipo primitivo, entonces $P$`[]` $<_1$ `Object`.
+  - Si $P$ es un tipo primitivo, entonces $P$`[]` $<_1$ `Object`. <!-- _1 -->
 
 ## `java.util.Arrays`
 
 - La clase !JAVA(java.util.Arrays) contiene varios métodos estáticos para
   manipular _arrays_, incluyendo ordenación y búsqueda.
 
-- También contiene una fábrica estática que permite ver a los _arrays_ como
-  listas, lo que será de interés cuando veamos las listas en Java.
+- También contiene un método factoría estático que permite ver a los _arrays_
+  como listas, lo que será de interés cuando veamos las listas en Java.
 
 - Los métodos de esta clase lanzan todos una excepción
   !JAVA(NullPointerException) cuando el _array_ especificado es una referencia
@@ -1311,8 +1309,72 @@ jshell> Arrays.equals(s, a)
 
 ### Creación
 
+- Al crear un _array_ multidimensional tenemos que indicar, al menos, el tamaño
+  de la primera dimensión del _array_:
+
+  ```java
+  jshell> new int[4][]
+  $1 ==> int[4][] { null, null, null, null }
+  ```
+
+- Podemos indicar el tamaño de más dimensiones, siempre en orden de izquierda a
+  derecha:
+
+  ```java
+  jshell> new int[4][3]
+  $12 ==> int[4][] { int[3] { 0, 0, 0 }, int[3] { 0, 0, 0 },
+                     int[3] { 0, 0, 0 }, int[3] { 0, 0, 0 } }
+  ```
+
 ### Inicialización
 
+- La inicialización de un _array_ multidimensional se hace de forma análoga a
+  la de un _array_ unidimensional:
+
+  ```java
+  jshell> new int[][] { null, null, null, null }
+  $1 ==> int[4][] { null, null, null, null }
+
+  jshell> new int[][] { null, new int[] { 4, 2, 3 }, null, null }
+  $2 ==> int[4][] { null, int[3] { 4, 2, 3 }, null, null }
+  ```
+
+- En éste último caso, podemos hacer:
+
+  ```java
+  jshell> int[][] x = new int[][] { null, new int[] { 4, 2, 3 }, null, null }
+  x ==> int[4][] { null, int[3] { 4, 2, 3 }, null, null }
+
+  jshell> x[0]
+  $2 ==> null
+
+  jshell> x[1]
+  $3 ==> int[3] { 4, 2, 3 }
+
+  jshell> x[1][2]
+  $4 ==> 3
+  ```
+
 ### `Arrays.deepEquals()`
+
+- El método !JAVA(Arrays.equals) sirve para comprobar si dos _arrays_ son
+  iguales, pero sólo funciona con _arrays_ unidimensionales.
+
+- En cambio, el método !JAVA(Arrays.deepEquals) permite comprobar si dos
+  _arrays_ multidimensionales son iguales:
+
+  ```java
+  jshell> int[][] x = new int[][] { null, new int[] { 4, 2, 3 }, null, null }
+  x ==> int[4][] { null, int[3] { 4, 2, 3 }, null, null }
+
+  jshell> int[][] y = new int[][] { null, new int[] { 4, 2, 3 }, null, null }
+  y ==> int[4][] { null, int[3] { 4, 2, 3 }, null, null }
+
+  jshell> Arrays.equals(x, y)
+  $3 ==> false
+
+  jshell> Arrays.deepEquals(x, y)
+  $4 ==> true
+  ```
 
 !BIBLIOGRAFIA
