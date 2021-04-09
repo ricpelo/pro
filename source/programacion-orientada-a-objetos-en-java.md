@@ -989,6 +989,10 @@ nocite: |
   - Si $S$ y $T$ son tipos referencia, entonces $S$`[]` $<_1$ $T$`[]` si y sólo
     si $S <_1 T$.
 
+    Debido a esto, se dice que los _arrays_ de Java son **covariantes** con los
+    tipos referencia (hablaremos más sobre este tema cuando estudiemos los
+    _tipos genéricos_).
+
   - `Object[]` $<_1$ `Object`. <!-- _1 -->
 
   - Si $P$ es un tipo primitivo, entonces $P$`[]` $<_1$ `Object`. <!-- _1 -->
