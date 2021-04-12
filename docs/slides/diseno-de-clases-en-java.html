@@ -439,25 +439,39 @@
 <section id="acceso-y-modificación" class="title-slide slide level3" data-number="2.1.1">
 <h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> Acceso y modificación</h3>
 <ul>
-<li>Para acceder a una variable de instancia de un objeto, se usa el operador punto (<code>.</code>), como es ya usual y con la sintaxis que ya conocemos:</li>
-</ul>
+<li><p>Para acceder a una variable de instancia de un objeto, se usa el operador punto (<code>.</code>), como es ya usual y con la sintaxis que ya conocemos:</p>
+<div class="centered">
 <p><em>referencia</em><code>.</code><em>variable</em></p>
-<ul>
-<li>Ejemplo:</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Hola <span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
+</div></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        Prueba p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Prueba</span><span class="op">();</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">saludo</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;¡Hola!&quot;</span><span class="op">);</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p<span class="op">.</span><span class="fu">x</span><span class="op">);</span>    <span class="co">// Imprime 4</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="dv">17</span><span class="op">;</span>                   <span class="co">// Cambia el valor de x</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p<span class="op">.</span><span class="fu">x</span><span class="op">);</span>    <span class="co">// Ahora imprime 17</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">saludo</span><span class="op">();</span>                 <span class="co">// Invoca al método saludo sobre p</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">saludo</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;¡Hola!&quot;</span><span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="variables-de-instancia-finales" class="title-slide slide level3" data-number="2.1.2">
 <h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Variables de instancia finales</h3>
-
+<ul>
+<li><p>Las variables de instancia se pueden declarar con el modificador <code class="sourceCode java"><span class="dt">final</span></code>, lo que las convertirá en <strong>variables <em>finales</em></strong>.</p></li>
+<li><p>Las variables de instancia finales son aquellas que no pueden cambiar su valor una vez inicializadas.</p></li>
+<li><p>Son lo más parecido a las <strong>constantes</strong> que existe en Java.</p></li>
+</ul>
 </section>
 
 
@@ -605,8 +619,8 @@
 </ul>
 </section>
 
-<section id="constructores-y-destructores" class="title-slide slide level3" data-number="2.2.4">
-<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Constructores y destructores</h3>
+<section id="constructores" class="title-slide slide level3" data-number="2.2.4">
+<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Constructores</h3>
 
 </section>
 

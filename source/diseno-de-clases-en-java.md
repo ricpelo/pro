@@ -214,22 +214,43 @@ public class Hola {
 - Para acceder a una variable de instancia de un objeto, se usa el operador
   punto (`.`), como es ya usual y con la sintaxis que ya conocemos:
 
-_referencia_`.`_variable_
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  _referencia_`.`_variable_
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Ejemplo:
 
-```java
-class Hola {
-    public int x = 4;
-    protected String nombre;
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba();
 
-    public void saludo() {
-        System.out.println("¡Hola!");
-    }
-}
-```
+          System.out.println(p.x);    // Imprime 4
+          p.x = 17;                   // Cambia el valor de x
+          System.out.println(p.x);    // Ahora imprime 17
+          p.saludo();                 // Invoca al método saludo sobre p
+      }
+  }
+
+  class Prueba {
+      public int x = 4;
+
+      public void saludo() {
+          System.out.println("¡Hola!");
+      }
+  }
+  ```
 
 ### Variables de instancia finales
+
+- Las variables de instancia se pueden declarar con el modificador
+  !JAVA(final), lo que las convertirá en **variables _finales_**.
+
+- Las variables de instancia finales son aquellas que no pueden cambiar su
+  valor una vez inicializadas.
+
+- Son lo más parecido a las **constantes** que existe en Java.
 
 ## Métodos
 
@@ -406,7 +427,7 @@ public class Prueba {
   }
   ```
 
-### Constructores y destructores
+### Constructores
 
 ### Sobrecarga
 
