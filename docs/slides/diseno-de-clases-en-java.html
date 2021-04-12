@@ -83,6 +83,22 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -217,13 +233,13 @@
 <section id="sintaxis-básica" class="title-slide slide level2" data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Sintaxis básica</h2>
 <div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> <strong><code>{</code></strong><br />
-    <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
+        <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
 <strong><code>}</code></strong><br />
 <br />
 <span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
 <span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span><br />
 <span style="color:teal">⟨<em>variable</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_variable</em>⟩</span><br />
-<span style="color:teal">⟨<em>método</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>método</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
 <span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span> ::= <strong><code>public</code></strong><br />
 <span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span> ::= <strong><code>public</code></strong> | <strong><code>private</code></strong> | <strong><code>protected</code></strong></div>
 <ul>
@@ -235,16 +251,12 @@
 <h5 class="unnumbered unlisted">Ejemplo</h5>
 <div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Hola <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">saludo</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;¡Hola!&quot;</span><span class="op">);</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setNombre</span><span class="op">(</span><span class="bu">String</span> nom<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        nombre <span class="op">=</span> nom<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
 <section id="visibilidad-de-una-clase" class="title-slide slide level2" data-number="1.2">
@@ -393,73 +405,223 @@
 </figure>
 </div>
 </section>
-<section id="pública" class="title-slide slide level3" data-number="1.3.1">
-<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Pública</h3>
+<section class="slide level5" data-number="1.3.0.0.4">
 
+<ul>
+<li><p>Las variables protegidas de una clase son visibles para sus subclases, pero sólo a través de objetos del tipo de la subclase o sus subtipos.</p>
+<p>En otras palabras, <strong>una subclase puede ver una variable protegida de su superclase como una variable heredada, pero no puede acceder a esa misma variable a través de una referencia a la propia superclase</strong>.</p></li>
+<li><p>Esto puede parecer un poco confuso al principio, ya que puede que no resulte obvio que los modificadores de visibilidad no restringen el acceso entre instancias de la misma clase de la misma manera que restringen el acceso entre instancias de diferentes clases.</p></li>
+<li><p><strong>Dos instancias de la misma clase pueden acceder a todos los miembros de la otra, incluidos los privados, siempre que se acceda a través de una referencia del tipo correcto</strong>.</p>
+<p>Dicho de otra manera: dos instancias de <code>Gato</code> pueden acceder a todas las variables y métodos de cada uno (incluidos los privados), pero un <code>Gato</code> no puede acceder a un miembro protegido de una instancia de <code>Animal</code> a menos que el compilador pueda probar que el <code>Animal</code> es un <code>Gato</code>.</p></li>
+</ul>
 </section>
-
-<section id="privada" class="title-slide slide level3" data-number="1.3.2">
-<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Privada</h3>
-
-</section>
-
-<section id="predeterminada" class="title-slide slide level3" data-number="1.3.3">
-<h3 data-number="1.3.3"><span class="header-section-number">1.3.3</span> Predeterminada</h3>
-
-</section>
-
 </section>
 <section>
 <section id="miembros-de-instancia" class="title-slide slide level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Miembros de instancia</h1>
 
 </section>
-<section id="campos" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Campos</h2>
-
+<section id="variables-de-instancia" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Variables de instancia</h2>
+<ul>
+<li><p>En una clase se pueden declarar <strong>variables de instancia</strong>.</p></li>
+<li><p>Cuando se instancia un objeto a partir de esa clase, dicho objeto contiene las variables de instancia declaradas en su clase, además de otras posibles variables de instancia públicas o protegidas que se hayan podido heredar de sus superclases (y que estarán declaradas en éstas).</p></li>
+<li><p>La declaración de una variable de instancia en una clase tiene la misma sintaxis que la usada para declarar cualquier otra variable, dentro del cuerpo (bloque) de la definición de la clase y fuera de cualquier método:</p></li>
+</ul>
+<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
+<strong><code>}</code></strong><br />
+<br />
+<span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span><br />
+<span style="color:teal">⟨<em>variable</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_variable</em>⟩</span><br />
+<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span> ::= <strong><code>public</code></strong> | <strong><code>private</code></strong> | <strong><code>protected</code></strong></div>
 </section>
 <section id="acceso-y-modificación" class="title-slide slide level3" data-number="2.1.1">
 <h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> Acceso y modificación</h3>
-
+<ul>
+<li>Para acceder a una variable de instancia de un objeto, se usa el operador punto (<code>.</code>), como es ya usual y con la sintaxis que ya conocemos:</li>
+</ul>
+<p><em>referencia</em><code>.</code><em>variable</em></p>
+<ul>
+<li>Ejemplo:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Hola <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">saludo</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;¡Hola!&quot;</span><span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
-<section id="campos-finales" class="title-slide slide level3" data-number="2.1.2">
-<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Campos finales</h3>
+<section id="variables-de-instancia-finales" class="title-slide slide level3" data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span> Variables de instancia finales</h3>
 
 </section>
 
 
 <section id="métodos" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Métodos</h2>
-
+<ul>
+<li><p>En una clase se pueden definir métodos, que pueden ser:</p>
+<ul>
+<li><p>Métodos de instancia: los que se invocan <em>sobre</em> un objeto.</p></li>
+<li><p>Métodos estáticos: los que <strong>no</strong> se invocan sobre un método.</p></li>
+</ul></li>
+<li><p>Para que podamos invocar un método sobre un objeto, éste debe disponer de dicho método. Para ello, debe ocurrir una de estas dos cosas:</p>
+<ul>
+<li><p>El objeto es instancia de una clase que define dicho método.</p></li>
+<li><p>La clase hereda el método de una superclase (el método tendrá que ser público o protegido).</p></li>
+</ul></li>
+</ul>
 </section>
-<section id="referencia-this" class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Referencia <code>this</code></h3>
+<section class="slide level5" data-number="2.2.0.0.1">
 
+<ul>
+<li>La definición de un método de instancia dentro de una clase tiene la siguiente sintaxis:</li>
+</ul>
+<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_clase</em>⟩</span>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
+<strong><code>}</code></strong><br />
+<br />
+<span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span><br />
+<span style="color:teal">⟨<em>variable</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_variable</em>⟩</span><br />
+<br />
+<span style="color:teal">⟨<em>método</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span> ::= <strong><code>public</code></strong> | <strong><code>private</code></strong> | <strong><code>protected</code></strong><br />
+<span style="color:teal">⟨<em>def_método</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <strong><code>identificador</code></strong> <strong><code>(</code></strong><span style="color:teal">⟨<em>lista_parámetros</em>⟩</span><strong><code>)</code></strong> <span style="color:teal">⟨<em>cuerpo</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> ::= <span style="color:teal">⟨<em>decl_parámetro</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>decl_parámetro</em>⟩</span>]*<br />
+<span style="color:teal">⟨<em>decl_parámetro</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>cuerpo</em>⟩</span> ::= <span style="color:teal">⟨<em>bloque_no_vacío</em>⟩</span><br />
+<span style="color:teal">⟨<em>bloque_no_vacío</em>⟩</span> ::= <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>sentencia</em>⟩</span><span class="math inline">^+</span><br />
+<strong><code>}</code></strong></div>
+</section>
+<section id="la-sentencia-return" class="title-slide slide level3" data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> La sentencia <code>return</code></h3>
+<ul>
+<li><p>Dentro de un método, se usa la sentencia <code class="sourceCode java"><span class="cf">return</span></code> para:</p>
+<ul>
+<li><p><strong>Finalizar la ejecución del método</strong> y devolver el control al punto del programa desde el que se invocó al método.</p></li>
+<li><p><strong>Devolver</strong> al llamante el <strong>valor de retorno</strong> del método.</p></li>
+</ul></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Hola <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">saludo</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;¡Hola!&quot;</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Si un método no devuelve <strong>ningún valor</strong>, debe definirse de tipo <code class="sourceCode java"><span class="dt">void</span></code>.</p></li>
+</ul>
 </section>
 
-<section id="constructores-y-destructores" class="title-slide slide level3" data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Constructores y destructores</h3>
+<section id="referencia-this" class="title-slide slide level3" data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Referencia <code>this</code></h3>
+<ul>
+<li><p>Dentro de un método de instancia, la variable especial <code class="sourceCode java"><span class="kw">this</span></code> contiene siempre una <strong>referencia al objeto sobre el que se ha invocado al método</strong>.</p></li>
+<li><p>Cumple el mismo papel que el parámetro especial <code class="sourceCode python"><span class="va">self</span></code> en Python, pero aquí tiene la peculariedad de que es un <strong>parámetro implícito</strong> que se recibe siempre y que no hay que declararlo en la lista de parámetros.</p>
+<p>Por contra, el <code class="sourceCode python"><span class="va">self</span></code> de Python es un <em>parámetro explícito</em>.</p></li>
+<li><p>A través de la referencia <code class="sourceCode java"><span class="kw">this</span></code>, podemos acceder a los campos del objeto y manipularlo directamente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.2.0.1">
 
+<ul>
+<li>Ejemplo:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">x</span><span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">setX</span><span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">getX</span><span class="op">();</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.2.2.0.2">
+
+<ul>
+<li><p>La definición de un método <strong>define un nuevo ámbito</strong>, y ese nuevo ámbito está <strong>anidado dentro del ámbito de la clase</strong> donde se define el método.</p></li>
+<li><p>Además, <strong>la ejecución del método provoca</strong>, en tiempo de ejecución, <strong>la creación de un nuevo marco</strong> en la pila.</p></li>
+<li><p>Como en Java no es posible definir métodos anidados, y tampoco existe un ámbito global, eso quiere decir que ese marco será el único que existirá en el entorno.</p></li>
+<li><p>Cuando no hay ambigüedad, es posible evitar el uso de <code class="sourceCode java"><span class="kw">this</span></code> y acceder directamente al campo sin usar una referencia al objeto.</p></li>
+<li><p>Para ello, el compilador determina (en tiempo de compilación) a qué variable corresponde cada identificador.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.2.0.3">
+
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource java number-lines"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>        <span class="cf">return</span> x<span class="op">;</span>        <span class="co">// El compilador deduce que se refiere al campo x</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">setX</span><span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span>      <span class="co">// Aquí hay que romper la ambigüedad</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>        <span class="cf">return</span> <span class="fu">getX</span><span class="op">();</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="op">}</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>En la línea 9, el identificador <code>x</code> podría representar dos cosas:</p>
+<ul>
+<li><p>El parámetro del método.</p></li>
+<li><p>La variable de instancia declarada en la clase.</p></li>
+</ul>
+<p>Para romper la ambigüedad, es necesario usar <code class="sourceCode java"><span class="kw">this</span><span class="op">.</span><span class="fu">x</span></code> para referirse a la variable de instancia, en lugar de sólo <code>x</code> (que se referirá al parámetro).</p></li>
+<li><p>Asimismo, en la línea 10 se puede llamar al método <code>getX</code> directamente sin usar <code class="sourceCode java"><span class="kw">this</span></code>, ya que no hay ambigüedad.</p></li>
+</ul>
 </section>
 
 <section id="accesores-y-mutadores" class="title-slide slide level3" data-number="2.2.3">
 <h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span> Accesores y mutadores</h3>
+<ul>
+<li><p>Crear accesores y mutadores en Java es fácil y similar a hacerlo en Python.</p></li>
+<li><p>Usando los modificadores de acceso, garantizamos la encapsulación de las variables privadas.</p></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>           <span class="co">// Variable privada</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span>          <span class="co">// Accesor público</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">x</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setX</span><span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span>    <span class="co">// Mutador público</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>x <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="constructores-y-destructores" class="title-slide slide level3" data-number="2.2.4">
+<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Constructores y destructores</h3>
 
 </section>
 
-<section id="sobrecarga" class="title-slide slide level3" data-number="2.2.4">
-<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Sobrecarga</h3>
+<section id="sobrecarga" class="title-slide slide level3" data-number="2.2.5">
+<h3 data-number="2.2.5"><span class="header-section-number">2.2.5</span> Sobrecarga</h3>
 
 </section>
 
-<section id="ámbito-de-un-identificador" class="title-slide slide level3" data-number="2.2.5">
-<h3 data-number="2.2.5"><span class="header-section-number">2.2.5</span> Ámbito de un identificador</h3>
+<section id="ámbito-de-un-identificador" class="title-slide slide level3" data-number="2.2.6">
+<h3 data-number="2.2.6"><span class="header-section-number">2.2.6</span> Ámbito de un identificador</h3>
 
 </section>
 
-<section id="resolución-de-identificadores" class="title-slide slide level3" data-number="2.2.6">
-<h3 data-number="2.2.6"><span class="header-section-number">2.2.6</span> Resolución de identificadores</h3>
+<section id="resolución-de-identificadores" class="title-slide slide level3" data-number="2.2.7">
+<h3 data-number="2.2.7"><span class="header-section-number">2.2.7</span> Resolución de identificadores</h3>
 
 </section>
 
@@ -474,13 +636,13 @@
 
 </section>
 
-<section id="campos-estáticos" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Campos estáticos</h2>
+<section id="variables-estáticas" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Variables estáticas</h2>
 
 </section>
 
-<section id="campos-estáticos-finales" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Campos estáticos finales</h2>
+<section id="variables-estáticas-finales" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Variables estáticas finales</h2>
 
 </section>
 </section>
