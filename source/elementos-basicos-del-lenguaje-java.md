@@ -1355,7 +1355,50 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ---
 
-- También se dispone de los operadores de pre y post incremento y decremento.
+- Es importante entender que la asignación en Java es una expresión (por tanto,
+  el `=` es un operador) que lleva a cabo dos acciones:
+
+  - Provoca el efecto lateral de cambiar el valor de la variable al nuevo
+    valor.
+
+  - Devuelve el nuevo valor.
+
+- Así, por ejemplo, en Java se pueden hacer cosas como las siguientes:
+
+  ```java
+  int i = 4;
+  int j = i = 3;
+  ```
+
+#### Operadores de asignación compuesta
+
+- La **asignación compuesta** también está disponible en Java en forma de
+  **expresión** con la siguiente sintaxis:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(asig_compuesta) ::= !NT(variable)\  !NT(op)!T(=)\  !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
+
+  ```java
+  int i = 4;
+  i += 9;
+  ```
+
+- Como ocurre con la asignación simple, la asignación compuesta también es una
+  expresión, lo que permite cosas como:
+
+  ```java
+  int i = 4;
+  int j = i += 5;
+  ```
+
+#### Operadores de incremento y decremento
+
+- En Java también se dispone de los operadores de pre y post incremento y
+  decremento.
 
 - Por ejemplo, supongamos que tenemos:
 
