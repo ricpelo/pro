@@ -1190,8 +1190,8 @@ $5 ==> NaN
 
 - La variable empieza a existir en el momento en el que se declara.
 
-- Se almacena en el marco del ámbito actual, donde también se crea la ligadura
-  entre el identificador y la propia variable.
+- Se almacena en el marco actual, donde también se crea la ligadura entre el
+  identificador y la propia variable.
 
 - El ámbito de la variable es el bloque (porción de código encerrado entre `{`
   y `}`) dentro del cual se ha declarado la variable, ya que cada bloque
@@ -1400,6 +1400,62 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 :::
 
 ::::
+
+#### Inicialización y asignación con literales numéricos
+
+- Recordemos que:
+
+  - Un literal entero es de tipo `long` si acaba en `l` o `L`; en caso
+    contrario, es de tipo `int`:
+
+    ```java
+    23     // Literal de tipo int
+    23L    // Literal de tipo long
+    ```
+
+  - Un literal real es de tipo `float` si acaba en `f` o `F`; en caso
+    contrario, su tipo es `double` y puede, opcionalmente, acabar en `d` o `D`.
+
+    ```java
+    23.0f    // Literal de tipo float
+    23.0     // Literal de tipo double
+    ```
+
+- Al asignar o inicializar variables usando valores literales numéricos, el
+  compilador comprueba si el número expresado por el literal «cabe» dentro de
+  la variable, es decir, si está dentro del rango de representación de valores
+  según el tipo de la variable.
+
+---
+
+- Por ejemplo, la siguiente sentencia no es válida:
+
+  ```java
+  short s = 40000;
+  ```
+
+  porque dentro de un `short` no cabe el `40000`.
+
+- En cambio, la siguiente sentencia es válida:
+
+  ```java
+  short s = 4;
+  ```
+
+  porque el literal `4` es un valor entero (de tipo `int`), pero entra dentro
+  del rango de posibles valores que admite un `short`.
+
+- Sin embargo, lo siguiente no es válido:
+
+  ```java
+  int i = 4;
+  short s = i;   // Error
+  ```
+
+  porque el compilador no puede deducir, en tiempo de compilación, si el valor
+  almacenado en `i` entra dentro de un `short`. Lo único que puede comprobar es
+  que se intenta asignar un valor de un tipo (`int`) en una variable cuyo tipo
+  (`short`) no es supertipo suyo, lo cual es incorrecto.
 
 ### Inferencia de tipos
 
