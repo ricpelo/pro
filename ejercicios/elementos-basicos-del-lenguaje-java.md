@@ -83,3 +83,60 @@ author:
        #. !JAVA(a = b;)
 
        #. !JAVA(c = a;)
+
+@. Suponiendo que partimos de la siguiente situación:
+
+    ```java
+    int i = 4;
+    short s = 3;
+    long l = 9L;
+    ```
+
+    ¿Son correctas las siguientes sentencias? ¿Por qué?
+
+      #. !JAVA(s = i);
+
+      #. !JAVA(s = 4);
+
+      #. !JAVA(s = 400);
+
+      #. !JAVA(l = i);
+
+      #. !JAVA(l = 9);
+
+@. ¿Qué resultado producen los códigos siguientes por la salida estándar? ¿Por
+   qué?
+
+    #.
+
+      ```java
+      int j = 0;
+      for (int i = 0; i < 4; i++) {
+          j += i;
+      }
+      System.out.println(i);
+      System.out.println(j);
+      ```
+
+    #.
+
+      ```java
+      int i, j = 0;
+      for (i = 0; i < 4; i++) {
+          j += i;
+      }
+      System.out.println(i);
+      System.out.println(j);
+      ```
+
+    #.
+
+      ```java
+      switch (2) {
+          case 0:  System.out.println("Vale 0");
+          case 1:  System.out.println("Vale 1");
+          case 2:  System.out.println("Vale 2");
+          case 3:  System.out.println("Vale 3");
+          default: System.out.println("Ninguno de los anteriores");
+      }
+      ```
