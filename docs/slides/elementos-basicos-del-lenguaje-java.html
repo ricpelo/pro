@@ -823,6 +823,25 @@
 </ul></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.2.4.1.1">
+
+<ul>
+<li><p>Sabiendo qué tipos son subtipos directos de otros (relación <span class="math inline">&lt;_1</span>), podemos determinar qué tipos son subtipos de otros (relación <code>&lt;:</code>), usando estas dos propiedades:</p>
+<ul>
+<li><p>Todo tipo es subtipo de sí mismo (propiedad reflexiva).</p></li>
+<li><p>Si <span class="math inline">T_1\ \texttt{&lt;:} T_2</span>  y  <span class="math inline">T_2\ \texttt{&lt;:} T_3</span>, entonces <span class="math inline">T_1\ \texttt{&lt;:} T_3</span> (propiedad transitiva).</p></li>
+</ul></li>
+<li><p>Por ejemplo, sabiendo que <code class="sourceCode java"><span class="dt">byte</span></code> <span class="math inline">&lt;_1</span> <code class="sourceCode java"><span class="dt">short</span></code> y que <code class="sourceCode java"><span class="dt">short</span></code> <span class="math inline">&lt;_1</span> <code class="sourceCode java"><span class="dt">int</span></code>, podemos deducir que:</p>
+<ul>
+<li><p><code class="sourceCode java"><span class="dt">byte</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">byte</span></code></p></li>
+<li><p><code class="sourceCode java"><span class="dt">short</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">short</span></code></p></li>
+<li><p><code class="sourceCode java"><span class="dt">int</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">int</span></code></p></li>
+<li><p><code class="sourceCode java"><span class="dt">byte</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">short</span></code></p></li>
+<li><p><code class="sourceCode java"><span class="dt">short</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">int</span></code></p></li>
+<li><p><code class="sourceCode java"><span class="dt">byte</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="dt">int</span></code></p></li>
+</ul></li>
+</ul>
+</section>
 
 <section id="subtipado-entre-tipos-referencia" class="title-slide slide level4" data-number="1.2.4.2">
 <h4 data-number="1.2.4.2"><span class="header-section-number">1.2.4.2</span> Subtipado entre tipos referencia</h4>
@@ -831,6 +850,7 @@
 <li><p>Hay muchas reglas de subtipado entre tipos referencia, pero la más importante y básica es la siguiente:</p>
 <div class="caja">
 <p>Dado un tipo referencia <span class="math inline">C</span>, el <strong>supertipo directo</strong> de <span class="math inline">C</span> es la superclase directa de <span class="math inline">C</span>.</p>
+<p>Dicho de otra forma: <span class="math inline">C &lt;_1 S</span>, siendo <span class="math inline">S</span> la superclase directa de <span class="math inline">C</span>. <!-- \_ --></p>
 </div></li>
 <li><p>Esta regla se ampliará en su momento cuando estudiemos las interfaces y la programación genérica.</p></li>
 </ul>
@@ -953,7 +973,7 @@
 <section id="promociones-numéricas" class="title-slide slide level3" data-number="1.2.6">
 <h3 data-number="1.2.6"><span class="header-section-number">1.2.6</span> Promociones numéricas</h3>
 <ul>
-<li><p>Es posible que se apliquen <strong>promociones numéricas unarias</strong> o <strong>binarias</strong> a los operandos de un operador aritmético.</p></li>
+<li><p>Las <strong>promociones numéricas</strong> son <em>conversiones implícitas</em> que el compilador realiza automáticamente al realizar ciertas operaciones.</p></li>
 <li><p><strong>Promociones numéricas unarias:</strong></p>
 <ul>
 <li><p>Se llevan a cabo sobre expresiones en las siguientes situaciones:</p>
@@ -1169,6 +1189,7 @@
 <li><p>La sintaxis de la declaración de variables es:</p>
 <div class="line-block"><span style="color:teal">⟨<em>decl_vars</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <strong><code>identificador</code></strong> (<strong><code>,</code></strong> <strong><code>identificador</code></strong>)* <strong><code>;</code></strong></div></li>
 <li><p>Todas las variables que aparecen en la declaración tendrán el mismo tipo (el tipo indicado en la declaración).</p></li>
+<li><p>El tipo que se indica en la declaración es el <strong>tipo estático</strong> de la variable, el cual podrá o no coincidir con el <em>tipo dinámico</em> del valor que contenga la variable, según sea el caso.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.0.0.1">

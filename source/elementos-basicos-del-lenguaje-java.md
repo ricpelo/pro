@@ -688,6 +688,32 @@ $5 ==> NaN
 
   - !JAVA(byte) $<_1$ !JAVA(short)
 
+---
+
+- Sabiendo qué tipos son subtipos directos de otros (relación $<_1$), podemos
+  determinar qué tipos son subtipos de otros (relación `<:`), usando estas dos
+  propiedades:
+
+  - Todo tipo es subtipo de sí mismo (propiedad reflexiva).
+
+  - Si $T_1\ \texttt{<:} T_2$\  y\  $T_2\ \texttt{<:} T_3$, entonces
+    $T_1\ \texttt{<:} T_3$ (propiedad transitiva).
+
+- Por ejemplo, sabiendo que !JAVA(byte) $<_1$ !JAVA(short) y que !JAVA(short)
+  $<_1$ !JAVA(int), podemos deducir que:
+
+  - !JAVA(byte) `<:` !JAVA(byte)
+
+  - !JAVA(short) `<:` !JAVA(short)
+
+  - !JAVA(int) `<:` !JAVA(int)
+
+  - !JAVA(byte) `<:` !JAVA(short)
+
+  - !JAVA(short) `<:` !JAVA(int)
+
+  - !JAVA(byte) `<:` !JAVA(int)
+
 #### Subtipado entre tipos referencia
 
 - El subtipado entre tipos referencia resulta bastante más complicado que el de
@@ -701,6 +727,8 @@ $5 ==> NaN
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Dado un tipo referencia $C$, el **supertipo directo** de $C$ es la superclase
   directa de $C$.
+
+  Dicho de otra forma: $C <_1 S$, siendo $S$ la superclase directa de $C$. <!-- \_ -->
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Esta regla se ampliará en su momento cuando estudiemos las interfaces y la
@@ -882,8 +910,8 @@ $5 ==> NaN
 
 ### Promociones numéricas
 
-- Es posible que se apliquen **promociones numéricas unarias** o **binarias** a
-  los operandos de un operador aritmético.
+- Las **promociones numéricas** son _conversiones implícitas_ que el compilador
+  realiza automáticamente al realizar ciertas operaciones.
 
 - **Promociones numéricas unarias:**
 
@@ -1141,6 +1169,10 @@ $5 ==> NaN
 
 - Todas las variables que aparecen en la declaración tendrán el mismo tipo (el
   tipo indicado en la declaración).
+
+- El tipo que se indica en la declaración es el **tipo estático** de la
+  variable, el cual podrá o no coincidir con el _tipo dinámico_ del valor que
+  contenga la variable, según sea el caso.
 
 ---
 
