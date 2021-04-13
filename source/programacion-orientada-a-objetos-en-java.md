@@ -981,8 +981,8 @@ nocite: |
 
 ## Subtipado entre _arrays_
 
-- Entre los tipos de _arrays_ se define una relación de subtipado «$<_1$»
-  <!-- _1 --> similar a la que hemos visto hasta ahora.
+- Entre los tipos de _arrays_ se define una relación de subtipado directo
+  ($<_1$) <!-- _1 --> similar a la que hemos visto hasta ahora.
 
 - Resumiendo, las reglas que definen esa relación son las siguientes:
 
@@ -1013,7 +1013,7 @@ nocite: |
 
 [https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Arrays.html](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Arrays.html)
 
-## Copia y redimensionado de arrays
+## Copia y redimensionado de *arrays*
 
 - Para hacer una copia de un _array_, se pueden usar varios métodos:
 
@@ -1236,7 +1236,7 @@ jshell> Arrays.equals(s, a)
 |  ^-----------^
 ```
 
-## *Arrays* multidimensionales
+## *Arrays*!if(HTML)(&nbsp;)() multidimensionales
 
 - Se denomina **dimensión** de un _array_ al número de índices que se necesitan
   para acceder a un elemento del _array_.
