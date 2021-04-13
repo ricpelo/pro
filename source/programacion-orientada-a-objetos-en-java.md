@@ -1017,7 +1017,7 @@ nocite: |
 
 - Para hacer una copia de un _array_, se pueden usar varios métodos:
 
-  - !JAVA(Object.clone).
+  - !JAVA(clone) de la clase !JAVA(Object).
 
   - !JAVA(System.arraycopy).
 
@@ -1031,7 +1031,7 @@ nocite: |
 - Para hacer una **copia profunda** (_deep copy_) es necesario escribir un
   trozo de código que lo haga.
 
-### `Object.clone`
+### `clone`
 
 - La clase !JAVA(Object) proporciona el método !JAVA(clone).
 
@@ -1359,7 +1359,7 @@ jshell> Arrays.equals(s, a)
   $4 ==> 3
   ```
 
-### `Arrays.deepEquals()`
+### `Arrays.deepEquals`
 
 - El método !JAVA(Arrays.equals) sirve para comprobar si dos _arrays_ son
   iguales, pero sólo funciona con _arrays_ unidimensionales.
