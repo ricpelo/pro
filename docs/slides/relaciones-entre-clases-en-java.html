@@ -17,9 +17,88 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -141,7 +220,7 @@
 <section id="TOC">
 <ul>
 <li><a href="#/asociaciones-básicas"><span class="toc-section-number">1</span> Asociaciones básicas</a></li>
-<li><a href="#/herencia"><span class="toc-section-number">2</span> Herencia</a></li>
+<li><a href="#/generalización"><span class="toc-section-number">2</span> Generalización</a></li>
 <li><a href="#/polimorfismo"><span class="toc-section-number">3</span> Polimorfismo</a></li>
 <li><a href="#/restricciones"><span class="toc-section-number">4</span> Restricciones</a></li>
 </ul>
@@ -154,31 +233,87 @@
 </section>
 <section id="agregación" class="title-slide slide level2" data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span> Agregación</h2>
+<ul>
+<li><p>La <strong>agregación</strong> se consigue haciendo que el objeto agregador contenga, entre sus variables de instancia, una referencia al objeto agregado.</p></li>
+<li><p>Para que sea agregación, la vida del objeto agregado <strong>no</strong> debe depender necesariamente del objeto agregador; es decir, que al destruirse el objeto agregador, eso no signifique que se tenga que destruir también al objeto agregado.</p></li>
+<li><p>Eso implica que puede haber en el programa varias referencias al objeto agregado, no sólo la que almacena el agregador.</p></li>
+<li><p>Lo habitual en la agregación es que la variable de instancia que almacene la referencia al objeto agregado se asigne, o bien directamente (si la variable tiene la suficiente visibilidad) o bien a través de un método que reciba la referencia y se la asigne a la variable de instancia.</p></li>
+<li><p>Ese método puede ser (y suele ser) un constructor de la clase.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
 
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Agregador <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> Agregado ag<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">Agregador</span><span class="op">(</span>Agregado ag<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setAg</span><span class="op">(</span>ag<span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Agregado <span class="fu">getAg</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ag<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setAg</span><span class="op">(</span>Agregado ag<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">ag</span> <span class="op">=</span> ag<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>En la agregación, es frecuente encontrarnos con métodos <em>getter</em> y <em>setter</em> para la variable de instancia que hace referencia al agregado.</p></li>
+</ul>
 </section>
 
 <section id="composición" class="title-slide slide level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> Composición</h2>
-
+<ul>
+<li><p>La <strong>composición</strong> se consigue haciendo que el objeto compuesto contenga, entre sus variables de instancia, una referencia al objeto componente.</p></li>
+<li><p>Para que sea composición, la vida del objeto componente <strong>debe depender</strong> necesariamente del objeto compuesto; es decir, que al destruirse el objeto compuesto, se debe destruir también al objeto componente.</p></li>
+<li><p>Eso implica que sólo puede haber en el programa una sola referencia al objeto componente, que es la que almacena el objeto compuesto.</p></li>
+<li><p>Por eso, lo habitual en la composición es que el objeto compuesto sea el responsable de crear al objeto componente.</p></li>
+<li><p>Normalmente, no hay <em>setters</em> para el componente y, en caso de haber <em>getters</em>, deberían devolver una copia del objeto componente, y no el objeto componente original.</p></li>
+</ul>
 </section>
 </section>
 <section>
-<section id="herencia" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Herencia</h1>
+<section id="generalización" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Generalización</h1>
 
 </section>
-<section id="subtipado-entre-tipos-referencia" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Subtipado entre tipos referencia</h2>
+<section id="declaración" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Declaración</h2>
+<ul>
+<li><p>Java es un lenguaje con generalización simple, por lo que una clase sólo puede ser subclase directa de una única clase.</p></li>
+<li><p>La relación de generalización directa entre dos clases se declara en la propia definición de la subclase usando la cláusula <code class="sourceCode java"><span class="kw">extends</span></code>:</p>
+<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong> | <strong><code>final</code></strong>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>subclase</em>⟩</span> <strong><code>extends</code></strong> <span style="color:teal">⟨<em>superclase</em>⟩</span> <strong><code>{</code></strong><br />
+          <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
+  <strong><code>}</code></strong></div>
+<p>donde <span style="color:teal">⟨<em>subclase</em>⟩</span> y <span style="color:teal">⟨<em>superclase</em>⟩</span> son los nombres de la subclase directa y la superclase directa, respectivamente.</p></li>
+<li><p>Cuando no se especifica la superclase directa a la hora de definir una clase, el compilador sobreentiende que esa clase es subclase directa de la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+</ul>
+</section>
+
+<section id="subtipado-entre-tipos-referencia" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Subtipado entre tipos referencia</h2>
+<ul>
+<li><p>A partir de ese momento, se introduce en el sistema de tipos una regla que dice que:</p>
+<p><span style="color:teal">⟨<em>subclase</em>⟩</span> <span class="math inline">&lt;_1</span> <span style="color:teal">⟨<em>superclase</em>⟩</span> <!-- _1 --></p></li>
+<li><p>Por tanto, se puede decir que la subclase es un subtipo de la superclase.</p></li>
+</ul>
+</section>
+
+<section id="herencia" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Herencia</h2>
 
 </section>
 
-<section id="la-clase-object" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> La clase <code>Object</code></h2>
+<section id="la-clase-object" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> La clase <code>Object</code></h2>
 
 </section>
 
-<section id="visibilidad-protegida" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Visibilidad protegida</h2>
+<section id="visibilidad-protegida" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Visibilidad protegida</h2>
 
 </section>
 </section>
