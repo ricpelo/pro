@@ -10,15 +10,16 @@ author: Ricardo Pérez López
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(clase) ::= [!NT(modif_acceso_clase)] !T(class) !NT(nombre) !T({)
+!NT(clase) ::= [!T(public)] [!T(abstract) | !T(final)] !T(class) !NT(nombre) !T({)
         !NT(miembro)*
 !T(})
 
 !NT(nombre) ::= !T(identificador)
 !NT(miembro) ::= !NT(variable) | !NT(método)
-!NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variable)
-!NT(método) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(def_método)
-!NT(modif_acceso_clase) ::= !T(public)
+!NT(método) ::= !NT(método_abstracto) | !NT(método_concreto)
+!NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variables)
+!NT(método_abstracto) ::= [!NT(modif_acceso_miembro)] !T(abstract) !NT(decl_método)
+!NT(método_concreto) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(def_método)
 !NT(modif_acceso_miembro) ::= !T(public) | !T(private) | !T(protected)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -194,32 +195,54 @@ public class Hola {
   variables de instancia públicas o protegidas que se hayan podido heredar de
   sus superclases (y que estarán declaradas en éstas).
 
-- La declaración de una variable de instancia en una clase tiene la misma
-  sintaxis que la usada para declarar cualquier otra variable, dentro del
-  cuerpo (bloque) de la definición de la clase y fuera de cualquier método:
+- La declaración de una variable de instancia en una clase tiene básicamente la
+  misma sintaxis que la usada para declarar cualquier otra variable, dentro del
+  cuerpo (bloque) de la definición de la clase y fuera de cualquier método.
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(clase) ::= [!NT(modif_acceso_clase)] !T(class) !NT(nombre) !T({)
-        !NT(miembro)*
-!T(})
+- Además, las variables de instancia se pueden inicializar en la misma
+  declaración, usando la sintaxis ya vista anteriormente.
 
-!NT(miembro) ::= !NT(variable) | !NT(método)
-!NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variable)
-!NT(modif_acceso_miembro) ::= !T(public) | !T(private) | !T(protected)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- La declaración puede (y suele) incluir algún modificador de acceso.
+
+---
+
+- Por ejemplo:
+
+  ```java
+  class Prueba {
+      public int x = 4;
+      private String str;
+  }
+  ```
+
+- Una clase no puede tener dos variables de instancia con el mismo nombre. Por
+  tanto, no se pueden declarar dos variables de instancia con el mismo nombre
+  en la misma clase:
+
+  ```java
+  class Prueba {
+      public int x = 4;
+      private String x;   // Error: la variable «x» ya existe en «Prueba»
+  }
+  ```
+
+- Tampoco podrá declarar una variable de instancia con el mismo nombre que otra
+  variable de instancia que haya heredado de alguna de sus superclases.
 
 ### Acceso y modificación
 
 - Para acceder a una variable de instancia de un objeto, se usa el operador
-  punto (`.`), como es ya usual y con la sintaxis que ya conocemos:
+  punto (`.`), con la sintaxis ya conocida:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   _referencia_`.`_variable_
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Ejemplo:
+- Siempre se debe tener en cuenta la visibilidad de la variable de instancia
+  y la de la clase que la contiene.
+
+- Por ejemplo:
 
   ```java
   public class Ejemplo {
@@ -227,18 +250,15 @@ public class Hola {
           Prueba p = new Prueba();
 
           System.out.println(p.x);    // Imprime 4
-          p.x = 17;                   // Cambia el valor de x
+          p.x = 17;                   // Cambia el valor de «x»
           System.out.println(p.x);    // Ahora imprime 17
-          p.saludo();                 // Invoca al método saludo sobre p
+          p.str = "Hola";             // Error: «str» es privada en «Prueba»
       }
   }
 
   class Prueba {
       public int x = 4;
-
-      public void saludo() {
-          System.out.println("¡Hola!");
-      }
+      private String str;
   }
   ```
 
@@ -247,52 +267,125 @@ public class Hola {
 - Las variables de instancia se pueden declarar con el modificador
   !JAVA(final), lo que las convertirá en **variables _finales_**.
 
-- Las variables de instancia finales son aquellas que no pueden cambiar su
-  valor una vez inicializadas.
+- Al igual que cualquier otra variable final, las variables de instancia
+  finales no pueden cambiar su valor una vez inicializadas.
 
 - Son lo más parecido a las **constantes** que existe en Java.
 
-## Métodos
+- Las variables de instancia finales **siempre hay que inicializarlas**.
+
+- Por ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba();
+
+          System.out.println(p.x);    // Imprime 4
+          p.x = 17;                   // Error: no se puede cambiar una final
+      }
+  }
+
+  class Prueba {
+      public final int x = 4;
+      public final int y;             // Error: variable de instancia final
+  }                                   // no inicializada
+  ```
+
+## Métodos de instancia
 
 - En una clase se pueden definir métodos, que pueden ser:
 
-  - Métodos de instancia: los que se invocan _sobre_ un objeto.
+  - **Métodos de instancia:** los que se invocan _sobre_ un objeto.
 
-  - Métodos estáticos: los que **no** se invocan sobre un método.
+  - **Métodos estáticos:** los que **no** se invocan sobre un método.
 
 - Para que podamos invocar un método sobre un objeto, éste debe disponer de
   dicho método. Para ello, debe ocurrir una de estas dos cosas:
 
   - El objeto es instancia de una clase que define dicho método.
 
-  - La clase hereda el método de una superclase (el método tendrá que ser
-    público o protegido).
+  - La clase _hereda_ el método de una superclase, para lo cual el método debe
+    ser _público_ o _protegido_.
+
+- Una clase no puede tener dos métodos con la misma signatura (entraremos más
+  en detalle en este asunto cuando estudiemos la _sobrecarga_).
 
 ---
 
-- La definición de un método de instancia dentro de una clase tiene la
-  siguiente sintaxis:
+- La **definición** de un método dentro de una clase tiene la siguiente
+  sintaxis:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(clase) ::= [!NT(modif_acceso_clase)] !T(class) !NT(nombre) !T({)
-        !NT(miembro)*
-!T(})
-
-!NT(nombre) ::= !T(identificador)
-!NT(miembro) ::= !NT(variable) | !NT(método)
-!NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variable)
-
-!NT(método) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(def_método)
-!NT(modif_acceso_miembro) ::= !T(public) | !T(private) | !T(protected)
-!NT(def_método) ::= !NT(tipo) !T(identificador) !T{(}!NT(lista_parámetros)!T{)} !NT(cuerpo)
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(método_concreto) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(def_método)
+!NT(def_método) ::= [!T(final)] !NT(signatura) !NT(cuerpo)
+!NT(signatura) ::= !NT(tipo_método) !T(identificador) !T{(}[!NT(lista_parámetros)]!T{)}
+!NT(tipo_método) ::= !NT(tipo) | !T(void)
 !NT(lista_parámetros) ::= !NT(decl_parámetro)[!T(,) !NT(decl_parámetro)]\*
 !NT(decl_parámetro) ::= !NT(tipo) !T(identificador)
-!NT(cuerpo) ::= !NT(bloque_no_vacío)
-!NT(bloque_no_vacío) ::= !T({)
-        !NT(sentencia)!MAS
+!NT(cuerpo) ::= !NT(bloque)
+!NT(bloque) ::= !T({)
+        !NT(sentencia)\*
 !T(})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los métodos de instancia son aquellos que **no** llevan el modificador
+  !JAVA{static} (de lo contrario, serían **métodos estáticos**).
+
+- Asimismo, también existen los **métodos abstractos**, que llevan el
+  modificador !JAVA(abstract) pero que **no se _definen_, sino que se
+  _declaran_**, con la siguiente sintaxis:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(método_abstracto) ::= [!NT(modif_acceso_miembro)] !T(abstract) !NT(decl_método)
+!NT(decl_método) ::= !NT(signatura)!T(;)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Invocación
+
+- La invocación de un método de instancia se realiza _sobre_ un objeto, para
+  lo cual se usa el operador punto (`.`), con la sintaxis ya conocida:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  _referencia_`.`_método_`(`!NT(argumentos)`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los argumentos se asignan al parámetro correspondiente de forma _posicional_
+  (primer argumento con primer parámetro, segundo con segundo, etc.).
+
+- Si un método no tiene parámetros, hay que dejar los paréntesis vacíos.
+
+- Siepre se debe tener en cuenta la visibilidad del método.
+
+---
+
+- Por ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba();
+
+          p.saludo("Ricardo");        // Correcto
+          p.oculto();                 // Error: «oculto» es privado en «Prueba»
+      }
+  }
+
+  class Prueba {
+      public int x = 4;
+
+      public void saludo(String nombre) {
+          System.out.println("¡Hola, " + nombre + "!");
+      }
+
+      private void oculto() {
+          System.out.println("No se puede llamar desde fuera de «Prueba»");
+      }
+  }
+  ```
 
 ### La sentencia `return`
 
@@ -303,21 +396,50 @@ public class Hola {
 
   - **Devolver** al llamante el **valor de retorno** del método.
 
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(return) [!NT(expresión)]!T(;)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Si un método no devuelve **ningún valor**, su tipo de retorno debe ser
+  !JAVA(void). En ese caso, las sentencias !JAVA(return) que haya en el método
+  no pueden llevar ninguna expresión.
+
+  En caso contrario, las sentencias !JAVA(return) del método _deberán_ llevar
+  una expresión, cuyo valor será el valor de retorno del método y cuyo tipo
+  deberá ser compatible con el tipo de retorno indicado en la signatura del
+  método.
+
+---
+
 - Ejemplo:
 
-  ```java
-  public class Hola {
-      public int x = 4;
-      protected String nombre;
 
-      public String saludo() {
-          return "¡Hola!";
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba();
+          String resultado;
+
+          resultado = p.saludo("Ricardo");
+          System.out.println(resultado);
+      }
+  }
+
+  class Prueba {
+      public int x = 4;
+
+      public String saludo(String nombre) {
+          return "¡Hola, " + nombre + "!";
       }
   }
   ```
 
-- Si un método no devuelve **ningún valor**, debe definirse de tipo
-  !JAVA(void).
+- No es obligatorio que un método de tipo !JAVA(void) use una sentencia
+  !JAVA(return), salvo para forzar el final de la ejecución del método en
+  alguna parte del mismo.
 
 ### Referencia `this`
 
@@ -337,22 +459,22 @@ public class Hola {
 
 - Ejemplo:
 
-```java
-public class Prueba {
-    private int x = 4;
+  ```java
+  class Prueba {
+      private int x = 4;
 
-    public int getX() {
-        return this.x;
-    }
+      public int getX() {
+          return this.x;
+      }
 
-    public int setX(int x) {
-        this.x = x;
-        return this.getX();
-    }
-}
-```
+      public int setX(int x) {
+          this.x = x;
+          return this.getX();
+      }
+  }
+  ```
 
----
+### Ámbito y resolución de identificadores
 
 - La definición de un método **define un nuevo ámbito**, y ese nuevo ámbito
   está **anidado dentro del ámbito de la clase** donde se define el método.
@@ -367,15 +489,15 @@ public class Prueba {
 - Cuando no hay ambigüedad, es posible evitar el uso de !JAVA(this) y acceder
   directamente al campo sin usar una referencia al objeto.
 
-- Para ello, el compilador determina (en tiempo de compilación) a qué variable
-  corresponde cada identificador.
+- Para ello, el compilador determina (en tiempo de compilación) qué variable
+  está ligada a cada identificador.
 
 ---
 
 - Ejemplo:
 
   ```{.java .number-lines}
-  public class Prueba {
+  class Prueba {
       private int x = 4;
 
       public int getX() {
@@ -404,15 +526,16 @@ public class Prueba {
 
 ### Accesores y mutadores
 
-- Crear accesores y mutadores en Java es fácil y similar a hacerlo en Python.
+- Crear accesores y mutadores en Java es fácil y similar a como se hace en
+  Python.
 
 - Usando los modificadores de acceso, garantizamos la encapsulación de las
-  variables privadas.
+  variables a las que no se deba acceder desde el exterior.
 
 - Ejemplo:
 
   ```java
-  public class Prueba {
+  class Prueba {
       private int x = 4;           // Variable privada
 
       public int getX() {          // Accesor público
@@ -427,13 +550,268 @@ public class Prueba {
   }
   ```
 
-### Constructores
-
 ### Sobrecarga
 
-### Ámbito de un identificador
+- La **sobrecarga de operaciones** es un mecanismo mediante el cual el lenguaje
+  admite que se puedan definir varias operaciones distintas con el mismo
+  nombre, pero que se distinguen en el número y/o tipo de sus operandos.
 
-### Resolución de identificadores
+- En Java, por ejemplo, el operador `+` está sobrecargado porque, dependiendo
+  del tipo de sus operandos, puede representar la suma de números o la
+  concatenación de cadenas.
+
+- Análogamente, se puede definir la _sobrecarga de métodos_ o de _funciones_.
+
+- En el primer caso, la **sobrecarga de métodos** es un mecanismo mediante el
+  cual el lenguaje admite que se puedan definir varios métodos distintos con el
+  mismo nombre, pero que se distinguen en el número y/o tipo de sus argumentos.
+
+- Java admite la sobrecarga de métodos a la hora de definir métodos.
+
+---
+
+- Eso significa que podemos tener varios métodos con el mismo nombre en la
+  misma clase, pero para ello deben distinguirse en el número y/o tipo de sus
+  parámetros.
+
+- En la sobrecarga de métodos, por tanto, **sólo se comprueba la lista de
+  parámetros, no el tipo de retorno**. Por tanto, las signaturas de dos métodos
+  distintos que tienen el mismo nombre no se pueden distinguir únicamente por
+  el tipo de retorno.
+
+- Debemos entender que los métodos sobrecargados son métodos distintos, con
+  distinta signatura (se diferencian en su lista de parámetros) y distinta
+  implementación (tienen distinto cuerpo), por lo que sólo tienen en común su
+  nombre.
+
+---
+
+- Cuando una clase hereda métodos de una superclase, debemos tener especial
+  cuidado.
+
+- Si una clase define un método con
+  el mismo nombre que otro que haya heredado de una superclase, tenemos dos
+  posibilidades:
+
+  - Si el nuevo método tiene distinta lista de parámetros que el método
+    heredado, tenemos una _sobrecarga_.
+
+  - Si el nuevo método tiene la misma lista de parámetros que el método
+    heredado, tenemos una _sobreescritura_ o _redefinición_.
+
+---
+
+- El compilador sabe a qué método hay que invocar, simplemente mirando los
+  argumentos que aparecen en la llamada al método.
+
+- Por ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba();
+          String resultado;
+
+          resultado = p.saludo("Ricardo");      // Llama al método <1>
+          System.out.println(resultado);
+          resultado = p.saludo();               // Llama al método <2>
+          System.out.println(resultado);
+      }
+  }
+
+  class Prueba {
+      public int x = 4;
+
+      public String saludo(String nombre) {    // Método <1>
+          return "¡Hola, " + nombre + "!";
+      }
+
+      public String saludo() {                 // Método <2>
+          return "¡Hola, mundo!";
+      }
+  }
+  ```
+
+---
+
+- Siempre podemos tener métodos distintos con el mismo nombre (e incluso con
+  exactamente la misma signatura) en clases diferentes que no sean subclase una
+  de la otra, y en ese caso no hay _sobrecarga_ ni _sobreescritura_.
+
+  Son simplemente métodos distintos que existen en clases distintas.
+
+- En ese caso, el compilador no tiene problema en determinar qué método hay que
+  ejecutar, porque se deduce a partir del objeto sobre el que se invoca el
+  método.
+
+- Si los métodos fuesen estáticos, tampoco tendría problema en saber qué
+  métodos son, porque se deduce a partir de la clase a la que pertenece el
+  método y que se indica al invocar al método.
+
+---
+
+- Ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Uno u = new Uno();
+          Dos d = new Dos();
+
+          u.metodo();                           // Llama al método <1>
+          d.metodo();                           // Llama al método <2>
+      }
+  }
+
+  class Uno {
+      public void metodo() {
+          System.out.println("Hola desde Uno"); // Método <1>
+      }
+  }
+
+  class Dos {
+      public void metodo() {
+          System.out.println("Hola desde Dos"); // Método <2>
+      }
+  }
+  ```
+
+### Constructores
+
+- El **constructor** de una clase es el método que se invoca automáticamente
+  cuando se crea una nueva instancia de esa clase.
+
+- Su finalidad principal es inicializar el estado interno del objeto.
+
+- En Python, el constructor es el método !PYTHON(__init__).
+
+- En Java, **el constructor es un método que tiene el mismo nombre de la
+  clase**.
+
+- El constructor de una clase se define como un método sin tipo de retorno (ni
+  siquiera !JAVA(void)).
+
+- El constructor puede tener parámetros y, en tal caso, al crear la instancia
+  se deberán indicar los argumentos que se pasarán a los parámetros
+  correspondientes del constructor.
+
+---
+
+- Por ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba(4);
+
+          System.out.println(p.x);              // Imprime 4
+      }
+  }
+
+  class Prueba {
+      public int x;
+
+      public Prueba(int x) {
+          this.x = x;
+      }
+  }
+  ```
+
+---
+
+- Un constructor privado no se puede invocar desde el exterior de la clase.
+
+- Por tanto, si el constructor de la clase es privado, no se podrá instanciar
+  desde fuera:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba(4);             // Produce un error
+
+          System.out.println(p.x);
+      }
+  }
+
+  class Prueba {
+      public int x;
+
+      private Prueba(int x) {
+          this.x = x;
+      }
+  }
+  ```
+
+- Los constructores privados son raros.
+
+#### Sobrecarga de constructores
+
+- Un constructor es un método y, en Java, los métodos se pueden sobrecargar.
+
+- Por tanto, **una clase puede tener varios constructores**, aprovechando el
+  mecanismo de la _sobrecarga de métodos_.
+
+- Podemos definir varios constructores en una misma clase, definiendo varios
+  métodos con el nombre de la clase pero con distinta lista de parámetros.
+
+- Además, los constructores de una clase pueden tener visibilidades diferentes.
+
+  Por ejemplo, podemos tener un constructor público y otro privado (éste último
+  sólo se podría usar desde dentro de la propia clase).
+
+---
+
+- Ejemplo:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p1 = new Prueba(4);    // Invoca al constructor <1>
+          Prueba p2 = new Prueba(4, 3); // Invoca al constructor <1>
+      }
+  }
+
+  class Prueba {
+      public int x;
+      public int y;
+
+      public Prueba(int x) {            // Constructor <1>
+          this.x = x;
+      }
+
+      public Prueba(int x, int y) {     // Constructor <2>
+          this.x = x;
+          this.y = y;
+      }
+  }
+  ```
+
+#### Constructor por defecto
+
+- Asimismo, si una clase no implementa su propio constructor, el compilador le
+  incorpora uno, denominado **constructor por defecto**.
+
+- El constructor por defecto es un constructor que no tiene parámetros (por
+  tanto, no recibe argumentos) y que no hace nada.
+
+- El constructor por defecto tiene la misma visibilidad que la clase.
+
+- En el momento en que la clase implementa su propio constructor, el
+  constructor por defecto ya deja de existir:
+
+  ```java
+  public class Ejemplo {
+      public static void main(String[] args) {
+          Prueba p = new Prueba(4);             // Produce un error
+
+          System.out.println(p.x);
+      }
+  }
+
+  class Prueba {
+      public int p;
+  }
+  ```
 
 # Miembros estáticos
 

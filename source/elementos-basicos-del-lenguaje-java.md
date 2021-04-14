@@ -1355,6 +1355,31 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ---
 
+- La inicialización puede realizarse sobre alguna o todas las variables
+  declaradas en la misma sentencia.
+
+- Por ejemplo, el siguiente código:
+
+  ```java
+  int a = 4, b, c = 9;
+  ```
+
+  declara las variables `a`, `b` y `c` de tipo `int` e inicializa la variable
+  `a` con el valor `4` y la variable `c` con el valor `9`; la variable `b` se
+  queda sin inicializar.
+
+- Por tanto, la sintaxis completa de la sentencia de declaración e
+  inicialización de variables sería:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(decl_varables) ::= [!T(final)] !NT(tipo) !NT{decl_variable} (!T(,) !NT{decl_variable})\* !T(;)
+!NT(decl_variable) ::= !T(identificador) [!NT(inic_variable)]
+!NT(inic_variable) ::= !T(=) !NT(expresión)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
 - Es importante entender que la asignación en Java es una expresión (por tanto,
   el `=` es un operador) que lleva a cabo dos acciones:
 
