@@ -819,9 +819,68 @@ public class Hola {
 
 ## Métodos estáticos
 
+- Los **métodos estáticos** en Java son aquellos métodos que se declaran con el
+  modificador !JAVA(static).
+
+- A diferencia de los métodos de instancia, los métodos estáticos no se invocan
+  _sobre_ un objeto, así que son lo más parecido que hay en Java a las
+  **funciones**.
+
+- Al no invocarse sobre un objeto, no tienen acceso al parámetro implícito
+  !JAVA(this), por lo que sólo pueden acceder a otros miembros estáticos de la
+  clase.
+
+- Se les puede aplicar los mismos modificadores de acceso que a cualquier
+  miembro no estático.
+
+---
+
+- Para invocar a un método estático:
+
+  - **Desde fuera de la clase que lo define:** hay que indicar el nombre de la
+    clase, separado del nombre del método con un punto (`.`):
+
+    _clase_`.`_método_`(`_argumentos_`)`
+
+  - **Dentro de la clase que lo define:** el método se encuentra dentro del
+    ámbito de la clase, por lo que desde dentro de la clase se puede invocar al
+    método directamente usando el nombre del método sin indicar el nombre de la
+    clase (aunque si se hace, tampoco está mal). 
+
 ## Variables estáticas
 
-## Variables estáticas finales
+- Las **variables estáticas** en Java son aquellas variables que se declaran
+  dentro de una clase con el modificador !JAVA(static).
+
+- Esas variables no pertenecen a una instancia concreta de la clase, sino a la
+  clase en sí.
+
+- Por tanto, es la clase que la que contiene a la variable y guarda su estado.
+
+- En realidad, las variables estáticas se almacenan en una zona especial del
+  montículo conocida como _Metaspace_.
+
+- Pero cada variable estática pertenece a su clase.
+
+- Se les puede aplicar los mismos modificadores de acceso que a cualquier
+  miembro no estático.
+
+- Asimismo, también se pueden declarar como finales si es necesario, usando el
+  modificador !JAVA(final).
+
+---
+
+- Para acceder a una variable estática:
+
+  - **Desde fuera de la clase que lo define:** hay que indicar el nombre de la
+    clase, separado del nombre de la variable con un punto (`.`):
+
+    _clase_`.`_variable_
+
+  - **Dentro de la clase que lo define:** la variable se encuentra dentro del
+    ámbito de la clase, por lo que puede se puede acceder a la variable
+    directamente usando el nombre de la variable sin indicar el nombre de la
+    clase (aunque si se hace, tampoco está mal). 
 
 # Clases internas
 
