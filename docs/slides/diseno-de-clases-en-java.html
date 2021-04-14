@@ -80,6 +80,25 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -206,6 +225,7 @@
 <li><a href="#/definición-de-clases"><span class="toc-section-number">1</span> Definición de clases</a></li>
 <li><a href="#/miembros-de-instancia"><span class="toc-section-number">2</span> Miembros de instancia</a></li>
 <li><a href="#/miembros-estáticos"><span class="toc-section-number">3</span> Miembros estáticos</a></li>
+<li><a href="#/clases-internas"><span class="toc-section-number">4</span> Clases internas</a></li>
 </ul>
 </section>
 
@@ -221,7 +241,7 @@
 <strong><code>}</code></strong><br />
 <br />
 <span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
-<span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span><br />
+<span style="color:teal">⟨<em>miembro</em>⟩</span> ::= <span style="color:teal">⟨<em>variable</em>⟩</span> | <span style="color:teal">⟨<em>método</em>⟩</span> | <span style="color:teal">⟨<em>clase_anidada</em>⟩</span><br />
 <span style="color:teal">⟨<em>método</em>⟩</span> ::= <span style="color:teal">⟨<em>método_abstracto</em>⟩</span> | <span style="color:teal">⟨<em>método_concreto</em>⟩</span><br />
 <span style="color:teal">⟨<em>variable</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>decl_variables</em>⟩</span><br />
 <span style="color:teal">⟨<em>método_abstracto</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] <strong><code>abstract</code></strong> <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
@@ -914,6 +934,174 @@
 <h2 data-number="3.3"><span class="header-section-number">3.3</span> Variables estáticas finales</h2>
 
 </section>
+</section>
+<section>
+<section id="clases-internas" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Clases internas</h1>
+
+</section>
+<section id="clases-internas-1" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Clases internas</h2>
+<ul>
+<li><p>Una <strong>clase interna</strong> es una clase que se define dentro de otra clase (denominada aquí su <em>clase externa</em>).</p></li>
+<li><p>Hay cuatro tipos de clases internas en Java:</p>
+<ul>
+<li><p>Clases internas anidadas.</p></li>
+<li><p>Clases anidadas estáticas.</p></li>
+<li><p>Clases internas locales a un método.</p></li>
+<li><p>Clases internas anónimas.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="clases-internas-anidadas" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Clases internas anidadas</h2>
+<ul>
+<li><p>Las <strong>clases internas anidadas</strong> se definen dentro de la clase externa sin usar ninguna sintaxis especial.</p></li>
+<li><p>Como cualquier otro miembro de una clase, la clase interna anidada puede llevar un modificador de acceso y ser, por tanto, pública, privada, protegida o predeterminada con respecto a la clase externa.</p></li>
+<li><p>La clase interna anidada <strong>no puede tener métodos estáticos</strong> porque la clase va <strong>implícitamente asociada con un objeto de su clase externa</strong>.</p></li>
+<li><p>Para crear una instancia de la clase interna anidada, hay que usar una sintaxis especial que consiste en aplicar el operador <code class="sourceCode java"><span class="kw">new</span></code> sobre un objeto de la clase externa usando el operador punto (<code>.</code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.1">
+
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ClaseExterna <span class="op">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> ClaseInterna <span class="op">{</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        ClaseExterna miExterna <span class="op">=</span> <span class="kw">new</span> <span class="fu">ClaseExterna</span><span class="op">();</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        ClaseExterna<span class="op">.</span><span class="fu">ClaseInterna</span> miInterna <span class="op">=</span> miExterna<span class="op">.</span><span class="fu">new</span> <span class="fu">ClaseInterna</span><span class="op">();</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>miInterna<span class="op">.</span><span class="fu">y</span> <span class="op">+</span> miExterna<span class="op">.</span><span class="fu">x</span><span class="op">);</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.2">
+
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Externa <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">class</span> Interna <span class="op">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">public</span> <span class="dt">void</span> <span class="fu">imprimir</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>           <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Estoy en un método de una clase interna anidada&quot;</span><span class="op">);</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>   <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>       Externa<span class="op">.</span><span class="fu">Interna</span> in <span class="op">=</span> <span class="kw">new</span> <span class="fu">Externa</span><span class="op">().</span><span class="fu">new</span> <span class="fu">Interna</span><span class="op">();</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>       in<span class="op">.</span><span class="fu">imprimir</span><span class="op">();</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>imprime:</p>
+<pre><code>Estoy en un método de una clase interna anidada</code></pre></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.3">
+
+<ul>
+<li><p>Las clases internas anidadas <strong>pueden acceder a cualquier miembro (incluso privado) de su clase externa</strong>, ya que el ámbito de la clase interna está anidado dentro del ámbito de la clase externa:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Externa <span class="op">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Interna <span class="op">{</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">imprimir</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>x<span class="op">);</span>    <span class="co">// Accede a la «x» de «Externa»</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        Externa<span class="op">.</span><span class="fu">Interna</span> in <span class="op">=</span> <span class="kw">new</span> <span class="fu">Externa</span><span class="op">().</span><span class="fu">new</span> <span class="fu">Interna</span><span class="op">();</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        in<span class="op">.</span><span class="fu">imprimir</span><span class="op">();</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>imprime:</p>
+<pre><code>4</code></pre></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.4">
+
+<ul>
+<li><p>Sin embargo, si se intenta acceder a la variable de instancia de la clase externa usando la referencia <code class="sourceCode java"><span class="kw">this</span></code>, <strong>el acceso fallará</strong>, porque <code class="sourceCode java"><span class="kw">this</span></code> contiene una referencia al objeto de la clase interna, no de la externa:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Externa <span class="op">{</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Interna <span class="op">{</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">imprimir</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">x</span><span class="op">);</span>   <span class="co">// Da error</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        Externa<span class="op">.</span><span class="fu">Interna</span> in <span class="op">=</span> <span class="kw">new</span> <span class="fu">Externa</span><span class="op">().</span><span class="fu">new</span> <span class="fu">Interna</span><span class="op">();</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        in<span class="op">.</span><span class="fu">imprimir</span><span class="op">();</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="clases-anidadas-estáticas" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Clases anidadas estáticas</h2>
+<ul>
+<li><p>Las <strong>clases anidadas estáticas</strong> también se definen dentro de la clase externa sin usar ninguna sintaxis especial, excepto que se usa el modificador <code class="sourceCode java"><span class="dt">static</span></code>.</p></li>
+<li><p>Las <strong>clases anidadas estáticas</strong> no son técnicamente una clase interna, sino más bien un miembro estático de la clase externa.</p></li>
+<li><p>Eso significa que se puede acceder a la clase anidada estática sin tener que crear un objeto de la clase externa.</p></li>
+<li><p>Las clases anidadas estáticas <strong>pueden acceder a cualquier miembro estático (incluso privado) de su clase externa</strong>, ya que el ámbito de la clase interna está anidado dentro del ámbito de la clase externa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Externa <span class="op">{</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">metodoExterno</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Dentro de metodoExterno&quot;</span><span class="op">);</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> <span class="kw">class</span> Interna <span class="op">{</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">metodoInterno</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Dentro de metodoInterno&quot;</span><span class="op">);</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">metodoExterno</span><span class="op">();</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>        Externa<span class="op">.</span><span class="fu">Interna</span> in <span class="op">=</span> <span class="kw">new</span> Externa<span class="op">.</span><span class="fu">Interna</span><span class="op">();</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>in<span class="op">.</span><span class="fu">x</span><span class="op">);</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        Externa<span class="op">.</span><span class="fu">Interna</span><span class="op">.</span><span class="fu">metodoInterno</span><span class="op">();</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>imprime:</p>
+<pre><code>5
+Dentro de metodoInterno
+Dentro de metodoExterno</code></pre></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
+Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
+</div>
+</div>
 </section>
     </div>
   </div>

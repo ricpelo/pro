@@ -2,6 +2,8 @@
 title: Diseño de clases en Java
 author: Ricardo Pérez López
 !DATE
+nocite: |                                                                        
+  @gosling_java_2014                                                             
 ---
 
 # Definición de clases
@@ -15,7 +17,7 @@ author: Ricardo Pérez López
 !T(})
 
 !NT(nombre) ::= !T(identificador)
-!NT(miembro) ::= !NT(variable) | !NT(método)
+!NT(miembro) ::= !NT(variable) | !NT(método) | !NT(clase_anidada)
 !NT(método) ::= !NT(método_abstracto) | !NT(método_concreto)
 !NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variables)
 !NT(método_abstracto) ::= [!NT(modif_acceso_miembro)] !T(abstract) !NT(decl_método)
@@ -821,3 +823,196 @@ public class Hola {
 
 ## Variables estáticas finales
 
+# Clases internas
+
+## Clases internas
+
+- Una **clase interna** es una clase que se define dentro de otra clase
+  (denominada aquí su _clase externa_).
+
+- Hay cuatro tipos de clases internas en Java:
+
+  - Clases internas anidadas.
+
+  - Clases anidadas estáticas.
+
+  - Clases internas locales a un método.
+
+  - Clases internas anónimas.
+
+## Clases internas anidadas
+
+- Las **clases internas anidadas** se definen dentro de la clase externa sin
+  usar ninguna sintaxis especial.
+
+- Como cualquier otro miembro de una clase, la clase interna anidada puede
+  llevar un modificador de acceso y ser, por tanto, pública, privada, protegida
+  o predeterminada con respecto a la clase externa.
+
+- La clase interna anidada **no puede tener métodos estáticos** porque la clase
+  va **implícitamente asociada con un objeto de su clase externa**.
+
+- Para crear una instancia de la clase interna anidada, hay que usar una
+  sintaxis especial que consiste en aplicar el operador !JAVA(new) sobre un
+  objeto de la clase externa usando el operador punto (`.`).
+
+---
+
+- Ejemplo:
+
+  ```java
+  class ClaseExterna {
+      int x = 10;
+
+      class ClaseInterna {
+          int y = 5;
+      }
+  }
+
+  public class Principal {
+      public static void main(String[] args) {
+          ClaseExterna miExterna = new ClaseExterna();
+          ClaseExterna.ClaseInterna miInterna = miExterna.new ClaseInterna();
+          System.out.println(miInterna.y + miExterna.x);
+      }
+  }
+  ```
+
+---
+
+- Ejemplo:
+
+  ```java
+  class Externa {
+     class Interna {
+        public void imprimir() {
+             System.out.println("Estoy en un método de una clase interna anidada");
+        }
+     }
+  }
+
+  public class Principal {
+     public static void main(String[] args) {
+         Externa.Interna in = new Externa().new Interna();
+         in.imprimir();
+     }
+  }
+  ```
+
+  imprime:
+
+  ```
+  Estoy en un método de una clase interna anidada
+  ```
+
+---
+
+- Las clases internas anidadas **pueden acceder a cualquier miembro (incluso
+  privado) de su clase externa**, ya que el ámbito de la clase interna está
+  anidado dentro del ámbito de la clase externa:
+
+  ```java
+  class Externa {
+      private int x = 4;
+
+      class Interna {
+          public void imprimir() {
+              System.out.println(x);    // Accede a la «x» de «Externa»
+          }
+      }
+  }
+
+  public class Principal {
+      public static void main(String[] args) {
+          Externa.Interna in = new Externa().new Interna();
+          in.imprimir();
+      }
+  }
+  ```
+
+  imprime:
+
+  ```
+  4
+  ```
+
+---
+
+- Sin embargo, si se intenta acceder a la variable de instancia de la clase
+  externa usando la referencia !JAVA(this), **el acceso fallará**, porque
+  !JAVA(this) contiene una referencia al objeto de la clase interna, no de la
+  externa:
+
+  ```java
+  class Externa {
+      private int x = 4;
+
+      class Interna {
+          public void imprimir() {
+              System.out.println(this.x);   // Da error
+          }
+      }
+  }
+
+  public class Principal {
+      public static void main(String[] args) {
+          Externa.Interna in = new Externa().new Interna();
+          in.imprimir();
+      }
+  }
+  ```
+
+## Clases anidadas estáticas
+
+- Las **clases anidadas estáticas** también se definen dentro de la clase
+  externa sin usar ninguna sintaxis especial, excepto que se usa el modificador
+  !JAVA(static).
+
+- Las **clases anidadas estáticas** no son técnicamente una clase interna, sino
+  más bien un miembro estático de la clase externa.
+
+- Eso significa que se puede acceder a la clase anidada estática sin tener que
+  crear un objeto de la clase externa.
+
+- Las clases anidadas estáticas **pueden acceder a cualquier miembro estático
+  (incluso privado) de su clase externa**, ya que el ámbito de la clase interna
+  está anidado dentro del ámbito de la clase externa.
+
+---
+
+- Ejemplo:
+
+  ```java
+  class Externa {
+      private static void metodoExterno() {
+          System.out.println("Dentro de metodoExterno");
+      }
+
+      static class Interna {
+          int x = 5;
+
+          public static void metodoInterno() {
+              System.out.println("Dentro de metodoInterno");
+              metodoExterno();
+          }
+      }
+  }
+
+  public class Principal {
+      public static void main(String[] args) {
+          Externa.Interna in = new Externa.Interna();
+          System.out.println(in.x);
+          Externa.Interna.metodoInterno();
+      }
+  }
+  ```
+
+  imprime:
+
+  ```
+  5
+  Dentro de metodoInterno
+  Dentro de metodoExterno
+  ```
+
+!BIBLIOGRAFIA
