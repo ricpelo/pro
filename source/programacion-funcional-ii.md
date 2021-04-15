@@ -277,10 +277,26 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 # Ámbitos léxicos
 
-## Ambitos
+## Ámbitos
 
-- Existen ciertos bloques sintácticos que, cuando se ejecutan, provocan la
-  creación de nuevos marcos.
+- Un **ámbito** es una porción del código fuente de un programa.
+
+- Ciertas construcciones sintácticas definen ámbitos.
+
+- Cuando una construcción define un ámbito, la sintaxis del lenguaje determina
+  dónde empieza y dónde acaba ese ámbito en el código fuente.
+
+- Por tanto, siempre se puede determinar sin ambigüedad si una instrucción
+  pertenece a un determinado ámbito, tan sólo leyendo el código fuente del
+  programa y sin necesidad de ejecutarlo.
+
+<!--
+- El **ámbito de una ligadura** es la porción del código fuente donde es válida una ligadura.
+
+- El ámbito de la ligadura también se denomina **visibilidad**
+
+- En ese caso, una definición creada dentro de un ámbito existirá desde el
+  punto donde se definió hasta el final del ámbito donde se ha definido.
 
 - Cuando eso ocurre, decimos que ese bloque sintáctico define un **ámbito**, y
   ese ámbito viene definido por la porción del código fuente que ocupa ese
@@ -292,10 +308,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
 
 - Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.
+-->
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros, así que una instrucción puede estar en varios ámbitos al
-  mismo tiempo (anidados unos dentro de otros).
+  dentro de otros.
+
+- Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo
+  (anidados unos dentro de otros).
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
   se encuentra la instrucción que se está ejecutando actualmente.
@@ -317,18 +336,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
     finalicemos la misma.
 
 - En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
-  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
-  provoca la creación de un nuevo marco llamado **marco global**.
+  sesión con el intérprete interactivo, se entra en el _ámbito global_.
 
-- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
-  se cierra el intérprete interactivo.
+- Del ámbito global se sale cuando se finaliza la ejecución del _script_ o se
+  cierra el intérprete interactivo.
 
 ---
 
+- El ámbito global va asociado al marco global.
+
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Las ligaduras que se crean dentro de un ámbito se almacenan en el marco
-  asociado a ese ámbito.**
+**Las ligaduras se almacenan en el marco actual.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
@@ -344,19 +363,22 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ## Ámbito de una ligadura y de creación de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
-  existe dicha ligadura.
+  existe y es visible dicha ligadura.
 
-- El **ámbito de creación de una ligadura** es el ámbito más interno donde se
-  crea una ligadura, y determina el **marco** donde se almacenará la ligadura.
+- El **ámbito de creación de una ligadura** es el ámbito actual de la
+  instrucción que define la ligadura.
 
-- El ámbito de una ligadura no tiene por qué coincidir exactamente con su
-  ámbito de creación.
+asociado al **marco**
+  donde se almacenará la ligadura.
+
+- El ámbito de una ligadura contiene al ámbito de creación de esa ligadura,
+  pero no tienen por qué coincidir exactamente.
 
 - Esto es así porque una ligadura empieza a existir en el momento en el que se
   ejecuta la instrucción que la crea, y no antes.
 
 - Por tanto, si en un momento dado se está ejecutando una instrucción dentro de
-  un ámbito, las ligaduras que existirán dentro de ese ámbito en ese momento
+  un ámbito, las ligaduras visibles en ese ámbito en ese momento
   serán sólo las que se hayan creado en ese ámbito **hasta ese momento**.
 
 ---

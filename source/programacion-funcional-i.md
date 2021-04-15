@@ -1253,15 +1253,44 @@ maximo -> lambda
   NameError: name 'y' is not defined
   ```
 
+## Espacios de nombres
+
+- Ciertas estructuras del programa definen lo que se denominan **espacios de
+  nombres**.
+
+- Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
+  entre nombres y valores, es decir, es un **conjunto de ligaduras**.
+
+- En un espacio de nombres, un identificador sólo puede tener como máximo una
+  ligadura. En cambio, **el mismo identificador puede estar ligado a diferentes
+  valores en diferentes espacios de nombres**.
+
+- Durante la ejecución de un programa, se pueden crear ciertas estructuras en
+  memoria que contienen su propio espacio de nombres.
+
+- Los ejemplos más comunes de esas estructuras son:
+
+  - Los marcos que se crean al ejecutar _scripts_ y funciones definidas por el
+    programador.
+
+  - Los objetos y las clases.
+
+---
+
+- Un espacio de nombres muy importante es el que incluye las definiciones
+  predefinidas del lenguaje (funciones !PYTHON(max) o !PYTHON(sum), tipos como
+  !PYTHON(str) o !PYTHON(int), etc.)
+
+- Ese espacio de nombres se consulta cuando 
+
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
-- Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
+- Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
+  para representar la ejecución o _activación_ de una determinada parte del
+  programa.
 
-- Las ligaduras se almacenan en marcos.
-
-- En un marco, un identificador sólo puede tener como máximo una ligadura. En
-  cambio, **el mismo identificador puede estar ligado a diferentes valores en
-  diferentes marcos**.
+- Entre otras cosas, los marcos almacenan las ligaduras del espacio de nombres
+  que se corresponde con esa parte del programa.
 
 - Los marcos son conceptos **_dinámicos_**:
 
@@ -1269,7 +1298,7 @@ maximo -> lambda
     ciertas partes del mismo.
 
   - Van almacenando nuevas ligaduras conforme se van ejecutando nuevas
-    instrucciones.
+    instrucciones que crean las ligaduras.
 
 ---
 
@@ -1429,6 +1458,15 @@ z -> 3
 
 - Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
+
+---
+
+- En realidad, por detrás del marco global existe otro espacio de nombres muy
+  importante que incluye las definiciones predefinidas del lenguaje (funciones
+  !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
+
+- Esas definiciones están disponibles directamente en la sesión de trabajo o en
+  cualquier punto del programa.
 
 ## *Scripts*
 

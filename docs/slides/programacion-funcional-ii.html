@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -432,17 +433,36 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <h1 data-number="2"><span class="header-section-number">2</span> Ámbitos léxicos</h1>
 
 </section>
-<section id="ambitos" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Ambitos</h2>
+<section id="ámbitos" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Ámbitos</h2>
 <ul>
-<li><p>Existen ciertos bloques sintácticos que, cuando se ejecutan, provocan la creación de nuevos marcos.</p></li>
-<li><p>Cuando eso ocurre, decimos que ese bloque sintáctico define un <strong>ámbito</strong>, y ese ámbito viene definido por la porción del código fuente que ocupa ese bloque sintáctico dentro del programa, de forma que:</p>
+<li><p>Un <strong>ámbito</strong> es una porción del código fuente de un programa.</p></li>
+<li><p>Ciertas construcciones sintácticas definen ámbitos.</p></li>
+<li><p>Cuando una construcción define un ámbito, la sintaxis del lenguaje determina dónde empieza y dónde acaba ese ámbito en el código fuente.</p></li>
+<li><p>Por tanto, siempre se puede determinar sin ambigüedad si una instrucción pertenece a un determinado ámbito, tan sólo leyendo el código fuente del programa y sin necesidad de ejecutarlo.</p></li>
+</ul>
+<!--
+- El **ámbito de una ligadura** es la porción del código fuente donde es válida una ligadura.
+
+- El ámbito de la ligadura también se denomina **visibilidad**
+
+- En ese caso, una definición creada dentro de un ámbito existirá desde el
+  punto donde se definió hasta el final del ámbito donde se ha definido.
+
+- Cuando eso ocurre, decimos que ese bloque sintáctico define un **ámbito**, y
+  ese ámbito viene definido por la porción del código fuente que ocupa ese
+  bloque sintáctico dentro del programa, de forma que:
+
+  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
+    nuevo marco.
+
+  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
+
+- Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.
+-->
 <ul>
-<li><p>Cuando la ejecución del programa <strong>entra</strong> en el ámbito, se <strong>crea</strong> un nuevo marco.</p></li>
-<li><p>Cuando la ejecución se <strong>sale</strong> del ámbito, se <strong>destruye</strong> su marco.</p></li>
-</ul></li>
-<li><p>Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.</p></li>
-<li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros, así que una instrucción puede estar en varios ámbitos al mismo tiempo (anidados unos dentro de otros).</p></li>
+<li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros.</p></li>
+<li><p>Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo (anidados unos dentro de otros).</p></li>
 <li><p>En un momento dado, el <strong>ámbito actual</strong> es el ámbito más interno en el que se encuentra la instrucción que se está ejecutando actualmente.</p></li>
 </ul>
 </section>
@@ -455,14 +475,17 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Si se está ejecutando un <em>script</em> en el intérprete por lotes (con <code>python script.py</code>), el <em>ámbito global</em> abarca todo el <em>script</em>, desde la primera instrucción hasta la última.</p></li>
 <li><p>Si estamos en el intérprete interactivo (con <code>python</code> o <code>ipython3</code>), el <em>ámbito global</em> abarca toda nuestra sesión con el intérprete, hasta que finalicemos la misma.</p></li>
 </ul></li>
-<li><p>En el momento en que se empieza a ejecutar un <em>script</em> o se arranca una nueva sesión con el intérprete interactivo, se entra en el <em>ámbito global</em>, lo que provoca la creación de un nuevo marco llamado <strong>marco global</strong>.</p></li>
-<li><p>Del ámbito global sólo se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
+<li><p>En el momento en que se empieza a ejecutar un <em>script</em> o se arranca una nueva sesión con el intérprete interactivo, se entra en el <em>ámbito global</em>.</p></li>
+<li><p>Del ámbito global se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.2">
 
+<ul>
+<li>El ámbito global va asociado al marco global.</li>
+</ul>
 <div class="caja">
-<p><strong>Las ligaduras que se crean dentro de un ámbito se almacenan en el marco asociado a ese ámbito.</strong></p>
+<p><strong>Las ligaduras se almacenan en el marco actual.</strong></p>
 </div>
 <ul>
 <li><p>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se ejecutan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
@@ -476,11 +499,14 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section id="ámbito-de-una-ligadura-y-de-creación-de-una-ligadura" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Ámbito de una ligadura y de creación de una ligadura</h2>
 <ul>
-<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe dicha ligadura.</p></li>
-<li><p>El <strong>ámbito de creación de una ligadura</strong> es el ámbito más interno donde se crea una ligadura, y determina el <strong>marco</strong> donde se almacenará la ligadura.</p></li>
-<li><p>El ámbito de una ligadura no tiene por qué coincidir exactamente con su ámbito de creación.</p></li>
+<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe y es visible dicha ligadura.</p></li>
+<li><p>El <strong>ámbito de creación de una ligadura</strong> es el ámbito actual de la instrucción que define la ligadura.</p></li>
+</ul>
+<p>asociado al <strong>marco</strong> donde se almacenará la ligadura.</p>
+<ul>
+<li><p>El ámbito de una ligadura contiene al ámbito de creación de esa ligadura, pero no tienen por qué coincidir exactamente.</p></li>
 <li><p>Esto es así porque una ligadura empieza a existir en el momento en el que se ejecuta la instrucción que la crea, y no antes.</p></li>
-<li><p>Por tanto, si en un momento dado se está ejecutando una instrucción dentro de un ámbito, las ligaduras que existirán dentro de ese ámbito en ese momento serán sólo las que se hayan creado en ese ámbito <strong>hasta ese momento</strong>.</p></li>
+<li><p>Por tanto, si en un momento dado se está ejecutando una instrucción dentro de un ámbito, las ligaduras visibles en ese ámbito en ese momento serán sólo las que se hayan creado en ese ámbito <strong>hasta ese momento</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.1">

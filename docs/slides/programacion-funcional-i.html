@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -1177,20 +1178,41 @@
 </ul>
 </section>
 
-<section id="marcos-frames" class="title-slide slide level2" data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span> Marcos (<em>frames</em> )</h2>
+<section id="espacios-de-nombres" class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span> Espacios de nombres</h2>
 <ul>
-<li><p>Un <strong>marco</strong> (del inglés <em>frame</em>) es un <strong>conjunto de ligaduras</strong>.</p></li>
-<li><p>Las ligaduras se almacenan en marcos.</p></li>
-<li><p>En un marco, un identificador sólo puede tener como máximo una ligadura. En cambio, <strong>el mismo identificador puede estar ligado a diferentes valores en diferentes marcos</strong>.</p></li>
-<li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
+<li><p>Ciertas estructuras del programa definen lo que se denominan <strong>espacios de nombres</strong>.</p></li>
+<li><p>Un <strong>espacio de nombres</strong> (del inglés, <em>namespace</em>) es una correspondencia entre nombres y valores, es decir, es un <strong>conjunto de ligaduras</strong>.</p></li>
+<li><p>En un espacio de nombres, un identificador sólo puede tener como máximo una ligadura. En cambio, <strong>el mismo identificador puede estar ligado a diferentes valores en diferentes espacios de nombres</strong>.</p></li>
+<li><p>Durante la ejecución de un programa, se pueden crear ciertas estructuras en memoria que contienen su propio espacio de nombres.</p></li>
+<li><p>Los ejemplos más comunes de esas estructuras son:</p>
 <ul>
-<li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
-<li><p>Van almacenando nuevas ligaduras conforme se van ejecutando nuevas instrucciones.</p></li>
+<li><p>Los marcos que se crean al ejecutar <em>scripts</em> y funciones definidas por el programador.</p></li>
+<li><p>Los objetos y las clases.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.1">
+
+<ul>
+<li><p>Un espacio de nombres muy importante es el que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
+<li><p>Ese espacio de nombres se consulta cuando</p></li>
+</ul>
+</section>
+
+<section id="marcos-frames" class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> Marcos (<em>frames</em> )</h2>
+<ul>
+<li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una estructura que se crea en memoria para representar la ejecución o <em>activación</em> de una determinada parte del programa.</p></li>
+<li><p>Entre otras cosas, los marcos almacenan las ligaduras del espacio de nombres que se corresponde con esa parte del programa.</p></li>
+<li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
+<ul>
+<li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
+<li><p>Van almacenando nuevas ligaduras conforme se van ejecutando nuevas instrucciones que crean las ligaduras.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
 <li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>.</p></li>
@@ -1199,7 +1221,7 @@
 <p>Por tanto, las definiciones que se ejecutan directamente en una sesión interactiva con el intérprete crean ligaduras que se almacenan en el marco global.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="4.5.0.0.2">
 
 <ul>
 <li><p>Por ejemplo, si iniciamos una sesión con el intérprete interactivo y justo a continuación tecleamos lo siguiente:</p>
@@ -1217,7 +1239,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.3">
+<section class="slide level5" data-number="4.5.0.0.3">
 
 <ul>
 <li><p>Tanto los marcos como su contenido (las ligaduras) se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
@@ -1245,7 +1267,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.4.0.0.4">
+<section class="slide level5" data-number="4.5.0.0.4">
 
 <div class="columns">
 <div class="column">
@@ -1263,7 +1285,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.4.0.0.5">
+<section class="slide level5" data-number="4.5.0.0.5">
 
 <ul>
 <li><p>Hemos visto que una ligadura es una asociación entre un identificador y un valor.</p></li>
@@ -1273,9 +1295,16 @@
 <li><p>Asimismo, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="4.5.0.0.6">
 
-<section id="scripts" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> <em>Scripts</em></h2>
+<ul>
+<li><p>En realidad, por detrás del marco global existe otro espacio de nombres muy importante que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
+<li><p>Esas definiciones están disponibles directamente en la sesión de trabajo o en cualquier punto del programa.</p></li>
+</ul>
+</section>
+
+<section id="scripts" class="title-slide slide level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span> <em>Scripts</em></h2>
 <ul>
 <li><p>Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que introducirlas una y otra vez cada vez que abrimos una nueva sesión con el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
@@ -1284,7 +1313,7 @@
 <li><p>Llegado el momento, los <em>scripts</em> contendrán el código fuente de nuestros programas y los ejecutaremos desde el intérprete por lotes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.1">
+<section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
@@ -1301,7 +1330,7 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.2">
+<section class="slide level5" data-number="4.6.0.0.2">
 
 <ul>
 <li><p>A partir de ese momento, en el intérprete interactivo podremos usar las definiciones que se hayan cargado desde del <em>script</em>.</p></li>
@@ -1318,7 +1347,7 @@
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.3">
+<section class="slide level5" data-number="4.6.0.0.3">
 
 <ul>
 <li><p>Una limitación importante que hay que tener en cuenta es que <strong>el <em>script</em> sólo puede usar definiciones que se hayan creado en el mismo <em>script</em></strong> (exceptuando las definiciones predefinidas del lenguaje).</p></li>
