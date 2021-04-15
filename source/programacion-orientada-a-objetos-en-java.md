@@ -1359,6 +1359,45 @@ jshell> Arrays.equals(s, a)
   $4 ==> 3
   ```
 
+---
+
+- La inicialización de los _subarrays_ (los _arrays_ contenidos dentro de otros
+  _arrays_) también se puede hacer de forma simplificada.
+
+  Es decir, en lugar de hacer:
+
+  ```java
+  new int[][] { null, new int[] { 4, 2, 3 }, null, null }
+  ```
+
+  se puede hacer:
+
+  ```java
+  new int[][] { null, { 4, 2, 3 }, null, null }
+  ```
+
+- Por ejemplo, la siguiente matriz:
+
+  $$\begin{bmatrix}
+    2 & 9 & 4 \\
+    7 & 5 & 3 \\
+    6 & 1 & 8
+    \end{bmatrix}$$
+
+  se puede representar por filas con el siguiente _array_ bidimensional:
+
+  ```java
+  new int[][] { { 2, 9, 4 }, { 7, 5, 3 }, { 6, 1, 8 } }
+  ```
+
+  o de esta forma sintácticamente equivalente pero más fácil de leer:
+
+  ```java
+  new int[][] { { 2, 9, 4 },
+                { 7, 5, 3 },
+                { 6, 1, 8 } }
+  ```
+
 ### `Arrays.deepEquals`
 
 - El método !JAVA(Arrays.equals) sirve para comprobar si dos _arrays_ son
