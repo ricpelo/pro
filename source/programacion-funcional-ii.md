@@ -281,40 +281,21 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Un **ámbito** es una porción del código fuente de un programa.
 
-- Ciertas construcciones sintácticas definen ámbitos.
+- Decimos que ciertas construcciones sintácticas definen ámbitos.
 
 - Cuando una construcción define un ámbito, la sintaxis del lenguaje determina
-  dónde empieza y dónde acaba ese ámbito en el código fuente.
+  dónde empieza y acaba ese ámbito en el código fuente.
 
 - Por tanto, siempre se puede determinar sin ambigüedad si una instrucción
   pertenece a un determinado ámbito, tan sólo leyendo el código fuente del
   programa y sin necesidad de ejecutarlo.
 
-<!--
-- El **ámbito de una ligadura** es la porción del código fuente donde es válida una ligadura.
-
-- El ámbito de la ligadura también se denomina **visibilidad**
-
-- En ese caso, una definición creada dentro de un ámbito existirá desde el
-  punto donde se definió hasta el final del ámbito donde se ha definido.
-
-- Cuando eso ocurre, decimos que ese bloque sintáctico define un **ámbito**, y
-  ese ámbito viene definido por la porción del código fuente que ocupa ese
-  bloque sintáctico dentro del programa, de forma que:
-
-  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
-    nuevo marco.
-
-  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
-
-- Cada marco va asociado con un ámbito, y cada ámbito tiene su marco.
--->
-
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
   dentro de otros.
 
 - Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo
-  (anidados unos dentro de otros).
+  (anidados unos dentro de otros). De todos ellos, el **ámbito más interno** es
+  el que no contiene, a su vez, a otro ámbito.
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
   se encuentra la instrucción que se está ejecutando actualmente.
@@ -325,7 +306,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
   tener en cuenta más condicionantes.
 
-- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
+- Por ahora sólo hemos tenido un ámbito llamado **ámbito global**:
 
   - Si se está ejecutando un _script_ en el intérprete por lotes (con
     `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
@@ -343,12 +324,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- El ámbito global va asociado al marco global.
+- Las definiciones que se ejecutan cuando el ámbito actual es el ámbito global,
+  se dice que son **definiciones globales**, y las ligaduras que se crean son
+  **ligaduras globales**.
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Las ligaduras se almacenan en el marco actual.**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Esas ligaduras se almacenan en el **marco global**.
+
+- Por eso podemos decir que el marco global va asociado al ámbito global.
+
+- Todos los marcos van asociados a ámbitos, pero no todos los ámbitos van
+  asociados a marcos.
+
+---
 
 - Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
   ellas se ejecutan en el ámbito global, que es el único ámbito que existe en
@@ -356,82 +343,105 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
-- Ninguna de esas instrucciones crea un nuevo ámbito, por lo que todas se
-  ejecutan en el ámbito actual (el ámbito global) y todas las ligaduras que se
-  crean se almacenan en el marco global.
+- Todas esas instrucciones se ejecutan en el ámbito actual, que es el ámbito
+  global.
+
+- Además, todas las ligaduras que se crean se almacenan en el marco global.
 
 ## Ámbito de una ligadura y de creación de una ligadura
-
-- El **ámbito de una ligadura** es la porción del código fuente en la que
-  existe y es visible dicha ligadura.
 
 - El **ámbito de creación de una ligadura** es el ámbito actual de la
   instrucción que define la ligadura.
 
-asociado al **marco**
-  donde se almacenará la ligadura.
+  Dicho de otra forma: es el ámbito más interno que contiene la instrucción que
+  define la ligadura.
 
-- El ámbito de una ligadura contiene al ámbito de creación de esa ligadura,
-  pero no tienen por qué coincidir exactamente.
+- Ese ámbito siempre está definido por una construcción sintáctica.
+
+- Por tanto, sus límites vienen marcados por la sintaxis de esa construcción
+  sintáctica.
+
+- Se dice que **una ligadura es _local_ a su ámbito de creación**.
+
+---
+
+- El **ámbito de una ligadura** es la porción del código fuente en la que
+  existe y es visible dicha ligadura.
+
+- A diferencia de su ámbito de creación, el ámbito de una ligadura no viene
+  determinado por una construcción sintáctica del lenguaje, sino por:
+
+  - el punto en el que se crea la ligadura y
+
+  - el ámbito de creación de la ligadura.
+
+- Esto es así porque el ámbito de una ligadura:
+
+  - Empieza en el punto donde se crea la ligadura (el punto donde se ejecuta la
+    instrucción que define la ligadura).
+
+  - Termina donde lo hace el _ámbito de creación_ de la ligadura.
+
+- Por eso, el ámbito de una ligadura está contenido dentro del ámbito de
+  creación de esa ligadura, pero no tienen por qué coincidir exactamente.
 
 - Esto es así porque una ligadura empieza a existir en el momento en el que se
   ejecuta la instrucción que la crea, y no antes.
 
-- Por tanto, si en un momento dado se está ejecutando una instrucción dentro de
-  un ámbito, las ligaduras visibles en ese ámbito en ese momento
-  serán sólo las que se hayan creado en ese ámbito **hasta ese momento**.
+- Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se
+  hayan creado en ese ámbito **hasta ese momento**.
 
 ---
-
-- En consecuencia, el ámbito de una ligadura:
-
-  - Empieza en el punto donde se crea la ligadura.
-
-  - Termina donde lo hace el _ámbito de creación_ de la ligadura.
 
 - En el siguiente ejemplo vemos los ámbitos de cada ligadura. Todas esas
   ligaduras se definen en el ámbito global, por lo que el **ámbito de
   creación** de todas ellas es el **ámbito global**.
 
+  En ese caso, decimos que **la ligadura es _global_**.
+
 !IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
+
+---
 
 - Es importante no confundir «**ámbito**», «**ámbito de creación de una
   ligadura**» y «**ámbito de una ligadura**».
-
----
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito:**
 
-Porción de código de un programa que crea un marco al entrar y lo destruye al
-salir. Su marco almacena las ligaduras que se crean dentro de ese ámbito.
+Porción del código fuente de un programa. Los ámbitos vienen determinados por
+la sintaxis del lenguaje, ya que ciertas construcciones sintáticas definen su
+propio ámbito. A veces, ese ámbito va asociado a un marco.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de creación de una ligadura:**
 
-Ambito más interno en el que se crea una ligadura y que determina el marco
-donde se almacenará la ligadura.
+El ámbito actual de la instrucción que define la ligadura; o dicho de otra
+forma, el ámbito más interno en el que se crea una ligadura.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-Porción de código en el que la ligadura existe, que va desde su creación hasta
-el final del ámbito más interno que la contiene (su _ámbito de creación_). No
-es un ámbito como tal y, por tanto, no crea marcos.
+Porción de código fuente en el que la ligadura existe, que va desde el punto
+donde se crea la ligadura hasta el final del ámbito más interno que la contiene
+(su _ámbito de creación_). El ámbito de una ligadura no está creado por ninguna
+construcción sintáctica concreta.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- La creación de una ligadura (por ejemplo, con una sentencia de definición) no
-  define un nuevo ámbito y, por tanto, no crea un nuevo marco.
+- Si el ámbito de creación de la ligadura lleva asociado un marco, la ligadura
+  se almacenará en ese marco.
 
-- Por eso, las ligaduras se almacenan en el marco del ámbito donde se crean
-  (es el **ámbito de creación de la ligadura**).
+- Si no, entonces la ligadura se almacenará en el marco del ámbito más cercano
+  que sí lleve asociado un marco.
+
+- Ese marco se denomina el **marco actual**.
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.
@@ -494,18 +504,21 @@ es un ámbito como tal y, por tanto, no crea marcos.
 - **El cuerpo de la expresión lambda define un ámbito.**
 
 - Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho
-  ámbito y eso crea un marco.
+  ámbito.
+
+- Además, **cada aplicación de una expresión lambda crea un nuevo marco** en la
+  memoria, que representa esa ejecución concreta de dicha expresión lambda.
 
 - Cuando se aplica una expresión lambda a unos argumentos, **cada parámetro de
   la expresión lambda se liga a uno de esos argumentos** en el orden en que
   aparecen en la aplicación funcional (primer parámetro con primer argumento,
   segundo con segundo, etcétera).
 
-- Esas ligaduras se crean justo al entrar en el ámbito que define el cuerpo de
-  la expresión lambda.
-
-- Por tanto, **se almacenan en el marco de la expresión lambda** nada más
+- Esas ligaduras **se almacenan en el marco de la expresión lambda** nada más
   entrar en el cuerpo de la expresión lambda.
+
+- Ese marco se eliminará de la memoria cuando se termine de ejecutar la
+  expresión lambda.
 
 ---
 
@@ -519,8 +532,8 @@ es un ámbito como tal y, por tanto, no crea marcos.
 - Esto se resume diciendo que «el **ámbito de un parámetro** es el **cuerpo**
   de su expresión lambda».
 
-- También se dice que el parámetro tiene un **ámbito local**
-  al cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
+- También se dice que el parámetro tiene un **ámbito local** al cuerpo de la
+  expresión lambda o que es **local** a dicha expresión lambda.
 
 - Como el ámbito de una ligadura es la porción del código en el que dicha
   ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
@@ -613,7 +626,27 @@ establece entre ésta y su argumento correspondiente, y coincide con el
 - El **entorno** es una extensión del concepto de _marco_.
 
 - Durante la ejecución del programa, se van creando y destruyendo marcos a
-  medida que la ejecución va entrando y saliendo de ámbitos.
+  medida que la ejecución va entrando y saliendo de ciertas partes del
+  programa.
+
+- Por ejemplo:
+
+  - Cuando entramos a ejecutar un _script_, se crea el _marco global_ de ese
+    _script_.
+
+  - Si dentro de ese _script_ ejecutamos una expresión lambda, se creará un
+    marco para esa ejecución concreta de la expresión lambda.
+
+    En ese caso habrá dos marcos en la memoria: el _global_ y el de la
+    expresión lambda.
+
+  - Ese marco se eliminará de la memoria cuando termine esa ejecución de la
+    expresión lambda.
+
+<!--
+
+- Recordemos que los marcos van siempre asociados a ámbitos (aunque no
+  viceversa).
 
 - Como los ámbitos están anidados unos dentro de otros, una instrucción puede
   estar en varios ámbitos al mismo tiempo.
@@ -622,16 +655,19 @@ establece entre ésta y su argumento correspondiente, y coincide con el
   memoria al mismo tiempo (uno por cada ámbito en el que se encuentre la
   instrucción que se está ejecutando actualmente).
 
-- **Según se van creando en memoria, esos marcos van enlazándose unos con
-  otros** creando una **secuencia de marcos** que se denomina **entorno** (del
-  inglés, _environment_).
+-->
+
+- **Según se van creando en memoria y se van ejecutando las diferentes partes
+  del programa, esos marcos van enlazándose unos con otros** creando una
+  **secuencia de marcos** que se denomina **entorno** (del inglés,
+  _environment_).
 
 ---
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El entorno nos dice **_todos_ los identificadores que son _accesibles_ en un
-momento concreto de la ejecución del programa, y con qué valores están
+El **entorno** nos dice **_todos_ los identificadores que son _accesibles_ en
+un momento concreto de la ejecución del programa, y con qué valores están
 ligados**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
@@ -643,9 +679,16 @@ ligados**.
 - El entorno, por tanto, es un concepto **_dinámico_** que **depende del
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
   programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta
-  ahora y en qué ámbitos se ha entrado).
+  ahora).
 
-- El entorno **siempre contendrá**, al menos, un marco: el *marco global*.
+- Por tanto, el entorno depende de:
+
+  - Qué partes del programa se han ido activando hasta llegar a la instrucción
+    actual.
+
+  - En qué ámbitos anidados se encuentra la instrucción actual.
+
+- El entorno **siempre contendrá**, al menos, un marco: el _marco global_.
 
 - **El marco global siempre será el último de la secuencia de marcos** que
   forman el entorno.
@@ -660,42 +703,63 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
 ## Ámbitos, marcos y entornos
 
-- Recordemos que un marco es un conjunto de ligaduras.
+- El entorno contiene todas las ligaduras válidas en un punto concreto de la
+  ejecución del programa.
 
-- Y que un entorno es una secuencia de marcos que contienen todas las ligaduras
-  válidas en un punto concreto de la ejecución del programa.
+- Recordemos que un marco contiene un conjunto de ligaduras (representa un
+  _espacio de nombres_), y un entorno es una secuencia de marcos.
 
+- Los marcos se van creando y destruyendo a medida que se van activando ciertas
+  partes del programa durante la ejecución de éste.
+
+- Cuando se aplica una expresión lambda a unos argumentos, **se crea un nuevo
+  marco que contiene las ligaduras que ligan a los parámetros con los valores
+  de esos argumentos**.
+
+<!--
 - Cuando la ejecución del programa entra dentro de un ámbito, **se crea un
   nuevo marco asociado a ese ámbito**.
+-->
 
-- Además, **el cuerpo de una expresión lambda define un nuevo ámbito**.
+---
 
-- Por tanto, cuando se aplica una expresión lambda a unos argumentos, **se crea
-  un nuevo marco que contiene las ligaduras que ligan a los parámetros con los
-  valores de esos argumentos**.
+- Además, **el cuerpo de una expresión lambda define un nuevo ámbito**, que es
+  el ámbito con el que está asociado el marco (recordemos que un marco lleva
+  siempre asociado un ámbito).
 
-- Ese nuevo marco se enlaza con el marco del ámbito que lo contiene (el marco
-  del ámbito más interno *apunta* al del más externo), de manera que el último
-  marco de la secuencia siempre es el marco global.
+- El nuevo marco se enlaza en el entorno con el marco del ámbito más interno
+  que cumpla estas dos condiciones:
 
-- El marco desaparece cuando el flujo de control del programa se sale del
-  ámbito, ya que cada marco va asociado a un ámbito.
+  #. contiene al ámbito del nuevo marco, y
+
+  #. lleva asociado un marco.
+
+  Se dice que el marco del ámbito más interno _apunta_ al del más externo.
+
+- El último marco de la secuencia que representa el entorno es siempre el marco
+  global.
+
+- El marco desaparece cuando finaliza la ejecución de aplicación de la
+  expresión lambda, o lo que es lo mismo, cuando el flujo de control del
+  programa se sale del ámbito, ya que cada marco va asociado a un ámbito.
 
 ---
 
 - Se va formando así una secuencia de marcos que representa el **entorno** del
   programa en un punto dado del mismo.
 
-- El **ámbito** es un concepto *estático*: es algo que existe y se reconoce
+- El **ámbito** es un concepto _estático_: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.
 
-- El **marco** es un concepto *dinámico*: es algo que se crea y se destruye a
-  medida que vamos entrando o saliendo de un ámbito, y contiene las ligaduras
-  que se definen dentro de ese ámbito.
+- El **marco** es un concepto _dinámico_: es algo que se crea y se destruye a
+  medida que se van ejecutando y terminando de ejecutar ciertas partes del
+  programa o, dicho de otra forma, cuando se va entrando y saliendo de ciertos
+  ámbitos.
  
-- A partir de ahora ya no vamos a tener un único marco (el *marco global*) sino
+- A partir de ahora ya no vamos a tener un único marco (el _marco global_) sino
   que tendremos, además, al menos uno más cada vez que se aplique una expresión
-  lambda a unos argumentos.
+  lambda a unos argumentos y mientras dure la ejecución de dicha expresión
+  lambda.
 
 ---
 
@@ -723,20 +787,16 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Si un marco $A$ apunta a un marco $B$, significa que el ámbito de $A$ está
-contenido en el ámbito de $B$.**
+**Si un marco $A$ apunta a un marco $B$ en el entorno, significa que el ámbito
+de $A$ está contenido en el ámbito de $B$.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Además:
+- Además, el **último marco** siempre es el _marco global_.
 
-  - El **primer marco** del entorno siempre es el marco del _ámbito más
-    interno_ de la instrucción actual.
-
-  - El **último marco** siempre es el _marco global_.
-
-- En realidad, el marco global apunta, a su vez, a otro marco donde se
-  encuentran las definiciones internas predefinidas del lenguaje (como la
-  función !PYTHON(max)), pero lo ignoraremos de aquí en adelante por simplicar.
+- En realidad, el marco global apunta, a su vez, a otro marco (el del módulo
+  !PYTHON(__builtins__) donde se encuentran las definiciones internas
+  predefinidas del lenguaje (como la función !PYTHON(max)), pero lo ignoraremos
+  de aquí en adelante por simplificar.
 
 ---
 
@@ -778,8 +838,6 @@ contenido en el ámbito de $B$.**
   - El ámbito de la expresión lambda está contenido en el ámbito global.
 
   - El marco actual es el marco de la expresión lambda.
-
-  - El ámbito actual es el cuerpo de la expresión lambda.
 
   - Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la
     expresión lambda.
