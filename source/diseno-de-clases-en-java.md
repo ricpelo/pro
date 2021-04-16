@@ -47,8 +47,8 @@ public class Hola {
 
 ## Visibilidad de una clase
 
-- Una clase siempre pertenece siempre a un paquete, que es el paquete en el que
-  se ha definido.
+- Una clase pertenece siempre a un paquete, que es el paquete en el que se ha
+  definido.
 
 - El uso y definición de paquetes en Java lo estudiaremos con más profundidad
   posteriormente.
