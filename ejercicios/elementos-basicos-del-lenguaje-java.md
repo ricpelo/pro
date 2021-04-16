@@ -50,7 +50,7 @@ author:
 
         #. !JAVA(++x)
 
-@. Suponiendo que `A`, `B`, `C` son tipos, y se cumple que `A` $<_1$ `B` y `A`
+@. Suponiendo que `A`, `B`, `C` son tipos, y se cumple que `A` $<_1$ `B` y `B`
    $<_1$ `C`, se pide:
 
     #. Calcular todos los subtipos de `C`. Expresarlo usando relaciones con la
