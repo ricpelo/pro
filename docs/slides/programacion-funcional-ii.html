@@ -470,73 +470,81 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p>Por ejemplo, en el siguiente <em>script</em> se realizan cuatro definiciones. Todas ellas se ejecutan en el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
+<li><p>Por ejemplo, en el siguiente <em>script</em> se ejecutan cuatro instrucciones. El ámbito actual de todas las instrucciones es el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
 <div class="centered">
 <p><img data-src="images/ambito-global.png" class="plain" style="width:40.0%" /></p>
 </div></li>
-<li><p>Todas esas instrucciones se ejecutan en el ámbito actual, que es el ámbito global.</p></li>
 <li><p>Además, todas las ligaduras que se crean se almacenan en el marco global.</p></li>
 </ul>
 </section>
 
-<section id="ámbito-de-una-ligadura-y-de-creación-de-una-ligadura" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Ámbito de una ligadura y de creación de una ligadura</h2>
+<section id="ámbito-de-creación-de-una-ligadura" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Ámbito de creación de una ligadura</h2>
 <ul>
 <li><p>El <strong>ámbito de creación de una ligadura</strong> es el ámbito actual de la instrucción que define la ligadura.</p>
 <p>Dicho de otra forma: es el ámbito más interno que contiene la instrucción que define la ligadura.</p></li>
 <li><p>Ese ámbito siempre está definido por una construcción sintáctica.</p></li>
-<li><p>Por tanto, sus límites vienen marcados por la sintaxis de esa construcción sintáctica.</p></li>
+<li><p>Por tanto, sus límites vienen marcados únicamente por la sintaxis de esa construcción sintáctica que define el ámbito.</p></li>
 <li><p>Se dice que <strong>una ligadura es <em>local</em> a su ámbito de creación</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
 
+<section id="ámbito-de-una-ligadura" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Ámbito de una ligadura</h2>
 <ul>
 <li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe y es visible dicha ligadura.</p></li>
-<li><p>A diferencia de su ámbito de creación, el ámbito de una ligadura no viene determinado por una construcción sintáctica del lenguaje, sino por:</p>
+<li><p>A diferencia de los ámbitos de creación, el ámbito de una ligadura no viene definido simplemente por una construcción sintáctica del lenguaje, sino por:</p>
 <ul>
 <li><p>el punto en el que se crea la ligadura y</p></li>
-<li><p>el ámbito de creación de la ligadura.</p></li>
+<li><p>el ámbito de creación de la ligadura, que tiene que ser un ámbito definido por una construcción sintáctica.</p></li>
 </ul></li>
-<li><p>Esto es así porque el ámbito de una ligadura:</p>
+<li><p>El ámbito de una ligadura:</p>
 <ul>
-<li><p>Empieza en el punto donde se crea la ligadura (el punto donde se ejecuta la instrucción que define la ligadura).</p></li>
+<li><p>Empieza en el punto donde se crea la ligadura (es decir, el punto donde se ejecuta la instrucción que define la ligadura).</p></li>
 <li><p>Termina donde lo hace el <em>ámbito de creación</em> de la ligadura.</p></li>
 </ul></li>
-<li><p>Por eso, el ámbito de una ligadura está contenido dentro del ámbito de creación de esa ligadura, pero no tienen por qué coincidir exactamente.</p></li>
-<li><p>Esto es así porque una ligadura empieza a existir en el momento en el que se ejecuta la instrucción que la crea, y no antes.</p></li>
-<li><p>Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se hayan creado en ese ámbito <strong>hasta ese momento</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>Por eso, el ámbito de una ligadura está contenido dentro del ámbito de creación de esa ligadura, pero ambos ámbitos no tienen por qué coincidir exactamente.</p></li>
+<li><p>Esto se debe a que una ligadura empieza a existir en el momento en el que se ejecuta la instrucción que la crea, y no antes.</p></li>
+<li><p>Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se hayan creado en ese ámbito <strong>hasta ese momento</strong>.</p></li>
+</ul>
+<div class="caja">
+<p>El ámbito de una ligadura nunca puede ser el ámbito de creación de una ligadura, y viceversa. Son dos conceptos distintos, aunque a veces el ámbito de una ligadura y el de creación de una ligadura tengan exactamente los mismos límites.</p>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.0.0.2">
 
 <ul>
 <li><p>En el siguiente ejemplo vemos los ámbitos de cada ligadura. Todas esas ligaduras se definen en el ámbito global, por lo que el <strong>ámbito de creación</strong> de todas ellas es el <strong>ámbito global</strong>.</p>
-<p>En ese caso, decimos que <strong>la ligadura es <em>global</em></strong>.</p></li>
+<p>Por eso, decimos que cada una de esas ligaduras es una <strong>ligadura <em>global</em></strong>.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/ambitos-ligaduras.png" class="plain" style="width:50.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="2.3.0.0.3">
 
 <ul>
 <li>Es importante no confundir «<strong>ámbito</strong>», «<strong>ámbito de creación de una ligadura</strong>» y «<strong>ámbito de una ligadura</strong>».</li>
 </ul>
 <div class="caja">
 <p><strong>Ámbito:</strong></p>
-<p>Porción del código fuente de un programa. Los ámbitos vienen determinados por la sintaxis del lenguaje, ya que ciertas construcciones sintáticas definen su propio ámbito. A veces, ese ámbito va asociado a un marco.</p>
+<p>Porción del código fuente de un programa.</p>
 </div>
 <div class="caja">
 <p><strong>Ámbito de creación de una ligadura:</strong></p>
-<p>El ámbito actual de la instrucción que define la ligadura; o dicho de otra forma, el ámbito más interno en el que se crea una ligadura.</p>
+<p>El ámbito actual de la instrucción que define la ligadura; o, dicho de otra forma, el ámbito más interno en el que se crea una ligadura. Los límites de ese ámbito vienen determinados por la sintaxis del lenguaje, ya que ciertas construcciones sintáticas definen su propio ámbito. A veces, además, este ámbito va asociado a un marco.</p>
 </div>
 <div class="caja">
 <p><strong>Ámbito de una ligadura:</strong></p>
-<p>Porción de código fuente en el que la ligadura existe, que va desde el punto donde se crea la ligadura hasta el final del ámbito más interno que la contiene (su <em>ámbito de creación</em>). El ámbito de una ligadura no está creado por ninguna construcción sintáctica concreta.</p>
+<p>Porción de código fuente en el que la ligadura existe, que va desde el punto donde se crea la ligadura hasta el final de su ámbito de creación. El ámbito de una ligadura no puede ser ámbito de creación de otra ligadura definida en otro ámbito anidado dentro de él.</p>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.4">
+<section class="slide level5" data-number="2.3.0.0.4">
 
 <ul>
 <li><p>Si el ámbito de creación de la ligadura lleva asociado un marco, la ligadura se almacenará en ese marco.</p></li>
@@ -548,8 +556,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="ámbito-de-un-identificador" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Ámbito de un identificador</h2>
+<section id="ámbito-de-un-identificador" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Ámbito de un identificador</h2>
 <ul>
 <li><p>A veces, por economía del lenguaje, se suele hablar del «<strong><em>ámbito de un identificador</em></strong>», en lugar de hablar del «<em>ámbito de creación de la ligadura que liga ese identificador con un valor</em>».</p></li>
 <li><p>Por ejemplo, en el siguiente <em>script</em>:</p>
@@ -562,7 +570,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.1">
+<section class="slide level5" data-number="2.4.0.0.1">
 
 <ul>
 <li><p>Pero hay que tener cuidado, ya que ese mismo identificador puede ligarse en ámbitos diferentes.</p></li>
@@ -575,8 +583,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="ámbito-de-un-parámetro" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Ámbito de un parámetro</h2>
+<section id="ámbito-de-un-parámetro" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Ámbito de un parámetro</h2>
 <ul>
 <li><p><strong>El cuerpo de la expresión lambda define un ámbito.</strong></p></li>
 <li><p>Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho ámbito.</p></li>
@@ -586,7 +594,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Ese marco se eliminará de la memoria cuando se termine de ejecutar la expresión lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.1">
+<section class="slide level5" data-number="2.5.0.0.1">
 
 <ul>
 <li><p>En consecuencia, podemos decir que:</p>
@@ -604,8 +612,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </section>
 
-<section id="ámbito-de-una-variable-ligada" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Ámbito de una variable ligada</h2>
+<section id="ámbito-de-una-variable-ligada" class="title-slide slide level2" data-number="2.6">
+<h2 data-number="2.6"><span class="header-section-number">2.6</span> Ámbito de una variable ligada</h2>
 <ul>
 <li><p>Hemos visto que a los <strong>parámetros</strong> de una expresión lambda se les llama <strong>variables ligadas</strong> cuando aparecen dentro del cuerpo de dicha expresión lambda.</p></li>
 <li><p>Por tanto, todo lo que se dijo sobre el ámbito de un parámetro se aplica exactamente igual al ámbito de una variable ligada.</p></li>
@@ -614,7 +622,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>En consecuencia, también se dice que la variable ligada tiene un <strong>ámbito local</strong> al cuerpo de la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.1">
+<section class="slide level5" data-number="2.6.0.0.1">
 
 <ul>
 <li><p>Por contraste, las variables, identificadores y ligaduras que no tienen ámbito local se dice que tienen un <strong>ámbito <em>no local</em></strong> o, a veces, un <strong>ámbito <em>más global</em></strong>.</p>
@@ -642,8 +650,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="entorno-environment" class="title-slide slide level2" data-number="2.6">
-<h2 data-number="2.6"><span class="header-section-number">2.6</span> Entorno (<em>environment</em> )</h2>
+<section id="entorno-environment" class="title-slide slide level2" data-number="2.7">
+<h2 data-number="2.7"><span class="header-section-number">2.7</span> Entorno (<em>environment</em> )</h2>
 <ul>
 <li><p>El <strong>entorno</strong> es una extensión del concepto de <em>marco</em>.</p></li>
 <li><p>Durante la ejecución del programa, se van creando y destruyendo marcos a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
@@ -672,13 +680,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><strong>Según se van creando en memoria y se van ejecutando las diferentes partes del programa, esos marcos van enlazándose unos con otros</strong> creando una <strong>secuencia de marcos</strong> que se denomina <strong>entorno</strong> (del inglés, <em>environment</em>).</li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.6.0.0.1">
+<section class="slide level5" data-number="2.7.0.0.1">
 
 <div class="caja">
 <p>El <strong>entorno</strong> nos dice <strong><em>todos</em> los identificadores que son <em>accesibles</em> en un momento concreto de la ejecución del programa, y con qué valores están ligados</strong>.</p>
 </div>
 </section>
-<section class="slide level5" data-number="2.6.0.0.2">
+<section class="slide level5" data-number="2.7.0.0.2">
 
 <ul>
 <li><p>En un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
@@ -696,8 +704,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </section>
 
-<section id="ámbitos-marcos-y-entornos" class="title-slide slide level2" data-number="2.7">
-<h2 data-number="2.7"><span class="header-section-number">2.7</span> Ámbitos, marcos y entornos</h2>
+<section id="ámbitos-marcos-y-entornos" class="title-slide slide level2" data-number="2.8">
+<h2 data-number="2.8"><span class="header-section-number">2.8</span> Ámbitos, marcos y entornos</h2>
 <ul>
 <li><p>El entorno contiene todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
 <li><p>Recordemos que un marco contiene un conjunto de ligaduras (representa un <em>espacio de nombres</em>), y un entorno es una secuencia de marcos.</p></li>
@@ -709,7 +717,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   nuevo marco asociado a ese ámbito**.
 -->
 </section>
-<section class="slide level5" data-number="2.7.0.0.1">
+<section class="slide level5" data-number="2.8.0.0.1">
 
 <ul>
 <li><p>Además, <strong>el cuerpo de una expresión lambda define un nuevo ámbito</strong>, que es el ámbito con el que está asociado el marco (recordemos que un marco lleva siempre asociado un ámbito).</p></li>
@@ -723,7 +731,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>El marco desaparece cuando finaliza la ejecución de aplicación de la expresión lambda, o lo que es lo mismo, cuando el flujo de control del programa se sale del ámbito, ya que cada marco va asociado a un ámbito.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.7.0.0.2">
+<section class="slide level5" data-number="2.8.0.0.2">
 
 <ul>
 <li><p>Se va formando así una secuencia de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
@@ -732,7 +740,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos y mientras dure la ejecución de dicha expresión lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.7.0.0.3">
+<section class="slide level5" data-number="2.8.0.0.3">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -744,7 +752,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p><img data-src="images/ambitos-anidados.png" class="plain" style="width:60.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="2.7.0.0.4">
+<section class="slide level5" data-number="2.8.0.0.4">
 
 <ul>
 <li>El concepto de <strong>entorno</strong> refleja el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</li>
@@ -757,7 +765,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>En realidad, el marco global apunta, a su vez, a otro marco (el del módulo <code class="sourceCode python">__builtins__</code> donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code class="sourceCode python"><span class="bu">max</span></code>), pero lo ignoraremos de aquí en adelante por simplificar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.7.0.0.5">
+<section class="slide level5" data-number="2.8.0.0.5">
 
 <ul>
 <li><p>Por ejemplo, si en un momento concreto de la ejecución del programa tenemos el siguiente entorno (donde <code class="sourceCode python">suma</code> es una expresión lambda):</p>
@@ -774,8 +782,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="ligaduras-sombreadas" class="title-slide slide level2" data-number="2.8">
-<h2 data-number="2.8"><span class="header-section-number">2.8</span> Ligaduras <em>sombreadas</em></h2>
+<section id="ligaduras-sombreadas" class="title-slide slide level2" data-number="2.9">
+<h2 data-number="2.9"><span class="header-section-number">2.9</span> Ligaduras <em>sombreadas</em></h2>
 <ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno, en un ámbito más global?</p></li>
 <li><p>Por ejemplo:</p>
@@ -788,7 +796,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.8.0.0.1">
+<section class="slide level5" data-number="2.9.0.0.1">
 
 <ul>
 <li><p>En el ejemplo, el identificador <code class="sourceCode python">x</code> que aparece en el cuerpo de la expresión lambda <strong>está ligado al parámetro <code class="sourceCode python">x</code> de la expresión lambda</strong>.</p></li>
@@ -801,7 +809,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.8.0.0.2">
+<section class="slide level5" data-number="2.9.0.0.2">
 
 <ul>
 <li><p>En nuestro ejemplo, podemos decir que el parámetro <code class="sourceCode python">x</code> de la expresión lambda hace sombra al identificador <code class="sourceCode python">x</code> que aparece en el ámbito global.</p></li>
@@ -814,7 +822,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="2.8.0.0.3">
+<section class="slide level5" data-number="2.9.0.0.3">
 
 <ul>
 <li><p>Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de la <code class="sourceCode python">x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code class="sourceCode python">x</code>. Por ejemplo:</p>
@@ -829,8 +837,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </section>
 
-<section id="renombrado-de-parámetros" class="title-slide slide level2" data-number="2.9">
-<h2 data-number="2.9"><span class="header-section-number">2.9</span> Renombrado de parámetros</h2>
+<section id="renombrado-de-parámetros" class="title-slide slide level2" data-number="2.10">
+<h2 data-number="2.10"><span class="header-section-number">2.10</span> Renombrado de parámetros</h2>
 <ul>
 <li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
 <li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>

@@ -337,18 +337,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
-  ellas se ejecutan en el ámbito global, que es el único ámbito que existe en
-  el _script_:
+- Por ejemplo, en el siguiente _script_ se ejecutan cuatro instrucciones. El
+  ámbito actual de todas las instrucciones es el ámbito global, que es el único
+  ámbito que existe en el _script_:
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
-- Todas esas instrucciones se ejecutan en el ámbito actual, que es el ámbito
-  global.
-
 - Además, todas las ligaduras que se crean se almacenan en el marco global.
 
-## Ámbito de una ligadura y de creación de una ligadura
+## Ámbito de creación de una ligadura
 
 - El **ámbito de creación de una ligadura** es el ámbito actual de la
   instrucción que define la ligadura.
@@ -358,38 +355,50 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Ese ámbito siempre está definido por una construcción sintáctica.
 
-- Por tanto, sus límites vienen marcados por la sintaxis de esa construcción
-  sintáctica.
+- Por tanto, sus límites vienen marcados únicamente por la sintaxis de esa
+  construcción sintáctica que define el ámbito.
 
 - Se dice que **una ligadura es _local_ a su ámbito de creación**.
 
----
+## Ámbito de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe y es visible dicha ligadura.
 
-- A diferencia de su ámbito de creación, el ámbito de una ligadura no viene
-  determinado por una construcción sintáctica del lenguaje, sino por:
+- A diferencia de los ámbitos de creación, el ámbito de una ligadura no viene
+  definido simplemente por una construcción sintáctica del lenguaje, sino por:
 
   - el punto en el que se crea la ligadura y
 
-  - el ámbito de creación de la ligadura.
+  - el ámbito de creación de la ligadura, que tiene que ser un ámbito definido
+    por una construcción sintáctica.
 
-- Esto es así porque el ámbito de una ligadura:
+- El ámbito de una ligadura:
 
-  - Empieza en el punto donde se crea la ligadura (el punto donde se ejecuta la
-    instrucción que define la ligadura).
+  - Empieza en el punto donde se crea la ligadura (es decir, el punto donde se
+    ejecuta la instrucción que define la ligadura).
 
   - Termina donde lo hace el _ámbito de creación_ de la ligadura.
 
-- Por eso, el ámbito de una ligadura está contenido dentro del ámbito de
-  creación de esa ligadura, pero no tienen por qué coincidir exactamente.
+---
 
-- Esto es así porque una ligadura empieza a existir en el momento en el que se
+- Por eso, el ámbito de una ligadura está contenido dentro del ámbito de
+  creación de esa ligadura, pero ambos ámbitos no tienen por qué coincidir
+  exactamente.
+
+- Esto se debe a que una ligadura empieza a existir en el momento en el que se
   ejecuta la instrucción que la crea, y no antes.
 
 - Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se
   hayan creado en ese ámbito **hasta ese momento**.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El ámbito de una ligadura nunca puede ser el ámbito de creación de una
+ligadura, y viceversa. Son dos conceptos distintos, aunque a veces el ámbito de
+una ligadura y el de creación de una ligadura tengan exactamente los mismos
+límites.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -397,7 +406,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ligaduras se definen en el ámbito global, por lo que el **ámbito de
   creación** de todas ellas es el **ámbito global**.
 
-  En ese caso, decimos que **la ligadura es _global_**.
+  Por eso, decimos que cada una de esas ligaduras es una **ligadura _global_**.
 
 !IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
 
@@ -410,17 +419,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito:**
 
-Porción del código fuente de un programa. Los ámbitos vienen determinados por
-la sintaxis del lenguaje, ya que ciertas construcciones sintáticas definen su
-propio ámbito. A veces, ese ámbito va asociado a un marco.
+Porción del código fuente de un programa.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de creación de una ligadura:**
 
-El ámbito actual de la instrucción que define la ligadura; o dicho de otra
-forma, el ámbito más interno en el que se crea una ligadura.
+El ámbito actual de la instrucción que define la ligadura; o, dicho de otra
+forma, el ámbito más interno en el que se crea una ligadura. Los límites de ese
+ámbito vienen determinados por la sintaxis del lenguaje, ya que ciertas
+construcciones sintáticas definen su propio ámbito. A veces, además, este
+ámbito va asociado a un marco.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
@@ -428,9 +438,9 @@ forma, el ámbito más interno en el que se crea una ligadura.
 **Ámbito de una ligadura:**
 
 Porción de código fuente en el que la ligadura existe, que va desde el punto
-donde se crea la ligadura hasta el final del ámbito más interno que la contiene
-(su _ámbito de creación_). El ámbito de una ligadura no está creado por ninguna
-construcción sintáctica concreta.
+donde se crea la ligadura hasta el final de su ámbito de creación. El ámbito de
+una ligadura no puede ser ámbito de creación de otra ligadura definida en otro
+ámbito anidado dentro de él.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
