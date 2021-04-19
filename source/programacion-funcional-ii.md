@@ -287,7 +287,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   dónde empieza y acaba ese ámbito en el código fuente.
 
 - Por tanto, siempre se puede determinar sin ambigüedad si una instrucción
-  pertenece a un determinado ámbito, tan sólo leyendo el código fuente del
+  está dentro de un determinado ámbito, tan sólo leyendo el código fuente del
   programa y sin necesidad de ejecutarlo.
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
@@ -324,9 +324,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Las definiciones que se ejecutan cuando el ámbito actual es el ámbito global,
-  se dice que son **definiciones globales**, y las ligaduras que se crean son
-  **ligaduras globales**.
+- Las **definiciones globales** son aquellas definiciones que se ejecutan
+  cuando el ámbito actual es el ámbito global.
+
+- Las ligaduras que crean las definiciones globales se denominan **ligaduras
+  globales**.
 
 - Esas ligaduras se almacenan en el **marco global**.
 
@@ -338,12 +340,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ---
 
 - Por ejemplo, en el siguiente _script_ se ejecutan cuatro instrucciones. El
-  ámbito actual de todas las instrucciones es el ámbito global, que es el único
-  ámbito que existe en el _script_:
+  ámbito actual de cada una de las instrucciones es el ámbito global, que es el
+  único ámbito que existe en el _script_:
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
-- Además, todas las ligaduras que se crean se almacenan en el marco global.
+- Además, todas las ligaduras que se crean se almacenan en el marco global, que
+  es el único que existe en memoria durante la ejecución de ese _script_.
 
 ## Ámbito de creación de una ligadura
 
@@ -355,7 +358,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Ese ámbito siempre está definido por una construcción sintáctica.
 
-- Por tanto, sus límites vienen marcados únicamente por la sintaxis de esa
+- Por tanto, sus límites vienen marcados únicamente por la sintaxis de la
   construcción sintáctica que define el ámbito.
 
 - Se dice que **una ligadura es _local_ a su ámbito de creación**.
@@ -386,29 +389,43 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   creación de esa ligadura, pero ambos ámbitos no tienen por qué coincidir
   exactamente.
 
+  Los dos ámbitos acaban en el mismo punto, pero no tienen por qué empezar en
+  el mismo punto.
+
 - Esto se debe a que una ligadura empieza a existir en el momento en el que se
   ejecuta la instrucción que la crea, y no antes.
 
 - Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se
   hayan creado en ese ámbito **hasta ese momento**.
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El ámbito de una ligadura nunca puede ser el ámbito de creación de una
-ligadura, y viceversa. Son dos conceptos distintos, aunque a veces el ámbito de
-una ligadura y el de creación de una ligadura tengan exactamente los mismos
-límites.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- El ámbito de una ligadura y el ámbito de creación de una ligadura son dos
+  conceptos distintos, aunque a veces pueda coincidir que ambos ámbitos tengan
+  los mismos límites para una determinada ligadura.
+
+  Esto último ocurre sólo si la ligadura se crea justo al comienzo del ámbito
+  de creación de la ligadura.
+
+- Pero el ámbito de una ligadura no puede ser el ámbito de creación de otra
+  ligadura.
 
 ---
 
-- En el siguiente ejemplo vemos los ámbitos de cada ligadura. Todas esas
+- En el siguiente ejemplo vemos los ámbitos de varias ligaduras. Todas esas
   ligaduras se definen en el ámbito global, por lo que el **ámbito de
   creación** de todas ellas es el **ámbito global**.
 
   Por eso, decimos que cada una de esas ligaduras es una **ligadura _global_**.
 
 !IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
+
+- El ámbito de cada una de esas ligaduras empieza justo donde se crea la
+  ligadura y termina al final
+  de su ámbito de creación.
+
+- Es importante entender que, aunque el ámbito de `y` → `99` está contenido en
+  el de `x` → `25`, éste último no se tiene en cuenta a la hora de determinar
+  cuál es el ámbito de creación de la ligadura `y` → `99` (porque es el ámbito
+  de una ligadura, no el ámbito de creación de una ligadura).
 
 ---
 
@@ -428,7 +445,7 @@ Porción del código fuente de un programa.
 
 El ámbito actual de la instrucción que define la ligadura; o, dicho de otra
 forma, el ámbito más interno en el que se crea una ligadura. Los límites de ese
-ámbito vienen determinados por la sintaxis del lenguaje, ya que ciertas
+ámbito sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
 construcciones sintáticas definen su propio ámbito. A veces, además, este
 ámbito va asociado a un marco.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -437,10 +454,9 @@ construcciones sintáticas definen su propio ámbito. A veces, además, este
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-Porción de código fuente en el que la ligadura existe, que va desde el punto
-donde se crea la ligadura hasta el final de su ámbito de creación. El ámbito de
-una ligadura no puede ser ámbito de creación de otra ligadura definida en otro
-ámbito anidado dentro de él.
+Porción de código fuente en el que la ligadura existe y es visible. Va desde el
+punto donde se crea la ligadura hasta el final de su ámbito de creación. El
+ámbito de una ligadura no puede ser el ámbito de creación de otra ligadura.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -448,8 +464,8 @@ una ligadura no puede ser ámbito de creación de otra ligadura definida en otro
 - Si el ámbito de creación de la ligadura lleva asociado un marco, la ligadura
   se almacenará en ese marco.
 
-- Si no, entonces la ligadura se almacenará en el marco del ámbito más cercano
-  que sí lleve asociado un marco.
+- Si no, entonces la ligadura se almacenará en el marco del ámbito de creación
+  más interno que contenga al actual y que sí lleve asociado un marco.
 
 - Ese marco se denomina el **marco actual**.
 
@@ -554,8 +570,8 @@ una ligadura no puede ser ámbito de creación de otra ligadura definida en otro
 **En resumen:**
 
 El **ámbito de un parámetro** es el ámbito de la ligadura que se establece
-entre éste y su argumento correspondiente, y coincide con el **cuerpo** de la
-expresión lambda donde aparece.
+entre éste y su argumento correspondiente, y se corresponde con el **cuerpo**
+de la expresión lambda donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Ámbito de una variable ligada
@@ -571,7 +587,7 @@ expresión lambda donde aparece.
   que es la porción de código donde podemos acceder al valor del argumento con
   el que está ligado.
 
-- Por tanto, **el _ámbito_ de una variable ligada también es el _cuerpo_ de la
+- Por tanto, **el _ámbito_ de una variable ligada es el _cuerpo_ de la
   expresión lambda** donde aparece, y es el único lugar dentro del cual
   podremos acceder al valor de la variable ligada (que también será el valor
   del argumento con el que está ligada).
@@ -599,7 +615,7 @@ expresión lambda donde aparece.
 **En resumen:**
 
 El **ámbito de una variable ligada** es el ámbito de la ligadura que se
-establece entre ésta y su argumento correspondiente, y coincide con el
+establece entre ésta y su argumento correspondiente, y se corresponde con el
 **cuerpo** de la expresión lambda donde aparece.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -644,45 +660,29 @@ establece entre ésta y su argumento correspondiente, y coincide con el
   - Cuando entramos a ejecutar un _script_, se crea el _marco global_ de ese
     _script_.
 
-  - Si dentro de ese _script_ ejecutamos una expresión lambda, se creará un
-    marco para esa ejecución concreta de la expresión lambda.
+  - Si dentro de ese _script_ aplicamos una expresión lambda a unos argumentos,
+    se creará un marco para esa ejecución concreta de la expresión lambda.
 
     En ese caso habrá dos marcos en la memoria: el _global_ y el de la
-    expresión lambda.
+    expresión lambda. Este último marco se eliminará de la memoria cuando
+    termine esa ejecución de la expresión lambda.
 
-  - Ese marco se eliminará de la memoria cuando termine esa ejecución de la
-    expresión lambda.
+  - El marco global sólo se eliminará de la memoria cuando se finalice la
+    ejecución del _script_.
 
-<!--
-
-- Recordemos que los marcos van siempre asociados a ámbitos (aunque no
-  viceversa).
-
-- Como los ámbitos están anidados unos dentro de otros, una instrucción puede
-  estar en varios ámbitos al mismo tiempo.
-
-- Eso hace que, en un momento dado, pueda haber varios marcos activos en
-  memoria al mismo tiempo (uno por cada ámbito en el que se encuentre la
-  instrucción que se está ejecutando actualmente).
-
--->
+---
 
 - **Según se van creando en memoria y se van ejecutando las diferentes partes
   del programa, esos marcos van enlazándose unos con otros** creando una
   **secuencia de marcos** que se denomina **entorno** (del inglés,
   _environment_).
 
----
-
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El **entorno** nos dice **_todos_ los identificadores que son _accesibles_ en
-un momento concreto de la ejecución del programa, y con qué valores están
-ligados**.
+El **entorno** nos dice **_todas_ las ligaduras que son _accesibles_ en un
+momento concreto de la ejecución del programa**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
----
-
 - En un momento dado, el entorno contendrá más o menos marcos dependiendo de
   por dónde haya pasado la ejecución del programa hasta ese momento.
 
@@ -691,12 +691,10 @@ ligados**.
   programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta
   ahora).
 
-- Por tanto, el entorno depende de:
+---
 
-  - Qué partes del programa se han ido activando hasta llegar a la instrucción
-    actual.
-
-  - En qué ámbitos anidados se encuentra la instrucción actual.
+- Por tanto, el entorno depende de qué partes del programa se han ido activando
+  hasta llegar a la instrucción actual.
 
 - El entorno **siempre contendrá**, al menos, un marco: el _marco global_.
 
@@ -726,11 +724,6 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   marco que contiene las ligaduras que ligan a los parámetros con los valores
   de esos argumentos**.
 
-<!--
-- Cuando la ejecución del programa entra dentro de un ámbito, **se crea un
-  nuevo marco asociado a ese ámbito**.
--->
-
 ---
 
 - Además, **el cuerpo de una expresión lambda define un nuevo ámbito**, que es
@@ -749,9 +742,10 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - El último marco de la secuencia que representa el entorno es siempre el marco
   global.
 
-- El marco desaparece cuando finaliza la ejecución de aplicación de la
-  expresión lambda, o lo que es lo mismo, cuando el flujo de control del
-  programa se sale del ámbito, ya que cada marco va asociado a un ámbito.
+- El marco asociado a la aplicación de la expresión lambda, desaparece cuando
+  finaliza la ejecución de esa aplicación, o lo que es lo mismo, cuando el
+  flujo de control del programa se sale del ámbito de la expresión lambda (ya
+  que cada marco va asociado a un ámbito).
 
 ---
 
@@ -795,18 +789,18 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - El concepto de **entorno** refleja el hecho de que los ámbitos se contienen
   unos a otros (están anidados unos dentro de otros).
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Si un marco $A$ apunta a un marco $B$ en el entorno, significa que el ámbito
-de $A$ está contenido en el ámbito de $B$.**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Si un marco $A$ apunta a un marco $B$ en el entorno, significa que el ámbito
+  de $A$ está contenido en el ámbito de $B$.**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Además, el **último marco** siempre es el _marco global_.
 
 - En realidad, el marco global apunta, a su vez, a otro marco (el del módulo
-  !PYTHON(__builtins__) donde se encuentran las definiciones internas
-  predefinidas del lenguaje (como la función !PYTHON(max)), pero lo ignoraremos
-  de aquí en adelante por simplificar.
+  !PYTHON(__builtins__)) donde se encuentran las definiciones internas
+  predefinidas del lenguaje (como la función !PYTHON(max)), pero de aquí en
+  adelante lo daremos por supuesto, para simplificar.
 
 ---
 
@@ -845,6 +839,8 @@ de $A$ está contenido en el ámbito de $B$.**
 
   Podemos afirmar que:
 
+  - El marco de la expresión lambda apunta al marco global en el entorno.
+
   - El ámbito de la expresión lambda está contenido en el ámbito global.
 
   - El marco actual es el marco de la expresión lambda.
@@ -853,163 +849,6 @@ de $A$ está contenido en el ámbito de $B$.**
     expresión lambda.
 
   - De hecho, está evaluando la llamada !PYTHON(suma(3, 5)).
-
-## Ligaduras *sombreadas*
-
-- ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
-  ya están definidos (ligados) en el entorno, en un ámbito más global?
-
-- Por ejemplo:
-
-  ```{.python .number-lines}
-  x = 4
-  total = (lambda x: x * x)(3)  # Su valor es 9
-  ```
-
-- La !PYTHON(x) que aparece en la línea 1 es distinta a las que aparecen en la
-  2:
-
-  - La !PYTHON(x) de la línea 1 es un identificador ligado a un valor en el
-    ámbito global (el ámbito de creación de esa ligadura es el ámbito global).
-    Esa ligadura, por tanto, se almacena en el marco global, y por eso decimos
-    que esa !PYTHON(x) (la que aparece en la línea 1) es _global_.
-
-  - Las !PYTHON(x) de la línea 2 son parámetros y variables ligadas de la
-    expresión lambda. Por tanto, el ámbito de esas !PYTHON(x) es _local_ al
-    cuerpo de la expresión lambda.
-
----
-
-- En el ejemplo, el identificador !PYTHON(x) que aparece en el cuerpo de la
-  expresión lambda **está ligado al parámetro !PYTHON(x) de la expresión
-  lambda**.
-
-- Por tanto, **no** se refiere al identificador !PYTHON(x) que está fuera de la
-  expresión lambda (y que aquí está ligado al valor !PYTHON(4)), sino al
-  parámetro !PYTHON(x) que, en la llamada de la línea 2, está ligado al valor
-  !PYTHON(3) (el argumento de la llamada).
-
-- Eso quiere decir que, dentro del cuerpo, !PYTHON(x) vale !PYTHON(3), no
-  !PYTHON(4).
-
-- Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
-  del otro, decimos que:
-
-  - El identificador que aparece en el ámbito más externo está **sombreado** (y
-    su ligadura está **sombreada**).
-
-  - El identificador que aparece en el ámbito más interno **hace sombra** al
-    identificador sombreado (y su ligadura también se dice que **hace sombra**
-    a la ligadura sombreada).
-
----
-
-- En nuestro ejemplo, podemos decir que el parámetro !PYTHON(x) de la expresión
-  lambda hace sombra al identificador !PYTHON(x) que aparece en el ámbito
-  global.
-
-- Eso significa que no podemos acceder a ese identificador !PYTHON(x) global
-  desde dentro del cuerpo de la expresión lambda como si fuera una variable
-  libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
-  !PYTHON(x) local (el parámetro de la expresión lambda).
-
-- Esto es así porque la primera ligadura del identificador !PYTHON(x) que nos
-  encontramos al recorrer la secuencia de marcos del entorno, buscando un valor
-  para !PYTHON(x), es la que está en el marco de la expresión lambda, que es el
-  marco actual cuando se está ejecutando su cuerpo.
-
-!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-4 [shape = circle]
-3 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, width = 0.1]
-xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    x
-}
-x -> 4
-subgraph cluster1 {
-    label = "Marco de lambda"
-    bgcolor = white
-    xl
-}
-xl -> 3
-xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> xl [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de
-  la !PYTHON(x) que está fuera de la expresión lambda, lo que podemos hacer es
-  **cambiar el nombre** al parámetro !PYTHON(x). Por ejemplo:
-
-  ```python
-  x = 4
-  total = (lambda w: w * x)(3)  # Su valor es 12
-  ```
-
-  Así, tendremos en la expresión lambda una variable ligada (el parámetro
-  !PYTHON(w)) y una variable libre (el identificador !PYTHON(x) ligado en el
-  ámbito global) al que ahora sí podemos acceder al no estar sombreada y
-  encontrarse dentro del entorno.
-
-!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-4 [shape = circle]
-3 [shape = circle]
-x [shape = plaintext, fillcolor = transparent, width = 0.1]
-w [shape = plaintext, fillcolor = transparent, width = 0.1]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    x
-}
-x -> 4
-subgraph cluster1 {
-    label = "Marco de lambda"
-    bgcolor = white
-    w
-}
-w -> 3
-w -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> w [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-## Renombrado de parámetros
-
-- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
-  sin que se altere el significado de la expresión lambda.
-
-- A esta operación se la denomina **α-conversión**.
-
-- Un ejemplo de α-conversión es la que hicimos antes.
-
-- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
-  Por ejemplo, en:
-
-  ```python
-  lambda x, y: x + y + z
-  ```
-
-  si renombramos !PYTHON(x) a !PYTHON(z) tendríamos:
-
-  ```python
-  lambda z, y: z + y + z
-  ```
-
-  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
-  **captura de variables**.
 
 # Evaluación
 
@@ -1027,13 +866,6 @@ E -> w [lhead = cluster1]
   desde el ámbito actual. En cualquier caso, **generará un error** de tipo
   «_nombre no definido_».
 
-- Se debe tener en cuenta, también, las posibles **variables sombreadas** que
-  puedan aparecer.
-
-  Si un identificador de un ámbito más local *hace sombra* a otro situado en un
-  ámbito más global, al buscar una ligadura en el entorno se encontrará primero
-  la ligadura más local, ignorando las demás.
-  
 ---
 
 - Por ejemplo:
@@ -1472,6 +1304,163 @@ m -> 9
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> f [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Ligaduras *sombreadas*
+
+- ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
+  ya están definidos (ligados) en el entorno, en un ámbito más global?
+
+- Por ejemplo:
+
+  ```{.python .number-lines}
+  x = 4
+  total = (lambda x: x * x)(3)  # Su valor es 9
+  ```
+
+- La !PYTHON(x) que aparece en la línea 1 es distinta a las que aparecen en la
+  2:
+
+  - La !PYTHON(x) de la línea 1 es un identificador ligado a un valor en el
+    ámbito global (el ámbito de creación de esa ligadura es el ámbito global).
+    Esa ligadura, por tanto, se almacena en el marco global, y por eso decimos
+    que esa !PYTHON(x) (la que aparece en la línea 1) es _global_.
+
+  - Las !PYTHON(x) de la línea 2 son parámetros y variables ligadas de la
+    expresión lambda. Por tanto, el ámbito de esas !PYTHON(x) es _local_ al
+    cuerpo de la expresión lambda.
+
+---
+
+- En el ejemplo, el identificador !PYTHON(x) que aparece en el cuerpo de la
+  expresión lambda **está ligado al parámetro !PYTHON(x) de la expresión
+  lambda**.
+
+- Por tanto, **no** se refiere al identificador !PYTHON(x) que está fuera de la
+  expresión lambda (y que aquí está ligado al valor !PYTHON(4)), sino al
+  parámetro !PYTHON(x) que, en la llamada de la línea 2, está ligado al valor
+  !PYTHON(3) (el argumento de la llamada).
+
+- Eso quiere decir que, dentro del cuerpo, !PYTHON(x) vale !PYTHON(3), no
+  !PYTHON(4).
+
+- Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
+  del otro, decimos que:
+
+  - El identificador que aparece en el ámbito más externo está **sombreado** (y
+    su ligadura está **sombreada**).
+
+  - El identificador que aparece en el ámbito más interno **hace sombra** al
+    identificador sombreado (y su ligadura también se dice que **hace sombra**
+    a la ligadura sombreada).
+
+---
+
+- En nuestro ejemplo, podemos decir que el parámetro !PYTHON(x) de la expresión
+  lambda hace sombra al identificador !PYTHON(x) que aparece en el ámbito
+  global.
+
+- Eso significa que no podemos acceder a ese identificador !PYTHON(x) global
+  desde dentro del cuerpo de la expresión lambda como si fuera una variable
+  libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
+  !PYTHON(x) local (el parámetro de la expresión lambda).
+
+- Esto es así porque la primera ligadura del identificador !PYTHON(x) que nos
+  encontramos al recorrer la secuencia de marcos del entorno, buscando un valor
+  para !PYTHON(x), es la que está en el marco de la expresión lambda, que es el
+  marco actual cuando se está ejecutando su cuerpo.
+
+!DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+4 [shape = circle]
+3 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, width = 0.1]
+xl [shape = plaintext, fillcolor = transparent, label = "x", width = 0.1]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    x
+}
+x -> 4
+subgraph cluster1 {
+    label = "Marco de lambda"
+    bgcolor = white
+    xl
+}
+xl -> 3
+xl -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> xl [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de
+  la !PYTHON(x) que está fuera de la expresión lambda, lo que podemos hacer es
+  **cambiar el nombre** al parámetro !PYTHON(x). Por ejemplo:
+
+  ```python
+  x = 4
+  total = (lambda w: w * x)(3)  # Su valor es 12
+  ```
+
+  Así, tendremos en la expresión lambda una variable ligada (el parámetro
+  !PYTHON(w)) y una variable libre (el identificador !PYTHON(x) ligado en el
+  ámbito global) al que ahora sí podemos acceder al no estar sombreada y
+  encontrarse dentro del entorno.
+
+!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+4 [shape = circle]
+3 [shape = circle]
+x [shape = plaintext, fillcolor = transparent, width = 0.1]
+w [shape = plaintext, fillcolor = transparent, width = 0.1]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = "white"
+    x
+}
+x -> 4
+subgraph cluster1 {
+    label = "Marco de lambda"
+    bgcolor = white
+    w
+}
+w -> 3
+w -> x [lhead = cluster0, ltail = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Renombrado de parámetros
+
+- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
+  sin que se altere el significado de la expresión lambda.
+
+- A esta operación se la denomina **α-conversión**.
+
+- Un ejemplo de α-conversión es la que hicimos antes.
+
+- La α-conversión hay que hacerla correctamente para evitar efectos indeseados.
+  Por ejemplo, en:
+
+  ```python
+  lambda x, y: x + y + z
+  ```
+
+  si renombramos !PYTHON(x) a !PYTHON(z) tendríamos:
+
+  ```python
+  lambda z, y: z + y + z
+  ```
+
+  lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
+  **captura de variables**.
 
 ### Visualización en *Pythontutor*
 
