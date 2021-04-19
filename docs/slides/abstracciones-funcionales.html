@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Abstracciones funcionales</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var title = document.getElementsByClassName('title')[0];
+        title = title != null ? title.innerHTML : '';
+        var author = document.getElementsByClassName('author')[0];
+        author = author != null ? author.innerHTML : '';
+        var date = document.getElementsByClassName('date')[0];
+        date = date != null ? date.innerHTML : '';
+        document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+        document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+
+        function updateHeader(nd) {
+            var hr = document.getElementById('header-right');
+            while (hr.children.length > 0) {
+                hr.removeChild(hr.lastChild);
+            }
+            buscar(nd, 3, hr);
+            buscar(nd, 2, hr);
+            buscar(nd, 1, hr);
+            hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+            hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+            var hl = document.getElementById('header-left');
+            hl.style.fontSize = hr.style.fontSize;
+        }
+
+        function buscar(nd, level, hr) {
+            if (!nd.classList.contains('level' + (level - 1))) {
+                for (var n = nd; n != null; n = n.previousSibling) {
+                    if (n.nodeType == Node.TEXT_NODE) {
+                        continue;
+                    }
+                    var cl = n.classList;
+                    if (cl.contains('level' + level)) {
+                        var h = n.querySelector('h' + level);
+                    } else if (cl.contains('level' + (level - 1))) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                    if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                        hr.innerHTML = '';
+                    } else {
+                        var el = document.createElement('a');
+                        var href = '#/' + n.id;
+                        el.href = href;
+                        el.innerHTML = h.innerHTML;
+                        var a = el.querySelector('a');
+                        if (a !== null) {
+                            a.href = href;
+                        }
+                        if (hr.innerHTML != '') {
+                            hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                        }
+                        hr.insertBefore(el, hr.firstChild);
+                    }
+                    break;
+                }
+            }
+        }
+
+        // On Reveal.js ready event, copy header/footer <div>
+        // into each `.slide-background` <div>
+        Reveal.addEventListener('ready', function(event) {
+            var header = document.getElementById('header');
+            document.querySelector('.reveal').appendChild(header);
+            updateHeader(Reveal.getCurrentSlide());
+        });
+
+        Reveal.addEventListener('slidechanged', function(event) {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            updateHeader(event.currentSlide);
+        });
+    });
+</script>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Abstracciones funcionales</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2020/2021</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/abstracciones-lambda"><span class="toc-section-number">1</span> Abstracciones lambda</a></li>
+<li><a href="#/ámbitos-léxicos"><span class="toc-section-number">2</span> Ámbitos léxicos</a></li>
+<li><a href="#/evaluación"><span class="toc-section-number">3</span> Evaluación</a></li>
+<li><a href="#/abstracciones-funcionales"><span class="toc-section-number">4</span> Abstracciones funcionales</a></li>
+</ul>
+</section>
+
+<section>
+<section id="abstracciones-lambda" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Abstracciones lambda</h1>
+
+</section>
+<section id="expresiones-lambda" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Expresiones lambda</h2>
+<ul>
+<li><p>Las <strong>expresiones lambda</strong> (también llamadas <strong>abstracciones lambda</strong> o <strong>funciones anónimas</strong> en algunos lenguajes) son expresiones que capturan la idea abstracta de «<strong>función</strong>».</p></li>
+<li><p>Son la forma más simple y primitiva de describir funciones en un lenguaje funcional.</p></li>
+<li><p>Su sintaxis (simplificada) es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>expresión_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> := <strong><code>identificador</code></strong> (<strong><code>,</code></strong> <strong><code>identificador</code></strong>)*</div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="parámetros-y-cuerpos" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Parámetros y cuerpos</h2>
+<ul>
+<li><p>Los identificadores que aparecen entre la palabra clave <code class="sourceCode python"><span class="kw">lambda</span></code> y el carácter de dos puntos (<code>:</code>) son los <strong>parámetros</strong> de la expresión lambda.</p></li>
+<li><p>La expresión que aparece tras los dos puntos (<code>:</code>) es el <strong>cuerpo</strong> de la expresión lambda.</p></li>
+<li><p>En el ejemplo anterior:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<ul>
+<li><p>Los parámetros son <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>.</p></li>
+<li><p>El cuerpo es <code class="sourceCode python">x <span class="op">+</span> y</code>.</p></li>
+<li><p>Esta expresión lambda captura la idea general de sumar dos valores (que en principio pueden ser de cualquier tipo, siempre y cuando admitan el operador <code>+</code>).</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="aplicación-funcional" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Aplicación funcional</h2>
+<ul>
+<li><p>De la misma manera que decíamos que podemos aplicar una función a unos argumentos, también podemos aplicar una expresión lambda a unos argumentos.</p></li>
+<li><p>Por ejemplo, la aplicación de la función <code class="sourceCode python"><span class="bu">max</span></code> sobre los argumentos <code class="sourceCode python"><span class="dv">3</span></code> y <code class="sourceCode python"><span class="dv">5</span></code> es una expresión que se escribe como <code class="sourceCode python"><span class="bu">max</span>(<span class="dv">3</span>, <span class="dv">5</span>)</code> que denota el valor <strong>cinco</strong> (o sea, que la llamada a la función devuelve <code class="sourceCode python"><span class="dv">5</span></code>).</p></li>
+<li><p>Igualmente, la aplicación de una expresión lambda como</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<p>sobre los argumentos <code class="sourceCode python"><span class="dv">4</span></code> y <code class="sourceCode python"><span class="dv">3</span></code> se representa así:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section id="evaluación-de-una-aplicación-funcional" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Evaluación de una aplicación funcional</h3>
+<ul>
+<li><p>En nuestro modelo de sustitución, la <strong>evaluación de la aplicación de una expresión lambda</strong> consiste en <strong>sustituir</strong>, en el cuerpo de la expresión lambda, <strong>cada parámetro por su argumento correspondiente</strong> (por orden) y devolver la expresión resultante <em>parentizada</em> (entre paréntesis).</p></li>
+<li><p>A esta operación se la denomina <strong>aplicación funcional</strong> o <strong>β-reducción</strong>.</p></li>
+<li><p>Siguiendo con el ejemplo anterior:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p>sustituimos en el cuerpo de la expresión lambda los parámetros <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code> por los argumentos <code class="sourceCode python"><span class="dv">4</span></code> y <code class="sourceCode python"><span class="dv">3</span></code>, respectivamente, y parentizamos la expresión resultante, lo que da:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>que simplificando (según las reglas del operador <code>+</code>) da <code class="sourceCode python"><span class="dv">7</span></code>.</p></li>
+</ul>
+</section>
+
+<section id="llamadas-a-funciones" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Llamadas a funciones</h3>
+<ul>
+<li><p>Si hacemos la siguiente definición:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<p>a partir de ese momento podemos usar <code class="sourceCode python">suma</code> en lugar de su valor (la expresión lambda), por lo que podemos hacer:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p>en lugar de</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+<li><p>Cuando aplicamos a sus argumentos una función así definida también podemos decir que estamos <strong>invocando</strong> o <strong>llamando</strong> a la función. Por ejemplo, en <code class="sourceCode python">suma(<span class="dv">4</span>, <span class="dv">3</span>)</code> estamos <em>llamando</em> a la función <code class="sourceCode python">suma</code>, o hay una <em>llamada</em> a la función <code class="sourceCode python">suma</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.2.0.1">
+
+<ul>
+<li><p>La evaluación de la llamada a <code class="sourceCode python">suma(<span class="dv">4</span>, <span class="dv">3</span>)</code> implicaría realizar los siguientes tres pasos y en este orden:</p>
+<ol type="1">
+<li><p>Sustituir el nombre de la función <code class="sourceCode python">suma</code> por su definición.</p></li>
+<li><p>Evaluar sus argumentos.</p></li>
+<li><p>Aplicar la expresión lambda a sus argumentos.</p></li>
+</ol></li>
+<li><p>Esto implica la siguiente secuencia de reescrituras:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>)                    <span class="co"># evalúa suma y devuelve su definición</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)  <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)  <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>)  <span class="co"># aplica la expresión lambda sus argumentos</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>)                     <span class="co"># evalúa 4 + 3 y devuelve 7</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.2.0.2">
+
+<ul>
+<li><p>Como una expresión lambda es una función, aplicar una expresión lambda a unos argumentos es como llamar a una función pasándole dichos argumentos.</p></li>
+<li><p>Por tanto, ampliamos ahora nuestra gramática de las expresiones en Python incorporando las expresiones lambda como un tipo de función:</p>
+<div class="line-block"><span style="color:teal">⟨<em>llamada_función</em>⟩</span> ::= <span style="color:teal">⟨<em>función</em>⟩</span><strong><code>(</code></strong>[<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span>]<strong><code>)</code></strong><br />
+<span style="color:teal">⟨<em>función</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
+                   | <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión_lambda</em>⟩</span><strong><code>)</code></strong><br />
+<span style="color:teal">⟨<em>expresión_lambda</em>⟩</span> ::= <strong><code>lambda</code></strong> [<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>:</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista_parámetros</em>⟩</span> ::= <strong><code>identificador</code></strong>(<strong><code>,</code></strong> <strong><code>identificador</code></strong>)*<br />
+<span style="color:teal">⟨<em>lista_argumentos</em>⟩</span> ::= <span style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></strong> <span style="color:teal">⟨<em>expresión</em>⟩</span>)*</div></li>
+</ul>
+<!--
+
+- Lo mismo podemos hacer si definimos previamente la expresión lambda
+  ligándola a un identificador:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+- Así, la aplicación de la expresión lambda resulta más fácil y clara de
+  escribir:
+
+  ```python
+  suma(4, 3)
+  ```
+
+- En ambos casos, el resultado es el mismo (`7`).
+
+::: caja
+**Recuerda:**
+
+En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
+:::
+
+-->
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<ul>
+<li><p>Dado el siguiente código:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<p>¿Cuánto vale la expresión siguiente?</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)</span></code></pre></div>
+<p>Según el modelo de sustitución, reescribimos:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                    <span class="co"># definición de suma</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)  <span class="co"># evaluación de 4</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)  <span class="co"># evaluación de 3</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)  <span class="co"># aplicación a 4 y 3</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                     <span class="co"># evalúa 4 + 3</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> suma(<span class="dv">2</span>, <span class="dv">7</span>)                           <span class="co"># definición de suma</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)           <span class="co"># evaluación de 2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)           <span class="co"># evaluación de 7</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">7</span>)           <span class="co"># aplicación a 2 y 7</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">7</span>)                              <span class="co"># evaluación de 2 + 7</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">9</span>                                    <span class="co"># evaluación de 7 * 9</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">63</span></span></code></pre></div></li>
+</ul>
+</section>
+
+
+<section id="variables-ligadas-y-libres" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Variables ligadas y libres</h2>
+<ul>
+<li><p>Si un <em>identificador</em> que aparece en el <em>cuerpo</em> de una expresión lambda, también aparece en la <em>lista de parámetros</em> de esa expresión lambda, a ese identificador le llamamos <strong>variable ligada</strong> de la expresión lambda.</p></li>
+<li><p>En caso contrario, le llamamos <strong>variable libre</strong> de la expresión lambda.</p></li>
+<li><p>En el ejemplo anterior:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<p>los dos identificadores que aparecen en el cuerpo (<code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>) son variables ligadas, ya que ambos aparecen también en la lista de parámetros de la expresión lambda.</p></li>
+<li><p>En cambio, en la expresión lambda:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
+<p><code class="sourceCode python">x</code> e <code class="sourceCode python">y</code> son variables ligadas mientras que <code class="sourceCode python">z</code> es una variable libre.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.1">
+
+<ul>
+<li><p>En realidad, <strong>una <em>variable ligada</em> y un <em>parámetro</em> son la misma cosa</strong>.</p></li>
+<li><p>Tan sólo cambia su denominación dependiendo del lugar donde aparece su identificador en la expresión lambda:</p>
+<ul>
+<li><p>Si aparece <strong>antes</strong> del «<code>:</code>», le llamamos «<em>parámetro</em>».</p></li>
+<li><p>Si aparece <strong>después</strong> del «<code>:</code>», le llamamos «<em>variable ligada</em>».</p></li>
+</ul></li>
+<li><p>Por ejemplo: en la siguiente expresión lambda:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       ┬     ┬</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       │     └────── variable ligada</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       └── parámetro</span></code></pre></div>
+<p>el identificador <code class="sourceCode python">x</code> aparece dos veces, pero en los dos casos representa la misma cosa. Tan sólo se llama de distinta forma («<em>parámetro</em>» o «<em>variable ligada</em>») dependiendo de dónde aparece.</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="ámbitos-léxicos" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Ámbitos léxicos</h1>
+
+</section>
+<section id="ámbitos" class="title-slide slide level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Ámbitos</h2>
+<ul>
+<li><p>Un <strong>ámbito</strong> es una porción del código fuente de un programa.</p></li>
+<li><p>Decimos que ciertas construcciones sintácticas definen ámbitos.</p></li>
+<li><p>Cuando una construcción define un ámbito, la sintaxis del lenguaje determina dónde empieza y acaba ese ámbito en el código fuente.</p></li>
+<li><p>Por tanto, siempre se puede determinar sin ambigüedad si una instrucción está dentro de un determinado ámbito, tan sólo leyendo el código fuente del programa y sin necesidad de ejecutarlo.</p></li>
+<li><p>Los ámbitos <strong>se anidan recursivamente</strong>, o sea, que están contenidos unos dentro de otros.</p></li>
+<li><p>Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo (anidados unos dentro de otros). De todos ellos, el <strong>ámbito más interno</strong> es el que no contiene, a su vez, a otro ámbito.</p></li>
+<li><p>En un momento dado, el <strong>ámbito actual</strong> es el ámbito más interno en el que se encuentra la instrucción que se está ejecutando actualmente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.1">
+
+<ul>
+<li><p>El concepto de <em>ámbito</em> es un concepto nada trivial y, a medida que vayamos incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para tener en cuenta más condicionantes.</p></li>
+<li><p>Por ahora sólo hemos tenido un ámbito llamado <strong>ámbito global</strong>:</p>
+<ul>
+<li><p>Si se está ejecutando un <em>script</em> en el intérprete por lotes (con <code>python script.py</code>), el <em>ámbito global</em> abarca todo el <em>script</em>, desde la primera instrucción hasta la última.</p></li>
+<li><p>Si estamos en el intérprete interactivo (con <code>python</code> o <code>ipython3</code>), el <em>ámbito global</em> abarca toda nuestra sesión con el intérprete, hasta que finalicemos la misma.</p></li>
+</ul></li>
+<li><p>En el momento en que se empieza a ejecutar un <em>script</em> o se arranca una nueva sesión con el intérprete interactivo, se entra en el <em>ámbito global</em>.</p></li>
+<li><p>Del ámbito global se sale cuando se finaliza la ejecución del <em>script</em> o se cierra el intérprete interactivo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.2">
+
+<ul>
+<li><p>Las <strong>definiciones globales</strong> son aquellas definiciones que se ejecutan cuando el ámbito actual es el ámbito global.</p></li>
+<li><p>Las ligaduras que crean las definiciones globales se denominan <strong>ligaduras globales</strong>.</p></li>
+<li><p>Esas ligaduras se almacenan en el <strong>marco global</strong>.</p></li>
+<li><p>Por eso podemos decir que el marco global va asociado al ámbito global.</p></li>
+<li><p>Todos los marcos van asociados a ámbitos, pero no todos los ámbitos van asociados a marcos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, en el siguiente <em>script</em> se ejecutan cuatro instrucciones. El ámbito actual de cada una de las instrucciones es el ámbito global, que es el único ámbito que existe en el <em>script</em>:</p>
+<div class="centered">
+<p><img data-src="images/ambito-global.png" class="plain" style="width:40.0%" /></p>
+</div></li>
+<li><p>Además, todas las ligaduras que se crean se almacenan en el marco global, que es el único que existe en memoria durante la ejecución de ese <em>script</em>.</p></li>
+</ul>
+</section>
+
+<section id="ámbito-de-creación-de-una-ligadura" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Ámbito de creación de una ligadura</h2>
+<ul>
+<li><p>El <strong>ámbito de creación de una ligadura</strong> es el ámbito actual de la instrucción que define la ligadura.</p>
+<p>Dicho de otra forma: es el ámbito más interno que contiene la instrucción que define la ligadura.</p></li>
+<li><p>Ese ámbito siempre está definido por una construcción sintáctica.</p></li>
+<li><p>Por tanto, sus límites vienen marcados únicamente por la sintaxis de la construcción sintáctica que define el ámbito.</p></li>
+<li><p>Se dice que <strong>una ligadura es <em>local</em> a su ámbito de creación</strong>.</p></li>
+</ul>
+</section>
+
+<section id="ámbito-de-una-ligadura" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Ámbito de una ligadura</h2>
+<ul>
+<li><p>El <strong>ámbito de una ligadura</strong> es la porción del código fuente en la que existe y es visible dicha ligadura.</p></li>
+<li><p>A diferencia de los ámbitos de creación, el ámbito de una ligadura no viene definido simplemente por una construcción sintáctica del lenguaje, sino por:</p>
+<ul>
+<li><p>el punto en el que se crea la ligadura y</p></li>
+<li><p>el ámbito de creación de la ligadura, que tiene que ser un ámbito definido por una construcción sintáctica.</p></li>
+</ul></li>
+<li><p>El ámbito de una ligadura:</p>
+<ul>
+<li><p>Empieza en el punto donde se crea la ligadura (es decir, el punto donde se ejecuta la instrucción que define la ligadura).</p></li>
+<li><p>Termina donde lo hace el <em>ámbito de creación</em> de la ligadura.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>Por eso, el ámbito de una ligadura está contenido dentro del ámbito de creación de esa ligadura, pero ambos ámbitos no tienen por qué coincidir exactamente.</p>
+<p>Los dos ámbitos acaban en el mismo punto, pero no tienen por qué empezar en el mismo punto.</p></li>
+<li><p>Esto se debe a que una ligadura empieza a existir en el momento en el que se ejecuta la instrucción que la crea, y no antes.</p></li>
+<li><p>Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se hayan creado en ese ámbito <strong>hasta ese momento</strong>.</p></li>
+<li><p>El ámbito de una ligadura y el ámbito de creación de una ligadura son dos conceptos distintos, aunque a veces pueda coincidir que ambos ámbitos tengan los mismos límites para una determinada ligadura.</p>
+<p>Esto último ocurre sólo si la ligadura se crea justo al comienzo del ámbito de creación de la ligadura.</p></li>
+<li><p>Pero el ámbito de una ligadura no puede ser el ámbito de creación de otra ligadura.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.2">
+
+<ul>
+<li><p>En el siguiente ejemplo vemos los ámbitos de varias ligaduras. Todas esas ligaduras se definen en el ámbito global, por lo que el <strong>ámbito de creación</strong> de todas ellas es el <strong>ámbito global</strong>.</p>
+<p>Por eso, decimos que cada una de esas ligaduras es una <strong>ligadura <em>global</em></strong>.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambitos-ligaduras.png" class="plain" style="width:50.0%" /></p>
+</div>
+<ul>
+<li><p>El ámbito de cada una de esas ligaduras empieza justo donde se crea la ligadura y termina al final de su ámbito de creación.</p></li>
+<li><p>Es importante entender que, aunque el ámbito de <code>y</code> → <code>99</code> está contenido en el de <code>x</code> → <code>25</code>, éste último no se tiene en cuenta a la hora de determinar cuál es el ámbito de creación de la ligadura <code>y</code> → <code>99</code> (porque es el ámbito de una ligadura, no el ámbito de creación de una ligadura).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.3">
+
+<ul>
+<li>Es importante no confundir «<strong>ámbito</strong>», «<strong>ámbito de creación de una ligadura</strong>» y «<strong>ámbito de una ligadura</strong>».</li>
+</ul>
+<div class="caja">
+<p><strong>Ámbito:</strong></p>
+<p>Porción del código fuente de un programa.</p>
+</div>
+<div class="caja">
+<p><strong>Ámbito de creación de una ligadura:</strong></p>
+<p>El ámbito actual de la instrucción que define la ligadura; o, dicho de otra forma, el ámbito más interno en el que se crea una ligadura. Los límites de ese ámbito sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas construcciones sintáticas definen su propio ámbito. A veces, además, este ámbito va asociado a un marco.</p>
+</div>
+<div class="caja">
+<p><strong>Ámbito de una ligadura:</strong></p>
+<p>Porción de código fuente en el que la ligadura existe y es visible. Va desde el punto donde se crea la ligadura hasta el final de su ámbito de creación. El ámbito de una ligadura no puede ser el ámbito de creación de otra ligadura.</p>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.0.0.4">
+
+<ul>
+<li><p>Si el ámbito de creación de la ligadura lleva asociado un marco, la ligadura se almacenará en ese marco.</p></li>
+<li><p>Si no, entonces la ligadura se almacenará en el marco del ámbito de creación más interno que contenga al actual y que sí lleve asociado un marco.</p></li>
+<li><p>Ese marco se denomina el <strong>marco actual</strong>.</p></li>
+<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por lo que se almacenan en el marco global.</p></li>
+<li><p>Por eso también decimos que esas ligaduras tienen ámbito global, o que pertenecen al ámbito global, o que están definidas en el ámbito global, o que son <strong>globales</strong>.</p></li>
+<li><p>Ampliaremos ahora el concepto de <em>ámbito</em> para incluir los aspectos nuevos que incorporan las expresiones lambda.</p></li>
+</ul>
+</section>
+
+<section id="ámbito-de-un-identificador" class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Ámbito de un identificador</h2>
+<ul>
+<li><p>A veces, por economía del lenguaje, se suele hablar del «<strong><em>ámbito de un identificador</em></strong>», en lugar de hablar del «<em>ámbito de creación de la ligadura que liga ese identificador con un valor</em>».</p></li>
+<li><p>Por ejemplo, en el siguiente <em>script</em>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
+<p>tenemos que:</p>
+<ul>
+<li><p>En el ámbito global, se crea una ligadura que liga al identificador <code class="sourceCode python">x</code> con el valor <code class="sourceCode python"><span class="dv">25</span></code>.</p></li>
+<li><p>Por tanto, se dice que el <em>ámbito de creación de esa ligadura</em> es el ámbito global.</p></li>
+<li><p>Pero también se suele decir que «<em>el identificador <code class="sourceCode python">x</code> es global</em>» (o, simplemente, que «<em><code class="sourceCode python">x</code> es global</em>»), <strong>asociando al ámbito</strong> no la ligadura, sino <strong>el identificador en sí</strong>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.1">
+
+<ul>
+<li><p>Pero hay que tener cuidado, ya que ese mismo identificador puede ligarse en ámbitos diferentes.</p></li>
+<li><p>Por tanto, no tendría sentido hablar del ámbito que tiene ese identificador (ya que podría tener varios) sino, más bien, <strong>del ámbito que tiene <em>una aparición concreta</em> de ese identificador</strong>.</p></li>
+<li><p>Por eso, sólo deberíamos hablar del ámbito de un identificador cuando no haya ninguna ambigüedad respecto a qué aparición concreta nos estamos refiriendo.</p></li>
+<li><p>Por ejemplo, en el siguiente <em>script</em>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p>el identificador <code class="sourceCode python">x</code> que aparece en la línea 1 y el que aparece en la línea 2 pertenecen a ámbitos distintos (como veremos en breve).</p></li>
+</ul>
+</section>
+
+<section id="ámbito-de-un-parámetro" class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Ámbito de un parámetro</h2>
+<ul>
+<li><p><strong>El cuerpo de la expresión lambda define un ámbito.</strong></p></li>
+<li><p>Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho ámbito.</p></li>
+<li><p>Además, <strong>cada aplicación de una expresión lambda crea un nuevo marco</strong> en la memoria, que representa esa ejecución concreta de dicha expresión lambda.</p></li>
+<li><p>Cuando se aplica una expresión lambda a unos argumentos, <strong>cada parámetro de la expresión lambda se liga a uno de esos argumentos</strong> en el orden en que aparecen en la aplicación funcional (primer parámetro con primer argumento, segundo con segundo, etcétera).</p></li>
+<li><p>Esas ligaduras <strong>se almacenan en el marco de la expresión lambda</strong> nada más entrar en el cuerpo de la expresión lambda.</p></li>
+<li><p>Ese marco se eliminará de la memoria cuando se termine de ejecutar la expresión lambda.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.0.0.1">
+
+<ul>
+<li><p>En consecuencia, podemos decir que:</p>
+<ul>
+<li><p>El <strong>ámbito de creación de la ligadura</strong> entre un parámetro y su argumento es el <strong>cuerpo</strong> de la expresión lambda.</p></li>
+<li><p>El <strong>ámbito de esa ligadura</strong> coincide con su ámbito de creación.</p></li>
+</ul></li>
+<li><p>Esto se resume diciendo que «el <strong>ámbito de un parámetro</strong> es el <strong>cuerpo</strong> de su expresión lambda».</p></li>
+<li><p>También se dice que el parámetro tiene un <strong>ámbito local</strong> al cuerpo de la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
+<li><p>Como el ámbito de una ligadura es la porción del código en el que dicha ligadura tiene validez, eso significa que <strong>sólo podemos acceder al valor de un parámetro dentro del cuerpo de su expresión lambda</strong>.</p></li>
+</ul>
+<div class="caja">
+<p><strong>En resumen:</strong></p>
+<p>El <strong>ámbito de un parámetro</strong> es el ámbito de la ligadura que se establece entre éste y su argumento correspondiente, y se corresponde con el <strong>cuerpo</strong> de la expresión lambda donde aparece.</p>
+</div>
+</section>
+
+<section id="ámbito-de-una-variable-ligada" class="title-slide slide level2" data-number="2.6">
+<h2 data-number="2.6"><span class="header-section-number">2.6</span> Ámbito de una variable ligada</h2>
+<ul>
+<li><p>Hemos visto que a los <strong>parámetros</strong> de una expresión lambda se les llama <strong>variables ligadas</strong> cuando aparecen dentro del cuerpo de dicha expresión lambda.</p></li>
+<li><p>Por tanto, todo lo que se dijo sobre el ámbito de un parámetro se aplica exactamente igual al ámbito de una variable ligada.</p></li>
+<li><p>Recordemos que el ámbito de un parámetro es el cuerpo de su expresión lambda, que es la porción de código donde podemos acceder al valor del argumento con el que está ligado.</p></li>
+<li><p>Por tanto, <strong>el <em>ámbito</em> de una variable ligada es el <em>cuerpo</em> de la expresión lambda</strong> donde aparece, y es el único lugar dentro del cual podremos acceder al valor de la variable ligada (que también será el valor del argumento con el que está ligada).</p></li>
+<li><p>En consecuencia, también se dice que la variable ligada tiene un <strong>ámbito local</strong> al cuerpo de la expresión lambda o que es <strong>local</strong> a dicha expresión lambda.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.0.0.1">
+
+<ul>
+<li><p>Por contraste, las variables, identificadores y ligaduras que no tienen ámbito local se dice que tienen un <strong>ámbito <em>no local</em></strong> o, a veces, un <strong>ámbito <em>más global</em></strong>.</p>
+<p>Si, además, ese ámbito resulta ser el <strong>ámbito global</strong>, decimos directamente que esa variable, identificador o ligadura es <strong>global</strong>.</p></li>
+<li><p>Por ejemplo, las <strong>variables libres</strong> que aparecen en una expresión lambda no son locales a dicha expresión (ya que no representan parámetros de la expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha expresión lambda.</p></li>
+</ul>
+<div class="caja">
+<p><strong>En resumen:</strong></p>
+<p>El <strong>ámbito de una variable ligada</strong> es el ámbito de la ligadura que se establece entre ésta y su argumento correspondiente, y se corresponde con el <strong>cuerpo</strong> de la expresión lambda donde aparece.</p>
+</div>
+</section>
+<section id="ejemplo-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<ul>
+<li><p>En el siguiente <em>script</em>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Aquí empieza el script (no hay más definiciones antes de esta línea):</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb19-3"><a href="#cb19-3"></a>y <span class="op">=</span> producto(<span class="dv">3</span>)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></span></code></pre></div></li>
+<li><p>Hay dos ámbitos: (1) el ámbito global y (2) el ámbito local definido el cuerpo de la expresión lambda (la expresión <code class="sourceCode python">x <span class="op">*</span> x</code>).</p></li>
+<li><p>La expresión lambda de la línea 2 tiene un parámetro (<code class="sourceCode python">x</code>) que aparece como la variable ligada <code class="sourceCode python">x</code> en el cuerpo de la expresión lambda.</p></li>
+<li><p>El ámbito de la variable ligada <code class="sourceCode python">x</code> es el <strong>cuerpo</strong> de la expresión lambda.</p></li>
+<li><p>Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al valor de la variable ligada <code class="sourceCode python">x</code>, al encontrarnos <strong>fuera de su ámbito</strong> (la <code class="sourceCode python">x</code> <strong>sólo está ligada en el cuerpo</strong> de la expresión lambda).</p></li>
+<li><p>Por eso, la línea 4 dará un error al intentar acceder al valor del identificador <code class="sourceCode python">x</code>, que no está ligado en el ámbito actual (el global).</p></li>
+</ul>
+</section>
+
+<section id="entorno-environment" class="title-slide slide level2" data-number="2.7">
+<h2 data-number="2.7"><span class="header-section-number">2.7</span> Entorno (<em>environment</em> )</h2>
+<ul>
+<li><p>El <strong>entorno</strong> es una extensión del concepto de <em>marco</em>.</p></li>
+<li><p>Durante la ejecución del programa, se van creando y destruyendo marcos a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Cuando entramos a ejecutar un <em>script</em>, se crea el <em>marco global</em> de ese <em>script</em>.</p></li>
+<li><p>Si dentro de ese <em>script</em> aplicamos una expresión lambda a unos argumentos, se creará un marco para esa ejecución concreta de la expresión lambda.</p>
+<p>En ese caso habrá dos marcos en la memoria: el <em>global</em> y el de la expresión lambda. Este último marco se eliminará de la memoria cuando termine esa ejecución de la expresión lambda.</p></li>
+<li><p>El marco global sólo se eliminará de la memoria cuando se finalice la ejecución del <em>script</em>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.0.0.1">
+
+<ul>
+<li><strong>Según se van creando en memoria y se van ejecutando las diferentes partes del programa, esos marcos van enlazándose unos con otros</strong> creando una <strong>secuencia de marcos</strong> que se denomina <strong>entorno</strong> (del inglés, <em>environment</em>).</li>
+</ul>
+<div class="caja">
+<p>El <strong>entorno</strong> nos dice <strong><em>todas</em> las ligaduras que son <em>accesibles</em> en un momento concreto de la ejecución del programa</strong>.</p>
+</div>
+<ul>
+<li><p>En un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
+<li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que <strong>depende del momento en el que se calcule</strong>, es decir, de por dónde va la ejecución del programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.0.0.2">
+
+<ul>
+<li><p>Por tanto, el entorno depende de qué partes del programa se han ido activando hasta llegar a la instrucción actual.</p></li>
+<li><p>El entorno <strong>siempre contendrá</strong>, al menos, un marco: el <em>marco global</em>.</p></li>
+<li><p><strong>El marco global siempre será el último de la secuencia de marcos</strong> que forman el entorno.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/cadena-de-marcos.svg" class="plain" style="width:60.0%" /></p>
+</div>
+</section>
+
+<section id="ámbitos-marcos-y-entornos" class="title-slide slide level2" data-number="2.8">
+<h2 data-number="2.8"><span class="header-section-number">2.8</span> Ámbitos, marcos y entornos</h2>
+<ul>
+<li><p>El entorno contiene todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
+<li><p>Recordemos que un marco contiene un conjunto de ligaduras (representa un <em>espacio de nombres</em>), y un entorno es una secuencia de marcos.</p></li>
+<li><p>Los marcos se van creando y destruyendo a medida que se van activando ciertas partes del programa durante la ejecución de éste.</p></li>
+<li><p>Cuando se aplica una expresión lambda a unos argumentos, <strong>se crea un nuevo marco que contiene las ligaduras que ligan a los parámetros con los valores de esos argumentos</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.8.0.0.1">
+
+<ul>
+<li><p>Además, <strong>el cuerpo de una expresión lambda define un nuevo ámbito</strong>, que es el ámbito con el que está asociado el marco (recordemos que un marco lleva siempre asociado un ámbito).</p></li>
+<li><p>El nuevo marco se enlaza en el entorno con el marco del ámbito más interno que cumpla estas dos condiciones:</p>
+<ol>
+<li><p>contiene al ámbito del nuevo marco, y</p></li>
+<li><p>lleva asociado un marco.</p></li>
+</ol>
+<p>Se dice que el marco del ámbito más interno <em>apunta</em> al del más externo.</p></li>
+<li><p>El último marco de la secuencia que representa el entorno es siempre el marco global.</p></li>
+<li><p>El marco asociado a la aplicación de la expresión lambda, desaparece cuando finaliza la ejecución de esa aplicación, o lo que es lo mismo, cuando el flujo de control del programa se sale del ámbito de la expresión lambda (ya que cada marco va asociado a un ámbito).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.8.0.0.2">
+
+<ul>
+<li><p>Se va formando así una secuencia de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
+<li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se reconoce simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
+<li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que se van ejecutando y terminando de ejecutar ciertas partes del programa o, dicho de otra forma, cuando se va entrando y saliendo de ciertos ámbitos.</p></li>
+<li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos y mientras dure la ejecución de dicha expresión lambda.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.8.0.0.3">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<p>el cuerpo de la función <code class="sourceCode python">suma</code> define un nuevo ámbito, y cada vez que se llama a <code class="sourceCode python">suma</code> con unos argumentos concretos, la ejecución del programa entra en el cuerpo, lo que crea un nuevo marco que liga sus argumentos con sus parámetros.</p></li>
+<li><p>Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más externo) y el ámbito del cuerpo de la expresión lambda (más interno y anidado dentro del ámbito global):</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambitos-anidados.png" class="plain" style="width:60.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="2.8.0.0.4">
+
+<ul>
+<li><p>El concepto de <strong>entorno</strong> refleja el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p>
+<div class="caja">
+<p><strong>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span> en el entorno, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</strong></p>
+</div></li>
+<li><p>Además, el <strong>último marco</strong> siempre es el <em>marco global</em>.</p></li>
+<li><p>En realidad, el marco global apunta, a su vez, a otro marco (el del módulo <code class="sourceCode python">__builtins__</code>) donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code class="sourceCode python"><span class="bu">max</span></code>), pero de aquí en adelante lo daremos por supuesto, para simplificar.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.8.0.0.5">
+
+<ul>
+<li><p>Por ejemplo, si en un momento concreto de la ejecución del programa tenemos el siguiente entorno (donde <code class="sourceCode python">suma</code> es una expresión lambda):</p>
+<div class="centered">
+<p><img data-src="images/lambda-suma-entorno.svg" class="plain" style="width:60.0%" /></p>
+</div>
+<p>Podemos afirmar que:</p>
+<ul>
+<li><p>El marco de la expresión lambda apunta al marco global en el entorno.</p></li>
+<li><p>El ámbito de la expresión lambda está contenido en el ámbito global.</p></li>
+<li><p>El marco actual es el marco de la expresión lambda.</p></li>
+<li><p>Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la expresión lambda.</p></li>
+<li><p>De hecho, está evaluando la llamada <code class="sourceCode python">suma(<span class="dv">3</span>, <span class="dv">5</span>)</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="evaluación" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Evaluación</h1>
+
+</section>
+<section id="evaluación-de-expresiones-con-entornos" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Evaluación de expresiones con entornos</h2>
+<ul>
+<li><p>Al evaluar una expresión, el intérprete <strong>buscará en el entorno el valor al que está ligado cada identificador</strong> que aparezca en la expresión.</p></li>
+<li><p>Para saber cuánto vale cada identificador, el intérprete buscará <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encuentra, <strong>irá subiendo por la secuencia de marcos</strong> hasta encontrarla.</p>
+<p><strong>Si no aparece en ningún marco</strong>, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible desde el ámbito actual. En cualquier caso, <strong>generará un error</strong> de tipo «<em>nombre no definido</em>».</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>z <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>w <span class="op">=</span> <span class="dv">9</span></span></code></pre></div></li>
+<li><p>A medida que vamos ejecutando cada línea del código, tendríamos los siguientes entornos:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea1.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 1" /><figcaption aria-hidden="true">Entorno en la línea 1</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea2.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 2" /><figcaption aria-hidden="true">Entorno en la línea 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea3-durante.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 3 en el cuerpo de la expresión lambda, después de aplicar los argumentos y durante la ejecución del cuerpo" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la expresión lambda, después de aplicar los argumentos y <strong>durante</strong> la ejecución del cuerpo</figcaption>
+</figure>
+</div>
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea3-despues.svg" class="plain" style="width:30.0%" alt="Entorno en la línea 3 en el cuerpo de la expresión lambda, después de ejecutar el cuerpo y devolver el resultado" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la expresión lambda, <strong>después</strong> de ejecutar el cuerpo y devolver el resultado</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea4.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 4" /><figcaption aria-hidden="true">Entorno en la línea 4</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-linea5.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 5" /><figcaption aria-hidden="true">Entorno en la línea 5</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="evaluación-de-expresiones-lambda-con-entornos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Evaluación de expresiones lambda con entornos</h2>
+<ul>
+<li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> la aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)                     <span class="co"># aquí sí</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>Traceback (most recent call last):</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div>
+<p>da error porque <code class="sourceCode python">z</code> no está definido (no está ligado a ningún valor en el entorno) en el momento de llamar a <code class="sourceCode python">prueba</code> en la línea 2.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<ul>
+<li><p>En cambio:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="dv">16</span></span></code></pre></div>
+<p>sí funciona (y devuelve <code class="sourceCode python"><span class="dv">16</span></code>) porque, en el momento de evaluar la aplicación de la expresión lambda (en la línea 3), el identificador <code class="sourceCode python">z</code> está ligado a un valor en el entorno (en este caso, <code class="sourceCode python"><span class="dv">9</span></code>).</p></li>
+<li><p>Observar que no es necesario que las variables libres estén ligadas en el entorno cuando <em>se crea</em> la expresión lambda, sino cuando <strong><em>se evalúa</em> el cuerpo de la expresión lambda</strong>, o sea, cuando se aplica la expresión lambda a unos argumentos.</p></li>
+</ul>
+</section>
+<section id="ejemplo-2" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<ul>
+<li><p>En el siguiente <em>script</em>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
+<span id="cb24-3"><a href="#cb24-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb24-4"><a href="#cb24-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
+<p>existen cuatro ámbitos:</p>
+<div class="centered">
+<p><img data-src="images/cuatro-ambitos.png" class="plain" style="width:100.0%" /></p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ul>
+<li>Su ejecución, línea a línea, produce los siguientes entornos:</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea1.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 1" /><figcaption aria-hidden="true">Entorno en la línea 1</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea2.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 2" /><figcaption aria-hidden="true">Entorno en la línea 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.3">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.4">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg" class="plain" style="width:90.0%" alt="Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.5">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de ejecutar su cuerpo y devolver su resultado" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de ejecutar su cuerpo y devolver su resultado</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.6">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg" class="plain" style="width:40.0%" alt="Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado" /><figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.7">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea4-durante-tercer-lambda.svg" class="plain" style="width:60.0%" alt="Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo" /><figcaption aria-hidden="true">Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.0.0.8">
+
+<div class="centered">
+<figure>
+<img data-src="images/cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg" class="plain" style="width:40.0%" alt="Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado" /><figcaption aria-hidden="true">Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado</figcaption>
+</figure>
+</div>
+</section>
+<section id="ligaduras-sombreadas" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Ligaduras <em>sombreadas</em></h3>
+<ul>
+<li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno, en un ámbito más global?</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></span></code></pre></div></li>
+<li><p>La <code class="sourceCode python">x</code> que aparece en la línea 1 es distinta a las que aparecen en la 2:</p>
+<ul>
+<li><p>La <code class="sourceCode python">x</code> de la línea 1 es un identificador ligado a un valor en el ámbito global (el ámbito de creación de esa ligadura es el ámbito global). Esa ligadura, por tanto, se almacena en el marco global, y por eso decimos que esa <code class="sourceCode python">x</code> es <em>global</em>.</p></li>
+<li><p>Las <code class="sourceCode python">x</code> de la línea 2 son parámetros y variables ligadas de la expresión lambda. Por tanto, el ámbito de esas <code class="sourceCode python">x</code> es <em>local</em> al cuerpo de la expresión lambda.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.1">
+
+<ul>
+<li><p>En el ejemplo, el identificador <code class="sourceCode python">x</code> que aparece en el cuerpo de la expresión lambda <strong>está ligado al parámetro <code class="sourceCode python">x</code> de la expresión lambda</strong>.</p></li>
+<li><p>Por tanto, <strong>no</strong> se refiere al identificador <code class="sourceCode python">x</code> que está fuera de la expresión lambda (y que aquí está ligado al valor <code class="sourceCode python"><span class="dv">4</span></code>), sino al parámetro <code class="sourceCode python">x</code> que, en la llamada de la línea 2, está ligado al valor <code class="sourceCode python"><span class="dv">3</span></code>.</p></li>
+<li><p>Eso quiere decir que, dentro del cuerpo, <code class="sourceCode python">x</code> vale <code class="sourceCode python"><span class="dv">3</span></code>, no <code class="sourceCode python"><span class="dv">4</span></code>.</p></li>
+<li><p>Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro del otro, decimos que:</p>
+<ul>
+<li><p>El identificador que aparece en el ámbito más externo está <strong>sombreado</strong> (y su ligadura está <strong>sombreada</strong>).</p></li>
+<li><p>El identificador que aparece en el ámbito más interno <strong>hace sombra</strong> al identificador sombreado (y su ligadura también se dice que <strong>hace sombra</strong> a la ligadura sombreada).</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.2">
+
+<ul>
+<li><p>En nuestro ejemplo, podemos decir que el parámetro <code class="sourceCode python">x</code> de la expresión lambda hace sombra al identificador <code class="sourceCode python">x</code> que aparece en el ámbito global.</p></li>
+<li><p>Eso significa que no podemos acceder a ese identificador <code class="sourceCode python">x</code> global desde dentro del cuerpo de la expresión lambda como si fuera una variable libre, porque la <code class="sourceCode python">x</code> dentro del cuerpo siempre se referirá a la <code class="sourceCode python">x</code> local (el parámetro de la expresión lambda).</p></li>
+<li><p>Esto es así porque la primera ligadura del identificador <code class="sourceCode python">x</code> que nos encontramos al recorrer la secuencia de marcos del entorno, buscando un valor para <code class="sourceCode python">x</code>, es la que está en el marco de la expresión lambda, que es el marco actual cuando se está ejecutando su cuerpo.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-con-sombra.svg" class="plain" style="width:50.0%" alt="Entorno en el cuerpo de la expresión lambda, con ligadura sombreada" /><figcaption aria-hidden="true">Entorno en el cuerpo de la expresión lambda, con ligadura sombreada</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.1.0.3">
+
+<ul>
+<li><p>Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de la <code class="sourceCode python">x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code class="sourceCode python">x</code>. Por ejemplo:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></span></code></pre></div>
+<p>Así, tendremos en la expresión lambda una variable ligada (el parámetro <code class="sourceCode python">w</code>) y una variable libre (el identificador <code class="sourceCode python">x</code> ligado en el ámbito global) al que ahora sí podemos acceder al no estar sombreada y encontrarse dentro del entorno.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/lambda-entorno-sin-sombra.svg" class="plain" style="width:60.0%" alt="Entorno en el cuerpo de la expresión lambda, sin variable sombreada" /><figcaption aria-hidden="true">Entorno en el cuerpo de la expresión lambda, sin variable sombreada</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="renombrado-de-parámetros" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Renombrado de parámetros</h3>
+<ul>
+<li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
+<li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
+<li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
+<li><p>La α-conversión hay que hacerla correctamente para evitar efectos indeseados. Por ejemplo, en:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
+<p>si renombramos <code class="sourceCode python">x</code> a <code class="sourceCode python">z</code> tendríamos:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
+<p>lo que es claramente incorrecto. A este fenómeno indeseable se le denomina <strong>captura de variables</strong>.</p></li>
+</ul>
+</section>
+
+<section id="visualización-en-pythontutor" class="title-slide slide level3" data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Visualización en <em>Pythontutor</em></h3>
+<ul>
+<li><p><strong>Pythontutor</strong> es una herramienta online muy interesante y práctica que nos permite ejecutar un <em>script</em> paso a paso y visualizar sus efectos.</p></li>
+<li><p>Muestra la pila de control, los marcos dentro de ésta, las ligaduras dentro de éstos y los datos almacenados en el montículo.</p></li>
+<li><p>Entrando en <a href="http://pythontutor.com/visualize.html">http://pythontutor.com/visualize.html</a> se abre un área de texto donde se puede teclear (o copiar y pegar) el código fuente del <em>script</em> a ejecutar.</p></li>
+<li><p>Pulsando en «<em>Visualize Execution</em>» se pone en marcha, pudiendo ejecutar todo el <em>script</em> de una vez o hacerlo paso a paso.</p></li>
+<li><p>Conviene elegir las siguientes opciones:</p>
+<ul>
+<li><p><em>Hide exited frames (default)</em></p></li>
+<li><p><em>Render all objects on the heap (Python/Java)</em></p></li>
+<li><p><em>Draw pointers as arrows (default)</em></p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.3.0.1">
+
+<p><a href="http://pythontutor.com/visualize.html#code=w%20%3D%202%0Af%20%3D%20lambda%20x,%20y%3A%205%20%2B%20%28lambda%20z%3A%20z%20%2B%203%29%28x%20%2B%20y%29%0Ar%20%3D%20f%282,%204%29%0Am%20%3D%20%28lambda%20x%3A%20x%20**%202%29%283%29%0A&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Visualizar el <em>script</em> anterior en Pythontutor</a></p>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li><p>En el <em>script</em> anterior:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
+<span id="cb29-3"><a href="#cb29-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
+<p>indicar:</p>
+<ol type="a">
+<li><p>Los identificadores.</p></li>
+<li><p>Los ámbitos.</p></li>
+<li><p>Los entornos, marcos y ligaduras en cada línea de código.</p></li>
+<li><p>Los ámbitos de cada ligadura.</p></li>
+<li><p>Los ámbitos de creación de cada ligadura.</p></li>
+<li><p>Los ámbitos de cada aparición de cada identificador.</p></li>
+<li><p>Las ligaduras sombreadas y los identificadores sombreados.</p></li>
+<li><p>Los identificadores y ligaduras que hacen sombra.</p></li>
+</ol></li>
+</ol>
+</section>
+
+
+<section id="estrategias-de-evaluación" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Estrategias de evaluación</h2>
+<ul>
+<li><p>A la hora de evaluar una expresión (cualquier expresión) existen varias <strong>estrategias</strong> diferentes que se pueden adoptar.</p></li>
+<li><p>Cada lenguaje implementa sus propias estrategias de evaluación que están basadas en las que vamos a ver aquí.</p></li>
+<li><p>Básicamente se trata de decidir, en cada paso de reducción, qué subexpresión hay que reducir, en función de:</p>
+<ul>
+<li><p>El orden de evaluación:</p>
+<ul>
+<li><p>De fuera adentro o de dentro afuera.</p></li>
+<li><p>De izquierda a derecha o de derecha a izquierda.</p></li>
+</ul></li>
+<li><p>La necesidad o no de evaluar dicha subexpresión.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="orden-de-evaluación" class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Orden de evaluación</h3>
+<ul>
+<li><p>En un lenguaje de programación funcional puro se cumple la <strong>transparencia referencial</strong>, según la cual el valor de una expresión depende sólo del valor de sus subexpresiones (también llamadas <em>redexes</em>, del inglés, <em>reducible expression</em>).</p></li>
+<li><p>Pero eso también implica que <strong>no importa el orden en el que se evalúen las subexpresiones</strong>: el resultado debe ser siempre el mismo.</p></li>
+<li><p>Gracias a ello podemos usar nuestro modelo de sustitución como modelo computacional.</p></li>
+<li><p>Hay dos <strong>estrategias básicas de evaluación</strong>:</p>
+<ul>
+<li><p><strong>Orden aplicativo</strong>: reducir siempre el <em>redex</em> más <strong>interno</strong> (y más a la izquierda).</p></li>
+<li><p><strong>Orden normal</strong>: reducir siempre el <em>redex</em> más <strong>externo</strong> (y más a la izquierda).</p></li>
+</ul></li>
+<li><p><strong>Python usa el orden aplicativo</strong>, salvo excepciones.</p></li>
+</ul>
+</section>
+<section id="orden-aplicativo" class="title-slide slide level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1"><span class="header-section-number">3.3.1.1</span> Orden aplicativo</h4>
+<ul>
+<li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando por el <em>redex</em> más <strong>interno</strong> y a la izquierda.</p></li>
+<li><p>El <em>redex</em> más interno es el que no contiene a otros <em>redexes</em>. Si existe más de uno que cumpla esa condición, se elige el que está más a la izquierda.</p></li>
+<li><p>Eso implica que los operandos y los argumentos se evalúan <strong>antes</strong> que los operadores y las aplicaciones de funciones.</p></li>
+<li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por valor</strong> (<em>call-by-value</em>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.1.1">
+
+<ul>
+<li><p>Por ejemplo, si tenemos la siguiente función:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
+<p>según el orden aplicativo, la expresión <code class="sourceCode python">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</code> se reduce así:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 + 4 y devuelve 7</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">7</span>)        <span class="co"># aplicación a 7</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)                     <span class="co"># evalúa (7 * 7) y devuelve 49</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="orden-normal" class="title-slide slide level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2"><span class="header-section-number">3.3.1.2</span> Orden normal</h4>
+<ul>
+<li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong> y a la izquierda.</p></li>
+<li><p>El <em>redex</em> más externo es el que no está contenido en otros <em>redexes</em>. Si existe más de uno que cumpla esa condición, se elige el que está más a la izquierda.</p></li>
+<li><p>Eso implica que los operandos y los argumentos se evalúan <strong>después</strong> de las aplicaciones de los operadores y las funciones.</p></li>
+<li><p>Por tanto, los argumentos que se pasan a las funciones lo hacen <strong>sin evaluarse</strong> previamente.</p></li>
+<li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por nombre</strong> (<em>call-by-name</em>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.2.1">
+
+<ul>
+<li><p>Por ejemplo, si tenemos la siguiente función:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
+<p>según el orden normal, la expresión <code class="sourceCode python">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</code> se reduce así:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># aplicación a (3 + 4)</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                       <span class="co"># evalúa 7 * 7 y devuelve 49</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
+</ul>
+</section>
+
+
+<section id="composición-de-funciones" class="title-slide slide level3" data-number="3.3.2">
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> Composición de funciones</h3>
+<ul>
+<li><p>Podemos crear una función que use otra función. Por ejemplo, para calcular el área de un círculo usamos otra función que calcule el cuadrado de un número:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<li><p>La expresión <code class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code> se evaluaría así según el <em>orden aplicativo</em>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 y devuelve 11</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 1 y devuelve 1</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 + 1 y devuelve 12</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)      <span class="co"># aplicación a 12</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># definición de cuadrado</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))          <span class="co"># aplicación a 12</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 11) y...</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.1">
+
+<ul>
+<li><p>En detalle:</p>
+<ul>
+<li><p><strong>Línea 1</strong>: Se evalúa <code class="sourceCode python">area</code>, que devuelve su definición (una expresión lambda).</p></li>
+<li><p><strong>Líneas 2–4</strong>: Lo siguiente a evaluar es la aplicación de <code class="sourceCode python">area</code> sobre su argumento, por lo que primero evaluamos éste (es el <em>redex</em> más interno).</p></li>
+<li><p><strong>Línea 5</strong>: Ahora se aplica la expresión lambda a su argumento <code class="sourceCode python"><span class="dv">12</span></code>.</p></li>
+<li><p><strong>Línea 6</strong>: El <em>redex</em> más interno y a la izquierda es el <code class="sourceCode python"><span class="fl">3.1416</span></code>, que ya está evaluado.</p></li>
+<li><p><strong>Línea 7</strong>: El <em>redex</em> más interno que queda por evaluar es la aplicación de <code class="sourceCode python">cuadrado</code> sobre <code class="sourceCode python"><span class="dv">12</span></code>. Primero se evalúa <code class="sourceCode python">cuadrado</code>, sustituyéndose por su definición…</p></li>
+<li><p><strong>Línea 8</strong>: … y ahora se aplica la expresión lambda a su argumento <code class="sourceCode python"><span class="dv">12</span></code>.</p></li>
+<li><p>Lo que queda es todo aritmética.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.2">
+
+<ul>
+<li><p>La expresión <code class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code> se evaluaría así según el <em>orden normal</em>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># aplicación a (11 + 1)</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># definición de cuadrado</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))      <span class="co"># aplicación a (11 + 1)</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> ((<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))          <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))                <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 144) y...</span></span>
+<span id="cb36-10"><a href="#cb36-10"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
+<li><p>En ambos casos (orden aplicativo y orden normal) se obtiene el mismo resultado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.3">
+
+<ul>
+<li><p>En detalle:</p>
+<ul>
+<li><p><strong>Línea 1</strong>: Se evalúa el <em>redex</em> más externo, que es <code class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code>. Para ello, se reescribe la definición de <code class="sourceCode python">area</code>…</p></li>
+<li><p><strong>Línea 2</strong>: … y se aplica la expresión lambda al argumento <code class="sourceCode python"><span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span></code>.</p></li>
+<li><p><strong>Línea 3</strong>: El <em>redex</em> más externo es el <code>*</code>, pero para evaluarlo hay que evaluar primero todos sus argumentos, por lo que primero se evalúa el izquierdo, que es <code class="sourceCode python"><span class="fl">3.1416</span></code>.</p></li>
+<li><p><strong>Línea 4</strong>: Ahora hay que evaluar el derecho (<code class="sourceCode python">cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code>), por lo que se reescribe la definición de <code class="sourceCode python">cuadrado</code>…</p></li>
+<li><p><strong>Línea 5</strong>: … y se aplica la expresión lambda al argumento <code class="sourceCode python"><span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span></code>.</p></li>
+<li><p>Lo que queda es todo aritmética.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.4">
+
+<ul>
+<li><p>A veces no resulta fácil determinar si un <em>redex</em> es más interno o externo que otro, sobre todo cuando se mezclan funciones y operadores en una misma expresión.</p></li>
+<li><p>En ese caso, puede resultar útil reescribir los operadores como funciones, cuando sea posible.</p></li>
+<li><p>Por ejemplo, la siguiente expresión:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</span></code></pre></div>
+<p>se puede reescribir como:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>add(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>))</span></code></pre></div>
+<p>lo que muestra claramente que la suma es más externa que el valor absoluto y el máximo (que están, a su vez, al mismo nivel de profundidad).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.5">
+
+<ul>
+<li><p>Un ejemplo más complicado:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">*</span> <span class="bu">max</span>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">**</span> <span class="dv">5</span>), <span class="dv">37</span>)</span></code></pre></div>
+<p>se reescribiría como:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add, mul</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>mul(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="bu">pow</span>(add(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dv">5</span>), <span class="dv">37</span>))</span></code></pre></div>
+<p>donde se aprecia claramente que el orden de las operaciones, de más interna a más externa, sería:</p>
+<ol type="1">
+<li><p>Suma (<code>+</code> o <code class="sourceCode python">add</code>).</p></li>
+<li><p>Potencia (<code>**</code> o <code class="sourceCode python"><span class="bu">pow</span></code>).</p></li>
+<li><p>Valor absoluto (<code class="sourceCode python"><span class="bu">abs</span></code>) y máximo (<code class="sourceCode python"><span class="bu">max</span></code>) al mismo nivel.</p></li>
+<li><p>Producto (<code>*</code> o <code class="sourceCode python">mul</code>).</p></li>
+</ol></li>
+</ul>
+</section>
+
+<section id="evaluación-estricta-y-no-estricta" class="title-slide slide level3" data-number="3.3.3">
+<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> Evaluación estricta y no estricta</h3>
+<ul>
+<li><p>Existe otra forma de ver la evaluación de una expresión:</p>
+<ul>
+<li><p><strong>Evaluación estricta o <em>impaciente</em></strong>: Reducir todos los <em>redexes</em> aunque no hagan falta para calcular el valor de la expresión.</p></li>
+<li><p><strong>Evaluación no estricta o <em>perezosa</em></strong>: Reducir sólo los <em>redexes</em> que sean estrictamente necesarios para calcular el valor de la expresión.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="ejemplo-3" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<ul>
+<li><p>Sabemos que la expresión <code class="sourceCode python"><span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></code> da un error de <em>división por cero</em>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ZeroDivisionError</span>: division by zero</span></code></pre></div></li>
+<li><p>Supongamos que tenemos la siguiente definición:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>primero <span class="op">=</span> <span class="kw">lambda</span> x, y: x</span></code></pre></div>
+<p>de forma que <code class="sourceCode python">primero</code> es una función que simplemente devuelve el primero de sus argumentos.</p></li>
+<li><p>Es evidente que la función <code class="sourceCode python">primero</code> no necesita evaluar nunca su segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos). Por ejemplo, <code class="sourceCode python">primero(<span class="dv">4</span>, <span class="dv">3</span>)</code> devuelve <code class="sourceCode python"><span class="dv">4</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.3.0.1">
+
+<ul>
+<li><p>Sabiendo eso… ¿qué valor devolvería la siguiente expresión?</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</span></code></pre></div></li>
+<li><p>Curiosamente, el resultado dependerá de si la evaluación es estricta o perezosa:</p>
+<ul>
+<li><p><strong>Si es estricta</strong>, el intérprete evaluará todos los argumentos de la expresión lambda aunque no se utilicen luego en su cuerpo. Por tanto, al evaluar <code class="sourceCode python"><span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></code> devolverá un error.</p>
+<p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden aplicativo</strong>.</p></li>
+<li><p>En cambio, <strong>si es perezosa</strong>, el intérprete evaluará únicamente aquellos argumentos que se usen en el cuerpo de la expresión lambda, y en este caso sólo se usa el primero, así que dejará sin evaluar el segundo, no dará error y devolverá directamente <code class="sourceCode python"><span class="dv">4</span></code>.</p>
+<p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden normal</strong>:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="dv">4</span>) <span class="op">=</span> <span class="dv">4</span></span></code></pre></div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.3.0.2">
+
+<ul>
+<li><p>Hay un resultado teórico que avala lo que acabamos de observar:</p>
+<div class="caja">
+<p><strong>Teorema de estandarización:</strong></p>
+<p>Si una expresión tiene forma normal, el <strong>orden normal</strong> de evaluación conduce seguro a la misma.</p>
+</div></li>
+<li><p>En cambio, el orden aplicativo es posible que no encuentre la forma normal de la expresión.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.3.0.3">
+
+<ul>
+<li><p>En <strong>Python</strong> la evaluación es <strong>estricta</strong>, salvo algunas excepciones:</p>
+<ul>
+<li><p>El operador ternario:</p>
+<div class="line-block"><span style="color:teal">⟨<em>expr_condicional</em>⟩</span> ::= <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> <strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span> <strong><code>else</code></strong> <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span></div>
+<p>evalúa perezosamente <span style="color:teal">⟨<em>valor_si_cierto</em>⟩</span> y <span style="color:teal">⟨<em>valor_si_falso</em>⟩</span> dependiendo del valor de la <span style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
+<li><p>Los operadores lógicos <code class="sourceCode python"><span class="kw">and</span></code> y <code class="sourceCode python"><span class="kw">or</span></code> también son perezosos (se dice que evalúan <strong>en cortocircuito</strong>):</p>
+<ul>
+<li><p><code class="sourceCode python"><span class="va">True</span> <span class="kw">or</span></code>  <span class="math inline">\;\underline{x}</span></p>
+<p>siempre es igual a <code class="sourceCode python"><span class="va">True</span></code>.</p></li>
+<li><p><code class="sourceCode python"><span class="va">False</span> <span class="kw">and</span></code>  <span class="math inline">\;\underline{x}</span></p>
+<p>siempre es igual a <code class="sourceCode python"><span class="va">False</span></code>.</p></li>
+</ul>
+<p>En ambos casos no es necesario evaluar <span class="math inline">\underline{x}</span>.</p></li>
+</ul></li>
+<li><p>En Java también existe un operador ternario (<code>?</code> <code>:</code>) y unos operadores lógicos (<code>||</code> y <code>&amp;&amp;</code>) que se evalúan de igual forma que en Python.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.3.0.4">
+
+<ul>
+<li><p>La mayoría de los lenguajes de programación usan evaluación estricta y paso de argumentos por valor (siguen el orden aplicativo).</p></li>
+<li><p><strong>Haskell</strong>, por ejemplo, es un lenguaje funcional puro que usa evaluación perezosa y sigue el orden normal.</p></li>
+<li><p>La evaluación perezosa en Haskell permite resultados muy interesantes, como la posibilidad de manipular estructuras de datos infinitas.</p></li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="abstracciones-funcionales" class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Abstracciones funcionales</h1>
+
+</section>
+<section id="pureza" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Pureza</h2>
+<ul>
+<li><p>Si el cuerpo de una expresión lambda no contiene variables libres, el valor que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que tengan esos argumentos (no dependerá de nada más que sea «<em>exterior</em>» a la expresión lambda).</p></li>
+<li><p>En cambio, si el cuerpo de una expresión lambda sí contiene variables libres, el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del valor de esos argumentos, sino también de los valores a los que estén ligadas las variables libres en el momento de evaluar la aplicación de la expresión lambda.</p></li>
+<li><p>Es el caso del ejemplo anterior, donde tenemos una expresión lambda que contiene una variable libre (<code class="sourceCode python">z</code>) y, por tanto, cuando la aplicamos a los argumentos <code class="sourceCode python"><span class="dv">4</span></code> y <code class="sourceCode python"><span class="dv">3</span></code> obtenemos un valor que depende, no sólo de los valores de <code class="sourceCode python">x</code> e <code class="sourceCode python">y</code>, sino también del valor de <code class="sourceCode python">z</code>:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.1">
+
+<ul>
+<li><p>En este otro ejemplo, escribimos una expresión lambda que calcula la suma de tres números a partir de otra expresión lambda que calcula la suma de dos números:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
+<p>En este caso, hay un identificador (<code class="sourceCode python">suma</code>) que no aparece en la lista de parámetros de la expresión lambda <code class="sourceCode python">suma3</code>, por lo que es una variable libre en el cuerpo de la expresión lambda de <code class="sourceCode python">suma3</code>.</p>
+<p>En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga <code class="sourceCode python">suma</code> en el entorno actual.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.2">
+
+<ul>
+<li><p>Se dice que una expresión lambda es <strong>pura</strong> si, siempre que la apliquemos a unos argumentos, el valor obtenido va a depender únicamente del valor de esos argumentos, es decir, de sus parámetros o variables ligadas.</p></li>
+<li><p>Podemos decir que hay distintos <strong>grados de pureza</strong>:</p>
+<ul>
+<li><p>Una expresión lambda que contiene <strong>sólo variables ligadas</strong> es <strong>más pura</strong> que otra que también contiene variables libres.</p></li>
+<li><p>Una expresión lambda cuyas <strong>variables libres</strong> representan <strong>funciones</strong> que se usan en el cuerpo de la expresión lambda, es <strong>más pura</strong> que otra cuyas variables libres representan cualquier otro tipo de valor.</p></li>
+</ul>
+<p>En el ejemplo anterior, tenemos que la expresión lambda de <code class="sourceCode python">suma3</code>, sin ser <em>totalmente pura</em>, a efectos prácticos se la puede considerar <strong>pura</strong>, ya que su única variable libre (<code class="sourceCode python">suma</code>) se usa como una <strong>función</strong>, y las funciones tienden a no cambiar durante la ejecución del programa, al contrario que los demás tipos de valores.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a menor pureza, siendo la primera totalmente <strong>pura</strong>:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus variables libres (en este</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su variable libre (z) no es una función:</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
+<li><p><strong>La pureza de una función es un rasgo deseado y que hay que tratar de alcanzar siempre que sea posible</strong>, ya que facilita el desarrollo y mantenimiento de los programas, además de simplificar el razonamiento sobre los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.</p></li>
+<li><p>Es más incómodo trabajar con <code class="sourceCode python">suma</code> porque hay que <em>recordar</em> que depende de un valor que está <em>fuera</em> de la expresión lambda, cosa que no resulta evidente a no ser que mires en el cuerpo de la expresión lambda.</p></li>
+</ul>
+</section>
+
+<section id="las-funciones-como-abstracciones" class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Las funciones como abstracciones</h2>
+<ul>
+<li><p>Recordemos la definición de la función <code class="sourceCode python">area</code>:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<li><p>Aunque es muy sencilla, la función <code class="sourceCode python">area</code> ejemplifica la propiedad más potente de las funciones definidas por el programador: la <strong>abstracción</strong>.</p></li>
+<li><p>La función <code class="sourceCode python">area</code> está definida sobre la función <code class="sourceCode python">cuadrado</code>, pero sólo necesita saber de ella qué resultados de salida devuelve a partir de sus argumentos de entrada (o sea, <strong><em>qué</em></strong> calcula).</p></li>
+<li><p>Podemos escribir <code class="sourceCode python">area</code> sin preocuparnos de cómo calcular el cuadrado de un número, porque eso ya lo hace la función <code class="sourceCode python">cuadrado</code>.</p></li>
+<li><p><strong>Los detalles</strong> sobre cómo se calcula el cuadrado están <strong>ocultos dentro de la definición</strong> de <code class="sourceCode python">cuadrado</code>. Esos detalles <strong>se ignoran en este momento</strong> al diseñar <code class="sourceCode python">area</code>, para considerarlos más tarde si hiciera falta.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.1">
+
+<ul>
+<li><p>De hecho, por lo que respecta a <code class="sourceCode python">area</code>, <code class="sourceCode python">cuadrado</code> no representa una definición concreta de función, sino más bien la abstracción de una función, lo que se denomina una <strong>abstracción funcional</strong>, ya que a <code class="sourceCode python">area</code> le sirve igual de bien cualquier función que calcule el cuadrado de un número.</p></li>
+<li><p>Por tanto, si consideramos únicamente los valores que devuelven, las tres funciones siguientes son indistinguibles e igual de válidas para <code class="sourceCode python">area</code>. Ambas reciben un argumento numérico y devuelven el cuadrado de ese número:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
+<li><p>En otras palabras: la definición de una función debe ser capaz de <strong>ocultar sus detalles internos de funcionamiento</strong>, ya que para usar la función no debe ser necesario conocer esos detalles.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.2">
+
+<ul>
+<li><p>«<em>Abstraer</em>» es centrarse en lo importante en un determinado momento e ignorar lo que en ese momento no resulta importante.</p></li>
+<li><p>«<em>Crear una abstracción</em>» es meter un mecanismo más o menos complejo dentro de una caja negra y darle un nombre, de forma que podamos referirnos a todo el conjunto simplemente usando su nombre y sin tener que conocer su composición interna ni sus detalles internos de funcionamiento.</p></li>
+<li><p>Por tanto, para usar la abstracción nos bastará con conocer su <em>nombre</em> y <em>lo que hace</em>, sin necesidad de saber <em>cómo lo hace</em> ni de qué elementos está formada <em>internamente</em>.</p></li>
+<li><p><strong>La abstracción es el principal instrumento de control de la complejidad</strong>, ya que nos permite ocultar detrás de un nombre los detalles que componen una parte del programa, haciendo que esa parte actúe (a ojos del programador que la utilice) como si fuera un elemento <em>predefinido</em> del lenguaje.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.3">
+
+<ul>
+<li><p><strong>Las funciones son</strong>, por tanto, <strong>abstracciones</strong> porque nos permiten usarlas sin tener que conocer los detalles internos del procesamiento que realizan.</p></li>
+<li><p>Por ejemplo, si queremos usar la función <code class="sourceCode python">cubo</code>, nos da igual que dicha función esté implementada de cualquiera de las siguientes maneras:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
+<li><p>Para <strong>usar</strong> la función, nos basta con saber que calcula el cubo de un número, sin necesidad de saber qué cálculo concreto realiza para obtener el resultado.</p></li>
+<li><p>Los detalles de implementación quedan ocultos y por eso también decimos que <code class="sourceCode python">cubo</code> es una abstracción.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.4">
+
+<ul>
+<li><p>Las funciones también son abstracciones porque describen operaciones compuestas a realizar sobre ciertos valores sin importar cuáles sean esos valores en concreto.</p></li>
+<li><p>Por ejemplo, cuando definimos:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>no estamos hablando del cubo de un número en particular, sino más bien de un <strong>método</strong> para calcular el cubo de cualquier número.</p></li>
+<li><p>Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo siempre expresiones explícitas (como <code class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>, <code class="sourceCode python">y<span class="op">*</span>y<span class="op">*</span>y</code>, etc.) sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje (como <code>*</code>), en vez de poder usar términos de más alto nivel.</p>
+<p>Es decir: <strong>nuestros programas podrían calcular el cubo de un número, pero no tendrían la habilidad de expresar el concepto de <em>elevar al cubo</em></strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.5">
+
+<ul>
+<li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente es la posibilidad de <strong>construir abstracciones</strong> asignando nombres a los patrones más comunes, y luego trabajar directamente usando dichas abstracciones.</p></li>
+<li><p>Las funciones nos permiten esta habilidad, y esa es la razón de que todos los lenguajes (salvo los más primitivos) incluyan mecanismos para definir funciones.</p></li>
+<li><p>Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo por sí mismo tres veces) que se repite con frecuencia, y a partir de él construimos una abstracción que asigna un nombre a ese patrón (<em>elevar al cubo</em>).</p></li>
+<li><p>Esa abstracción la definimos como una función que describe la <em>regla</em> necesaria para elevar algo al cubo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.6">
+
+<ul>
+<li><p>Algunas veces, analizando ciertos casos particulares, observamos que se repite el mismo patrón en todos ellos, y de ahí extraemos un caso general que agrupa a todos los posibles casos particulares que cumplen el mismo patrón.</p></li>
+<li><p>A ese caso general le damos un nombre y ocultamos sus detalles internos en una «caja negra».</p></li>
+<li><p>Eso es una <strong>abstracción</strong>.</p></li>
+<li><p><strong>Crear casos generales a partir de patrones que se repiten</strong> en casos particulares es una de las principales razones por las que creamos abstracciones.</p></li>
+<li><p>Otras veces creamos abstracciones cuando queremos <strong>reducir la complejidad</strong>, dándole un nombre a un mecanismo complejo para poder referirnos a todo el conjunto a través de su nombre sin tener que recordar continuamente qué piezas contiene el mecanismo.</p></li>
+<li><p>Y otras veces simplemente cuando queremos que nuestro programa pueda <strong>expresar un concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.7">
+
+<ul>
+<li><p>Por ejemplo, cuando vemos que en nuetros programas es frecuente tener que multiplicar una cosa por sí misma tres veces, deducimos que ahí hay un patrón común que se repite en todos los casos.</p></li>
+<li><p>De ahí, creamos la abstracción que describe ese patrón general y le llamamos «<em>elevar al cubo</em>»:</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/de-particular-a-general.svg" class="plain" style="width:80.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="4.2.0.0.8">
+
+<ul>
+<li><p>La <strong>especificación de una <em>función</em></strong> es la descripción de <strong>qué</strong> hace la función sin entrar a detallar <strong>cómo</strong> lo hace.</p></li>
+<li><p>La <strong>implementación de una <em>función</em></strong> es la descripción de <strong>cómo</strong> hace lo que hace, es decir, los detalles de su algoritmo interno.</p></li>
+<li><p><strong>Un programador no debe necesitar saber cómo está implementada una función para poder usarla</strong>.</p></li>
+<li><p>Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del lenguaje (como <code class="sourceCode python"><span class="bu">max</span></code>, <code class="sourceCode python"><span class="bu">abs</span></code> o <code class="sourceCode python"><span class="bu">len</span></code>): sabemos <em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo hacen.</p></li>
+<li><p>Incluso puede que el usuario de una función no sea el mismo que la haya escrito, sino que la puede haber recibido de otro programador como una «<strong>caja negra</strong>», que tiene unas entradas y una salida pero no se sabe cómo funciona por dentro.</p></li>
+</ul>
+</section>
+<section id="especificaciones-de-funciones" class="title-slide slide level3" data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span> Especificaciones de funciones</h3>
+<ul>
+<li><p>Para poder <strong>usar una abstracción funcional</strong> <em>nos basta</em> con conocer su <em>especificación</em>, porque es la descripción de qué hace esa función.</p></li>
+<li><p>Igualmente, para poder <strong>implementar una abstracción funcional</strong> <em>necesitamos</em> conocer su <em>especificación</em>, ya que necesitamos saber <em>qué tiene que hacer</em> la función antes de diseñar <em>cómo va a hacerlo</em>.</p></li>
+<li><p>La especificación de una abstracción funcional está formada por tres propiedades fundamentales:</p>
+<ul>
+<li><p>El <strong>dominio</strong>: el conjunto de argumentos válidos.</p></li>
+<li><p>El <strong>rango</strong>: el conjunto de posibles valores que devuelve.</p></li>
+<li><p>El <strong>propósito</strong>: qué hace la función, es decir, la relación entre su entrada y su salida.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.1">
+
+<ul>
+<li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos llamado «<strong>entrada</strong>» al dominio y hemos agrupado el rango y el propósito en una sola propiedad que hemos llamado «<strong>salida</strong>».</p></li>
+<li><p>Por ejemplo, cualquier función <code class="sourceCode python">cuadrado</code> que usemos para implementar <code class="sourceCode python">area</code> debe satisfacer esta especificación:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Entrada}}: n \in \mathbb{R} \\
+  \texttt{cuadrado} \\
+  \text{\textbf{Salida}}: n^2
+\end{cases}</span></p></li>
+<li><p>La especificación <strong>no concreta cómo</strong> se debe llevar a cabo el propósito. Esos son <strong>detalles de implementación</strong> que se abstraen a este nivel.</p></li>
+<li><p>Este esquema es el que hemos usado hasta ahora para especificar programas, y se podría seguir usando para especificar funciones, ya que éstas son consideradas <em>subprogramas</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.2">
+
+<ul>
+<li><p>Pero para especificar una función, en cambio, resulta más adecuado usar el siguiente esquema, al que llamaremos <strong>especificación funcional</strong>:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; \texttt{True} \\[0.5em]
+&amp; \texttt{cuadrado(\(n\,\): float) -&gt; float} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuadrado(}n\texttt{)} = n^2
+\end{array}\right.</span></p></li>
+<li><p>«<strong>Pre</strong>» representa la <strong>precondición</strong>: la propiedad que debe cumplirse justo <em>en el momento</em> de llamar a la función.</p></li>
+<li><p>«<strong>Post</strong>» representa la <strong>postcondición</strong>: la propiedad que debe cumplirse justo <em>después</em> de llamar a la función.</p></li>
+<li><p>Lo que hay en medio es la <strong>signatura</strong>: el nombre de la función, el nombre y tipo de sus parámetros y el tipo del valor de retorno.</p></li>
+<li><p>La especificación se lee así: «<em>si se llama a la función respetando su signatura y cumpliendo su precondición, la llamada termina cumpliendo su postcondición</em>».</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.3">
+
+<ul>
+<li><p>En este caso, la <strong>precondición</strong> es <code class="sourceCode python"><span class="va">True</span></code>, que equivale a decir que cualquier condición de entrada es buena para usar la función.</p></li>
+<li><p>Dicho de otra forma: no hace falta que se dé ninguna condición especial para usar la función. Siempre que la llamada respete la signatura de la función, el parámetro <span class="math inline">n</span> puede tomar cualquier valor de tipo <code class="sourceCode python"><span class="bu">float</span></code> y no hay ninguna restricción adicional.</p></li>
+<li><p>Por otro lado, la <strong>postcondición</strong> dice que al llamar a la función <code class="sourceCode python">cuadrado</code> con el argumento <span class="math inline">n</span> se debe devolver <span class="math inline">n^2</span>.</p></li>
+<li><p>Tanto la precondición como la postcondición son <strong>predicados</strong>, es decir, expresiones lógicas que se escriben usando el lenguaje de las matemáticas y la lógica.</p></li>
+<li><p>La <strong>signatura</strong> se escribe usando la sintaxis del lenguaje de programación que se vaya a usar para implementar la función (Python, en este caso).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.4">
+
+<ul>
+<li><p>Las pre y postcondiciones no es necesario escribirlas de una manera <strong>formal y rigurosa</strong>, usando el lenguaje de las Matemáticas o la Lógica.</p></li>
+<li><p>Si la especificación se escribe en <em>lenguaje natural</em> y se entiende bien, completamente y sin ambigüedades, no hay problema.</p></li>
+<li><p>El motivo de usar un lenguaje formal es que, normalmente, resulta <strong>mucho más conciso y preciso que el lenguaje natural</strong>.</p></li>
+<li><p>El lenguaje natural suele ser:</p>
+<ul>
+<li><p><strong>Más prolijo</strong>: necesita más palabras para decir lo mismo que diríamos matemáticamente usando menos caracteres.</p></li>
+<li><p><strong>Más ambiguo</strong>: lo que se dice en lenguaje natural se puede interpretar de distintas formas.</p></li>
+<li><p><strong>Menos completo</strong>: quedan flecos y situaciones especiales que no se tienen en cuenta.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.5">
+
+<ul>
+<li><p>Otro ejemplo más completo:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; car \mathrel{\char`≠} \text{\texttt{&quot;&quot;}} \land \texttt{len(}car\texttt{)} = 1 \\[0.5em]
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} \geq 0\ \land\\[0.1em]
+&amp; \texttt{cuenta(\(cadena\), \(car\))} = cadena\texttt{.count(\(car\))}
+\end{array}\right.</span></p></li>
+<li><p><code class="sourceCode python">count</code> es una <strong>función <em>oculta</em> o <em>auxiliar</em></strong> (en este caso, un <em>método auxiliar</em>). Las funciones auxiliares se puede usar en la especificación siempre que estén perfectamente especificadas, aunque no estén implementadas.</p></li>
+<li><p>Con esto estamos diciendo que <code class="sourceCode python">cuenta</code> es una función que recibe una cadena y un carácter (otra cadena con un único carácter dentro).</p></li>
+<li><p>Además, estamos diciendo que devuelve el mismo resultado que devuelve el método <code class="sourceCode python">count</code>.</p></li>
+<li><p>Es decir: cuenta el número de veces que el carácter <span class="math inline">car</span> aparece en <span class="math inline">cadena</span>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.6">
+
+<ul>
+<li><p>En realidad, las condiciones de la especificación anterior se podrían simplificar aprovechando las propiedades de las expresiones lógicas, quedando así:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; \texttt{len(\(car\))} = 1 \\[0.5em]
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} = cadena\texttt{.count(\(car\))}
+\end{array}\right.</span></p></li>
+</ul>
+</section>
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="2" class="example" type="1">
+<li>¿Por qué?</li>
+</ol>
+</section>
+<section class="slide level5" data-number="4.2.1.0.7">
+
+<ul>
+<li><p>Finalmente, podríamos escribir la misma especificación en lenguaje natural:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; car \text{ debe ser un único carácter} \\[0.5em]
+&amp; \texttt{cuenta(\(cadena\,\): str, \(car\,\): str) -&gt; int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\), \(car\))} \text{ devuelve el número de veces}\\[0.1em]
+&amp; \text{que aparece el carácter } car \text{ en la cadena } cadena.\\[0.1em]
+&amp; \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}\\[0.1em]
+&amp; \text{cadena } cadena \text{, debe devolver } 0.
+\end{array}\right.</span></p></li>
+<li><p>Probablemente resulta más fácil de leer (sobre todo para los novatos), pero también es más largo y prolijo.</p></li>
+<li><p>Es como un contrato escrito por un abogado en lenguaje jurídico.</p></li>
+</ul>
+<!--
+
+- Un ejemplo mucho más avanzado para los curiosos:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: lista \mathrel{\char`≠} \texttt{[]} \\
+    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
+    \text{\textbf{Post}}: suma(lista) = sum(lista)
+  \end{cases}$$
+
+- $sum$ es una función auxiliar.
+
+- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
+  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
+  del tipo $T$.
+
+- Con esto estamos diciendo que `suma` es una función que recibe una lista no
+  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
+  mismo tipo.
+
+- Para más información, consultar:
+
+  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
+
+  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
+-->
+</section>
+
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-abelson_structure_1996" class="csl-entry" role="doc-biblioentry">
+Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996. <em>Structure and Interpretation of Computer Programs</em>. 2nd ed. Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 1080,
+
+        menu: {
+          hideMissingTitles: true,
+        },
+
+        dependencies: [
+          { src: './reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } }
+        ],
+
+        // reveal.js plugins
+        plugins: [
+          RevealMenu,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
