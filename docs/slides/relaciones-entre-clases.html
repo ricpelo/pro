@@ -668,6 +668,17 @@
 </ul></li>
 </ul>
 </section>
+<section class="slide level5" data-number="2.1.0.0.3">
+
+<ul>
+<li><p>Las relaciones de generalización son transitivas:</p>
+<ul>
+<li><p>Si una clase <code>A</code> está relacionada mediante una relación de generalización con una clase <code>B</code>, decimos que la clase <code>A</code> es <strong>subclase directa</strong> de <code>B</code> o que <code>B</code> es una <strong>superclase directa</strong> de <code>A</code>.</p></li>
+<li><p>Si una clase <code>A</code> es subclase directa de <code>B</code> y <code>B</code> es subclase directa de <code>C</code>, pero <code>A</code> no es subclase directa de <code>C</code>, decimos que <code>A</code> es <strong>subclase indirecta</strong> de <code>C</code>.</p></li>
+</ul></li>
+<li><p>Cuando decimos que <code>A</code> es subclase de <code>B</code>, puede que sea subclase directa o indirecta.</p></li>
+</ul>
+</section>
 
 <section id="herencia-1" class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Herencia</h2>
@@ -688,8 +699,8 @@
 <ul>
 <li><p>Existen dos modos de generalización, en función de la cantidad de superclases que se le permite tener a una subclase dada:</p>
 <ul>
-<li><p><strong>Generalización simple</strong>: también llamada <strong>herencia simple</strong>, es cuando una subclase sólo puede tener una superclase.</p></li>
-<li><p><strong>Generalización múltiple</strong>: también llamada <strong>herencia múltiple</strong>, es cuando una subclase puede tener varias superclases (no sólo una).</p></li>
+<li><p><strong>Generalización simple</strong>: también llamada <strong>herencia simple</strong>, es cuando una subclase sólo puede tener una superclase directa.</p></li>
+<li><p><strong>Generalización múltiple</strong>: también llamada <strong>herencia múltiple</strong>, es cuando una subclase puede tener varias superclases directa (no sólo una).</p></li>
 </ul></li>
 <li><p>Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten herencia múltiple.</p></li>
 <li><p>En concreto:</p>
@@ -702,13 +713,13 @@
 <section id="herencia-simple" class="title-slide slide level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Herencia simple</h3>
 <ul>
-<li><p>En la herencia simple, una clase sólo puede subclase de una única superclase.</p>
-<p>Una clase siempre puede ser superclase de muchas clases, pero en la herencia simple sólo puede ser subclase de una única superclase.</p></li>
+<li><p>En la herencia simple, una clase sólo puede tener una única superclase directa.</p>
+<p>Una clase siempre puede ser superclase directa de muchas clases, pero en la herencia simple sólo puede ser subclase directa de una única superclase directa.</p></li>
 </ul>
 <div class="columns">
 <div class="column">
 <ul>
-<li>Por ejemplo, el caso de un docente que también es un trabajador, de forma que la clase <code>Docente</code> sólo es subclase de <code>Trabajador</code>.</li>
+<li>Por ejemplo, el caso de un docente que también es un trabajador, de forma que la clase <code>Docente</code> sólo es subclase directa de <code>Trabajador</code>.</li>
 </ul>
 </div><div class="column">
 <div class="centered">
@@ -720,7 +731,7 @@
 <section class="slide level5" data-number="2.3.1.0.1">
 
 <ul>
-<li>El siguiente caso también sería herencia simple, ya que tenemos dos relaciones de generalización separadas, pero ninguna subclase tiene más de una superclase:</li>
+<li>El siguiente caso también sería herencia simple, ya que tenemos dos relaciones de generalización separadas, pero ninguna subclase tiene más de una superclase directa:</li>
 </ul>
 <div class="centered">
 <p><img data-src="images/doble-herencia-simple.png" class="plain" style="width:30.0%" /></p>
@@ -763,7 +774,7 @@
 <section class="slide level5" data-number="2.3.1.0.4">
 
 <ul>
-<li>La forma de codificar la herencia simple en Python es especificar el nombre de la superclase detrás del nombre de la subclase, entre paréntesis:</li>
+<li>La forma de codificar la herencia simple en Python es especificar el nombre de la superclase directa detrás del nombre de la subclase, entre paréntesis:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -1064,7 +1075,7 @@
 <section id="herencia-múltiple" class="title-slide slide level3" data-number="2.3.4">
 <h3 data-number="2.3.4"><span class="header-section-number">2.3.4</span> Herencia múltiple</h3>
 <ul>
-<li><p>En la <strong>herencia múltiple</strong>, una subclase puede tener <strong>varias superclases</strong>.</p></li>
+<li><p>En la <strong>herencia múltiple</strong>, una subclase puede tener <strong>varias superclases directas</strong>.</p></li>
 <li><p>La herencia múltiple amplía enormemente las posibilidades del lenguaje de programación, ya que permite el modelado de situaciones que se pueden dar con frecuencia y que se pueden expresar de forma natural generalizando una clase a partir de varias superclases simultáneamente.</p></li>
 <li><p>A cambio, introduce una mayor complejidad que la herencia simple a la hora de determinar qué se hereda de dónde.</p></li>
 <li><p>Esa mayor complejidad hace que no muchos lenguajes orientados a objetos soporten la herencia múltiple, siendo los más conocidos: Python, C++, Perl y Eiffel.</p></li>
@@ -1098,7 +1109,7 @@
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ... definición de la clase Anfibio</span></span></code></pre></div></li>
-<li><p>Es decir: en la definición de la subclase indicamos todas las superclases que tenga, entre paréntesis y separadas por comas.</p></li>
+<li><p>Es decir: en la definición de la subclase indicamos todas las superclases directas que tenga, entre paréntesis y separadas por comas.</p></li>
 <li><p>El orden en el que se escriban las superclases tiene importancia, como veremos luego.</p></li>
 </ul>
 </section>

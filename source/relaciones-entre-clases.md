@@ -556,6 +556,21 @@ Trabajador <|--- PAS
     general** que agrupe los elementos comunes a todas ellas (una _superclase_
     de las originales).
 
+---
+
+- Las relaciones de generalización son transitivas:
+
+  - Si una clase `A` está relacionada mediante una relación de generalización
+    con una clase `B`, decimos que la clase `A` es **subclase directa** de `B`
+    o que `B` es una **superclase directa** de `A`.
+
+  - Si una clase `A` es subclase directa de `B` y `B` es subclase directa de
+    `C`, pero `A` no es subclase directa de `C`, decimos que `A` es **subclase
+    indirecta** de `C`.
+
+- Cuando decimos que `A` es subclase de `B`, puede que sea subclase directa o
+  indirecta.
+
 ## Herencia
 
 - A través de la relación de generalización, las subclases adquieren
@@ -581,10 +596,10 @@ Trabajador <|--- PAS
   que se le permite tener a una subclase dada:
 
   - **Generalización simple**: también llamada **herencia simple**, es cuando
-    una subclase sólo puede tener una superclase.
+    una subclase sólo puede tener una superclase directa.
 
   - **Generalización múltiple**: también llamada **herencia múltiple**, es
-    cuando una subclase puede tener varias superclases (no sólo una).
+    cuando una subclase puede tener varias superclases directa (no sólo una).
 
 - Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten
   herencia múltiple.
@@ -597,17 +612,19 @@ Trabajador <|--- PAS
 
 ### Herencia simple
 
-- En la herencia simple, una clase sólo puede subclase de una única superclase.
+- En la herencia simple, una clase sólo puede tener una única superclase
+  directa.
 
-  Una clase siempre puede ser superclase de muchas clases, pero en la herencia
-  simple sólo puede ser subclase de una única superclase.
+  Una clase siempre puede ser superclase directa de muchas clases, pero en la
+  herencia simple sólo puede ser subclase directa de una única superclase
+  directa.
 
 :::: columns
 
 ::: column
 
 - Por ejemplo, el caso de un docente que también es un trabajador, de forma que
-  la clase `Docente` sólo es subclase de `Trabajador`.
+  la clase `Docente` sólo es subclase directa de `Trabajador`.
 
 :::
 
@@ -626,7 +643,7 @@ Trabajador <|-- Docente
 
 - El siguiente caso también sería herencia simple, ya que tenemos dos
   relaciones de generalización separadas, pero ninguna subclase tiene más de
-  una superclase:
+  una superclase directa:
 
 !UML[doble-herencia-simple.png][][width=30%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -684,7 +701,7 @@ Docente <|-- Investigador
 ---
 
 - La forma de codificar la herencia simple en Python es especificar el nombre
-  de la superclase detrás del nombre de la subclase, entre paréntesis:
+  de la superclase directa detrás del nombre de la subclase, entre paréntesis:
 
 :::: columns
 
@@ -1144,7 +1161,8 @@ Trabajador -|> object
 
 ### Herencia múltiple
 
-- En la **herencia múltiple**, una subclase puede tener **varias superclases**.
+- En la **herencia múltiple**, una subclase puede tener **varias superclases
+  directas**.
 
 - La herencia múltiple amplía enormemente las posibilidades del lenguaje de
   programación, ya que permite el modelado de situaciones que se pueden dar con
@@ -1196,8 +1214,8 @@ Acuatico <|-- Anfibio
      # ... definición de la clase Anfibio
   ```
 
-- Es decir: en la definición de la subclase indicamos todas las superclases que
-  tenga, entre paréntesis y separadas por comas.
+- Es decir: en la definición de la subclase indicamos todas las superclases
+  directas que tenga, entre paréntesis y separadas por comas.
 
 - El orden en el que se escriban las superclases tiene importancia, como
   veremos luego.
