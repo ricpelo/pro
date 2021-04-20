@@ -478,21 +478,113 @@ public class Hola {
 
 ### Ámbito y resolución de identificadores
 
+- **La ejecución del método provoca**, en tiempo de ejecución, **la creación de
+  un nuevo marco** en la pila.
+
+- Como en Java no es posible definir métodos anidados, y las únicas estructuras
+  sintácticas que crean marcos en Java son los métodos, eso quiere decir que
+  ese marco será el único que existirá en el entorno.
+
+- Desde el punto de vista del **almacenamiento**:
+
+  - Las variables locales a un método se almacenan en el marco de dicho método,
+    en la pila.
+
+  - Las variables de instancia de un objeto se almacenan en el propio objeto,
+    en el montículo.
+
+  - Las variables estáticas de una clase se almacenan en una zona de
+    almacenamiento llamado _Metaspace_.
+
+---
+
+- La **resolución de identificadores** es el mecanismo por el cual el lenguaje
+  sabe a qué ligadura corresponde un identificador que aparece en un
+  determinado punto del programa.
+
+- Para ello, hay que determinar dónde son visibles las declaraciones que
+  aparecen en el programa, es decir, **el _ámbito_ de cada declaración**.
+
+- Desde el punto de vista de la **visibilidad**, en Java (y, en general, en
+  cualquier lenguaje compilado estructurado en bloques) **la declaración de un
+  identificador sólo es visible dentro de su ámbito**.
+
+- Por tanto, la visibilidad de una declaración es algo que se puede comprobar
+  en tiempo de compilación, simplemente mirando el código fuente, y sin
+  necesidad de ejecutar el programa.
+
+---
+
+- En consecuencia:
+
+  - Esa tarea la puede realizar el compilador y, de hecho, es quien lo hace.
+
+  - Los marcos no tienen nada que ver a la hora de resolver los identificadores
+    en Java.
+
+- El compilador es quien determina qué variable está ligada a cada
+  identificador, analizando los ámbitos de cada declaración y comprobando si la
+  aparición de un identificador se encuentra dentro del ámbito de la
+  declaración de ese identificador.
+
 - La definición de un método **define un nuevo ámbito**, y ese nuevo ámbito
   está **anidado dentro del ámbito de la clase** donde se define el método.
 
-- Además, **la ejecución del método provoca**, en tiempo de ejecución, **la
-  creación de un nuevo marco** en la pila.
+- Las clases, a su vez, se definen dentro del ámbito de su paquete (son
+  _locales_ a su paquete).
 
-- Como en Java no es posible definir métodos anidados, y tampoco existe un
-  ámbito global, eso quiere decir que ese marco será el único que existirá en
-  el entorno.
+---
 
-- Cuando no hay ambigüedad, es posible evitar el uso de !JAVA(this) y acceder
-  directamente al campo sin usar una referencia al objeto.
+- Por tanto, los ámbitos están anidados dentro de otros ámbitos de la siguiente
+  forma:
 
-- Para ello, el compilador determina (en tiempo de compilación) qué variable
-  está ligada a cada identificador.
+!DOT(ambitos-paquete-clase-metodo-bloque.svg)()(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graph [rankdir = LR];
+node [shape = box];
+compound = true;
+
+subgraph cluster0 {
+    label = "Ámbito de paquete";
+    bgcolor = grey80;
+
+    subgraph cluster1 {
+        label = "Ámbito de clase";
+        bgcolor = grey90;
+
+        subgraph cluster2 {
+            label = "Ámbito de método";
+            bgcolor = grey95;
+
+            BLQ [label = "Ámbito de bloque";]
+        }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los ámbitos de paquete, clase y método llevan asociados un **espacio de
+  nombres**. Por eso podemos hablar de clases locales a un paquete, de miembros
+  locales a una clase o de variables locales a un método.
+
+  En cambio, podemos hablar de variables locales a un bloque desde el punto de
+  vista de su visibilidad, pero no de su almacenamiento.
+
+---
+
+- Puede darse sombreado de identificadores, por ejemplo:
+
+  - Cuando un método hace referencia a una variable local que también puede ser
+    una variable de instancia de su clase: la variable local tiene preferencia.
+
+    Por ello, cuando no hay ambigüedad, es posible evitar el uso de !JAVA(this)
+    y acceder directamente al campo sin usar una referencia al objeto.
+
+  - Cuando un identificador hace referencia a una clase del paquete actual o de
+    otro paquete: la clase del paquete actual tiene preferencia.
+
+- El compilador no permite que haya sombreado de identificadores entre bloques
+  anidados, o entre un bloque y el método que lo contiene, ya que todas esas
+  variables se almacenan en un mismo espacio de nombres (el marco del método).
 
 ---
 

@@ -1193,9 +1193,10 @@ $5 ==> NaN
 - Se almacena en el marco actual, donde también se crea la ligadura entre el
   identificador y la propia variable.
 
-- El ámbito de la variable es el bloque (porción de código encerrado entre `{`
-  y `}`) dentro del cual se ha declarado la variable, ya que cada bloque
-  introduce un nuevo ámbito.
+- El **ámbito de la declaración de la variable** (también llamado **ámbito de
+  la variable**) es el bloque (porción de código encerrado entre `{` y `}`)
+  dentro del cual se ha declarado la variable, ya que cada bloque introduce un
+  nuevo ámbito.
 
 - Como los bloques se pueden anidar unos dentro de otros, sus ámbitos
   correspondientes también estarán anidados.

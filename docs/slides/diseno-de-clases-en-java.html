@@ -649,14 +649,64 @@
 <section id="ámbito-y-resolución-de-identificadores" class="title-slide slide level3" data-number="2.2.4">
 <h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span> Ámbito y resolución de identificadores</h3>
 <ul>
-<li><p>La definición de un método <strong>define un nuevo ámbito</strong>, y ese nuevo ámbito está <strong>anidado dentro del ámbito de la clase</strong> donde se define el método.</p></li>
-<li><p>Además, <strong>la ejecución del método provoca</strong>, en tiempo de ejecución, <strong>la creación de un nuevo marco</strong> en la pila.</p></li>
-<li><p>Como en Java no es posible definir métodos anidados, y tampoco existe un ámbito global, eso quiere decir que ese marco será el único que existirá en el entorno.</p></li>
-<li><p>Cuando no hay ambigüedad, es posible evitar el uso de <code class="sourceCode java"><span class="kw">this</span></code> y acceder directamente al campo sin usar una referencia al objeto.</p></li>
-<li><p>Para ello, el compilador determina (en tiempo de compilación) qué variable está ligada a cada identificador.</p></li>
+<li><p><strong>La ejecución del método provoca</strong>, en tiempo de ejecución, <strong>la creación de un nuevo marco</strong> en la pila.</p></li>
+<li><p>Como en Java no es posible definir métodos anidados, y las únicas estructuras sintácticas que crean marcos en Java son los métodos, eso quiere decir que ese marco será el único que existirá en el entorno.</p></li>
+<li><p>Desde el punto de vista del <strong>almacenamiento</strong>:</p>
+<ul>
+<li><p>Las variables locales a un método se almacenan en el marco de dicho método, en la pila.</p></li>
+<li><p>Las variables de instancia de un objeto se almacenan en el propio objeto, en el montículo.</p></li>
+<li><p>Las variables estáticas de una clase se almacenan en una zona de almacenamiento llamado <em>Metaspace</em>.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.4.0.1">
+
+<ul>
+<li><p>La <strong>resolución de identificadores</strong> es el mecanismo por el cual el lenguaje sabe a qué ligadura corresponde un identificador que aparece en un determinado punto del programa.</p></li>
+<li><p>Para ello, hay que determinar dónde son visibles las declaraciones que aparecen en el programa, es decir, <strong>el <em>ámbito</em> de cada declaración</strong>.</p></li>
+<li><p>Desde el punto de vista de la <strong>visibilidad</strong>, en Java (y, en general, en cualquier lenguaje compilado estructurado en bloques) <strong>la declaración de un identificador sólo es visible dentro de su ámbito</strong>.</p></li>
+<li><p>Por tanto, la visibilidad de una declaración es algo que se puede comprobar en tiempo de compilación, simplemente mirando el código fuente, y sin necesidad de ejecutar el programa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.4.0.2">
+
+<ul>
+<li><p>En consecuencia:</p>
+<ul>
+<li><p>Esa tarea la puede realizar el compilador y, de hecho, es quien lo hace.</p></li>
+<li><p>Los marcos no tienen nada que ver a la hora de resolver los identificadores en Java.</p></li>
+</ul></li>
+<li><p>El compilador es quien determina qué variable está ligada a cada identificador, analizando los ámbitos de cada declaración y comprobando si la aparición de un identificador se encuentra dentro del ámbito de la declaración de ese identificador.</p></li>
+<li><p>La definición de un método <strong>define un nuevo ámbito</strong>, y ese nuevo ámbito está <strong>anidado dentro del ámbito de la clase</strong> donde se define el método.</p></li>
+<li><p>Las clases, a su vez, se definen dentro del ámbito de su paquete (son <em>locales</em> a su paquete).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.4.0.3">
+
+<ul>
+<li>Por tanto, los ámbitos están anidados dentro de otros ámbitos de la siguiente forma:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ambitos-paquete-clase-metodo-bloque.svg" class="plain" style="width:40.0%" /></p>
+</div>
+<ul>
+<li><p>Los ámbitos de paquete, clase y método llevan asociados un <strong>espacio de nombres</strong>. Por eso podemos hablar de clases locales a un paquete, de miembros locales a una clase o de variables locales a un método.</p>
+<p>En cambio, podemos hablar de variables locales a un bloque desde el punto de vista de su visibilidad, pero no de su almacenamiento.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.4.0.4">
+
+<ul>
+<li><p>Puede darse sombreado de identificadores, por ejemplo:</p>
+<ul>
+<li><p>Cuando un método hace referencia a una variable local que también puede ser una variable de instancia de su clase: la variable local tiene preferencia.</p>
+<p>Por ello, cuando no hay ambigüedad, es posible evitar el uso de <code class="sourceCode java"><span class="kw">this</span></code> y acceder directamente al campo sin usar una referencia al objeto.</p></li>
+<li><p>Cuando un identificador hace referencia a una clase del paquete actual o de otro paquete: la clase del paquete actual tiene preferencia.</p></li>
+</ul></li>
+<li><p>El compilador no permite que haya sombreado de identificadores entre bloques anidados, o entre un bloque y el método que lo contiene, ya que todas esas variables se almacenan en un mismo espacio de nombres (el marco del método).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.4.0.5">
 
 <ul>
 <li><p>Ejemplo:</p>
