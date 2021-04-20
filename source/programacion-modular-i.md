@@ -276,12 +276,36 @@ nocite: |
   cual oculta a los usuarios los detalles internos de funcionamiento que no son
   necesarios para usar el módulo.
 
-- Esos detalles internos sólo son interesantes para (y sólo deben ser conocidos
-  por) el **creador** del módulo.
+- Esos detalles internos forman la _implementación_ del módulo y sólo son
+  interesantes para (y sólo deben ser conocidos por) el **creador** del módulo.
 
 - Por supuesto, un módulo puede usar a otros módulos y, al mismo tiempo, ser
   usado por otros módulos. Por tanto, el mismo módulo puede ser importador e
   importado simultáneamente.
+
+---
+
+- Los **miembros** o _elementos_ de un módulo son aquellos elementos que forman
+  parte del módulo.
+
+- En general, a la hora de describir las partes de un módulo, distinguimos
+  entre **miembros _públicos_** y **miembros _privados_**:
+
+  - Los **miembros _públicos_** o **_exportados_** son aquellos miembros de un
+    módulo que están diseñados para ser usados fuera del módulo por los
+    usuarios del mismo.
+
+    Estos miembros (al menos, las especificaciones de los mismos, es decir, lo
+    necesario para poder usarlos) **deben formar parte de la _interfaz_ del
+    módulo**.
+
+  - Los **miembros _privados_** o **_internos_** son aquellos miembros de un
+    módulo que están diseñados para ser usados únicamente por el propio módulo
+    y, por tanto, no deberían ser usados (ni siquiera conocidos) fuera del
+    módulo.
+
+    Estos miembros **NO deben formar parte de la _interfaz_ del módulo**, sino
+    que deben ir en la **implementación** del módulo.
 
 ## Partes de un módulo
 
@@ -289,24 +313,46 @@ nocite: |
 
   - Una **interfaz**, formada por:
 
-    - El **nombre** del módulo, que generalmente coincidirá con el nombre del
-      archivo en el que reside el módulo.
+    - El **nombre** del módulo.
 
-    - Las **especificaciones de las funciones _exportadas_** o **_públicas_**
+    - Las **especificaciones de sus funciones _exportadas_** o **_públicas_**
       que permiten a los usuarios consumir sus servicios, así como manipular y
       acceder al estado interno del módulo desde fuera del mismo.
 
-    - Es posible que la interfaz también incluya **constantes**.
+    - Es posible que la interfaz también incluya **constantes públicas**.
 
   - Una **implementación**, formada por:
 
-    - La **implementación** de las **funciones públicas**.
+    - Las **implementaciones** de sus **funciones públicas**.
 
-    - Posibles **variables** locales al módulo (el _estado interno_ de éste).
+    - Posibles **variables _locales_** al módulo (el _estado interno_ de éste).
 
     - Posibles **funciones _internas_** o **_privadas_**, que no aparecen en la
       interfaz porque están pensadas para ser usadas sólo por el propio módulo
       internamente, no por otras partes del programa.
+
+    - Otros miembros _privados_, como **constantes privadas**.
+
+---
+
+- Lo anterior es una simplificación, ya que, dependiendo de las características
+  del lenguaje de programación utilizado, un módulo puede tener miembros
+  pertenecientes a muchas otras categorías sintácticas, como por ejemplo:
+
+  - Tipos.
+
+  - Clases.
+
+  - Otros módulos.
+
+- Todos esos miembros pueden formar parte de la interfaz o de la implementación
+  del módulo, dependiendo de las necesidades del mismo, y ser, por tanto,
+  miembros públicos o privados de éste.
+
+- También se admiten otras combinaciones más complicadas. Por ejemplo, si
+  alguno de esos miembros es público, su especificación podría formar parte de
+  la interfaz del módulo, mientras que su implementación podría formar parte de
+  la implementación del módulo.
 
 ### Interfaz
 
@@ -356,7 +402,7 @@ nocite: |
 ---
 
 - Acabamos de decir que la interfaz de un módulo debería estar formada
-  únicamente por **funciones** (y, tal vez, *constantes*).
+  únicamente por **funciones** y, tal vez, **constantes**.
 
 - En teoría, la interfaz podría incluir también algunas o todas las **variables
   locales al módulo**, de forma que el módulo usuario podría acceder y
@@ -397,6 +443,8 @@ nocite: |
     parte de su interfaz (**funciones _internas_** o **_privadas_**), si las
     hay.
 
+  - Posibles **constantes _privadas_**, usadas sólo por el propio módulo.
+
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 La implementación debe poder cambiarse tantas veces como sea necesario sin que
@@ -408,13 +456,14 @@ por ello se tenga que cambiar el resto del programa.
 $$\text{Interfaz del módulo}\begin{cases}
 \text{Nombre del módulo}\\
 \text{Especificación de las funciones públicas}\\
-\text{Posibles constantes}
+\text{Posibles constantes públicas}
 \end{cases}$$
 
 $$\text{Implementación del módulo}\begin{cases}
 \text{Implementación de las funciones públicas}\\
 \text{Posibles variables locales}\\
-\text{Posibles funciones privadas}
+\text{Posibles funciones privadas} \\
+\text{Posibles constantes privadas}
 \end{cases}$$
 
 ## Diagramas de estructura

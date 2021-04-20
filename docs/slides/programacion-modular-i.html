@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -419,8 +420,21 @@
 <ul>
 <li><p>Los <strong>usuarios</strong> de un módulo están interesados en usar dicho módulo como una <strong>entidad abstracta</strong>, sin necesidad de conocer los <em>detalles internos</em> del mismo, sino conociendo sólo lo necesario para poder consumir los servicios que proporciona (su <em>interfaz</em>).</p></li>
 <li><p>Esos usuarios consumirán los servicios del módulo a través de su interfaz, la cual oculta a los usuarios los detalles internos de funcionamiento que no son necesarios para usar el módulo.</p></li>
-<li><p>Esos detalles internos sólo son interesantes para (y sólo deben ser conocidos por) el <strong>creador</strong> del módulo.</p></li>
+<li><p>Esos detalles internos forman la <em>implementación</em> del módulo y sólo son interesantes para (y sólo deben ser conocidos por) el <strong>creador</strong> del módulo.</p></li>
 <li><p>Por supuesto, un módulo puede usar a otros módulos y, al mismo tiempo, ser usado por otros módulos. Por tanto, el mismo módulo puede ser importador e importado simultáneamente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.3">
+
+<ul>
+<li><p>Los <strong>miembros</strong> o <em>elementos</em> de un módulo son aquellos elementos que forman parte del módulo.</p></li>
+<li><p>En general, a la hora de describir las partes de un módulo, distinguimos entre <strong>miembros <em>públicos</em></strong> y <strong>miembros <em>privados</em></strong>:</p>
+<ul>
+<li><p>Los <strong>miembros <em>públicos</em></strong> o <strong><em>exportados</em></strong> son aquellos miembros de un módulo que están diseñados para ser usados fuera del módulo por los usuarios del mismo.</p>
+<p>Estos miembros (al menos, las especificaciones de los mismos, es decir, lo necesario para poder usarlos) <strong>deben formar parte de la <em>interfaz</em> del módulo</strong>.</p></li>
+<li><p>Los <strong>miembros <em>privados</em></strong> o <strong><em>internos</em></strong> son aquellos miembros de un módulo que están diseñados para ser usados únicamente por el propio módulo y, por tanto, no deberían ser usados (ni siquiera conocidos) fuera del módulo.</p>
+<p>Estos miembros <strong>NO deben formar parte de la <em>interfaz</em> del módulo</strong>, sino que deben ir en la <strong>implementación</strong> del módulo.</p></li>
+</ul></li>
 </ul>
 </section>
 
@@ -431,17 +445,31 @@
 <ul>
 <li><p>Una <strong>interfaz</strong>, formada por:</p>
 <ul>
-<li><p>El <strong>nombre</strong> del módulo, que generalmente coincidirá con el nombre del archivo en el que reside el módulo.</p></li>
-<li><p>Las <strong>especificaciones de las funciones <em>exportadas</em></strong> o <strong><em>públicas</em></strong> que permiten a los usuarios consumir sus servicios, así como manipular y acceder al estado interno del módulo desde fuera del mismo.</p></li>
-<li><p>Es posible que la interfaz también incluya <strong>constantes</strong>.</p></li>
+<li><p>El <strong>nombre</strong> del módulo.</p></li>
+<li><p>Las <strong>especificaciones de sus funciones <em>exportadas</em></strong> o <strong><em>públicas</em></strong> que permiten a los usuarios consumir sus servicios, así como manipular y acceder al estado interno del módulo desde fuera del mismo.</p></li>
+<li><p>Es posible que la interfaz también incluya <strong>constantes públicas</strong>.</p></li>
 </ul></li>
 <li><p>Una <strong>implementación</strong>, formada por:</p>
 <ul>
-<li><p>La <strong>implementación</strong> de las <strong>funciones públicas</strong>.</p></li>
-<li><p>Posibles <strong>variables</strong> locales al módulo (el <em>estado interno</em> de éste).</p></li>
+<li><p>Las <strong>implementaciones</strong> de sus <strong>funciones públicas</strong>.</p></li>
+<li><p>Posibles <strong>variables <em>locales</em></strong> al módulo (el <em>estado interno</em> de éste).</p></li>
 <li><p>Posibles <strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>, que no aparecen en la interfaz porque están pensadas para ser usadas sólo por el propio módulo internamente, no por otras partes del programa.</p></li>
+<li><p>Otros miembros <em>privados</em>, como <strong>constantes privadas</strong>.</p></li>
 </ul></li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.1">
+
+<ul>
+<li><p>Lo anterior es una simplificación, ya que, dependiendo de las características del lenguaje de programación utilizado, un módulo puede tener miembros pertenecientes a muchas otras categorías sintácticas, como por ejemplo:</p>
+<ul>
+<li><p>Tipos.</p></li>
+<li><p>Clases.</p></li>
+<li><p>Otros módulos.</p></li>
+</ul></li>
+<li><p>Todos esos miembros pueden formar parte de la interfaz o de la implementación del módulo, dependiendo de las necesidades del mismo, y ser, por tanto, miembros públicos o privados de éste.</p></li>
+<li><p>También se admiten otras combinaciones más complicadas. Por ejemplo, si alguno de esos miembros es público, su especificación podría formar parte de la interfaz del módulo, mientras que su implementación podría formar parte de la implementación del módulo.</p></li>
 </ul>
 </section>
 <section id="interfaz" class="title-slide slide level3" data-number="2.2.1">
@@ -472,7 +500,7 @@
 <section class="slide level5" data-number="2.2.1.0.2">
 
 <ul>
-<li><p>Acabamos de decir que la interfaz de un módulo debería estar formada únicamente por <strong>funciones</strong> (y, tal vez, <em>constantes</em>).</p></li>
+<li><p>Acabamos de decir que la interfaz de un módulo debería estar formada únicamente por <strong>funciones</strong> y, tal vez, <strong>constantes</strong>.</p></li>
 <li><p>En teoría, la interfaz podría incluir también algunas o todas las <strong>variables locales al módulo</strong>, de forma que el módulo usuario podría acceder y modificar directamente una variable del módulo usado.</p></li>
 <li><p>Sin embargo, en la práctica eso no resulta apropiado, ya que:</p>
 <ul>
@@ -494,6 +522,7 @@
 <li><p>La <strong>implementación de las funciones</strong> que forman la interfaz.</p></li>
 <li><p>Todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, si las hay.</p></li>
 <li><p>Las funciones que utiliza el propio módulo internamente y que no forman parte de su interfaz (<strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>), si las hay.</p></li>
+<li><p>Posibles <strong>constantes <em>privadas</em></strong>, usadas sólo por el propio módulo.</p></li>
 </ul></li>
 </ul>
 <div class="caja">
@@ -505,12 +534,13 @@
 <p><span class="math display">\text{Interfaz del módulo}\begin{cases}
 \text{Nombre del módulo}\\
 \text{Especificación de las funciones públicas}\\
-\text{Posibles constantes}
+\text{Posibles constantes públicas}
 \end{cases}</span></p>
 <p><span class="math display">\text{Implementación del módulo}\begin{cases}
 \text{Implementación de las funciones públicas}\\
 \text{Posibles variables locales}\\
-\text{Posibles funciones privadas}
+\text{Posibles funciones privadas} \\
+\text{Posibles constantes privadas}
 \end{cases}</span></p>
 </section>
 
