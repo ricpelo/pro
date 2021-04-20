@@ -665,18 +665,25 @@
 <ul>
 <li><p><strong>Cambiar o ampliar</strong> las características de una clase creando a partir de ella otra <strong>más especializada</strong> (una <em>subclase</em> de la original).</p></li>
 <li><p><strong>Combinar</strong> las características de varias clases en una clase <strong>más general</strong> que agrupe los elementos comunes a todas ellas (una <em>superclase</em> de las originales).</p></li>
+<li><p>Servir de base a otros mecanismos interesantes como el <strong>polimorfismo</strong>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p>Las relaciones de generalización son transitivas:</p>
+<li><p>Las relaciones de generalización son <em>transitivas</em>:</p>
 <ul>
-<li><p>Si una clase <code>A</code> está relacionada mediante una relación de generalización con una clase <code>B</code>, decimos que la clase <code>A</code> es <strong>subclase directa</strong> de <code>B</code> o que <code>B</code> es una <strong>superclase directa</strong> de <code>A</code>.</p></li>
-<li><p>Si una clase <code>A</code> es subclase directa de <code>B</code> y <code>B</code> es subclase directa de <code>C</code>, pero <code>A</code> no es subclase directa de <code>C</code>, decimos que <code>A</code> es <strong>subclase indirecta</strong> de <code>C</code>.</p></li>
+<li><p>Si una clase <code>A</code> es subclase de otra clase <code>B</code>, y ambas están directamente relacionadas en la relación de generalización (es decir, que no hay ninguna otra clase intermedia entre <code>A</code> y <code>B</code> en la relación), decimos que <code>A</code> es <strong>subclase directa</strong> de <code>B</code> o que <code>B</code> es una <strong>superclase directa</strong> de <code>A</code>.</p>
+<div class="centered">
+<p><img data-src="images/subclase-directa.png" class="plain" style="width:20.0%" /></p>
+</div></li>
+<li><p>Si una clase <code>A</code> es subclase directa de una clase <code>B</code> y <code>B</code> es subclase directa de otra clase <code>C</code>, pero <code>A</code> no es subclase directa de <code>C</code>, decimos que <code>A</code> es <strong>subclase indirecta</strong> de <code>C</code> (a través de <code>B</code>).</p>
+<div class="centered">
+<p><img data-src="images/subclase-indirecta.png" class="plain" style="width:30.0%" /></p>
+</div></li>
 </ul></li>
-<li><p>Cuando decimos que <code>A</code> es subclase de <code>B</code>, puede que sea subclase directa o indirecta.</p></li>
+<li><p>Cuando decimos simplemente que <code>A</code> es subclase de <code>B</code>, puede que sea subclase directa o indirecta.</p></li>
 </ul>
 </section>
 
@@ -687,7 +694,7 @@
 <li><p>A ese mecanismo se le denomina <strong>herencia</strong>.</p></li>
 <li><p>Son dos conceptos distintos pero interconectados:</p>
 <ul>
-<li><p>La <strong>generalización</strong> es la <em>relación</em> por la cual una clase se convierte en subclase de otra.</p></li>
+<li><p>La <strong>generalización</strong> es la <em>relación</em> que se establece entre dos clases, con la cual se representa el hecho de que una clase es subclase de la otra (su superclase).</p></li>
 <li><p>La <strong>herencia</strong> es el <em>mecanismo</em> por el que una subclase adquiere características de la superclase.</p></li>
 </ul></li>
 <li><p>La herencia puede considerarse como un mecanismo de <strong>reutilización de código</strong> entre la superclase y la subclase, evitando repeticiones innecesarias.</p></li>
@@ -697,10 +704,10 @@
 <section id="modos" class="title-slide slide level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Modos</h2>
 <ul>
-<li><p>Existen dos modos de generalización, en función de la cantidad de superclases que se le permite tener a una subclase dada:</p>
+<li><p>Existen dos modos de generalización, en función de la cantidad de superclases directas que se le permite tener a una subclase dada:</p>
 <ul>
 <li><p><strong>Generalización simple</strong>: también llamada <strong>herencia simple</strong>, es cuando una subclase sólo puede tener una superclase directa.</p></li>
-<li><p><strong>Generalización múltiple</strong>: también llamada <strong>herencia múltiple</strong>, es cuando una subclase puede tener varias superclases directa (no sólo una).</p></li>
+<li><p><strong>Generalización múltiple</strong>: también llamada <strong>herencia múltiple</strong>, es cuando una subclase puede tener varias superclases directas.</p></li>
 </ul></li>
 <li><p>Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten herencia múltiple.</p></li>
 <li><p>En concreto:</p>
@@ -713,28 +720,21 @@
 <section id="herencia-simple" class="title-slide slide level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Herencia simple</h3>
 <ul>
-<li><p>En la herencia simple, una clase sólo puede tener una única superclase directa.</p>
-<p>Una clase siempre puede ser superclase directa de muchas clases, pero en la herencia simple sólo puede ser subclase directa de una única superclase directa.</p></li>
+<li><p>En la herencia simple, una clase sólo puede tener una única superclase directa.</p></li>
+<li><p>Por ejemplo, el caso de un docente que también es un trabajador, de forma que la clase <code>Docente</code> sólo es subclase directa de <code>Trabajador</code> (y no tiene más superclases directas).</p></li>
 </ul>
-<div class="columns">
-<div class="column">
-<ul>
-<li>Por ejemplo, el caso de un docente que también es un trabajador, de forma que la clase <code>Docente</code> sólo es subclase directa de <code>Trabajador</code>.</li>
-</ul>
-</div><div class="column">
 <div class="centered">
-<p><img data-src="images/trabajador-generaliza-docente.png" class="plain" style="width:35.0%" /></p>
-</div>
-</div>
+<p><img data-src="images/trabajador-generaliza-docente.png" class="plain" style="width:20.0%" /></p>
 </div>
 </section>
 <section class="slide level5" data-number="2.3.1.0.1">
 
 <ul>
-<li>El siguiente caso también sería herencia simple, ya que tenemos dos relaciones de generalización separadas, pero ninguna subclase tiene más de una superclase directa:</li>
+<li><p>Una clase siempre puede ser superclase directa de muchas clases, pero en la herencia simple sólo puede ser subclase directa de una única superclase directa.</p></li>
+<li><p>El siguiente caso también sería herencia simple, ya que tenemos dos relaciones de generalización separadas, pero ninguna subclase tiene más de una superclase directa:</p></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/doble-herencia-simple.png" class="plain" style="width:30.0%" /></p>
+<p><img data-src="images/doble-herencia-simple.png" class="plain" style="width:25.0%" /></p>
 </div>
 <ul>
 <li>Por tanto, lo que tenemos son dos herencias simples, no una herencia múltiple.</li>
@@ -747,7 +747,7 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/herencia-multiple.png" class="plain" style="width:30.0%" alt="Una subclase con dos superclases (herencia múltiple)" /><figcaption aria-hidden="true">Una subclase con dos superclases (herencia múltiple)</figcaption>
+<img data-src="images/herencia-multiple.png" class="plain" style="width:30.0%" alt="Una subclase con dos superclases directas (herencia múltiple)" /><figcaption aria-hidden="true">Una subclase con dos superclases directas (herencia múltiple)</figcaption>
 </figure>
 </div>
 </section>
@@ -765,7 +765,7 @@
 </div><div class="column">
 <ul>
 <li><p><code>Trabajador</code> es <strong>superclase <em>directa</em></strong> de <code>Docente</code> y <strong>superclase <em>indirecta</em></strong> de <code>Investigador</code>.</p></li>
-<li><p><code>Docente</code> es subclase (directa) de <code>Trabajador</code> y superclase (directa) de <code>Investigador</code>.</p></li>
+<li><p><code>Docente</code> es subclase <em>directa</em> de <code>Trabajador</code> y superclase <em>directa</em> de <code>Investigador</code>.</p></li>
 <li><p><code>Investigador</code> es <strong>subclase <em>directa</em></strong> de <code>Docente</code> y <strong>subclase <em>indirecta</em></strong> de <code>Trabajador</code>.</p></li>
 </ul>
 </div>
@@ -866,7 +866,7 @@
 <ul>
 <li><p>Si encuentra el método, lo usa.</p></li>
 <li><p>Si no lo encuentra, sigue subiendo por la lista enlazada localizando el siguiente diccionario (que será el que contenga la definición de su superclase directa), buscando ahí el método solicitado.</p>
-<p>El intérprete seguirá buscando en el resto de la lista hasta que encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un error <code>AttributeError</code> por método no encontrado.</p></li>
+<p>El intérprete continuará buscando en el resto de la lista hasta que encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un error <code class="sourceCode python"><span class="pp">AttributeError</span></code> por método no encontrado.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
@@ -1046,15 +1046,15 @@
 <section id="la-clase-object" class="title-slide slide level3" data-number="2.3.3">
 <h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> La clase <code>object</code></h3>
 <ul>
-<li><p>En Python, todas las clases heredan, directa o indirectamente, de una clase predefinida especial llamada <code>object</code>.</p></li>
-<li><p>Eso es así incluso aunque no aparezca explícitamente la clase <code>object</code> como superclase en la definición de la clase.</p></li>
-<li><p>Por tanto, la siguiente clase es subclase de <code>object</code> aunque no sea evidente según el código:</p>
+<li><p>En Python, todas las clases heredan, directa o indirectamente, de una clase predefinida especial llamada <code class="sourceCode python"><span class="bu">object</span></code>.</p></li>
+<li><p>Eso es así incluso aunque no aparezca explícitamente la clase <code class="sourceCode python"><span class="bu">object</span></code> como superclase en la definición de la clase.</p></li>
+<li><p>Por tanto, la siguiente clase es subclase de <code class="sourceCode python"><span class="bu">object</span></code> aunque no sea evidente según el código:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba:</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
 <li><p>Así que lo anterior es equivalente a:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba(<span class="bu">object</span>):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... definición de la clase Prueba</span></span></code></pre></div></li>
-<li><p>Eso significa que <code>object</code> es la raíz de la jerarquía de clases en todo programa Python.</p></li>
+<li><p>Eso significa que <code class="sourceCode python"><span class="bu">object</span></code> es la raíz de la jerarquía de clases en todo programa Python (toda clase es subclase, directa o indirecta, de <code class="sourceCode python"><span class="bu">object</span></code>).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.3.0.1">
@@ -1066,7 +1066,7 @@
 <p><img data-src="images/object-trabajador-docente-investigador.png" class="plain" style="width:70.0%" /></p>
 </div>
 <ul>
-<li><p>Como todas las clases, predefinidas o definidas por el programador, son subclases de <code>object</code> ya sea directa o indirectamente, todas las clases heredarán los atributos (métodos y variables de clase) de la clase <code>object</code>.</p></li>
+<li><p>Como todas las clases, predefinidas o definidas por el programador, son subclases de <code class="sourceCode python"><span class="bu">object</span></code> ya sea directa o indirectamente, todas las clases heredarán los atributos de la clase <code class="sourceCode python"><span class="bu">object</span></code>.</p></li>
 <li><p>La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y acaban por <code>__</code>) que traen implementaciones predeterminadas para varias operaciones básicas como <code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&lt;</code>, etc.</p></li>
 <li><p>También hay operaciones utilizadas internamente por el intérprete durante la ejecución del programa para ayudar a su funcionamiento.</p></li>
 </ul>
@@ -1076,9 +1076,9 @@
 <h3 data-number="2.3.4"><span class="header-section-number">2.3.4</span> Herencia múltiple</h3>
 <ul>
 <li><p>En la <strong>herencia múltiple</strong>, una subclase puede tener <strong>varias superclases directas</strong>.</p></li>
-<li><p>La herencia múltiple amplía enormemente las posibilidades del lenguaje de programación, ya que permite el modelado de situaciones que se pueden dar con frecuencia y que se pueden expresar de forma natural generalizando una clase a partir de varias superclases simultáneamente.</p></li>
-<li><p>A cambio, introduce una mayor complejidad que la herencia simple a la hora de determinar qué se hereda de dónde.</p></li>
-<li><p>Esa mayor complejidad hace que no muchos lenguajes orientados a objetos soporten la herencia múltiple, siendo los más conocidos: Python, C++, Perl y Eiffel.</p></li>
+<li><p>La herencia múltiple amplía enormemente las posibilidades del lenguaje de programación, ya que permite el modelado de situaciones que se pueden dar con frecuencia y que se pueden expresar de forma natural especializando una clase a partir de varias superclases directas simultáneamente.</p></li>
+<li><p>A cambio, introduce una mayor complejidad que la herencia simple a la hora de determinar qué se hereda de quién.</p></li>
+<li><p>Esa mayor complejidad hace que sean pocos los lenguajes orientados a objetos que soportan la herencia múltiple, siendo los más conocidos: Python, C++, Perl y Eiffel.</p></li>
 <li><p>Los lenguajes orientados a objetos que no soportan herencia múltiple (que son la mayoría) incorporan mecanismos que ayudan a mitigar esa carencia.</p></li>
 </ul>
 </section>
@@ -1174,7 +1174,7 @@
 <ul>
 <li><p>Para ver en detalle cómo funciona la linealización C3, se recomienda consultar su página en Wikipedia:</p>
 <p><a href="https://en.wikipedia.org/wiki/C3_linearization">https://en.wikipedia.org/wiki/C3_linearization</a></p></li>
-<li><p>A nosotros, lo que nos interesa principalmente es que el programador puede influir en el orden de resolución de métodos según el orden en el que escriba las superclases a la hora de definir la subclase.</p></li>
+<li><p>A nosotros, lo que nos interesa principalmente es que el programador puede influir en el orden de resolución de métodos según el orden en el que escriba las superclases directas a la hora de definir la subclase.</p></li>
 <li><p>Por tanto, no es lo mismo hacer:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Anfibio(Terrestre, Acuatico):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ...</span></span></code></pre></div>

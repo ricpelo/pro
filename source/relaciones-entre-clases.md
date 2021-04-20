@@ -556,20 +556,34 @@ Trabajador <|--- PAS
     general** que agrupe los elementos comunes a todas ellas (una _superclase_
     de las originales).
 
+  - Servir de base a otros mecanismos interesantes como el **polimorfismo**.
+
 ---
 
-- Las relaciones de generalización son transitivas:
+- Las relaciones de generalización son _transitivas_:
 
-  - Si una clase `A` está relacionada mediante una relación de generalización
-    con una clase `B`, decimos que la clase `A` es **subclase directa** de `B`
-    o que `B` es una **superclase directa** de `A`.
+  - Si una clase `A` es subclase de otra clase `B`, y ambas están directamente
+    relacionadas en la relación de generalización (es decir, que no hay ninguna
+    otra clase intermedia entre `A` y `B` en la relación), decimos que `A` es
+    **subclase directa** de `B` o que `B` es una **superclase directa** de `A`.
 
-  - Si una clase `A` es subclase directa de `B` y `B` es subclase directa de
-    `C`, pero `A` no es subclase directa de `C`, decimos que `A` es **subclase
-    indirecta** de `C`.
+    !UML(subclase-directa.png)()(width=20%)(width=20%)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    B <|- A
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Cuando decimos que `A` es subclase de `B`, puede que sea subclase directa o
-  indirecta.
+  - Si una clase `A` es subclase directa de una clase `B` y `B` es subclase
+    directa de otra clase `C`, pero `A` no es subclase directa de `C`, decimos
+    que `A` es **subclase indirecta** de `C` (a través de `B`).
+
+    !UML(subclase-indirecta.png)()(width=30%)(width=30%)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    C <|- B
+    B <|- A
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Cuando decimos simplemente que `A` es subclase de `B`, puede que sea subclase
+  directa o indirecta.
 
 ## Herencia
 
@@ -580,8 +594,9 @@ Trabajador <|--- PAS
 
 - Son dos conceptos distintos pero interconectados:
 
-  - La **generalización** es la _relación_ por la cual una clase se convierte
-    en subclase de otra.
+  - La **generalización** es la _relación_ que se establece entre dos clases,
+    con la cual se representa el hecho de que una clase es subclase de la otra
+    (su superclase).
 
   - La **herencia** es el _mecanismo_ por el que una subclase adquiere
     características de la superclase.
@@ -593,13 +608,13 @@ Trabajador <|--- PAS
 ## Modos
 
 - Existen dos modos de generalización, en función de la cantidad de superclases
-  que se le permite tener a una subclase dada:
+  directas que se le permite tener a una subclase dada:
 
   - **Generalización simple**: también llamada **herencia simple**, es cuando
     una subclase sólo puede tener una superclase directa.
 
   - **Generalización múltiple**: también llamada **herencia múltiple**, es
-    cuando una subclase puede tener varias superclases directa (no sólo una).
+    cuando una subclase puede tener varias superclases directas.
 
 - Hay lenguajes que sólo admiten herencia simple y lenguajes que admiten
   herencia múltiple.
@@ -615,37 +630,26 @@ Trabajador <|--- PAS
 - En la herencia simple, una clase sólo puede tener una única superclase
   directa.
 
-  Una clase siempre puede ser superclase directa de muchas clases, pero en la
-  herencia simple sólo puede ser subclase directa de una única superclase
-  directa.
-
-:::: columns
-
-::: column
-
 - Por ejemplo, el caso de un docente que también es un trabajador, de forma que
-  la clase `Docente` sólo es subclase directa de `Trabajador`.
+  la clase `Docente` sólo es subclase directa de `Trabajador` (y no tiene más
+  superclases directas).
 
-:::
-
-::: column
-
-!UML(trabajador-generaliza-docente.png)()(width=35%)(width=17%)
+!UML(trabajador-generaliza-docente.png)()(width=20%)(width=17%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Trabajador <|-- Docente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::
-
-::::
-
 ---
+
+- Una clase siempre puede ser superclase directa de muchas clases, pero en la
+  herencia simple sólo puede ser subclase directa de una única superclase
+  directa.
 
 - El siguiente caso también sería herencia simple, ya que tenemos dos
   relaciones de generalización separadas, pero ninguna subclase tiene más de
   una superclase directa:
 
-!UML[doble-herencia-simple.png][][width=30%][width=25%]
+!UML[doble-herencia-simple.png][][width=25%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A <|-- B
 A <|-- C
@@ -658,7 +662,7 @@ A <|-- C
 
 - Ésto, en cambio, no sería herencia simple, sino múltiple:
 
-!UML[herencia-multiple.png][Una subclase con dos superclases (herencia múltiple)][width=30%][width=25%]
+!UML[herencia-multiple.png][Una subclase con dos superclases directas (herencia múltiple)][width=30%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A <|-- C
 B <|-- C
@@ -688,7 +692,7 @@ Docente <|-- Investigador
 - `Trabajador` es **superclase _directa_** de `Docente` y **superclase
   _indirecta_** de `Investigador`.
 
-- `Docente` es subclase (directa) de `Trabajador` y superclase (directa) de
+- `Docente` es subclase _directa_ de `Trabajador` y superclase _directa_ de
   `Investigador`.
 
 - `Investigador` es **subclase _directa_** de `Docente` y **subclase
@@ -832,9 +836,9 @@ class Docente(Trabajador):
     siguiente diccionario (que será el que contenga la definición de su
     superclase directa), buscando ahí el método solicitado.
 
-    El intérprete seguirá buscando en el resto de la lista hasta que encuentre
-    el método o se acabe la cadena de herencia, en cuyo caso dará un error
-    `AttributeError` por método no encontrado.
+    El intérprete continuará buscando en el resto de la lista hasta que
+    encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un
+    error !PYTHON(AttributeError) por método no encontrado.
 
 !DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=50%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1113,13 +1117,13 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 ### La clase `object`
 
 - En Python, todas las clases heredan, directa o indirectamente, de una clase
-  predefinida especial llamada `object`.
+  predefinida especial llamada !PYTHON(object).
 
-- Eso es así incluso aunque no aparezca explícitamente la clase `object` como
-  superclase en la definición de la clase.
+- Eso es así incluso aunque no aparezca explícitamente la clase !PYTHON(object)
+  como superclase en la definición de la clase.
 
-- Por tanto, la siguiente clase es subclase de `object` aunque no sea evidente
-  según el código:
+- Por tanto, la siguiente clase es subclase de !PYTHON(object) aunque no sea
+  evidente según el código:
 
   ```python
   class Prueba:
@@ -1133,13 +1137,14 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
       # ... definición de la clase Prueba
   ```
 
-- Eso significa que `object` es la raíz de la jerarquía de clases en todo
-  programa Python.
+- Eso significa que !PYTHON(object) es la raíz de la jerarquía de clases en
+  todo programa Python (toda clase es subclase, directa o indirecta, de
+  !PYTHON(object)).
 
 ---
 
-- En el ejemplo anterior de los trabajadores, docentes e
-  investigadores, en realidad tendríamos la siguiente jerarquía de clases:
+- En el ejemplo anterior de los trabajadores, docentes e investigadores, en
+  realidad tendríamos la siguiente jerarquía de clases:
 
 !UML(object-trabajador-docente-investigador.png)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1149,8 +1154,8 @@ Trabajador -|> object
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Como todas las clases, predefinidas o definidas por el programador, son
-  subclases de `object` ya sea directa o indirectamente, todas las clases
-  heredarán los atributos (métodos y variables de clase) de la clase `object`.
+  subclases de !PYTHON(object) ya sea directa o indirectamente, todas las
+  clases heredarán los atributos de la clase !PYTHON(object).
 
 - La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y
   acaban por `__`) que traen implementaciones predeterminadas para varias
@@ -1166,15 +1171,15 @@ Trabajador -|> object
 
 - La herencia múltiple amplía enormemente las posibilidades del lenguaje de
   programación, ya que permite el modelado de situaciones que se pueden dar con
-  frecuencia y que se pueden expresar de forma natural generalizando una clase
-  a partir de varias superclases simultáneamente.
+  frecuencia y que se pueden expresar de forma natural especializando una clase
+  a partir de varias superclases directas simultáneamente.
 
 - A cambio, introduce una mayor complejidad que la herencia simple a la hora de
-  determinar qué se hereda de dónde.
+  determinar qué se hereda de quién.
 
-- Esa mayor complejidad hace que no muchos lenguajes orientados a objetos
-  soporten la herencia múltiple, siendo los más conocidos: Python, C++, Perl y
-  Eiffel.
+- Esa mayor complejidad hace que sean pocos los lenguajes orientados a objetos
+  que soportan la herencia múltiple, siendo los más conocidos: Python, C++,
+  Perl y Eiffel.
 
 - Los lenguajes orientados a objetos que no soportan herencia múltiple (que son
   la mayoría) incorporan mecanismos que ayudan a mitigar esa carencia.
@@ -1330,7 +1335,7 @@ Acuatico <|-- Anfibio
 
 - A nosotros, lo que nos interesa principalmente es que el programador puede
   influir en el orden de resolución de métodos según el orden en el que escriba
-  las superclases a la hora de definir la subclase.
+  las superclases directas a la hora de definir la subclase.
 
 - Por tanto, no es lo mismo hacer:
 
