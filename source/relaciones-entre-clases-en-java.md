@@ -548,8 +548,25 @@ class Bicicleta {
 - El tipo de retorno del método redefinido y del método que lo redefine deben
   ser **compatibles**.
 
+- El objetivo a alcanzar es que sea seguro (desde el punto de vista del sistema
+  de tipos) usar un método con un determinado tipo de retorno donde se espera
+  usar un método con un tipo de retorno diferente.
+
+- La teoría de tipos afirma que es seguro sustituir un método `f` por otro
+  método `g` si `f` devuelve un valor de un tipo más general que `g`.
+
+- Por ejemplo, si tenemos que `Gato <: Animal`, y hay un método que devuelve un
+  valor de tipo `Animal`, es seguro sustituir ese método por otro que devuelva
+  un valor de tipo `Gato`.
+
+- Precisamente, lo que hace la sobreescritura de métodos es sustituir un método
+  por otro. Por tanto, es importante que esa sustitución se haga de forma que
+  resulte segura.
+
+---
+
 - La compatibilidad entre el tipo de retorno de un método redefinido y el de un
-  método que lo redefine, se define de la siguiente forma:
+  método que lo redefine, se establece en Java por medio de estas dos reglas:
 
   - Si el tipo de retorno es un **tipo primitivo**, los dos tipos de retorno
     deben ser **el mismo**.
@@ -570,13 +587,14 @@ class Bicicleta {
 - Esto se puede resumir diciendo:
 
   !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  En Java, la signatura de un método redefinido es **covariante** en su tipo de
-  retorno con el del método que lo redefine.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  En Java, las clases son **covariantes** en el tipo de retorno de sus métodos.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- También se puede decir que el tipo de retorno puede cambiar en la misma
-  dirección que la subclase.
+- Es decir, que el tipo de retorno de los métodos puede cambiar en la misma
+  dirección que la subclase:
+
+  !IMGP(herencia-retorno-covariante.svg)()(width=18%)
 
 - En consecuencia, el tipo de un método redefinido puede sustituirse en el
   método que lo redefine por otro tipo «más estrecho», es decir, por un subtipo
@@ -584,43 +602,100 @@ class Bicicleta {
 
 ---
 
-- Formalmente, la covarianza es una propiedad que puede tener un tipo compuesto
+- Es importante recordar que la covarianza sólo está permitida entre tipos
+  referencia, no entre tipos primitivos.
+
+- Más formalmente, supongamos que `S` y `T` son dos clases que cumplen que `S`
+  `<:` `T` y, además, ambas clases definen un método `m` (definido en `T` y
+  redefinido en `S`) de forma que:
+
+  - el tipo de retorno de `m` en `S` es $R1$
+
+  - el tipo de retorno de `m` en `T` es $R2$
+
+- En tal caso, decimos que el sistema de tipos de un lenguaje de programación
+  orientado a objetos admite **covarianza en el tipo de retorno** si se tiene
+  que cumplir que $R1$ `<:` $R2$.
+
+- Esta regla garantiza seguridad en el tipo del método cuando se invoca el
+  método redefindo sobre instancias de la subclase.
+
+---
+
+- En general, la covarianza es una propiedad que puede tener un tipo compuesto
   a partir de otros.
 
-- Sean $A$ y $B$ dos tipos simples en un sistema de tipos, y sean
+- Sean $A$ y $B$ dos tipos en un sistema de tipos, y sean
   $T\!{\langle}A{\rangle}$ y $T\!{\langle}B{\rangle}$ dos tipos construidos
-  sobre $A$ y $B$, respectivamente. Si `<:` es una relación de orden que indica
-  subtipado, y además $A$ `<:` $B$, se dice que:
+  sobre $A$ y $B$, respectivamente. Si $A$ `<:` $B$, se dice que:
 
-  - $T$ es covariante si $T\!{\langle}A{\rangle}$ `<:`
+  - $T$ es **covariante** si $T\!{\langle}A{\rangle}$ `<:`
     $T\!{\langle}B{\rangle}$.
 
-  - $T$ es contravariante si $T\!{\langle}B{\rangle}$ `<:`
+  - $T$ es **contravariante** si $T\!{\langle}B{\rangle}$ `<:`
     $T\!{\langle}B{\rangle}$.
 
-  - $T$ es invariante si no es covariante ni contravariante.
+  - $T$ es **invariante** si no es covariante ni contravariante.
 
 - $T$ se denomina en este contexto un constructor de tipos.
 
 - Nótese que si $T$ se construye con más de un parámetro, puede ser covariante
   o contravariante de forma indistinta en cada uno de ellos.
 
-- Si asumimos que la signatura de un método se puede representar como
-  $S{\langle}\overline{P},R{\rangle}$, entonces podemos decir que entre un
-  método redefinido y el método que lo redefine se cumple que
-  $S{\langle}\overline{P},R_1{\rangle}$ `<:`
-  $S{\langle}\overline{P},R_2{\rangle}$ si $R_1$ `<:` $R_2$.
+---
+
+- El tipo que representa la signatura de un método se puede escribir como
+  $S{\langle}\overline{P},R{\rangle}$, donde:
+
+  - $\overline{P}$ representa la tupla de todos los tipos que aparecen en la
+    lista de parámetros, en el orden en el que aparecen.
+
+  - $R$ representa el tipo del resultado del método.
+
+- Podemos decir que si un método `f` tiene la signatura
+  $S{\langle}\overline{P},R_1{\rangle}$ y otro método `g` tiene la signatura
+  $S{\langle}\overline{P},R_2{\rangle}$, siempre se debe cumplir que:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $R_1$ `<:` $R_2$, entonces $S{\langle}\overline{P},R_1{\rangle}$ `<:`
+  $S{\langle}\overline{P},R_2{\rangle}$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- O, dicho de otra forma: es seguro (desde el punto de vista del sistema de
+  tipos) sustituir el método `g` por el método `f` ya que el tipo de retorno de
+  `f` es un subtipo de el de `g`.
+
+  Este es un resultado de la teoría de tipos.
+
+---
+
+- El tipo de una clase `T` (que indicaremos como $T$) puede interpretarse
+  como un tipo compuesto por los tipos de retorno de sus métodos.
+
+  Por ejemplo, si la clase `T` tiene un método `m` con tipo de retorno $R$,
+  el tipo de la clase lo podemos representar como $T\!{\langle}R{\rangle}$.
+
+- En ese caso, decimos que $T\!{\langle}R_1{\rangle}$ `<:`
+  $T\!{\langle}R_2{\rangle}$ si $R_1$ `<:` $R_2$.
+
+- Es decir: una clase `A` es subtipo de otra clase `B` si ambas tienen el
+  mismo método pero el tipo de retorno del método en `A` es subtipo del tipo
+  de retorno del mismo método en `B`.
+
+- Esa es precisamente la definición de **covarianza**: un tipo compuesto es
+  covariante cuando cumple la condición anterior.
 
 ### Invarianza en el tipo de los argumentos
 
-- En cambio, los tipos de los parámetros del método redefinido deben coincidir
-  exactamente con los tipos de los parámetros del método que lo redefine, lo
-  que se puede resumir diciendo:
+- Los tipos de los parámetros del método redefinido deben coincidir exactamente
+  con los tipos de los parámetros del método que lo redefine, lo que se puede
+  resumir diciendo:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  La signatura de un método en Java es **invariante** en los tipos de sus
-  parámetros.
+  En Java, las clases son **invariantes** en los tipos de los parámetros de sus
+  métodos.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Si los tipos de los parámetros no son idénticos, entonces lo que se está
