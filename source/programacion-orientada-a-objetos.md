@@ -136,8 +136,8 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 !EJERCICIO
 
 @. Investiga en Wikipedia los principales lenguajes orientados a objetos que
-existen en el mercado. ¿En qué año salieron? ¿Cuál influyó en cuál? ¿Cuáles son
-los más usados a día de hoy?
+   existen en el mercado. ¿En qué año salieron? ¿Cuál influyó en cuál? ¿Cuáles
+   son los más usados a día de hoy?
 
 # Clases y objetos
 
@@ -245,9 +245,9 @@ def deposito(fondos):
 
 ---
 
-- La definición de una clase es una estructura sintáctica que define su propio
-  **ámbito** y que está formada por un bloque de sentencias que se ejecutarán
-  en el momento en que el intérprete ejecute esa definición:
+- La definición de una clase es una estructura sintáctica que está formada por
+  un bloque de sentencias que se ejecutarán en el momento en que el intérprete
+  ejecute esa definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,11 +256,14 @@ def deposito(fondos):
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - La ejecución de esta definición crea un **objeto** que almacenará en forma de
-  **atributos** todas los elementos (variables, métodos, etc.) que se definan
+  **atributos** todas los elementos (variables, funciones, etc.) que se definan
   dentro de la clase al ejecutar el bloque de sentencias.
 
-- Como la clase define su propio ámbito, esos elementos serán **locales** a la
-  clase.
+- Por tanto, esos elementos serán **locales** a la clase ya que se almacenan en
+  el espacio de nombres del objeto que representa a la clase.
+
+- Eso significa que podrán tener el mismo nombre que otros elementos de otros
+  espacios de nombres (de otras clases, por ejemplo).
 
 - Los elementos de una clase también se denominan **miembros** de la clase.
 
@@ -271,130 +274,146 @@ def deposito(fondos):
 
 - Las funciones definidas dentro de una clase se denominan **métodos**.
 
-- El cuerpo de un método define un nuevo ámbito, pero ese ámbito no está
-  includo dentro del ámbito de la clase.
+- Desde el interior de un método no se puede acceder directamente al resto de
+  miembros de la clase, ya que están definidos en el espacio de nombres del
+  objeto que representa a la clase.
 
-- Por tanto, desde el interior de un método no se puede acceder directamente al
-  resto de miembros de la clase, ya que están definidos en un ámbito distinto
-  que no es accesible desde el método.
-
-- Para poder acceder a ellos habrá que usar usar el operador punto (`.`) a
-  través de una referencia a la clase.
+- Para poder acceder a ellos habrá que usar el operador punto (`.`) a través de
+  una referencia a la clase.
 
 ---
 
 - Por ejemplo, en el código anterior:
 
-```{.python .number-lines}
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+  ```{.python .number-lines}
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            return 'Fondos insuficientes'
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              return 'Fondos insuficientes'
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
-```
+      def saldo(self):
+          return self.fondos
+  ```
 
 ---
 
 - En la línea 10 tendríamos el siguiente entorno:
 
-!DOT(entorno-clase-linea10.svg)()(width=60%)(width=45%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-l1 [shape = circle, label = "λ"]
-l2 [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = white
-    Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
-}
-Deposito:f1 -> init [lhead = cluster1]
-subgraph cluster1 {
-    label = <Marco de la clase <b>Deposito</b>>
-    bgcolor = white
-    style = rounded
-    init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
-    retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
-}
-init:f1 -> l1
-retirar:f1 -> l2
-retirar:f1:s -> Deposito:s [lhead = cluster0, ltail = cluster1, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> init [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(entorno-clase-linea10.svg)()(width=80%)(width=45%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  l2 [shape = circle, label = "λ"]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = white
+      Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
+  }
+  Deposito:f1 -> init [lhead = cluster1]
+  subgraph cluster1 {
+      label = <Marco de la clase <b>Deposito</b>>
+      bgcolor = white
+      style = rounded
+      init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+      retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+  }
+  init:f1 -> l1
+  retirar:f1 -> l2
+  retirar:f1:s -> Deposito:s [lhead = cluster0, ltail = cluster1, minlen = 2]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> init [lhead = cluster1]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y en la línea 12, el entorno sería:
 
-!DOT(entorno-clase-linea12.svg)()(width=80%)(width=45%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-l1 [shape = circle, label = "λ"]
-l2 [shape = circle, label = "λ"]
-p1 [shape = circle, label = "..."]
-p2 [shape = circle, label = "..."]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = white
-    Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
-}
-Deposito:f1:s -> retirar [lhead = cluster2, minlen = 2]
-subgraph cluster1 {
-    label = <Marco de <b>ingresar</b>>
-    bgcolor = white
-    self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
-    cantidad [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>cantidad|<f1>⬤}"]
-}
-cantidad:f1:s -> Deposito:w [lhead = cluster0, ltail = cluster1, minlen = 2]
-subgraph cluster2 {
-    label = <Marco de la clase <b>Deposito</b>>
-    bgcolor = white
-    style = rounded
-    init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
-    retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
-}
-init:f1 -> l1
-retirar:f1 -> l2
-self:f1 -> p1
-cantidad:f1 -> p2
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> self [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(entorno-clase-linea12.svg)()(width=100%)(width=45%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  l2 [shape = circle, label = "λ"]
+  p1 [shape = circle, label = "..."]
+  p2 [shape = circle, label = "..."]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = white
+      Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
+  }
+  Deposito:f1:s -> retirar [lhead = cluster2, minlen = 2]
+  subgraph cluster1 {
+      label = <Marco de <b>ingresar</b>>
+      bgcolor = white
+      self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+      cantidad [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>cantidad|<f1>⬤}"]
+  }
+  cantidad:f1:s -> Deposito:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+  subgraph cluster2 {
+      label = <Marco de la clase <b>Deposito</b>>
+      bgcolor = white
+      style = rounded
+      init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+      retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+  }
+  init:f1 -> l1
+  retirar:f1 -> l2
+  self:f1 -> p1
+  cantidad:f1 -> p2
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> self [lhead = cluster1]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Con las **clases** ocurre exactamente igual que con los **módulos**:
+- En general, no importa el orden en el que aparecen las definiciones dentro de
+  la clase, salvo excepciones.
 
-  - Al entrar en el ámbito de la clase, se crea un nuevo marco en memoria que
-    contiene las definiciones que se van creando durante la ejecución de la
-    clase.
+- Recordemos que el cuerpo de una función (aquí las funciones se llaman
+  _métodos_) no se ejecuta cuando se define la función, sino cuando se la
+  llama. Por tanto, si un método usa a otro, no importará el orden en el que se
+  hayan definido.
 
-  - **Ese marco no desaparece al salir del ámbito**, sino que permanece en
-    memoria formando un objeto (de tipo `type`) que contiene sus definiciones
-    en forma de atributos.
+- Por ejemplo, en el código anterior, los miembros se podrían haber definido en
+  cualquier otro orden (`retirar` después de `saldo`, `ingresar` antes de
+  `__init__`..., da igual).
 
-  - !CAJA
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
-    **La clase acaba siendo un objeto más, almacenado en el montículo**, que
-    se ligará al nombre de la clase en el ámbito donde se haya definido ésta.
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
+- En cambio, si hacemos una definición a partir de otra, el orden sí importará.
+  Por ejemplo, aquí sí es importante que `hola` se defina antes que `saludo`:
 
-  - Es decir: el nombre de la clase es una **referencia** que apunta a la
-    clase, la cual es un objeto y, por tanto, nos va a permitir acceder a sus
-    atributos usando el operador punto (`.`).
+  ```python
+  class Prueba:
+      def hola(self):
+          print("Hola")
+
+      saludo = hola
+  ```
+
+---
+
+- Durante la ejecución de la definición de la clase, se crea un objeto en
+  memoria (de tipo !PYTHON(`type`)) que va almacenando sus definiciones en
+  forma de atributos.
+
+- !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  **La clase acaba siendo un objeto más, almacenado en el montículo**, que
+  se ligará al nombre de la clase en el ámbito donde se haya definido ésta.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es decir: el nombre de la clase es una **referencia** que apunta a la clase,
+  la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos
+  (los miembros de la clase) usando el operador punto (`.`).
 
 - Ese objeto «clase» permanecerá en memoria mientras exista, al menos, una
   referencia que apunte a él.
@@ -403,15 +422,14 @@ E -> self [lhead = cluster1]
 
 - Si ejecutamos la anterior definición en el
   [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
-  observaremos que se crea en memoria esa estructura similar al **diccionario
-  de despacho** que creábamos antes a mano, y que asocia el nombre de cada
-  operación con la función (el método) correspondiente.
+  observamos que se crea en memoria un objeto que (como todo objeto) contiene
+  su propio espacio de nombres representado con una estructura similar al
+  **diccionario de despacho** que creábamos antes a mano, y que asocia el
+  nombre de cada operación con la función (el método) correspondiente.
 
-- Esa estructura en forma de diccionario acaba convirtiéndose en un objeto que
-  representa a la clase en la memoria.
-
-- Ese objeto «clase» se liga al nombre de la clase en el marco del ámbito donde
-  se haya declarado la clase (normalmente será el marco global).
+- Ese objeto representa a la clase en la memoria durante la ejecución del
+  programa, y se liga al nombre de la clase en el espacio de nombres actual
+  (que normalmente será el marco global).
 
 !IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=55%)(width=70%)
 
@@ -494,7 +512,8 @@ comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 - Lo que ocurre al ejecutar este código es lo siguiente:
 
   1. Se crea en el montículo un objeto, instancia de la clase `Deposito`,
-     representado por una estructura con forma de diccionario.
+     que contiene su propio espacio de nombres representado por una estructura
+     con forma de diccionario.
 
   2. Se invoca al método !PYTHON(__init__) sobre el objeto recién creado (ya
      hablaremos de ésto más adelante).
@@ -649,14 +668,14 @@ dep = Deposito(100)
   estado interno del objeto se denominan **atributos**, **variables de
   instancia**, **campos** o **propiedades** del objeto.
 
-- Los atributos se implementan como *variables locales* al objeto.
+- Los atributos se almacenan como *variables locales* al objeto en su espacio
+  de nombres.
 
 - Cuando se crea un objeto, se le asocia en el montículo una zona de memoria
-  que almacena los atributos del objeto de forma similar al **diccionario** que
-  usan las clases para almacenar sus definiciones locales.
+  que, entre otras cosas, contiene la estructura en forma de diccionario que
+  representa el espacio de nombres del objeto.
 
-- Esa estructura en forma de diccionario representa al objeto dentro de la
-  memoria («_es_» el objeto como dato) y asocia el nombre de cada atributo con
+- Esa estructura en forma de diccionario asocia el nombre de cada atributo con
   el valor que tiene dicho atributo en ese objeto.
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=45%)
@@ -1068,7 +1087,7 @@ class Deposito:
   objeto que se acaba de crear (y que recibe a través del parámetro `self`),
   asignándole el valor del parámetro `fondos`.
 
-  ¡Cuidado!: no confudir la expresión !PYTHON(self.fondos) con `fondos`. La
+  ¡Cuidado! No confudir la expresión !PYTHON(self.fondos) con `fondos`. La
   primera se refiere al atributo `fondos` del objeto !PYTHON(self), mientras
   que la segunda se refiere al parámetro `fondos`.
 

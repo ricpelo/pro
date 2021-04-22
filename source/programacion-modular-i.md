@@ -538,8 +538,10 @@ F -> G
 - Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
   almacenado en la variable global !PYTHON(__name__).
 
-- Cada módulo tiene su propio **ámbito local**, que es usado como el **ámbito
+- Cada módulo define su propio **ámbito local**, que es usado como el **ámbito
   global** de todas las instrucciones que componen el módulo.
+
+- Además, los módulos son **espacios de nombres**.
 
 - Por tanto, el autor de un módulo puede definir variables globales o funciones
   en el módulo sin preocuparse de posibles colisiones accidentales con las
@@ -551,23 +553,23 @@ F -> G
 ---
 
 - Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo
-  ámbito que constituirá **el ámbito global del módulo**. Ese ámbito creará
-  un nuevo marco encima de la pila, que constituirá **el nuevo _marco global_
-  durante la ejecución del módulo**.
+  ámbito que constituirá **el ámbito global del módulo**.
+
+- Además, se creará un nuevo marco encima de la pila, que constituirá **el
+  nuevo _marco global_ durante la ejecución del módulo**.
 
 - Los demás marcos que pudieran existir antes de ejecutar el módulo (por
   ejemplo, el marco global del _script_ que ha importado el módulo) seguirán
-  más abajo en la pila, pero no serán accesibles desde el módulo actual porque
-  **un entorno siempre acaba en el marco global**, y el módulo importado ya
-  tiene su propio marco global.
+  más abajo en la pila, pero no serán accesibles desde el módulo actual.
 
-- Esos marcos quedan fuera del entorno y se recuperarán al finalizar la
+  Esos marcos quedan fuera del entorno y se recuperarán al finalizar la
   ejecución del módulo importado.
 
 - Igualmente, los ámbitos que existieran antes de importar un módulo
   (incluyendo el ámbito global del _script_ que ha importado al módulo) quedan
-  temporalmente fuera del entorno y se recuperarán al finalizar la ejecución
-  del módulo.
+  temporalmente invalidados al encontrarse en archivos fuente distintos, y se
+  recuperarán al finalizar la ejecución del módulo y volver al archivo fuente
+  anterior.
 
 ## Importación de módulos
 
@@ -579,12 +581,12 @@ F -> G
   import math
   ```
 
-- Al importar un módulo de esta forma, se incorpora al marco actual (es decir,
-  al marco del ámbito donde se ejecuta el !PYTHON(import)) la ligadura entre el
-  nombre del módulo importado y el propio módulo, que **es un objeto de tipo
-  !PYTHON(module)**.
+- Al importar un módulo de esta forma, se incorpora al espacio de nombres
+  actual (que suele ser el marco del _script_ o función que se está ejecutando
+  actualmente) la ligadura entre el nombre del módulo importado y el propio
+  módulo, el cual es **es un objeto de tipo !PYTHON(module)**.
 
-- De esta forma, lo que se importa dentro del marco actual es una
+- De esta forma, lo que se importa dentro del espacio de nombres actual es una
   **referencia** al objeto módulo.
 
 ---
@@ -681,11 +683,11 @@ E -> xl [lhead = cluster0]
 
 ---
 
-- Al finalizar la ejecución del _script_ `dos.py`, se sale de su ámbito, el
-  marco global de `dos` se convierte en un objeto de tipo !PYTHON(module) y sus
+- Al finalizar la ejecución del _script_ `dos.py`, el marco global de `dos` se
+  convierte en un objeto de tipo !PYTHON(module) en el montículo, y sus
   ligaduras se convierten en atributos del objeto. Ese objeto se ligará al
   identificador `dos` en el marco global de `uno`, que volverá a estar en el
-  entorno y pasará a ser de nuevo el marco global del mismo:
+  entorno y pasará a ser de nuevo el marco global del entorno:
 
 !DOT(import-modulo-sale-dos.svg)(Entorno tras ejecutar `import dos`)(width=70%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -824,7 +826,8 @@ E -> math [lhead = cluster1]
 ---
 
 - Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del
-  marco actual, usando la sentencia !PYTHON(import) con !PYTHON(as).
+  espacio de nombres actual, usando la sentencia !PYTHON(import) con
+  !PYTHON(as).
 
 - Por ejemplo:
 
@@ -832,9 +835,9 @@ E -> math [lhead = cluster1]
   import math as mates
   ```
 
-  La sentencia anterior importa el módulo `math` dentro del módulo actual pero
-  con el nombre `mates` en lugar del `math` original. Por tanto, para usar la
-  función `gcd` como en el ejemplo anterior usaremos:
+  La sentencia anterior importa el módulo `math` dentro del espacio de nombres
+  actual pero con el nombre `mates` en lugar del `math` original. Por tanto,
+  para usar la función `gcd` como en el ejemplo anterior usaremos:
 
   ```python
   x = mates.gcd(16, 6)
@@ -888,8 +891,8 @@ E -> mates [lhead = cluster1]
   from math import gcd
   ```
 
-- Por lo que ahora podemos usar la función `gcd` directamente dentro del módulo
-  importador, sin necesidad de indicar el nombre del módulo importado:
+- Por lo que ahora podemos usar la función `gcd` directamente, sin necesidad de
+  indicar el nombre del módulo importado:
 
   ```python
   x = gcd(16, 6)
