@@ -639,9 +639,8 @@ public class Principal {
 
 - Las sentencias simples en Java deben acabar siempre en `;`.
 
-- Las sentencias deben pertenecer a un método.
-  Fuera de un método sólo puede haber declaraciones y directivas para el
-  compilador.
+- Las sentencias deben pertenecer a un método. Fuera de un método sólo puede
+  haber declaraciones y directivas para el compilador.
 
 - Por tanto, en cada programa debe existir, al menos, una clase.
 

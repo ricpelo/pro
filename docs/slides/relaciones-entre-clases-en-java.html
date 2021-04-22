@@ -290,6 +290,7 @@
   <strong><code>}</code></strong></div>
 <p>donde <span style="color:teal">⟨<em>subclase</em>⟩</span> y <span style="color:teal">⟨<em>superclase</em>⟩</span> son los nombres de la subclase directa y la superclase directa, respectivamente.</p></li>
 <li><p>Cuando no se especifica la superclase directa a la hora de definir una clase, el compilador sobreentiende que esa clase es subclase directa de la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+<li><p><strong>No es posible crear subclases de <em>clases finales</em></strong>, que son las clases declaradas con el modificador <code class="sourceCode java"><span class="dt">final</span></code>.</p></li>
 </ul>
 </section>
 
@@ -297,8 +298,11 @@
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Subtipado entre tipos referencia</h2>
 <ul>
 <li><p>A partir de ese momento, se introduce en el sistema de tipos una regla que dice que:</p>
-<p><span style="color:teal">⟨<em>subclase</em>⟩</span> <span class="math inline">&lt;_1</span> <span style="color:teal">⟨<em>superclase</em>⟩</span> <!-- _1 --></p></li>
+<div class="centered">
+<p><span style="color:teal">⟨<em>subclase</em>⟩</span> <span class="math inline">&lt;_1</span> <span style="color:teal">⟨<em>superclase</em>⟩</span> <!-- _1 --></p>
+</div></li>
 <li><p>Por tanto, se puede decir que el tipo definido por la subclase es un subtipo del tipo definido por la superclase.</p></li>
+<li><p>Esto va a permitir, entre otras cosas, el <strong>polimorfismo</strong> entre la subclase y la superclase.</p></li>
 </ul>
 </section>
 
@@ -306,10 +310,10 @@
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Herencia</h2>
 <ul>
 <li><p>Mediante el mecanismo de la herencia, una subclase hereda ciertos miembros de sus superclases (directas o indirectas), dependiendo de la visibilidad de esos miembros.</p></li>
-<li><p>Los miembros con visibilidad privada no se heredan.</p></li>
-<li><p>Los miembros con visibilidad pública se heredan siempre.</p></li>
-<li><p>Los miembros con visibilidad predeterminada se heredan si la subclase y la superclase pertenecen al mismo paquete.</p></li>
-<li><p>Los miembros con visibilidad protegida se heredan siempre, aunque la subclase y la superclase pertenezcan a paquetes distintos.</p></li>
+<li><p>Los miembros con visibilidad <strong>privada</strong> no se heredan.</p></li>
+<li><p>Los miembros con visibilidad <strong>pública</strong> se heredan siempre.</p></li>
+<li><p>Los miembros con visibilidad <strong>predeterminada</strong> se heredan si la subclase y la superclase pertenecen al mismo paquete.</p></li>
+<li><p>Los miembros con visibilidad <strong>protegida</strong> se heredan siempre, aunque la subclase y la superclase pertenezcan a paquetes distintos.</p></li>
 </ul>
 </section>
 
@@ -318,6 +322,10 @@
 <ul>
 <li><p>La clase <code class="sourceCode java"><span class="bu">Object</span></code> es la raíz de la jerarquía de clases en Java.</p></li>
 <li><p>Toda clase en Java es subclase (directa o indirecta) de <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+<li><p>Eso significa que todas las clases heredarán los métodos definidos en <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+<li><p>Los más interesantes son <code class="sourceCode java">equals</code>, <code class="sourceCode java">hashCode</code> y <code class="sourceCode java">toString</code>.</p></li>
+<li><p>Más información en:</p>
+<p><a href="https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Object.html">https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Object.html</a></p></li>
 </ul>
 </section>
 
@@ -326,6 +334,16 @@
 <ul>
 <li><p>La visibilidad protegida está pensada para cuando queremos limitar la visibilidad de un miembro de una clase a sus posibles subclases.</p></li>
 <li><p>Pero no debemos olvidar que, en Java, un miembro con visibilidad protegida también puede ser accesible desde cualquier clase que pertenezca al mismo paquete que la clase donde está declarado el miembro.</p></li>
+<li><p>Las variables protegidas de una clase son visibles para sus subclases, pero sólo a través de objetos del tipo de la subclase o sus subtipos.</p>
+<p>En otras palabras, <strong>una subclase puede ver una variable protegida de su superclase como una variable heredada, pero no puede acceder a esa misma variable a través de una referencia a la propia superclase</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.0.0.1">
+
+<ul>
+<li><p>Esto puede parecer un poco confuso al principio, ya que puede que no resulte obvio que los modificadores de visibilidad no restringen el acceso entre instancias de la misma clase de la misma manera que restringen el acceso entre instancias de diferentes clases.</p></li>
+<li><p><strong>Dos instancias de la misma clase pueden acceder a todos los miembros de la otra, incluidos los privados, siempre que se acceda a través de una referencia del tipo correcto</strong>.</p>
+<p>Dicho de otra manera: dos instancias de <code>Gato</code> pueden acceder a todas las variables y métodos de cada uno (incluidos los privados), pero un <code>Gato</code> no puede acceder a un miembro protegido de una instancia de <code>Animal</code> a menos que el compilador pueda probar que el <code>Animal</code> es un <code>Gato</code>.</p></li>
 </ul>
 </section>
 </section>
@@ -337,197 +355,455 @@
 <section id="el-principio-de-sustitución-de-liskov" class="title-slide slide level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> El principio de sustitución de Liskov</h2>
 <ul>
-<li><p>Recordemos que, por el principio de sustitución de Liskov, se puede usar una instancia de una clase allí donde se espere una instancia de una superclase suya.</p></li>
-<li><p>En un lenguaje de tipado estático como Java, el compilador comprueba que el método que se quiere invocar sobre un objeto es compatible con el tipo declarado para ese objeto.</p></li>
+<li><p>Recordemos que, por el principio de sustitución de Liskov, se puede usar una instancia de una clase allí donde se espere una instancia de una superclase suya:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span>   <span class="co">// Si «Derivada» es subclase de «Base»</span></span></code></pre></div>
+<p>Eso hace que el tipo estático y el tipo dinámico de <code>b</code> puedan no coincidir.</p></li>
+<li><p>¿Qué ocurre si intentamos invocar un método sobre <code>b</code>?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b<span class="op">.</span><span class="fu">metodo</span><span class="op">();</span></span></code></pre></div></li>
+<li><p>En un lenguaje de tipado estático como Java, el compilador comprueba que el método que se quiere invocar sobre un objeto es compatible con el tipo declarado (el tipo <em>estático</em>) para ese objeto.</p></li>
 <li><p>Eso quiere decir que el compilador tiene que determinar, en tiempo de compilación, si un objeto de ese tipo puede responder a la invocación de ese método.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section id="ligadura-temprana-early-binding" class="title-slide slide level3" data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Ligadura temprana (<em>early binding</em> )</h3>
+<ul>
+<li><p>Para ello (es decir, para comprobar si el método es compatible con el tipo del objeto), el compilador hace un análisis estático de la expresión en la que se invoca al método para determinar cuál es el tipo estático del objeto sobre el que se está invocando.</p></li>
+<li><p>Eso significa que, en la invocación:</p>
+<div class="centered">
+<p><span style="color:teal">⟨<em>expr</em>⟩</span><code>.m()</code></p>
+</div>
+<p>el compilador determina el tipo de <span style="color:teal">⟨<em>expr</em>⟩</span> en tiempo de compilación, y comprueba si el método <code>m</code> es compatible con ese tipo.</p>
+<p>Por ejemplo, si ese tipo es una clase, comprueba si el método está definido en esa clase.</p></li>
+<li><p>Como esa comprobación se hace en tiempo de compilación y buscando el tipo estático, al mecanismo de comprobación de la existencia del método se le denomina <strong>ligadura temprana (<em>early binding</em>)</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.1.0.1">
 
 <ul>
-<li><p>Ese tipo será:</p>
+<li><p>Ejemplos:</p>
 <ul>
-<li><p>El tipo estático de la variable si se está intentando invocar un método sobre una variable:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Trabajador t<span class="op">;</span> <span class="co">// Declara la variable de tipo «Trabajador» (tipo estático)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="kw">new</span> <span class="fu">Docente</span><span class="op">();</span> <span class="co">// «t» contiene una referencia a un objeto</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>t<span class="op">.</span><span class="fu">despedir</span><span class="op">();</span> <span class="co">// El método «despedir» debe ser compatible con «Trabajador»</span></span></code></pre></div></li>
-<li><p>El tipo definido por su clase si se está invocando el método directamente sobre una instancia de una clase:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// El método «despedir» debe ser compatible con «Docente», porque un</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">// docente es un trabajador:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="kw">new</span> <span class="fu">Docente</span><span class="op">()).</span><span class="fu">despedir</span><span class="op">();</span> </span></code></pre></div></li>
+<li><p>Si se está invocando el método sobre una variable, el tipo será el tipo estático de la variable:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Trabajador t<span class="op">;</span> <span class="co">// Declara la variable de tipo «Trabajador» (tipo estático)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="kw">new</span> <span class="fu">Docente</span><span class="op">();</span> <span class="co">// «t» contiene una referencia a un objeto</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>t<span class="op">.</span><span class="fu">despedir</span><span class="op">();</span> <span class="co">// El método «despedir» debe ser compatible con «Trabajador»</span></span></code></pre></div></li>
+<li><p>Si se está invocando el método sobre una expresión más complicada, el tipo será el tipo de esa expresión calculado por el compilador en tiempo de compilación:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// El método «despedir» debe ser compatible con «Docente», porque un</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// docente es un trabajador:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="kw">new</span> <span class="fu">Docente</span><span class="op">()).</span><span class="fu">despedir</span><span class="op">();</span> </span></code></pre></div>
+<p>Aquí, la expresión <code class="sourceCode java"><span class="op">(</span><span class="kw">new</span> <span class="fu">Docente</span><span class="op">())</span></code> tiene el tipo <code>Docente</code>, cosa que el compilador puede calcular perfectamente.</p></li>
 </ul></li>
 </ul>
 </section>
 
+
 <section id="sobreescritura-de-métodos" class="title-slide slide level2" data-number="3.2">
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> Sobreescritura de métodos</h2>
 <ul>
-<li><p>Los métodos heredados desde una superclase se pueden sobreescribir.</p></li>
+<li><p>Los métodos heredados desde una superclase (siempre que no se hayan marcado como <code class="sourceCode java"><span class="dt">final</span></code>) se pueden sobreescribir.</p></li>
 <li><p><strong><em>Sobreescribir</em> o <em>redefinir</em> un método heredado</strong> consiste en definir, en la subclase, un método (el método que <em>sobreescribe</em> o que <em>redefine</em>) con el mismo nombre y la misma lista de parámetros que el método heredado de la superclase (el método <em>sobreescrito</em> o <em>redefinido</em>).</p></li>
 <li><p>El tipo de retorno del método que redefine tiene que ser <em>compatible</em> con el tipo de retorno del método redefinido, cosa que estudiaremos luego con más profundidad.</p>
 <p>Por ahora sólo diremos que si dos tipos de retorno son iguales, entonces son compatibles.</p></li>
-<li><p>En Java, se recomienda (pero no es obligatorio) que el método que redefine se defina usando el decorador <code class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
-<li><p>Lo normal es que el método que redefine tenga <strong>un cuerpo distinto</strong> al del método redefinido (generalmente, para eso se redefine).</p></li>
+<li><p>En Java, se recomienda (pero no es obligatorio) que el método que redefine (el de la subclase) se defina usando el decorador <code class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Base&quot;</span><span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Base&quot;</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
-<section id="sobreescritura-y-visibilidad" class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Sobreescritura y visibilidad</h3>
+<section id="despacho-dinámico-dynamic-dispatch" class="title-slide slide level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Despacho dinámico (<em>dynamic dispatch</em> )</h3>
 <ul>
-<li><p><strong>La subclase no puede reducir la visibilidad del método redefinido</strong>. Por tanto, el método que redefine debe tener, al menos, la misma visibilidad que el método redefinido, pero nunca menos.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Base&quot;</span><span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span>    <span class="co">// Error: reduce la visibilidad</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>Sí que se puede ampliar la visibilidad:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span>    <span class="co">// Esto sí se permite</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Al invocar un método sobre un objeto, <strong>el método concreto que se ejecutará dependerá del <em>tipo dinámico</em> del objeto sobre el que se invoca el método</strong>.</p></li>
+<li><p>Por tanto, el método que acabará ejecutándose se elige en tiempo de ejecución dependiendo del objeto que recibe el mensaje, es decir, dependiendo del objeto sobre el que se está intentando invocar el método.</p></li>
+<li><p>A este mecanismo se le denomina <strong>despacho dinámico (<em>dynamic dispatch</em>)</strong>.</p></li>
 </ul>
+<div class="caja">
+<p><strong>Java implementa el despacho dinámico</strong> en todos los métodos excepto en los <code class="sourceCode java"><span class="kw">private</span></code>, <code class="sourceCode java"><span class="dt">final</span></code> o <code class="sourceCode java"><span class="dt">static</span></code>.</p>
+</div>
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Base&quot;</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        Base a <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        Derivada b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        Base c <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        a<span class="op">.</span><span class="fu">hola</span><span class="op">(</span><span class="st">&quot;Pepe&quot;</span><span class="op">);</span>           <span class="co">// Invoca el «hola» de «Base»</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        b<span class="op">.</span><span class="fu">hola</span><span class="op">(</span><span class="st">&quot;Pepe&quot;</span><span class="op">);</span>           <span class="co">// Invoca el «hola» de «Derivada»</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        c<span class="op">.</span><span class="fu">hola</span><span class="op">(</span><span class="st">&quot;Pepe&quot;</span><span class="op">);</span>           <span class="co">// Invoca el «hola» de «Derivada»</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Imprime:</li>
+</ul>
+</div><div class="column">
+<pre><code>Hola, Pepe, soy la clase Base
+Hola, Pepe, soy la clase Derivada
+Hola, Pepe, soy la clase Derivada</code></pre>
+</div>
+</div>
 </section>
 <section class="slide level5" data-number="3.2.1.0.1">
 
 <ul>
-<li><p>Esta restricción tiene sentido si recordamos que un dato de un subtipo debe poder usarse en cualquier sitio donde se espere un dato de un supertipo.</p></li>
-<li><p>Por ejemplo, un Mamífero es una subclase de Animal y, por tanto, debe poderse usar allí donde se espere un Animal.</p>
-<p>Es decir: un Mamífero es un Animal.</p></li>
-<li><p>Si pudiéramos sobreescribir un método con otro método menos visible, entonces podríamos tener el problema de que el Mamífero no podría ser capaz de hacer todo lo que puede hacer un Animal.</p></li>
+<li><p>La <strong>ligadura temprana (<em>early binding</em>)</strong> garantiza, <em>en tiempo de compilación</em>, que es seguro ejecutar el método <code>hola</code> sobre los objetos que hay en las variables <code>a</code>, <code>b</code> y <code>c</code>, ya que todas ellas tienen un tipo estático compatible con la existencia de un método <code>hola</code> (las clases <code>Base</code> y <code>Derivada</code> disponen del método <code>hola</code>).</p></li>
+<li><p>El <strong>despacho dinámico (<em>dynamic dispatch</em>)</strong> selecciona, <em>en tiempo de ejecución</em>, el método concreto que se ejecutará al invocar al método <code>hola</code> sobre los objetos que hay en las variables <code>a</code>, <code>b</code> y <code>c</code>, según el tipo dinámico del objeto que recibe el mensaje.</p>
+<p>Por ejemplo:</p>
+<ul>
+<li><p>El objeto que hay en la variable <code>a</code> es una instancia de <code>Base</code>, por lo que el método <code>hola</code> que se ejecutará será el de <code>Base</code>.</p></li>
+<li><p>El objeto que hay en la variable <code>c</code> es una instancia de <code>Derivada</code>, por lo que el método <code>hola</code> que se ejecutará será el de <code>Derivada</code>.</p></li>
+</ul>
+<p>Esto es así aunque ambas variables (<code>a</code> y <code>c</code>) estén declaradas de tipo <code>Base</code>, porque lo que importa aquí es el tipo dinámico, no el estático.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.2">
+
+<ul>
+<li><p>En el siguiente ejemplo, un método llama a otro. El método que se ejecute dependerá del tipo dinámico del objeto sobre el que se invoque:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource java number-lines"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">hola</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="fu">nombre</span><span class="op">());</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="op">}</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">nombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>        <span class="cf">return</span> <span class="st">&quot;Base&quot;</span><span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="op">}</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">nombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>        <span class="cf">return</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="op">}</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="op">}</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>        b<span class="op">.</span><span class="fu">hola</span><span class="op">();</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>    <span class="op">}</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Imprime:</p>
+<pre><code>Derivada</code></pre></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.1.0.3">
+
+<ul>
+<li><p>El motivo por el que el método <code>hola</code> imprime <code>Derivada</code> y no <code>Base</code> es el siguiente:</p>
+<ul>
+<li><p>El método es invocado sobre un objeto de la clase <code>Derivada</code>.</p></li>
+<li><p>El método no está redefinido; tan sólo existe un método <code>hola</code> y está en la clase <code>Base</code>.</p></li>
+<li><p>Por tanto, dentro de ese método, la referencia <code class="sourceCode java"><span class="kw">this</span></code> tiene el tipo estático <code>Base</code>.</p></li>
+<li><p>En cambio, en esa invocación concreta del método, <code class="sourceCode java"><span class="kw">this</span></code> tiene el tipo dinámico <code>Derivada</code>.</p></li>
+<li><p>La sentencia de la línea 3 equivale a la siguiente (con el <code class="sourceCode java"><span class="kw">this</span></code>):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">nombre</span><span class="op">());</span></span></code></pre></div>
+<p>en la que se invoca a <code>nombre</code> sobre un objeto cuyo tipo dinámico es <code>Derivada</code>.</p></li>
+<li><p>Por tanto, se acaba invocando al método <code>nombre</code> de <code>Derivada</code>, que devuelve <code>Derivada</code>.</p></li>
+</ul></li>
 </ul>
 </section>
 
-<section id="sobreescritura-de-variables" class="title-slide slide level3" data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Sobreescritura de variables</h3>
+<section id="sobreescritura-y-visibilidad" class="title-slide slide level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Sobreescritura y visibilidad</h3>
 <ul>
-<li><p>Las variables (de instancia o estáticas) de una clase se pueden redefinir sin restricción alguna, simplemente declarando en la subclase una variable con el mismo nombre que la variable heredada de una superclase, sin importar el tipo.</p></li>
-<li><p>Por tanto, las dos variables (la definida en la subclase y la definida en la superclase) pueden tener el mismo nombre pero distinto tipo.</p></li>
-<li><p>Asimismo, las dos variables pueden tener cualquier visibilidad; es decir, la visibilidad de ambas variables es independiente una de la otra.</p></li>
-<li><p>A todos los efectos, son variables completamente diferentes.</p></li>
-<li><p>Es como si la variable de la subclase hiciese sombra a la de la superclase.</p></li>
+<li><p><strong>La subclase no puede reducir la visibilidad del método redefinido</strong>. Por tanto, el método que redefine debe tener, al menos, la misma visibilidad que el método redefinido, pero nunca menos.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Base&quot;</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span>    <span class="co">// Error: reduce la visibilidad</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Sí que se puede ampliar la visibilidad:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> <span class="fu">hola</span><span class="op">(</span><span class="bu">String</span> s<span class="op">)</span> <span class="op">{</span>    <span class="co">// Esto sí se permite</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hola, &quot;</span> <span class="op">+</span> s <span class="op">+</span> <span class="st">&quot;, soy la clase Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.2.0.1">
 
 <ul>
-<li>En el siguiente ejemplo, las dos variables de instancia <code>x</code> son distintas e independientes:</li>
+<li><p>Esta restricción tiene sentido si recordamos que un dato de un subtipo debe poder usarse en cualquier sitio donde se espere un dato de un supertipo.</p></li>
+<li><p>Por ejemplo, un <code>Mamífero</code> es una subclase de <code>Animal</code> y, por tanto, debe poderse usar allí donde se espere un <code>Animal</code>.</p>
+<p>Es decir: un <code>Mamífero</code> es un <code>Animal</code>.</p></li>
+<li><p>Si pudiéramos sobreescribir un método con otro método menos visible, entonces podríamos tener el problema de que el <code>Mamífero</code> no podría ser capaz de hacer todo lo que puede hacer un <code>Animal</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x<span class="op">;</span>                      <span class="co">// Esta es una variable...</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> x<span class="op">;</span>                <span class="co">// ... y esta es otra distinta</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span>                      <span class="co">// Accede a la «x» de Base</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        b<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>                       <span class="co">// Accede a la «x» de Base</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span>                  <span class="co">// Accede a la «x» de Derivada</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getX</span><span class="op">());</span>  <span class="co">// Imprime &quot;Hola&quot;</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
-<section id="super" class="title-slide slide level3" data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> <code>super</code></h3>
+<section id="sobreescritura-de-variables" class="title-slide slide level3" data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Sobreescritura de variables</h3>
+<ul>
+<li><p>Las variables (de instancia o estáticas) de una clase se pueden redefinir sin restricción alguna, simplemente declarando en la subclase una variable con el mismo nombre que la variable heredada de una superclase, sin importar el tipo.</p></li>
+<li><p>Por tanto, las dos variables (la definida en la subclase y la definida en la superclase) pueden tener el mismo nombre pero distinto tipo.</p></li>
+<li><p>Asimismo, las dos variables pueden tener cualquier visibilidad; es decir, la visibilidad de ambas variables es independiente una de la otra.</p></li>
+<li><p>A todos los efectos, <strong>son variables completamente diferentes</strong>.</p></li>
+<li><p>Es como si la variable de la subclase <strong>hiciese sombra</strong> a la de la superclase.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.3.0.1">
+
+<ul>
+<li><p>Aquí, las dos variables de instancia <code>x</code> son distintas e independientes:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> x<span class="op">;</span>                       <span class="co">// Esta es una variable...</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> x<span class="op">;</span>                 <span class="co">// ... y esta es otra distinta</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span>                       <span class="co">// Accede a la «x» de Derivada</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        b<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="dv">4</span><span class="op">;</span>                        <span class="co">// Accede a la «x» de Base</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span>                   <span class="co">// Accede a la «x» de Derivada</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        bd<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>                       <span class="co">// Accede a la «x» de Base</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getX</span><span class="op">());</span>   <span class="co">// Imprime «Hola»</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getX</span><span class="op">());</span>  <span class="co">// Imprime «Hola»</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Imprime:</li>
+</ul>
+</div><div class="column">
+<pre><code>Hola
+Hola</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.3.0.2">
+
+<ul>
+<li>Con las variables no se hace <em>despacho dinámico</em>, sino <em>ligadura temprana</em>. Por tanto, <strong>las variables se resuelven en tiempo de compilación</strong>, lo que puede dar lugar a resultados sorprendentes.</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> nombre <span class="op">=</span> <span class="st">&quot;Base&quot;</span><span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre <span class="op">=</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>b<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Imprime:</p>
+<pre><code>Base
+Base
+Base</code></pre></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.3.0.3">
+
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>En cambio, si se redefine el método <code>getNombre</code>, el resultado es distinto:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> nombre <span class="op">=</span> <span class="st">&quot;Base&quot;</span><span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre <span class="op">=</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>b<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Imprime:</p>
+<pre><code>Base
+Derivada
+Derivada</code></pre></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="3.2.3.0.4">
+
+<ul>
+<li><p>El motivo es que la ligadura temprana tiene en cuenta el <strong>tipo estático</strong> de un objeto (no el dinámico) al resolver una variable de instancia del objeto.</p></li>
+<li><p>Recordemos que:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nombre<span class="op">;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>equivale a:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">nombre</span><span class="op">;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>En el método <code>getNombre</code> de <code>Base</code>, la referencia <code class="sourceCode java"><span class="kw">this</span></code> tiene el tipo estático <code>Base</code>. Por eso, el <code>getNombre</code> de <code>Base</code> accede siempre al <code>nombre</code> de <code>Base</code>.</p></li>
+<li><p>En cambio, en el mismo método redefinido en <code>Derivada</code>, la referencia <code class="sourceCode java"><span class="kw">this</span></code> tiene el tipo estático <code>Derivada</code>. Por eso, el <code>getNombre</code> de <code>Derivada</code> accede siempre al <code>nombre</code> de <code>Derivada</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.3.0.5">
+
+<ul>
+<li><p>Por tanto, en el siguiente código:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>b<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span>  <span class="co">// Imprime «Base»</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span>  <span class="co">// Imprime «Derivada»</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span> <span class="co">// Imprime «Derivada»</span></span></code></pre></div>
+<p>tenemos que:</p>
+<ul>
+<li><p><code class="sourceCode java">b<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code> llama al método de <code>Base</code>, el cual accede al <code>nombre</code> de <code>Base</code>.</p></li>
+<li><p><code class="sourceCode java">d<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code> llama al método de <code>Derivada</code>, el cual accede al <code>nombre</code> de <code>Derivada</code>.</p></li>
+<li><p><code class="sourceCode java">bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code> llama al método de <code>Derivada</code>, el cual accede al <code>nombre</code> de <code>Derivada</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="super" class="title-slide slide level3" data-number="3.2.4">
+<h3 data-number="3.2.4"><span class="header-section-number">3.2.4</span> <code>super</code></h3>
 <ul>
 <li><p>En Java, la palabra reservada <code class="sourceCode java"><span class="kw">super</span></code> es una variable especial que se puede usar dentro de una clase y que hace referencia a un objeto de la superclase directa de la clase actual.</p></li>
 <li><p>Cuando se crea una instancia de una clase, automáticamente se crea de forma implícita una instancia de su superclase directa, a la que se tiene acceso a través de la variable <code class="sourceCode java"><span class="kw">super</span></code>.</p></li>
 <li><p>A través de esa variable, se puede invocar métodos de la superclase directa o acceder a variables de instancia de la superclase directa.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.1">
+<section class="slide level5" data-number="3.2.4.0.1">
 
 <ul>
 <li><p>Acceder a una variable de instancia de la superclase directa:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> color <span class="op">=</span> <span class="st">&quot;blanco&quot;</span><span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> color <span class="op">=</span> <span class="st">&quot;negro&quot;</span><span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">imprimirColor</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>color<span class="op">);</span>       <span class="co">// imprime el color de Perro</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="kw">super</span><span class="op">.</span><span class="fu">color</span><span class="op">);</span> <span class="co">// imprime el color de Animal</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">imprimirColor</span><span class="op">();</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> color <span class="op">=</span> <span class="st">&quot;blanco&quot;</span><span class="op">;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> color <span class="op">=</span> <span class="st">&quot;negro&quot;</span><span class="op">;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">imprimirColor</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>color<span class="op">);</span>       <span class="co">// imprime el color de Perro</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="kw">super</span><span class="op">.</span><span class="fu">color</span><span class="op">);</span> <span class="co">// imprime el color de Animal</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">imprimirColor</span><span class="op">();</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Imprime:</p>
 <pre><code>negro
 blanco</code></pre></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.2">
+<section class="slide level5" data-number="3.2.4.0.2">
 
 <div class="columns">
 <div class="column" style="width:70%;">
 <ul>
 <li><p>Ejecutar un método de instancia de la superclase directa:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span> <span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo...&quot;</span><span class="op">);</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dog <span class="kw">extends</span> Animal <span class="op">{</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo pan...&quot;</span><span class="op">);</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">ladrar</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Ladrando...&quot;</span><span class="op">);</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">hacer</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span><span class="fu">comer</span><span class="op">();</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ladrar</span><span class="op">();</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">hacer</span><span class="op">();</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span> <span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo...&quot;</span><span class="op">);</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dog <span class="kw">extends</span> Animal <span class="op">{</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo pan...&quot;</span><span class="op">);</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">ladrar</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Ladrando...&quot;</span><span class="op">);</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">hacer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span><span class="fu">comer</span><span class="op">();</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ladrar</span><span class="op">();</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">hacer</span><span class="op">();</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </div><div class="column" style="width:30%;">
 <ul>
@@ -538,56 +814,54 @@ Ladrando...</code></pre></li>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.3.0.3">
+<section class="slide level5" data-number="3.2.4.0.3">
 
 <ul>
-<li>Invocar al constructor de la superclase directa:</li>
-</ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Animal</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un animal&quot;</span><span class="op">);</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Perro</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un perro&quot;</span><span class="op">);</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<ul>
+<li><p>Invocar al constructor de la superclase directa:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Animal</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un animal&quot;</span><span class="op">);</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Perro</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un perro&quot;</span><span class="op">);</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Imprime:</p>
 <pre><code>Se ha creado un animal
 Se ha creado un perro</code></pre></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.4">
+<section class="slide level5" data-number="3.2.4.0.4">
 
 <ul>
 <li>El compilador introduce automáticamente una llamada a <code class="sourceCode java"><span class="kw">super</span><span class="op">()</span></code> como primera sentencia del constructor de la subclase si éste no incluye ninguna llamada a <code class="sourceCode java"><span class="kw">super</span><span class="op">()</span></code> o <code class="sourceCode java"><span class="kw">this</span><span class="op">()</span></code>:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
-<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// sentencias</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div><div class="column" style="width:33%;">
 <p>→ compilador →</p>
 </div><div class="column" style="width:33%;">
-<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// sentencias</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// sentencias</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 <ul>
@@ -595,49 +869,48 @@ Se ha creado un perro</code></pre></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
-<div class="sourceCode" id="cb16"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div><div class="column" style="width:33%;">
 <p>→ compilador →</p>
 </div><div class="column" style="width:33%;">
-<div class="sourceCode" id="cb17"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// sentencias</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bicicleta <span class="op">{</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Bicicleta</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">();</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.3.0.5">
+<section class="slide level5" data-number="3.2.4.0.5">
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Animal</span><span class="op">(){</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un animal&quot;</span><span class="op">);</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Perro</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un perro&quot;</span><span class="op">);</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal <span class="op">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Animal</span><span class="op">(){</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un animal&quot;</span><span class="op">);</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perro <span class="kw">extends</span> Animal <span class="op">{</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Perro</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Se ha creado un perro&quot;</span><span class="op">);</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Imprime:</p>
 <pre><code>Se ha creado un animal
 Se ha creado un perro</code></pre></li>
 </ul>
 </section>
 
-<section id="covarianza-en-el-tipo-de-retorno" class="title-slide slide level3" data-number="3.2.4">
-<h3 data-number="3.2.4"><span class="header-section-number">3.2.4</span> Covarianza en el tipo de retorno</h3>
+<section id="covarianza-en-el-tipo-de-retorno" class="title-slide slide level3" data-number="3.2.5">
+<h3 data-number="3.2.5"><span class="header-section-number">3.2.5</span> Covarianza en el tipo de retorno</h3>
 <ul>
 <li><p>El tipo de retorno del método redefinido y del método que lo redefine deben ser <strong>compatibles</strong>.</p></li>
 <li><p>El objetivo a alcanzar es que sea seguro (desde el punto de vista del sistema de tipos) usar un método con un determinado tipo de retorno donde se espera usar un método con un tipo de retorno diferente.</p></li>
@@ -646,7 +919,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>Precisamente, lo que hace la sobreescritura de métodos es sustituir un método por otro. Por tanto, es importante que esa sustitución se haga de forma que resulte segura.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.1">
+<section class="slide level5" data-number="3.2.5.0.1">
 
 <ul>
 <li><p>La compatibilidad entre el tipo de retorno de un método redefinido y el de un método que lo redefine, se establece en Java por medio de estas dos reglas:</p>
@@ -658,7 +931,7 @@ Se ha creado un perro</code></pre></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.2">
+<section class="slide level5" data-number="3.2.5.0.2">
 
 <ul>
 <li><p>Esto se puede resumir diciendo:</p>
@@ -672,7 +945,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>En consecuencia, el tipo de un método redefinido puede sustituirse en el método que lo redefine por otro tipo «más estrecho», es decir, por un subtipo del tipo original.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.3">
+<section class="slide level5" data-number="3.2.5.0.3">
 
 <ul>
 <li><p>Es importante recordar que la covarianza sólo está permitida entre tipos referencia, no entre tipos primitivos.</p></li>
@@ -685,7 +958,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>Esta regla garantiza seguridad en el tipo del método cuando se invoca el método redefindo sobre instancias de la subclase.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.4">
+<section class="slide level5" data-number="3.2.5.0.4">
 
 <ul>
 <li><p>En general, la covarianza es una propiedad que puede tener un tipo compuesto a partir de otros.</p></li>
@@ -699,7 +972,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>Nótese que si <span class="math inline">T</span> se construye con más de un parámetro, puede ser covariante o contravariante de forma indistinta en cada uno de ellos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.5">
+<section class="slide level5" data-number="3.2.5.0.5">
 
 <ul>
 <li><p>El tipo que representa la signatura de un método se puede escribir como <span class="math inline">S{\langle}\overline{P},R{\rangle}</span>, donde:</p>
@@ -715,7 +988,7 @@ Se ha creado un perro</code></pre></li>
 <p>Este es un resultado de la teoría de tipos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.0.6">
+<section class="slide level5" data-number="3.2.5.0.6">
 
 <ul>
 <li><p>El tipo de una clase <code>T</code> (que indicaremos como <span class="math inline">T</span>) puede interpretarse como un tipo compuesto por los tipos de retorno de sus métodos.</p>
@@ -726,8 +999,8 @@ Se ha creado un perro</code></pre></li>
 </ul>
 </section>
 
-<section id="invarianza-en-el-tipo-de-los-argumentos" class="title-slide slide level3" data-number="3.2.5">
-<h3 data-number="3.2.5"><span class="header-section-number">3.2.5</span> Invarianza en el tipo de los argumentos</h3>
+<section id="invarianza-en-el-tipo-de-los-argumentos" class="title-slide slide level3" data-number="3.2.6">
+<h3 data-number="3.2.6"><span class="header-section-number">3.2.6</span> Invarianza en el tipo de los argumentos</h3>
 <ul>
 <li><p>Los tipos de los parámetros del método redefinido deben coincidir exactamente con los tipos de los parámetros del método que lo redefine, lo que se puede resumir diciendo:</p>
 <div class="caja">
@@ -738,13 +1011,13 @@ Se ha creado un perro</code></pre></li>
 </ul>
 </section>
 
-<section id="sobreescritura-de-equals" class="title-slide slide level3" data-number="3.2.6">
-<h3 data-number="3.2.6"><span class="header-section-number">3.2.6</span> Sobreescritura de <code>equals</code></h3>
+<section id="sobreescritura-de-equals" class="title-slide slide level3" data-number="3.2.7">
+<h3 data-number="3.2.7"><span class="header-section-number">3.2.7</span> Sobreescritura de <code>equals</code></h3>
 
 </section>
 
-<section id="sobreescritura-de-hashcode" class="title-slide slide level3" data-number="3.2.7">
-<h3 data-number="3.2.7"><span class="header-section-number">3.2.7</span> Sobreescritura de <code>hashCode</code></h3>
+<section id="sobreescritura-de-hashcode" class="title-slide slide level3" data-number="3.2.8">
+<h3 data-number="3.2.8"><span class="header-section-number">3.2.8</span> Sobreescritura de <code>hashCode</code></h3>
 
 </section>
 

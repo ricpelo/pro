@@ -163,29 +163,6 @@ public class Hola {
 
 !IMGP(visibilidades-java.png)(Visibilidades en Java)(width=90%)
 
----
-
-- Las variables protegidas de una clase son visibles para sus subclases, pero
-  sólo a través de objetos del tipo de la subclase o sus subtipos.
-
-  En otras palabras, **una subclase puede ver una variable protegida de su
-  superclase como una variable heredada, pero no puede acceder a esa misma
-  variable a través de una referencia a la propia superclase**.
-
-- Esto puede parecer un poco confuso al principio, ya que puede que no resulte
-  obvio que los modificadores de visibilidad no restringen el acceso entre
-  instancias de la misma clase de la misma manera que restringen el acceso
-  entre instancias de diferentes clases.
-
-- **Dos instancias de la misma clase pueden acceder a todos los miembros de la
-  otra, incluidos los privados, siempre que se acceda a través de una
-  referencia del tipo correcto**.
-
-  Dicho de otra manera: dos instancias de `Gato` pueden acceder a todas las
-  variables y métodos de cada uno (incluidos los privados), pero un `Gato` no
-  puede acceder a un miembro protegido de una instancia de `Animal` a menos que
-  el compilador pueda probar que el `Animal` es un `Gato`.
-
 # Miembros de instancia
 
 ## Variables de instancia
