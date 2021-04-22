@@ -1184,11 +1184,12 @@
 <li><p>Ciertas estructuras del programa definen lo que se denominan <strong>espacios de nombres</strong>.</p></li>
 <li><p>Un <strong>espacio de nombres</strong> (del inglés, <em>namespace</em>) es una correspondencia entre nombres y valores, es decir, es un <strong>conjunto de ligaduras</strong>.</p></li>
 <li><p>En un espacio de nombres, <strong>un identificador sólo puede tener como máximo una ligadura</strong>. En cambio, el mismo identificador puede estar ligado a diferentes valores en diferentes espacios de nombres.</p></li>
+<li><p>Por eso decimos que una ligadura es <strong>local</strong> al espacio de nombres donde se almacena.</p></li>
 <li><p>Durante la ejecución de un programa, se pueden crear ciertas estructuras en memoria que representan espacios de nombres.</p></li>
 <li><p>Los ejemplos más comunes de esas estructuras son:</p>
 <ul>
-<li><p>Los <strong>marcos</strong> que se crean al ejecutar <em>scripts</em> y funciones definidas por el programador.</p></li>
-<li><p>Los <strong>módulos</strong>.</p></li>
+<li><p>Los <strong>marcos</strong> que se crean al ejecutar <em>scripts</em> de Python y funciones definidas por el programador.</p></li>
+<li><p>Los <strong>módulos</strong> de Python.</p></li>
 <li><p>Los <strong>objetos</strong> y las <strong>clases</strong>.</p></li>
 </ul></li>
 </ul>
@@ -1205,7 +1206,7 @@
 <h2 data-number="4.5"><span class="header-section-number">4.5</span> Marcos (<em>frames</em> )</h2>
 <ul>
 <li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una estructura que se crea en memoria para <strong>representar la ejecución o <em>activación</em> de una determinada parte del programa</strong>.</p></li>
-<li><p>Entre otras cosas, los marcos almacenan las ligaduras del espacio de nombres que se corresponde con esa parte del programa.</p></li>
+<li><p>Los marcos son <strong>espacios de nombres</strong> y, entre otras cosas, almacenan las ligaduras que se definen dentro de esa parte del programa.</p></li>
 <li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
 <ul>
 <li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
@@ -1243,7 +1244,7 @@
 <section class="slide level5" data-number="4.5.0.0.3">
 
 <ul>
-<li><p>Tanto los marcos como su contenido (las ligaduras) se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
+<li><p>Como ocurre con cualquier espacio de nombres, tanto los marcos como las ligaduras que contiene se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
 <li><p>Si tenemos la siguiente sesión interactiva:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="dv">5</span></span>
@@ -1290,17 +1291,19 @@
 
 <ul>
 <li><p>Hemos visto que una ligadura es una asociación entre un identificador y un valor.</p></li>
-<li><p><strong>Los marcos almacenan ligaduras, pero <em>NO</em> almacenan los valores</strong> a los que están asociados los identificadores de esas ligaduras.</p></li>
+<li><p>También hemos visto que los espacios de nombres almacenan ligaduras, y que un marco es un espacio de nombres.</p></li>
+<li><p>Por tanto, <strong>los marcos almacenan ligaduras, pero <em>NO</em> almacenan los valores</strong> a los que están asociados los identificadores de esas ligaduras.</p></li>
 <li><p>Por eso hemos dibujado a los valores fuera de los marcos en los diagramas anteriores.</p></li>
 <li><p>Los valores se almacenan en una zona de la memoria del intérprete conocida como el <strong>montículo</strong>.</p></li>
-<li><p>Asimismo, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
+<li><p>En cambio, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.0.0.6">
 
 <ul>
-<li><p>En realidad, por detrás del marco global existe otro espacio de nombres muy importante que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
-<li><p>Esas definiciones están disponibles directamente en la sesión de trabajo o en cualquier punto del programa.</p></li>
+<li><p>En realidad, por detrás del marco global existe otro espacio de nombres muy importante que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.).</p></li>
+<li><p>Ese espacio de nombres se denomina <code class="sourceCode python">__builtins__</code>.</p></li>
+<li><p>Las definiciones contenidas en el espacio de nombres <code class="sourceCode python">__builtins__</code> están disponibles directamente en la sesión de trabajo o en cualquier punto del programa.</p></li>
 </ul>
 </section>
 

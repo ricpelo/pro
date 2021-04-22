@@ -1265,15 +1265,18 @@ maximo -> lambda
   ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
   valores en diferentes espacios de nombres.
 
+- Por eso decimos que una ligadura es **local** al espacio de nombres donde se
+  almacena.
+
 - Durante la ejecución de un programa, se pueden crear ciertas estructuras en
   memoria que representan espacios de nombres.
 
 - Los ejemplos más comunes de esas estructuras son:
 
-  - Los **marcos** que se crean al ejecutar _scripts_ y funciones definidas por
-    el programador.
+  - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones
+    definidas por el programador.
 
-  - Los **módulos**.
+  - Los **módulos** de Python.
 
   - Los **objetos** y las **clases**.
 
@@ -1293,8 +1296,8 @@ maximo -> lambda
   para **representar la ejecución o _activación_ de una determinada parte del
   programa**.
 
-- Entre otras cosas, los marcos almacenan las ligaduras del espacio de nombres
-  que se corresponde con esa parte del programa.
+- Los marcos son **espacios de nombres** y, entre otras cosas, almacenan las
+  ligaduras que se definen dentro de esa parte del programa.
 
 - Los marcos son conceptos **_dinámicos_**:
 
@@ -1341,8 +1344,7 @@ maximo -> lambda
 
   - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
     su uso genera un error (el marco global no contiene hasta ahora ninguna
-    ligadura
-    para !PYTHON(x)).
+    ligadura para !PYTHON(x)).
 
   - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
     sido ligado previamente en la línea 5 (el marco global ahora contiene una
@@ -1350,9 +1352,9 @@ maximo -> lambda
 
 ---
 
-- Tanto los marcos como su contenido (las ligaduras) se van creando y
-  destruyendo a medida que se van ejecutando las instrucciones que forman el
-  programa.
+- Como ocurre con cualquier espacio de nombres, tanto los marcos como las
+  ligaduras que contiene se van creando y destruyendo a medida que se van
+  ejecutando las instrucciones que forman el programa.
 
 - Si tenemos la siguiente sesión interactiva:
 
@@ -1451,8 +1453,11 @@ z -> 3
 - Hemos visto que una ligadura es una asociación entre un identificador y un
   valor.
 
-- **Los marcos almacenan ligaduras, pero _NO_ almacenan los valores** a los que
-  están asociados los identificadores de esas ligaduras.
+- También hemos visto que los espacios de nombres almacenan ligaduras, y que un
+  marco es un espacio de nombres.
+
+- Por tanto, **los marcos almacenan ligaduras, pero _NO_ almacenan los
+  valores** a los que están asociados los identificadores de esas ligaduras.
 
 - Por eso hemos dibujado a los valores fuera de los marcos en los diagramas
   anteriores.
@@ -1460,17 +1465,20 @@ z -> 3
 - Los valores se almacenan en una zona de la memoria del intérprete conocida
   como el **montículo**.
 
-- Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
+- En cambio, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
 
 ---
 
 - En realidad, por detrás del marco global existe otro espacio de nombres muy
   importante que incluye las definiciones predefinidas del lenguaje (funciones
-  !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
+  !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.).
 
-- Esas definiciones están disponibles directamente en la sesión de trabajo o en
-  cualquier punto del programa.
+- Ese espacio de nombres se denomina !PYTHON(__builtins__).
+
+- Las definiciones contenidas en el espacio de nombres !PYTHON(__builtins__)
+  están disponibles directamente en la sesión de trabajo o en cualquier punto
+  del programa.
 
 ## *Scripts*
 
