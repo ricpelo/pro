@@ -1070,13 +1070,15 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - Lo representaremos gráficamente así:
 
-!DOT(ligadura.svg)()(width=30%)(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-25 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-x -> 25
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(ligadura.svg)()(width=30%)(width=20%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  25 [shape = circle]
+  x [shape = plaintext, fillcolor = transparent]
+  x -> 25
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Las ligaduras empiezan a existir cuando se crean, no antes.
 
 ---
 
@@ -1255,36 +1257,55 @@ maximo -> lambda
 
 ## Espacios de nombres
 
-- Ciertas estructuras del programa definen lo que se denominan **espacios de
-  nombres**.
+- Ciertas estructuras o construcciones sintácticas del programa definen lo que
+  se denominan **espacios de nombres**.
 
 - Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
   entre nombres y valores, es decir, es un **conjunto de ligaduras**.
+
+- Su función, por tanto, es el de **almacenar ligaduras y permitir varias
+  ligaduras con el mismo nombre** en distintas partes del programa.
 
 - En un espacio de nombres, **un identificador sólo puede tener como máximo una
   ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
   valores en diferentes espacios de nombres.
 
 - Por eso decimos que una ligadura es **local** al espacio de nombres donde se
-  almacena.
+  almacena, o que tiene un **almacenamiento local** a ese espacio de nombres.
 
-- Durante la ejecución de un programa, se pueden crear ciertas estructuras en
-  memoria que representan espacios de nombres.
+- Los espacios de nombres pueden estar **_anidados_**, es decir, que puede
+  haber espacios de nombres dentro de otros espacios de nombres.
 
-- Los ejemplos más comunes de esas estructuras son:
+---
+
+- Algunos espacios de nombres son estructuras estáticas (o sea, que vienen
+  definidas en tiempo de compilación) y otras son dinámicas (o sea, que vienen
+  definidas en tiempo de ejecución).
+
+- Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
+  nombres _dinámicos_**.
+
+- En Java, las clases y los paquetes son espacios de nombres estáticos.
+
+- Por otra parte, durante la ejecución de un programa se pueden ir creando
+  ciertas estructuras en memoria que representan espacios de nombres dinámicos.
+
+  Los ejemplos más comunes de esas estructuras son:
 
   - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones
     definidas por el programador.
 
   - Los **módulos** de Python.
 
-  - Los **objetos** y las **clases**.
+  - Los **objetos** y las **clases** de Python.
+
+- En definitiva: en Python todos los espacios de nombres son dinámicos.
 
 ---
 
-- Un espacio de nombres muy importante es el que incluye las definiciones
-  predefinidas del lenguaje (funciones !PYTHON(max) o !PYTHON(sum), tipos como
-  !PYTHON(str) o !PYTHON(int), etc.)
+- Un espacio de nombres muy importante en Python es el que incluye las
+  definiciones predefinidas del lenguaje (funciones !PYTHON(max) o
+  !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
 
 - Ese espacio de nombres se denomina !PYTHON(__builtins__) y viene implementado
   en forma de _módulo_ que se importa automáticamente en cada sesión
@@ -1293,11 +1314,11 @@ maximo -> lambda
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
 - Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
-  para **representar la ejecución o _activación_ de una determinada parte del
-  programa**.
+  para **representar la ejecución o _activación_ de un _script_ de Python o una
+  función definida por el programador** en Python o Java.
 
 - Los marcos son **espacios de nombres** y, entre otras cosas, almacenan las
-  ligaduras que se definen dentro de esa parte del programa.
+  ligaduras que se definen dentro de ese _script_ o función.
 
 - Los marcos son conceptos **_dinámicos_**:
 
@@ -1310,7 +1331,7 @@ maximo -> lambda
 ---
 
 - Por ahora, el único marco que existe en nuestros programas es el llamado
-  **_marco global_**.
+  **_marco global_**, también llamado **espacio de nombres global**.
 
 - El marco global se crea en el momento en que **se empieza a ejecutar el
   programa** y existe durante toda la ejecución del mismo (sólo se destruye al
@@ -1495,7 +1516,7 @@ z -> 3
 
 - Al cargar el _script_, se ejecutarán sus instrucciones una tras otra casi de
   la misma forma que si las estuviéramos tecleando nosotros directamente en
-  nuestra sesión con el intérprete.
+  nuestra sesión con el intérprete, en el mismo orden.
 
 - Llegado el momento, los _scripts_ contendrán el código fuente de nuestros
   programas y los ejecutaremos desde el intérprete por lotes.
@@ -1544,7 +1565,7 @@ z -> 3
 - Al cargar el _script_ (usando cualquiera de las dos opciones que hemos visto
   anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en
   consecuencia, se crearán en el marco global las ligaduras
-  `x`$\longrightarrow$`25` y `j`$\longrightarrow$`14`:
+  `x` → `25` y `j` → `14`:
 
   ```python
   >>> x                                   # antes de cargar el script, da error

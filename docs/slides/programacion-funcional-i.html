@@ -1067,11 +1067,12 @@
 <li><p>Esa asociación se denomina <strong>ligadura</strong> (o <strong><em>binding</em></strong>).</p></li>
 <li><p>Por esa razón, también se dice que <strong>una definición crea una ligadura</strong>.</p></li>
 <li><p>También decimos que el identificador está <strong>ligado</strong> (<strong><em>bound</em></strong>).</p></li>
-<li><p>Lo representaremos gráficamente así:</p></li>
-</ul>
+<li><p>Lo representaremos gráficamente así:</p>
 <div class="centered">
 <p><img data-src="images/ligadura.svg" class="plain" style="width:30.0%" /></p>
-</div>
+</div></li>
+<li><p>Las ligaduras empiezan a existir cuando se crean, no antes.</p></li>
+</ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
@@ -1181,23 +1182,34 @@
 <section id="espacios-de-nombres" class="title-slide slide level2" data-number="4.4">
 <h2 data-number="4.4"><span class="header-section-number">4.4</span> Espacios de nombres</h2>
 <ul>
-<li><p>Ciertas estructuras del programa definen lo que se denominan <strong>espacios de nombres</strong>.</p></li>
+<li><p>Ciertas estructuras o construcciones sintácticas del programa definen lo que se denominan <strong>espacios de nombres</strong>.</p></li>
 <li><p>Un <strong>espacio de nombres</strong> (del inglés, <em>namespace</em>) es una correspondencia entre nombres y valores, es decir, es un <strong>conjunto de ligaduras</strong>.</p></li>
+<li><p>Su función, por tanto, es el de <strong>almacenar ligaduras y permitir varias ligaduras con el mismo nombre</strong> en distintas partes del programa.</p></li>
 <li><p>En un espacio de nombres, <strong>un identificador sólo puede tener como máximo una ligadura</strong>. En cambio, el mismo identificador puede estar ligado a diferentes valores en diferentes espacios de nombres.</p></li>
-<li><p>Por eso decimos que una ligadura es <strong>local</strong> al espacio de nombres donde se almacena.</p></li>
-<li><p>Durante la ejecución de un programa, se pueden crear ciertas estructuras en memoria que representan espacios de nombres.</p></li>
-<li><p>Los ejemplos más comunes de esas estructuras son:</p>
-<ul>
-<li><p>Los <strong>marcos</strong> que se crean al ejecutar <em>scripts</em> de Python y funciones definidas por el programador.</p></li>
-<li><p>Los <strong>módulos</strong> de Python.</p></li>
-<li><p>Los <strong>objetos</strong> y las <strong>clases</strong>.</p></li>
-</ul></li>
+<li><p>Por eso decimos que una ligadura es <strong>local</strong> al espacio de nombres donde se almacena, o que tiene un <strong>almacenamiento local</strong> a ese espacio de nombres.</p></li>
+<li><p>Los espacios de nombres pueden estar <strong><em>anidados</em></strong>, es decir, que puede haber espacios de nombres dentro de otros espacios de nombres.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.1">
 
 <ul>
-<li><p>Un espacio de nombres muy importante es el que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
+<li><p>Algunos espacios de nombres son estructuras estáticas (o sea, que vienen definidas en tiempo de compilación) y otras son dinámicas (o sea, que vienen definidas en tiempo de ejecución).</p></li>
+<li><p>Por tanto, podemos tener <strong>espacios de nombres <em>estáticos</em></strong> y <strong>espacios de nombres <em>dinámicos</em></strong>.</p></li>
+<li><p>En Java, las clases y los paquetes son espacios de nombres estáticos.</p></li>
+<li><p>Por otra parte, durante la ejecución de un programa se pueden ir creando ciertas estructuras en memoria que representan espacios de nombres dinámicos.</p>
+<p>Los ejemplos más comunes de esas estructuras son:</p>
+<ul>
+<li><p>Los <strong>marcos</strong> que se crean al ejecutar <em>scripts</em> de Python y funciones definidas por el programador.</p></li>
+<li><p>Los <strong>módulos</strong> de Python.</p></li>
+<li><p>Los <strong>objetos</strong> y las <strong>clases</strong> de Python.</p></li>
+</ul></li>
+<li><p>En definitiva: en Python todos los espacios de nombres son dinámicos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.4.0.0.2">
+
+<ul>
+<li><p>Un espacio de nombres muy importante en Python es el que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
 <li><p>Ese espacio de nombres se denomina <code class="sourceCode python">__builtins__</code> y viene implementado en forma de <em>módulo</em> que se importa automáticamente en cada sesión interactiva o cada vez que se arranca un programa Python.</p></li>
 </ul>
 </section>
@@ -1205,8 +1217,8 @@
 <section id="marcos-frames" class="title-slide slide level2" data-number="4.5">
 <h2 data-number="4.5"><span class="header-section-number">4.5</span> Marcos (<em>frames</em> )</h2>
 <ul>
-<li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una estructura que se crea en memoria para <strong>representar la ejecución o <em>activación</em> de una determinada parte del programa</strong>.</p></li>
-<li><p>Los marcos son <strong>espacios de nombres</strong> y, entre otras cosas, almacenan las ligaduras que se definen dentro de esa parte del programa.</p></li>
+<li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una estructura que se crea en memoria para <strong>representar la ejecución o <em>activación</em> de un <em>script</em> de Python o una función definida por el programador</strong> en Python o Java.</p></li>
+<li><p>Los marcos son <strong>espacios de nombres</strong> y, entre otras cosas, almacenan las ligaduras que se definen dentro de ese <em>script</em> o función.</p></li>
 <li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
 <ul>
 <li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
@@ -1217,7 +1229,7 @@
 <section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
-<li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>.</p></li>
+<li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>, también llamado <strong>espacio de nombres global</strong>.</p></li>
 <li><p>El marco global se crea en el momento en que <strong>se empieza a ejecutar el programa</strong> y existe durante toda la ejecución del mismo (sólo se destruye al finalizar la ejecución del programa).</p></li>
 <li><p>Si se está trabajando en una sesión con el intérprete interactivo, el marco global <strong>se crea justo al empezar la sesión</strong> y existe durante toda la sesión (sólo se destruye al salir de la misma).</p>
 <p>Por tanto, las definiciones que se ejecutan directamente en una sesión interactiva con el intérprete crean ligaduras que se almacenan en el marco global.</p></li>
@@ -1313,7 +1325,7 @@
 <li><p>Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que introducirlas una y otra vez cada vez que abrimos una nueva sesión con el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
-<li><p>Al cargar el <em>script</em>, se ejecutarán sus instrucciones una tras otra casi de la misma forma que si las estuviéramos tecleando nosotros directamente en nuestra sesión con el intérprete.</p></li>
+<li><p>Al cargar el <em>script</em>, se ejecutarán sus instrucciones una tras otra casi de la misma forma que si las estuviéramos tecleando nosotros directamente en nuestra sesión con el intérprete, en el mismo orden.</p></li>
 <li><p>Llegado el momento, los <em>scripts</em> contendrán el código fuente de nuestros programas y los ejecutaremos desde el intérprete por lotes.</p></li>
 </ul>
 </section>
@@ -1341,7 +1353,7 @@
 <li><p>Por ejemplo, si el <em>script</em> <code>definiciones.py</code> tiene el siguiente contenido:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
-<li><p>Al cargar el <em>script</em> (usando cualquiera de las dos opciones que hemos visto anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en consecuencia, se crearán en el marco global las ligaduras <code>x</code><span class="math inline">\longrightarrow</span><code>25</code> y <code>j</code><span class="math inline">\longrightarrow</span><code>14</code>:</p>
+<li><p>Al cargar el <em>script</em> (usando cualquiera de las dos opciones que hemos visto anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en consecuencia, se crearán en el marco global las ligaduras <code>x</code> → <code>25</code> y <code>j</code> → <code>14</code>:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>

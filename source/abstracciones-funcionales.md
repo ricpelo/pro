@@ -150,8 +150,8 @@ nocite: |
 
 ---
 
-- Como una expresión lambda es una función, aplicar una expresión lambda a unos
-  argumentos es como llamar a una función pasándole dichos argumentos.
+- Como una expresión lambda es una función, **aplicar una expresión lambda a
+  unos argumentos es como llamar a una función pasándole dichos argumentos**.
 
 - Por tanto, ampliamos ahora nuestra gramática de las expresiones en Python
   incorporando las expresiones lambda como un tipo de función:
@@ -281,20 +281,31 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Un **ámbito** es una porción del código fuente de un programa.
 
-- Decimos que ciertas construcciones sintácticas definen ámbitos.
+- Decimos que **ciertas construcciones sintácticas definen ámbitos**.
 
-- Cuando una construcción define un ámbito, la sintaxis del lenguaje determina
-  dónde empieza y acaba ese ámbito en el código fuente.
+- Cuando una construcción define un ámbito, **la sintaxis del lenguaje
+  determina dónde empieza y acaba** ese ámbito en el código fuente.
 
-- Por tanto, siempre se puede determinar sin ambigüedad si una instrucción
-  está dentro de un determinado ámbito, tan sólo leyendo el código fuente del
+- Por tanto, siempre se puede determinar sin ambigüedad si **una instrucción
+  está dentro de un determinado ámbito**, tan sólo leyendo el código fuente del
   programa y sin necesidad de ejecutarlo.
+
+- Por ejemplo, en el lenguaje de programación Java, los bloques son estructuras
+  sintácticas delimitadas por llaves `{` y `}` que contienen instrucciones. Los
+  bloques de Java definen ámbitos; por tanto, si una instrucción está dentro de
+  un bloque (es decir, si está situada entre las llaves `{` y `}` que delimitan
+  el bloque), entonces esa instrucción se encuentra dentro del ámbito que
+  define el bloque.
+
+---
 
 - Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
   dentro de otros.
 
 - Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo
-  (anidados unos dentro de otros). De todos ellos, el **ámbito más interno** es
+  (anidados unos dentro de otros).
+
+- De todos ellos, el **ámbito más interno** es
   el que no contiene, a su vez, a otro ámbito.
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
@@ -313,16 +324,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
     primera instrucción hasta la última.
 
   - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
-    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
-    finalicemos la misma.
+    _ámbito global_ abarca toda nuestra sesión con el intérprete, desde que
+    arrancamos la sesión hasta que finalicemos la misma.
 
-- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
+- En el momento en que se empieza a ejecutar un _script_ o se arranca una
   sesión con el intérprete interactivo, se entra en el _ámbito global_.
 
 - Del ámbito global se sale cuando se finaliza la ejecución del _script_ o se
   cierra el intérprete interactivo.
 
 ---
+
+<!--
 
 - Las **definiciones globales** son aquellas definiciones que se ejecutan
   cuando el ámbito actual es el ámbito global.
@@ -337,7 +350,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Todos los marcos van asociados a ámbitos, pero no todos los ámbitos van
   asociados a marcos.
 
----
+-->
+
+- Las definiciones que se ejecutan cuando el ámbito actual es el ámbito global,
+  se denominan **definiciones globales**.
+
+- Las ligaduras que crean las definiciones globales se denominan **ligaduras
+  globales** o **ligaduras de ámbito global**.
 
 - Por ejemplo, en el siguiente _script_ se ejecutan cuatro instrucciones. El
   ámbito actual de cada una de las instrucciones es el ámbito global, que es el
@@ -345,43 +364,55 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
+<!--
+
 - Además, todas las ligaduras que se crean se almacenan en el marco global, que
   es el único que existe en memoria durante la ejecución de ese _script_.
+
+-->
 
 ## Ámbito de creación de una ligadura
 
 - El **ámbito de creación de una ligadura** es el ámbito actual de la
   instrucción que define la ligadura.
 
-  Dicho de otra forma: es el ámbito más interno que contiene la instrucción que
-  define la ligadura.
+  Dicho de otra forma: es el ámbito más interno donde se define la ligadura.
 
 - Ese ámbito siempre está definido por una construcción sintáctica.
 
 - Por tanto, sus límites vienen marcados únicamente por la sintaxis de la
-  construcción sintáctica que define el ámbito.
+  construcción sintáctica que define el ámbito y dentro de la cual se está
+  creando la ligadura.
 
-- Se dice que **una ligadura es _local_ a su ámbito de creación**.
+- Se dice que **la ligadura tiene un _ámbito local_ a su ámbito de creación**.
 
 ## Ámbito de una ligadura
 
 - El **ámbito de una ligadura** es la porción del código fuente en la que
   existe y es visible dicha ligadura.
 
-- A diferencia de los ámbitos de creación, el ámbito de una ligadura no viene
-  definido simplemente por una construcción sintáctica del lenguaje, sino por:
+- Es decir: el ámbito de una ligadura determina en qué partes del programa se
+  puede acceder a una ligadura.
 
-  - el punto en el que se crea la ligadura y
+- Dependiendo de las características del lenguaje de programación utilizado, el
+  ámbito de una ligadura puede coincidir o no con el _ámbito de creación_ de
+  esa ligadura.
 
-  - el ámbito de creación de la ligadura, que tiene que ser un ámbito definido
-    por una construcción sintáctica.
+---
 
-- El ámbito de una ligadura:
+- Por ejemplo, en los lenguajes interpretados (como Python), las ligaduras
+  empiezan a existir justo donde se crea la ligadura.
+
+  Por tanto, no es posible acceder a esa ligadura _antes_ de ese punto.
+
+- Eso significa que el ámbito de una ligadura en Python:
 
   - Empieza en el punto donde se crea la ligadura (es decir, el punto donde se
     ejecuta la instrucción que define la ligadura).
 
-  - Termina donde lo hace el _ámbito de creación_ de la ligadura.
+  - Termina donde lo hace el _ámbito de creación_ de la ligadura, que deberá
+    ser un ámbito definido por una construcción sintáctica y, por tanto, el
+    límite de ese ámbito vendrá marcado por la sintaxis de dicha construcción.
 
 ---
 
@@ -392,39 +423,33 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   Los dos ámbitos acaban en el mismo punto, pero no tienen por qué empezar en
   el mismo punto.
 
-- Esto se debe a que una ligadura empieza a existir en el momento en el que se
-  ejecuta la instrucción que la crea, y no antes.
+  Esto último sólo ocurre en Python si la ligadura se crea justo al comienzo
+  del ámbito de creación de la ligadura.
 
-- Por tanto, las ligaduras visibles dentro de un ámbito serán sólo las que se
-  hayan creado en ese ámbito **hasta ese momento**.
+- En cambio, en los lenguajes compilados (como Java), el ámbito de una ligadura
+  puede coincidir con su ámbito de creación, aunque la sentencia de definición
+  no esté justo al principio del ámbito de creación.
 
 - El ámbito de una ligadura y el ámbito de creación de una ligadura son dos
   conceptos distintos, aunque a veces pueda coincidir que ambos ámbitos tengan
   los mismos límites para una determinada ligadura.
 
-  Esto último ocurre sólo si la ligadura se crea justo al comienzo del ámbito
-  de creación de la ligadura.
-
-- Pero el ámbito de una ligadura no puede ser el ámbito de creación de otra
-  ligadura.
-
 ---
 
-- En el siguiente ejemplo vemos los ámbitos de varias ligaduras. Todas esas
-  ligaduras se definen en el ámbito global, por lo que el **ámbito de
-  creación** de todas ellas es el **ámbito global**.
+- En el siguiente ejemplo vemos los ámbitos de varias ligaduras.
 
-  Por eso, decimos que cada una de esas ligaduras es una **ligadura _global_**.
+- Todas esas ligaduras se definen en el ámbito global, por lo que el **ámbito
+  de creación** de todas ellas es el **ámbito global** (y, por tanto, decimos
+  que cada una de esas ligaduras es una **ligadura de _ámbito global_**).
 
-!IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
+  !IMGP(ambitos-ligaduras.png)()(width=50%)(width=40%)
 
 - El ámbito de cada una de esas ligaduras empieza justo donde se crea la
-  ligadura y termina al final
-  de su ámbito de creación.
+  ligadura y termina al final de su ámbito de creación.
 
-- Es importante entender que, aunque el ámbito de `y` → `99` está contenido en
-  el de `x` → `25`, éste último no se tiene en cuenta a la hora de determinar
-  cuál es el ámbito de creación de la ligadura `y` → `99` (porque es el ámbito
+- Es importante entender que, aunque el ámbito de `z` → `99` está contenido en
+  el de `y` → `99`, éste último no se tiene en cuenta a la hora de determinar
+  cuál es el ámbito de creación de la ligadura `z` → `99` (porque es el ámbito
   de una ligadura, no el ámbito de creación de una ligadura).
 
 ---
@@ -443,38 +468,64 @@ Porción del código fuente de un programa.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de creación de una ligadura:**
 
-El ámbito actual de la instrucción que define la ligadura; o, dicho de otra
-forma, el ámbito más interno en el que se crea una ligadura. Los límites de ese
-ámbito sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
-construcciones sintáticas definen su propio ámbito. A veces, además, este
-ámbito va asociado a un marco.
+El ámbito actual de la instrucción que define la ligadura; es decir: el ámbito
+más interno donde se define la ligadura. Los límites de ese ámbito sólo vienen
+determinados por la sintaxis del lenguaje, ya que ciertas construcciones
+sintácticas definen su propio ámbito.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-Porción de código fuente en el que la ligadura existe y es visible. Va desde el
-punto donde se crea la ligadura hasta el final de su ámbito de creación. El
-ámbito de una ligadura no puede ser el ámbito de creación de otra ligadura.
+Porción de código fuente en el que la ligadura existe y es visible. Puede
+coincidir o no con el ámbito de creación de esa ligadura.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Ámbitos y espacios de nombres
+
+- Ciertas construcciones sintácticas definen su propio ámbito, o su propio
+  espacio de nombres, o ambas cosas.
+
+- En consecuencia, podemos decir que hay ámbitos que van asociados a un
+  determinado espacio de nombres.
+
+- Si el ámbito de creación de una ligadura va asociado a un espacio de nombres,
+  la ligadura se almacenará en ese espacio de nombres.
+
+- Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito
+  de creación más interno que contenga al actual y que sí lleve asociado un
+  espacio de nombres.
+
+- Ese espacio de nombres se denomina el **espacio de nombres actual**.
 
 ---
 
-- Si el ámbito de creación de la ligadura lleva asociado un marco, la ligadura
-  se almacenará en ese marco.
+- Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
+  ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
+  éste (en orden, de más interno a más externo), hasta encontrar el primero que
+  lleve asociado un espacio de nombres.
 
-- Si no, entonces la ligadura se almacenará en el marco del ámbito de creación
-  más interno que contenga al actual y que sí lleve asociado un marco.
+- En resumen:
 
-- Ese marco se denomina el **marco actual**.
+  - El ámbito define la visibilidad de una ligadura: dónde puede usarse esa
+    ligadura.
+
+  - El espacio de nombres define el almacenamiento de una ligadura: dónde se
+    almacena esa ligadura.
+
+---
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
   lo que se almacenan en el marco global.
 
-- Por eso también decimos que esas ligaduras tienen ámbito global, o que
-  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
-  son **globales**.
+- Por tanto:
+
+  - Como esas ligaduras se definen en el ámbito global, se dice que tienen
+  **ámbito global**.
+
+  - Como esas ligaduras se almacenan en el marco global, se dice que tienen
+    **almacenamiento global**.
 
 - Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
@@ -649,11 +700,11 @@ establece entre ésta y su argumento correspondiente, y se corresponde con el
 
 ## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
-- El **entorno** es una extensión del concepto de _marco_.
+- El **entorno** es una extensión del concepto de _espacio de nombres_.
 
-- Durante la ejecución del programa, se van creando y destruyendo marcos a
-  medida que la ejecución va entrando y saliendo de ciertas partes del
-  programa.
+- Durante la ejecución del programa, se van creando y destruyendo espacios de
+  nombres a medida que la ejecución va entrando y saliendo de ciertas partes
+  del programa.
 
 - Por ejemplo:
 
