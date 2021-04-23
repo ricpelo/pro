@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -1066,11 +1067,12 @@
 <li><p>Esa asociación se denomina <strong>ligadura</strong> (o <strong><em>binding</em></strong>).</p></li>
 <li><p>Por esa razón, también se dice que <strong>una definición crea una ligadura</strong>.</p></li>
 <li><p>También decimos que el identificador está <strong>ligado</strong> (<strong><em>bound</em></strong>).</p></li>
-<li><p>Lo representaremos gráficamente así:</p></li>
-</ul>
+<li><p>Lo representaremos gráficamente así:</p>
 <div class="centered">
 <p><img data-src="images/ligadura.svg" class="plain" style="width:30.0%" /></p>
-</div>
+</div></li>
+<li><p>Las ligaduras empiezan a existir cuando se crean, no antes.</p></li>
+</ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
@@ -1161,57 +1163,77 @@
 </section>
 
 
-<section id="evaluación-de-expresiones-con-identificadores" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> Evaluación de expresiones con identificadores</h2>
+<section id="espacios-de-nombres" class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Espacios de nombres</h2>
 <ul>
-<li><p>Podemos usar un identificador ligado dentro de una expresión (siempre que la expresión sea una expresión válida según las reglas del lenguaje, claro está).</p></li>
-<li><p>El identificador representa a su valor ligado y se evalúa a dicho valor en cualquier expresión donde aparezca el identificador:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="dv">77</span></span></code></pre></div></li>
-<li><p>Intentar usar en una expresión un identificador no ligado provoca un error (<em>nombre no definido</em>):</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<li><p>Ciertas estructuras o construcciones sintácticas del programa definen lo que se denominan <strong>espacios de nombres</strong>.</p></li>
+<li><p>Un <strong>espacio de nombres</strong> (del inglés, <em>namespace</em>) es una correspondencia entre nombres y valores, es decir, es un <strong>conjunto de ligaduras</strong>.</p></li>
+<li><p>Su función es, por tanto, <strong>almacenar ligaduras y permitir varias ligaduras con el mismo nombre</strong> en distintas partes del programa.</p></li>
+<li><p>En un espacio de nombres, <strong>un identificador sólo puede tener como máximo una ligadura</strong>. En cambio, el mismo identificador puede estar ligado a diferentes valores en diferentes espacios de nombres.</p></li>
+<li><p>Por eso decimos que una ligadura es <strong>local</strong> al espacio de nombres donde se almacena, o que tiene un <strong>almacenamiento local</strong> a ese espacio de nombres.</p></li>
+<li><p>Los espacios de nombres pueden estar <strong><em>anidados</em></strong>, es decir, que puede haber espacios de nombres dentro de otros espacios de nombres, ya que también pueden estarlo las estructuras sintácticas que los definen.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<ul>
+<li><p>Algunos espacios de nombres provienen de estructuras estáticas (o sea, que vienen definidas en tiempo de compilación) y otras provienen de estructuras dinámicas (definidas en tiempo de ejecución).</p></li>
+<li><p>Por tanto, podemos tener <strong>espacios de nombres <em>estáticos</em></strong> y <strong>espacios de nombres <em>dinámicos</em></strong>.</p></li>
+<li><p>En Java, las clases y los paquetes son espacios de nombres estáticos.</p></li>
+<li><p>Por otra parte, durante la ejecución de un programa se pueden ir creando ciertas estructuras en memoria que representan espacios de nombres dinámicos.</p>
+<p>Los ejemplos más comunes de esas estructuras son:</p>
+<ul>
+<li><p>Los <strong>marcos</strong> que se crean al ejecutar <em>scripts</em> de Python y funciones o métodos definidos por el programador.</p></li>
+<li><p>Los <strong>módulos</strong> de Python.</p></li>
+<li><p>Los <strong>objetos</strong> y las <strong>clases</strong> de Python.</p></li>
+</ul></li>
+<li><p>En resumen: en Python, todos los espacios de nombres son dinámicos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.2">
+
+<ul>
+<li><p>Un espacio de nombres muy importante en Python es el que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.)</p></li>
+<li><p>Ese espacio de nombres se denomina <code class="sourceCode python">__builtins__</code> y viene implementado en forma de <em>módulo</em> que se importa automáticamente en cada sesión interactiva o cada vez que se arranca un programa Python.</p></li>
+<li><p>Además de importarse el propio módulo, también se importan directamente las definiciones que contiene, por lo que se pueden usar directamente.</p></li>
 </ul>
 </section>
 
 <section id="marcos-frames" class="title-slide slide level2" data-number="4.4">
 <h2 data-number="4.4"><span class="header-section-number">4.4</span> Marcos (<em>frames</em> )</h2>
 <ul>
-<li><p>Un <strong>marco</strong> (del inglés <em>frame</em>) es un <strong>conjunto de ligaduras</strong>.</p></li>
-<li><p>Las ligaduras se almacenan en marcos.</p></li>
-<li><p>En un marco, un identificador sólo puede tener como máximo una ligadura. En cambio, <strong>el mismo identificador puede estar ligado a diferentes valores en diferentes marcos</strong>.</p></li>
+<li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una estructura que se crea en memoria para <strong>representar la ejecución o <em>activación</em> de un <em>script</em> de Python o una función o método definido por el programador</strong> en Python o Java.</p></li>
+<li><p>Los marcos son <strong>espacios de nombres</strong> y, entre otras cosas, almacenan las ligaduras que se definen dentro de ese <em>script</em>, función o método.</p></li>
 <li><p>Los marcos son conceptos <strong><em>dinámicos</em></strong>:</p>
 <ul>
 <li><p>Se crean y se destruyen a medida que la ejecución del programa pasa por ciertas partes del mismo.</p></li>
-<li><p>Van almacenando nuevas ligaduras conforme se van ejecutando nuevas instrucciones.</p></li>
+<li><p>Van almacenando nuevas ligaduras conforme se van ejecutando nuevas instrucciones que crean las ligaduras.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.1">
 
 <ul>
-<li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>.</p></li>
+<li><p>Por ahora, el único marco que existe en nuestros programas es el llamado <strong><em>marco global</em></strong>, también llamado <strong>espacio de nombres global</strong>.</p></li>
+<li><p>El marco global es, además, el único espacio de nombres que existe por ahora en nuestros programas.</p></li>
 <li><p>El marco global se crea en el momento en que <strong>se empieza a ejecutar el programa</strong> y existe durante toda la ejecución del mismo (sólo se destruye al finalizar la ejecución del programa).</p></li>
 <li><p>Si se está trabajando en una sesión con el intérprete interactivo, el marco global <strong>se crea justo al empezar la sesión</strong> y existe durante toda la sesión (sólo se destruye al salir de la misma).</p>
-<p>Por tanto, las definiciones que se ejecutan directamente en una sesión interactiva con el intérprete crean ligaduras que se almacenan en el marco global.</p></li>
+<p>Por tanto, las definiciones que se ejecutan directamente en una sesión interactiva con el intérprete, crean ligaduras que se almacenan en el marco global.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
 
 <ul>
 <li><p>Por ejemplo, si iniciamos una sesión con el intérprete interactivo y justo a continuación tecleamos lo siguiente:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb30-2"><a href="#cb30-2"></a>Traceback (most recent call last):</span>
-<span id="cb30-3"><a href="#cb30-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb28-2"><a href="#cb28-2"></a>Traceback (most recent call last):</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="dv">25</span></span></code></pre></div>
 <ul>
-<li><p>Aquí estamos trabajando con el <em>marco global</em> (el único que existe hasta ahora para nosotros).</p></li>
+<li><p>Aquí estamos trabajando con el <em>marco global</em> (el único marco y el único espacio de nombres que existe hasta ahora para nosotros).</p></li>
 <li><p>En la línea 1, el identificador <code class="sourceCode python">x</code> aún no está ligado, por lo que su uso genera un error (el marco global no contiene hasta ahora ninguna ligadura para <code class="sourceCode python">x</code>).</p></li>
 <li><p>En la línea 6, en cambio, el identificador puede usarse sin error ya que ha sido ligado previamente en la línea 5 (el marco global ahora contiene una ligadura para <code class="sourceCode python">x</code> con el valor 25).</p></li>
 </ul></li>
@@ -1220,13 +1242,14 @@
 <section class="slide level5" data-number="4.4.0.0.3">
 
 <ul>
-<li><p>Tanto los marcos como su contenido (las ligaduras) se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
+<li><p>Los marcos son espacios de nombres dinámicos, que se van creando y destruyendo durante la ejecución del programa.</p></li>
+<li><p>Igualmente, las ligaduras que contiene también se van creando y destruyendo a medida que se van ejecutando las instrucciones que forman el programa.</p></li>
 <li><p>Si tenemos la siguiente sesión interactiva:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="dv">5</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="dv">5</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
 <p>Según hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:</p></li>
 </ul>
 <div class="columns">
@@ -1267,24 +1290,74 @@
 
 <ul>
 <li><p>Hemos visto que una ligadura es una asociación entre un identificador y un valor.</p></li>
-<li><p><strong>Los marcos almacenan ligaduras, pero <em>NO</em> almacenan los valores</strong> a los que están asociados los identificadores de esas ligaduras.</p></li>
+<li><p>También hemos visto que los espacios de nombres almacenan ligaduras, y que un marco es un espacio de nombres.</p></li>
+<li><p>Por tanto, <strong>los marcos almacenan ligaduras, pero <em>NO</em> almacenan los valores</strong> a los que están asociados los identificadores de esas ligaduras.</p></li>
 <li><p>Por eso hemos dibujado a los valores fuera de los marcos en los diagramas anteriores.</p></li>
 <li><p>Los valores se almacenan en una zona de la memoria del intérprete conocida como el <strong>montículo</strong>.</p></li>
-<li><p>Asimismo, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
+<li><p>En cambio, los marcos se almacenan en otra zona de la memoria conocida como la <strong>pila de control</strong>, la cual estudiaremos mejor más adelante.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.4.0.0.6">
+
+<ul>
+<li><p>En realidad, además del marco global, existe otro espacio de nombres muy importante que incluye las definiciones predefinidas del lenguaje (funciones <code class="sourceCode python"><span class="bu">max</span></code> o <code class="sourceCode python"><span class="bu">sum</span></code>, tipos como <code class="sourceCode python"><span class="bu">str</span></code> o <code class="sourceCode python"><span class="bu">int</span></code>, etc.).</p></li>
+<li><p>Ese espacio de nombres se denomina <code class="sourceCode python">__builtins__</code>.</p></li>
+<li><p>Las definiciones contenidas en el espacio de nombres <code class="sourceCode python">__builtins__</code> están disponibles directamente en la sesión de trabajo o en cualquier punto del programa.</p></li>
 </ul>
 </section>
 
-<section id="scripts" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> <em>Scripts</em></h2>
+<section id="evaluación-de-expresiones-con-identificadores" class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> Evaluación de expresiones con identificadores</h2>
+<ul>
+<li><p>Podemos usar un identificador ligado dentro de una expresión, siempre que la expresión resulte ser válida según las reglas del lenguaje.</p></li>
+<li><p>El identificador representa a su valor ligado y se evalúa a dicho valor en cualquier expresión donde aparezca ese identificador:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">77</span></span></code></pre></div></li>
+<li><p>Intentar usar en una expresión un identificador no ligado provoca un error de tipo <code class="sourceCode python"><span class="pp">NameError</span></code> (<em>nombre no definido</em>):</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ul>
+</section>
+<section id="resolución-de-identificadores" class="title-slide slide level3" data-number="4.5.1">
+<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span> Resolución de identificadores</h3>
+<ul>
+<li><p>Durante la evaluación de la expresión, el intérprete tiene que comprobar si el identificador que aparece en la expresión está ligado o no.</p>
+<ul>
+<li><p>Si no está ligado, es un error de <em>nombre no definido</em>.</p></li>
+<li><p>Si lo está, tendrá que determinar a qué valor está ligado para poder sustituir, en la expresión, cada aparición del identificador por su valor.</p></li>
+</ul></li>
+<li><p>Para ello, buscará una ligadura con ese identificador en el espacio de nombres correspondiente.</p></li>
+<li><p>Por ahora, el espacio de nombres donde lo busca tendrá que ser el marco global, ya que es el único que existe hasta ahora.</p></li>
+<li><p>El proceso de localizar (si es que existe) la ligadura adecuada que liga a un identificador con su valor, se denomina <strong>resolución del identificador</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.1.0.1">
+
+<ul>
+<li><p>La resolución de identificadores es un proceso que usa mecanismos distintos dependiendo de si el lenguaje es interpretado o compilado:</p>
+<ul>
+<li><p>Si es un <strong>lenguaje interpretado</strong> (como Python): el intérprete usa un concepto llamado <strong>entorno</strong> en tiempo de ejecución para localizar la ligadura.</p></li>
+<li><p>Si es un <strong>lenguaje compilado</strong> (como Java): el compilador determina, en tiempo de compilación, si una ligadura es accesible haciendo uso del concepto de <strong>ámbito</strong> y, en caso afirmativo, deduce en qué espacio de nombres está la ligadura.</p>
+<p>Los conceptos de <em>ámbito</em> y de <em>entorno</em> los estudiaremos en breve más adelante.</p></li>
+</ul></li>
+</ul>
+</section>
+
+
+<section id="scripts" class="title-slide slide level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span> <em>Scripts</em></h2>
 <ul>
 <li><p>Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que introducirlas una y otra vez cada vez que abrimos una nueva sesión con el intérprete interactivo.</p></li>
 <li><p>Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego cargaremos desde dentro del intérprete.</p></li>
 <li><p>Ese archivo se llama <strong><em>script</em></strong> y, por ahora, contendrá una lista de las definiciones que nos interese usar en nuestras sesiones interactivas con el intérprete.</p></li>
-<li><p>Al cargar el <em>script</em>, se ejecutarán sus instrucciones una tras otra casi de la misma forma que si las estuviéramos tecleando nosotros directamente en nuestra sesión con el intérprete.</p></li>
+<li><p>Al cargar el <em>script</em>, se ejecutarán sus instrucciones una tras otra casi de la misma forma que si las estuviéramos tecleando nosotros directamente en nuestra sesión con el intérprete, en el mismo orden.</p></li>
 <li><p>Llegado el momento, los <em>scripts</em> contendrán el código fuente de nuestros programas y los ejecutaremos desde el intérprete por lotes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.1">
+<section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan extensión <code>.py</code>.</p></li>
@@ -1301,14 +1374,14 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.2">
+<section class="slide level5" data-number="4.6.0.0.2">
 
 <ul>
 <li><p>A partir de ese momento, en el intérprete interactivo podremos usar las definiciones que se hayan cargado desde del <em>script</em>.</p></li>
 <li><p>Por ejemplo, si el <em>script</em> <code>definiciones.py</code> tiene el siguiente contenido:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
-<li><p>Al cargar el <em>script</em> (usando cualquiera de las dos opciones que hemos visto anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en consecuencia, se crearán en el marco global las ligaduras <code>x</code><span class="math inline">\longrightarrow</span><code>25</code> y <code>j</code><span class="math inline">\longrightarrow</span><code>14</code>:</p>
+<li><p>Al cargar el <em>script</em> (usando cualquiera de las dos opciones que hemos visto anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en consecuencia, se crearán en el marco global las ligaduras <code>x</code> → <code>25</code> y <code>j</code> → <code>14</code>:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
@@ -1318,7 +1391,7 @@
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.3">
+<section class="slide level5" data-number="4.6.0.0.3">
 
 <ul>
 <li><p>Una limitación importante que hay que tener en cuenta es que <strong>el <em>script</em> sólo puede usar definiciones que se hayan creado en el mismo <em>script</em></strong> (exceptuando las definiciones predefinidas del lenguaje).</p></li>
@@ -1335,120 +1408,6 @@
 <li><p>Aunque <code>w</code> esté ligado a un valor al cargar el <em>script</em>, éste no podrá acceder a esa ligadura y da error de «<em>nombre no definido</em>».</p></li>
 <li><p>Cuando estudiemos la programación modular entenderemos por qué.</p></li>
 </ul>
-<!-- ¡ATENCIÓN! PARA EL PRÓXIMO AÑO, QUITAR LOS ÁMBITOS DE AQUÍ
-     PORQUE YA ESTÁN EXACTAMENTE IGUAL EN EL SIGUIENTE TEMA -->
-<!--
-
-## Ámbitos
-
-- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
-  la creación de nuevos marcos.
-
-- Cuando eso ocurre, decimos que esa construcción sintáctica define un
-  **ámbito**, y que ese ámbito viene definido por la porción de texto que ocupa
-  esa construcción sintáctica dentro del programa, de forma que:
-
-  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
-    nuevo marco.
-
-  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
-
-- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
-  marco.
-
-- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros.
-
-- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
-  se encuentra la instrucción que se está ejecutando actualmente.
-
----
-
-- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
-  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
-  tener en cuenta más condicionantes.
-
-- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
-
-  - Si se está ejecutando un _script_ en el intérprete por lotes (con
-    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
-    primera instrucción hasta la última.
-
-  - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
-    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
-    finalicemos la misma.
-
-- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
-  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
-  provoca la creación de un nuevo marco llamado **marco global**.
-
-- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
-  se cierra el intérprete interactivo.
-
----
-
-- Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
-  ellas se realizan en el ámbito global, que es el único ámbito que existe en
-  el _script_:
-
-::: centered
-  ![](images/ambito-global.png){width=50% .plain width=80%}
-:::
-
-
-
-### Ámbito de una ligadura
-
-- El **ámbito de una ligadura** es la porción del código fuente en la que
-  existe dicha ligadura.
-
-- Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el
-  marco del ámbito donde se definen.
-
-- Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el
-  ámbito en el que se define.
-
-- Esto es así porque una ligadura empieza a existir en el momento en el que se
-  define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
-  antes.
-
-- Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de
-  un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son
-  sólo las que se han definido en ese ámbito **hasta ese momento**.
-
----
-
-- En consecuencia, el ámbito de una ligadura:
-
-  - Empieza en el punto donde se define.
-
-  - Termina donde lo hace el ámbito en el que se definió la ligadura.
-
-::: centered
-  ![](images/ambitos-ligaduras.png){.plain width=80%}
-:::
-
-
-
-::: {.caja .centered}
-Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
-:::
-
----
-
-- La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
-  un nuevo marco.
-
-- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.
-
-- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
-  lo que se almacenan en el marco global.
-
-- Por eso también decimos que esas ligaduras tienen ámbito global, o que
-  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
-  son **globales**.
-
--->
 </section>
 </section>
 <section>

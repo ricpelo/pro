@@ -245,9 +245,12 @@ def deposito(fondos):
 
 ---
 
-- La definición de una clase es una estructura sintáctica que está formada por
-  un bloque de sentencias que se ejecutarán en el momento en que el intérprete
-  ejecute esa definición:
+- La **definición de una clase** es una estructura sintáctica que crea un
+  **espacio de nombres** y define su propio **ámbito**.
+
+- Esa definición está formada por un **bloque de sentencias** que se ejecutarán
+  dentro de ese ámbito en el momento en que el intérprete ejecute la
+  definición:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -255,31 +258,37 @@ def deposito(fondos):
       !NT(sentencia)!MAS
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- La ejecución de esta definición crea un **objeto** que almacenará en forma de
-  **atributos** todas los elementos (variables, funciones, etc.) que se definan
-  dentro de la clase al ejecutar el bloque de sentencias.
+- Todas las definiciones que se realicen directamente en el ámbito de la clase
+  como consecuencia de ejecutar su bloque de sentencias, serán **locales** a la
+  clase y se almacenarán en el espacio de nombres de la clase, ya que, durante
+  la ejecución del bloque de sentencias, el espacio de nombres actual es el
+  espacio de nombres de la clase.
 
-- Por tanto, esos elementos serán **locales** a la clase ya que se almacenan en
-  el espacio de nombres del objeto que representa a la clase.
+- Los elementos así definidos se denominan **miembros** de la clase.
 
-- Eso significa que podrán tener el mismo nombre que otros elementos de otros
-  espacios de nombres (de otras clases, por ejemplo).
-
-- Los elementos de una clase también se denominan **miembros** de la clase.
-
+- Las funciones definidas dentro de una clase se denominan **métodos**.
+ 
 ---
 
 - Por ejemplo, las funciones !PYTHON(__init__), `retirar`, `ingresar` y `saldo`
-  pertenecen a la clase `Deposito` y sólo existen dentro de ella.
+  pertenecen a la clase `Deposito` y sólo existen dentro de ella (son _locales_
+  a la clase), porque sus definiciones se almacenan en el espacio de nombres de
+  la clase.
 
-- Las funciones definidas dentro de una clase se denominan **métodos**.
+  Por tanto, esas funciones son métodos de la clase.
 
-- Desde el interior de un método no se puede acceder directamente al resto de
-  miembros de la clase, ya que están definidos en el espacio de nombres del
-  objeto que representa a la clase.
+- Cuando se termina de ejecutar la definición de la clase, se crea un
+  **objeto** que almacena en forma de **atributos** cada miembro de esa clase.
 
-- Para poder acceder a ellos habrá que usar el operador punto (`.`) a través de
-  una referencia a la clase.
+  Por tanto, ese objeto almacena el espacio de nombres de la clase y representa
+  a dicha clase dentro del programa.
+
+- Recordemos que durante la definición de una función no se ejecuta su cuerpo,
+  sino que simplemente se crea la ligadura entre el nombre de la función y la
+  propia función.
+
+- Por tanto, al ejecutar la definición de una clase no se ejecutan los cuerpos
+  de sus métodos.
 
 ---
 
@@ -401,15 +410,21 @@ def deposito(fondos):
 
 ---
 
-- Durante la ejecución de la definición de la clase, se crea un objeto en
-  memoria (de tipo !PYTHON(`type`)) que va almacenando sus definiciones en
-  forma de atributos.
+- Con las **clases** ocurre lo siguiente:
 
-- !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
-  **La clase acaba siendo un objeto más, almacenado en el montículo**, que
-  se ligará al nombre de la clase en el ámbito donde se haya definido ésta.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  - Al entrar en la clase, se crea un nuevo espacio de nombres contiene las
+    definiciones que se van creando durante la ejecución de la clase.
+
+  - Al salir de la clase, se crea un objeto (de tipo `type`) que acaba
+    almacenando ese espacio de nombres, de forma que las ligaduras que contiene
+    se convierten en atributos del objeto.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    **La clase acaba siendo un objeto más, almacenado en el montículo**, que
+    se ligará al nombre de la clase en el espacio de nombres donde se haya
+    definido ésta.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Es decir: el nombre de la clase es una **referencia** que apunta a la clase,
   la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos

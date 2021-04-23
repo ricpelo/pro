@@ -1070,13 +1070,15 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 - Lo representaremos gráficamente así:
 
-!DOT(ligadura.svg)()(width=30%)(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-25 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-x -> 25
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(ligadura.svg)()(width=30%)(width=20%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fixedsize = shape, fontname = "monospace"]
+  25 [shape = circle]
+  x [shape = plaintext, fillcolor = transparent]
+  x -> 25
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Las ligaduras empiezan a existir cuando se crean, no antes.
 
 ---
 
@@ -1228,40 +1230,74 @@ maximo -> lambda
 - Si un identificador no está ligado, no tiene sentido preguntarse qué tipo
   tiene.
 
-## Evaluación de expresiones con identificadores
+## Espacios de nombres
 
-- Podemos usar un identificador ligado dentro de una expresión (siempre que la
-  expresión sea una expresión válida según las reglas del lenguaje, claro
-  está).
+- Ciertas estructuras o construcciones sintácticas del programa definen lo que
+  se denominan **espacios de nombres**.
 
-- El identificador representa a su valor ligado y se evalúa a dicho valor en
-  cualquier expresión donde aparezca el identificador:
+- Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
+  entre nombres y valores, es decir, es un **conjunto de ligaduras**.
 
-  ```python
-  >>> x = 25
-  >>> 2 + x * 3
-  77
-  ```
+- Su función es, por tanto, **almacenar ligaduras y permitir varias ligaduras
+  con el mismo nombre** en distintas partes del programa.
 
-- Intentar usar en una expresión un identificador no ligado provoca un error
-  (*nombre no definido*):
+- En un espacio de nombres, **un identificador sólo puede tener como máximo una
+  ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
+  valores en diferentes espacios de nombres.
 
-  ```python
-  >>> y
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'y' is not defined
-  ```
+- Por eso decimos que una ligadura es **local** al espacio de nombres donde se
+  almacena, o que tiene un **almacenamiento local** a ese espacio de nombres.
+
+- Los espacios de nombres pueden estar **_anidados_**, es decir, que puede
+  haber espacios de nombres dentro de otros espacios de nombres, ya que también
+  pueden estarlo las estructuras sintácticas que los definen.
+
+---
+
+- Algunos espacios de nombres provienen de estructuras estáticas (o sea, que
+  vienen definidas en tiempo de compilación) y otras provienen de estructuras
+  dinámicas (definidas en tiempo de ejecución).
+
+- Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
+  nombres _dinámicos_**.
+
+- En Java, las clases y los paquetes son espacios de nombres estáticos.
+
+- Por otra parte, durante la ejecución de un programa se pueden ir creando
+  ciertas estructuras en memoria que representan espacios de nombres dinámicos.
+
+  Los ejemplos más comunes de esas estructuras son:
+
+  - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones o
+    métodos definidos por el programador.
+
+  - Los **módulos** de Python.
+
+  - Los **objetos** y las **clases** de Python.
+
+- En resumen: en Python, todos los espacios de nombres son dinámicos.
+
+---
+
+- Un espacio de nombres muy importante en Python es el que incluye las
+  definiciones predefinidas del lenguaje (funciones !PYTHON(max) o
+  !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
+
+- Ese espacio de nombres se denomina !PYTHON(__builtins__) y viene implementado
+  en forma de _módulo_ que se importa automáticamente en cada sesión
+  interactiva o cada vez que se arranca un programa Python.
+
+- Además de importarse el propio módulo, también se importan directamente las
+  definiciones que contiene, por lo que se pueden usar directamente.
 
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
-- Un **marco** (del inglés *frame*) es un **conjunto de ligaduras**.
+- Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
+  para **representar la ejecución o _activación_ de un _script_ de Python o una
+  función o método definido por el programador** en Python o Java.
 
-- Las ligaduras se almacenan en marcos.
-
-- En un marco, un identificador sólo puede tener como máximo una ligadura. En
-  cambio, **el mismo identificador puede estar ligado a diferentes valores en
-  diferentes marcos**.
+- Los marcos son **espacios de nombres** y, entre otras cosas, almacenan las
+  ligaduras que se definen dentro de ese _script_, función o método.
 
 - Los marcos son conceptos **_dinámicos_**:
 
@@ -1269,12 +1305,15 @@ maximo -> lambda
     ciertas partes del mismo.
 
   - Van almacenando nuevas ligaduras conforme se van ejecutando nuevas
-    instrucciones.
+    instrucciones que crean las ligaduras.
 
 ---
 
 - Por ahora, el único marco que existe en nuestros programas es el llamado
-  **_marco global_**.
+  **_marco global_**, también llamado **espacio de nombres global**.
+
+- El marco global es, además, el único espacio de nombres que existe por ahora
+  en nuestros programas.
 
 - El marco global se crea en el momento en que **se empieza a ejecutar el
   programa** y existe durante toda la ejecución del mismo (sólo se destruye al
@@ -1285,7 +1324,7 @@ maximo -> lambda
   (sólo se destruye al salir de la misma).
 
   Por tanto, las definiciones que se ejecutan directamente en una sesión
-  interactiva con el intérprete crean ligaduras que se almacenan en el marco
+  interactiva con el intérprete, crean ligaduras que se almacenan en el marco
   global.
 
 ---
@@ -1303,13 +1342,12 @@ maximo -> lambda
   25
   ```
 
-  - Aquí estamos trabajando con el *marco global* (el único que existe hasta
-    ahora para nosotros).
+  - Aquí estamos trabajando con el *marco global* (el único marco y el único
+    espacio de nombres que existe hasta ahora para nosotros).
 
   - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
     su uso genera un error (el marco global no contiene hasta ahora ninguna
-    ligadura
-    para !PYTHON(x)).
+    ligadura para !PYTHON(x)).
 
   - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
     sido ligado previamente en la línea 5 (el marco global ahora contiene una
@@ -1317,9 +1355,11 @@ maximo -> lambda
 
 ---
 
-- Tanto los marcos como su contenido (las ligaduras) se van creando y
-  destruyendo a medida que se van ejecutando las instrucciones que forman el
-  programa.
+- Los marcos son espacios de nombres dinámicos, que se van creando y
+  destruyendo durante la ejecución del programa.
+
+- Igualmente, las ligaduras que contiene también se van creando y destruyendo a
+  medida que se van ejecutando las instrucciones que forman el programa.
 
 - Si tenemos la siguiente sesión interactiva:
 
@@ -1418,8 +1458,11 @@ z -> 3
 - Hemos visto que una ligadura es una asociación entre un identificador y un
   valor.
 
-- **Los marcos almacenan ligaduras, pero _NO_ almacenan los valores** a los que
-  están asociados los identificadores de esas ligaduras.
+- También hemos visto que los espacios de nombres almacenan ligaduras, y que un
+  marco es un espacio de nombres.
+
+- Por tanto, **los marcos almacenan ligaduras, pero _NO_ almacenan los
+  valores** a los que están asociados los identificadores de esas ligaduras.
 
 - Por eso hemos dibujado a los valores fuera de los marcos en los diagramas
   anteriores.
@@ -1427,8 +1470,80 @@ z -> 3
 - Los valores se almacenan en una zona de la memoria del intérprete conocida
   como el **montículo**.
 
-- Asimismo, los marcos se almacenan en otra zona de la memoria conocida como
+- En cambio, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
+
+---
+
+- En realidad, además del marco global, existe otro espacio de nombres muy
+  importante que incluye las definiciones predefinidas del lenguaje (funciones
+  !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.).
+
+- Ese espacio de nombres se denomina !PYTHON(__builtins__).
+
+- Las definiciones contenidas en el espacio de nombres !PYTHON(__builtins__)
+  están disponibles directamente en la sesión de trabajo o en cualquier punto
+  del programa.
+
+## Evaluación de expresiones con identificadores
+
+- Podemos usar un identificador ligado dentro de una expresión, siempre que la
+  expresión resulte ser válida según las reglas del lenguaje.
+
+- El identificador representa a su valor ligado y se evalúa a dicho valor en
+  cualquier expresión donde aparezca ese identificador:
+
+  ```python
+  >>> x = 25
+  >>> 2 + x * 3
+  77
+  ```
+
+- Intentar usar en una expresión un identificador no ligado provoca un error de
+  tipo !PYTHON{NameError} (*nombre no definido*):
+
+  ```python
+  >>> y
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'y' is not defined
+  ```
+
+### Resolución de identificadores
+
+- Durante la evaluación de la expresión, el intérprete tiene que comprobar si
+  el identificador que aparece en la expresión está ligado o no.
+
+  - Si no está ligado, es un error de _nombre no definido_.
+
+  - Si lo está, tendrá que determinar a qué valor está ligado para poder
+    sustituir, en la expresión, cada aparición del identificador por su valor.
+
+- Para ello, buscará una ligadura con ese identificador en el espacio de
+  nombres correspondiente.
+
+- Por ahora, el espacio de nombres donde lo busca tendrá que ser el marco
+  global, ya que es el único que existe hasta ahora.
+
+- El proceso de localizar (si es que existe) la ligadura adecuada que liga a un
+  identificador con su valor, se denomina **resolución del identificador**.
+
+---
+
+- La resolución de identificadores es un proceso que usa mecanismos distintos
+  dependiendo de si el lenguaje es interpretado o compilado:
+
+  - Si es un **lenguaje interpretado** (como Python): el intérprete usa un
+    concepto llamado **entorno** en tiempo de ejecución para localizar la
+    ligadura.
+
+  - Si es un **lenguaje compilado** (como Java): el compilador determina, en
+    tiempo de compilación, si una ligadura es accesible haciendo uso del
+    concepto de **ámbito** y, en caso afirmativo, deduce en qué espacio de
+    nombres está la ligadura.
+
+    Los conceptos de _ámbito_ y de _entorno_ los estudiaremos en breve más
+    adelante.
 
 ## *Scripts*
 
@@ -1445,7 +1560,7 @@ z -> 3
 
 - Al cargar el _script_, se ejecutarán sus instrucciones una tras otra casi de
   la misma forma que si las estuviéramos tecleando nosotros directamente en
-  nuestra sesión con el intérprete.
+  nuestra sesión con el intérprete, en el mismo orden.
 
 - Llegado el momento, los _scripts_ contendrán el código fuente de nuestros
   programas y los ejecutaremos desde el intérprete por lotes.
@@ -1494,7 +1609,7 @@ z -> 3
 - Al cargar el _script_ (usando cualquiera de las dos opciones que hemos visto
   anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en
   consecuencia, se crearán en el marco global las ligaduras
-  `x`$\longrightarrow$`25` y `j`$\longrightarrow$`14`:
+  `x` → `25` y `j` → `14`:
 
   ```python
   >>> x                                   # antes de cargar el script, da error
@@ -1535,115 +1650,6 @@ z -> 3
   acceder a esa ligadura y da error de «_nombre no definido_».
 
 - Cuando estudiemos la programación modular entenderemos por qué.
-
-<!-- ¡ATENCIÓN! PARA EL PRÓXIMO AÑO, QUITAR LOS ÁMBITOS DE AQUÍ
-     PORQUE YA ESTÁN EXACTAMENTE IGUAL EN EL SIGUIENTE TEMA -->
-
-<!--
-
-## Ámbitos
-
-- Existen ciertas construcciones sintácticas que, cuando se ejecutan, provocan
-  la creación de nuevos marcos.
-
-- Cuando eso ocurre, decimos que esa construcción sintáctica define un
-  **ámbito**, y que ese ámbito viene definido por la porción de texto que ocupa
-  esa construcción sintáctica dentro del programa, de forma que:
-
-  - Cuando la ejecución del programa **entra** en el ámbito, se **crea** un
-    nuevo marco.
-
-  - Cuando la ejecución se **sale** del ámbito, se **destruye** su marco.
-
-- Por tanto, cada marco va asociado con un ámbito, y cada ámbito tiene su
-  marco.
-
-- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros.
-
-- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
-  se encuentra la instrucción que se está ejecutando actualmente.
-
----
-
-- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
-  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
-  tener en cuenta más condicionantes.
-
-- Por ahora sólo tenemos un ámbito llamado **ámbito global**:
-
-  - Si se está ejecutando un _script_ en el intérprete por lotes (con
-    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
-    primera instrucción hasta la última.
-
-  - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
-    _ámbito global_ abarca toda nuestra sesión con el intérprete, hasta que
-    finalicemos la misma.
-
-- En el momento en que se empieza a ejecutar un _script_ o se arranca una nueva
-  sesión con el intérprete interactivo, se entra en el _ámbito global_, lo que
-  provoca la creación de un nuevo marco llamado **marco global**.
-
-- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
-  se cierra el intérprete interactivo.
-
----
-
-- Por ejemplo, en el siguiente _script_ se realizan cuatro definiciones. Todas
-  ellas se realizan en el ámbito global, que es el único ámbito que existe en
-  el _script_:
-
-!IMGP(ambito-global.png)()(width=50%)(width=40%)
-
-### Ámbito de una ligadura
-
-- El **ámbito de una ligadura** es la porción del código fuente en la que
-  existe dicha ligadura.
-
-- Las ligaduras se definen dentro de un ámbito y, por tanto, se almacenan en el
-  marco del ámbito donde se definen.
-
-- Pero el ámbito de la ligadura no tiene por qué coincidir exactamente con el
-  ámbito en el que se define.
-
-- Esto es así porque una ligadura empieza a existir en el momento en el que se
-  define (por ejemplo, cuando se ejecuta una sentencia de definición), y no
-  antes.
-
-- Por tanto, si en un momento dado estamos ejecutando una instrucción dentro de
-  un ámbito, las ligaduras que existen dentro de ese ámbito en ese momento son
-  sólo las que se han definido en ese ámbito **hasta ese momento**.
-
----
-
-- En consecuencia, el ámbito de una ligadura:
-
-  - Empieza en el punto donde se define.
-
-  - Termina donde lo hace el ámbito en el que se definió la ligadura.
-
-!IMGP(ambitos-ligaduras.png)
-
-!CAJACENTRADA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Es importante no confundir «**ámbito**» con «**ámbito de una ligadura**».
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- La definición de una ligadura no define un nuevo ámbito y, por tanto, no crea
-  un nuevo marco.
-
-- Por eso, las ligaduras se almacenan en el marco del ámbito donde se definen.
-
-- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
-  lo que se almacenan en el marco global.
-
-- Por eso también decimos que esas ligaduras tienen ámbito global, o que
-  pertenecen al ámbito global, o que están definidas en el ámbito global, o que
-  son **globales**.
-
--->
 
 # Documentación interna
 
