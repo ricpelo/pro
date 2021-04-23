@@ -335,23 +335,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-<!--
-
-- Las **definiciones globales** son aquellas definiciones que se ejecutan
-  cuando el ámbito actual es el ámbito global.
-
-- Las ligaduras que crean las definiciones globales se denominan **ligaduras
-  globales**.
-
-- Esas ligaduras se almacenan en el **marco global**.
-
-- Por eso podemos decir que el marco global va asociado al ámbito global.
-
-- Todos los marcos van asociados a ámbitos, pero no todos los ámbitos van
-  asociados a marcos.
-
--->
-
 - Las definiciones que se ejecutan cuando el ámbito actual es el ámbito global,
   se denominan **definiciones globales**.
 
@@ -363,13 +346,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   único ámbito que existe en el _script_:
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
-
-<!--
-
-- Además, todas las ligaduras que se crean se almacenan en el marco global, que
-  es el único que existe en memoria durante la ejecución de ese _script_.
-
--->
 
 ## Ámbito de creación de una ligadura
 
@@ -698,9 +674,12 @@ establece entre ésta y su argumento correspondiente, y se corresponde con el
 - Por eso, la línea 4 dará un error al intentar acceder al valor del
   identificador !PYTHON(x), que no está ligado en el ámbito actual (el global).
 
+# Evaluación
+
 ## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
-- El **entorno** es una extensión del concepto de _espacio de nombres_.
+- El **entorno** es una extensión del concepto de _marco_, usado por los
+  lenguajes interpretados en la **resolución de identificadores**.
 
 - Durante la ejecución del programa, se van creando y destruyendo espacios de
   nombres a medida que la ejecución va entrando y saliendo de ciertas partes
@@ -708,8 +687,7 @@ establece entre ésta y su argumento correspondiente, y se corresponde con el
 
 - Por ejemplo:
 
-  - Cuando entramos a ejecutar un _script_, se crea el _marco global_ de ese
-    _script_.
+  - Cuando entramos a ejecutar un _script_, se crea su _marco global_.
 
   - Si dentro de ese _script_ aplicamos una expresión lambda a unos argumentos,
     se creará un marco para esa ejecución concreta de la expresión lambda.
@@ -731,7 +709,7 @@ establece entre ésta y su argumento correspondiente, y se corresponde con el
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 El **entorno** nos dice **_todas_ las ligaduras que son _accesibles_ en un
-momento concreto de la ejecución del programa**.
+momento concreto de la ejecución de un programa interpretado**.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 - En un momento dado, el entorno contendrá más o menos marcos dependiendo de
@@ -739,8 +717,8 @@ momento concreto de la ejecución del programa**.
 
 - El entorno, por tanto, es un concepto **_dinámico_** que **depende del
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
-  programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta
-  ahora).
+  programa (o, más concretamente, de qué _scripts_, funciones o métodos se han
+  ejecutado hasta ahora).
 
 ---
 
@@ -760,56 +738,64 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> "Marco A" -> "Marco B" -> "Marco global"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Ámbitos, marcos y entornos
+### Ámbitos, marcos y entornos
 
 - El entorno contiene todas las ligaduras válidas en un punto concreto de la
-  ejecución del programa.
+  ejecución del programa interpretado.
 
 - Recordemos que un marco contiene un conjunto de ligaduras (representa un
   _espacio de nombres_), y un entorno es una secuencia de marcos.
 
 - Los marcos se van creando y destruyendo a medida que se van activando ciertas
-  partes del programa durante la ejecución de éste.
+  partes del programa (_scripts_, funciones o métodos) durante la ejecución de
+  éste.
 
-- Cuando se aplica una expresión lambda a unos argumentos, **se crea un nuevo
-  marco que contiene las ligaduras que ligan a los parámetros con los valores
-  de esos argumentos**.
+- Recordemos que una expresión lambda representa una función.
 
----
-
-- Además, **el cuerpo de una expresión lambda define un nuevo ámbito**, que es
-  el ámbito con el que está asociado el marco (recordemos que un marco lleva
-  siempre asociado un ámbito).
-
-- El nuevo marco se enlaza en el entorno con el marco del ámbito más interno
-  que cumpla estas dos condiciones:
-
-  #. contiene al ámbito del nuevo marco, y
-
-  #. lleva asociado un marco.
-
-  Se dice que el marco del ámbito más interno _apunta_ al del más externo.
-
-- El último marco de la secuencia que representa el entorno es siempre el marco
-  global.
-
-- El marco asociado a la aplicación de la expresión lambda, desaparece cuando
-  finaliza la ejecución de esa aplicación, o lo que es lo mismo, cuando el
-  flujo de control del programa se sale del ámbito de la expresión lambda (ya
-  que cada marco va asociado a un ámbito).
+- Pues bien: cuando se aplica una expresión lambda a unos argumentos, **se crea
+  un nuevo marco que contiene las ligaduras que ligan a los parámetros con los
+  valores de esos argumentos**.
 
 ---
 
-- Se va formando así una secuencia de marcos que representa el **entorno** del
-  programa en un punto dado del mismo.
+- Además, **el cuerpo de una expresión lambda define su propio ámbito**, de
+  forma que, las ligaduras que ligan a los parámetros con los argumentos, se
+  definen dentro de ese ámbito y son, por tanto, locales a ese ámbito.
+
+- Es decir: los parámetros (y las ligaduras entre los parámetros y los
+  argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y sólo
+  existen y son visibles dentro de él.
+
+- Por otra parte, esas ligaduras tienen un **almacenamiento local** al marco
+  que se crea al aplicar la expresión lambda a sus argumentos.
+
+- Ese marco y ese ámbito van ligados:
+
+  - Cuando se empieza a ejecutar el cuerpo de la expresión lambda, se entra en
+    el ámbito y se crea el marco en la memoria.
+
+  - Cuando se termina de ejecutar el cuerpo de la expresión lambda, se sale del
+    ámbito y se elimina el marco de la memoria.
+
+- Todo marco lleva asociado un ámbito.
+
+---
+
+- Cuando se crea el nuevo marco, éste se enlaza con el marco que hasta ese
+  momento había sido el marco actual, en cadena.
+
+- El último marco de la cadena es siempre el marco global.
+
+- Se va formando así una **secuencia de marcos** que representa el **entorno**
+  del programa allí donde se está ejecutando la instrucción actual.
 
 - El **ámbito** es un concepto _estático_: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.
 
 - El **marco** es un concepto _dinámico_: es algo que se crea y se destruye a
   medida que se van ejecutando y terminando de ejecutar ciertas partes del
-  programa o, dicho de otra forma, cuando se va entrando y saliendo de ciertos
-  ámbitos.
+  programa (o, dicho de otra forma, cuando se va entrando y saliendo de ciertos
+  ámbitos).
  
 - A partir de ahora ya no vamos a tener un único marco (el _marco global_) sino
   que tendremos, además, al menos uno más cada vez que se aplique una expresión
@@ -842,11 +828,16 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Si un marco $A$ apunta a un marco $B$ en el entorno, significa que el ámbito
-  de $A$ está contenido en el ámbito de $B$.**
+  **Si un marco $A$ apunta a un marco $B$ en el entorno, significa que el
+  ámbito de $A$ está contenido en el ámbito de $B$.**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Además, el **último marco** siempre es el _marco global_.
+- El **primer marco** en la cadena del entorno siempre será el último marco que
+  se ha creado y que todavía no se ha destruido.
+
+  A ese marco se le denomina el **marco actual**.
+
+- Por otra parte, el **último marco** del entorno siempre es el _marco global_.
 
 - En realidad, el marco global apunta, a su vez, a otro marco (el del módulo
   !PYTHON(__builtins__)) donde se encuentran las definiciones internas
@@ -900,8 +891,6 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
     expresión lambda.
 
   - De hecho, está evaluando la llamada !PYTHON(suma(3, 5)).
-
-# Evaluación
 
 ## Evaluación de expresiones con entornos
 

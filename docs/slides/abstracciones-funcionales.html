@@ -464,22 +464,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </section>
 <section class="slide level5" data-number="2.1.0.0.3">
 
-<!--
-
-- Las **definiciones globales** son aquellas definiciones que se ejecutan
-  cuando el ámbito actual es el ámbito global.
-
-- Las ligaduras que crean las definiciones globales se denominan **ligaduras
-  globales**.
-
-- Esas ligaduras se almacenan en el **marco global**.
-
-- Por eso podemos decir que el marco global va asociado al ámbito global.
-
-- Todos los marcos van asociados a ámbitos, pero no todos los ámbitos van
-  asociados a marcos.
-
--->
 <ul>
 <li><p>Las definiciones que se ejecutan cuando el ámbito actual es el ámbito global, se denominan <strong>definiciones globales</strong>.</p></li>
 <li><p>Las ligaduras que crean las definiciones globales se denominan <strong>ligaduras globales</strong> o <strong>ligaduras de ámbito global</strong>.</p></li>
@@ -488,12 +472,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p><img data-src="images/ambito-global.png" class="plain" style="width:40.0%" /></p>
 </div></li>
 </ul>
-<!--
-
-- Además, todas las ligaduras que se crean se almacenan en el marco global, que
-  es el único que existe en memoria durante la ejecución de ese _script_.
-
--->
 </section>
 
 <section id="ámbito-de-creación-de-una-ligadura" class="title-slide slide level2" data-number="2.2">
@@ -695,35 +673,40 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Por eso, la línea 4 dará un error al intentar acceder al valor del identificador <code class="sourceCode python">x</code>, que no está ligado en el ámbito actual (el global).</p></li>
 </ul>
 </section>
+</section>
+<section>
+<section id="evaluación" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Evaluación</h1>
 
-<section id="entorno-environment" class="title-slide slide level2" data-number="2.8">
-<h2 data-number="2.8"><span class="header-section-number">2.8</span> Entorno (<em>environment</em> )</h2>
+</section>
+<section id="entorno-environment" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Entorno (<em>environment</em> )</h2>
 <ul>
-<li><p>El <strong>entorno</strong> es una extensión del concepto de <em>espacio de nombres</em>.</p></li>
+<li><p>El <strong>entorno</strong> es una extensión del concepto de <em>marco</em>, usado por los lenguajes interpretados en la <strong>resolución de identificadores</strong>.</p></li>
 <li><p>Durante la ejecución del programa, se van creando y destruyendo espacios de nombres a medida que la ejecución va entrando y saliendo de ciertas partes del programa.</p></li>
 <li><p>Por ejemplo:</p>
 <ul>
-<li><p>Cuando entramos a ejecutar un <em>script</em>, se crea el <em>marco global</em> de ese <em>script</em>.</p></li>
+<li><p>Cuando entramos a ejecutar un <em>script</em>, se crea su <em>marco global</em>.</p></li>
 <li><p>Si dentro de ese <em>script</em> aplicamos una expresión lambda a unos argumentos, se creará un marco para esa ejecución concreta de la expresión lambda.</p>
 <p>En ese caso habrá dos marcos en la memoria: el <em>global</em> y el de la expresión lambda. Este último marco se eliminará de la memoria cuando termine esa ejecución de la expresión lambda.</p></li>
 <li><p>El marco global sólo se eliminará de la memoria cuando se finalice la ejecución del <em>script</em>.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.8.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><strong>Según se van creando en memoria y se van ejecutando las diferentes partes del programa, esos marcos van enlazándose unos con otros</strong> creando una <strong>secuencia de marcos</strong> que se denomina <strong>entorno</strong> (del inglés, <em>environment</em>).</li>
 </ul>
 <div class="caja">
-<p>El <strong>entorno</strong> nos dice <strong><em>todas</em> las ligaduras que son <em>accesibles</em> en un momento concreto de la ejecución del programa</strong>.</p>
+<p>El <strong>entorno</strong> nos dice <strong><em>todas</em> las ligaduras que son <em>accesibles</em> en un momento concreto de la ejecución de un programa interpretado</strong>.</p>
 </div>
 <ul>
 <li><p>En un momento dado, el entorno contendrá más o menos marcos dependiendo de por dónde haya pasado la ejecución del programa hasta ese momento.</p></li>
-<li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que <strong>depende del momento en el que se calcule</strong>, es decir, de por dónde va la ejecución del programa (o, lo que es lo mismo, de qué instrucciones se han ejecutado hasta ahora).</p></li>
+<li><p>El entorno, por tanto, es un concepto <strong><em>dinámico</em></strong> que <strong>depende del momento en el que se calcule</strong>, es decir, de por dónde va la ejecución del programa (o, más concretamente, de qué <em>scripts</em>, funciones o métodos se han ejecutado hasta ahora).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.8.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>Por tanto, el entorno depende de qué partes del programa se han ido activando hasta llegar a la instrucción actual.</p></li>
@@ -734,40 +717,42 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p><img data-src="images/cadena-de-marcos.svg" class="plain" style="width:60.0%" /></p>
 </div>
 </section>
-
-<section id="ámbitos-marcos-y-entornos" class="title-slide slide level2" data-number="2.9">
-<h2 data-number="2.9"><span class="header-section-number">2.9</span> Ámbitos, marcos y entornos</h2>
+<section id="ámbitos-marcos-y-entornos" class="title-slide slide level3" data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Ámbitos, marcos y entornos</h3>
 <ul>
-<li><p>El entorno contiene todas las ligaduras válidas en un punto concreto de la ejecución del programa.</p></li>
+<li><p>El entorno contiene todas las ligaduras válidas en un punto concreto de la ejecución del programa interpretado.</p></li>
 <li><p>Recordemos que un marco contiene un conjunto de ligaduras (representa un <em>espacio de nombres</em>), y un entorno es una secuencia de marcos.</p></li>
-<li><p>Los marcos se van creando y destruyendo a medida que se van activando ciertas partes del programa durante la ejecución de éste.</p></li>
-<li><p>Cuando se aplica una expresión lambda a unos argumentos, <strong>se crea un nuevo marco que contiene las ligaduras que ligan a los parámetros con los valores de esos argumentos</strong>.</p></li>
+<li><p>Los marcos se van creando y destruyendo a medida que se van activando ciertas partes del programa (<em>scripts</em>, funciones o métodos) durante la ejecución de éste.</p></li>
+<li><p>Recordemos que una expresión lambda representa una función.</p></li>
+<li><p>Pues bien: cuando se aplica una expresión lambda a unos argumentos, <strong>se crea un nuevo marco que contiene las ligaduras que ligan a los parámetros con los valores de esos argumentos</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.9.0.0.1">
+<section class="slide level5" data-number="3.1.1.0.1">
 
 <ul>
-<li><p>Además, <strong>el cuerpo de una expresión lambda define un nuevo ámbito</strong>, que es el ámbito con el que está asociado el marco (recordemos que un marco lleva siempre asociado un ámbito).</p></li>
-<li><p>El nuevo marco se enlaza en el entorno con el marco del ámbito más interno que cumpla estas dos condiciones:</p>
-<ol>
-<li><p>contiene al ámbito del nuevo marco, y</p></li>
-<li><p>lleva asociado un marco.</p></li>
-</ol>
-<p>Se dice que el marco del ámbito más interno <em>apunta</em> al del más externo.</p></li>
-<li><p>El último marco de la secuencia que representa el entorno es siempre el marco global.</p></li>
-<li><p>El marco asociado a la aplicación de la expresión lambda, desaparece cuando finaliza la ejecución de esa aplicación, o lo que es lo mismo, cuando el flujo de control del programa se sale del ámbito de la expresión lambda (ya que cada marco va asociado a un ámbito).</p></li>
+<li><p>Además, <strong>el cuerpo de una expresión lambda define su propio ámbito</strong>, de forma que, las ligaduras que ligan a los parámetros con los argumentos, se definen dentro de ese ámbito y son, por tanto, locales a ese ámbito.</p></li>
+<li><p>Es decir: los parámetros (y las ligaduras entre los parámetros y los argumentos) tienen <strong>un ámbito local</strong> al cuerpo de la expresión lambda y sólo existen y son visibles dentro de él.</p></li>
+<li><p>Por otra parte, esas ligaduras tienen un <strong>almacenamiento local</strong> al marco que se crea al aplicar la expresión lambda a sus argumentos.</p></li>
+<li><p>Ese marco y ese ámbito van ligados:</p>
+<ul>
+<li><p>Cuando se empieza a ejecutar el cuerpo de la expresión lambda, se entra en el ámbito y se crea el marco en la memoria.</p></li>
+<li><p>Cuando se termina de ejecutar el cuerpo de la expresión lambda, se sale del ámbito y se elimina el marco de la memoria.</p></li>
+</ul></li>
+<li><p>Todo marco lleva asociado un ámbito.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.9.0.0.2">
+<section class="slide level5" data-number="3.1.1.0.2">
 
 <ul>
-<li><p>Se va formando así una secuencia de marcos que representa el <strong>entorno</strong> del programa en un punto dado del mismo.</p></li>
+<li><p>Cuando se crea el nuevo marco, éste se enlaza con el marco que hasta ese momento había sido el marco actual, en cadena.</p></li>
+<li><p>El último marco de la cadena es siempre el marco global.</p></li>
+<li><p>Se va formando así una <strong>secuencia de marcos</strong> que representa el <strong>entorno</strong> del programa allí donde se está ejecutando la instrucción actual.</p></li>
 <li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es algo que existe y se reconoce simplemente leyendo el código del programa, sin tener que ejecutarlo.</p></li>
-<li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que se van ejecutando y terminando de ejecutar ciertas partes del programa o, dicho de otra forma, cuando se va entrando y saliendo de ciertos ámbitos.</p></li>
+<li><p>El <strong>marco</strong> es un concepto <em>dinámico</em>: es algo que se crea y se destruye a medida que se van ejecutando y terminando de ejecutar ciertas partes del programa (o, dicho de otra forma, cuando se va entrando y saliendo de ciertos ámbitos).</p></li>
 <li><p>A partir de ahora ya no vamos a tener un único marco (el <em>marco global</em>) sino que tendremos, además, al menos uno más cada vez que se aplique una expresión lambda a unos argumentos y mientras dure la ejecución de dicha expresión lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.9.0.0.3">
+<section class="slide level5" data-number="3.1.1.0.3">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -779,18 +764,20 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p><img data-src="images/ambitos-anidados.png" class="plain" style="width:60.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="2.9.0.0.4">
+<section class="slide level5" data-number="3.1.1.0.4">
 
 <ul>
 <li><p>El concepto de <strong>entorno</strong> refleja el hecho de que los ámbitos se contienen unos a otros (están anidados unos dentro de otros).</p>
 <div class="caja">
 <p><strong>Si un marco <span class="math inline">A</span> apunta a un marco <span class="math inline">B</span> en el entorno, significa que el ámbito de <span class="math inline">A</span> está contenido en el ámbito de <span class="math inline">B</span>.</strong></p>
 </div></li>
-<li><p>Además, el <strong>último marco</strong> siempre es el <em>marco global</em>.</p></li>
+<li><p>El <strong>primer marco</strong> en la cadena del entorno siempre será el último marco que se ha creado y que todavía no se ha destruido.</p>
+<p>A ese marco se le denomina el <strong>marco actual</strong>.</p></li>
+<li><p>Por otra parte, el <strong>último marco</strong> del entorno siempre es el <em>marco global</em>.</p></li>
 <li><p>En realidad, el marco global apunta, a su vez, a otro marco (el del módulo <code class="sourceCode python">__builtins__</code>) donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code class="sourceCode python"><span class="bu">max</span></code>), pero de aquí en adelante lo daremos por supuesto, para simplificar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.9.0.0.5">
+<section class="slide level5" data-number="3.1.1.0.5">
 
 <ul>
 <li><p>Por ejemplo, si en un momento concreto de la ejecución del programa tenemos el siguiente entorno (donde <code class="sourceCode python">suma</code> es una expresión lambda):</p>
@@ -807,21 +794,17 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-</section>
-<section>
-<section id="evaluación" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Evaluación</h1>
 
-</section>
-<section id="evaluación-de-expresiones-con-entornos" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Evaluación de expresiones con entornos</h2>
+
+<section id="evaluación-de-expresiones-con-entornos" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Evaluación de expresiones con entornos</h2>
 <ul>
 <li><p>Al evaluar una expresión, el intérprete <strong>buscará en el entorno el valor al que está ligado cada identificador</strong> que aparezca en la expresión.</p></li>
 <li><p>Para saber cuánto vale cada identificador, el intérprete buscará <strong>en el primer marco del entorno</strong> una ligadura para ese identificador, y si no la encuentra, <strong>irá subiendo por la secuencia de marcos</strong> hasta encontrarla.</p>
 <p><strong>Si no aparece en ningún marco</strong>, querrá decir que el identificador no está ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible desde el ámbito actual. En cualquier caso, <strong>generará un error</strong> de tipo «<em>nombre no definido</em>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.2.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -848,7 +831,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.2.0.0.2">
 
 <div class="centered">
 <figure>
@@ -861,7 +844,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.2.0.0.3">
 
 <div class="columns">
 <div class="column">
@@ -880,8 +863,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </section>
 
-<section id="evaluación-de-expresiones-lambda-con-entornos" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Evaluación de expresiones lambda con entornos</h2>
+<section id="evaluación-de-expresiones-lambda-con-entornos" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Evaluación de expresiones lambda con entornos</h2>
 <ul>
 <li><p>Para que una expresión lambda funcione, sus variables libres deben estar ligadas a algún valor en el entorno <strong>en el momento de <em>evaluar</em> la aplicación de la expresión lambda sobre unos argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>
@@ -894,7 +877,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p>da error porque <code class="sourceCode python">z</code> no está definido (no está ligado a ningún valor en el entorno) en el momento de llamar a <code class="sourceCode python">prueba</code> en la línea 2.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.1">
+<section class="slide level5" data-number="3.3.0.0.1">
 
 <ul>
 <li><p>En cambio:</p>
@@ -920,7 +903,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.2">
+<section class="slide level5" data-number="3.3.0.0.2">
 
 <ul>
 <li>Su ejecución, línea a línea, produce los siguientes entornos:</li>
@@ -941,7 +924,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.3">
+<section class="slide level5" data-number="3.3.0.0.3">
 
 <div class="centered">
 <figure>
@@ -949,7 +932,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.4">
+<section class="slide level5" data-number="3.3.0.0.4">
 
 <div class="centered">
 <figure>
@@ -957,7 +940,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.5">
+<section class="slide level5" data-number="3.3.0.0.5">
 
 <div class="centered">
 <figure>
@@ -965,7 +948,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.6">
+<section class="slide level5" data-number="3.3.0.0.6">
 
 <div class="centered">
 <figure>
@@ -973,7 +956,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.7">
+<section class="slide level5" data-number="3.3.0.0.7">
 
 <div class="centered">
 <figure>
@@ -981,7 +964,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.8">
+<section class="slide level5" data-number="3.3.0.0.8">
 
 <div class="centered">
 <figure>
@@ -989,8 +972,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section id="ligaduras-sombreadas" class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Ligaduras <em>sombreadas</em></h3>
+<section id="ligaduras-sombreadas" class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Ligaduras <em>sombreadas</em></h3>
 <ul>
 <li><p>¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que ya están definidos (ligados) en el entorno, en un ámbito más global?</p></li>
 <li><p>Por ejemplo:</p>
@@ -1003,7 +986,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.1">
+<section class="slide level5" data-number="3.3.1.0.1">
 
 <ul>
 <li><p>En el ejemplo, el identificador <code class="sourceCode python">x</code> que aparece en el cuerpo de la expresión lambda <strong>está ligado al parámetro <code class="sourceCode python">x</code> de la expresión lambda</strong>.</p></li>
@@ -1016,7 +999,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.2">
+<section class="slide level5" data-number="3.3.1.0.2">
 
 <ul>
 <li><p>En nuestro ejemplo, podemos decir que el parámetro <code class="sourceCode python">x</code> de la expresión lambda hace sombra al identificador <code class="sourceCode python">x</code> que aparece en el ámbito global.</p></li>
@@ -1029,7 +1012,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.1.0.3">
+<section class="slide level5" data-number="3.3.1.0.3">
 
 <ul>
 <li><p>Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de la <code class="sourceCode python">x</code> que está fuera de la expresión lambda, lo que podemos hacer es <strong>cambiar el nombre</strong> al parámetro <code class="sourceCode python">x</code>. Por ejemplo:</p>
@@ -1044,8 +1027,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </div>
 </section>
 
-<section id="renombrado-de-parámetros" class="title-slide slide level3" data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Renombrado de parámetros</h3>
+<section id="renombrado-de-parámetros" class="title-slide slide level3" data-number="3.3.2">
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> Renombrado de parámetros</h3>
 <ul>
 <li><p>Los parámetros se pueden <em>renombrar</em> (siempre que se haga de forma adecuada) sin que se altere el significado de la expresión lambda.</p></li>
 <li><p>A esta operación se la denomina <strong>α-conversión</strong>.</p></li>
@@ -1058,8 +1041,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="visualización-en-pythontutor" class="title-slide slide level3" data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Visualización en <em>Pythontutor</em></h3>
+<section id="visualización-en-pythontutor" class="title-slide slide level3" data-number="3.3.3">
+<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> Visualización en <em>Pythontutor</em></h3>
 <ul>
 <li><p><strong>Pythontutor</strong> es una herramienta online muy interesante y práctica que nos permite ejecutar un <em>script</em> paso a paso y visualizar sus efectos.</p></li>
 <li><p>Muestra la pila de control, los marcos dentro de ésta, las ligaduras dentro de éstos y los datos almacenados en el montículo.</p></li>
@@ -1073,7 +1056,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.1">
+<section class="slide level5" data-number="3.3.3.0.1">
 
 <p><a href="http://pythontutor.com/visualize.html#code=w%20%3D%202%0Af%20%3D%20lambda%20x,%20y%3A%205%20%2B%20%28lambda%20z%3A%20z%20%2B%203%29%28x%20%2B%20y%29%0Ar%20%3D%20f%282,%204%29%0Am%20%3D%20%28lambda%20x%3A%20x%20**%202%29%283%29%0A&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Visualizar el <em>script</em> anterior en Pythontutor</a></p>
 </section>
@@ -1100,8 +1083,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </section>
 
 
-<section id="estrategias-de-evaluación" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Estrategias de evaluación</h2>
+<section id="estrategias-de-evaluación" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> Estrategias de evaluación</h2>
 <ul>
 <li><p>A la hora de evaluar una expresión (cualquier expresión) existen varias <strong>estrategias</strong> diferentes que se pueden adoptar.</p></li>
 <li><p>Cada lenguaje implementa sus propias estrategias de evaluación que están basadas en las que vamos a ver aquí.</p></li>
@@ -1116,8 +1099,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section id="orden-de-evaluación" class="title-slide slide level3" data-number="3.3.1">
-<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Orden de evaluación</h3>
+<section id="orden-de-evaluación" class="title-slide slide level3" data-number="3.4.1">
+<h3 data-number="3.4.1"><span class="header-section-number">3.4.1</span> Orden de evaluación</h3>
 <ul>
 <li><p>En un lenguaje de programación funcional puro se cumple la <strong>transparencia referencial</strong>, según la cual el valor de una expresión depende sólo del valor de sus subexpresiones (también llamadas <em>redexes</em>, del inglés, <em>reducible expression</em>).</p></li>
 <li><p>Pero eso también implica que <strong>no importa el orden en el que se evalúen las subexpresiones</strong>: el resultado debe ser siempre el mismo.</p></li>
@@ -1130,8 +1113,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p><strong>Python usa el orden aplicativo</strong>, salvo excepciones.</p></li>
 </ul>
 </section>
-<section id="orden-aplicativo" class="title-slide slide level4" data-number="3.3.1.1">
-<h4 data-number="3.3.1.1"><span class="header-section-number">3.3.1.1</span> Orden aplicativo</h4>
+<section id="orden-aplicativo" class="title-slide slide level4" data-number="3.4.1.1">
+<h4 data-number="3.4.1.1"><span class="header-section-number">3.4.1.1</span> Orden aplicativo</h4>
 <ul>
 <li><p>El <strong>orden aplicativo</strong> consiste en evaluar las expresiones <em>de dentro afuera</em>, es decir, empezando por el <em>redex</em> más <strong>interno</strong> y a la izquierda.</p></li>
 <li><p>El <em>redex</em> más interno es el que no contiene a otros <em>redexes</em>. Si existe más de uno que cumpla esa condición, se elige el que está más a la izquierda.</p></li>
@@ -1139,7 +1122,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por valor</strong> (<em>call-by-value</em>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.1.1.1">
+<section class="slide level5" data-number="3.4.1.1.1">
 
 <ul>
 <li><p>Por ejemplo, si tenemos la siguiente función:</p>
@@ -1155,8 +1138,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="orden-normal" class="title-slide slide level4" data-number="3.3.1.2">
-<h4 data-number="3.3.1.2"><span class="header-section-number">3.3.1.2</span> Orden normal</h4>
+<section id="orden-normal" class="title-slide slide level4" data-number="3.4.1.2">
+<h4 data-number="3.4.1.2"><span class="header-section-number">3.4.1.2</span> Orden normal</h4>
 <ul>
 <li><p>El <strong>orden normal</strong> consiste en evaluar las expresiones <em>de fuera adentro</em>, es decir, empezando siempre por el <em>redex</em> más <strong>externo</strong> y a la izquierda.</p></li>
 <li><p>El <em>redex</em> más externo es el que no está contenido en otros <em>redexes</em>. Si existe más de uno que cumpla esa condición, se elige el que está más a la izquierda.</p></li>
@@ -1165,7 +1148,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Corresponde a lo que en muchos lenguajes de programación se denomina <strong>paso de argumentos por nombre</strong> (<em>call-by-name</em>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.1.2.1">
+<section class="slide level5" data-number="3.4.1.2.1">
 
 <ul>
 <li><p>Por ejemplo, si tenemos la siguiente función:</p>
@@ -1185,8 +1168,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </section>
 
 
-<section id="composición-de-funciones" class="title-slide slide level3" data-number="3.3.2">
-<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> Composición de funciones</h3>
+<section id="composición-de-funciones" class="title-slide slide level3" data-number="3.4.2">
+<h3 data-number="3.4.2"><span class="header-section-number">3.4.2</span> Composición de funciones</h3>
 <ul>
 <li><p>Podemos crear una función que use otra función. Por ejemplo, para calcular el área de un círculo usamos otra función que calcule el cuadrado de un número:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
@@ -1205,7 +1188,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <span id="cb35-11"><a href="#cb35-11"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.2.0.1">
+<section class="slide level5" data-number="3.4.2.0.1">
 
 <ul>
 <li><p>En detalle:</p>
@@ -1220,7 +1203,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.2.0.2">
+<section class="slide level5" data-number="3.4.2.0.2">
 
 <ul>
 <li><p>La expresión <code class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code> se evaluaría así según el <em>orden normal</em>:</p>
@@ -1237,7 +1220,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>En ambos casos (orden aplicativo y orden normal) se obtiene el mismo resultado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.2.0.3">
+<section class="slide level5" data-number="3.4.2.0.3">
 
 <ul>
 <li><p>En detalle:</p>
@@ -1251,7 +1234,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.2.0.4">
+<section class="slide level5" data-number="3.4.2.0.4">
 
 <ul>
 <li><p>A veces no resulta fácil determinar si un <em>redex</em> es más interno o externo que otro, sobre todo cuando se mezclan funciones y operadores en una misma expresión.</p></li>
@@ -1264,7 +1247,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <p>lo que muestra claramente que la suma es más externa que el valor absoluto y el máximo (que están, a su vez, al mismo nivel de profundidad).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.2.0.5">
+<section class="slide level5" data-number="3.4.2.0.5">
 
 <ul>
 <li><p>Un ejemplo más complicado:</p>
@@ -1282,8 +1265,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul>
 </section>
 
-<section id="evaluación-estricta-y-no-estricta" class="title-slide slide level3" data-number="3.3.3">
-<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span> Evaluación estricta y no estricta</h3>
+<section id="evaluación-estricta-y-no-estricta" class="title-slide slide level3" data-number="3.4.3">
+<h3 data-number="3.4.3"><span class="header-section-number">3.4.3</span> Evaluación estricta y no estricta</h3>
 <ul>
 <li><p>Existe otra forma de ver la evaluación de una expresión:</p>
 <ul>
@@ -1306,7 +1289,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Es evidente que la función <code class="sourceCode python">primero</code> no necesita evaluar nunca su segundo argumento, ya que no lo utiliza (simplemente devuelve el primero de ellos). Por ejemplo, <code class="sourceCode python">primero(<span class="dv">4</span>, <span class="dv">3</span>)</code> devuelve <code class="sourceCode python"><span class="dv">4</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.1">
+<section class="slide level5" data-number="3.4.3.0.1">
 
 <ul>
 <li><p>Sabiendo eso… ¿qué valor devolvería la siguiente expresión?</p>
@@ -1321,7 +1304,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.2">
+<section class="slide level5" data-number="3.4.3.0.2">
 
 <ul>
 <li><p>Hay un resultado teórico que avala lo que acabamos de observar:</p>
@@ -1332,7 +1315,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>En cambio, el orden aplicativo es posible que no encuentre la forma normal de la expresión.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.3">
+<section class="slide level5" data-number="3.4.3.0.3">
 
 <ul>
 <li><p>En <strong>Python</strong> la evaluación es <strong>estricta</strong>, salvo algunas excepciones:</p>
@@ -1352,7 +1335,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>En Java también existe un operador ternario (<code>?</code> <code>:</code>) y unos operadores lógicos (<code>||</code> y <code>&amp;&amp;</code>) que se evalúan de igual forma que en Python.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.4">
+<section class="slide level5" data-number="3.4.3.0.4">
 
 <ul>
 <li><p>La mayoría de los lenguajes de programación usan evaluación estricta y paso de argumentos por valor (siguen el orden aplicativo).</p></li>

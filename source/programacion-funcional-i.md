@@ -1230,31 +1230,6 @@ maximo -> lambda
 - Si un identificador no está ligado, no tiene sentido preguntarse qué tipo
   tiene.
 
-## Evaluación de expresiones con identificadores
-
-- Podemos usar un identificador ligado dentro de una expresión (siempre que la
-  expresión sea una expresión válida según las reglas del lenguaje, claro
-  está).
-
-- El identificador representa a su valor ligado y se evalúa a dicho valor en
-  cualquier expresión donde aparezca el identificador:
-
-  ```python
-  >>> x = 25
-  >>> 2 + x * 3
-  77
-  ```
-
-- Intentar usar en una expresión un identificador no ligado provoca un error
-  (*nombre no definido*):
-
-  ```python
-  >>> y
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'y' is not defined
-  ```
-
 ## Espacios de nombres
 
 - Ciertas estructuras o construcciones sintácticas del programa definen lo que
@@ -1263,8 +1238,8 @@ maximo -> lambda
 - Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
   entre nombres y valores, es decir, es un **conjunto de ligaduras**.
 
-- Su función, por tanto, es el de **almacenar ligaduras y permitir varias
-  ligaduras con el mismo nombre** en distintas partes del programa.
+- Su función es, por tanto, **almacenar ligaduras y permitir varias ligaduras
+  con el mismo nombre** en distintas partes del programa.
 
 - En un espacio de nombres, **un identificador sólo puede tener como máximo una
   ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
@@ -1274,13 +1249,14 @@ maximo -> lambda
   almacena, o que tiene un **almacenamiento local** a ese espacio de nombres.
 
 - Los espacios de nombres pueden estar **_anidados_**, es decir, que puede
-  haber espacios de nombres dentro de otros espacios de nombres.
+  haber espacios de nombres dentro de otros espacios de nombres, ya que también
+  pueden estarlo las estructuras sintácticas que los definen.
 
 ---
 
-- Algunos espacios de nombres son estructuras estáticas (o sea, que vienen
-  definidas en tiempo de compilación) y otras son dinámicas (o sea, que vienen
-  definidas en tiempo de ejecución).
+- Algunos espacios de nombres provienen de estructuras estáticas (o sea, que
+  vienen definidas en tiempo de compilación) y otras provienen de estructuras
+  dinámicas (definidas en tiempo de ejecución).
 
 - Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
   nombres _dinámicos_**.
@@ -1292,14 +1268,14 @@ maximo -> lambda
 
   Los ejemplos más comunes de esas estructuras son:
 
-  - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones
-    definidas por el programador.
+  - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones o
+    métodos definidos por el programador.
 
   - Los **módulos** de Python.
 
   - Los **objetos** y las **clases** de Python.
 
-- En definitiva: en Python todos los espacios de nombres son dinámicos.
+- En resumen: en Python, todos los espacios de nombres son dinámicos.
 
 ---
 
@@ -1311,14 +1287,17 @@ maximo -> lambda
   en forma de _módulo_ que se importa automáticamente en cada sesión
   interactiva o cada vez que se arranca un programa Python.
 
+- Además de importarse el propio módulo, también se importan directamente las
+  definiciones que contiene, por lo que se pueden usar directamente.
+
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
 - Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
   para **representar la ejecución o _activación_ de un _script_ de Python o una
-  función definida por el programador** en Python o Java.
+  función o método definido por el programador** en Python o Java.
 
 - Los marcos son **espacios de nombres** y, entre otras cosas, almacenan las
-  ligaduras que se definen dentro de ese _script_ o función.
+  ligaduras que se definen dentro de ese _script_, función o método.
 
 - Los marcos son conceptos **_dinámicos_**:
 
@@ -1333,6 +1312,9 @@ maximo -> lambda
 - Por ahora, el único marco que existe en nuestros programas es el llamado
   **_marco global_**, también llamado **espacio de nombres global**.
 
+- El marco global es, además, el único espacio de nombres que existe por ahora
+  en nuestros programas.
+
 - El marco global se crea en el momento en que **se empieza a ejecutar el
   programa** y existe durante toda la ejecución del mismo (sólo se destruye al
   finalizar la ejecución del programa).
@@ -1342,7 +1324,7 @@ maximo -> lambda
   (sólo se destruye al salir de la misma).
 
   Por tanto, las definiciones que se ejecutan directamente en una sesión
-  interactiva con el intérprete crean ligaduras que se almacenan en el marco
+  interactiva con el intérprete, crean ligaduras que se almacenan en el marco
   global.
 
 ---
@@ -1360,8 +1342,8 @@ maximo -> lambda
   25
   ```
 
-  - Aquí estamos trabajando con el *marco global* (el único que existe hasta
-    ahora para nosotros).
+  - Aquí estamos trabajando con el *marco global* (el único marco y el único
+    espacio de nombres que existe hasta ahora para nosotros).
 
   - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
     su uso genera un error (el marco global no contiene hasta ahora ninguna
@@ -1373,9 +1355,11 @@ maximo -> lambda
 
 ---
 
-- Como ocurre con cualquier espacio de nombres, tanto los marcos como las
-  ligaduras que contiene se van creando y destruyendo a medida que se van
-  ejecutando las instrucciones que forman el programa.
+- Los marcos son espacios de nombres dinámicos, que se van creando y
+  destruyendo durante la ejecución del programa.
+
+- Igualmente, las ligaduras que contiene también se van creando y destruyendo a
+  medida que se van ejecutando las instrucciones que forman el programa.
 
 - Si tenemos la siguiente sesión interactiva:
 
@@ -1491,7 +1475,7 @@ z -> 3
 
 ---
 
-- En realidad, por detrás del marco global existe otro espacio de nombres muy
+- En realidad, además del marco global, existe otro espacio de nombres muy
   importante que incluye las definiciones predefinidas del lenguaje (funciones
   !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.).
 
@@ -1500,6 +1484,66 @@ z -> 3
 - Las definiciones contenidas en el espacio de nombres !PYTHON(__builtins__)
   están disponibles directamente en la sesión de trabajo o en cualquier punto
   del programa.
+
+## Evaluación de expresiones con identificadores
+
+- Podemos usar un identificador ligado dentro de una expresión, siempre que la
+  expresión resulte ser válida según las reglas del lenguaje.
+
+- El identificador representa a su valor ligado y se evalúa a dicho valor en
+  cualquier expresión donde aparezca ese identificador:
+
+  ```python
+  >>> x = 25
+  >>> 2 + x * 3
+  77
+  ```
+
+- Intentar usar en una expresión un identificador no ligado provoca un error de
+  tipo !PYTHON{NameError} (*nombre no definido*):
+
+  ```python
+  >>> y
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'y' is not defined
+  ```
+
+### Resolución de identificadores
+
+- Durante la evaluación de la expresión, el intérprete tiene que comprobar si
+  el identificador que aparece en la expresión está ligado o no.
+
+  - Si no está ligado, es un error de _nombre no definido_.
+
+  - Si lo está, tendrá que determinar a qué valor está ligado para poder
+    sustituir, en la expresión, cada aparición del identificador por su valor.
+
+- Para ello, buscará una ligadura con ese identificador en el espacio de
+  nombres correspondiente.
+
+- Por ahora, el espacio de nombres donde lo busca tendrá que ser el marco
+  global, ya que es el único que existe hasta ahora.
+
+- El proceso de localizar (si es que existe) la ligadura adecuada que liga a un
+  identificador con su valor, se denomina **resolución del identificador**.
+
+---
+
+- La resolución de identificadores es un proceso que usa mecanismos distintos
+  dependiendo de si el lenguaje es interpretado o compilado:
+
+  - Si es un **lenguaje interpretado** (como Python): el intérprete usa un
+    concepto llamado **entorno** en tiempo de ejecución para localizar la
+    ligadura.
+
+  - Si es un **lenguaje compilado** (como Java): el compilador determina, en
+    tiempo de compilación, si una ligadura es accesible haciendo uso del
+    concepto de **ámbito** y, en caso afirmativo, deduce en qué espacio de
+    nombres está la ligadura.
+
+    Los conceptos de _ámbito_ y de _entorno_ los estudiaremos en breve más
+    adelante.
 
 ## *Scripts*
 
