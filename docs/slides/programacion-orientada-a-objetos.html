@@ -421,29 +421,30 @@
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p>La definición de una clase es una estructura sintáctica que define su propio <strong>ámbito</strong> y que está formada por un bloque de sentencias que se ejecutarán en el momento en que el intérprete ejecute esa definición:</p>
+<li><p>La <strong>definición de una clase</strong> es una estructura sintáctica que crea un <strong>espacio de nombres</strong> y define su propio <strong>ámbito</strong>.</p></li>
+<li><p>Esa definición está formada por un <strong>bloque de sentencias</strong> que se ejecutarán dentro de ese ámbito en el momento en que el intérprete ejecute la definición:</p>
 <div class="line-block"><strong><code>class</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span><span class="math inline">^+</span></div></li>
-<li><p>La ejecución de esta definición crea un <strong>objeto</strong> que almacenará en forma de <strong>atributos</strong> todas los elementos (variables, métodos, etc.) que se definan dentro de la clase al ejecutar el bloque de sentencias.</p></li>
-<li><p>Como la clase define su propio ámbito, esos elementos serán <strong>locales</strong> a la clase.</p></li>
-<li><p>Los elementos de una clase también se denominan <strong>miembros</strong> de la clase.</p></li>
+<li><p>Todas las definiciones que se realicen directamente en el ámbito de la clase como consecuencia de ejecutar su bloque de sentencias, serán <strong>locales</strong> a la clase y se almacenarán en el espacio de nombres de la clase, ya que, durante la ejecución del bloque de sentencias, el espacio de nombres actual es el espacio de nombres de la clase.</p></li>
+<li><p>Los elementos así definidos se denominan <strong>miembros</strong> de la clase.</p></li>
+<li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.4">
 
 <ul>
-<li><p>Por ejemplo, las funciones <code class="sourceCode python"><span class="fu">__init__</span></code>, <code>retirar</code>, <code>ingresar</code> y <code>saldo</code> pertenecen a la clase <code>Deposito</code> y sólo existen dentro de ella.</p></li>
-<li><p>Las funciones definidas dentro de una clase se denominan <strong>métodos</strong>.</p></li>
-<li><p>El cuerpo de un método define un nuevo ámbito, pero ese ámbito no está includo dentro del ámbito de la clase.</p></li>
-<li><p>Por tanto, desde el interior de un método no se puede acceder directamente al resto de miembros de la clase, ya que están definidos en un ámbito distinto que no es accesible desde el método.</p></li>
-<li><p>Para poder acceder a ellos habrá que usar usar el operador punto (<code>.</code>) a través de una referencia a la clase.</p></li>
+<li><p>Por ejemplo, las funciones <code class="sourceCode python"><span class="fu">__init__</span></code>, <code>retirar</code>, <code>ingresar</code> y <code>saldo</code> pertenecen a la clase <code>Deposito</code> y sólo existen dentro de ella (son <em>locales</em> a la clase), porque sus definiciones se almacenan en el espacio de nombres de la clase.</p>
+<p>Por tanto, esas funciones son métodos de la clase.</p></li>
+<li><p>Cuando se termina de ejecutar la definición de la clase, se crea un <strong>objeto</strong> que almacena en forma de <strong>atributos</strong> cada miembro de esa clase.</p>
+<p>Por tanto, ese objeto almacena el espacio de nombres de la clase y representa a dicha clase dentro del programa.</p></li>
+<li><p>Recordemos que durante la definición de una función no se ejecuta su cuerpo, sino que simplemente se crea la ligadura entre el nombre de la función y la propia función.</p></li>
+<li><p>Por tanto, al ejecutar la definición de una clase no se ejecutan los cuerpos de sus métodos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.5">
 
 <ul>
-<li>Por ejemplo, en el código anterior:</li>
-</ul>
+<li><p>Por ejemplo, en el código anterior:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
 <span id="cb3-3"><a href="#cb3-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
@@ -459,32 +460,31 @@
 <span id="cb3-13"><a href="#cb3-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb3-14"><a href="#cb3-14"></a></span>
 <span id="cb3-15"><a href="#cb3-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb3-16"><a href="#cb3-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<span id="cb3-16"><a href="#cb3-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.6">
 
 <ul>
-<li>En la línea 10 tendríamos el siguiente entorno:</li>
-</ul>
+<li><p>En la línea 10 tendríamos el siguiente entorno:</p>
 <div class="centered">
-<p><img data-src="images/entorno-clase-linea10.svg" class="plain" style="width:60.0%" /></p>
-</div>
-<ul>
-<li>Y en la línea 12, el entorno sería:</li>
-</ul>
+<p><img data-src="images/entorno-clase-linea10.svg" class="plain" style="width:70.0%" /></p>
+</div></li>
+<li><p>Y en la línea 12, el entorno sería:</p>
 <div class="centered">
-<p><img data-src="images/entorno-clase-linea12.svg" class="plain" style="width:80.0%" /></p>
-</div>
+<p><img data-src="images/entorno-clase-linea12.svg" class="plain" style="width:100.0%" /></p>
+</div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.7">
 
 <ul>
-<li><p>Con las <strong>clases</strong> ocurre exactamente igual que con los <strong>módulos</strong>:</p>
+<li><p>Con las <strong>clases</strong> ocurre lo siguiente:</p>
 <ul>
-<li><p>Al entrar en el ámbito de la clase, se crea un nuevo marco en memoria que contiene las definiciones que se van creando durante la ejecución de la clase.</p></li>
-<li><p><strong>Ese marco no desaparece al salir del ámbito</strong>, sino que permanece en memoria formando un objeto (de tipo <code>type</code>) que contiene sus definiciones en forma de atributos.</p></li>
+<li><p>Al entrar en la clase, se crea un nuevo espacio de nombres contiene las definiciones que se van creando durante la ejecución de la clase.</p></li>
+<li><p>Al salir de la clase, se crea un objeto (de tipo <code>type</code>) que acaba almacenando ese espacio de nombres, de forma que las ligaduras que contiene se convierten en atributos del objeto.</p></li>
 <li><div class="caja">
-<p><strong>La clase acaba siendo un objeto más, almacenado en el montículo</strong>, que se ligará al nombre de la clase en el ámbito donde se haya definido ésta.</p>
+<p><strong>La clase acaba siendo un objeto más, almacenado en el montículo</strong>, que se ligará al nombre de la clase en el espacio de nombres donde se haya definido ésta.</p>
 </div></li>
 <li><p>Es decir: el nombre de la clase es una <strong>referencia</strong> que apunta a la clase, la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos usando el operador punto (<code>.</code>).</p></li>
 </ul></li>
@@ -494,8 +494,8 @@
 <section class="slide level5" data-number="2.1.0.0.8">
 
 <ul>
-<li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria esa estructura similar al <strong>diccionario de despacho</strong> que creábamos antes a mano, y que asocia el nombre de cada operación con la función (el método) correspondiente.</p></li>
-<li><p>Esa estructura en forma de diccionario acaba convirtiéndose en un objeto que representa a la clase en la memoria.</p></li>
+<li><p>Si ejecutamos la anterior definición en el <a href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">Pythontutor</a>, observaremos que se crea en memoria el espacio de nombres en forma de estructura similar al <strong>diccionario de despacho</strong> que creábamos antes a mano, y que asocia el nombre de cada operación con la función (el método) correspondiente.</p></li>
+<li><p>Esa estructura en forma de diccionario acaba almacenándose en un objeto que representa a la clase en la memoria.</p></li>
 <li><p>Ese objeto «clase» se liga al nombre de la clase en el marco del ámbito donde se haya declarado la clase (normalmente será el marco global).</p></li>
 </ul>
 <div class="centered">
