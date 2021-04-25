@@ -153,8 +153,11 @@ nocite: |
 - Como una expresión lambda es una función, **aplicar una expresión lambda a
   unos argumentos es como llamar a una función pasándole dichos argumentos**.
 
-- Por tanto, ampliamos ahora nuestra gramática de las expresiones en Python
-  incorporando las expresiones lambda como un tipo de función:
+- Por tanto, también podemos decir que **_llamamos_ o _invocamos_ una expresión
+  lambda**, pasándole unos argumentos durante esa llamada.
+
+- En consecuencia, ampliamos ahora nuestra gramática de las expresiones en
+  Python incorporando las expresiones lambda como un tipo de función:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -290,7 +293,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   está dentro de un determinado ámbito**, tan sólo leyendo el código fuente del
   programa y sin necesidad de ejecutarlo.
 
-- Por ejemplo, en el lenguaje de programación Java, los bloques son estructuras
+- Por ejemplo: en el lenguaje de programación Java, los bloques son estructuras
   sintácticas delimitadas por llaves `{` y `}` que contienen instrucciones. Los
   bloques de Java definen ámbitos; por tanto, si una instrucción está dentro de
   un bloque (es decir, si está situada entre las llaves `{` y `}` que delimitan
@@ -305,8 +308,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo
   (anidados unos dentro de otros).
 
-- De todos ellos, el **ámbito más interno** es
-  el que no contiene, a su vez, a otro ámbito.
+- De todos ellos, el **ámbito más interno** es el que no contiene, a su vez, a
+  otro ámbito.
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
   se encuentra la instrucción que se está ejecutando actualmente.
@@ -381,19 +384,20 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   Por tanto, no es posible acceder a esa ligadura _antes_ de ese punto.
 
-- Eso significa que el ámbito de una ligadura en Python:
+- En Python, el ámbito de una ligadura:
 
-  - Empieza en el punto donde se crea la ligadura (es decir, el punto donde se
-    ejecuta la instrucción que define la ligadura).
+  - **Empieza** en el punto donde se crea la ligadura (es decir, el punto donde
+    se ejecuta la instrucción que define la ligadura).
 
-  - Termina donde lo hace el _ámbito de creación_ de la ligadura, que deberá
-    ser un ámbito definido por una construcción sintáctica y, por tanto, el
-    límite de ese ámbito vendrá marcado por la sintaxis de dicha construcción.
+  - **Termina** donde lo hace el _ámbito de creación_ de la ligadura, que
+    deberá ser un ámbito definido por una construcción sintáctica y, por tanto,
+    el límite de ese ámbito vendrá marcado por la sintaxis de dicha
+    construcción.
 
 ---
 
-- Por eso, el ámbito de una ligadura está contenido dentro del ámbito de
-  creación de esa ligadura, pero ambos ámbitos no tienen por qué coincidir
+- Por eso, **el ámbito de una ligadura está contenido dentro del ámbito de
+  creación de esa ligadura**, pero ambos ámbitos no tienen por qué coincidir
   exactamente.
 
   Los dos ámbitos acaban en el mismo punto, pero no tienen por qué empezar en
@@ -460,20 +464,27 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 ## Ámbitos y espacios de nombres
 
-- Ciertas construcciones sintácticas definen su propio ámbito, o su propio
-  espacio de nombres, o ambas cosas.
+- !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Todo espacio de nombres va asociado a un ámbito, pero NO todos los ámbitos
+  van asociados a un espacio de nombres.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- En consecuencia, podemos decir que hay ámbitos que van asociados a un
-  determinado espacio de nombres.
+- Ciertas construcciones sintácticas definen su propio ámbito, y otras definen
+  un espacio de nombres (y, por tanto, también un ámbito).
 
-- Si el ámbito de creación de una ligadura va asociado a un espacio de nombres,
-  la ligadura se almacenará en ese espacio de nombres.
+- En este último caso, ese espacio de nombres almacenará las ligaduras que se
+  crean dentro de ese ámbito.
+
+- Es decir: si el ámbito de creación de una ligadura va asociado a un espacio
+  de nombres, la ligadura se almacenará en ese espacio de nombres.
 
 - Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito
   de creación más interno que contenga al actual y que sí lleve asociado un
   espacio de nombres.
 
-- Ese espacio de nombres se denomina el **espacio de nombres actual**.
+- El espacio de nombres que se usa para almacenar las ligaduras creadas en el
+  ámbito actual se denomina el **espacio de nombres actual**.
 
 ---
 
@@ -482,13 +493,17 @@ coincidir o no con el ámbito de creación de esa ligadura.
   éste (en orden, de más interno a más externo), hasta encontrar el primero que
   lleve asociado un espacio de nombres.
 
-- En resumen:
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **En resumen:**
 
-  - El ámbito define la visibilidad de una ligadura: dónde puede usarse esa
-    ligadura.
+  - El **ámbito** determina la **visibilidad** de una ligadura: dónde puede
+    usarse esa ligadura.
 
-  - El espacio de nombres define el almacenamiento de una ligadura: dónde se
-    almacena esa ligadura.
+  - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
+    dónde se almacena esa ligadura.
+
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -556,16 +571,16 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 - **El cuerpo de la expresión lambda define un ámbito.**
 
-- Por tanto, cuando se va a evaluar una aplicación funcional, se entra en dicho
-  ámbito.
+- **Al llamar a la expresión lambda**, se empieza a ejecutar su cuerpo y, por
+  tanto, **se entra en dicho ámbito**.
 
-- Además, **cada aplicación de una expresión lambda crea un nuevo marco** en la
-  memoria, que representa esa ejecución concreta de dicha expresión lambda.
+- En ese momento, **se crea un nuevo marco** en la memoria, que representa esa
+  ejecución concreta de dicha expresión lambda.
 
-- Cuando se aplica una expresión lambda a unos argumentos, **cada parámetro de
-  la expresión lambda se liga a uno de esos argumentos** en el orden en que
-  aparecen en la aplicación funcional (primer parámetro con primer argumento,
-  segundo con segundo, etcétera).
+- Lo primero que ocurre entonces es que **cada parámetro de la expresión lambda
+  se liga a uno de esos argumentos** en el orden en que aparecen en la llamada
+  a la expresión lambda (primer parámetro con primer argumento, segundo con
+  segundo, etcétera).
 
 - Esas ligaduras **se almacenan en el marco de la expresión lambda** nada más
   entrar en el cuerpo de la expresión lambda.
@@ -582,15 +597,21 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
   - El **ámbito de esa ligadura** coincide con su ámbito de creación.
 
+  - El **espacio de nombres** que almacena las ligaduras entre parámetros y
+    argumentos es el marco que se crea al llamar a la expresión lambda.
+
 - Esto se resume diciendo que «el **ámbito de un parámetro** es el **cuerpo**
   de su expresión lambda».
 
-- También se dice que el parámetro tiene un **ámbito local** al cuerpo de la
-  expresión lambda o que es **local** a dicha expresión lambda.
+- También se dice que el parámetro tiene un **ámbito _local_** y un
+  **almacenamiento _local_** al cuerpo de la expresión lambda; por tanto, que es
+  **local** a dicha expresión lambda.
 
 - Como el ámbito de una ligadura es la porción del código en el que dicha
   ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
   un parámetro dentro del cuerpo de su expresión lambda**.
+
+---
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -599,6 +620,10 @@ coincidir o no con el ámbito de creación de esa ligadura.
 El **ámbito de un parámetro** es el ámbito de la ligadura que se establece
 entre éste y su argumento correspondiente, y se corresponde con el **cuerpo**
 de la expresión lambda donde aparece.
+
+Además, la ligadura entre el parámetro y su argumento se almacena en el marco
+de la llamada a la expresión lambda, y por eso se dice que tiene un
+**almacenamiento local** a la expresión lambda.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Ámbito de una variable ligada
@@ -635,16 +660,26 @@ de la expresión lambda donde aparece.
 - Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
   son locales a dicha expresión (ya que no representan parámetros de la
   expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
-  expresión lambda.
+  expresión lambda y se almacenarán en otro espacio de nombres que no es el
+  marco que se crea al llamar a la expresión lambda.
+
+---
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
 El **ámbito de una variable ligada** es el ámbito de la ligadura que se
-establece entre ésta y su argumento correspondiente, y se corresponde con el
+crea entre ésta y su argumento correspondiente , y se corresponde con el
 **cuerpo** de la expresión lambda donde aparece.
+
+Además, la ligadura entre la variable ligada y su argumento se almacena en el
+marco de la llamada a la expresión lambda, y por eso se dice que tiene un
+**almacenamiento local** a la expresión lambda.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es exactamente lo mismo que ocurría con los parámetros (de hecho, un
+  parámetro y una variable ligada son la misma cosa, como ya hemos visto).
 
 !EJEMPLO
 
@@ -679,97 +714,106 @@ establece entre ésta y su argumento correspondiente, y se corresponde con el
 ## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
 
 - El **entorno** es una extensión del concepto de _marco_, usado por los
-  lenguajes interpretados en la **resolución de identificadores**.
+  lenguajes interpretados en la **resolución de identificadores**, ya que:
 
-- Durante la ejecución del programa, se van creando y destruyendo espacios de
-  nombres a medida que la ejecución va entrando y saliendo de ciertas partes
-  del programa.
-
-- Por ejemplo:
-
-  - Cuando entramos a ejecutar un _script_, se crea su _marco global_.
-
-  - Si dentro de ese _script_ aplicamos una expresión lambda a unos argumentos,
-    se creará un marco para esa ejecución concreta de la expresión lambda.
-
-    En ese caso habrá dos marcos en la memoria: el _global_ y el de la
-    expresión lambda. Este último marco se eliminará de la memoria cuando
-    termine esa ejecución de la expresión lambda.
-
-  - El marco global sólo se eliminará de la memoria cuando se finalice la
-    ejecución del _script_.
-
----
-
-- **Según se van creando en memoria y se van ejecutando las diferentes partes
-  del programa, esos marcos van enlazándose unos con otros** creando una
-  **secuencia de marcos** que se denomina **entorno** (del inglés,
-  _environment_).
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El **entorno** nos dice **_todas_ las ligaduras que son _accesibles_ en un
-momento concreto de la ejecución de un programa interpretado**.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El **entorno** nos dice **_todas_ las ligaduras que son _accesibles_ en un
+  momento concreto de la ejecución de un programa interpretado**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
+- Durante la ejecución del programa, se van creando y destruyendo marcos a
+  medida que se van ejecutando _scripts_, funciones o métodos.
+
+- **Según se van creando en memoria, esos marcos van enlazándose unos con
+  otros** creando una **secuencia de marcos** que se denomina **entorno** (del
+  inglés, _environment_).
+
 - En un momento dado, el entorno contendrá más o menos marcos dependiendo de
   por dónde haya pasado la ejecución del programa hasta ese momento.
+
+---
 
 - El entorno, por tanto, es un concepto **_dinámico_** que **depende del
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
   programa (o, más concretamente, de qué _scripts_, funciones o métodos se han
   ejecutado hasta ahora).
 
+- Por tanto, el entorno depende de qué partes del programa se han ido
+  ejecutando hasta llegar a la instrucción actual.
+
+- El entorno **siempre contendrá**, al menos, un marco: el _marco global_, que
+  **siempre será el último de la secuencia de marcos** que forman el entorno.
+
 ---
 
-- Por tanto, el entorno depende de qué partes del programa se han ido activando
-  hasta llegar a la instrucción actual.
+- Gráficamente, representaremos los entornos como una lista enlazada de marcos
+  que se conectan entre sí formando cadenas, de manera que:
 
-- El entorno **siempre contendrá**, al menos, un marco: el _marco global_.
+  - La $E$ siempre representa el primer marco de la lista (el _marco actual_).
 
-- **El marco global siempre será el último de la secuencia de marcos** que
-  forman el entorno.
+  - El último marco siempre será el marco global, sin olvidar que detrás
+    siempre estaría el marco que contiene las definiciones predefinidas del
+    lenguaje (el módulo !PYTHON(__builtins__)), que lo obviaremos para
+    abreviar.
 
-!DOT(cadena-de-marcos.svg)()(width=60%)(width=60%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-graph [rankdir = LR]
-node [fontname = "monospace"]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> "Marco A" -> "Marco B" -> "Marco global"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(cadena-de-marcos.svg)()(width=60%)(width=60%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> "Marco A" -> "Marco B" -> "Marco global"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Ámbitos, marcos y entornos
+---
+
+- Por ejemplo:
+
+  - Cuando entramos a ejecutar un _script_, se crea su _marco global_.
+
+  - Si dentro de ese _script_ llamamos a una expresión lambda, se creará un
+    marco para esa ejecución concreta de la expresión lambda.
+
+    En ese caso habrá dos marcos en la memoria: el _global_ y el de esa llamada
+    a la expresión lambda. Este último marco se eliminará de la memoria cuando
+    termine esa ejecución de la expresión lambda.
+
+  - El marco global sólo se eliminará de la memoria cuando se finalice la
+    ejecución del _script_.
+
+### Ámbitos, marcos, entornos
+
+- Hagamos un resumen rápido de todo lo visto hasta ahora.
 
 - El entorno contiene todas las ligaduras válidas en un punto concreto de la
   ejecución del programa interpretado.
 
-- Recordemos que un marco contiene un conjunto de ligaduras (representa un
-  _espacio de nombres_), y un entorno es una secuencia de marcos.
+- Un marco contiene un conjunto de ligaduras (representa un _espacio de
+  nombres_), y un entorno es una secuencia de marcos.
 
 - Los marcos se van creando y destruyendo a medida que se van activando ciertas
   partes del programa (_scripts_, funciones o métodos) durante la ejecución de
   éste.
 
-- Recordemos que una expresión lambda representa una función.
+- Una expresión lambda representa una función.
 
-- Pues bien: cuando se aplica una expresión lambda a unos argumentos, **se crea
-  un nuevo marco que contiene las ligaduras que ligan a los parámetros con los
-  valores de esos argumentos**.
+- Cuando se llama a una función, se crea un nuevo marco que contiene las
+  ligaduras que ligan a los parámetros con los valores de esos argumentos.
 
 ---
 
-- Además, **el cuerpo de una expresión lambda define su propio ámbito**, de
-  forma que, las ligaduras que ligan a los parámetros con los argumentos, se
-  definen dentro de ese ámbito y son, por tanto, locales a ese ámbito.
+- El cuerpo de una expresión lambda define su propio ámbito, de forma que, las
+  ligaduras que ligan a los parámetros con los argumentos, se definen dentro de
+  ese ámbito y son, por tanto, locales a ese ámbito.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
-  argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y sólo
-  existen y son visibles dentro de él.
+  argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y
+  sólo existen y son visibles dentro de él.
 
-- Por otra parte, esas ligaduras tienen un **almacenamiento local** al marco
-  que se crea al aplicar la expresión lambda a sus argumentos.
+- Además, esas ligaduras tienen un **almacenamiento local** al **marco** que se
+  crea al llamar a la expresión lambda.
 
-- Ese marco y ese ámbito van ligados:
+- Ese **marco** y ese **ámbito** van ligados:
 
   - Cuando se empieza a ejecutar el cuerpo de la expresión lambda, se entra en
     el ámbito y se crea el marco en la memoria.
@@ -777,7 +821,8 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   - Cuando se termina de ejecutar el cuerpo de la expresión lambda, se sale del
     ámbito y se elimina el marco de la memoria.
 
-- Todo marco lleva asociado un ámbito.
+- Todo marco lleva asociado un ámbito, ya que todo espacio de nombres va
+  asociado a un ámbito, y un marco es un espacio de nombres.
 
 ---
 
@@ -789,37 +834,39 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - Se va formando así una **secuencia de marcos** que representa el **entorno**
   del programa allí donde se está ejecutando la instrucción actual.
 
+- A partir de ahora ya no vamos a tener un único marco (el _marco global_) sino
+  que tendremos, además, al menos uno más cada vez que se llame a una expresión
+  lambda y mientras dure la ejecución de la misma.
+
 - El **ámbito** es un concepto _estático_: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.
 
 - El **marco** es un concepto _dinámico_: es algo que se crea y se destruye a
   medida que se van ejecutando y terminando de ejecutar ciertas partes del
-  programa (o, dicho de otra forma, cuando se va entrando y saliendo de ciertos
-  ámbitos).
- 
-- A partir de ahora ya no vamos a tener un único marco (el _marco global_) sino
-  que tendremos, además, al menos uno más cada vez que se aplique una expresión
-  lambda a unos argumentos y mientras dure la ejecución de dicha expresión
-  lambda.
+  programa: _scripts_, funciones y métodos.
 
+  Dicho de otra forma: los marcos se crean cuando se va entrando y saliendo de
+  ciertos ámbitos.
+ 
 ---
 
-- Por ejemplo:
+- Por ejemplo, en el siguiente código:
 
   ```python
   suma = lambda x, y: x + y
   ```
 
-  el cuerpo de la función !PYTHON(suma) define un nuevo ámbito, y cada vez que
-  se llama a !PYTHON(suma) con unos argumentos concretos, la ejecución del
-  programa entra en el cuerpo, lo que crea un nuevo marco que liga sus
-  argumentos con sus parámetros.
+  el cuerpo de la función !PYTHON(suma) define un nuevo ámbito.
 
 - Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
   externo) y el ámbito del cuerpo de la expresión lambda (más interno y
   anidado dentro del ámbito global):
 
-!IMGP(ambitos-anidados.png)()(width=60%)
+  !IMGP(ambitos-anidados.png)()(width=60%)
+
+- Además, cada vez que se llama a !PYTHON(suma), la ejecución del programa
+  entra en su cuerpo, lo que crea un nuevo marco que almacena las ligaduras
+  entre sus parámetros y los argumentos usados en esa llamada.
 
 ---
 
@@ -835,19 +882,19 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
 - El **primer marco** en la cadena del entorno siempre será el último marco que
   se ha creado y que todavía no se ha destruido.
 
-  A ese marco se le denomina el **marco actual**.
+  Ese marco es el **marco actual**.
 
 - Por otra parte, el **último marco** del entorno siempre es el _marco global_.
 
-- En realidad, el marco global apunta, a su vez, a otro marco (el del módulo
-  !PYTHON(__builtins__)) donde se encuentran las definiciones internas
-  predefinidas del lenguaje (como la función !PYTHON(max)), pero de aquí en
-  adelante lo daremos por supuesto, para simplificar.
+- Ya sabemos que, en realidad, el marco global apunta, a su vez, a otro marco
+  (el del módulo !PYTHON(__builtins__)) donde se encuentran las definiciones
+  internas predefinidas del lenguaje (como la función !PYTHON(max)), pero de
+  lo damos por supuesto para simplificar.
 
 ---
 
-- Por ejemplo, si en un momento concreto de la ejecución del programa tenemos
-  el siguiente entorno (donde !PYTHON(suma) es una expresión lambda):
+- Por ejemplo, si en cierto momento de la ejecución de un programa tenemos el
+  siguiente entorno (donde !PYTHON(suma) es una expresión lambda):
 
   !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -898,13 +945,14 @@ E -> "Marco A" -> "Marco B" -> "Marco global"
   que está ligado cada identificador** que aparezca en la expresión.
 
 - Para saber cuánto vale cada identificador, el intérprete buscará **en el
-  primer marco del entorno** una ligadura para ese identificador, y si no la
-  encuentra, **irá subiendo por la secuencia de marcos** hasta encontrarla.
+  primer marco del entorno** (el _marco actual_) una ligadura para ese
+  identificador, y si no la encuentra, **irá subiendo por la secuencia de
+  marcos** hasta encontrarla.
 
   **Si no aparece en ningún marco**, querrá decir que el identificador no está
   ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible
-  desde el ámbito actual. En cualquier caso, **generará un error** de tipo
-  «_nombre no definido_».
+  desde el ámbito actual. En cualquiera de estos casos, **generará un error**
+  de tipo !PYTHON{NameError} («_nombre no definido_»).
 
 ---
 
@@ -1121,8 +1169,8 @@ E -> z [lhead = cluster0]
 
 - Observar que no es necesario que las variables libres estén ligadas en el
   entorno cuando *se crea* la expresión lambda, sino cuando **_se evalúa_ el
-  cuerpo de la expresión lambda**, o sea, cuando se aplica la expresión lambda
-  a unos argumentos.
+  cuerpo de la expresión lambda**, o sea, cuando se llama a la expresión
+  lambda.
 
 !EJEMPLO
 
@@ -1347,8 +1395,13 @@ E -> f [lhead = cluster0]
 
 ### Ligaduras *sombreadas*
 
-- ¿Qué ocurre cuando una expresión lambda contiene como parámetros nombres que
-  ya están definidos (ligados) en el entorno, en un ámbito más global?
+- Recordemos que la **resolución de identificadores** es el proceso por el cual
+  el compilador o el intérprete determinan qué ligadura se corresponde con una
+  aparición concreta de un determinado identificador.
+
+- ¿Qué ocurre cuando una expresión lambda contiene como parámetros
+  identificadores que ya están ligados en el entorno, en un espacio de nombres
+  asociado a un ámbito más global?
 
 - Por ejemplo:
 
@@ -1357,41 +1410,71 @@ E -> f [lhead = cluster0]
   total = (lambda x: x * x)(3)  # Su valor es 9
   ```
 
+- ¿Cómo resuelve el intérprete de Python las distintas `x` que aparecen en el
+  código? ¿Son la misma `x`? ¿Se corresponden con la misma ligadura? ¿Están
+  todas esas `x` ligadas al mismo valor?
+
+---
+
 - La !PYTHON(x) que aparece en la línea 1 es distinta a las que aparecen en la
   2:
 
   - La !PYTHON(x) de la línea 1 es un identificador ligado a un valor en el
     ámbito global (el ámbito de creación de esa ligadura es el ámbito global).
-    Esa ligadura, por tanto, se almacena en el marco global, y por eso decimos
-    que esa !PYTHON(x) (la que aparece en la línea 1) es _global_.
+    Esa ligadura, se almacena en el marco global, y por eso decimos que esa
+    !PYTHON(x) (la que aparece en la línea 1) es _global_.
 
-  - Las !PYTHON(x) de la línea 2 son parámetros y variables ligadas de la
-    expresión lambda. Por tanto, el ámbito de esas !PYTHON(x) es _local_ al
-    cuerpo de la expresión lambda.
+    Por tanto, la aparición de la `x` en la línea 1 representa a la `x` cuya
+    ligadura se encuentra almacenada en el marco global (es decir, la `x`
+    global) y que está ligada al valor !PYTHON(4).
+
+  - Las !PYTHON(x) de la línea 2 representan el parámetro y la variable ligada
+    (que ya sabemos que son la misma cosa) de la expresión lambda. Ese
+    parámetro está ligado al argumento de la llamada, el ámbito de creación de
+    esa ligadura es el cuerpo de la expresión lambda y esa ligadura se almacena
+    en el marco de la llamada a la expresión lambda.
+
+    En consecuencia, las apariciones de la `x` en la línea 2 representan a la
+    `x` _local_ a la expresión lambda, cuya ligadura se encuentra almacenada en
+    el marco de la llamada a la expresión lambda y que está ligada a
+    !PYTHON(3).
 
 ---
 
-- En el ejemplo, el identificador !PYTHON(x) que aparece en el cuerpo de la
-  expresión lambda **está ligado al parámetro !PYTHON(x) de la expresión
-  lambda**.
+- Por tanto, la `x` que aparece en el cuerpo de la expresión lambda **no** se
+  refiere al identificador !PYTHON(x) que está fuera de la expresión lambda (y
+  que aquí está ligado al valor !PYTHON(4)), sino al parámetro !PYTHON(x) que,
+  en la llamada de la línea 2, está ligado al valor !PYTHON{3} (el argumento de
+  la llamada).
 
-- Por tanto, **no** se refiere al identificador !PYTHON(x) que está fuera de la
-  expresión lambda (y que aquí está ligado al valor !PYTHON(4)), sino al
-  parámetro !PYTHON(x) que, en la llamada de la línea 2, está ligado al valor
-  !PYTHON(3) (el argumento de la llamada).
+- Es decir:
 
-- Eso quiere decir que, dentro del cuerpo, !PYTHON(x) vale !PYTHON(3), no
-  !PYTHON(4).
+  - Dentro del cuerpo de la expresión lambda, !PYTHON(x) vale !PYTHON(3).
 
-- Cuando un mismo identificador está ligado en dos ámbitos anidados uno dentro
-  del otro, decimos que:
+  - Fuera del cuerpo de la expresión lambda, !PYTHON(x) vale !PYTHON(4).
+
+- Para determinar cuánto vale cada aparición de la `x` en el código (es decir,
+  para resolver la aparición de cada `x`), el intérprete de Python consulta el
+  **entorno** en el estado en que se encuentra éste en cada momento en que se
+  encuentra el identificador `x` en el código y tiene que evaluarlo.
+
+---
+
+- Cada aparición de la `x` se corresponde con una ligadura distinta que tiene
+  un ámbito distinto y se almacena en un espacio de nombres distinto.
+
+- Por tanto, la misma `x` podrá tener un valor u otro dependiendo de cuál es el
+  espacio de nombres actual en el momento de evaluar la `x`.
+
+- Cuando un mismo identificador está ligado dos veces en dos ámbitos anidados
+  uno dentro del otro, decimos que:
 
   - El identificador que aparece en el ámbito más externo está **sombreado** (y
-    su ligadura está **sombreada**).
+    su ligadura está **sombreada**) por el del ámbito más interno.
 
   - El identificador que aparece en el ámbito más interno **hace sombra** al
     identificador sombreado (y su ligadura también se dice que **hace sombra**
-    a la ligadura sombreada).
+    a la ligadura sombreada) que aparece en el ámbito más externo.
 
 ---
 
@@ -1404,10 +1487,10 @@ E -> f [lhead = cluster0]
   libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
   !PYTHON(x) local (el parámetro de la expresión lambda).
 
-- Esto es así porque la primera ligadura del identificador !PYTHON(x) que nos
-  encontramos al recorrer la secuencia de marcos del entorno, buscando un valor
-  para !PYTHON(x), es la que está en el marco de la expresión lambda, que es el
-  marco actual cuando se está ejecutando su cuerpo.
+- Esto ocurre así porque la primera ligadura del identificador !PYTHON(x) que
+  se encuentra el intérprete al recorrer la secuencia de marcos del entorno
+  cuando busca un valor para !PYTHON(x), es la que está en el marco de la
+  expresión lambda, que es el marco actual cuando se está ejecutando su cuerpo.
 
 !DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
