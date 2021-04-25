@@ -475,7 +475,7 @@ public class Hola {
 
 ---
 
-- La **resolución de identificadores** es el mecanismo por el cual el lenguaje
+- La **resolución de identificadores** es el proceso por el cual el lenguaje
   sabe a qué ligadura corresponde un identificador que aparece en un
   determinado punto del programa.
 
