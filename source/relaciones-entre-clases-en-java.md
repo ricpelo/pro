@@ -2,6 +2,8 @@
 title: Relaciones entre clases en Java
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @gosling_java_2014
 ---
 
 # Asociaciones básicas
@@ -1124,5 +1126,172 @@ class Bicicleta {
 
 ## Clases y métodos abstractos
 
+- Una **clase abstracta** es aquella que se define con el modificador
+  !JAVA(abstract):
+
+  ```java
+  abstract class Ejemplo {
+     // ...
+  }
+  ```
+
+- Las clases abstractas no se pueden instanciar, por lo que su principal
+  utilidad es la de servir de superclase para otras subclases:
+
+  ```java
+  Ejemplo e = new Ejemplo(); // Error: no se puede instanciar una clase abstracta
+  ```
+
+- Un **método abstracto** es aquel que se define con el modificador
+  !JAVA(abstract) y sin cuerpo (es decir, sin un bloque de sentencias):
+
+  ```java
+  abstract void mover(double x, double y);
+  ```
+
+- Las clases abstractas pueden o no contener métodos abstractos.
+
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Si una clase contiene al menos un método abstracto, la clase en sí también
+  debe definirse como abstracta.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Ejemplo:
+
+  ```java
+  public abstract class ElementoGrafico {
+      private double x;
+      private double y;
+
+      double getX() {
+          return x;
+      }
+
+      abstract void mover(double x, double y);
+      abstract void dibujar();
+  }
+  ```
+
+- Las definiciones que no llevan asociadas un valor también se denominan
+  **declaraciones**.
+
+  Por eso, a las declaraciones de variables se las denomina así.
+
+- La definición de un método abstracto también es, en realidad, una
+  _declaración_, ya que sólo se indica la **signatura** del método, pero no su
+  **implementación**. Por tanto, ahí no se está creando ningún método y, en
+  consecuencia, su nombre no se está ligando a ningún valor de tipo método.
+
+---
+
+- Cuando una clase es **subclase (directa o indirecta) de una superclase
+  abstracta**, esa subclase debe proporcionar un cuerpo a todos los métodos
+  abstractos que haya heredado de su superclase.
+
+  De lo contrario, esa subclase también se deberá definir como abstracta.
+
+  ```java
+  class Ventana extends ElementoGrafico {
+      @Override
+      void mover(double x, double y) {
+          this.x = x;
+          this.y = y;
+      }
+
+      @Override
+      void dibujar() {
+          System.out.println("Me estoy dibujando...");
+      }
+  }
+  ```
+
+- El acto de proporcionar un cuerpo a un método abstracto también se denomina
+  **implementar el método abstracto**.
+
+---
+
+- Si dejamos algún método abstracto sin implementar, la subclase también se
+  deberá definir como abstracta:
+
+  ```java
+  abstract class Ventana extends ElementoGrafico {  // Debe ser abstracta
+      @Override
+      void mover(double x, double y) {
+          this.x = x;
+          this.y = y;
+      }
+
+      // Falta la implementación del método «dibujar»
+  }
+  ```
+
 ## Clases y métodos finales
 
+- Una **clase final** es aquella que se define con el modificador !JAVA(final):
+
+  ```java
+  final class Ejemplo {
+     // ...
+  }
+  ```
+
+- **No se pueden crear subclases de una superclase final**:
+
+  ```java
+  class Intento extends Ejemplo { // Error: la clase «Ejemplo» es final
+      // ...
+  }
+  ```
+
+- Un **método final** es aquel que se define con el modificador !JAVA(final):
+
+  ```java
+  final void mover(double x, double y) {
+     // ...
+  }
+  ```
+
+- **Los métodos finales no se pueden redefinir.**
+
+---
+
+- Las clases finales y los métodos finales son dos conceptos que no tienen nada
+  que ver uno con el otro. Una clase final puede tener o no métodos finales, y
+  un método final puede estar o no en una clase final.
+
+- Por ejemplo:
+
+  ```java
+  class Base {
+      final int capacidad() {
+          return 42;
+      }
+  }
+
+  class Derivada {
+      @Override
+      int capacidad() {      // Error: el método «capacidad» es final en «Base»
+          return 33;
+      }
+  }
+  ```
+
+---
+
+- Se define una clase como final cuando interesa que esa clase no se pueda
+  especializar con una subclase que pueda tener un comportamiento diferente.
+
+- Se define un método como final cuando interesa que su implementación no se
+  pueda cambiar en una subclase.
+
+- En general, los métodos llamados desde un constructor deberían definirse como
+  finales.
+
+- Si un constructor llamada a un método no final, una subclase podría redefinir
+  ese método y provocar resultados sorprendentes o indeseables.
+
+!BIBLIOGRAFIA

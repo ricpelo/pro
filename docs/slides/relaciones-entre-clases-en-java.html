@@ -80,6 +80,25 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -1029,13 +1048,131 @@ Se ha creado un perro</code></pre></li>
 </section>
 <section id="clases-y-métodos-abstractos" class="title-slide slide level2" data-number="4.1">
 <h2 data-number="4.1"><span class="header-section-number">4.1</span> Clases y métodos abstractos</h2>
+<ul>
+<li><p>Una <strong>clase abstracta</strong> es aquella que se define con el modificador <code class="sourceCode java"><span class="kw">abstract</span></code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Las clases abstractas no se pueden instanciar, por lo que su principal utilidad es la de servir de superclase para otras subclases:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Ejemplo e <span class="op">=</span> <span class="kw">new</span> <span class="fu">Ejemplo</span><span class="op">();</span> <span class="co">// Error: no se puede instanciar una clase abstracta</span></span></code></pre></div></li>
+<li><p>Un <strong>método abstracto</strong> es aquel que se define con el modificador <code class="sourceCode java"><span class="kw">abstract</span></code> y sin cuerpo (es decir, sin un bloque de sentencias):</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span></code></pre></div></li>
+<li><p>Las clases abstractas pueden o no contener métodos abstractos.</p></li>
+</ul>
+<div class="caja">
+<p>Si una clase contiene al menos un método abstracto, la clase en sí también debe definirse como abstracta.</p>
+</div>
+</section>
+<section class="slide level5" data-number="4.1.0.0.1">
 
+<ul>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> ElementoGrafico <span class="op">{</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> x<span class="op">;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> y<span class="op">;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">();</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Las definiciones que no llevan asociadas un valor también se denominan <strong>declaraciones</strong>.</p>
+<p>Por eso, a las declaraciones de variables se las denomina así.</p></li>
+<li><p>La definición de un método abstracto también es, en realidad, una <em>declaración</em>, ya que sólo se indica la <strong>signatura</strong> del método, pero no su <strong>implementación</strong>. Por tanto, ahí no se está creando ningún método y, en consecuencia, su nombre no se está ligando a ningún valor de tipo método.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.2">
+
+<ul>
+<li><p>Cuando una clase es <strong>subclase (directa o indirecta) de una superclase abstracta</strong>, esa subclase debe proporcionar un cuerpo a todos los métodos abstractos que haya heredado de su superclase.</p>
+<p>De lo contrario, esa subclase también se deberá definir como abstracta.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Me estoy dibujando...&quot;</span><span class="op">);</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>El acto de proporcionar un cuerpo a un método abstracto también se denomina <strong>implementar el método abstracto</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.3">
+
+<ul>
+<li><p>Si dejamos algún método abstracto sin implementar, la subclase también se deberá definir como abstracta:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span>  <span class="co">// Debe ser abstracta</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Falta la implementación del método «dibujar»</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
 </section>
 
 <section id="clases-y-métodos-finales" class="title-slide slide level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> Clases y métodos finales</h2>
-
+<ul>
+<li><p>Una <strong>clase final</strong> es aquella que se define con el modificador <code class="sourceCode java"><span class="dt">final</span></code>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p><strong>No se pueden crear subclases de una superclase final</strong>:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Intento <span class="kw">extends</span> Ejemplo <span class="op">{</span> <span class="co">// Error: la clase «Ejemplo» es final</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Un <strong>método final</strong> es aquel que se define con el modificador <code class="sourceCode java"><span class="dt">final</span></code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p><strong>Los métodos finales no se pueden redefinir.</strong></p></li>
+</ul>
 </section>
+<section class="slide level5" data-number="4.2.0.0.1">
+
+<ul>
+<li><p>Las clases finales y los métodos finales son dos conceptos que no tienen nada que ver uno con el otro. Una clase final puede tener o no métodos finales, y un método final puede estar o no en una clase final.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">final</span> <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="op">{</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span>      <span class="co">// Error: el método «capacidad» es final en «Base»</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">33</span><span class="op">;</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.0.0.2">
+
+<ul>
+<li><p>Se define una clase como final cuando interesa que esa clase no se pueda especializar con una subclase que pueda tener un comportamiento diferente.</p></li>
+<li><p>Se define un método como final cuando interesa que su implementación no se pueda cambiar en una subclase.</p></li>
+<li><p>En general, los métodos llamados desde un constructor deberían definirse como finales.</p></li>
+<li><p>Si un constructor llamada a un método no final, una subclase podría redefinir ese método y provocar resultados sorprendentes o indeseables.</p></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
+Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
+</div>
+</div>
 </section>
     </div>
   </div>
