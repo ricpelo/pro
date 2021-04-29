@@ -208,10 +208,10 @@ nocite: |
 
 ### Ligadura temprana (*early binding*!ifdef(HTML)(&nbsp;)())
 
-- Para ello (es decir, para comprobar si el método es compatible con el tipo
-  del objeto), el compilador hace un análisis estático de la expresión en la
-  que se invoca al método para determinar cuál es el tipo estático del objeto
-  sobre el que se está invocando.
+- Para comprobar si el método es compatible con el tipo del objeto sobre el que
+  se está invocando, el compilador hace un análisis estático de la expresión de
+  la invocación del método para determinar cuál es el tipo estático del objeto
+  sobre el que se invoca.
 
 - Eso significa que, en la invocación:
 
@@ -223,8 +223,9 @@ nocite: |
   el compilador determina el tipo de !NT(expr) en tiempo de compilación, y
   comprueba si el método `m` es compatible con ese tipo.
 
-  Por ejemplo, si ese tipo es una clase, comprueba si el método está definido
-  en esa clase.
+  Por ejemplo, si ese tipo es una clase, comprueba si esa clase posee ese
+  método (porque lo ha definido ella o porque lo ha heredado) y si es accesible
+  según las reglas de visibilidad.
 
 - Como esa comprobación se hace en tiempo de compilación y buscando el tipo
   estático, al mecanismo de comprobación de la existencia del método se le
@@ -401,6 +402,7 @@ Hola, Pepe, soy la clase Derivada
   }
 
   class Derivada extends Base {
+      @Override
       public String nombre() {
           return "Derivada";
       }
@@ -414,11 +416,23 @@ Hola, Pepe, soy la clase Derivada
   }
   ```
 
+:::: columns
+
+::: column
+
 - Imprime:
 
-  ```
-  Derivada
-  ```
+:::
+
+::: column
+
+```
+Derivada
+```
+
+:::
+
+::::
 
 ---
 
@@ -538,7 +552,6 @@ Hola, Pepe, soy la clase Derivada
           d.x = "Hola";                   // Accede a la «x» de Derivada
           bd.x = 5;                       // Accede a la «x» de Base
           System.out.println(d.getX());   // Imprime «Hola»
-          System.out.println(bd.getX());  // Imprime «Hola»
       }
   }
   ```
@@ -554,7 +567,6 @@ Hola, Pepe, soy la clase Derivada
 ::: column
 
   ```
-  Hola
   Hola
   ```
 
@@ -635,6 +647,7 @@ Hola, Pepe, soy la clase Derivada
   class Derivada extends Base {
       protected String nombre = "Derivada";
 
+      @Override
       public String getNombre() {
           return nombre;
       }
@@ -783,6 +796,7 @@ Hola, Pepe, soy la clase Derivada
   }
 
   class Dog extends Animal {
+      @Override
       void comer() {
           System.out.println("Comiendo pan...");
       }
@@ -1023,21 +1037,21 @@ class Bicicleta {
   `<:` `T` y, además, ambas clases definen un método `m` (definido en `T` y
   redefinido en `S`) de forma que:
 
-  - el tipo de retorno de `m` en `S` es $R1$
+  - El tipo de retorno de `m` en `S` es $R1$.
 
-  - el tipo de retorno de `m` en `T` es $R2$
+  - El tipo de retorno de `m` en `T` es $R2$.
 
-- En tal caso, decimos que el sistema de tipos de un lenguaje de programación
-  orientado a objetos admite **covarianza en el tipo de retorno** si se tiene
-  que cumplir que $R1$ `<:` $R2$.
+  En tal caso, decimos que un lenguaje de programación orientado a objetos es
+  **covariante en el tipo de retorno** si se tiene que cumplir que $R1$ `<:`
+  $R2$.
 
 - Esta regla garantiza seguridad en el tipo del método cuando se invoca el
-  método redefindo sobre instancias de la subclase.
+  método redefinido sobre instancias de la subclase.
 
 ---
 
 - En general, la covarianza es una propiedad que puede tener un tipo compuesto
-  a partir de otros.
+  por otros tipos.
 
 - Sean $A$ y $B$ dos tipos en un sistema de tipos, y sean
   $T\!{\langle}A{\rangle}$ y $T\!{\langle}B{\rangle}$ dos tipos construidos
@@ -1047,14 +1061,34 @@ class Bicicleta {
     $T\!{\langle}B{\rangle}$.
 
   - $T$ es **contravariante** si $T\!{\langle}B{\rangle}$ `<:`
-    $T\!{\langle}B{\rangle}$.
+    $T\!{\langle}A{\rangle}$.
 
   - $T$ es **invariante** si no es covariante ni contravariante.
 
-- $T$ se denomina en este contexto un constructor de tipos.
+- En este contexto, a $T$ se le considera un **constructor de tipos**.
 
 - Nótese que si $T$ se construye con más de un parámetro, puede ser covariante
   o contravariante de forma indistinta en cada uno de ellos.
+
+---
+
+- Por ejemplo, los _arrays_ en Java son tipos compuestos de otro tipo, que es
+  el tipo de los elementos que contiene el _array_.
+
+  - «_Array_ de enteros» (!JAVA(int[])) es un tipo construido a partir del tipo
+    !JAVA(int).
+
+  - «_Array_ de cadenas» (!JAVA(String[])) es otro tipo construido a partir del
+    tipo !JAVA(String).
+
+- Los _arrays_ en Java son covariantes, lo que significa que si $A$ `<:` $B$,
+  entonces $A$`[]` `<:` $B$`[]`.
+
+  Por ejemplo, como sabemos que !JAVA(String) `<:` !JAVA(Object), eso significa
+  que !JAVA(String)`[]` `<:` !JAVA(Object)`[]`.
+
+  Es decir: allí donde se espera un _array_ de !JAVA(Object), se puede poner un
+  _array_ de !JAVA(String).
 
 ---
 
@@ -1064,7 +1098,7 @@ class Bicicleta {
   - $\overline{P}$ representa la tupla de todos los tipos que aparecen en la
     lista de parámetros, en el orden en el que aparecen.
 
-  - $R$ representa el tipo del resultado del método.
+  - $R$ representa el tipo de retorno del método.
 
 - Podemos decir que si un método `f` tiene la signatura
   $S{\langle}\overline{P},R_1{\rangle}$ y otro método `g` tiene la signatura
@@ -1080,18 +1114,41 @@ class Bicicleta {
   tipos) sustituir el método `g` por el método `f` ya que el tipo de retorno de
   `f` es un subtipo de el de `g`.
 
-  Este es un resultado de la teoría de tipos.
+  Este es un resultado bien conocido de la teoría de tipos.
 
 ---
 
 - El tipo de una clase `T` (que indicaremos como $T$) puede interpretarse
   como un tipo compuesto por los tipos de retorno de sus métodos.
 
-  Por ejemplo, si la clase `T` tiene un método `m` con tipo de retorno $R$,
-  el tipo de la clase lo podemos representar como $T\!{\langle}R{\rangle}$.
+- Si la clase `T` tiene un método `m` con signatura
+  $S{\langle}\overline{P},R{\rangle}$, el tipo de la clase lo podemos
+  representar como $T\!{\langle}S{\langle}\overline{P},R{\rangle}{\rangle}$.
 
-- En ese caso, decimos que $T\!{\langle}R_1{\rangle}$ `<:`
-  $T\!{\langle}R_2{\rangle}$ si $R_1$ `<:` $R_2$.
+  En ese caso, decimos que:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $T\!{\langle}S{\langle}\overline{P},R_1{\rangle}{\rangle}$ `<:`
+  $T\!{\langle}S{\langle}\overline{P},R_2{\rangle}{\rangle}$\  si\  $S{\langle}\overline{P},R_1{\rangle}$ `<:`
+  $S{\langle}\overline{P},R_2{\rangle}$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Pero:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $S{\langle}\overline{P},R_1{\rangle}$ `<:`
+  $S{\langle}\overline{P},R_2{\rangle}$\  si\  $R_1$ `<:` $R_2$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Por tanto:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $T\!{\langle}S{\langle}\overline{P},R_1{\rangle}{\rangle}$ `<:`
+  $T\!{\langle}S{\langle}\overline{P},R_2{\rangle}{\rangle}$\  si\  $R_1$ `<:` $R_2$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Es decir: una clase `A` es subtipo de otra clase `B` si ambas tienen el
   mismo método pero el tipo de retorno del método en `A` es subtipo del tipo

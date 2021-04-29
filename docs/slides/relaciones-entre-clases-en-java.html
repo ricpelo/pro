@@ -386,13 +386,13 @@
 <section id="ligadura-temprana-early-binding" class="title-slide slide level3" data-number="3.1.1">
 <h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Ligadura temprana (<em>early binding</em> )</h3>
 <ul>
-<li><p>Para ello (es decir, para comprobar si el método es compatible con el tipo del objeto), el compilador hace un análisis estático de la expresión en la que se invoca al método para determinar cuál es el tipo estático del objeto sobre el que se está invocando.</p></li>
+<li><p>Para comprobar si el método es compatible con el tipo del objeto sobre el que se está invocando, el compilador hace un análisis estático de la expresión de la invocación del método para determinar cuál es el tipo estático del objeto sobre el que se invoca.</p></li>
 <li><p>Eso significa que, en la invocación:</p>
 <div class="centered">
 <p><span style="color:teal">⟨<em>expr</em>⟩</span><code>.m()</code></p>
 </div>
 <p>el compilador determina el tipo de <span style="color:teal">⟨<em>expr</em>⟩</span> en tiempo de compilación, y comprueba si el método <code>m</code> es compatible con ese tipo.</p>
-<p>Por ejemplo, si ese tipo es una clase, comprueba si el método está definido en esa clase.</p></li>
+<p>Por ejemplo, si ese tipo es una clase, comprueba si esa clase posee ese método (porque lo ha definido ella o porque lo ha heredado) y si es accesible según las reglas de visibilidad.</p></li>
 <li><p>Como esa comprobación se hace en tiempo de compilación y buscando el tipo estático, al mecanismo de comprobación de la existencia del método se le denomina <strong>ligadura temprana (<em>early binding</em>)</strong>.</p></li>
 </ul>
 </section>
@@ -519,20 +519,28 @@ Hola, Pepe, soy la clase Derivada</code></pre>
 <span id="cb9-9"><a href="#cb9-9"></a><span class="op">}</span></span>
 <span id="cb9-10"><a href="#cb9-10"></a></span>
 <span id="cb9-11"><a href="#cb9-11"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">nombre</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a>        <span class="cf">return</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a>    <span class="op">}</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="op">}</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a>        b<span class="op">.</span><span class="fu">hola</span><span class="op">();</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a>    <span class="op">}</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>Imprime:</p>
-<pre><code>Derivada</code></pre></li>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="at">@Override</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">nombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>        <span class="cf">return</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>    <span class="op">}</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="op">}</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Principal</span> <span class="op">{</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>        b<span class="op">.</span><span class="fu">hola</span><span class="op">();</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>    <span class="op">}</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Imprime:</li>
+</ul>
+</div><div class="column">
+<pre><code>Derivada</code></pre>
+</div>
+</div>
 </section>
 <section class="slide level5" data-number="3.2.1.0.3">
 
@@ -621,9 +629,8 @@ Hola, Pepe, soy la clase Derivada</code></pre>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span>                   <span class="co">// Accede a la «x» de Derivada</span></span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        bd<span class="op">.</span><span class="fu">x</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>                       <span class="co">// Accede a la «x» de Base</span></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getX</span><span class="op">());</span>   <span class="co">// Imprime «Hola»</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getX</span><span class="op">());</span>  <span class="co">// Imprime «Hola»</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -631,8 +638,7 @@ Hola, Pepe, soy la clase Derivada</code></pre>
 <li>Imprime:</li>
 </ul>
 </div><div class="column">
-<pre><code>Hola
-Hola</code></pre>
+<pre><code>Hola</code></pre>
 </div>
 </div>
 </section>
@@ -695,21 +701,22 @@ Base</code></pre></li>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="kw">extends</span> Base <span class="op">{</span></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="bu">String</span> nombre <span class="op">=</span> <span class="st">&quot;Derivada&quot;</span><span class="op">;</span></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>b<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getNombre</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nombre<span class="op">;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        Base b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Base</span><span class="op">();</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        Derivada d <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        Base bd <span class="op">=</span> <span class="kw">new</span> <span class="fu">Derivada</span><span class="op">();</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>b<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>d<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
@@ -805,24 +812,25 @@ blanco</code></pre></li>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dog <span class="kw">extends</span> Animal <span class="op">{</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo pan...&quot;</span><span class="op">);</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">ladrar</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Ladrando...&quot;</span><span class="op">);</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">hacer</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span><span class="fu">comer</span><span class="op">();</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ladrar</span><span class="op">();</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">hacer</span><span class="op">();</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">comer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Comiendo pan...&quot;</span><span class="op">);</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">ladrar</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Ladrando...&quot;</span><span class="op">);</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">hacer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span><span class="fu">comer</span><span class="op">();</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ladrar</span><span class="op">();</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Prueba <span class="op">{</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        Perro p <span class="op">=</span> <span class="kw">new</span> <span class="fu">Perro</span><span class="op">();</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        p<span class="op">.</span><span class="fu">hacer</span><span class="op">();</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </div><div class="column" style="width:30%;">
 <ul>
@@ -970,49 +978,73 @@ Se ha creado un perro</code></pre></li>
 <li><p>Es importante recordar que la covarianza sólo está permitida entre tipos referencia, no entre tipos primitivos.</p></li>
 <li><p>Más formalmente, supongamos que <code>S</code> y <code>T</code> son dos clases que cumplen que <code>S</code> <code>&lt;:</code> <code>T</code> y, además, ambas clases definen un método <code>m</code> (definido en <code>T</code> y redefinido en <code>S</code>) de forma que:</p>
 <ul>
-<li><p>el tipo de retorno de <code>m</code> en <code>S</code> es <span class="math inline">R1</span></p></li>
-<li><p>el tipo de retorno de <code>m</code> en <code>T</code> es <span class="math inline">R2</span></p></li>
-</ul></li>
-<li><p>En tal caso, decimos que el sistema de tipos de un lenguaje de programación orientado a objetos admite <strong>covarianza en el tipo de retorno</strong> si se tiene que cumplir que <span class="math inline">R1</span> <code>&lt;:</code> <span class="math inline">R2</span>.</p></li>
-<li><p>Esta regla garantiza seguridad en el tipo del método cuando se invoca el método redefindo sobre instancias de la subclase.</p></li>
+<li><p>El tipo de retorno de <code>m</code> en <code>S</code> es <span class="math inline">R1</span>.</p></li>
+<li><p>El tipo de retorno de <code>m</code> en <code>T</code> es <span class="math inline">R2</span>.</p></li>
+</ul>
+<p>En tal caso, decimos que un lenguaje de programación orientado a objetos es <strong>covariante en el tipo de retorno</strong> si se tiene que cumplir que <span class="math inline">R1</span> <code>&lt;:</code> <span class="math inline">R2</span>.</p></li>
+<li><p>Esta regla garantiza seguridad en el tipo del método cuando se invoca el método redefinido sobre instancias de la subclase.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.5.0.4">
 
 <ul>
-<li><p>En general, la covarianza es una propiedad que puede tener un tipo compuesto a partir de otros.</p></li>
+<li><p>En general, la covarianza es una propiedad que puede tener un tipo compuesto por otros tipos.</p></li>
 <li><p>Sean <span class="math inline">A</span> y <span class="math inline">B</span> dos tipos en un sistema de tipos, y sean <span class="math inline">T\!{\langle}A{\rangle}</span> y <span class="math inline">T\!{\langle}B{\rangle}</span> dos tipos construidos sobre <span class="math inline">A</span> y <span class="math inline">B</span>, respectivamente. Si <span class="math inline">A</span> <code>&lt;:</code> <span class="math inline">B</span>, se dice que:</p>
 <ul>
 <li><p><span class="math inline">T</span> es <strong>covariante</strong> si <span class="math inline">T\!{\langle}A{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}B{\rangle}</span>.</p></li>
-<li><p><span class="math inline">T</span> es <strong>contravariante</strong> si <span class="math inline">T\!{\langle}B{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}B{\rangle}</span>.</p></li>
+<li><p><span class="math inline">T</span> es <strong>contravariante</strong> si <span class="math inline">T\!{\langle}B{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}A{\rangle}</span>.</p></li>
 <li><p><span class="math inline">T</span> es <strong>invariante</strong> si no es covariante ni contravariante.</p></li>
 </ul></li>
-<li><p><span class="math inline">T</span> se denomina en este contexto un constructor de tipos.</p></li>
+<li><p>En este contexto, a <span class="math inline">T</span> se le considera un <strong>constructor de tipos</strong>.</p></li>
 <li><p>Nótese que si <span class="math inline">T</span> se construye con más de un parámetro, puede ser covariante o contravariante de forma indistinta en cada uno de ellos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.5.0.5">
 
 <ul>
+<li><p>Por ejemplo, los <em>arrays</em> en Java son tipos compuestos de otro tipo, que es el tipo de los elementos que contiene el <em>array</em>.</p>
+<ul>
+<li><p>«<em>Array</em> de enteros» (<code class="sourceCode java"><span class="dt">int</span><span class="op">[]</span></code>) es un tipo construido a partir del tipo <code class="sourceCode java"><span class="dt">int</span></code>.</p></li>
+<li><p>«<em>Array</em> de cadenas» (<code class="sourceCode java"><span class="bu">String</span><span class="op">[]</span></code>) es otro tipo construido a partir del tipo <code class="sourceCode java"><span class="bu">String</span></code>.</p></li>
+</ul></li>
+<li><p>Los <em>arrays</em> en Java son covariantes, lo que significa que si <span class="math inline">A</span> <code>&lt;:</code> <span class="math inline">B</span>, entonces <span class="math inline">A</span><code>[]</code> <code>&lt;:</code> <span class="math inline">B</span><code>[]</code>.</p>
+<p>Por ejemplo, como sabemos que <code class="sourceCode java"><span class="bu">String</span></code> <code>&lt;:</code> <code class="sourceCode java"><span class="bu">Object</span></code>, eso significa que <code class="sourceCode java"><span class="bu">String</span></code><code>[]</code> <code>&lt;:</code> <code class="sourceCode java"><span class="bu">Object</span></code><code>[]</code>.</p>
+<p>Es decir: allí donde se espera un <em>array</em> de <code class="sourceCode java"><span class="bu">Object</span></code>, se puede poner un <em>array</em> de <code class="sourceCode java"><span class="bu">String</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.5.0.6">
+
+<ul>
 <li><p>El tipo que representa la signatura de un método se puede escribir como <span class="math inline">S{\langle}\overline{P},R{\rangle}</span>, donde:</p>
 <ul>
 <li><p><span class="math inline">\overline{P}</span> representa la tupla de todos los tipos que aparecen en la lista de parámetros, en el orden en el que aparecen.</p></li>
-<li><p><span class="math inline">R</span> representa el tipo del resultado del método.</p></li>
+<li><p><span class="math inline">R</span> representa el tipo de retorno del método.</p></li>
 </ul></li>
 <li><p>Podemos decir que si un método <code>f</code> tiene la signatura <span class="math inline">S{\langle}\overline{P},R_1{\rangle}</span> y otro método <code>g</code> tiene la signatura <span class="math inline">S{\langle}\overline{P},R_2{\rangle}</span>, siempre se debe cumplir que:</p>
 <div class="centered">
 <p>Si <span class="math inline">R_1</span> <code>&lt;:</code> <span class="math inline">R_2</span>, entonces <span class="math inline">S{\langle}\overline{P},R_1{\rangle}</span> <code>&lt;:</code> <span class="math inline">S{\langle}\overline{P},R_2{\rangle}</span>.</p>
 </div></li>
 <li><p>O, dicho de otra forma: es seguro (desde el punto de vista del sistema de tipos) sustituir el método <code>g</code> por el método <code>f</code> ya que el tipo de retorno de <code>f</code> es un subtipo de el de <code>g</code>.</p>
-<p>Este es un resultado de la teoría de tipos.</p></li>
+<p>Este es un resultado bien conocido de la teoría de tipos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.0.6">
+<section class="slide level5" data-number="3.2.5.0.7">
 
 <ul>
-<li><p>El tipo de una clase <code>T</code> (que indicaremos como <span class="math inline">T</span>) puede interpretarse como un tipo compuesto por los tipos de retorno de sus métodos.</p>
-<p>Por ejemplo, si la clase <code>T</code> tiene un método <code>m</code> con tipo de retorno <span class="math inline">R</span>, el tipo de la clase lo podemos representar como <span class="math inline">T\!{\langle}R{\rangle}</span>.</p></li>
-<li><p>En ese caso, decimos que <span class="math inline">T\!{\langle}R_1{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}R_2{\rangle}</span> si <span class="math inline">R_1</span> <code>&lt;:</code> <span class="math inline">R_2</span>.</p></li>
+<li><p>El tipo de una clase <code>T</code> (que indicaremos como <span class="math inline">T</span>) puede interpretarse como un tipo compuesto por los tipos de retorno de sus métodos.</p></li>
+<li><p>Si la clase <code>T</code> tiene un método <code>m</code> con signatura <span class="math inline">S{\langle}\overline{P},R{\rangle}</span>, el tipo de la clase lo podemos representar como <span class="math inline">T\!{\langle}S{\langle}\overline{P},R{\rangle}{\rangle}</span>.</p>
+<p>En ese caso, decimos que:</p>
+<div class="centered">
+<p><span class="math inline">T\!{\langle}S{\langle}\overline{P},R_1{\rangle}{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}S{\langle}\overline{P},R_2{\rangle}{\rangle}</span>  si  <span class="math inline">S{\langle}\overline{P},R_1{\rangle}</span> <code>&lt;:</code> <span class="math inline">S{\langle}\overline{P},R_2{\rangle}</span></p>
+</div>
+<p>Pero:</p>
+<div class="centered">
+<p><span class="math inline">S{\langle}\overline{P},R_1{\rangle}</span> <code>&lt;:</code> <span class="math inline">S{\langle}\overline{P},R_2{\rangle}</span>  si  <span class="math inline">R_1</span> <code>&lt;:</code> <span class="math inline">R_2</span></p>
+</div>
+<p>Por tanto:</p>
+<div class="centered">
+<p><span class="math inline">T\!{\langle}S{\langle}\overline{P},R_1{\rangle}{\rangle}</span> <code>&lt;:</code> <span class="math inline">T\!{\langle}S{\langle}\overline{P},R_2{\rangle}{\rangle}</span>  si  <span class="math inline">R_1</span> <code>&lt;:</code> <span class="math inline">R_2</span></p>
+</div></li>
 <li><p>Es decir: una clase <code>A</code> es subtipo de otra clase <code>B</code> si ambas tienen el mismo método pero el tipo de retorno del método en <code>A</code> es subtipo del tipo de retorno del mismo método en <code>B</code>.</p></li>
 <li><p>Esa es precisamente la definición de <strong>covarianza</strong>: un tipo compuesto es covariante cuando cumple la condición anterior.</p></li>
 </ul>
