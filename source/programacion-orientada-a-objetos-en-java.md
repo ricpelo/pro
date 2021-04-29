@@ -501,7 +501,8 @@ nocite: |
     true
     ```
 
-    No es conveniente, ya que comprueba si los dos objetos son el mismo.
+    No es conveniente, ya que comprueba si los dos objetos son el mismo (y eso
+    sólo está garantizado si las dos cadenas son literales).
 
   - Con el método !JAVA(equals):
 
@@ -518,6 +519,26 @@ nocite: |
     jshell> "hola".compareTo("adiós")
     7
     ```
+
+---
+
+- También se puede usar el método estático !JAVA(equals) de la clase
+  !JAVA(Objects) del paquete !JAVA{java.util} (_cuidado_: es !JAVA(Objects) en
+  plural, no !JAVA(Object)):
+
+  ```java
+  jshell> Objects.equals("hola", "hola")
+  true
+  ```
+
+  Es como hacer:
+
+  ```java
+  str1.equals(str2)
+  ```
+
+  pero el !JAVA(equals) de !JAVA(Objects) tiene la ventaja de que no provoca un
+  error !JAVA(NullPointerException) si `str1` es !JAVA(null).
 
 ### Diferencias entre literales cadena y objetos `String`
 

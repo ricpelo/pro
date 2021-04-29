@@ -1177,6 +1177,214 @@ class Bicicleta {
 
 ### Sobreescritura de `equals`
 
+- El método !JAVA(equals) nos permite comparar dos objetos para ver si son
+  iguales.
+
+- Ese método está definido en la clase !JAVA(Object) y, por tanto, todos los
+  objetos de cualquier clase en Java dispone de ese método.
+
+- Muchas clases de la librería de Java redefinen ese método para crear su
+  propia versión del concepto de _igualdad_.
+
+- De la misma forma, lo normal es que las clases definidas por el programador
+  implementen su propia versión del método !JAVA(equals), redefiniendo el que
+  heredan de su superclase.
+
+- Así, los objetos de una clase definida por el programador se podrán comparar
+  entre sí y con otros objetos de otras clases.
+
+---
+
+- La definición que hace la clase !JAVA(Object) del método !JAVA(equals) sólo
+  compara referencias, por lo que es equivalente a la siguiente:
+
+  ```java
+  public boolean equals(Object obj) {
+      return this == obj;
+  }
+  ```
+
+- Esto significa que, de entrada, dos objetos son iguales únicamente si son
+  _idénticos_ (es decir, si son el mismo objeto).
+
+- En general, esta implementación no es conveniente y habría que redefinirla
+  adecuadamente en cada caso.
+
+- Lo habitual es comparar el valor de algunos campos de los dos objetos.
+
+---
+
+- Por ejemplo, supongamos una clase `Persona` con tres campos:
+
+  ```java
+  class Persona {
+      private String nombre;
+      private String apellidos;
+      private int edad;
+
+      // constructores, getters y setters
+  }
+  ```
+
+- Tenemos dos objetos que básicamente representan a la misma persona (es decir,
+  que son lógicamente equivalentes):
+
+  ```java
+  Persona p1 = new Persona("Juan", "Pérez", 31);
+  Persona p2 = new Persona("Juan", "Pérez", 31);
+  ```
+
+- En cambio, el método !JAVA(equals) considera que son diferentes ya que
+  compara diferencias en lugar del valor de sus campos:
+
+  ```java
+  System.out.println(p1.equals(p2)); // false
+  ```
+
+---
+
+- Existen varias condiciones que el método !JAVA(equals) debe garantizar, y que
+  están recogidas en la documentación de la clase !JAVA(Object).
+
+  Suponiendo que `x`, `y` y `z` son valores referencia no nulas, siempre se
+  tiene que cumplir:
+
+  - **Reflexividad**: !JAVA(x.equals(x) == true).
+
+  - **Simetría**: !JAVA(x.equals(y) == true) si y sólo si !JAVA(y.equals(x) ==
+    true).
+
+  - **Transitividad**: si !JAVA(x.equals(y) == true) e !JAVA(y.equals(z) ==
+    true), entonces !JAVA(x.equals(y) == true).
+
+  - **Consistencia**: si invocamos varias veces !JAVA(x.equals(y)), debe
+    devolver consistentemente !JAVA(true) o !JAVA(false), suponiendo que no se
+    ha modificado ninguna información usada en la comparación de igualdad de
+    los objetos.
+
+  - **No nulidad**: !JAVA(x.equals(null) == false).
+
+---
+
+- Para crear un método que satisfaga las condiciones anteriores, primero hay
+  que seleccionar los campos que se van a comparar.
+
+- Luego, hay que realizar estos tres pasos en el método `equals`:
+
+  #. Si `this` y la referencia del otro objeto son iguales, los objetos son
+     iguales; en otro caso, ir al paso 2.
+
+  #. Si la otra referencia es `null` o no tiene el tipo adecuado, los objetos
+     son distintos; en otro caso, ir al paso 3.
+
+  #. Si todos los campos seleccionados son iguales, los objetos son iguales; en
+     otro caso, son distintos.
+
+---
+
+- Un patrón típico sería el siguiente, suponiendo que queremos redefinir el
+  método !JAVA(equals) en la clase `MiClase`:
+
+  ```java
+  public boolean equals(Object obj) {
+      // Si son idénticos, son iguales:
+      if (this == obj) {
+          return true;
+      }
+
+      // No es igual a una referencia nula:
+      if (obj == null) {
+          return false;
+      }
+
+      // Si las clases no coinciden, los objetos no son iguales:
+      if (getClass() != obj.getClass()) {
+          return false;
+      }
+
+      // Desde aquí, ya es seguro hacer el casting a MiClase:
+      MiClase otro = (MiClase) obj;
+
+      // Aquí ya se compararían los valores de los campos:
+      return campo1 == otro.campo1 && campo2 == otro.campo2 && ...;
+  }
+  ```
+
+---
+
+- La condición de que las clases de los dos objetos tienen que coincidir, a
+  veces puede resultar demasiado fuerte y se podría relajar.
+
+  Por ejemplo, se podría permitir que una clase sea subclase de la otra:
+
+  ```java
+  if (!(obj instanceof getClass())) {
+      return false;
+  }
+  ```
+
+  Pero para eso, es necesario que los campos que se usen para comparar los
+  objetos sean accesibles y no se hayan redefinido por otras distintas (en este
+  último caso, se usarían las variables originales, sin redefinir).
+
+- Además, el operador !JAVA(instanceof) tiene la ventaja de que también
+  comprueba si es una referencia nula.
+
+---
+
+- En el ejemplo de la `Persona`, se podría hacer lo siguiente:
+
+  ```java
+  class Person {
+      private String nombre;
+      private String apellidos;
+      private int edad;
+
+      // constructores, getters and setters
+
+      @Override
+      public boolean equals(Object otro) {
+          // Comprueba si son el mismo objeto:
+          if (this == otro) {
+              return true;
+          }
+
+          // Comprueba si el otro es una Persona y no nula:
+          if (!(otro instanceof Persona)) {
+              return false;
+          }
+
+          // Desde aquí, ya es seguro hacer el casting a Persona:
+          Persona persona = (Persona) otro;
+
+          // Compara todos los campos necesarios:
+          return edad == persona.edad &&
+                 Objects.equals(nombre, persona.nombre) &&
+                 Objects.equals(apellidos, persona.apellidos);
+      }
+  }
+  ```
+
+---
+
+- En el ejemplo anterior hemos usado el método `java.util.Objects.equals` (o,
+  dicho de otra forma, el método `equals` de la clase `Objects` del paquete
+  `java.util`) para comprobar si dos cadenas son iguales, lo que nos previente
+  de posibles errores de !JAVA(NullPointerException).
+
+- Aquí comparamos la igualdad de tres objetos. Dos de ellos corresponden a la
+  misma persona:
+
+  ```java
+  Persona p1 = new Persona("Juan", "Pérez", 31);     // una persona
+  Persona p2 = new Persona("Juan", "Pérez", 31);     // la misma persona
+  Persona p3 = new Persona("María", "González", 30); // otra persona
+
+  System.out.println(p1.equals(p2)); // true
+  System.out.println(p2.equals(p3)); // false
+  System.out.println(p3.equals(p3)); // true (reflexividad)
+  ```
+
 ### Sobreescritura de `hashCode`
 
 # Restricciones
