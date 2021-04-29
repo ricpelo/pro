@@ -1216,11 +1216,167 @@ Se ha creado un perro</code></pre></li>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p3<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>p3<span class="op">));</span> <span class="co">// true (reflexividad)</span></span></code></pre></div></li>
 </ul>
 </section>
+<section class="slide level5" data-number="3.2.7.0.9">
+
+<ul>
+<li><p>En Python, la identidad de un objeto se representa mediante un número entero que se puede obtener a través de la función <code class="sourceCode python"><span class="bu">id</span></code> y que identifica y distingue a los objetos entre sí, de forma que dos objetos tienen siempre distintos valores de <code class="sourceCode python"><span class="bu">id</span></code>.</p></li>
+<li><p>En Java no existe una función que devuelva la identidad de un objeto.</p></li>
+<li><p>Lo más parecido a la función <code class="sourceCode python"><span class="bu">id</span></code> en Java es el método <code class="sourceCode java">hashCode</code> definido en la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
+<li><p>Ya sabemos que el <code>hashCode</code> de un objeto en Java es el equivalente al <code class="sourceCode java">hash</code> de Python y, por tanto, no se corresponde exactamente con el concepto de <em>identidad</em>.</p></li>
+<li><p>Pero la implementación que hace la clase <code class="sourceCode java"><span class="bu">Object</span></code> del método <code class="sourceCode java">hashCode</code> garantiza que el valor que devuelve es distinto para cada objeto, ya que se calcula a partir de la dirección de memoria donde está almacenado el objeto.</p></li>
+<li><p>El problema está cuando tenemos que redefinir el método <code class="sourceCode java">hashCode</code> en nuestras propias clases.</p></li>
+</ul>
+</section>
 
 <section id="sobreescritura-de-hashcode" class="title-slide slide level3" data-number="3.2.8">
 <h3 data-number="3.2.8"><span class="header-section-number">3.2.8</span> Sobreescritura de <code>hashCode</code></h3>
-
+<ul>
+<li><p>Si se redefine el método <code class="sourceCode java">equals</code>, es una buena práctica redefinir también el método <code class="sourceCode java">hashCode</code>.</p></li>
+<li><p>De no hacerlo, la clase podría no funcionar correctamente al almacenarse en colecciones (como <code class="sourceCode java"><span class="bu">HashMap</span></code>, <code class="sourceCode java"><span class="bu">HashSet</span></code> o <code class="sourceCode java">HashTable</code>) que usen mecanismos de <em>hashing</em> para acceder a los elementos.</p></li>
+<li><p>Estas estructuras, salvo algunas diferencias, almacenan los datos de la siguiente forma:</p>
+<div class="centered">
+<p><img data-src="images/cajones.svg" class="plain" style="width:80.0%" /></p>
+</div></li>
+<li><p>Al querer guardar un objeto en esta estructura, se llama al método <code class="sourceCode java">hashCode</code>.</p></li>
+<li><p>Éste devuelve un número entero, que la estructura usará para decidir en qué «cajón» (<em>bucket</em>) guardará este dato.</p></li>
+</ul>
 </section>
+<section class="slide level5" data-number="3.2.8.0.1">
+
+<ul>
+<li><p>Los objetos que tengan el mismo <code class="sourceCode java">hashCode</code> se almacenarán en el mismo cajón.</p></li>
+<li><p>Si se quiere recuperar el objeto que se guardó, se llama de nuevo al método <code class="sourceCode java">hashCode</code> para determinar de qué cajón se debe recuperar el objeto.</p></li>
+<li><p>El objetivo de guardar los datos de esta forma es lograr almacenar y recuperar información en tiempo constante (lo cuál no ocurre siempre, pero se acerca).</p></li>
+<li><p>Para ello, se debe conseguir que al guardar los elementos en la colección, estos queden dispersos de forma uniforme en toda la colección (que queden la menor cantidad de cajones vacíos y que no haya cajones donde se guarden muchos más elementos que otros).</p></li>
+<li><p>El que no suceda esto depende, casi siempre, del valor que devuelva el método <code class="sourceCode java">hashCode</code> para cada objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.2">
+
+<ul>
+<li><p>Supongamos que guardamos tres objetos en esta estructura y el método <code class="sourceCode java">hashCode</code> de los tres devuelve <code class="sourceCode java"><span class="dv">0</span></code>.</p>
+<p>Esto quiere decir que los tres objetos se gurdarán en el cajón <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
+<li><p>Cuanqo quiera recuperarlos, tendré que recorrer de forma secuencial el cajón <code class="sourceCode java"><span class="dv">0</span></code> e ir mirando uno a uno todos los objetos que hay guardados en este cajón para determinar cuál es el que quiero.</p>
+<p>Paso de tener un acceso directo a un acceso secuencial, que es mucho más lento.</p></li>
+<li><p>Por lo tanto, el método <code class="sourceCode java">hashCode</code> de estos objetos no es útil.</p></li>
+<li><p>Es importante obserbar que, una vez que se ha comprobado en qué cajón hay que mirar, se usa el método <code class="sourceCode java">equals</code> para encontrar el objeto deseado dentro del cajón.</p>
+<p>Esta es una pista que me indica que los métodos <code class="sourceCode java">equals</code> y <code class="sourceCode java">hashCode</code> deben estar coordinados entre sí.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.3">
+
+<ul>
+<li><p>El método <code class="sourceCode java">hashCode</code> debe cumplir tres condiciones (o, al menos, las dos primeras):</p>
+<ol>
+<li><p>El <code class="sourceCode java">hashCode</code> de un objeto no debería cambiar nunca durante la ejecución de un programa.</p></li>
+<li><p>Si <span class="math inline">a</span><code>.equals(</code><span class="math inline">b</span><code>)</code>, entonces <span class="math inline">a</span><code>.hashCode()</code> <code>==</code> <span class="math inline">b</span><code>.hashCode()</code>.</p></li>
+<li><p>(<em>Opcional</em>) Dos objetos distintos deberían devolver un <code class="sourceCode java">hashCode</code> distinto, pero tampoco es estrictamente necesario.</p></li>
+</ol></li>
+<li><p>Vamos a ver cada condición con más detalle.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.4">
+
+<ol>
+<li><p>Siempre que se invoca en el mismo objeto más de una vez durante la ejecución de una aplicación Java, el <code class="sourceCode java">hashCode</code> debe devolver constantemente el mismo número entero, mientras no se modifique ningún dato usado al comparar el objeto con <code class="sourceCode java">equals</code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 400000</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 400000 (bien)</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 500000 (mal)</span></span></code></pre></div>
+<p>Este número entero no tiene que permanecer igual de una ejecución a otra de la aplicación.</p></li>
+<li><p>Si dos objetos son iguales según el <code class="sourceCode java">equals</code>, entonces al llamar al <code class="sourceCode java">hashCode</code> sobre cada uno de los dos objetos se debe producir el mismo resultado entero:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>persona2<span class="op">);</span> <span class="co">// true</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span> <span class="op">==</span> persona2<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// false (mal, debe ser true)</span></span></code></pre></div></li>
+<li><p>No es necesario que dos objetos no iguales devuelvan <code class="sourceCode java">hashCode</code>s distintos, pero devolver resultados distintos con objetos que no son iguales puede mejorar el rendimiento de algunas colecciones:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>person3<span class="op">);</span> <span class="co">// false</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span> <span class="op">==</span> persona3<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// true (se permite)</span></span></code></pre></div></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.2.8.0.5">
+
+<ul>
+<li><p>La implementación más simple del método <code class="sourceCode java">hashCode</code> puede ser algo parecido a ésto:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Siempre devuelve el mismo valor y satisface las condiciones obligatorias 1 y 2, pero no satisface la condición opcional 3.</p></li>
+<li><p>Por desgracia, este método es muy ineficiente ya que degrada totalmente los beneficios que proporcionan las colecciones basadas en <em>hashing</em>.</p></li>
+<li><p>Una buena función de <em>hashing</em> tiende a generar diferentes valores <em>hash</em> para objetos que no son iguales.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.6">
+
+<ul>
+<li><p>Para desarrollar un método <code class="sourceCode java">hashCode</code> válido y efectivo, se recomienda el algoritmo propuesto por Joshua Bloch en su libro «<em>Effective Java</em>»:</p>
+<ol>
+<li><p>Crear un <code class="sourceCode java"><span class="dt">int</span> result</code> y asignarle un valor no cero (por ej., <code class="sourceCode java"><span class="dv">17</span></code>).</p></li>
+<li><p>Para cada campo <code>f</code> usado en el método <code class="sourceCode java">equals</code>:</p>
+<ul>
+<li><p>Calcular un código <em>hash</em> para <code>f</code> y llamarlo <code>code</code>:</p>
+<ul>
+<li>Si <code>f</code> es un <code class="sourceCode java"><span class="dt">boolean</span></code>: calcular <code class="sourceCode java"><span class="op">(</span>f <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="dv">1</span><span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un <code class="sourceCode java"><span class="dt">byte</span></code>, <code class="sourceCode java"><span class="dt">char</span></code>, <code class="sourceCode java"><span class="dt">short</span></code> o <code class="sourceCode java"><span class="dt">int</span></code>: calcular <code class="sourceCode java"><span class="op">(</span><span class="dt">int</span><span class="op">)</span> f</code>;</li>
+<li>Si <code>f</code> es un <code class="sourceCode java"><span class="dt">long</span></code>: calcular <code class="sourceCode java"><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">(</span>f <span class="op">^</span> <span class="op">(</span>f <span class="op">&gt;&gt;&gt;</span> <span class="dv">32</span><span class="op">))</span></code>;</li>
+<li>Si <code>f</code> es un <code class="sourceCode java"><span class="dt">float</span></code>: calcular <code class="sourceCode java"><span class="bu">Float</span><span class="op">.</span><span class="fu">floatToIntBits</span><span class="op">(</span>f<span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un <code class="sourceCode java"><span class="dt">double</span></code>: calcula <code class="sourceCode java"><span class="bu">Double</span><span class="op">.</span><span class="fu">doubleToLongBits</span><span class="op">(</span>f<span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un objeto: usar <code class="sourceCode java">f<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span></code>, ó <code class="sourceCode java"><span class="dv">0</span></code> si <code>f</code> <code>==</code> <code class="sourceCode java"><span class="kw">null</span></code>;</li>
+<li>Si <code>f</code> es un <em>array</em>: ver cada elemento como un campo independiente y calcular el valor <em>hash</em> recursivamente.</li>
+</ul></li>
+<li><p>Combinar el valor de <code>code</code> con <code>result</code> así:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="dv">31</span> <span class="op">*</span> result <span class="op">+</span> code<span class="op">;</span></span></code></pre></div></li>
+</ul></li>
+<li><p>Devolver <code>result</code> como el código <em>hash</em> del objeto.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.7">
+
+<div class="caja">
+<p>Es importante no incluir en este algoritmo ningún campo que no se utilice en <code class="sourceCode java">equals</code>.</p>
+</div>
+<ul>
+<li><p>Por ejemplo, una implementación más adecuada del método <code class="sourceCode java">hashCode</code> en nuestra clase <code>Persona</code> podría ser:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> result <span class="op">=</span> <span class="dv">17</span><span class="op">;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">31</span> <span class="op">*</span> result <span class="op">+</span> <span class="op">(</span>nombre <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> nombre<span class="op">.</span><span class="fu">hashCode</span><span class="op">());</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">31</span> <span class="op">*</span> result <span class="op">+</span> <span class="op">(</span>edad <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> apellidos<span class="op">.</span><span class="fu">hashCode</span><span class="op">());</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">31</span> <span class="op">*</span> result <span class="op">+</span> edad<span class="op">;</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">;</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Desde Java 7, se dispone del método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">hash</span></code> que permite obtener un código <em>hash</em> de forma rápida y sencilla, ocultando todas las constantes mágicas y todas las comprobaciones de nulos.</p></li>
+<li><p>Gracias a ese método, nuestro <code class="sourceCode java">hashCode</code> sería mucho más sencillo:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Objects<span class="op">.</span><span class="fu">hash</span><span class="op">(</span>nombre<span class="op">,</span> apellidos<span class="op">,</span> edad<span class="op">);</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.8.0.8">
+
+<ul>
+<li><p>Aquí se puede ver un ejemplo de uso del nuevo método <code class="sourceCode java">hashCode</code> sobre tres objetos. Dos de ellos representan a la misma persona:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>Persona p1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// una persona</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>Persona p2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// la misma persona</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>Persona p3 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;María&quot;</span><span class="op">,</span> <span class="st">&quot;González&quot;</span><span class="op">,</span> <span class="dv">30</span><span class="op">);</span> <span class="co">// otra persona</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p1<span class="op">.</span><span class="fu">hashCode</span><span class="op">());</span> <span class="co">// 443676584</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p2<span class="op">.</span><span class="fu">hashCode</span><span class="op">());</span> <span class="co">// 443676584</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>p3<span class="op">.</span><span class="fu">hashCode</span><span class="op">());</span> <span class="co">// 1456026844</span></span></code></pre></div></li>
+<li><p>Como puede comprobarse, se obtiene el mismo código <em>hash</em> sobre objetos iguales.</p></li>
+</ul>
+</section>
+<section id="resumen" class="title-slide slide level4" data-number="3.2.8.1">
+<h4 data-number="3.2.8.1"><span class="header-section-number">3.2.8.1</span> Resumen</h4>
+<ul>
+<li><p>Si se sobreescribe el método <code class="sourceCode java">equals</code> es recomendable sobreescribir también el método <code class="sourceCode java">hashCode</code> para conservar el contrato entre ambos métodos: dos objetos iguales deben retornar el mismo valor de <em>hash</em>.</p></li>
+<li><p>El método <code class="sourceCode java">equals</code> no llama al método <code class="sourceCode java">hashCode</code> para determinar la igualdad de dos objetos.</p></li>
+<li><p>Es recomendable, por no decir obligatorio, sobreescribir el método <code class="sourceCode java">equals</code> porque la implementación por defecto no es de mucha ayuda.</p></li>
+<li><p>Si dos objetos no son iguales, no es necesario que sus <code class="sourceCode java">hashCode</code>s sean distintos; de hecho, dos objetos diferentes pueden devolver el mismo valor <em>hash</em>.</p></li>
+<li><p>Si se necesita guardar los objetos en las estructuras señaladas anteriormente (<code>HashMap</code> y similares) es absolutamente indispensable sobreescribir el método <code class="sourceCode java">hashCode</code>; de lo contrario obtendrá resultados inesperados o no deseados cuando se realicen operaciones de guardar, consultar o eliminar los datos.</p></li>
+</ul>
+</section>
+
 
 </section>
 <section>
@@ -1232,13 +1388,13 @@ Se ha creado un perro</code></pre></li>
 <h2 data-number="4.1"><span class="header-section-number">4.1</span> Clases y métodos abstractos</h2>
 <ul>
 <li><p>Una <strong>clase abstracta</strong> es aquella que se define con el modificador <code class="sourceCode java"><span class="kw">abstract</span></code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Las clases abstractas no se pueden instanciar, por lo que su principal utilidad es la de servir de superclase para otras subclases:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Ejemplo e <span class="op">=</span> <span class="kw">new</span> <span class="fu">Ejemplo</span><span class="op">();</span> <span class="co">// Error: no se puede instanciar una clase abstracta</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Ejemplo e <span class="op">=</span> <span class="kw">new</span> <span class="fu">Ejemplo</span><span class="op">();</span> <span class="co">// Error: no se puede instanciar una clase abstracta</span></span></code></pre></div></li>
 <li><p>Un <strong>método abstracto</strong> es aquel que se define con el modificador <code class="sourceCode java"><span class="kw">abstract</span></code> y sin cuerpo (es decir, sin un bloque de sentencias):</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span></code></pre></div></li>
 <li><p>Las clases abstractas pueden o no contener métodos abstractos.</p></li>
 </ul>
 <div class="caja">
@@ -1249,17 +1405,17 @@ Se ha creado un perro</code></pre></li>
 
 <ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> ElementoGrafico <span class="op">{</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> x<span class="op">;</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> y<span class="op">;</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">();</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> ElementoGrafico <span class="op">{</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> x<span class="op">;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> y<span class="op">;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">();</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Las definiciones que no llevan asociadas un valor también se denominan <strong>declaraciones</strong>.</p>
 <p>Por eso, a las declaraciones de variables se las denomina así.</p></li>
 <li><p>La definición de un método abstracto también es, en realidad, una <em>declaración</em>, ya que sólo se indica la <strong>signatura</strong> del método, pero no su <strong>implementación</strong>. Por tanto, ahí no se está creando ningún método y, en consecuencia, su nombre no se está ligando a ningún valor de tipo método.</p></li>
@@ -1270,18 +1426,18 @@ Se ha creado un perro</code></pre></li>
 <ul>
 <li><p>Cuando una clase es <strong>subclase (directa o indirecta) de una superclase abstracta</strong>, esa subclase debe proporcionar un cuerpo a todos los métodos abstractos que haya heredado de su superclase.</p>
 <p>De lo contrario, esa subclase también se deberá definir como abstracta.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Me estoy dibujando...&quot;</span><span class="op">);</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb55"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Me estoy dibujando...&quot;</span><span class="op">);</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>El acto de proporcionar un cuerpo a un método abstracto también se denomina <strong>implementar el método abstracto</strong>.</p></li>
 </ul>
 </section>
@@ -1289,15 +1445,15 @@ Se ha creado un perro</code></pre></li>
 
 <ul>
 <li><p>Si dejamos algún método abstracto sin implementar, la subclase también se deberá definir como abstracta:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span>  <span class="co">// Debe ser abstracta</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Falta la implementación del método «dibujar»</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ventana <span class="kw">extends</span> ElementoGrafico <span class="op">{</span>  <span class="co">// Debe ser abstracta</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">x</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">y</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Falta la implementación del método «dibujar»</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1305,17 +1461,17 @@ Se ha creado un perro</code></pre></li>
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> Clases y métodos finales</h2>
 <ul>
 <li><p>Una <strong>clase final</strong> es aquella que se define con el modificador <code class="sourceCode java"><span class="dt">final</span></code>:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p><strong>No se pueden crear subclases de una superclase final</strong>:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Intento <span class="kw">extends</span> Ejemplo <span class="op">{</span> <span class="co">// Error: la clase «Ejemplo» es final</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Intento <span class="kw">extends</span> Ejemplo <span class="op">{</span> <span class="co">// Error: la clase «Ejemplo» es final</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Un <strong>método final</strong> es aquel que se define con el modificador <code class="sourceCode java"><span class="dt">final</span></code>:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p><strong>Los métodos finales no se pueden redefinir.</strong></p></li>
 </ul>
 </section>
@@ -1324,18 +1480,18 @@ Se ha creado un perro</code></pre></li>
 <ul>
 <li><p>Las clases finales y los métodos finales son dos conceptos que no tienen nada que ver uno con el otro. Una clase final puede tener o no métodos finales, y un método final puede estar o no en una clase final.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">final</span> <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">42</span><span class="op">;</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="op">{</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span>      <span class="co">// Error: el método «capacidad» es final en «Base»</span></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">33</span><span class="op">;</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">final</span> <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Derivada <span class="op">{</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="fu">capacidad</span><span class="op">()</span> <span class="op">{</span>      <span class="co">// Error: el método «capacidad» es final en «Base»</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">33</span><span class="op">;</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.2">
