@@ -1249,33 +1249,34 @@ class Bicicleta {
   Suponiendo que `x`, `y` y `z` son valores referencia no nulas, siempre se
   tiene que cumplir:
 
-  - **Reflexividad**: !JAVA(x.equals(x) == true).
+  - **Reflexividad**: !JAVA(x.equals(x)) `==` !JAVA(true).
 
-  - **Simetría**: !JAVA(x.equals(y) == true) si y sólo si !JAVA(y.equals(x) ==
-    true).
+  - **Simetría**: !JAVA(x.equals(y)) `==` !JAVA(true) si y sólo si
+    !JAVA(y.equals(x)) `==` !JAVA(true).
 
-  - **Transitividad**: si !JAVA(x.equals(y) == true) e !JAVA(y.equals(z) ==
-    true), entonces !JAVA(x.equals(y) == true).
+  - **Transitividad**: si !JAVA(x.equals(y)) `==` !JAVA(true) e
+    !JAVA(y.equals(z)) `==` !JAVA(true), entonces !JAVA(x.equals(y)) `==`
+    !JAVA(true).
 
   - **Consistencia**: si invocamos varias veces !JAVA(x.equals(y)), debe
     devolver consistentemente !JAVA(true) o !JAVA(false), suponiendo que no se
     ha modificado ninguna información usada en la comparación de igualdad de
     los objetos.
 
-  - **No nulidad**: !JAVA(x.equals(null) == false).
+  - **No nulidad**: !JAVA(x.equals(null)) `==` !JAVA(false).
 
 ---
 
 - Para crear un método que satisfaga las condiciones anteriores, primero hay
   que seleccionar los campos que se van a comparar.
 
-- Luego, hay que realizar estos tres pasos en el método `equals`:
+- Luego, hay que realizar estos tres pasos en el método !JAVA(equals):
 
-  #. Si `this` y la referencia del otro objeto son iguales, los objetos son
-     iguales; en otro caso, ir al paso 2.
+  #. Si !JAVA(this) y la referencia del otro objeto son iguales, los objetos
+     son iguales; en otro caso, ir al paso 2.
 
-  #. Si la otra referencia es `null` o no tiene el tipo adecuado, los objetos
-     son distintos; en otro caso, ir al paso 3.
+  #. Si la otra referencia es !JAVA(null) o no tiene el tipo adecuado, los
+     objetos son distintos; en otro caso, ir al paso 3.
 
   #. Si todos los campos seleccionados son iguales, los objetos son iguales; en
      otro caso, son distintos.
@@ -1367,8 +1368,8 @@ class Bicicleta {
 
 ---
 
-- En el ejemplo anterior hemos usado el método `java.util.Objects.equals` (o,
-  dicho de otra forma, el método `equals` de la clase `Objects` del paquete
+- En el ejemplo anterior hemos usado el método !JAVA{java.util.Objects.equals}
+  (o, dicho de otra forma, el método `equals` de la clase `Objects` del paquete
   `java.util`) para comprobar si dos cadenas son iguales, lo que nos previente
   de posibles errores de !JAVA(NullPointerException).
 
@@ -1397,8 +1398,8 @@ class Bicicleta {
 - Lo más parecido a la función !PYTHON(id) en Java es el método !JAVA(hashCode)
   definido en la clase !JAVA(Object).
 
-- Ya sabemos que el `hashCode` de un objeto en Java es el equivalente al
-  !JAVA(hash) de Python y, por tanto, no se corresponde exactamente con el
+- Ya sabemos que el !JAVA(hashCode) de un objeto en Java es el equivalente al
+  !PYTHON(hash) de Python y, por tanto, no se corresponde exactamente con el
   concepto de _identidad_.
 
 - Pero la implementación que hace la clase !JAVA(Object) del método
@@ -1415,68 +1416,71 @@ class Bicicleta {
   también el método !JAVA(hashCode).
 
 - De no hacerlo, la clase podría no funcionar correctamente al almacenarse en
-  colecciones (como !JAVA(HashMap), !JAVA(HashSet) o !JAVA(HashTable)) que usen
+  colecciones (como !JAVA(HashMap), !JAVA(HashSet) o !JAVA(Hashtable)) que usen
   mecanismos de _hashing_ para acceder a los elementos.
 
-- Estas estructuras, salvo algunas diferencias, almacenan los datos de la
-  siguiente forma:
+- Estas colecciones, salvo algunas diferencias, almacenan los datos en
+  «_cajones_» (del inglés, _buckets_) de la siguiente forma:
 
   !DOT(cajones.svg)()(width=80%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   rankdir = TB
   node [shape = record, fixedsize = shape, fontname = "monospace"]
-  x[fillcolor = white, label = "Cajón 0|Cajón 1|Cajón 2|Cajón 3|Cajón 4|...|Cajón N"]
+  x[fillcolor = white, label = <Cajón 0|Cajón 1|Cajón 2|Cajón 3|Cajón 4|...|Cajón <i>N</i>  - 1>]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Al querer guardar un objeto en esta estructura, se llama al método
-  !JAVA(hashCode).
-
-- Éste devuelve un número entero, que la estructura usará para decidir en qué
-  «cajón» (_bucket_) guardará este dato.
+- Cuando se quiere guardar un objeto `o` en una colección de este tipo, se
+  invoca a `o.hashCode()`, lo que devolverá un número entero que la colección
+  usará para decidir en qué cajón guardará ese objeto.
 
 ---
 
-- Los objetos que tengan el mismo !JAVA(hashCode) se almacenarán en el mismo
-  cajón.
+- El cajón concreto que se usará viene dado por la expresión `(o.hashCode()`
+  \ `%`\  $N$`)`, siendo $N$ el número de cajones de la colección.
 
-- Si se quiere recuperar el objeto que se guardó, se llama de nuevo al
-  método !JAVA(hashCode) para determinar de qué cajón se debe recuperar el
-  objeto.
+- Por tanto, todos los objetos que tengan el mismo valor de `hashCode()` se
+  almacenarán en el mismo cajón.
+
+- Si se quiere recuperar el objeto que se guardó, se llama de nuevo al método
+  !JAVA(hashCode) para determinar en qué cajón debe estar el objeto.
 
 - El objetivo de guardar los datos de esta forma es lograr almacenar y
   recuperar información en tiempo constante (lo cuál no ocurre siempre, pero se
   acerca).
 
-- Para ello, se debe conseguir que al guardar los elementos en la colección,
-  estos queden dispersos de forma uniforme en toda la colección (que queden la
-  menor cantidad de cajones vacíos y que no haya cajones donde se guarden
-  muchos más elementos que otros).
+- Para ello, hay que procurar que al guardar los elementos en la colección,
+  estos queden dispersos de forma uniforme en toda la colección, de manera que
+  queden la menor cantidad de cajones vacíos y que no haya cajones donde se
+  guarden muchos más elementos que otros.
 
 - El que no suceda esto depende, casi siempre, del valor que devuelva el método
   !JAVA(hashCode) para cada objeto.
 
 ---
 
-- Supongamos que guardamos tres objetos en esta estructura y el método
-  !JAVA(hashCode) de los tres devuelve !JAVA(0).
+- Cuando quiera recuperar un objeto, habrá que tener en cuenta que puede haber
+  varios objetos en el mismo cajón.
+
+- Por eso, una vez que se ha decidido en qué cajón hay que mirar, se usa el
+  método !JAVA(equals) para encontrar el objeto deseado dentro del cajón,
+  mirando uno por uno y de forma secuencial.
+
+  Esta nos da una pista de que los métodos !JAVA(equals) y !JAVA(hashCode)
+  deben estar coordinados entre sí.
+
+- Por ejemplo, supongamos que guardamos tres objetos en esta estructura, y el
+  método !JAVA(hashCode) de los tres objetos devuelve !JAVA(0).
 
   Esto quiere decir que los tres objetos se gurdarán en el cajón !JAVA(0).
 
-- Cuanqo quiera recuperarlos, tendré que recorrer de forma secuencial el cajón
+- Cuando quiera recuperarlos, tendré que recorrer de forma secuencial el cajón
   !JAVA(0) e ir mirando uno a uno todos los objetos que hay guardados en este
-  cajón para determinar cuál es el que quiero.
+  cajón para acceder al que quiero.
 
-  Paso de tener un acceso directo a un acceso secuencial, que es mucho más
+  El acceso pasa de ser **directo** a ser **secuencial**, que es mucho más
   lento.
 
-- Por lo tanto, el método !JAVA(hashCode) de estos objetos no es útil.
-
-- Es importante obserbar que, una vez que se ha comprobado en qué cajón hay que
-  mirar, se usa el método !JAVA(equals) para encontrar el objeto deseado dentro
-  del cajón.
-
-  Esta es una pista que me indica que los métodos !JAVA(equals) y
-  !JAVA(hashCode) deben estar coordinados entre sí.
+- Por lo tanto, ese método !JAVA(hashCode) no es útil.
 
 ---
 
@@ -1491,14 +1495,19 @@ class Bicicleta {
   #. (_Opcional_) Dos objetos distintos deberían devolver un !JAVA(hashCode)
      distinto, pero tampoco es estrictamente necesario.
 
+     Cuando tenemos dos objetos distintos que tienen el mismo !JAVA(hashCode),
+     decimos que se ha producido una **colisión** y, aunque en general resultan
+     inevitables, tenemos que tratar de minimizarlas para optimizar el
+     rendimiento de las colecciones basadas en _hashing_.
+
 - Vamos a ver cada condición con más detalle.
 
 ---
 
-#. Siempre que se invoca en el mismo objeto más de una vez durante la ejecución
-   de una aplicación Java, el !JAVA(hashCode) debe devolver constantemente el
-   mismo número entero, mientras no se modifique ningún dato usado al comparar
-   el objeto con !JAVA(equals):
+#. Siempre que se invoque en el mismo objeto más de una vez durante la
+   ejecución de una aplicación Java, el !JAVA(hashCode) debe devolver
+   constantemente el mismo número entero, mientras no se modifique ningún dato
+   usado por !JAVA(equals) para comparar un objeto con otro:
 
    ```java
    persona1.hashCode(); // 400000
@@ -1506,8 +1515,8 @@ class Bicicleta {
    persona1.hashCode(); // 500000 (mal)
    ```
 
-   Este número entero no tiene que permanecer igual de una ejecución a otra de
-   la aplicación.
+   Este número entero no tiene por qué permanecer igual de una ejecución a otra
+   de la misma aplicación.
  
 #. Si dos objetos son iguales según el !JAVA(equals), entonces al llamar al
    !JAVA(hashCode) sobre cada uno de los dos objetos se debe producir el mismo
@@ -1519,8 +1528,7 @@ class Bicicleta {
    ```
 
 #. No es necesario que dos objetos no iguales devuelvan !JAVA(hashCode)s
-   distintos, pero devolver resultados distintos con objetos que no son iguales
-   puede mejorar el rendimiento de algunas colecciones:
+   distintos, pero hacerlo mejora el rendimiento de algunas colecciones:
 
    ```java
    persona1.equals(person3); // false
@@ -1540,13 +1548,15 @@ class Bicicleta {
   ```
 
   Siempre devuelve el mismo valor y satisface las condiciones obligatorias 1 y
-  2, pero no satisface la condición opcional 3.
+  2, aunque no satisface la condición opcional 3.
 
 - Por desgracia, este método es muy ineficiente ya que degrada totalmente los
-  beneficios que proporcionan las colecciones basadas en _hashing_.
+  beneficios que proporcionan las colecciones basadas en _hashing_, puesto que
+  provoca que todos los objetos se almacenen en el mismo cajón de la colección.
 
 - Una buena función de _hashing_ tiende a generar diferentes valores _hash_
-  para objetos que no son iguales.
+  para objetos que no son iguales, haciendo que los objetos se repartan de
+  manera uniforme entre todos los cajones de la colección.
 
 ---
 
@@ -1602,10 +1612,10 @@ Es importante no incluir en este algoritmo ningún campo que no se utilice en
   ```
 
 - Desde Java 7, se dispone del método !JAVA(java.util.Objects.hash) que permite
-  obtener un código _hash_ de forma rápida y sencilla, ocultando todas las
-  constantes mágicas y todas las comprobaciones de nulos.
+  obtener un código _hash_ de forma rápida y sencilla, ocultando todas esas
+  constantes mágicas y todas esas comprobaciones de nulos.
 
-- Gracias a ese método, nuestro !JAVA(hashCode) sería mucho más sencillo:
+- Gracias a ese método, nuestro !JAVA(hashCode) queda mucho más sencillo:
 
   ```java
   @Override
@@ -1649,7 +1659,7 @@ Es importante no incluir en este algoritmo ningún campo que no se utilice en
   _hash_.
 
 - Si se necesita guardar los objetos en las estructuras señaladas anteriormente
-  (`HashMap` y similares) es absolutamente indispensable sobreescribir el
+  (!JAVA(HashMap) y similares) es absolutamente indispensable sobreescribir el
   método !JAVA(hashCode); de lo contrario obtendrá resultados inesperados o no
   deseados cuando se realicen operaciones de guardar, consultar o eliminar los
   datos.

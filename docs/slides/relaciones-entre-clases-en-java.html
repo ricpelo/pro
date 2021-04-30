@@ -1108,11 +1108,11 @@ Se ha creado un perro</code></pre></li>
 <li><p>Existen varias condiciones que el método <code class="sourceCode java">equals</code> debe garantizar, y que están recogidas en la documentación de la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p>
 <p>Suponiendo que <code>x</code>, <code>y</code> y <code>z</code> son valores referencia no nulas, siempre se tiene que cumplir:</p>
 <ul>
-<li><p><strong>Reflexividad</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span> <span class="op">==</span> <span class="kw">true</span></code>.</p></li>
-<li><p><strong>Simetría</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span> <span class="op">==</span> <span class="kw">true</span></code> si y sólo si <code class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span> <span class="op">==</span>   <span class="kw">true</span></code>.</p></li>
-<li><p><strong>Transitividad</strong>: si <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span> <span class="op">==</span> <span class="kw">true</span></code> e <code class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>z<span class="op">)</span> <span class="op">==</span>   <span class="kw">true</span></code>, entonces <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span> <span class="op">==</span> <span class="kw">true</span></code>.</p></li>
+<li><p><strong>Reflexividad</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code>.</p></li>
+<li><p><strong>Simetría</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code> si y sólo si <code class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code>.</p></li>
+<li><p><strong>Transitividad</strong>: si <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code> e <code class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>z<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code>, entonces <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">true</span></code>.</p></li>
 <li><p><strong>Consistencia</strong>: si invocamos varias veces <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code>, debe devolver consistentemente <code class="sourceCode java"><span class="kw">true</span></code> o <code class="sourceCode java"><span class="kw">false</span></code>, suponiendo que no se ha modificado ninguna información usada en la comparación de igualdad de los objetos.</p></li>
-<li><p><strong>No nulidad</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="kw">null</span><span class="op">)</span> <span class="op">==</span> <span class="kw">false</span></code>.</p></li>
+<li><p><strong>No nulidad</strong>: <code class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="kw">null</span><span class="op">)</span></code> <code>==</code> <code class="sourceCode java"><span class="kw">false</span></code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1120,10 +1120,10 @@ Se ha creado un perro</code></pre></li>
 
 <ul>
 <li><p>Para crear un método que satisfaga las condiciones anteriores, primero hay que seleccionar los campos que se van a comparar.</p></li>
-<li><p>Luego, hay que realizar estos tres pasos en el método <code>equals</code>:</p>
+<li><p>Luego, hay que realizar estos tres pasos en el método <code class="sourceCode java">equals</code>:</p>
 <ol>
-<li><p>Si <code>this</code> y la referencia del otro objeto son iguales, los objetos son iguales; en otro caso, ir al paso 2.</p></li>
-<li><p>Si la otra referencia es <code>null</code> o no tiene el tipo adecuado, los objetos son distintos; en otro caso, ir al paso 3.</p></li>
+<li><p>Si <code class="sourceCode java"><span class="kw">this</span></code> y la referencia del otro objeto son iguales, los objetos son iguales; en otro caso, ir al paso 2.</p></li>
+<li><p>Si la otra referencia es <code class="sourceCode java"><span class="kw">null</span></code> o no tiene el tipo adecuado, los objetos son distintos; en otro caso, ir al paso 3.</p></li>
 <li><p>Si todos los campos seleccionados son iguales, los objetos son iguales; en otro caso, son distintos.</p></li>
 </ol></li>
 </ul>
@@ -1205,7 +1205,7 @@ Se ha creado un perro</code></pre></li>
 <section class="slide level5" data-number="3.2.7.0.8">
 
 <ul>
-<li><p>En el ejemplo anterior hemos usado el método <code>java.util.Objects.equals</code> (o, dicho de otra forma, el método <code>equals</code> de la clase <code>Objects</code> del paquete <code>java.util</code>) para comprobar si dos cadenas son iguales, lo que nos previente de posibles errores de <code class="sourceCode java"><span class="bu">NullPointerException</span></code>.</p></li>
+<li><p>En el ejemplo anterior hemos usado el método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">equals</span></code> (o, dicho de otra forma, el método <code>equals</code> de la clase <code>Objects</code> del paquete <code>java.util</code>) para comprobar si dos cadenas son iguales, lo que nos previente de posibles errores de <code class="sourceCode java"><span class="bu">NullPointerException</span></code>.</p></li>
 <li><p>Aquí comparamos la igualdad de tres objetos. Dos de ellos corresponden a la misma persona:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Persona p1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// una persona</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Persona p2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// la misma persona</span></span>
@@ -1222,7 +1222,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>En Python, la identidad de un objeto se representa mediante un número entero que se puede obtener a través de la función <code class="sourceCode python"><span class="bu">id</span></code> y que identifica y distingue a los objetos entre sí, de forma que dos objetos tienen siempre distintos valores de <code class="sourceCode python"><span class="bu">id</span></code>.</p></li>
 <li><p>En Java no existe una función que devuelva la identidad de un objeto.</p></li>
 <li><p>Lo más parecido a la función <code class="sourceCode python"><span class="bu">id</span></code> en Java es el método <code class="sourceCode java">hashCode</code> definido en la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
-<li><p>Ya sabemos que el <code>hashCode</code> de un objeto en Java es el equivalente al <code class="sourceCode java">hash</code> de Python y, por tanto, no se corresponde exactamente con el concepto de <em>identidad</em>.</p></li>
+<li><p>Ya sabemos que el <code class="sourceCode java">hashCode</code> de un objeto en Java es el equivalente al <code class="sourceCode python"><span class="bu">hash</span></code> de Python y, por tanto, no se corresponde exactamente con el concepto de <em>identidad</em>.</p></li>
 <li><p>Pero la implementación que hace la clase <code class="sourceCode java"><span class="bu">Object</span></code> del método <code class="sourceCode java">hashCode</code> garantiza que el valor que devuelve es distinto para cada objeto, ya que se calcula a partir de la dirección de memoria donde está almacenado el objeto.</p></li>
 <li><p>El problema está cuando tenemos que redefinir el método <code class="sourceCode java">hashCode</code> en nuestras propias clases.</p></li>
 </ul>
@@ -1232,35 +1232,36 @@ Se ha creado un perro</code></pre></li>
 <h3 data-number="3.2.8"><span class="header-section-number">3.2.8</span> Sobreescritura de <code>hashCode</code></h3>
 <ul>
 <li><p>Si se redefine el método <code class="sourceCode java">equals</code>, es una buena práctica redefinir también el método <code class="sourceCode java">hashCode</code>.</p></li>
-<li><p>De no hacerlo, la clase podría no funcionar correctamente al almacenarse en colecciones (como <code class="sourceCode java"><span class="bu">HashMap</span></code>, <code class="sourceCode java"><span class="bu">HashSet</span></code> o <code class="sourceCode java">HashTable</code>) que usen mecanismos de <em>hashing</em> para acceder a los elementos.</p></li>
-<li><p>Estas estructuras, salvo algunas diferencias, almacenan los datos de la siguiente forma:</p>
+<li><p>De no hacerlo, la clase podría no funcionar correctamente al almacenarse en colecciones (como <code class="sourceCode java"><span class="bu">HashMap</span></code>, <code class="sourceCode java"><span class="bu">HashSet</span></code> o <code class="sourceCode java"><span class="bu">Hashtable</span></code>) que usen mecanismos de <em>hashing</em> para acceder a los elementos.</p></li>
+<li><p>Estas colecciones, salvo algunas diferencias, almacenan los datos en «<em>cajones</em>» (del inglés, <em>buckets</em>) de la siguiente forma:</p>
 <div class="centered">
 <p><img data-src="images/cajones.svg" class="plain" style="width:80.0%" /></p>
 </div></li>
-<li><p>Al querer guardar un objeto en esta estructura, se llama al método <code class="sourceCode java">hashCode</code>.</p></li>
-<li><p>Éste devuelve un número entero, que la estructura usará para decidir en qué «cajón» (<em>bucket</em>) guardará este dato.</p></li>
+<li><p>Cuando se quiere guardar un objeto <code>o</code> en una colección de este tipo, se invoca a <code>o.hashCode()</code>, lo que devolverá un número entero que la colección usará para decidir en qué cajón guardará ese objeto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.8.0.1">
 
 <ul>
-<li><p>Los objetos que tengan el mismo <code class="sourceCode java">hashCode</code> se almacenarán en el mismo cajón.</p></li>
-<li><p>Si se quiere recuperar el objeto que se guardó, se llama de nuevo al método <code class="sourceCode java">hashCode</code> para determinar de qué cajón se debe recuperar el objeto.</p></li>
+<li><p>El cajón concreto que se usará viene dado por la expresión <code>(o.hashCode()</code>  <code>%</code>  <span class="math inline">N</span><code>)</code>, siendo <span class="math inline">N</span> el número de cajones de la colección.</p></li>
+<li><p>Por tanto, todos los objetos que tengan el mismo valor de <code>hashCode()</code> se almacenarán en el mismo cajón.</p></li>
+<li><p>Si se quiere recuperar el objeto que se guardó, se llama de nuevo al método <code class="sourceCode java">hashCode</code> para determinar en qué cajón debe estar el objeto.</p></li>
 <li><p>El objetivo de guardar los datos de esta forma es lograr almacenar y recuperar información en tiempo constante (lo cuál no ocurre siempre, pero se acerca).</p></li>
-<li><p>Para ello, se debe conseguir que al guardar los elementos en la colección, estos queden dispersos de forma uniforme en toda la colección (que queden la menor cantidad de cajones vacíos y que no haya cajones donde se guarden muchos más elementos que otros).</p></li>
+<li><p>Para ello, hay que procurar que al guardar los elementos en la colección, estos queden dispersos de forma uniforme en toda la colección, de manera que queden la menor cantidad de cajones vacíos y que no haya cajones donde se guarden muchos más elementos que otros.</p></li>
 <li><p>El que no suceda esto depende, casi siempre, del valor que devuelva el método <code class="sourceCode java">hashCode</code> para cada objeto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.8.0.2">
 
 <ul>
-<li><p>Supongamos que guardamos tres objetos en esta estructura y el método <code class="sourceCode java">hashCode</code> de los tres devuelve <code class="sourceCode java"><span class="dv">0</span></code>.</p>
+<li><p>Cuando quiera recuperar un objeto, habrá que tener en cuenta que puede haber varios objetos en el mismo cajón.</p></li>
+<li><p>Por eso, una vez que se ha decidido en qué cajón hay que mirar, se usa el método <code class="sourceCode java">equals</code> para encontrar el objeto deseado dentro del cajón, mirando uno por uno y de forma secuencial.</p>
+<p>Esta nos da una pista de que los métodos <code class="sourceCode java">equals</code> y <code class="sourceCode java">hashCode</code> deben estar coordinados entre sí.</p></li>
+<li><p>Por ejemplo, supongamos que guardamos tres objetos en esta estructura, y el método <code class="sourceCode java">hashCode</code> de los tres objetos devuelve <code class="sourceCode java"><span class="dv">0</span></code>.</p>
 <p>Esto quiere decir que los tres objetos se gurdarán en el cajón <code class="sourceCode java"><span class="dv">0</span></code>.</p></li>
-<li><p>Cuanqo quiera recuperarlos, tendré que recorrer de forma secuencial el cajón <code class="sourceCode java"><span class="dv">0</span></code> e ir mirando uno a uno todos los objetos que hay guardados en este cajón para determinar cuál es el que quiero.</p>
-<p>Paso de tener un acceso directo a un acceso secuencial, que es mucho más lento.</p></li>
-<li><p>Por lo tanto, el método <code class="sourceCode java">hashCode</code> de estos objetos no es útil.</p></li>
-<li><p>Es importante obserbar que, una vez que se ha comprobado en qué cajón hay que mirar, se usa el método <code class="sourceCode java">equals</code> para encontrar el objeto deseado dentro del cajón.</p>
-<p>Esta es una pista que me indica que los métodos <code class="sourceCode java">equals</code> y <code class="sourceCode java">hashCode</code> deben estar coordinados entre sí.</p></li>
+<li><p>Cuando quiera recuperarlos, tendré que recorrer de forma secuencial el cajón <code class="sourceCode java"><span class="dv">0</span></code> e ir mirando uno a uno todos los objetos que hay guardados en este cajón para acceder al que quiero.</p>
+<p>El acceso pasa de ser <strong>directo</strong> a ser <strong>secuencial</strong>, que es mucho más lento.</p></li>
+<li><p>Por lo tanto, ese método <code class="sourceCode java">hashCode</code> no es útil.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.8.0.3">
@@ -1270,7 +1271,8 @@ Se ha creado un perro</code></pre></li>
 <ol>
 <li><p>El <code class="sourceCode java">hashCode</code> de un objeto no debería cambiar nunca durante la ejecución de un programa.</p></li>
 <li><p>Si <span class="math inline">a</span><code>.equals(</code><span class="math inline">b</span><code>)</code>, entonces <span class="math inline">a</span><code>.hashCode()</code> <code>==</code> <span class="math inline">b</span><code>.hashCode()</code>.</p></li>
-<li><p>(<em>Opcional</em>) Dos objetos distintos deberían devolver un <code class="sourceCode java">hashCode</code> distinto, pero tampoco es estrictamente necesario.</p></li>
+<li><p>(<em>Opcional</em>) Dos objetos distintos deberían devolver un <code class="sourceCode java">hashCode</code> distinto, pero tampoco es estrictamente necesario.</p>
+<p>Cuando tenemos dos objetos distintos que tienen el mismo <code class="sourceCode java">hashCode</code>, decimos que se ha producido una <strong>colisión</strong> y, aunque en general resultan inevitables, tenemos que tratar de minimizarlas para optimizar el rendimiento de las colecciones basadas en <em>hashing</em>.</p></li>
 </ol></li>
 <li><p>Vamos a ver cada condición con más detalle.</p></li>
 </ul>
@@ -1278,15 +1280,15 @@ Se ha creado un perro</code></pre></li>
 <section class="slide level5" data-number="3.2.8.0.4">
 
 <ol>
-<li><p>Siempre que se invoca en el mismo objeto más de una vez durante la ejecución de una aplicación Java, el <code class="sourceCode java">hashCode</code> debe devolver constantemente el mismo número entero, mientras no se modifique ningún dato usado al comparar el objeto con <code class="sourceCode java">equals</code>:</p>
+<li><p>Siempre que se invoque en el mismo objeto más de una vez durante la ejecución de una aplicación Java, el <code class="sourceCode java">hashCode</code> debe devolver constantemente el mismo número entero, mientras no se modifique ningún dato usado por <code class="sourceCode java">equals</code> para comparar un objeto con otro:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 400000</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 400000 (bien)</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// 500000 (mal)</span></span></code></pre></div>
-<p>Este número entero no tiene que permanecer igual de una ejecución a otra de la aplicación.</p></li>
+<p>Este número entero no tiene por qué permanecer igual de una ejecución a otra de la misma aplicación.</p></li>
 <li><p>Si dos objetos son iguales según el <code class="sourceCode java">equals</code>, entonces al llamar al <code class="sourceCode java">hashCode</code> sobre cada uno de los dos objetos se debe producir el mismo resultado entero:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>persona2<span class="op">);</span> <span class="co">// true</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span> <span class="op">==</span> persona2<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// false (mal, debe ser true)</span></span></code></pre></div></li>
-<li><p>No es necesario que dos objetos no iguales devuelvan <code class="sourceCode java">hashCode</code>s distintos, pero devolver resultados distintos con objetos que no son iguales puede mejorar el rendimiento de algunas colecciones:</p>
+<li><p>No es necesario que dos objetos no iguales devuelvan <code class="sourceCode java">hashCode</code>s distintos, pero hacerlo mejora el rendimiento de algunas colecciones:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>person3<span class="op">);</span> <span class="co">// false</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>persona1<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span> <span class="op">==</span> persona3<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span> <span class="co">// true (se permite)</span></span></code></pre></div></li>
 </ol>
@@ -1299,9 +1301,9 @@ Se ha creado un perro</code></pre></li>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">42</span><span class="op">;</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Siempre devuelve el mismo valor y satisface las condiciones obligatorias 1 y 2, pero no satisface la condición opcional 3.</p></li>
-<li><p>Por desgracia, este método es muy ineficiente ya que degrada totalmente los beneficios que proporcionan las colecciones basadas en <em>hashing</em>.</p></li>
-<li><p>Una buena función de <em>hashing</em> tiende a generar diferentes valores <em>hash</em> para objetos que no son iguales.</p></li>
+<p>Siempre devuelve el mismo valor y satisface las condiciones obligatorias 1 y 2, aunque no satisface la condición opcional 3.</p></li>
+<li><p>Por desgracia, este método es muy ineficiente ya que degrada totalmente los beneficios que proporcionan las colecciones basadas en <em>hashing</em>, puesto que provoca que todos los objetos se almacenen en el mismo cajón de la colección.</p></li>
+<li><p>Una buena función de <em>hashing</em> tiende a generar diferentes valores <em>hash</em> para objetos que no son iguales, haciendo que los objetos se repartan de manera uniforme entre todos los cajones de la colección.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.8.0.6">
@@ -1344,8 +1346,8 @@ Se ha creado un perro</code></pre></li>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">31</span> <span class="op">*</span> result <span class="op">+</span> edad<span class="op">;</span></span>
 <span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">;</span></span>
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>Desde Java 7, se dispone del método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">hash</span></code> que permite obtener un código <em>hash</em> de forma rápida y sencilla, ocultando todas las constantes mágicas y todas las comprobaciones de nulos.</p></li>
-<li><p>Gracias a ese método, nuestro <code class="sourceCode java">hashCode</code> sería mucho más sencillo:</p>
+<li><p>Desde Java 7, se dispone del método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">hash</span></code> que permite obtener un código <em>hash</em> de forma rápida y sencilla, ocultando todas esas constantes mágicas y todas esas comprobaciones de nulos.</p></li>
+<li><p>Gracias a ese método, nuestro <code class="sourceCode java">hashCode</code> queda mucho más sencillo:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Objects<span class="op">.</span><span class="fu">hash</span><span class="op">(</span>nombre<span class="op">,</span> apellidos<span class="op">,</span> edad<span class="op">);</span></span>
@@ -1373,7 +1375,7 @@ Se ha creado un perro</code></pre></li>
 <li><p>El método <code class="sourceCode java">equals</code> no llama al método <code class="sourceCode java">hashCode</code> para determinar la igualdad de dos objetos.</p></li>
 <li><p>Es recomendable, por no decir obligatorio, sobreescribir el método <code class="sourceCode java">equals</code> porque la implementación por defecto no es de mucha ayuda.</p></li>
 <li><p>Si dos objetos no son iguales, no es necesario que sus <code class="sourceCode java">hashCode</code>s sean distintos; de hecho, dos objetos diferentes pueden devolver el mismo valor <em>hash</em>.</p></li>
-<li><p>Si se necesita guardar los objetos en las estructuras señaladas anteriormente (<code>HashMap</code> y similares) es absolutamente indispensable sobreescribir el método <code class="sourceCode java">hashCode</code>; de lo contrario obtendrá resultados inesperados o no deseados cuando se realicen operaciones de guardar, consultar o eliminar los datos.</p></li>
+<li><p>Si se necesita guardar los objetos en las estructuras señaladas anteriormente (<code class="sourceCode java"><span class="bu">HashMap</span></code> y similares) es absolutamente indispensable sobreescribir el método <code class="sourceCode java">hashCode</code>; de lo contrario obtendrá resultados inesperados o no deseados cuando se realicen operaciones de guardar, consultar o eliminar los datos.</p></li>
 </ul>
 </section>
 
