@@ -1374,7 +1374,7 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(decl_varables) ::= [!T(final)] !NT(tipo) !NT{decl_variable} (!T(,) !NT{decl_variable})\* !T(;)
+  !NT(decl_variables) ::= [!T(final)] !NT(tipo) !NT{decl_variable} (!T(,) !NT{decl_variable})\* !T(;)
 !NT(decl_variable) ::= !T(identificador) [!NT(inic_variable)]
 !NT(inic_variable) ::= !T(=) !NT(expresión)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

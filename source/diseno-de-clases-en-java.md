@@ -13,11 +13,11 @@ nocite: |
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !NT(clase) ::= [!T(public)] [!T(abstract) | !T(final)] !T(class) !NT(nombre) !T({)
-        !NT(miembro)*
+        !NT(miembro_clase)*
 !T(})
 
 !NT(nombre) ::= !T(identificador)
-!NT(miembro) ::= !NT(variable) | !NT(método) | !NT(clase_anidada)
+!NT(miembro_clase) ::= !NT(variable) | !NT(método) | !NT(clase_anidada)
 !NT(método) ::= !NT(método_abstracto) | !NT(método_concreto)
 !NT(variable) ::= [!NT(modif_acceso_miembro)] [!T(static)] !NT(decl_variables)
 !NT(método_abstracto) ::= [!NT(modif_acceso_miembro)] !T(abstract) !NT(decl_método)

@@ -17,9 +17,107 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -140,85 +238,321 @@
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/las-clases-como-módulos"><span class="toc-section-number">1</span> Las clases como módulos</a></li>
-<li><a href="#/interfaces"><span class="toc-section-number">2</span> Interfaces</a></li>
-<li><a href="#/paquetes-y-módulos"><span class="toc-section-number">3</span> Paquetes y módulos</a></li>
+<li><a href="#/interfaces"><span class="toc-section-number">1</span> Interfaces</a></li>
+<li><a href="#/paquetes-y-módulos"><span class="toc-section-number">2</span> Paquetes y módulos</a></li>
 </ul>
 </section>
 
 <section>
-<section id="las-clases-como-módulos" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Las clases como módulos</h1>
+<section id="interfaces" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Interfaces</h1>
 
 </section>
-<section id="interfaz-de-una-clase" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Interfaz de una clase</h2>
+<section id="concepto-de-interfaz" class="title-slide slide level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Concepto de interfaz</h2>
+<ul>
+<li><p>Hay situaciones en ingeniería del software en las que es importante que grupos dispares de programadores acuerden un «contrato» que explique cómo interactúa su software.</p></li>
+<li><p>Cada grupo debería poder escribir su código sin ningún conocimiento de cómo se escribe el código del otro grupo.</p></li>
+<li><p>Ya hemos estudiado que, en esas situaciones, lo que cada grupo crea son <strong>módulos</strong>, y lo que un grupo debe conocer del módulo del otro es su <strong>interfaz</strong>.</p></li>
+<li><p>Por tanto, en términos generales, las interfaces son tales contratos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>En Java:</p>
+<ul>
+<li><p>Las clases representan los módulos de los que se compone el programa.</p></li>
+<li><p>Una interfaz de Java es una descripción del contrato que debe cumplir una clase.</p></li>
+</ul></li>
+</ul>
+<div class="caja">
+<p>Las interfaces de Java nos permiten desacoplar (separar) la interfaz de una clase de sus detalles de implementación.</p>
+</div>
+<ul>
+<li><p>De esta forma, el usuario de una clase no tiene por qué hablar directamente con la clase, sino que lo hace a través de la interfaz que implementa.</p></li>
+<li><p>Eso permite cambiar una implementación por otra cuando sea necesario, simplemente cambiando la clase que implementa la interfaz por otra diferente, sin que los usuarios de la interfaz se vean afectados.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
+<li><p>Por ejemplo, imagine una sociedad futurista en la que automóviles robóticos controlados por computadora transporten pasajeros por las calles de la ciudad sin un operador humano.</p></li>
+<li><p>Los fabricantes de automóviles escriben software que hace funcionar el automóvil: detener, arrancar, acelerar, girar a la izquierda, etc.</p></li>
+<li><p>Otro grupo industrial, los fabricantes de instrumentos de guía electrónica, fabrica sistemas informáticos que reciben datos de posición GPS y transmisiones inalámbricas de las condiciones del tráfico, y utilizan esa información para conducir el automóvil.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.3">
+
+<ul>
+<li><p>Los fabricantes de automóviles deben publicar una interfaz estándar que explique en detalle qué métodos pueden invocarse para hacer que el automóvil se mueva (cualquier automóvil, de cualquier fabricante).</p></li>
+<li><p>Los fabricantes de guías pueden entonces escribir un software que invoque los métodos descritos en la interfaz para controlar el automóvil.</p></li>
+<li><p>Ningún grupo industrial necesita saber cómo se implementa el software del otro grupo.</p></li>
+<li><p>De hecho, cada grupo considera que su software es altamente propietario y se reserva el derecho de modificarlo en cualquier momento, siempre que continúe adhiriéndose a la interfaz publicada.</p></li>
+</ul>
+</section>
+
+<section id="definición-de-interfaces" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Definición de interfaces</h2>
+<ul>
+<li><p>En Java, una <strong>interfaz</strong> es un tipo referencia, similar a una clase abstracta, que sólo puede contener constantes estáticas, métodos abstractos, métodos predeterminados, métodos estáticos y tipos anidados.</p></li>
+<li><p>Los únicos métodos <em>concretos</em> (es decir, con cuerpo) que puede tener una interfaz son los métodos predeterminados y los métodos estáticos.</p></li>
+<li><p>No se pueden crear instancias de interfaces; solo pueden implementarse mediante clases o ser usadas como supertipos de otras interfaces.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<ul>
+<li><p>La definición de una interfaz tiene una sintaxis similar a la de una clase:</p>
+<div class="line-block"><span style="color:teal">⟨<em>interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>interface</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> [<strong><code>extends</code></strong> <span style="color:teal">⟨<em>superinterfaces</em>⟩</span>] <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span>*<br />
+<strong><code>}</code></strong><br />
+<br />
+<span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>superinterfaces</em>⟩</span> ::= <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>]*<br />
+<span style="color:teal">⟨<em>superinterfaz</em>⟩</span> ::= [<span style="color:teal">⟨<em>paquete</em>⟩</span><strong><code>.</code></strong>]<strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>constante</em>⟩</span> | <span style="color:teal">⟨<em>método_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>constante</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>static</code></strong>] [<strong><code>final</code></strong>] <span style="color:teal">⟨<em>decl_constantes</em>⟩</span><br />
+<span style="color:teal">⟨<em>decl_constantes</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <span style="color:teal">⟨<em>decl_constante</em>⟩</span> (<strong><code>,</code></strong> <span style="color:teal">⟨<em>decl_constante</em>⟩</span>)* <strong><code>;</code></strong><br />
+<span style="color:teal">⟨<em>decl_constante</em>⟩</span> ::= <strong><code>identificador</code></strong> <span style="color:teal">⟨<em>inic_variable</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> | <span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong>] <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>default</code></strong> | <strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span></div></li>
+<li><p>Como las clases, las interfaces pueden tener dos visibilidades:</p>
+<ul>
+<li><p>Predeterminada: es visible sólo dentro del paquete donde se ha definido.</p></li>
+<li><p>Pública: es visible desde cualquier paquete.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.2">
+
+<ul>
+<li><p>El cuerpo de una interfaz puede contener métodos abstractos, métodos predeterminados y métodos estáticos.</p></li>
+<li><p>Un método abstracto dentro de una interfaz no tiene cuerpo: es una declaración que acaba en <strong><code>;</code></strong>.</p></li>
+<li><p>Los métodos predeterminados se definen con el modificador <strong><code>default</code></strong> y sí tienen cuerpo.</p></li>
+<li><p>Los métodos estáticos llevan el modificador <strong><code>static</code></strong> y también tienen cuerpo.</p></li>
+<li><p>Todos los métodos abstractos, predeterminados y estáticos de una interfaz son implícitamente públicos, por lo que se puede omitir el modificador <strong><code>public</code></strong>.</p></li>
+<li><p>Todas las constantes de una interfaz son implícitamente <strong><code>public</code></strong>, <strong><code>final</code></strong> y <strong><code>static</code></strong>, por lo que se pueden omitir todos esos modificadores.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, podemos definir una interfaz <code>Sumable</code> que represente cualquier cosa que se pueda sumar:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Sumable <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>O una interfaz <code>Comparable</code> que represente cualquier cosa que se pueda comparar con otra para ver si es menor que ella:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="implementación-de-interfaces" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Implementación de interfaces</h2>
+<ul>
+<li><p>Para usar una interfaz, se necesita una clase que implemente esa interfaz.</p></li>
+<li><p>Para ello, la definición de la clase debe llevar la cláusula <strong><code>implements</code></strong> indicando las interfaces que implementa dicha clase.</p></li>
+<li><p>Además, las clases que deseen implementar esa interfaz, deben implementar (es decir, proporcionar un cuerpo) a todos los métodos abstractos declarados en la interfaz.</p></li>
+<li><p>En la implementación del método se recomienda (pero no es necesario) usar el decorador <code class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
+<li><p>Por supuesto, una clase puede tener una superclase y, al mismo tiempo, implementar una o varias interfaces.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> num<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.2">
+
+<ul>
+<li><p>Podemos hacer que una clase implemente tantas interfaces como sea necesario:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> num<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="las-interfaces-como-tipos" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Las interfaces como tipos</h2>
+<ul>
+<li><p>Las interfaces son tipos en Java.</p></li>
+<li><p>Por tanto, ya hemos visto tres entidades distintas que representan tipos en Java:</p>
+<ul>
+<li><p>Las clases</p></li>
+<li><p>Los <em>arrays</em></p></li>
+<li><p>Las interfaces.</p></li>
+</ul></li>
+<li><p>Por tanto, el nombre de una interfaz se puede usar allí donde se espere el nombre de un tipo.</p>
+<p>Eso significa que podemos declarar variables, parámetros, métodos, etc. cuyo tipo es una interfaz.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.1">
+
+<ul>
+<li><p>Cuando una clase implementa una interfaz, esa clase se convierte en subtipo directo del tipo que representa la interfaz:</p>
+<p>Si <code>C</code> implementa <code>I</code>, entonces <code>C</code> <span class="math inline">&lt;_1</span> <code>I</code>. <!-- _1 --></p></li>
+<li><p>Cuando algo se declara con un tipo representado mediante una interfaz, el valor de ese algo debe ser una instancia de una clase que implemente esa interfaz.</p></li>
+<li><p>Dicho de otra forma: allí donde se espere un valor de un tipo interfaz, se puede poner una instancia de una clase que implemente esa interfaz.</p></li>
+<li><p>Eso significa que un objeto puede tener muchos tipos:</p>
+<ul>
+<li><p>El tipo de su propia clase (la que se usó para instanciar el objeto).</p></li>
+<li><p>El tipo de todas sus superclases.</p></li>
+<li><p>El tipo de todas las interfaces que implementa su propia clase.</p></li>
+<li><p>El tipo de todas las interfaces que implementa todas sus superclases.</p></li>
+<li><p>El tipo de todas las superinterfaces de todas las interfaces que implementan su propia clase y todas sus superclases (ya lo veremos).</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.2">
+
+<ul>
+<li><p>Por ejemplo, allí donde se espere un valor de tipo <code>Sumable</code>, se puede poner una instancia de la clase <code>Numero</code>, ya que la clase <code>Numero</code> implementa la interfaz <code>Sumable</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        Numero n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        Numero n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        Numero resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>El parámetro del método <code>sumar</code> está declarado de tipo <code>Sumable</code>, pero en el código anterior le hemos enviado un argumento de tipo <code>Numero</code>.</p>
+<p>Esto es perfectamente válido, ya que <code>Numero</code> <code>&lt;:</code> <code>Sumable</code> y, por el principio de sustitución, podemos enviar un valor de un subtipo del tipo declarado para el parámetro.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.3">
+
+<ul>
+<li><p>También podríamos haber hecho:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        Sumable n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        Sumable n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        Sumable resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Es decir: usar <code>Sumable</code> en lugar de <code>Numero</code> como tipo estático de las variables <code>n1</code>, <code>n2</code> y <code>resultado</code>.</p></li>
+</ul>
+</section>
+
+<section id="herencia-entre-interfaces" class="title-slide slide level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span> Herencia entre interfaces</h2>
+<ul>
+<li><p>Es posible establecer relaciones de generalización entre interfaces.</p></li>
+<li><p>En tal caso, podemos hablar de subinterfaces y superinterfaces.</p></li>
+<li><p>En Java, la generalización entre interfaces es múltiple, lo que significa que una interfaz puede tener más de una superinterfaz directa.</p></li>
+<li><p>Las superinterfaces directas de una interfaz se indican en la definición de la subinterfaz usando la clásula <code class="sourceCode java"><span class="kw">extends</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> SumableRestableComparable <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">-</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="métodos-predeterminados" class="title-slide slide level2" data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span> Métodos predeterminados</h2>
 
 </section>
 
-<section id="métodos-getter-y-setter" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Métodos <em>getter</em> y <em>setter</em></h2>
-
-</section>
-</section>
-<section>
-<section id="interfaces" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Interfaces</h1>
-
-</section>
-<section id="definición-de-interfaces" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Definición de interfaces</h2>
+<section id="ejemplo-interfaz-charsequence" class="title-slide slide level2" data-number="1.7">
+<h2 data-number="1.7"><span class="header-section-number">1.7</span> Ejemplo: Interfaz <code>CharSequence</code></h2>
 
 </section>
 
-<section id="implementación-de-interfaces" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Implementación de interfaces</h2>
+<section id="ejemplo-clonación-de-objetos" class="title-slide slide level2" data-number="1.8">
+<h2 data-number="1.8"><span class="header-section-number">1.8</span> Ejemplo: Clonación de objetos</h2>
+
+</section>
+<section id="cloneable" class="title-slide slide level3" data-number="1.8.1">
+<h3 data-number="1.8.1"><span class="header-section-number">1.8.1</span> <code>Cloneable</code></h3>
 
 </section>
 
-<section id="las-interfaces-como-tipos" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Las interfaces como tipos</h2>
+<section id="object.clone" class="title-slide slide level3" data-number="1.8.2">
+<h3 data-number="1.8.2"><span class="header-section-number">1.8.2</span> <code>Object.clone()</code></h3>
 
 </section>
 
-<section id="conversiones-entre-interfaces" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span> Conversiones entre interfaces</h2>
-
-</section>
-
-<section id="métodos-predeterminados" class="title-slide slide level2" data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span> Métodos predeterminados</h2>
-
-</section>
-
-<section id="ejemplo-interfaz-charsequence" class="title-slide slide level2" data-number="2.6">
-<h2 data-number="2.6"><span class="header-section-number">2.6</span> Ejemplo: Interfaz <code>CharSequence</code></h2>
-
-</section>
-
-<section id="ejemplo-clonación-de-objetos" class="title-slide slide level2" data-number="2.7">
-<h2 data-number="2.7"><span class="header-section-number">2.7</span> Ejemplo: Clonación de objetos</h2>
-
-</section>
-<section id="cloneable" class="title-slide slide level3" data-number="2.7.1">
-<h3 data-number="2.7.1"><span class="header-section-number">2.7.1</span> <code>Cloneable</code></h3>
-
-</section>
-
-<section id="object.clone" class="title-slide slide level3" data-number="2.7.2">
-<h3 data-number="2.7.2"><span class="header-section-number">2.7.2</span> <code>Object.clone()</code></h3>
-
-</section>
-
-<section id="constructor-de-copia" class="title-slide slide level3" data-number="2.7.3">
-<h3 data-number="2.7.3"><span class="header-section-number">2.7.3</span> Constructor de copia</h3>
+<section id="constructor-de-copia" class="title-slide slide level3" data-number="1.8.3">
+<h3 data-number="1.8.3"><span class="header-section-number">1.8.3</span> Constructor de copia</h3>
 
 </section>
 
 </section>
-<section id="paquetes-y-módulos" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Paquetes y módulos</h1>
+<section id="paquetes-y-módulos" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Paquetes y módulos</h1>
 
+</section>
+
+<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
+Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
+</div>
+</div>
 </section>
     </div>
   </div>

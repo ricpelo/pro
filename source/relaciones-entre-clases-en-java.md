@@ -77,17 +77,18 @@ nocite: |
 ## Declaración
 
 - Java es un lenguaje con generalización simple, por lo que una clase sólo
-  puede ser subclase directa de una única clase.
+  puede ser subclase directa de una única superclase.
 
 - La relación de generalización directa entre dos clases se declara en la
   propia definición de la subclase usando la cláusula !JAVA(extends):
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(clase) ::= [!T(public)] [!T(abstract) | !T(final)] !T(class) !NT(subclase) !T(extends) !NT(superclase) !T({)
-          !NT(miembro)*
-  !T(})
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(clase) ::= [!T(public)] [!T(abstract) | !T(final)] !T(class) !NT(subclase) [!T(extends) !NT(superclase)] !T({)
+        !NT(miembro_clase)*
+!T(})
+!NT(superclase) ::= [!NT(paquete)!T(.)]!T(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde !NT(subclase) y !NT(superclase) son los nombres de la subclase directa
   y la superclase directa, respectivamente.
@@ -1319,7 +1320,7 @@ class Bicicleta {
   Por ejemplo, se podría permitir que una clase sea subclase de la otra:
 
   ```java
-  if (!(obj instanceof getClass())) {
+  if (!(obj instanceof MiClase)) {
       return false;
   }
   ```
@@ -1336,7 +1337,7 @@ class Bicicleta {
 - En el ejemplo de la `Persona`, se podría hacer lo siguiente:
 
   ```java
-  class Person {
+  class Persona {
       private String nombre;
       private String apellidos;
       private int edad;
@@ -1369,9 +1370,9 @@ class Bicicleta {
 ---
 
 - En el ejemplo anterior hemos usado el método !JAVA{java.util.Objects.equals}
-  (o, dicho de otra forma, el método `equals` de la clase `Objects` del paquete
-  `java.util`) para comprobar si dos cadenas son iguales, lo que nos previente
-  de posibles errores de !JAVA(NullPointerException).
+  (o, dicho de otra forma, el método !JAVA(equals) de la clase !JAVA(Objects)
+  del paquete !JAVA(java.util)) para comprobar si dos cadenas son iguales, lo
+  que nos previente de posibles errores de !JAVA(NullPointerException).
 
 - Aquí comparamos la igualdad de tres objetos. Dos de ellos corresponden a la
   misma persona:

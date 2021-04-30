@@ -302,11 +302,12 @@
 <section id="declaración" class="title-slide slide level2" data-number="2.1">
 <h2 data-number="2.1"><span class="header-section-number">2.1</span> Declaración</h2>
 <ul>
-<li><p>Java es un lenguaje con generalización simple, por lo que una clase sólo puede ser subclase directa de una única clase.</p></li>
+<li><p>Java es un lenguaje con generalización simple, por lo que una clase sólo puede ser subclase directa de una única superclase.</p></li>
 <li><p>La relación de generalización directa entre dos clases se declara en la propia definición de la subclase usando la cláusula <code class="sourceCode java"><span class="kw">extends</span></code>:</p>
-<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong> | <strong><code>final</code></strong>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>subclase</em>⟩</span> <strong><code>extends</code></strong> <span style="color:teal">⟨<em>superclase</em>⟩</span> <strong><code>{</code></strong><br />
-          <span style="color:teal">⟨<em>miembro</em>⟩</span>*<br />
-  <strong><code>}</code></strong></div>
+<div class="line-block"><span style="color:teal">⟨<em>clase</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong> | <strong><code>final</code></strong>] <strong><code>class</code></strong> <span style="color:teal">⟨<em>subclase</em>⟩</span> [<strong><code>extends</code></strong> <span style="color:teal">⟨<em>superclase</em>⟩</span>] <strong><code>{</code></strong><br />
+        <span style="color:teal">⟨<em>miembro_clase</em>⟩</span>*<br />
+<strong><code>}</code></strong><br />
+<span style="color:teal">⟨<em>superclase</em>⟩</span> ::= [<span style="color:teal">⟨<em>paquete</em>⟩</span><strong><code>.</code></strong>]<strong><code>identificador</code></strong></div>
 <p>donde <span style="color:teal">⟨<em>subclase</em>⟩</span> y <span style="color:teal">⟨<em>superclase</em>⟩</span> son los nombres de la subclase directa y la superclase directa, respectivamente.</p></li>
 <li><p>Cuando no se especifica la superclase directa a la hora de definir una clase, el compilador sobreentiende que esa clase es subclase directa de la clase <code class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
 <li><p><strong>No es posible crear subclases de <em>clases finales</em></strong>, que son las clases declaradas con el modificador <code class="sourceCode java"><span class="dt">final</span></code>.</p></li>
@@ -1161,7 +1162,7 @@ Se ha creado un perro</code></pre></li>
 <ul>
 <li><p>La condición de que las clases de los dos objetos tienen que coincidir, a veces puede resultar demasiado fuerte y se podría relajar.</p>
 <p>Por ejemplo, se podría permitir que una clase sea subclase de la otra:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!(</span>obj <span class="kw">instanceof</span> <span class="fu">getClass</span><span class="op">()))</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!(</span>obj <span class="kw">instanceof</span> MiClase<span class="op">))</span> <span class="op">{</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Pero para eso, es necesario que los campos que se usen para comparar los objetos sean accesibles y no se hayan redefinido por otras distintas (en este último caso, se usarían las variables originales, sin redefinir).</p></li>
@@ -1172,7 +1173,7 @@ Se ha creado un perro</code></pre></li>
 
 <ul>
 <li><p>En el ejemplo de la <code>Persona</code>, se podría hacer lo siguiente:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Person <span class="op">{</span></span>
+<div class="sourceCode" id="cb41"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona <span class="op">{</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> nombre<span class="op">;</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> apellidos<span class="op">;</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> edad<span class="op">;</span></span>
@@ -1205,7 +1206,7 @@ Se ha creado un perro</code></pre></li>
 <section class="slide level5" data-number="3.2.7.0.8">
 
 <ul>
-<li><p>En el ejemplo anterior hemos usado el método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">equals</span></code> (o, dicho de otra forma, el método <code>equals</code> de la clase <code>Objects</code> del paquete <code>java.util</code>) para comprobar si dos cadenas son iguales, lo que nos previente de posibles errores de <code class="sourceCode java"><span class="bu">NullPointerException</span></code>.</p></li>
+<li><p>En el ejemplo anterior hemos usado el método <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">equals</span></code> (o, dicho de otra forma, el método <code class="sourceCode java">equals</code> de la clase <code class="sourceCode java">Objects</code> del paquete <code class="sourceCode java">java<span class="op">.</span><span class="fu">util</span></code>) para comprobar si dos cadenas son iguales, lo que nos previente de posibles errores de <code class="sourceCode java"><span class="bu">NullPointerException</span></code>.</p></li>
 <li><p>Aquí comparamos la igualdad de tres objetos. Dos de ellos corresponden a la misma persona:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Persona p1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// una persona</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Persona p2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Persona</span><span class="op">(</span><span class="st">&quot;Juan&quot;</span><span class="op">,</span> <span class="st">&quot;Pérez&quot;</span><span class="op">,</span> <span class="dv">31</span><span class="op">);</span>     <span class="co">// la misma persona</span></span>
