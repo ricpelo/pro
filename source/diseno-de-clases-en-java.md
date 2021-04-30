@@ -45,13 +45,27 @@ public class Hola {
 }
 ```
 
-## Visibilidad de una clase
+## Clases y paquetes
 
-- Una clase pertenece siempre a un paquete, que es el paquete en el que se ha
-  definido.
+- Una clase pertenece siempre a un **paquete**, que es el paquete en el que se
+  ha definido.
 
+- Por tanto, el **ámbito de la definición de la clase** y el **espacio de
+  nombres** donde reside la clase es el paquete donde se ha definido dicha
+  clase.
+
+  Aquí decimos «ámbito de la definición» y no «ámbito de la declaración» porque
+  **las clases se definen, no se declaran**; pero no olvidemos que una
+  definición contiene siempre una declaración.
+  
 - El uso y definición de paquetes en Java lo estudiaremos con más profundidad
   posteriormente.
+
+- Por ahora, sólo diremos que, mientras no se diga lo contrario, las clases se
+  definen en el llamado **paquete predeterminado**, que es un paquete especial
+  que no tiene nombre y que se define automáticamente en todo programa Java.
+
+## Visibilidad de una clase
 
 - En relación a los paquetes en las que se definen, las clases pueden tener dos
   tipos de visibilidades:
@@ -87,7 +101,51 @@ public class Hola {
 - Además, el archivo fuente debe llamarse igual que la (única) clase pública
   que contiene.
 
-## Visibilidad de un miembro de una clase
+## Miembros de una clase
+
+- Los miembros de una clase pueden ser:
+
+  - Variables:
+
+    - De instancia o estáticas.
+
+    - Finales o no finales.
+
+  - Métodos:
+
+    - De instancia o finales.
+
+    - Abstractos o concretos.
+
+    - Finales o no finales.
+
+- Las variables se declaran.
+
+- Los métodos abstractos se declaran y los concretos se definen.
+
+---
+
+- Los miembros de una clase se declaran (o se definen) dentro del cuerpo de la
+  clase, de forma que:
+
+  - El **ámbito de la declaración (o definición)** de un miembro de la clase
+    es todo cuerpo de la clase, independientemente del punto concreto donde se
+    haya declarado (o definido) el miembro dentro de la clase.
+
+  - La clase es el **espacio de nombres** donde se almacena el miembro.
+
+    Por tanto, no puede haber varias variables distintas o varias métodos
+    distintos con el mismo nombre en la misma clase, aunque sí en distintas
+    clases.
+
+- Curiosamente, sí puede haber una variable y un método con el mismo nombre
+  dentro de la misma clase, ya que el compilador distingue entre el acceso a
+  una variable (`o.x`) y la invocación de un método (`o.x()`).
+
+  Por tanto, se puede decir que las clases contienen dos espacios de nombres
+  distintos y separados: uno para las variables y otro para los métodos.
+
+### Visibilidad de un miembro de una clase
 
 - Cada miembro de una clase puede tener uno de estos cuatro tipos de
   visibilidades:
@@ -174,7 +232,7 @@ public class Hola {
   variables de instancia públicas o protegidas que se hayan podido heredar de
   sus superclases (y que estarán declaradas en éstas).
 
-- La declaración de una variable de instancia en una clase tiene básicamente la
+- La declaración de una variable de instancia de una clase tiene básicamente la
   misma sintaxis que la usada para declarar cualquier otra variable, dentro del
   cuerpo (bloque) de la definición de la clase y fuera de cualquier método.
 
@@ -314,7 +372,7 @@ public class Hola {
 
 - Asimismo, también existen los **métodos abstractos**, que llevan el
   modificador !JAVA(abstract) pero que **no se _definen_, sino que se
-  _declaran_**, con la siguiente sintaxis:
+  _declaran_** (ya que no llevan cuerpo), con la siguiente sintaxis:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

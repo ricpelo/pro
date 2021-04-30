@@ -216,8 +216,9 @@ nocite: |
 
 - Las sentencias pueden contener expresiones.
 
-- En la mayoría de los lenguajes de programación, una expresión por sí sola
-  también es una sentencia válida.
+- En muchos lenguajes de programación, una expresión por sí sola también es una
+  sentencia válida, ya que expresan la orden de calcular el valor de la
+  expresión.
 
 ---
 
@@ -233,7 +234,7 @@ $$\begin{array}{c}
         \text{\textbf{Datos}} \\
         \text{\textbf{Operaciones}}
       \end{cases} \\
-      \text{- Por sí solas también son sentencias}
+      \text{- Por sí solas también pueden ser sentencias}
     \end{cases} \\\\
     \text{\textbf{Sentencias}} \begin{cases}
       \text{- Son órdenes} \\

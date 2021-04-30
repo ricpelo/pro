@@ -1396,6 +1396,60 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   int j = i = 3;
   ```
 
+#### Declaración vs. definición
+
+- En general, en los lenguajes de programación distinguimos entre
+  **declaración** y **definición**.
+
+- La **declaración** es una instrucción por medio de la cual el programa:
+
+  - **_Anuncia_ en el programa la existencia de una entidad** dentro de un
+    determinado **ámbito**.
+
+  - Opcionalmente (según el lenguaje), puede que también indique el **tipo** de
+    dicha entidad.
+
+  Aquí se entiende el concepto de _entidad_ en un sentido amplio: puede ser
+  una variable, una clase, un método...
+
+---
+
+- Por ejemplo, cuando se declara una _variable_:
+
+  - En **tiempo de compilación**, el compilador usa esa instrucción para
+    determinar el **ámbito de la declaración de la variable** y el **tipo
+    estático** que tiene la variable.
+
+  - En **tiempo de ejecución**, la instrucción provocará la creación de una
+    **ligadura** entre el identificador y la variable **dentro del espacio de
+    nombres actual**.
+
+---
+
+- Por otra parte, la **definición** es una instrucción por medio de la cual se lleva a cabo
+  una **declaración** y, además:
+
+  - En **lenguajes funcionales**, se crea una _ligadura_ entre un identificador y
+    un **valor**.
+
+  - En **lenguajes imperativos**, se _asigna_ un **valor** a la variable ligada a un
+    identificador.
+
+  Ese _valor_ también se debe entender en un sentido amplio: puede ser el valor
+  de una variable, o la expresión que forma el cuerpo de una expresión lambda,
+  o el bloque de sentencias que forman el cuerpo de un método, o la descripción
+  del contenido de una clase...
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Una **definición** es, por tanto, una _declaración_ que, además, asocia un
+  **valor** (o cualquier tipo de contenido) a una entidad del programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En ese contexto, podemos decir que una sentencia que declara e inicializa una
+  variable al mismo tiempo es una _definición_, ya que declara la variable y le
+  asigna un valor.
+
 #### Operadores de asignación compuesta
 
 - La **asignación compuesta** también está disponible en Java en forma de
@@ -1730,6 +1784,10 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 
 ---
 
+:::: columns
+
+::: column
+
 - Ejemplo:
 
   ```java
@@ -1740,7 +1798,11 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   }
   ```
 
-  Imprime:
+:::
+
+::: column
+
+- Imprime:
 
   ```
   0
@@ -1750,6 +1812,10 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   4
 
   ```
+
+:::
+
+::::
 
 ## `for`
 

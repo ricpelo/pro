@@ -264,11 +264,20 @@
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
-<section id="visibilidad-de-una-clase" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Visibilidad de una clase</h2>
+<section id="clases-y-paquetes" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Clases y paquetes</h2>
 <ul>
-<li><p>Una clase pertenece siempre a un paquete, que es el paquete en el que se ha definido.</p></li>
+<li><p>Una clase pertenece siempre a un <strong>paquete</strong>, que es el paquete en el que se ha definido.</p></li>
+<li><p>Por tanto, el <strong>ámbito de la definición de la clase</strong> y el <strong>espacio de nombres</strong> donde reside la clase es el paquete donde se ha definido dicha clase.</p>
+<p>Aquí decimos «ámbito de la definición» y no «ámbito de la declaración» porque <strong>las clases se definen, no se declaran</strong>; pero no olvidemos que una definición contiene siempre una declaración.</p></li>
 <li><p>El uso y definición de paquetes en Java lo estudiaremos con más profundidad posteriormente.</p></li>
+<li><p>Por ahora, sólo diremos que, mientras no se diga lo contrario, las clases se definen en el llamado <strong>paquete predeterminado</strong>, que es un paquete especial que no tiene nombre y que se define automáticamente en todo programa Java.</p></li>
+</ul>
+</section>
+
+<section id="visibilidad-de-una-clase" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Visibilidad de una clase</h2>
+<ul>
 <li><p>En relación a los paquetes en las que se definen, las clases pueden tener dos tipos de visibilidades:</p>
 <ul>
 <li><p><strong>Visibilidad <em>predeterminada</em></strong> (<strong><em>por defecto</em></strong> o <strong><em>default</em></strong>): la clase sólo es accesible desde el interior del paquete en el que se ha definido.</p></li>
@@ -277,8 +286,8 @@
 <li><p>Para indicar la visibilidad que debe tener una clase, se puede usar un <strong>modificador de acceso</strong>.</p></li>
 </ul>
 </section>
-<section id="visibilidad-predeterminada" class="title-slide slide level3" data-number="1.2.1">
-<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Visibilidad predeterminada</h3>
+<section id="visibilidad-predeterminada" class="title-slide slide level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Visibilidad predeterminada</h3>
 <ul>
 <li><p>Cuando no se utiliza ningún <em>modificador de acceso</em> al definir la clase, ésta se define con visibilidad predeterminada.</p></li>
 <li><p>En un archivo fuente pueden definirse tantas clases con visibilidad predeterminada como se desee.</p></li>
@@ -286,8 +295,8 @@
 </ul>
 </section>
 
-<section id="visibilidad-pública" class="title-slide slide level3" data-number="1.2.2">
-<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Visibilidad pública</h3>
+<section id="visibilidad-pública" class="title-slide slide level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Visibilidad pública</h3>
 <ul>
 <li><p>Para definir una clase con visibilidad pública, se usa el <em>modificador de acceso</em> <code class="sourceCode java"><span class="kw">public</span></code> en la definición de la clase.</p></li>
 <li><p>En un archivo fuente pueden definirse muchas clases, pero sólo una de ellas puede ser pública.</p></li>
@@ -296,8 +305,42 @@
 </section>
 
 
-<section id="visibilidad-de-un-miembro-de-una-clase" class="title-slide slide level2" data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span> Visibilidad de un miembro de una clase</h2>
+<section id="miembros-de-una-clase" class="title-slide slide level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Miembros de una clase</h2>
+<ul>
+<li><p>Los miembros de una clase pueden ser:</p>
+<ul>
+<li><p>Variables:</p>
+<ul>
+<li><p>De instancia o estáticas.</p></li>
+<li><p>Finales o no finales.</p></li>
+</ul></li>
+<li><p>Métodos:</p>
+<ul>
+<li><p>De instancia o finales.</p></li>
+<li><p>Abstractos o concretos.</p></li>
+<li><p>Finales o no finales.</p></li>
+</ul></li>
+</ul></li>
+<li><p>Las variables se declaran.</p></li>
+<li><p>Los métodos abstractos se declaran y los concretos se definen.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.1">
+
+<ul>
+<li><p>Los miembros de una clase se declaran (o se definen) dentro del cuerpo de la clase, de forma que:</p>
+<ul>
+<li><p>El <strong>ámbito de la declaración (o definición)</strong> de un miembro de la clase es todo cuerpo de la clase, independientemente del punto concreto donde se haya declarado (o definido) el miembro dentro de la clase.</p></li>
+<li><p>La clase es el <strong>espacio de nombres</strong> donde se almacena el miembro.</p>
+<p>Por tanto, no puede haber varias variables distintas o varias métodos distintos con el mismo nombre en la misma clase, aunque sí en distintas clases.</p></li>
+</ul></li>
+<li><p>Curiosamente, sí puede haber una variable y un método con el mismo nombre dentro de la misma clase, ya que el compilador distingue entre el acceso a una variable (<code>o.x</code>) y la invocación de un método (<code>o.x()</code>).</p>
+<p>Por tanto, se puede decir que las clases contienen dos espacios de nombres distintos y separados: uno para las variables y otro para los métodos.</p></li>
+</ul>
+</section>
+<section id="visibilidad-de-un-miembro-de-una-clase" class="title-slide slide level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Visibilidad de un miembro de una clase</h3>
 <ul>
 <li><p>Cada miembro de una clase puede tener uno de estos cuatro tipos de visibilidades:</p>
 <ul>
@@ -308,7 +351,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.1">
+<section class="slide level5" data-number="1.4.1.0.1">
 
 <ul>
 <li><p>La visibilidad es un mecanismo de <strong>encapsulación</strong> que impide que ciertos miembros puedan ser accedidos (o incluso conocidos) fuera de la clase en la que se han definido, o fuera del paquete que contiene la clase en la que se ha definido.</p></li>
@@ -363,7 +406,7 @@
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.2">
+<section class="slide level5" data-number="1.4.1.0.2">
 
 <ul>
 <li><p>La visibilidad que queremos que tenga un determinado miembro se indica mediante los llamados <strong>modificadores de acceso</strong>.</p></li>
@@ -402,7 +445,7 @@
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.3">
+<section class="slide level5" data-number="1.4.1.0.3">
 
 <div class="centered">
 <figure>
@@ -410,6 +453,7 @@
 </figure>
 </div>
 </section>
+
 </section>
 <section>
 <section id="miembros-de-instancia" class="title-slide slide level1" data-number="2">
@@ -421,7 +465,7 @@
 <ul>
 <li><p>En una clase se pueden declarar <strong>variables de instancia</strong>.</p></li>
 <li><p>Cuando se instancia un objeto a partir de esa clase, dicho objeto contiene las variables de instancia declaradas en su clase, además de otras posibles variables de instancia públicas o protegidas que se hayan podido heredar de sus superclases (y que estarán declaradas en éstas).</p></li>
-<li><p>La declaración de una variable de instancia en una clase tiene básicamente la misma sintaxis que la usada para declarar cualquier otra variable, dentro del cuerpo (bloque) de la definición de la clase y fuera de cualquier método.</p></li>
+<li><p>La declaración de una variable de instancia de una clase tiene básicamente la misma sintaxis que la usada para declarar cualquier otra variable, dentro del cuerpo (bloque) de la definición de la clase y fuera de cualquier método.</p></li>
 <li><p>Además, las variables de instancia se pueden inicializar en la misma declaración, usando la sintaxis ya vista anteriormente.</p></li>
 <li><p>La declaración puede (y suele) incluir algún modificador de acceso.</p></li>
 </ul>
@@ -525,7 +569,7 @@
         <span style="color:teal">⟨<em>sentencia</em>⟩</span>*<br />
 <strong><code>}</code></strong></div></li>
 <li><p>Los métodos de instancia son aquellos que <strong>no</strong> llevan el modificador <code class="sourceCode java"><span class="dt">static</span></code> (de lo contrario, serían <strong>métodos estáticos</strong>).</p></li>
-<li><p>Asimismo, también existen los <strong>métodos abstractos</strong>, que llevan el modificador <code class="sourceCode java"><span class="kw">abstract</span></code> pero que <strong>no se <em>definen</em>, sino que se <em>declaran</em></strong>, con la siguiente sintaxis:</p>
+<li><p>Asimismo, también existen los <strong>métodos abstractos</strong>, que llevan el modificador <code class="sourceCode java"><span class="kw">abstract</span></code> pero que <strong>no se <em>definen</em>, sino que se <em>declaran</em></strong> (ya que no llevan cuerpo), con la siguiente sintaxis:</p>
 <div class="line-block"><span style="color:teal">⟨<em>método_abstracto</em>⟩</span> ::= [<span style="color:teal">⟨<em>modif_acceso_miembro</em>⟩</span>] <strong><code>abstract</code></strong> <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
 <span style="color:teal">⟨<em>decl_método</em>⟩</span> ::= <span style="color:teal">⟨<em>signatura</em>⟩</span><strong><code>;</code></strong></div></li>
 </ul>
