@@ -1409,19 +1409,23 @@ Se ha creado un perro</code></pre></li>
 <ul>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> ElementoGrafico <span class="op">{</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> x<span class="op">;</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> y<span class="op">;</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> <span class="fu">getX</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">();</span></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>Las definiciones que no llevan asociadas un valor también se denominan <strong>declaraciones</strong>.</p>
-<p>Por eso, a las declaraciones de variables se las denomina así.</p></li>
-<li><p>La definición de un método abstracto también es, en realidad, una <em>declaración</em>, ya que sólo se indica la <strong>signatura</strong> del método, pero no su <strong>implementación</strong>. Por tanto, ahí no se está creando ningún método y, en consecuencia, su nombre no se está ligando a ningún valor de tipo método.</p></li>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">double</span> x<span class="op">;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="dt">double</span> y<span class="op">;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> titulo<span class="op">;</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getTitulo</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> titulo<span class="op">;</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setTitulo</span><span class="op">(</span><span class="bu">String</span> titulo<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">titulo</span> <span class="op">=</span> titulo<span class="op">;</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">();</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Las definiciones que no llevan asociadas un valor también se denominan <strong>declaraciones</strong> (por eso, a las <em>declaraciones de variables</em> se las denomina así).</p></li>
+<li><p>La definición de un método abstracto también es, en realidad, una <em>declaración</em>, ya que sólo se indica la <strong>signatura</strong> del método pero no su <strong>implementación</strong>. Por tanto, ahí no se está creando ningún método ni asociándolo al nombre del método.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.2">
@@ -1500,6 +1504,7 @@ Se ha creado un perro</code></pre></li>
 <section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
+<li><p>No tiene sentido aplicar las cláusulas <code class="sourceCode java"><span class="kw">abstract</span></code> y <code class="sourceCode java"><span class="dt">final</span></code> a la vez sobre una clase o un método: una clase o un método no pueden ser <code class="sourceCode java"><span class="kw">abstract</span></code> y <code class="sourceCode java"><span class="dt">final</span></code> al mismo tiempo.</p></li>
 <li><p>Se define una clase como final cuando interesa que esa clase no se pueda especializar con una subclase que pueda tener un comportamiento diferente.</p></li>
 <li><p>Se define un método como final cuando interesa que su implementación no se pueda cambiar en una subclase.</p></li>
 <li><p>En general, los métodos llamados desde un constructor deberían definirse como finales.</p></li>

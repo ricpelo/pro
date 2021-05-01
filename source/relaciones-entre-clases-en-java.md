@@ -1697,8 +1697,8 @@ Es importante no incluir en este algoritmo ningún campo que no se utilice en
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Si una clase contiene al menos un método abstracto, la clase en sí también
-  debe definirse como abstracta.
+Si una clase contiene al menos un método abstracto, la clase en sí también debe
+definirse como abstracta.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1707,11 +1707,16 @@ Si una clase contiene al menos un método abstracto, la clase en sí también
 
   ```java
   public abstract class ElementoGrafico {
-      private double x;
-      private double y;
+      protected double x;
+      protected double y;
+      private String titulo;
 
-      double getX() {
-          return x;
+      public String getTitulo() {
+          return titulo;
+      }
+
+      public void setTitulo(String titulo) {
+          this.titulo = titulo;
       }
 
       abstract void mover(double x, double y);
@@ -1720,14 +1725,13 @@ Si una clase contiene al menos un método abstracto, la clase en sí también
   ```
 
 - Las definiciones que no llevan asociadas un valor también se denominan
-  **declaraciones**.
-
-  Por eso, a las declaraciones de variables se las denomina así.
+  **declaraciones** (por eso, a las _declaraciones de variables_ se las
+  denomina así).
 
 - La definición de un método abstracto también es, en realidad, una
-  _declaración_, ya que sólo se indica la **signatura** del método, pero no su
-  **implementación**. Por tanto, ahí no se está creando ningún método y, en
-  consecuencia, su nombre no se está ligando a ningún valor de tipo método.
+  _declaración_, ya que sólo se indica la **signatura** del método pero no su
+  **implementación**. Por tanto, ahí no se está creando ningún método ni
+  asociándolo al nombre del método.
 
 ---
 
@@ -1824,6 +1828,10 @@ Si una clase contiene al menos un método abstracto, la clase en sí también
   ```
 
 ---
+
+- No tiene sentido aplicar las cláusulas !JAVA(abstract) y !JAVA(final) a la
+  vez sobre una clase o un método: una clase o un método no pueden ser
+  !JAVA(abstract) y !JAVA(final) al mismo tiempo.
 
 - Se define una clase como final cuando interesa que esa clase no se pueda
   especializar con una subclase que pueda tener un comportamiento diferente.
