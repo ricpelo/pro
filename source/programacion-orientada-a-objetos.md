@@ -508,11 +508,25 @@ def deposito(fondos):
 
 ---
 
-!CAJACENTRADA
+!CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Las clases, por tanto, son como _plantillas_ para crear objetos** que
 comparten el mismo comportamiento y (normalmente) la misma estructura interna.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Los **objetos** tienen tres **características** básicas:
+
+- **Identidad**: un objeto se puede distinguir de otros.
+
+- **Estado**: un objeto tiene un estado interno que puede cambiar durante su
+  vida.
+
+- **Comportamiento**: un objeto se comporta de cierta forma ante la recepción
+  de ciertos mensajes.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -605,7 +619,8 @@ dep = Deposito(100)
 ---
 
 - Los objetos tienen existencia propia e independiente y permanecerán en la
-  memoria siempre que haya al menos una referencia que apunte a él (en caso contrario, el recolector de basura lo eliminará).
+  memoria siempre que haya al menos una referencia que apunte a él (en caso
+  contrario, el recolector de basura lo eliminará).
 
 - De hecho, un objeto puede tener varias referencias apuntándole.
 
