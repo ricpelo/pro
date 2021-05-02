@@ -348,7 +348,8 @@
 <li><p>Métodos abstractos públicos (sin implementación).</p></li>
 <li><p>Métodos predeterminados públicos (con implementación).</p></li>
 <li><p>Métodos estáticos públicos (con implementación).</p></li>
-<li><p>Métodos concretos privados (con implementación)</p></li>
+<li><p>Métodos concretos privados (con implementación).</p></li>
+<li><p>Tipos anidados (clases anidadas, otras interfaces…).</p></li>
 </ul></li>
 <li><p>No se pueden crear instancias de interfaces; solo pueden implementarse mediante clases o ser usadas como supertipos de otras interfaces.</p></li>
 </ul>
@@ -364,7 +365,7 @@
 <span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
 <span style="color:teal">⟨<em>superinterfaces</em>⟩</span> ::= <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>]*<br />
 <span style="color:teal">⟨<em>superinterfaz</em>⟩</span> ::= [<span style="color:teal">⟨<em>paquete</em>⟩</span><strong><code>.</code></strong>]<strong><code>identificador</code></strong><br />
-<span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>constante</em>⟩</span> | <span style="color:teal">⟨<em>método_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>constante</em>⟩</span> | <span style="color:teal">⟨<em>método_interfaz</em>⟩</span> | <span style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span><br />
 <span style="color:teal">⟨<em>constante</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>static</code></strong>] [<strong><code>final</code></strong>] <span style="color:teal">⟨<em>decl_constantes</em>⟩</span><br />
 <span style="color:teal">⟨<em>decl_constantes</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <span style="color:teal">⟨<em>decl_constante</em>⟩</span> (<strong><code>,</code></strong> <span style="color:teal">⟨<em>decl_constante</em>⟩</span>)* <strong><code>;</code></strong><br />
 <span style="color:teal">⟨<em>decl_constante</em>⟩</span> ::= <strong><code>identificador</code></strong> <span style="color:teal">⟨<em>inic_variable</em>⟩</span><br />
@@ -375,28 +376,35 @@
                                                                 | <span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span><br />
 <span style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>default</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
 <span style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>static</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span> ::= <strong><code>private</code></strong> [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span></div></li>
+<span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span> ::= <strong><code>private</code></strong> [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>clase</em>⟩</span> | <span style="color:teal">⟨<em>interfaz</em>⟩</span></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.2">
 
 <ul>
-<li><p>Como las clases, las interfaces pueden tener dos visibilidades:</p>
+<li><p>Las <strong>interfaces</strong> sólo pueden tener dos <strong>visibilidades</strong>:</p>
 <ul>
-<li><p>Predeterminada: es visible sólo dentro del paquete donde se ha definido.</p></li>
-<li><p>Pública: es visible desde cualquier paquete.</p></li>
+<li><p><strong>Predeterminada</strong>: la interfaz es visible sólo dentro del paquete donde se ha definido.</p></li>
+<li><p><strong>Pública</strong>: la interfaz es visible desde cualquier paquete.</p></li>
+</ul></li>
+<li><p>Los <strong>miembros de una interfaz</strong> sólo pueden tener dos visibilidades:</p>
+<ul>
+<li><p><strong>Pública</strong>: es la visibilidad predeterminada salvo que se indique lo contrario, por lo que, si no se usa ningún modificador de visibilidad, se entiende que es <code class="sourceCode java"><span class="kw">public</span></code>.</p></li>
+<li><p><strong>Privada</strong>: sólo los métodos concretos pueden tener visibilidad privada.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.3">
 
 <ul>
-<li><p>El cuerpo de una interfaz puede contener métodos abstractos, métodos predeterminados y métodos estáticos.</p></li>
-<li><p>Un método abstracto dentro de una interfaz no tiene cuerpo: es una declaración que acaba en <strong><code>;</code></strong>.</p></li>
-<li><p>Los métodos predeterminados se definen con el modificador <strong><code>default</code></strong> y sí tienen cuerpo.</p></li>
-<li><p>Los métodos estáticos llevan el modificador <strong><code>static</code></strong> y también tienen cuerpo.</p></li>
-<li><p>Todos los métodos abstractos, predeterminados y estáticos de una interfaz son implícitamente públicos, por lo que se puede omitir el modificador <strong><code>public</code></strong>.</p></li>
-<li><p>Todas las constantes de una interfaz son implícitamente <strong><code>public</code></strong>, <strong><code>final</code></strong> y <strong><code>static</code></strong>, por lo que se pueden omitir todos esos modificadores.</p></li>
+<li><p>Todas las <strong>constantes</strong> de una interfaz son implícitamente <code class="sourceCode java"><span class="kw">public</span></code>, <code class="sourceCode java"><span class="dt">final</span></code> y <code class="sourceCode java"><span class="dt">static</span></code>, por lo que se pueden omitir todos esos modificadores.</p></li>
+<li><p>El cuerpo de una interfaz puede contener métodos abstractos, métodos predeterminados, métodos estáticos y métodos privados.</p></li>
+<li><p>Un <strong>método abstracto</strong> dentro de una interfaz no tiene cuerpo: es una declaración que acaba en <strong><code>;</code></strong> y no necesita el modificador <code class="sourceCode java"><span class="kw">abstract</span></code>.</p></li>
+<li><p>Los <strong>métodos predeterminados</strong> se definen con el modificador <code class="sourceCode java"><span class="kw">default</span></code> y sí tienen cuerpo.</p></li>
+<li><p>Todos los métodos abstractos y predeterminados de una interfaz son implícitamente públicos, así que se puede omitir el modificador <code class="sourceCode java"><span class="kw">public</span></code>.</p></li>
+<li><p>Los <strong>métodos estáticos</strong> llevan el modificador <code class="sourceCode java"><span class="dt">static</span></code> y también tienen cuerpo.</p></li>
+<li><p>Los <strong>métodos privados</strong> tienen cuerpo, llevan el modificador <code class="sourceCode java"><span class="kw">private</span></code>, pueden ser estáticos o de instancia, y se usan para descomponer otros métodos predeterminados o estáticos de la interfaz.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.4">
@@ -545,32 +553,59 @@
 <section class="slide level5" data-number="1.5.0.0.1">
 
 <ul>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<li><p>Por tanto:</p>
+<ul>
+<li><p>Una clase puede implementar varias interfaces:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> SumableRestableComparable <span class="op">{</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">-</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="kw">implements</span> A<span class="op">,</span> B<span class="op">,</span> C <span class="op">{</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>Una interfaz puede extender una o varias interfaces usando <code class="sourceCode java"><span class="kw">extends</span></code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> E <span class="kw">extends</span> A<span class="op">,</span> B<span class="op">,</span> C <span class="op">{</span> <span class="op">}</span></span></code></pre></div></li>
+<li><p>Una clase puede extender otra clase e implementar varias interfaces, todo al mismo tiempo:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="kw">extends</span> A <span class="kw">implements</span> B<span class="op">,</span> C <span class="op">{</span> <span class="op">}</span></span></code></pre></div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.2">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> SumableRestableComparable <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">-</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 

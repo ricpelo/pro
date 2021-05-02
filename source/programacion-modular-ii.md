@@ -162,7 +162,9 @@ clase de sus detalles de implementación.
 
   - Métodos estáticos públicos (con implementación).
 
-  - Métodos concretos privados (con implementación)
+  - Métodos concretos privados (con implementación).
+
+  - Tipos anidados (clases anidadas, otras interfaces...).
 
 - No se pueden crear instancias de interfaces; solo pueden implementarse
   mediante clases o ser usadas como supertipos de otras interfaces.
@@ -180,7 +182,7 @@ clase de sus detalles de implementación.
 !NT(nombre) ::= !T(identificador)
 !NT(superinterfaces) ::= !NT(superinterfaz)[!T(,) !NT(superinterfaz)]\*
 !NT(superinterfaz) ::= [!NT(paquete)!T(.)]!T(identificador)
-!NT(miembro_interfaz) ::= !NT(constante) | !NT(método_interfaz)
+!NT(miembro_interfaz) ::= !NT(constante) | !NT(método_interfaz) | !NT(tipo_anidado_interfaz)
 !NT(constante) ::= [!T(public)] [!T(static)] [!T(final)] !NT(decl_constantes)
 !NT(decl_constantes) ::= !NT(tipo) !NT{decl_constante} (!T(,) !NT{decl_constante})\* !T(;)
 !NT(decl_constante) ::= !T(identificador) !NT(inic_variable)
@@ -192,36 +194,51 @@ clase de sus detalles de implementación.
 !NT(método_predeterminado_público_interfaz) ::= [!T(public)] !T(default) !NT(def_método)
 !NT(método_estático_público_interfaz) ::= [!T(public)] !T(static) !NT(def_método)
 !NT(método_concreto_privado_interfaz) ::= !T(private) [!T(static)] !NT(def_método)
+!NT(tipo_anidado_interfaz) ::= !NT(clase) | !NT(interfaz)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Como las clases, las interfaces pueden tener dos visibilidades:
+- Las **interfaces** sólo pueden tener dos **visibilidades**:
 
-  - Predeterminada: es visible sólo dentro del paquete donde se ha definido.
+  - **Predeterminada**: la interfaz es visible sólo dentro del paquete donde se
+    ha definido.
 
-  - Pública: es visible desde cualquier paquete.
+  - **Pública**: la interfaz es visible desde cualquier paquete.
+
+- Los **miembros de una interfaz** sólo pueden tener dos visibilidades:
+
+  - **Pública**: es la visibilidad predeterminada salvo que se indique lo
+    contrario, por lo que, si no se usa ningún modificador de visibilidad, se
+    entiende que es !JAVA(public).
+
+  - **Privada**: sólo los métodos concretos pueden tener visibilidad privada.
 
 ---
 
+- Todas las **constantes** de una interfaz son implícitamente !JAVA(public),
+  !JAVA(final) y !JAVA(static), por lo que se pueden omitir todos esos
+  modificadores.
+
 - El cuerpo de una interfaz puede contener métodos abstractos, métodos
-  predeterminados y métodos estáticos.
+  predeterminados, métodos estáticos y métodos privados.
 
-- Un método abstracto dentro de una interfaz no tiene cuerpo: es una
-  declaración que acaba en !T(;).
+- Un **método abstracto** dentro de una interfaz no tiene cuerpo: es una
+  declaración que acaba en !T(;) y no necesita el modificador !JAVA(abstract).
 
-- Los métodos predeterminados se definen con el modificador !T(default) y sí
+- Los **métodos predeterminados** se definen con el modificador !JAVA(default)
+  y sí tienen cuerpo.
+
+- Todos los métodos abstractos y predeterminados de una interfaz son
+  implícitamente públicos, así que se puede omitir el modificador
+  !JAVA(public).
+
+- Los **métodos estáticos** llevan el modificador !JAVA(static) y también
   tienen cuerpo.
 
-- Los métodos estáticos llevan el modificador !T(static) y también tienen
-  cuerpo.
-
-- Todos los métodos abstractos, predeterminados y estáticos de una interfaz son
-  implícitamente públicos, por lo que se puede omitir el modificador
-  !T(public).
-
-- Todas las constantes de una interfaz son implícitamente !T(public), !T(final)
-  y !T(static), por lo que se pueden omitir todos esos modificadores.
+- Los **métodos privados** tienen cuerpo, llevan el modificador !JAVA(private),
+  pueden ser estáticos o de instancia, y se usan para descomponer otros métodos
+  predeterminados o estáticos de la interfaz.
 
 ---
 
@@ -407,6 +424,42 @@ clase de sus detalles de implementación.
 
 - Las superinterfaces directas de una interfaz se indican en la definición de
   la subinterfaz usando la clásula !JAVA(extends).
+
+---
+
+- Por tanto:
+
+  - Una clase puede implementar varias interfaces:
+
+    ```java
+    interface A { }
+    interface B { }
+    interface C { }
+        
+    class D implements A, B, C { }
+    ```
+
+  - Una interfaz puede extender una o varias interfaces usando !JAVA(extends):
+
+    ```java
+    interface A { }
+    interface B { }
+    interface C { }
+
+    interface E extends A, B, C { }
+    ```
+
+  - Una clase puede extender otra clase e implementar varias interfaces, todo
+    al mismo tiempo:
+
+    ```java
+    class A { }
+
+    interface B { }
+    interface C { }
+        
+    class D extends A implements B, C { }
+    ```
 
 ---
 
