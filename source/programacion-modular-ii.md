@@ -366,6 +366,74 @@ clase de sus detalles de implementación.
 
 ### Constructor de copia
 
+## Clases abstractas vs. interfaces
+
+- Las clases abstractas y las interfaces son herramientas para lograr la
+  abstracción que nos permiten declarar métodos abstractos.
+
+- No podemos crear directamente instancias de clases abstractas ni de
+  interfaces; sólo podemos hacerlo a través de clases que implementen los
+  métodos abstractos.
+
+- Desde Java 8, una interfaz puede tener métodos predeterminados y estáticos
+  que contienen una implementación, lo que hace que las interfaces sean más
+  parecidas a clases abstractas.
+
+- Entonces, ¿cuál es la diferencia entre una interfaz y una clase abstracta?
+
+---
+
+- Una **clase abstracta** puede tener métodos de instancia abstractos y no
+  abstractos, mientras que una **interfaz** puede tener métodos de instancia
+  abstractos o predeterminados.
+
+- Una **clase abstracta** puede extender una clase abstracta o concreta, pero
+  una **interfaz** solo puede extender a otra interfaz
+
+- Una **clase abstracta** puede extender una sola clase, mientras que una
+  **interfaz** puede extender cualquier número de interfaces.
+
+- Una **clase abstracta** puede tener variables finales, no finales, estáticas
+  y no estáticas (de instancia), mientras que una **interfaz** sólo puede tener
+  variables finales estáticas.
+
+- Una **clase abstracta** puede implementar una interfaz, pero no al revés (las
+  **interfaces** no implementan).
+
+- Una **clase abstracta** puede tener un constructor, pero una **interfaz** no.
+
+- En una **clase abstracta**, la palabra clave !JAVA(abstract) es obligatoria
+  para declarar un método como abstracto, mientras que en una **interfaz** esta
+  palabra clave es opcional.
+
+---
+
+- La lista de diferencias anterior no es completa.
+
+- Las clases abstractas y las interfaces tienen muchas más diferencias, pero la
+  principal es su **finalidad**:
+
+  - Normalmente, **las _interfaces_ se usan** para desacoplar la interfaz de un
+    módulo (la clase) de su implementación.
+
+    Es decir: proporciona una interfaz estandarizada a los clientes de una
+    clase, ocultando su implementación.
+
+  - En cambio, **las _clases abstractas_ se usan** habitualmente como clases
+    base que tienen miembros comunes para varias subclases.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Recuerda:**
+
+- Una clase sólo puede extender a otra clase.
+
+- Una clase puede implementar una o varias interfaces.
+
+- Una interfaz puede extender a una o varias interfaces.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Paquetes y módulos
 
 !BIBLIOGRAFIA

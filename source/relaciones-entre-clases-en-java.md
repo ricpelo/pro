@@ -93,12 +93,12 @@ nocite: |
   donde !NT(subclase) y !NT(superclase) son los nombres de la subclase directa
   y la superclase directa, respectivamente.
 
+- En Java también se dice que la subclase **_extiende_** a su superclase
+  directa.
+
 - Cuando no se especifica la superclase directa a la hora de definir una clase,
   el compilador sobreentiende que esa clase es subclase directa de la clase
   !JAVA(Object).
-
-- **No es posible crear subclases de _clases finales_**, que son las clases
-  declaradas con el modificador !JAVA(final).
 
 ## Subtipado entre tipos referencia
 
