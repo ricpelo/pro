@@ -291,12 +291,65 @@
 <li><p>De hecho, cada grupo considera que su software es altamente propietario y se reserva el derecho de modificarlo en cualquier momento, siempre que continúe adhiriéndose a la interfaz publicada.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.1.0.0.4">
+
+<ul>
+<li><p>La idea general de la programación orientada a objetos, y uno de sus principios fundamentales, es la abstracción.</p></li>
+<li><p>Significa que los objetos del mundo real se pueden representar mediante sus modelos abstractos.</p></li>
+<li><p>Diseñar modelos consiste en centrarse en las características esenciales de los objetos y descartar los demás.</p></li>
+<li><p>Para entender lo que significa, echemos un vistazo a un lápiz.</p></li>
+<li><p>Un lápiz es un objeto que podemos usar para dibujar. Otras propiedades como el material o la longitud pueden ser importantes para nosotros en ocasiones, pero no definen la idea de un lápiz.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.5">
+
+<ul>
+<li><p>Supongamos que necesitamos crear un programa de edición gráfica.</p></li>
+<li><p>Una de las funciones básicas del programa es dibujar.</p></li>
+<li><p>Antes de dibujar, el programa le pide al usuario que seleccione una herramienta de dibujo.</p>
+<p>Puede ser un bolígrafo, lápiz, pincel, resaltador, marcador, aerosol y otros.</p></li>
+<li><p>Cada herramienta de un conjunto tiene sus propias características específicas: un lápiz y un spray dejan marcas diferentes y eso importa. Pero también hay una característica esencial que los une: la capacidad de dibujar.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.6">
+
+<ul>
+<li><p>Ahora consideremos la clase <code>Lapiz</code>, que es una abstracción de un lápiz.</p></li>
+<li><p>Como ya comentamos, la clase al menos debería tener un método <code>dibujar</code> que acepte un modelo de curva.</p></li>
+<li><p>Esta es una función crucial de un lápiz para nuestro programa.</p></li>
+<li><p>Supongamos que <code>Curva</code> es una clase que representa alguna curva:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Lapiz <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Definamos clases para otras herramientas, por ejemplo, un pincel:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pincel <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.7">
+
+<ul>
+<li><p>Cada uno tiene método <code>dibujar</code>, aunque lo hace a su manera.</p></li>
+<li><p>La capacidad de dibujar es una característica común a todos ellos.</p></li>
+<li><p>Llamemos a esta característica <code>HerramientaQueDibuja</code>. Entonces podemos decir que si una clase tiene la característica <code>HerramientaQueDibuja</code>, entonces debería poder dibujar, lo que significa que la clase debería tener un método <code class="sourceCode java"><span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></code>.</p></li>
+<li><p>Java permite declarar esta característica mediante la introducción de interfaces.</p></li>
+</ul>
+</section>
 
 <section id="definición-de-interfaces" class="title-slide slide level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> Definición de interfaces</h2>
 <ul>
-<li><p>En Java, una <strong>interfaz</strong> es un tipo referencia, similar a una clase abstracta, que sólo puede contener constantes estáticas, métodos abstractos, métodos predeterminados, métodos estáticos y tipos anidados.</p></li>
-<li><p>Los únicos métodos <em>concretos</em> (es decir, con cuerpo) que puede tener una interfaz son los métodos predeterminados y los métodos estáticos.</p></li>
+<li><p>En Java, una <strong>interfaz</strong> es un tipo referencia, similar a una clase abstracta, que sólo puede contener:</p>
+<ul>
+<li><p>Constantes estáticas públicas.</p></li>
+<li><p>Métodos abstractos públicos (sin implementación).</p></li>
+<li><p>Métodos predeterminados públicos (con implementación).</p></li>
+<li><p>Métodos estáticos públicos (con implementación).</p></li>
+<li><p>Métodos concretos privados (con implementación)</p></li>
+</ul></li>
 <li><p>No se pueden crear instancias de interfaces; solo pueden implementarse mediante clases o ser usadas como supertipos de otras interfaces.</p></li>
 </ul>
 </section>
@@ -317,7 +370,17 @@
 <span style="color:teal">⟨<em>decl_constante</em>⟩</span> ::= <strong><code>identificador</code></strong> <span style="color:teal">⟨<em>inic_variable</em>⟩</span><br />
 <span style="color:teal">⟨<em>método_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> | <span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span><br />
 <span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong>] <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>default</code></strong> | <strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span></div></li>
+<span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span><br />
+                                                                | <span style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span><br />
+                                                                | <span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>default</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>static</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span> ::= <strong><code>private</code></strong> [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.2">
+
+<ul>
 <li><p>Como las clases, las interfaces pueden tener dos visibilidades:</p>
 <ul>
 <li><p>Predeterminada: es visible sólo dentro del paquete donde se ha definido.</p></li>
@@ -325,7 +388,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.0.0.2">
+<section class="slide level5" data-number="1.2.0.0.3">
 
 <ul>
 <li><p>El cuerpo de una interfaz puede contener métodos abstractos, métodos predeterminados y métodos estáticos.</p></li>
@@ -336,17 +399,17 @@
 <li><p>Todas las constantes de una interfaz son implícitamente <strong><code>public</code></strong>, <strong><code>final</code></strong> y <strong><code>static</code></strong>, por lo que se pueden omitir todos esos modificadores.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.0.0.3">
+<section class="slide level5" data-number="1.2.0.0.4">
 
 <ul>
 <li><p>Por ejemplo, podemos definir una interfaz <code>Sumable</code> que represente cualquier cosa que se pueda sumar:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Sumable <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">);</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Sumable <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>O una interfaz <code>Comparable</code> que represente cualquier cosa que se pueda comparar con otra para ver si es menor que ella:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">);</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -364,44 +427,44 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> num<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> num<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
 <li><p>Podemos hacer que una clase implemente tantas interfaces como sea necesario:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> num<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> num<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">num</span> <span class="op">=</span> num<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -440,15 +503,15 @@
 
 <ul>
 <li><p>Por ejemplo, allí donde se espere un valor de tipo <code>Sumable</code>, se puede poner una instancia de la clase <code>Numero</code>, ya que la clase <code>Numero</code> implementa la interfaz <code>Sumable</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        Numero n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        Numero n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        Numero resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        Numero n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        Numero n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        Numero resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>El parámetro del método <code>sumar</code> está declarado de tipo <code>Sumable</code>, pero en el código anterior le hemos enviado un argumento de tipo <code>Numero</code>.</p>
 <p>Esto es perfectamente válido, ya que <code>Numero</code> <code>&lt;:</code> <code>Sumable</code> y, por el principio de sustitución, podemos enviar un valor de un subtipo del tipo declarado para el parámetro.</p></li>
 </ul>
@@ -457,15 +520,15 @@
 
 <ul>
 <li><p>También podríamos haber hecho:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        Sumable n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        Sumable n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        Sumable resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        Sumable n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        Sumable n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        Sumable resultado <span class="op">=</span> n1<span class="op">.</span><span class="fu">sumar</span><span class="op">(</span>n2<span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Es decir: usar <code>Sumable</code> en lugar de <code>Numero</code> como tipo estático de las variables <code>n1</code>, <code>n2</code> y <code>resultado</code>.</p></li>
 </ul>
 </section>
@@ -483,31 +546,31 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> SumableRestableComparable <span class="op">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">-</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> SumableRestableComparable <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">-</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> Numero <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span>num <span class="op">+</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">);</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        Numero otroNumero <span class="op">=</span> <span class="op">(</span>Numero<span class="op">)</span> otro<span class="op">;</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num <span class="op">&lt;</span> otroNumero<span class="op">.</span><span class="fu">num</span><span class="op">;</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 

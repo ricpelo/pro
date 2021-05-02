@@ -76,14 +76,93 @@ clase de sus detalles de implementación.
   reserva el derecho de modificarlo en cualquier momento, siempre que continúe
   adhiriéndose a la interfaz publicada.
 
+---
+
+- La idea general de la programación orientada a objetos, y uno de sus
+  principios fundamentales, es la abstracción.
+
+- Significa que los objetos del mundo real se pueden representar mediante sus
+  modelos abstractos.
+
+- Diseñar modelos consiste en centrarse en las características esenciales de
+  los objetos y descartar los demás.
+
+- Para entender lo que significa, echemos un vistazo a un lápiz.
+
+- Un lápiz es un objeto que podemos usar para dibujar. Otras propiedades como
+  el material o la longitud pueden ser importantes para nosotros en ocasiones,
+  pero no definen la idea de un lápiz.
+
+---
+
+- Supongamos que necesitamos crear un programa de edición gráfica.
+
+- Una de las funciones básicas del programa es dibujar.
+
+- Antes de dibujar, el programa le pide al usuario que seleccione una
+  herramienta de dibujo.
+
+  Puede ser un bolígrafo, lápiz, pincel, resaltador, marcador, aerosol y otros.
+
+- Cada herramienta de un conjunto tiene sus propias características
+  específicas: un lápiz y un spray dejan marcas diferentes y eso importa. Pero
+  también hay una característica esencial que los une: la capacidad de dibujar.
+
+---
+
+- Ahora consideremos la clase `Lapiz`, que es una abstracción de un lápiz.
+
+- Como ya comentamos, la clase al menos debería tener un método `dibujar` que
+  acepte un modelo de curva.
+
+- Esta es una función crucial de un lápiz para nuestro programa.
+
+- Supongamos que `Curva` es una clase que representa alguna curva:
+
+  ```java
+  class Lapiz {
+      ...
+      public void dibujar(Curva curva) {...}
+  }
+  ```
+
+- Definamos clases para otras herramientas, por ejemplo, un pincel:
+
+  ```java
+  class Pincel {
+      ...
+      public void dibujar(Curva curva) {...}
+  }
+  ```
+
+---
+
+- Cada uno tiene método `dibujar`, aunque lo hace a su manera.
+
+- La capacidad de dibujar es una característica común a todos ellos.
+
+- Llamemos a esta característica `HerramientaQueDibuja`. Entonces podemos decir
+  que si una clase tiene la característica `HerramientaQueDibuja`, entonces
+  debería poder dibujar, lo que significa que la clase debería tener un método
+  !JAVA(void dibujar(Curva curva) {...}).
+
+- Java permite declarar esta característica mediante la introducción de
+  interfaces.
+
 ## Definición de interfaces
 
 - En Java, una **interfaz** es un tipo referencia, similar a una clase
-  abstracta, que sólo puede contener constantes estáticas, métodos abstractos,
-  métodos predeterminados, métodos estáticos y tipos anidados.
+  abstracta, que sólo puede contener:
 
-- Los únicos métodos _concretos_ (es decir, con cuerpo) que puede tener una
-  interfaz son los métodos predeterminados y los métodos estáticos.
+  - Constantes estáticas públicas.
+
+  - Métodos abstractos públicos (sin implementación).
+
+  - Métodos predeterminados públicos (con implementación).
+
+  - Métodos estáticos públicos (con implementación).
+
+  - Métodos concretos privados (con implementación)
 
 - No se pueden crear instancias de interfaces; solo pueden implementarse
   mediante clases o ser usadas como supertipos de otras interfaces.
@@ -107,8 +186,15 @@ clase de sus detalles de implementación.
 !NT(decl_constante) ::= !T(identificador) !NT(inic_variable)
 !NT(método_interfaz) ::= !NT(método_abstracto_interfaz) | !NT(método_concreto_interfaz)
 !NT(método_abstracto_interfaz) ::= [!T(public)] [!T(abstract)] !NT(decl_método)
-!NT(método_concreto_interfaz) ::= [!T(public)] [!T(default) | !T(static)] !NT(def_método)
+!NT(método_concreto_interfaz) ::= !NT(método_predeterminado_público_interfaz)
+                                                                | !NT(método_estático_público_interfaz)
+                                                                | !NT(método_concreto_privado_interfaz)
+!NT(método_predeterminado_público_interfaz) ::= [!T(public)] !T(default) !NT(def_método)
+!NT(método_estático_público_interfaz) ::= [!T(public)] !T(static) !NT(def_método)
+!NT(método_concreto_privado_interfaz) ::= !T(private) [!T(static)] !NT(def_método)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - Como las clases, las interfaces pueden tener dos visibilidades:
 
