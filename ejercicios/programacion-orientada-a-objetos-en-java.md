@@ -71,14 +71,14 @@ author:
     Ejemplos:
 
     ```java
-    jshell> squarePatch(3)
+    jshell> rellenaCuadrado(3)
     $1 ==> [
         [3, 3, 3],
         [3, 3, 3],
         [3, 3, 3]
     ]
 
-    jshell> squarePatch(5)
+    jshell> rellenaCuadrado(5)
     $2 ==> [
         [5, 5, 5, 5, 5],
         [5, 5, 5, 5, 5],
@@ -87,12 +87,12 @@ author:
         [5, 5, 5, 5, 5]
     ]
 
-    jshell> squarePatch(1)
+    jshell> rellenaCuadrado(1)
     $3 ==> [
         [1]
     ]
 
-    jshell> squarePatch(0)
+    jshell> rellenaCuadrado(0)
     $4 ==> []
     ```
 
