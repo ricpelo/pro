@@ -382,7 +382,7 @@ que denominamos el **valor** de la expresión.
 - Las instrucciones que forman el programa son las que dictan qué operaciones
   hay que realizar con la información.
 
-- Esa información se manipula y codifica en forma de **datos**.
+- Esa información se codifica, almacena y manipula en forma de **datos**.
 
 - Los datos, por tanto, son información codificada y almacenada en un formato y
   en un soporte adecuados para ser manipulados por un sistema informático.
@@ -410,7 +410,7 @@ que denominamos el **valor** de la expresión.
 
 - Los valores se agrupan en **tipos**, que son conjuntos de valores que
   comparten características comunes. Por tanto, **un determinado valor
-  pertenece a un tipo (y, a veces, a más de uno)**.
+  pertenece a un tipo**. <!-- (y, a veces, a más de uno) -->
 
 - Igualmente, también decimos que **los datos tienen un _tipo_**, que es el
   tipo de los valores que puede tener el dato. Por eso, a los tipos también se
@@ -493,6 +493,20 @@ que denominamos el **valor** de la expresión.
   pertenece al tipo `int`; cuando es una cadena, decimos que pertenece al tipo
   `str`; etcétera.
 
+---
+
+- Para indicar que un dato tiene (o pertenece a) un determinado tipo, se pueden
+  usar distintas notaciones dependiendo del lenguaje empleado.
+
+- Por ejemplo, si queremos indicar que el dato _edad_ es un número entero (o,
+  lo que es lo mismo, que _edad_ es de tipo entero), se puede representar así:
+
+  ----------------------------------------------------------------------------------------------------
+         En Matemáticas y Teoría de Tipos:                       En Python:             En Java:
+  ----------------------------------------------------- --- -------------------- - -------------------
+               $edad: \mathbb{Z}$                            !PYTHON(edad: int)      !JAVA(int edad)
+  ----------------------------------------------------------------------------------------------------
+
 ## Evaluación de expresiones
 
 - **_Evaluar_ una expresión** consiste en determinar el **_valor_ de la
@@ -501,12 +515,16 @@ que denominamos el **valor** de la expresión.
 
 - El **tipo de la expresión** es el tipo del valor de esa expresión.
 
-- Una **subexpresión** es una expresión contenida dentro de otra.
+- Una **_subexpresión_** es una expresión contenida dentro de otra.
 
 - La **evaluación de una expresión**, en esencia, es el proceso de
   **sustituir** (o **_reescribir_**), dentro de ella, unas *subexpresiones* por
-  otras que, de alguna manera bien definida, estén *más cerca* del valor a
-  calcular, y así hasta calcular el valor de la expresión al completo.
+  otras que, según indiquen ciertas reglas, estén *más cerca* del valor final a
+  calcular, y así hasta calcular el **valor** de la expresión al completo.
+
+- Al mismo tiempo, también se va calculando el **tipo** de sus _subexpresiones_
+  (el tipo del valor de cada _subexpresión_) y, finalmente, se obtiene el tipo
+  de la propia expresión, que será el tipo del valor de esa expresión.
 
 - Además de las expresiones existen las *sentencias*, que no poseen ningún
   valor y que, por tanto, no se evalúan sino que se *ejecutan*. Las sentencias
@@ -522,8 +540,8 @@ que denominamos el **valor** de la expresión.
 
   !PYTHON((5 - 2))
 
-  denotan todas el mismo valor (el número abstracto **tres**, cuyo _tipo_ es el
-  conjunto de los _números enteros_).
+  denotan todas el mismo **valor** (el número abstracto **tres**, cuyo **tipo**
+  es el conjunto de los _números enteros_).
 
 - Es decir: todas esas expresiones son representaciones diferentes del mismo
   ente abstracto.
@@ -781,7 +799,7 @@ endwhile (no)
 
   - Si el número tiene un `.` decimal, es que es un número real.
 
-  - Las cadenas van siempre entre comillas (simples `'` o dobles `"`).
+  - Si algo va entre comillas (simples `'` o dobles `"`) es que es una cadena.
 
 - En apartados posteriores estudiaremos los tipos de datos con más profundidad.
 
@@ -1197,8 +1215,8 @@ $$
 - Las funciones son una forma de representar operaciones.
 
 - Matemáticamente, una **función** es una regla que **asocia** a cada elemento
-  de un conjunto (el conjunto *origen* o *dominio*) **un único elemento** de un
-  segundo conjunto (el conjunto *imagen*, *rango* o *codominio*).
+  de un conjunto (el **dominio**) **no más de un elemento** de un segundo
+  conjunto (el **codominio**).
 
 :::
 
@@ -1212,18 +1230,25 @@ $$
 
 ---
 
-- En Programación, el concepto de _función_ es similar al de una función
-  matemática, aunque con su propia terminología y funcionamiento.
+- En Programación, el concepto de _función_ es similar al de una _función
+  matemática_, aunque con su propia terminología y funcionamiento.
 
 - En Programación, las funciones son operaciones que actúan sobre unos datos de
-  entrada llamados **argumentos** y que **devuelven un resultado** (también
-  llamado **valor de retorno**) que depende de la operación a realizar y de los
-  datos recibidos como argumentos.
+  entrada llamados **argumentos** y que **devuelven un resultado** de salida
+  (también llamado **valor de retorno**) que depende de la operación a realizar
+  y de los datos recibidos como argumentos.
 
 - Por tanto, los argumentos para las funciones son como los operandos para los
   operadores.
 
+- Los argumentos son la **entrada** de la función y el resultado (el valor de
+  retorno) es la **salida** que se obtiene al procesar los datos de entrada.
+
 - Las funciones reciben los argumentos a través de sus **parámetros**.
+
+---
+
+!IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)
 
 ---
 
@@ -1232,9 +1257,9 @@ $$
   - El **_nombre_** de la función, que es un _identificador_ que hace
     referencia a la función.
 
-  - El **número, tipo y posición** de sus **_parámetros_**.
+  - El **número, tipo, nombre y posición** de sus **_parámetros_**.
 
-  - El **tipo** del **_resultado_** que devuelve.
+  - El **_tipo de retorno_**, o **tipo** del _resultado_ que devuelve.
 
 - Por ejemplo, la función !PYTHON(abs) está predefinida en Python y tiene la
   siguiente signatura:
@@ -1249,23 +1274,34 @@ $$
     valor _numérico_ (es lo que representa el tipo especial !PYTHON(Number) en
     Python).
 
-  - Devuelve un resultado _numérico_.
+  - Su tipo de retorno es !PYTHON(Number), por lo que devuelve un resultado
+    _numérico_.
+
+---
+
+- Por tanto:
+
+  - El **producto cartesiano de los tipos de los parámetros** de una función en
+    Programación se corresponde con el **dominio** de una función matemática.
+
+  - El **tipo de retorno** de una función en Programación se corresponde con el
+    **codominio** de una función matemática.
 
 ---
 
 - Para usar la función, lo que hacemos es **llamar** o **invocar** a la
   función.
 
-- Y _llamar_ a una función es **aplicar dicha función a unos argumentos** que
-  serán los datos sobre los que queremos que actúe la función.
+- «_Llamar a una función_» consiste en **aplicar dicha función a unos
+  argumentos**, que son los datos sobre los que queremos que actúe la función.
 
 - La **aplicación de una función a unos argumentos** es una expresión mediante
   la cual solicitamos que se realice una operación (que tiene forma de función)
   pasándole a ésta (a través de los argumentos) los datos sobre los que
   queremos que actúe la operación.
 
-- A la aplicación de una función también se la llama **invocación** de la
-  función o **llamada** a la función.
+- A la aplicación de una función a unos argumentos también se la denomina
+  **invocación** de la función o **llamada** a la función.
 
 ---
 
@@ -1323,7 +1359,8 @@ $$
 
 - Al igual que pasa con los operadores, es importante respetar la signatura de
   una función. Eso significa, entre otras cosas, que **sus argumentos deben
-  pertenecer al _tipo_ correcto**.
+  pertenecer al _tipo_ correcto** (el tipo indicado por su parámetro
+  correspondiente).
 
 - Por ejemplo, si aplicamos la función !PYTHON(abs) a un argumento de un tipo
   incorrecto (digamos, una cadena en lugar de un número), obtendremos un error
