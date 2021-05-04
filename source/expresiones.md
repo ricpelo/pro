@@ -463,7 +463,8 @@ que denominamos el **valor** de la expresión.
   cambia.
 
 - Recordemos que el tipo de un dato también determina las **operaciones** que
-  podemos realizar con él.
+  podemos realizar con él, ya que las operaciones sólo actúan sobre datos de un
+  determinado tipo.
 
 - Como el dato _edad_ es un número entero, podemos realizar operaciones
   aritméticas sobre él. Por ejemplo, podemos restar la edad al año actual para
@@ -490,22 +491,28 @@ que denominamos el **valor** de la expresión.
     **encendido** o **apagado**, etc.
 
 - Por tanto, cuando un dato es un número entero, en Python decimos que
-  pertenece al tipo `int`; cuando es una cadena, decimos que pertenece al tipo
-  `str`; etcétera.
+  pertenece al tipo !PYTHON(int); cuando es una cadena, decimos que pertenece
+  al tipo !PYTHON(str); etcétera.
 
 ---
 
 - Para indicar que un dato tiene (o pertenece a) un determinado tipo, se pueden
   usar distintas notaciones dependiendo del lenguaje empleado.
 
-- Por ejemplo, si queremos indicar que el dato _edad_ es un número entero (o,
-  lo que es lo mismo, que _edad_ es de tipo entero), se puede representar así:
+- Por ejemplo, si queremos indicar que el dato _edad_ es un número entero (es
+  decir, que es de tipo entero), se puede representar así:
 
-  ----------------------------------------------------------------------------------------------------
-         En Matemáticas y Teoría de Tipos:                       En Python:             En Java:
-  ----------------------------------------------------- --- -------------------- - -------------------
-               $edad: \mathbb{Z}$                            !PYTHON(edad: int)      !JAVA(int edad)
-  ----------------------------------------------------------------------------------------------------
+  - En Matemáticas y Teoría de Tipos:
+
+    $edad: \mathbb{Z}$
+
+  - En Python:
+
+    $edad$`:` `int`
+
+  - En Java:
+
+    `int`\ \  $edad$
 
 ## Evaluación de expresiones
 
@@ -1248,7 +1255,7 @@ $$
 
 ---
 
-!IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)
+!IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)(width=30%)
 
 ---
 
@@ -1261,25 +1268,53 @@ $$
 
   - El **_tipo de retorno_**, o **tipo** del _resultado_ que devuelve.
 
-- Por ejemplo, la función !PYTHON(abs) está predefinida en Python y tiene la
-  siguiente signatura:
+- Por ejemplo, la función !PYTHON(abs), que está predefinida en Python, podría
+  tener la siguiente signatura:
 
-  `abs(`$x$`: Number) -> Number`
+  `abs(`$x$`:` `int)` `->` `int`
 
 - Esa signatura nos dice que:
 
   - La función se llama !PYTHON(abs).
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
-    valor _numérico_ (es lo que representa el tipo especial !PYTHON(Number) en
-    Python).
+    valor de tipo !PYTHON{int} (un número _entero_).
 
-  - Su tipo de retorno es !PYTHON(Number), por lo que devuelve un resultado
-    _numérico_.
+  - Su tipo de retorno es !PYTHON(int), por lo que devuelve como resultado un
+    número _entero_.
 
 ---
 
-- Por tanto:
+- **La _signatura_ de una función es el _tipo_ de la función**, si consideramos
+  que las funciones también son valores que pertenecen a un tipo, como
+  cualquier otro valor.
+
+  Lo mismo se aplica a cualquier operación, no sólo a funciones.
+
+- El tipo de una función (su signatura) se puede representar de varias formas
+  según el lenguaje utilizado. Por ejemplo:
+
+  - En Matemáticas y Teoría de Tipos:
+
+    $abs: \mathbb{Z} \longrightarrow \mathbb{Z}$
+
+    $pow: \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$
+
+  - En Python:
+
+    `abs(`$x$`:` `int)` `->` `int`
+
+    `pow(`$base$`:` `float,` $exp$`:` `float)` `->` `float`
+
+  - En Java:
+
+    `int abs(int`\ \  $x$`)`
+
+    `double pow(double`\ \  $base$`, double`\ \  $exp$`)`
+
+---
+
+- De aquí se puede deducir que:
 
   - El **producto cartesiano de los tipos de los parámetros** de una función en
     Programación se corresponde con el **dominio** de una función matemática.
@@ -1433,7 +1468,7 @@ $$
 ---
 
 - Otro ejemplo es la función !PYTHON(pow), que realiza la operación de elevar
-  un número a la potencia de otro. Su signatura es:
+  un número a la potencia de otro. Su signatura podría ser:
 
   `pow(`$base$`: Number,` ` `$exp$`: Number) -> Number`
 
@@ -1859,6 +1894,49 @@ $$
 
 # Otros conceptos sobre operaciones
 
+## Tipos polimórficos y operaciones polimórficas
+
+- Hasta ahora, hemos visto que la función !PYTHON(abs) de Python tiene la
+  siguiente signatura:
+
+  `abs(`$x$`:` `float)` `->` `float`
+
+- Pero sabemos que también puede actuar sobre números reales, por lo que
+  también podría tener la siguiente signatura:
+
+  `abs(`$x$`:` `float)` `->` `float`
+
+- En realidad, podríamos definir la función !PYTHON(abs) de Python con la
+  siguiente signatura:
+
+  `abs(`$x$`:` `Number)` `->` `Number`
+
+  donde !PYTHON(Number) es un tipo que representa a todos los tipos numéricos
+  en Python (como !PYTHON(int) o !PYTHON(float)).
+
+---
+
+- Eso quiere decir que el parámetro $\underline{x}$ de la función !PYTHON(abs)
+  admite un valor de cualquier tipo numérico, ya sea un entero o un real.
+
+- Por tanto, !PYTHON(Number) es **un tipo que representa a varios tipos a la
+  vez**.
+
+- Cuando eso ocurre, decimos que **ese tipo es _polimórfico_**.
+
+  Por eso podemos afirmar que **!PYTHON(Number) es un tipo polimórfico en
+  Python**.
+
+- De la misma forma (aunque se utiliza menos), podemos decir que un **valor
+  polimórfico** es un valor que pertenece a un tipo polimórfico.
+
+- Asimismo, una **operación polimórfica** es aquella en cuya signatura aparece
+  algún tipo polimórfico.
+
+  Por ejemplo, la función !PYTHON(abs) definida con un parámetro de tipo
+  !PYTHON(Number) sería polimórfica, ya que ese parámetro tendría un tipo
+  polimórfico.
+
 ## Sobrecarga de operaciones
 
 - Un **mismo operador** (o nombre de función o método) puede representar
@@ -1883,6 +1961,32 @@ $$
 
 - Cuando esto ocurre, decimos que el operador (o la función, o el método) está
   **sobrecargado**.
+
+---
+
+- Es decir, es como si el operador `+` representara dos operaciones distintas
+  con dos signaturas distintas:
+
+  `+(`$a$`:` `Number,` ` `$b$`:` `Number)` `->` `Number`
+
+  `+(`$a$`:` `str,` ` `$b$`:` `str)` `->` `str`
+
+  de forma que, al usar el operador en una expresión del tipo:
+
+  !NT($expr_1$) `+` !NT($expr_2$)
+
+  el intérprete llamará a una de las dos operaciones, dependiendo de los tipos
+  de !NT($expr_1$) y !NT($expr_2$).
+
+- La sobrecarga no es polimorfismo, pero induce un cierto tipo de polimorfismo
+  que se denomina **polimorfismo _ad-hoc_**.
+
+- Esto es así porque tener varias operaciones diferentes con el mismo nombre
+  pero con distinta signatura, equivale a tener una sola operación polimórfica
+  donde algunos operandos pueden tomar un valor de varios tipos.
+
+  Por ejemplo, los tipos de $a$ y $b$ representarían a la vez a `Number` y
+  `str`.
 
 ## Equivalencia entre formas de operaciones
 
