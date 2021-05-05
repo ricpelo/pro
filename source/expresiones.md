@@ -912,6 +912,60 @@ $$
 \end{cases}
 $$
 
+---
+
+- Los operadores, las funciones y los métodos no son más que diferentes formas
+  sintácticas de expresar una operación.
+
+- En la práctica, apenas hay diferencias sustanciales entre las tres formas.
+
+- Esencialmente, todas las operaciones se pueden representar mediante funciones
+  matemáticas, es decir, correspondencias entre valores de un conjunto (el
+  _dominio_) y valores de otro conjunto (el _codominio_, que puede ser el mismo
+  que el dominio).
+
+- Otra forma de verlo es que las operaciones transforman datos de un conjunto
+  en datos del otro.
+
+---
+
+- Por ejemplo, la operación «inverso» actúa asocia cada número real con otro
+  número real: el inverso del número (uno dividido entre el número).
+
+  Así, esa operación asocia el número $4$ con el $1/4$, y el $7$ con el $1/7$.
+
+  Aquí, tanto el dominio como el codominio de la operación serían $\mathbb{R}$,
+  el conjunto de los números reales, lo que se puede representar así:
+  $$inverso: \mathbb{R} \longrightarrow \mathbb{R}$$
+
+---
+
+
+- Otro ejemplo sería la operación «suma», que asocia a cada pareja de números
+  reales otro número real: la suma de ambos.
+
+  Esa operación asociaría, por ejemplo, los números **dos** y **tres** con el
+  **cinco**.
+
+  En este caso, el dominio de la operación «suma» sería el producto cartesiano
+  del conjunto de los números reales consigo mismo (es decir, el conjunto
+  $\mathbb{R} \times \mathbb{R}$ formado por parejas de números reales).
+
+  Por tanto, la operación «suma» se podría representar así: $$suma: \mathbb{R}
+  \times \mathbb{R} \longrightarrow \mathbb{R}$$
+
+- Esa operación puede tener forma de operador (el símbolo $+$) o de función:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $3 + 4$ devuelve $7$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $suma(3, 4)$ devuelve $7$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## Operadores
 
 - Un **operador** es un símbolo o palabra clave que representa una _operación_
@@ -1255,7 +1309,10 @@ $$
 
 ---
 
-!IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)(width=30%)
+- Desde el punto de vista de la Programación, las funciones son dispositivos
+  que transforman datos de entrada en datos de salida:
+
+  !IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)(width=30%)
 
 ---
 

@@ -25,7 +25,7 @@ nocite: |
 !NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por ejemplo:
+- Por ejemplo, la siguiente expresión lambda la idea general de «_suma_»:
 
   ```python
   lambda x, y: x + y
