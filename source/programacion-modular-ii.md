@@ -495,6 +495,69 @@ clase de sus detalles de implementación.
 
 ## Métodos predeterminados
 
+- Los métodos predeterminados son un mecanismo de reutilización de código entre
+  clases que no tienen por qué pertenecer a la misma jerarquía de
+  generalización.
+
+- Cuando una clase implementa una interfaz con un método predeterminado, la
+  clase «hereda» el método junto con su implementación.
+
+- Cuando una interfaz extiende a otra interfaz que contiene un método
+  predeterminado, se puede hacer lo siguiente:
+
+  - No mencionar el método predeterminado, lo que hará que la subinterfaz
+    herede el método y su implementación.
+
+  - Redeclarar el método predeterminado, lo que lo convertirá en un método
+    abstracto.
+
+  - Redefinir el método predeterminado.
+
+---
+
+- En el caso de que se implementen varias interfaces y ambas contengan métodos
+  predeterminados con la misma signatura, la clase implementadora tendrá que
+  especificar explícitamente qué método predeterminado se usará, o redefinir el
+  método predeterminado.
+
+```java
+interface TestInterface1
+{
+    default void show()
+    {
+        System.out.println("Default TestInterface1");
+    }
+}
+
+interface TestInterface2
+{
+    default void show()
+    {
+        System.out.println("Default TestInterface2");
+    }
+}
+```
+
+---
+
+```java
+class TestClass implements TestInterface1, TestInterface2
+{
+    public void show()
+    {
+        TestInterface1.super.show();
+
+        TestInterface2.super.show();
+    }
+
+    public static void main(String args[])
+    {
+        TestClass d = new TestClass();
+        d.show();
+    }
+}
+```
+
 ## Ejemplo: Interfaz `CharSequence`
 
 ## Ejemplo: Clonación de objetos

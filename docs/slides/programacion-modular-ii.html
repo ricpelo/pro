@@ -611,7 +611,55 @@
 
 <section id="métodos-predeterminados" class="title-slide slide level2" data-number="1.6">
 <h2 data-number="1.6"><span class="header-section-number">1.6</span> Métodos predeterminados</h2>
+<ul>
+<li><p>Los métodos predeterminados son un mecanismo de reutilización de código entre clases que no tienen por qué pertenecer a la misma jerarquía de generalización.</p></li>
+<li><p>Cuando una clase implementa una interfaz con un método predeterminado, la clase «hereda» el método junto con su implementación.</p></li>
+<li><p>Cuando una interfaz extiende a otra interfaz que contiene un método predeterminado, se puede hacer lo siguiente:</p>
+<ul>
+<li><p>No mencionar el método predeterminado, lo que hará que la subinterfaz herede el método y su implementación.</p></li>
+<li><p>Redeclarar el método predeterminado, lo que lo convertirá en un método abstracto.</p></li>
+<li><p>Redefinir el método predeterminado.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.6.0.0.1">
 
+<ul>
+<li>En el caso de que se implementen varias interfaces y ambas contengan métodos predeterminados con la misma signatura, la clase implementadora tendrá que especificar explícitamente qué método predeterminado se usará, o redefinir el método predeterminado.</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> TestInterface1</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">default</span> <span class="dt">void</span> <span class="fu">show</span><span class="op">()</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Default TestInterface1&quot;</span><span class="op">);</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> TestInterface2</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">default</span> <span class="dt">void</span> <span class="fu">show</span><span class="op">()</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Default TestInterface2&quot;</span><span class="op">);</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section class="slide level5" data-number="1.6.0.0.2">
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestClass <span class="kw">implements</span> TestInterface1<span class="op">,</span> TestInterface2</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">show</span><span class="op">()</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        TestInterface1<span class="op">.</span><span class="fu">super</span><span class="op">.</span><span class="fu">show</span><span class="op">();</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        TestInterface2<span class="op">.</span><span class="fu">super</span><span class="op">.</span><span class="fu">show</span><span class="op">();</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span> args<span class="op">[])</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        TestClass d <span class="op">=</span> <span class="kw">new</span> <span class="fu">TestClass</span><span class="op">();</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        d<span class="op">.</span><span class="fu">show</span><span class="op">();</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
 <section id="ejemplo-interfaz-charsequence" class="title-slide slide level2" data-number="1.7">
