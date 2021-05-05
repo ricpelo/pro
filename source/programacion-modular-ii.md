@@ -302,7 +302,7 @@ clase de sus detalles de implementación.
 - Podemos hacer que una clase implemente tantas interfaces como sea necesario:
 
   ```java
-  class Numero implements Sumable {
+  class Numero implements Sumable, Comparable {
       public int num;
 
       Numero(int num) {
