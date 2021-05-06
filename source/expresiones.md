@@ -914,20 +914,61 @@ $$
 
 ---
 
-- Los operadores, las funciones y los métodos no son más que diferentes formas
-  sintácticas de expresar una operación.
+:::: columns
 
-- En la práctica, apenas hay diferencias sustanciales entre las tres formas.
+::: column
 
-- Esencialmente, todas las operaciones se pueden representar mediante funciones
-  matemáticas, es decir, correspondencias entre valores de un conjunto (el
-  _dominio_) y valores de otro conjunto (el _codominio_, que puede ser el mismo
-  que el dominio).
+- Matemáticamente, una **operación** se corresponde con el concepto de
+  _función_.
 
-- Otra forma de verlo es que las operaciones transforman datos de un conjunto
-  en datos del otro.
+- En Matemáticas, una **función** es una regla que **asocia** a cada elemento
+  de un conjunto (el **dominio**) **no más de un elemento** de un segundo
+  conjunto (el **codominio**).
+
+:::
+
+::: column
+
+!IMGP(funcion.svg)(Función matemática que asocia a cada polígono con su número de lados)()(width=30%)
+
+:::
+
+::::
 
 ---
+
+- En Programación, el concepto de _operación_ es también similar al de _función
+  matemática_, pero con su propia terminología y funcionamiento.
+
+- Desde el punto de vista de la Programación, las operaciones son dispositivos
+  que **transforman datos de _entrada_ en datos de _salida_**:
+
+  !DOT(operacion-dispositivo.svg)()(width=50%)(width=50%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~               
+  E [label = "Entrada", shape = plaintext, fillcolor = transparent];               
+  S [label = "Salida", shape = plaintext, fillcolor = transparent];                
+  E -> Operación -> S                                                                
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+
+- Esos datos de entrada se denominan **argumentos** u **operandos**, según el
+  tipo de operación.
+
+- Asimismo, los datos de salida representan el **resultado** o **valor de
+  retorno** de la operación.
+
+- El valor de retorno se calcula como resultado de procesar los datos de
+  entrada y, por tanto, depende de la operación a realizar y de los datos
+  recibidos por la entrada.
+
+- Visto así, las operaciones son **subprogramas**, es decir, pequeños programas
+  dentro de otros programas.
+
+---
+
+- Los operadores, las funciones y los métodos no son más que **diferentes
+  _formas sintácticas_** de expresar una operación.
+
+- En la práctica, apenas hay diferencias sustanciales entre las tres formas.
 
 - Por ejemplo, la operación «inverso» actúa asocia cada número real con otro
   número real: el inverso del número (uno dividido entre el número).
@@ -940,12 +981,11 @@ $$
 
 ---
 
-
 - Otro ejemplo sería la operación «suma», que asocia a cada pareja de números
   reales otro número real: la suma de ambos.
 
   Esa operación asociaría, por ejemplo, los números **dos** y **tres** con el
-  **cinco**.
+  número **cinco**.
 
   En este caso, el dominio de la operación «suma» sería el producto cartesiano
   del conjunto de los números reales consigo mismo (es decir, el conjunto
@@ -953,6 +993,8 @@ $$
 
   Por tanto, la operación «suma» se podría representar así: $$suma: \mathbb{R}
   \times \mathbb{R} \longrightarrow \mathbb{R}$$
+
+<!--
 
 - Esa operación puede tener forma de operador (el símbolo $+$) o de función:
 
@@ -965,6 +1007,8 @@ $$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   $suma(3, 4)$ devuelve $7$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-->
 
 ## Operadores
 
@@ -989,6 +1033,15 @@ $$
 
     - El operador es `*` y representa la operación «_multiplicación de
       números_».
+
+---
+
+- Por tanto, la operación «suma» de la que hablamos anteriormente, se puede
+  representar así usando el operador `+`: $$+: \mathbb{R} \times \mathbb{R}
+  \longrightarrow \mathbb{R}$$
+
+- Por tanto, el operador `+` acepta dos operandos (dos números reales) y
+  devuelve un número real.
 
 ### Aridad de operadores
 
@@ -1269,52 +1322,16 @@ $$
 
 ## Funciones
 
-:::: columns
+- Como cualquier otro tipo de operación, las funciones en Programación reciben
+  unos datos de entrada y devuelven un valor de salida.
 
-::: column
-
-- Las funciones son una forma de representar operaciones.
-
-- Matemáticamente, una **función** es una regla que **asocia** a cada elemento
-  de un conjunto (el **dominio**) **no más de un elemento** de un segundo
-  conjunto (el **codominio**).
-
-:::
-
-::: column
-
-!IMGP(funcion.svg)(Función que asocia a cada polígono con su número de lados)()(width=30%)
-
-:::
-
-::::
-
----
-
-- En Programación, el concepto de _función_ es similar al de una _función
-  matemática_, aunque con su propia terminología y funcionamiento.
-
-- En Programación, las funciones son operaciones que actúan sobre unos datos de
-  entrada llamados **argumentos** y que **devuelven un resultado** de salida
-  (también llamado **valor de retorno**) que depende de la operación a realizar
-  y de los datos recibidos como argumentos.
+- En Programación, los datos de entrada de una función se denominan
+  **argumentos**.
 
 - Por tanto, los argumentos para las funciones son como los operandos para los
   operadores.
 
-- Los argumentos son la **entrada** de la función y el resultado (el valor de
-  retorno) es la **salida** que se obtiene al procesar los datos de entrada.
-
 - Las funciones reciben los argumentos a través de sus **parámetros**.
-
----
-
-- Desde el punto de vista de la Programación, las funciones son dispositivos
-  que transforman datos de entrada en datos de salida:
-
-  !IMGP(funcion-maquina.svg)(Las funciones como unidades de procesamiento de información)(width=30%)(width=30%)
-
----
 
 - Para usar una función hay que conocer su **signatura**, la cual informa de:
 
@@ -1324,6 +1341,8 @@ $$
   - El **número, tipo, nombre y posición** de sus **_parámetros_**.
 
   - El **_tipo de retorno_**, o **tipo** del _resultado_ que devuelve.
+
+---
 
 - Por ejemplo, la función !PYTHON(abs), que está predefinida en Python, podría
   tener la siguiente signatura:
@@ -1336,6 +1355,10 @@ $$
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
     valor de tipo !PYTHON{int} (un número _entero_).
+
+    Por tanto, los argumentos que puede recibir la función (sus datos de
+    entrada) deben ser valores numéricos de tipo entero, ya que los parámetros
+    de una función representan a los argumentos dentro de la función.
 
   - Su tipo de retorno es !PYTHON(int), por lo que devuelve como resultado un
     número _entero_.
