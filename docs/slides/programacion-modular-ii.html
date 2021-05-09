@@ -678,7 +678,22 @@
 
 <section id="object.clone" class="title-slide slide level3" data-number="1.8.2">
 <h3 data-number="1.8.2"><span class="header-section-number">1.8.2</span> <code>Object.clone()</code></h3>
-
+<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Factura <span class="kw">implements</span> <span class="bu">Cloneable</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">clone</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">CloneNotSupportedException</span> <span class="op">{</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">super</span><span class="op">.</span><span class="fu">clone</span><span class="op">();</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// O bien:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">clone</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">CloneNotSupportedException</span> <span class="op">{</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        Factura nueva <span class="op">=</span> <span class="kw">new</span> <span class="fu">Factura</span> <span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">numero</span><span class="op">,</span> <span class="kw">this</span><span class="op">.</span><span class="fu">concepto</span><span class="op">,</span> <span class="kw">this</span><span class="op">.</span><span class="fu">importe</span><span class="op">);</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nueva<span class="op">;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
 <section id="constructor-de-copia" class="title-slide slide level3" data-number="1.8.3">

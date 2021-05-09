@@ -566,6 +566,25 @@ class TestClass implements TestInterface1, TestInterface2
 
 ### `Object.clone()`
 
+```java
+class Factura implements Cloneable {
+    // ...
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    // O bien:
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Factura nueva = new Factura (this.numero, this.concepto, this.importe);
+        return nueva;
+    }
+}
+```
+
 ### Constructor de copia
 
 ## Clases abstractas vs. interfaces
