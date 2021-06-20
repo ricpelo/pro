@@ -2540,6 +2540,12 @@ EV3|)
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:calificacion-final"
+
+\end_inset
+
 (Cálculo de la calificación final)
 \end_layout
 
@@ -2735,13 +2741,305 @@ EX
 Al final de cada evaluación, o a comienzos de la evaluación siguiente, se
  llevará a cabo una prueba de recuperación para aquellos alumnos que tengan
  algún contenido pendiente en esa evaluación.
- Al final del curso se hará una prueba final de recuperación para aquellos
- alumnos que tengan pendientes contenidos de alguna evaluación, debiendo
- presentarse únicamente a aquellas partes que tengan pendientes.
  La evaluación de tales pruebas de recuperación podrá requerir, a criterio
  y discreción del profesor del módulo, la defensa de las mismas en una entrevist
 a individual con el alumno para garantizar la autoría y la adquisición adecuada
  de las competencias correspondientes.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Prueba-final"
+
+\end_inset
+
+Prueba final
+\end_layout
+
+\begin_layout Standard
+La normativa establece la existencia de un examen o prueba a final de curso
+ (usualmente en junio) para aquellos alumnos que no hayan podido superar
+ el módulo mediante el procedimiento habitual de evaluación continua por
+ evaluaciones y que, por tanto, tengan pendientes la superación de contenidos
+ que no se hayan podido recuperar ni siquiera mediante los instrumentos
+ de recuperación indicados anteriormente.
+\end_layout
+
+\begin_layout Standard
+Asimismo, y según establece la misma normativa, esta prueba final permite
+ al alumnado la superación del módulo incluso en el caso de no haber asistido
+ con regularidad a clase a lo largo del curso.
+ Es, por tanto, el único instrumento que posibilita el que un alumno que
+ cuente con un número de faltas de asistencia superior al permitido y que,
+ por consiguiente, haya perdido el derecho a la evaluación continua, pueda
+ demostrar la consecución de los objetivos del módulo y, en consecuencia,
+ su superación.
+\end_layout
+
+\begin_layout Standard
+Dicha prueba o examen final constará de varias partes separadas.
+ De ellas, las partes que el alumno deberá realizar y superar dependerán
+ de las calificaciones que el alumno haya obtenido en los diferentes exámenes
+ teóricos y prácticos realizados a lo largo del curso.
+ El alumno está obligado a realizar, como mínimo, las partes correspondientes
+ a los exámenes teóricos en los que haya obtenido una calificación menor
+ de 3 y las correspondientes a los exámenes prácticos en los que haya obtenido
+ una calificación menor de 4.
+\end_layout
+
+\begin_layout Standard
+En consecuencia, en la prueba final se obtendrá una calificación por cada
+ una de las partes que compongan la prueba.
+ Dichas calificaciones se entenderá que 
+\emph on
+sustituyen
+\emph default
+ a las calificaciones 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TE
+\backslash
+
+\end_layout
+
+\end_inset
+
+ y/o 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+PR
+\backslash
+
+\end_layout
+
+\end_inset
+
+ que, en caso de haberlas, se obtuvieron previamente en sus correspondientes
+ evaluaciones.
+ Finalmente, se calculará la 
+\series bold
+calificación corregida de cada evaluación
+\series default
+ usando el algoritmo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:calificacion-parcial-corregida"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (donde 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+EV
+\backslash
+
+\end_layout
+
+\end_inset
+
+ representa a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+EV1
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+EV2
+\backslash
+
+\end_layout
+
+\end_inset
+
+ o 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+EV3
+\end_layout
+
+\end_inset
+
+, según corresponda) y la 
+\series bold
+calificación final del módulo
+\series default
+ como la media ponderada de dichas calificaciones corregidas usando el algoritmo
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:calificacion-final"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "80col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Python,escapeinside={||},mathescape=true,framesep=5mm,frame=topline"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+if |
+\backslash
+TE| |$
+\backslash
+geq$| 3 and |
+\backslash
+PR| |$
+\backslash
+geq$| 4:
+\end_layout
+
+\begin_layout Plain Layout
+
+    |
+\backslash
+EV| = |
+\backslash
+TE| * 0.3 + |
+\backslash
+PR| * 0.7
+\end_layout
+
+\begin_layout Plain Layout
+
+else:
+\end_layout
+
+\begin_layout Plain Layout
+
+    |
+\backslash
+EV| = min(|
+\backslash
+TE|, |
+\backslash
+PR|)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:calificacion-parcial-corregida"
+
+\end_inset
+
+(Cálculo de la calificación parcial corregida)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Del método de cálculo anterior se desprende, por tanto, que para superar
+ en junio las evaluaciones no superadas previamente, no se tendrán en cuenta
+ las calificaciones obtenidas en los trabajos realizados durante dichas
+ evaluaciones (apartado 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TR
+\end_layout
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsubsection
@@ -2797,6 +3095,21 @@ es consciente, entiende, asume y acepta que la calificación que finalmente
 corre el riesgo de acabar con menos nota que antes
 \series default
 \bar default
+.
+\end_layout
+
+\begin_layout Standard
+Lo anterior también es de aplicación a la prueba final a realizar en junio
+ y de la que se habla en el apartado 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Prueba-final"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 .
 \end_layout
 
