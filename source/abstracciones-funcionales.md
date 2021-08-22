@@ -464,8 +464,14 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 ## Ámbitos y espacios de nombres
 
-- Ciertas construcciones sintácticas definen su propio ámbito, y otras definen
-  un espacio de nombres (y, por tanto, también un ámbito).
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Todo espacio de nombres va asociado a un ámbito, pero NO todos los ámbitos van
+asociados a un espacio de nombres.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Ciertas construcciones sintácticas definen un espacio de nombres (y, por
+  tanto, también un ámbito).
 
 - En este último caso, ese espacio de nombres almacenará las ligaduras que se
   crean dentro de ese ámbito.
@@ -479,12 +485,6 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 - El espacio de nombres que se usa para almacenar las ligaduras creadas en el
   ámbito actual se denomina el **espacio de nombres actual**.
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Todo espacio de nombres va asociado a un ámbito, pero NO todos los ámbitos van
-asociados a un espacio de nombres.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -510,15 +510,15 @@ asociados a un espacio de nombres.
 ---
 
 - Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
-  lo que se almacenan en el marco global.
+  lo que se almacenan en el espacio de nombres global.
 
 - Por tanto:
 
   - Como esas ligaduras se definen en el ámbito global, se dice que tienen
-  **ámbito global**.
+    **ámbito global**.
 
-  - Como esas ligaduras se almacenan en el marco global, se dice que tienen
-    **almacenamiento global**.
+  - Como esas ligaduras se almacenan en el espacio de nombres global, se dice
+    que tienen **almacenamiento global**.
 
 - Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
