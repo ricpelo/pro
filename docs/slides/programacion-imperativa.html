@@ -20,6 +20,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -233,7 +234,7 @@
 <section id="title-slide">
   <h1 class="title">Programación imperativa</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2020/2021</p>
+  <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
 <ul>
@@ -630,7 +631,7 @@
 </div></li>
 <li><p>Estos lenguajes disponen de instrucciones que permiten <em>declarar</em> de qué tipo serán los datos que se pueden asignar a una variable.</p>
 <p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x;</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x<span class="op">;</span></span></code></pre></div>
 <p>con lo que declaramos que a <code class="sourceCode java">x</code> sólo se le podrán asignar valores de tipo <code class="sourceCode java"><span class="bu">String</span></code> desde el primer momento y a lo largo de toda la ejecución del programa.</p></li>
 </ul>
 </section>
@@ -638,10 +639,10 @@
 
 <ul>
 <li><p>A veces, se pueden realizar al mismo tiempo la declaración del tipo y la asignación del valor:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x = <span class="st">&quot;Hola&quot;</span>;</span></code></pre></div></li>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span></span></code></pre></div></li>
 <li><p>Otros lenguajes disponen de un mecanismo conocido como <strong>inferencia de tipos</strong>, que permite <em>deducir</em> automáticamente el tipo de una variable.</p></li>
 <li><p>Por ejemplo, en Java podemos hacer:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>var x = <span class="st">&quot;Hola&quot;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span></span></code></pre></div>
 <p>El compilador de Java deduce que la variable <code class="sourceCode java">x</code> debe ser de tipo <code class="sourceCode java"><span class="bu">String</span></code> porque se le está asignando una cadena (el valor <code class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>).</p></li>
 </ul>
 </section>
@@ -1801,7 +1802,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <div class="sourceCode" id="cb62"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> python saluda<span class="op">.</span>py</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Traceback</span> (most recent call <span class="fu">last</span>)<span class="op">:</span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">File</span> <span class="st">&quot;saluda.py&quot;</span>, line <span class="dv">2</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">module</span><span class="op">&gt;</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="ch">&#39;¡Hola,&#39;</span>, sys<span class="op">.</span>argv[<span class="dv">1</span>])</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(&#39;¡<span class="dt">Hola</span>,&#39;, sys<span class="op">.</span>argv[<span class="dv">1</span>])</span>
 <span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="dt">IndexError</span><span class="op">:</span> list <span class="fu">index</span> out <span class="kw">of</span> <span class="fu">range</span></span></code></pre></div></li>
 </ul>
 </section>
@@ -2277,17 +2278,90 @@ Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada, and Car
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
         // Display the page number of the current slide
         slideNumber: true,
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
         // Push each slide change to the browser history
         history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+       // Flags if it should be possible to pause the presentation (blackout)
+       pause: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
         // Transition style
         transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
         height: 1080,
+        // The display mode that will be used to show slides
+        display: 'block',
 
         menu: {
           hideMissingTitles: true,

@@ -1,6 +1,6 @@
 .PHONY: all html pdf prog ejercicios clean limpiar serve touch markdown sobrantes $(ITHACA)
 
-CURSO=2020/2021
+CURSO=2021/2022
 
 # Directorios
 
