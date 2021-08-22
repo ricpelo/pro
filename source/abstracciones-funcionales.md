@@ -386,8 +386,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - En Python, el ámbito de una ligadura:
 
-  - **Empieza** en el punto donde se crea la ligadura (es decir, el punto donde
-    se ejecuta la instrucción que define la ligadura).
+  - **Empieza** en el punto donde se _crea_ la ligadura (es decir, el punto
+    donde se ejecuta la instrucción que _define_ la ligadura).
 
   - **Termina** donde lo hace el _ámbito de creación_ de la ligadura, que
     deberá ser un ámbito definido por una construcción sintáctica y, por tanto,
@@ -406,9 +406,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   Esto último sólo ocurre en Python si la ligadura se crea justo al comienzo
   del ámbito de creación de la ligadura.
 
-- En cambio, en los lenguajes compilados (como Java), el ámbito de una ligadura
-  puede coincidir con su ámbito de creación, aunque la sentencia de definición
-  no esté justo al principio del ámbito de creación.
+- En cambio, en otros lenguajes (como Java o JavaScript), el ámbito de una
+  ligadura puede coincidir con su ámbito de creación, aunque la sentencia de
+  definición no esté justo al principio del ámbito de creación.
 
 - El ámbito de una ligadura y el ámbito de creación de una ligadura son dos
   conceptos distintos, aunque a veces pueda coincidir que ambos ámbitos tengan
@@ -429,8 +429,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Es importante entender que, aunque el ámbito de `z` → `99` está contenido en
   el de `y` → `99`, éste último no se tiene en cuenta a la hora de determinar
-  cuál es el ámbito de creación de la ligadura `z` → `99` (porque es el ámbito
-  de una ligadura, no el ámbito de creación de una ligadura).
+  cuál es el ámbito de creación de la ligadura `z` → `99` (porque es el
+  **ámbito de una ligadura**, no el **ámbito de creación de una ligadura**).
 
 ---
 
@@ -464,19 +464,13 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 ## Ámbitos y espacios de nombres
 
-- !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Todo espacio de nombres va asociado a un ámbito, pero NO todos los ámbitos
-  van asociados a un espacio de nombres.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 - Ciertas construcciones sintácticas definen su propio ámbito, y otras definen
   un espacio de nombres (y, por tanto, también un ámbito).
 
 - En este último caso, ese espacio de nombres almacenará las ligaduras que se
   crean dentro de ese ámbito.
 
-- Es decir: si el ámbito de creación de una ligadura va asociado a un espacio
+- O sea: si el ámbito de creación de una ligadura va asociado a un espacio
   de nombres, la ligadura se almacenará en ese espacio de nombres.
 
 - Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito
@@ -485,6 +479,12 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 - El espacio de nombres que se usa para almacenar las ligaduras creadas en el
   ámbito actual se denomina el **espacio de nombres actual**.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Todo espacio de nombres va asociado a un ámbito, pero NO todos los ámbitos van
+asociados a un espacio de nombres.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -502,6 +502,8 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
   - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
     dónde se almacena esa ligadura.
+
+    El espacio de nombres va asociado a un **ámbito de creación**.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -538,8 +540,8 @@ coincidir o no con el ámbito de creación de esa ligadura.
   - En el ámbito global, se crea una ligadura que liga al identificador
     !PYTHON(x) con el valor !PYTHON(25).
 
-  - Por tanto, se dice que el _ámbito de creación de esa ligadura_ es el
-    ámbito global.
+  - Por tanto, se dice que **el _ámbito de creación de esa ligadura_ es el
+    ámbito global**.
 
   - Pero también se suele decir que «_el identificador !PYTHON(x) es global_»
     (o, simplemente, que «_!PYTHON(x) es global_»), **asociando al ámbito** no
@@ -547,11 +549,11 @@ coincidir o no con el ámbito de creación de esa ligadura.
 
 ---
 
-- Pero hay que tener cuidado, ya que ese mismo identificador puede ligarse en
-  ámbitos diferentes.
+- Pero hay que tener cuidado, ya que ese mismo identificador puede aparecer en
+  ámbitos diferentes y, por tanto, ligarse en ámbitos diferentes.
 
-- Por tanto, no tendría sentido hablar del ámbito que tiene ese identificador
-  (ya que podría tener varios) sino, más bien, **del ámbito que tiene _una
+- Así que no tendría sentido hablar del ámbito que tiene ese identificador (ya
+  que podría tener varios) sino, más bien, **del ámbito que tiene _una
   aparición concreta_ de ese identificador**.
 
 - Por eso, sólo deberíamos hablar del ámbito de un identificador cuando no haya
@@ -564,8 +566,9 @@ coincidir o no con el ámbito de creación de esa ligadura.
   suma = (lambda x, y: x + y)(2, 3)
   ```
 
-  el identificador !PYTHON(x) que aparece en la línea 1 y el que aparece en la
-  línea 2 pertenecen a ámbitos distintos (como veremos en breve).
+  el identificador !PYTHON(x) que aparece en la línea 1 y el identificador
+  !PYTHON(x) que aparece en la línea 2 pertenecen a ámbitos distintos (como
+  veremos en breve) aunque sea el mismo identificador.
 
 ## Ámbito de un parámetro
 
@@ -621,8 +624,8 @@ El **ámbito de un parámetro** es el ámbito de la ligadura que se establece
 entre éste y su argumento correspondiente, y se corresponde con el **cuerpo**
 de la expresión lambda donde aparece.
 
-Además, la ligadura entre el parámetro y su argumento se almacena en el marco
-de la llamada a la expresión lambda, y por eso se dice que tiene un
+Además, **la ligadura** entre el parámetro y su argumento **se almacena en el
+marco** de la llamada a la expresión lambda, y por eso se dice que tiene un
 **almacenamiento local** a la expresión lambda.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -660,7 +663,7 @@ de la llamada a la expresión lambda, y por eso se dice que tiene un
 - Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
   son locales a dicha expresión (ya que no representan parámetros de la
   expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
-  expresión lambda y se almacenarán en otro espacio de nombres que no es el
+  expresión lambda y se almacenarán en otro espacio de nombres distinto al
   marco que se crea al llamar a la expresión lambda.
 
 ---
@@ -673,13 +676,14 @@ El **ámbito de una variable ligada** es el ámbito de la ligadura que se
 crea entre ésta y su argumento correspondiente , y se corresponde con el
 **cuerpo** de la expresión lambda donde aparece.
 
-Además, la ligadura entre la variable ligada y su argumento se almacena en el
-marco de la llamada a la expresión lambda, y por eso se dice que tiene un
-**almacenamiento local** a la expresión lambda.
+Además, **la ligadura** entre la variable ligada y su argumento **se almacena
+en el marco** de la llamada a la expresión lambda, y por eso se dice que tiene
+un **almacenamiento local** a la expresión lambda.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Es exactamente lo mismo que ocurría con los parámetros (de hecho, un
-  parámetro y una variable ligada son la misma cosa, como ya hemos visto).
+- O sea: con los variables ligadas ocurre exactamente lo mismo que con los
+  parámetros, ya que, de hecho, un parámetro y una variable ligada son la misma
+  cosa, como ya hemos visto.
 
 !EJEMPLO
 
