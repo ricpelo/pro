@@ -2251,7 +2251,10 @@ True
 
   - Puede ser **devuelto como resultado** de una operación.
 
-  - Puede ser **asignado** a una variable.
+  - Puede ser **asignado** a una variable o **ligado** a un identificador.
+
+- En definitiva, un ciudadano de primera clase es **un valor de un determinado
+  tipo**, simple o compuesto.
 
 - Los objetos se pueden manipular (por ejemplo, enviarles mensajes) a través de
   las _referencias_, y éstas se pueden pasar como argumento, devolver como
