@@ -21,6 +21,7 @@ Si detectas algún error o algo que corregir o mejorar en los materiales, por fa
 EOT
 
 FILES=$(grep -Po "@auto $SOURCE/\K.*?(?=<)" index.leo)
+FILES="fundamentos.md $FILES"
 
 echo "| Título | HTML | PDF | Apuntes | Ejercicios |"
 echo "| ------ |:----:|:---:|:-------:|:----------:|"
