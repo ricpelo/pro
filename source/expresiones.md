@@ -320,7 +320,10 @@ que denominamos el **valor** de la expresión.
   cada operación a realizar con operadores va agrupada entre paréntesis, aunque
   no sea estrictamente necesario, como por ejemplo:
 
-`(3 + (4 - 7))`
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~
+  `(3 + (4 - 7))`
+  ~~~~~~~~~~~~~~~~~~~~~~
 
 - Otros ejemplos de expresiones que satisfacen dicha gramática:
 
@@ -581,7 +584,7 @@ que denominamos el **valor** de la expresión.
 
 - Con esta restricción pueden quedar expresiones sin forma normal.
 
-#### Recuerda
+##### Recuerda {.unnumbered .unlisted}
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
