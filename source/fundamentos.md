@@ -103,12 +103,10 @@ author: Ricardo Pérez López
 
     A su vez, los conjuntos se pueden representar:
 
-    - **Por extensión:** indicando sus elementos encerrados entre llaves y
+    - **Por extensión:** Indicando sus elementos encerrados entre llaves y
       separados por comas: $$C = \{\lambda, 4, \star, 23.7\}$$ $C$ se compone
-      exactamente de esos cuatro elementos.
-
-      $$C = \{\lambda, 4, \star, 23.7, \ldots\}$$ $C$ se compone de esos cuatro
-      elementos y de algunos más.
+      exactamente de esos cuatro elementos. $$C = \{\lambda, 4, \star, 23.7,
+      \ldots\}$$ $C$ se compone de esos cuatro elementos y de algunos más.
 
       Normalmente, los puntos suspensivos se utilizan cuando resulta evidente
       cuáles son los elementos que no aparecen indicados expresamente. Por
@@ -119,11 +117,12 @@ author: Ricardo Pérez López
       de valores. Por ejemplo: $$C = \{1, 2, 3, \ldots, 10\}$$ es el conjunto
       de los números naturales comprendidos entre 1 y 10.
 
-    - **Por comprensión:** según alguna propiedad que cumplen los elementos.
+    - **Por comprensión:** Según alguna propiedad que cumplen los elementos.
       Por ejemplo: $$C = \{a \mid \text{$a$ es un número primo menor que
-      10}\}$$ es el conjunto $\{2, 3, 5, 7\}$.
+      10}\}$$ es el conjunto $\{2, 3, 5, 7\}$ (el símbolo $\mid$ se lee «_tal
+      que_»).
 
-    - **Por definición inductiva**: indicando un método que permite obtener los
+    - **Por definición inductiva**: Indicando un método que permite obtener los
       elementos de un conjunto de forma progresiva (de «abajo» a «arriba») a
       partir de los anteriores. Por ejemplo, para representar el conjunto de
       los números naturales podemos seguir las siguientes reglas:
@@ -133,18 +132,18 @@ author: Ricardo Pérez López
       3. Sólo son números naturales los obtenidos siguiendo las reglas 1 y 2.
 
 - Existen varios conjuntos muy importantes en Matemáticas, tanto que tienen su
-  propio símbolo especial para poder referirnos a ellos:
+  propio símbolo especial para poder referirnos a ellos. Por ejemplo:
 
-  $\mathbb{N} = \{0, 1, 2, \ldots\}$: el conjunto de los números naturales.
+  - $\mathbb{N} = \{0, 1, 2, \ldots\}$: el conjunto de los números naturales.
 
-  $\mathbb{N^+} = \{1, 2, \ldots\}$: el conjunto $\mathbb{N}$ menos el cero.
+  - $\mathbb{N^+} = \{1, 2, \ldots\}$: el conjunto $\mathbb{N}$ menos el cero.
 
-  $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$: el conjunto de los
+  - $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$: el conjunto de los
   números enteros.
 
-  $\mathbb{Q}$: el conjunto de los números racionales.
+  - $\mathbb{Q}$: el conjunto de los números racionales.
 
-  $\mathbb{R}$: el conjunto de los números reales.
+  - $\mathbb{R}$: el conjunto de los números reales.
 
 - El **cardinal** de un conjunto es el número de elementos que tiene. El
   cardinal de un conjunto $C$ se representa $|C|$. Un conjunto puede ser
@@ -167,9 +166,10 @@ author: Ricardo Pérez López
 - Está claro que $A \subseteq B, B \subseteq A \iff A = B$.
 
 - Llamaremos **par** o **pareja** de dos elementos $a$ y $b$ (y lo escribiremos
-  como $\langle a,b\rangle$) a una **sucesión** de dos objetos $a$ y $b$, donde
-  $a$ está señalado como primero y $b$ como segundo. Por tanto, en general se
-  cumple que $\langle a, b\rangle \neq \langle b, a\rangle$.
+  como $\langle a,b\rangle$ o como $(a,b)$) a una **sucesión** de dos objetos
+  $a$ y $b$, donde $a$ está señalado como primero y $b$ como segundo. Por
+  tanto, en general se cumple que $\langle a, b\rangle \neq \langle b,
+  a\rangle$.
 
 - Igualmente, llamamos **terna** de tres elementos $a$, $b$ y $c$ (y lo
   escribimos como $\langle a, b, c\rangle$) a una sucesión de tres objetos,
@@ -179,6 +179,9 @@ author: Ricardo Pérez López
   y, en general, **enetupla**, **$n$-tupla** o, simplemente, **tupla**.
 
 - Una 1-tupla $\langle a\rangle$ se puede escribir simplemente $a$.
+
+- En general, a los objetos que forman una tupla se las llama **elementos** o
+  **componentes**.
 
 - En Matemáticas, las **secuencias** se pueden escribir mediante **tuplas**.
 
@@ -242,5 +245,54 @@ author: Ricardo Pérez López
 - Se dice que $R$ es **transitiva** o que posee la propiedad transitiva, cuando
   se cumple: $$\forall a \in E, b \in E, c \in E : \langle a, b\rangle \in
   R, \langle b, c\rangle \in R \implies \langle a, c\rangle \in R$$
+
+- Dados dos conjuntos $A$ y $B$, una **función** o **aplicación** de $A$ en $B$
+  es un conjunto $f$ de pares $\langle a, b\rangle$ de $A \times B$ que cumple
+  que cada elemento de $A$ sólo puede aparecer, como mucho, una única vez como
+  primer componente en un par de $f$.
+
+  Dicho de otra forma: una función es una relación binaria en la que no puede
+  haber dos pares distintos con el mismo primer componente (el primer
+  componente no se puede repetir en ningún par).
+
+- Se puede decir que $f$ asocia elementos de $A$ con elementos de $B$, de forma
+  que:
+
+  - Un elemento de $A$ puede no estar asociado con ningún elemento de $B$.
+
+  - Si un elemento $a$ de $A$ está asociado con algún elemento $b$ de $B$,
+    entonces:
+
+    - Se dice que $a$ es el **origen** de $b$ en $f$.
+
+    - Se dice que $b$ es la **imagen** de $a$ por $f$.
+
+    - $b$ se puede expresar como $f(a)$.
+
+    - Se puede escribir: $$f: a \rightarrow b$$
+
+    Por lo dicho anteriormente, la imagen de $a$ es única, es decir, cada
+    elemento de $A$ sólo puede tener una imagen como mucho (puede que ninguna).
+
+- Para indicar que $f$ es una función de $A$ en $B$, se escribe: $$f: A
+  \longrightarrow B$$
+
+- Se llama **dominio** de $f$ al conjunto $A$ y **rango** o **codominio** al
+  conjunto $B$.
+
+- Asimismo, se llama **conjunto origen** (o simplemente **origen**) al conjunto
+  de todos los orígenes de $f$, y **conjunto imagen** (o simplemente
+  **imagen**) al conjunto de todas las imágenes de $f$. Nosotros lo vamos a
+  escribir como $A_f$ y $B_f$, respectivamente. 
+
+- Es evidente que $A_f \subseteq A$ y que $B_f \subseteq B$.
+
+- Si se cumple que $A_f \neq A$, decimos que $f$ es una **función parcial**. En
+  caso contrario (cuando $A_f = A$), decimos que es una **función total**.
+
+- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $B_f = B$, es
+  decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
+
+- Se dice que $f$ es **inyectiva** si se cumple que 
 
 !BIBLIOGRAFIA
