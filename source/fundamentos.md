@@ -189,6 +189,9 @@ author: Ricardo Pérez López
   $\langle a, b\rangle$ que se pueden formar tales que $a \in A$ y $b \in B$.
   Se escribe: $$A \times B$$
 
+  Por tanto, se puede definir como: $$A \times B = \{ \langle a, b\rangle \mid
+  a \in A, b \in B \}$$
+
 - Igualmente, se define el producto cartesiano de $E_1 \times E_2 \times \cdots
   \times E_n$ como el conjunto formado por las $n$-tuplas $\langle e_1, e_2,
   \ldots, e_n\rangle$ tales que $e_1 \in E_1, e_2 \in E_2, \ldots, e_n \in
