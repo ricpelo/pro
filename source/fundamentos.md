@@ -232,23 +232,6 @@ author: Ricardo Pérez López
   propiedad reflexiva, si para todo elemento $a$ de $E$ se cumple que $\langle
   a, a\rangle \in E$.
 
-  Formalmente, esta propiedad se puede escribir así: $$R \subseteq E \times E
-  \text{ es reflexiva} \iff \forall a \in E : \langle a, a\rangle \in R$$
-
-  El símbolo $\forall$ se lee «_para todo_».
-
-- Se dice que $R$ es **simétrica** o que posee la propiedad simétrica, cuando
-  se cumple: $$\forall a \in E, b \in E : \langle a, b\rangle \in R \implies
-  \langle b, a\rangle \in R$$
-
-- Se dice que $R$ es **antisimétrica** o que posee la propiedad antisimétrica,
-  cuando se cumple: $$\forall a \in E, b \in E : \langle a, b\rangle \in R,
-  \langle b, a\rangle \in R \implies a = b$$
-
-- Se dice que $R$ es **transitiva** o que posee la propiedad transitiva, cuando
-  se cumple: $$\forall a \in E, b \in E, c \in E : \langle a, b\rangle \in
-  R, \langle b, c\rangle \in R \implies \langle a, c\rangle \in R$$
-
 - Dados dos conjuntos $A$ y $B$, una **función** o **aplicación** de $A$ en $B$
   es un conjunto $f$ de pares $\langle a, b\rangle$ de $A \times B$ que cumple
   que cada elemento de $A$ sólo puede aparecer, como mucho, una única vez como
@@ -296,6 +279,19 @@ author: Ricardo Pérez López
 - Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $B_f = B$, es
   decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
 
-- Se dice que $f$ es **inyectiva** si se cumple que 
+- Se dice que $f$ es **inyectiva** si para todo $a, b \in A$, $f(a) = f(b)
+  \implies a = b$. O, lo que es lo mismo, $a \neq b \implies f(a) \neq f(b)$.
+
+- Se dice que $f$ es **biyectiva** si es inyectiva y suprayectiva al mismo
+  tiempo.
+
+- Las funciones se pueden representar:
+
+  - **Por extensión:** enumerando sus pares.
+
+  - **Por ecuaciones:** expresando algebraicamente la correspondencia entre los
+    elementos del conjunto origen y del conjunto imagen. Por ejemplo:
+    $$\begin{array}{c}f: \mathbb{N} \longrightarrow \mathbb{R} \\ f(x) =
+    \frac{1}{x}\end{array}$$ donde $x$ es la **variable independiente**.
 
 !BIBLIOGRAFIA
