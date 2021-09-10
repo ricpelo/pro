@@ -14,7 +14,7 @@ Si detectas algún error o algo que corregir o mejorar en los materiales, por fa
 
 | Título | HTML | PDF | Apuntes | Ejercicios |
 | ------ |:----:|:---:|:-------:|:----------:|
-| <strong>Fundamentos</strong><br><small class="fecha" title="Última actualización">2021-09-03 19:11:29 +0200</small> | [HTML](slides/fundamentos.html){:target="_blank"} | [PDF](pdf/fundamentos.pdf){:target="_blank"} | [Apuntes](apuntes/fundamentos-apuntes.pdf){:target="_blank"}
+| <strong>Fundamentos</strong><br><small class="fecha" title="Última actualización">2021-09-10 20:14:04 +0200</small> | [HTML](slides/fundamentos.html){:target="_blank"} | [PDF](pdf/fundamentos.pdf){:target="_blank"} | [Apuntes](apuntes/fundamentos-apuntes.pdf){:target="_blank"}
 | <strong>Introducción</strong><br><small class="fecha" title="Última actualización">2020-12-16 23:45:41 +0100</small> | [HTML](slides/introduccion.html){:target="_blank"} | [PDF](pdf/introduccion.pdf){:target="_blank"} | [Apuntes](apuntes/introduccion-apuntes.pdf){:target="_blank"}
 | <strong>Expresiones</strong><br><small class="fecha" title="Última actualización">2021-09-01 23:42:31 +0200</small> | [HTML](slides/expresiones.html){:target="_blank"} | [PDF](pdf/expresiones.pdf){:target="_blank"} | [Apuntes](apuntes/expresiones-apuntes.pdf){:target="_blank"}
 | <strong>Programación funcional (I)</strong><br><small class="fecha" title="Última actualización">2021-08-27 18:48:13 +0200</small> | [HTML](slides/programacion-funcional-i.html){:target="_blank"} | [PDF](pdf/programacion-funcional-i.pdf){:target="_blank"} | [Apuntes](apuntes/programacion-funcional-i-apuntes.pdf){:target="_blank"}
