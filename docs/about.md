@@ -26,7 +26,7 @@ Organizador de las *Jornadas de software libre en el IES Doñana*.
 
 Mentor de PHP y Python en [Exercism](https://exercism.io/tracks/php/mentors).
 
-Desde hace casi 20 años ha impartido materias relacionadas con la programación y las bases de datos, abarcando tecnologías tales como SQL, PostgreSQL, Oracle Developer, C, PHP, CakePHP, CodeIgniter, Yii, Git, Python, Java, GitHub y GNU/Linux, entre otras.
+Desde hace más de 20 años ha impartido materias relacionadas con la programación y las bases de datos, abarcando tecnologías tales como SQL, PostgreSQL, Oracle Developer, C, PHP, CakePHP, CodeIgniter, Yii, Git, Python, Java, GitHub y GNU/Linux, entre otras.
 
 Contribuyente en los principales repositorios de [Yii Framework](https://www.yiiframework.com):
 
