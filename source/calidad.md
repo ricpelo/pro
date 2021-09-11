@@ -1,5 +1,5 @@
 ---
-title: Calidad (I)
+title: Calidad
 author: Ricardo Pérez López
 !DATE
 ---
