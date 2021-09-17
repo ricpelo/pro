@@ -35,6 +35,7 @@ ESQUEMA_OPML=$(PROGDIR)/esquema.opml
 ESQUEMA_TEX=$(PROGDIR)/esquema.tex
 RESUMEN_TEX=$(PROGDIR)/resumen.tex
 RACE_TEX=$(PROGDIR)/race.tex
+UDRACE_CSV=$(PROGDIR)/udrace.csv
 INDEX_LEO=index.leo
 DIAPOS=$(BUILDDIR)/diapositivas.md
 REVEAL=$(BUILDDIR_HTML)/reveal.js/js/reveal.js
@@ -68,7 +69,7 @@ EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SO
 
 # Objetivos generales
 
-all: $(DIAPOS) html pdf apuntes prog ejercicios limpiar
+all: $(DIAPOS) $(UDRACE_CSV) html pdf apuntes prog ejercicios limpiar
 
 $(DIAPOS): $(SOURCES) $(EJER_SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
 	$(DIAPOSITIVAS_SH) > $(DIAPOS)
@@ -103,6 +104,11 @@ $(RESUMEN_TEX): $(ESQUEMA_OPML) $(OPML)
 
 $(RACE_TEX): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) -erace > $(RACE_TEX)
+
+# Resultados de aprendizaje y criterios de evaluación asociados a cada UD
+
+$(UDRACE_CSV): $(ESQUEMA_OPML) $(OPML)
+	$(OPML) -u$(ESQUEMA_OPML) -eudrace > $(UDRACE_CSV)
 
 # Diapositivas en formato HTML
 

@@ -305,6 +305,47 @@ class RaCe extends Resumen
     }
 }
 
+class UdRaCe extends RaCe
+{
+    protected function trad(SimpleXMLElement $elem, $nivel = 0)
+    {
+        $ud = 1;
+        $ret = '';
+
+        foreach ($elem->outline as $item) {
+            $attr = $item->attributes();
+            $text = (string) $attr->text;
+            $status = (string) $attr->status;
+            if ($text != '---' && $status != 'invalid') {
+                $race = $this->generaRaCe($attr->tags);
+
+                foreach ($race as $ra => $ccee) {
+                    $r = $ra[-1];
+                    if (empty($ccee)) {
+                        $ret .= "$ud,$r" . PHP_EOL;
+                    }
+                    foreach ($ccee as $ce) {
+                        $c = $ce[-1];
+                        $ret .= "$ud,$r,$c" . PHP_EOL;
+                    }
+                }
+
+                $ud++;
+            }
+        }
+
+        return $ret;
+    }
+
+    public function run($url)
+    {
+        $this->cargaContenido($url);
+        $ret = "ud,ra,ce" . PHP_EOL;
+        $ret .= $this->trad($this->content->outline, 0);
+        return $ret;
+    }
+}
+
 class Leo extends Resumen
 {
     const DEFAULT_SOURCE = 'source';
@@ -460,6 +501,9 @@ switch ($env) {
         break;
     case 'race':
         $opml = new RaCe($maxNivel);
+        break;
+    case 'udrace':
+        $opml = new UdRaCe($maxNivel);
         break;
     case 'leo':
         $opml = new Leo($source);
