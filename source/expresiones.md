@@ -1982,7 +1982,7 @@ $$
 - Hasta ahora, hemos visto que la función !PYTHON(abs) de Python tiene la
   siguiente signatura:
 
-  `abs(`$x$`:` `float)` `->` `float`
+  `abs(`$x$`:` `int)` `->` `int`
 
 - Pero sabemos que también puede actuar sobre números reales, por lo que
   también podría tener la siguiente signatura:
@@ -2022,7 +2022,7 @@ $$
 
 ## Sobrecarga de operaciones
 
-- Un **mismo operador** (o nombre de función o método) puede representar
+- Un **mismo operador, nombre de función o nombre de método** puede representar
   **varias operaciones diferentes**, dependiendo del tipo de los operandos o
   argumentos sobre los que actúa.
 
