@@ -727,7 +727,8 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)             <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)           <span class="co"># luego se evalúa 3 (que devuelve 3)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)           <span class="co"># ahora se evalúa (2 + 3) (que devuelve 5)</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">5</span></span></code></pre></div></li>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<p>El <code>+</code> por sí solo no se evalúa, ya que no es una expresión válida.</p></li>
 </ul></li>
 <li><p>Por tanto, la expresión <code class="sourceCode python"><span class="dv">5</span></code> es la <em>forma normal</em> de la expresión <code class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code>, y ambas representan al valor <strong>cinco</strong>, que es un valor de <strong>tipo <em>entero</em></strong>.</p></li>
 <li><p>Asimismo, decimos que <code class="sourceCode python"><span class="dv">5</span></code> es la <em>expresión canónica</em> del valor <strong>cinco</strong>, de <strong>tipo <em>entero</em></strong> (es la expresión que mejor representa a ese valor).</p></li>
@@ -1596,6 +1597,21 @@
 <p><strong>Conclusión: los métodos (como las funciones) también son valores.</strong></p>
 </div>
 </section>
+<section class="slide level5" data-number="4.4.0.0.7">
+
+<ul>
+<li><p>Como el método pertenece al objeto, sólo existe en el contexto de ese objeto.</p></li>
+<li><p>Eso quiere decir que la expresión <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count</code> devuelve el método <code class="sourceCode python">count</code> definido sobre los objetos de tipo <code class="sourceCode python"><span class="bu">str</span></code>.</p></li>
+<li><p>En cambio, <code class="sourceCode python">count</code>, por sí solo, no es nada, ya que sería como intentar evaluar una <em>función</em> llamada <code class="sourceCode python">count</code>, que no existe en Python.</p></li>
+<li><p>Por tanto, la evaluación de la expresión <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)</code> se haría de la siguiente forma:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)      <span class="co"># se evalúa &#39;hola&#39; (devuelve &#39;hola&#39;)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)    <span class="co"># se evalúa &#39;hola&#39;.count (devuelve un método)</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)    <span class="co"># se evalúa &#39;o&#39; (devuelve &#39;o&#39;)</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="st">&#39;hola&#39;</span>.count(<span class="st">&#39;o&#39;</span>)    <span class="co"># se evalúa &#39;hola&#39;.count(&#39;o&#39;) (devuelve 1)</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+<p>Observar que en el segundo paso se evalúa <code class="sourceCode python"><span class="st">&#39;hola&#39;</span>.count</code> y no <code class="sourceCode python">count</code>, ya que <code class="sourceCode python">count</code> es un atributo del objeto <code class="sourceCode python"><span class="st">&#39;hola&#39;</span></code> y no existe fuera de las cadenas.</p></li>
+</ul>
+</section>
 </section>
 <section>
 <section id="otros-conceptos-sobre-operaciones" class="title-slide slide level1" data-number="5">
@@ -1634,11 +1650,11 @@
 <li><p>Un ejemplo sencillo en Python es el operador <code>+</code>:</p>
 <ul>
 <li><p>Cuando actúa sobre números, representa la operación de suma:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
 <li><p>Cuando actúa sobre cadenas, representa la <em>concatenación</em> de cadenas:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
 </ul></li>
 <li><p>Cuando esto ocurre, decimos que el operador (o la función, o el método) está <strong>sobrecargado</strong>.</p></li>
 </ul>
@@ -1666,11 +1682,11 @@
 <li><p>Por ejemplo, ya vimos anteriormente la operación «<em>longitud</em>», que consiste en determinar el número de caracteres que tiene una cadena. Esta operación se puede hacer:</p>
 <ul>
 <li><p>Con la función <code class="sourceCode python"><span class="bu">len</span></code>, pasando la cadena como argumento:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
-<li><p>Con el método <code class="sourceCode python"><span class="fu">__len__</span></code> ejecutado sobre la cadena:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<li><p>Con el método <code class="sourceCode python"><span class="fu">__len__</span></code> ejecutado sobre la cadena:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
@@ -1680,14 +1696,14 @@
 <li><p>De hecho, en Python hay operaciones que tienen <strong>las tres formas</strong>. Por ejemplo, ya vimos anteriormente la operación <em>potencia</em>, que consiste en elevar un número a la potencia de otro (<span class="math inline">x^y</span>). Esta operación se puede hacer:</p>
 <ul>
 <li><p>Con el operador <code>**</code>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-<li><p>Con la función <code class="sourceCode python"><span class="bu">pow</span></code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-<li><p>Con el método <code class="sourceCode python"><span class="fu">__pow__</span></code>:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
+<li><p>Con la función <code class="sourceCode python"><span class="bu">pow</span></code>:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<li><p>Con el método <code class="sourceCode python"><span class="fu">__pow__</span></code>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 <!--
@@ -1986,9 +2002,9 @@
 <li><p>Los <strong>módulos</strong> en Python son conjuntos de funciones (y más cosas) que se pueden <strong>importar</strong> dentro de nuestra sesión o programa.</p></li>
 <li><p>Son la base de la <strong>programación modular</strong>, que ya estudiaremos.</p></li>
 <li><p>Para <em>importar</em> una función de un módulo se puede usar la orden <code class="sourceCode python"><span class="im">from</span></code>. Por ejemplo, para importar la función <code class="sourceCode python">gcd</code> del módulo <code class="sourceCode python">math</code> se haría:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>Una vez importada, la función ya se puede usar directamente como cualquier otra.</p></li>
 </ul>
 </section>
@@ -1996,16 +2012,16 @@
 
 <ul>
 <li><p>También se puede <strong>importar directamente el módulo en sí</strong> usando la orden <code class="sourceCode python"><span class="im">import</span></code>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span></code></pre></div></li>
 <li><p>Al importar el módulo, lo que se importan no son sus funciones, sino el propio módulo, el cual es un <strong>objeto</strong> (de tipo <code class="sourceCode python">module</code>) al que se accede a través de su nombre y cuyos <strong>atributos</strong> son (entre otras cosas) las funciones que están definidas dentro del módulo.</p></li>
 <li><p>Por eso, para poder llamar a una función del módulo usando esta técnica, debemos indicar el nombre del módulo, seguido de un punto (<code>.</code>) y el nombre de la función:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>─┬── ─┬─</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a> │    └────── función</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a> └── módulo</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>─┬── ─┬─</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a> │    └────── función</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a> └── módulo</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.1.0.2">
@@ -2032,13 +2048,13 @@
 <li><p><code class="sourceCode python">math.gcd</code> es una <em>función</em> (no es un método porque <code>math</code> es un módulo).</p></li>
 <li><p><code class="sourceCode python">math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</code> es una <em>llamada a función</em>.</p></li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>module <span class="st">&#39;math&#39;</span> (built<span class="op">-</span><span class="kw">in</span>)<span class="op">&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function gcd<span class="op">&gt;</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>module <span class="st">&#39;math&#39;</span> (built<span class="op">-</span><span class="kw">in</span>)<span class="op">&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function gcd<span class="op">&gt;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>La lista completa de funciones que incluye el módulo <code class="sourceCode python">math</code> se puede consultar en su documentación:</p>
 <p><a href="https://docs.python.org/3/library/math.html" target="_blank">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
@@ -2123,12 +2139,12 @@ módulo <code>operator</code></th>
 <ul>
 <li><p>Gracias al módulo <code class="sourceCode python">operator</code>, podemos reescribir con funciones las expresiones que utilizan operadores.</p></li>
 <li><p>Por ejemplo, la expresión:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div>
 <p>se puede reescribir como:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> operator <span class="im">import</span> add, mul, sub</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> operator <span class="im">import</span> add, mul, sub</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div></li>
 <li><p>Pasar los operadores de una expresión a funciones es un ejercicio muy interesante que ayuda a entender en qué orden se evalúan las subexpresiones y por qué.</p></li>
 <li><p>En Python, en una llamada a función, los argumentos se evalúan siempre antes que la propia llamada (y de izquierda a derecha).</p></li>
 </ul>
@@ -2137,33 +2153,26 @@ módulo <code>operator</code></th>
 
 <ul>
 <li><p>La expresión <code class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></code> se evalúa así:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>          <span class="co"># se evalúa 3 (devuelve 3)</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 4 (devuelve 4)</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 5 (devuelve 5)</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa (4 + 5) (devuelve 9)</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">9</span> <span class="op">-</span> <span class="dv">10</span>              <span class="co"># se evalúa 3 * 9 (devuelve 27)</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">27</span> <span class="op">-</span> <span class="dv">10</span>                 <span class="co"># se evalúa 27 - 10 (devuelve 17)</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>          <span class="co"># se evalúa 3 (devuelve 3)</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 4 (devuelve 4)</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 5 (devuelve 5)</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa (4 + 5) (devuelve 9)</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">9</span> <span class="op">-</span> <span class="dv">10</span>              <span class="co"># se evalúa 3 * 9 (devuelve 27)</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">27</span> <span class="op">-</span> <span class="dv">10</span>                 <span class="co"># se evalúa 27 - 10 (devuelve 17)</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
 <li><p>Y la expresión <code class="sourceCode python">sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</code> se evalúa así:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)    <span class="co"># se evalúa sub (devuelve la función resta)</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa mul (devuelve la función multiplicación)</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 3 (devuelve 3)</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add (devuelve la función suma)</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 4 (devuelve 4)</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 5 (devuelve 5)</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add(4, 5) (devuelve 9)</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, <span class="dv">9</span>), <span class="dv">10</span>)          <span class="co"># se evalúa mul(3, 9) (devuelve 27)</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa 10 (devuelve 10)</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa sub(27, 10) (devuelve 17)</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)    <span class="co"># se evalúa sub (devuelve la función resta)</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa mul (devuelve la función multiplicación)</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 3 (devuelve 3)</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add (devuelve la función suma)</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 4 (devuelve 4)</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 5 (devuelve 5)</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add(4, 5) (devuelve 9)</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, <span class="dv">9</span>), <span class="dv">10</span>)          <span class="co"># se evalúa mul(3, 9) (devuelve 27)</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa 10 (devuelve 10)</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa sub(27, 10) (devuelve 17)</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
 </ul>
-</section>
-<section id="ejercicios" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Ejercicios</h5>
-<ol start="2" class="example" type="1">
-<li><p>Comprobar que el módulo <code class="sourceCode python">math</code> es un valor (objeto) de tipo <code class="sourceCode python">module</code>.</p></li>
-<li><p>¿Cómo podemos deducir que el tipo <code>int</code> también un objeto en Python?</p></li>
-</ol>
 </section>
 
 
@@ -2177,13 +2186,13 @@ módulo <code>operator</code></th>
 </section>
 </section>
 <section>
-<section id="ejercicios-1" class="title-slide slide level1 unnumbered unlisted">
+<section id="ejercicios" class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Ejercicios</h1>
 
 </section>
-<section id="ejercicios-2" class="title-slide slide level2 unnumbered unlisted">
+<section id="ejercicios-1" class="title-slide slide level2 unnumbered unlisted">
 <h2 class="unnumbered unlisted">Ejercicios</h2>
-<ol start="4" class="example" type="1">
+<ol start="2" class="example" type="1">
 <li><p>Representar la evaluación las siguientes expresiones, aplicando paso a paso la reducción que corresponda. Indicar también el tipo del valor resultante:</p>
 <ol type="a">
 <li><code class="sourceCode python"><span class="dv">3</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> <span class="dv">14</span></code></li>
@@ -2202,7 +2211,7 @@ módulo <code>operator</code></th>
 </section>
 <section class="slide level5" data-number="6.3.0.0.1">
 
-<ol start="6" class="example" type="1">
+<ol start="4" class="example" type="1">
 <li><p>Determinar, según las reglas de prioridad y asociatividad del lenguaje Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:</p>
 <ol type="a">
 <li><code class="sourceCode python">(<span class="dv">8</span> <span class="op">+</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)</code></li>
@@ -2220,7 +2229,7 @@ módulo <code>operator</code></th>
 </section>
 <section class="slide level5" data-number="6.3.0.0.2">
 
-<ol start="8" class="example" type="1">
+<ol start="6" class="example" type="1">
 <li><p>Evaluar las siguientes expresiones:</p>
 <ol type="a">
 <li><code class="sourceCode python"><span class="dv">9</span> – <span class="dv">5</span> – <span class="dv">3</span></code></li>
@@ -2240,7 +2249,7 @@ módulo <code>operator</code></th>
 </section>
 <section class="slide level5" data-number="6.3.0.0.3">
 
-<ol start="9" class="example" type="1">
+<ol start="7" class="example" type="1">
 <li><p>Escribir las siguientes expresiones algorítmicas como expresiones algebraicas:</p>
 <ol type="a">
 <li><code class="sourceCode python">b <span class="op">**</span> <span class="dv">2</span> – <span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c</code></li>

@@ -695,6 +695,8 @@ endwhile (no)
     = 5
     ```
 
+    El `+` por sí solo no se evalúa, ya que no es una expresión válida.
+
 - Por tanto, la expresión !PYTHON(5) es la _forma normal_ de la expresión
   !PYTHON((2 + 3)), y ambas representan al valor **cinco**, que es un valor de
   **tipo _entero_**.
@@ -1975,6 +1977,32 @@ $$
 **Conclusión: los métodos (como las funciones) también son valores.**
 ~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Como el método pertenece al objeto, sólo existe en el contexto de ese objeto.
+
+- Eso quiere decir que la expresión !PYTHON('hola'.count) devuelve el método
+  !PYTHON(count) definido sobre los objetos de tipo !PYTHON(str).
+
+- En cambio, !PYTHON(count), por sí solo, no es nada, ya que sería como
+  intentar evaluar una _función_ llamada !PYTHON(count), que no existe en
+  Python.
+
+- Por tanto, la evaluación de la expresión !PYTHON('hola'.count('o')) se haría
+  de la siguiente forma:
+
+  ```python
+  'hola'.count('o')      # se evalúa 'hola' (devuelve 'hola')
+  = 'hola'.count('o')    # se evalúa 'hola'.count (devuelve un método)
+  = 'hola'.count('o')    # se evalúa 'o' (devuelve 'o')
+  = 'hola'.count('o')    # se evalúa 'hola'.count('o') (devuelve 1)
+  1
+  ```
+
+  Observar que en el segundo paso se evalúa !PYTHON('hola'.count) y no
+  !PYTHON(count), ya que !PYTHON(count) es un atributo del objeto
+  !PYTHON('hola') y no existe fuera de las cadenas.
+
 # Otros conceptos sobre operaciones
 
 ## Tipos polimórficos y operaciones polimórficas
@@ -2518,13 +2546,6 @@ Función                       Descripción           Ejemplo                   
   = sub(27, 10)                 # se evalúa sub(27, 10) (devuelve 17)
   = 17
   ```
-
-!EJERCICIOS
-
-@. Comprobar que el módulo !PYTHON(math) es un valor (objeto) de tipo
-!PYTHON(module).
-
-@. ¿Cómo podemos deducir que el tipo `int` también un objeto en Python?
 
 ## Métodos predefinidos
 
