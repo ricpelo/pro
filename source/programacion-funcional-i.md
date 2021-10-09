@@ -1382,6 +1382,14 @@ maximo -> lambda
 - Además de importarse el propio módulo, también se importan directamente las
   definiciones que contiene, por lo que se pueden usar directamente.
 
+- Por tanto, es como si Python ejecutara las siguientes sentencias nada más
+  entrar en el intérprete:
+
+  ```python
+  import __builtins__
+  from __builtins__ import *
+  ```
+
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 
 - Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
@@ -1565,6 +1573,8 @@ z -> 3
 - En cambio, los marcos se almacenan en otra zona de la memoria conocida como
   la **pila de control**, la cual estudiaremos mejor más adelante.
 
+<!--
+
 ---
 
 - En realidad, además del marco global, existe otro espacio de nombres muy
@@ -1576,6 +1586,8 @@ z -> 3
 - Las definiciones contenidas en el espacio de nombres !PYTHON(__builtins__)
   están disponibles directamente en la sesión de trabajo o en cualquier punto
   del programa.
+
+-->
 
 ## Evaluación de expresiones con identificadores
 
@@ -1742,6 +1754,63 @@ z -> 3
   acceder a esa ligadura y da error de «_nombre no definido_».
 
 - Cuando estudiemos la programación modular entenderemos por qué.
+
+## Instalación de Visual Studio Code
+
+- **Instalación en Ubuntu:**
+
+  **NO** instalar Visual Studio Code desde el _Centro de software de Ubuntu_.
+
+  En cambio, visitar
+  [https://code.visualstudio.com](https://code.visualstudio.com) para descargar
+  e instalar el paquete adecuado a la versión de Ubuntu que se está usando, que
+  suele ser la que ya sugiere la propia página web (normalmente es el paquete
+  `.deb` de 64 bits).
+
+- **Instalación en Windows:**
+
+  Visitar [https://code.visualstudio.com](https://code.visualstudio.com),
+  descargar e instalar la versión adecuada a la versión de Windows que se está
+  usando.
+
+### Configuración básica de Visual Studio Code
+
+1. Abrir la aplicación.
+
+2. Acceder al apartado de _Extensiones_ (`Ctrl+Mayús+X`) e instalar las
+   siguientes extensiones:
+
+   - Python
+
+   - Python Indent
+
+   - Pylance
+
+3. Configurar las siguientes opciones:
+
+   - _Python: Language Server_: `Pylance`
+
+   - _Python > Linting: Enabled_: Activado
+
+   - _Python > Linting: Pylint Enabled_: Activado
+
+   - _Python › Linting: Pylint Args_:
+
+     `--disable=invalid-name,redefined-outer-name,missing-docstring`
+
+---
+
+4. Se recomiendan, además, configurar las siguientes opciones:
+
+   - _Editor: Render Final Newline_: Desactivado
+
+   - _Editor: Smooth Scrolling_: Activado
+
+   - _Files: Insert Final Newline_: Activado
+
+   - _Files: Trim Final Newlines_: Activado
+
+   - _Files: Trim Trailing Whitespace_: Activado
 
 # Documentación interna
 

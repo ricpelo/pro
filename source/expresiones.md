@@ -75,7 +75,8 @@ nocite: |
      $ mkdir -p ~/.local/bin
      ```
 
-     Al acabar, cerrar la terminal y abrir otra nueva antes de continuar.
+     Al acabar, cerrar la sesión con el sistema operativo y abrir una nueva
+     antes de continuar.
 
   2. Asimismo, es conveniente asegurarse de que no hay ciertos paquetes de
      Python instalados provenientes del repositorio de Ubuntu (se instalarán
@@ -143,61 +144,6 @@ nocite: |
   7
   >>>
   ```
-
-## Instalación de Visual Studio Code
-
-- **Instalación en Ubuntu:**
-
-  Instalar Visual Studio Code desde el _Centro de software de Ubuntu_.
-
-  Alternativamente, se puede visitar
-  [https://code.visualstudio.com](https://code.visualstudio.com) para
-  descargar e instalar el paquete adecuado a la versión de Ubuntu que se está
-  usando, que suele ser la que ya sugiere la propia página web (normalmente es
-  el paquete `.deb` de 64 bits).
-
-- **Instalación en Windows:**
-
-  Visitar [https://code.visualstudio.com](https://code.visualstudio.com),
-  descargar e instalar la versión adecuada a la versión de Windows que se está
-  usando.
-
-### Configuración básica de Visual Studio Code
-
-1. Abrir la aplicación.
-
-2. Acceder al apartado de _Extensiones_ (`Ctrl+Mayús+X`) e instalar las
-   siguientes extensiones:
-
-   - Python
-
-   - Python Indent
-
-   - Pylance
-
-3. Configurar las siguientes opciones:
-
-   - _Python: Language Server_: `Pylance`
-
-   - _Python > Linting: Enabled_: Activado
-
-   - _Python > Linting: Pylint Enabled_: Activado
-
-   - _Python › Linting: Pylint Args_: `--disable=invalid-name,redefined-outer-name`
-
----
-
-4. Se recomiendan, además, configurar las siguientes opciones:
-
-   - _Editor: Render Final Newline_: Desactivado
-
-   - _Editor: Smooth Scrolling_: Activado
-
-   - _Files: Insert Final Newline_: Activado
-
-   - _Files: Trim Final Newlines_: Activado
-
-   - _Files: Trim Trailing Whitespace_: Activado
 
 # Elementos de un programa
 
