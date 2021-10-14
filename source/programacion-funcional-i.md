@@ -1412,9 +1412,6 @@ maximo -> lambda
 - Por ahora, el único marco que existe en nuestros programas es el llamado
   **_marco global_**, también llamado **espacio de nombres global**.
 
-- El marco global es, además, el único espacio de nombres que existe por ahora
-  en nuestros programas.
-
 - El marco global se crea en el momento en que **se empieza a ejecutar el
   programa** y existe durante toda la ejecución del mismo (sólo se destruye al
   finalizar la ejecución del programa).
@@ -1442,8 +1439,8 @@ maximo -> lambda
   25
   ```
 
-  - Aquí estamos trabajando con el *marco global* (el único marco y el único
-    espacio de nombres que existe hasta ahora para nosotros).
+  - Aquí estamos trabajando con el *marco global* (el único marco que existe
+    hasta ahora para nosotros).
 
   - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
     su uso genera un error (el marco global no contiene hasta ahora ninguna
