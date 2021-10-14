@@ -812,10 +812,7 @@ NO todos los ámbitos van asociados a un espacio de nombres.
 
   - La $E$ siempre representa el primer marco de la lista (el _marco actual_).
 
-  - El último marco siempre será el marco global, sin olvidar que detrás
-    siempre estaría el marco que contiene las definiciones predefinidas del
-    lenguaje (el módulo !PYTHON(__builtins__)), que lo obviaremos para
-    abreviar.
+  - El último marco siempre será el marco global.
 
   !DOT(cadena-de-marcos.svg)()(width=60%)(width=60%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -945,11 +942,6 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   Ese marco es el **marco actual**.
 
 - Por otra parte, el **último marco** del entorno siempre es el _marco global_.
-
-- Ya sabemos que, en realidad, el marco global apunta, a su vez, a otro marco
-  (el del módulo !PYTHON(__builtins__)) donde se encuentran las definiciones
-  internas predefinidas del lenguaje (como la función !PYTHON(max)), pero de
-  lo damos por supuesto para simplificar.
 
 ---
 
@@ -1515,13 +1507,14 @@ E -> f [lhead = cluster0]
 
 - Para determinar cuánto vale cada aparición de la `x` en el código (es decir,
   para resolver la aparición de cada `x`), el intérprete de Python consulta el
-  **entorno** en el estado en que se encuentra éste en cada momento en que se
-  encuentra el identificador `x` en el código y tiene que evaluarlo.
+  **entorno** siempre que se encuentra el identificador `x` en el código y
+  tiene que evaluarlo.
 
 ---
 
-- Cada aparición de la `x` se corresponde con una ligadura distinta que tiene
-  un ámbito distinto y se almacena en un espacio de nombres distinto.
+- Cada una de las apariciones de la `x` en este ejemplo se corresponde con una
+  ligadura distinta que tiene un ámbito distinto y se almacena en un espacio de
+  nombres distinto.
 
 - Por tanto, la misma `x` podrá tener un valor u otro dependiendo de cuál es el
   espacio de nombres actual en el momento de evaluar la `x`.
@@ -2193,10 +2186,11 @@ E -> w [lhead = cluster1]
 
 - La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
   pero sólo necesita saber de ella qué resultados de salida devuelve a partir
-  de sus argumentos de entrada (o sea, **_qué_** calcula).
+  de sus argumentos de entrada (o sea, **_qué_** calcula y no **_cómo_** lo
+  calcula).
 
-- Podemos escribir !PYTHON(area) sin preocuparnos de cómo calcular el cuadrado
-  de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
+- Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
+  el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
 
 - **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
   la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
@@ -2272,7 +2266,7 @@ E -> w [lhead = cluster1]
 
 - Las funciones también son abstracciones porque describen operaciones
   compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
-  valores en concreto.
+  valores en concreto (son **_generalizaciones_** de casos particulares).
 
 - Por ejemplo, cuando definimos:
 
@@ -2283,11 +2277,11 @@ E -> w [lhead = cluster1]
   no estamos hablando del cubo de un número en particular, sino más bien de un
   **método** para calcular el cubo de cualquier número.
 
-- Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo
-  siempre expresiones explícitas (como !PYTHON(3*3*3), !PYTHON(y*y*y), etc.)
-  sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos
-  usando las operaciones primitivas de nuestro lenguaje (como `*`), en vez de
-  poder usar términos de más alto nivel.
+- Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
+  escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
+  !PYTHON(y*y*y), etc.) sin usar la palabra «cubo», pero eso nos obligaría
+  siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
+  (como `*`), en vez de poder usar términos de más alto nivel.
 
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
@@ -2312,9 +2306,10 @@ E -> w [lhead = cluster1]
 
 ---
 
-- Algunas veces, analizando ciertos casos particulares, observamos que se
-  repite el mismo patrón en todos ellos, y de ahí extraemos un caso general que
-  agrupa a todos los posibles casos particulares que cumplen el mismo patrón.
+- Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
+  que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
+  general_ que agrupa a todos los posibles casos particulares que cumplen el
+  mismo patrón.
 
 - A ese caso general le damos un nombre y ocultamos sus detalles internos en
   una «caja negra».
@@ -2367,14 +2362,14 @@ cg [label = "(caso general)"]
 - La **implementación de una _función_** es la descripción de **cómo** hace lo
   que hace, es decir, los detalles de su algoritmo interno.
 
-- **Un programador no debe necesitar saber cómo está implementada una función
-  para poder usarla**.
+- **Para poder usar una función, un programador no debe necesitar saber cómo
+  está implementada**.
 
 - Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
   lenguaje (como !PYTHON(max), !PYTHON(abs) o !PYTHON(len)): sabemos *qué*
   hacen pero no necesitamos saber *cómo* lo hacen.
 
-- Incluso puede que el usuario de una función no sea el mismo que la haya
+- Incluso puede que el usuario de una función no sea el mismo que la ha
   escrito, sino que la puede haber recibido de otro programador como una
   «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
   funciona por dentro.
@@ -2391,9 +2386,9 @@ cg [label = "(caso general)"]
 - La especificación de una abstracción funcional está formada por tres
   propiedades fundamentales:
 
-  - El **dominio**: el conjunto de argumentos válidos.
+  - El **conjunto origen**: el conjunto de datos de entrada válidos.
 
-  - El **rango**: el conjunto de posibles valores que devuelve.
+  - El **conjunto imagen**: el conjunto de posibles valores que devuelve.
 
   - El **propósito**: qué hace la función, es decir, la relación entre su
     entrada y su salida.
@@ -2401,8 +2396,8 @@ cg [label = "(caso general)"]
 ---
 
 - Hasta ahora, al especificar **programas**, hemos llamado «**entrada**» al
-  dominio y hemos agrupado el rango y el propósito en una sola propiedad que
-  hemos llamado «**salida**».
+  conjunto origen, y hemos agrupado el conjunto imagen y el propósito en una
+  sola propiedad que hemos llamado «**salida**».
 
 - Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
   !PYTHON(area) debe satisfacer esta especificación:
@@ -2418,7 +2413,7 @@ cg [label = "(caso general)"]
 
 - Este esquema es el que hemos usado hasta ahora para especificar programas, y
   se podría seguir usando para especificar funciones, ya que éstas son
-  consideradas _subprogramas_.
+  consideradas _subprogramas_ (programas que forman parte de otros programas).
 
 ---
 
@@ -2436,14 +2431,14 @@ cg [label = "(caso general)"]
   justo _en el momento_ de llamar a la función.
 
 - «**Post**» representa la **postcondición**: la propiedad que debe cumplirse
-  justo *después* de llamar a la función.
+  justo *después* de que la función haya terminado de ejecutarse.
 
 - Lo que hay en medio es la **signatura**: el nombre de la función, el nombre y
   tipo de sus parámetros y el tipo del valor de retorno.
 
-- La especificación se lee así: «_si se llama a la función respetando su
+- La especificación se lee así: «**_Si se llama a la función respetando su
   signatura y cumpliendo su precondición, la llamada termina cumpliendo su
-  postcondición_».
+  postcondición_**».
 
 ---
 

@@ -757,7 +757,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Gráficamente, representaremos los entornos como una lista enlazada de marcos que se conectan entre sí formando cadenas, de manera que:</p>
 <ul>
 <li><p>La <span class="math inline">E</span> siempre representa el primer marco de la lista (el <em>marco actual</em>).</p></li>
-<li><p>El último marco siempre será el marco global, sin olvidar que detrás siempre estaría el marco que contiene las definiciones predefinidas del lenguaje (el módulo <code class="sourceCode python">__builtins__</code>), que lo obviaremos para abreviar.</p></li>
+<li><p>El último marco siempre será el marco global.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/cadena-de-marcos.svg" class="plain" style="width:60.0%" /></p>
@@ -836,7 +836,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>El <strong>primer marco</strong> en la cadena del entorno siempre será el último marco que se ha creado y que todavía no se ha destruido.</p>
 <p>Ese marco es el <strong>marco actual</strong>.</p></li>
 <li><p>Por otra parte, el <strong>último marco</strong> del entorno siempre es el <em>marco global</em>.</p></li>
-<li><p>Ya sabemos que, en realidad, el marco global apunta, a su vez, a otro marco (el del módulo <code class="sourceCode python">__builtins__</code>) donde se encuentran las definiciones internas predefinidas del lenguaje (como la función <code class="sourceCode python"><span class="bu">max</span></code>), pero de lo damos por supuesto para simplificar.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.1.0.5">
@@ -1066,13 +1065,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Dentro del cuerpo de la expresión lambda, <code class="sourceCode python">x</code> vale <code class="sourceCode python"><span class="dv">3</span></code>.</p></li>
 <li><p>Fuera del cuerpo de la expresión lambda, <code class="sourceCode python">x</code> vale <code class="sourceCode python"><span class="dv">4</span></code>.</p></li>
 </ul></li>
-<li><p>Para determinar cuánto vale cada aparición de la <code>x</code> en el código (es decir, para resolver la aparición de cada <code>x</code>), el intérprete de Python consulta el <strong>entorno</strong> en el estado en que se encuentra éste en cada momento en que se encuentra el identificador <code>x</code> en el código y tiene que evaluarlo.</p></li>
+<li><p>Para determinar cuánto vale cada aparición de la <code>x</code> en el código (es decir, para resolver la aparición de cada <code>x</code>), el intérprete de Python consulta el <strong>entorno</strong> siempre que se encuentra el identificador <code>x</code> en el código y tiene que evaluarlo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.1.0.3">
 
 <ul>
-<li><p>Cada aparición de la <code>x</code> se corresponde con una ligadura distinta que tiene un ámbito distinto y se almacena en un espacio de nombres distinto.</p></li>
+<li><p>Cada una de las apariciones de la <code>x</code> en este ejemplo se corresponde con una ligadura distinta que tiene un ámbito distinto y se almacena en un espacio de nombres distinto.</p></li>
 <li><p>Por tanto, la misma <code>x</code> podrá tener un valor u otro dependiendo de cuál es el espacio de nombres actual en el momento de evaluar la <code>x</code>.</p></li>
 <li><p>Cuando un mismo identificador está ligado dos veces en dos ámbitos anidados uno dentro del otro, decimos que:</p>
 <ul>
@@ -1490,8 +1489,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
 <li><p>Aunque es muy sencilla, la función <code class="sourceCode python">area</code> ejemplifica la propiedad más potente de las funciones definidas por el programador: la <strong>abstracción</strong>.</p></li>
-<li><p>La función <code class="sourceCode python">area</code> está definida sobre la función <code class="sourceCode python">cuadrado</code>, pero sólo necesita saber de ella qué resultados de salida devuelve a partir de sus argumentos de entrada (o sea, <strong><em>qué</em></strong> calcula).</p></li>
-<li><p>Podemos escribir <code class="sourceCode python">area</code> sin preocuparnos de cómo calcular el cuadrado de un número, porque eso ya lo hace la función <code class="sourceCode python">cuadrado</code>.</p></li>
+<li><p>La función <code class="sourceCode python">area</code> está definida sobre la función <code class="sourceCode python">cuadrado</code>, pero sólo necesita saber de ella qué resultados de salida devuelve a partir de sus argumentos de entrada (o sea, <strong><em>qué</em></strong> calcula y no <strong><em>cómo</em></strong> lo calcula).</p></li>
+<li><p>Podemos escribir la función <code class="sourceCode python">area</code> sin preocuparnos de cómo calcular el cuadrado de un número, porque eso ya lo hace la función <code class="sourceCode python">cuadrado</code>.</p></li>
 <li><p><strong>Los detalles</strong> sobre cómo se calcula el cuadrado están <strong>ocultos dentro de la definición</strong> de <code class="sourceCode python">cuadrado</code>. Esos detalles <strong>se ignoran en este momento</strong> al diseñar <code class="sourceCode python">area</code>, para considerarlos más tarde si hiciera falta.</p></li>
 </ul>
 </section>
@@ -1530,11 +1529,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="4.2.0.0.4">
 
 <ul>
-<li><p>Las funciones también son abstracciones porque describen operaciones compuestas a realizar sobre ciertos valores sin importar cuáles sean esos valores en concreto.</p></li>
+<li><p>Las funciones también son abstracciones porque describen operaciones compuestas a realizar sobre ciertos valores sin importar cuáles sean esos valores en concreto (son <strong><em>generalizaciones</em></strong> de casos particulares).</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más bien de un <strong>método</strong> para calcular el cubo de cualquier número.</p></li>
-<li><p>Por supuesto, nos la podemos arreglar sin definir el cubo, escribiendo siempre expresiones explícitas (como <code class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>, <code class="sourceCode python">y<span class="op">*</span>y<span class="op">*</span>y</code>, etc.) sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje (como <code>*</code>), en vez de poder usar términos de más alto nivel.</p>
+<li><p>Por supuesto, nos las podemos arreglar sin definir el concepto de <em>cubo</em>, escribiendo siempre expresiones explícitas (como <code class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>, <code class="sourceCode python">y<span class="op">*</span>y<span class="op">*</span>y</code>, etc.) sin usar la palabra «cubo», pero eso nos obligaría siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje (como <code>*</code>), en vez de poder usar términos de más alto nivel.</p>
 <p>Es decir: <strong>nuestros programas podrían calcular el cubo de un número, pero no tendrían la habilidad de expresar el concepto de <em>elevar al cubo</em></strong>.</p></li>
 </ul>
 </section>
@@ -1550,7 +1549,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="4.2.0.0.6">
 
 <ul>
-<li><p>Algunas veces, analizando ciertos casos particulares, observamos que se repite el mismo patrón en todos ellos, y de ahí extraemos un caso general que agrupa a todos los posibles casos particulares que cumplen el mismo patrón.</p></li>
+<li><p>Por tanto, algunas veces, analizando ciertos <em>casos particulares</em>, observamos que se repite el mismo patrón en todos ellos, y de ahí extraemos un <em>caso general</em> que agrupa a todos los posibles casos particulares que cumplen el mismo patrón.</p></li>
 <li><p>A ese caso general le damos un nombre y ocultamos sus detalles internos en una «caja negra».</p></li>
 <li><p>Eso es una <strong>abstracción</strong>.</p></li>
 <li><p><strong>Crear casos generales a partir de patrones que se repiten</strong> en casos particulares es una de las principales razones por las que creamos abstracciones.</p></li>
@@ -1573,9 +1572,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <ul>
 <li><p>La <strong>especificación de una <em>función</em></strong> es la descripción de <strong>qué</strong> hace la función sin entrar a detallar <strong>cómo</strong> lo hace.</p></li>
 <li><p>La <strong>implementación de una <em>función</em></strong> es la descripción de <strong>cómo</strong> hace lo que hace, es decir, los detalles de su algoritmo interno.</p></li>
-<li><p><strong>Un programador no debe necesitar saber cómo está implementada una función para poder usarla</strong>.</p></li>
+<li><p><strong>Para poder usar una función, un programador no debe necesitar saber cómo está implementada</strong>.</p></li>
 <li><p>Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del lenguaje (como <code class="sourceCode python"><span class="bu">max</span></code>, <code class="sourceCode python"><span class="bu">abs</span></code> o <code class="sourceCode python"><span class="bu">len</span></code>): sabemos <em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo hacen.</p></li>
-<li><p>Incluso puede que el usuario de una función no sea el mismo que la haya escrito, sino que la puede haber recibido de otro programador como una «<strong>caja negra</strong>», que tiene unas entradas y una salida pero no se sabe cómo funciona por dentro.</p></li>
+<li><p>Incluso puede que el usuario de una función no sea el mismo que la ha escrito, sino que la puede haber recibido de otro programador como una «<strong>caja negra</strong>», que tiene unas entradas y una salida pero no se sabe cómo funciona por dentro.</p></li>
 </ul>
 </section>
 <section id="especificaciones-de-funciones" class="title-slide slide level3" data-number="4.2.1">
@@ -1585,8 +1584,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <li><p>Igualmente, para poder <strong>implementar una abstracción funcional</strong> <em>necesitamos</em> conocer su <em>especificación</em>, ya que necesitamos saber <em>qué tiene que hacer</em> la función antes de diseñar <em>cómo va a hacerlo</em>.</p></li>
 <li><p>La especificación de una abstracción funcional está formada por tres propiedades fundamentales:</p>
 <ul>
-<li><p>El <strong>dominio</strong>: el conjunto de argumentos válidos.</p></li>
-<li><p>El <strong>rango</strong>: el conjunto de posibles valores que devuelve.</p></li>
+<li><p>El <strong>conjunto origen</strong>: el conjunto de datos de entrada válidos.</p></li>
+<li><p>El <strong>conjunto imagen</strong>: el conjunto de posibles valores que devuelve.</p></li>
 <li><p>El <strong>propósito</strong>: qué hace la función, es decir, la relación entre su entrada y su salida.</p></li>
 </ul></li>
 </ul>
@@ -1594,7 +1593,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 <section class="slide level5" data-number="4.2.1.0.1">
 
 <ul>
-<li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos llamado «<strong>entrada</strong>» al dominio y hemos agrupado el rango y el propósito en una sola propiedad que hemos llamado «<strong>salida</strong>».</p></li>
+<li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos llamado «<strong>entrada</strong>» al conjunto origen, y hemos agrupado el conjunto imagen y el propósito en una sola propiedad que hemos llamado «<strong>salida</strong>».</p></li>
 <li><p>Por ejemplo, cualquier función <code class="sourceCode python">cuadrado</code> que usemos para implementar <code class="sourceCode python">area</code> debe satisfacer esta especificación:</p>
 <p><span class="math display">\begin{cases}
   \text{\textbf{Entrada}}: n \in \mathbb{R} \\
@@ -1602,7 +1601,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   \text{\textbf{Salida}}: n^2
 \end{cases}</span></p></li>
 <li><p>La especificación <strong>no concreta cómo</strong> se debe llevar a cabo el propósito. Esos son <strong>detalles de implementación</strong> que se abstraen a este nivel.</p></li>
-<li><p>Este esquema es el que hemos usado hasta ahora para especificar programas, y se podría seguir usando para especificar funciones, ya que éstas son consideradas <em>subprogramas</em>.</p></li>
+<li><p>Este esquema es el que hemos usado hasta ahora para especificar programas, y se podría seguir usando para especificar funciones, ya que éstas son consideradas <em>subprogramas</em> (programas que forman parte de otros programas).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.1.0.2">
@@ -1615,9 +1614,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 \text{\textbf{Post}}: &amp; \texttt{cuadrado(}n\texttt{)} = n^2
 \end{array}\right.</span></p></li>
 <li><p>«<strong>Pre</strong>» representa la <strong>precondición</strong>: la propiedad que debe cumplirse justo <em>en el momento</em> de llamar a la función.</p></li>
-<li><p>«<strong>Post</strong>» representa la <strong>postcondición</strong>: la propiedad que debe cumplirse justo <em>después</em> de llamar a la función.</p></li>
+<li><p>«<strong>Post</strong>» representa la <strong>postcondición</strong>: la propiedad que debe cumplirse justo <em>después</em> de que la función haya terminado de ejecutarse.</p></li>
 <li><p>Lo que hay en medio es la <strong>signatura</strong>: el nombre de la función, el nombre y tipo de sus parámetros y el tipo del valor de retorno.</p></li>
-<li><p>La especificación se lee así: «<em>si se llama a la función respetando su signatura y cumpliendo su precondición, la llamada termina cumpliendo su postcondición</em>».</p></li>
+<li><p>La especificación se lee así: «<strong><em>Si se llama a la función respetando su signatura y cumpliendo su precondición, la llamada termina cumpliendo su postcondición</em></strong>».</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.1.0.3">
