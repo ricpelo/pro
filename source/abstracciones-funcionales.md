@@ -1098,7 +1098,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(lambda-entorno-linea3-despues.svg)(Entorno en la línea 3 en el cuerpo de la expresión lambda, **después** de ejecutar el cuerpo y devolver el resultado)(width=30%)(width=30%)
+!DOT(lambda-entorno-linea3-despues.svg)(Entorno en la línea 3, **después** de ejecutar el cuerpo y devolver el resultado)(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
