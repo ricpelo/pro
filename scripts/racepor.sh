@@ -17,7 +17,7 @@ do
     col3=$(echo $col3 | cut -d'"' -f2)
     col3=$(echo "$col3 * 100" | bc)
     col3=$(echo $col3 | cut -d. -f1)
-    col3="$col3,0 \%"
+    col3="$col3,0\%"
     if [ -n "$viejo" -a "$viejo" != "$col1" ]; then
         echo -E '\hline'
     fi
