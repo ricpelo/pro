@@ -21,7 +21,7 @@ do
     if [ -n "$viejo" -a "$viejo" != "$col1" ]; then
         echo -E '\hline'
     fi
-    echo -nE "RA$col1 \\ra$col1 & CE$col1.$col2 \ce{$col1$col2} & $col3"
+    echo -nE "\RA{$col1} \\ra$col1 & \CE{$col1}{$col2} \ce{$col1$col2} & $col3"
     echo -E ' \tabularnewline'
     echo -E '\hline'
     viejo=$col1

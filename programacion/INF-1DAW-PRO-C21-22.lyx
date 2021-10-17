@@ -35,6 +35,8 @@
     \ifthenelse{\equal{#1}{2}}{\textcolor{purple}{\emph{\#ev2}}}{%
     \ifthenelse{\equal{#1}{3}}{\textcolor{red}{\emph{\#ev3}}}{#1}}}}
 \newcommand{\opcional}{\textcolor{teal}{\emph{\#opcional}}}
+\newcommand{\RA}[1]{\nota{RA\textsubscript{#1}}}
+\newcommand{\CE}[2]{\nota{CE\textsubscript{#1}.\textsubscript{#2}}}
 \newcommand{\ra}[1]{\textcolor{teal}{\emph{\hypersetup{linkcolor=teal}\hyperlink{ra#1}{\#ra#1}}}}
 \newcommand{\ce}[1]{\textcolor{violet}{\emph{\hypersetup{linkcolor=violet}\hyperlink{ce#1}{\#ce#1}}}}
 \setlist[itemize]{beginpenalty=10000}
@@ -901,9 +903,11 @@ begingroup
 \backslash
 setlist[enumerate,1]{label=
 \backslash
-textbf{[RA
+textbf{[
 \backslash
-arabic*]}, leftmargin=*, format=
+RA{
+\backslash
+arabic*}]}, leftmargin=*, format=
 \backslash
 hypertarget{ra
 \backslash
@@ -916,11 +920,13 @@ arabic{enumi}}{}}
 \backslash
 setlist[enumerate,2]{label=
 \backslash
-textit{CE
+textbf{
 \backslash
-arabic{enumi}.
+CE{
 \backslash
-alph*)}, leftmargin=*,  format=
+arabic{enumi}}{
+\backslash
+alph*})}, leftmargin=*, format=
 \backslash
 hypertarget{ce
 \backslash
@@ -1586,9 +1592,10 @@ to de dicho criterio de evaluación.
 \begin_layout Itemize
 En la evaluación final se determinará si el alumnado alcanza, y en qué medida,
  los resultados de aprendizaje del módulo a partir de los criterios de evaluació
-n asociados a cada resultado de aprendizaje y en función de la ponderación
- que tiene cada criterio de evaluación en su correspondiente resultado de
- aprendizaje, según se establece en el apartado 
+n trabajados y evaluados que estén asociados a cada resultado de aprendizaje
+ y en función de la ponderación que tenga cada criterio de evaluación en
+ su correspondiente resultado de aprendizaje, según se establece en el apartado
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Ponderación-de-los-criterios"
@@ -1863,8 +1870,8 @@ PR
 
 \end_inset
 
- y para superar el examen en su conjunto será necesario obtener una calificación
- mínima en ambas partes, según se recoge en el algoritmo 
+, y para superar el examen en su conjunto será necesario obtener una calificació
+n mínima en ambas partes, según se recoge en el algoritmo 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:calificacion-examen"
@@ -2045,6 +2052,10 @@ TE
 
 \end_inset
 
+
+\begin_inset space ~
+\end_inset
+
 : Calificación de la parte teórica del examen, valorada del 0 al 10.
 \end_layout
 
@@ -2061,6 +2072,10 @@ PR
 
 \end_inset
 
+
+\begin_inset space ~
+\end_inset
+
 : Calificación de la parte práctica del examen, valorada del 0 al 10.
 \end_layout
 
@@ -2075,6 +2090,10 @@ status open
 EX
 \end_layout
 
+\end_inset
+
+
+\begin_inset space ~
 \end_inset
 
 : Calificación del examen, valorada del 0 al 10, calculada como la media
@@ -2157,8 +2176,8 @@ n se calcularía de la siguiente forma:
 \end_layout
 
 \begin_layout Enumerate
-Se agrupan las calificaciones obtenidas en los diferentes instrumentos que
- hayan medido ese criterio de evaluación en función del tipo de instrumento
+Se agruparán las calificaciones obtenidas en los diferentes instrumentos
+ que hayan medido ese criterio de evaluación en función del tipo de instrumento
  usado para evaluarlo (
 \begin_inset ERT
 status open
@@ -2332,18 +2351,249 @@ De un resultado de aprendizaje
 \end_layout
 
 \begin_layout Standard
-La calificación de cada resultado de aprendizaje se calculará como la media
- ponderada de los criterios de evaluación correspondientes a ese resultado
- de aprendizaje, en función de:
+La calificación de cada resultado de aprendizaje se calculará como una media
+ ponderada de los criterios de evaluación trabajados y evaluados que estén
+ asociados a ese resultado de aprendizaje, siendo requisito imprescindible
+ para alcanzar un resultado de aprendizaje el cumplir todos los criterios
+ de evaluación trabajados y evaluados, según se recoge en el algoritmo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Cálculo-calificación-resultado-aprendizaje"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
-\begin_layout Itemize
-La calificación obtenida en cada criterio de evaluación.
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "80col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Python,escapeinside={||},mathescape=true,framesep=5mm,frame=topline"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+if |$
+\backslash
+min_j(
+\backslash
+CE{$i$}{$j$})$| |$
+\backslash
+geq$| 5:
 \end_layout
 
-\begin_layout Itemize
-La ponderación de cada criterio de evaluación en su correspondiente resultado
- de aprendizaje, según se determina en el apartado 
+\begin_layout Plain Layout
+
+    |$
+\backslash
+RA{$i$}$| = |${
+\backslash
+displaystyle
+\backslash
+sum}_j 
+\backslash
+CE{$i$}{$j$} 
+\backslash
+cdot p_{ij}$|
+\end_layout
+
+\begin_layout Plain Layout
+
+else:
+\end_layout
+
+\begin_layout Plain Layout
+
+    |$
+\backslash
+RA{$i$}$| = |$
+\backslash
+min_j(
+\backslash
+CE{$i$}{$j$})$|
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Cálculo-calificación-resultado-aprendizaje"
+
+\end_inset
+
+(Cálculo de la calificación de un resultado de aprendizaje)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "80col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begingroup
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlist[description]{style=multiline,labelwidth=1.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+RA{$i$}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+: Calificación del resultado de aprendizaje 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+CE{$i$}{$j$}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+: Calificación del criterio de evaluación 
+\begin_inset Formula $j$
+\end_inset
+
+ asociado al resultado de aprendizaje 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $p_{ij}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+: Ponderación del criterio de evaluación 
+\begin_inset Formula $j$
+\end_inset
+
+ en el resultado de aprendizaje 
+\begin_inset Formula $i$
+\end_inset
+
+, según se determina en el apartado 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Ponderación-de-los-criterios"
@@ -2354,6 +2604,27 @@ noprefix "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+endgroup
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3368,16 +3639,17 @@ Participación en las actividades propuestas por el Plan de Igualdad del
 
 \begin_deeper
 \begin_layout Enumerate
-25 de noviembre: Violencia de género.
+25 de noviembre: Día Internacional de la Eliminación de la Violencia contra
+ la Mujer.
 \end_layout
 
 \begin_layout Enumerate
 30 de enero: Resolución de conflictos de forma pacífica.
- Día de la paz.
+ Día de la Paz.
 \end_layout
 
 \begin_layout Enumerate
-8 de marzo: Día de la mujer trabajadora.
+8 de marzo: Día Internacional de la Mujer.
 \end_layout
 
 \end_deeper
