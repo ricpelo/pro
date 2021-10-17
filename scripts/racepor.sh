@@ -7,7 +7,7 @@ echo -E '\begin{center}'
 echo -E '\small'
 echo -E '\begin{longtable}{|c|c|c|}'
 echo -E '\hline'
-echo -E '\textbf{Resultado de aprendizaje} & \textbf{Criterio de evaluación} & \textbf{Porcentaje}\tabularnewline'
+echo -E '\textbf{Resultado de aprendizaje} & \textbf{Criterio de evaluación} & \textbf{Porcentaje} \\'
 echo -E '\hline'
 echo -E '\hline'
 echo -E '\endhead'
@@ -18,14 +18,20 @@ do
     col3=$(echo "$col3 * 100" | bc)
     col3=$(echo $col3 | cut -d. -f1)
     col3="$col3,0\%"
-    if [ -n "$viejo" -a "$viejo" != "$col1" ]; then
-        echo -E '\hline'
+    if [ -n "$viejo" ]; then
+        if [ "$viejo" != "$col1" ]; then
+            echo -E ' \\ \hline'
+        else
+            echo -E ' \\ \cline{2-3}'
+        fi
+    fi
+    if [ "$col1$col2" == "7a" ]; then
+        echo -nE '\pagebreak '
     fi
     echo -nE "\RA{$col1} \\ra$col1 & \CE{$col1}{$col2} \ce{$col1$col2} & $col3"
-    echo -E ' \tabularnewline'
-    echo -E '\hline'
     viejo=$col1
 done
 
+echo -E ' \\ \hline'
 echo -E '\end{longtable}'
 echo -E '\par\end{center}'
