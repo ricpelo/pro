@@ -744,7 +744,7 @@ fib1_5 -> u5
 - En caso contrario, decimos que la función es **recursiva no final** o que
   tiene **recursividad no final**.
 
-- Las funciones recursivas finales generan procesos iterativos.
+- **Las funciones recursivas finales generan procesos iterativos.**
 
 - La función `fact_iter` es recursiva final, y por eso genera un proceso
   iterativo.
@@ -794,14 +794,14 @@ fib1_5 -> u5
 - El intérprete almacena en el marco cualquier información que necesite para
   gestionar las llamadas a funciones, incluyendo:
 
-  - El valor de sus parámetros (por supuesto).
+  - Las ligaduras entre los parámetros y sus valores (por supuesto).
 
-  - El valor de retorno de la función.
+  - La ligadura que apunta al valor de retorno de la función.
 
   - Cuál es el siguiente marco que le sigue en el entorno.
 
-  - El punto de retorno al que debe devolverse el control cuando finalice la
-    ejecución de la función.
+  - El punto de retorno, dentro del programa, al que debe devolverse el control
+    cuando finalice la ejecución de la función.
 
 - Un marco almacenado en la pila también se denomina **registro de
   activación**. Por tanto, también podemos decir que la pila de control
