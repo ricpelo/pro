@@ -1788,6 +1788,213 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 </ul>
 </section>
 
+
+<section id="documentos-xml" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Documentos XML</h2>
+
+</section>
+<section id="acceso" class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Acceso</h3>
+<ul>
+<li><p>Los documentos XML se pueden considerar datos estructurados en forma de árbol (es decir, con una estructura jerárquica y, por tanto, no secuencial).</p></li>
+<li><p>El módulo <code>xml.etree.ElementTree</code> implementa una interfaz sencilla y eficiente para interpretar y crear datos XML.</p></li>
+<li><p>Para importar los datos de un archivo XML, podemos hacer:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> ET.parse(<span class="st">&#39;archivo.xml&#39;</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> tree.getroot()</span></code></pre></div></li>
+<li><p>Si los datos XML se encuentran ya en una cadena, se puede hacer directamente:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> ET.fromstring(datos_en_una_cadena)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.1">
+
+<ul>
+<li><p>En ambos casos <code>root</code>, es un objeto de tipo <code>Element</code> que dispone de ciertos atributos y que responde a ciertos métodos. Ese objeto representa el nodo raíz del árbol XML.</p></li>
+<li><p>Por tanto, como cualquier objeto de tipo <code>Element</code>, el objeto <code>root</code> tiene una etiqueta (<code>tag</code>) y un diccionario de atributos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.2">
+
+<ul>
+<li><p>Por ejemplo, supongamos que el <code>archivo.xml</code> tiene el siguiente contenido:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">data</span>&gt;</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Liechtenstein&quot;</span>&gt;</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span>&gt;1&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2008&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;141100&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Austria&quot;</span><span class="ot"> direction=</span><span class="st">&quot;E&quot;</span>/&gt;</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Switzerland&quot;</span><span class="ot"> direction=</span><span class="st">&quot;W&quot;</span>/&gt;</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Singapore&quot;</span>&gt;</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span>&gt;4&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2011&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;59900&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Malaysia&quot;</span><span class="ot"> direction=</span><span class="st">&quot;N&quot;</span>/&gt;</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Panama&quot;</span>&gt;</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span>&gt;68&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2011&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;13600&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Costa Rica&quot;</span><span class="ot"> direction=</span><span class="st">&quot;W&quot;</span>/&gt;</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Colombia&quot;</span><span class="ot"> direction=</span><span class="st">&quot;E&quot;</span>/&gt;</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">data</span>&gt;</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.3">
+
+<ul>
+<li><p>Tendríamos lo siguiente:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> root.tag</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data&#39;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> root.attrib</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>{}</span></code></pre></div></li>
+<li><p>El objeto <code>root</code> también tiene nodos hijos sobre los cuales se puede iterar:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> child <span class="kw">in</span> root:</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(child.tag, child.attrib)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>country {<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Liechtenstein&#39;</span>}</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>country {<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Singapore&#39;</span>}</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>country {<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Panama&#39;</span>}</span></code></pre></div></li>
+<li><p>Los hijos están anidados, y podemos acceder a nodos concretos a través de su índice:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> root[<span class="dv">0</span>][<span class="dv">1</span>].text</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;2008&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.4">
+
+<ul>
+<li><p>Los objetos de tipo <code>Element</code> disponen de métodos útiles para iterar recursivamente sobre todos los subárboles situados debajo de él (sus hijos, los hijos de sus hijos, y así sucesivamente).</p></li>
+<li><p>Por ejemplo, el método <code>iter</code>:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> neighbor <span class="kw">in</span> root.<span class="bu">iter</span>(<span class="st">&#39;neighbor&#39;</span>):</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(neighbor.attrib)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Austria&#39;</span>, <span class="st">&#39;direction&#39;</span>: <span class="st">&#39;E&#39;</span>}</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Switzerland&#39;</span>, <span class="st">&#39;direction&#39;</span>: <span class="st">&#39;W&#39;</span>}</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Malaysia&#39;</span>, <span class="st">&#39;direction&#39;</span>: <span class="st">&#39;N&#39;</span>}</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Costa Rica&#39;</span>, <span class="st">&#39;direction&#39;</span>: <span class="st">&#39;W&#39;</span>}</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Colombia&#39;</span>, <span class="st">&#39;direction&#39;</span>: <span class="st">&#39;E&#39;</span>}</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.5">
+
+<ul>
+<li><p>El método <code>findall</code> devuelve los elementos que tengan una cierta etiqueta y que sean hijos directos del elemento actual.</p></li>
+<li><p>El método <code>find</code> devuelve el primer hijo que tenga una cierta etiqueta.</p></li>
+<li><p>El atributo <code>text</code> devuelve el contenido del elemento en forma de texto.</p></li>
+<li><p>El método <code>get</code> devuelve los atributos del elemento:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> country <span class="kw">in</span> root.findall(<span class="st">&#39;country&#39;</span>):</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>...     rank <span class="op">=</span> country.find(<span class="st">&#39;rank&#39;</span>).text</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>...     name <span class="op">=</span> country.get(<span class="st">&#39;name&#39;</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(name, rank)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>Liechtenstein <span class="dv">1</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>Singapore <span class="dv">4</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>Panama <span class="dv">68</span></span></code></pre></div></li>
+<li><p>También disponemos de la función <code>dump</code> que devuelve la cadena correspondiente al nodo que se le pase como argumento.</p></li>
+</ul>
+</section>
+
+<section id="modificación" class="title-slide slide level3" data-number="3.3.2">
+<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span> Modificación</h3>
+<ul>
+<li><p><code>ElementTree</code> proporciona una forma sencilla de crear documentos XML y escribirlos en archivos.</p></li>
+<li><p>Para ello, usamos el método <code>write</code>.</p></li>
+<li><p>Una vez creado, un objeto <code>Element</code> puede manipularse directamente cambiando sus atributos (como <code>text</code>), añadiendo y modificando atributos (con el método <code>set</code>) o añadiendo nuevos hijos (por ejemplo, con el método <code>append</code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.1">
+
+<ul>
+<li><p>Por ejemplo, supongamos que queremos sumarle 1 al <code>rank</code> de cada país y añadir un atributo <code>updated</code> al elemento <code>rank</code>:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> rank <span class="kw">in</span> root.<span class="bu">iter</span>(<span class="st">&#39;rank&#39;</span>):</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>...     new_rank <span class="op">=</span> <span class="bu">int</span>(rank.text) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>...     rank.text <span class="op">=</span> <span class="bu">str</span>(new_rank)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>...     rank.<span class="bu">set</span>(<span class="st">&#39;updated&#39;</span>, <span class="st">&#39;yes&#39;</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tree.write(<span class="st">&#39;output.xml&#39;</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.2">
+
+<ul>
+<li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">data</span>&gt;</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Liechtenstein&quot;</span>&gt;</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span><span class="ot"> updated=</span><span class="st">&quot;yes&quot;</span>&gt;2&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2008&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;141100&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Austria&quot;</span><span class="ot"> direction=</span><span class="st">&quot;E&quot;</span>/&gt;</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Switzerland&quot;</span><span class="ot"> direction=</span><span class="st">&quot;W&quot;</span>/&gt;</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Singapore&quot;</span>&gt;</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span><span class="ot"> updated=</span><span class="st">&quot;yes&quot;</span>&gt;5&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2011&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;59900&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Malaysia&quot;</span><span class="ot"> direction=</span><span class="st">&quot;N&quot;</span>/&gt;</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Panama&quot;</span>&gt;</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span><span class="ot"> updated=</span><span class="st">&quot;yes&quot;</span>&gt;69&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2011&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;13600&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Costa Rica&quot;</span><span class="ot"> direction=</span><span class="st">&quot;W&quot;</span>/&gt;</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Colombia&quot;</span><span class="ot"> direction=</span><span class="st">&quot;E&quot;</span>/&gt;</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">data</span>&gt;</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.3">
+
+<ul>
+<li><p>Podemos eliminar elementos con el método <code>remove</code>.</p></li>
+<li><p>Supongamos que queremos eliminar todos los países con un <code>rank</code> superior a 50:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> country <span class="kw">in</span> root.findall(<span class="st">&#39;country&#39;</span>):</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>...     <span class="co"># using root.findall() to avoid removal during traversal</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>...     rank <span class="op">=</span> <span class="bu">int</span>(country.find(<span class="st">&#39;rank&#39;</span>).text)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> rank <span class="op">&gt;</span> <span class="dv">50</span>:</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>...         root.remove(country)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tree.write(<span class="st">&#39;output.xml&#39;</span>)</span></code></pre></div></li>
+<li><p>Tener en cuenta que la modificación concurrente mientras se hace una iteración puede dar problemas, lo mismo que ocurre cuando se modifican listas o diccionarios mientras se itera sobre ellos. Por tanto, el ejemplo primero recoge todos los elementos con <code>findall</code> y sólo entonces itera sobre la lista que devuelve.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.4">
+
+<ul>
+<li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">data</span>&gt;</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Liechtenstein&quot;</span>&gt;</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span><span class="ot"> updated=</span><span class="st">&quot;yes&quot;</span>&gt;2&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2008&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;141100&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Austria&quot;</span><span class="ot"> direction=</span><span class="st">&quot;E&quot;</span>/&gt;</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Switzerland&quot;</span><span class="ot"> direction=</span><span class="st">&quot;W&quot;</span>/&gt;</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">country</span><span class="ot"> name=</span><span class="st">&quot;Singapore&quot;</span>&gt;</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">rank</span><span class="ot"> updated=</span><span class="st">&quot;yes&quot;</span>&gt;5&lt;/<span class="kw">rank</span>&gt;</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">year</span>&gt;2011&lt;/<span class="kw">year</span>&gt;</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">gdppc</span>&gt;59900&lt;/<span class="kw">gdppc</span>&gt;</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">neighbor</span><span class="ot"> name=</span><span class="st">&quot;Malaysia&quot;</span><span class="ot"> direction=</span><span class="st">&quot;N&quot;</span>/&gt;</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">country</span>&gt;</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">data</span>&gt;</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.2.0.5">
+
+<ul>
+<li><p>La función <code>SubElement</code> también proporciona una forma muy conveniente de crear sub-elementos de un elemento dado:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> ET.Element(<span class="st">&#39;a&#39;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;b&#39;</span>)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;c&#39;</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> ET.SubElement(c, <span class="st">&#39;d&#39;</span>)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ET.dump(a)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>a<span class="op">&gt;&lt;</span>b <span class="op">/&gt;&lt;</span>c<span class="op">&gt;&lt;</span>d <span class="op">/&gt;&lt;/</span>c<span class="op">&gt;&lt;/</span>a<span class="op">&gt;</span></span></code></pre></div></li>
+</ul>
+</section>
+
 </section>
 <section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>

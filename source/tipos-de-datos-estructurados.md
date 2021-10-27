@@ -1755,4 +1755,256 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   del diccionario.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+## Documentos XML
+
+### Acceso
+
+- Los documentos XML se pueden considerar datos estructurados en forma de árbol
+  (es decir, con una estructura jerárquica y, por tanto, no secuencial).
+
+- El módulo `xml.etree.ElementTree` implementa una interfaz sencilla y
+  eficiente para interpretar y crear datos XML.
+
+- Para importar los datos de un archivo XML, podemos hacer:
+
+  ```python
+  import xml.etree.ElementTree as ET
+  tree = ET.parse('archivo.xml')
+  root = tree.getroot()
+  ```
+
+- Si los datos XML se encuentran ya en una cadena, se puede hacer directamente:
+
+  ```python
+  root = ET.fromstring(datos_en_una_cadena)
+  ```
+
+---
+
+- En ambos casos `root`, es un objeto de tipo `Element` que dispone de ciertos
+  atributos y que responde a ciertos métodos. Ese objeto representa el nodo
+  raíz del árbol XML.
+
+- Por tanto, como cualquier objeto de tipo `Element`, el objeto `root` tiene
+  una etiqueta (`tag`) y un diccionario de atributos.
+
+---
+
+- Por ejemplo, supongamos que el `archivo.xml` tiene el siguiente contenido:
+
+  ```xml
+  <?xml version="1.0"?>
+  <data>
+      <country name="Liechtenstein">
+          <rank>1</rank>
+          <year>2008</year>
+          <gdppc>141100</gdppc>
+          <neighbor name="Austria" direction="E"/>
+          <neighbor name="Switzerland" direction="W"/>
+      </country>
+      <country name="Singapore">
+          <rank>4</rank>
+          <year>2011</year>
+          <gdppc>59900</gdppc>
+          <neighbor name="Malaysia" direction="N"/>
+      </country>
+      <country name="Panama">
+          <rank>68</rank>
+          <year>2011</year>
+          <gdppc>13600</gdppc>
+          <neighbor name="Costa Rica" direction="W"/>
+          <neighbor name="Colombia" direction="E"/>
+      </country>
+  </data>
+  ```
+
+---
+
+- Tendríamos lo siguiente:
+
+  ```python
+  >>> root.tag
+  'data'
+  >>> root.attrib
+  {}
+  ```
+
+- El objeto `root` también tiene nodos hijos sobre los cuales se puede iterar:
+
+  ```python
+  >>> for child in root:
+  ...     print(child.tag, child.attrib)
+  ...
+  country {'name': 'Liechtenstein'}
+  country {'name': 'Singapore'}
+  country {'name': 'Panama'}
+  ```
+
+- Los hijos están anidados, y podemos acceder a nodos concretos a través de su
+  índice:
+
+  ```python
+  >>> root[0][1].text
+  '2008'
+  ```
+
+---
+
+- Los objetos de tipo `Element` disponen de métodos útiles para iterar
+  recursivamente sobre todos los subárboles situados debajo de él (sus hijos,
+  los hijos de sus hijos, y así sucesivamente).
+
+- Por ejemplo, el método `iter`:
+
+  ```python
+  >>> for neighbor in root.iter('neighbor'):
+  ...     print(neighbor.attrib)
+  ...
+  {'name': 'Austria', 'direction': 'E'}
+  {'name': 'Switzerland', 'direction': 'W'}
+  {'name': 'Malaysia', 'direction': 'N'}
+  {'name': 'Costa Rica', 'direction': 'W'}
+  {'name': 'Colombia', 'direction': 'E'}
+  ```
+
+---
+
+- El método `findall` devuelve los elementos que tengan una cierta etiqueta y
+  que sean hijos directos del elemento actual.
+
+- El método `find` devuelve el primer hijo que tenga una cierta etiqueta.
+
+- El atributo `text` devuelve el contenido del elemento en forma de texto.
+
+- El método `get` devuelve los atributos del elemento:
+
+  ```python
+  >>> for country in root.findall('country'):
+  ...     rank = country.find('rank').text
+  ...     name = country.get('name')
+  ...     print(name, rank)
+  ...
+  Liechtenstein 1
+  Singapore 4
+  Panama 68
+  ```
+
+- También disponemos de la función `dump` que devuelve la cadena
+  correspondiente al nodo que se le pase como argumento.
+
+### Modificación
+
+- `ElementTree` proporciona una forma sencilla de crear documentos XML y
+  escribirlos en archivos.
+
+- Para ello, usamos el método `write`.
+
+- Una vez creado, un objeto `Element` puede manipularse directamente cambiando
+  sus atributos (como `text`), añadiendo y modificando atributos (con el método
+  `set`) o añadiendo nuevos hijos (por ejemplo, con el método `append`).
+
+---
+
+- Por ejemplo, supongamos que queremos sumarle 1 al `rank` de cada país y
+  añadir un atributo `updated` al elemento `rank`:
+
+  ```python
+  >>> for rank in root.iter('rank'):
+  ...     new_rank = int(rank.text) + 1
+  ...     rank.text = str(new_rank)
+  ...     rank.set('updated', 'yes')
+  ...
+  >>> tree.write('output.xml')
+  ```
+
+---
+
+- Nuestro XML tendría ahora el siguiente aspecto:
+
+  ```xml
+  <?xml version="1.0"?>
+  <data>
+      <country name="Liechtenstein">
+          <rank updated="yes">2</rank>
+          <year>2008</year>
+          <gdppc>141100</gdppc>
+          <neighbor name="Austria" direction="E"/>
+          <neighbor name="Switzerland" direction="W"/>
+      </country>
+      <country name="Singapore">
+          <rank updated="yes">5</rank>
+          <year>2011</year>
+          <gdppc>59900</gdppc>
+          <neighbor name="Malaysia" direction="N"/>
+      </country>
+      <country name="Panama">
+          <rank updated="yes">69</rank>
+          <year>2011</year>
+          <gdppc>13600</gdppc>
+          <neighbor name="Costa Rica" direction="W"/>
+          <neighbor name="Colombia" direction="E"/>
+      </country>
+  </data>
+  ```
+
+---
+
+- Podemos eliminar elementos con el método `remove`.
+
+- Supongamos que queremos eliminar todos los países con un `rank` superior a
+  50:
+
+  ```python
+  >>> for country in root.findall('country'):
+  ...     # using root.findall() to avoid removal during traversal
+  ...     rank = int(country.find('rank').text)
+  ...     if rank > 50:
+  ...         root.remove(country)
+  ...
+  >>> tree.write('output.xml')
+  ```
+
+- Tener en cuenta que la modificación concurrente mientras se hace una
+  iteración puede dar problemas, lo mismo que ocurre cuando se modifican listas
+  o diccionarios mientras se itera sobre ellos. Por tanto, el ejemplo primero
+  recoge todos los elementos con `findall` y sólo entonces itera sobre la lista
+  que devuelve.
+
+---
+
+- Nuestro XML tendría ahora el siguiente aspecto:
+
+  ```xml
+  <?xml version="1.0"?>
+  <data>
+      <country name="Liechtenstein">
+          <rank updated="yes">2</rank>
+          <year>2008</year>
+          <gdppc>141100</gdppc>
+          <neighbor name="Austria" direction="E"/>
+          <neighbor name="Switzerland" direction="W"/>
+      </country>
+      <country name="Singapore">
+          <rank updated="yes">5</rank>
+          <year>2011</year>
+          <gdppc>59900</gdppc>
+          <neighbor name="Malaysia" direction="N"/>
+      </country>
+  </data>
+  ```
+
+---
+
+- La función `SubElement` también proporciona una forma muy conveniente de
+  crear sub-elementos de un elemento dado:
+
+  ```python
+  >>> a = ET.Element('a')
+  >>> b = ET.SubElement(a, 'b')
+  >>> c = ET.SubElement(a, 'c')
+  >>> d = ET.SubElement(c, 'd')
+  >>> ET.dump(a)
+  <a><b /><c><d /></c></a>
+  ```
+
 !BIBLIOGRAFIA
