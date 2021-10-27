@@ -1995,8 +1995,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ---
 
-- La función `SubElement` también proporciona una forma muy conveniente de
-  crear sub-elementos de un elemento dado:
+- Las funciones `Element` y `SubElement` también proporcionan una forma muy
+  conveniente de crear sub-elementos de un elemento dado:
 
   ```python
   >>> a = ET.Element('a')
