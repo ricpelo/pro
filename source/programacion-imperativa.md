@@ -2502,8 +2502,8 @@ True
   - Si se omite o es negativo, se devuelve todo lo que hay desde la posición
     actual del puntero hasta el final del archivo.
 
-  - En caso contrario, se leerán y devolverán _al menos_ tantos caracteres (en
-    modo texto) o bytes (en modo binario) como se haya indicado.
+  - En caso contrario, se leerán y devolverán _como mucho_ tantos caracteres
+    (en modo texto) o bytes (en modo binario) como se haya indicado.
 
 ---
 
