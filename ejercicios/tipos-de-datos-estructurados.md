@@ -9,12 +9,10 @@ author:
   IES Doñana
 ---
 
-\renewcommand{\arraystretch}{0}
-
 # Devolver el último elemento
 
-Crear una función que devuelva el último valor del último elemento de una lista
-o cadena.
+Crear una función que devuelva el valor del último elemento de una lista o
+cadena.
 
 **Ejemplos**
 
@@ -40,14 +38,12 @@ Tienes dos listas. Una muestra los nombres de las personas (`names`), mientras
 que el otro muestra sus profesiones (`jobs`). Tu tarea es crear un diccionario
 que muestre a cada persona con su respectiva profesión.
 
--------------------
 Persona  Profesión
 -------- ----------
 Annie    Profesor
 Steven   Ingeniero
 Lisa     Doctor
 Osman    Cajero
--------------------
 
 **Ejemplos**
 
