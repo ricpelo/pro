@@ -2180,6 +2180,11 @@ True
 - Esta técnica se usa en la función !PYTHON(print) para indicar el separador o
   el terminador de la lista de expresiones a imprimir.
 
+---
+
+- Si se combinan ambas técnicas en una misma llamada, los argumentos pasados
+  por palabas clave se ponen al final.
+
 - Por ejemplo:
 
   ```python
@@ -2238,11 +2243,17 @@ True
   Hola, Ramón
   ```
 
-- Provoca el *efecto lateral* de alterar el estado de la consola imprimiendo el
-  *prompt* y esperando a que desde el exterior se introduzca el dato
-  solicitado (que en cada ejecución podrá tener un valor distinto).
+---
 
-- Eso hace que sea *impura* por partida doble: provoca un efecto lateral y
+- En primer lugar, provoca el *efecto lateral* de alterar el estado del
+  dispositivo de salida imprimiendo el *prompt*.
+
+- Además, provoca el *efecto lateral* de alterar el estado del dispositivo de
+  entrada, ya que se espera a que desde el exterior se introduzca el dato
+  solicitado consumiendo los caracteres que haya en la entrada hasta el salto
+  de línea.
+
+- Eso hace que sea *impura* por partida triple: provoca dos efectos laterales y
   puede devolver un resultado distinto cada vez que se la llama.
 
 ## Ejecución de _scripts_!ifdef(HTML)(&nbsp;)() por lotes
@@ -2466,16 +2477,19 @@ True
 - El tipo de dato que devuelve !PYTHON(open) depende de cómo se ha abierto el
   archivo:
 
-  - Si se ha abierto en **modo texto**, devuelve un !PYTHON(TextIOWrapper).
+  - Si se ha abierto en **modo texto**, devuelve un !PYTHON(io.TextIOWrapper).
 
   - Si se ha abierto en **modo binario**, entonces depende:
 
-    - En modo **sólo lectura**, devuelve un !PYTHON(BufferedReader).
+    - En modo **sólo lectura**, devuelve un !PYTHON(io.BufferedReader).
 
     - En modo **sólo escritura o añadiendo al final**, devuelve un
-      !PYTHON(BufferedWriter).
+      !PYTHON(io.BufferedWriter).
 
-    - En modo **lectura/escritura**, devuelve un !PYTHON(BufferedRandom).
+    - En modo **lectura/escritura**, devuelve un !PYTHON(io.BufferedRandom).
+
+  - !PYTHON(io) es el módulo que contiene los elementos básicos para manipular
+    **flujos** (del inglés, _streams_).
 
 ### !PYTHON(read)
 
@@ -2484,7 +2498,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.read)`(`[_tamaño_`:` !PYTHON(str)]`)`
+  !NT(archivo)!PYTHON(.read)`(`[_tamaño_`:` !PYTHON(int)]`) -> `\  !PYTHON(str) | !PYTHON(bytes)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El método devuelve una cadena (tipo !PYTHON(str)) si el archivo se abrió en
@@ -2496,6 +2510,8 @@ True
 
 - Si se alcanza el final del archivo, se devuelve la cadena vacía
   (!PYTHON('')).
+
+---
 
 - El parámetro _tamaño_ es opcional:
 
@@ -2543,7 +2559,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.readline)`(`[_tamaño_`:` !PYTHON(str)]`)`
+  !NT(archivo)!PYTHON(.readline)`(`[_tamaño_`:` !PYTHON(int)]`) -> `\  !PYTHON(str) | !PYTHON(bytes)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - !PYTHON(readline) devuelve una línea del archivo, dejando el carácter de
@@ -2565,8 +2581,8 @@ True
   - Si se omite o es negativo, se devuelve todo desde la posición actual del
     puntero hasta el final de la línea.
 
-  - En caso contrario, se leerán y devolverán _al menos_ tantos caracteres (en
-    modo texto) o bytes (en modo binario) como se haya indicado.
+  - En caso contrario, se leerán y devolverán _como mucho_ tantos caracteres
+    (en modo texto) o bytes (en modo binario) como se haya indicado.
 
 - Ejemplos:
 
@@ -2619,7 +2635,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.write)`(`_contenido_`)`
+  !NT(archivo)!PYTHON(.write)`(`_contenido_`:` !PYTHON(str) | !PYTHON(bytes)`) -> `\  !PYTHON(int)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El método escribe el _contenido_ en el !NT(archivo). Ese contenido debe ser
