@@ -261,8 +261,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Un **programa estructurado** es un programa construido combinando las
   siguientes estructuras (llamadas **estructuras de control**):
 
-  #. La **estructura secuencial**, **_secuencia_** o **bloque** de dos o más
-     sentencias *A*, *B*, *C*, etcétera.
+  #. La **estructura secuencial**, **_secuencia_** o **bloque** de una, dos o
+  más sentencias *A*, *B*, *C*, etcétera.
 
      Los lenguajes que permiten la creación de bloques, incluyendo bloques
      dentro de otros bloques, se denominan **lenguajes estructurados en
@@ -416,8 +416,8 @@ $B$
   usarla, bastaría con **_invocar_ su nombre** sin tener que conocer sus
   detalles internos de funcionamiento.
 
-- A este tipo de bloques con nombre se les denomina **subrutinas** (o también
-  _subprogramas_ o _procedimientos_).
+- A este tipo de bloques con nombre se les denomina **subrutinas**,
+  **subprogramas** o **procedimientos**.
 
 - Las subrutinas nos ayudan a:
 
@@ -545,9 +545,6 @@ del código.
 Por tanto, las instrucciones que aparecen consecutivamente una tras otra en el
 mismo nivel de indentación (es decir, las que empiezan en la misma columna)
 pertenecen a la misma estructura.
-
-En el momento en que aparece una instrucción en otro nivel de indentación, esa
-instrucción ya pertenece a otra estructura.
 ~~~~~~~~~~~~~~~~~
 
 ---
@@ -565,9 +562,8 @@ instrucción ya pertenece a otra estructura.
   indentación, actúan como una sola sentencia en bloque (forman una estructura
   _secuencial_) y se ejecutan en orden de arriba abajo.
 
-- A partir de ahora, tenemos que una sentencia puede ser una sentencia simple o
-  una sentencia compuesta (una estructura), y esa sentencia compuesta puede ser
-  una secuencia:
+- A partir de ahora, tenemos que una sentencia puede ser simple o compuesta (es
+  decir, una estructura), y esa sentencia compuesta puede ser una secuencia:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
@@ -1164,15 +1160,15 @@ while not salida:
 
 ## Diseño descendente por refinamiento sucesivo
 
-- El diseño descendente es la técnica que permite descomponer un problema
+- El diseño descendente es la técnica que consiste en descomponer un problema
   complejo en problemas más sencillos, realizándose esta operación de forma
-  sucesiva hasta llegar al mínimo nivel de abstracción en el cual se pueden
+  sucesiva hasta llegar al máximo nivel de detalle en el cual se pueden
   codificar directamente las operaciones en un lenguaje de programación
   estructurado.
 
 - Con esta técnica, los programas se crean en distintos niveles de
   refinamiento, de forma que cada nuevo nivel define la solución de forma más
-  concreta y subdivide las operaciones en otras menos abstractas.
+  concreta y subdivide las operaciones en otras más detalladas.
 
 - Los programas se diseñan de lo general a lo particular por medio de sucesivos
   refinamientos o descomposiciones que nos van acercando a las instrucciones
