@@ -1120,7 +1120,8 @@ class Bicicleta {
 ---
 
 - El tipo de una clase `T` (que indicaremos como $T$) puede interpretarse
-  como un tipo compuesto por los tipos de retorno de sus métodos.
+  como un tipo compuesto por los tipos de sus miembros, incluyendo los de sus
+  métodos.
 
 - Si la clase `T` tiene un método `m` con signatura
   $S{\langle}\overline{P},R{\rangle}$, el tipo de la clase lo podemos
