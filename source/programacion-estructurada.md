@@ -406,43 +406,6 @@ $B$
 
 ::::
 
----
-
-- A un bloque de sentencias que realizan una tarea específica se le puede dar
-  un **nombre**.
-
-- De esta forma se crearía una única **unidad de código empaquetado que
-  actuaría bajo ese nombre como una caja negra**, de manera que, para poder
-  usarla, bastaría con **_invocar_ su nombre** sin tener que conocer sus
-  detalles internos de funcionamiento.
-
-- A este tipo de bloques con nombre se les denomina **subrutinas**,
-  **subprogramas** o **procedimientos**.
-
-- Las subrutinas nos ayudan a:
-
-  - Ocultar la complejidad de partes concretas de un programa bajo capas de
-    abstracción con diferentes niveles de detalle.
-
-  - Desarrollar el programa mediante sucesivos refinamientos de cada nivel de
-    abstracción.
-
-- En definitiva, las subrutinas son **abstracciones**.
-
----
-
-- La **_llamada_** o **_invocación_** a una subrutina es una sentencia simple
-  pero que provoca la ejecución de un bloque de sentencias.
-
-- Por tanto, podría considerarse que **una subrutina es una sentencia compuesta
-  que actúa como una sentencia simple**.
-
-- Cada lenguaje de programación establece sus propios mecanismos de creación de
-  subrutinas.
-
-- Por ejemplo, en Python las subrutinas son las **funciones** y los **métodos**
-  que el programador puede crear en su programa.
-
 ### Ventajas de los programas estructurados
 
 - Las principales **ventajas de los programas estructurados** frente a los no
@@ -1333,6 +1296,74 @@ while not salida:
 
 # Funciones imperativas
 
+## Programación procedimental
+
+- A un bloque de sentencias que realiza una tarea específica se le puede dar un
+  **nombre**.
+
+- De esta forma se crearía una única **unidad de código empaquetado que
+  actuaría bajo ese nombre como una caja negra**, de manera que, para poder
+  usarla, bastaría con **_llamarla_ invocando su nombre** sin tener que conocer
+  sus detalles internos de funcionamiento.
+
+- A este tipo de «_bloques con nombre_» se les denomina **subrutinas**,
+  **subprogramas** o **procedimientos**.
+
+---
+
+- Los procedimientos nos ayudan a:
+
+  - Descomponer el problema principal en subproblemas más pequeños que se
+    pueden resolver por separado de una forma más o menos independiente del
+    resto.
+
+  - Ocultar la complejidad de partes concretas de un programa bajo capas de
+    abstracción con diferentes niveles de detalle.
+
+  - Desarrollar el programa mediante sucesivos refinamientos de cada nivel de
+    abstracción.
+
+- En definitiva, los procedimientos son **abstracciones**.
+
+- La **_llamada_** o **_invocación_** a un procedimiento es una sentencia
+  simple pero que provoca la ejecución de un bloque de sentencias.
+
+- Por tanto, podría considerarse que **un procedimiento es una sentencia
+  compuesta que actúa como una sentencia simple**.
+
+---
+
+- La **programación procedimental** es un paradigma de programación imperativa
+  basada en los conceptos de **procedimiento** y **llamada a procedimientos**.
+
+- En este paradigma, un programa imperativo está compuesto principalmente por
+  procedimientos (bloques de sentencias con nombre) que se llaman entre sí.
+
+- Los procedimientos pueden tener parámetros a través de los cuales reciben sus
+  datos de entrada, caso de necesitarlos.
+
+- A su vez, los procedimientos pueden devolver un resultado, de ser necesario.
+
+- Los procedimientos, además, tienen su propio ámbito local y (dependiendo del
+  lenguaje de programación usado) también podrían acceder a otros ámbitos no
+  locales dentro del entorno, como el ámbito global.
+
+---
+
+- Cada lenguaje de programación procedimental establece sus propios mecanismos
+  de creación de procedimientos.
+
+- En Python, los procedimientos son las denominadas **funciones imperativas**.
+
+- En los lenguajes orientados a objetos, los procedimientos serían los
+  **métodos**, que son funciones imperativas que se ejecutan sobre objetos.
+
+- Estudiaremos ahora cómo crear y usar funciones imperativas en Python.
+
+- Al ser Python un lenguaje orientado a objetos además de procedimental, en su
+  momento veremos también cómo crear métodos haciendo uso de funciones
+  imperativas.
+
 ## Definición de funciones imperativas
 
 - En programación imperativa también podemos definir funciones.
@@ -1701,9 +1732,9 @@ Una función puede llamar a otra.
   la función pero no ejecuta las sentencias de su cuerpo en ese momento (lo
   hará cuando se *llame* a la función).
 
-- En la línea 6 se llama a la función !PYTHON(suma) pasándole como argumentos los
-  valores de !PYTHON(a) y !PYTHON(b), asignándolos a !PYTHON(x) e !PYTHON(y),
-  respectivamente.
+- En la línea 6 se llama a la función !PYTHON(suma) pasándole como argumentos
+  los valores de !PYTHON(a) y !PYTHON(b), asignándolos a !PYTHON(x) e
+  !PYTHON(y), respectivamente.
 
 - Dentro de la función, en la sentencia !PYTHON(return) se calcula la suma
   !PYTHON(x) `+` !PYTHON(y) y se finaliza la ejecución de la función,
@@ -1850,8 +1881,8 @@ None
 
 ---
 
-- Eso significa que se crea un nuevo marco en el entorno que contendrá, en
-  principio, los parámetros, las variables locales y las ligaduras locales a la
+- Eso significa que se crea un nuevo marco en el entorno que contendrá, al
+  menos, los parámetros, las variables locales y las ligaduras locales a la
   función.
 
   ```{.python .number-lines}
@@ -1862,6 +1893,9 @@ None
   resultado = suma(4, 3)
   print(resultado)
   ```
+
+- Ese marco es, por tanto, el **espacio de nombres** donde se almacenará todo
+  lo que sea local a la función.
 
 !SALTOLARGOBEAMER
 
