@@ -409,28 +409,36 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   Si ese ámbito es el ámbito _global_, decimos que la ligadura es _global_.
 
-- El ámbito de creación de una ligadura es la porción del código fuente en la
-  que es visible y existe dicha ligadura.
+### Visibilidad
 
-### Visibilidad y acceso
+- El ámbito de creación de una ligadura es una «frontera» que limita la porción
+  del código fuente en la que es visible esa ligadura.
 
-- Una ligadura deja de existir donde termina su ámbito de creación.
-
-- Por otra parte, en los lenguajes interpretados (como Python), las ligaduras
-  empiezan a existir justo donde se crea la ligadura, es decir, en el punto
-  donde se ejecuta la instrucción que _define_ la ligadura.
+- Las ligaduras empiezan a existir justo donde se crea la ligadura, es decir,
+  en el punto donde se ejecuta la instrucción que _define_ la ligadura.
 
   Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto.
+
+- Por otra parte, una ligadura deja de existir (y, por tanto, deja de ser
+  visible) allí donde termina su ámbito de creación.
+
+- Eso significa que **no es posible acceder a esa ligadura fuera de su ámbito
+  de creación**: sólo es visible dentro de él.
+
+<!--
 
 - Eso significa que la **visibilidad** de una ligadura y el **acceso** a una
   ligadura son conceptos distintos:
 
   - La **visibilidad** de una ligadura la define su ámbito de creación, y es,
-    por tanto, un concepto _estático_.
+    por tanto, un concepto **_estático_**.
 
   - La posibilidad de **acceder** a una ligadura depende de si esa ligadura ya
-    se ha creado durante la ejecución del programa, y es, por tanto, un
-    concepto _dinámico_.
+    se ha creado previamente al intentar acceder a ella durante la ejecución
+    del programa, y es un concepto **_estático_** si el lenguaje es compilado,
+    o **_dinámico_** si es interpretado.
+
+-->
 
 ---
 
@@ -440,7 +448,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   A este tipo de ámbitos se les denomina **ámbitos léxicos**.
 
 - La mayoría de los lenguajes de programación usa ámbitos léxicos, salvo
-  excepciones (como LISP o los _shell scripts_) que usan **ámbitos dinámicos**.
+  excepciones (como LISP o los _shell scripts_) que usan otro tipo de ámbitos
+  denominados **ámbitos dinámicos** (que no estudiaremos en este curso).
 
 ---
 
@@ -465,10 +474,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   al final del _script_, que es donde termina su ámbito de creación (en este
   caso, el _ámbito global_).
 
-- Esa ligadura es visible en su ámbito (algo que se puede determinar de forma
-  _estática_, simplemente leyendo el programa), pero sólo se puede acceder a
-  ella desde el momento en que se crea (y eso sólo se puede determinar de forma
-  _dinámica_ durante la ejecución del programa).
+- Eso quiere decir que esa ligadura sólo es visible desde que se crea hasta el
+  final de su ámbito de creación.
 
 ---
 
@@ -490,9 +497,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
   construcciones sintácticas definen su propio ámbito.
 
-  Este ámbito determina la visibilidad de esa
-  ligadura: dónde es visible esa ligadura en caso de que se haya creado y
-  que, por tanto, exista.
+  Este ámbito determina dónde está el límite de visibilidad de la ligadura.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Como a nosotros nos interesan principalmente los _ámbitos de creación_, en la
@@ -535,7 +540,7 @@ todos los ámbitos van asociados a un espacio de nombres.
   **En resumen:**
 
   - El **ámbito** de una ligadura determina la **visibilidad** de una ligadura:
-    dónde es visible esa ligadura (si es que ya existe).
+    hasta dónde es visible esa ligadura.
 
   - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
     dónde se almacena esa ligadura.
@@ -787,8 +792,10 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 - El entorno, por tanto, es un concepto **_dinámico_** que **depende del
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
-  programa (o, más concretamente, de qué _scripts_, funciones o métodos se han
-  ejecutado hasta ahora).
+  programa.
+
+- O, más concretamente: depende de qué _scripts_, funciones, métodos y
+  definiciones se han ejecutado hasta ahora.
 
 - Por tanto, el entorno depende de qué partes del programa se han ido
   ejecutando hasta llegar a la instrucción actual.
