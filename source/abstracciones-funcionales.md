@@ -191,7 +191,7 @@ nocite: |
 !NT(función) ::= !T(identificador)
                    | !T{(}!NT(expresión_lambda)!T{)}
 !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})*
+!NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})\*
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -391,6 +391,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ## Ámbito de creación de una ligadura
 
+- Para nosotros, los ámbitos interesantes son los llamados _ámbitos de creación
+  de una ligadura_.
+
 - El **ámbito de creación de una ligadura** es el ámbito actual de la
   instrucción que crea la ligadura.
 
@@ -402,39 +405,37 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   construcción sintáctica que define el ámbito y dentro de la cual se está
   creando la ligadura.
 
-- Se dice que **la ligadura tiene un _ámbito local_ a su ámbito de creación**.
+- Se dice que **la ligadura es _local_ al ámbito donde se crea la ligadura**.
 
-## Ámbito de una ligadura
+  Si ese ámbito es el ámbito _global_, decimos que la ligadura es _global_.
 
-- El **ámbito de una ligadura** es la porción del código fuente en la que
-  existe y es visible dicha ligadura.
+- El ámbito de creación de una ligadura es la porción del código fuente en la
+  que es visible y existe dicha ligadura.
 
-- Es decir: el ámbito de una ligadura determina en qué partes del programa se
-  puede acceder a una ligadura.
+### Visibilidad y acceso
 
-- Dependiendo de las características del lenguaje de programación utilizado, el
-  ámbito de una ligadura puede coincidir o no con el _ámbito de creación_ de
-  esa ligadura.
+- Una ligadura deja de existir donde termina su ámbito de creación.
+
+- Por otra parte, en los lenguajes interpretados (como Python), las ligaduras
+  empiezan a existir justo donde se crea la ligadura, es decir, en el punto
+  donde se ejecuta la instrucción que _define_ la ligadura.
+
+  Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto.
+
+- Eso significa que la **visibilidad** de una ligadura y el **acceso** a una
+  ligadura son conceptos distintos:
+
+  - La **visibilidad** de una ligadura la define su ámbito de creación, y es,
+    por tanto, un concepto _estático_.
+
+  - La posibilidad de **acceder** a una ligadura depende de si esa ligadura ya
+    se ha creado durante la ejecución del programa, y es, por tanto, un
+    concepto _dinámico_.
 
 ---
 
-- Por ejemplo, en los lenguajes interpretados (como Python), las ligaduras
-  empiezan a existir justo donde se crea la ligadura.
-
-  Por tanto, no es posible acceder a esa ligadura _antes_ de ese punto.
-
-- En Python, el ámbito de una ligadura:
-
-  - **Empieza** en el punto donde se _crea_ la ligadura (es decir, el punto
-    donde se ejecuta la instrucción que _define_ la ligadura).
-
-  - **Termina** donde lo hace el _ámbito de creación_ de la ligadura, que
-    deberá ser un ámbito definido por una construcción sintáctica y, por tanto,
-    el límite de ese ámbito vendrá marcado por la sintaxis de dicha
-    construcción.
-
-- Por tanto, ese ámbito se puede determinar simplemente leyendo el código del
-  programa, sin tener que ejecutarlo.
+- El ámbito de creación de una ligadura se puede determinar simplemente leyendo
+  el código del programa, sin tener que ejecutarlo.
 
   A este tipo de ámbitos se les denomina **ámbitos léxicos**.
 
@@ -443,85 +444,74 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Por eso, **el ámbito de una ligadura está contenido dentro del ámbito de
-  creación de esa ligadura**, pero ambos ámbitos no tienen por qué coincidir
-  exactamente.
+- En el siguiente ejemplo vemos cómo se crean varias ligaduras:
 
-  Los dos ámbitos acaban en el mismo punto, pero no tienen por qué empezar en
-  el mismo punto.
-
-  En Python, esto último sólo ocurre si la ligadura se crea justo al principio
-  del ámbito de creación de la ligadura.
-
-- En cambio, en otros lenguajes (como Java o JavaScript), el ámbito de una
-  ligadura puede coincidir con su ámbito de creación, aunque la sentencia de
-  definición no esté justo al principio del ámbito de creación.
-
-- El _ámbito de una ligadura_ y el _ámbito de creación de una ligadura_ son dos
-  conceptos distintos, aunque a veces puede coincidir que ambos ámbitos tengan
-  los mismos límites para una determinada ligadura.
-
----
-
-- En el siguiente ejemplo vemos los ámbitos de varias ligaduras.
+  ```{.python .number-lines}
+  x = 25
+  y = 99
+  z = y
+  nombre = 'Manolo'
+  ```
 
 - Todas esas ligaduras se definen en el ámbito global, por lo que el **ámbito
   de creación** de todas ellas es el **ámbito global** (y, por tanto, decimos
-  que cada una de esas ligaduras es una **ligadura de _ámbito global_**).
+  que cada una de esas ligaduras es una **ligadura _global_** o **de _ámbito
+  global_**).
 
-  !IMGP(ambitos-ligaduras.png)()(width=50%)(width=50%)
+- Una ligadura empieza a existir justo donde se crea, y termina de existir al
+  final de su ámbito de creación.
 
-- El ámbito de cada una de esas ligaduras empieza justo donde se crea la
-  ligadura y termina al final de su ámbito de creación.
+- Por tanto, la ligadura `y` → `99` empieza a existir en la línea 2 y termina
+  al final del _script_, que es donde termina su ámbito de creación (en este
+  caso, el _ámbito global_).
 
-- Es importante entender que, aunque el ámbito de `z` → `99` está contenido en
-  el de `y` → `99`, éste último no se tiene en cuenta a la hora de determinar
-  cuál es el ámbito de creación de la ligadura `z` → `99` (porque es el
-  **ámbito de una ligadura**, no el **ámbito de creación de una ligadura**).
+- Esa ligadura es visible en su ámbito (algo que se puede determinar de forma
+  _estática_, simplemente leyendo el programa), pero sólo se puede acceder a
+  ella desde el momento en que se crea (y eso sólo se puede determinar de forma
+  _dinámica_ durante la ejecución del programa).
 
 ---
 
-- Es importante no confundir «**ámbito**», «**ámbito de creación de una
-  ligadura**» y «**ámbito de una ligadura**».
+- En resumen:
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Ámbito:**
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Ámbito:**
 
-Porción del código fuente de un programa.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Porción del código fuente de un programa.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Ámbito de creación de una ligadura:**
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Ámbito de creación de una ligadura:**
 
-El ámbito actual de la instrucción que define la ligadura; es decir: el ámbito
-más interno donde se define la ligadura. Los límites de ese ámbito sólo vienen
-determinados por la sintaxis del lenguaje, ya que ciertas construcciones
-sintácticas definen su propio ámbito.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El ámbito actual de la instrucción que define la ligadura; es decir: el
+  ámbito más interno donde se define la ligadura. Los límites de ese ámbito
+  sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
+  construcciones sintácticas definen su propio ámbito.
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Ámbito de una ligadura:**
+  Este ámbito determina la visibilidad de esa
+  ligadura: dónde es visible esa ligadura en caso de que se haya creado y
+  que, por tanto, exista.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Porción de código fuente en el que la ligadura existe y es visible. Puede
-coincidir o no con el ámbito de creación de esa ligadura.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Como a nosotros nos interesan principalmente los _ámbitos de creación_, en la
+  práctica supondremos que, cuando hablamos de _ámbito_, nos referimos al
+  _ambito de creación de una ligadura_, si no se dice lo contrario.
 
 ## Ámbitos y espacios de nombres
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Todo espacio de nombres va asociado a un ámbito (un ámbito _de creación_), pero
-NO todos los ámbitos van asociados a un espacio de nombres.
+**Todo espacio de nombres va asociado a un ámbito** (_de creación_), pero NO
+todos los ámbitos van asociados a un espacio de nombres.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Ciertas construcciones sintácticas definen un espacio de nombres (y, por
-  tanto, también un ámbito).
+- **Ciertas construcciones sintácticas definen un _espacio de nombres_** (y,
+  por tanto, también un ámbito).
 
-- En este último caso, ese espacio de nombres almacenará las ligaduras que se
-  crean dentro de ese ámbito.
+- En este último caso, **ese espacio de nombres almacenará las ligaduras** que
+  se crean dentro de ese ámbito.
 
 - O sea: si el ámbito de creación de una ligadura va asociado a un espacio
   de nombres, la ligadura se almacenará en ese espacio de nombres.
@@ -545,7 +535,7 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   **En resumen:**
 
   - El **ámbito** de una ligadura determina la **visibilidad** de una ligadura:
-    dónde puede usarse esa ligadura.
+    dónde es visible esa ligadura (si es que ya existe).
 
   - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
     dónde se almacena esa ligadura.
@@ -644,9 +634,11 @@ NO todos los ámbitos van asociados a un espacio de nombres.
 - En consecuencia, podemos decir que:
 
   - El **ámbito de creación de la ligadura** entre un parámetro y su argumento
-    es el **cuerpo** de la expresión lambda.
+    es el **cuerpo** de la expresión lambda, así que la **visibilidad** del
+    parámetro es ese cuerpo.
 
-  - El **ámbito de esa ligadura** coincide con su ámbito de creación.
+  - Esa ligadura se crea justo al entrar en ese ámbito, así que se puede
+    **acceder** a ella en cualquier parte del cuerpo de la expresión lambda.
 
   - El **espacio de nombres** que almacena las ligaduras entre parámetros y
     argumentos es el marco que se crea al llamar a la expresión lambda.
@@ -655,12 +647,11 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   de su expresión lambda».
 
 - También se dice que el parámetro tiene un **ámbito _local_** y un
-  **almacenamiento _local_** al cuerpo de la expresión lambda; por tanto, que es
-  **local** a dicha expresión lambda.
+  **almacenamiento _local_** al cuerpo de la expresión lambda; por tanto, y
+  resumiendo: que es **local** a dicha expresión lambda.
 
-- Como el ámbito de una ligadura es la porción del código en el que dicha
-  ligadura tiene validez, eso significa que **sólo podemos acceder al valor de
-  un parámetro dentro del cuerpo de su expresión lambda**.
+- En consecuencia, **sólo podemos acceder al valor de un parámetro dentro del
+  cuerpo de su expresión lambda**.
 
 ---
 
@@ -673,7 +664,7 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   de la expresión lambda donde aparece.
 
 - Por tanto, el parámetro sólo existe dentro del cuerpo de la expresión lambda,
-  y no podemos acceder a su valor fuera del mismo.
+  y no podemos **acceder** a su valor fuera del mismo.
 
 - Además, **la ligadura** entre el parámetro y su argumento **se almacena en el
   marco** de la llamada a la expresión lambda, y por eso se dice que tiene un
@@ -729,7 +720,7 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   **cuerpo** de la expresión lambda donde aparece.
 
 - Por tanto, la variable ligada sólo existe dentro del cuerpo de la expresión
-  lambda, y no podemos acceder a su valor fuera del mismo.
+  lambda, y no podemos **acceder** a su valor fuera del mismo.
 
 - Además, **la ligadura** entre la variable ligada y su argumento **se almacena
   en el marco** de la llamada a la expresión lambda, y por eso se dice que
@@ -838,11 +829,11 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   - El marco global sólo se eliminará de la memoria cuando se finalice la
     ejecución del _script_.
 
-### Ámbitos, marcos, entornos
+### Ámbitos, marcos y entornos
 
 - Hagamos un resumen rápido de todo lo visto hasta ahora.
 
-- El entorno contiene todas las ligaduras válidas en un punto concreto de la
+- El entorno contiene todas las ligaduras accesibles en un punto concreto de la
   ejecución del programa interpretado.
 
 - Un marco contiene un conjunto de ligaduras (representa un _espacio de
@@ -878,8 +869,8 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   - Cuando se termina de ejecutar el cuerpo de la expresión lambda, se sale del
     ámbito y se elimina el marco de la memoria.
 
-- Todo marco lleva asociado un ámbito, ya que todo espacio de nombres va
-  asociado a un ámbito, y un marco es un espacio de nombres.
+- **Todo marco lleva asociado un ámbito, ya que todo espacio de nombres va
+  asociado a un ámbito, y un marco es un espacio de nombres**.
 
 ---
 
@@ -1002,9 +993,11 @@ NO todos los ámbitos van asociados a un espacio de nombres.
   marcos** hasta encontrarla.
 
   **Si no aparece en ningún marco**, querrá decir que el identificador no está
-  ligado, o que su ligadura está fuera del entorno, en otro ámbito inaccesible
-  desde el ámbito actual. En cualquiera de estos casos, **generará un error**
-  de tipo !PYTHON{NameError} («_nombre no definido_»).
+  ligado (porque aún no se ha creado la ligadura), o que su ligadura está fuera
+  del entorno (en otro ámbito inaccesible desde el ámbito actual).
+
+  En cualquiera de estos casos, **generará un error** de tipo
+  !PYTHON{NameError} («_nombre no definido_»).
 
 ---
 
