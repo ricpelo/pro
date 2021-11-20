@@ -8,7 +8,71 @@ nocite: |
 
 # Conceptos básicos
 
-## Introducción
+## Composición
+
+- Hasta ahora, hemos aprendido que:
+
+  - Un programa está compuesto por _instrucciones_.
+
+  - Las instrucciones de un programa son las _expresiones_ y las _sentencias_.
+
+- Además, hemos visto que podemos crear instrucciones más complejas a partir de
+  otras más simples. Es decir:
+
+  - Podemos crear _expresiones más complejas_ combinando entre sí expresiones
+    más simples.
+
+  - Podemos crear _sentencias compuestas_ (estructuras de control, como
+    bloques, condicionales, bucles, etc.) combinando entre sí otras sentencias.
+
+- La propiedad que tienen los lenguajes de programación de crear elementos más
+  complejos combinando otros más simples se denomina **composición**.
+
+---
+
+- La **abstracción** y la **composición** son dos conceptos relacionados:
+
+  - _Componer_ consiste en combinar elementos entre sí para formar otros más
+    complejos.
+
+  - _Abstrer_ consiste en coger un elemento (simple o complejo), darle un
+    nombre y ocultar sus detalles internos dentro de una caja negra.
+
+- Lo interesante es que la combinación y la abstracción son dos mecanismos
+  _recursivos_:
+
+  - Podemos crear elementos complejos a partir de otros elementos complejos.
+
+  - Podemos crear abstracciones a partir de otras abstracciones.
+
+- Además, por supuesto, podemos crear abstracciones a partir de composiciones y
+  composiciones a partir de abstracciones.
+
+---
+
+- Por ahora, esos conceptos (_composición_ y _abstracción_) sólo los hemos
+  aplicado a las **instrucciones** del programa:
+
+  - La **composición de instrucciones** da lugar a las **expresiones
+    compuestas** y a las **sentencias compuestas** (también llamadas
+    **estructuras de control**: _secuencia_, _selección_ e _iteración_).
+
+  - La **abstracción de instrucciones** da lugar a las **abstracciones
+    funcionales**.
+
+- Pero también se pueden aplicar a los **datos**:
+
+  - La **composición de datos** da lugar a los **datos compuestos** (también
+    llamados **datos estructurados**) y, en consecuencia, a los **tipos de
+    datos compuestos** (también llamados **tipos de datos estructurados**).
+
+  - La **abstracción de datos** da lugar a los **datos abstractos** y, en
+    consecuencia, a los **tipos abstractos de datos**.
+
+- En esta unidad hablaremos de los primeros, y dejaremos los segundos para una
+  unidad posterior.
+
+## Introducción a los datos estructurados
 
 - Un **dato estructurado** (también llamado **dato compuesto**, **colección** o
   **contenedor**) es un dato formado, a su vez, por otros datos llamados
@@ -195,6 +259,9 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   en general, en lugar de hacerlo sobre un tipo concreto.
 
 - La forma básica de recorrer un dato iterable es usando un **iterador**.
+
+  De hecho, un _iterable_ es cualquier dato que lleva asociado, al menos, un
+  _iterador_.
 
 ## Iteradores
 
