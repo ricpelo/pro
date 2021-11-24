@@ -6,7 +6,7 @@ nocite: |
   @python_software_foundation_sitio_nodate
 ---
 
-# Conceptos básicos
+# Introducción
 
 ## Composición
 
@@ -72,7 +72,7 @@ nocite: |
 - En esta unidad hablaremos de los primeros, y dejaremos los segundos para una
   unidad posterior.
 
-## Introducción a los datos estructurados
+## Conceptos básicos
 
 - Un **dato estructurado** (también llamado **dato compuesto**, **colección** o
   **contenedor**) es un dato formado, a su vez, por otros datos llamados
@@ -339,31 +339,8 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Los iteradores también son iterables que actúan como sus propios iteradores.
-
-- Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se devuelve
-  el mismo iterador:
-
-  ```python
-  >>> lista = [1, 2, 3, 4]
-  >>> it = iter(lista)
-  >>> it
-  <list_iterator object at 0x7f3c49aa9080>
-  >>> it2 = iter(it)
-  >>> it2
-  <list_iterator object at 0x7f3c49aa9080>
-  ```
-
-- Por tanto, también podemos usar un iterador en cualquier sitio donde se
-  espere un iterable.
-
-### Expresiones generadoras
-
-- Las **expresiones generadoras** ya son conocidas por nosotros, pues las
-  estudiamos y usamos en unidades anteriores.
-
-- Aquí recordaremos que una expresión generadora es una expresión que
-  **devuelve un iterador**:
+- Las **expresiones generadoras**, ya conocidas por nosotros, también son
+  expresiones que **devuelven un iterador**:
 
   !ALGO                                                                            
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -383,6 +360,26 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   >>> next(cuadrados)
   9
   ```
+
+---
+
+- Los iteradores también son iterables que actúan como sus propios iteradores.
+
+- Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se devuelve
+  el mismo iterador:
+
+  ```python
+  >>> lista = [1, 2, 3, 4]
+  >>> it = iter(lista)
+  >>> it
+  <list_iterator object at 0x7f3c49aa9080>
+  >>> it2 = iter(it)
+  >>> it2
+  <list_iterator object at 0x7f3c49aa9080>
+  ```
+
+- Por tanto, también podemos usar un iterador en cualquier sitio donde se
+  espere un iterable.
 
 ### El bucle !PYTHON(for)
 

@@ -238,15 +238,15 @@
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/conceptos-básicos"><span class="toc-section-number">1</span> Conceptos básicos</a></li>
+<li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/secuencias"><span class="toc-section-number">2</span> Secuencias</a></li>
 <li><a href="#/estructuras-no-secuenciales"><span class="toc-section-number">3</span> Estructuras no secuenciales</a></li>
 </ul>
 </section>
 
 <section>
-<section id="conceptos-básicos" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Conceptos básicos</h1>
+<section id="introducción" class="title-slide slide level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
 
 </section>
 <section id="composición" class="title-slide slide level2" data-number="1.1">
@@ -298,8 +298,8 @@
 </ul>
 </section>
 
-<section id="introducción-a-los-datos-estructurados" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Introducción a los datos estructurados</h2>
+<section id="conceptos-básicos" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Conceptos básicos</h2>
 <ul>
 <li><p>Un <strong>dato estructurado</strong> (también llamado <strong>dato compuesto</strong>, <strong>colección</strong> o <strong>contenedor</strong>) es un dato formado, a su vez, por otros datos llamados <strong>componentes</strong> o <strong>elementos</strong>.</p></li>
 <li><p>Un <strong>tipo de dato estructurado</strong>, también llamado <strong>tipo compuesto</strong>, es aquel cuyos valores son datos estructurados.</p></li>
@@ -539,39 +539,37 @@
 <section class="slide level5" data-number="1.6.0.0.4">
 
 <ul>
+<li><p>Las <strong>expresiones generadoras</strong>, ya conocidas por nosotros, también son expresiones que <strong>devuelven un iterador</strong>:</p>
+<div class="line-block"><span style="color:teal">⟨<em>expr_gen</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>)</code></strong></div></li>
+<li><p>Ejemplo:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cuadrados <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cuadrados</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>generator <span class="bu">object</span> <span class="op">&lt;</span>genexpr<span class="op">&gt;</span> at <span class="bn">0x7f6a0fc7db48</span><span class="op">&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.6.0.0.5">
+
+<ul>
 <li><p>Los iteradores también son iterables que actúan como sus propios iteradores.</p></li>
 <li><p>Por tanto, cuando llamamos a <code class="sourceCode python"><span class="bu">iter</span></code> pasándole un iterador, se devuelve el mismo iterador:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(lista)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2 <span class="op">=</span> <span class="bu">iter</span>(it)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(lista)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2 <span class="op">=</span> <span class="bu">iter</span>(it)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span></code></pre></div></li>
 <li><p>Por tanto, también podemos usar un iterador en cualquier sitio donde se espere un iterable.</p></li>
 </ul>
 </section>
-<section id="expresiones-generadoras" class="title-slide slide level3" data-number="1.6.1">
-<h3 data-number="1.6.1"><span class="header-section-number">1.6.1</span> Expresiones generadoras</h3>
-<ul>
-<li><p>Las <strong>expresiones generadoras</strong> ya son conocidas por nosotros, pues las estudiamos y usamos en unidades anteriores.</p></li>
-<li><p>Aquí recordaremos que una expresión generadora es una expresión que <strong>devuelve un iterador</strong>:</p>
-<div class="line-block"><span style="color:teal">⟨<em>expr_gen</em>⟩</span> ::= <strong><code>(</code></strong><span style="color:teal">⟨<em>expresión</em>⟩</span> (<strong><code>for</code></strong> <span style="color:teal">⟨<em>identificador</em>⟩</span> <strong><code>in</code></strong> <span style="color:teal">⟨<em>secuencia</em>⟩</span> [<strong><code>if</code></strong> <span style="color:teal">⟨<em>condición</em>⟩</span>])+<strong><code>)</code></strong></div></li>
-<li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cuadrados <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cuadrados</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>generator <span class="bu">object</span> <span class="op">&lt;</span>genexpr<span class="op">&gt;</span> at <span class="bn">0x7f6a0fc7db48</span><span class="op">&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(cuadrados)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span></code></pre></div></li>
-</ul>
-</section>
-
-<section id="el-bucle-for" class="title-slide slide level3" data-number="1.6.2">
-<h3 data-number="1.6.2"><span class="header-section-number">1.6.2</span> El bucle <code class="sourceCode python"><span class="cf">for</span></code></h3>
+<section id="el-bucle-for" class="title-slide slide level3" data-number="1.6.1">
+<h3 data-number="1.6.1"><span class="header-section-number">1.6.1</span> El bucle <code class="sourceCode python"><span class="cf">for</span></code></h3>
 <ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que devuelve un iterador es mediante una <strong>estructura de control</strong> llamada <strong>bucle <code class="sourceCode python"><span class="cf">for</span></code></strong>.</p></li>
 <li><p>Su sintaxis es:</p>
@@ -589,7 +587,7 @@ fin = <strong><code>False</code></strong><br />
             <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.2.0.1">
+<section class="slide level5" data-number="1.6.1.0.1">
 
 <ul>
 <li>Ejemplos:</li>
@@ -614,7 +612,7 @@ fin = <strong><code>False</code></strong><br />
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="1.6.2.0.2">
+<section class="slide level5" data-number="1.6.1.0.2">
 
 <ul>
 <li><p>Al recorrer la lista, la variable va almacenando en cada paso el valor del elemento que en ese momento se está visitando.</p></li>
@@ -631,8 +629,8 @@ fin = <strong><code>False</code></strong><br />
 </ul>
 </section>
 
-<section id="el-módulo-itertools" class="title-slide slide level3" data-number="1.6.3">
-<h3 data-number="1.6.3"><span class="header-section-number">1.6.3</span> El módulo <code class="sourceCode python">itertools</code></h3>
+<section id="el-módulo-itertools" class="title-slide slide level3" data-number="1.6.2">
+<h3 data-number="1.6.2"><span class="header-section-number">1.6.2</span> El módulo <code class="sourceCode python">itertools</code></h3>
 <ul>
 <li><p>El módulo <code class="sourceCode python">itertools</code> contiene una variedad de iteradores de uso frecuente así como funciones que combinan varios iteradores.</p></li>
 <li><p><code class="sourceCode python">itertools.count</code><code>(</code>[<span style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un flujo infinito de valores separados uniformemente. Se puede indicar opcionalmente un valor de comienzo (que por defecto es <code class="sourceCode python"><span class="dv">0</span></code>) y el intervalo entre números (que por defecto es <code class="sourceCode python"><span class="dv">1</span></code>):</p>
@@ -643,7 +641,7 @@ fin = <strong><code>False</code></strong><br />
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.3.0.1">
+<section class="slide level5" data-number="1.6.2.0.1">
 
 <ul>
 <li><p><code class="sourceCode python">itertools.cycle</code><code>(</code><span style="color:teal">⟨<em>iterador</em>⟩</span><code>)</code> devuelve un nuevo iterador que va generando sus elementos del primero al último, repitiéndolos indefinidamente:</p>
