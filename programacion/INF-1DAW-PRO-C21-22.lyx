@@ -51,6 +51,7 @@
 \usepackage{watermark}
 \usepackage{longtable}
 \usepackage[shortcuts]{extdash}
+\usepackage{icomma}
 \end_preamble
 \options titlepage,numbers=endperiod
 \use_default_options false
@@ -1933,13 +1934,20 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
-\EX=\begin{cases}
-0,3\cdot\TE+0,7\cdot\PR & \textrm{si }\TE\geq3\textrm{ y }\PR\geq4\\
+\EX=\left\{ \begin{array}{lll}
+0,3\cdot\TE+0,7\cdot\PR &  & \textrm{si }\TE\geq3,0\textrm{ y }\PR\geq4,0\\
 \\
-\min(\TE,\PR) & \textrm{e.o.c.}
-\end{cases}
+\min(\TE,\PR) &  & \textrm{e.o.c.}
+\end{array}\right.
 \]
 
 \end_inset
@@ -1974,17 +1982,12 @@ name "alg:calificacion-examen"
 
 \begin_layout Standard
 Donde:
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
-use_parbox 0
+use_parbox 1
 use_makebox 0
 width "80col%"
 special "none"
@@ -2012,7 +2015,7 @@ begingroup
 
 
 \backslash
-setlist[description]{style=multiline,labelwidth=1.2cm}
+setlist[description]{style=multiline,align=right,labelwidth=1.2cm}
 \end_layout
 
 \end_inset
@@ -2034,10 +2037,14 @@ TE
 \end_inset
 
 
-\begin_inset space ~
+\begin_inset space \enskip{}
 \end_inset
 
-: Calificación de la parte teórica del examen, valorada del 0 al 10.
+
+\begin_inset Formula $=$
+\end_inset
+
+ Calificación de la parte teórica del examen, valorada del 0,0 al 10,0.
 \end_layout
 
 \begin_layout Description
@@ -2054,10 +2061,14 @@ PR
 \end_inset
 
 
-\begin_inset space ~
+\begin_inset space \enskip{}
 \end_inset
 
-: Calificación de la parte práctica del examen, valorada del 0 al 10.
+
+\begin_inset Formula $=$
+\end_inset
+
+ Calificación de la parte práctica del examen, valorada del 0,0 al 10,0.
 \end_layout
 
 \begin_layout Description
@@ -2074,10 +2085,14 @@ EX
 \end_inset
 
 
-\begin_inset space ~
+\begin_inset space \enskip{}
 \end_inset
 
-: Calificación del examen, valorada del 0 al 10, calculada como la media
+
+\begin_inset Formula $=$
+\end_inset
+
+ Calificación del examen, valorada del 0,0 al 10,0, calculada como la media
  ponderada de 
 \begin_inset ERT
 status open
@@ -2140,9 +2155,9 @@ De un criterio de evaluación
 
 \begin_layout Standard
 La calificación de cada criterio de evaluación, una vez trabajado y evaluado,
- se calculará como la calificación obtenida en el instrumento de evaluación
- y calificación usado para medir el grado de cumplimiento de ese criterio
- de evaluación.
+ se valorará de 0,0 a 10,0 y se calculará como la calificación obtenida
+ en el instrumento de evaluación y calificación usado para medir el grado
+ de cumplimiento de ese criterio de evaluación.
 \end_layout
 
 \begin_layout Standard
@@ -2332,11 +2347,12 @@ De un resultado de aprendizaje
 \end_layout
 
 \begin_layout Standard
-La calificación de cada resultado de aprendizaje se calculará como una media
- ponderada de los criterios de evaluación trabajados y evaluados que estén
- asociados a ese resultado de aprendizaje, siendo requisito imprescindible
- para alcanzar un resultado de aprendizaje el cumplir todos los criterios
- de evaluación trabajados y evaluados, según se recoge en el algoritmo 
+La calificación de cada resultado de aprendizaje se valorará de 0,0 a 10,0
+ y se calculará como una media ponderada de los criterios de evaluación
+ trabajados y evaluados que estén asociados a ese resultado de aprendizaje,
+ siendo requisito imprescindible para alcanzar un resultado de aprendizaje
+ el cumplir todos los criterios de evaluación trabajados y evaluados, según
+ se recoge en el algoritmo 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Cálculo-calificación-resultado-aprendizaje"
@@ -2382,13 +2398,13 @@ status open
 \begin{align*}
 N_{i} & ={\displaystyle \sum\limits _{j\in C_{i}}}p_{ij}\\
 \\
-mínimo & =\frac{\min\limits _{j\in C_{i}}\CE{\ensuremath{i}}{\ensuremath{j}}}{N_{i}}\\
+mínimo & =\min\limits _{j\in C_{i}}\CE{\ensuremath{i}}{\ensuremath{j}}\\
 \\
-\RA{\ensuremath{i}} & =\begin{cases}
-\frac{{\displaystyle \sum\limits _{j\in C_{i}}}\CE{\ensuremath{i}}{\ensuremath{j}}\cdot p_{ij}}{N_{i}} & \textrm{si }mínimo\geq5\\
+\RA{\ensuremath{i}} & =\left\{ \begin{array}{lcl}
+\frac{{\displaystyle \sum\limits _{j\in C_{i}}}\CE{\ensuremath{i}}{\ensuremath{j}}\cdot p_{ij}}{N_{i}} &  & \textrm{si }mínimo\geq5\\
 \\
-mínimo & \textrm{e.o.c.}
-\end{cases}
+mínimo &  & \textrm{e.o.c.}
+\end{array}\right.
 \end{align*}
 
 \end_inset
@@ -2422,18 +2438,13 @@ name "alg:Cálculo-calificación-resultado-aprendizaje"
 \end_layout
 
 \begin_layout Standard
-Donde:
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
+Donde: 
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
-use_parbox 0
+use_parbox 1
 use_makebox 0
 width "80col%"
 special "none"
@@ -2461,7 +2472,7 @@ begingroup
 
 
 \backslash
-setlist[description]{style=multiline,labelwidth=1.2cm}
+setlist[description]{style=multiline,align=right,labelwidth=1.2cm}
 \end_layout
 
 \end_inset
@@ -2486,7 +2497,11 @@ RA{$i$}
 \begin_inset space ~
 \end_inset
 
-: Calificación del resultado de aprendizaje 
+
+\begin_inset Formula $=$
+\end_inset
+
+ Calificación del resultado de aprendizaje 
 \begin_inset Formula $i$
 \end_inset
 
@@ -2510,7 +2525,11 @@ CE{$i$}{$j$}
 \begin_inset space ~
 \end_inset
 
-: Calificación del criterio de evaluación 
+
+\begin_inset Formula $=$
+\end_inset
+
+ Calificación del criterio de evaluación 
 \begin_inset Formula $j$
 \end_inset
 
@@ -2522,14 +2541,10 @@ CE{$i$}{$j$}
 \end_layout
 
 \begin_layout Description
-\begin_inset Formula $C_{i}$
+\begin_inset Formula $C_{i}=$
 \end_inset
 
-
-\begin_inset space ~
-\end_inset
-
-: Conjunto de los criterios de evaluación trabajados y evaluados, asociados
+ Conjunto de los criterios de evaluación trabajados y evaluados, asociados
  al resultado de aprendizaje 
 \begin_inset Formula $i$
 \end_inset
@@ -2538,14 +2553,10 @@ CE{$i$}{$j$}
 \end_layout
 
 \begin_layout Description
-\begin_inset Formula $p_{ij}$
+\begin_inset Formula $p_{ij}=$
 \end_inset
 
-
-\begin_inset space ~
-\end_inset
-
-: Ponderación del criterio de evaluación 
+ Ponderación del criterio de evaluación 
 \begin_inset Formula $j$
 \end_inset
 
@@ -2616,7 +2627,7 @@ noprefix "false"
 
 \begin_layout Standard
 La calificación introducida en el sistema Séneca será la calificación parcial
- redondeada al entero más cercano, y no podrá ser inferior a 1.
+ redondeada al entero más cercano, y no podrá ser inferior a 1,0.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2636,7 +2647,7 @@ La calificación del módulo en la evaluación final se calculará como la media
 
 \begin_layout Standard
 La calificación introducida en el sistema Séneca será la calificación final
- redondeada al entero más cercano, y no podrá ser inferior a 1.
+ redondeada al entero más cercano, y no podrá ser inferior a 1,0.
 \end_layout
 
 \begin_layout Standard
@@ -2670,7 +2681,7 @@ filename "racepor.tex"
 \end_layout
 
 \begin_layout Subsection
-Medidas de recuperación y mejora de la calificación
+Medidas de recuperación y mejora de la calificación final
 \end_layout
 
 \begin_layout Standard

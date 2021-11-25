@@ -25,7 +25,7 @@ do
             echo -E ' \\ \cline{2-3}'
         fi
     fi
-    if [ "$col1$col2" == "2a" -o "$col1$col2" == "6a" ]; then
+    if [ "$col1$col2" == "3a" -o "$col1$col2" == "7a" ]; then
         echo -nE '\pagebreak '
     fi
     echo -nE "\RA{$col1} \\ra$col1 & \CE{$col1}{$col2} \ce{$col1$col2} & $col3"
