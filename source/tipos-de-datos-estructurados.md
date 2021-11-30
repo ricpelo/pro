@@ -1427,27 +1427,27 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 - $\underline{s}$ y $\underline{o}$ son conjuntos, y $\underline{x}$ es un
   valor cualquiera:
 
-V---------------------------------------------------------------------------------------------------------
-Operación                            Resultado
------------------------------------- --------------------------------------------------------------------
-!PYTHON(len)`(`$s$`)`                Número de elementos de $\underline{s}$ (su cardinalidad)
-
-$x\ $ !PYTHON(in) $\ s$              !PYTHON(True) si $\underline{x}$ pertenece a $\underline{s}$
-
-$x\ $ !PYTHON(not in) $\ s$          !PYTHON(True) si $\underline{x}$ no pertenece a $\underline{s}$
-
-$s$!PYTHON(.isdisjoint)`(`$o$`)`     !PYTHON(True) si $\underline{s}$ no tiene ningún elemento en común con $\underline{o}$
-
-$s$!PYTHON(.issubset)`(`$o$`)` \     !PYTHON(True) si $\underline{s}$ es un subconjunto de $\underline{o}$
-$s$ `<=` $o$
-
-$s$ `<` $o$                          !PYTHON(True) si $\underline{s}$ es un subconjunto propio de $\underline{o}$
-
-$s$!PYTHON(.issuperset)`(`$o$`)` \   !PYTHON(True) si $\underline{s}$ es un superconjunto de $\underline{o}$
-$s$ `>=` $o$
-
-$s$ `>` $o$                          !PYTHON(True) si $\underline{s}$ es un superconjunto propio de $\underline{o}$
--y--------------------------------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------------------------------------
+  Operación                                 Resultado
+  ----------------------------------------- --------------------------------------------------------------------
+  !PYTHON(len)`(`$s$`)`                     Número de elementos de $\underline{s}$ (su cardinalidad)
+                                           
+  $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si $\underline{x}$ pertenece a $\underline{s}$
+                                           
+  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(True) si $\underline{x}$ no pertenece a $\underline{s}$
+                                           
+  $s$!PYTHON(.isdisjoint)`(`$o$`)`          !PYTHON(True) si $\underline{s}$ no tiene ningún elemento en común con $\underline{o}$
+                                           
+  $s$!PYTHON(.issubset)`(`$o$`)` \          !PYTHON(True) si $\underline{s}$ es un subconjunto de $\underline{o}$
+  $s$ `<=` $o$                             
+                                           
+  $s$ `<` $o$                               !PYTHON(True) si $\underline{s}$ es un subconjunto propio de $\underline{o}$
+                                           
+  $s$!PYTHON(.issuperset)`(`$o$`)` \        !PYTHON(True) si $\underline{s}$ es un superconjunto de $\underline{o}$
+  $s$ `>=` $o$                             
+                                           
+  $s$ `>` $o$                               !PYTHON(True) si $\underline{s}$ es un superconjunto propio de $\underline{o}$
+  --------------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -1637,29 +1637,29 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 - $\underline{d}$ y $\underline{o}$ son diccionarios, $\underline{c}$ es una
   clave válida y $\underline{v}$ es un valor cualquiera:
 
----------------------------------------------------------------------------------------------------------------------------------------------
-Operación                             Resultado                                                                                         
-------------------------------------- -------------------------------------------------------------------------------------------------------
-$d$`[`$c$`]` `=` $v$                  Asigna a $d$`[`$c$`]` el valor $\underline{v}$
+  ---------------------------------------------------------------------------------------------------------------------------------------------
+  Operación                             Resultado                                                                                         
+  ------------------------------------- -------------------------------------------------------------------------------------------------------
+  $d$`[`$c$`]` `=` $v$                  Asigna a $d$`[`$c$`]` el valor $\underline{v}$
 
-!PYTHON(del) $\ d$`[`$c$`]`           Elimina $d$`[`$c$`]` de $\underline{d}$ (produce !PYTHON(KeyError) si $\underline{c}$ no está en
-                                      $\underline{d}$)
+  !PYTHON(del) $\ d$`[`$c$`]`           Borra $d$`[`$c$`]` de $\underline{d}$ (lanza !PYTHON(KeyError) si $\underline{c}$ no está en
+                                        $\underline{d}$)
 
-$c\ $ !PYTHON(in) $\ d$               !PYTHON(True) si $\underline{d}$ contiene una clave $\underline{c}$
+  $c\ $ !PYTHON(in) $\ d$               !PYTHON(True) si $\underline{d}$ contiene una clave $\underline{c}$
 
-$c\ $ !PYTHON(not in) $\ d$           !PYTHON(True) si $\underline{d}$ no contiene una clave $\underline{c}$
+  $c\ $ !PYTHON(not in) $\ d$           !PYTHON(True) si $\underline{d}$ no contiene una clave $\underline{c}$
 
-$d$!PYTHON(.clear())                  Elimina todos los elementos de $\underline{d}$
+  $d$!PYTHON(.clear())                  Elimina todos los elementos de $\underline{d}$
 
-$d$!PYTHON(.copy())                   Devuelve una copia superficial de $\underline{d}$
+  $d$!PYTHON(.copy())                   Devuelve una copia superficial de $\underline{d}$
 
-$d$!PYTHON(.get)`(`$c$[`,` $def$]`)`  Devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en caso contrario,
-                                      devuelve $\underline{def}$ (por defecto, $\underline{def}$ vale !PYTHON(None))
+  $d$!PYTHON(.get)`(`$c$[`,` $def$]`)`  Devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en caso contrario,
+                                        devuelve $\underline{def}$ (que por defecto es !PYTHON(None))
 
-$d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`  Elimina y devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en
-                                      caso contrario, devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y $\underline{c}$
-                                      no está en $\underline{d}$, produce un !PYTHON(KeyError))
----------------------------------------------------------------------------------------------------------------------------------------------
+  $d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`  Elimina y devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en
+                                        caso contrario, devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y $\underline{c}$
+                                        no está en $\underline{d}$, produce un !PYTHON(KeyError))
+  ---------------------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
