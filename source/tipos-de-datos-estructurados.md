@@ -1427,7 +1427,7 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 - $\underline{s}$ y $\underline{o}$ son conjuntos, y $\underline{x}$ es un
   valor cualquiera:
 
----------------------------------------------------------------------------------------------------------
+V---------------------------------------------------------------------------------------------------------
 Operación                            Resultado
 ------------------------------------ --------------------------------------------------------------------
 !PYTHON(len)`(`$s$`)`                Número de elementos de $\underline{s}$ (su cardinalidad)
@@ -1447,7 +1447,7 @@ $s$!PYTHON(.issuperset)`(`$o$`)` \   !PYTHON(True) si $\underline{s}$ es un supe
 $s$ `>=` $o$
 
 $s$ `>` $o$                          !PYTHON(True) si $\underline{s}$ es un superconjunto propio de $\underline{o}$
----------------------------------------------------------------------------------------------------------
+-y--------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -1845,12 +1845,12 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ---
 
-- En ambos casos `root`, es un objeto de tipo `Element` que dispone de ciertos
+- En ambos casos, `root` es un objeto de tipo `Element` que dispone de ciertos
   atributos y que responde a ciertos métodos. Ese objeto representa el nodo
   raíz del árbol XML.
 
 - Por tanto, como cualquier objeto de tipo `Element`, el objeto `root` tiene
-  una etiqueta (`tag`) y un diccionario de atributos.
+  una etiqueta (`tag`) y un diccionario de atributos (`attrib`).
 
 ---
 
@@ -1955,6 +1955,79 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 - También disponemos de la función `dump` que devuelve la cadena
   correspondiente al nodo que se le pase como argumento.
+
+---
+
+- Para una especificación más sofisticada de los elementos a encontrar, se
+  pueden usar las expresiones `XPath`:
+
+  ----------------------------------------------------------------------------------------------------------------------------
+  Sintaxis             Significado                                                                                         
+  -------------------- -------------------------------------------------------------------------------------------------------
+  **_etiqueta_**       Selecciona todos los nodos hijo con la etiqueta **_etiqueta_**. Por ejemplo, `pepe` selecciona todos
+                       los nodos hijo llamados `pepe`, y `pepe/juan` selecciona todos los nietos llamados `juan` en todos los
+                       hijos llamados `pepe`.
+
+  `*`                  Selecciona todos los nodos hijo inmediatos. Por ejemplo, `*/pepe` selecciona todos los nietos llamados
+                       `pepe`.
+
+  `.`                  Selecciona el nodo actual. Se usa, sobre todo, al principio de la ruta para indicar que es una ruta
+                       relativa.
+
+  `//`                 Selecciona todos los subelementos en cualquier nivel por debajo del nodo actual. Por ejemplo,
+                       `.//pepe` selecciona todos los elementos `pepe` que haya en todo el árbol.
+
+  `..`                 Selecciona el elemento padre. Devuelve `None` si se intenta acceder a un ancestro del elemento de
+                       inicio (aquel sobre el que se ha llamado al método `find`).
+  ----------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Continuación de las expresiones `XPath`:
+
+  -------------------------------------------------------------------------------------------------------------------------------------------
+  Sintaxis                            Significado                                                                                         
+  ----------------------------------- -------------------------------------------------------------------------------------------------------
+  `[@`**_atrib_**`]`                  Selecciona todos los elementos que tienen el atributo **_atrib_**.
+
+  `[@`**_atrib_**`='`**_valor_**`']`  Selecciona todos los elementos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
+                                      puede contener apóstrofes.
+
+  `[@`**_atrib_**`!='`**_valor_**`']` Selecciona todos los elementos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
+                                      puede contener apóstrofes.
+
+
+  `[`**_etiqueta_**`]`                Selecciona todos los elementos que tienen un hijo inmediato llamado **_etiqueta_**.
+
+  `[`**_posición_**`]`                Selecciona todos los elementos situados en cierta **_posición_**. Ésta puede ser un entero (`1 ` es la
+                                      primera posición), la expresión `last()` (la última posición) o una posición relativa a la
+                                      última posición (por ejemplo, `last() - 1`).
+  ----------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Ejemplos:
+
+  ```python
+  # Los elementos de nivel más alto:
+  root.findall(".")
+
+  # Todos los nietos 'neighbor' de los hijos 'country' de los elementos
+  # de nivel más alto:
+  root.findall("./country/neighbor")
+
+  # Los nodos con name='Singapore' que tienen un hijo 'year':
+  root.findall(".//year/..[@name='Singapore']")
+
+  # Los nodos 'year' que son hijos de los nodos con name='Singapore':
+  root.findall(".//*[@name='Singapore']/year")
+
+  # Todos los nodos 'neighbor' que son hijos segundos de sus padres:
+  root.findall(".//neighbor[2]")
+
+  # Todos los nodos 'country' hijos directos del actual que tienen un hijo 'year':
+  root.findall("country[year]')
+  ```
 
 ### Modificación
 
