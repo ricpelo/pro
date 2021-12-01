@@ -1826,8 +1826,9 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 - Los documentos XML se pueden considerar datos estructurados en forma de árbol
   (es decir, con una estructura jerárquica y, por tanto, no secuencial).
 
-- El módulo `xml.etree.ElementTree` implementa una interfaz sencilla y
-  eficiente para interpretar y crear datos XML.
+- El módulo `xml.etree.ElementTree` (documentado en
+  <https://docs.python.org/3/library/xml.etree.elementtree.html>) implementa
+  una interfaz sencilla y eficiente para interpretar y crear datos XML.
 
 - Para importar los datos de un archivo XML, podemos hacer:
 
@@ -2093,7 +2094,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   ```python
   >>> for country in root.findall('country'):
-  ...     # using root.findall() to avoid removal during traversal
+  ...     # se usa root.findall() para no borrar durante el recorrido
   ...     rank = int(country.find('rank').text)
   ...     if rank > 50:
   ...         root.remove(country)

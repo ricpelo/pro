@@ -1845,7 +1845,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span> Acceso</h3>
 <ul>
 <li><p>Los documentos XML se pueden considerar datos estructurados en forma de árbol (es decir, con una estructura jerárquica y, por tanto, no secuencial).</p></li>
-<li><p>El módulo <code>xml.etree.ElementTree</code> implementa una interfaz sencilla y eficiente para interpretar y crear datos XML.</p></li>
+<li><p>El módulo <code>xml.etree.ElementTree</code> (documentado en <a href="https://docs.python.org/3/library/xml.etree.elementtree.html" class="uri">https://docs.python.org/3/library/xml.etree.elementtree.html</a>) implementa una interfaz sencilla y eficiente para interpretar y crear datos XML.</p></li>
 <li><p>Para importar los datos de un archivo XML, podemos hacer:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> ET.parse(<span class="st">&#39;archivo.xml&#39;</span>)</span>
@@ -2103,7 +2103,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>Podemos eliminar elementos con el método <code>remove</code>.</p></li>
 <li><p>Supongamos que queremos eliminar todos los países con un <code>rank</code> superior a 50:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> country <span class="kw">in</span> root.findall(<span class="st">&#39;country&#39;</span>):</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>...     <span class="co"># using root.findall() to avoid removal during traversal</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>...     <span class="co"># se usa root.findall() para no borrar durante el recorrido</span></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>...     rank <span class="op">=</span> <span class="bu">int</span>(country.find(<span class="st">&#39;rank&#39;</span>).text)</span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> rank <span class="op">&gt;</span> <span class="dv">50</span>:</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>...         root.remove(country)</span>
