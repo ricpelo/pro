@@ -242,6 +242,78 @@ saluda(nombre)
 
 ### `pylint`
 
+- `pylint` es una herramienta que comprueba determinado tipo de errores en el
+  código fuente de un programa Python.
+
+- Trata de asegurar que el programa se ajusta a un estándar de codificación.
+
+- Localiza determinados patrones que están mal vistos o que pueden mejorarse
+  fácilmente.
+
+- Sugiere cambios en el código, recomienda refactorizaciones y ofrece detalles
+  sobre la complejidad del código.
+
+- Se puede instalar o manualmente haciendo:
+
+  ```console
+  $ pip install pylint
+  ```
+
+---
+
+- También se puede instalar indirectamente a través de Visual Studio Code.
+  Para ello:
+
+  - Instalar la extensión _Python_.
+
+  - Configurar las siguientes opciones:
+
+  - _Python > Linting: Enabled_: Activado
+
+    - _Python > Linting: Pylint Enabled_: Activado
+
+- De esta forma, Visual Studio Code ejecutará `pylint` de forma automática
+  cuando estemos editando un archivo de código fuente de Python.
+
+---
+
+- Desde la consola, `pylint` se ejecuta directamente sobre un archivo `.py`:
+
+  ```console
+  $ pylint prueba.py
+  ************* Module prueba
+  prueba.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+
+  -------------------------------------------------------------------
+  Your code has been rated at 5.00/10 (previous run: 10.00/10, -5.00)
+  ```
+
+- Se puede deshabilitar la comprobación de determinados _defectos_ usando la
+  opción `--disable`:
+
+    ```console
+    $ pylint --disable=missing-docstring prueba.py
+
+    -------------------------------------------------------------------
+    Your code has been rated at 10.00/10 (previous run: 5.00/10, +5.00)
+    ```
+
+- Con la opción `--lists-msgs` se pueden consulta la lista de todos los
+  comprobadores predefinidos.
+
+---
+
+- En Visual Studio Code, se pueden establecer las opciones de arranque de
+  `pylint` (por ejemplo, para deshabilitar ciertas comprobaciones).
+
+- Para ello, en la configuración de VS Code se cambia la opción _Python ›
+  Linting: Pylint Args_.
+
+- Por ejemplo, si queremos deshabilitar algunas comprobaciones, podemos
+  poner lo siguiente en dicha opción:
+
+  `--disable=invalid-name,redefined-outer-name,missing-docstring`
+
 ### `autopep8`
 
 # Depuración
@@ -268,7 +340,27 @@ saluda(nombre)
 
 ## `doctest`
 
+- `doctest` es una herramienta que permite realizar pruebas de forma automática
+  sobre una función.
+
+- Para ello, se usa la _docstring_ de la función.
+
+- En ella, se escribe una _simulación_ de una pretendida ejecución de la
+  función desde el intérprete interactivo de Python.
+
+- La herramienta comprueba si la salida obtenida coincide con la esperada según
+  dicta la _docstring_ de la función.
+
+- De esta forma, la _docstring_ cumple dos funciones:
+
+  - Documentación de la función.
+
+  - Especificación de casos de prueba de la función.
+
+---
+
 ```python
+# ejemplo.py
 def factorial(n):
     """Devuelve el factorial de n, un número entero >= 0.
 
@@ -295,7 +387,7 @@ def factorial(n):
 
 ---
 
-```console
+```python
 $ python -m doctest ejemplo.py
 $ python -m doctest ejemplo.py -v
 Trying:
@@ -325,6 +417,28 @@ Test passed.
 ```
 
 ## `pytest`
+
+- `pytest` es una herramienta que permite realizar pruebas automáticas sobre
+  una función o programa Python, pero de una manera más general que con
+  `doctest`.
+
+- La forma más sencilla de usarla es crear una función llamada
+  `test_`!NT(nombre) por cada función !NT(nombre) que queramos probar.
+
+- Esa función `test_`!NT(nombre) será la encargada de probar automáticamente el
+  funcionamiento correcto de la función !NT(nombre).
+
+- Dentro de la función `test_`!NT(nombre), usaremos la orden !PYTHON(assert)
+  para comprobar si se cumple una determinada condición.
+
+- En caso de que no se cumpla, se entenderá que la función !NT(nombre) no ha
+  superado dicha prueba.
+
+- En Python 3, la herramienta se llama `pytest-3` y se instala mediante:
+
+  ```python $ sudo apt install python3-pytest ```
+
+---
 
 ```python
 # test_ejemplo.py
