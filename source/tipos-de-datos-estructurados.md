@@ -1570,7 +1570,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   ```python
   >>> v1 = {}                                          # diccionario vacío
   >>> v2 = dict()                                      # también diccionario vacío
-  >>> v1 = v2
+  >>> v1 == v2
   True
   >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
   >>> b = dict(uno=1, dos=2, tres=3)                   # argumentos con nombre
@@ -1720,9 +1720,10 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
     b 2
     ```
 
-  - Usar el método !PYTHON(items) sobre el diccionario, que devuelve una lista
-    de tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}, combinándolo con el
-    **desempaquetado de tuplas**:
+  - Usar el método !PYTHON(items) sobre el diccionario (el cual devuelve un
+    objeto que, al iterar sobre él, genera una secuencia de tuplas
+    !T{(}!NT(clave)!T(,) !NT(valor)!T{)}), combinándolo con el **desempaquetado
+    de tuplas**:
 
     ```python
     >>> d.items()
@@ -1745,8 +1746,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ::: column
 
-- !PYTHON(keys) devuelve un **iterador** que recorre las **claves** del
-  diccionario sobre el que se invoca:
+- !PYTHON(keys) devuelve un objeto que, al iterar sobre él, va generando las
+  **claves** del diccionario sobre el que se invoca:
 
 
   ```python
@@ -1765,8 +1766,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 !ifdef(LATEX)(\vspace{0.3em})
 
-- !PYTHON(values) devuelve un **iterador** que recorre los **valores** del
-  diccionario sobre el que se invoca:
+- !PYTHON(values) devuelve un objeto que, al iterar sobre él, va generando los
+  **valores** del diccionario sobre el que se invoca:
 
   ```python
   >>> d.values()
