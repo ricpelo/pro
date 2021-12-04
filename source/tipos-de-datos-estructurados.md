@@ -1822,14 +1822,15 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ## Documentos XML
 
-- Los documentos XML se pueden considerar datos estructurados en forma de árbol
-  (es decir, con una estructura jerárquica y, por tanto, no secuencial).
-
 :::: columns
 
 ::: {.column width=30%}
 
-- Por ejemplo, el siguiente documento XML:
+- Los documentos XML se pueden considerar **datos estructurados en forma de
+  _árbol_** (es decir, con una estructura **jerárquica** y, por tanto, **no
+  secuencial**).
+
+- Por ejemplo, supongamos el siguiente documento XML:
 
 :::
 
@@ -1839,7 +1840,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 <?xml version="1.0"?>
 <raiz>
     <alumno numero="111">
-        <dni>123123123A</dni>
+        <dni>12312312A</dni>
         <nombre>
             <propio>Juan</propio>
             <apellidos>García González</apellidos>
@@ -1856,6 +1857,9 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
         <telefono>696969696</telefono>
         <nota>9</nota>
     </alumno>
+    <madre>
+        <dni>22222222C</dni>
+    </madre>
 </raiz>
 ```
 
@@ -1865,9 +1869,483 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ---
 
-- Representaría la siguiente estructura jerárquica:
+- Podemos encontrarnos lo siguiente:
 
-!DOT(documento-xml.svg)()(width=100%)(width=70%)
+  - Lo que hay entre ángulos (como `<raiz>`) es una _etiqueta_.
+
+  - Lo que hay entre dos etiquetas (como el `7` en `<nota>7</nota>`) es el
+    _texto_ de la etiqueta.
+
+  - Lo que hay dentro de la etiqueta (como `numero="111"`) es un _atributo_ de
+    la etiqueta.
+
+    `numero="111"` es un atributo de la primera etiqueta `<alumno>`.
+
+    `numero` es el _nombre_ del atributo.
+
+    `111` es el _valor_ del atributo `numero`.
+
+  - Puede haber etiquetas con uno o varios atributos y etiquetas sin atributos.
+
+---
+
+- Ese documento representaría la siguiente estructura jerárquica:
+
+  !DOT(documento-xml.svg)()(width=100%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [shape = plaintext, fillcolor = transparent, fixedsize = shape, height = 0.3, width = 0.4]
+  edge [arrowhead = none]
+  rankdir = TB
+  alumno1[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=111)</font>>, fixedsize = false]
+  dni1[label = <dni<br/><font face="monospace" color="blue" point-size="10">(123123123A)</font>>]
+  nombre1[label = "nombre"]
+  telefono1[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(666555444)</font>>, height = 0.4]
+  nota1[label = <nota<br/><font face="monospace" color="blue" point-size="10">(7)</font>>]
+  propio1[label = <propio<br/><font face="monospace" color="blue" point-size="10">(Juan)</font>>]
+  apellidos1[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(García González)</font>>]
+  alumno2[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=222)</font>>, fixedsize = false]
+  dni2[label = <dni<br/><font face="monospace" color="blue" point-size="10">(44455566B)</font>>]
+  nombre2[label = "nombre"]
+  telefono2[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(696969696)</font>>, height = 0.4]
+  nota2[label = <nota<br/><font face="monospace" color="blue" point-size="10">(9)</font>>]
+  propio2[label = <propio<br/><font face="monospace" color="blue" point-size="10">(María)</font>>]
+  apellidos2[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(Pérez Rodríguez)</font>>]
+  dni3[label = <dni<br/><font face="monospace" color="blue" point-size="10">(22222222C)</font>>]
+  raiz -> alumno1, alumno2, madre
+  alumno1 -> dni1, nombre1, telefono1, nota1
+  nombre1 -> propio1, apellidos1
+  alumno2 -> dni2, nombre2, telefono2, nota2
+  nombre2 -> propio2, apellidos2
+  madre -> dni3
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Se observa que:
+
+  - **Cada nodo representa una etiqueta** del documento XML.
+
+  - Si una etiqueta contiene a otra, su correspondiente nodo en el árbol tendrá
+    un hijo que representa a la etiqueta que contiene.
+
+  - Los hijos de un nodo están ordenados por la posición que ocupan dentro de
+    su etiqueta padre.
+
+### Acceso
+
+- El módulo `xml.etree.ElementTree` (documentado en
+  <https://docs.python.org/3/library/xml.etree.elementtree.html>) implementa
+  una interfaz sencilla y eficiente para interpretar y crear datos XML.
+
+- Para importar los datos de un archivo XML, podemos hacer:
+
+  ```python
+  import xml.etree.ElementTree as ET
+  arbol = ET.parse('archivo.xml')
+  raiz = arbol.getroot()
+  ```
+
+- Si los datos XML se encuentran ya en una cadena, se puede hacer directamente:
+
+  ```python
+  raiz = ET.fromstring(datos_en_una_cadena)
+  ```
+
+---
+
+- Los nodos del árbol se representan internamente mediante objetos de tipo
+  `Element`, los cuales disponen de ciertos atributos y responden a ciertos
+  métodos.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **¡Cuidado!** Aquí, cuando hablamos de _atributos_, nos referimos a
+  información que contiene el objeto (una cualidad del objeto según el
+  _paradigma orientado a objetos_) y a la cual se puede acceder usando el
+  operador punto (`.`), no a los atributos que pueda tener una etiqueta según
+  consten en el documento XML.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Los objetos de tipo `Element` disponen de los siguientes atributos:
+
+  - `tag`: una cadena que representa a la etiqueta del nodo (por ejemplo: si la
+    etiqueta es `<alumno>`, entonces `tag` contendrá !PYTHON('alumno')).
+
+  - `attrib`: un diccionario que representa a los atributos de esa etiqueta en
+    el documento XML.
+
+  - `text`: una cadena que representa el contenido del nodo, es decir, el texto
+    que hay entre **`<`_etiqueta_`>`** y **`</`_etiqueta_`>`**.
+
+---
+
+- Por ejemplo, si tenemos la siguiente etiqueta en el documento XML:
+
+  ```xml
+  <telefono tipo="movil">666555444</telefono>
+  ```
+
+  y la variable `nodo` contiene el nodo (es decir, el objeto `Element`) que
+  representa a dicha etiqueta en el árbol, entonces:
+
+  - !PYTHON(nodo.tag) valdrá !PYTHON('telefono').
+
+  - !PYTHON(nodo.attrib) valdrá !PYTHON({'tipo': 'movil'}).
+
+  - !PYTHON(nodo.text) valdrá !PYTHON('666555444').
+
+---
+
+- En nuestro caso, `raiz` es un objeto de tipo `Element` que, además,
+  representa al nodo raíz del árbol XML.
+
+- Por tanto, tendríamos lo siguiente:
+
+  ```python
+  >>> raiz.tag
+  'raiz'
+  >>> raiz.attrib
+  {}
+  >>> raiz.text
+  '\n    '              # ¿Por qué?
+  ```
+
+- Los objetos `Element` son **iterables**. Por ejemplo, el nodo raíz tiene
+  **nodos hijos** (nodos que «cuelgan» directamente del nodo raíz) sobre los
+  cuales se puede iterar desde el objeto `raiz`:
+
+  ```python
+  >>> for hijo in raiz:
+  ...     print(hijo.tag, hijo.attrib)
+  ...
+  alumno {'numero': '111'}
+  alumno {'numero': '222'}
+  madre {}
+  ```
+
+---
+
+- Los hijos están anidados, y podemos acceder a nodos concretos a través de su
+  índice (es decir, que los objetos `Element` son **indexables**):
+
+  ```python
+  >>> raiz[0]       # el primer hijo directo de raiz
+  <Element 'alumno' at 0x7f929c29cf90>
+  >>> raiz[0][2]    # el tercer hijo directo del primer hijo directo de raiz
+  <Element 'telefono' at 0x7f929c29d180>
+  >>> raiz[0][2].text
+  '666555444'
+  ```
+
+---
+
+- Los objetos de tipo `Element` disponen de métodos útiles para iterar
+  recursivamente sobre todos los subárboles situados debajo de él (sus hijos,
+  los hijos de sus hijos, y así sucesivamente).
+
+- Por ejemplo, el método `iter` devuelve un **iterador** que recorre todos los
+  nodos del árbol desde el nodo actual (el nodo sobre el que se invoca al
+  método) en un orden _primero en profundidad_.
+
+- Eso quiere decir que va visitando los nodos en el mismo orden en el que se
+  encuentran escritos en el documento XML, incluyendo el propio nodo sobre el
+  que se invoca.
+
+---
+
+:::: columns
+
+::: column
+
+- Por ejemplo:
+
+  ```python
+  >>> for nodo in raiz.iter():
+  ...     print(nodo.tag)
+  ...
+  raiz
+  alumno
+  dni
+  nombre
+  propio
+  apellidos
+  telefono
+  nota
+  alumno
+  dni
+  nombre
+  propio
+  apellidos
+  telefono
+  nota
+  madre
+  dni
+  ```
+
+:::
+
+::: column
+
+- Si se le pasa una etiqueta como argumento, devolverá únicamente los nodos que
+  tengan esa etiqueta:
+
+  ```python
+  >>> for dni in raiz.iter('dni'):
+  ...     print(dni.text)
+  ...
+  12312312A
+  44455566B
+  22222222C
+  ```
+
+:::
+
+::::
+
+---
+
+- El método `findall` devuelve una lista con los nodos que tengan una cierta
+  etiqueta y que sean hijos directos del nodo sobre el que se invoca.
+
+  Puede devolver una lista vacía si no hay nodos que cumplan la condición.
+
+- El método `find` devuelve el primer hijo directo del nodo sobre el que se
+  invoca, siempre que tenga una cierta etiqueta indicada como argumento.
+
+  Puede devolver !PYTHON(None) si el nodo no tiene ningún hijo con esa
+  etiqueta.
+
+- El método `get` devuelve el valor de algún atributo de la etiqueta asociada a
+  ese nodo:
+
+  ```python
+  >>> for alumno in raiz.findall('alumno'):
+  ...     numero = alumno.get('numero')
+  ...     dni = alumno.find('dni').text
+  ...     print(numero, dni)
+  ...
+  111 12312312A
+  222 44455566B
+  ```
+
+---
+
+- Si la etiqueta no tiene el atributo indicado en el argumento de `get`, éste
+  devuelve !PYTHON(None) o el valor que se haya indicado en el segundo
+  argumento:
+
+  ```python
+  >>> alumno = raiz[0]
+  >>> alumno.get('numero')
+  111
+  >>> alumno.get('altura')
+  None
+  >>> alumno.get('altura', 0)
+  0
+  >>> alumno.get('numero', 0)
+  111
+  ```
+
+- También disponemos de la función `dump` que devuelve la cadena
+  correspondiente al nodo que se le pase como argumento:
+
+  ```python
+  >>> ET.dump(raiz[0][2])
+  <telefono>666555444</telefono>
+  ```
+
+---
+
+- Para una especificación más sofisticada de los elementos a encontrar, se
+  pueden usar las expresiones `XPath` en el método `findall`:
+
+  ----------------------------------------------------------------------------------------------------------------------------
+  Sintaxis             Significado                                                                                         
+  -------------------- ----------------------------------------------------------------------------------------------------------
+  **_etiqueta_**       Selecciona todos los nodos hijo con la etiqueta **_etiqueta_**. Por ejemplo, `pepe` selecciona todos
+                       los nodos hijo llamados `pepe`, y `pepe/juan` selecciona todos los nietos llamados `juan` en todos los
+                       hijos llamados `pepe`.
+
+  `*`                  Selecciona todos los nodos hijo inmediatos. Por ejemplo, `*/pepe` selecciona todos los nietos llamados
+                       `pepe`.
+
+  `.`                  Selecciona el nodo actual. Se usa, sobre todo, al principio de la ruta para indicar que es una ruta
+                       relativa.
+
+  `//`                 Selecciona todos los subnodos en cualquier nivel por debajo de un nodo. Por ejemplo,
+                       `.//pepe` selecciona todos los nodos `pepe` que haya en todo el árbol.
+
+  `..`                 Selecciona el nodo padre. Devuelve !PYTHON(None) si se intenta acceder a un ancestro del nodo de
+                       inicio (aquel sobre el que se ha llamado al método `find`).
+  -------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Continuación de las expresiones `XPath`:
+
+  -------------------------------------------------------------------------------------------------------------------------------------------
+  Sintaxis                            Significado                                                                                         
+  ----------------------------------- -------------------------------------------------------------------------------------------------------
+  `[@`**_atrib_**`]`                  Selecciona todos los nodos que tienen el atributo **_atrib_**.
+
+  `[@`**_atrib_**`='`**_valor_**`']`  Selecciona todos los nodos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
+                                      puede contener apóstrofes.
+
+  `[@`**_atrib_**`!='`**_valor_**`']` Selecciona todos los nodos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
+                                      puede contener apóstrofes.
+
+
+  `[`**_etiqueta_**`]`                Selecciona todos los nodos que tienen un hijo inmediato llamado **_etiqueta_**.
+
+  `[`**_posición_**`]`                Selecciona todos los nodos situados en cierta **_posición_**. Ésta puede ser un entero (`1 ` es la
+                                      primera posición), la expresión `last()` (la última posición) o una posición relativa a la
+                                      última posición (por ejemplo, `last() - 1`).
+  ----------------------------------------------------------------------------------------------------------------------------
+
+!EJEMPLOS
+
+```python
+# Los nodos de nivel más alto:
+>>> raiz.findall(".")
+[<Element 'raiz' at 0x7f929c29cf40>]
+
+# Los nietos 'dni' de los hijos 'alumno' de los nodos de nivel más alto:
+>>> raiz.findall("./alumno/dni")
+[<Element 'dni' at 0x7f929c29d040>,
+ <Element 'dni' at 0x7f929c29d270>]
+
+# Lo de antes equivale a hacer (porque el nodo actual es el raíz):
+>>> raiz.findall("alumno/dni")
+[<Element 'dni' at 0x7f929c29d040>,
+ <Element 'dni' at 0x7f929c29d270>]
+
+# Los nodos con numero='111' que tienen un hijo 'dni':
+>>> raiz.findall(".//dni/..[@numero='111']")
+[<Element 'alumno' at 0x7f929c29cf90>]
+
+# Antes de // hay que poner algo que indique el nodo debajo del
+# cual se va a buscar:
+>>> raiz.findall("//dni/..[@numero='111']")
+SyntaxError: cannot use absolute path on element
+```
+
+!EJEMPLOS
+
+```python
+# Todos los nodos 'dni' del árbol completo:
+>>> raiz.findall('.//dni')
+[<Element 'dni' at 0x7f547a0e9950>,
+ <Element 'dni' at 0x7f547a0e9b80>,
+ <Element 'dni' at 0x7f547a0e9e00>]
+
+# Sólo los DNIs que estén por debajo de un nodo 'madre'
+# en cualquier nivel:
+>>> raiz.findall('madre//dni')
+[<Element 'dni' at 0x7f547a0e9e00>]
+
+# Los nodos 'dni' que son hijos de los nodos con numero='111':
+>>> raiz.findall(".//*[@numero='111']/dni")
+[<Element 'dni' at 0x7f929c29d040>]
+
+# Los nodos 'alumno' que son hijos segundos de sus padres:
+>>> raiz.findall(".//alumno[2]")
+[<Element 'alumno' at 0x7f929c29d220>]
+
+# Los nodos 'alumno' hijos directos del actual que tienen un hijo 'nota':
+>>> raiz.findall("./alumno[nota]")
+[<Element 'alumno' at 0x7f929c29cf90>,
+ <Element 'alumno' at 0x7f929c29d220>]
+
+# Lo de antes equivale a hacer (porque el nodo actual es el raíz):
+>>> raiz.findall("alumno[nota]")
+[<Element 'alumno' at 0x7f929c29cf90>,
+ <Element 'alumno' at 0x7f929c29d220>]
+```
+
+### Modificación
+
+- `ElementTree` proporciona una forma sencilla de crear documentos XML y
+  escribirlos en archivos.
+
+- Para ello, usamos el método `write`.
+
+- Una vez creado, un objeto `Element` puede manipularse directamente:
+
+  - Cambiando los atributos del objeto, como `text` o `attrib`.
+
+  - Cambiando los atributos de la etiqueta a la que representa el objeto, con
+    el método `set`.
+
+  - Añadiendo nuevos hijos con los métodos `append` o `insert`.
+
+  - Eliminando hijos con el método `remove`.
+
+---
+
+- Por ejemplo, supongamos que queremos sumarle 1 a la `nota` de cada alumno y
+  añadir un atributo `modificado` a la etiqueta `nota`:
+
+  ```python
+  >>> for nota in raiz.iter('nota'):
+  ...     nueva_nota = int(nota.text) + 1
+  ...     nota.text = str(nueva_nota)
+  ...     nota.set('modificado', 'si')
+  ...
+  >>> arbol.write('salida.xml')
+  ```
+
+---
+
+- Nuestro XML tendría ahora el siguiente aspecto:
+
+  ```xml
+  <?xml version="1.0"?>
+  <raiz>
+      <alumno numero="111">
+          <dni>12312312A</dni>
+          <nombre>
+              <propio>Juan</propio>
+              <apellidos>García González</apellidos>
+          </nombre>
+          <telefono>666555444</telefono>
+          <nota modificado="si">8</nota>
+      </alumno>
+      <alumno numero="222">
+          <dni>44455566B</dni>
+          <nombre>
+              <propio>María</propio>
+              <apellidos>Pérez Rodríguez</apellidos>
+          </nombre>
+          <telefono>696969696</telefono>
+          <nota modificado="si">10</nota>
+      </alumno>
+      <madre>
+          <dni>22222222C</dni>
+      </madre>
+  </raiz>
+  ```
+
+---
+
+- Podemos insertar nuevos nodos hijos de un determinado nodo con los métodos
+  `append` o `insert`, como si el nodo fuese una lista.
+
+- Para ello, primero normalmente crearemos el nodo que vamos a insertar usando
+  **`Element(`_etiqueta_`)`**.
+
+- Por ejemplo, añadimos el teléfono a la única madre que tenemos en el
+  documento XML:
+
+  ```python
+  telefono = ET.Element('telefono')
+  telefono.text = '956366666'
+  madre = raiz.find('madre')
+  madre.append(telefono)
+  ```
+
+---
+
+- Tras estas operaciones, ahora tendríamos:
+
+!DOT(documento-xml-tras-append.svg)()(width=100%)(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [shape = plaintext, fillcolor = transparent, fixedsize = shape, height = 0.3, width = 0.4]
 edge [arrowhead = none]
@@ -1886,299 +2364,89 @@ telefono2[label = <telefono<br/><font face="monospace" color="blue" point-size="
 nota2[label = <nota<br/><font face="monospace" color="blue" point-size="10">(9)</font>>]
 propio2[label = <propio<br/><font face="monospace" color="blue" point-size="10">(María)</font>>]
 apellidos2[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(Pérez Rodríguez)</font>>]
-raiz -> alumno1, alumno2
+dni3[label = <dni<br/><font face="monospace" color="blue" point-size="10">(22222222C)</font>>]
+telefono3[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(956366666)</font>>, height = 0.4]
+raiz -> alumno1, alumno2, madre
 alumno1 -> dni1, nombre1, telefono1, nota1
 nombre1 -> propio1, apellidos1
 alumno2 -> dni2, nombre2, telefono2, nota2
 nombre2 -> propio2, apellidos2
+madre -> dni3, telefono3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Acceso
-
 ---
 
+- Podríamos haber usado `insert` en lugar de `append` para cambiar la posición
+  donde situar el nodo hijo.
 
-- El módulo `xml.etree.ElementTree` (documentado en
-  <https://docs.python.org/3/library/xml.etree.elementtree.html>) implementa
-  una interfaz sencilla y eficiente para interpretar y crear datos XML.
-
-- Para importar los datos de un archivo XML, podemos hacer:
-
-  ```python
-  import xml.etree.ElementTree as ET
-  arbol = ET.parse('archivo.xml')
-  raiz = tree.getroot()
-  ```
-
-- Si los datos XML se encuentran ya en una cadena, se puede hacer directamente:
+- Por ejemplo, si queremos situar el teléfono antes que el DNI, podríamos
+  hacer:
 
   ```python
-  raiz = ET.fromstring(datos_en_una_cadena)
+  telefono = ET.Element('telefono')
+  telefono.text = '956366666'
+  madre = raiz.find('madre')
+  madre.insert(0, telefono)
   ```
 
 ---
 
-- En ambos casos, `raiz` es un objeto de tipo `Element` que dispone de ciertos
-  atributos y que responde a ciertos métodos. Ese objeto representa el nodo
-  raíz del árbol XML.
+- Tras estas operaciones, ahora tendríamos:
 
-- Por tanto, como cualquier objeto de tipo `Element`, el objeto `raiz` tiene
-  una etiqueta (`tag`) y un diccionario de atributos (`attrib`).
-
----
-
-- Por ejemplo, supongamos que el `archivo.xml` tiene el siguiente contenido:
-
-  ```xml
-  <?xml version="1.0"?>
-  <data>
-      <country name="Liechtenstein">
-          <rank>1</rank>
-          <year>2008</year>
-          <gdppc>141100</gdppc>
-          <neighbor name="Austria" direction="E"/>
-          <neighbor name="Switzerland" direction="W"/>
-      </country>
-      <country name="Singapore">
-          <rank>4</rank>
-          <year>2011</year>
-          <gdppc>59900</gdppc>
-          <neighbor name="Malaysia" direction="N"/>
-      </country>
-      <country name="Panama">
-          <rank>68</rank>
-          <year>2011</year>
-          <gdppc>13600</gdppc>
-          <neighbor name="Costa Rica" direction="W"/>
-          <neighbor name="Colombia" direction="E"/>
-      </country>
-  </data>
-  ```
+!DOT(documento-xml-tras-insert.svg)()(width=100%)(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = plaintext, fillcolor = transparent, fixedsize = shape, height = 0.3, width = 0.4]
+edge [arrowhead = none]
+rankdir = TB
+alumno1[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=111)</font>>, fixedsize = false]
+dni1[label = <dni<br/><font face="monospace" color="blue" point-size="10">(123123123A)</font>>]
+nombre1[label = "nombre"]
+telefono1[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(666555444)</font>>, height = 0.4]
+nota1[label = <nota<br/><font face="monospace" color="blue" point-size="10">(7)</font>>]
+propio1[label = <propio<br/><font face="monospace" color="blue" point-size="10">(Juan)</font>>]
+apellidos1[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(García González)</font>>]
+alumno2[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=222)</font>>, fixedsize = false]
+dni2[label = <dni<br/><font face="monospace" color="blue" point-size="10">(44455566B)</font>>]
+nombre2[label = "nombre"]
+telefono2[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(696969696)</font>>, height = 0.4]
+nota2[label = <nota<br/><font face="monospace" color="blue" point-size="10">(9)</font>>]
+propio2[label = <propio<br/><font face="monospace" color="blue" point-size="10">(María)</font>>]
+apellidos2[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(Pérez Rodríguez)</font>>]
+telefono3[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(956366666)</font>>, height = 0.4]
+dni3[label = <dni<br/><font face="monospace" color="blue" point-size="10">(22222222C)</font>>]
+raiz -> alumno1, alumno2, madre
+alumno1 -> dni1, nombre1, telefono1, nota1
+nombre1 -> propio1, apellidos1
+alumno2 -> dni2, nombre2, telefono2, nota2
+nombre2 -> propio2, apellidos2
+madre -> telefono3, dni3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Tendríamos lo siguiente:
+- Podemos eliminar elementos con el método `remove`. Por ejemplo, supongamos
+  que queremos eliminar todos los alumnos con una `nota` inferior a 9:
 
   ```python
-  >>> root.tag
-  'data'
-  >>> root.attrib
-  {}
-  ```
-
-- El objeto `root` también tiene nodos hijos sobre los cuales se puede iterar:
-
-  ```python
-  >>> for child in root:
-  ...     print(child.tag, child.attrib)
+  >>> for alumno in raiz.findall('alumno'):
+  ...     # se usa findall para que no afecte el borrado durante el recorrido
+  ...     nota = int(alumno.find('nota').text)
+  ...     if nota < 9:
+  ...         raiz.remove(alumno)
   ...
-  country {'name': 'Liechtenstein'}
-  country {'name': 'Singapore'}
-  country {'name': 'Panama'}
-  ```
-
-- Los hijos están anidados, y podemos acceder a nodos concretos a través de su
-  índice:
-
-  ```python
-  >>> root[0][1].text
-  '2008'
-  ```
-
----
-
-- Los objetos de tipo `Element` disponen de métodos útiles para iterar
-  recursivamente sobre todos los subárboles situados debajo de él (sus hijos,
-  los hijos de sus hijos, y así sucesivamente).
-
-- Por ejemplo, el método `iter`:
-
-  ```python
-  >>> for neighbor in root.iter('neighbor'):
-  ...     print(neighbor.attrib)
-  ...
-  {'name': 'Austria', 'direction': 'E'}
-  {'name': 'Switzerland', 'direction': 'W'}
-  {'name': 'Malaysia', 'direction': 'N'}
-  {'name': 'Costa Rica', 'direction': 'W'}
-  {'name': 'Colombia', 'direction': 'E'}
-  ```
-
----
-
-- El método `findall` devuelve los elementos que tengan una cierta etiqueta y
-  que sean hijos directos del elemento actual.
-
-- El método `find` devuelve el primer hijo que tenga una cierta etiqueta.
-
-- El atributo `text` devuelve el contenido del elemento en forma de texto.
-
-- El método `get` devuelve los atributos del elemento:
-
-  ```python
-  >>> for country in root.findall('country'):
-  ...     rank = country.find('rank').text
-  ...     name = country.get('name')
-  ...     print(name, rank)
-  ...
-  Liechtenstein 1
-  Singapore 4
-  Panama 68
-  ```
-
-- También disponemos de la función `dump` que devuelve la cadena
-  correspondiente al nodo que se le pase como argumento.
-
----
-
-- Para una especificación más sofisticada de los elementos a encontrar, se
-  pueden usar las expresiones `XPath`:
-
-  ----------------------------------------------------------------------------------------------------------------------------
-  Sintaxis             Significado                                                                                         
-  -------------------- -------------------------------------------------------------------------------------------------------
-  **_etiqueta_**       Selecciona todos los nodos hijo con la etiqueta **_etiqueta_**. Por ejemplo, `pepe` selecciona todos
-                       los nodos hijo llamados `pepe`, y `pepe/juan` selecciona todos los nietos llamados `juan` en todos los
-                       hijos llamados `pepe`.
-
-  `*`                  Selecciona todos los nodos hijo inmediatos. Por ejemplo, `*/pepe` selecciona todos los nietos llamados
-                       `pepe`.
-
-  `.`                  Selecciona el nodo actual. Se usa, sobre todo, al principio de la ruta para indicar que es una ruta
-                       relativa.
-
-  `//`                 Selecciona todos los subelementos en cualquier nivel por debajo del nodo actual. Por ejemplo,
-                       `.//pepe` selecciona todos los elementos `pepe` que haya en todo el árbol.
-
-  `..`                 Selecciona el elemento padre. Devuelve `None` si se intenta acceder a un ancestro del elemento de
-                       inicio (aquel sobre el que se ha llamado al método `find`).
-  ----------------------------------------------------------------------------------------------------------------------------
-
----
-
-- Continuación de las expresiones `XPath`:
-
-  -------------------------------------------------------------------------------------------------------------------------------------------
-  Sintaxis                            Significado                                                                                         
-  ----------------------------------- -------------------------------------------------------------------------------------------------------
-  `[@`**_atrib_**`]`                  Selecciona todos los elementos que tienen el atributo **_atrib_**.
-
-  `[@`**_atrib_**`='`**_valor_**`']`  Selecciona todos los elementos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
-                                      puede contener apóstrofes.
-
-  `[@`**_atrib_**`!='`**_valor_**`']` Selecciona todos los elementos que tienen el valor **_valor_** en el atributo **_atrib_**. El valor no
-                                      puede contener apóstrofes.
-
-
-  `[`**_etiqueta_**`]`                Selecciona todos los elementos que tienen un hijo inmediato llamado **_etiqueta_**.
-
-  `[`**_posición_**`]`                Selecciona todos los elementos situados en cierta **_posición_**. Ésta puede ser un entero (`1 ` es la
-                                      primera posición), la expresión `last()` (la última posición) o una posición relativa a la
-                                      última posición (por ejemplo, `last() - 1`).
-  ----------------------------------------------------------------------------------------------------------------------------
-
----
-
-- Ejemplos:
-
-  ```python
-  # Los elementos de nivel más alto:
-  root.findall(".")
-
-  # Todos los nietos 'neighbor' de los hijos 'country' de los elementos
-  # de nivel más alto:
-  root.findall("./country/neighbor")
-
-  # Los nodos con name='Singapore' que tienen un hijo 'year':
-  root.findall(".//year/..[@name='Singapore']")
-
-  # Los nodos 'year' que son hijos de los nodos con name='Singapore':
-  root.findall(".//*[@name='Singapore']/year")
-
-  # Todos los nodos 'neighbor' que son hijos segundos de sus padres:
-  root.findall(".//neighbor[2]")
-
-  # Todos los nodos 'country' hijos directos del actual que tienen un hijo 'year':
-  root.findall("country[year]')
-  ```
-
-### Modificación
-
-- `ElementTree` proporciona una forma sencilla de crear documentos XML y
-  escribirlos en archivos.
-
-- Para ello, usamos el método `write`.
-
-- Una vez creado, un objeto `Element` puede manipularse directamente cambiando
-  sus atributos (como `text`), añadiendo y modificando atributos (con el método
-  `set`) o añadiendo nuevos hijos (por ejemplo, con el método `append`).
-
----
-
-- Por ejemplo, supongamos que queremos sumarle 1 al `rank` de cada país y
-  añadir un atributo `updated` al elemento `rank`:
-
-  ```python
-  >>> for rank in root.iter('rank'):
-  ...     new_rank = int(rank.text) + 1
-  ...     rank.text = str(new_rank)
-  ...     rank.set('updated', 'yes')
-  ...
-  >>> tree.write('output.xml')
-  ```
-
----
-
-- Nuestro XML tendría ahora el siguiente aspecto:
-
-  ```xml
-  <?xml version="1.0"?>
-  <data>
-      <country name="Liechtenstein">
-          <rank updated="yes">2</rank>
-          <year>2008</year>
-          <gdppc>141100</gdppc>
-          <neighbor name="Austria" direction="E"/>
-          <neighbor name="Switzerland" direction="W"/>
-      </country>
-      <country name="Singapore">
-          <rank updated="yes">5</rank>
-          <year>2011</year>
-          <gdppc>59900</gdppc>
-          <neighbor name="Malaysia" direction="N"/>
-      </country>
-      <country name="Panama">
-          <rank updated="yes">69</rank>
-          <year>2011</year>
-          <gdppc>13600</gdppc>
-          <neighbor name="Costa Rica" direction="W"/>
-          <neighbor name="Colombia" direction="E"/>
-      </country>
-  </data>
-  ```
-
----
-
-- Podemos eliminar elementos con el método `remove`.
-
-- Supongamos que queremos eliminar todos los países con un `rank` superior a
-  50:
-
-  ```python
-  >>> for country in root.findall('country'):
-  ...     # se usa root.findall() para no borrar durante el recorrido
-  ...     rank = int(country.find('rank').text)
-  ...     if rank > 50:
-  ...         root.remove(country)
-  ...
-  >>> tree.write('output.xml')
+  >>> arbol.write('salida.xml')
   ```
 
 - Tener en cuenta que la modificación concurrente mientras se hace una
   iteración puede dar problemas, lo mismo que ocurre cuando se modifican listas
-  o diccionarios mientras se itera sobre ellos. Por tanto, el ejemplo primero
-  recoge todos los elementos con `findall` y sólo entonces itera sobre la lista
-  que devuelve.
+  o diccionarios mientras se itera sobre ellos.
+
+- Por ello, el ejemplo primero recoge todos los elementos con `findall` y sólo
+  entonces itera sobre la lista que devuelve.
+
+- Si usáramos `iter` en lugar de `findall` se podrían dar problemas debido a
+  que `iter` va devolviendo perezosamente los nodos (es un iterador) y el
+  conjunto de nodos que devuelve podría verse afectado por los borrados.
 
 ---
 
@@ -2186,27 +2454,63 @@ nombre2 -> propio2, apellidos2
 
   ```xml
   <?xml version="1.0"?>
-  <data>
-      <country name="Liechtenstein">
-          <rank updated="yes">2</rank>
-          <year>2008</year>
-          <gdppc>141100</gdppc>
-          <neighbor name="Austria" direction="E"/>
-          <neighbor name="Switzerland" direction="W"/>
-      </country>
-      <country name="Singapore">
-          <rank updated="yes">5</rank>
-          <year>2011</year>
-          <gdppc>59900</gdppc>
-          <neighbor name="Malaysia" direction="N"/>
-      </country>
-  </data>
+  <raiz>
+      <alumno numero="222">
+          <dni>44455566B</dni>
+          <nombre>
+              <propio>María</propio>
+              <apellidos>Pérez Rodríguez</apellidos>
+          </nombre>
+          <telefono>696969696</telefono>
+          <nota modificado="si">10</nota>
+      </alumno>
+      <madre>
+          <dni>22222222C</dni>
+      </madre>
+  </raiz>
   ```
 
 ---
 
-- Las funciones `Element` y `SubElement` también proporcionan una forma muy
-  conveniente de crear sub-elementos de un elemento dado:
+- Si lo que queremos es **mover** un nodo (es decir, cambiar un nodo de sitio),
+  podemos combinar los efectos de `append` e `insert` con `remove`.
+
+- Por ejemplo, si queremos mover la etiqueta `<madre>` dentro de la etiqueta
+  `<alumno>`, podríamos hacer:
+
+  ```python
+  madre = raiz.find('madre')
+  raiz.remove(madre)
+  alumno = raiz.find('alumno')
+  alumno.append(madre)
+  ```
+
+---
+
+- Nuestro XML tendría ahora el siguiente aspecto:
+
+  ```xml
+  <?xml version="1.0"?>
+  <raiz>
+      <alumno numero="222">
+          <dni>44455566B</dni>
+          <nombre>
+              <propio>María</propio>
+              <apellidos>Pérez Rodríguez</apellidos>
+          </nombre>
+          <telefono>696969696</telefono>
+          <nota modificado="si">10</nota>
+          <madre>
+              <dni>22222222C</dni>
+          </madre>
+      </alumno>
+  </raiz>
+  ```
+
+---
+
+- La función `SubElement` también proporciona una forma muy conveniente de
+  crear sub-elementos de un elemento dado:
 
   ```python
   >>> a = ET.Element('a')
