@@ -1822,10 +1822,81 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ## Documentos XML
 
-### Acceso
-
 - Los documentos XML se pueden considerar datos estructurados en forma de árbol
   (es decir, con una estructura jerárquica y, por tanto, no secuencial).
+
+:::: columns
+
+::: {.column width=30%}
+
+- Por ejemplo, el siguiente documento XML:
+
+:::
+
+::: {.column width=70%}
+
+```xml
+<?xml version="1.0"?>
+<raiz>
+    <alumno numero="111">
+        <dni>123123123A</dni>
+        <nombre>
+            <propio>Juan</propio>
+            <apellidos>García González</apellidos>
+        </nombre>
+        <telefono>666555444</telefono>
+        <nota>7</nota>
+    </alumno>
+    <alumno numero="222">
+        <dni>44455566B</dni>
+        <nombre>
+            <propio>María</propio>
+            <apellidos>Pérez Rodríguez</apellidos>
+        </nombre>
+        <telefono>696969696</telefono>
+        <nota>9</nota>
+    </alumno>
+</raiz>
+```
+
+:::
+
+::::
+
+---
+
+- Representaría la siguiente estructura jerárquica:
+
+!DOT(documento-xml.svg)()(width=100%)(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = plaintext, fillcolor = transparent, fixedsize = shape, height = 0.3, width = 0.4]
+edge [arrowhead = none]
+rankdir = TB
+alumno1[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=111)</font>>, fixedsize = false]
+dni1[label = <dni<br/><font face="monospace" color="blue" point-size="10">(123123123A)</font>>]
+nombre1[label = "nombre"]
+telefono1[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(666555444)</font>>, height = 0.4]
+nota1[label = <nota<br/><font face="monospace" color="blue" point-size="10">(7)</font>>]
+propio1[label = <propio<br/><font face="monospace" color="blue" point-size="10">(Juan)</font>>]
+apellidos1[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(García González)</font>>]
+alumno2[label = <alumno<br/><font face="monospace" color="blue" point-size="10">(numero=222)</font>>, fixedsize = false]
+dni2[label = <dni<br/><font face="monospace" color="blue" point-size="10">(44455566B)</font>>]
+nombre2[label = "nombre"]
+telefono2[label = <telefono<br/><font face="monospace" color="blue" point-size="10">(696969696)</font>>, height = 0.4]
+nota2[label = <nota<br/><font face="monospace" color="blue" point-size="10">(9)</font>>]
+propio2[label = <propio<br/><font face="monospace" color="blue" point-size="10">(María)</font>>]
+apellidos2[label = <apellidos<br/><font face="monospace" color="blue" point-size="10">(Pérez Rodríguez)</font>>]
+raiz -> alumno1, alumno2
+alumno1 -> dni1, nombre1, telefono1, nota1
+nombre1 -> propio1, apellidos1
+alumno2 -> dni2, nombre2, telefono2, nota2
+nombre2 -> propio2, apellidos2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Acceso
+
+---
+
 
 - El módulo `xml.etree.ElementTree` (documentado en
   <https://docs.python.org/3/library/xml.etree.elementtree.html>) implementa
@@ -1835,23 +1906,23 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   ```python
   import xml.etree.ElementTree as ET
-  tree = ET.parse('archivo.xml')
-  root = tree.getroot()
+  arbol = ET.parse('archivo.xml')
+  raiz = tree.getroot()
   ```
 
 - Si los datos XML se encuentran ya en una cadena, se puede hacer directamente:
 
   ```python
-  root = ET.fromstring(datos_en_una_cadena)
+  raiz = ET.fromstring(datos_en_una_cadena)
   ```
 
 ---
 
-- En ambos casos, `root` es un objeto de tipo `Element` que dispone de ciertos
+- En ambos casos, `raiz` es un objeto de tipo `Element` que dispone de ciertos
   atributos y que responde a ciertos métodos. Ese objeto representa el nodo
   raíz del árbol XML.
 
-- Por tanto, como cualquier objeto de tipo `Element`, el objeto `root` tiene
+- Por tanto, como cualquier objeto de tipo `Element`, el objeto `raiz` tiene
   una etiqueta (`tag`) y un diccionario de atributos (`attrib`).
 
 ---
