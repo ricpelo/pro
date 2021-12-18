@@ -1490,7 +1490,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Los símbolos en negrita y azul (como !T(la)) se llaman **símbolos
   terminales**.
 - La barra vertical !COLOR(teal)(|) indica poder elegir entre dos **opciones**.
-- El !COLOR(teal)(*) indica 0, 1 ó más **repeticiones** de lo que
+- El !COLOR(teal)(!POR) indica 0, 1 ó más **repeticiones** de lo que
   acompaña.
 - El !COLOR(teal)(!MAS) indica 1 ó más **repeticiones** de lo que acompaña.
 - Los corchetes !COLOR{teal}{!ifdef(HTML)(\[)([)} y
@@ -1613,8 +1613,8 @@ adverbio -> mucho
 @. ¿Qué frases genera (o reconoce) la siguiente gramática? Poner ejemplos:
 
     !ALGO
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
-    !NT(expresión) ::= !NT(átomo) | !NT(lista)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(expresión) ::= !NT(átomo) | !NT(lista)
 !NT(átomo) ::= !NT(número) | !NT(símbolo)
 !NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
 !NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)!MAS
@@ -2600,6 +2600,10 @@ intérprete? Razona la respuesta.
 - Si tenemos un **error lógico** (un error en la lógica del programa que
   provoca que éste produzca resultados incorrectos), normalmente resulta más
   difícil de localizar.
+
+- A esos errores lógicos también se les denomina **_bugs_** («bichos», en
+  inglés). Por eso, el proceso de depuración se denomina **_debug_** o
+  _debugging_ en inglés.
 
 ## Documentación
 

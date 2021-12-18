@@ -40,6 +40,7 @@ Macros para hacer producciones en notación EBNF
 !define(NT)(!COLOR(teal)(!ifdef(HTML)(⟨*!1*⟩)(⟨\textit{!PYNT(!1)}⟩)))
 !define(T)(**`!1`**)
 !define(MAS)(!ifdef(HTML)($^+$)(\textsuperscript{+}))
+!define(POR)(*)
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
