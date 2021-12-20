@@ -7,7 +7,7 @@ echo -E '\begin{center}'
 echo -E '\small'
 echo -E '\begin{longtable}{|c|c|c|}'
 echo -E '\hline'
-echo -E '\textbf{Resultado de aprendizaje} & \textbf{Criterio de evaluación} & \textbf{Porcentaje} \\'
+echo -E '\textbf{Resultado de aprendizaje} (\RA{$i$})& \textbf{Criterio de evaluación} (\CE{$i$}{$j$}) & \textbf{Porcentaje} $(p_{ij})$ \\'
 echo -E '\hline'
 echo -E '\hline'
 echo -E '\endhead'
@@ -25,7 +25,7 @@ do
             echo -E ' \\ \cline{2-3}'
         fi
     fi
-    if [ "$col1$col2" == "3a" -o "$col1$col2" == "7a" ]; then
+    if [ "$col1$col2" == "2a" -o "$col1$col2" == "6a" ]; then
         echo -nE '\pagebreak '
     fi
     echo -nE "\RA{$col1} \\ra$col1 & \CE{$col1}{$col2} \ce{$col1$col2} & $col3"
