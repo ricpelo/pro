@@ -31,7 +31,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
 #. Escribe un programa que pida un número al usuario y a continuación lo
    muestre.
 
-#. Escribe un prorgama que pida al usuario su edad y muestre la que tendrá el
+#. Escribe un programa que pida al usuario su edad y muestre la que tendrá el
    año que viene.
 
 #. Escribe un programa que pida el año actual y el de nacimiento del usuario.
@@ -65,8 +65,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    tengamos que ir a la biblioteca (para realizar algún trabajo, entregar un
    libro, etc.). Solicitar al usuario (mediante un booleano) si llueve, si ha
    finalizado las tareas y si necesita ir a la biblioteca. El programa deberá
-   mostrar mediante un booleano (`True` o `False`) si es posible que se le
-   otorgue permiso para ir a la calle.
+   mostrar mediante un booleano (!PYTHON(True) o !PYTHON(False)) si es posible
+   que se le otorgue permiso para ir a la calle.
 
 #. Un frutero necesita calcular los beneficios anuales que obtiene de la venta
    de manzanas y peras. Por este motivo, es necesario diseñar un programa que
@@ -578,8 +578,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    resulta:
 
    a. Dependerá del valor de `a`.
-   b. `True`.
-   c. `False`.
+   b. !PYTHON(True).
+   c. !PYTHON(False).
    d. No se puede evaluar.
 
 #. Elige los valores de las variables enteras (`a`, `b` y `c`) que permiten que
