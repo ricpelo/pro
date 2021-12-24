@@ -743,6 +743,30 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
       secreta (gana el jugador B) o cuando se agoten todos los intentos (gana
       el jugador A).
 
+#. Escribir un programa que pida un entero por la consola, leyéndolo del
+   teclado, y lo imprime. Si la cadena introducida por consola no tiene el
+   formato correcto, muestra un mensaje de error y vuelve a pedirlo.
+
+#. Escribir un programa que lea un archivo de texto (cuyo nombre lo solicitará
+   por teclado al usuario) y muestre su contenido por pantalla.
+
+#. Crear el archivo de texto «`numeros_reales.txt`» en el directorio de trabajo
+   actual que contenga una sola línea de texto con números reales separados por
+   espacios. A continuación, escribir un programa que abre ese archivo, lea los
+   números que contiene y calcule la suma y la media aritmética, mostrando los
+   resultados por pantalla.
+
+#. Pedir por teclado el nombre, la edad (un entero) y la estatura en metros (un
+   real) de un deportista. Si algún dato tiene un formato incorrecto, deberá
+   indicarse. En caso contrario, se deberá mostrar todos los datos en pantalla.
+
+#. Crear un archivo de texto con una colección de números reales, uno por
+   línea. A continuación, escribir un programa que:
+
+   a. Abra el archivo para lectura.
+   a. Lo lea línea a línea.
+   a. Muestre finalmente la suma de todos ellos.
+
 \newpage
 
 # Tests
