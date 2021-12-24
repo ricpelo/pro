@@ -489,7 +489,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !PRE(longitud \geq 0 \land fin \geq 2)
    !SIGNAT(\texttt{rellena\_pares(!VAR(longitud\,): int, !VAR(fin\,): int) -> List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+ 
    que crea y devuelve una lista ordenada de la longitud especificada, rellena
    con números pares aleatorios comprendidos en el rango desde 2 hasta $fin$
    (inclusive).
@@ -518,7 +518,237 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    de la primera, respectivamente. Las listas con valores pares e impares
    deberán mostrarse ordenadas.
 
+#. Escribir la función
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{eliminar\_mayores(!VAR(lista\,): List[int], !VAR(valor\,): int) -> List[int]})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   que crea y devuelve una copia de la lista $lista$ donde se han eliminado
+   todos los elementos que son mayores que $valor$.
+
+#. Crear una función que realice el borrado de un elemento de una lista
+   ordenada, sin usar ningún método de borrado de listas como `remove`.
+
+#. El «número de la suerte» de una persona se puede calcular a partir de sus
+   números favoritos. De entre ellos, se seleccionan dos diferentes al azar,
+   que se eliminarán de la lista, pero en su lugar se añade la media aritmética
+   de los dos eliminados a la lista de números favoritos. El proceso se repite
+   hasta que sólo quede un número, que resultará el número de la suerte para
+   esa persona.
+
+   Escribir un programa que solicite al usuario sus números favoritos y calcule
+   su número de la suerte.
+
+#. Desarrollar el juego «la cámara secreta», que consiste en abrir una cámara
+   mediante su combinación secreta, que está formada por una combinación de
+   dígitos del 1 al 5. El jugador especificará cuál es la longitud de la
+   combinación; a mayor longitud, mayor será la dificultad del juego. La
+   aplicación genera, de forma aleatoria, una combinación secreta que el
+   usuario tendrá que acertar. En cada intento se muestra como pista, para cada
+   dígito de la combinación introducido por el jugador, si es mayor, menor o
+   igual que el correspondiente en la combinación secreta.
+
+#. Crear una matriz bidimensional de tamaño $5 \times 5$ mediante una lista de
+   listas y rellenarla de la siguiente forma: el elemento de la posición
+   `[`$n$`][`$m$`]` debe contener el valor $10 \cdot n + m$. Después se debe
+   mostrar su contenido.
+
+#. Escribir la función:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{buscar\_todos(!VAR(lista\,): List[int], !VAR(clave\,): int) -> List[int]})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   que crea y devuelve una lista con todos los índices de los elementos donde
+   se encuentra la clave de búsqueda $clave$. En el caso de que $clave$ no se
+   encuentre en $lista$, la función devolverá una lista vacía.
+
+#. El ayuntamiento de Sanlúcar te ha encargado una aplicación que ayude a
+   realizar encuestas estadísticas para conocer el nivel adquisitivo de los
+   sanluqueños. Para ello, tendrás que preguntar el sueldo a cada persona
+   encuestada. _A priori_, no se conoce el número de encuestados. Para
+   finalizar la entrada de datos, introduce un sueldo con valor $-1$.
+
+   Una vez terminada la entrada de datos, muestra la siguiente información:
+
+   - Todos los sueldos introducidos, ordenados de forma decreciente.
+   - El sueldo máximo y mínimo.
+   - La media de los sueldos.
+
+#. Debes desarrollar una aplicación que ayude a gestionar las notas de un
+   centro educativo. Los alumnos se organizan en grupos compuestos por 5
+   personas. Leer las noas (números enteros) del primer, segundo y tercer
+   trimestres de un grupo. Debes mostrar al final la nota media del grupo en
+   cada trimestre y la media del alumno que se encuentra en una posición dada
+   (que el usuario introduce por teclado).
+
+#. En un juego de rol, el mapa puede implementarse como una matriz donde las
+   filas y las columnas representan lugares (_lugar 0_, _lugar 1_, _lugar 2_,
+   etc.) que estarán conectados. Si desde el lugar $x$ podemos ir hacia el
+   lugar $y$, entonces la matriz en la posición `[`$x$`][`$y$`]` valdrá
+   !PYTHON(True); en caso contrario, valdrá !PYTHON(False).
+
+   Escribe una función que, dados dos lugares y una matriz que representa el
+   mapa, indique si es posible viajar desde el primer lugar al segundo
+   **directamente o pasando por lugares intermedios**.
+
+#. Escribir la función:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{suma(!VAR(lista\,): List[int], !VAR(num\_elem\,): int) -> List[int]})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   que crea y devuelve una lista con las sumas de los $num\_elem$ elementos
+   consecutivos de $lista$.
+
+   Por ejemplo, sea $lista =$ !PYTHON([10, 1, 5, 8, 9, 2]). Si los elementos de
+   $lista$ se agrupan de 3 en 3, se harán las sumas:
+
+   - $10 + 1 + 5 = 16$.
+   - $1 + 5 + 8 = 14$.
+   - $5 + 8 + 9 = 22$.
+   - $8 + 9 + 2 = 19$.
+
+   Por lo tanto, la función devolverá la lista !PYTHON([16, 14, 22, 19]).
+
+#. Escribir un programa que solicite los elementos de una matriz de tamaño $4
+   \times 4$. La aplicación debe decidir si la matriz introducida corresponde a
+   un _cuadrado mágico_, que es aquel en el que la suma de los elementos de
+   cualquier fila, columna, diagonal principal y diagonal secundaria valen lo
+   mismo.
+
+#. Hacer el mismo programa del ejercicio anterior pero considerando una matriz
+   cuadrada de cualquier tamaño ($N \times N$).
+
+#. Introducir por teclado dos frases e indicar cuál de ellas es la más corta,
+   es decir, la que tiene menos caracteres.
+
+#. Diseñar el juego «acierta la contraseña». La mecánica del juego es la
+   siguiente: el primer jugador introduce la contraseña sin que la vea el
+   segundo jugador; a continuación, el segundo jugador debe teclear palabras
+   hasta que la acierte. El programa deberá indicar en cada intento si la
+   palabra introducida es mayor o menor (alfabéticamente) que la contraseña.
+
+#. Hacer el mismo programa del ejercicio anterior pero con la siguiente
+   variante: en lugar de indicar si la palabra es mayor o menor que la
+   contraseña, deberá mostrar la longitud de la contraseña y una cadena con los
+   caracteres acertados en sus lugares respectivos y asteriscos en los no
+   acertados.
+
+#. Diseñar un programa que pida al usuario que introduzca una frase por teclado
+   e indique cuántos espacios en blanco tiene. Hacer dos versiones: una
+   recorriendo la cadena y otra sin recorrido.
+
+#. Diseñar una función a la que se le pase una cadena de caracteres y la
+   devuelva invertida. Por ejemplo, la cadena «Hola mundo» quedaría «odnum
+   aloH».
+
+#. Escribir un programa que pida el nombre completo al usuario y lo muestre sin
+   vocales (mayúsculas, minúsculas y acentuadas). Por ejemplo, «Álvaro Pérez»
+   se mostraría «lvr Prz».
+
+#. Los habitantes de Pythonlandia tienen un idioma algo extraño: cuando hablan,
+   siempre comienzan sus frases con «Pythonín, pythonón», para después hacer
+   una pausa más o menos larga (la pausa se representa mediante espacios en
+   blanco o tabuladores) y a continuación expresan el mensaje. Existe un
+   dialecto que no comienza sus frases con la muletilla anterior, pero siempre
+   las terminan con un silencio, más o menos prolongado, y la coletilla
+   «pythonén, nen, nen». Se pide diseñar un traductor que, en primer lugar, nos
+   diga si la frase introducida está escrita en el idioma de Pythonlandia (en
+   cualquiera de sus dialectos) y, en caso afirmativo, nos muestre sólo el
+   mensaje sin muletillas.
+
+#. Introducir por teclado una frase palabra a palabra, y mostrar la frase
+   completa separando las palabras introducidas con espacios en blanco.
+   Terminar de leer la frase cuando alguna de las palabras introducidas sea la
+   cadena «fin» esritsa con cualquier combinación de mayúsculas y minúsculas.
+   La cadena «fin» no aparecerá en la frase final.
+
+#. Escribir un programa que lea una frase del teclado y nos indique si es
+   palíndroma, es decir, que la frase sea igual leyendo de izquierda a derecha,
+   que de derecha a izquierda, sin tener en cuenta los espacios ni las tildes.
+   Por ejemplo: «Dábale arroz a la zorra el abad».
+
+#. Se dispone de las siguientes secuencias de caracteres:
+
+   - Secuencia 1: \hspace{0.5em} `e i k m p q r s t u v`
+   - Secuencia 2: \hspace{0.5em} `p v i u m t e r k q s`
+
+   Con ellas, es posible codificar un texto convirtiendo cada letra de la
+   secuencia 1 en su correspondiente de la secuencia 2. El resto de los
+   caracteres no se modifican. Las secuencias se utilizan tanto para codificar
+   mayúsculas como minúsculas, mostrando siempre la codificación en minúsculas.
+
+   Por ejemplo, la palabra «PaquiTo» se codifica como «matqvko».
+
+   Escribir un programa que codifique un texto. Para ello, se debe implementar
+   la siguiente función:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{len(!VAR(c))} = 1)
+   !SIGNAT(\texttt{codifica(!VAR(sec1\,): str, !VAR(sec2\,): str, !VAR(c\,): str) -> str})
+   !POST(\texttt{len(codifica(!VAR(sec1), !VAR(sec2), !VAR(c)))} = 1)
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   que devuelve el carácter $c$ codificado según las secuencias 1 y 2 que se le
+   pasan.
+
+#. Un _anagrama_ es una palabra que resulta del cambio del orden de los
+   caracteres de otra. Ejemplos de anagramas para la palabra _roma_ son:
+   _amor_, _ramo_ o _mora_. Escribir un programa que solicite al usuario dos
+   palabras e indique si son anagramas una de otra.
+
+#. Implementar el juego del anagrama, que consiste en que un jugador escribe
+   una palabra y el programa muestra un anagrama suyo generado al azar. A
+   continuación, otro jugador tiene que acertar cuál es el texto original. El
+   programa no debe permitir que el texto introducido por el primer jugador sea
+   la cadena vacía. Por ejemplo, si el primer jugador escribe «teclado», el
+   programa muestra como pista un anagrama al azar, digamos, «etcloda».
+
+#. Modificar el programa anterior para que indique al segundo jugador cuántas
+   letras coinciden (son iguales y están en la misma posición) entre el texto
+   introducido por él y el original.
+
+#. Escribir un programa que lea del teclado una frase e indique, para cada
+   carácter que aparece en la frase, cuántas veces aparece. Se consideran
+   iguales las letras mayúsculas y minúsculas para realizar la cuenta. Por
+   ejemplo:
+
+   ```
+   Frase: En un lugar de La Mancha.
+   Resultado:
+   a: 4 veces
+   c: 1 vez
+   d: 1 vez
+   e: 2 veces
+   ...
+   ```
+
+#. Realizar el juego del ahorcado. Las reglas del juego son:
+
+   a. El jugador A teclea una palabra, sin que el jugador B la vea.
+   a. Ahora se le muestran tantos guiones como letras tenga la palabra secreta.
+      Por ejemplo, para «hola» se mostraría «`----`».
+   a. El jugador B intentará acertar, letra a letra, la palabra secreta.
+   a. Cada acierto muestra la letra en su lugar, y las letras no acertadas
+      seguirán ocultas como guiones. Siguiendo con el ejemplo anterior, y
+      suponiendo que se ha introducido la «o», la «j» y la «a», se mostrará
+      «`-o-a`».
+   a. El jugador B sólo tiene 7 intentos.
+   a. La partida terminará al acertar todas las letras que forman la palabra
+      secreta (gana el jugador B) o cuando se agoten todos los intentos (gana
+      el jugador A).
+
+\newpage
+
 # Tests
+
+(Selecciona y arrastra con el ratón en la línea donde pone _Solución_ para
+desvelar la solución.)
 
 #. Al evaluar la expresión !PYTHON(2 < 1 or 2 != 1), el resultado es:
 
@@ -527,12 +757,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. !PYTHON(True).
    d. !PYTHON(False).
 
+   !SOL(c).
+
 #. ¿Qué instrucción es equivalente a !PYTHON(i += 1)?
 
    a. !PYTHON(i = i + 1).
    b. !PYTHON(i + 1).
    c. !PYTHON(1 += i).
    d. !PYTHON(i = i + i).
+
+   !SOL(a).
 
 #. ¿Qué valor devuelve la siguiente expresión: !PYTHON(3 if 1 < 2 else 4)?
 
@@ -541,12 +775,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. !PYTHON(3).
    d. !PYTHON(4).
 
+   !SOL(c).
+
 #. Selecciona la expresión cuya evaluación resulta !PYTHON(3):
 
    a. !PYTHON(3 + 2 * 6 / 5).
    b. !PYTHON((3 + 2) * 6 / 5).
    c. !PYTHON((3 + 2 * 6) / 5).
    d. !PYTHON(3 + 2 * (6 / 5)).
+
+   !SOL(c).
 
 #. Los operadores lógicos operan con valores booleanos, resultando:
 
@@ -555,6 +793,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. Otros tipos de valores.
    d. Sólo valores booleanos.
 
+   !SOL(d).
+
 #. La evaluación de una operación relacional puede generar un valor de tipo:
 
    a. Entero.
@@ -562,12 +802,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. Booleano.
    d. Todos los anteriores.
 
+   !SOL(c).
+
 #. La expresión !PYTHON(3 == 3 and 2 < 3 and 1 != 2) devuelve:
 
    a. !PYTHON(True).
    b. !PYTHON(False).
    c. No se puede evaluar.
    d. No genera un booleano, ya que la expresión es aritmética.
+
+   !SOL(a).
 
 #. La siguiente expresión, donde interviene la variable booleana `a`:
 
@@ -582,6 +826,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. !PYTHON(False).
    d. No se puede evaluar.
 
+   !SOL(b).
+
 #. Elige los valores de las variables enteras (`a`, `b` y `c`) que permiten que
    la evaluación de la siguiente expresión sea cierta:
    !PYTHON(a < b and b != c and b <= c):
@@ -591,12 +837,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. `a` = 1, `b` = 2, `c` = 2.
    d. `a` = 1, `b` = 2, `c` = 3.
 
+   !SOL(d).
+
 #. El bloque de instrucciones de una sentencia !PYTHON(if) se ejecutará:
 
    a. Siempre.
    b. Nunca.
    c. Dependerá de la evaluación de la expresión utilizada.
    d. Todas las respuestas anteriores son correctas.
+
+   !SOL(c).
 
 #. En una sentencia !PYTHON(if-else), los bloques de instrucciones (bloque
    !PYTHON(True) y bloque !PYTHON(False)) pueden ejecutarse:
@@ -607,21 +857,27 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. Siempre se ejecutará al menos uno y son excluyentes.
    d. Todas las anteriores son incorrectas.
 
+   !SOL(c).
+
 #. La instrucción que permite detener completamente las iteraciones de un
    bucle, es:
 
    a. `stop`.
-   a. `break`.
-   a. `continue`.
-   a. `finish`.
+   b. `break`.
+   c. `continue`.
+   d. `finish`.
+
+   !SOL(b).
 
 #. La instrucción que permite detener la iteración actual de un bucle,
    continuando con la siguiente (si procede) es:
 
    a. `stop`.
-   a. `break`.
-   a. `continue`.
-   a. `finish`.
+   b. `break`.
+   c. `continue`.
+   d. `finish`.
+
+   !SOL(c).
 
 #. ¿Cuántas veces se ejecutará la instrucción del bucle más interno en el
    siguiente fragmento de código?
@@ -637,13 +893,15 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. 50 veces.
    d. Infinitas veces.
 
+   !SOL(c).
+
 #. Analiza el siguiente código y busca qué valores de `a` y `b` implican un
    menor número de iteraciones:
 
    ```python
    for i in range(a, a + b + 1):
        for j in range(a + b, -1, -1):
-           ...
+           pass
    ```
 
    a. `a` = 1 y `b` = 3.
@@ -651,12 +909,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. `a` = 1 y `b` = 1.
    d. `a` = 3 y `b` = 3.
  
+   !SOL(c).
+
 #. Una variable que se crea dentro de un ámbito sólo se podrá utilizar:
 
    a. En cualquier parte del programa.
    b. En todos los bucles.
    c. Dentro del ámbito donde se ha creado.
    d. Todas las opciones anteriores son correctas.
+
+   !SOL(c).
 
 #. Una variable que se crea dentro de una función sólo se podrá utilizar:
 
@@ -665,12 +927,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. Sólo en la función donde se ha creado.
    d. Ninguna de las opciones anteriores es correcta.
 
+   !SOL(c).
+
 #. ¿Qué instrucción permite a una función imperativa devolver un valor?
 
    a. !PYTHON(value).
    b. !PYTHON(return).
    c. !PYTHON(def).
    d. `=`.
+
+   !SOL(b).
 
 #. El tipo devuelto por todas las funciones definidas en nuestro programa tiene
    que ser siempre:
@@ -680,6 +946,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. !PYTHON(bool).
    d. Ninguna de las opciones anteriores es correcta.
 
+   !SOL(d).
+
 #. El paso de argumentos a una función en Python siempre es:
 
    a. Por valor.
@@ -687,12 +955,17 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    c. Por asignación.
    d. Por referencia.
 
-#. ¿Cuáles de las siguientes operaciones se pueden implementar fácilmente mediante funciones recursivas?
+   !SOL(c).
+
+#. ¿Cuáles de las siguientes operaciones se pueden implementar fácilmente
+   mediante funciones recursivas?
 
    a. $a^n = a \cdot a^{n-1}$.
    b. $es\_par(n) = es\_impar(n - 1)$ y $es\_impar(n) = es\_par(n - 1)$.
-   a. $suma(a, b) = suma(a + 1, b - 1)$.
-   a. Todas las anteriores respuestas son correctas.
+   c. $suma(a, b) = suma(a + 1, b - 1)$.
+   d. Todas las anteriores respuestas son correctas.
+
+   !SOL(d).
 
 #. En los identificadores de las funciones en Python, al igual que en los de
    las variables, el convenio a usar es:
@@ -701,3 +974,97 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    b. Todo junto en minúsculas: `sumanotasalumnos`.
    c. _Pascal case_: `SumaNotasAlumnos`.
    d. _Camel case_: `sumaNotaAlumnos`.
+
+   !SOL(a).
+
+#. En Python, una lista puede almacenar datos de distintos tipos, como por
+   ejemplo enteros, booleanos, reales, etc.
+
+   a. Cierto, las listas siempre pueden almacenar datos de distintos tipos.
+   b. Falso, las listas sólo pueden almacenar datos de un único tipo.
+   c. Pueden almacenar datos de distintos tipos siempre que sean numéricos.
+   d. Pueden almacenar datos de distintos tipos siempre que la longitud de los
+      datos sea idéntica.
+
+   !SOL(a).
+
+#. En Python, la numeración de los índices que determina la identificación de
+   cada elemento de una lista comienza en:
+
+   a. Cero.
+   b. Uno.
+   c. Depende del tipo de dato de la lista.
+   d. Es configurable por el usuario.
+
+   !SOL(a).
+
+#. Si en una lista de 10 elementos intentamos acceder al elemento con índice 11
+   (que se encuentra fuera de rango):
+
+   a. Al salirse del rango de la longitud, Python redimensiona la lista de
+      forma automática.
+   b. No es posible y lanza una excepción.
+   c. Los índices tienen un comportamiento circular y utilizar el índice 11 es
+      equivalente a utilizar el índice 1.
+   d. Ninguna de las anteriores respuestas es correcta.
+
+   !SOL(b).
+
+#. La forma de conocer la longitud de una lista `l` es mediante:
+
+   a. `l.size`.
+   b. `len(l)`.
+   c. `l.len`.
+   d. `List.size(l)`.
+
+   !SOL(b).
+
+#. En Python, al igual que en otros muchos lenguajes de programación, las
+   secuencias de escape se escriben mediante:
+
+   a. Dos puntos (`:`).
+   b. El carácter u mayúscula (`U`).
+   c. El carácter u minúscula (`u`).
+   d. Una barra invertida (`\`).
+
+   !SOL(d).
+
+#. Señala qué opción es cierta en Python:
+
+   a. !PYTHON('a') es una cadena de caracteres.
+   b. !PYTHON("a") es una cadena de caracteres.
+   c. !PYTHON("""a""") es una cadena de caracteres.
+   d. Todas las opciones anteriores son ciertas.
+
+   !SOL(d).
+
+#. La forma de extraer en Python el cuarto carácter de la cadena almacenada en
+   la variable `cad` es:
+
+   a. !PYTHON(cad.index(4)).
+   b. !PYTHON(cad.get(4)).
+   c. !PYTHON(cad[3]).
+   d. !PYTHON(cad.char(3)).
+
+   !SOL(c).
+
+#. El método que permite eliminar los caracteres blancos del principio y el
+   final de una cadena es:
+
+   a. `is_white_space`.
+   b. `rstrip`.
+   c. `strip_leading`.
+   d. `strip`.
+
+   !SOL(d).
+
+#. ¿Qué método permite convertir una lista de cadenas (por ejemplo,
+   !PYTHON(['ab', 'cd', 'ef'])) en una cadena formada por la concatenación de
+   los elementos de la cadena (en este caso, !PYTHON('abcdef'))?
+
+   a. `join`.
+   b. `concat`.
+   c. `str`.
+   d. `split`.
+
+   !SOL(a).
