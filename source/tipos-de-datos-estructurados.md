@@ -481,6 +481,23 @@ fin = !T{False}
 
   ```
 
+---
+
+- Existen iterables e iteradores incluso donde uno menos se lo podría esperar.
+
+- Por ejemplo, **los archivos abiertos también son iterables**, ya que se
+  pueden recorrer línea a línea usando un iterador:
+
+  ```python
+  with open('archivo.txt') as f:
+      for linea in f:
+          print(linea)
+  ```
+
+- Esta forma de recorrer los archivos, además de resultar simple y elegante,
+  también resulta muy eficiente, ya que se va recuperando cada línea de una en
+  una en lugar de todas a la vez.
+
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso

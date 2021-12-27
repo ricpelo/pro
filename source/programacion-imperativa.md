@@ -2293,12 +2293,12 @@ True
     derecha de la ventana del editor:
 
     !ifdef(HTML)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !IMGP(icono-ejecutar-vscode.png)()(width=8%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     !ifdef(BEAMER)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \Begin{center}\hspace{-3.2em}![](!IMAGES/icono-ejecutar-vscode.png){width=8%}\End{center}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2360,7 +2360,7 @@ True
   !PYTHON(sys.argv[1]) no existirá y se producirá un error !PYTHON(IndexError)
   al intentar acceder a él:
 
-  ```haskell
+  ```python
   $ python saluda.py
   Traceback (most recent call last):
     File "saluda.py", line 2, in <module>
@@ -2392,14 +2392,44 @@ True
 
 ## Entrada y salida por archivos
 
-- Para leer y/o escribir datos en un archivo, los pasos a seguir son (en este
-  orden):
+- En Python (así como en otros lenguajes de programación), los archivos se
+  representa mediante **flujos** (del inglés, _streams_) de bytes o caracteres.
+
+- Esos flujos pueden representar archivos reales almacenados en algún soporte,
+  o pueden ser archivos _virtuales_ que se pueden _redireccionar_ usando
+  funcionalidades del sistema operativo.
+
+- Por ejemplo, la consola (es decir, el teclado y la pantalla) del S. O. está
+  conectada a dos flujos llamados **_entrada estándar_** y **_salida
+  estándar_**.
+
+- Esos flujos se pueden se pueden redireccionar a otros archivos o dispositivos
+  usando las redirecciones de la _shell_: `<`, `>` o `|`.
+
+- En Python, esos flujos se pueden manipular mediante los objetos
+  !PYTHON(sys.stdin) y !PYTHON(sys.stdout), respectivamente.
+
+- También existe el flujo !PYTHON(sys.stderr) que representa la **_salida
+  estándar de errores_** del S. O.
+
+---
+
+- Para leer y/o escribir datos en un archivo (es decir, en un _flujo_), los
+  pasos a seguir son, en este orden:
 
   #. Abrir el archivo en el modo adecuado con !PYTHON(open).
 
   #. Realizar las operaciones deseadas sobre el archivo.
 
   #. Cerrar el archivo con !PYTHON(close).
+
+- Mientras el archivo está abierto, disponemos de un **puntero** que _apunta_ a
+  la posición actual de lectura o escritura, es decir, a la posición donde se
+  llevará a cabo la siguiente operación de lectura o escritura con el archivo.
+
+- No olvidemos que un archivo es un **flujo** (una _secuencia_) de caracteres o
+  bytes, por lo que ese puntero indica la posición actual dentro de esa
+  secuencia.
 
 ### !PYTHON(open)
 
@@ -2419,42 +2449,84 @@ True
 - El valor devuelto es un objeto cuyo tipo depende del modo en el que se ha
   abierto el archivo.
 
+- Los valores posibles de _modo_ se pueden observar en las siguientes tablas.
+
 ---
 
-- Los valores posibles de _modo_ son:
+- En modo texto:
 
-  ----------------------------------------------------------------------------------
-      Carácter     Significado
-  ---------------- -----------------------------------------------------------------
-    !PYTHON('r')   Abre el archivo para lectura (valor predeterminado)
+  ----------------------------------------------------------------------------------------------
+      Modo    Significado
+  ----------  ----------------------------------------------------------------------------------
+     `'r'`    Abre sólo para lectura. El puntero se coloca al principio del
+              archivo (valor predeterminado).
 
-    !PYTHON('w')   Abre para escritura (si el archivo ya existe lo borrará)
+     `'r+'`   Abre para lectura/escritura. El puntero se coloca al principio
+              del archivo.
 
-    !PYTHON('x')   Abre para creación exclusiva (falla si el archivo ya existe)
+     `'w'`    Abre sólo para escritura. Sobreescribe el archivo si ya existe.
+              Si no existe, lo crea y lo abre para escritura. El puntero se
+              coloca al principio del archivo.
 
-    !PYTHON('a')   Abre para escritura, añadiendo al final del archivo si ya existe
+     `'w+'`   Abre para lectura/escritura. Sobreescribe el archivo si ya
+              existe. Si no existe, lo crea y lo abre para lectura/escritura.
+              El puntero se coloca al principio del archivo.
 
-    !PYTHON('b')   Modo binario
+     `'a'`    Abre para añadir. El puntero se coloca al final del archivo si ya
+              existe. Si no existe, lo crea y lo abre sólo para escritura.
 
-    !PYTHON('t')   Modo texto (valor predeterminado)
+     `'a+'`   Abre para lectura/añadir. El puntero se coloca al final del
+              archivo si ya existe. Si no, lo crea y lo abre para
+              lectura/escritura.
 
-    !PYTHON('+')   Abre para lectura y escritura
-  ----------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------
 
-- El modo predeterminado es !PYTHON('r') (abrir para lectura en modo texto,
-  sinónimo de !PYTHON('rt')).
+---
 
-- Los modos !PYTHON('w+') y !PYTHON('w+b') abren el archivo y lo borra si ya
-  existe.
+- En modo binario:
 
-- Los modos !PYTHON('r+') y !PYTHON('r+b') abren el archivo sin borrarlo.
+    ----------------------------------------------------------------------------------------------
+        Modo    Significado
+    ----------  ----------------------------------------------------------------------------------
+       `'rb'`   Abre sólo para lectura en modo binario. El puntero se coloca al
+                principio del archivo.
+
+       `'rb+'`  Abre para lectura/escritura en modo binario. El puntero se
+                coloca al principio del archivo.
+
+       `'wb+'`  Abre para lectura/escritura en modo binario. Sobreescribe el
+                archivo si ya existe. Si no existe, lo crea y lo abre para
+                lectura/escritura. El puntero se coloca al principio del
+                archivo.
+
+       `'ab'`   Abre para añadir en modo binario. El puntero se coloca al final
+                del archivo si ya existe. Si no existe, lo crea y lo abre sólo
+                para escritura.
+
+       `'ab+'`  Abre para lectura/añadir en modo binario. El puntero se coloca
+                al final del archivo si ya existe. Si no existe, lo crea y lo
+                abre para lectura/escritura.
+
+       `'x'`    Abre el archivo en modo exclusivo. Falla si ya existe.
+    ----------------------------------------------------------------------------------------------
+
+---
+
+- Si no se pone `'b'` (modo binario), se entiende que es `'t'` (modo texto).
+
+- El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
+  de `'rt'`).
+
+- Los modos `'w+'` y `'w+b'` abren el archivo y lo borra si ya existe.
+
+- Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
 
 ---
 
 - Normalmente, los archivos se abren en **modo texto**, lo que significa que se
-  leen y se escriben cadenas (valores de tipo !PYTHON(str)) desde y hacia el archivo,
-  las cuales se codifican según una codificación específica que depende de la
-  plataforma.
+  leen y se escriben cadenas (valores de tipo !PYTHON(str)) desde y hacia el
+  archivo, las cuales se codifican según una codificación específica que
+  depende de la plataforma.
 
   Por ejemplo, los saltos de línea se escriben como `\n` en Unix o `\r\n` en
   Windows, y se leen siempre como `\n`.
@@ -2551,9 +2623,9 @@ True
 
 ### !PYTHON(readline)
 
-- El método !PYTHON(readline) también sirve para leer de un archivo y también se
-  ejecuta sobre el objeto que devuelve !PYTHON(open) (y que representa al archivo
-  abierto).
+- El método !PYTHON(readline) también sirve para leer de un archivo y también
+  se ejecuta sobre el objeto que devuelve !PYTHON(open) (y que representa al
+  archivo abierto).
 
 - Su signatura es:
 
@@ -2562,8 +2634,10 @@ True
   !NT(archivo)!PYTHON(.readline)`(`[_tamaño_`:` !PYTHON(int)]`) -> `\  !PYTHON(str) | !PYTHON(bytes)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !PYTHON(readline) devuelve una línea del archivo, dejando el carácter de
-  salto de línea (`\n`) al final.
+- !PYTHON(readline) devuelve una línea del archivo en forma de cadena (si el
+  archivo se abrió en **modo texto**) o un valor de tipo !PYTHON{bytes} (si se
+  abrió en **modo binario**), dejando el carácter de salto de línea (`\n`) al
+  final.
 
 - El salto de línea sólo se omite cuando es la última línea del archivo y éste
   no acaba en salto de línea.
@@ -2576,6 +2650,9 @@ True
 
 ---
 
+- El método empieza a leer desde la posición actual del puntero interno del
+  archivo y cambia la posición del mismo.
+
 - El parámetro _tamaño_ es opcional:
 
   - Si se omite o es negativo, se devuelve todo desde la posición actual del
@@ -2584,11 +2661,7 @@ True
   - En caso contrario, se leerán y devolverán _como mucho_ tantos caracteres
     (en modo texto) o bytes (en modo binario) como se haya indicado.
 
-- Ejemplos:
-
-:::: columns
-
-::: column
+!EJEMPLOS
 
 ```python
 >>> f = open('entrada.txt', 'r')
@@ -2600,13 +2673,6 @@ True
 'Y esta es la tercera.\n'
 >>> f.readline()
 ''
-```
-
-:::
-
-::: column
-
-```python
 >>> f = open('entrada.txt', 'r')
 >>> f.readline(4)
 'Esta'
@@ -2622,14 +2688,73 @@ True
 ''
 ```
 
-:::
+### !PYTHON(readlines)
 
-::::
+- El método !PYTHON{readlines} (en plural, no confundir con !PYTHON(readline)
+  en singular) también sirve para leer de un archivo y también se ejecuta sobre
+  el objeto que devuelve !PYTHON(open), pero en lugar de su versión en
+  singular, **lee _varias_ líneas del archivo de una sola vez**.
+
+- Su signatura es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.readlines)`(`[_tamaño_`:` !PYTHON(int)]`) -> `\  !PYTHON(List[str|bytes])
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- !PYTHON(readlines) devuelve una lista de cadenas de caracteres o de bytes
+  (según como se haya abierto el archivo, en modo texto o binario).
+
+- El método empieza a leer desde la posición actual del puntero interno del
+  archivo y cambia la posición del mismo.
+
+- Las líneas conservan el carácter de salto de línea (`\n`) al final. El salto
+  de línea sólo se omite cuando es la última línea del archivo y éste no acaba
+  en salto de línea.
+
+---
+
+- Si devuelve una lista vacía (!PYTHON([])), significa que el archivo está
+  vacío.
+
+- Si uno de los elementos está formada sólo por `\n`, significa que es una
+  línea en blanco (una línea que sólo contiene un salto de línea).
+
+- El parámetro _tamaño_ es opcional, y se puede usar para controlar la cantidad
+  de líneas leídas:
+
+  - Si se omite o es negativo, se leerá desde la posición actual del puntero
+    hasta el final del archivo, devolviendo cada línea separada en un elemento
+    de la lista.
+
+  - En caso contrario, se leerán y devolverán el menor número de líneas que
+    sean necesarias para leer el número de caracteres (en modo texto) o bytes
+    (en modo binario) indicado, desde la posición actual del puntero.
+
+!EJEMPLOS
+
+```python
+>>> f = open('entrada.txt', 'r')
+>>> f.readlines()
+['Esta es la primera línea.\n', 'Esta es la segunda.\n',
+ 'Y esta es la tercera.\n']
+>>> f.readlines()
+[]
+>>> f = open('entrada.txt', 'r')
+>>> f.readlines(5)
+['Esta es la primera línea.\n']
+>>> f = open('entrada.txt', 'r')
+>>> f.read(4)
+'Esta'
+>>> f.readlines()
+[' es la primera línea.\n', 'Esta es la segunda.\n',
+ 'Y esta es la tercera.\n']
+```
 
 ### !PYTHON(write)
 
 - El método !PYTHON(write) sirve para escribir en un archivo y se ejecuta sobre
-  el objeto que devuelve !PYTHON(open) (y que representa al archivo abierto).
+  el objeto que devuelve !PYTHON{open} (y que representa al archivo abierto).
 
 - Su signatura es:
 
@@ -2639,8 +2764,8 @@ True
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El método escribe el _contenido_ en el !NT(archivo). Ese contenido debe ser
-  una _cadena_ si el archivo se abrió en **modo texto**, o un _valor de tipo_
-  !PYTHON(bytes) si se abrió en **modo binario**.
+  una _cadena_ de caracteres si el archivo se abrió en **modo texto**, o un
+  _valor de tipo_ !PYTHON(bytes) si se abrió en **modo binario**.
 
 - Al escribir, modifica el puntero interno del archivo.
 
@@ -2671,15 +2796,141 @@ True
 - Hay que tener en cuenta los separadores y los saltos de línea que introduce
   !PYTHON(print).
 
+- !PYTHON(print) escribe en el flujo !PYTHON(sys.stdout) mientras no se diga
+  lo contrario.
+
+---
+
+- Si el archivo se ha abierto en un modo `'a'` o `'a+'`, el puntero empezará
+  estando al **final del archivo** y la escritura **siempre** se realizará a
+  partir de ese punto, aunque previamente hayamos leído algo o hayamos movido
+  el puntero explícitamente mediante !PYTHON(seek):
+
+  ```python
+  >>> f = open('entrada.txt', 'r')   # Abrimos el archivo para ver su contenido
+  >>> f.readlines()                  # Comprobamos que contiene las líneas originales
+  ['Esta es la primera línea.\n',
+   'Esta es la segunda.\n',
+   'Y esta es la tercera.\n']
+  >>> f.close()
+  >>> f = open('entrada.txt', 'a+')  # Lo volvemos a abrir en lectura/añadir
+  >>> f.read(4)                      # El puntero está situado al final, y...
+  ''                                 # ... si leemos algo, allí no hay nada
+  >>> f.write('prueba\n')            # Escribimos siete caracteres al final
+  7
+  >>> f.close()                      # Cerramos el archivo para guardar los cambios
+  >>> f = open('entrada.txt', 'r')   # Volvemos a abrir el archivo
+  >>> f.readlines()                  # Comprobamos que se ha escrito al final...
+  ['Esta es la primera línea.\n',    # ... del archivo, y no en la posición 4...
+   'Esta es la segunda.\n',          # ... como cabría haber esperado
+   'Y esta es la tercera.\n',
+   'prueba\n']
+  ```
+
+---
+
+- Si el archivo se ha abierto en un modo `'w'`, `'w+'` o `'r+'`, el puntero
+  empezará estando al **principio del archivo** y la escritura se realizará en
+  la posición del puntero, pero **si leemos algo del archivo antes de escribir
+  en él, la escritura se hará _al final_** del archivo (como si lo hubiésemos
+  abierto con un modo `'a+'`) a menos que primero movamos el puntero
+  explícitamente mediante !PYTHON(seek):
+
+  ```python
+  >>> f = open('entrada.txt', 'r')   # Abrimos el archivo para ver su contenido
+  >>> f.readlines()                  # Comprobamos que contiene las líneas originales
+  ['Esta es la primera línea.\n',
+   'Esta es la segunda.\n',
+   'Y esta es la tercera.\n']
+  >>> f.close()
+  >>> f = open('entrada.txt', 'r+')  # Lo volvemos a abrir en lectura/escritura
+  >>> f.read(4)                      # Leemos cuatro caracteres (desde el principio)
+  'Esta'
+  >>> f.write('prueba\n')            # Escribimos siete caracteres
+  7
+  >>> f.close()                      # Cerramos el archivo para guardar los cambios
+  >>> f = open('entrada.txt', 'r')   # Volvemos a abrir el archivo
+  >>> f.readlines()                  # Comprobamos que se ha escrito al final...
+  ['Esta es la primera línea.\n',    # ... del archivo, y no en la posición 4...
+   'Esta es la segunda.\n',          # ... como cabría haber esperado
+   'Y esta es la tercera.\n',
+   'prueba\n']
+  ```
+
+---
+
+- También se puede usar !PYTHON(print) para escribir en un archivo.
+
+- En la práctica, no hay mucha diferencia entre usar !PYTHON(print) y usar
+  !PYTHON(write).
+
+- Hacer:
+
+  ```python
+  >>> f = open('archivo.txt', 'r+')
+  >>> f.write('Hola Manolo\n')
+  ```
+
+  equivale a hacer:
+
+  ```python
+  >>> f = open('archivo.txt', 'r+')
+  >>> print('Hola', 'Manolo', file=f)
+  ```
+
+- Hay que tener en cuenta los separadores y los saltos de línea que introduce
+  !PYTHON(print).
+
 - !PYTHON(print) escribe en el archivo !PYTHON(sys.stdout) mientras no se diga
   lo contrario.
 
+### !PYTHON(writelines)
+
+- El método !PYTHON(writelines) escribe una lista de líneas en un archivo, por
+  lo que, en cierta forma, es el contrario de !PYTHON(readlines).
+
+- Igualmente, se ejecuta sobre el objeto que devuelve !PYTHON{open} (y que
+  representa al archivo abierto).
+
+- Su signatura es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.writelines)`(`_lineas_`:` !PYTHON(List[str|bytes])`) -> `\  !PYTHON(None)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El parámetro _lineas_ es el contenido a escribir en el archivo, y debe ser
+  una lista de _cadenas_ si el archivo se abrió en **modo texto**, o de
+  _valores de tipo_ !PYTHON(bytes) si se abrió en **modo binario**.
+
+- Todo lo comentado anteriormente para el método !PYTHON(write) sobre su
+  comportamiento en función del modo de apertura del archivo, se aplica también
+  a !PYTHON(writelines).
+
+!EJEMPLOS
+
+```python
+>>> f = open('entrada.txt', 'r')
+>>> f.readlines()
+['Esta es la primera línea.\n', 'Esta es la segunda.\n',
+ 'Y esta es la tercera.\n']
+>>> f = open('entrada.txt', 'r+')
+>>> f.writelines('
+['Esta es la primera línea.\n']
+>>> f = open('entrada.txt', 'r')
+>>> f.read(4)
+'Esta'
+>>> f.readlines()
+[' es la primera línea.\n', 'Esta es la segunda.\n',
+ 'Y esta es la tercera.\n']
+```
+
 ### !PYTHON(seek) y !PYTHON(tell)
 
-- El método !PYTHON(seek) situa el puntero interno del archivo en una
+- El método !PYTHON(seek) **situa el puntero interno** del archivo en una
   determinada posición.
 
-- El método !PYTHON(tell) devuelve la posición actual del puntero interno.
+- El método !PYTHON(tell) **devuelve la posición actual** del puntero interno.
 
 - Sus signaturas son:
 
@@ -2696,33 +2947,57 @@ True
 - Además de mover el puntero, el método !PYTHON(seek) devuelve la nueva
   posición del puntero.
 
+  Pero no olvidemos que si el archivo se ha abierto en modo _añadir_ (`'a'` o
+  `'a+'`), la escritura se hará siempre al final del archivo, sin importar cuál
+  sea la posición actual del puntero.
+
+!EJEMPLOS
+
+```python
+>>> f = open('archivo.txt', 'r+')    # Abre en modo lectura/escritura
+>>> f.tell()                         # El puntero está al principio
+0
+>>> f.readline()                     # Lee una línea de texto
+'Esta es la primera línea.\n'
+>>> f.tell()                         # Se ha movido el puntero
+27
+>>> f.seek(0)                        # Vuelve a colocarlo al principio
+0
+>>> f.readline()                     # Por tanto, se lee la misma línea
+'Esta es la primera línea.\n'
+>>> f.seek(0)                        # Vuelve a colocarlo al principio
+0
+>>> f.write('Cambiar')               # Escribe desde el principio
+7
+>>> f.tell()
+7
+>>> f.seek(0)
+0
+>>> f.readline()                     # Se ha cambiado la primera línea
+'Cambiar la primera línea.\n'
+```
+
 ---
 
-- Por ejemplo:
-
-  ```python
-  >>> f = open('archivo.txt', 'r+')       # abre en modo lectura/escritura
-  >>> f.tell()
-  0
-  >>> f.readline()
-  'Esta es la primera línea.\n'
-  >>> f.tell()
-  27
-  >>> f.seek(0)
-  0
-  >>> f.readline()
-  'Esta es la primera línea.\n'
-  >>> f.seek(0)
-  0
-  >>> f.write('Cambiar')
-  7
-  >>> f.tell()
-  7
-  >>> f.seek(0)
-  0
-  >>> f.readline()
-  'Cambiar la primera línea.\n'
-  ```
+```python
+>>> f = open('archivo.txt', 'a+')    # Abre en modo lectura/escritura
+>>> f.tell()                         # El puntero está al final
+69
+>>> f.readline()                     # Allí no hay nada
+''
+>>> f.seek(0)                        # Movemos el puntero al principio
+0
+>>> f.tell()                         # El puntero se ha movido
+0
+>>> f.readline()                     # Por tanto, se lee la misma línea
+'Esta es la primera línea.\n'
+>>> f.seek(0)                        # Vuelve a colocarlo al principio
+0
+>>> f.write('prueba\n')              # Siempre se escribe al final
+7
+>>> f.tell()                         # El puntero está al final
+76
+```
 
 ### !PYTHON(close)
 

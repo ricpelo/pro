@@ -1036,7 +1036,7 @@ while not salida:
   sistema operativo o el intérprete.
 
   Por ejemplo, si intentamos abrir demasiados archivos a la vez, el intérprete
-  nos devolverá el error: !PYTHON(OSError: [Errno 24] Too many open files).
+  nos devolverá el error: `OSError: [Errno 24] Too many open files`.
 
 - Además, cada recurso abierto consume, a su vez, recursos del sistema
   operativo o del intérprete (memoria, descriptores internos, etcétera).
