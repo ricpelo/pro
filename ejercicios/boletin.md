@@ -1092,3 +1092,22 @@ desvelar la solución.)
    d. `split`.
 
    !SOL(a).
+
+#. ¿Cuál de los siguientes modos de apertura de archivos se debe usar para
+   abrir un archivo de texto en sólo lectura?
+
+   a. `r+`.
+   b. `wb`.
+   c. `a`.
+   d. `r`.
+
+   !SOL(d).
+
+#. ¿Cuál de las siguientes preguntas es correcta?
+
+   a. Escribir en un archivo supone siempre hacer crecer el tamaño del archivo.
+   b. Añadir a un archivo supone siempre hacer crecer el tamaño del archivo.
+   c. Para leer de un archivo primero tiene que estar cerrado.
+   d. Siempre que se escribe en un archivo, si no existe, lo crea. 
+
+   !SOL(b).

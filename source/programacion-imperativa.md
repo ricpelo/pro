@@ -2476,7 +2476,7 @@ True
               existe. Si no existe, lo crea y lo abre sólo para escritura.
 
      `'a+'`   Abre para lectura/añadir. El puntero se coloca al final del
-              archivo si ya existe. Si no, lo crea y lo abre para
+              archivo si ya existe. Si no existe, lo crea y lo abre para
               lectura/escritura.
 
   ----------------------------------------------------------------------------------------------
