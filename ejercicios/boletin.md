@@ -774,6 +774,50 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    pide al usuario. El archivo copia tendrá el mismo nombre con el prefijo
    «`copia_de_`».
 
+#. Escribir un programa que solicite al usuario el nombre de un archivo de
+   texto y muestre su contenido en pantalla. Si no se proporciona ningún nombre
+   de archivo, el programa usará por defecto `prueba.txt`.
+
+#. Hacer el mismo ejercicio anterior, pero recogiendo el nombre del archivo
+   desde la línea de órdenes del sistema operativo. (_Indicación_: usar
+   !PYTHON(sys.argv)).
+
+#. Escribir un programa que pida al usuario su nombre y su edad. Esos datos
+   deben guardarse en el archivo `datos.txt`. Si ese archivo existe, debe
+   añadirse al final en una nueva línea, y en caso de no existir, debe crearse.
+
+#. Escribir un programa que lea dos listas de números enteros no ordenados de
+   sendos archivos con un número por línea, los reúna en una lista única y los
+   guarde en orden creciente en un tercer archivo, de nuevo uno por línea.
+
+#. Escribir un programa que lea un archivo de texto llamado `carta.txt`.
+   Tenemos que contar los caracteres, las líneas y las palabras. Para
+   simplificar, supondremos que cada palabra está separada de otra por un único
+   espacio en blanco o por un salto de línea.
+
+#. En el archivo `numeros.txt` disponemos de una serie de números (uno por
+   línea). Diseñar un programa que procese el archivo y nos muestre el menor y
+   el mayor.
+
+#. Un libro de firmas es útil para recoger los nombres de todas las personas
+   que han pasado por un determinado lugar. Escribir un programa que permita
+   mostrar el libro de firmas e insertar un nuevo nombre (comprobando que no se
+   encuentre repetido). El archivo se deberá llamar `firmas.txt`.
+
+#. En los sistemas Unix (como GNU/Linux) disponemos del comando `more`, al que
+   se le pasa un archivo y nos lo muestra poco a poco, cada 24 líneas.
+   Implementar un programa que funcione de forma similar.
+
+#. Escribir la función:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{lee\_enteros(!VAR(texto\,): str) -> List[int]})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   a la que se le pasa una cadena y devuelve una lista con todos los enteros
+   que aparecen en ella.
+
 \newpage
 
 # Tests
@@ -1172,3 +1216,56 @@ desvelar la solución.)
    d. `f.readlines()`
 
    !SOL(b).
+
+#. Una excepción en Python:
+
+   a. Se produce cuando se rompe el monitor del ordenador.
+   b. Es un valor único de una variable.
+   c. Se lanza cuando se produce una condición anómala durante la ejecución de
+      un programa.
+   d. Tiene lugar cuando un código es sintácticamente incorrecto.
+
+   !SOL(c).
+
+#. La palabra reservada !PYTHON(finally):
+
+   a. Termina la ejecución de un programa.
+   b. Termina la ejecución de una función, forzando el !PYTHON(return).
+   c. En una estructura !PYTHON(try ... except), fuerza la ejecución de su
+      bloque antes de que se ejecute una sentencia !PYTHON(return) e
+      independientemente de si se produce o no una excepción.
+   d. Indica el final de una función.
+
+   !SOL(c).
+
+#. Nos tenemos que asegurar de que todos los flujos abiertos deben cerrarse
+   antes de que termine el programa...
+
+   a. Porque se quedarían abiertos hasta que se apague el ordenador.
+   b. Porque otro programa podría alterarlos.
+   c. Porque se deben liberar los recursos asociados, como los archivos.
+      Además, podrían quedar caracteres del búfer sin escribir.
+   d. Porque se pueden borrar datos de una archivo.
+
+   !SOL(c).
+
+#. Los flujos se cierran:
+
+   a. Con el método `close`.
+   b. Apagando el ordenador.
+   c. Abortando el programa.
+   d. Con el atributo `closed`.
+
+   !SOL(a).
+
+#. Los gestores de contexto:
+
+   a. Permiten abrir flujos asociados con varios archivos a la vez.
+   b. Es abrir archivos recurrendo a una lista.
+   c. Consiste en abrir flujos sin peligro de que se produzcan excepciones.
+   d. Permiten gestionar automáticamente lo que ocurre al entrar o salir de un
+      bloque de código, y se pueden usar junto con la orden !PYTHON(with) para
+      asegurar el cierre de un archivo previamente abierto al ejecutar el
+      !PYTHON(with).
+
+   !SOL(d).
