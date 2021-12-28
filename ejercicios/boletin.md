@@ -767,6 +767,13 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    a. Lo lea línea a línea.
    a. Muestre finalmente la suma de todos ellos.
 
+#. Crear un programa que escriba en un archivo de texto, línea a línea, frases
+   introducidas por el teclado hasta que se introduzca la cadena «fin».
+
+#. Escribir un programa que duplique el contenido de un archivo cuyo nombre se
+   pide al usuario. El archivo copia tendrá el mismo nombre con el prefijo
+   «`copia_de_`».
+
 \newpage
 
 # Tests
@@ -1109,5 +1116,59 @@ desvelar la solución.)
    b. Añadir a un archivo supone siempre hacer crecer el tamaño del archivo.
    c. Para leer de un archivo primero tiene que estar cerrado.
    d. Siempre que se escribe en un archivo, si no existe, lo crea. 
+
+   !SOL(b).
+
+#. ¿Cuál es la primera acción que se debe realizar sobre un archivo?
+
+   a. Guardarlo.
+   b. Cerrarlo.
+   c. Abrirlo.
+   d. Escribirlo.
+
+   !SOL(c).
+
+
+#. ¿Cuál es la última acción que se debe realizar sobre un archivo?
+
+   a. Guardarlo.
+   b. Cerrarlo.
+   c. Abrirlo.
+   d. Escribirlo.
+
+   !SOL(b).
+
+#. ¿Cuál es el tipo de los datos leídos desde un archivo de texto?
+
+   a. Booleanos.
+   b. Enteros.
+   c. Cadenas.
+   d. Reales.
+
+   !SOL(c).
+
+#. ¿Cuáles de las siguientes afirmaciones son correctas respecto a los modos de
+   apertura de un archivo? (Se pueden señalar varias)
+
+   a. Cuando se abre un archivo sólo para lectura, si el archivo no existe, se
+      produce un error.
+   b. Cuando se abre un archivo sólo para escritura, si el archivo no existe,
+      se produce un error.
+   c. Cuando se abre un archivo sólo para lectura, si el archivo no existe, el
+      programa abrirá un archivo vacío.
+   d. Cuando se abre un archivo sólo para escritura, si el archivo no existe,
+      se creará un archivo nuevo.
+   e. Cuando se abre un archivo sólo para escritura, si el archivo existe, se
+      sobreescribirá con un archivo nuevo.
+
+   !SOL(a, d, e).
+
+#. ¿Cuál de las siguientes instrucciones permiten obtener el contenido completo
+   de un archivo en forma de cadena?
+
+   a. `f.read(`_n_`)`
+   b. `f.read()`
+   c. `f.readline()`
+   d. `f.readlines()`
 
    !SOL(b).
