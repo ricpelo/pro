@@ -818,6 +818,61 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    a la que se le pasa una cadena y devuelve una lista con todos los enteros
    que aparecen en ella.
 
+#. Dado un documento XML similar a éste (es decir, con la misma estructura pero
+   no necesariamente con el mismo contenido) y almacenado en el archivo
+   `club.xml`:
+
+   ```xml
+   <?xml version="1.0"?>
+   <club>
+       <nombre>Diógenes</nombre>
+       <socios>
+           <socio id="1">
+               <nombre>Sherlock Holmes</nombre>
+               <direccion>221B Baker St</direccion>
+               <alta>1890-12-14</alta>
+           </socio>
+           <socio id="51">
+               <nombre>Winston Churchill</nombre>
+               <direccion>10 Downing St</direccion>
+               <alta>1942-02-13</alta>
+           </socio>
+       </socios>
+   </club>
+   ```
+
+   escribir un programa que muestre los socios del club de forma similar a la
+   siguiente:
+
+   ```text
+   [1] Sherlock Holmes
+   [51] Winston Churchill
+   ```
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   cuente cuántos socios tiene el club y lo muestre por pantalla.
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   cambie la dirección de todos los socios por «`Avda. de Huelva, s/n`» y
+   guarde los cambios en el mismo archivo.
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   cambie la dirección del socio cuyo `id` sea `1` por «`Calle Ancha, 35`» y
+   guarde los cambios en el mismo archivo.
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   elimine al socio cuyo `id` sea `51` y guarde los cambios en el mismo
+   archivo.
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   añada el teléfono del socio cuyo `id` sea `1` creándole al socio un nodo
+   hijo que sea `<telefono>666555444</telefono>`{.xml} y guarde los cambios en
+   el mismo archivo.
+
+#. Dado el documento XML del ejercicio anterior, escribir un programa que
+   muestre el nombre de los socios por orden cronológico según su fecha de
+   alta, de más antiguo a más reciente.
+
 \newpage
 
 # Tests
@@ -1269,3 +1324,56 @@ desvelar la solución.)
       !PYTHON(with).
 
    !SOL(d).
+
+#. ¿De qué forma podemos importar el módulo `ElementTree` para manipular
+   documentos XML?
+
+   a. !PYTHON(import xml.etree.ElementTree as ET)
+   b. !PYTHON(import xml.etree.ElementTree)
+   c. Ambas respuestas son correctas.
+   d. Ninguna respuesta es correcta.
+
+   !SOL(c).
+
+#. Dado el siguiente documento XML:
+
+   ```xml
+   <?xml version="1.0"?>
+   <club>
+       <nombre>Diógenes</nombre>
+       <socios>
+           <socio id="1">
+               <nombre>Sherlock Holmes</nombre>
+               <direccion>221B Baker St</direccion>
+               <alta>1890-12-14</alta>
+           </socio>
+           <socio id="51">
+               <nombre>Winston Churchill</nombre>
+               <direccion>10 Downing St</direccion>
+               <alta>1942-02-13</alta>
+           </socio>
+       </socios>
+   </club>
+   ```
+
+   y suponiendo que la variable `raiz` (de tipo `Element`) contiene el nodo
+   raíz del árbol correspondiente a dicho documento, ¿qué expresión nos
+   devuelve una lista con los nodos `<nombre>` de todos los socios del club?
+
+   a. !PYTHON(raiz.findall('.//nombre')).
+   b. !PYTHON(raiz.findall('socios/!POR/nombre')).
+   c. !PYTHON(raiz.iter('nombre')).
+   d. !PYTHON(raiz.find('nombre')).
+
+   !SOL(b).
+
+#. Siendo `socio` un nodo `<socio>` del documento XML del ejercicio anterior
+   (es decir, una variable de tipo `Element`), ¿qué expresión nos devuelve el
+   nombre del socio en forma de cadena?
+
+   a. !PYTHON(socio.find('nombre').text)
+   b. !PYTHON(socio.findall('nombre').text)
+   c. !PYTHON(socio.find('nombre'))
+   d. !PYTHON(socio.nombre)
+
+   !SOL(a).
