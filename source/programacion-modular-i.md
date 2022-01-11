@@ -291,18 +291,18 @@ nocite: |
 - En general, a la hora de describir las partes de un módulo, distinguimos
   entre **miembros _públicos_** y **miembros _privados_**:
 
-  - Los **miembros _públicos_** o **_exportados_** son aquellos miembros de un
-    módulo que están diseñados para ser usados fuera del módulo por los
+  - Los **miembros _públicos_** o **_exportados_** de un módulo son aquellos
+    miembros que están diseñados para ser usados fuera del módulo por los
     usuarios del mismo.
 
     Estos miembros (al menos, las especificaciones de los mismos, es decir, lo
     necesario para poder usarlos) **deben formar parte de la _interfaz_ del
     módulo**.
 
-  - Los **miembros _privados_** o **_internos_** son aquellos miembros de un
-    módulo que están diseñados para ser usados únicamente por el propio módulo
-    y, por tanto, no deberían ser usados (ni siquiera conocidos) fuera del
-    módulo.
+  - Los **miembros _privados_** o **_internos_** de un módulo son aquellos
+    miembros que están diseñados para ser usados únicamente por el propio
+    módulo y, por tanto, no deberían ser usados (ni siquiera conocidos) fuera
+    del módulo.
 
     Estos miembros **NO deben formar parte de la _interfaz_ del módulo**, sino
     que deben ir en la **implementación** del módulo.
@@ -487,7 +487,11 @@ A -> B
 
 ---
 
-!DOT(diagrama-estructura.svg)(Diagrama de estructura)(width=40%)(width=30%)
+:::: columns
+
+::: column
+
+!DOT(diagrama-estructura.svg)(Diagrama de estructura)(width=80%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = TB
 A -> B
@@ -500,6 +504,21 @@ E -> G
 F -> G
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+:::
+
+::: column
+
+- Al módulo *A* se le denomina **módulo principal**, ya que es el módulo por el
+  que comienza la ejecución del programa.
+
+- El módulo principal depende, directa o indirectamente, de los demás módulos
+  del programa.
+
+- No hay ningún módulo que dependa del módulo principal.
+
+:::
+
+::::
 
 # Programación modular en Python
 
@@ -515,7 +534,7 @@ F -> G
 - Eso quiere decir que **un módulo se puede ejecutar de dos maneras**:
 
   - **Como un _script_ independiente**, llamándolo desde la línea de órdenes
-    del sistema operativo:
+    del sistema operativo (sería el **_módulo principal_**):
 
     ```console
     $ python modulo.py
@@ -531,7 +550,7 @@ F -> G
 
 ---
 
-- Las sentencias que contiene un módulo se ejecutan **sólo la primera vez** que
+- Las sentencias que contiene un módulo **se ejecutan sólo la primera vez** que
   se encuentra el nombre de ese módulo en una sentencia !PYTHON(import), o bien
   cuando el archivo se ejecuta como un *script*.
 
@@ -825,9 +844,8 @@ E -> math [lhead = cluster1]
 
 ---
 
-- Se puede importar un módulo dándole al mismo tiempo otro nombre dentro del
-  espacio de nombres actual, usando la sentencia !PYTHON(import) con
-  !PYTHON(as).
+- Se puede importar un módulo dándole otro nombre dentro del espacio de nombres
+  actual, usando la sentencia !PYTHON(import ... as).
 
 - Por ejemplo:
 
@@ -837,7 +855,7 @@ E -> math [lhead = cluster1]
 
   La sentencia anterior importa el módulo `math` dentro del espacio de nombres
   actual pero con el nombre `mates` en lugar del `math` original. Por tanto,
-  para usar la función `gcd` como en el ejemplo anterior usaremos:
+  para usar la función `gcd` del ejemplo anterior, haremos:
 
   ```python
   x = mates.gcd(16, 6)
@@ -921,21 +939,22 @@ E -> gcd [lhead = cluster1]
 
 ---
 
-- De hecho, ahora el módulo importado no está definido en el módulo importador
-  (es decir, que en el marco global del módulo importador no hay ninguna
-  ligadura con el nombre del módulo importado).
+- De hecho, ahora el módulo importado no está definido en el módulo importador.
+
+  Ees decir: ahora en el marco global del módulo importador no hay ninguna
+  ligadura con el nombre del módulo importado.
 
 - En nuestro ejemplo, eso significa que el módulo `math` no existe ahora como
-  tal en el módulo importador, es decir, que ese nombre no está definido en el
+  tal en el módulo importador y, por tanto, ese nombre no está definido en el
   ámbito del módulo importador.
 
-- Por tanto, si hacemos:
+- En consecuencia, si hacemos:
 
   ```python
   x = math  # error
   ```
 
-  da error porque no hemos importado el módulo como tal, sino sólo una de sus
+  da error, porque no hemos importado el módulo como tal, sino sólo una de sus
   funciones.
 
 ---
@@ -995,8 +1014,8 @@ E -> mcd [lhead = cluster1]
   
 - En general, los programadores no suelen usar esta funcionalidad ya que puede
   introducir todo un conjunto de definiciones desconocidas dentro del módulo
-  importador, lo que incluso puede provocar que se «*machaquen*» definiciones
-  ya existentes.
+  importador, lo que incluso puede provocar que se «*machaquen*» sin control
+  definiciones ya existentes.
 
 ---
 
@@ -1030,16 +1049,18 @@ E -> mcd [lhead = cluster1]
   con un !PYTHON(import) dentro de otro módulo, pero con la diferencia de que
   la variable global !PYTHON(__name__) contendrá el valor !PYTHON("__main__").
 
-- Eso significa que si se añade este código al final del módulo:
+  Eso indica que ese _script_ se considera el **módulo principal** (en inglés,
+  _main module_) del programa.
+
+- Por eso, si se añade este código al final del módulo:
 
   ```python
   if __name__ == "__main__":
       # <sentencias>
   ```
 
-  el módulo podrá funcionar como un *script* independiente.
-
-- Generalmente, esas sentencias existen para inicializar el módulo.
+  esas sentencias se ejecutarán únicamente cuando el módulo se ejecute como el
+  módulo principal del programa.
 
 ---
 
