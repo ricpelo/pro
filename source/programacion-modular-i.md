@@ -3,7 +3,7 @@ title: Programación modular (I)
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @pressman_ingenierisoftware:_2004, @python_software_foundation_sitio_nodate
+  @pressman_ingenierisoftware_2004, @python_software_foundation_sitio_nodate
 ---
 
 # Introducción
@@ -87,7 +87,7 @@ nocite: |
 ---
 
 - **A nivel práctico**, la modularidad nos ofrece una herramienta que nos
-  permite partir el programa en partes más manejables.
+  permite partir el código del programa en partes más manejables.
 
 - A medida que los programas se hacen más y más grandes, el esfuerzo de
   mantener todo el código dentro de un único *script* se hace mayor.
@@ -309,7 +309,7 @@ nocite: |
 
 ## Partes de un módulo
 
-- Concretando, un módulo tendrá:
+- Concretando lo dicho anteriormente, un módulo tendrá:
 
   - Una **interfaz**, formada por:
 
