@@ -18,6 +18,8 @@ ITHACA_DST=$(HOME)/texmf/tex/latex/beamer
 IMAGES=images
 EJER_SRCDIR=ejercicios
 EJER_BUILDDIR_PDF=$(BUILDDIR)/ejercicios
+PRAC_SRCDIR=practicas
+PRAC_BUILDDIR_PDF=$(BUILDDIR)/practicas
 
 # Scripts y programas
 
@@ -69,12 +71,14 @@ OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
 EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
 EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=-ejercicios.pdf))
+PRAC_SOURCES := $(shell find $(PRAC_SRCDIR) -type f -name *.md)
+PRAC_OBJECTS_PDF := $(patsubst $(PRAC_SRCDIR)/%,$(PRAC_BUILDDIR_PDF)/%,$(PRAC_SOURCES:.md=-practicas.pdf))
 
 # Objetivos generales
 
-all: $(DIAPOS) $(UDRACE_CSV) html pdf apuntes prog ejercicios limpiar
+all: $(DIAPOS) $(UDRACE_CSV) html pdf apuntes prog ejercicios practicas limpiar
 
-$(DIAPOS): $(SOURCES) $(EJER_SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
+$(DIAPOS): $(SOURCES) $(EJER_SOURCES) $(PRAC_SOURCES) $(DIAPOSITIVAS_SH) $(INDEX_LEO)
 	$(DIAPOSITIVAS_SH) > $(DIAPOS)
 
 html: $(OBJECTS_HTML)
@@ -86,6 +90,8 @@ apuntes: $(APUNTES_PDF)
 prog: $(PROG_PDF)
 
 ejercicios: $(EJER_OBJECTS_PDF)
+
+practicas: $(PRAC_OBJECTS_PDF)
 
 limpiar:
 	@rm -f $(IMAGES)/*.dat $(IMAGES)/*.gv $(IMAGES)/*.uml $(IMAGES)/*.dot
@@ -200,9 +206,28 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-V mathspec \
 		-V fontsize=10pt -V lang=es-ES -o $@
 
-# Ejercicios
+# Ejercicios y prácticas
 
-$(EJER_BUILDDIR_PDF)/%-ejercicios.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
+$(EJER_BUILDDIR_PDF)/%-ejercicios.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(INCLUDE_BEFORE_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
+	@echo "Generando $@..."
+	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
+		pandoc -s -t latex \
+		--highlight-style=$(HIGHLIGHT_STYLE) \
+		-N \
+		-H $(HEADER_INCLUDES_EJERCICIOS) \
+		-B $(INCLUDE_BEFORE_EJERCICIOS) \
+		--syntax-definition=$(PHP_XML) \
+		--syntax-definition=$(CONSOLE_XML) \
+		--syntax-definition=$(PYTHON_XML) \
+		--syntax-definition=$(COMMENTS_XML) \
+		--syntax-definition=$(SPDX_COMMENTS_XML) \
+		-V documentclass=scrartcl \
+		-V date="Curso $(CURSO)" \
+		-V subtitle="Programación --- DAW" \
+		-V fontfamily=libertinus \
+		-V fontsize=12pt -V lang=es-ES -o $@
+
+$(PRAC_BUILDDIR_PDF)/%-practicas.pdf: $(PRAC_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGHLIGHT_STYLE) $(HEADER_INCLUDES_EJERCICIOS) $(INCLUDE_BEFORE_EJERCICIOS) $(CONSOLE_XML) $(PHP_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML)
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \

@@ -2,6 +2,7 @@
 
 SOURCE="source"
 EJERCICIOS="ejercicios"
+PRACTICAS="practicas"
 
 cat << EOT
 ---
@@ -23,8 +24,8 @@ EOT
 FILES=$(grep -Po "@auto $SOURCE/\K.*?(?=<)" index.leo)
 FILES="fundamentos.md $FILES"
 
-echo "| Título | HTML | PDF | Apuntes | Ejercicios |"
-echo "| ------ |:----:|:---:|:-------:|:----------:|"
+echo "| Título | HTML | PDF | Apuntes | Ejercicios | Prácticas |"
+echo "| ------ |:----:|:---:|:-------:|:----------:|:---------:|"
 
 for f in $FILES; do
     FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $SOURCE/$f))
@@ -38,12 +39,17 @@ for f in $FILES; do
     echo -n " | [PDF]($PDF){:target=\"_blank\"}"
     echo -n " | [Apuntes]($APUNTES){:target=\"_blank\"}"
     if [ -f "$EJERCICIOS/$f" ]; then
-        EJER="ejercicios/${f%.md}-ejercicios.pdf"
+        EJER="$EJERCICIOS/${f%.md}-ejercicios.pdf"
         FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $EJERCICIOS/$f))
         echo -n " | [Ejercicios]($EJER){:target=\"_blank\"}<br>"
-        echo       "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
-    else
-        echo
+        echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     fi
+    if [ -f "$PRACTICAS/$f" ]; then
+        PRAC="$PRACTICAS/${f%.md}-practicas.pdf"
+        FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $PRACTICAS/$f))
+        echo -n " | [Prácticas]($PRAC){:target=\"_blank\"}<br>"
+        echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
+    fi
+    echo
 done
 echo "{:.stretch-table}"
