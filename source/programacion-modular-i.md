@@ -1200,78 +1200,6 @@ E -> mcd [lhead = cluster1]
 
 - Para ello nos basaremos en los siguientes **criterios**.
 
-## Abstracción
-
-- La **abstracción** es un proceso mental que se basa en estudiar un aspecto
-  del problema a un determinado nivel centrándose en lo esencial e ignorando
-  momentáneamente los detalles que no son importantes en este nivel.
-
-- Ese proceso nos permite comprender la esencia de un subsistema sin tener que
-  conocer detalles innecesarios del mismo.
-
-- La utilización de la abstracción también permite trabajar con conceptos y
-  términos que son familiares en el entorno del problema sin tener que
-  transformarlos en una estructura no familiar.
-
-- La abstracción se usa principalmente como una técnica de **manejo y control
-  de la complejidad**.
-
----
-
-- Cuando se considera una solución modular a cualquier problema, se pueden
-  definir varios **niveles de abstracción**:
-
-  - En niveles **más altos** de abstracción, se enuncia una solución en
-    términos más generales usando el lenguaje del entorno del problema.
-
-    A estos niveles hay menos elementos de información, pero más grandes e
-    importantes.
-
-  - En niveles **más bajos** de abstracción se da una descripción más detallada
-    de la solución.
-
-    A estos niveles se revelan más detalles, aparecen más elementos y se
-    aumenta la cantidad de información con la que tenemos que trabajar.
-
----
-
-- La **barrera de separación** entre un nivel de abstracción y su
-  inmediatamente inferior es la diferencia entre el *qué* y el *cómo*:
-
-  - Cuando estudiamos un concepto a un determinado nivel de abstracción,
-    estudiamos *qué* hace.
-
-  - Cuando bajamos al nivel inmediatamente inferior, pasamos a
-    estudiar *cómo* lo hace.
-  
-- Esta división o separación puede continuar en niveles inferiores, de forma
-  que siempre puede considerarse que cualquier nivel responde al *qué* y el
-  nivel siguiente responde al *cómo*.
-
----
-
-- Recordemos que un módulo tiene siempre un doble punto de vista:
-
-  - El punto de vista del *creador* o implementador del módulo.
-
-  - El punto de vista del *usuario* del módulo.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~
-  La abstracción nos ayuda a **definir qué módulos constituyen nuestro
-  programa** considerando la relación que se establece entre los *creadores* y
-  los *usuarios* de los módulos.
-  ~~~~~~~~~~~~~~~~~
-
-- Esto es así porque **los usuarios de un módulo quieren usar a éste como una
-  abstracción**: sabiendo *qué* hace (su función) pero sin necesidad de saber
-  *cómo* lo hace (sus detalles internos).
-  
-- El responsable del *cómo* es únicamente el **creador** del módulo.
-
-- Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
-  mantener.
-
 ## Ocultación de información
 
 - David Parnas introdujo el **principio de ocultación de información** en 1972.
@@ -1323,6 +1251,94 @@ Es decir: cada módulo debe ser una **caja negra** recelosa de su privacidad que
 tiene «aversión» por exponer sus interioridades a los demás.
 ~~~~~~~~~~~~~~~~~~~~~~
 
+## Abstracción
+
+- La **abstracción** es un proceso mental que se basa en estudiar un aspecto
+  del problema a un determinado nivel centrándose en lo esencial e ignorando
+  momentáneamente los detalles que no son importantes en este nivel.
+
+- Ese proceso nos permite comprender la esencia de un subsistema sin tener que
+  conocer detalles innecesarios del mismo.
+
+- La utilización de la abstracción también permite trabajar con conceptos y
+  términos que son familiares en el entorno del problema sin tener que
+  transformarlos en una estructura no familiar.
+
+- La abstracción se usa principalmente como una técnica de **manejo y control
+  de la complejidad**.
+
+---
+
+- Cuando se considera una solución modular a cualquier problema, se pueden
+  definir varios **niveles de abstracción**:
+
+  - En niveles **más altos** de abstracción, se enuncia una solución en
+    términos más generales usando el lenguaje del entorno del problema.
+
+    A estos niveles hay menos elementos de información, pero más grandes e
+    importantes.
+
+  - En niveles **más bajos** de abstracción se da una descripción más detallada
+    de la solución.
+
+    A estos niveles se revelan más detalles, aparecen más elementos y se
+    aumenta la cantidad de información con la que tenemos que trabajar.
+
+---
+
+---------------------------------
+&nbsp;       &nbsp;
+------------ --------------------
+Nivel 1      (Más abstracción)
+
+Nivel 2
+
+Nivel 3
+
+...
+
+Nivel $n$    (Más detalle)
+---------------------------------
+
+---
+
+- La **barrera de separación** entre un nivel de abstracción y su
+  inmediatamente inferior es la diferencia entre el *qué* y el *cómo*:
+
+  - Cuando estudiamos un concepto a un determinado nivel de abstracción,
+    estudiamos *qué* hace.
+
+  - Cuando bajamos al nivel inmediatamente inferior, pasamos a
+    estudiar *cómo* lo hace.
+  
+- Esta división o separación puede continuar en niveles inferiores, de forma
+  que siempre puede considerarse que cualquier nivel responde al *qué* y el
+  nivel siguiente (el que está justo debajo) responde al *cómo*.
+
+---
+
+- Recordemos que un módulo tiene siempre un doble punto de vista:
+
+  - El punto de vista del *creador* o implementador del módulo.
+
+  - El punto de vista del *usuario* del módulo.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~
+  La **abstracción** nos ayuda a **definir qué módulos constituyen nuestro
+  programa** considerando la relación que se establece entre los *creadores* y
+  los *usuarios* de los módulos.
+  ~~~~~~~~~~~~~~~~~
+
+- Esto es así porque **los usuarios de un módulo quieren usar a éste como una
+  abstracción**: sabiendo *qué* hace (su función) pero sin necesidad de saber
+  *cómo* lo hace (sus detalles internos).
+  
+- El responsable del *cómo* es únicamente el **creador** del módulo.
+
+- Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
+  mantener.
+
 ---
 
 - La **abstracción** y la **ocultación de información** se complementan:
@@ -1333,9 +1349,10 @@ tiene «aversión» por exponer sus interioridades a los demás.
     demás puedan usarlos.
 
   - La **abstracción** puede usarse como una **técnica de diseño** que nos
-    ayuda a cumplir con el principio de ocultación de información, porque nos
-    permite descomponer el programa en módulos y **nos ayuda a identificar qué
-    detalles hay que ocultar** y qué información hay que exponer a los demás.
+    ayuda a cumplir con el principio de ocultación de información, porque **nos
+    da un método para descomponer el programa en módulos** y **nos ayuda a
+    identificar qué detalles hay que ocultar** y qué información hay que
+    exponer a los demás.
 
 ---
 
@@ -1351,47 +1368,55 @@ tiene «aversión» por exponer sus interioridades a los demás.
 - Al **creador** de un módulo...
 
   - ... le interesa la **abstracción** como técnica porque le ayuda a
-    determinar qué información debe ocultar su módulo al exterior.
+    determinar qué módulos deben formar parte del programa y qué información
+    debe ocultar su módulo al exterior.
 
   - ... le interesa la **ocultación de información** porque cuantos más
     detalles necesiten conocer los usuarios para poder usar su módulo, menos
-    libertad dentrá de poder cambiar esos detalles en el futuro (cuando lo
-    necesite o cuando lo desee) sin afectar a los usuarios de su módulo.
+    libertad tendrá él para cambiar esos detalles en el futuro (cuando lo
+    necesite o lo desee) sin afectar a los usuarios de su módulo.
 
 ## Independencia funcional
 
-- La independencia funcional se logra desarrollando módulos de manera que cada
-  módulo resuelva una funcionalidad específica y tenga una interfaz sencilla
-  cuando se vea desde otras partes de del programa (idealmente, mediante paso
-  de parámetros).
+- La **independencia funcional** es otro criterio a seguir para obtener una
+  modularidad efectiva.
 
-  - De hecho, la interfaz del módulo debe estar destinada únicamente a cumplir
-    con esa funcionalidad.
+- La independencia funcional se logra desarrollando módulos de manera **que
+  cada módulo resuelva una funcionalidad específica y tenga una interfaz
+  sencilla** cuando se vea desde otras partes de del programa (idealmente,
+  mediante paso de parámetros).
+
+  - De hecho, **la interfaz del módulo debe estar destinada únicamente a
+    cumplir con esa funcionalidad**.
 
 - Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.
 
-- Y por eso el módulo debe ser tan independiente como sea posible del resto de
-  los módulos del programa, es decir, que dependa lo menos posible de lo que
-  hagan otros módulos, y también que dependa lo menos posible de los datos que
-  puedan facilitarle otros módulos.
+---
 
-  !CAJA
-  ~~~~~~~~~~~~~
-  Dicho de otra forma: los módulos deben centrarse en resolver un problema
-  concreto (ser «monotemáticos»), deben ser «antipáticos» y tener «aversión» a
-  relacionarse con otros módulos.
-  ~~~~~~~~~~~~~
+- Por ello, el módulo debe ser tan **independiente** como sea posible del resto
+  de los módulos del programa.
+
+- Es decir: debe depender lo menos posible de lo que hagan otros módulos, y
+  también debe depender lo menos posible de los datos que puedan facilitarle
+  otros módulos.
+
+!CAJA
+~~~~~~~~~~~~~
+Dicho de otra forma: los módulos deben centrarse en resolver un problema
+concreto (ser «monotemáticos»), deben ser «antipáticos», tener «aversión» a
+relacionarse con otros módulos y depender lo menos posible de otros módulos.
+~~~~~~~~~~~~~
 
 ---
 
-- Los módulos independientes son más fáciles de desarrollar porque la función
-  del programa se subdivide y las interfaces se simplifican, por lo que se
-  pueden desarrollar por separado.
+- Los módulos independientes son **más fáciles de desarrollar** porque la
+  función del programa se subdivide y las interfaces se simplifican, por lo que
+  se pueden desarrollar por separado.
 
-- Los módulos independientes son más fáciles de mantener y probar porque los
-  efectos secundarios causados por el diseño o por la modificación del código
-  son más limitados, se reduce la propagación de errores y es posible obtener
-  módulos reutilizables.
+- Los módulos independientes son **más fáciles de mantener y probar** porque
+  los efectos secundarios causados por el diseño o por la modificación del
+  código son más limitados, se reduce la propagación de errores y es posible
+  obtener módulos reutilizables.
 
 - De esta forma, la mayor parte de los cambios y mejoras que haya que hacer al
   programa implicarán modificar sólo un módulo o un número muy pequeño de
@@ -1415,18 +1440,21 @@ tiene «aversión» por exponer sus interioridades a los demás.
 - Un módulo cohesivo realiza una sola función, por lo que requiere interactuar
   poco con otros componentes en otras partes del programa.
 
-- En un módulo cohesivo, sus componentes están fuertemente relacionados entre
-  sí y pertenencen al módulo por una razón lógica (no están ahí por
+- En un módulo cohesivo, **sus componentes están fuertemente relacionados entre
+  sí y pertenencen al módulo por una razón lógica** (no están ahí por
   casualidad), es decir, todos cooperan para alcanzar un objetivo común que es
   la función del módulo.
 
-- Un módulo cohesivo mantiene unidos (*atrae*) los componentes que están
-  relacionados entre ellos y mantiene fuera (*repele*) el resto.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Un módulo cohesivo mantiene unidos (*atrae*) los componentes que están
+relacionados entre ellos y mantiene fuera (*repele*) al resto.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos
-  los elementos que lo componen deben contrubuir a alcanzar dicho objetivo.
+  los elementos que lo componen deben contribuir a alcanzar dicho objetivo.
 
 - Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola
   tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice
