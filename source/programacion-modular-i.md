@@ -1200,57 +1200,6 @@ E -> mcd [lhead = cluster1]
 
 - Para ello nos basaremos en los siguientes **criterios**.
 
-## Ocultación de información
-
-- David Parnas introdujo el **principio de ocultación de información** en 1972.
-
-- Afirmó que el criterio principal para la modularización de un sistema debe
-  ser la **ocultación de _decisiones de diseño_ complejas o que puedan cambiar
-  en el futuro**, es decir, que los módulos se deben caracterizar por ocultar
-  *decisiones de diseño* a los demás módulos.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-  Por tanto: todos los elementos que necesiten conocer las mismas *decisiones
-  de diseño*, deben pertenecer al mismo módulo.
-  ~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Al ocultar la información de esa manera se evita que los usuarios de un
-  módulo necesiten de un conocimiento íntimo del diseño interno del mismo para
-  poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones
-  posteriormente.
-
-- Implica que la modularidad efectiva se logra **definiendo un conjunto de
-  módulos independientes que intercambien sólo aquella información
-  estrictamente necesaria para que el programa funcione**.
-
----
-
-- Dicho de otra forma:
-
-  - **Para que un módulo *A* pueda usar a otro *B*, *A* tiene que conocer de
-    *B* lo menos posible**, lo imprescindible.
-  
-    !CAJA
-    ~~~~~~~~~~~~~~~~~~~~
-    El uso del módulo debe realizarse únicamente por medio de **interfaces**
-    bien definidas que no cambien (o cambien poco) con el tiempo y que no
-    expongan detalles internos al exterior.
-    ~~~~~~~~~~~~~~~~~~~~
-
-  - Por tanto, *B* debe **ocultar** al exterior sus detalles internos de
-    **implementación** y exponer sólo lo necesario para que otros lo puedan
-    utilizar.
-  
-    Ésto aísla a los usuarios de los posibles cambios internos que pueda haber
-    posteriormente en *B*.
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~
-Es decir: cada módulo debe ser una **caja negra** recelosa de su privacidad que
-tiene «aversión» por exponer sus interioridades a los demás.
-~~~~~~~~~~~~~~~~~~~~~~
-
 ## Abstracción
 
 - La **abstracción** es un proceso mental que se basa en estudiar un aspecto
@@ -1339,6 +1288,57 @@ Nivel $n$    (Más detalle)
 - Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
   mantener.
 
+## Ocultación de información
+
+- David Parnas introdujo el **principio de ocultación de información** en 1972.
+
+- Afirmó que el criterio principal para la modularización de un sistema debe
+  ser la **ocultación de _decisiones de diseño_ complejas o que puedan cambiar
+  en el futuro**, es decir, que los módulos se deben caracterizar por ocultar
+  *decisiones de diseño* a los demás módulos.
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  Por tanto: todos los elementos que necesiten conocer las mismas *decisiones
+  de diseño*, deben pertenecer al mismo módulo.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Al ocultar la información de esa manera se evita que los usuarios de un
+  módulo necesiten de un conocimiento íntimo del diseño interno del mismo para
+  poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones
+  posteriormente.
+
+- Implica que la modularidad efectiva se logra **definiendo un conjunto de
+  módulos independientes que intercambien sólo aquella información
+  estrictamente necesaria para que el programa funcione**.
+
+---
+
+- Dicho de otra forma:
+
+  - **Para que un módulo *A* pueda usar a otro *B*, *A* tiene que conocer de
+    *B* lo menos posible**, lo imprescindible.
+  
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
+    El uso del módulo debe realizarse únicamente por medio de **interfaces**
+    bien definidas que no cambien (o cambien poco) con el tiempo y que no
+    expongan detalles internos al exterior.
+    ~~~~~~~~~~~~~~~~~~~~
+
+  - Por tanto, *B* debe **ocultar** al exterior sus detalles internos de
+    **implementación** y exponer sólo lo necesario para que otros lo puedan
+    utilizar.
+  
+    Ésto aísla a los usuarios de los posibles cambios internos que pueda haber
+    posteriormente en *B*.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~
+Es decir: cada módulo debe ser una **caja negra** recelosa de su privacidad que
+tiene «aversión» por exponer sus interioridades a los demás.
+~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - La **abstracción** y la **ocultación de información** se complementan:
@@ -1348,11 +1348,22 @@ Nivel $n$    (Más detalle)
     diseño y exponer sólo la información estrictamente necesaria para que los
     demás puedan usarlos.
 
-  - La **abstracción** puede usarse como una **técnica de diseño** que nos
-    ayuda a cumplir con el principio de ocultación de información, porque **nos
-    da un método para descomponer el programa en módulos** y **nos ayuda a
-    identificar qué detalles hay que ocultar** y qué información hay que
-    exponer a los demás.
+    Por tanto, nos ayuda a identificar **qué detalles debe ocultar el módulo y
+    qué información debe exponer a los demás**. O dicho de otra forma: qué
+    elementos forman parte de su _interfaz_ (lo que expone) y cuáles forman
+    parte de su _implementación_ (lo que oculta).
+
+  - La **abstracción** puede usarse como una **técnica de diseño** que **nos da
+    un método para descomponer el programa en módulos**.
+
+    Por tanto, nos ayuda a decidir **qué módulos hay** y **en qué módulo va
+    cada elemento del programa**. Es decir: qué elementos deben formar parte de
+    un módulo y cuáles deben formar parte de otro módulo.
+
+    Pero **también nos dice qué debe ocultar y qué debe exponer** el módulo,
+    porque afirma que la _interfaz_ debe estar formada, precisamente, por lo
+    elementos que responden al «_qué_» hace el módulo, y la _implementación_
+    por los que responden al «_cómo_» lo hace.
 
 ---
 
@@ -1367,7 +1378,7 @@ Nivel $n$    (Más detalle)
 
 - Al **creador** de un módulo...
 
-  - ... le interesa la **abstracción** como técnica porque le ayuda a
+  - ... le interesa la **abstracción** porque le ayuda a
     determinar qué módulos deben formar parte del programa y qué información
     debe ocultar su módulo al exterior.
 
@@ -1402,9 +1413,10 @@ Nivel $n$    (Más detalle)
 
 !CAJA
 ~~~~~~~~~~~~~
-Dicho de otra forma: los módulos deben centrarse en resolver un problema
-concreto (ser «monotemáticos»), deben ser «antipáticos», tener «aversión» a
-relacionarse con otros módulos y depender lo menos posible de otros módulos.
+Dicho de otra forma: los módulos deben centrarse en **resolver un problema
+concreto** (ser «monotemáticos»), deben ser «antipáticos», tener «aversión» a
+relacionarse con otros módulos y **depender lo menos posible de otros
+módulos**.
 ~~~~~~~~~~~~~
 
 ---
