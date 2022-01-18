@@ -261,17 +261,17 @@
 <li><p><strong>Ocultación de información</strong>: los módulos deben ocultar sus decisiones de diseño a sus usuarios.</p></li>
 <li><p><strong>Independencia funcional</strong>: los módulos deben dedicarse a alcanzar un único objetivo, con una alta cohesión entre sus elementos y un bajo acoplamiento con el resto de los módulos.</p></li>
 </ul></li>
-<li><p>Vamos a estudiar con más detalle el primero de ellos: la abstracción.</p></li>
+<li><p>Vamos a estudiar con más detalle el primero de ellos: la <strong>abstracción</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
-<li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar y manipular sistemas complejos <em>destacando</em> los detalles relevantes e <em>ignorando</em> momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
-<li><p>Asimismo, hemos visto que la abstracción se define por niveles, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
+<li><p>Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a estudiar, manipular y diseñar sistemas complejos <em>destacando</em> los detalles relevantes e <em>ignorando</em> momentáneamente los demás que ahora mismo no tienen importancia o no son necesarias.</p></li>
+<li><p>Asimismo, hemos visto que <strong>la abstracción se define por niveles</strong>, es decir, que cuando estudiamos un sistema a un determinado nivel:</p>
 <ul>
-<li><p>Se <em>destacan</em> los detalles relevantes en ese nivel.</p></li>
-<li><p>Se <em>ignoran</em> los detalles irrelevantes en ese nivel. Si descendemos de nivel de abstracción, es probable que algunos de esos detalles pasen a ser relevantes.</p></li>
+<li><p><strong>Se <em>destacan</em> los detalles relevantes en ese nivel</strong> (nos centramos en lo que es importante en ese nivel).</p></li>
+<li><p><strong>Se <em>ignoran</em> los detalles irrelevantes en ese nivel</strong>. Si descendemos de nivel de abstracción, es probable que algunos de esos detalles pasen a ser relevantes.</p></li>
 </ul></li>
 <li><p>Los programas son sistemas complejos, así que resulta importante que el lenguaje de programación nos permita estudiar y diseñar programas mediante sucesivos niveles de abstracción.</p></li>
 </ul>
@@ -279,21 +279,22 @@
 <section class="slide level5" data-number="1.1.0.0.2">
 
 <ul>
-<li><p>La abstracción es un proceso pero también un producto: es algo que puede formar parte de un programa.</p></li>
+<li><p>La abstracción es un <strong><em>proceso</em></strong> pero también es el <strong><em>producto</em></strong> que se obtiene como resultado de aplicar dicho proceso. Es algo que creamos y que puede formar parte de un programa.</p></li>
 <li><p>Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las <strong>funciones</strong>, también llamadas <strong>abstracciones funcionales</strong>.</p></li>
-<li><p>Una función es una abstracción porque el usuario de la función sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
-<li><p>Por eso decimos que las funciones definen dos niveles de abstracción.</p></li>
-<li><p>En otras palabras, al diseñar una función estamos creando una abstracción que separa la forma en la que se utiliza la función de la forma en como está implementada esa función.</p></li>
+<li><p><strong>Una función es una abstracción</strong> porque, para usarla, el usuario sólo necesita conocer la <strong>especificación</strong> de la abstracción (el <em>qué</em> hace) y en ese momento puede ignorar el resto de los detalles de <strong>implementación</strong> que se encuentran en el cuerpo de la función (el <em>cómo</em> lo hace).</p></li>
+<li><p>Por eso decimos que <strong>las funciones definen, al menos, <em>dos niveles</em> de abstracción</strong>.</p></li>
+<li><p>En otras palabras: al diseñar una función estamos creando una abstracción que separa la forma en la que se utiliza la función de la forma en como está implementada esa función.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.3">
 
 <ul>
-<li><p>Las abstracciones funcionales son un mecanismo que nos permite:</p>
+<li><p>Las abstracciones funcionales son un mecanismo que funciona llevando a cabo estos pasos, en este orden:</p>
 <ol>
-<li><p>componer una <strong>operación compleja</strong> combinando otras operaciones más simples,</p></li>
-<li><p>darle un nombre a todo el conjunto, y</p></li>
-<li><p>poder usar esa nueva operación compleja sin necesidad de conocer cómo está hecha por dentro (es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman, que son detalles que quedan ocultos al usuario).</p></li>
+<li><p><strong>Se compone una <em>operación compleja</em></strong> combinando otras operaciones más simples.</p></li>
+<li><p><strong>Se le da un nombre</strong> a todo el conjunto.</p></li>
+<li><p>A partir de ese momento, <strong>se puede usar esa nueva operación compleja sin necesidad de conocer cómo está hecha por dentro</strong>, es decir, sin necesidad de conocer cuáles son esas operaciones más simples que la forman (su <em>implementación</em>), que son detalles que quedan ocultos al usuario.</p>
+<p>Esa nueva operación compleja, a ojos del programador que la usa, resulta prácticamente indistinguible de cualquier otra operación predefinida del lenguaje.</p></li>
 </ol></li>
 <li><p>Una vez que la función se ha diseñado y se está utilizando, se puede sustituir por cualquier otra que tenga el mismo comportamiento observable.</p></li>
 </ul>
@@ -313,47 +314,43 @@
 <li><p>Por ejemplo, podemos representar un número racional <span class="math inline">\frac{a}{b}</span> mediante una pareja de números enteros <span class="math inline">a</span> y <span class="math inline">b</span> (su numerador y su denominador).</p></li>
 <li><p>Si almacenamos los dos números por separado no estaremos creando una sola unidad conceptual (no estaremos componiendo un nuevo dato a partir de otros datos más simples).</p></li>
 <li><p>Eso no resulta conveniente. A nosotros, como programadores, nos interesa que el numerador y el denominador de un número racional estén juntos formando una sola cosa, un nuevo valor: un número racional.</p></li>
+<li><p>Por ejemplo, si representamos un racional como dos números enteros separados, no podríamos escribir una función que multiplique dos racionales <span class="math inline">\frac{n_1}{d_1}</span> y <span class="math inline">\frac{n_2}{d_2}</span> ya que dicha función tendría que devolver dos valores, el numerador y el denominador del resultado:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mult_rac(n1, d1, n2, d2):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ????</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li><p>Así que podríamos representar dicha pareja de números usando una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario<br />
-<code>{'numer':</code> <span class="math inline">a</span><code>, 'denom':</code> <span class="math inline">b</span><code>}</code>.</p></li>
-<li><p>Pero estaríamos obligando al usuario de nuestros números racionales a tener que saber cómo representamos los racionales en función de otros tipos más primitivos, lo que nos impide cambiar luego esa representación sin afectar al resto del programa.</p></li>
-<li><p>Es decir: les estamos obligando a conocer detalles de implementación de nuestros números racionales.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.7">
-
-<ul>
-<li><p>Por ejemplo, si representamos un racional como dos números enteros separados, no podríamos escribir una función que multiplique dos racionales <span class="math inline">\frac{n_1}{d_1}</span> y <span class="math inline">\frac{n_2}{d_2}</span> ya que dicha función tendría que devolver dos valores, el numerador y el denominador del resultado:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mult_rac(n1, d1, n2, d2):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ????</span></code></pre></div></li>
-<li><p>Si representamos un racional <span class="math inline">\frac{n}{d}</span> con, por ejemplo, una tupla <code>(</code><span class="math inline">n</span><code>,</code> <span class="math inline">d</span><code>)</code>, la función que multiplica dos racionales podría ser:</p>
+<li><p>Así que podríamos representar dicha pareja de números usando un único valor, mediante una lista como <code>[</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>]</code>, o una tupla <code>(</code><span class="math inline">a</span><code>,</code> <span class="math inline">b</span><code>)</code>, o incluso un diccionario  <code>{'numer':</code> <span class="math inline">a</span><code>, 'denom':</code> <span class="math inline">b</span><code>}</code>.</p></li>
+<li><p>Esto está mejor, pero ahora estaríamos obligando al usuario de nuestros números racionales a tener que saber cómo representamos los racionales en función de otros tipos más primitivos, lo que nos impide cambiar luego esa representación sin afectar al resto del programa.</p></li>
+<li><p>Es decir: <strong>les estamos obligando a conocer detalles de implementación</strong> de nuestros números racionales.</p></li>
+<li><p>Por ejemplo, si representamos un racional <span class="math inline">\frac{n}{d}</span> con, por ejemplo, una tupla <code>(</code><span class="math inline">n</span><code>,</code> <span class="math inline">d</span><code>)</code>, la función que multiplica dos racionales podría ser:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mult_rac(r1, r2):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (r1[<span class="dv">0</span>] <span class="op">*</span> r2[<span class="dv">0</span>], r1[<span class="dv">1</span>] <span class="op">*</span> r2[<span class="dv">1</span>])</span></code></pre></div>
 <p>Es decir, que la función tendría que saber que el racional se representa internamente con una tupla, y que el numerador es el primer elemento y que el denominador es el segundo elemento.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.1.0.0.7">
+
+<ul>
+<li><p>Nos interesa que nuestro programa sea capaz de expresar el concepto de «número racional» y <strong>que pueda manipular números racionales como valores con entidad propia y definida</strong>, no simplemente como parejas de números enteros, <strong>independientemente de su representación interna</strong>.</p></li>
+<li><p>Para todo esto, es importante que el programa que utilice los números racionales <strong>no necesite conocer los detalles internos</strong> de cómo está representado internamente un número racional.</p></li>
+<li><p>Es decir: que los números racionales se pueden representar internamente como una lista de dos números, o como una tupla, o como un diccionario, o de cualquier otro modo, pero ese detalle interno debe quedar oculto para los usuarios de los números racionales.</p></li>
+</ul>
+<div class="caja">
+<p>La técnica general de aislar las partes de un programa que se ocupan de <em>cómo se representan</em> los datos de las partes que se ocupan de <em>cómo se usan</em> los datos es una poderosa metodología de diseño llamada <strong>abstracción de datos</strong>.</p>
+</div>
+</section>
 <section class="slide level5" data-number="1.1.0.0.8">
 
 <ul>
-<li><p>Nos interesa que nuestro programa sea capaz de expresar el concepto de «número racional» y que pueda manipular números racionales como valores con entidad propia y definida, no simplemente como parejas de números enteros, independientemente de su representación interna.</p></li>
-<li><p>Para todo esto, es importante que el programa que utilice los números racionales no necesite conocer los detalles internos de cómo está representado internamente un número racional.</p></li>
-<li><p>Es decir: que los números racionales se pueden representar internamente como una lista de dos números, o como una tupla, o como un diccionario, o de cualquier otro modo, pero ese detalle interno debe quedar oculto para los usuarios de los números racionales.</p></li>
-<li><p>La técnica general de aislar las partes de un programa que se ocupan de <em>cómo se representan</em> los datos de las partes que se ocupan de <em>cómo se usan</em> los datos es una poderosa metodología de diseño llamada <strong>abstracción de datos</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.9">
-
-<ul>
-<li><p>La <strong>abstracción de datos</strong> es una <strong>técnica</strong> pero también es un <strong>producto</strong>.</p></li>
+<li><p>La <strong>abstracción de datos</strong> es una <strong><em>técnica</em> de descomposición de programas en módulos</strong>, pero también es el <strong><em>producto</em></strong> que se obtiene como resultado de aplicar dicha técnica.</p></li>
 <li><p>Diseñar programas usando la técnica de la abstracción de datos da como resultado la creación y utilización de <strong>tipos abstractos de datos</strong> (o <strong>TAD</strong>), a los que también se les denomina <strong>abstracciones de datos</strong>.</p></li>
 <li><p>Por tanto, las abstracciones de datos son construcciones que acaban formando parte del programa, de la misma manera que ocurre con las abstracciones funcionales.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.10">
+<section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
 <li><p>La abstracción de datos se parece a la abstracción funcional:</p>
@@ -367,7 +364,7 @@
 <p>Para usar una abstracción de datos no necesitamos conocer sus detalles internos de implementación.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.1.0.0.11">
+<section class="slide level5" data-number="1.1.0.0.10">
 
 <table>
 <colgroup>
@@ -401,7 +398,7 @@
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="1.1.0.0.12">
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
 <li><p>El concepto de <strong>abstracción de datos</strong> (o <strong>tipo abstracto de datos</strong>) fue propuesto por John Guttag en 1974 y dice que:</p>
@@ -410,10 +407,10 @@
 <p>Un <strong>tipo abstracto de datos</strong> (o <strong><em>abstracción de datos</em></strong>) es un conjunto de valores y de operaciones que se definen mediante una <strong>especificación</strong> que es independiente de cualquier representación.</p>
 </div></li>
 <li><p>Para ello, los tipos abstractos de datos se definen nombrando, no sus valores, sino sus <strong>operaciones</strong> y las <strong>propiedades</strong> que cumplen éstas.</p></li>
-<li><p>Los <strong>valores</strong> de un tipo abstracto se definen también como operaciones.</p></li>
+<li><p>Esto es así porque <strong>los <em>valores</em> de un tipo abstracto se definen también como <em>operaciones</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.13">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que actúa como un tipo abstracto de datos:</p>
@@ -425,35 +422,35 @@
 <li><p>Esas <strong>barreras de abstracción</strong> son muy útiles porque permiten cambiar la representación interna sin afectar a las demás partes del programa que utilizan dicho tipo abstracto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.14">
+<section class="slide level5" data-number="1.1.0.0.13">
 
 <ul>
-<li><p>En resumen, tenemos que un tipo abstracto debe cumplir:</p>
+<li><p>En resumen, tenemos que <strong>un tipo abstracto debe cumplir</strong> las siguientes dos <strong>propiedades</strong>:</p>
 <ul>
 <li><p><strong>Privacidad de la representación</strong>: los usuarios no conocen cómo se representan los valores del tipo abstracto en la memoria del ordenador.</p></li>
 <li><p><strong>Protección</strong>: sólo se pueden utilizar con sus valores aquellas operaciones previstas en la especificación.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.15">
+<section class="slide level5" data-number="1.1.0.0.14">
 
 <ul>
 <li><p>El programador de un tipo abstracto debe crear, por tanto, dos partes bien diferenciadas:</p>
 <ol>
-<li><p><strong>La <em>especificación</em> del tipo:</strong> única parte que conoce el usuario del mismo y que consiste en:</p>
+<li><p><strong>La <em>especificación</em> del tipo:</strong> única parte que debe conocer el usuario del mismo y que consiste en:</p>
 <ul>
 <li><p>El <strong>nombre</strong> del tipo.</p></li>
 <li><p>La especificación de las <strong>operaciones</strong> permitidas. Esta especificación tendrá:</p>
 <ul>
 <li><p>Una parte <strong>sintáctica</strong>: la <strong>signatura</strong> de cada operación.</p></li>
-<li><p>Otra parte <strong>semántica</strong>: que define las <strong>propiedades</strong> que deben cumplir dichas operaciones y que se pueden expresar mediante <strong>ecuaciones</strong> o directamente en lenguaje natural.</p></li>
+<li><p>Otra parte <strong>semántica</strong>, que define las <strong>propiedades</strong> que deben cumplir dichas operaciones y que se pueden expresar mediante <strong>ecuaciones</strong> o directamente en lenguaje natural.</p></li>
 </ul></li>
 </ul></li>
-<li><p><strong>La <em>implementación</em> del tipo:</strong> conocida sólo por el programador del mismo y que consiste en la <em>representación</em> del tipo por medio de otros tipos y en la implementación de las operaciones.</p></li>
+<li><p><strong>La <em>implementación</em> del tipo:</strong> conocida sólo por el programador del mismo y que consiste en la <strong><em>representación</em> del tipo</strong> por medio de otros tipos y en la <strong>implementación de las operaciones</strong>.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.16">
+<section class="slide level5" data-number="1.1.0.0.15">
 
 <blockquote>
 <p>«Son las especificaciones, y no los programas, los que realmente describen una abstracción; los programas simplemente la implementan.»</p>

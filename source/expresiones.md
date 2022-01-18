@@ -192,9 +192,9 @@ $$
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Las **expresiones** se *evalúan*.
+Las **expresiones** se *evalúan* y denotan un _valor_.
 
-Las **sentencias** se *ejecutan*.
+Las **sentencias** se *ejecutan* y provocan una _acción_.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Sintaxis y semántica de las expresiones
@@ -358,8 +358,11 @@ que denominamos el **valor** de la expresión.
 ---
 
 - Los valores se agrupan en **tipos**, que son conjuntos de valores que
-  comparten características comunes. Por tanto, **un determinado valor
-  pertenece a un tipo**. <!-- (y, a veces, a más de uno) -->
+  comparten características comunes (las cuales son, principalmente, las
+  **operaciones** que se pueden realizar con esos valores).
+
+  Por tanto, **un determinado valor pertenece a un tipo**. <!-- (y, a veces, a
+  más de uno) -->
 
 - Igualmente, también decimos que **los datos tienen un _tipo_**, que es el
   tipo de los valores que puede tener el dato. Por eso, a los tipos también se
@@ -368,8 +371,8 @@ que denominamos el **valor** de la expresión.
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   El **tipo de un dato** determina el conjunto de **_valores_** que puede tomar
-  un dato de ese tipo, así como las **_operaciones_** que se pueden realizar
-  con él.
+  un dato de ese tipo y, por tanto, también las **_operaciones_** que se pueden
+  realizar con ese dato.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los datos se pueden manipular dentro de un programa haciendo que formen parte
@@ -412,8 +415,8 @@ que denominamos el **valor** de la expresión.
   cambia.
 
 - Recordemos que el tipo de un dato también determina las **operaciones** que
-  podemos realizar con él, ya que las operaciones sólo actúan sobre datos de un
-  determinado tipo.
+  podemos realizar con él, ya que (en principio) cada operación sólo actúa
+  sobre datos de un determinado tipo.
 
 - Como el dato _edad_ es un número entero, podemos realizar operaciones
   aritméticas sobre él. Por ejemplo, podemos restar la edad al año actual para

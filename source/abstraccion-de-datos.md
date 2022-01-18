@@ -22,21 +22,22 @@ nocite: |
     único objetivo, con una alta cohesión entre sus elementos y un bajo
     acoplamiento con el resto de los módulos.
 
-- Vamos a estudiar con más detalle el primero de ellos: la abstracción.
+- Vamos a estudiar con más detalle el primero de ellos: la **abstracción**.
 
 ---
 
 - Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a
-  estudiar y manipular sistemas complejos *destacando* los detalles relevantes
-  e *ignorando* momentáneamente los demás que ahora mismo no tienen importancia
-  o no son necesarias.
+  estudiar, manipular y diseñar sistemas complejos *destacando* los detalles
+  relevantes e *ignorando* momentáneamente los demás que ahora mismo no tienen
+  importancia o no son necesarias.
 
-- Asimismo, hemos visto que la abstracción se define por niveles, es decir, que
-  cuando estudiamos un sistema a un determinado nivel:
+- Asimismo, hemos visto que **la abstracción se define por niveles**, es decir,
+  que cuando estudiamos un sistema a un determinado nivel:
 
-  - Se *destacan* los detalles relevantes en ese nivel.
+  - **Se *destacan* los detalles relevantes en ese nivel** (nos centramos en lo
+    que es importante en ese nivel).
 
-  - Se *ignoran* los detalles irrelevantes en ese nivel. Si descendemos de
+  - **Se *ignoran* los detalles irrelevantes en ese nivel**. Si descendemos de
     nivel de abstracción, es probable que algunos de esos detalles pasen a ser
     relevantes.
 
@@ -46,36 +47,43 @@ nocite: |
 
 ---
 
-- La abstracción es un proceso pero también un producto: es algo que puede
-  formar parte de un programa.
+- La abstracción es un **_proceso_** pero también es el **_producto_** que se
+  obtiene como resultado de aplicar dicho proceso. Es algo que creamos y que
+  puede formar parte de un programa.
 
 - Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
   **funciones**, también llamadas **abstracciones funcionales**.
 
-- Una función es una abstracción porque el usuario de la función sólo necesita
-  conocer la **especificación** de la abstracción (el *qué* hace) y puede
-  ignorar el resto de los detalles de **implementación** que se encuentran en
-  el cuerpo de la función (el *cómo* lo hace).
+- **Una función es una abstracción** porque, para usarla, el usuario sólo
+  necesita conocer la **especificación** de la abstracción (el *qué* hace) y en
+  ese momento puede ignorar el resto de los detalles de **implementación** que
+  se encuentran en el cuerpo de la función (el *cómo* lo hace).
 
-- Por eso decimos que las funciones definen dos niveles de abstracción.
+- Por eso decimos que **las funciones definen, al menos, _dos niveles_ de
+  abstracción**.
 
-- En otras palabras, al diseñar una función estamos creando una abstracción que
+- En otras palabras: al diseñar una función estamos creando una abstracción que
   separa la forma en la que se utiliza la función de la forma en como está
   implementada esa función.
 
 ---
 
-- Las abstracciones funcionales son un mecanismo que nos permite:
+- Las abstracciones funcionales son un mecanismo que funciona llevando a cabo
+  estos pasos, en este orden:
 
-  #. componer una **operación compleja** combinando otras operaciones más
-     simples,
+  #. **Se compone una _operación compleja_** combinando otras operaciones más
+     simples.
 
-  #. darle un nombre a todo el conjunto, y
+  #. **Se le da un nombre** a todo el conjunto.
 
-  #. poder usar esa nueva operación compleja sin necesidad de conocer cómo está
-     hecha por dentro (es decir, sin necesidad de conocer cuáles son esas
-     operaciones más simples que la forman, que son detalles que quedan ocultos
-     al usuario).
+  #. A partir de ese momento, **se puede usar esa nueva operación compleja sin
+     necesidad de conocer cómo está hecha por dentro**, es decir, sin necesidad
+     de conocer cuáles son esas operaciones más simples que la forman (su
+     _implementación_), que son detalles que quedan ocultos al usuario.
+
+     Esa nueva operación compleja, a ojos del programador que la usa, resulta
+     prácticamente indistinguible de cualquier otra operación predefinida del
+     lenguaje.
 
 - Una vez que la función se ha diseñado y se está utilizando, se puede
   sustituir por cualquier otra que tenga el mismo comportamiento observable.
@@ -107,22 +115,6 @@ nocite: |
   el numerador y el denominador de un número racional estén juntos formando una
   sola cosa, un nuevo valor: un número racional.
 
----
-
-- Así que podríamos representar dicha pareja de números usando una lista como
-  `[`$a$`, ` $b$`]`, o una tupla `(`$a$`, ` $b$`)`, o incluso un diccionario \
-  `{'numer': ` $a$`, 'denom': ` $b$`}`.
-
-- Pero estaríamos obligando al usuario de nuestros números racionales a tener
-  que saber cómo representamos los racionales en función de otros tipos más
-  primitivos, lo que nos impide cambiar luego esa representación sin afectar al
-  resto del programa.
-
-- Es decir: les estamos obligando a conocer detalles de implementación de
-  nuestros números racionales.
-
----
-
 - Por ejemplo, si representamos un racional como dos números enteros separados,
   no podríamos escribir una función que multiplique dos racionales
   $\frac{n_1}{d_1}$ y $\frac{n_2}{d_2}$ ya que dicha función tendría que
@@ -133,8 +125,22 @@ nocite: |
       return ????
   ```
 
-- Si representamos un racional $\frac{n}{d}$ con, por ejemplo, una tupla
-  `(`$n$`, ` $d$`)`, la función que multiplica dos racionales podría ser:
+---
+
+- Así que podríamos representar dicha pareja de números usando un único valor,
+  mediante una lista como `[`$a$`, ` $b$`]`, o una tupla `(`$a$`, ` $b$`)`, o
+  incluso un diccionario \ `{'numer': ` $a$`, 'denom': ` $b$`}`.
+
+- Esto está mejor, pero ahora estaríamos obligando al usuario de nuestros
+  números racionales a tener que saber cómo representamos los racionales en
+  función de otros tipos más primitivos, lo que nos impide cambiar luego esa
+  representación sin afectar al resto del programa.
+
+- Es decir: **les estamos obligando a conocer detalles de implementación** de
+  nuestros números racionales.
+
+- Por ejemplo, si representamos un racional $\frac{n}{d}$ con, por ejemplo, una
+  tupla `(`$n$`, ` $d$`)`, la función que multiplica dos racionales podría ser:
 
   ```python
   def mult_rac(r1, r2):
@@ -148,12 +154,12 @@ nocite: |
 ---
 
 - Nos interesa que nuestro programa sea capaz de expresar el concepto de
-  «número racional» y que pueda manipular números racionales como valores con
-  entidad propia y definida, no simplemente como parejas de números enteros,
-  independientemente de su representación interna.
+  «número racional» y **que pueda manipular números racionales como valores con
+  entidad propia y definida**, no simplemente como parejas de números enteros,
+  **independientemente de su representación interna**.
 
 - Para todo esto, es importante que el programa que utilice los números
-  racionales no necesite conocer los detalles internos de cómo está
+  racionales **no necesite conocer los detalles internos** de cómo está
   representado internamente un número racional.
 
 - Es decir: que los números racionales se pueden representar internamente como
@@ -161,14 +167,18 @@ nocite: |
   cualquier otro modo, pero ese detalle interno debe quedar oculto para los
   usuarios de los números racionales.
 
-- La técnica general de aislar las partes de un programa que se ocupan de *cómo
-  se representan* los datos de las partes que se ocupan de *cómo se usan* los
-  datos es una poderosa metodología de diseño llamada **abstracción de datos**.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~
+La técnica general de aislar las partes de un programa que se ocupan de *cómo
+se representan* los datos de las partes que se ocupan de *cómo se usan* los
+datos es una poderosa metodología de diseño llamada **abstracción de datos**.
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- La **abstracción de datos** es una **técnica** pero también es un
-  **producto**.
+- La **abstracción de datos** es una **_técnica_ de descomposición de programas
+  en módulos**, pero también es el **_producto_** que se obtiene como resultado
+  de aplicar dicha técnica.
 
 - Diseñar programas usando la técnica de la abstracción de datos da como
   resultado la creación y utilización de **tipos abstractos de datos** (o
@@ -234,7 +244,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Para ello, los tipos abstractos de datos se definen nombrando, no sus
   valores, sino sus **operaciones** y las **propiedades** que cumplen éstas.
 
-- Los **valores** de un tipo abstracto se definen también como operaciones.
+- Esto es así porque **los _valores_ de un tipo abstracto se definen también
+  como _operaciones_**.
 
 ---
 
@@ -259,7 +270,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- En resumen, tenemos que un tipo abstracto debe cumplir:
+- En resumen, tenemos que **un tipo abstracto debe cumplir** las siguientes dos
+  **propiedades**:
 
   - **Privacidad de la representación**: los usuarios no conocen cómo se
     representan los valores del tipo abstracto en la memoria del ordenador.
@@ -272,8 +284,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - El programador de un tipo abstracto debe crear, por tanto, dos partes bien
   diferenciadas:
 
-  #. **La _especificación_ del tipo:** única parte que conoce el usuario del
-     mismo y que consiste en:
+  #. **La _especificación_ del tipo:** única parte que debe conocer el usuario
+     del mismo y que consiste en:
   
      - El **nombre** del tipo.
     
@@ -282,13 +294,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
        - Una parte **sintáctica**: la **signatura** de cada operación.
 
-       - Otra parte **semántica**: que define las **propiedades** que deben
+       - Otra parte **semántica**, que define las **propiedades** que deben
          cumplir dichas operaciones y que se pueden expresar mediante
          **ecuaciones** o directamente en lenguaje natural.
 
   #. **La _implementación_ del tipo:** conocida sólo por el programador del
-     mismo y que consiste en la *representación* del tipo por medio de otros
-     tipos y en la implementación de las operaciones.
+     mismo y que consiste en la **_representación_ del tipo** por medio de otros
+     tipos y en la **implementación de las operaciones**.
 
 ---
 
