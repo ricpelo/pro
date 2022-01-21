@@ -183,7 +183,7 @@ $$\begin{array}{c}
       \text{- Por sí solas también pueden ser sentencias}
     \end{cases} \\\\
     \text{\textbf{Sentencias}} \begin{cases}
-      \text{- Son órdenes} \\
+      \text{- Son órdenes que provocan acciones} \\
       \text{- Se ejecutan} \\
       \text{- Pueden contener expresiones}
     \end{cases}
@@ -842,7 +842,7 @@ endwhile (no)
 
 - Ya hemos visto que en una expresión puede haber:
 
-  - **Datos**.
+  - **Datos** (constantes o variables).
 
   - **Operaciones** a realizar sobre esos datos.
 
@@ -857,7 +857,10 @@ endwhile (no)
 $$
 \text{En una expresión hay}
 \begin{cases}
-\text{Datos} \\
+\text{Datos} \begin{cases}
+              \text{Constantes} \\
+              \text{Variables}
+             \end{cases} \\
 \text{Operaciones} \begin{cases}
                     \text{Operadores} \\
                     \text{Funciones} \\
@@ -925,7 +928,7 @@ $$
 - En la práctica, apenas hay diferencias sustanciales entre las tres formas.
 
 - Por ejemplo, la operación «inverso» actúa asocia cada número real con otro
-  número real: el inverso del número (uno dividido entre el número).
+  número real: el inverso del número (1 dividido entre el número).
 
   Así, esa operación asocia el número $4$ con el $1/4$, y el $7$ con el $1/7$.
 
