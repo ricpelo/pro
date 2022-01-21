@@ -29,7 +29,7 @@ nocite: |
 - Hasta ahora hemos estudiado la abstracción como un proceso mental que ayuda a
   estudiar, manipular y diseñar sistemas complejos *destacando* los detalles
   relevantes e *ignorando* momentáneamente los demás que ahora mismo no tienen
-  importancia o no son necesarias.
+  importancia o no son necesarios.
 
 - Asimismo, hemos visto que **la abstracción se define por niveles**, es decir,
   que cuando estudiamos un sistema a un determinado nivel:
@@ -47,9 +47,9 @@ nocite: |
 
 ---
 
-- La abstracción es un **_proceso_** pero también es el **_producto_** que se
-  obtiene como resultado de aplicar dicho proceso. Es algo que creamos y que
-  puede formar parte de un programa.
+- La abstracción es un **_proceso_** pero también llamamos así al
+  **_producto_** que se obtiene como resultado de aplicar dicho proceso. Es
+  algo que creamos y que puede formar parte de un programa.
 
 - Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
   **funciones**, también llamadas **abstracciones funcionales**.
@@ -71,18 +71,19 @@ nocite: |
 - Las abstracciones funcionales son un mecanismo que funciona llevando a cabo
   estos pasos, en este orden:
 
-  #. **Se compone una _operación compleja_** combinando otras operaciones más
-     simples.
+  #. **Se compone una _instrucción compleja_** combinando otras instrucciones
+     más simples.
 
   #. **Se le da un nombre** a todo el conjunto.
 
-  #. A partir de ese momento, **se puede usar esa nueva operación compleja sin
-     necesidad de conocer cómo está hecha por dentro**, es decir, sin necesidad
-     de conocer cuáles son esas operaciones más simples que la forman (su
-     _implementación_), que son detalles que quedan ocultos al usuario.
+  #. A partir de ese momento, **se puede usar esa nueva instrucción compleja
+     sin necesidad de conocer cómo está hecha por dentro**, es decir, sin
+     necesidad de conocer cuáles son esas instrucciones más simples que la
+     forman (su _implementación_), que son detalles que quedan ocultos al
+     usuario.
 
-     Esa nueva operación compleja, a ojos del programador que la usa, resulta
-     prácticamente indistinguible de cualquier otra operación predefinida del
+     Esa nueva instrucción compleja, a ojos del programador que la usa, resulta
+     prácticamente indistinguible de cualquier otra instrucción predefinida del
      lenguaje.
 
 - Una vez que la función se ha diseñado y se está utilizando, se puede
@@ -107,7 +108,7 @@ nocite: |
 - Por ejemplo, podemos representar un número racional $\frac{a}{b}$ mediante
   una pareja de números enteros $a$ y $b$ (su numerador y su denominador).
 
-- Si almacenamos los dos números por separado no estaremos creando una sola
+- Si almacenamos los dos números por separado, no estaremos creando una sola
   unidad conceptual (no estaremos componiendo un nuevo dato a partir de otros
   datos más simples).
 
@@ -115,10 +116,11 @@ nocite: |
   el numerador y el denominador de un número racional estén juntos formando una
   sola cosa, un nuevo valor: un número racional.
 
-- Por ejemplo, si representamos un racional como dos números enteros separados,
-  no podríamos escribir una función que multiplique dos racionales
+- Además, si representamos un racional como dos números enteros separados, no
+  podríamos escribir una función que multiplique dos racionales
   $\frac{n_1}{d_1}$ y $\frac{n_2}{d_2}$ ya que dicha función tendría que
-  devolver dos valores, el numerador y el denominador del resultado:
+  devolver dos valores (el numerador y el denominador del resultado), cosa que
+  no se puede:
 
   ```python
   def mult_rac(n1, d1, n2, d2):
@@ -127,20 +129,20 @@ nocite: |
 
 ---
 
-- Así que podríamos representar dicha pareja de números usando un único valor,
+- Así que podríamos representar esa pareja de números usando un único valor,
   mediante una lista como `[`$a$`, ` $b$`]`, o una tupla `(`$a$`, ` $b$`)`, o
   incluso un diccionario \ `{'numer': ` $a$`, 'denom': ` $b$`}`.
 
 - Esto está mejor, pero ahora estaríamos obligando al usuario de nuestros
-  números racionales a tener que saber cómo representamos los racionales en
-  función de otros tipos más primitivos, lo que nos impide cambiar luego esa
+  números racionales a tener que saber cómo representamos los racionales a
+  partir de otros tipos más primitivos, lo que nos impedirá cambiar luego esa
   representación sin afectar al resto del programa.
 
 - Es decir: **les estamos obligando a conocer detalles de implementación** de
   nuestros números racionales.
 
-- Por ejemplo, si representamos un racional $\frac{n}{d}$ con, por ejemplo, una
-  tupla `(`$n$`, ` $d$`)`, la función que multiplica dos racionales podría ser:
+- Por ejemplo, si representamos un racional $\frac{n}{d}$ con una tupla
+  `(`$n$`, ` $d$`)`, la función que multiplica dos racionales podría ser:
 
   ```python
   def mult_rac(r1, r2):
@@ -155,8 +157,8 @@ nocite: |
 
 - Nos interesa que nuestro programa sea capaz de expresar el concepto de
   «número racional» y **que pueda manipular números racionales como valores con
-  entidad propia y definida**, no simplemente como parejas de números enteros,
-  **independientemente de su representación interna**.
+  existencia propia y definida**, no simplemente como parejas de números
+  enteros, **independientemente de su representación interna**.
 
 - Para todo esto, es importante que el programa que utilice los números
   racionales **no necesite conocer los detalles internos** de cómo está
@@ -177,8 +179,8 @@ datos es una poderosa metodología de diseño llamada **abstracción de datos**.
 ---
 
 - La **abstracción de datos** es una **_técnica_ de descomposición de programas
-  en módulos**, pero también es el **_producto_** que se obtiene como resultado
-  de aplicar dicha técnica.
+  en módulos**, pero también llamamos así al **_producto_** que se obtiene como
+  resultado de aplicar dicha técnica.
 
 - Diseñar programas usando la técnica de la abstracción de datos da como
   resultado la creación y utilización de **tipos abstractos de datos** (o
@@ -187,6 +189,32 @@ datos es una poderosa metodología de diseño llamada **abstracción de datos**.
 - Por tanto, las abstracciones de datos son construcciones que acaban formando
   parte del programa, de la misma manera que ocurre con las abstracciones
   funcionales.
+
+- El objetivo es poder crear tipos de datos que se puedan usar de la misma
+  forma que los tipos predefinidos del lenguaje, es decir, sin necesidad de
+  saber cómo están hechos por dentro.
+
+---
+
+- Por ejemplo, `set` es un tipo primitivo en Python que actúa como un tipo
+  abstracto de datos:
+
+  - Se nos proporcionan **operaciones primitivas** para crear conjuntos y
+    manipular conjuntos (unión, intersección, etc.) y también un modo de
+    visualizar sus valores.
+
+  - Pero no sabemos, ni necesitamos saber, cómo se representan internamente los
+    conjuntos en la memoria del ordenador. Ese es un detalle interno del
+    intérprete.
+
+- En general, el programador que usa un tipo abstracto puede no saber (e
+  incluso se le impide saber) cómo se representan los elementos del tipo de
+  datos.
+
+- Esa **barrera de abstracción** que se crea entre cómo se usa y cómo se
+  representa el tipo abstracto es muy útil porque permite cambiar la
+  representación interna sin afectar a las demás partes del programa que
+  utilizan dicho tipo abstracto.
 
 ---
 
@@ -249,28 +277,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- Por ejemplo, `set` es un tipo primitivo en Python que actúa como un tipo
-  abstracto de datos:
-
-  - Se nos proporcionan **operaciones primitivas** para crear conjuntos y
-    manipular conjuntos (unión, intersección, etc.) y también un modo de
-    visualizar sus valores.
-
-  - Pero no sabemos, ni necesitamos saber, cómo se representan internamente los
-    conjuntos en la memoria del ordenador. Ese es un detalle interno del
-    intérprete.
-
-- En general, el programador que usa un tipo abstracto puede no saber (e
-  incluso se le impide saber) cómo se representan los elementos del tipo de
-  datos.
-
-- Esas **barreras de abstracción** son muy útiles porque permiten cambiar la
-  representación interna sin afectar a las demás partes del programa que
-  utilizan dicho tipo abstracto.
-
----
-
-- En resumen, tenemos que **un tipo abstracto debe cumplir** las siguientes dos
+- **Un tipo abstracto debe cumplir** las siguientes dos
   **propiedades**:
 
   - **Privacidad de la representación**: los usuarios no conocen cómo se
@@ -299,8 +306,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
          **ecuaciones** o directamente en lenguaje natural.
 
   #. **La _implementación_ del tipo:** conocida sólo por el programador del
-     mismo y que consiste en la **_representación_ del tipo** por medio de otros
-     tipos y en la **implementación de las operaciones**.
+     mismo y que consiste en la **_representación_ del tipo** por medio de
+     otros tipos y en la **implementación de las operaciones**.
 
 ---
 
@@ -313,15 +320,20 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ## Sintaxis
 
+- La especificación de un TAD usando expresiones formales (lógicas y
+  matemáticas) se denomina **especificación algebraica**.
+
+!SALTO
+
 :::: columns
 
-::: {.column width=45%}
+::: {.column width=48%}
 
-- La sintaxis de una **especificación algebraica** es la siguiente:
+- Su sintaxis es la siguiente:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~
-!T(espec) !NT(tipo)
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(espec) !NT(tipo)
       [!T(parámetros)
             !NT(parámetro)!MAS]
       !T(operaciones)
@@ -334,17 +346,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::
 
-::: {.column width=5%}
+::: {.column width=4%}
 
 :::
 
-::: {.column width=45%}
+::: {.column width=48%}
 
 - Donde:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~
-!NT(decl_var) ::= !NT{variable} !T{:} !NT{tipo}
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(decl_var) ::= !NT{variable} !T{:} !NT{tipo}
 !NT(ecuación) ::= !NT(izquierda) $\doteq$ !NT(derecha)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -376,13 +388,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   - **Selectoras**: operaciones que toman como argumento uno o más valores de
     tipo $T$ y que no devuelven un valor de tipo $T$.
 
-## Ejemplos
+!EJEMPLO
 
 - Un ejemplo de especificación de las **listas** como tipo abstracto sería:
 
 :::: columns
 
-::: column
+::: {.column width=48%}
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -410,7 +422,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::
 
-::: column
+::: {.column width=4%}
+
+:::
+
+::: {.column width=48%}
 
 - La ecuación $t_1 \doteq t_2$ significa que el valor construido mediante $t_1$
   es *el mismo* que el construido mediante $t_2$.
@@ -424,8 +440,6 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ::::
 
----
-
 !EJERCICIO
 
 @. ¿A qué categoría pertenencen cada una de esas operaciones?
@@ -437,21 +451,21 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   - **No existe mutabilidad** ni estado interno ni cambios de estado.
 
-  - En lugar de cambiar el estado de un dato compuesto, se «simula» ese cambio
-    creando un nuevo dato con los cambios aplicados.
+  - En lugar de cambiar el estado de un dato compuesto, se crea un nuevo dato
+    con los cambios aplicados.
 
 - Por ejemplo: la operación `:` (que añade un elemento al principio de una
   lista) realmente no modifica dicha lista sino que crea una nueva lista con el
   elemento situado al principio, y la devuelve.
 
 - Esto lo podemos expresar en la especificación de la lista con la siguiente
-  ecuación (siendo $x$ un elemento y $l$ una lista):
+  ecuación (siendo $\underline{x}$ un elemento y $\underline{l}$ una lista):
 
   $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
 
-  Se puede observar que no se modifica la lista $l$ para añadir el elemento $x$
-  al principio, sino que se crea una lista nueva por concatenación de otras
-  dos.
+  Se puede observar que no se modifica la lista $\underline{l}$ para añadir el
+  elemento $\underline{x}$ al principio, sino que se crea una lista nueva por
+  concatenación de otras dos.
 
 ---
 
@@ -476,7 +490,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::: columns
 
-::: column
+::: {.column width=42%}
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -501,7 +515,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::
 
-::: column
+::: {.column width=2%}
+
+:::
+
+::: {.column width=56%}
 
 - En el ejemplo de las listas, las **operaciones generadoras** son `[]` y
   \_`:`\_.
@@ -510,7 +528,10 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 - Las ecuaciones que aparecen ahora en esta especificación son los **axiomas**
   de la misma, y las que hemos quitado son **teoremas** que se pueden deducir
-  (*demostrar*) a partir de otras ecuaciones.
+  (es decir, *demostrar*) a partir de otras ecuaciones.
+
+- Al final, todos los teoremas se deben poder deducir de los axiomas, directa o
+  indirectamente.
 
 :::
 
@@ -526,7 +547,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   $l$ `++` `[]` $\doteq$ $l$
   ~~~~~~~~~~~~~~~~~~~~
 
-  siendo $l$ una lista cualquiera.
+  siendo $\underline{l}$ una lista cualquiera.
 
 - Para ello, tenemos que recordar que una lista sólo puede tener dos formas
   posibles:
@@ -539,7 +560,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
     $x$ `:` $l_1$
 
-- Por ejemplo, la lista `[1, 2, 3]` es 1`:`(2`:`(3`:[]`)).
+- Por ejemplo, la lista `[1, 2, 3]` es `1:(2:(3:[]))`.
 
 ---
 
@@ -585,7 +606,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 :::: columns
 
-::: column
+::: {.column width=48%}
 
 - Las **pilas** como tipo abstracto se podrían especificar así:
 
@@ -607,26 +628,61 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           `desapilar`(`apilar`($p$, $x$)) $\doteq$ $p$
           `vacia?`(`pvacia`) $\doteq$ $V$
           `vacia?`(`apilar`($p$, $x$)) $\doteq$ $F$
-          `cima`(`pvacia`) $\doteq$ $error$
-          `desapilar`(`pvacia`) $\doteq$ $error$
+          `cima`(`pvacia`) $\doteq$ **error**
+          `desapilar`(`pvacia`) $\doteq$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=4%}
 
-- En esta especificación aparecen **operaciones parciales**, que son aquellas
-  que no se pueden aplicar a cualquier operando.
+:::
+
+::: {.column width=48%}
+
+- En esta especificación aparecen **operaciones _parciales_**, que son aquellas
+  que no se pueden aplicar a todos los valores posibles.
 
 - Por ejemplo, no se puede (no tiene sentido) calcular la cima de una pila
-  vacía o desapilar una pila vacía. En ambos casos obtenemos un error.
+  vacía o desapilar una pila vacía. En ambos casos obtenemos un error (marcado
+  en las ecuaciones con la etiqueta **error**).
 
 - Por tanto, ambas operaciones son *parciales*, porque no se pueden aplicar
-  sobre cualquier tipo de pila (sólo se puede sobre las *no vacías*).
+  sobre cualquier tipo de pila (sólo se puede aplicar sobre las pilas *no
+  vacías*).
 
 :::
 
 ::::
+
+---
+
+- Una operación es _parcial_ cuando su **_dominio_** no coincide con su
+  **_conjunto origen_**.
+
+- Por ejemplo `cima` es una operación parcial porque su dominio es _pila_, pero
+  su conjunto origen no contiene a todas las pilas, ya que no está definida
+  para el valor `pvacia` (que también es una pila).
+
+- Por tanto, el conjunto imagen de `cima` es
+  ( _pila_ $\setminus\ \{$ `pvacia` $\}$ ).
+
+- Las operaciones que no son parciales se denominan **operaciones _totales_**.
+
+- En teoría, cualquier operación parcial se podría convertir en total si
+  cambiáramos su dominio para hacer que coincida exactamente con su conjunto
+  origen.
+
+- De esta forma, podríamos hacer que `cima` sea total si la definimos con la
+  siguiente signatura:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `cima` : _pila_ $\setminus\ \{$ `pvacia` $\}$ $\rightarrow$ _elemento_
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El problema es que eso no resulta práctico porque normalmente los lenguajes
+  de programación no permiten definir operaciones de esta manera.
 
 ---
 
@@ -679,7 +735,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           `mult`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}n_2$, $d_1\cdot{}d_2$)
           `iguales?`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ $n_1\cdot{}d_2 = n_2\cdot{}d_1$
           `imprimir`($r$) \ \ \{ imprime el racional $r$ \}
-          `racional`($n$, 0) $\doteq$ $error$
+          `racional`($n$, 0) $\doteq$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -737,7 +793,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   bastaría con saber *qué* hacen las funciones `racional`, `numer` y `denom` y
   no *cómo* lo hacen.
 
-- Hasta el punto de que ni siquiera hace falta tener implementadas aún las
+- Hasta el punto de que ni siquiera hace falta tener implementadas ya las
   funciones `racional`, `numer` y `denom` para poder definir las demás.
   **Suponemos** que las tenemos (*pensamiento optimista*).
 
@@ -776,7 +832,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   `racional`, pero aún no hemos implementado estas tres funciones.
   
 - Lo que necesitamos es alguna forma de unir un numerador y un denominador en
-  un valor compuesto (una pareja de números).
+  un único valor compuesto (una pareja de números).
 
 - Podemos usar cualquier representación que nos permita combinar ambos valores
   (numerador y denominador) en una sola unidad y que también nos permita
@@ -821,11 +877,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Como muestra el ejemplo anterior, nuestra implementación de números
   racionales no simplifica las fracciones resultantes.
 
-- Podemos corregir ese defecto cambiando únicamente la implementación de
+- Podemos corregir ese defecto simplemente cambiando la implementación de
   `racional`.
 
 - Usando el máximo común divisor podemos reducir el numerador y el denominador
-  para obtener un número racional equivalente:
+  para obtener el número racional simplificado:
 
   ```python
   from math import gcd 
@@ -874,9 +930,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - La diferencia entre esta implementación y la anterior está en cuándo se
   calcula el máximo común divisor.
   
-  - Si en los programas que normalmente usan los números racionales accedemos
-    muchas veces a sus numeradores y denominadores, será preferible calcular el
-    m.c.d. en el constructor.
+  - Si los programas que normalmente usan los números racionales acceden muchas
+    veces a sus numeradores y denominadores, será preferible calcular el m.c.d.
+    en el constructor.
     
   - En caso contrario, puede que sea mejor esperar a acceder al numerador o al
     denominador para calcular el m.c.d.
@@ -893,10 +949,10 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Por ejemplo: si estamos diseñando un módulo de números racionales y aún no
   hemos decidido si calcular el m.c.d. en el constructor o en los selectores,
   la metodología de la abstracción de datos nos permite retrasar esa decisión
-  sin perder la capacidad de seguir programando el resto del programa.
+  y al mismo tiempo seguir programando el resto del programa.
 
 - Además, si hoy decidimos calcular el m.c.d. en el constructor pero el día de
-  mañana cambiamos de opinión, podemos ponerlo en los selectores sin que el
+  mañana cambiamos de opinión, podemos calcularlo en los selectores sin que el
   resto del programa se vea afectado. Sólo habría que cambiar la implementación
   del tipo abstracto.
 
@@ -1278,11 +1334,14 @@ E -> i [lhead = cluster1]
 
 ---
 
-- El **entorno de definición** de una función está formado por los marcos
-  que hay en el entorno cuando se define una función.
+- El **entorno de definición** de una función está formado por **los marcos
+  que hay en el entorno cuando se define la función**.
 
 - Por ejemplo, el entorno de definición de `get` contiene, en este orden, el
   marco de `pareja` (ya que `get` es local a `pareja`) y el marco global.
+
+  Por tanto, el entorno de definición de una función NO contiene el marco de la
+  propia función.
 
 - El entorno de definición de una función representa el contexto en el que se
   definió la función y que se necesita recordar para que la función tenga toda
@@ -1783,8 +1842,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   almacena dichos fondos y que se encuentra **fuera del marco actual**.
 
 - A las operaciones modificadoras que no devuelven un valor nuevo de un
-  determinado tipo abstracto, sino que modifica directamente el propio dato,
-  las llamaremos **mutadoras**.
+  determinado tipo abstracto, sino que **modifica directamente el propio
+  dato**, las llamaremos **mutadoras**.
 
 ---
 
@@ -2019,9 +2078,9 @@ def deposito(fondos):
 
 ---
 
-- Si el dato abstracto es mutable y recuerda su estado interno, las operaciones
-  modificadoras ya no producen un nuevo dato **Depósito** a partir de otro,
-  sino que cambian el estado interno del dato existente.
+- Si el dato abstracto es mutable y recuerda su estado interno, **las
+  operaciones modificadoras** ya no producen un nuevo dato **Depósito** a
+  partir de otro, sino que **cambian el estado interno del dato existente**.
 
 - En tal caso, esas operaciones se denominan **mutadoras** y la especificación
   debe describir, entre otras cosas, el **efecto** que producen las operaciones
