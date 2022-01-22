@@ -509,15 +509,12 @@
 <li><p><strong>Generadoras</strong>: son aquellas operaciones constructoras que tienen la propiedad de que sólo con ellas es suficiente para generar cualquier valor del tipo, y excluyendo cualquiera de ellas hay valores que no pueden ser generados.</p></li>
 <li><p><strong>Modificadoras</strong>: son las operaciones constructoras que no forman parte del conjunto de las generadoras.</p></li>
 </ul></li>
-<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> y que no devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
+<li><p><strong>Selectoras</strong>: operaciones que toman como argumento uno o más valores de tipo <span class="math inline">T</span> y que NO devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="ejemplo" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>
-<ul>
-<li>Un ejemplo de especificación de las <strong>listas</strong> como tipo abstracto sería:</li>
-</ul>
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="line-block"><strong>espec</strong> <em>lista</em><br />
@@ -533,8 +530,10 @@
           <span class="math inline">x</span> : <em>elemento</em>; <span class="math inline">l, l_1, l_2, l_3</span> : <em>lista</em><br />
     <strong>ecuaciones</strong><br />
           <span class="math inline">x</span> <code>:</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <code>[</code><span class="math inline">x</span><code>]</code> <code>++</code> <span class="math inline">l</span><br />
+          <code>[</code><span class="math inline">x</span><code>]</code> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> <code>[]</code><br />
           <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
           <code>[]</code> <code>++</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          (<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <span class="math inline">l_2</span> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>)<br />
           (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>) <code>++</code> <span class="math inline">l_3</span> <span class="math inline">\doteq</span> <span class="math inline">l_1</span> <code>++</code> (<span class="math inline">l_2</span> <code>++</code> <span class="math inline">l_3</span>)<br />
           <code>len</code>(<code>[]</code>) <span class="math inline">\doteq</span> 0<br />
           <code>len</code>(<code>[</code><span class="math inline">x</span><code>]</code>) <span class="math inline">\doteq</span> 1<br />
@@ -544,9 +543,11 @@
 
 </div><div class="column" style="width:48%;">
 <ul>
+<li><p>Este es un ejemplo de especificación de las <strong>listas</strong> como tipo abstracto.</p></li>
 <li><p>La ecuación <span class="math inline">t_1 \doteq t_2</span> significa que el valor construido mediante <span class="math inline">t_1</span> es <em>el mismo</em> que el construido mediante <span class="math inline">t_2</span>.</p></li>
+<li><p>Los <em>parámetros</em> son variables que representan cualquier tipo.</p></li>
 <li><p>Este estilo de especificación se denomina <strong>especificación algebraica</strong>.</p></li>
-<li><p>Su principal virtud es que permite definir un nuevo tipo de forma <em>totalmente independiente</em> de cualquier posible representación o implementación.</p></li>
+<li><p>Su principal virtud es que permite definir un nuevo tipo de forma <em>totalmente independiente</em> de cualquier posible representación.</p></li>
 </ul>
 </div>
 </div>
@@ -560,6 +561,15 @@
 <section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
+<li><p>Según esta especificación, cualquier lista se puede construir usando únicamente las operaciones <code>[]</code> y _<code>:</code>_, que son, por tanto, las operaciones <em>generadoras</em> del TAD.</p></li>
+<li><p>Por ejemplo, la lista que escribiríamos en Python como <code>[1, 2, 3]</code> se construiría <code>1:(2:(3:[]))</code>, combinando ambas operaciones, de forma que la sintaxis de Python sería sencillamente un <em>azúcar sintáctico</em> para representar listas de una forma más cómoda.</p></li>
+<li><p>Lo interesante de estas operaciones es que no se simplifican más, es decir, que <code>[]</code> coincide con su forma normal y que (<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) también coincide con su forma normal para cualquier valor de <span class="math inline">\underline{x}</span> y <span class="math inline">\underline{l}</span>.</p></li>
+<li><p>Por otra parte, las listas definidas según esta especificación no resultan muy útiles, ya que podemos crear listas de elementos pero no disponemos de ninguna operación que nos permita luego acceder a esos elementos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.2">
+
+<ul>
 <li><p>Al definir y usar abstracciones de datos, seguiremos el enfoque propio de la <strong>programación funcional</strong>, donde:</p>
 <ul>
 <li><p><strong>No existe mutabilidad</strong> ni estado interno ni cambios de estado.</p></li>
@@ -571,7 +581,7 @@
 <p>Se puede observar que no se modifica la lista <span class="math inline">\underline{l}</span> para añadir el elemento <span class="math inline">\underline{x}</span> al principio, sino que se crea una lista nueva por concatenación de otras dos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="2.2.0.0.3">
 
 <ul>
 <li><p>¿Crees que hay ecuaciones que sobran? ¿Se podría crear una especificación equivalente pero más corta, de forma que tenga menos ecuaciones pero que se comporte exactamente igual que la anterior?</p></li>
@@ -583,7 +593,7 @@
 <li><p>Bastaría con tener una especificación algebraica basada en axiomas y que dependan únicamente de operaciones generadoras.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="2.2.0.0.4">
 
 <div class="columns">
 <div class="column" style="width:42%;">
@@ -616,7 +626,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.4">
+<section class="slide level5" data-number="2.2.0.0.5">
 
 <ul>
 <li><p>Por ejemplo, supongamos que queremos demostrar que se cumple la siguiente ecuación (que apareció antes en la primera especificación de <em>lista</em>):</p>
@@ -624,17 +634,18 @@
 <p><span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span></p>
 </div>
 <p>siendo <span class="math inline">\underline{l}</span> una lista cualquiera.</p></li>
-<li><p>Para ello, tenemos que recordar que una lista sólo puede tener dos formas posibles:</p>
+<li><p>Para ello, tenemos que recordar que una lista, según nuestra especificación, sólo puede tener dos formas posibles:</p>
 <ul>
 <li><p>Una lista vacía:</p>
 <p><code>[]</code></p></li>
 <li><p>Un elemento seguido de otra lista:</p>
 <p><span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span></p></li>
-</ul></li>
+</ul>
+<p>Cualquier lista se puede construir combinando sólo estas dos operaciones.</p></li>
 <li><p>Por ejemplo, la lista <code>[1, 2, 3]</code> es <code>1:(2:(3:[]))</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.5">
+<section class="slide level5" data-number="2.2.0.0.6">
 
 <ul>
 <li><p>Se puede demostrar por inducción sobre <span class="math inline">l</span>, a partir de los axiomas de la especificación de <em>lista</em>:</p>
@@ -697,13 +708,13 @@
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.6">
+<section class="slide level5" data-number="2.2.0.0.7">
 
 <ul>
 <li>Como hemos demostrado que <span class="math inline">l</span> <code>++</code> <code>[]</code> <span class="math inline">\doteq</span> <span class="math inline">l</span> para cualquiera de las dos formas posibles que puede tener <span class="math inline">l</span>, hemos logrado demostrar la propiedad para cualquier valor de <span class="math inline">l</span>.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.7">
+<section class="slide level5" data-number="2.2.0.0.8">
 
 <div class="columns">
 <div class="column" style="width:48%;">
@@ -739,7 +750,7 @@
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.8">
+<section class="slide level5" data-number="2.2.0.0.9">
 
 <ul>
 <li><p>Una operación es <em>parcial</em> cuando su <strong><em>dominio</em></strong> no coincide con su <strong><em>conjunto origen</em></strong>.</p></li>
@@ -754,7 +765,7 @@
 <li><p>El problema es que eso no resulta práctico porque normalmente los lenguajes de programación no permiten definir operaciones de esta manera.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.9">
+<section class="slide level5" data-number="2.2.0.0.10">
 
 <ul>
 <li><p>Un programa que hiciera uso de las pilas, una vez implementado el tipo abstracto de datos, podría ser:</p>
@@ -773,7 +784,46 @@
 <p>Nos basta con saber las propiedades que deben cumplir esas funciones, y eso viene definido en la especificación.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.10">
+<section class="slide level5" data-number="2.2.0.0.11">
+
+<div class="columns">
+<div class="column" style="width:48%;">
+<ul>
+<li><p>Sabiendo ahora lo que son las operaciones parciales, podemos definir una especificación del tipo <em>lista</em> que nos permita acceder a sus elementos.</p></li>
+<li><p>Para ello, definiremos dos operaciones más llamadas <code>primero</code> y <code>resto</code> que nos devuelvan el primer elemento y el resto de la lista, respectivamente.</p></li>
+<li><p><code>primero</code> es selectora y <code>resto</code> es modificadora.</p></li>
+<li><p>Pero esas dos operaciones sólo funcionan si la lista no está vacía, así que son operaciones <em>parciales</em>.</p></li>
+</ul>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="line-block"><strong>espec</strong> <em>lista</em><br />
+    <strong>parámetros</strong><br />
+          <em>elemento</em><br />
+    <strong>operaciones</strong><br />
+          <code>[]</code> : <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>:</code>_ : <em>elemento</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>[</code>_<code>]</code> : <em>elemento</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          _<code>++</code>_ : <em>lista</em> <span class="math inline">\times</span> <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <strong>parcial</strong> <code>primero</code> : <em>lista</em> <span class="math inline">\rightarrow</span> <em>elemento</em><br />
+          <strong>parcial</strong> <code>resto</code> : <em>lista</em> <span class="math inline">\rightarrow</span> <em>lista</em><br />
+          <code>len</code> : <em>lista</em> <span class="math inline">\rightarrow</span> <span class="math inline">\mathbb{N}</span><br />
+    <strong>var</strong><br />
+          <span class="math inline">x</span> : <em>elemento</em>; <span class="math inline">l, l_1, l_2</span> : <em>lista</em><br />
+    <strong>ecuaciones</strong><br />
+          <code>[</code><span class="math inline">x</span><code>]</code> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> <code>[]</code><br />
+          <code>[]</code> <code>++</code> <span class="math inline">l</span> <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          (<span class="math inline">x</span> <code>:</code> <span class="math inline">l_1</span>) <code>++</code> <span class="math inline">l_2</span> <span class="math inline">\doteq</span> <span class="math inline">x</span> <code>:</code> (<span class="math inline">l_1</span> <code>++</code> <span class="math inline">l_2</span>)<br />
+          <code>primero</code>(<code>[]</code>) <span class="math inline">\doteq</span> <strong>error</strong><br />
+          <code>primero</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> <span class="math inline">x</span><br />
+          <code>resto</code>(<code>[]</code>) <span class="math inline">\doteq</span> <strong>error</strong><br />
+          <code>resto</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> <span class="math inline">l</span><br />
+          <code>len</code>(<code>[]</code>) <span class="math inline">\doteq</span> 0<br />
+          <code>len</code>(<span class="math inline">x</span> <code>:</code> <span class="math inline">l</span>) <span class="math inline">\doteq</span> 1 + <code>len</code>(<span class="math inline">l</span>)</div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.0.0.12">
 
 <ul>
 <li>Los <strong>números racionales</strong> se podrían especificar así:</li>
@@ -798,7 +848,7 @@
           <code>imprimir</code>(<span class="math inline">r</span>)   { imprime el racional <span class="math inline">r</span> }<br />
           <code>racional</code>(<span class="math inline">n</span>, 0) <span class="math inline">\doteq</span> <strong>error</strong></div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.11">
+<section class="slide level5" data-number="2.2.0.0.13">
 
 <ul>
 <li><p>La operación <code>imprimir</code> es un caso especial, ya que <strong>no es una operación <em>pura</em></strong>, sino que su finalidad es la de provocar el <strong>efecto lateral</strong> de imprimir por la salida un número racional de forma «bonita».</p></li>
@@ -813,7 +863,7 @@
 <li>Introducir <strong>operaciones <em>impuras</em></strong> amplía la funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado porque se pierde la transparencia referencial y, con ello, nuestra capacidad para razonar matemáticamente sobre las especificaciones.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.12">
+<section class="slide level5" data-number="2.2.0.0.14">
 
 <ul>
 <li><p>Según la especificación anterior, podemos suponer que disponemos de un constructor y dos selectores a través de las siguientes funciones:</p>
@@ -827,7 +877,7 @@
 <li><p>Nos basta con saber <em>qué</em> hacen y <em>suponer</em> que ya las tenemos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.13">
+<section class="slide level5" data-number="2.2.0.0.15">
 
 <ul>
 <li><p>Así, podemos definir las funciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a partir de <code>racional</code>, <code>numer</code> y <code>denom</code> sin necesidad de saber cómo están implementadas esas tres funciones ni cómo se representa internamente un número racional.</p></li>
@@ -835,8 +885,14 @@
 <li><p>Hasta el punto de que ni siquiera hace falta tener implementadas ya las funciones <code>racional</code>, <code>numer</code> y <code>denom</code> para poder definir las demás. <strong>Suponemos</strong> que las tenemos (<em>pensamiento optimista</em>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.14">
+</section>
+<section>
+<section id="implementaciones" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Implementaciones</h1>
 
+</section>
+<section id="implementaciones-1" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Implementaciones</h2>
 <ul>
 <li><p>Una posible implementación en Python de las operaciones <code>suma</code>, <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a partir de <code>racional</code>, <code>numer</code> y <code>denom</code> podría ser la siguiente:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
@@ -855,21 +911,15 @@
 <li><p>Esta implementación es correcta porque se ha obtenido a partir de la especificación de los racionales, y en cuanto se tengan implementadas las funciones <code>racional</code>, <code>numer</code> y <code>denom</code>, funcionará perfectamente.</p></li>
 </ul>
 </section>
-</section>
-<section>
-<section id="implementaciones" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Implementaciones</h1>
+<section class="slide level5" data-number="3.1.0.0.1">
 
-</section>
-<section id="implementaciones-1" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Implementaciones</h2>
 <ul>
 <li><p>Ahora tenemos las operaciones sobre números racionales implementadas sobre las funciones selectoras <code>numer</code> y <code>denom</code> y la función constructora <code>racional</code>, pero aún no hemos implementado estas tres funciones.</p></li>
 <li><p>Lo que necesitamos es alguna forma de unir un numerador y un denominador en un único valor compuesto (una pareja de números).</p></li>
 <li><p>Podemos usar cualquier representación que nos permita combinar ambos valores (numerador y denominador) en una sola unidad y que también nos permita manipular cada valor por separado cuando sea necesario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>Por ejemplo, podemos usar una lista de dos números enteros para representar un racional mediante su numerador y su denominador:</p>
@@ -895,7 +945,7 @@
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="op">/</span><span class="dv">9</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Como muestra el ejemplo anterior, nuestra implementación de números racionales no simplifica las fracciones resultantes.</p></li>
@@ -911,14 +961,14 @@
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">/</span><span class="dv">3</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>Lo interesante es que este cambio sólo ha afectado al constructor <code>racional</code>, y las demás operaciones no se han visto afectadas por ese cambio.</p></li>
 <li><p>Esto es así porque el resto de las operaciones no conocen ni necesitan conocer la representación interna de un número racional (es decir, la implementación del constructor <code>racional</code>). Sólo necesitan conocer la <strong>especificación</strong> de <code>racional</code>, la cual no ha cambiado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>Otra posible implementación sería simplificar el racional no cuando se <em>construya</em>, sino cuando se <em>acceda</em> a alguna de sus partes:</p>
@@ -940,7 +990,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>Hacer que la representación dependa sólo de unas cuantas funciones nos ayuda a diseñar programas, así como a modificarlos, porque nos permite cambiar la implementación con facilidad cuando sea necesario.</p></li>

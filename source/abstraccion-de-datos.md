@@ -386,11 +386,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
       del conjunto de las generadoras.
 
   - **Selectoras**: operaciones que toman como argumento uno o más valores de
-    tipo $T$ y que no devuelven un valor de tipo $T$.
+    tipo $T$ y que NO devuelven un valor de tipo $T$.
 
 !EJEMPLO
-
-- Un ejemplo de especificación de las **listas** como tipo abstracto sería:
 
 :::: columns
 
@@ -411,8 +409,10 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           $x$ : _elemento_; $l, l_1, l_2, l_3$ : _lista_
     **ecuaciones**
           $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
+          `[`$x$`]` $\doteq$ $x$ `:` `[]`
           $l$ `++` `[]` $\doteq$ $l$
           `[]` `++` $l$ $\doteq$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$) 
           ($l_1$ `++` $l_2$) `++` $l_3$ $\doteq$ $l_1$ `++` ($l_2$ `++` $l_3$)
           `len`(`[]`) $\doteq$ 0
           `len`(`[`$x$`]`) $\doteq$ 1
@@ -428,13 +428,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ::: {.column width=48%}
 
+- Este es un ejemplo de especificación de las **listas** como tipo abstracto.
+
 - La ecuación $t_1 \doteq t_2$ significa que el valor construido mediante $t_1$
   es *el mismo* que el construido mediante $t_2$.
+
+- Los _parámetros_ son variables que representan cualquier tipo.
 
 - Este estilo de especificación se denomina **especificación algebraica**.
 
 - Su principal virtud es que permite definir un nuevo tipo de forma *totalmente
-  independiente* de cualquier posible representación o implementación.
+  independiente* de cualquier posible representación.
 
 :::
 
@@ -443,6 +447,26 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 !EJERCICIO
 
 @. ¿A qué categoría pertenencen cada una de esas operaciones?
+
+---
+
+- Según esta especificación, cualquier lista se puede construir usando
+  únicamente las operaciones `[]` y \_`:`\_, que son, por tanto, las
+  operaciones _generadoras_ del TAD.
+
+- Por ejemplo, la lista que escribiríamos en Python como `[1, 2, 3]` se
+  construiría `1:(2:(3:[]))`, combinando ambas operaciones, de forma que la
+  sintaxis de Python sería sencillamente un _azúcar sintáctico_ para
+  representar listas de una forma más cómoda.
+
+- Lo interesante de estas operaciones es que no se simplifican más, es decir,
+  que `[]` coincide con su forma normal y que ($x$ `:` $l$) también coincide
+  con su forma normal para cualquier valor de $\underline{x}$ y
+  $\underline{l}$.
+
+- Por otra parte, las listas definidas según esta especificación no resultan
+  muy útiles, ya que podemos crear listas de elementos pero no disponemos de
+  ninguna operación que nos permita luego acceder a esos elementos.
 
 ---
 
@@ -549,8 +573,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   siendo $\underline{l}$ una lista cualquiera.
 
-- Para ello, tenemos que recordar que una lista sólo puede tener dos formas
-  posibles:
+- Para ello, tenemos que recordar que una lista, según nuestra especificación,
+  sólo puede tener dos formas posibles:
 
   - Una lista vacía:
 
@@ -559,6 +583,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   - Un elemento seguido de otra lista:
 
     $x$ `:` $l_1$
+
+  Cualquier lista se puede construir combinando sólo estas dos operaciones.
 
 - Por ejemplo, la lista `[1, 2, 3]` es `1:(2:(3:[]))`.
 
@@ -713,6 +739,62 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
+:::: columns
+
+::: {.column width=48%}
+
+- Sabiendo ahora lo que son las operaciones parciales, podemos definir una
+  especificación del tipo _lista_ que nos permita acceder a sus elementos.
+
+- Para ello, definiremos dos operaciones más llamadas `primero` y `resto` que
+  nos devuelvan el primer elemento y el resto de la lista, respectivamente.
+
+- `primero` es selectora y `resto` es modificadora.
+
+- Pero esas dos operaciones sólo funcionan si la lista no está vacía, así que
+  son operaciones _parciales_.
+
+:::
+
+::: {.column width=4%}
+
+:::
+
+::: {.column width=48%}
+
+!ALGO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**espec** _lista_
+    **parámetros**
+          _elemento_
+    **operaciones**
+          `[]` : $\rightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
+          `[`_`]` : _elemento_ $\rightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
+          **parcial** `primero` : _lista_ $\rightarrow$ _elemento_
+          **parcial** `resto` : _lista_ $\rightarrow$ _lista_
+          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+    **var**
+          $x$ : _elemento_; $l, l_1, l_2$ : _lista_
+    **ecuaciones**
+          `[`$x$`]` $\doteq$ $x$ `:` `[]`
+          `[]` `++` $l$ $\doteq$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$)
+          `primero`(`[]`) $\doteq$ **error**
+          `primero`($x$ `:` $l$) $\doteq$ $x$
+          `resto`(`[]`) $\doteq$ **error**
+          `resto`($x$ `:` $l$) $\doteq$ $l$
+          `len`(`[]`) $\doteq$ 0
+          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
 - Los **números racionales** se podrían especificar así:
 
 !ALGO
@@ -797,7 +879,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   funciones `racional`, `numer` y `denom` para poder definir las demás.
   **Suponemos** que las tenemos (*pensamiento optimista*).
 
----
+# Implementaciones
+
+## Implementaciones
 
 - Una posible implementación en Python de las operaciones `suma`, `mult`,
   `imprimir` e `iguales?` a partir de `racional`, `numer` y `denom` podría ser
@@ -823,9 +907,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   especificación de los racionales, y en cuanto se tengan implementadas las
   funciones `racional`, `numer` y `denom`, funcionará perfectamente.
 
-# Implementaciones
-
-## Implementaciones
+---
 
 - Ahora tenemos las operaciones sobre números racionales implementadas sobre
   las funciones selectoras `numer` y `denom` y la función constructora
