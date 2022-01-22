@@ -2172,7 +2172,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 ---
 
 - Para una especificación más sofisticada de los elementos a encontrar, se
-  pueden usar las expresiones `XPath` en el método `findall`:
+  pueden usar las expresiones `XPath` con los métodos `find` y `findall`:
 
   ----------------------------------------------------------------------------------------------------------------------------
   Sintaxis             Significado                                                                                         
