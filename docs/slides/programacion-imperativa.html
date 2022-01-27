@@ -1862,111 +1862,123 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <h3 data-number="4.7.1"><span class="header-section-number">4.7.1</span> <code class="sourceCode python"><span class="bu">open</span></code></h3>
 <ul>
 <li><p>La función <code class="sourceCode python"><span class="bu">open</span></code> abre un archivo y devuelve un objeto que lo representa. Su signatura es:</p>
-<div class="line-block"><code class="sourceCode python"><span class="bu">open</span></code><code>(</code><em>nombre</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code> [<code>,</code> <em>modo</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>)</code></div></li>
+<div class="line-block"><code class="sourceCode python"><span class="bu">open</span></code><code>(</code><em>nombre</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code> [<code>,</code> <em>modo</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code>]<code>)</code> <code>-&gt;</code> <em>archivo</em></div></li>
 <li><p>El <em>nombre</em> es una cadena que contiene el nombre del archivo a abrir.</p></li>
 <li><p>El <em>modo</em> es otra cadena que contiene caracteres que describen de qué forma se va a usar el archivo.</p></li>
-<li><p>El valor devuelto es un objeto cuyo tipo depende del modo en el que se ha abierto el archivo.</p></li>
-<li><p>Los valores posibles de <em>modo</em> se pueden observar en las siguientes tablas.</p></li>
+<li><p>El valor devuelto es un objeto que representa al archivo abierto y cuyo tipo depende del modo en el que se ha abierto el archivo.</p></li>
+<li><p>Hay dos modos principales de abrir un archivo: en <strong>modo texto</strong> (en el que se leen y escriben <em>cadenas</em>) y en <strong>modo binario</strong> (en el que se leen y escriben <em>bytes</em>) y luego existen modos secundarios en función de lo que se vaya a hacer con el archivo.</p></li>
+<li><p>Los valores posibles de <em>modo</em> aparecen en las siguientes tablas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.1">
-
-<ul>
-<li><p>En modo texto:</p>
-<table>
+<section id="modo-texto" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Modo texto</h5>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 87%" />
+<col style="width: 7%" />
+<col style="width: 63%" />
+<col style="width: 28%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Modo</th>
 <th style="text-align: left;">Significado</th>
+<th style="text-align: left;">El puntero se coloca…</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><code>'r'</code></td>
-<td style="text-align: left;">Abre sólo para lectura. El puntero se coloca al principio del archivo (valor predeterminado).</td>
+<td style="text-align: left;">Abre sólo para lectura de texto.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>'r+'</code></td>
-<td style="text-align: left;">Abre para lectura/escritura. El puntero se coloca al principio del archivo.</td>
+<td style="text-align: left;">Abre para lectura/escritura de texto.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>'w'</code></td>
-<td style="text-align: left;">Abre sólo para escritura. Sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre para escritura. El puntero se coloca al principio del archivo.</td>
+<td style="text-align: left;">Abre sólo para escritura de texto. Vacía y sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>'w+'</code></td>
-<td style="text-align: left;">Abre para lectura/escritura. Sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura. El puntero se coloca al principio del archivo.</td>
+<td style="text-align: left;">Abre para lectura/escritura de texto. Vacía y sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>'a'</code></td>
-<td style="text-align: left;">Abre para añadir. El puntero se coloca al final del archivo si ya existe. Si no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Abre para añadir de texto. Si el archivo no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Al final si el archivo ya existe.</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>'a+'</code></td>
-<td style="text-align: left;">Abre para lectura/añadir. El puntero se coloca al final del archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: left;">Abre para lectura/añadir en modo texto. Si el archivo no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: left;">Al final si el archivo ya existe.</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
-<section class="slide level5" data-number="4.7.1.0.2">
-
-<ul>
-<li><p>En modo binario:</p>
-<table style="width:98%;">
+<section id="modo-binario" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Modo binario</h5>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 85%" />
+<col style="width: 7%" />
+<col style="width: 63%" />
+<col style="width: 28%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Modo</th>
 <th style="text-align: left;">Significado</th>
+<th style="text-align: left;">El puntero se coloca…</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><code>'rb'</code></td>
-<td style="text-align: left;">Abre sólo para lectura en modo binario. El puntero se coloca al principio del archivo.</td>
+<td style="text-align: left;">Abre sólo para lectura en binario.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>'rb+'</code></td>
-<td style="text-align: left;">Abre para lectura/escritura en modo binario. El puntero se coloca al principio del archivo.</td>
+<td style="text-align: left;">Abre para lectura/escritura en binario.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;"><code>'wb'</code></td>
+<td style="text-align: left;">Abre sólo para escritura en binario. Vacía y sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Al principio.</td>
+</tr>
+<tr class="even">
 <td style="text-align: center;"><code>'wb+'</code></td>
-<td style="text-align: left;">Abre para lectura/escritura en modo binario. Sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura. El puntero se coloca al principio del archivo.</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>'ab'</code></td>
-<td style="text-align: left;">Abre para añadir en modo binario. El puntero se coloca al final del archivo si ya existe. Si no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Abre para lectura/escritura en binario. Vacía y sobreescribe el archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: left;">Al principio.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><code>'ab+'</code></td>
-<td style="text-align: left;">Abre para lectura/añadir en modo binario. El puntero se coloca al final del archivo si ya existe. Si no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: center;"><code>'ab'</code></td>
+<td style="text-align: left;">Abre para añadir en binario. Si el archivo no existe, lo crea y lo abre sólo para escritura.</td>
+<td style="text-align: left;">Al final si el archivo ya existe.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><code>'x'</code></td>
-<td style="text-align: left;">Abre el archivo en modo exclusivo. Falla si ya existe.</td>
+<td style="text-align: center;"><code>'ab+'</code></td>
+<td style="text-align: left;">Abre para lectura/añadir en binario. Si el archivo no existe, lo crea y lo abre para lectura/escritura.</td>
+<td style="text-align: left;">Al final si el archivo ya existe.</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
-<section class="slide level5" data-number="4.7.1.0.3">
+<section class="slide level5" data-number="4.7.1.0.1">
 
 <ul>
 <li><p>Si no se pone <code>'b'</code> (modo binario), se entiende que es <code>'t'</code> (modo texto).</p></li>
 <li><p>El modo predeterminado es <code>'r'</code> (abrir para lectura en modo texto, sinónimo de <code>'rt'</code>).</p></li>
-<li><p>Los modos <code>'w+'</code> y <code>'w+b'</code> abren el archivo y lo borra si ya existe.</p></li>
+<li><p>Los modos <code>'w+'</code> y <code>'w+b'</code> abren el archivo y lo vacía (borra su contenido) si ya existía previamente.</p></li>
 <li><p>Los modos <code>'r+'</code> y <code>'r+b'</code> abren el archivo sin borrarlo.</p></li>
+<li><p>El modo <code>'x'</code> abre el archivo en modo exclusivo, y falla si ya existe.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.4">
+<section class="slide level5" data-number="4.7.1.0.2">
 
 <ul>
 <li><p>Normalmente, los archivos se abren en <strong>modo texto</strong>, lo que significa que se leen y se escriben cadenas (valores de tipo <code class="sourceCode python"><span class="bu">str</span></code>) desde y hacia el archivo, las cuales se codifican según una codificación específica que depende de la plataforma.</p>
@@ -1977,7 +1989,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.5">
+<section class="slide level5" data-number="4.7.1.0.3">
 
 <ul>
 <li><p>El tipo de dato que devuelve <code class="sourceCode python"><span class="bu">open</span></code> depende de cómo se ha abierto el archivo:</p>
@@ -2092,7 +2104,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>El método <code class="sourceCode python">readlines</code> (en plural, no confundir con <code class="sourceCode python">readline</code> en singular) también sirve para leer de un archivo y también se ejecuta sobre el objeto que devuelve <code class="sourceCode python"><span class="bu">open</span></code>, pero en lugar de su versión en singular, <strong>lee <em>varias</em> líneas del archivo de una sola vez</strong>.</p></li>
 <li><p>Su signatura es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.readlines</code><code>(</code>[<em>tamaño</em><code>:</code> <code class="sourceCode python"><span class="bu">int</span></code>]<code>) -&gt;</code>  <code class="sourceCode python">List[<span class="bu">str</span><span class="op">|</span><span class="bu">bytes</span>]</code></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.readlines</code><code>(</code>[<em>tamaño</em><code>:</code> <code class="sourceCode python"><span class="bu">int</span></code>]<code>)</code> <code>-&gt;</code> <code class="sourceCode python">List[<span class="bu">str</span><span class="op">|</span><span class="bu">bytes</span>]</code></div></li>
 <li><p><code class="sourceCode python">readlines</code> devuelve una lista de cadenas de caracteres o de bytes (según como se haya abierto el archivo, en modo texto o binario).</p></li>
 <li><p>El método empieza a leer desde la posición actual del puntero interno del archivo y cambia la posición del mismo.</p></li>
 <li><p>Las líneas conservan el carácter de salto de línea (<code>\n</code>) al final. El salto de línea sólo se omite cuando es la última línea del archivo y éste no acaba en salto de línea.</p></li>
@@ -2134,7 +2146,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <ul>
 <li><p>El método <code class="sourceCode python">write</code> sirve para escribir en un archivo y se ejecuta sobre el objeto que devuelve <code class="sourceCode python"><span class="bu">open</span></code> (y que representa al archivo abierto).</p></li>
 <li><p>Su signatura es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.write</code><code>(</code><em>contenido</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code> | <code class="sourceCode python"><span class="bu">bytes</span></code><code>) -&gt;</code>  <code class="sourceCode python"><span class="bu">int</span></code></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.write</code><code>(</code><em>contenido</em><code>:</code> <code class="sourceCode python"><span class="bu">str</span></code> | <code class="sourceCode python"><span class="bu">bytes</span></code><code>)</code> <code>-&gt;</code> <code class="sourceCode python"><span class="bu">int</span></code></div></li>
 <li><p>El método escribe el <em>contenido</em> en el <span style="color:teal">⟨<em>archivo</em>⟩</span>. Ese contenido debe ser una <em>cadena</em> de caracteres si el archivo se abrió en <strong>modo texto</strong>, o un <em>valor de tipo</em> <code class="sourceCode python"><span class="bu">bytes</span></code> si se abrió en <strong>modo binario</strong>.</p></li>
 <li><p>Al escribir, modifica el puntero interno del archivo.</p></li>
 <li><p>Devuelve el número de caracteres o de bytes que se han escrito, dependiendo de si se abrió en modo texto o en modo binario.</p></li>
@@ -2152,6 +2164,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
+<li><p><code class="sourceCode python">write</code> NO escribe el carácter de salto de línea al final, cosa que sí hace <code class="sourceCode python"><span class="bu">print</span></code> (salvo que le digamos lo contrario).</p></li>
 <li><p><code class="sourceCode python"><span class="bu">print</span></code> escribe en el flujo <code class="sourceCode python">sys.stdout</code> mientras no se diga lo contrario.</p></li>
 </ul>
 </section>
@@ -2215,7 +2228,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que introduce <code class="sourceCode python"><span class="bu">print</span></code>.</p></li>
-<li><p><code class="sourceCode python"><span class="bu">print</span></code> escribe en el archivo <code class="sourceCode python">sys.stdout</code> mientras no se diga lo contrario.</p></li>
+<li><p><code class="sourceCode python"><span class="bu">print</span></code> escribe en el flujo <code class="sourceCode python">sys.stdout</code> mientras no se diga lo contrario.</p></li>
 </ul>
 </section>
 
@@ -2225,7 +2238,7 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <li><p>El método <code class="sourceCode python">writelines</code> escribe una lista de líneas en un archivo, por lo que, en cierta forma, es el contrario de <code class="sourceCode python">readlines</code>.</p></li>
 <li><p>Igualmente, se ejecuta sobre el objeto que devuelve <code class="sourceCode python"><span class="bu">open</span></code> (y que representa al archivo abierto).</p></li>
 <li><p>Su signatura es:</p>
-<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.writelines</code><code>(</code><em>lineas</em><code>:</code> <code class="sourceCode python">List[<span class="bu">str</span><span class="op">|</span><span class="bu">bytes</span>]</code><code>) -&gt;</code>  <code class="sourceCode python"><span class="va">None</span></code></div></li>
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.writelines</code><code>(</code><em>lineas</em><code>:</code> <code class="sourceCode python">List[<span class="bu">str</span><span class="op">|</span><span class="bu">bytes</span>]</code><code>)</code> <code>-&gt;</code> <code class="sourceCode python"><span class="va">None</span></code></div></li>
 <li><p>El parámetro <em>lineas</em> es el contenido a escribir en el archivo, y debe ser una lista de <em>cadenas</em> si el archivo se abrió en <strong>modo texto</strong>, o de <em>valores de tipo</em> <code class="sourceCode python"><span class="bu">bytes</span></code> si se abrió en <strong>modo binario</strong>.</p></li>
 <li><p>Todo lo comentado anteriormente para el método <code class="sourceCode python">write</code> sobre su comportamiento en función del modo de apertura del archivo, se aplica también a <code class="sourceCode python">writelines</code>.</p></li>
 </ul>
@@ -2236,26 +2249,27 @@ Equivale a hacer <span class="math inline">s</span><code>[</code><span class="ma
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
 <span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines(<span class="st">&#39;</span></span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="st">[&#39;</span>Esta es la primera línea.<span class="op">\</span>n<span class="st">&#39;]</span></span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="st">&gt;&gt;&gt; f = open(&#39;</span>entrada.txt<span class="st">&#39;, &#39;</span><span class="vs">r&#39;)</span></span>
-<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="vs">&gt;&gt;&gt; f.read(4)</span></span>
-<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="vs">&#39;</span>Esta<span class="st">&#39;</span></span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="st">&gt;&gt;&gt; f.readlines()</span></span>
-<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a><span class="st">[&#39;</span> es la primera línea.<span class="op">\</span>n<span class="st">&#39;, &#39;</span>Esta es la segunda.<span class="op">\</span>n<span class="st">&#39;,</span></span>
-<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a><span class="st"> &#39;</span>Y esta es la tercera.<span class="op">\</span>n<span class="st">&#39;]</span></span></code></pre></div>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines([<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>])</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
+<ul>
+<li>Al igual que <code class="sourceCode python">write</code>, el método <code class="sourceCode python">writelines</code> NO escribe el <strong>salto de línea</strong> al final de cada cadena, así que tendremos que introducirlo nosotros mismos.</li>
+</ul>
 </section>
 
 <section id="seek-y-tell" class="title-slide slide level3" data-number="4.7.7">
 <h3 data-number="4.7.7"><span class="header-section-number">4.7.7</span> <code class="sourceCode python">seek</code> y <code class="sourceCode python">tell</code></h3>
 <ul>
-<li><p>El método <code class="sourceCode python">seek</code> <strong>situa el puntero interno</strong> del archivo en una determinada posición.</p></li>
+<li><p>El método <code class="sourceCode python">seek</code> <strong>sitúa el puntero interno</strong> del archivo en una determinada posición.</p></li>
 <li><p>El método <code class="sourceCode python">tell</code> <strong>devuelve la posición actual</strong> del puntero interno.</p></li>
 <li><p>Sus signaturas son:</p>
-<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.seek</code><code>(</code><em>offset</em><code>:</code> <code class="sourceCode python"><span class="bu">int</span></code><code>) -&gt;</code>  <code class="sourceCode python"><span class="bu">int</span></code><br />
+<div class="line-block"><span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.seek</code><code>(</code><em>offset</em><code>:</code> <code class="sourceCode python"><span class="bu">int</span></code><code>)</code> <code>-&gt;</code> <code class="sourceCode python"><span class="bu">int</span></code><br />
 <br />
-<span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.tell</code><code>() -&gt;</code>  <code class="sourceCode python"><span class="bu">int</span></code></div></li>
+<span style="color:teal">⟨<em>archivo</em>⟩</span><code class="sourceCode python">.tell</code><code>()</code> <code>-&gt;</code> <code class="sourceCode python"><span class="bu">int</span></code></div></li>
 <li><p>El <em>offset</em> es la posición a la que se desea mover el puntero, empezando por 0 desde el comienzo del archivo.</p></li>
 <li><p>Además de mover el puntero, el método <code class="sourceCode python">seek</code> devuelve la nueva posición del puntero.</p>
 <p>Pero no olvidemos que si el archivo se ha abierto en modo <em>añadir</em> (<code>'a'</code> o <code>'a+'</code>), la escritura se hará siempre al final del archivo, sin importar cuál sea la posición actual del puntero.</p></li>

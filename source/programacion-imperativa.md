@@ -2438,7 +2438,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PYTHON(open)`(`_nombre_`:` !PYTHON(str) [`, ` _modo_`:` !PYTHON(str)]`)`
+  !PYTHON(open)`(`_nombre_`:` !PYTHON(str) [`, ` _modo_`:` !PYTHON(str)]`)` `->` _archivo_
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El _nombre_ es una cadena que contiene el nombre del archivo a abrir.
@@ -2446,69 +2446,59 @@ True
 - El _modo_ es otra cadena que contiene caracteres que describen de qué forma
   se va a usar el archivo.
 
-- El valor devuelto es un objeto cuyo tipo depende del modo en el que se ha
-  abierto el archivo.
+- El valor devuelto es un objeto que representa al archivo abierto y cuyo tipo
+  depende del modo en el que se ha abierto el archivo.
 
-- Los valores posibles de _modo_ se pueden observar en las siguientes tablas.
+- Hay dos modos principales de abrir un archivo: en **modo texto** (en el que
+  se leen y escriben _cadenas_) y en **modo binario** (en el que se leen y
+  escriben _bytes_) y luego existen modos secundarios en función de lo que se
+  vaya a hacer con el archivo.
 
----
+- Los valores posibles de _modo_ aparecen en las siguientes tablas.
 
-- En modo texto:
+##### Modo texto {.unnumbered .unlisted}
 
-  ----------------------------------------------------------------------------------------------
-      Modo    Significado
-  ----------  ----------------------------------------------------------------------------------
-     `'r'`    Abre sólo para lectura. El puntero se coloca al principio del
-              archivo (valor predeterminado).
+---------------------------------------------------------------------------------------------------------------------------------
+  Modo    Significado                                                                        El puntero se coloca...            
+--------  ---------------------------------------------------------------------------------- ------------------------------------
+ `'r'`    Abre sólo para lectura de texto.                                                   Al principio.                      
+                                                                                                                                
+ `'r+'`   Abre para lectura/escritura de texto.                                              Al principio.                      
+                                                                                                                                
+ `'w'`    Abre sólo para escritura de texto. Vacía y sobreescribe el archivo si ya           Al principio.                      
+          existe. Si no existe, lo crea y lo abre sólo para escritura.                                                          
+                                                                                                                                
+ `'w+'`   Abre para lectura/escritura de texto. Vacía y sobreescribe el archivo si ya        Al principio.                      
+          existe. Si no existe, lo crea y lo abre para lectura/escritura.                                                       
+                                                                                                                                
+ `'a'`    Abre para añadir de texto. Si el archivo no existe, lo crea y lo abre sólo         Al final si el archivo ya existe.  
+          para escritura.                                                                                                       
+                                                                                                                                
+ `'a+'`   Abre para lectura/añadir en modo texto. Si el archivo no existe, lo crea y lo      Al final si el archivo ya existe.  
+          abre para lectura/escritura.                                                                                          
+---------------------------------------------------------------------------------------------------------------------------------
 
-     `'r+'`   Abre para lectura/escritura. El puntero se coloca al principio
-              del archivo.
+##### Modo binario {.unnumbered .unlisted}
 
-     `'w'`    Abre sólo para escritura. Sobreescribe el archivo si ya existe.
-              Si no existe, lo crea y lo abre para escritura. El puntero se
-              coloca al principio del archivo.
-
-     `'w+'`   Abre para lectura/escritura. Sobreescribe el archivo si ya
-              existe. Si no existe, lo crea y lo abre para lectura/escritura.
-              El puntero se coloca al principio del archivo.
-
-     `'a'`    Abre para añadir. El puntero se coloca al final del archivo si ya
-              existe. Si no existe, lo crea y lo abre sólo para escritura.
-
-     `'a+'`   Abre para lectura/añadir. El puntero se coloca al final del
-              archivo si ya existe. Si no existe, lo crea y lo abre para
-              lectura/escritura.
-
-  ----------------------------------------------------------------------------------------------
-
----
-
-- En modo binario:
-
-    ----------------------------------------------------------------------------------------------
-        Modo    Significado
-    ----------  ----------------------------------------------------------------------------------
-       `'rb'`   Abre sólo para lectura en modo binario. El puntero se coloca al
-                principio del archivo.
-
-       `'rb+'`  Abre para lectura/escritura en modo binario. El puntero se
-                coloca al principio del archivo.
-
-       `'wb+'`  Abre para lectura/escritura en modo binario. Sobreescribe el
-                archivo si ya existe. Si no existe, lo crea y lo abre para
-                lectura/escritura. El puntero se coloca al principio del
-                archivo.
-
-       `'ab'`   Abre para añadir en modo binario. El puntero se coloca al final
-                del archivo si ya existe. Si no existe, lo crea y lo abre sólo
-                para escritura.
-
-       `'ab+'`  Abre para lectura/añadir en modo binario. El puntero se coloca
-                al final del archivo si ya existe. Si no existe, lo crea y lo
-                abre para lectura/escritura.
-
-       `'x'`    Abre el archivo en modo exclusivo. Falla si ya existe.
-    ----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+  Modo    Significado                                                                        El puntero se coloca...            
+--------  ---------------------------------------------------------------------------------- ------------------------------------
+ `'rb'`   Abre sólo para lectura en binario.                                                 Al principio.                      
+                                                                                                                                
+ `'rb+'`  Abre para lectura/escritura en binario.                                            Al principio.                      
+                                                                                                                                
+ `'wb'`   Abre sólo para escritura en binario. Vacía y sobreescribe el archivo si ya         Al principio.                      
+          existe. Si no existe, lo crea y lo abre sólo para escritura.                                                          
+                                                                                                                                
+ `'wb+'`  Abre para lectura/escritura en binario. Vacía y sobreescribe el archivo si ya      Al principio.                      
+          existe. Si no existe, lo crea y lo abre para lectura/escritura.                                                       
+                                                                                                                                
+ `'ab'`   Abre para añadir en binario. Si el archivo no existe, lo crea y lo abre sólo       Al final si el archivo ya existe.  
+          para escritura.                                                                                                       
+                                                                                                                                
+ `'ab+'`  Abre para lectura/añadir en binario. Si el archivo no existe, lo crea y lo abre    Al final si el archivo ya existe.  
+          para lectura/escritura.                                                                                               
+---------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -2517,9 +2507,12 @@ True
 - El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
   de `'rt'`).
 
-- Los modos `'w+'` y `'w+b'` abren el archivo y lo borra si ya existe.
+- Los modos `'w+'` y `'w+b'` abren el archivo y lo vacía (borra su contenido)
+  si ya existía previamente.
 
 - Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+
+- El modo `'x'` abre el archivo en modo exclusivo, y falla si ya existe.
 
 ---
 
@@ -2699,7 +2692,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.readlines)`(`[_tamaño_`:` !PYTHON(int)]`) -> `\  !PYTHON(List[str|bytes])
+  !NT(archivo)!PYTHON(.readlines)`(`[_tamaño_`:` !PYTHON(int)]`)` `->` !PYTHON(List[str|bytes])
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - !PYTHON(readlines) devuelve una lista de cadenas de caracteres o de bytes
@@ -2760,7 +2753,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.write)`(`_contenido_`:` !PYTHON(str) | !PYTHON(bytes)`) -> `\  !PYTHON(int)
+  !NT(archivo)!PYTHON(.write)`(`_contenido_`:` !PYTHON(str) | !PYTHON(bytes)`)` `->` !PYTHON(int)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El método escribe el _contenido_ en el !NT(archivo). Ese contenido debe ser
@@ -2795,6 +2788,9 @@ True
 
 - Hay que tener en cuenta los separadores y los saltos de línea que introduce
   !PYTHON(print).
+
+- !PYTHON(write) NO escribe el carácter de salto de línea al final, cosa que sí
+  hace !PYTHON{print} (salvo que le digamos lo contrario).
 
 - !PYTHON(print) escribe en el flujo !PYTHON(sys.stdout) mientras no se diga
   lo contrario.
@@ -2881,7 +2877,7 @@ True
 - Hay que tener en cuenta los separadores y los saltos de línea que introduce
   !PYTHON(print).
 
-- !PYTHON(print) escribe en el archivo !PYTHON(sys.stdout) mientras no se diga
+- !PYTHON(print) escribe en el flujo !PYTHON(sys.stdout) mientras no se diga
   lo contrario.
 
 ### !PYTHON(writelines)
@@ -2896,7 +2892,7 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.writelines)`(`_lineas_`:` !PYTHON(List[str|bytes])`) -> `\  !PYTHON(None)
+  !NT(archivo)!PYTHON(.writelines)`(`_lineas_`:` !PYTHON(List[str|bytes])`)` `->` !PYTHON(None)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El parámetro _lineas_ es el contenido a escribir en el archivo, y debe ser
@@ -2914,20 +2910,22 @@ True
 >>> f.readlines()
 ['Esta es la primera línea.\n', 'Esta es la segunda.\n',
  'Y esta es la tercera.\n']
->>> f = open('entrada.txt', 'r+')
->>> f.writelines('
-['Esta es la primera línea.\n']
->>> f = open('entrada.txt', 'r')
->>> f.read(4)
-'Esta'
+>>> f.close()
+>>> f = open('salida.txt', 'w')
+>>> f.writelines(['Primera línea de salida.txt.\n','Segunda línea.\n'])
+>>> f.close()
+>>> f = open('salida.txt', 'r')
 >>> f.readlines()
-[' es la primera línea.\n', 'Esta es la segunda.\n',
- 'Y esta es la tercera.\n']
+['Primera línea de salida.txt.\n','Segunda línea.\n']
 ```
+
+- Al igual que !PYTHON(write), el método !PYTHON(writelines) NO escribe el
+  **salto de línea** al final de cada cadena, así que tendremos que
+  introducirlo nosotros mismos.
 
 ### !PYTHON(seek) y !PYTHON(tell)
 
-- El método !PYTHON(seek) **situa el puntero interno** del archivo en una
+- El método !PYTHON(seek) **sitúa el puntero interno** del archivo en una
   determinada posición.
 
 - El método !PYTHON(tell) **devuelve la posición actual** del puntero interno.
@@ -2936,9 +2934,9 @@ True
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.seek)`(`_offset_`:` !PYTHON(int)`) -> `\  !PYTHON(int)
+  !NT(archivo)!PYTHON(.seek)`(`_offset_`:` !PYTHON(int)`)` `->` !PYTHON(int)
 
-!NT(archivo)!PYTHON(.tell)`() -> `\  !PYTHON(int)
+!NT(archivo)!PYTHON(.tell)`()` `->` !PYTHON(int)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El _offset_ es la posición a la que se desea mover el puntero, empezando por
