@@ -1426,8 +1426,10 @@ E -> i [lhead = cluster1]
   propia función.
 
 - El entorno de definición de una función representa el contexto en el que se
-  definió la función y que se necesita recordar para que la función tenga toda
-  la información que necesita para funcionar.
+  definió la función.
+
+  Es posible que la función necesite información almacenada en ese contexto
+  para que pueda funcionar correctamente.
 
 - La combinación de una función más su entorno de definición se denomina
   **clausura**.
@@ -1437,8 +1439,8 @@ E -> i [lhead = cluster1]
   Clausura = función + entorno de definición
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Una clausura, por tanto, agrupa una función con la información que se
-  necesita recordar para que la función funcione.
+- Una clausura, por tanto, agrupa una función con la información que puede que
+  la función necesite para poder funcionar.
 
 ---
 
@@ -1491,8 +1493,8 @@ E -> i [lhead = cluster1]
 ---
 
 - Las clausuras las representaremos gráficamente como una función de la que
-  sale una flecha que va hasta el marco del ámbito donde se definió la función
-  (el primer marco de su entorno de definición).
+  sale una flecha que va hasta el primer marco de su entorno de definición, que
+  es el marco del ámbito donde se definió esa función.
 
 !DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=70%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1542,14 +1544,15 @@ f3 -> y [lhead = cluster0, minlen = 3, color = blue]
 
 !SALTO
 
-- El !COLOR(red)(círculo rojo) representa la clausura, y la !COLOR(blue)(flecha
-  azul) apunta al entorno de definición de la clausura, que aquí está formado
-  por el marco de `pareja` y el marco global (en ese orden).
+- El !COLOR(red)(círculo rojo) representa la función de la clausura, y la
+  !COLOR(blue)(flecha azul) apunta al entorno de definición de la clausura, que
+  aquí está formado por el marco de `pareja` y el marco global (en ese orden).
 
 ---
 
 - Por tanto, la clausura almacenada en `p` contiene la función y el entorno que
-  es necesario recordar para poder ejecutar la función.
+  contiene la información que probablemente sea necesaria para poder ejecutar
+  la función.
 
 - Aquí, la clausura apunta al marco de `pareja`, ya que es local a `pareja` y
   necesita acceder a los datos definidos en el ámbito de `pareja`.
@@ -1741,6 +1744,9 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
+- El funcionamiento de las clausuras está muy relacionado con el de los
+  módulos.
+
 - Si la clausura se define en un módulo y éste se importa en otro módulo,
   entonces el entorno de definición de la clausura acabará en el marco global
   del módulo donde se ha definido la clausura y no contendrá el marco global
@@ -1751,30 +1757,338 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   debe permanecer en la memoria para que los miembros del módulo puedan acceder
   a otros elementos del mismo.
 
+---
+
+- Cuando el módulo se importa usando !PYTHON(import módulo):
+
+  #. Se mete su marco en la pila.
+
+  #. Se ejecutan sus sentencias, y sus definiciones crean ligaduras y variables
+     que se almacenan en ese marco.
+
+  #. Cuando se acaba, se saca el módulo de la pila y se convierte en un objeto
+     en el montículo que representa al módulo.
+
+- Las funciones definidas dentro de ese módulo, en realidad son clausuras que
+  recuerdan el contexto en el que se definieron, hasta el marco global del
+  módulo donde se han definido.
+
+- Es decir: los entornos de definición de esas clausuras acaban en el marco de
+  ese módulo.
+
+- El marco del módulo importador NO está dentro del entorno de esas funciones.
+
+---
+
 - Por ejemplo:
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: {.column width=45%}
 
   ```python
-  # a.py:
+  # uno.py:
+
   x = 1
-  def uno(a):
-      def dos(b):
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=45%}
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  print(uno.f()) # imprime 1
+  ```
+
+  :::
+
+  ::::
+
+- Al hacer !PYTHON(import uno):
+
+  #. Se crea un marco para `uno` en la pila.
+  #. Se ejecutan sus sentencias, que almacenan las ligaduras y variables de `x`
+     y `f` en ese marco.
+  #. Cuando se termina de ejecutar el módulo, se saca su marco de la pila y se
+     almacena como un objeto en el montículo.
+  #. Se crea en el marco de `dos` una ligadura que hace referencia a ese
+     objeto.
+
+- Al llamar a `uno.f()`, el entorno de `f` está formado por su propio marco y
+  por el marco global de `uno`, por lo que `f` tiene toda la información que
+  necesita para funcionar.
+
+---
+
+- El entorno de `f` NO contiene el marco global de `dos`.
+
+- Por ejemplo:
+
+  :::: columns
+
+  ::: {.column width=35%}
+
+  ```python
+  # uno.py:
+
+  x = 1
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  x = 35         # crea una nueva x en dos
+
+  print(uno.f()) # sigue imprimiendo 1
+  ```
+
+  :::
+
+  ::::
+
+- Aquí, al llamar a `uno.f()` se observa que sigue devolviendo `1` y no `35`,
+  ya que `f` sigue recordando que `x` vale `1`.
+
+- Recordemos que el entorno de `f` está formado por su marco y por el marco
+  global de `uno`.
+
+---
+
+- Y en este caso:
+
+  :::: columns
+
+  ::: {.column width=35%}
+
+  ```python
+  # uno.py:
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  x = 35         # crea una nueva x en uno
+
+  print(uno.f()) # da error
+  ```
+
+  :::
+
+  ::::
+
+- Aquí, al llamar a `uno.f()` da un error porque el entorno de `f` no contiene
+  ninguna `x`, ya que ese entorno está formado por su marco y por el marco
+  global de `uno` (NO contiene al marco global de `dos`).
+
+---
+
+- Si usamos !PYTHON(from ... import ...):
+
+  :::: columns
+
+  ::: {.column width=45%}
+
+  ```python
+  # uno.py:
+
+  x = 1
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=45%}
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  print(f()) # imprime 1
+  ```
+
+  :::
+
+  ::::
+
+- Al hacer !PYTHON(from uno import f), estamos importando sólo la función `f`,
+  no el módulo `uno` como tal, pero al hacerlo ya estaríamos perdiendo el marco
+  global del módulo `uno`, que contiene información que necesita la función `f`
+  (en este caso, la variable `x`).
+
+- Por tanto, aquí `f` es una clausura porque necesita acceder a una variable
+  (`x`) que está fuera del ámbito cuando se llama a `f` desde el módulo `dos`.
+
+- Para que la llamada a `f()` funcione correctamente en `dos`, el intérprete
+  debe conservar el marco del módulo `uno` y enlazarlo con `f`.
+
+---
+
+- En detalle, cuando el intérprete ejecuta !PYTHON(from uno import f):
+
+  #. Crea el marco de `uno` en la pila y ejecuta sus sentencias.
+
+  #. En el marco de `uno` se guardan las ligaduras y variables de `x` y `f`.
+
+  #. Al terminar de ejecutarse el módulo `uno`, se saca su marco de la pila
+     pero no se elimina, sino que se almacena en el montículo, ya que ese marco
+     pertenece al entorno de definición de `f`.
+
+  #. En el marco de `dos`, se crea la ligadura entre `f` y la clausura formada
+     por la función `f` de `uno` y su entorno de definición.
+
+- El entorno de definición de `f` está formado únicamente por el marco del
+  módulo `uno`.
+
+---
+
+- Si ahora hacemos !PYTHON(x = 99) en el módulo `dos`:
+
+  :::: columns
+
+  ::: {.column width=44%}
+
+  ```python
+  # uno.py:
+
+  x = 1   # variable global de uno
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=4%}
+
+  :::
+
+  ::: {.column width=52%}
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  x = 99      # crea una nueva x en dos
+
+  print(f())  # sigue imprimiendo 1
+  ```
+
+  :::
+
+  ::::
+
+- El resultado sigue siendo el mismo que antes, porque:
+
+  - La asignación !PYTHON(x = 99) que se ejecuta dentro del módulo `dos` crea
+    una nueva variable `x` en el marco de `dos`, y no modifica la `x` de `uno`.
+
+  - `f` en `dos` es una clausura que recuerda que `x` valía `1` cuando se
+    definió al ejecutarse la sentencia !PYTHON(from uno import f).
+
+  - Cuando se ejecuta `f`, su entorno está formado por su marco y el marco
+    global de `uno`, en ese orden.
+
+  - Por tanto, `f` accede a la `x` de `uno`, no la de `dos`.
+
+---
+
+- Es importante también tener en cuenta que el entorno de `f` NO incluye el
+  marco global de `dos`.
+
+- Por tanto, lo siguiente daría error:
+
+  ```python
+  # uno.py:
+
+  def f():
+      return x   # Una variable que no está en uno
+  ```
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  x = 99         # crea una nueva x en dos
+
+  print(f())     # da error porque la x de dos no está en el entorno de f
+  ```
+
+---
+
+- Otro ejemplo, con funciones locales:
+
+  :::: columns
+
+  ::: {.column width=45%}
+
+  ```python
+  # uno.py:
+  x = 1
+  def padre(a):
+      def hijo(b):
           global x
           x += 1
           return a + b + x
-      return dos
+      return hijo
   ```
 
-:::
+  :::
 
-::: column
+  ::: {.column width=4%}
+
+  :::
+
+  ::: {.column width=45%}
 
   ```python
-  >>> from a import uno
-  >>> f = uno(2)
+  >>> from uno import padre
+  >>> f = padre(2)
   >>> f(3)
   7
   >>> f(3)
@@ -1783,13 +2097,13 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   10
   ```
 
-:::
+  :::
 
-::::
+  ::::
 
-- El entorno de definición de la clausura `f` lo forma el marco de `uno`
-  seguido del marco de `a` (que juega el papel de marco global para los
-  elementos definidos en `a`).
+- El entorno de definición de la clausura `f` lo forma el marco de `padre`
+  seguido del marco de `uno` (que juega el papel de marco global para los
+  elementos definidos en `uno`) y ambos marcos se guardan en el montículo.
 
 ## Representación funcional
 
