@@ -346,7 +346,7 @@ def deposito(fondos):
 
 - Y en la línea 12, el entorno sería:
 
-  !DOT(entorno-clase-linea12.svg)()(width=100%)(width=45%)
+  !DOT(entorno-clase-linea12.svg)()(width=100%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -2849,9 +2849,6 @@ class Deposito:
     **interior** del método o clase, es decir, errores que haya cometido el
     **implementador** o **creador** del método o clase.
 
-    Eso significa que los asertos deberían limitarse únicamente a los métodos
-    privados de una clase.
-
   - Además, los asertos están pensados para detectar errores muy anormales que
     no se espera que se puedan capturar ni gestionar.
 
@@ -2876,8 +2873,8 @@ class Deposito:
     del programa.
 
   - Para **implementar invariantes de clase, precondiciones o postcondiciones
-    de métodos** se pueden usar asertos y sentencias !PYTHON(assert) en puntos
-    adecuados del código fuente de la clase.
+    de métodos** se pueden usar excepciones, asertos y sentencias
+    !PYTHON(assert) en puntos adecuados del código fuente de la clase.
 
 #### Un ejemplo completo
 
@@ -3030,11 +3027,13 @@ class Pila:
        self.__elems.append(elem)
 
    def desapilar(self):
-       assert not self.vacia()
+       if self.vacia():
+           raise ValueError('No se puede desapilar una pila vacía')
        self.__elems.pop()
 
    def cima(self):
-       assert not self.vacia()
+       if self.vacia():
+           raise ValueError('Una pila vacía no tiene cima')
        return self.__elems[-1]
 ```
 
