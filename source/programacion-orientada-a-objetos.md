@@ -264,9 +264,11 @@ def deposito(fondos):
   la ejecución del bloque de sentencias, el espacio de nombres actual es el
   espacio de nombres de la clase.
 
-- Los elementos así definidos se denominan **miembros** de la clase.
+- Los elementos así definidos y almacenados directamente en el espacio de
+  nombres de la clase se denominan **miembros** de la clase.
 
-- Las funciones definidas dentro de una clase se denominan **métodos**.
+- Las funciones que son miembros de una clase se denominan **métodos** de la
+  clase.
  
 ---
 
@@ -275,13 +277,16 @@ def deposito(fondos):
   a la clase), porque sus definiciones se almacenan en el espacio de nombres de
   la clase.
 
-  Por tanto, esas funciones son métodos de la clase.
+- Ese espacio de nombres es un **marco** que se almacena en la pila mientras se
+  ejecuta la definición de la clase, y que formará parte del entorno mientras
+  dure esa ejecución.
 
-- Cuando se termina de ejecutar la definición de la clase, se crea un
-  **objeto** que almacena en forma de **atributos** cada miembro de esa clase.
+- Cuando se termina de ejecutar la definición de la clase, se saca ese marco de
+  la pila y se convierte en **objeto** que almacena en forma de **atributos**
+  cada miembro de esa clase.
 
-  Por tanto, ese objeto almacena el espacio de nombres de la clase y representa
-  a dicha clase dentro del programa.
+  Por tanto, ese objeto acaba almacenando el espacio de nombres de la clase y
+  representando a dicha clase dentro del programa.
 
 - Recordemos que durante la definición de una función no se ejecuta su cuerpo,
   sino que simplemente se crea la ligadura entre el nombre de la función y la
@@ -313,8 +318,6 @@ def deposito(fondos):
           return self.fondos
   ```
 
----
-
 - En la línea 10 tendríamos el siguiente entorno:
 
   !DOT(entorno-clase-linea10.svg)()(width=80%)(width=45%)
@@ -344,45 +347,6 @@ def deposito(fondos):
   E -> init [lhead = cluster1]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Y en la línea 12, el entorno sería:
-
-  !DOT(entorno-clase-linea12.svg)()(width=100%)(width=70%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  compound = true
-  graph [rankdir = LR]
-  node [fontname = "monospace"]
-  l1 [shape = circle, label = "λ"]
-  l2 [shape = circle, label = "λ"]
-  p1 [shape = circle, label = "..."]
-  p2 [shape = circle, label = "..."]
-  subgraph cluster0 {
-      label = "Marco global"
-      bgcolor = white
-      Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
-  }
-  Deposito:f1:s -> retirar [lhead = cluster2, minlen = 2]
-  subgraph cluster1 {
-      label = <Marco de <b>ingresar</b>>
-      bgcolor = white
-      self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
-      cantidad [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>cantidad|<f1>⬤}"]
-  }
-  cantidad:f1:s -> Deposito:w [lhead = cluster0, ltail = cluster1, minlen = 2]
-  subgraph cluster2 {
-      label = <Marco de la clase <b>Deposito</b>>
-      bgcolor = white
-      style = rounded
-      init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
-      retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
-  }
-  init:f1 -> l1
-  retirar:f1 -> l2
-  self:f1 -> p1
-  cantidad:f1 -> p2
-  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-  E -> self [lhead = cluster1]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ---
 
 - En general, no importa el orden en el que aparecen las definiciones dentro de
@@ -410,21 +374,23 @@ def deposito(fondos):
 
 ---
 
-- Con las **clases** ocurre lo siguiente:
+- Como se dijo anteriormente, con las **clases** ocurre lo siguiente:
 
-  - Al entrar en la clase, se crea un nuevo espacio de nombres contiene las
-    definiciones que se van creando durante la ejecución de la clase.
+  - Al entrar en la definición de la clase, se crea un nuevo espacio de nombres
+    en forma de marco en la pila, que contiene las definiciones que se van
+    creando durante la ejecución de la clase.
 
-  - Al salir de la clase, se crea un objeto (de tipo `type`) que acaba
-    almacenando ese espacio de nombres, de forma que las ligaduras que contiene
-    se convierten en atributos del objeto.
+  - Al salir de la definición de la clase, se saca el marco de la pila y con él
+    se crea un objeto (de tipo `type`) que acaba almacenando ese espacio de
+    nombres, de forma que **las ligaduras que contiene se convierten en
+    atributos del objeto**.
 
-    !CAJA
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
-    **La clase acaba siendo un objeto más, almacenado en el montículo**, que
-    se ligará al nombre de la clase en el espacio de nombres donde se haya
-    definido ésta.
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  **La clase acaba siendo un objeto más, almacenado en el montículo**, que
+  se ligará al nombre de la clase en el espacio de nombres donde se haya
+  definido ésta.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Es decir: el nombre de la clase es una **referencia** que apunta a la clase,
   la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos
@@ -458,6 +424,14 @@ def deposito(fondos):
   >>> Deposito.retirar
   <function Deposito.retirar at 0x7f6f04885160>
   ```
+
+- En realidad, todo lo que hemos dicho hasta ahora sobre la creación de clases
+  y el acceso a sus miembros, es esencialmente el mismo mecanismo que se usa en
+  la creación y uso de módulos.
+
+- Sin embargo, hay que tener cuidado, ya que **las clases no funcionan
+  exactamente igual que los módulos en lo que se refiere al _entorno_**, como
+  veremos luego en un apartado posterior.
 
 ## Objetos
 
@@ -1084,6 +1058,256 @@ class Deposito:
   !PYTHON(Deposito.ingresar(dep, 35)). Por tanto, en la llamada al método,
   !PYTHON(self) valdrá `dep` y `cantidad` valdrá !PYTHON(35).
 
+### Entorno durante la ejecución de métodos
+
+- Durante la ejecución de un método en Python, el entorno no contiene ni la
+  clase a la que pertenece el método ni el objeto sobre el que se invoca.
+
+- Es decir: los métodos no pueden considerarse clausuras, ya que no recuerdan
+  el contexto en el que se definieron.
+
+- Por tanto, si un método quiere acceder a un miembro de cualquier clase
+  (incluso de su misma clase), tendrá que hacerlo siempre a través de una
+  referencia (con el operador `.`), nunca directamente.
+
+---
+
+- Por tanto, un método puede llamar a otro, pero **siempre a través de la
+  referencia al objeto que recibe el mensaje**, incluso aunque los dos métodos
+  pertenezcan a la misma clase.
+
+:::: columns
+
+::: column
+
+- Por ejemplo, esto funcionará:
+
+  ```python
+  >>> class A:
+  ...    def uno(self):
+  ...        print('Estoy en uno')
+  ...        self.dos()
+  ...
+  ...    def dos(self):
+  ...        print('Estoy en dos')
+  ...
+  >>> a = A()
+  >>> a.uno()
+  Estoy en uno
+  Estoy en dos
+  ```
+
+:::
+
+::: column
+
+- Pero esto **NO** funcionará:
+
+  ```python
+  >>> class A:
+  ...    def uno(self):
+  ...        print('Estoy en uno')
+  ...        dos()  # Esto falla
+  ...
+  ...    def dos(self):
+  ...        print('Estoy en dos')
+  ...
+  >>> a = A()
+  >>> a.uno()
+  Estoy en uno
+  Traceback (most recent call last):
+  ...
+  NameError: name 'dos' is not defined
+  ```
+
+:::
+
+::::
+
+- El método `dos` no está en el entorno del método `uno`, así que no lo puede
+  llamar directamente.
+
+---
+
+- Por ejemplo: en el siguiente código, al invocar al método `uno` sobre el
+  objeto `a` de la clase `A`, se tienen los siguientes entornos antes y durante
+  la invocación del método:
+
+```python
+class A:
+    def uno(self):
+        print('Soy uno')
+
+a = A()
+a.uno()
+```
+
+:::: columns
+
+::: column
+
+!DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=100%)(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+p1 [style = "rounded, filled", fillcolor = white, label = "Objeto"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+}
+A:f1:e -> uno:w [lhead = cluster2, minlen = 2]
+subgraph cluster2 {
+    label = <Clase <b>A</b>>
+    bgcolor = white
+    style = rounded
+    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+}
+uno:f1 -> l1
+a:f1 -> p1 [minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> a [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+p1 [style = "rounded, filled", fillcolor = white, label = "Objeto"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+}
+A:f1:e -> uno [lhead = cluster2, minlen = 2]
+subgraph cluster1 {
+    label = <Marco de <b>uno</b>>
+    bgcolor = white
+    self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+}
+self:s -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+subgraph cluster2 {
+    label = <Clase <b>A</b>>
+    bgcolor = white
+    style = rounded
+    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+}
+uno:f1 -> l1
+self:f1 -> p1:n
+a:f1 -> p1 [minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> self [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+!SALTO
+
+- El entorno del método no incluye a la propia clase `A` ni al objeto sobre el
+  que se invoca el método.
+
+---
+
+- Como otro ejemplo, si recordamos la clase `Deposito`:
+
+  ```{.python .number-lines}
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
+
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              return 'Fondos insuficientes'
+          self.fondos -= cantidad
+          return self.fondos
+
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
+
+      def saldo(self):
+          return self.fondos
+
+  dep = Deposito(100)
+  dep.ingresar(200)
+  ```
+
+---
+
+- Durante la ejecución del método `ingresar` (digamos, en la línea 12 del
+  código anterior), la situación en la memoria sería:
+
+  !DOT(entorno-clase-linea12.svg)()(width=80%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  l2 [shape = circle, label = "λ"]
+  l3 [shape = circle, label = "λ"]
+  l4 [shape = circle, label = "λ"]
+  p2 [shape = circle, label = "200"]
+  p3 [shape = circle, label = "100"]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = white
+      dep [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dep|<f1>⬤}"]
+      Deposito [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>Deposito|<f1>⬤}"]
+  }
+  Deposito:f1:e -> init [lhead = cluster2, minlen = 2]
+  subgraph cluster1 {
+      label = <Marco de <b>ingresar</b>>
+      bgcolor = white
+      self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+      cantidad [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>cantidad|<f1>⬤}"]
+  }
+  cantidad:s -> dep:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+  subgraph cluster2 {
+      label = <Clase <b>Deposito</b>>
+      bgcolor = white
+      style = rounded
+      init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+      retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+      ingresar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>ingresar|<f1>⬤}"]
+      saldo [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>saldo|<f1>⬤}"]
+  }
+  subgraph cluster3 {
+      label = <Objeto>
+      bgcolor = white
+      style = rounded
+      fondos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>fondos|<f1>⬤}"]
+  }
+  dep:f1 -> fondos [lhead = cluster3, minlen = 2]
+  fondos:f1 -> p3
+  init:f1 -> l1
+  retirar:f1 -> l2
+  ingresar:f1 -> l3
+  saldo:f1 -> l4
+  self:f1 -> fondos [lhead = cluster3, minlen = 2]
+  cantidad:f1 -> p2
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> self [lhead = cluster1]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y, por tanto, el entorno estaría formado por el marco de `ingresar` y el
+  marco global, en ese orden.
+
+- En consecuencia, ni la clase `Deposito` ni el objeto sobre el que se invoca
+  el método (`dep` o `self`, que son el mismo) están en el entorno del método
+  `ingresar`.
+
 ## Métodos *mágicos* !ifdef(HTML)(&nbsp;)()y constructores
 
 - En Python, los métodos cuyo nombre empieza y termina por `__` se denominan
@@ -1295,8 +1519,11 @@ class Deposito:
   cambiado alguna propiedad del objeto de la primera observación a la segunda.
 
 - Por tanto, no podemos determinar si ha habido un «cambio» si no podemos
-  determinar si dos objetos son «iguales», y no podemos determinar si son
-  iguales si no podemos observar los efectos de ese cambio.
+  determinar, a priori, si dos objetos son «el mismo», y no podemos determinar
+  si son el mismo si no podemos observar los efectos de ese cambio.
+
+- Esto nos lleva a una definición circular, donde un término depende del otro y
+  viceversa.
 
 ---
 
