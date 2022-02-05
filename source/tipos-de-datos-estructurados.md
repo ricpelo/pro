@@ -142,8 +142,8 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - Un dato es *hashable* si cumple las siguientes dos condiciones:
 
-  #. Tiene asociado un valor numérico llamado **hash** que nunca cambia durante
-     su vida.
+  #. Tiene asociado un valor numérico llamado **_hash_** que nunca cambia
+     durante su vida.
 
      Si un dato es *hashable*, se podrá obtener su *hash* llamando a la función
      !PYTHON(hash) sobre el valor. En caso contrario, la llamada generará un
@@ -179,7 +179,7 @@ $$\text{Tipos estructurados} \begin{cases}
 ---
 
 - El valor _hash_ de un dato se calcula internamente a partir del contenido del
-  dato usando una fórmula que no nos debe preocupar.
+  dato usando una fórmula que no nos debe preocupar por ahora.
 
 - Ese valor se utiliza para acceder directamente al dato dentro de una
   colección, y por eso es un valor que no puede cambiar nunca.
@@ -238,8 +238,34 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   mucho más lento y consumiría un tiempo proporcional al tamaño de la
   colección (cuanto más grande sea la colección, más tardará).
 
-- En definitiva, los _hash_ permiten el acceso directo a un dato dentro de una
-  colección.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+En definitiva, los _hash_ **permiten el acceso directo a un dato** dentro de
+una colección.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Muy en resumen, la técnica consiste en dividir el espacio en memoria que
+  ocupa la colección en una serie de _contenedores_ llamados **_buckets_**.
+
+- Cada _bucket_ va numerado por un posible valor de _hash_, de forma que el
+  _bucket_ número $n$ contendrá todos los elementos cuyo _hash_ valga $n$.
+
+- Por tanto, el algoritmo que usa el intérprete para encontrar un elemento
+  _hashable_ dentro de una colección es:
+
+  #. Calcular el _hash_ del elemento a localizar.
+
+  #. Irse directamente al _bucket_ numerado con ese valor de _hash_ (esta es
+     una operación casi inmediata, con coste $O(1)$).
+
+  #. Localizar dentro del _bucket_ aquel elemento que sea igual al que se está
+     buscando, usando el `==`.
+
+- Al final, se consigue encontrar al elemento (si existe) de forma muy rápida,
+  con un coste que es aproximadamente constante, independientemente de la
+  cantidad de elementos que haya en la colección.
 
 ## Iterables
 

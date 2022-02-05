@@ -1468,7 +1468,7 @@ E -> self [lhead = cluster1]
 
 ---
 
-- En cambio, supongamos que hacemos dos llamadas a `Deposito(100)`:
+- En cambio, supongamos que hacemos dos llamadas a !PYTHON(Deposito(100)):
 
   ```python
   dep1 = Deposito(100)
@@ -1878,8 +1878,11 @@ True
 
   - Existen datos _hashables_ y datos _no hashables_.
 
-  - Los datos _hashables_ son aquellos que pueden usarse como claves de un
-    diccionario.
+  - Los datos _hashables_ son aquellos que se pueden comparar entre sí con `==`
+    y además llevan asociado un número entero llamado _hash_.
+
+  - Los datos _hashables_ pueden guardarse en un conjunto o usarse como claves
+    de un diccionario.
 
   - Los datos mutables no pueden ser _hashables_.
 
@@ -1914,27 +1917,35 @@ True
   $y$!PYTHON(.__hash__()).
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Lo que equivale también a decir que:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$!PYTHON(.__hash__()) `!=` $y$!PYTHON(.__hash__()), entonces $x$ `!=`
+  $y$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 - Para ello, debemos tener en cuenta varias consideraciones a la hora de crear
   nuestras clases:
 
 ---
 
-1. Si una clase no define su propio método !PYTHON(__eq__), tampoco debe
-   definir su propio método !PYTHON(__hash__).
+1. Si una clase define su propio método !PYTHON(__hash__), debe definir también
+   un !PYTHON(__eq__) que vaya a juego con el !PYTHON(__hash__).
 
-2. Si una clase define !PYTHON(__hash__), debe definir también un
-   !PYTHON(__eq__) que vaya a juego con el !PYTHON(__hash__).
+   Por tanto (_contrarrecíproco_ del anterior), si una clase no define su
+   propio método !PYTHON(__eq__), tampoco debe definir su propio método
+   !PYTHON(__hash__).
 
-3. Las clases definidas por el programador, de entrada ya traen una
+2. Las clases definidas por el programador ya traen de serie una
    implementación predefinida de !PYTHON(__eq__) y !PYTHON(__hash__) (mientras
    el programador no las cambie por otras) que cumplen que:
 
-   - $x$ `==` $y$ sólo si $x$ !PYTHON(is) $y$, como ya vimos.
+   - $x$ `==` $y$ sólo si $x$ !PYTHON(is) $y$, como ya vimos antes.
 
-   - $x$!PYTHON(.__hash__()) devuelve un valor que garantiza que:
-
-     si $x$ `==` $y$, entonces $x$ !PYTHON(is) $y$, y !PYTHON(hash)`(`$x$`)`
-     `==` !PYTHON(hash)`(`$y$`)`.
+   - $x$!PYTHON(.__hash__()) devuelve un valor que garantiza que si $x$ `==`
+     $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`.
 
    (Esto se debe a que la clase _hereda_ los métodos !PYTHON(__eq__) y
    !PYTHON(__hash__) de la clase !PYTHON(object), como veremos en la siguiente
@@ -1942,21 +1953,26 @@ True
 
 ---
 
-4. Si una clase no define !PYTHON(__eq__) pero no se desea que sus instancias
+3. Si una clase no define !PYTHON(__eq__) pero no se desea que sus instancias
    sean _hashables_, debe definir su método !PYTHON(__hash__) como
-   !PYTHON(None) incluyendo la sentencia !PYTHON(__hash__) `=` !PYTHON(None) en
-   la definición de la clase.
+   !PYTHON(None) incluyendo la sentencia:
 
-5. Si una clase define !PYTHON(__eq__) pero no define !PYTHON(__hash__), es
-   como si implícitamente hubiera definido !PYTHON(__hash__) `=` !PYTHON(None)
+   !PYTHON(__hash__) `=` !PYTHON(None)
+
+   en la definición de la clase.
+
+4. Si una clase define !PYTHON(__eq__) pero no define !PYTHON(__hash__), es
+   como si implícitamente hubiera definido !PYTHON(__hash__) `=` !PYTHON{None}
    (lo hace el intérprete internamente).
 
-   Por tanto, si una clase define !PYTHON(__eq__) pero no define
-   !PYTHON(__hash__), sus instancias no serán _hashables_.
+   Por tanto, en ese caso sus instancias no serán _hashables_.
 
-6. Si las instancias de la clase son mutables y ésta define !PYTHON(__eq__), no
-   debe definir !PYTHON(__hash__), ya que los objetos mutables no deben ser
-   _hashables_.
+5. Si las instancias de la clase son mutables y ésta define !PYTHON(__eq__), lo
+   normal es que no defina !PYTHON(__hash__), ya que los objetos mutables no
+   deberían ser _hashables_, en general.
+
+   No obstante, hay casos particulares de objetos mutables que pueden ser
+   _hashables_, como veremos en breve.
 
 ---
 
@@ -1970,9 +1986,10 @@ True
   ```
 
 - Las colas son mutables y, por tanto, no pueden ser _hashables_, así que no
-  definiremos ningún método !PYTHON(__hash__) en la clase `Cola`. De esta
-  forma, como sí hemos definido un método !PYTHON(__eq__) en la clase, el
-  intérprete automáticamente hará !PYTHON(__hash__) `=` !PYTHON(None) y
+  definiremos ningún método !PYTHON(__hash__) en la clase `Cola`.
+
+- De esta forma, como sí hemos definido un método !PYTHON(__eq__) en la clase,
+  el intérprete automáticamente hará !PYTHON(__hash__) `=` !PYTHON(None) y
   convertirá a las colas en _no hashables_.
 
 ---
@@ -1989,7 +2006,7 @@ True
   >>> import random
   >>> class Rara:
   ...     def __hash__(self):
-  ...         return random.randint(0, 30)
+  ...         return random.randint(0, 2)
   ...
   >>> x = Rara()
   >>> s = set()
@@ -2004,8 +2021,10 @@ True
 
 - Aunque los objetos mutables no deberían ser _hashables_, a veces es posible
   hacer que el valor de _hash_ de un objeto dependa de un subconjunto de
-  atributos inmutables del objeto. En ese caso, el objeto sería mutable pero
-  podría ser _hashable_ al mismo tiempo.
+  atributos inmutables del objeto.
+
+- En ese caso, el objeto sería mutable pero podría ser _hashable_ al mismo
+  tiempo.
 
 - Por ejemplo, si el DNI de una persona nunca cambia, podríamos usarlo para
   calcular su _hash_:
@@ -2038,7 +2057,7 @@ True
 ```python
 >>> repr(2 + 3)
 '5'
->>> 5
+>>> 2 + 3
 5
 ```
 
@@ -2267,6 +2286,55 @@ True
 
 ---
 
+- Para implementar el método !PYTHON(__repr__) de la clase `Persona`, podríamos probar a hacer:
+
+  ```python
+  class Persona:
+      def __init__(self, dni, nombre):
+          self.__dni = dni
+          self.__nombre = nombre
+
+      def __hash__(self):
+          return hash(self.__dni)
+
+      def __repr__(self):
+          return f'Persona({self.__dni}, {self.__nombre})'
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+  ```
+
+- Pero obtendríamos un resultado incorrecto, porque el DNI y el nombre de la
+  persona deberían ir entre comillas, ya que son cadenas literales:
+
+  ```python
+  >>> p = Persona('28373482X', 'Javier Rodríguez')
+  >>> p
+  Persona(28373482X, Javier Rodríguez)
+  >>> Persona(28373482X, Javier Rodríguez)
+  SyntaxError: invalid syntax
+  ```
+
+---
+
+- La solución sería aplicar la función !PYTHON(repr) también a los argumentos
+  del constructor de `Persona`:
+
+  ```python
+  def __repr__(self):
+      return f'Persona({repr(self.__dni)}, {repr(self.__nombre)})'
+  ```
+  
+- Esto se puede abreviar haciendo uso de la _conversión_ `r` en los campos de
+  sustitución de la _f-string_:
+
+  ```python
+  def __repr__(self):
+      return f'Persona({self.__dni!r}, {self.__nombre!r})'
+  ```
+
+---
+
 - Es importante señalar que **no siempre se puede definir un !PYTHON(__repr__)
   adecuado para un objeto**.
 
@@ -2281,7 +2349,7 @@ True
   formaría parte del estado interno del objeto pero no aparecería como
   parámetro en el constructor.
 
-  Por tanto, no podríamos expresar con una expresión !PYTHON{Deposito(...)} (ni
+  Por tanto, no podríamos describir con una expresión !PYTHON{Deposito(...)} (ni
   con ninguna otra) todo el estado interno del objeto.
 
 ---
@@ -2300,7 +2368,7 @@ True
              self.historial = historial
 
      def __repr__(self):
-          return f"Deposito({self.fondos}, {self.historial})"
+          return f"Deposito({self.fondos!r}, {self.historial!r})"
 
       # ... resto del código
   ```
