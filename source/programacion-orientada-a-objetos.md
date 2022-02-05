@@ -1957,7 +1957,10 @@ True
    sean _hashables_, debe definir su método !PYTHON(__hash__) como
    !PYTHON(None) incluyendo la sentencia:
 
+   !CENTRAR
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PYTHON(__hash__) `=` !PYTHON(None)
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    en la definición de la clase.
 
@@ -1973,6 +1976,87 @@ True
 
    No obstante, hay casos particulares de objetos mutables que pueden ser
    _hashables_, como veremos en breve.
+
+---
+
+- Hemos dicho que la condición principal que se tiene que cumplir es que:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y, por tanto, se tiene que cuplir su contrarrecíproco, que es:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si !PYTHON(hash)`(`$x$`)` `!=` !PYTHON(hash)`(`$y$`)`, entonces $x$ `!=` $y$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Lo cual NO significa que se tenga que cumplir que:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `!=` $y$, entonces !PYTHON(hash)`(`$x$`)` `!=` !PYTHON(hash)`(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Sin embargo, aunque no sea necesario que se cumpla, a efectos prácticos sí
+  que resulta conveniente cumplir la condición anterior en la medida de lo
+  posible, ya que de esta forma ganaremos en eficiencia cuando intentemos
+  acceder a nuestros objetos de manera directa si los almacenamos en una
+  colección.
+
+- Por desgracia, resulta prácticamente imposible poder cumplir la condición
+  anterior para todos los objetos, pero aún así deberíamos intentar que nuestro
+  algoritmo de _hashing_ cumpla dicha condición con el mayor número de objetos
+  posible.
+
+---
+
+- Cuando esa condición no se cumple, tenemos lo que se llama una **colisión**.
+
+- Es decir: tenemos una colisión cuando varios objetos distintos tienen el
+  mismo valor de _hash_.
+
+- En tal caso, tenemos que:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $x$ `!=` $y$, pero !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Como dijimos antes, las colisiones son prácticamente inevitables, pero hay
+  que procurar implementar nuestro !PYTHON(__hash__) de forma que se produzcan
+  lo menos posible, ya que mejora el rendimiento.
+
+---
+
+- Dicho de otra forma, nuestro !PYTHON(__hash__) debe cumplir **siempre**:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  pero, al mismo tiempo, debe procurar cumplir **siempre que pueda**:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `!=` $y$, entonces !PYTHON(hash)`(`$x$`)` `!=` !PYTHON(hash)`(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En realidad, una buena implementación de !PYTHON(__hash__) es aquella que
+  reparte uniformemente los objetos entre los posibles valores de _hash_.
+
+- Es decir: la idea principal es que el método !PYTHON(__hash__) no asocie
+  muchos objetos a un mismo valor de _hash_ y al mismo tiempo haya otros
+  valores de _hash_ a los que se les asocien pocos objetos (o ninguno).
+
+  Si muchos objetos tienen el mismo _hash_, ese reparto no sería uniforme, sino
+  que estaría muy descompensado, y provocaría un peor rendimiento en los
+  accesos a los objetos dentro de las colecciones.
+
+- Por otra parte, el cálculo del _hash_ no debería ser costoso.
 
 ---
 
@@ -2286,7 +2370,8 @@ True
 
 ---
 
-- Para implementar el método !PYTHON(__repr__) de la clase `Persona`, podríamos probar a hacer:
+- Para implementar el método !PYTHON(__repr__) de la clase `Persona`, podríamos
+  probar a hacer:
 
   ```python
   class Persona:

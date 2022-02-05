@@ -2263,9 +2263,11 @@ class="fu">__eq__</span></code> pero no se desea que sus instancias sean
 class="sourceCode python"><span class="fu">__hash__</span></code> como
 <code class="sourceCode python"><span class="va">None</span></code>
 incluyendo la sentencia:</p>
+<div class="centered">
 <p><code class="sourceCode python"><span
 class="fu">__hash__</span></code> <code>=</code> <code
 class="sourceCode python"><span class="va">None</span></code></p>
+</div>
 <p>en la definición de la clase.</p></li>
 <li><p>Si una clase define <code class="sourceCode python"><span
 class="fu">__eq__</span></code> pero no define <code
@@ -2286,6 +2288,124 @@ ser <em>hashables</em>, como veremos en breve.</p></li>
 </ol>
 </section>
 <section class="slide level5" data-number="4.2.2.0.4">
+
+<ul>
+<li><p>Hemos dicho que la condición principal que se tiene que cumplir
+es que:</p>
+<div class="centered">
+<p>Si <span class="math inline">x</span> <code>==</code> <span
+class="math inline">y</span>, entonces <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>.</p>
+</div></li>
+<li><p>Y, por tanto, se tiene que cuplir su contrarrecíproco, que
+es:</p>
+<div class="centered">
+<p>Si <code class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>!=</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>, entonces <span
+class="math inline">x</span> <code>!=</code> <span
+class="math inline">y</span>.</p>
+</div></li>
+<li><p>Lo cual NO significa que se tenga que cumplir que:</p>
+<div class="centered">
+<p>Si <span class="math inline">x</span> <code>!=</code> <span
+class="math inline">y</span>, entonces <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>!=</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>.</p>
+</div></li>
+<li><p>Sin embargo, aunque no sea necesario que se cumpla, a efectos
+prácticos sí que resulta conveniente cumplir la condición anterior en la
+medida de lo posible, ya que de esta forma ganaremos en eficiencia
+cuando intentemos acceder a nuestros objetos de manera directa si los
+almacenamos en una colección.</p></li>
+<li><p>Por desgracia, resulta prácticamente imposible poder cumplir la
+condición anterior para todos los objetos, pero aún así deberíamos
+intentar que nuestro algoritmo de <em>hashing</em> cumpla dicha
+condición con el mayor número de objetos posible.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.2.0.5">
+
+<ul>
+<li><p>Cuando esa condición no se cumple, tenemos lo que se llama una
+<strong>colisión</strong>.</p></li>
+<li><p>Es decir: tenemos una colisión cuando varios objetos distintos
+tienen el mismo valor de <em>hash</em>.</p></li>
+<li><p>En tal caso, tenemos que:</p>
+<div class="centered">
+<p><span class="math inline">x</span> <code>!=</code> <span
+class="math inline">y</span>, pero <code class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>.</p>
+</div></li>
+<li><p>Como dijimos antes, las colisiones son prácticamente inevitables,
+pero hay que procurar implementar nuestro <code
+class="sourceCode python"><span class="fu">__hash__</span></code> de
+forma que se produzcan lo menos posible, ya que mejora el
+rendimiento.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.2.0.6">
+
+<ul>
+<li><p>Dicho de otra forma, nuestro <code
+class="sourceCode python"><span class="fu">__hash__</span></code> debe
+cumplir <strong>siempre</strong>:</p>
+<div class="centered">
+<p>Si <span class="math inline">x</span> <code>==</code> <span
+class="math inline">y</span>, entonces <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code></p>
+</div>
+<p>pero, al mismo tiempo, debe procurar cumplir <strong>siempre que
+pueda</strong>:</p>
+<div class="centered">
+<p>Si <span class="math inline">x</span> <code>!=</code> <span
+class="math inline">y</span>, entonces <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>!=</code> <code
+class="sourceCode python"><span
+class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>.</p>
+</div></li>
+<li><p>En realidad, una buena implementación de <code
+class="sourceCode python"><span class="fu">__hash__</span></code> es
+aquella que reparte uniformemente los objetos entre los posibles valores
+de <em>hash</em>.</p></li>
+<li><p>Es decir: la idea principal es que el método <code
+class="sourceCode python"><span class="fu">__hash__</span></code> no
+asocie muchos objetos a un mismo valor de <em>hash</em> y al mismo
+tiempo haya otros valores de <em>hash</em> a los que se les asocien
+pocos objetos (o ninguno).</p>
+<p>Si muchos objetos tienen el mismo <em>hash</em>, ese reparto no sería
+uniforme, sino que estaría muy descompensado, y provocaría un peor
+rendimiento en los accesos a los objetos dentro de las
+colecciones.</p></li>
+<li><p>Por otra parte, el cálculo del <em>hash</em> no debería ser
+costoso.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.2.0.7">
 
 <ul>
 <li><p>Una forma sencilla de crear el <code
@@ -2310,7 +2430,7 @@ class="va">None</span></code> y convertirá a las colas en <em>no
 hashables</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.2.0.5">
+<section class="slide level5" data-number="4.2.2.0.8">
 
 <ul>
 <li><p>Es importante no romper el contrato entre <code
@@ -2335,7 +2455,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.2.0.6">
+<section class="slide level5" data-number="4.2.2.0.9">
 
 <ul>
 <li><p>Aunque los objetos mutables no deberían ser <em>hashables</em>, a

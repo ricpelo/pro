@@ -238,7 +238,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   mucho más lento y consumiría un tiempo proporcional al tamaño de la
   colección (cuanto más grande sea la colección, más tardará).
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 En definitiva, los _hash_ **permiten el acceso directo a un dato** dentro de
 una colección.
