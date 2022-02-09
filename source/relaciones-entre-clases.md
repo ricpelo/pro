@@ -810,31 +810,30 @@ class Docente(Trabajador):
   los entornos que hemos estudiado hasta ahora.
 
 - Ya hemos visto en la unidad anterior que las **definiciones de las clases**
-  se representan internamente mediante una estructura tipo **diccionario**.
+  se representan internamente mediante objetos.
 
-- Esos diccionarios se conectan entre sí formando una **lista enlazada**, de
-  forma que el diccionario que contiene la definición de la subclase **apunta**
-  al diccionario de su **superclase directa**, siguiendo el camino que trazan
-  las relaciones de generalización.
+- Esas clases se conectan entre sí formando una **lista enlazada**, de forma
+  que la subclase **apunta** a su **superclase directa**, siguiendo el camino
+  que trazan las relaciones de generalización.
 
-- Esa lista será tan larga como sea necesario, y tendrá tantos diccionarios
-  como clases haya en la cadena de herencia simple.
+- Esa lista será tan larga como sea necesario, y tendrá tantas clases como haya
+  en la cadena de herencia simple.
 
 - De esta forma, la herencia va _propagando_ las características de la
   superclase a todas sus subclases (_directas_ e _indirectas_).
 
-- En nuestro caso, el diccionario de `Docente` apunta al de `Trabajador`.
+- En nuestro caso, la clase `Docente` apunta a la clase `Trabajador`.
 
 ---
 
 - Al llamar a un método sobre un objeto, el intérprete busca el método dentro
-  del diccionario que contiene la definición de la clase del objeto:
+  de su clase:
 
   - Si encuentra el método, lo usa.
 
-  - Si no lo encuentra, sigue subiendo por la lista enlazada localizando el
-    siguiente diccionario (que será el que contenga la definición de su
-    superclase directa), buscando ahí el método solicitado.
+  - Si no lo encuentra, sigue subiendo por la lista enlazada localizando la
+    siguiente clase (que será su superclase directa), buscando ahí el método
+    solicitado.
 
     El intérprete continuará buscando en el resto de la lista hasta que
     encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un
@@ -878,12 +877,11 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 - En tiempo de ejecución, cuando se encuentra una llamada al método
   `set_nombre`, el intérprete busca el método recorriendo la cadena de herencia
-  representada en la lista de diccionarios:
+  representada en la lista de clases:
 
-  - Primero lo busca en la definición de la clase `Docente`.
+  - Primero lo busca en la clase `Docente`.
 
-  - Como no lo encuentra, a continuación lo busca en la definición de la clase
-    `Trabajador`.
+  - Como no lo encuentra, a continuación lo busca en la clase `Trabajador`.
 
   - Como ahora sí lo ha encontrado, lo ejecuta como si el método hubiese estado
     definido directamente en la clase `Docente`.
@@ -1003,7 +1001,8 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
      AttributeError: 'Trabajador' object has no attribute '__nombre'
      ```
 
-     Pero, curiosamente, sí que podremos acceder a él usando su nuevo nombre:
+     Pero, curiosamente, sí que podremos acceder a él desde fuera de la clase
+     usando su nuevo nombre:
 
      ```python
      >>> t = Trabajador('Manolo')
