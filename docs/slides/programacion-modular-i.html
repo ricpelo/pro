@@ -102,22 +102,24 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: false
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -238,47 +240,76 @@
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/introducción"><span class="toc-section-number">1</span> Introducción</a></li>
-<li><a href="#/diseño-modular"><span class="toc-section-number">2</span> Diseño modular</a></li>
-<li><a href="#/programación-modular-en-python"><span class="toc-section-number">3</span> Programación modular en Python</a></li>
-<li><a href="#/criterios-de-descomposición-modular"><span class="toc-section-number">4</span> Criterios de descomposición modular</a></li>
+<li><a href="#/introducción"><span class="toc-section-number">1</span>
+Introducción</a></li>
+<li><a href="#/diseño-modular"><span class="toc-section-number">2</span>
+Diseño modular</a></li>
+<li><a href="#/programación-modular-en-python"><span
+class="toc-section-number">3</span> Programación modular en
+Python</a></li>
+<li><a href="#/criterios-de-descomposición-modular"><span
+class="toc-section-number">4</span> Criterios de descomposición
+modular</a></li>
 </ul>
 </section>
 
 <section>
-<section id="introducción" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
+<section id="introducción" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Introducción</h1>
 
 </section>
-<section id="modularidad" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Modularidad</h2>
+<section id="modularidad" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Modularidad</h2>
 <ul>
-<li><p>La <strong>programación modular</strong> es una técnica de programación que consiste en descomponer nuestro programa en partes llamadas <strong>módulos</strong> y escribir cada módulo por separado.</p>
+<li><p>La <strong>programación modular</strong> es una técnica de
+programación que consiste en descomponer nuestro programa en partes
+llamadas <strong>módulos</strong> y escribir cada módulo por
+separado.</p>
 <ul>
-<li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio: cualquier parte de un programa se podría considerar «módulo».</li>
+<li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio:
+cualquier parte de un programa se podría considerar «módulo».</li>
 </ul></li>
-<li><p>Equivale a la técnica clásica de resolución de problemas basada en:</p>
+<li><p>Equivale a la técnica clásica de resolución de problemas basada
+en:</p>
 <ol type="1">
 <li>Descomponer un problema en subproblemas.</li>
 <li>Resolver cada subproblema por separado.</li>
-<li>Combinar las soluciones para así obtener la solución al problema original.</li>
+<li>Combinar las soluciones para así obtener la solución al problema
+original.</li>
 </ol></li>
-<li><p>La <strong>modularidad</strong> es la propiedad que tienen los programas escritos siguiendo los principios de la programación modular.</p></li>
+<li><p>La <strong>modularidad</strong> es la propiedad que tienen los
+programas escritos siguiendo los principios de la programación
+modular.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
-<li><p>Las técnicas de modularidad y descomposición de problemas se aplican en la mayoría de las disciplinas científicas e industriales.</p></li>
-<li><p>Por ejemplo, el diseño y fabricación de un coche resulta complicado si vemos a éste como un todo (un conglomerado de piezas todas juntas).</p></li>
-<li><p>Además, desde ese punto de vista sería difícil poder reparar una avería, ya que la sustitución de cualquier pieza podría afectar a cualquier otra parte del coche, a menudo de formas poco evidentes.</p></li>
-<li><p>En cambio, el coche resulta mucho más fácil de entender si lo descomponemos en partes, estudiamos cada parte por separado y definimos claramente cómo interactúa cada parte con las demás.</p></li>
+<li><p>Las técnicas de modularidad y descomposición de problemas se
+aplican en la mayoría de las disciplinas científicas e
+industriales.</p></li>
+<li><p>Por ejemplo, el diseño y fabricación de un coche resulta
+complicado si vemos a éste como un todo (un conglomerado de piezas todas
+juntas).</p></li>
+<li><p>Además, desde ese punto de vista sería difícil poder reparar una
+avería, ya que la sustitución de cualquier pieza podría afectar a
+cualquier otra parte del coche, a menudo de formas poco
+evidentes.</p></li>
+<li><p>En cambio, el coche resulta mucho más fácil de entender si lo
+descomponemos en partes, estudiamos cada parte por separado y definimos
+claramente cómo interactúa cada parte con las demás.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
 
 <ul>
-<li><p>Esas partes (que aquí llamamos módulos) son componentes más o menos independientes que interactúan con otros componentes de una manera bien definida. Por ejemplo:</p>
+<li><p>Esas partes (que aquí llamamos módulos) son componentes más o
+menos independientes que interactúan con otros componentes de una manera
+bien definida. Por ejemplo:</p>
 <ul>
 <li>Frenos</li>
 <li>Luces</li>
@@ -287,18 +318,36 @@
 <li>Motor</li>
 <li>Carrocería</li>
 </ul></li>
-<li><p>El objetivo es convertir la programación es una tarea que consista en ir fabricando y ensamblando bloques constructivos que tengan sentido por sí mismos, que lleven a cabo una función concreta y que, al combinarlos adecuadamente, nos dé como resultado el programa que queremos desarrollar.</p></li>
-<li><p>Para alcanzar ese objetivo, el concepto de modularidad se puede estudiar a nivel <em>metodológico</em> y a nivel <em>práctico</em>.</p></li>
+<li><p>El objetivo es convertir la programación es una tarea que
+consista en ir fabricando y ensamblando bloques constructivos que tengan
+sentido por sí mismos, que lleven a cabo una función concreta y que, al
+combinarlos adecuadamente, nos dé como resultado el programa que
+queremos desarrollar.</p></li>
+<li><p>Para alcanzar ese objetivo, el concepto de modularidad se puede
+estudiar a nivel <em>metodológico</em> y a nivel
+<em>práctico</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.3">
 
 <ul>
-<li><p><strong>A nivel metodológico</strong>, la modularidad nos proporciona una herramienta más para controlar la complejidad (como la <em>abstracción</em>, que de hecho puede servir como técnica que guíe la modularización).</p></li>
-<li><p>Todos los mecanismos de control de la complejidad actúan de la misma forma: la mente humana es incapaz de mantener la atención en muchas cosas a la vez, así que lo que hacemos es centrarnos en una parte del problema y dejamos a un lado el resto momentáneamente.</p>
+<li><p><strong>A nivel metodológico</strong>, la modularidad nos
+proporciona una herramienta más para controlar la complejidad (como la
+<em>abstracción</em>, que de hecho puede servir como técnica que guíe la
+modularización).</p></li>
+<li><p>Todos los mecanismos de control de la complejidad actúan de la
+misma forma: la mente humana es incapaz de mantener la atención en
+muchas cosas a la vez, así que lo que hacemos es centrarnos en una parte
+del problema y dejamos a un lado el resto momentáneamente.</p>
 <ul>
-<li><p>La <strong>abstracción</strong> nos permite controlar la complejidad permitiéndonos estudiar un problema o su solución por <em>niveles</em>, centrándonos en lo esencial e ignorando los detalles que a ese nivel resultan innecesarios.</p></li>
-<li><p>Con la <strong>modularidad</strong> buscamos descomponer conceptualmente el programa en partes que se puedan estudiar y programar por separado, de forma más o menos independiente, lo que se denomina <strong>descomposición lógica</strong>.</p></li>
+<li><p>La <strong>abstracción</strong> nos permite controlar la
+complejidad permitiéndonos estudiar un problema o su solución por
+<em>niveles</em>, centrándonos en lo esencial e ignorando los detalles
+que a ese nivel resultan innecesarios.</p></li>
+<li><p>Con la <strong>modularidad</strong> buscamos descomponer
+conceptualmente el programa en partes que se puedan estudiar y programar
+por separado, de forma más o menos independiente, lo que se denomina
+<strong>descomposición lógica</strong>.</p></li>
 </ul></li>
 <li><p>Ambos conceptos son combinables, como veremos luego.</p></li>
 </ul>
@@ -306,55 +355,110 @@
 <section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
-<li><p><strong>A nivel práctico</strong>, la modularidad nos ofrece una herramienta que nos permite partir el código del programa en partes más manejables.</p></li>
-<li><p>A medida que los programas se hacen más y más grandes, el esfuerzo de mantener todo el código dentro de un único <em>script</em> se hace mayor.</p></li>
-<li><p>No sólo resulta incómodo mantener todo el código en un mismo archivo, sino que además resulta intelectualmente más difícil de entender.</p></li>
-<li><p>Lo más práctico es repartir el código fuente de nuestro programa en una colección de archivos fuente que se puedan trabajar por separado, lo que se denomina <strong>descomposición física</strong>.</p></li>
-<li><p>Esto, además, nos va a permitir que un programa pueda ser desarrollado conjuntamente por varias personas al mismo tiempo, cada una de ellas responsabilizándose de escribir uno o varios módulos del mismo programa.</p></li>
-<li><p>Esos módulos se podrán escribir de forma más o menos independiente aunque, por supuesto, estarán relacionados entre sí, ya que unos consumirán los servicios que proporcionan otros.</p></li>
+<li><p><strong>A nivel práctico</strong>, la modularidad nos ofrece una
+herramienta que nos permite partir el código del programa en partes más
+manejables.</p></li>
+<li><p>A medida que los programas se hacen más y más grandes, el
+esfuerzo de mantener todo el código dentro de un único <em>script</em>
+se hace mayor.</p></li>
+<li><p>No sólo resulta incómodo mantener todo el código en un mismo
+archivo, sino que además resulta intelectualmente más difícil de
+entender.</p></li>
+<li><p>Lo más práctico es repartir el código fuente de nuestro programa
+en una colección de archivos fuente que se puedan trabajar por separado,
+lo que se denomina <strong>descomposición física</strong>.</p></li>
+<li><p>Esto, además, nos va a permitir que un programa pueda ser
+desarrollado conjuntamente por varias personas al mismo tiempo, cada una
+de ellas responsabilizándose de escribir uno o varios módulos del mismo
+programa.</p></li>
+<li><p>Esos módulos se podrán escribir de forma más o menos
+independiente aunque, por supuesto, estarán relacionados entre sí, ya
+que unos consumirán los servicios que proporcionan otros.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
-<li><p>Un módulo es, pues, una parte de un programa que se puede estudiar, entender y programar por separado con relativa independencia del resto del programa.</p></li>
-<li><p>Por tanto, podría decirse que <strong>una función es un ejemplo de módulo</strong>, ya que se ajusta a esa definición (salvo quizás que no habría <em>descomposición física</em>, aunque se podría colocar cada función en un archivo separado y entonces sí).</p></li>
-<li><p>Sin embargo, descomponer un programa en partes usando únicamente como criterio la descomposición en funciones no resulta adecuado en general, ya que muchas veces nos encontramos con varias funciones que no actúan por separado, sino de forma conjunta entre ellas formando un todo interrelacionado.</p></li>
-<li><p>Además, un módulo no tiene por qué ser simplemente una abstracción funcional, sino que también puede tener su propio estado interno en forma de datos almacenados en variables y constantes, manipulables desde dentro del módulo y posiblemente también desde fuera.</p></li>
+<li><p>Un módulo es, pues, una parte de un programa que se puede
+estudiar, entender y programar por separado con relativa independencia
+del resto del programa.</p></li>
+<li><p>Por tanto, podría decirse que <strong>una función es un ejemplo
+de módulo</strong>, ya que se ajusta a esa definición (salvo quizás que
+no habría <em>descomposición física</em>, aunque se podría colocar cada
+función en un archivo separado y entonces sí).</p></li>
+<li><p>Sin embargo, descomponer un programa en partes usando únicamente
+como criterio la descomposición en funciones no resulta adecuado en
+general, ya que muchas veces nos encontramos con varias funciones que no
+actúan por separado, sino de forma conjunta entre ellas formando un todo
+interrelacionado.</p></li>
+<li><p>Además, un módulo no tiene por qué ser simplemente una
+abstracción funcional, sino que también puede tener su propio estado
+interno en forma de datos almacenados en variables y constantes,
+manipulables desde dentro del módulo y posiblemente también desde
+fuera.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan números racionales.</p></li>
-<li><p>Tendríamos funciones para crear racionales, para sumarlos, para multiplicarlos, para simplificarlos, etc.</p></li>
-<li><p>Todas esas funciones trabajarían conjuntamente, incluso usándose unas a otras, y actuarían sobre colecciones de datos que representarían números racionales de una forma apropiada.</p></li>
-<li><p>Por consiguiente, aunque resulta muy apropiado considerar cada función anterior por separado, es más conveniente considerarlas como un todo: el <em>módulo de manipulación de números racionales</em>.</p></li>
+<li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan
+números racionales.</p></li>
+<li><p>Tendríamos funciones para crear racionales, para sumarlos, para
+multiplicarlos, para simplificarlos, etc.</p></li>
+<li><p>Todas esas funciones trabajarían conjuntamente, incluso usándose
+unas a otras, y actuarían sobre colecciones de datos que representarían
+números racionales de una forma apropiada.</p></li>
+<li><p>Por consiguiente, aunque resulta muy apropiado considerar cada
+función anterior por separado, es más conveniente considerarlas como un
+todo: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.7">
 
 <ul>
-<li><p>Otro ejemplo: supongamos un módulo encargado de realizar operaciones trigonométricas sobre ángulos.</p></li>
-<li><p>Esos ángulos serían números reales que podrían representar grados o radianes.</p></li>
-<li><p>Ese módulo contendría las funciones encargadas de calcular el seno, coseno, tangente, etc. de un ángulo pasado como parámetro a cada función.</p></li>
-<li><p>Para ello, el módulo podría contener un dato (almacenado en una variable dentro del módulo) que indicará si las funciones anteriores deben interpretar los ángulos como grados o como radianes.</p></li>
-<li><p>Ese dato constituiría el estado interno del módulo, al ser un valor que se almacena dentro del mismo módulo (pertenece a éste) y puede cambiar su comportamiento dependiendo del valor que tenga el dato.</p></li>
-<li><p>Además, probablemente también necesite conocer el valor de <span class="math inline">\pi</span>, que podría almacenar el módulo internamente como una constante.</p></li>
+<li><p>Otro ejemplo: supongamos un módulo encargado de realizar
+operaciones trigonométricas sobre ángulos.</p></li>
+<li><p>Esos ángulos serían números reales que podrían representar grados
+o radianes.</p></li>
+<li><p>Ese módulo contendría las funciones encargadas de calcular el
+seno, coseno, tangente, etc. de un ángulo pasado como parámetro a cada
+función.</p></li>
+<li><p>Para ello, el módulo podría contener un dato (almacenado en una
+variable dentro del módulo) que indicará si las funciones anteriores
+deben interpretar los ángulos como grados o como radianes.</p></li>
+<li><p>Ese dato constituiría el estado interno del módulo, al ser un
+valor que se almacena dentro del mismo módulo (pertenece a éste) y puede
+cambiar su comportamiento dependiendo del valor que tenga el
+dato.</p></li>
+<li><p>Además, probablemente también necesite conocer el valor de <span
+class="math inline">\pi</span>, que podría almacenar el módulo
+internamente como una constante.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.8">
 
 <ul>
-<li><p>De lo dicho hasta ahora se deducen varias <strong>conclusiones importantes</strong>:</p>
+<li><p>De lo dicho hasta ahora se deducen varias <strong>conclusiones
+importantes</strong>:</p>
 <ul>
-<li><p>Un módulo es <strong>una <em>parte</em> de un programa</strong>.</p></li>
-<li><p>Los módulos nos permiten descomponer el programa en <strong>partes más o menos independientes y manejables por separado</strong>.</p></li>
-<li><p>Una <strong>función</strong> cumple con la definición de «módulo» pero, en general, <strong>en la práctica no es una buena candidata</strong> para ser considerada un módulo por sí sola.</p></li>
-<li><p>Los módulos, en general, agrupan colecciones de <strong>funciones interrelacionadas</strong>.</p></li>
-<li><p>Los módulos, <strong>además de funciones, pueden contener datos</strong> en forma de <strong>constantes y variables</strong> manipulables desde el interior del módulo así como desde el exterior del mismo usando las funciones que forman el módulo.</p></li>
-<li><p>Las variables del módulo constituyen el <strong>estado interno</strong> del módulo.</p></li>
-<li><p>A nivel práctico, los módulos se programan físicamente en <strong>archivos separados</strong> del resto del programa.</p></li>
+<li><p>Un módulo es <strong>una <em>parte</em> de un
+programa</strong>.</p></li>
+<li><p>Los módulos nos permiten descomponer el programa en
+<strong>partes más o menos independientes y manejables por
+separado</strong>.</p></li>
+<li><p>Una <strong>función</strong> cumple con la definición de «módulo»
+pero, en general, <strong>en la práctica no es una buena
+candidata</strong> para ser considerada un módulo por sí sola.</p></li>
+<li><p>Los módulos, en general, agrupan colecciones de <strong>funciones
+interrelacionadas</strong>.</p></li>
+<li><p>Los módulos, <strong>además de funciones, pueden contener
+datos</strong> en forma de <strong>constantes y variables</strong>
+manipulables desde el interior del módulo así como desde el exterior del
+mismo usando las funciones que forman el módulo.</p></li>
+<li><p>Las variables del módulo constituyen el <strong>estado
+interno</strong> del módulo.</p></li>
+<li><p>A nivel práctico, los módulos se programan físicamente en
+<strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
 </ul>
 <!--
@@ -376,85 +480,157 @@
 -->
 </section>
 
-<section id="beneficios-de-la-programación-modular" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Beneficios de la programación modular</h2>
+<section id="beneficios-de-la-programación-modular"
+class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Beneficios de la programación modular</h2>
 <ul>
-<li><p>El tiempo de desarrollo se reduce porque grupos separados de programadores pueden trabajar cada uno en un módulo con poca necesidad de comunicación entre ellos.</p></li>
-<li><p>Se mejora la productividad del producto resultante, porque los cambios (pequeños o grandes) realizados en un módulo no afectarían demasiado a los demás.</p></li>
-<li><p>Comprensibilidad, porque se puede entender mejor el sistema completo cuando se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la vez.</p></li>
+<li><p>El tiempo de desarrollo se reduce porque grupos separados de
+programadores pueden trabajar cada uno en un módulo con poca necesidad
+de comunicación entre ellos.</p></li>
+<li><p>Se mejora la productividad del producto resultante, porque los
+cambios (pequeños o grandes) realizados en un módulo no afectarían
+demasiado a los demás.</p></li>
+<li><p>Comprensibilidad, porque se puede entender mejor el sistema
+completo cuando se puede estudiar módulo a módulo en lugar de tener que
+estudiarlo todo a la vez.</p></li>
 </ul>
 </section>
 </section>
 <section>
-<section id="diseño-modular" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Diseño modular</h1>
+<section id="diseño-modular" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Diseño
+modular</h1>
 
 </section>
-<section id="creadores-y-usuarios" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Creadores y usuarios</h2>
+<section id="creadores-y-usuarios" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Creadores y usuarios</h2>
 <ul>
-<li><p>Desde la perspectiva de la programación modular, <strong>un programa está formado por una colección de módulos que interactúan entre sí</strong>.</p></li>
-<li><p>Puede decirse que un módulo proporciona una serie de <strong><em>servicios</em></strong> que son <em>usados</em> o <strong><em>consumidos</em></strong> por otros módulos del programa.</p></li>
-<li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos puntos de vista complementarios</strong>:</p>
+<li><p>Desde la perspectiva de la programación modular, <strong>un
+programa está formado por una colección de módulos que interactúan entre
+sí</strong>.</p></li>
+<li><p>Puede decirse que un módulo proporciona una serie de
+<strong><em>servicios</em></strong> que son <em>usados</em> o
+<strong><em>consumidos</em></strong> por otros módulos del
+programa.</p></li>
+<li><p>Así que podemos estudiar el diseño de un módulo desde <strong>dos
+puntos de vista complementarios</strong>:</p>
 <ul>
-<li><p>El <strong>creador</strong> o <strong>implementador</strong> del módulo es la persona encargada de la programación del mismo y, por tanto, debe conocer todos los detalles internos del módulo, necesarios para que éste funcione. Esos detalles internos constituyen la <strong>implementación</strong> del módulo.</p></li>
-<li><p>Los <strong>usuarios</strong> del módulo son los programadores que desean usar ese módulo en sus programas. También se les llama así a los módulos de un programa que usan a ese módulo (lo necesitan para funcionar).</p>
-<p>A la parte que un usuario necesita conocer para poder usar el módulo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
+<li><p>El <strong>creador</strong> o <strong>implementador</strong> del
+módulo es la persona encargada de la programación del mismo y, por
+tanto, debe conocer todos los detalles internos del módulo, necesarios
+para que éste funcione. Esos detalles internos constituyen la
+<strong>implementación</strong> del módulo.</p></li>
+<li><p>Los <strong>usuarios</strong> del módulo son los programadores
+que desean usar ese módulo en sus programas. También se les llama así a
+los módulos de un programa que usan a ese módulo (lo necesitan para
+funcionar).</p>
+<p>A la parte del módulo que es accesible directamente desde fuera del
+mismo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.1">
 
 <ul>
-<li><p>Los módulos <strong>exportan</strong> su interfaz al resto de los módulos.</p></li>
-<li><p>Los módulos usuarios deben <strong>importar</strong> un módulo para poder usarlo. Al hacerlo, tienen acceso a los elementos exportados por el módulo a través de su interfaz, lo que le permite al <em>módulo usuario</em> consumir los servicios que proporciona el <em>módulo importado</em>.</p></li>
-<li><p>En terminología de programación modular, hablamos entonces de la existencia de dos tipos de módulos:</p>
+<li><p>Los módulos <strong>exportan</strong> su interfaz al resto de los
+módulos.</p></li>
+<li><p>Los módulos usuarios deben <strong>importar</strong> un módulo
+para poder usarlo. Al hacerlo, tienen acceso a los elementos exportados
+por el módulo a través de su interfaz, lo que le permite al <em>módulo
+usuario</em> consumir los servicios que proporciona el <em>módulo
+importado</em>.</p></li>
+<li><p>En terminología de programación modular, hablamos entonces de la
+existencia de dos tipos de módulos:</p>
 <ul>
-<li><p>El que usa a otro módulo es el módulo «<em>usuario</em>», «<em>cliente</em>», «<em>consumidor</em>» o «<em>importador</em>».</p></li>
-<li><p>El que es usado por otro módulo es el módulo «<em>usado</em>», «<em>servidor</em>», «<em>consumido</em>» o «<em>importado</em>».</p></li>
+<li><p>El que usa a otro módulo es el módulo «<em>usuario</em>»,
+«<em>cliente</em>», «<em>consumidor</em>» o
+«<em>importador</em>».</p></li>
+<li><p>El que es usado por otro módulo es el módulo «<em>usado</em>»,
+«<em>servidor</em>», «<em>consumido</em>» o
+«<em>importado</em>».</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.2">
 
 <ul>
-<li><p>Los <strong>usuarios</strong> de un módulo están interesados en usar dicho módulo como una <strong>entidad abstracta</strong>, sin necesidad de conocer los <em>detalles internos</em> del mismo, sino conociendo sólo lo necesario para poder consumir los servicios que proporciona (su <em>interfaz</em>).</p></li>
-<li><p>Esos usuarios consumirán los servicios del módulo a través de su interfaz, la cual oculta a los usuarios los detalles internos de funcionamiento que no son necesarios para usar el módulo.</p></li>
-<li><p>Esos detalles internos forman la <em>implementación</em> del módulo y sólo son interesantes para (y sólo deben ser conocidos por) el <strong>creador</strong> del módulo.</p></li>
-<li><p>Por supuesto, un módulo puede usar a otros módulos y, al mismo tiempo, ser usado por otros módulos. Por tanto, el mismo módulo puede ser importador e importado simultáneamente.</p></li>
+<li><p>Los <strong>usuarios</strong> de un módulo están interesados en
+usar dicho módulo como una <strong>entidad abstracta</strong>, sin
+necesidad de conocer los <em>detalles internos</em> del mismo, sino
+conociendo sólo lo necesario para poder consumir los servicios que
+proporciona (su <em>interfaz</em>).</p></li>
+<li><p>Esos usuarios consumirán los servicios del módulo a través de su
+interfaz, la cual oculta a los usuarios los detalles internos de
+funcionamiento que no son necesarios para usar el módulo.</p></li>
+<li><p>Esos detalles internos forman la <em>implementación</em> del
+módulo y sólo son interesantes para (y sólo deben ser conocidos por) el
+<strong>creador</strong> del módulo.</p></li>
+<li><p>Por supuesto, un módulo puede usar a otros módulos y, al mismo
+tiempo, ser usado por otros módulos. Por tanto, el mismo módulo puede
+ser importador e importado simultáneamente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p>Los <strong>miembros</strong> o <em>elementos</em> de un módulo son aquellos elementos que forman parte del módulo.</p></li>
-<li><p>En general, a la hora de describir las partes de un módulo, distinguimos entre <strong>miembros <em>públicos</em></strong> y <strong>miembros <em>privados</em></strong>:</p>
+<li><p>Los <strong>miembros</strong> o <em>elementos</em> de un módulo
+son aquellos elementos que forman parte del módulo.</p></li>
+<li><p>En general, a la hora de describir las partes de un módulo,
+distinguimos entre <strong>miembros <em>públicos</em></strong> y
+<strong>miembros <em>privados</em></strong>:</p>
 <ul>
-<li><p>Los <strong>miembros <em>públicos</em></strong> o <strong><em>exportados</em></strong> de un módulo son aquellos miembros que están diseñados para ser usados fuera del módulo por los usuarios del mismo.</p>
-<p>Estos miembros (al menos, las especificaciones de los mismos, es decir, lo necesario para poder usarlos) <strong>deben formar parte de la <em>interfaz</em> del módulo</strong>.</p></li>
-<li><p>Los <strong>miembros <em>privados</em></strong> o <strong><em>internos</em></strong> de un módulo son aquellos miembros que están diseñados para ser usados únicamente por el propio módulo y, por tanto, no deberían ser usados (ni siquiera conocidos) fuera del módulo.</p>
-<p>Estos miembros <strong>NO deben formar parte de la <em>interfaz</em> del módulo</strong>, sino que deben ir en la <strong>implementación</strong> del módulo.</p></li>
+<li><p>Los <strong>miembros <em>públicos</em></strong> o
+<strong><em>exportados</em></strong> de un módulo son aquellos miembros
+que están diseñados para ser usados fuera del módulo por los usuarios
+del mismo.</p>
+<p>Estos miembros (al menos, las especificaciones de los mismos, es
+decir, lo necesario para poder usarlos) <strong>deben formar parte de la
+<em>interfaz</em> del módulo</strong>.</p></li>
+<li><p>Los <strong>miembros <em>privados</em></strong> o
+<strong><em>internos</em></strong> de un módulo son aquellos miembros
+que están diseñados para ser usados únicamente por el propio módulo y,
+por tanto, no deberían ser usados (ni siquiera conocidos) fuera del
+módulo.</p>
+<p>Estos miembros <strong>NO deben formar parte de la <em>interfaz</em>
+del módulo</strong>, sino que deben ir en la
+<strong>implementación</strong> del módulo.</p></li>
 </ul></li>
 </ul>
 </section>
 
-<section id="partes-de-un-módulo" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Partes de un módulo</h2>
+<section id="partes-de-un-módulo" class="title-slide slide level2"
+data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+Partes de un módulo</h2>
 <ul>
 <li><p>Concretando lo dicho anteriormente, un módulo tendrá:</p>
 <ul>
 <li><p>Una <strong>interfaz</strong>, formada por:</p>
 <ul>
 <li><p>El <strong>nombre</strong> del módulo.</p></li>
-<li><p>Las <strong>especificaciones de sus funciones <em>exportadas</em></strong> o <strong><em>públicas</em></strong> que permiten a los usuarios consumir sus servicios, así como manipular y acceder al estado interno del módulo desde fuera del mismo.</p></li>
-<li><p>Es posible que la interfaz también incluya <strong>constantes públicas</strong>.</p></li>
+<li><p>Las <strong>signaturas de sus funciones
+<em>exportadas</em></strong> o <strong><em>públicas</em></strong> que
+permiten a los usuarios consumir sus servicios, así como manipular y
+acceder al estado interno del módulo desde fuera del mismo.</p></li>
+<li><p>Es posible que la interfaz también incluya <strong>constantes
+públicas</strong>.</p></li>
 </ul></li>
 <li><p>Una <strong>implementación</strong>, formada por:</p>
 <ul>
-<li><p>Las <strong>implementaciones</strong> de sus <strong>funciones públicas</strong>.</p></li>
-<li><p>Posibles <strong>variables <em>locales</em></strong> al módulo (el <em>estado interno</em> de éste).</p></li>
-<li><p>Posibles <strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>, que no aparecen en la interfaz porque están pensadas para ser usadas sólo por el propio módulo internamente, no por otras partes del programa.</p></li>
-<li><p>Otros miembros <em>privados</em>, como <strong>constantes privadas</strong>.</p></li>
+<li><p>Las <strong>implementaciones</strong> de sus <strong>funciones
+públicas</strong>.</p></li>
+<li><p>Posibles <strong>variables <em>locales</em></strong> al módulo
+(el <em>estado interno</em> de éste).</p></li>
+<li><p>Posibles <strong>funciones <em>internas</em></strong> o
+<strong><em>privadas</em></strong>, que no aparecen en la interfaz
+porque están pensadas para ser usadas sólo por el propio módulo
+internamente, no por otras partes del programa.</p></li>
+<li><p>Otros miembros <em>privados</em>, como <strong>constantes
+privadas</strong>.</p></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -462,81 +638,187 @@
 <section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
-<li><p>Lo anterior es una simplificación, ya que, dependiendo de las características del lenguaje de programación utilizado, un módulo puede tener miembros pertenecientes a muchas otras categorías sintácticas, como por ejemplo:</p>
+<li><p>Lo anterior es una simplificación, ya que, dependiendo de las
+características del lenguaje de programación utilizado, un módulo puede
+tener miembros pertenecientes a muchas otras categorías sintácticas,
+como por ejemplo:</p>
 <ul>
 <li><p>Tipos.</p></li>
 <li><p>Clases.</p></li>
 <li><p>Otros módulos.</p></li>
 </ul></li>
-<li><p>Todos esos miembros pueden formar parte de la interfaz o de la implementación del módulo, dependiendo de las necesidades del mismo, y ser, por tanto, miembros públicos o privados de éste.</p></li>
-<li><p>También se admiten otras combinaciones más complicadas. Por ejemplo, si alguno de esos miembros es público, su especificación podría formar parte de la interfaz del módulo, mientras que su implementación podría formar parte de la implementación del módulo.</p></li>
+<li><p>Todos esos miembros pueden formar parte de la interfaz o de la
+implementación del módulo, dependiendo de las necesidades del mismo, y
+ser, por tanto, miembros públicos o privados de éste.</p></li>
+<li><p>También se admiten otras combinaciones más complicadas. Por
+ejemplo, si alguno de esos miembros es público, su especificación podría
+formar parte de la interfaz del módulo, mientras que su implementación
+podría formar parte de la implementación del módulo.</p></li>
 </ul>
 </section>
-<section id="interfaz" class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Interfaz</h3>
+<section id="interfaz" class="title-slide slide level3"
+data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
+Interfaz</h3>
 <ul>
-<li><p>La <strong>interfaz</strong> es la parte del módulo que el <strong>usuario</strong> del mismo necesita conocer para poder utilizarlo.</p></li>
-<li><p>Es la parte <strong>expuesta, pública o visible</strong> del mismo.</p></li>
-<li><p>También se la denomina su <strong>API</strong> (<em>Application Program Interface</em>).</p></li>
-<li><p>La interfaz es la parte del módulo que éste <strong>exporta</strong> a los demás módulos del programa, que son sus posibles usuarios.</p></li>
-<li><p>Debe estar perfectamente <strong>documentada</strong> para que cualquier potencial usuario tenga toda la información necesaria para poder usar el módulo sin tener que conocer o acceder a partes internas del mismo.</p></li>
-<li><p>En general <strong>debería estar formada únicamente por funciones</strong> (y, tal vez, <strong>constantes</strong>) que el usuario del módulo pueda llamar para consumir los servicios que ofrece el módulo.</p></li>
-<li><p>No todas las funciones definidas en un módulo tienen por qué formar parte de la interfaz del mismo. Las que sí lo hacen son las denominadas <strong>funciones públicas</strong> o <strong>exportadas</strong>.</p></li>
+<li><p>La <strong>interfaz</strong> es la parte del módulo que es
+accesible directamente desde fuera del mismo.</p></li>
+<li><p>Por tanto, es la parte a través de la cual el módulo ofrece sus
+servicios a sus usuarios, que sólo podrán acceder al mismo a través de
+su interfaz.</p></li>
+<li><p>Es la parte <strong>expuesta, pública o visible</strong> del
+mismo.</p></li>
+<li><p>También se la denomina su <strong>API</strong> (<em>Application
+Program Interface</em>).</p></li>
+<li><p>La interfaz es la parte del módulo que éste
+<strong>exporta</strong> a los demás módulos del programa, que son sus
+posibles usuarios.</p></li>
+<li><p>En general <strong>debería estar formada únicamente por
+funciones</strong> (y, tal vez, <strong>constantes</strong>) que el
+usuario del módulo pueda llamar para consumir los servicios que ofrece
+el módulo.</p></li>
+<li><p>No todas las funciones definidas en un módulo tienen por qué
+formar parte de la interfaz del mismo. Las que sí lo hacen son las
+denominadas <strong>funciones públicas</strong> o
+<strong>exportadas</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.1">
+<section id="especificación" class="title-slide slide level4"
+data-number="2.2.1.1">
+<h4 data-number="2.2.1.1"><span
+class="header-section-number">2.2.1.1</span> Especificación</h4>
+<ul>
+<li><p>La interfaz es un concepto puramente
+<strong>sintáctico</strong>.</p></li>
+<li><p>Describe la sintaxis (nombre y tipos) de los elementos del módulo
+a los que se puede acceder desde fuera del mismo.</p></li>
+<li><p>Pero sólo con eso, el usuario no tiene toda la información que
+necesita para poder usar el módulo.</p></li>
+<li><p>Para ello, también necesita saber <em>qué</em> hace el módulo, y
+<em>qué</em> hacen las funciones que forman la interfaz del
+módulo.</p></li>
+<li><p>La <strong>especificación</strong> del módulo representa toda la
+información que el usuario del mismo necesita conocer para poder
+utilizarlo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.1.1">
 
 <ul>
-<li><p>Desde el punto de vista de los usuarios del módulo, esas funciones son <strong>abstracciones funcionales</strong>, de forma que, para poder usarlas, sólo se necesita conocer las <strong>especificaciones</strong> de esas funciones y no sus <em>implementaciones</em> concretas (sus definiciones completas).</p></li>
-<li><p>Recordemos que la <strong>especificación de una función</strong> está formada por tres partes:</p>
+<li><p>La especificación de un módulo está formada por:</p>
 <ul>
-<li><p><strong>Precondición</strong>: la condición que se debe cumplir al llamar a la función.</p></li>
-<li><p><strong>Signatura</strong>: los aspectos meramente sintácticos como el nombre de la función, el nombre y tipo de sus parámetros y el tipo de su valor de retorno.</p></li>
-<li><p><strong>Postcondición</strong>: la condición que se cumplirá al finalizar su ejecución.</p></li>
+<li><p>La <strong>interfaz</strong> del módulo.</p></li>
+<li><p>La <strong>especificación</strong> de todas las funciones que
+aparecen en la interfaz.</p></li>
+<li><p><strong>Documentación</strong> adicional que describa lo que hace
+el módulo y que aporte al usuario cualquier información extra que
+necesite saber para poder usar el módulo sin tener que conocer o acceder
+a partes internas del mismo.</p>
+<p>Aquí podría incluirse documentación sobre el módulo en sí, así como
+sobre las funciones y las constantes públicas que aparecen en la
+interfaz, escrita en lenguaje natural y de fácil comprensión para el
+lector humano, añadiendo posibles ejemplos de uso.</p></li>
 </ul></li>
-<li><p>Por tanto, la interfaz del módulo contendrá las especificaciones de las funciones públicas, pero no sus implementaciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.2">
+<section class="slide level5" data-number="2.2.1.1.2">
 
 <ul>
-<li><p>Acabamos de decir que la interfaz de un módulo debería estar formada únicamente por <strong>funciones</strong> y, tal vez, <strong>constantes</strong>.</p></li>
-<li><p>En teoría, la interfaz podría incluir también algunas o todas las <strong>variables locales al módulo</strong>, de forma que el módulo usuario podría acceder y modificar directamente una variable del módulo usado.</p></li>
+<li><p>Desde el punto de vista de los usuarios del módulo, las funciones
+son <strong>abstracciones funcionales</strong>, de forma que, para poder
+usarlas, sólo se necesita conocer las <strong>especificaciones</strong>
+de esas funciones y no sus <em>implementaciones</em> concretas (sus
+definiciones completas).</p></li>
+<li><p>Recordemos que la <strong>especificación de una función</strong>
+está formada por tres partes:</p>
+<ul>
+<li><p><strong>Precondición</strong>: la condición que se debe cumplir
+al llamar a la función.</p></li>
+<li><p><strong>Signatura</strong>: los aspectos meramente sintácticos
+como el nombre de la función, el nombre y tipo de sus parámetros y el
+tipo de su valor de retorno.</p></li>
+<li><p><strong>Postcondición</strong>: la condición que se cumplirá al
+finalizar su ejecución.</p></li>
+</ul></li>
+<li><p>Por tanto, la especificación del módulo contendrá las
+especificaciones de las funciones públicas, pero no sus
+implementaciones.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.1.3">
+
+<ul>
+<li><p>Acabamos de decir que la interfaz de un módulo debería estar
+formada únicamente por <strong>funciones</strong> y, tal vez,
+<strong>constantes</strong>.</p></li>
+<li><p>En teoría, la interfaz podría incluir también algunas o todas las
+<strong>variables locales al módulo</strong>, de forma que el módulo
+usuario podría acceder y modificar directamente una variable del módulo
+usado.</p></li>
 <li><p>Sin embargo, en la práctica eso no resulta apropiado, ya que:</p>
 <ul>
-<li><p>Cambiar el valor de una variable local a un módulo equivale a modificar una variable global (ya que existen en el ámbito global del módulo) y, por tanto, se considera un efecto lateral.</p></li>
-<li><p>Cualquier cambio posterior en la representación interna de los datos almacenados en esas variables afectaría al resto de los módulos que acceden a dichas variables.</p></li>
+<li><p>Cambiar el valor de una variable local a un módulo equivale a
+modificar una variable global (ya que existen en el ámbito global del
+módulo) y, por tanto, se considera un efecto lateral.</p></li>
+<li><p>Cualquier cambio posterior en la representación interna de los
+datos almacenados en esas variables afectaría al resto de los módulos
+que acceden a dichas variables.</p></li>
 </ul></li>
-<li><p>Las constantes sí se admiten ya que nunca cambian su valor y, por tanto, están exentas de posibles efectos laterales.</p></li>
-<li><p>Más adelante estudiaremos este aspecto en profundidad cuando hablemos del <strong>principio de ocultación de información</strong>.</p></li>
+<li><p>Las constantes sí se admiten ya que nunca cambian su valor y, por
+tanto, están exentas de posibles efectos laterales.</p></li>
+<li><p>Más adelante estudiaremos este aspecto en profundidad cuando
+hablemos del <strong>principio de ocultación de
+información</strong>.</p></li>
 </ul>
 </section>
 
-<section id="implementación" class="title-slide slide level3" data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Implementación</h3>
+
+<section id="implementación" class="title-slide slide level3"
+data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
+Implementación</h3>
 <ul>
-<li><p>La <strong>implementación</strong> es la parte del módulo que queda <strong>oculta a los usuarios</strong> del mismo.</p></li>
-<li><p>Por tanto, es la parte que los usuarios del módulo no necesitan (ni deben) conocer para poder usarlo adecuadamente.</p></li>
+<li><p>La <strong>implementación</strong> es la parte del módulo que
+queda <strong>oculta a los usuarios</strong> del mismo.</p></li>
+<li><p>Por tanto, es la parte que los usuarios del módulo no necesitan
+(ni deben) conocer para poder usarlo adecuadamente.</p></li>
 <li><p>Está formada por:</p>
 <ul>
-<li><p>La <strong>implementación de las funciones</strong> que forman la interfaz.</p></li>
-<li><p>Todas las <strong>variables locales al módulo</strong> que almacenan su estado interno, si las hay.</p></li>
-<li><p>Las funciones que utiliza el propio módulo internamente y que no forman parte de su interfaz (<strong>funciones <em>internas</em></strong> o <strong><em>privadas</em></strong>), si las hay.</p></li>
-<li><p>Posibles <strong>constantes <em>privadas</em></strong>, usadas sólo por el propio módulo.</p></li>
+<li><p>La <strong>implementación de las funciones</strong> que forman la
+interfaz.</p></li>
+<li><p>Todas las <strong>variables locales al módulo</strong> que
+almacenan su estado interno, si las hay.</p></li>
+<li><p>Las funciones que utiliza el propio módulo internamente y que no
+forman parte de su interfaz (<strong>funciones
+<em>internas</em></strong> o <strong><em>privadas</em></strong>), si las
+hay.</p></li>
+<li><p>Posibles <strong>constantes <em>privadas</em></strong>, usadas
+sólo por el propio módulo.</p></li>
 </ul></li>
 </ul>
 <div class="caja">
-<p>La implementación debe poder cambiarse tantas veces como sea necesario sin que por ello se tenga que cambiar el resto del programa.</p>
+<p>La implementación debe poder cambiarse tantas veces como sea
+necesario sin que por ello se tenga que cambiar el resto del
+programa.</p>
 </div>
 </section>
-<section id="resumen" class="title-slide slide level4" data-number="2.2.2.1">
-<h4 data-number="2.2.2.1"><span class="header-section-number">2.2.2.1</span> Resumen</h4>
+<section id="resumen" class="title-slide slide level4"
+data-number="2.2.2.1">
+<h4 data-number="2.2.2.1"><span
+class="header-section-number">2.2.2.1</span> Resumen</h4>
 <p><span class="math display">\text{Interfaz del módulo}\begin{cases}
 \text{Nombre del módulo}\\
-\text{Especificación de las funciones públicas}\\
+\text{Signatura de las funciones públicas}\\
 \text{Posibles constantes públicas}
 \end{cases}</span></p>
-<p><span class="math display">\text{Implementación del módulo}\begin{cases}
+<p><span class="math display">\text{Especificación del
+módulo}\begin{cases}
+\text{Interfaz del módulo}\\
+\text{Especificación de las funciones de la interfaz}\\
+\text{Documentación adicional}
+\end{cases}</span></p>
+<p><span class="math display">\text{Implementación del
+módulo}\begin{cases}
 \text{Implementación de las funciones públicas}\\
 \text{Posibles variables locales}\\
 \text{Posibles funciones privadas} \\
@@ -546,16 +828,29 @@
 
 
 
-<section id="diagramas-de-estructura" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Diagramas de estructura</h2>
+<section id="diagramas-de-estructura" class="title-slide slide level2"
+data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Diagramas de estructura</h2>
 <ul>
-<li><p>Los diferentes módulos que forman un programa y la relación que hay entre ellos se puede representar gráficamente mediante un <em>diagrama de descomposición modular</em> o <strong>diagrama de estructura</strong>.</p></li>
-<li><p>En el diagrama de estructura, cada módulo se representa mediante un rectángulo y las relaciones entre cada par de módulos se dibujan como una línea con punta de flecha entre los dos módulos.</p></li>
-<li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em> representa que el módulo <em>A</em> <em>utiliza</em> (o <em>llama</em> o <em>consume</em>) al módulo <em>B</em>, o también se puede decir que el módulo <em>A</em> <em>depende</em> del módulo <em>B</em>.</p></li>
+<li><p>Los diferentes módulos que forman un programa y la relación que
+hay entre ellos se puede representar gráficamente mediante un
+<em>diagrama de descomposición modular</em> o <strong>diagrama de
+estructura</strong>.</p></li>
+<li><p>En el diagrama de estructura, cada módulo se representa mediante
+un rectángulo y las relaciones entre cada par de módulos se dibujan como
+una línea con punta de flecha entre los dos módulos.</p></li>
+<li><p>Una flecha dirigida del módulo <em>A</em> al módulo <em>B</em>
+representa que el módulo <em>A</em> <em>utiliza</em> (o <em>llama</em> o
+<em>consume</em>) al módulo <em>B</em>, o también se puede decir que el
+módulo <em>A</em> <em>depende</em> del módulo <em>B</em>.</p></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/modulos-dependientes.svg" class="plain" style="width:30.0%" alt="A depende de B" /><figcaption aria-hidden="true"><em>A</em> depende de <em>B</em></figcaption>
+<img data-src="images/modulos-dependientes.svg" class="plain"
+style="width:30.0%" alt="A depende de B" />
+<figcaption aria-hidden="true"><em>A</em> depende de
+<em>B</em></figcaption>
 </figure>
 </div>
 </section>
@@ -565,13 +860,18 @@
 <div class="column">
 <div class="centered">
 <figure>
-<img data-src="images/diagrama-estructura.svg" class="plain" style="width:80.0%" alt="Diagrama de estructura" /><figcaption aria-hidden="true">Diagrama de estructura</figcaption>
+<img data-src="images/diagrama-estructura.svg" class="plain"
+style="width:80.0%" alt="Diagrama de estructura" />
+<figcaption aria-hidden="true">Diagrama de estructura</figcaption>
 </figure>
 </div>
 </div><div class="column">
 <ul>
-<li><p>Al módulo <em>A</em> se le denomina <strong>módulo principal</strong>, ya que es el módulo por el que comienza la ejecución del programa.</p></li>
-<li><p>El módulo principal depende, directa o indirectamente, de los demás módulos del programa.</p></li>
+<li><p>Al módulo <em>A</em> se le denomina <strong>módulo
+principal</strong>, ya que es el módulo por el que comienza la ejecución
+del programa.</p></li>
+<li><p>El módulo principal depende, directa o indirectamente, de los
+demás módulos del programa.</p></li>
 <li><p>No hay ningún módulo que dependa del módulo principal.</p></li>
 </ul>
 </div>
@@ -579,63 +879,123 @@
 </section>
 </section>
 <section>
-<section id="programación-modular-en-python" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Programación modular en Python</h1>
+<section id="programación-modular-en-python"
+class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
+Programación modular en Python</h1>
 
 </section>
-<section id="scripts-como-módulos" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> <em>Scripts</em>  como módulos</h2>
+<section id="scripts-como-módulos" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+<em>Scripts</em>  como módulos</h2>
 <ul>
-<li><p>En Python, un módulo es otra forma de llamar a un <em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en Python.</p></li>
-<li><p>Los módulos contienen instrucciones: definiciones y otras sentencias.</p></li>
-<li><p>El nombre del archivo es el nombre del módulo con extensión <code>.py</code>.</p></li>
-<li><p>Eso quiere decir que <strong>un módulo se puede ejecutar de dos maneras</strong>:</p>
+<li><p>En Python, un módulo es otra forma de llamar a un
+<em>script</em>. Es decir: «módulo» y «<em>script</em>» son sinónimos en
+Python.</p></li>
+<li><p>Los módulos contienen instrucciones: definiciones y otras
+sentencias.</p></li>
+<li><p>El nombre del archivo es el nombre del módulo con extensión
+<code>.py</code>.</p></li>
+<li><p>Eso quiere decir que <strong>un módulo se puede ejecutar de dos
+maneras</strong>:</p>
 <ul>
-<li><p><strong>Como un <em>script</em> independiente</strong>, llamándolo desde la línea de órdenes del sistema operativo (sería el <strong><em>módulo principal</em></strong>):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python modulo.py</span></code></pre></div></li>
-<li><p><strong>Importándolo dentro de otros módulos</strong> que quieran usar los servicios que proporciona, usando la sentencia <code class="sourceCode python"><span class="im">import</span></code> (o <code class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span></code>):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> modulo</span></code></pre></div></li>
+<li><p><strong>Como un <em>script</em> independiente</strong>,
+llamándolo desde la línea de órdenes del sistema operativo (sería el
+<strong><em>módulo principal</em></strong>):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python modulo.py</span></code></pre></div></li>
+<li><p><strong>Importándolo dentro de otros módulos</strong> que quieran
+usar los servicios que proporciona, usando la sentencia <code
+class="sourceCode python"><span class="im">import</span></code> (o <code
+class="sourceCode python"><span class="im">from</span> ... <span
+class="im">import</span></code>):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> modulo</span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
-<li><p>Las sentencias que contiene un módulo <strong>se ejecutan sólo la primera vez</strong> que se encuentra el nombre de ese módulo en una sentencia <code class="sourceCode python"><span class="im">import</span></code>, o bien cuando el archivo se ejecuta como un <em>script</em>.</p></li>
-<li><p>Dentro de un módulo, el nombre del módulo (como cadena) se encuentra almacenado en la variable global <code class="sourceCode python"><span class="va">__name__</span></code>.</p></li>
-<li><p>Cada módulo define su propio <strong>ámbito local</strong>, que es usado como el <strong>ámbito global</strong> de todas las instrucciones que componen el módulo.</p></li>
-<li><p>Además, los módulos son <strong>espacios de nombres</strong>.</p></li>
-<li><p>Por tanto, el autor de un módulo puede definir variables globales o funciones en el módulo sin preocuparse de posibles colisiones accidentales con las variables globales o funciones de otros módulos.</p></li>
-<li><p>Esas variables y funciones serán los <strong>atributos</strong> del <strong>objeto <em>módulo</em></strong> que se creará si se importa el módulo con la sentencia <code class="sourceCode python"><span class="im">import</span></code>.</p></li>
+<li><p>Las sentencias que contiene un módulo <strong>se ejecutan sólo la
+primera vez</strong> que se encuentra el nombre de ese módulo en una
+sentencia <code class="sourceCode python"><span
+class="im">import</span></code>, o bien cuando el archivo se ejecuta
+como un <em>script</em>.</p></li>
+<li><p>Dentro de un módulo, el nombre del módulo (como cadena) se
+encuentra almacenado en la variable global <code
+class="sourceCode python"><span
+class="va">__name__</span></code>.</p></li>
+<li><p>Cada módulo define su propio <strong>ámbito local</strong>, que
+es usado como el <strong>ámbito global</strong> de todas las
+instrucciones que componen el módulo.</p></li>
+<li><p>Además, los módulos son <strong>espacios de
+nombres</strong>.</p></li>
+<li><p>Por tanto, el autor de un módulo puede definir variables globales
+o funciones en el módulo sin preocuparse de posibles colisiones
+accidentales con las variables globales o funciones de otros
+módulos.</p></li>
+<li><p>Esas variables y funciones serán los <strong>atributos</strong>
+del <strong>objeto <em>módulo</em></strong> que se creará si se importa
+el módulo con la sentencia <code class="sourceCode python"><span
+class="im">import</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
-<li><p>Al entrar en un módulo para ejecutar sus sentencias, se entra en un nuevo ámbito que constituirá <strong>el ámbito global del módulo</strong>.</p></li>
-<li><p>Además, se creará un nuevo marco encima de la pila, que constituirá <strong>el nuevo <em>marco global</em> durante la ejecución del módulo</strong>.</p></li>
-<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo (por ejemplo, el marco global del <em>script</em> que ha importado el módulo) seguirán más abajo en la pila, pero no serán accesibles desde el módulo actual.</p>
-<p>Esos marcos quedan fuera del entorno y se recuperarán al finalizar la ejecución del módulo importado.</p></li>
-<li><p>Igualmente, los ámbitos que existieran antes de importar un módulo (incluyendo el ámbito global del <em>script</em> que ha importado al módulo) quedan temporalmente invalidados al encontrarse en archivos fuente distintos, y se recuperarán al finalizar la ejecución del módulo y volver al archivo fuente anterior.</p></li>
+<li><p>Al entrar en un módulo para ejecutar sus sentencias, se entra en
+un nuevo ámbito que constituirá <strong>el ámbito global del
+módulo</strong>.</p></li>
+<li><p>Además, se creará un nuevo marco encima de la pila, que
+constituirá <strong>el nuevo <em>marco global</em> durante la ejecución
+del módulo</strong>.</p></li>
+<li><p>Los demás marcos que pudieran existir antes de ejecutar el módulo
+(por ejemplo, el marco global del <em>script</em> que ha importado el
+módulo) seguirán más abajo en la pila, pero no serán accesibles desde el
+módulo actual.</p>
+<p>Esos marcos quedan fuera del entorno y se recuperarán al finalizar la
+ejecución del módulo importado.</p></li>
+<li><p>Igualmente, los ámbitos que existieran antes de importar un
+módulo (incluyendo el ámbito global del <em>script</em> que ha importado
+al módulo) quedan temporalmente invalidados al encontrarse en archivos
+fuente distintos, y se recuperarán al finalizar la ejecución del módulo
+y volver al archivo fuente anterior.</p></li>
 </ul>
 </section>
 
-<section id="importación-de-módulos" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Importación de módulos</h2>
+<section id="importación-de-módulos" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Importación de módulos</h2>
 <ul>
-<li><p>Para que un módulo pueda usar a otros módulos tiene que <strong>importarlos</strong> usando la orden <code class="sourceCode python"><span class="im">import</span></code>. Por ejemplo, la siguiente sentencia importa el módulo <code class="sourceCode python">math</code> dentro del ámbito actual:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div></li>
-<li><p>Al importar un módulo de esta forma, se incorpora al espacio de nombres actual (que suele ser el marco del <em>script</em> o función que se está ejecutando actualmente) la ligadura entre el nombre del módulo importado y el propio módulo, el cual es <strong>es un objeto de tipo <code class="sourceCode python">module</code></strong>.</p></li>
-<li><p>De esta forma, lo que se importa dentro del espacio de nombres actual es una <strong>referencia</strong> al objeto módulo.</p></li>
+<li><p>Para que un módulo pueda usar a otros módulos tiene que
+<strong>importarlos</strong> usando la orden <code
+class="sourceCode python"><span class="im">import</span></code>. Por
+ejemplo, la siguiente sentencia importa el módulo <code
+class="sourceCode python">math</code> dentro del ámbito actual:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div></li>
+<li><p>Al importar un módulo de esta forma, se incorpora al espacio de
+nombres actual (que suele ser el marco del <em>script</em> o función que
+se está ejecutando actualmente) la ligadura entre el nombre del módulo
+importado y el propio módulo, el cual es <strong>es un objeto de tipo
+<code class="sourceCode python">module</code></strong>.</p></li>
+<li><p>De esta forma, lo que se importa dentro del espacio de nombres
+actual es una <strong>referencia</strong> al objeto módulo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
 
 <ul>
-<li><p>Por ejemplo, si tenemos los siguientes <em>scripts</em> (o módulos, que es lo mismo en Python) <code>uno.py</code> y <code>dos.py</code>, y empezamos a ejecutar <code>uno.py</code>:</p>
+<li><p>Por ejemplo, si tenemos los siguientes <em>scripts</em> (o
+módulos, que es lo mismo en Python) <code>uno.py</code> y
+<code>dos.py</code>, y empezamos a ejecutar <code>uno.py</code>:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># uno.py</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># uno.py</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a>x <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
@@ -646,7 +1006,8 @@
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:40%;">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py</span></span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
@@ -656,143 +1017,238 @@
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-modulo-entorno-linea3.svg" class="plain" style="width:40.0%" alt="Entorno en la línea 3 del módulo uno" /><figcaption aria-hidden="true">Entorno en la línea 3 del módulo <code>uno</code></figcaption>
+<img data-src="images/import-modulo-entorno-linea3.svg" class="plain"
+style="width:40.0%" alt="Entorno en la línea 3 del módulo uno" />
+<figcaption aria-hidden="true">Entorno en la línea 3 del módulo
+<code>uno</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
-<li>Al ejecutar <code class="sourceCode python"><span class="im">import</span> dos</code> en la línea 5 de <code>uno.py</code>, pasaremos a ejecutar el <em>script</em> <code>dos.py</code> y el marco global del entorno será ahora el marco global de <code>dos</code>. Los marcos creados hasta ahora durante la ejecución de <code>uno</code> (incluyendo el marco global de <code>uno</code>) no estarán en el entorno:</li>
+<li>Al ejecutar <code class="sourceCode python"><span
+class="im">import</span> dos</code> en la línea 5 de
+<code>uno.py</code>, pasaremos a ejecutar el <em>script</em>
+<code>dos.py</code> y el marco global del entorno será ahora el marco
+global de <code>dos</code>. Los marcos creados hasta ahora durante la
+ejecución de <code>uno</code> (incluyendo el marco global de
+<code>uno</code>) no estarán en el entorno:</li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-modulo-dentro-dos.svg" class="plain" style="width:40.0%" alt="Ejecución de dos durante su importación en uno" /><figcaption aria-hidden="true">Ejecución de <code>dos</code> durante su importación en <code>uno</code></figcaption>
+<img data-src="images/import-modulo-dentro-dos.svg" class="plain"
+style="width:40.0%"
+alt="Ejecución de dos durante su importación en uno" />
+<figcaption aria-hidden="true">Ejecución de <code>dos</code> durante su
+importación en <code>uno</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.3">
 
 <ul>
-<li>Al finalizar la ejecución del <em>script</em> <code>dos.py</code>, el marco global de <code>dos</code> se convierte en un objeto de tipo <code class="sourceCode python">module</code> en el montículo, y sus ligaduras se convierten en atributos del objeto. Ese objeto se ligará al identificador <code>dos</code> en el marco global de <code>uno</code>, que volverá a estar en el entorno y pasará a ser de nuevo el marco global del entorno:</li>
+<li>Al finalizar la ejecución del <em>script</em> <code>dos.py</code>,
+el marco global de <code>dos</code> se convierte en un objeto de tipo
+<code class="sourceCode python">module</code> en el montículo, y sus
+ligaduras se convierten en atributos del objeto. Ese objeto se ligará al
+identificador <code>dos</code> en el marco global de <code>uno</code>,
+que volverá a estar en el entorno y pasará a ser de nuevo el marco
+global del entorno:</li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-modulo-sale-dos.svg" class="plain" style="width:70.0%" alt="Entorno tras ejecutar import dos" /><figcaption aria-hidden="true">Entorno tras ejecutar <code>import dos</code></figcaption>
+<img data-src="images/import-modulo-sale-dos.svg" class="plain"
+style="width:70.0%" alt="Entorno tras ejecutar import dos" />
+<figcaption aria-hidden="true">Entorno tras ejecutar <code>import
+dos</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.4">
 
 <ul>
-<li>Finalmente, tras ejecutar todo el script <code>uno.py</code> tendríamos el siguiente entorno:</li>
+<li>Finalmente, tras ejecutar todo el script <code>uno.py</code>
+tendríamos el siguiente entorno:</li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-modulo-sigue-uno.svg" class="plain" style="width:70.0%" alt="Entorno justo al final de la ejecución de uno" /><figcaption aria-hidden="true">Entorno justo al final de la ejecución de <code>uno</code></figcaption>
+<img data-src="images/import-modulo-sigue-uno.svg" class="plain"
+style="width:70.0%"
+alt="Entorno justo al final de la ejecución de uno" />
+<figcaption aria-hidden="true">Entorno justo al final de la ejecución de
+<code>uno</code></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.5">
 
 <ul>
-<li>Recordemos que, siempre que tengamos una referencia a un objeto, podemos acceder a los atributos que contiene usando el operador punto (<code>.</code>), indicando el objeto y el nombre del atributo al que queramos acceder:</li>
+<li>Recordemos que, siempre que tengamos una referencia a un objeto,
+podemos acceder a los atributos que contiene usando el operador punto
+(<code>.</code>), indicando el objeto y el nombre del atributo al que
+queramos acceder:</li>
 </ul>
 <p><em>objeto</em><code>.</code><em>atributo</em></p>
 <ul>
-<li>Por tanto, para acceder al contenido del módulo importado, indicaremos el nombre de ese módulo seguido de un punto (<code>.</code>) y el nombre del contenido al que queramos acceder:</li>
+<li>Por tanto, para acceder al contenido del módulo importado,
+indicaremos el nombre de ese módulo seguido de un punto (<code>.</code>)
+y el nombre del contenido al que queramos acceder:</li>
 </ul>
 <p><em>módulo</em><code>.</code><em>contenido</em></p>
 </section>
 <section class="slide level5" data-number="3.2.0.0.6">
 
 <ul>
-<li><p>Por ejemplo, para acceder a la función <code class="sourceCode python">gcd</code> definida en el módulo <code class="sourceCode python">math</code>, haremos:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<li><p>Por ejemplo, para acceder a la función <code
+class="sourceCode python">gcd</code> definida en el módulo <code
+class="sourceCode python">math</code>, haremos:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-math.svg" class="plain" style="width:60.0%" alt="Entorno tras ejecutar las dos sentencias anteriores" /><figcaption aria-hidden="true">Entorno tras ejecutar las dos sentencias anteriores</figcaption>
+<img data-src="images/import-math.svg" class="plain" style="width:60.0%"
+alt="Entorno tras ejecutar las dos sentencias anteriores" />
+<figcaption aria-hidden="true">Entorno tras ejecutar las dos sentencias
+anteriores</figcaption>
 </figure>
 </div>
 <p><br></p>
 <ul>
-<li>Se recomienda por regla de estilo (aunque no es obligatorio) colocar todas las sentencias <code class="sourceCode python"><span class="im">import</span></code> al principio del módulo importador.</li>
+<li>Se recomienda por regla de estilo (aunque no es obligatorio) colocar
+todas las sentencias <code class="sourceCode python"><span
+class="im">import</span></code> al principio del módulo importador.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.7">
 
 <ul>
-<li><p>Se puede importar un módulo dándole otro nombre dentro del espacio de nombres actual, usando la sentencia <code class="sourceCode python"><span class="im">import</span> ... <span class="im">as</span></code>.</p></li>
+<li><p>Se puede importar un módulo dándole otro nombre dentro del
+espacio de nombres actual, usando la sentencia <code
+class="sourceCode python"><span class="im">import</span> ... <span
+class="im">as</span></code>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
-<p>La sentencia anterior importa el módulo <code>math</code> dentro del espacio de nombres actual pero con el nombre <code>mates</code> en lugar del <code>math</code> original. Por tanto, para usar la función <code>gcd</code> del ejemplo anterior, haremos:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
+<p>La sentencia anterior importa el módulo <code>math</code> dentro del
+espacio de nombres actual pero con el nombre <code>mates</code> en lugar
+del <code>math</code> original. Por tanto, para usar la función
+<code>gcd</code> del ejemplo anterior, haremos:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-math-as.svg" class="plain" style="width:60.0%" alt="Resultado de ejecutar las dos líneas anteriores" /><figcaption aria-hidden="true">Resultado de ejecutar las dos líneas anteriores</figcaption>
+<img data-src="images/import-math-as.svg" class="plain"
+style="width:60.0%"
+alt="Resultado de ejecutar las dos líneas anteriores" />
+<figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
+anteriores</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.8">
 
 <ul>
-<li><p>Existe una variante de la sentencia <code class="sourceCode python"><span class="im">import</span></code> que nos permite importar directamente las definiciones de un módulo en lugar del propio módulo. Para ello, se usa la orden <code class="sourceCode python"><span class="im">from</span></code>.</p></li>
-<li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del módulo <code>math</code>, y no el módulo en sí, haremos:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
-<li><p>Por lo que ahora podemos usar la función <code>gcd</code> directamente, sin necesidad de indicar el nombre del módulo importado:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<li><p>Existe una variante de la sentencia <code
+class="sourceCode python"><span class="im">import</span></code> que nos
+permite importar directamente las definiciones de un módulo en lugar del
+propio módulo. Para ello, se usa la orden <code
+class="sourceCode python"><span class="im">from</span></code>.</p></li>
+<li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del
+módulo <code>math</code>, y no el módulo en sí, haremos:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
+<li><p>Por lo que ahora podemos usar la función <code>gcd</code>
+directamente, sin necesidad de indicar el nombre del módulo
+importado:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/from-math-import-gcd.svg" class="plain" style="width:30.0%" alt="Resultado de ejecutar las dos líneas anteriores" /><figcaption aria-hidden="true">Resultado de ejecutar las dos líneas anteriores</figcaption>
+<img data-src="images/from-math-import-gcd.svg" class="plain"
+style="width:30.0%"
+alt="Resultado de ejecutar las dos líneas anteriores" />
+<figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
+anteriores</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.9">
 
 <ul>
-<li><p>De hecho, ahora el módulo importado no está definido en el módulo importador.</p>
-<p>Ees decir: ahora en el marco global del módulo importador no hay ninguna ligadura con el nombre del módulo importado.</p></li>
-<li><p>En nuestro ejemplo, eso significa que el módulo <code>math</code> no existe ahora como tal en el módulo importador y, por tanto, ese nombre no está definido en el ámbito del módulo importador.</p></li>
+<li><p>De hecho, ahora el módulo importado no está definido en el módulo
+importador.</p>
+<p>Ees decir: ahora en el marco global del módulo importador no hay
+ninguna ligadura con el nombre del módulo importado.</p></li>
+<li><p>En nuestro ejemplo, eso significa que el módulo <code>math</code>
+no existe ahora como tal en el módulo importador y, por tanto, ese
+nombre no está definido en el ámbito del módulo importador.</p></li>
 <li><p>En consecuencia, si hacemos:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
-<p>da error, porque no hemos importado el módulo como tal, sino sólo una de sus funciones.</p></li>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
+<p>da error, porque no hemos importado el módulo como tal, sino sólo una
+de sus funciones.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.10">
 
 <ul>
-<li><p>También podemos usar la palabra clave <code class="sourceCode python"><span class="im">as</span></code> con la orden <code class="sourceCode python"><span class="im">from</span></code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
-<p>De esta forma, se importa en el módulo actual la función <code>gcd</code> del módulo <code>math</code> pero llamándola <code>mcd</code>.</p></li>
+<li><p>También podemos usar la palabra clave <code
+class="sourceCode python"><span class="im">as</span></code> con la orden
+<code class="sourceCode python"><span class="im">from</span></code>:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
+<p>De esta forma, se importa en el módulo actual la función
+<code>gcd</code> del módulo <code>math</code> pero llamándola
+<code>mcd</code>.</p></li>
 <li><p>Por tanto, para usarla la invocaremos con su nuevo nombre:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/from-math-import-gcd-as-mcd.svg" class="plain" style="width:30.0%" alt="Resultado de ejecutar las dos líneas anteriores" /><figcaption aria-hidden="true">Resultado de ejecutar las dos líneas anteriores</figcaption>
+<img data-src="images/from-math-import-gcd-as-mcd.svg" class="plain"
+style="width:30.0%"
+alt="Resultado de ejecutar las dos líneas anteriores" />
+<figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
+anteriores</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="3.2.0.0.11">
 
 <ul>
-<li><p>Existe incluso una variante para importar todas las definiciones de un módulo:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
-<li><p>Con esta sintaxis importaremos todas las definiciones del módulo excepto aquellas cuyo nombre comience por un guión bajo (<code>_</code>).</p>
-<p>Las definiciones con nombres que comienzan por <code>_</code> son consideradas <strong>privadas</strong> o internas al módulo, lo que significa que no están concebidas para ser usadas por los usuarios del módulo y que, por tanto, no forman parte de su <strong>interfaz</strong> (no deben usarse <em>fuera</em> del módulo).</p></li>
-<li><p>En general, los programadores no suelen usar esta funcionalidad ya que puede introducir todo un conjunto de definiciones desconocidas dentro del módulo importador, lo que incluso puede provocar que se «<em>machaquen</em>» sin control definiciones ya existentes.</p></li>
+<li><p>Existe incluso una variante para importar todas las definiciones
+de un módulo:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<li><p>Con esta sintaxis importaremos todas las definiciones del módulo
+excepto aquellas cuyo nombre comience por un guión bajo
+(<code>_</code>).</p>
+<p>Las definiciones con nombres que comienzan por <code>_</code> son
+consideradas <strong>privadas</strong> o internas al módulo, lo que
+significa que no están concebidas para ser usadas por los usuarios del
+módulo y que, por tanto, no forman parte de su <strong>interfaz</strong>
+(no deben usarse <em>fuera</em> del módulo).</p></li>
+<li><p>En general, los programadores no suelen usar esta funcionalidad
+ya que puede introducir todo un conjunto de definiciones desconocidas
+dentro del módulo importador, lo que incluso puede provocar que se
+«<em>machaquen</em>» sin control definiciones ya existentes.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.12">
 
 <ul>
-<li><p>Para saber qué definiciones contiene un módulo, se puede usar la funcion <code class="sourceCode python"><span class="bu">dir</span></code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<li><p>Para saber qué definiciones contiene un módulo, se puede usar la
+funcion <code class="sourceCode python"><span
+class="bu">dir</span></code>:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">dir</span>(math)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;__doc__&#39;</span>, <span class="st">&#39;__loader__&#39;</span>, <span class="st">&#39;__name__&#39;</span>, <span class="st">&#39;__package__&#39;</span>, <span class="st">&#39;__spec__&#39;</span>, <span class="st">&#39;acos&#39;</span>,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;acosh&#39;</span>, <span class="st">&#39;asin&#39;</span>, <span class="st">&#39;asinh&#39;</span>, <span class="st">&#39;atan&#39;</span>, <span class="st">&#39;atan2&#39;</span>, <span class="st">&#39;atanh&#39;</span>, <span class="st">&#39;ceil&#39;</span>, <span class="st">&#39;copysign&#39;</span>,</span>
@@ -801,28 +1257,46 @@
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
-<li><p>La función <code class="sourceCode python"><span class="bu">dir</span></code> puede usarse con cualquier objeto al que podamos acceder a través de una referencia.</p></li>
+<li><p>La función <code class="sourceCode python"><span
+class="bu">dir</span></code> puede usarse con cualquier objeto al que
+podamos acceder a través de una referencia.</p></li>
 </ul>
 </section>
 
-<section id="módulos-como-scripts" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> Módulos como <em>scripts</em></h2>
+<section id="módulos-como-scripts" class="title-slide slide level2"
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+Módulos como <em>scripts</em></h2>
 <ul>
-<li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes como:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
-<p>se ejecutará el módulo como un <em>script</em>, igual que si se hubiera importado con un <code class="sourceCode python"><span class="im">import</span></code> dentro de otro módulo, pero con la diferencia de que la variable global <code class="sourceCode python"><span class="va">__name__</span></code> contendrá el valor <code class="sourceCode python"><span class="st">&quot;__main__&quot;</span></code>.</p>
-<p>Eso indica que ese <em>script</em> se considera el <strong>módulo principal</strong> (en inglés, <em>main module</em>) del programa.</p></li>
+<li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes
+como:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
+<p>se ejecutará el módulo como un <em>script</em>, igual que si se
+hubiera importado con un <code class="sourceCode python"><span
+class="im">import</span></code> dentro de otro módulo, pero con la
+diferencia de que la variable global <code
+class="sourceCode python"><span class="va">__name__</span></code>
+contendrá el valor <code class="sourceCode python"><span
+class="st">&quot;__main__&quot;</span></code>.</p>
+<p>Eso indica que ese <em>script</em> se considera el <strong>módulo
+principal</strong> (en inglés, <em>main module</em>) del
+programa.</p></li>
 <li><p>Por eso, si se añade este código al final del módulo:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
-<p>esas sentencias se ejecutarán únicamente cuando el módulo se ejecute como el módulo principal del programa.</p></li>
+<p>esas sentencias se ejecutarán únicamente cuando el módulo se ejecute
+como el módulo principal del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.1">
 
 <ul>
-<li><p>Por ejemplo, supongamos el siguiente módulo <code>fact.py</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
+<li><p>Por ejemplo, supongamos el siguiente módulo
+<code>fact.py</code>:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
@@ -831,36 +1305,55 @@
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
-<li><p>Este módulo se podrá usar como un <em>script</em> separado o como un módulo que se puede importar dentro de otro.</p></li>
-<li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea de órdenes del sistema operativo:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fac.py 4</span>
+<li><p>Este módulo se podrá usar como un <em>script</em> separado o como
+un módulo que se puede importar dentro de otro.</p></li>
+<li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea
+de órdenes del sistema operativo:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fac.py 4</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
-<li><p>Y si importamos el módulo dentro de otro, la condición del último <code class="sourceCode python"><span class="cf">if</span></code> no se cumplirá, por lo que su único efecto será el de incorporar la definición de la función <code>fac</code> dentro del módulo importador.</p></li>
+<li><p>Y si importamos el módulo dentro de otro, la condición del último
+<code class="sourceCode python"><span class="cf">if</span></code> no se
+cumplirá, por lo que su único efecto será el de incorporar la definición
+de la función <code>fac</code> dentro del módulo importador.</p></li>
 </ul>
 </section>
 
-<section id="la-librería-estándar" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span> La librería estándar</h2>
+<section id="la-librería-estándar" class="title-slide slide level2"
+data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> La
+librería estándar</h2>
 <ul>
-<li><p>La <strong>librería estándar de Python</strong> contiene módulos predefinidos que proporcionan:</p>
+<li><p>La <strong>librería estándar de Python</strong> contiene módulos
+predefinidos que proporcionan:</p>
 <ul>
-<li><p>Acceso a funcionalidades del sistema, como operaciones de E/S sobre archivos.</p></li>
-<li><p>Soluciones estandarizadas a muchos de los problemas que los programadores pueden encontrarse en su día a día.</p></li>
+<li><p>Acceso a funcionalidades del sistema, como operaciones de E/S
+sobre archivos.</p></li>
+<li><p>Soluciones estandarizadas a muchos de los problemas que los
+programadores pueden encontrarse en su día a día.</p></li>
 </ul></li>
-<li><p>Algunos módulos están diseñados explícitamente para promover y mejorar la portabilidad de los programas Python abstrayendo los aspectos específicos de cada plataforma a través de un API independiente de la plataforma.</p></li>
+<li><p>Algunos módulos están diseñados explícitamente para promover y
+mejorar la portabilidad de los programas Python abstrayendo los aspectos
+específicos de cada plataforma a través de un API independiente de la
+plataforma.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.1">
 
 <ul>
-<li>La documentación contiene la información más completa sobre el contenido de la librería estándar, a la que podemos acceder a través de la siguiente dirección:</li>
+<li>La documentación contiene la información más completa sobre el
+contenido de la librería estándar, a la que podemos acceder a través de
+la siguiente dirección:</li>
 </ul>
-<p><a href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p>
+<p><a
+href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p>
 <ul>
 <li><p>En esa dirección, además, se incluye información sobre:</p>
 <ul>
-<li><p>Funciones, constantes, excepciones y tipos predefinidos, que también forman parte de la librería estándar.</p></li>
-<li><p>Componentes opcionales que habitualmente podemos encontrar en cualquier instalación de Python.</p></li>
+<li><p>Funciones, constantes, excepciones y tipos predefinidos, que
+también forman parte de la librería estándar.</p></li>
+<li><p>Componentes opcionales que habitualmente podemos encontrar en
+cualquier instalación de Python.</p></li>
 </ul></li>
 </ul>
 <!--
@@ -871,18 +1364,28 @@
 </section>
 </section>
 <section>
-<section id="criterios-de-descomposición-modular" class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Criterios de descomposición modular</h1>
+<section id="criterios-de-descomposición-modular"
+class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
+Criterios de descomposición modular</h1>
 
 </section>
-<section id="introducción-1" class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> Introducción</h2>
+<section id="introducción-1" class="title-slide slide level2"
+data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
+Introducción</h2>
 <ul>
-<li><p>No existe una única forma de descomponer un programa en módulos (entiendo aquí por <em>módulo</em> cualquier parte del programa en sentido amplio, incluyendo una simple función).</p></li>
-<li><p>Las diferentes formas de dividir el sistema en módulos traen consigo diferentes requisitos de comunicación y coordinación entre las personas (o equipos) que trabajan en esos módulos, y ayudan a obtener los beneficios descritos anteriormente en mayor o menor medida.</p></li>
+<li><p>No existe una única forma de descomponer un programa en módulos
+(entiendo aquí por <em>módulo</em> cualquier parte del programa en
+sentido amplio, incluyendo una simple función).</p></li>
+<li><p>Las diferentes formas de dividir el sistema en módulos traen
+consigo diferentes requisitos de comunicación y coordinación entre las
+personas (o equipos) que trabajan en esos módulos, y ayudan a obtener
+los beneficios descritos anteriormente en mayor o menor medida.</p></li>
 <li><p>Nos interesa responder a las siguientes preguntas:</p>
 <ul>
-<li><p>¿Qué criterios se deben seguir para dividir el programa en módulos?</p></li>
+<li><p>¿Qué criterios se deben seguir para dividir el programa en
+módulos?</p></li>
 <li><p>¿Qué módulos debe tener nuestro programa?</p></li>
 <li><p>¿Cuántos módulos debe tener nuestro programa?</p></li>
 <li><p>¿De qué tamaño deben ser los módulos?</p></li>
@@ -890,57 +1393,98 @@
 </ul>
 </section>
 
-<section id="tamaño-y-número" class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span> Tamaño y número</h2>
+<section id="tamaño-y-número" class="title-slide slide level2"
+data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+Tamaño y número</h2>
 <ul>
-<li><p>Se supone que, si seguimos al pie de la letra la estrategia de diseño basada en la división de problemas, sería posible concluir que si el programa se dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta llegar a cero.</p></li>
-<li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.</p></li>
-<li><p>El coste de desarrollar un módulo individual disminuye conforme aumenta el número de módulos.</p></li>
-<li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay, más pequeños son.</p></li>
-<li><p>Sin embargo, cuantos más módulos hay, más cuesta integrarlos.</p></li>
-<li><p>El tamaño de cada módulo debe ser el adecuado: si es demasiado grande, será difícil hacer cambios en él; si es demasiado pequeño, no merecerá la pena tratarlo como un módulo, sino más bien como parte de otros módulos.</p></li>
+<li><p>Se supone que, si seguimos al pie de la letra la estrategia de
+diseño basada en la división de problemas, sería posible concluir que si
+el programa se dividiera indefinidamente, cada vez se necesitaría menos
+esfuerzo hasta llegar a cero.</p></li>
+<li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que
+entran en juego.</p></li>
+<li><p>El coste de desarrollar un módulo individual disminuye conforme
+aumenta el número de módulos.</p></li>
+<li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más
+módulos hay, más pequeños son.</p></li>
+<li><p>Sin embargo, cuantos más módulos hay, más cuesta
+integrarlos.</p></li>
+<li><p>El tamaño de cada módulo debe ser el adecuado: si es demasiado
+grande, será difícil hacer cambios en él; si es demasiado pequeño, no
+merecerá la pena tratarlo como un módulo, sino más bien como parte de
+otros módulos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
-<li>El valor <span class="math inline">M</span> es el número de módulos ideal, ya que reduce el coste total del desarrollo.</li>
+<li>El valor <span class="math inline">M</span> es el número de módulos
+ideal, ya que reduce el coste total del desarrollo.</li>
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/modulos.png" class="plain" style="width:80.0%" alt="Esfuerzo frente al número de módulos" /><figcaption aria-hidden="true">Esfuerzo frente al número de módulos</figcaption>
+<img data-src="images/modulos.png" class="plain" style="width:80.0%"
+alt="Esfuerzo frente al número de módulos" />
+<figcaption aria-hidden="true">Esfuerzo frente al número de
+módulos</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
-<li><p>Las curvas de la figura anterior constituyen una guía útil al considerar la modularidad.</p></li>
-<li><p>Debemos evitar hacer pocos o muchos módulos para así permanecer en la cercanía de <span class="math inline">M</span>.</p></li>
-<li><p>Pero, ¿cómo saber cuál es la cercanía de <span class="math inline">M</span>? ¿Cómo de modular debe hacerse el programa?</p></li>
-<li><p>Debe hacerse un diseño con módulos, de manera que el desarrollo pueda planearse con más facilidad, que los cambios se realicen con más facilidad, que las pruebas y la depuración se efectúen con mayor eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de importancia.</p></li>
-<li><p>Para ello nos basaremos en los siguientes <strong>criterios</strong>.</p></li>
+<li><p>Las curvas de la figura anterior constituyen una guía útil al
+considerar la modularidad.</p></li>
+<li><p>Debemos evitar hacer pocos o muchos módulos para así permanecer
+en la cercanía de <span class="math inline">M</span>.</p></li>
+<li><p>Pero, ¿cómo saber cuál es la cercanía de <span
+class="math inline">M</span>? ¿Cómo de modular debe hacerse el
+programa?</p></li>
+<li><p>Debe hacerse un diseño con módulos, de manera que el desarrollo
+pueda planearse con más facilidad, que los cambios se realicen con más
+facilidad, que las pruebas y la depuración se efectúen con mayor
+eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin
+efectos indeseados de importancia.</p></li>
+<li><p>Para ello nos basaremos en los siguientes
+<strong>criterios</strong>.</p></li>
 </ul>
 </section>
 
-<section id="abstracción" class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span> Abstracción</h2>
+<section id="abstracción" class="title-slide slide level2"
+data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+Abstracción</h2>
 <ul>
-<li><p>La <strong>abstracción</strong> es un proceso mental que se basa en estudiar un aspecto del problema a un determinado nivel centrándose en lo esencial e ignorando momentáneamente los detalles que no son importantes en este nivel.</p></li>
-<li><p>Ese proceso nos permite comprender la esencia de un subsistema sin tener que conocer detalles innecesarios del mismo.</p></li>
-<li><p>La utilización de la abstracción también permite trabajar con conceptos y términos que son familiares en el entorno del problema sin tener que transformarlos en una estructura no familiar.</p></li>
-<li><p>La abstracción se usa principalmente como una técnica de <strong>manejo y control de la complejidad</strong>.</p></li>
+<li><p>La <strong>abstracción</strong> es un proceso mental que se basa
+en estudiar un aspecto del problema a un determinado nivel centrándose
+en lo esencial e ignorando momentáneamente los detalles que no son
+importantes en este nivel.</p></li>
+<li><p>Ese proceso nos permite comprender la esencia de un subsistema
+sin tener que conocer detalles innecesarios del mismo.</p></li>
+<li><p>La utilización de la abstracción también permite trabajar con
+conceptos y términos que son familiares en el entorno del problema sin
+tener que transformarlos en una estructura no familiar.</p></li>
+<li><p>La abstracción se usa principalmente como una técnica de
+<strong>manejo y control de la complejidad</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.1">
 
 <ul>
-<li><p>Cuando se considera una solución modular a cualquier problema, se pueden definir varios <strong>niveles de abstracción</strong>:</p>
+<li><p>Cuando se considera una solución modular a cualquier problema, se
+pueden definir varios <strong>niveles de abstracción</strong>:</p>
 <ul>
-<li><p>En niveles <strong>más altos</strong> de abstracción, se enuncia una solución en términos más generales usando el lenguaje del entorno del problema.</p>
-<p>A estos niveles hay menos elementos de información, pero más grandes e importantes.</p></li>
-<li><p>En niveles <strong>más bajos</strong> de abstracción se da una descripción más detallada de la solución.</p>
-<p>A estos niveles se revelan más detalles, aparecen más elementos y se aumenta la cantidad de información con la que tenemos que trabajar.</p></li>
+<li><p>En niveles <strong>más altos</strong> de abstracción, se enuncia
+una solución en términos más generales usando el lenguaje del entorno
+del problema.</p>
+<p>A estos niveles hay menos elementos de información, pero más grandes
+e importantes.</p></li>
+<li><p>En niveles <strong>más bajos</strong> de abstracción se da una
+descripción más detallada de la solución.</p>
+<p>A estos niveles se revelan más detalles, aparecen más elementos y se
+aumenta la cantidad de información con la que tenemos que
+trabajar.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -975,7 +1519,8 @@
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Nivel <span class="math inline">n</span></td>
+<td style="text-align: left;">Nivel <span
+class="math inline">n</span></td>
 <td style="text-align: left;">(Más detalle)</td>
 </tr>
 </tbody>
@@ -984,41 +1529,72 @@
 <section class="slide level5" data-number="4.3.0.0.3">
 
 <ul>
-<li><p>La <strong>barrera de separación</strong> entre un nivel de abstracción y su inmediatamente inferior es la diferencia entre el <em>qué</em> y el <em>cómo</em>:</p>
+<li><p>La <strong>barrera de separación</strong> entre un nivel de
+abstracción y su inmediatamente inferior es la diferencia entre el
+<em>qué</em> y el <em>cómo</em>:</p>
 <ul>
-<li><p>Cuando estudiamos un concepto a un determinado nivel de abstracción, estudiamos <em>qué</em> hace.</p></li>
-<li><p>Cuando bajamos al nivel inmediatamente inferior, pasamos a estudiar <em>cómo</em> lo hace.</p></li>
+<li><p>Cuando estudiamos un concepto a un determinado nivel de
+abstracción, estudiamos <em>qué</em> hace.</p></li>
+<li><p>Cuando bajamos al nivel inmediatamente inferior, pasamos a
+estudiar <em>cómo</em> lo hace.</p></li>
 </ul></li>
-<li><p>Esta división o separación puede continuar en niveles inferiores, de forma que siempre puede considerarse que cualquier nivel responde al <em>qué</em> y el nivel siguiente (el que está justo debajo) responde al <em>cómo</em>.</p></li>
+<li><p>Esta división o separación puede continuar en niveles inferiores,
+de forma que siempre puede considerarse que cualquier nivel responde al
+<em>qué</em> y el nivel siguiente (el que está justo debajo) responde al
+<em>cómo</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.4">
 
 <ul>
-<li><p>Recordemos que un módulo tiene siempre un doble punto de vista:</p>
+<li><p>Recordemos que un módulo tiene siempre un doble punto de
+vista:</p>
 <ul>
-<li><p>El punto de vista del <em>creador</em> o implementador del módulo.</p></li>
+<li><p>El punto de vista del <em>creador</em> o implementador del
+módulo.</p></li>
 <li><p>El punto de vista del <em>usuario</em> del módulo.</p></li>
 </ul>
 <div class="caja">
-<p>La <strong>abstracción</strong> nos ayuda a <strong>definir qué módulos constituyen nuestro programa</strong> considerando la relación que se establece entre los <em>creadores</em> y los <em>usuarios</em> de los módulos.</p>
+<p>La <strong>abstracción</strong> nos ayuda a <strong>definir qué
+módulos constituyen nuestro programa</strong> considerando la relación
+que se establece entre los <em>creadores</em> y los <em>usuarios</em> de
+los módulos.</p>
 </div></li>
-<li><p>Esto es así porque <strong>los usuarios de un módulo quieren usar a éste como una abstracción</strong>: sabiendo <em>qué</em> hace (su función) pero sin necesidad de saber <em>cómo</em> lo hace (sus detalles internos).</p></li>
-<li><p>El responsable del <em>cómo</em> es únicamente el <strong>creador</strong> del módulo.</p></li>
-<li><p>Los módulos definidos como abstracciones son más fáciles de usar, diseñar y mantener.</p></li>
+<li><p>Esto es así porque <strong>los usuarios de un módulo quieren usar
+a éste como una abstracción</strong>: sabiendo <em>qué</em> hace (su
+función) pero sin necesidad de saber <em>cómo</em> lo hace (sus detalles
+internos).</p></li>
+<li><p>El responsable del <em>cómo</em> es únicamente el
+<strong>creador</strong> del módulo.</p></li>
+<li><p>Los módulos definidos como abstracciones son más fáciles de usar,
+diseñar y mantener.</p></li>
 </ul>
 </section>
 
-<section id="ocultación-de-información" class="title-slide slide level2" data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span> Ocultación de información</h2>
+<section id="ocultación-de-información" class="title-slide slide level2"
+data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span>
+Ocultación de información</h2>
 <ul>
-<li><p>David Parnas introdujo el <strong>principio de ocultación de información</strong> en 1972.</p></li>
-<li><p>Afirmó que el criterio principal para la modularización de un sistema debe ser la <strong>ocultación de <em>decisiones de diseño</em> complejas o que puedan cambiar en el futuro</strong>, es decir, que los módulos se deben caracterizar por ocultar <em>decisiones de diseño</em> a los demás módulos.</p>
+<li><p>David Parnas introdujo el <strong>principio de ocultación de
+información</strong> en 1972.</p></li>
+<li><p>Afirmó que el criterio principal para la modularización de un
+sistema debe ser la <strong>ocultación de <em>decisiones de diseño</em>
+complejas o que puedan cambiar en el futuro</strong>, es decir, que los
+módulos se deben caracterizar por ocultar <em>decisiones de diseño</em>
+a los demás módulos.</p>
 <div class="caja">
-<p>Por tanto: todos los elementos que necesiten conocer las mismas <em>decisiones de diseño</em>, deben pertenecer al mismo módulo.</p>
+<p>Por tanto: todos los elementos que necesiten conocer las mismas
+<em>decisiones de diseño</em>, deben pertenecer al mismo módulo.</p>
 </div></li>
-<li><p>Al ocultar la información de esa manera se evita que los usuarios de un módulo necesiten de un conocimiento íntimo del diseño interno del mismo para poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones posteriormente.</p></li>
-<li><p>Implica que la modularidad efectiva se logra <strong>definiendo un conjunto de módulos independientes que intercambien sólo aquella información estrictamente necesaria para que el programa funcione</strong>.</p></li>
+<li><p>Al ocultar la información de esa manera se evita que los usuarios
+de un módulo necesiten de un conocimiento íntimo del diseño interno del
+mismo para poder usarlo, y los aísla de los posibles efectos de cambiar
+esas decisiones posteriormente.</p></li>
+<li><p>Implica que la modularidad efectiva se logra <strong>definiendo
+un conjunto de módulos independientes que intercambien sólo aquella
+información estrictamente necesaria para que el programa
+funcione</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.1">
@@ -1026,28 +1602,55 @@
 <ul>
 <li><p>Dicho de otra forma:</p>
 <ul>
-<li><p><strong>Para que un módulo <em>A</em> pueda usar a otro <em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos posible</strong>, lo imprescindible.</p>
+<li><p><strong>Para que un módulo <em>A</em> pueda usar a otro
+<em>B</em>, <em>A</em> tiene que conocer de <em>B</em> lo menos
+posible</strong>, lo imprescindible.</p>
 <div class="caja">
-<p>El uso del módulo debe realizarse únicamente por medio de <strong>interfaces</strong> bien definidas que no cambien (o cambien poco) con el tiempo y que no expongan detalles internos al exterior.</p>
+<p>El uso del módulo debe realizarse únicamente por medio de
+<strong>interfaces</strong> bien definidas que no cambien (o cambien
+poco) con el tiempo y que no expongan detalles internos al exterior.</p>
 </div></li>
-<li><p>Por tanto, <em>B</em> debe <strong>ocultar</strong> al exterior sus detalles internos de <strong>implementación</strong> y exponer sólo lo necesario para que otros lo puedan utilizar.</p>
-<p>Ésto aísla a los usuarios de los posibles cambios internos que pueda haber posteriormente en <em>B</em>.</p></li>
+<li><p>Por tanto, <em>B</em> debe <strong>ocultar</strong> al exterior
+sus detalles internos de <strong>implementación</strong> y exponer sólo
+lo necesario para que otros lo puedan utilizar.</p>
+<p>Ésto aísla a los usuarios de los posibles cambios internos que pueda
+haber posteriormente en <em>B</em>.</p></li>
 </ul></li>
 </ul>
 <div class="caja">
-<p>Es decir: cada módulo debe ser una <strong>caja negra</strong> recelosa de su privacidad que tiene «aversión» por exponer sus interioridades a los demás.</p>
+<p>Es decir: cada módulo debe ser una <strong>caja negra</strong>
+recelosa de su privacidad que tiene «aversión» por exponer sus
+interioridades a los demás.</p>
 </div>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
 
 <ul>
-<li><p>La <strong>abstracción</strong> y la <strong>ocultación de información</strong> se complementan:</p>
+<li><p>La <strong>abstracción</strong> y la <strong>ocultación de
+información</strong> se complementan:</p>
 <ul>
-<li><p>La <strong>ocultación de información</strong> es un <strong>principio de diseño</strong> que se basa en que los módulos deben ocultar a los demás módulos sus decisiones de diseño y exponer sólo la información estrictamente necesaria para que los demás puedan usarlos.</p>
-<p>Por tanto, nos ayuda a identificar <strong>qué detalles debe ocultar el módulo y qué información debe exponer a los demás</strong>. O dicho de otra forma: qué elementos forman parte de su <em>interfaz</em> (lo que expone) y cuáles forman parte de su <em>implementación</em> (lo que oculta).</p></li>
-<li><p>La <strong>abstracción</strong> puede usarse como una <strong>técnica de diseño</strong> que <strong>nos da un método para descomponer el programa en módulos</strong>.</p>
-<p>Por tanto, nos ayuda a decidir <strong>qué módulos hay</strong> y <strong>en qué módulo va cada elemento del programa</strong>. Es decir: qué elementos deben formar parte de un módulo y cuáles deben formar parte de otro módulo.</p>
-<p>Pero <strong>también nos dice qué debe ocultar y qué debe exponer</strong> el módulo, porque afirma que la <em>interfaz</em> debe estar formada, precisamente, por lo elementos que responden al «<em>qué</em>» hace el módulo, y la <em>implementación</em> por los que responden al «<em>cómo</em>» lo hace.</p></li>
+<li><p>La <strong>ocultación de información</strong> es un
+<strong>principio de diseño</strong> que se basa en que los módulos
+deben ocultar a los demás módulos sus decisiones de diseño y exponer
+sólo la información estrictamente necesaria para que los demás puedan
+usarlos.</p>
+<p>Por tanto, nos ayuda a identificar <strong>qué detalles debe ocultar
+el módulo y qué información debe exponer a los demás</strong>. O dicho
+de otra forma: qué elementos forman parte de su <em>interfaz</em> (lo
+que expone) y cuáles forman parte de su <em>implementación</em> (lo que
+oculta).</p></li>
+<li><p>La <strong>abstracción</strong> puede usarse como una
+<strong>técnica de diseño</strong> que <strong>nos da un método para
+descomponer el programa en módulos</strong>.</p>
+<p>Por tanto, nos ayuda a decidir <strong>qué módulos hay</strong> y
+<strong>en qué módulo va cada elemento del programa</strong>. Es decir:
+qué elementos deben formar parte de un módulo y cuáles deben formar
+parte de otro módulo.</p>
+<p>Pero <strong>también nos dice qué debe ocultar y qué debe
+exponer</strong> el módulo, porque afirma que la <em>interfaz</em> debe
+estar formada, precisamente, por lo elementos que responden al
+«<em>qué</em>» hace el módulo, y la <em>implementación</em> por los que
+responden al «<em>cómo</em>» lo hace.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1056,134 +1659,228 @@
 <ul>
 <li><p>Al <strong>usuario</strong> de un módulo…</p>
 <ul>
-<li><p>… le interesa la <strong>abstracción</strong> porque le permite usar el módulo sabiendo únicamente <em>qué</em> hace sin tener que saber <em>cómo</em> lo hace.</p></li>
-<li><p>… le interesa la <strong>ocultación de información</strong> porque cuanta menos información necesite conocer para usar el módulo, más fácil y cómodo le resultará usarlo.</p></li>
+<li><p>… le interesa la <strong>abstracción</strong> porque le permite
+usar el módulo sabiendo únicamente <em>qué</em> hace sin tener que saber
+<em>cómo</em> lo hace.</p></li>
+<li><p>… le interesa la <strong>ocultación de información</strong>
+porque cuanta menos información necesite conocer para usar el módulo,
+más fácil y cómodo le resultará usarlo.</p></li>
 </ul></li>
 <li><p>Al <strong>creador</strong> de un módulo…</p>
 <ul>
-<li><p>… le interesa la <strong>abstracción</strong> porque le ayuda a determinar qué módulos deben formar parte del programa y qué información debe ocultar su módulo al exterior.</p></li>
-<li><p>… le interesa la <strong>ocultación de información</strong> porque cuantos más detalles necesiten conocer los usuarios para poder usar su módulo, menos libertad tendrá él para cambiar esos detalles en el futuro (cuando lo necesite o lo desee) sin afectar a los usuarios de su módulo.</p></li>
+<li><p>… le interesa la <strong>abstracción</strong> porque le ayuda a
+determinar qué módulos deben formar parte del programa y qué información
+debe ocultar su módulo al exterior.</p></li>
+<li><p>… le interesa la <strong>ocultación de información</strong>
+porque cuantos más detalles necesiten conocer los usuarios para poder
+usar su módulo, menos libertad tendrá él para cambiar esos detalles en
+el futuro (cuando lo necesite o lo desee) sin afectar a los usuarios de
+su módulo.</p></li>
 </ul></li>
 </ul>
 </section>
 
-<section id="independencia-funcional" class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> Independencia funcional</h2>
+<section id="independencia-funcional" class="title-slide slide level2"
+data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span>
+Independencia funcional</h2>
 <ul>
-<li><p>La <strong>independencia funcional</strong> es otro criterio a seguir para obtener una modularidad efectiva.</p></li>
-<li><p>La independencia funcional se logra desarrollando módulos de manera <strong>que cada módulo resuelva una funcionalidad específica y tenga una interfaz sencilla</strong> cuando se vea desde otras partes de del programa (idealmente, mediante paso de parámetros).</p>
+<li><p>La <strong>independencia funcional</strong> es otro criterio a
+seguir para obtener una modularidad efectiva.</p></li>
+<li><p>La independencia funcional se logra desarrollando módulos de
+manera <strong>que cada módulo resuelva una funcionalidad específica y
+tenga una interfaz sencilla</strong> cuando se vea desde otras partes de
+del programa (idealmente, mediante paso de parámetros).</p>
 <ul>
-<li>De hecho, <strong>la interfaz del módulo debe estar destinada únicamente a cumplir con esa funcionalidad</strong>.</li>
+<li>De hecho, <strong>la interfaz del módulo debe estar destinada
+únicamente a cumplir con esa funcionalidad</strong>.</li>
 </ul></li>
-<li><p>Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.</p></li>
+<li><p>Al limitar su objetivo, el módulo necesita menos ayuda de otros
+módulos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
-<li><p>Por ello, el módulo debe ser tan <strong>independiente</strong> como sea posible del resto de los módulos del programa.</p></li>
-<li><p>Es decir: debe depender lo menos posible de lo que hagan otros módulos, y también debe depender lo menos posible de los datos que puedan facilitarle otros módulos.</p></li>
+<li><p>Por ello, el módulo debe ser tan <strong>independiente</strong>
+como sea posible del resto de los módulos del programa.</p></li>
+<li><p>Es decir: debe depender lo menos posible de lo que hagan otros
+módulos, y también debe depender lo menos posible de los datos que
+puedan facilitarle otros módulos.</p></li>
 </ul>
 <div class="caja">
-<p>Dicho de otra forma: los módulos deben centrarse en <strong>resolver un problema concreto</strong> (ser «monotemáticos»), deben ser «antipáticos», tener «aversión» a relacionarse con otros módulos y <strong>depender lo menos posible de otros módulos</strong>.</p>
+<p>Dicho de otra forma: los módulos deben centrarse en <strong>resolver
+un problema concreto</strong> (ser «monotemáticos»), deben ser
+«antipáticos», tener «aversión» a relacionarse con otros módulos y
+<strong>depender lo menos posible de otros módulos</strong>.</p>
 </div>
 </section>
 <section class="slide level5" data-number="4.5.0.0.2">
 
 <ul>
-<li><p>Los módulos independientes son <strong>más fáciles de desarrollar</strong> porque la función del programa se subdivide y las interfaces se simplifican, por lo que se pueden desarrollar por separado.</p></li>
-<li><p>Los módulos independientes son <strong>más fáciles de mantener y probar</strong> porque los efectos secundarios causados por el diseño o por la modificación del código son más limitados, se reduce la propagación de errores y es posible obtener módulos reutilizables.</p></li>
-<li><p>De esta forma, la mayor parte de los cambios y mejoras que haya que hacer al programa implicarán modificar sólo un módulo o un número muy pequeño de ellos.</p></li>
-<li><p>Es un objetivo a alcanzar para obtener una modularidad efectiva.</p></li>
-<li><p>La independencia funcional se mide usando dos métricas: la <strong>cohesión</strong> y el <strong>acoplamiento</strong>.</p></li>
-<li><p>El objetivo de la independencia funcional es <strong>maximizar la cohesión y minimizar el acoplamiento</strong>.</p></li>
+<li><p>Los módulos independientes son <strong>más fáciles de
+desarrollar</strong> porque la función del programa se subdivide y las
+interfaces se simplifican, por lo que se pueden desarrollar por
+separado.</p></li>
+<li><p>Los módulos independientes son <strong>más fáciles de mantener y
+probar</strong> porque los efectos secundarios causados por el diseño o
+por la modificación del código son más limitados, se reduce la
+propagación de errores y es posible obtener módulos
+reutilizables.</p></li>
+<li><p>De esta forma, la mayor parte de los cambios y mejoras que haya
+que hacer al programa implicarán modificar sólo un módulo o un número
+muy pequeño de ellos.</p></li>
+<li><p>Es un objetivo a alcanzar para obtener una modularidad
+efectiva.</p></li>
+<li><p>La independencia funcional se mide usando dos métricas: la
+<strong>cohesión</strong> y el <strong>acoplamiento</strong>.</p></li>
+<li><p>El objetivo de la independencia funcional es <strong>maximizar la
+cohesión y minimizar el acoplamiento</strong>.</p></li>
 </ul>
 </section>
-<section id="cohesión" class="title-slide slide level3" data-number="4.5.1">
-<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span> Cohesión</h3>
+<section id="cohesión" class="title-slide slide level3"
+data-number="4.5.1">
+<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span>
+Cohesión</h3>
 <ul>
-<li><p>La <strong>cohesión</strong> mide la fuerza con la que se relacionan los componentes de un módulo.</p></li>
-<li><p>Cuanto más cohesivo sea un módulo, mejor será nuestro diseño modular.</p></li>
-<li><p>Un módulo cohesivo realiza una sola función, por lo que requiere interactuar poco con otros componentes en otras partes del programa.</p></li>
-<li><p>En un módulo cohesivo, <strong>sus componentes están fuertemente relacionados entre sí y pertenencen al módulo por una razón lógica</strong> (no están ahí por casualidad), es decir, todos cooperan para alcanzar un objetivo común que es la función del módulo.</p></li>
+<li><p>La <strong>cohesión</strong> mide la fuerza con la que se
+relacionan los componentes de un módulo.</p></li>
+<li><p>Cuanto más cohesivo sea un módulo, mejor será nuestro diseño
+modular.</p></li>
+<li><p>Un módulo cohesivo realiza una sola función, por lo que requiere
+interactuar poco con otros componentes en otras partes del
+programa.</p></li>
+<li><p>En un módulo cohesivo, <strong>sus componentes están fuertemente
+relacionados entre sí y pertenencen al módulo por una razón
+lógica</strong> (no están ahí por casualidad), es decir, todos cooperan
+para alcanzar un objetivo común que es la función del módulo.</p></li>
 </ul>
 <div class="caja">
-<p>Un módulo cohesivo mantiene unidos (<em>atrae</em>) los componentes que están relacionados entre ellos y mantiene fuera (<em>repele</em>) al resto.</p>
+<p>Un módulo cohesivo mantiene unidos (<em>atrae</em>) los componentes
+que están relacionados entre ellos y mantiene fuera (<em>repele</em>) al
+resto.</p>
 </div>
 </section>
 <section class="slide level5" data-number="4.5.1.0.1">
 
 <ul>
-<li><p>En pocas palabras, un módulo cohesivo debe tener un único objetivo, y todos los elementos que lo componen deben contribuir a alcanzar dicho objetivo.</p></li>
-<li><p>Aunque siempre debe tratarse de lograr mucha cohesión (por ejemplo, una sola tarea), con frecuencia es necesario y aconsejable hacer que un módulo realice varias tareas, siempre que contribuyan a una misma finalidad lógica.</p></li>
-<li><p>Sin embargo, para lograr un buen diseño hay que evitar módulos que llevan a cabo funciones no relacionadas.</p></li>
+<li><p>En pocas palabras, un módulo cohesivo debe tener un único
+objetivo, y todos los elementos que lo componen deben contribuir a
+alcanzar dicho objetivo.</p></li>
+<li><p>Aunque siempre debe tratarse de lograr mucha cohesión (por
+ejemplo, una sola tarea), con frecuencia es necesario y aconsejable
+hacer que un módulo realice varias tareas, siempre que contribuyan a una
+misma finalidad lógica.</p></li>
+<li><p>Sin embargo, para lograr un buen diseño hay que evitar módulos
+que llevan a cabo funciones no relacionadas.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.1.0.2">
 
 <ul>
-<li><p>La siguiente es una escala de grados de cohesión, ordenada de mayor a menor:</p>
+<li><p>La siguiente es una escala de grados de cohesión, ordenada de
+mayor a menor:</p>
 <ul>
 <li><p>Cohesión funcional</p></li>
 <li><p>Cohesión secuencial</p></li>
 <li><p>Cohesión de comunicación</p>
-<p>[Hasta aquí, los módulos se consideran <strong>cajas negras</strong>.]</p></li>
+<p>[Hasta aquí, los módulos se consideran <strong>cajas
+negras</strong>.]</p></li>
 <li><p>Cohesión procedimental</p></li>
 <li><p>Cohesión temporal</p></li>
 <li><p>Cohesión lógica</p></li>
 <li><p>Cohesión coincidental</p></li>
 </ul></li>
-<li><p>No hace falta determinar con precisión qué cohesión tenemos. Lo importante es intentar conseguir una cohesión alta y reconocer cuándo hay poca cohesión para modificar el diseño y conseguir una mayor independencia funcional.</p></li>
+<li><p>No hace falta determinar con precisión qué cohesión tenemos. Lo
+importante es intentar conseguir una cohesión alta y reconocer cuándo
+hay poca cohesión para modificar el diseño y conseguir una mayor
+independencia funcional.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.1.0.3">
 
 <ul>
-<li><p><strong>Cohesión funcional</strong>: se da cuando los componentes del módulo pertenecen al mismo porque todos contribuyen a una tarea única y bien definida del módulo.</p></li>
-<li><p><strong>Cohesión secuencial</strong>: se da cuando los componentes del módulo pertenecen al mismo porque la salida de uno es la entrada del otro, como en una cadena de montaje (por ejemplo, una función que lee datos de un archivo y los procesa).</p></li>
-<li><p><strong>Cohesión de comunicación</strong>: se da cuando los componentes del módulo pertenecen al mismo porque trabajan sobre los mismos datos (por ejemplo, un módulo que procesa números racionales).</p></li>
+<li><p><strong>Cohesión funcional</strong>: se da cuando los componentes
+del módulo pertenecen al mismo porque todos contribuyen a una tarea
+única y bien definida del módulo.</p></li>
+<li><p><strong>Cohesión secuencial</strong>: se da cuando los
+componentes del módulo pertenecen al mismo porque la salida de uno es la
+entrada del otro, como en una cadena de montaje (por ejemplo, una
+función que lee datos de un archivo y los procesa).</p></li>
+<li><p><strong>Cohesión de comunicación</strong>: se da cuando los
+componentes del módulo pertenecen al mismo porque trabajan sobre los
+mismos datos (por ejemplo, un módulo que procesa números
+racionales).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.1.0.4">
 
 <ul>
-<li><p><strong>Cohesión procedimental</strong>: se da cuando los componentes del módulo pertenecen al mismo porque siguen una cierta secuencia de ejecución (por ejemplo, una función que comprueba los permisos de un archivo y después lo abre).</p></li>
-<li><p><strong>Cohesión temporal</strong>: se da cuando los componentes del módulo pertenecen al mismo porque se ejecutan en el mismo momento (por ejemplo, una función que se dispara cuando se produce un error, abriría un archivo, crearía un registro de error y notificaría al usuario).</p></li>
-<li><p><strong>Cohesión lógica</strong>: se da cuando los componentes del módulo pertenecen al mismo porque pertenencen a la misma categoría lógica aunque son esencialmente distintos (por ejemplo, un módulo que agrupe las funciones de manejo del teclado o el ratón).</p></li>
-<li><p><strong>Cohesión coincidental</strong>: se da cuando los componentes del módulo pertenecen al mismo por casualidad o por razones arbitrarias, es decir, que la única razón por la que se encuentran en el mismo módulo es porque se han agrupado juntos (por ejemplo, un módulo de «utilidades»).</p></li>
+<li><p><strong>Cohesión procedimental</strong>: se da cuando los
+componentes del módulo pertenecen al mismo porque siguen una cierta
+secuencia de ejecución (por ejemplo, una función que comprueba los
+permisos de un archivo y después lo abre).</p></li>
+<li><p><strong>Cohesión temporal</strong>: se da cuando los componentes
+del módulo pertenecen al mismo porque se ejecutan en el mismo momento
+(por ejemplo, una función que se dispara cuando se produce un error,
+abriría un archivo, crearía un registro de error y notificaría al
+usuario).</p></li>
+<li><p><strong>Cohesión lógica</strong>: se da cuando los componentes
+del módulo pertenecen al mismo porque pertenencen a la misma categoría
+lógica aunque son esencialmente distintos (por ejemplo, un módulo que
+agrupe las funciones de manejo del teclado o el ratón).</p></li>
+<li><p><strong>Cohesión coincidental</strong>: se da cuando los
+componentes del módulo pertenecen al mismo por casualidad o por razones
+arbitrarias, es decir, que la única razón por la que se encuentran en el
+mismo módulo es porque se han agrupado juntos (por ejemplo, un módulo de
+«utilidades»).</p></li>
 </ul>
 </section>
 
-<section id="acoplamiento" class="title-slide slide level3" data-number="4.5.2">
-<h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span> Acoplamiento</h3>
+<section id="acoplamiento" class="title-slide slide level3"
+data-number="4.5.2">
+<h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span>
+Acoplamiento</h3>
 <ul>
-<li><p>El <strong>acoplamiento</strong> es una medida del grado de interdependencia entre los módulos de un programa.</p></li>
-<li><p>Dicho de otra forma, es la fuerza con la que se relacionan los módulos de un programa.</p></li>
+<li><p>El <strong>acoplamiento</strong> es una medida del grado de
+interdependencia entre los módulos de un programa.</p></li>
+<li><p>Dicho de otra forma, es la fuerza con la que se relacionan los
+módulos de un programa.</p></li>
 <li><p>El acoplamiento depende de:</p>
 <ul>
-<li><p>La complejidad de la interfaz entre los módulos</p></li>
-<li><p>El punto en el que se entra o se hace referencia a un módulo</p></li>
-<li><p>Los datos que se pasan a través de la interfaz</p></li>
+<li><p>La complejidad de la interfaz entre los módulos.</p></li>
+<li><p>El punto en el que se entra o se hace referencia a un
+módulo.</p></li>
+<li><p>Los datos que se pasan a través de la interfaz.</p></li>
 </ul></li>
-<li><p>Lo deseable es tener módulos con poco acoplamiento, es decir, módulos que dependan poco unos de otros.</p></li>
-<li><p>De esta forma obtenemos programas más fáciles de entender y menos propensos al <em>efecto ola</em>, que ocurre cuando se dan errores en un sitio y se propagan por todo el programa.</p></li>
+<li><p>Lo deseable es tener módulos con poco acoplamiento, es decir,
+módulos que dependan poco unos de otros.</p></li>
+<li><p>De esta forma obtenemos programas más fáciles de entender y menos
+propensos al <em>efecto ola</em>, que ocurre cuando se dan errores en un
+sitio y se propagan por todo el programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.1">
 
 <ul>
-<li><p>Los programas con alto acoplamiento tienden a presentar los siguientes problemas:</p>
+<li><p>Los programas con alto acoplamiento tienden a presentar los
+siguientes problemas:</p>
 <ul>
-<li><p>Un cambio en un módulo normalmente obliga a cambiar otros módulos (consecuencia del <em>efecto ola</em>).</p></li>
-<li><p>Requiere más esfuerzo integrar los módulos del programa ya que dependen mucho unos de otros.</p></li>
-<li><p>Un módulo particular resulta más difícil de reutilizar o probar debido a que hay que incluir en el lote a los módulos de los que depende éste (no se puede reutilizar o probar por separado).</p></li>
+<li><p>Un cambio en un módulo normalmente obliga a cambiar otros módulos
+(consecuencia del <em>efecto ola</em>).</p></li>
+<li><p>Requiere más esfuerzo integrar los módulos del programa ya que
+dependen mucho unos de otros.</p></li>
+<li><p>Un módulo particular resulta más difícil de reutilizar o probar
+debido a que hay que incluir en el lote a los módulos de los que depende
+éste (no se puede reutilizar o probar por separado).</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.2">
 
 <ul>
-<li><p>La siguiente es una escala de grados de acoplamiento, ordenada de mayor a menor:</p>
+<li><p>La siguiente es una escala de grados de acoplamiento, ordenada de
+mayor a menor:</p>
 <ul>
 <li><p>Acoplamiento por contenido</p></li>
 <li><p>Acoplamiento común</p></li>
@@ -1193,56 +1890,110 @@
 <li><p>Acoplamiento de datos</p></li>
 <li><p>Sin acoplamiento</p></li>
 </ul></li>
-<li><p>No hace falta determinar con precisión qué acoplamiento tenemos. Lo importante es intentar conseguir un acoplamiento bajo y reconocer cuándo hay mucho acoplamiento para modificar el diseño y conseguir una mayor independencia funcional.</p></li>
+<li><p>No hace falta determinar con precisión qué acoplamiento tenemos.
+Lo importante es intentar conseguir un acoplamiento bajo y reconocer
+cuándo hay mucho acoplamiento para modificar el diseño y conseguir una
+mayor independencia funcional.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.3">
 
 <ul>
-<li><p><strong>Acoplamiento por contenido</strong>: ocurre cuando un módulo modifica o se apoya en el funcionamiento interno de otro módulo (por ejemplo, accediendo a datos locales del otro módulo). Cambiar la forma en que el segundo módulo produce los datos obligará a cambiar el módulo dependiente.</p></li>
-<li><p><strong>Acoplamiento común</strong>: ocurre cuando dos módulos comparten los mismos datos globales. Cambiar el recurso compartido obligará a cambiar todos los módulos que lo usen.</p></li>
-<li><p><strong>Acoplamiento externo</strong>: ocurre cuando dos módulos comparten un formato de datos impuesto externamente, un protocolo de comunicación o una interfaz de dispositivo de entrada/salida.</p></li>
-<li><p><strong>Acoplamiento de control</strong>: ocurre cuando un módulo controla el flujo de ejecución del otro (por ejemplo, pasándole un <em>conmutador</em> booleano).</p></li>
+<li><p><strong>Acoplamiento por contenido</strong>: ocurre cuando un
+módulo modifica o se apoya en el funcionamiento interno de otro módulo
+(por ejemplo, accediendo a datos locales del otro módulo). Cambiar la
+forma en que el segundo módulo produce los datos obligará a cambiar el
+módulo dependiente.</p></li>
+<li><p><strong>Acoplamiento común</strong>: ocurre cuando dos módulos
+comparten los mismos datos globales. Cambiar el recurso compartido
+obligará a cambiar todos los módulos que lo usen.</p></li>
+<li><p><strong>Acoplamiento externo</strong>: ocurre cuando dos módulos
+comparten un formato de datos impuesto externamente, un protocolo de
+comunicación o una interfaz de dispositivo de entrada/salida.</p></li>
+<li><p><strong>Acoplamiento de control</strong>: ocurre cuando un módulo
+controla el flujo de ejecución del otro (por ejemplo, pasándole un
+<em>conmutador</em> booleano).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.4">
 
 <ul>
-<li><p><strong>Acoplamiento por estampado</strong>: ocurre cuando los módulos comparten una estructura de datos compuesta y usan sólo una parte de ella, posiblemente una parte diferente. Esto podría llevar a cambiar la forma en la que un módulo lee un dato compuesto debido a que un elemento que el módulo no necesita ha sido modificado.</p></li>
-<li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una pieza elemental y dicho parámetro es la única información compartida (por ejemplo, pasando un entero a una función que calcula una raíz cuadrada).</p></li>
-<li><p><strong>Sin acoplamiento</strong>: ocurre cuando los módulos no se comunican para nada uno con otro.</p></li>
+<li><p><strong>Acoplamiento por estampado</strong>: ocurre cuando los
+módulos comparten una estructura de datos compuesta y usan sólo una
+parte de ella, posiblemente una parte diferente. Esto podría llevar a
+cambiar la forma en la que un módulo lee un dato compuesto debido a que
+un elemento que el módulo no necesita ha sido modificado.</p></li>
+<li><p><strong>Acoplamiento de datos</strong>: ocurre cuando los módulos
+comparten datos entre ellos (por ejemplo, parámetros). Cada dato es una
+pieza elemental y dicho parámetro es la única información compartida
+(por ejemplo, pasando un entero a una función que calcula una raíz
+cuadrada).</p></li>
+<li><p><strong>Sin acoplamiento</strong>: ocurre cuando los módulos no
+se comunican para nada uno con otro.</p></li>
 </ul>
 </section>
 
 
-<section id="reusabilidad" class="title-slide slide level2" data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span> Reusabilidad</h2>
+<section id="reusabilidad" class="title-slide slide level2"
+data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span>
+Reusabilidad</h2>
 <ul>
-<li><p>La <strong>reusabilidad</strong> es un factor de calidad del software que se puede aplicar tambien a sus componentes o módulos.</p></li>
-<li><p>Un módulo es <strong>reusable</strong> cuando puede aprovecharse para ser utilizado (tal cual o con muy poca modificación) en varios programas.</p></li>
-<li><p>A la hora de diseñar módulos (o de descomponer un programa en módulos) nos interesa que los módulos resultantes sean cuanto más reusables mejor.</p></li>
-<li><p>Para ello, el módulo en cuestión debe ser lo suficientemente general y resolver un problema patrón que sea suficientemente común y se pueda encontrar en varios contextos y programas diferentes.</p></li>
-<li><p>Además, para aumentar la reusabilidad, es conveniente que el módulo tenga un bajo acoplamiento y que, por tanto, no dependa de otros módulos del programa.</p></li>
+<li><p>La <strong>reusabilidad</strong> es un factor de calidad del
+software que se puede aplicar tambien a sus componentes o
+módulos.</p></li>
+<li><p>Un módulo es <strong>reusable</strong> cuando puede aprovecharse
+para ser utilizado (tal cual o con muy poca modificación) en varios
+programas.</p></li>
+<li><p>A la hora de diseñar módulos (o de descomponer un programa en
+módulos) nos interesa que los módulos resultantes sean cuanto más
+reusables mejor.</p></li>
+<li><p>Para ello, el módulo en cuestión debe ser lo suficientemente
+general y resolver un problema patrón que sea suficientemente común y se
+pueda encontrar en varios contextos y programas diferentes.</p></li>
+<li><p>Además, para aumentar la reusabilidad, es conveniente que el
+módulo tenga un bajo acoplamiento y que, por tanto, no dependa de otros
+módulos del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
-<li><p>Esos módulos incluso podrían luego formar parte de una <em>biblioteca</em> o <em>repositorio</em> de módulos y ponerlos a disposición de los programadores para que puedan usarlos en sus programas.</p></li>
-<li><p>A día de hoy, el desarrollo de programas se basa en gran medida en seleccionar y utilizar módulos reusables (que en este contexto también se denominan <strong>bibliotecas</strong>, <strong>librerías</strong> o <strong>paquetes</strong>) desarrollados por terceros o reutilizados de otros programas elaborados por nosotros mismos anteriormente.</p></li>
-<li><p>Es decir: la programación se ha convertido en una actividad que consiste principalmente en ir combinando módulos intercambiables.</p></li>
-<li><p>Eso nos permite acortar el tiempo de desarrollo porque podemos construir un programa a base de ir ensamblando módulos reusables como si fueran las piezas del engranaje de una máquina.</p></li>
+<li><p>Esos módulos incluso podrían luego formar parte de una
+<em>biblioteca</em> o <em>repositorio</em> de módulos y ponerlos a
+disposición de los programadores para que puedan usarlos en sus
+programas.</p></li>
+<li><p>A día de hoy, el desarrollo de programas se basa en gran medida
+en seleccionar y utilizar módulos reusables (que en este contexto
+también se denominan <strong>bibliotecas</strong>,
+<strong>librerías</strong> o <strong>paquetes</strong>) desarrollados
+por terceros o reutilizados de otros programas elaborados por nosotros
+mismos anteriormente.</p></li>
+<li><p>Es decir: la programación se ha convertido en una actividad que
+consiste principalmente en ir combinando módulos
+intercambiables.</p></li>
+<li><p>Eso nos permite acortar el tiempo de desarrollo porque podemos
+construir un programa a base de ir ensamblando módulos reusables como si
+fueran las piezas del engranaje de una máquina.</p></li>
 </ul>
 </section>
 </section>
-<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-pressman_ingenierisoftware_2004" class="csl-entry" role="doc-biblioentry">
-Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>. Madrid: McGraw-Hill.
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-pressman_ingenierisoftware_2004" class="csl-entry"
+role="doc-biblioentry">
+Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes
+Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>.
+Madrid: McGraw-Hill.
 </div>
-<div id="ref-python_software_foundation_sitio_nodate" class="csl-entry" role="doc-biblioentry">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de <span>Python</span>.”</span> <a href="https://docs.python.org/3">https://docs.python.org/3</a>.
+<div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
+role="doc-biblioentry">
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
+href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
 </section>
@@ -1278,6 +2029,9 @@ Python Software Foundation. n.d. <span>“Sitio Web de Documentación de <span>P
         slideNumber: true,
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
         // Push each slide change to the browser history
         history: true,
         // Enable keyboard shortcuts for navigation

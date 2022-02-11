@@ -244,8 +244,8 @@ nocite: |
     módulo en sus programas. También se les llama así a los módulos de un
     programa que usan a ese módulo (lo necesitan para funcionar).
   
-    A la parte que un usuario necesita conocer para poder usar el módulo se le
-    denomina la **interfaz** del módulo.
+    A la parte del módulo que es accesible directamente desde fuera del mismo
+    se le denomina la **interfaz** del módulo.
 
 ---
 
@@ -315,8 +315,8 @@ nocite: |
 
     - El **nombre** del módulo.
 
-    - Las **especificaciones de sus funciones _exportadas_** o **_públicas_**
-      que permiten a los usuarios consumir sus servicios, así como manipular y
+    - Las **signaturas de sus funciones _exportadas_** o **_públicas_** que
+      permiten a los usuarios consumir sus servicios, así como manipular y
       acceder al estado interno del módulo desde fuera del mismo.
 
     - Es posible que la interfaz también incluya **constantes públicas**.
@@ -356,8 +356,11 @@ nocite: |
 
 ### Interfaz
 
-- La **interfaz** es la parte del módulo que el **usuario** del mismo necesita
-  conocer para poder utilizarlo.
+- La **interfaz** es la parte del módulo que es accesible directamente desde
+  fuera del mismo.
+
+- Por tanto, es la parte a través de la cual el módulo ofrece sus servicios a
+  sus usuarios, que sólo podrán acceder al mismo a través de su interfaz.
 
 - Es la parte **expuesta, pública o visible** del mismo.
 
@@ -365,10 +368,6 @@ nocite: |
 
 - La interfaz es la parte del módulo que éste **exporta** a los demás módulos
   del programa, que son sus posibles usuarios.
-
-- Debe estar perfectamente **documentada** para que cualquier potencial usuario
-  tenga toda la información necesaria para poder usar el módulo sin tener que
-  conocer o acceder a partes internas del mismo.
 
 - En general **debería estar formada únicamente por funciones** (y, tal vez,
   **constantes**) que el usuario del módulo pueda llamar para consumir los
@@ -378,9 +377,42 @@ nocite: |
   la interfaz del mismo. Las que sí lo hacen son las denominadas **funciones
   públicas** o **exportadas**.
 
+#### Especificación
+
+- La interfaz es un concepto puramente **sintáctico**.
+
+- Describe la sintaxis (nombre y tipos) de los elementos del módulo a los que
+  se puede acceder desde fuera del mismo.
+
+- Pero sólo con eso, el usuario no tiene toda la información que necesita para
+  poder usar el módulo.
+
+- Para ello, también necesita saber _qué_ hace el módulo, y _qué_ hacen las
+  funciones que forman la interfaz del módulo.
+
+- La **especificación** del módulo representa toda la información que el
+  usuario del mismo necesita conocer para poder utilizarlo.
+
 ---
 
-- Desde el punto de vista de los usuarios del módulo, esas funciones son
+- La especificación de un módulo está formada por:
+
+  - La **interfaz** del módulo.
+
+  - La **especificación** de todas las funciones que aparecen en la interfaz.
+
+  - **Documentación** adicional que describa lo que hace el módulo y que aporte
+    al usuario cualquier información extra que necesite saber para poder usar
+    el módulo sin tener que conocer o acceder a partes internas del mismo.
+
+    Aquí podría incluirse documentación sobre el módulo en sí, así como sobre
+    las funciones y las constantes públicas que aparecen en la interfaz,
+    escrita en lenguaje natural y de fácil comprensión para el lector humano,
+    añadiendo posibles ejemplos de uso.
+
+---
+
+- Desde el punto de vista de los usuarios del módulo, las funciones son
   **abstracciones funcionales**, de forma que, para poder usarlas, sólo se
   necesita conocer las **especificaciones** de esas funciones y no sus
   *implementaciones* concretas (sus definiciones completas).
@@ -396,7 +428,7 @@ nocite: |
 
   - **Postcondición**: la condición que se cumplirá al finalizar su ejecución.
 
-- Por tanto, la interfaz del módulo contendrá las especificaciones de las
+- Por tanto, la especificación del módulo contendrá las especificaciones de las
   funciones públicas, pero no sus implementaciones.
 
 ---
@@ -455,8 +487,14 @@ por ello se tenga que cambiar el resto del programa.
 
 $$\text{Interfaz del módulo}\begin{cases}
 \text{Nombre del módulo}\\
-\text{Especificación de las funciones públicas}\\
+\text{Signatura de las funciones públicas}\\
 \text{Posibles constantes públicas}
+\end{cases}$$
+
+$$\text{Especificación del módulo}\begin{cases}
+\text{Interfaz del módulo}\\
+\text{Especificación de las funciones de la interfaz}\\
+\text{Documentación adicional}
 \end{cases}$$
 
 $$\text{Implementación del módulo}\begin{cases}
@@ -1545,11 +1583,11 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
 
 - El acoplamiento depende de:
 
-  - La complejidad de la interfaz entre los módulos
+  - La complejidad de la interfaz entre los módulos.
 
-  - El punto en el que se entra o se hace referencia a un módulo
+  - El punto en el que se entra o se hace referencia a un módulo.
   
-  - Los datos que se pasan a través de la interfaz
+  - Los datos que se pasan a través de la interfaz.
 
 - Lo deseable es tener módulos con poco acoplamiento, es decir, módulos que
   dependan poco unos de otros.
