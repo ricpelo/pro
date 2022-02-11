@@ -1887,8 +1887,8 @@ $$
 
 - Su **operando izquierdo** debe ser un **_objeto_**:
 
-  - Técnicamente, un **objeto** es un valor estructurado que contiene
-    definiciones de elementos a los que se puede acceder mediante su nombre.
+  - Técnicamente, un **objeto** es un valor estructurado que contiene elementos
+    a los que se puede acceder mediante su nombre.
 
   - A los elementos que contiene un objeto se les denomina **atributos** de ese
     objeto.

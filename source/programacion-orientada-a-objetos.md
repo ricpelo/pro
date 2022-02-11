@@ -45,7 +45,7 @@ nocite: |
   Una **función** puede implementar todo un **tipo abstracto de datos**.
   ~~~~~~~~~~~~~~~~~
 
-## La metáfora del objeto
+## Objetos
 
 - Al principio, distinguíamos entre funciones y datos: las funciones realizan
   operaciones sobre los datos y éstos esperan pasivamente a que se opere con
@@ -60,9 +60,9 @@ nocite: |
 - Por tanto, los datos ahora saben cómo reaccionar ante los mensajes que
   reciben cuando el resto del programa les envía mensajes.
 
-- Esta forma de ver a los datos como objetos activos que interactúan entre sí
-  y que son capaces de reaccionar y cambiar su estado interno en función de los
-  mensajes que reciben, da lugar a todo un nuevo paradigma de programación
+- Esta forma de ver a los datos como **objetos** activos que interactúan entre
+  sí y que son capaces de reaccionar y cambiar su estado interno en función de
+  los mensajes que reciben, da lugar a todo un nuevo paradigma de programación
   llamado **orientación a objetos** o **Programación Orientada a Objetos**
   (_POO_).
 
@@ -139,7 +139,53 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
    existen en el mercado. ¿En qué año salieron? ¿Cuál influyó en cuál? ¿Cuáles
    son los más usados a día de hoy?
 
-# Clases y objetos
+# Conceptos básicos
+
+## Atributos
+
+- Los **atributos** de un objeto representan los elementos que el objeto
+  contiene dentro de sí mismo.
+
+- El objeto almacena atributos porque un objeto representa un espacio de
+  nombres.
+
+- Cuando se crea un objeto, se le asocia en el montículo una zona de memoria
+  que, entre otras cosas, contiene la estructura en forma de diccionario que
+  representa el espacio de nombres del objeto.
+
+- Esa estructura en forma de diccionario almacena los atributos del objeto,
+  asociando el nombre de cada atributo con el valor que tiene ese atributo en
+  el objeto.
+
+- Los atributos pueden almacenar valores de cualquier tipo, incluyendo
+  funciones, ya que las funciones son valores como cualquier otro.
+
+---
+
+- A los atributos de un objeto se puede acceder usando el operador punto (`.`),
+  indicando una referencia al objeto y el nombre del atributo al que se desea
+  acceder:
+
+!CENTRAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*objeto*`.`*atributo*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, si importamos el módulo `math` usando `import` obtenemos un
+  objeto al que se puede acceder a través de su nombre, de forma que los
+  elementos que contiene el módulo se convierten en **atributos** del objeto
+  `math`.
+
+- Entre ellos, hay atributos que representan variables y otros que representan
+  funciones:
+
+  ```python
+  >>> import math
+  >>> math.pi
+  3.141592653589793
+  >>> math.cos(3)
+  -0.9899924966004454
+  ```
 
 ## Clases
 
@@ -265,7 +311,7 @@ def deposito(fondos):
   espacio de nombres de la clase.
 
 - Los elementos así definidos y almacenados directamente en el espacio de
-  nombres de la clase se denominan **miembros** de la clase.
+  nombres de la clase se denominan **miembros** o **atributos** de la clase.
 
 - Las funciones que son miembros de una clase se denominan **métodos** de la
   clase.
@@ -282,8 +328,8 @@ def deposito(fondos):
   dure esa ejecución.
 
 - Cuando se termina de ejecutar la definición de la clase, se saca ese marco de
-  la pila y se convierte en **objeto** que almacena en forma de **atributos**
-  cada miembro de esa clase.
+  la pila y se convierte en un **objeto** que almacena en forma de
+  **atributos** a los miembros de esa clase.
 
   Por tanto, ese objeto acaba almacenando el espacio de nombres de la clase y
   representando a dicha clase dentro del programa.
@@ -292,7 +338,7 @@ def deposito(fondos):
   sino que simplemente se crea la ligadura entre el nombre de la función y la
   propia función.
 
-- Por tanto, al ejecutar la definición de una clase no se ejecutan los cuerpos
+  Por tanto, al ejecutar la definición de una clase no se ejecutan los cuerpos
   de sus métodos.
 
 ---
@@ -381,9 +427,8 @@ def deposito(fondos):
     creando durante la ejecución de la clase.
 
   - Al salir de la definición de la clase, se saca el marco de la pila y con él
-    se crea un objeto (de tipo `type`) que acaba almacenando ese espacio de
-    nombres, de forma que **las ligaduras que contiene se convierten en
-    atributos del objeto**.
+    se crea un objeto que acaba almacenando ese espacio de nombres, de forma
+    que **las ligaduras que contiene se convierten en atributos del objeto**.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -392,10 +437,6 @@ def deposito(fondos):
   definido ésta.
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Es decir: el nombre de la clase es una **referencia** que apunta a la clase,
-  la cual es un objeto y, por tanto, nos va a permitir acceder a sus atributos
-  (los miembros de la clase) usando el operador punto (`.`).
-
 - Ese objeto «clase» permanecerá en memoria mientras exista, al menos, una
   referencia que apunte a él.
 
@@ -403,10 +444,11 @@ def deposito(fondos):
 
 - Si ejecutamos la anterior definición en el
   [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
-  observamos que se crea en memoria un objeto que (como todo objeto) contiene
+  observamos que se crea en memoria un objeto que, como todo objeto, contiene
   su propio espacio de nombres representado con una estructura similar al
-  **diccionario de despacho** que creábamos antes a mano, y que asocia el
-  nombre de cada operación con la función (el método) correspondiente.
+  **diccionario de despacho** que creábamos antes a mano, el cual almacena los
+  miembros de la clase como atributos del objeto, asociando el nombre de cada
+  operación con la función (el método) correspondiente.
 
 - Ese objeto representa a la clase en la memoria durante la ejecución del
   programa, y se liga al nombre de la clase en el espacio de nombres actual
@@ -416,9 +458,15 @@ def deposito(fondos):
 
 ---
 
+<!--
+- El nombre de la clase es una **referencia** que apunta a la clase, la cual es
+  un objeto y, por tanto, nos va a permitir acceder a sus atributos (los
+  miembros de la clase) usando el operador punto (`.`).
+-->
+
 - Como las clases son objetos, debemos usar el operador punto (`.`) para
-  acceder al contenido de una clase, indicando la referencia a la clase
-  (normalmente, su nombre) y el nombre del contenido al que se desea acceder:
+  acceder a un miembro de una clase, indicando la referencia a la clase
+  (normalmente, su nombre) y el nombre del miembro al que se desea acceder:
 
   ```python
   >>> Deposito.retirar
@@ -433,7 +481,7 @@ def deposito(fondos):
   exactamente igual que los módulos en lo que se refiere al _entorno_**, como
   veremos luego en un apartado posterior.
 
-## Objetos
+### Instancias
 
 - Un **objeto** representa un **dato abstracto** de la misma manera que una
   *clase* representa un *tipo abstracto de datos*.
@@ -553,7 +601,7 @@ Los **objetos** tienen tres **características** básicas:
 
 ---
 
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al declarar la clase y al instanciar dicha clase en un nuevo objeto:
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al definir la clase y al instanciar dicha clase en un nuevo objeto:
 
 :::: columns
 
@@ -589,6 +637,9 @@ dep = Deposito(100)
 :::
 
 ::::
+
+- Se aprecia claramente que la clase almacena los métodos y la instancia
+  almacena sus fondos, y todo son atributos.
 
 ---
 
@@ -633,21 +684,24 @@ dep = Deposito(100)
 - Recordemos que en Python todos los tipos son clases.
 
 - Para saber la clase a la que pertenece el objeto, se usa la función
-  !PYTHON(type):
+  !PYTHON(type) o el atributo !PYTHON(__class__) del objeto:
 
   ```python
   >>> type(dep)
+  <class '__main__.Deposito'>
+  >>> dep.__class__
   <class '__main__.Deposito'>
   ```
 
   Se nos muestra que la clase del objeto `dep` es !PYTHON(__main__.Deposito),
   que representa la clase `Deposito` definida en el módulo !PYTHON(__main__).
 
-- Otra forma de comprobar si un objeto es instancia de una clase determinada es
-  usar la función !PYTHON(isinstance).
+  Esto demuestra que el objeto **recuerda** su clase (la clase que se usó para
+  instanciarlo) porque lo guarda en un atributo.
 
-- La función !PYTHON{isinstance}`(`$obj$`,` $cls$`)` devuelve !PYTHON(True) si
-  el objeto $obj$ es instancia de la clase $cls$:
+- Otra forma de comprobar si un objeto es instancia de una clase determinada es
+  usar la función !PYTHON{isinstance}`(`$obj$`,` $cls$`)`, que devuelve
+  !PYTHON(True) si el objeto $obj$ es instancia de la clase $cls$:
 
   ```python
   >>> isinstance(4, int)
@@ -666,21 +720,15 @@ dep = Deposito(100)
 
 - Dos objetos no idénticos podrán tener estados internos distintos.
 
-### Atributos
+### Variables de instancia
 
-- En terminología orientada a objetos, las variables de estado que almacenan el
-  estado interno del objeto se denominan **atributos**, **variables de
-  instancia**, **campos** o **propiedades** del objeto.
+- En terminología orientada a objetos, el estado de un objeto se almacena en
+  variables denominadas **variables de instancia**, **campos** o
+  **propiedades** del objeto.
 
-- Los atributos se almacenan como *variables locales* al objeto en su espacio
-  de nombres.
-
-- Cuando se crea un objeto, se le asocia en el montículo una zona de memoria
-  que, entre otras cosas, contiene la estructura en forma de diccionario que
-  representa el espacio de nombres del objeto.
-
-- Esa estructura en forma de diccionario asocia el nombre de cada atributo con
-  el valor que tiene dicho atributo en ese objeto.
+- Esas variables de instancia se almacenan como **atributos** del objeto,
+  dentro de éste, por lo que representan *variables locales* al objeto en su
+  espacio de nombres.
 
 !DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -715,8 +763,9 @@ subgraph cluster2 {
 
 *objeto*`.`*atributo*
 
-- Por ejemplo, para acceder al atributo `fondos` de un objeto `dep` de la
-  clase `Deposito`, se usaría la expresión `dep.fondos`:
+- Por ejemplo, para acceder al atributo `fondos` (que aquí es una variable de
+  instancia) de un objeto `dep` de la clase `Deposito`, se usaría la expresión
+  `dep.fondos`:
 
   ```python
   >>> dep = Deposito(100)
@@ -724,7 +773,7 @@ subgraph cluster2 {
   100
   ```
 
-- Y podemos cambiar el valor del atributo mediante asignación:
+- Y podemos cambiar el valor de la variable de instancia mediante asignación:
 
   ```python
   >>> dep.fondos = 400
@@ -756,7 +805,8 @@ subgraph cluster2 {
   información** y del concepto mismo de **abstracción de datos**.
 
 - Incluso es posible cambiar directamente el valor de un atributo desde fuera
-  del objeto, o crear atributos nuevos dinámicamente.
+  del objeto, o crear atributos nuevos dinámicamente, haciendo simplemente una
+  asignación.
 
 - Todo esto puede resultar chocante para un programador de otros lenguajes,
   pero en la práctica resulta útil al programador por la naturaleza dinámica
@@ -784,9 +834,9 @@ subgraph cluster2 {
   Java, por ejemplo), donde los atributos de un objeto vienen determinados de
   antemano por la clase a la que pertenece y siempre son los mismos.
 
-  Es decir: en Java, dos objetos de la misma clase siempre tendrán los mismos
-  atributos, definidos por la clase (aunque el mismo atributo puede tener
-  valores distintos en ambos objetos, naturalmente).
+  Así, en Java, dos objetos de la misma clase siempre tendrán las mismas
+  variables de instancia, definidas por la clase (aunque la misma variable de
+  instancia podrá tener valores distintos en los dos objetos, naturalmente).
 
 ---
 
@@ -898,51 +948,135 @@ dep2.otro = 'adiós'
 
 # Paso de mensajes
 
-## Introducción
+## Resolución de atributos
+
+- Cuando se intenta acceder a un atributo de un objeto, lo que hace el
+  intérprete es lo siguiente:
+
+  #. Primero busca dicho atributo dentro del objeto.
+
+  #. Si lo encuentra, devuelve su valor.
+
+  #. En caso contrario, lo busca en la clase del objeto.
+
+---
+
+- Supongamos que tenemos el objeto `dep` de la clase `Deposito`.
+
+- Si hacemos:
+
+  ```python
+  >>> dep.fondos
+  100
+  ```
+
+  el intérprete devolverá el valor del atributo `fondos` que encuentra en el
+  objeto `dep`, ya que el objeto contiene un atributo con ese nombre.
+
+- En cambio, si hacemos:
+
+  ```python
+  >>> dep.retirar
+  <bound method Deposito.retirar of <__main__.Deposito object at 0x7f65736d4a90>>
+  ```
+
+  el intérprete buscará primero el atributo `retirar` en el objeto `dep` y, al
+  no encontrarlo allí, pasa a buscarlo en la clase `Deposito`. Ahí sí lo
+  encuentra, así que devuelve su valor, que en este caso es un método.
+
+---
+
+- Por tanto, lo anterior es **_casi_** equivalente a hacer:
+
+  ```python
+  Deposito.retirar
+  ```
+
+- Pero no es **_exactamente_** igual, ya que en el primer caso nos devuelve un
+  método, mientras que en el segundo caso nos devuelve una función:
+
+  ```python
+  >>> dep.retirar
+  <bound method Deposito.retirar of <__main__.Deposito object at 0x7f65736d4a90>>
+  >>> Deposito.retirar
+  <function __main__.Deposito.retirar(self, cantidad)>
+  ```
+
+- Esto no nos pilla de sorpresa, ya que sabíamos que `retirar` es un método
+  para el objeto `dep` pero es una función para la clase `Deposito`.
+
+## Ejecución de métodos
 
 - Como las clases implementan las operaciones como métodos, el paso de mensajes
   se realiza ahora invocando, sobre un objeto, el método correspondiente al
   mensaje que se enviaría al objeto.
 
-- Por ejemplo, si tenemos el objeto `dep` (una instancia de la clase
-  `Deposito`) y queremos enviarle el mensaje `saldo` para saber cuál es el
-  saldo actual de ese depósito, invocaríamos el método `saldo` sobre el objeto
-  `dep` de esta forma:
+- Por ejemplo, si queremos enviarle el mensaje `saldo` al objeto `dep` para
+  saber cuál es el saldo actual de ese depósito, invocaríamos el método `saldo`
+  sobre el objeto `dep` de esta forma:
 
   ```python
   >>> dep.saldo()
   100
   ```
 
-- Si la operación requiere de argumentos, se le pasarán al método también:
+- Si la operación requiere argumentos, se le pasarán al método también:
 
   ```python
   >>> dep.retirar(25)
   75
   ```
 
-## Ejecución de métodos
+---
 
-- En Python, la ejecución de un método *m* con argumentos $a_1, a_2, \ldots,
-  a_n$ sobre un objeto *o* que es instancia de la clase *C* tiene esta forma:
+- Ya tenemos que `retirar` es un método para el objeto `dep` y que, por tanto,
+  !PYTHON(dep.retirar) nos devuelve ese método.
+
+- Pero, ¿qué ocurre cuando **se invoca** a un método sobre un objeto?
+
+- No es lo mismo hacer:
+
+  ```python
+  dep.retirar
+  ```
+
+  que hacer:
+
+  ```python
+  dep.retirar()
+  ```
+
+  ya que en el primer caso obtenemos el valor del atributo (que es un método),
+  pero en el segundo caso estamos _invocando_ al método sobre el objeto.
+
+---
+
+- Supongamos que _o_ es una instancia de la clase _C_, que _m_ es un método
+  almacenado como un atributo de la clase _C_ y que _o_ no contiene ningún
+  atributo que se llame _m_. 
+
+- La ejecución del **_método_** _m_ con argumentos $a_1, a_2, \ldots, a_n$
+  sobre el objeto *o* tiene esta forma:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~
   *o*`.`*m*`(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Y el intérprete lo traduce por una llamada a función con esta forma:
+- Pues bien: el intérprete de Python lo traduce por una llamada a función con
+  esta forma:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~
   *C*`.`*m*`(`*o*`, `$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Es decir: el intérprete llama a la función *m* definida en la clase *C* y le
-  pasa el objeto *o* como primer argumento (el resto de los argumentos
-  originales irían a continuación). 
+- Es decir: el intérprete llama a la **_función_** _m_ definida en la clase _C_
+  y le pasa automática e implícitamente el objeto _o_ como primer argumento (el
+  resto de los argumentos originales irían a continuación de _o_). 
 
-- Esto demuestra que los métodos no son más que una forma especial de función.
+- Esto nos vuelve a demostrar que los métodos no son más que una forma especial
+  de función.
 
 - No olvidemos que quien almacena los métodos es la clase, no el objeto.
 
@@ -965,8 +1099,8 @@ dep2.otro = 'adiós'
 - Esto facilita la implementación del intérprete, ya que todo se convierte en
   llamadas a funciones.
 
-- Para la clase `Deposito`, `retirar` es una función, mientras que para el
-  objeto `dep` es un método.
+- Para la clase `Deposito`, `retirar` es una función, mientras que, para el
+  objeto `dep`, `retirar` es un método.
 
 - Aunque son la misma cosa, el intérprete los trata de forma distinta según el
   contexto.
@@ -1012,8 +1146,7 @@ class Deposito:
 
 - El método `saldo` de la clase `Deposito` recibe un argumento !PYTHON(self)
   que, durante la llamada al método, contendrá el objeto sobre el que se ha
-  invocado
-  dicho método:
+  invocado dicho método:
 
   ```python
   def saldo(self):
@@ -1133,6 +1266,10 @@ class Deposito:
   objeto `a` de la clase `A`, se tienen los siguientes entornos antes y durante
   la invocación del método:
 
+:::: columns
+
+::: {.column width=35%}
+
 ```python
 class A:
     def uno(self):
@@ -1142,9 +1279,9 @@ a = A()
 a.uno()
 ```
 
-:::: columns
+:::
 
-::: column
+::: {.column width=65%}
 
 !DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=100%)(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1152,14 +1289,19 @@ compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
 l1 [shape = circle, label = "λ"]
-p1 [style = "rounded, filled", fillcolor = white, label = "Objeto"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = white
     a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
     A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
 }
-A:f1:e -> uno:w [lhead = cluster2, minlen = 2]
+A:f1:e -> uno:s [lhead = cluster2, minlen = 2]
+subgraph cluster1 {
+    label = "Objeto"
+    bgcolor = white
+    style = rounded
+    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+}
 subgraph cluster2 {
     label = <Clase <b>A</b>>
     bgcolor = white
@@ -1167,14 +1309,11 @@ subgraph cluster2 {
     uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
 }
 uno:f1 -> l1
-a:f1 -> p1 [minlen = 2]
+__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
+a:f1 -> __class__ [lhead = cluster1, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> a [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::: column
 
 !DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1182,29 +1321,35 @@ compound = true
 graph [rankdir = LR]
 node [fontname = "monospace"]
 l1 [shape = circle, label = "λ"]
-p1 [style = "rounded, filled", fillcolor = white, label = "Objeto"]
 subgraph cluster0 {
     label = "Marco global"
     bgcolor = white
     a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
     A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
 }
-A:f1:e -> uno [lhead = cluster2, minlen = 2]
+A:f1:e -> uno:n [lhead = cluster2, minlen = 2]
 subgraph cluster1 {
     label = <Marco de <b>uno</b>>
     bgcolor = white
     self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
 }
-self:s -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+self -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
 subgraph cluster2 {
     label = <Clase <b>A</b>>
     bgcolor = white
     style = rounded
     uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
 }
+subgraph cluster3 {
+    label = "Objeto"
+    bgcolor = white
+    style = rounded
+    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+}
 uno:f1 -> l1
-self:f1 -> p1:n
-a:f1 -> p1 [minlen = 2]
+self:f1:s -> __class__ [lhead = cluster3, minlen = 2]
+a:f1 -> __class__ [lhead = cluster3, minlen = 2]
+__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> self [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1249,7 +1394,7 @@ E -> self [lhead = cluster1]
 - Durante la ejecución del método `ingresar` (digamos, en la línea 12 del
   código anterior), la situación en la memoria sería:
 
-  !DOT(entorno-clase-linea12.svg)()(width=80%)(width=70%)
+  !DOT(entorno-clase-linea12.svg)()(width=85%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -1288,7 +1433,10 @@ E -> self [lhead = cluster1]
       bgcolor = white
       style = rounded
       fondos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>fondos|<f1>⬤}"]
+      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+
   }
+  __class__:f1 -> init [lhead = cluster2]
   dep:f1 -> fondos [lhead = cluster3, minlen = 2]
   fondos:f1 -> p3
   init:f1 -> l1
@@ -2733,16 +2881,15 @@ $$\text{Visibilidad} \begin{cases}
 - Cada una de estas dos posibilidades da lugar a un tipo distinto de
   visibilidad:
 
-  - **Visibilidad _privada_:** si un miembro de una clase tiene visibilidad
-    privada, sólo podrá accederse a él desde dentro de esa clase, pero no desde
-    fuera de ella.
+  - **Visibilidad _privada_:** si un miembro tiene visibilidad privada, sólo
+    podrá accederse a él desde dentro de esa clase, pero no desde fuera de
+    ella.
 
-  - **Visibilidad _pública_:** si un miembro de una clase tiene visibilidad
-    pública, podrá accederse a él tanto desde dentro como desde fuera de la
-    clase.
+  - **Visibilidad _pública_:** si un miembro tiene visibilidad pública, podrá
+    accederse a él tanto desde dentro como desde fuera de la clase.
 
   - Por tanto, **desde el exterior de un objeto sólo podremos acceder a los
-    miembros marcados como _públicos_ en la clase de ese objeto**.
+    miembros _públicos_ de ese objeto**.
 
 ---
 
@@ -2757,8 +2904,9 @@ $$\text{Visibilidad} \begin{cases}
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si el nombre de un miembro de una clase empieza (pero no acaba) por `__`,
-  entonces es _privado_. En caso contrario, es _público_.
+  Si el nombre de un miembro (de clase o de objeto) definido dentro del cuerpo
+  de una clase empieza (pero no acaba) por `__`, entonces es _privado_. En caso
+  contrario, es _público_.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los _métodos mágicos_ (como !PYTHON(__init__), !PYTHON(__eq__), etc.) tienen
@@ -2809,6 +2957,10 @@ $$\text{Visibilidad} \begin{cases}
   Este método es privado, ya que su nombre empieza por __
   ```
 
+- El método `__uno` se ha creado dentro de la clase `Prueba` y pertenece a la
+  misma clase `Prueba`, así que ese método es _privado_, se puede acceder a él
+  dentro del cuerpo de la clase `Prueba`, pero no es visible fuera de ella.
+
 ---
 
 - Con las variables de instancia ocurre exactamente igual:
@@ -2825,38 +2977,43 @@ $$\text{Visibilidad} \begin{cases}
   AttributeError: 'Prueba' object has no attribute '__x'
   ```
 
+- La variable de instancia `__x` se ha creado dentro de la clase `Prueba` y
+  pertenece a un objeto de la misma clase `Prueba`, así que esa variable es
+  _privada_, se puede acceder a ella dentro del cuerpo de la clase `Prueba`,
+  pero no es visible fuera de ella.
+
 #### Accesores y mutadores
 
 - En muchas ocasiones, ocurre que necesitamos manipular el valor contenido en
   una variable de instancia privada, pero desde fuera del objeto.
 
 - Para ello, necesitamos definir operaciones (métodos) que nos permitan acceder
-  y/o modificar el valor del atributos privado del objeto desde fuera del
-  mismo.
+  y/o modificar el valor de la variable de instancia privada del objeto desde
+  fuera del mismo.
 
 - Estos métodos pueden ser:
 
-  - **Accesores o _getters_:** permiten acceder al valor de un atributo desde
-    fuera del objeto.
+  - **Accesores o _getters_:** permiten acceder al valor de una variable de
+    instancia privada desde fuera del objeto.
 
-  - **Mutadores o _setters_:** permiten modificar el valor de un atributo desde
-    fuera del objeto.
+  - **Mutadores o _setters_:** permiten modificar el valor de una variable de
+    instancia privada desde fuera del objeto.
 
 ---
 
-- Por ejemplo, si tenemos un atributo privado que deseamos manipular desde el
-  exterior del objeto, podemos definir una pareja de métodos `get` y `set` de
-  la siguiente forma:
+- Por ejemplo, si tenemos una variable de instancia privada que deseamos
+  manipular desde el exterior del objeto, podemos definir una pareja de métodos
+  `get` y `set` de la siguiente forma:
 
   ```python
   >>> class Prueba:
   ...     def __init__(self, x):
   ...         self.set_x(x)        # En el constructor aprovechamos el setter
   ...
-  ...     def get_x(self):         # Este es el getter del atributo __x
+  ...     def get_x(self):         # Este es el getter de la variable __x
   ...         return self.__x
   ...
-  ...     def set_x(self, x):      # Este es el setter del atributo __x
+  ...     def set_x(self, x):      # Este es el setter de la variable __x
   ...         self.__x = x
   ...
   >>> p = Prueba(1)
@@ -2896,15 +3053,15 @@ $$\text{Visibilidad} \begin{cases}
           return self.__items
   ```
 
-- Se supone que el atributo `__items` es privado y, por tanto, sólo se puede
-  acceder a él desde el interior de la clase.
+- Se supone que la variable de instancia `__items` es privada y, por tanto,
+  sólo se puede acceder a ella desde el interior de la clase.
 
-- El método `get_items` es un _getter_ para el atributo `__items`.
+- El método `get_items` es un _getter_ para la variable de instancia `__items`.
 
 ---
 
-- En teoría, los únicos métodos con los que podemos modificar el contenido del
-  atributo `__items` son `meter` y `sacar`.
+- En teoría, los únicos métodos con los que podemos modificar el contenido de
+  la variable de instancia `__items` son `meter` y `sacar`.
 
 - Sin embargo, podemos hacer así:
 
@@ -2916,9 +3073,9 @@ $$\text{Visibilidad} \begin{cases}
   del l[0]          # Eliminamos un elemento de la lista desde fuera de la cola
   ```
 
-- Esto se debe a que `get_items` devuelve una referencia al objeto lista
-  contenido dentro de la instancia de `Cola`, con lo cual podemos modificar la
-  lista desde el exterior sin necesidad de usar los _setters_.
+- Esto se debe a que `get_items` devuelve una referencia a la lista contenida
+  dentro de la instancia de `Cola`, con lo cual podemos modificar la lista
+  desde el exterior sin necesidad de usar los _setters_.
 
 - Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
   que `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
@@ -2931,7 +3088,7 @@ $$\text{Visibilidad} \begin{cases}
   - Quitar el método `get_items` si es posible.
 
   - Si es estrictamente necesario que exista, cambiarlo para que no devuelva
-    una referencia al objeto lista, sino una **copia** de la lista:
+    una referencia a la lista, sino una **copia** de la lista:
 
   ```python
   def get_items(self):
@@ -2940,21 +3097,22 @@ $$\text{Visibilidad} \begin{cases}
 
 #### Invariantes de clase
 
-- Si necesitamos acceder y/o cambiar el valor de un atributo desde
-  fuera del objeto, ¿por qué hacerlo privado? ¿Por qué no simplemente hacerlo
-  público y así evitamos tener que hacer _getters_ y _setters_?:
+- Si necesitamos acceder y/o cambiar el valor de una variable de instancia
+  desde fuera del objeto, ¿por qué hacerlo privado? ¿Por qué no simplemente
+  hacerlo público y así evitamos tener que hacer _getters_ y _setters_?:
 
-  - Los atributos públicos rompen con los conceptos de _encapsulación_ y de
-    _abstracción de datos_, ya que permite acceder al interior de un objeto
-    directamente, en lugar de hacerlo a través de operaciones.
+  - Las variables de instancia públicas del objeto rompen con los conceptos de
+    _encapsulación_ y de _abstracción de datos_, ya que permite acceder al
+    interior de un objeto directamente, en lugar de hacerlo a través de
+    operaciones.
 
   - Ya sabemos que con eso se rompe con el principio de _ocultación de
     información_, ya que exponemos públicamente el tipo y la representación del
     dato, por lo que nos resultará muy difícil cambiarlos posteriormente si en
     el futuro nos hace falta hacerlo.
 
-  - Pero además, los _setters_ nos garantizan que los datos que se almacenan en
-    un atributo cumplen con las **condiciones** necesarias.
+  - Pero además, los _setters_ nos garantizan que los valores que se almacenan
+    en una variable de instancia cumplen con las **condiciones** necesarias.
 
     !CAJA
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2989,7 +3147,7 @@ $$\text{Visibilidad} \begin{cases}
   print(p.set_nombre())       # Imprime 'Manuel'
   p.set_edad(25)              # Cambia la edad a 25
   p.set_edad(-14)             # Provoca un error
-  p.__edad = -14              # Funcionaría si __edad no fuese privado
+  p.__edad = -14              # Funcionaría si __edad no fuese privada
   ```
 
 ---
@@ -3082,7 +3240,7 @@ propiedades se traducen en invariantes** de la clase.
 
   - El **nombre de la clase**.
 
-  - El nombre y tipo de los **atributos públicos**.
+  - El nombre y tipo de las **variables de instancia públicas**.
 
   - La **signatura** de los **métodos públicos**.
 
@@ -3454,13 +3612,10 @@ class Pila:
   guardará en una variable local a la clase y, por tanto, se almacenará como un
   atributo de la propia clase, no en una instancia concreta de la clase.
 
-- Esos atributos que pertenecen a la propia clase (en lugar de a instancias
-  concretas) se denominan **atributos de clase**, **variables de clase** o
-  **variables estáticas**.
-
-- Por contra, los atributos que hemos visto hasta ahora (los que pertenecen a
-  las instancias) se denominan **atributos de instancia** o **variables de
-  instancia**.
+- Esas variables que pertenecen a la propia clase (en lugar de a instancias
+  concretas) se denominan **variables de clase** o **variables estáticas**, a
+  diferencia de las **variables de instancia** que hemos estado usando hasta
+  ahora y que pertenecen a las instancias de la clase.
 
 ---
 
@@ -3468,12 +3623,13 @@ class Pila:
 
 ::: {.column width=60%}
 
-- Los atributos de clase se pueden crear mediante **sentencias de asignación**
-  en el _cuerpo_ de la clase, fuera de cualquier definición de método:
+- Las variables de clase se pueden crear y modificar mediante **sentencias de
+  asignación** directamente en el _cuerpo_ de la clase, fuera de cualquier
+  definición de método:
 
 ```python
 class Deposito:
-    interes = 0.02   # Un atributo de clase
+    interes = 0.02  # Una variable de clase
 
     def __init__(self, fondos):
         self.fondos = fondos
@@ -3496,17 +3652,24 @@ class Deposito:
 
 ::: {.column width=40%}
 
-- Este atributo se puede manipular directamente a través de una referencia a la
-  clase (su nombre) usando la sintaxis:
+- Fuera de la clase, o dentro de un método de la clase, estas variables también
+  se pueden crear y manipular a través de una referencia a la clase usando la
+  sintaxis:
 
 _clase_`.`_atributo_
 
 ```python
 >>> Deposito.interes
 0.02
+>>> Deposito.interes = 0.08
+>>> Deposito.interes
+0.08
+>>> Deposito.nueva = 5
+>>> Deposito.nueva
+5
 ```
 
-- Esto nos indica que los atributos de clase se almacenan en la propia clase,
+- Esto nos indica que las variables de clase se almacenan en la propia clase,
   es decir, en el objeto que representa a la clase.
 
 :::
@@ -3514,17 +3677,6 @@ _clase_`.`_atributo_
 ::::
 
 ---
-
-- Para crear (o cambiar el valor de) una variable de clase, se le puede asignar
-  un valor usando la misma sintaxis _clase_`.`_atributo_:
-
-  ```python
-  >>> Deposito.interes
-  0.02
-  >>> Deposito.interes = 0.08
-  >>> Deposito.interes
-  0.08
-  ```
 
 - Las variables de clase también se pueden acceder como cualquier variable de
   instancia, a partir de una instancia de la clase:
@@ -3577,12 +3729,13 @@ _clase_`.`_atributo_
 
 ---
 
-- Si necesitamos acceder al valor de una variable de clase dentro de la misma
-  clase, usaremos la misma sintaxis _clase_`.`_atributo_:
+- Para acceder al valor de una variable de clase dentro de un método, aunque
+  sea de la misma clase, usaremos la misma sintaxis _clase_`.`_variable_, ya
+  que de lo contrario la variable no estará en el entorno:
 
 ```python
 class Deposito:
-    interes = 0.02   # Un atributo de clase
+    interes = 0.02   # Una variable de clase
 
     def __init__(self, fondos):
         self.fondos = fondos
@@ -3601,17 +3754,21 @@ class Deposito:
         return self.fondos
 
     def total(self):
-        # Accede a la variable de clase Deposito.interes
-        # para calcular el saldo total más los intereses:
+        # Accede a la variable de clase Deposito.interes para calcular
+        # el saldo total más los intereses (no funciona si intentamos
+        # poner interes en lugar de Deposito.interes):
         return self.saldo() * (1 + Deposito.interes)
 ```
 
 ---
 
-!EJERCICIO
+!EJERCICIOS
+
+@. ¿Qué ocurre si en el método `total` del código anterior usamos
+   !PYTHON(interes) en lugar de `Deposito.interes`? ¿Por qué?
 
 @. ¿Qué problema puede haber si en el método `total` del código anterior usamos
-   !PYTHON(self.interes) en lugar de `Deposito.interes`?
+   !PYTHON(self.interes) en lugar de `Deposito.interes`? ¿Por qué?
 
 ## Métodos estáticos
 
@@ -3628,8 +3785,9 @@ class Deposito:
 - Por contraste, los métodos que se ejecutan sobre un objeto se denominan
   **métodos de instancia**, para distinguirlos de los estáticos.
 
-- Al estar dentro de la clase, para acceder a un método estático hay que usar
-  el operador punto (`.`) desde una referencia a la clase.
+- Al estar definida dentro de la clase, para acceder a un método estático desde
+  fuera de la clase o desde un método de la propia clase, hay que usar el
+  operador punto (`.`) desde una referencia a la clase.
 
 ---
 
