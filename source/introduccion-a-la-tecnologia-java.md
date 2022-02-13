@@ -74,6 +74,8 @@ Java SE 12   19-mar-2019
 Java SE 13   17-sep-2019
 Java SE 14   17-mar-2020
 Java SE 15   15-sep-2020
+Java SE 16   18-mar-2021
+Java SE 17   14-sep-2021
 
 :::
 
@@ -84,16 +86,17 @@ Java SE 15   15-sep-2020
 - Los cinco objetivos principales que se plantearon al diseñar el lenguaje
   Java, y que a día de hoy siguen siendo sus características principales, son:
 
-  - Debe ser sencillo, orientado a objetos y basado en una sintaxis conocida.
+  - Debe usar el paradigma de la programación orientada a objetos.
 
-  - Debe ser robusto y seguro.
+  - Debe permitir la ejecución de un mismo programa en múltiples sistemas
+    operativos.
 
-  - Debe ser portable e independiente de la arquitectura, permitiendo la
-    ejecución de un mismo programa en varios sistemas operativos.
+  - Debe incluir por defecto soporte para trabajo en red.
 
-  - Debe ejecutarse con gran rendimiento.
+  - Debe diseñarse para ejecutar código en sistemas remotos de forma segura.
 
-  - Debe ser interpretado, multihilo y de enlace dinámico.
+  - Debe ser fácil de usar y tomar lo mejor de otros lenguajes orientados a
+    objetos, como C++.
 
 # La tecnología Java
 
@@ -107,8 +110,7 @@ Java SE 15   15-sep-2020
 
 - Una **máquina virtual** es una máquina emulada mediante hardware o software.
 
-  Las máquinas virtuales pueden ser emulaciones de máquinas reales o
-  abstractas.
+  Las máquinas virtuales pueden emular máquinas reales o abstractas.
 
 ## Código objeto (*bytecode*!ifdef(HTML)(&nbsp;)())
 
