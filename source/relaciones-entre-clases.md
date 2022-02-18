@@ -410,13 +410,13 @@ class Cuenta:
 
     def crear_tuit(self, texto):
         t = Tuit(texto)           # El tuit se crea dentro de la cuenta
-        self.__alumnos.append(t)  # La cuenta almacena el tuit
+        self.__tuits.append(t)    # La cuenta almacena el tuit
         return t.get_ident()      # Devuelve el id del tuit
 
     def eliminar_tuit(self, ident):
         for t in self.__tuits:
             if t.get_ident() == ident:
-                self.__alumnos.remove(t)
+                self.__tuits.remove(t)
                 return
         raise ValueError("No existe ningún tuit con ese id")
 
@@ -441,13 +441,13 @@ class Cuenta:
         return self.__tuits[:]       # Devuelve una copia
 
     def guardar_tuit(self, tuit):
-        self.__alumnos.append(tuit)  # La cuenta almacena el tuit
+        self.__tuits.append(tuit)    # La cuenta almacena el tuit
         return tuit.get_ident()
 
     def eliminar_tuit(self, ident):
         for t in self.__tuits:
             if t.get_ident() == ident:
-                self.__alumnos.remove(t)
+                self.__tuits.remove(t)
                 return
         raise ValueError("No existe ningún tuit con ese id")
 
