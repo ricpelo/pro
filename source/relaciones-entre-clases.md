@@ -1234,7 +1234,7 @@ Acuatico <|-- Anfibio
   `Anfibio` los hereda a través de estas dos.
 
 - Pero a la hora de buscar un método en la cadena de herencia, ya no es tan
-  fácil como crear una simple lista de diccionarios como teníamos antes, ya que
+  fácil como crear una simple lista a través de la cadena de herencia, ya que
   ahora no hay un único camino entre dos clases según las relaciones de
   generalización.
 
@@ -1404,7 +1404,7 @@ Acuatico <|-- Anfibio
 
 - Es decir: el algoritmo transforma una jerarquía que no es lineal en una lista
   lineal, por lo que volvemos a tener lo mismo que teníamos en la herencia
-  simple: una lista enlazada de diccionarios que representan clases.
+  simple: una lista enlazada de clases.
 
 - Por eso el algoritmo se llama _linealización_ C3.
 
