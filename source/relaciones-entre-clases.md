@@ -826,10 +826,16 @@ class Docente(Trabajador):
 
 ---
 
-- Al llamar a un método sobre un objeto, el intérprete busca el método dentro
-  de su clase:
+- Al llamar a un método sobre un objeto, el intérprete:
 
-  - Si encuentra el método, lo usa.
+  - Primero busca dentro del objeto un atributo que se llame igual que el
+    método.
+
+    Si lo encuentra, lo usa como una _función_ contenida dentro del objeto.
+
+  - Si no lo encuentra, busca el método dentro de la clase del objeto.
+
+    Si lo encuentra, lo usa.
 
   - Si no lo encuentra, sigue subiendo por la lista enlazada localizando la
     siguiente clase (que será su superclase directa), buscando ahí el método
@@ -838,6 +844,8 @@ class Docente(Trabajador):
     El intérprete continuará buscando en el resto de la lista hasta que
     encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un
     error !PYTHON(AttributeError) por método no encontrado.
+
+---
 
 !DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=50%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -879,7 +887,9 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   `set_nombre`, el intérprete busca el método recorriendo la cadena de herencia
   representada en la lista de clases:
 
-  - Primero lo busca en la clase `Docente`.
+  - Primero busca en el propio objeto un atributo que se llame `set_nombre`.
+
+  - Como no lo encuentra, a continuación lo busca en la clase `Docente`.
 
   - Como no lo encuentra, a continuación lo busca en la clase `Trabajador`.
 
@@ -983,6 +993,8 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   ```python
   self._Trabajador__nombre
   ```
+
+- Fuera de la clase `Trabajador`, sólo funciona la segunda expresión.
 
 ---
 
@@ -1159,6 +1171,8 @@ Trabajador -|> object
 - La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y
   acaban por `__`) que traen implementaciones predeterminadas para varias
   operaciones básicas como `==`, `!=`, `<=`, `<`, etc.
+
+- Entre ellos están `__eq__`, `__hash__` y otros.
 
 - También hay operaciones utilizadas internamente por el intérprete durante la
   ejecución del programa para ayudar a su funcionamiento.
@@ -1408,12 +1422,38 @@ Acuatico <|-- Anfibio
 
 - Por eso el algoritmo se llama _linealización_ C3.
 
+---
+
+- Se puede obtener la lista de clases que representa el _MRO_ de una clase
+  usando el **método estático `mro`** sobre la clase en cuestión:
+
+  ```python
+  >>> class Animal:
+         # ... definición de la clase Animal
+
+  >>> class Terrestre(Animal):
+         # ... definición de la clase Terrestre
+
+  >>> class Acuatico(Animal):
+         # ... definición de la clase Acuatico
+
+  >>> class Anfibio(Terrestre, Acuatico):
+         # ... definición de la clase Anfibio
+
+  >>> Terrestre.mro()
+  [Terrestre, Animal, object]
+
+  >>> Anfibio.mro()
+  [Anfibio, Terrestre, Acuatico, Animal, object]
+  ```
+
 # Polimorfismo
 
 ## Concepto
 
 - El **polimorfismo** es una de las características básicas de la Programación
-  Orientada a Objetos.
+  Orientada a Objetos, si bien es un concepto que no pertenece únicamente a
+  este paradigma.
 
 - Decimos que **los objetos son _polimórficos_**.
 
@@ -1447,12 +1487,12 @@ Acuatico <|-- Anfibio
   clase `Trabajador` (los docentes también «son» trabajadores).
 
 - Eso significa que **un objeto puede pertenecer a varias clases al mismo
-  tiempo**, de forma que puede ser instancia directa de una clase y, al mismo
-  tiempo, ser instancia indirecta de otras clases.
+  tiempo**, ya que puede ser instancia directa de una clase y, al mismo tiempo,
+  ser instancia indirecta de otras clases.
 
-- En Python existen las funciones `isinstance` y `issubclass` que nos ayudan a
-  entender las relaciones de generalización entre clases y cuándo un objeto es
-  instancia (directa o indirecta) de una clase.
+- En Python existen las funciones `isinstance` e `issubclass` que nos ayudan a
+  entender las relaciones de generalización entre clases y comprobar cuándo un
+  objeto es instancia (directa o indirecta) de una clase.
 
 - En todo caso, se suelen usar muy poco, ya que el gran poder del polimorfismo
   es precisamente **escribir código que no dependa de la clase concreta a la
@@ -1503,8 +1543,9 @@ Acuatico <|-- Anfibio
 
 ---
 
-- Por ejemplo, supongamos que tenemos una función (o un método) que recibe dos
-  objetos de la clase `Trabajador` y calcula la diferencia entre sus salarios.
+- Por ejemplo, supongamos que tenemos una operación (una función o un método)
+  que recibe dos objetos de la clase `Trabajador` y calcula la diferencia entre
+  sus salarios.
 
 - En Python, podría tener este aspecto:
 
@@ -1599,9 +1640,10 @@ Acuatico <|-- Anfibio
   los argumentos `t1` y `t2` son referencias a objetos que pueden adoptar
   varias formas:
 
-  - Pueden ser trabajadores o pueden ser cualquier tipo específico de
-    trabajador (docente, investigador o cualquier otro que ni siquiera exista
-    aún).
+  - Pueden ser trabajadores.
+
+  - O pueden ser cualquier tipo específico de trabajador (docente, investigador
+    o cualquier otro que ni siquiera exista aún).
 
   - De hecho, pueden ser varias cosas al mismo tiempo:
 
@@ -1616,11 +1658,24 @@ Acuatico <|-- Anfibio
 - Por eso se dice que `t1` y `t2` son referencias a **objetos polimórficos**,
   ya que:
 
-  - Los objetos a los que apuntan pueden pertenecer a varias clases al mismo
-    tiempo (directa o indirectamente).
+  - Los objetos a los que apuntan **pueden pertenecer a varias clases al mismo
+    tiempo**, ya que pueden ser instancias directas de una clase y, al mismo
+    tiempo, ser instancias indirectas de más clases.
 
-  - Esas referencias pueden apuntar a objetos que son instancias directas de
-    varias clases posibles.
+    Por ejemplo, `t1` podría ser un docente y, por tanto, sería instancia
+    directa de `Docente` e instancia indirecta de `Trabajador` al mismo tiempo
+    (el mismo objeto pertenecería a las clases `Docente` y `Trabajador`
+    simultáneamente).
+
+  - Esas referencias apuntan a objetos que **pueden ser instancias directas de
+    una entre varias clases posibles**.
+
+    Por ejemplo, `t1` podría ser instancia directa de `Trabajador` pero también
+    podría serlo de `Docente`, o de `Investigador`, o de cualquier otra
+    subclase de `Trabajador`, y ni siquiera es necesario saber de antemano de
+    cuál de ellas. De hecho, no podemos saberlo.
+
+---
 
 - Recordemos que, en POO, las clases son _tipos_.
 
@@ -1631,8 +1686,18 @@ Acuatico <|-- Anfibio
   sus subclases.
 
 - También se dice que `diferencia_salarios` es una **función polimórfica**
-  porque actúa sobre argumentos de tipos polimórficos y, por tanto, se puede
-  aprovechar la misma función para procesar valores de muchos tipos distintos.
+  porque actúa sobre argumentos de tipos polimórficos.
+
+- Eso permite que la función polimórfica pueda actuar sobre valores de muchos
+  tipos distintos usando para todos ellos el mismo código fuente.
+
+- En nuestro caso, la función `diferencia_salarios` podrá calcular la
+  diferencia de salarios entre dos trabajadores independientemente de qué tipo
+  de trabajador sean.
+
+- Y si en el futuro se añade al programa un nuevo tipo de trabajador que aún no
+  existe, la función funcionará correctamente para ese nuevo tipo sin tener que
+  modificarla.
 
 ## _Duck typing_
 
@@ -1661,17 +1726,18 @@ Acuatico <|-- Anfibio
 
 - En los lenguajes dinámicos hay un dicho que afirma:
 
-!CAJACENTRADA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-_«Si camina como un pato y habla como un pato, entonces es un pato.»_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  _«Si camina como un pato y habla como un pato, entonces es un pato.»_
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - A esto se le conoce como **_duck typing_**, y significa que **lo importante
-  no es la clase** a la que pertenece un objeto, sino «qué aspecto tiene», es
+  no es la clase** a la que pertenece un objeto, sino «cómo se comporta», es
   decir, **a qué mensajes es capaz de responder y cómo**.
 
 - Es exactamente lo que ocurre con la función `diferencia_salarios`. Nos vale
-  cualquier objeto que responda adecuadamente al mensaje `get_salario`.
+  como argumentos cualquier objeto que responda adecuadamente al mensaje
+  `get_salario`.
 
 - El _duck typing_ hace que la programación orientada a objetos resulte mucho
   más flexible, puesto que lo importante no es la jerarquía de clases que se
@@ -1921,8 +1987,7 @@ class Rectangulo:
   varias formas_**, se refiere a que **algo _se puede comportar de varias
   formas_**.
 
-- A su vez, cada comportamiento está codificado en una operación (normalmente,
-  un método).
+- A su vez, cada comportamiento está codificado en un método.
 
 - Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u
   otra (ejecutará un método u otro) según el objeto que sea, es decir, según la
@@ -1934,6 +1999,72 @@ class Rectangulo:
 
 - Así, en la expresión !PYTHON(t.despedir()), sabemos que se ejecutará el
   método `despedir` más apropiado según el tipo de trabajador que sea `t`.
+
+!EJEMPLO
+
+:::: columns
+
+::: column
+
+- Sin polimorfismo:
+
+  ```python
+  class Animal:
+      pass
+
+  class Terrestre(Animal):
+      def camina(self):
+          print('Voy caminando')
+
+  class Acuatico(Animal):
+      def nada(self):
+          print('Voy nadando')
+
+  class Ave(Animal):
+      def vuela(self):
+          print('Voy volando')
+
+  def desplazar(a):
+      if isinstance(a, Terrestre):
+          a.camina()
+      elif isinstance(a, Acuatico):
+          a.nada()
+      elif isinstance(a, Ave):
+          a.vuela()
+      else:
+          print('No sé qué es')
+  ```
+
+:::
+
+::: column
+
+- Con polimorfismo:
+
+  ```python
+  class Animal:
+      def mover(self):
+          print('No sé qué soy')
+
+  class Terrestre(Animal):
+      def mover(self):
+          print('Voy caminando')
+
+  class Acuatico(Animal):
+      def mover(self):
+          print('Voy nadando')
+
+  class Ave(Animal):
+      def mover(self):
+          print('Voy volando')
+
+  def desplazar(a):
+      a.mover()
+  ```
+
+:::
+
+::::
 
 ## `super`
 
