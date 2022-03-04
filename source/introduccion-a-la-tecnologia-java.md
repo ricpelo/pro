@@ -657,8 +657,8 @@ public class Principal {
 - Java es un lenguaje de **tipado estático**, a diferencia de Python donde el
   tipado es **dinámico**.
 
-- Por tanto, en Java **hay que declarar el tipo de todos los valores** que se
-  van a usar en el programa:
+- Por tanto, en Java **hay que declarar el tipo de todos los datos** que se van
+  a usar en el programa:
 
   - **Variables** (incluyendo los campos de las clases).
 
