@@ -654,8 +654,10 @@ $5 ==> NaN
 ---
 
 - Los **subtipos** de un tipo $T$ son todos aquellos tipos $S$ tales que $T$ es
-  un supertipo de $S$, **más el tipo nulo**. Cuando $S$ es un subtipo de $T$ se
-  escribe: $$S\ \texttt{<:}\ T$$
+  un supertipo de $S$. Si $T$ es un tipo referencia, entonces el **tipo nulo**
+  también es un subtipo de $T$.
+
+- Cuando $S$ es un subtipo de $T$ se escribe: $$S\ \texttt{<:}\ T$$
 
 - $S$ es un **subtipo propio** de $T$ si $S$ `<:` $T$ y $S !NEQ T$. En tal
   caso, se escribe: $$S\ \texttt{<}\ T$$
@@ -1089,7 +1091,7 @@ $5 ==> NaN
   indica su tipo.
 
 - El valor de una variable se puede cambiar mediante **asignación** o usando
-  los operadores de pre y post incremento (`++`) o decremento (`--`).
+  los operadores `++` y `--` de pre y post incremento y decremento.
 
 - El diseño del lenguaje Java garantiza que el valor de una variable es
   compatible con el tipo de la variable.
@@ -1544,7 +1546,7 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
     23.0     // Literal de tipo double
     ```
 
-- Al asignar o inicializar variables usando valores literales numéricos, el
+- Al asignar o inicializar variables usando valores literales de tipo `int`, el
   compilador comprueba si el número expresado por el literal «cabe» dentro de
   la variable, es decir, si está dentro del rango de representación de valores
   según el tipo de la variable.
@@ -1565,10 +1567,23 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   short s = 4;
   ```
 
-  porque el literal `4` es un valor entero (de tipo `int`), pero entra dentro
-  del rango de posibles valores que admite un `short`.
+  porque el literal `4` es un valor de tipo `int`, pero entra dentro del rango
+  de posibles valores que admite un `short`.
 
-- Sin embargo, lo siguiente no es válido:
+- En cambio, lo siguiente no es válido:
+
+  ```java
+  short s = 4L;
+  ```
+
+  porque el literal `4L` es de tipo `long` y, aunque ese valor «cabe» en un
+  `short`, el compilador no lo comprueba, al no ser un literal de tipo `int`.
+
+---
+
+- Lo dicho anteriormente sólo se aplica a literales numéricos.
+
+- Eso significa que lo siguiente no es válido:
 
   ```java
   int i = 4;
@@ -1579,6 +1594,10 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   almacenado en `i` entra dentro de un `short`. Lo único que puede comprobar es
   que se intenta asignar un valor de un tipo (`int`) en una variable cuyo tipo
   (`short`) no es supertipo suyo, lo cual es incorrecto.
+
+- Recordemos que el compilador sólo conoce el **tipo estático** de las
+  variables, no su **tipo dinámico**, ya que éste último sólo se conoce en
+  tiempo de ejecución y además puede cambiar durante la ejecución del programa.
 
 ### Inferencia de tipos
 
