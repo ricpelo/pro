@@ -2813,7 +2813,7 @@ usando un determinado patrón delimitador que, por defecto, simplemente
 troceará las palabras separadas con espacios en blanco.</p></li>
 <li><p>Los <em>tokens</em> resultantes pueden convertirse en valores de
 distintos tipos usando alguno de los métodos <code
-class="sourceCode java">next</code>.</p></li>
+class="sourceCode java">nextXXX</code>.</p></li>
 <li><p>Cada vez que se llama a uno de esos métodos, se consume el
 siguiente dato (de un determinado tipo) que se encuentre en el flujo de
 entrada.</p></li>
@@ -2857,8 +2857,8 @@ su tipo son:</li>
 </ul>
 <table>
 <colgroup>
-<col style="width: 31%" />
-<col style="width: 68%" />
+<col style="width: 25%" />
+<col style="width: 74%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2904,24 +2904,31 @@ entrada</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code
-class="sourceCode java">nextLine</code></td>
-<td style="text-align: left;">Devuelve un valor <code
-class="sourceCode java"><span class="bu">String</span></code> de la
-entrada</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code
 class="sourceCode java">nextLong</code></td>
 <td style="text-align: left;">Devuelve un valor <code
 class="sourceCode java"><span class="dt">long</span></code> de la
 entrada</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code
 class="sourceCode java">nextShort</code></td>
 <td style="text-align: left;">Devuelve un valor <code
 class="sourceCode java"><span class="dt">short</span></code> de la
 entrada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code
+class="sourceCode java">next</code></td>
+<td style="text-align: left;">Devuelve un <em>token</em> de la entrada
+en forma de <code class="sourceCode java"><span
+class="bu">String</span></code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code
+class="sourceCode java">nextLine</code></td>
+<td style="text-align: left;">Devuelve una línea completa de la entrada
+en forma de <code class="sourceCode java"><span
+class="bu">String</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -2929,6 +2936,13 @@ entrada</td>
 <section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
+<li><p>La diferencia entre <code class="sourceCode java">next</code> y
+<code class="sourceCode java">nextLine</code> es que el primero se salta
+los delimitadores iniciales que encuentre y devuelve el siguiente
+<em>token</em> de la entrada leyendo caracteres hasta encontrar un
+delimitador, mientras que el segundo devuelve la siguiente línea
+completa conteniendo todos los caracteres (delimitadores o no) hasta
+encontrar el salto de línea.</p></li>
 <li><p>Los métodos <code class="sourceCode java">next</code> and <code
 class="sourceCode java">hasNext</code> y sus correspondientes
 acompañantes (como <code class="sourceCode java">nextInt</code> and

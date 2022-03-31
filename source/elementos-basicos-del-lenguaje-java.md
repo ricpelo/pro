@@ -1992,7 +1992,7 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
   palabras separadas con espacios en blanco.
 
 - Los _tokens_ resultantes pueden convertirse en valores de distintos tipos
-  usando alguno de los métodos !JAVA(next).
+  usando alguno de los métodos !JAVA(nextXXX).
 
 - Cada vez que se llama a uno de esos métodos, se consume el siguiente dato (de
   un determinado tipo) que se encuentre en el flujo de entrada.
@@ -2037,9 +2037,9 @@ public static void main(String[] args) {  // Empieza el cuerpo del método
 - Los métodos que permiten leer el siguiente dato de la entrada según su tipo
   son:
 
--------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 Método                 Descripción
----------------------- --------------------------------------------------
+---------------------- -----------------------------------------------------------------
 !JAVA(nextBoolean)     Devuelve un valor !JAVA(boolean) de la entrada
 
 !JAVA(nextByte)        Devuelve un valor !JAVA(byte) de la entrada
@@ -2050,14 +2050,22 @@ Método                 Descripción
 
 !JAVA(nextInt)         Devuelve un valor !JAVA(int) de la entrada
 
-!JAVA(nextLine)        Devuelve un valor !JAVA(String) de la entrada
-
 !JAVA(nextLong)        Devuelve un valor !JAVA(long) de la entrada
 
 !JAVA(nextShort)       Devuelve un valor !JAVA(short) de la entrada
--------------------------------------------------------------------------
+
+!JAVA(next)            Devuelve un _token_ de la entrada en forma de !JAVA(String)
+
+!JAVA(nextLine)        Devuelve una línea completa de la entrada en forma de !JAVA(String)
+----------------------------------------------------------------------------------------
 
 ---
+
+- La diferencia entre !JAVA(next) y !JAVA(nextLine) es que el primero se salta
+  los delimitadores iniciales que encuentre y devuelve el siguiente _token_ de
+  la entrada leyendo caracteres hasta encontrar un delimitador, mientras que el
+  segundo devuelve la siguiente línea completa conteniendo todos los caracteres
+  (delimitadores o no) hasta encontrar el salto de línea.
 
 - Los métodos !JAVA(next) and !JAVA(hasNext) y sus correspondientes
   acompañantes (como !JAVA(nextInt) and !JAVA(hasNextInt)) primero saltarán
