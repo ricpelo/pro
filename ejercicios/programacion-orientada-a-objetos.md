@@ -266,6 +266,80 @@ author:
 
     [`https://edabit.com/challenge/j2HauiSdDadkjxjsQ`](https://edabit.com/challenge/j2HauiSdDadkjxjsQ)
 
+#. Escribir un programa que lea por la entrada una hora cualquiera y un número
+   $n$ que representa una cantidad en segundos. El programa mostrará la hora
+   introducida y las $n$ siguientes, que se diferencian en un segundo. Para
+   ello, hemos de diseñar previamente la clase `Hora` que dispone de los campos
+   `hora`, `minuto` y `segundo`. Los valores de los campos se controlarán
+   mediantes métodos _get_/_set_.
+
+#. Diseñar la clase `Texto` que gestiona una cadena de caracteres con algunas
+   características:
+
+   - La cadena de caracteres tendrá una longitud máxima que se especifica en el
+     constructor.
+
+   - Permite añadir un carácter al principio o al final, siempre y cuando no se
+     exceda la longitud máxima (es decir, hay espacio disponible).
+
+   - Igualmente, permite añadir una cadena, al principio o al final del texto
+     (siempre y cuando no se rebase el tamaño máximo establecido).
+
+   - Cada objeto de tipo `Texto` tiene que conocer la fecha en la que se creó,
+     así como la fecha y hora de la última modificación efectuada.
+
+   - Deberá existir un método que imprima por la salida la información que
+     gestiona cada texto (el texto en sí, la fecha de creación y la fecha y
+     hora de la última modificación).
+
+#. Definir una clase que permita controlar un sintonizador digital de emisoras
+   FM. Concretamente, se desea dotar al controlador de una interfaz que permita
+   subir o bajar la frecuencia (en saltos de 0,5 MHz) y mostrar la frecuencia
+   sintonizada en un momento dado. Supondremos que el rango de frecuencias para
+   manejar oscila entre los 80 MHz y los 108 MHz y que, al inicio, el
+   controlador sintonice la frecuencia indicada en el constructor u 80 MHz por
+   defecto. Si durante una operación de subida o bajada se sobrepasa uno de los
+   dos límites, la frecuencia sintonizada debe pasar a ser la del extremo
+   contrario. Escribir un pequeño programa principal para controlar su
+   funcionamiento.
+
+#. Modelar una coasa con muchas bombillas, de forma que cada bombilla se puede
+   encender o apagar individualmente. Para ello, hacer una clase `Bombilla` con
+   una variable privada que indique si está encendida o apagada, así como un
+   método que nos diga el estado de una bombilla concreta. Además, queremos
+   poner un interruptor general, de forma que si este se apaga, todas las
+   bombillas quedan apagadas, según estuvieran antes. Cada bombilla se enciende
+   y se apaga individualmente, pero sólo responde que está encendida si su
+   interruptor particular está activado y además hay luz general.
+
+#. Hemos recibido el encargo de un cliente para definir las clases necesarias
+   (sólo implementar los campos y los constructores) para gestionar una empresa
+   ferroviaria, en la que se distinguen dos grandes grupos: el personal y la
+   maquinaria. En el primero se ubican los empleados de la empresa, que se
+   clasifican en tres grupos: los maquinistas, los mecánicos y los jefes de
+   estación. De cada uno de ellos es necesario guardar:
+
+   - Maquinistas: su nombre, DNI, sueldo y el rango que tienen adquirido.
+
+   - Mecánicos: su nombre, teléfono y en qué especialidad desarrollan su
+     trabajo (esta puede ser: frenos, hidráulica, electricidad o motor).
+
+   - Jefes de estación: su nombre, DNI y la fecha en la que fue nombrado jefe
+     de estación.
+
+   En la parte de maquinaria podemos encontrar trenes, locomotoras y vagones.
+   De cada uno de ellos hay que considerar:
+
+   - Vagones: tienen un número que los identifica, una carga máxima (en kilos),
+     la carga actual y el tipo de mercanciía con la que están cargados.
+
+   - Locomotoras: disponen de una matrícula (que las identifica), la potencia
+     de sus motores y una antigüedad (año de fabricación). Además, cada
+     locomotora tiene asignado un mecánico que se encarga de su mantenimiento.
+
+   - Trenes: están formados por una locomotora y un máximo de 5 vagones. Cada
+     tren tiene asignado un maquinista que es responsable de él.
+
 # Soluciones {.unnumbered .unlisted}
 
 #. 
