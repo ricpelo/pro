@@ -322,7 +322,8 @@ author:
               self.__saldo += cantidad
       ```
 
-   #. ```python
+   #. 
+      ```python
       antonio = Cliente('38475923M', 'Antonio', 'Martínez')
       c1 = Cuenta(1, antonio)
       c1.nuevo_movimiento('Ingreso', 100)
@@ -362,3 +363,97 @@ author:
       ```python
       c = Cuenta.buscar(2)
       ```
+
+#. 
+   #. ```python
+      class Cliente:
+          def __init__(self, dni, nombre, apellidos):
+              self.__dni = dni
+              self.__nombre = nombre
+              self.__apellidos = apellidos
+
+          def dni(self):
+              return self.__dni
+
+          def nombre_completo(self):
+              return self.__nombre + ' ' + self.__apellidos
+      ```
+
+   #. ```python
+      class Articulo:
+          def __init__(self, codigo, denominacion, precio):
+              self.__codigo = codigo
+              self.__denominacion = denominacion
+              self.__precio = precio
+
+          def codigo(self):
+              return self.__codigo
+
+          def denominacion(self):
+              return self.__denominacion
+
+          def precio(self):
+              return self.__precio
+      ```
+
+   #. ```python
+      class Factura:
+          def __init__(self, numero, cliente, lineas):
+              self.__numero = numero
+              self.__cliente = cliente
+              self.__lineas = lineas.copy()
+
+          def numero(self):
+              return self.__numero
+
+          def cliente(self):
+              return self.__cliente
+
+          def total(self):
+              tot = 0
+              for art, cantidad in self.__lineas.items():
+                  tot += cantidad * art.precio()
+              return tot
+
+          def imprimir(self):
+              print(f'Factura n.º {self.numero()}:')
+              print()
+              cli = self.cliente()
+              print(f'Cliente: {cli.dni()} {cli.nombre_completo()}')
+              print()
+              print('Cód. Denominación         Cantidad    Precio     Importe')
+              print('-' * 56)
+              total = 0
+              for art, cantidad in self.__lineas.items():
+                  imp = cantidad * art.precio()
+                  total += imp
+                  print(f'{art.codigo():>4} ', end='')
+                  print(f'{art.denominacion():<20} ', end='')
+                  print(f'{cantidad:>8} ', end='')
+                  print(f'{art.precio():>9} ', end='')
+                  print(f'{imp:>11}')
+              print('-' * 56)
+              print(f'TOTAL: {total:>49}')
+      ```
+
+   #. 
+      ```python
+      rosa = Cliente('12312312A', 'Rosa', 'González')
+      tv = Articulo(1, 'Televisor', 399)
+      grafica = Articulo(2, 'Tarjeta gráfica', 239)
+      f = Factura(1, rosa, {tv: 2, grafica: 1})
+      f.imprimir()
+      ```
+      
+      Produce el siguiente resultado:
+
+             Factura n.º 1:
+
+             Cliente: 12312312A Rosa González
+
+             Cód. Denominación         Cantidad    Precio     Importe
+             --------------------------------------------------------
+                1 Televisor                   2       399         798
+                2 Tarjeta gráfica             1       239         239
+             --------------------------------------------------------
+             TOTAL:                                              1037
