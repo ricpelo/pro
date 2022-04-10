@@ -229,7 +229,7 @@ author:
 
 \newpage
 
-# Soluciones
+# Soluciones {.unnumbered .unlisted}
 
 #. $f(3) \\
    = 1 + 2 \cdot f(2) \\

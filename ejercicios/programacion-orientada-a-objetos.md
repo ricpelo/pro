@@ -11,7 +11,7 @@ author:
 
 \renewcommand{\arraystretch}{0}
 
-@. Diseñar y codificar un modelo orientado a objetos de un banco donde hay
+#. Diseñar y codificar un modelo orientado a objetos de un banco donde hay
    cuentas corrientes que tienen un titular y unos movimientos. Los titulares
    son clientes del banco. Los clientes del banco pueden ser titulares de
    varias cuentas al mismo tiempo. Los movimientos pertenecen a una sola
@@ -48,7 +48,7 @@ author:
        que se pueda acceder de forma eficiente a una cuenta concreta a partir
        de su número? Codificarlo.
 
-@. Diseñar y codificar un modelo orientado a objetos de una tienda online donde
+#. Diseñar y codificar un modelo orientado a objetos de una tienda online donde
    hay clientes, artículos y facturas. Para ello:
 
     #. Crear la clase `Cliente` con los atributos `__dni`, `__nombre` y
@@ -78,7 +78,7 @@ author:
        la factura como si fuera una factura real, incluyendo el importe total
        de la misma.
 
-@. Diseñar y codificar un modelo orientado a objetos de una biblioteca donde
+#. Diseñar y codificar un modelo orientado a objetos de una biblioteca donde
    hay socios que pueden llevarse libros prestados durante quince días como
    máximo. Para ello:
 
@@ -129,7 +129,7 @@ author:
 
     #. Intentar devolver un libro prestado con más de quince días de préstamo.
 
-@. Traducir a clases y objetos todo el código que tenemos actualmente en \
+#. Traducir a clases y objetos todo el código que tenemos actualmente en \
    [`https://github.com/iesdonana/vampiro.git`](https://github.com/iesdonana/vampiro.git),
    teniendo en cuenta que:
 
@@ -193,7 +193,7 @@ author:
        (llamado _token nulo_) que represente que no se ha encontrado el verbo o
        el nombre.
 
-@. Crear la clase `Persona` con un método `compara_edad` que compare la edad de
+#. Crear la clase `Persona` con un método `compara_edad` que compare la edad de
    una persona con la de otra.
 
     Ejemplos:
@@ -214,7 +214,7 @@ author:
 
     [`https://edabit.com/challenge/JFLADuABfkeoz8mqN`](https://edabit.com/challenge/JFLADuABfkeoz8mqN)
 
-@. Crear la clase `Empleado` con atributos `nombre` y `apellidos`. A partir de
+#. Crear la clase `Empleado` con atributos `nombre` y `apellidos`. A partir de
    ellos, crear los atributos `nombre_completo` y `email` de la siguiente
    forma:
 
@@ -242,7 +242,7 @@ author:
 
     [`https://edabit.com/challenge/gB7nt6WzZy8TymCah`](https://edabit.com/challenge/gB7nt6WzZy8TymCah)
 
-@. Las instancias de la clase `Empleado` tienen los atributos `nombre`,
+#. Las instancias de la clase `Empleado` tienen los atributos `nombre`,
    `apellidos` y `salario`. Crear, además, el método estático `desde_cadena`
    que analiza una cadena que contiene esos tres valores separados por un guion
    y los asigna a sus atributos correspondientes.
@@ -265,3 +265,100 @@ author:
     Fuente:
 
     [`https://edabit.com/challenge/j2HauiSdDadkjxjsQ`](https://edabit.com/challenge/j2HauiSdDadkjxjsQ)
+
+# Soluciones {.unnumbered .unlisted}
+
+#. 
+
+   #. ```python
+      class Cliente:
+          def __init__(self, dni, nombre, apellidos):
+              self.__dni = dni
+              self.__nombre = nombre
+              self.__apellidos = apellidos
+
+          def dni(self):
+              return self.__dni
+
+          def nombre(self):
+              return self.__nombre
+
+          def apellidos(self):
+              return self.__apellidos
+      ```
+
+   #. ```python
+      class Movimiento:
+          def __init__(self, concepto, cantidad):
+              self.__concepto = concepto
+              self.__cantidad = cantidad
+
+          def concepto(self):
+              return self.__concepto
+
+          def cantidad(self):
+              return self.__cantidad
+      ```
+
+   #. ```python
+      class Cuenta:
+          def __init__(self, numero, titular):
+              self.__numero = numero
+              self.__titular = titular
+              self.__movimientos = []
+              self.__saldo = 0
+
+          def numero(self):
+              return self.__numero
+
+          def titular(self):
+              return self.__titular
+
+          def saldo(self):
+              return self.__saldo
+
+          def nuevo_movimiento(self, concepto, cantidad):
+              self.__movimientos.append(Movimiento(concepto, cantidad))
+              self.__saldo += cantidad
+      ```
+
+   #. ```python
+      antonio = Cliente('38475923M', 'Antonio', 'Martínez')
+      c1 = Cuenta(1, antonio)
+      c1.nuevo_movimiento('Ingreso', 100)
+      c1.nuevo_movimiento('Retirada', -30)
+      c1.nuevo_movimiento('Ingreso', 20)
+      c2 = Cuenta(2, antonio)
+      c2.nuevo_movimiento('Ingreso', 500)
+      c2.nuevo_movimiento('Ingreso', 80)
+      c2.nuevo_movimiento('Retirada', -40)
+      print(c1.saldo())
+      print(c2.saldo())
+      ```
+
+   #. En la clase `Cuenta` guardamos un diccionario como una variable de clase,
+   cuya clave sería el número de la cuenta y cuyo valor sería la cuenta
+   correspondiente a ese número. Además, creamos un método estático que
+   devuelva la cuenta a partir de su número:
+
+      ```python
+      class Cuenta:
+          __cuentas = {}
+
+          def __init__(self, numero, titular):
+              self.__numero = numero
+              self.__titular = titular
+              self.__movimientos = []
+              self.__saldo = 0
+              Cuenta.__cuentas[numero] = self
+
+          @staticmethod
+          def buscar(numero):
+              return Cuenta.__cuentas.get(numero)
+      ```
+
+      Y luego se podría buscar una cuenta así:
+
+      ```python
+      c = Cuenta.buscar(2)
+      ```
