@@ -896,7 +896,7 @@ subgraph cluster0 {
   public class Ejemplo {
       public static void main(String[] args) {
           Prueba p1 = new Prueba(4);    // Invoca al constructor <1>
-          Prueba p2 = new Prueba(4, 3); // Invoca al constructor <1>
+          Prueba p2 = new Prueba(4, 3); // Invoca al constructor <2>
       }
   }
 
