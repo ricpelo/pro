@@ -489,7 +489,7 @@ Derivada
   ```java
   class Derivada extends Base {
       @Override
-      private String hola(String s) {    // Esto sí se permite
+      public String hola(String s) {    // Esto sí se permite
           return "Hola, " + s + ", soy la clase Derivada";
       }
   }
