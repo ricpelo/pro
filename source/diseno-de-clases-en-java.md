@@ -192,6 +192,29 @@ public class Hola {
 
 ---
 
+- Otro cuadro más detallado que dice lo mismo que el anterior, pero más
+  desglosado:
+
+  -------------------------------------------------------------------------------------
+  Visibilidad           **Privada**   **Predeterminada**   **Protegida**   **Pública**
+  -------------------- ------------- -------------------- --------------- -------------
+  La propia clase           Sí                Sí                Sí              Sí
+
+  Subclases del             No                Sí                Sí              Sí
+  mismo paquete
+
+  No subclases del          No                Sí                Sí              Sí
+  mismo paquete
+
+  Subclases de              No                No                Sí              Sí
+  distinto paquete
+
+  No subclases de           No                No                No              Sí
+  distinto paquete
+  -------------------------------------------------------------------------------------
+
+---
+
 - La visibilidad que queremos que tenga un determinado miembro se indica
   mediante los llamados **modificadores de acceso**.
 
