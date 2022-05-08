@@ -796,7 +796,7 @@ Derivada
       }
   }
 
-  class Dog extends Animal {
+  class Perro extends Animal {
       @Override
       void comer() {
           System.out.println("Comiendo pan...");
@@ -1257,7 +1257,7 @@ class Bicicleta {
     !JAVA(y.equals(x)) `==` !JAVA(true).
 
   - **Transitividad**: si !JAVA(x.equals(y)) `==` !JAVA(true) e
-    !JAVA(y.equals(z)) `==` !JAVA(true), entonces !JAVA(x.equals(y)) `==`
+    !JAVA(y.equals(z)) `==` !JAVA(true), entonces !JAVA(x.equals(z)) `==`
     !JAVA(true).
 
   - **Consistencia**: si invocamos varias veces !JAVA(x.equals(y)), debe
